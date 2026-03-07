@@ -1,0 +1,2249 @@
+# Discovered ObjC classes for Espresso (91 classes)
+# Generated via runtime introspection
+framework: Espresso
+dylib: /System/Library/PrivateFrameworks/Espresso.framework/Espresso
+private: true
+functions: []
+typedefs: []
+enums: []
+classes:
+  - name: ANEServicesLog
+    super: NSObject
+    class_methods:
+      - selector: handle
+        return: id
+      - selector: services
+        return: id
+      - selector: test
+        return: id
+      - selector: verbose
+        return: id
+  - name: EspressoANEIOSurface
+    super: NSObject
+    instance_methods:
+      - selector: 'ane_io_surfaceForMultiBufferFrame:'
+        return: id
+        params:
+          - name: frame
+            type: unsigned long long
+      - selector: 'checkIfMatches:'
+        return: BOOL
+        params:
+          - name: matches
+            type: __CVBuffer *
+      - selector: 'checkIfMatchesIOSurface:'
+        return: BOOL
+        params:
+          - name: iOSurface
+            type: __IOSurface *
+      - selector: cleanup
+        return: void
+      - selector: 'createIOSurfaceWithExtraProperties:'
+        return: __IOSurface *
+        params:
+          - name: properties
+            type: id
+      - selector: 'doNonLazyAllocation:'
+        return: void
+        params:
+          - name: allocation
+            type: id
+      - selector: external_storage_blob_for_aliasing_mem
+        return: shared_ptr<Espresso::blob<unsigned char, 1>>
+      - selector: 'ioSurfaceForMultiBufferFrame:'
+        return: __IOSurface *
+        params:
+          - name: frame
+            type: unsigned long long
+      - selector: 'ioSurfaceForMultiBufferFrameNoLazyForTesting:'
+        return: __IOSurface *
+        params:
+          - name: testing
+            type: unsigned long long
+      - selector: 'lazilyAutoCreateSurfaceForFrame:'
+        return: void
+        params:
+          - name: frame
+            type: unsigned long long
+      - selector: 'metalBufferWithDevice:multiBufferFrame:'
+        return: id
+        params:
+          - name: device
+            type: id
+          - name: frame
+            type: unsigned long long
+      - selector: nFrames
+        return: unsigned long long
+      - selector: pixelFormat
+        return: unsigned int
+      - selector: 'resizeForMultipleAsyncBuffers:'
+        return: void
+        params:
+          - name: buffers
+            type: unsigned long long
+      - selector: 'restoreInternalStorage:'
+        return: void
+        params:
+          - name: storage
+            type: unsigned long long
+      - selector: restoreInternalStorageForAllMultiBufferFrames
+        return: void
+      - selector: 'setExternalStorage:ioSurface:'
+        return: void
+        params:
+          - name: storage
+            type: unsigned long long
+          - name: surface
+            type: __IOSurface *
+      - selector: 'setExternal_storage_blob_for_aliasing_mem:'
+        return: void
+        params:
+          - name: external_storage_blob_for_aliasing_mem
+            type: shared_ptr<Espresso::blob<unsigned char, 1>>
+    init_methods:
+      - selector: 'initWithIOSurfaceProperties:andPixelFormats:'
+        return: id
+        params:
+          - name: properties
+            type: id
+          - name: formats
+            type: id
+    properties:
+      - name: external_storage_blob_for_aliasing_mem
+        type: struct
+      - name: pixelFormat
+        type: unsigned int
+        readonly: true
+  - name: EspressoBrickRegistry
+    super: NSObject
+    class_methods:
+      - selector: 'registerBrickClass:'
+        return: void
+        params:
+          - name: class
+            type: Class
+  - name: EspressoBrickTensor
+    super: NSObject
+    instance_methods:
+      - selector: 'setShape:'
+        return: void
+        params:
+          - name: shape
+            type: id
+      - selector: shape
+        return: id
+    properties:
+      - name: shape
+        type: EspressoBrickTensorShape *
+  - name: EspressoBrickTensorCPU
+    super: EspressoBrickTensor
+    instance_methods:
+      - selector: rawPointer
+        return: float *
+      - selector: 'setRawPointer:'
+        return: void
+        params:
+          - name: pointer
+            type: float *
+    properties:
+      - name: rawPointer
+        type: float *
+  - name: EspressoBrickTensorMetal
+    super: EspressoBrickTensor
+    instance_methods:
+      - selector: 'setTexture:'
+        return: void
+        params:
+          - name: texture
+            type: id
+      - selector: texture
+        return: id
+    properties:
+      - name: texture
+        type: <MTLTexture> *
+  - name: EspressoBrickTensorShape
+    super: NSObject
+    instance_methods:
+      - selector: batch
+        return: int
+      - selector: channels
+        return: int
+      - selector: height
+        return: int
+      - selector: rank
+        return: int
+      - selector: sequence
+        return: int
+      - selector: 'setBatch:'
+        return: void
+        params:
+          - name: batch
+            type: int
+      - selector: 'setChannels:'
+        return: void
+        params:
+          - name: channels
+            type: int
+      - selector: 'setHeight:'
+        return: void
+        params:
+          - name: height
+            type: int
+      - selector: 'setRank:'
+        return: void
+        params:
+          - name: rank
+            type: int
+      - selector: 'setSequence:'
+        return: void
+        params:
+          - name: sequence
+            type: int
+      - selector: 'setWidth:'
+        return: void
+        params:
+          - name: width
+            type: int
+      - selector: width
+        return: int
+    properties:
+      - name: batch
+        type: int
+      - name: channels
+        type: int
+      - name: height
+        type: int
+      - name: rank
+        type: int
+      - name: sequence
+        type: int
+      - name: width
+        type: int
+  - name: EspressoContext
+    super: NSObject
+    instance_methods:
+      - selector: ctx
+        return: shared_ptr<Espresso::abstract_context>
+      - selector: platform
+        return: int
+      - selector: 'set_priority:low_priority_max_ms_per_command_buffer:gpu_priority:'
+        return: void
+        params:
+          - name: set_priority
+            type: BOOL
+          - name: low_priority_max_ms_per_command_buffer
+            type: float
+          - name: gpu_priority
+            type: unsigned int
+    init_methods:
+      - selector: 'initWithContext:'
+        return: id
+        params:
+          - name: context
+            type: shared_ptr<Espresso::abstract_context>
+      - selector: 'initWithDevice:andWisdomParams:'
+        return: id
+        params:
+          - name: device
+            type: id
+          - name: params
+            type: id
+      - selector: 'initWithNetworkContext:'
+        return: id
+        params:
+          - name: context
+            type: id
+      - selector: 'initWithPlatform:'
+        return: id
+        params:
+          - name: platform
+            type: int
+    properties:
+      - name: ctx
+        type: shared_ptr<Espresso::abstract_context>
+        readonly: true
+      - name: platform
+        type: int
+        readonly: true
+  - name: EspressoCustomPass
+    super: NSObject
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoDCNEspressoOverfeatDetector
+    super: NSObject
+    instance_methods:
+      - selector: commonInit
+        return: void
+      - selector: 'compareObject:withObject:error:'
+        return: double
+        params:
+          - name: object
+            type: id
+          - name: object
+            type: id
+          - name: error
+            type: id *
+      - selector: 'computeBBoxUsingProb:box:andScalefactor:padX:padY:'
+        return: void
+        params:
+          - name: prob
+            type: shared_ptr<Espresso::blob<float, 3>>
+          - name: box
+            type: shared_ptr<Espresso::blob<float, 3>>
+          - name: scalefactor
+            type: float
+          - name: x
+            type: float
+          - name: "y"
+            type: float
+      - selector: confidenceThreshold
+        return: double
+      - selector: enet
+        return: id
+      - selector: fillFaceList
+        return: void
+      - selector: getDescription
+        return: id
+      - selector: 'getFacesFromNetworkResultOriginalWidth:originalHeight:'
+        return: id
+        params:
+          - name: width
+            type: float
+          - name: height
+            type: float
+      - selector: mergeFaceList
+        return: void
+      - selector: minBoundingBoxThreshold
+        return: double
+      - selector: 'setConfidenceThreshold:'
+        return: void
+        params:
+          - name: threshold
+            type: double
+      - selector: 'setEnet:'
+        return: void
+        params:
+          - name: enet
+            type: id
+      - selector: 'setMinBoundingBoxThreshold:'
+        return: void
+        params:
+          - name: threshold
+            type: double
+    init_methods:
+      - selector: 'initWithNetwork:'
+        return: id
+        params:
+          - name: network
+            type: id
+      - selector: 'initWithOptions:'
+        return: id
+        params:
+          - name: options
+            type: id
+    properties:
+      - name: confidenceThreshold
+        type: double
+      - name: enet
+        type: EspressoFDOverfeatNetwork *
+      - name: minBoundingBoxThreshold
+        type: double
+  - name: EspressoDataFrame
+    super: NSObject
+    instance_methods:
+      - selector: function_name
+        return: id
+      - selector: getFunctionName
+        return: id
+      - selector: 'getGroundTruthAttachment:'
+        return: id
+        params:
+          - name: attachment
+            type: id
+      - selector: 'getInputAttachment:'
+        return: id
+        params:
+          - name: attachment
+            type: id
+      - selector: 'getOutputAttachment:'
+        return: id
+        params:
+          - name: attachment
+            type: id
+      - selector: groundTruthAttachmentNames
+        return: id
+      - selector: groundTruthAttachments
+        return: id
+      - selector: inputAttachmentNames
+        return: id
+      - selector: inputAttachments
+        return: id
+      - selector: 'loadFromDict:frameStorage:'
+        return: void
+        params:
+          - name: dict
+            type: id
+          - name: storage
+            type: id
+      - selector: outputAttachmentNames
+        return: id
+      - selector: outputAttachments
+        return: id
+      - selector: 'setFunction_name:'
+        return: void
+        params:
+          - name: function_name
+            type: id
+      - selector: 'setGroundTruthAttachments:'
+        return: void
+        params:
+          - name: attachments
+            type: id
+      - selector: 'setInputAttachments:'
+        return: void
+        params:
+          - name: attachments
+            type: id
+      - selector: 'setOutputAttachments:'
+        return: void
+        params:
+          - name: attachments
+            type: id
+    properties:
+      - name: function_name
+        type: NSString *
+      - name: groundTruthAttachmentNames
+        type: NSArray *
+        readonly: true
+      - name: groundTruthAttachments
+        type: NSMutableDictionary *
+      - name: inputAttachmentNames
+        type: NSArray *
+        readonly: true
+      - name: inputAttachments
+        type: NSMutableDictionary *
+      - name: outputAttachmentNames
+        type: NSArray *
+        readonly: true
+      - name: outputAttachments
+        type: NSMutableDictionary *
+  - name: EspressoDataFrameAttachment
+    super: NSObject
+    class_methods:
+      - selector: 'fromDict:frameStorage:'
+        return: id
+        params:
+          - name: dict
+            type: id
+          - name: storage
+            type: id
+    instance_methods:
+      - selector: disabled
+        return: BOOL
+      - selector: filePath
+        return: id
+      - selector: 'loadFromDict:frameStorage:'
+        return: void
+        params:
+          - name: dict
+            type: id
+          - name: storage
+            type: id
+      - selector: offset
+        return: unsigned long long
+      - selector: rawPointer
+        return: void *
+      - selector: 'setDisabled:'
+        return: void
+        params:
+          - name: disabled
+            type: BOOL
+      - selector: 'setFilePath:'
+        return: void
+        params:
+          - name: path
+            type: id
+      - selector: 'setOffset:'
+        return: void
+        params:
+          - name: offset
+            type: unsigned long long
+      - selector: 'setRawPointer:'
+        return: void
+        params:
+          - name: pointer
+            type: void *
+      - selector: 'setSize:'
+        return: void
+        params:
+          - name: size
+            type: unsigned long long
+      - selector: size
+        return: unsigned long long
+    properties:
+      - name: disabled
+        type: BOOL
+      - name: filePath
+        type: NSString *
+      - name: offset
+        type: unsigned long long
+      - name: rawPointer
+        type: void *
+      - name: size
+        type: unsigned long long
+  - name: EspressoDataFrameExecutor
+    super: NSObject
+    instance_methods:
+      - selector: 'bindInput:fromImageAttachment:toNetwork:'
+        return: int
+        params:
+          - name: input
+            type: id
+          - name: attachment
+            type: id
+          - name: network
+            type: '?'
+      - selector: 'bindInput:fromTensorAttachment:toNetwork:'
+        return: int
+        params:
+          - name: input
+            type: id
+          - name: attachment
+            type: id
+          - name: network
+            type: '?'
+      - selector: 'bindInputsFromFrame:toNetwork:'
+        return: int
+        params:
+          - name: frame
+            type: id
+          - name: network
+            type: '?'
+      - selector: 'bindOutputsFromFrame:toNetwork:'
+        return: int
+        params:
+          - name: frame
+            type: id
+          - name: network
+            type: '?'
+      - selector: 'bindOutputsFromFrame:toNetwork:executionStatus:'
+        return: int
+        params:
+          - name: frame
+            type: id
+          - name: network
+            type: '?'
+          - name: status
+            type: int
+      - selector: 'bindOutputsFromFrame:toNetwork:referenceNetwork:'
+        return: int
+        params:
+          - name: frame
+            type: id
+          - name: network
+            type: '?'
+          - name: network
+            type: '?'
+      - selector: freeTemporaryResources
+        return: void
+      - selector: outputMatchingBuffers
+        return: id
+      - selector: 'setOutputMatchingBuffers:'
+        return: void
+        params:
+          - name: buffers
+            type: id
+      - selector: 'setUse_cvpixelbuffer:'
+        return: void
+        params:
+          - name: use_cvpixelbuffer
+            type: int
+      - selector: useCVPixelBuffers
+        return: BOOL
+      - selector: 'useCVPixelBuffersForOutputs:'
+        return: BOOL
+        params:
+          - name: outputs
+            type: BOOL
+      - selector: use_cvpixelbuffer
+        return: int
+    properties:
+      - name: outputMatchingBuffers
+        type: NSArray *
+      - name: use_cvpixelbuffer
+        type: int
+  - name: EspressoDataFrameImageAttachment
+    super: EspressoDataFrameAttachment
+    class_methods:
+      - selector: 'createCVPixelBufferFromvImage:withPixelFormat:'
+        return: __CVBuffer *
+        params:
+          - name: image
+            type: vImage_Buffer
+          - name: format
+            type: unsigned int
+    instance_methods:
+      - selector: copyAsImageGrayscaleOrBGRA
+        return: vImage_Buffer
+      - selector: 'loadFromDict:frameStorage:'
+        return: void
+        params:
+          - name: dict
+            type: id
+          - name: storage
+            type: id
+      - selector: nChannels
+        return: int
+      - selector: 'setNChannels:'
+        return: void
+        params:
+          - name: nChannels
+            type: int
+    properties:
+      - name: nChannels
+        type: int
+  - name: EspressoDataFrameStorage
+    super: NSObject
+    class_methods:
+      - selector: 'dataFrameStorageFromPath:error:'
+        return: id
+        params:
+          - name: path
+            type: id
+          - name: error
+            type: id *
+    instance_methods:
+      - selector: baseFilename
+        return: id
+      - selector: 'dataFrameAtIndex:'
+        return: id
+        params:
+          - name: index
+            type: unsigned long long
+      - selector: dataFrames
+        return: id
+      - selector: mappedFiles
+        return: id
+      - selector: numberOfDataFrames
+        return: unsigned long long
+      - selector: 'setBaseFilename:'
+        return: void
+        params:
+          - name: filename
+            type: id
+      - selector: 'setDataFrames:'
+        return: void
+        params:
+          - name: frames
+            type: id
+      - selector: 'setMappedFiles:'
+        return: void
+        params:
+          - name: files
+            type: id
+    properties:
+      - name: baseFilename
+        type: NSString *
+      - name: dataFrames
+        type: NSMutableArray *
+      - name: mappedFiles
+        type: NSMutableDictionary *
+  - name: EspressoDataFrameStorageExecutor
+    super: NSObject
+    instance_methods:
+      - selector: 'executeDataFrameStorage:withNetwork:block:'
+        return: void
+        params:
+          - name: storage
+            type: id
+          - name: network
+            type: '?'
+          - name: block
+            type: id
+      - selector: 'executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:'
+        return: void
+        params:
+          - name: storage
+            type: id
+          - name: network
+            type: '?'
+          - name: block
+            type: id
+          - name: index
+            type: id
+      - selector: 'executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:'
+        return: void
+        params:
+          - name: storage
+            type: id
+          - name: network
+            type: '?'
+          - name: network
+            type: '?'
+          - name: block
+            type: id
+          - name: index
+            type: id
+  - name: EspressoDataFrameStorageExecutorMatchingBufferSet
+    super: NSObject
+    instance_methods:
+      - selector: computed_buffer
+        return: '?'
+      - selector: computed_pb
+        return: __CVBuffer *
+      - selector: groundtruth_buffer
+        return: '?'
+      - selector: index
+        return: unsigned long long
+      - selector: name
+        return: id
+      - selector: reference_buffer
+        return: '?'
+      - selector: 'setComputed_buffer:'
+        return: void
+        params:
+          - name: computed_buffer
+            type: '?'
+      - selector: 'setComputed_pb:'
+        return: void
+        params:
+          - name: computed_pb
+            type: __CVBuffer *
+      - selector: 'setGroundtruth_buffer:'
+        return: void
+        params:
+          - name: groundtruth_buffer
+            type: '?'
+      - selector: 'setIndex:'
+        return: void
+        params:
+          - name: index
+            type: unsigned long long
+      - selector: 'setName:'
+        return: void
+        params:
+          - name: name
+            type: id
+      - selector: 'setReference_buffer:'
+        return: void
+        params:
+          - name: reference_buffer
+            type: '?'
+    properties:
+      - name: computed_buffer
+        type: '?'
+      - name: computed_pb
+        type: __CVBuffer *
+      - name: groundtruth_buffer
+        type: '?'
+      - name: index
+        type: unsigned long long
+      - name: name
+        type: NSString *
+      - name: reference_buffer
+        type: '?'
+  - name: EspressoDataFrameTensorAttachment
+    super: EspressoDataFrameAttachment
+    class_methods:
+      - selector: 'copyFromCVPixelBuffer:'
+        return: '?'
+        params:
+          - name: buffer
+            type: __CVBuffer *
+    instance_methods:
+      - selector: copyAsEspressoBuffer
+        return: '?'
+      - selector: 'loadFromDict:frameStorage:'
+        return: void
+        params:
+          - name: dict
+            type: id
+          - name: storage
+            type: id
+  - name: EspressoFDOverfeatNetwork
+    super: NSObject
+    instance_methods:
+      - selector: 'autoResizeForAspectRatio:useLowPriorityMode:gpuPriority:'
+        return: void
+        params:
+          - name: ratio
+            type: float
+          - name: mode
+            type: BOOL
+          - name: priority
+            type: unsigned int
+      - selector: 'autoSetupNetBaseName:weights:scaleConfig:setupMode:computePath:autoAspectRatio:forceReset:useLowPriorityMode:gpuPriority:'
+        return: void
+        params:
+          - name: name
+            type: id
+          - name: weights
+            type: id
+          - name: config
+            type: int
+          - name: mode
+            type: int
+          - name: path
+            type: int
+          - name: ratio
+            type: float
+          - name: reset
+            type: BOOL
+          - name: mode
+            type: BOOL
+          - name: priority
+            type: unsigned int
+      - selector: basename
+        return: id
+      - selector: 'boxBlobForScale:'
+        return: shared_ptr<Espresso::blob<float, 3>>
+        params:
+          - name: scale
+            type: int
+      - selector: context_cpu
+        return: shared_ptr<Espresso::abstract_context>
+      - selector: context_metal
+        return: shared_ptr<Espresso::abstract_context>
+      - selector: cpin
+        return: int
+      - selector: 'cpu_net:'
+        return: shared_ptr<Espresso::net>
+        params:
+          - name: cpu_net
+            type: int
+      - selector: default_retile_outputs
+        return: int
+      - selector: errorForLayers
+        return: id
+      - selector: forceMaxNScales
+        return: int
+      - selector: 'forward_cpu_network_at_index:pyr:'
+        return: void
+        params:
+          - name: forward_cpu_network_at_index
+            type: int
+          - name: pyr
+            type: void *
+      - selector: 'generatePyramid:tex:'
+        return: void
+        params:
+          - name: pyramid
+            type: void *
+          - name: tex
+            type: id
+      - selector: getNumScales
+        return: int
+      - selector: 'getScale:'
+        return: double
+        params:
+          - name: scale
+            type: int
+      - selector: 'gpu_net:'
+        return: shared_ptr<Espresso::net>
+        params:
+          - name: gpu_net
+            type: int
+      - selector: maxScale
+        return: float
+      - selector: mode
+        return: int
+      - selector: 'needRetiling:'
+        return: BOOL
+        params:
+          - name: retiling
+            type: int
+      - selector: 'probBlobForScale:'
+        return: shared_ptr<Espresso::blob<float, 3>>
+        params:
+          - name: scale
+            type: int
+      - selector: 'processBlob:tex:'
+        return: void
+        params:
+          - name: blob
+            type: void *
+          - name: tex
+            type: id
+      - selector: 'processBlobNoRotation:tex:doBGRA2RGBA:'
+        return: void
+        params:
+          - name: rotation
+            type: void *
+          - name: tex
+            type: id
+          - name: bgra2rgba
+            type: BOOL
+      - selector: 'processPyramid:'
+        return: void
+        params:
+          - name: pyramid
+            type: shared_ptr<Espresso::fast_pyramid_resizer>
+      - selector: 'processPyramid:gpu_resizer:'
+        return: void
+        params:
+          - name: pyramid
+            type: shared_ptr<Espresso::fast_pyramid_resizer>
+          - name: gpu_resizer
+            type: id
+      - selector: 'processVimageNoRotation:tex:doBGRA2RGBA:'
+        return: void
+        params:
+          - name: rotation
+            type: vImage_Buffer *
+          - name: tex
+            type: id
+          - name: bgra2rgba
+            type: BOOL
+      - selector: reset
+        return: void
+      - selector: 'resizerAtIndex:'
+        return: shared_ptr<Espresso::fast_pyramid_resizer>
+        params:
+          - name: index
+            type: int
+      - selector: resizerCount
+        return: int
+      - selector: 'retile_and_forward_espresso_gpu_network_at_index:net:pyr:'
+        return: void
+        params:
+          - name: retile_and_forward_espresso_gpu_network_at_index
+            type: int
+          - name: net
+            type: void *
+          - name: pyr
+            type: void *
+      - selector: 'retile_and_forward_espresso_network_at_index:net:pyr:'
+        return: void
+        params:
+          - name: retile_and_forward_espresso_network_at_index
+            type: int
+          - name: net
+            type: void *
+          - name: pyr
+            type: void *
+      - selector: 'retryLoadingCaffeNet:name:weights:context:cp:'
+        return: void
+        params:
+          - name: net
+            type: void *
+          - name: name
+            type: id
+          - name: weights
+            type: id
+          - name: context
+            type: shared_ptr<Espresso::abstract_context>
+          - name: cp
+            type: int
+      - selector: scaleConfig
+        return: int
+      - selector: scalingMode
+        return: int
+      - selector: 'setBasename:'
+        return: void
+        params:
+          - name: basename
+            type: id
+      - selector: 'setContextCpu:'
+        return: void
+        params:
+          - name: cpu
+            type: id
+      - selector: 'setContextMetal:'
+        return: void
+        params:
+          - name: metal
+            type: id
+      - selector: 'setContext_cpu:'
+        return: void
+        params:
+          - name: context_cpu
+            type: shared_ptr<Espresso::abstract_context>
+      - selector: 'setContext_metal:'
+        return: void
+        params:
+          - name: context_metal
+            type: shared_ptr<Espresso::abstract_context>
+      - selector: 'setCpin:'
+        return: void
+        params:
+          - name: cpin
+            type: int
+      - selector: 'setForceMaxNScales:'
+        return: void
+        params:
+          - name: nScales
+            type: int
+      - selector: 'setMaxScale:'
+        return: void
+        params:
+          - name: scale
+            type: float
+      - selector: 'setMode:'
+        return: void
+        params:
+          - name: mode
+            type: int
+      - selector: 'setScaleConfig:'
+        return: void
+        params:
+          - name: config
+            type: int
+      - selector: 'setScalingMode:'
+        return: void
+        params:
+          - name: mode
+            type: int
+      - selector: 'setUseGPUScaler:'
+        return: void
+        params:
+          - name: gPUScaler
+            type: BOOL
+      - selector: 'setWeights:'
+        return: void
+        params:
+          - name: weights
+            type: id
+      - selector: setup_retile
+        return: void
+      - selector: 'storeDataForPruning:prob:'
+        return: void
+        params:
+          - name: pruning
+            type: shared_ptr<Espresso::blob<float, 4>>
+          - name: prob
+            type: float
+      - selector: strideConfiguration
+        return: net_strides_configuration
+      - selector: useGPUScaler
+        return: BOOL
+      - selector: weights
+        return: id
+      - selector: wipeLayersMemory
+        return: void
+    properties:
+      - name: basename
+        type: NSString *
+      - name: context_cpu
+        type: shared_ptr<Espresso::abstract_context>
+      - name: context_metal
+        type: shared_ptr<Espresso::abstract_context>
+      - name: cpin
+        type: int
+      - name: forceMaxNScales
+        type: int
+      - name: maxScale
+        type: float
+      - name: mode
+        type: int
+      - name: scaleConfig
+        type: int
+      - name: scalingMode
+        type: int
+      - name: useGPUScaler
+        type: BOOL
+      - name: weights
+        type: NSString *
+  - name: EspressoFaceDetectedObject
+    super: NSObject
+    protocols:
+      - ExternalDetectedObject
+    instance_methods:
+      - selector: bounds
+        return: CGRect
+      - selector: center
+        return: CGPoint
+      - selector: confidence
+        return: float
+      - selector: objectType
+        return: long long
+      - selector: 'setBounds:'
+        return: void
+        params:
+          - name: bounds
+            type: CGRect
+      - selector: 'setCenter:'
+        return: void
+        params:
+          - name: center
+            type: CGPoint
+      - selector: 'setConfidence:'
+        return: void
+        params:
+          - name: confidence
+            type: float
+      - selector: 'setObjectType:'
+        return: void
+        params:
+          - name: type
+            type: long long
+    init_methods:
+      - selector: 'initWithOptionsXloc:yloc:size:confidence:'
+        return: id
+        params:
+          - name: xloc
+            type: float
+          - name: yloc
+            type: float
+          - name: size
+            type: float
+          - name: confidence
+            type: float
+    properties:
+      - name: bounds
+        type: CGRect
+      - name: center
+        type: CGPoint
+      - name: confidence
+        type: float
+      - name: debugDescription
+        type: NSString *
+        readonly: true
+      - name: description
+        type: NSString *
+        readonly: true
+      - name: hash
+        type: unsigned long long
+        readonly: true
+      - name: objectType
+        type: long long
+      - name: superclass
+        type: Class
+        readonly: true
+  - name: EspressoFaceLandmarkDetector
+    super: NSObject
+    instance_methods:
+      - selector: 'commonInit:context:platform:computePath:'
+        return: void
+        params:
+          - name: init
+            type: id
+          - name: context
+            type: shared_ptr<Espresso::abstract_context>
+          - name: platform
+            type: int
+          - name: path
+            type: int
+      - selector: 'detect:face:sublandmark:doFaceRectFix:'
+        return: vector<FaceLandmarkDetectorPoint, std::allocator<FaceLandmarkDetectorPoint>>
+        params:
+          - name: detect
+            type: vImage_Buffer
+          - name: face
+            type: CGRect
+          - name: sublandmark
+            type: BOOL
+          - name: fix
+            type: BOOL
+      - selector: 'detectInImageRect:face:sublandmark:'
+        return: vector<FaceLandmarkDetectorPoint, std::allocator<FaceLandmarkDetectorPoint>>
+        params:
+          - name: rect
+            type: vImage_Buffer
+          - name: face
+            type: CGRect
+          - name: sublandmark
+            type: BOOL
+      - selector: 'extractSubLandmarksFromCrop192:centers192:'
+        return: vector<FaceLandmarkDetectorPoint, std::allocator<FaceLandmarkDetectorPoint>>
+        params:
+          - name: crop192
+            type: vImage_Buffer
+          - name: centers192
+            type: void *
+      - selector: newface
+        return: CGRect
+      - selector: 'setNewface:'
+        return: void
+        params:
+          - name: newface
+            type: CGRect
+    init_methods:
+      - selector: 'initWithNetworkAtPath:context:platform:computePath:'
+        return: id
+        params:
+          - name: path
+            type: id
+          - name: context
+            type: shared_ptr<Espresso::abstract_context>
+          - name: platform
+            type: int
+          - name: path
+            type: int
+      - selector: 'initWithNetworkAtPath:contextObjC:platform:computePath:'
+        return: id
+        params:
+          - name: path
+            type: id
+          - name: c
+            type: id
+          - name: platform
+            type: int
+          - name: path
+            type: int
+    properties:
+      - name: newface
+        type: CGRect
+  - name: EspressoImage2Image
+    super: NSObject
+    class_methods:
+      - selector: featureVersion
+        return: int
+      - selector: getStylesKeys
+        return: id
+      - selector: 'gpuSync:tex:'
+        return: void
+        params:
+          - name: sync
+            type: id
+          - name: tex
+            type: id
+      - selector: 'loadStylesConfigAtDefaultsKey:'
+        return: BOOL
+        params:
+          - name: key
+            type: id
+      - selector: 'loadStylesConfigAtPath:'
+        return: BOOL
+        params:
+          - name: path
+            type: id
+      - selector: 'setDefaultOption:toValue:'
+        return: void
+        params:
+          - name: option
+            type: id
+          - name: value
+            type: id
+      - selector: 'tuneNetworks:'
+        return: void
+        params:
+          - name: networks
+            type: id
+      - selector: 'tuneNetworksWGWindowSize:'
+        return: void
+        params:
+          - name: size
+            type: id
+    instance_methods:
+      - selector: addNoiseLayer
+        return: void
+      - selector: 'aggregateWisdom:'
+        return: void
+        params:
+          - name: wisdom
+            type: void *
+      - selector: benchmark
+        return: float
+      - selector: 'encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:'
+        return: int
+        params:
+          - name: buffer
+            type: id
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+          - name: rect
+            type: '?'
+      - selector: 'encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:destinationRect:'
+        return: int
+        params:
+          - name: buffer
+            type: id
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+          - name: rect
+            type: '?'
+          - name: rect
+            type: '?'
+      - selector: flip_y
+        return: int
+      - selector: getEspressoNetwork
+        return: '?'
+      - selector: 'getInternalDataForKey:'
+        return: id
+        params:
+          - name: key
+            type: id
+      - selector: height
+        return: int
+      - selector: 'load:'
+        return: int
+        params:
+          - name: load
+            type: id
+      - selector: 'load:resolutionPreset:'
+        return: int
+        params:
+          - name: load
+            type: id
+          - name: preset
+            type: long long
+      - selector: newOutputTexture
+        return: id
+      - selector: 'postProcess:cameraSourceTexture:inputTexture:destinationTexture:'
+        return: void
+        params:
+          - name: process
+            type: id
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+      - selector: reload
+        return: int
+      - selector: resetTemporalState
+        return: void
+      - selector: 'reshapeToResolutionPreset:'
+        return: int
+        params:
+          - name: preset
+            type: long long
+      - selector: 'reshapeToResolutionPreset:aspectRatio:'
+        return: int
+        params:
+          - name: preset
+            type: long long
+          - name: ratio
+            type: float
+      - selector: 'reshapeToWidth:andHeight:'
+        return: int
+        params:
+          - name: width
+            type: int
+          - name: height
+            type: int
+      - selector: 'resolutionForPreset:'
+        return: pair<int, int>
+        params:
+          - name: preset
+            type: long long
+      - selector: rotation_degrees
+        return: int
+      - selector: 'setFlip_y:'
+        return: void
+        params:
+          - name: flip_y
+            type: int
+      - selector: 'setRotation_degrees:'
+        return: void
+        params:
+          - name: rotation_degrees
+            type: int
+      - selector: 'setupWithQueue:'
+        return: id
+        params:
+          - name: queue
+            type: id
+      - selector: 'simpleLinearResize:sourceTexture:destinationTexture:'
+        return: void
+        params:
+          - name: resize
+            type: id
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+      - selector: styleName
+        return: id
+      - selector: 'submitToQueueWithSourceTexture:destinationTexture:'
+        return: int
+        params:
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+      - selector: 'submitToQueueWithSourceTexture:destinationTexture:cropRect:'
+        return: int
+        params:
+          - name: texture
+            type: id
+          - name: texture
+            type: id
+          - name: rect
+            type: '?'
+      - selector: tune
+        return: void
+      - selector: 'tweak:value:'
+        return: void
+        params:
+          - name: tweak
+            type: id
+          - name: value
+            type: float
+      - selector: wasReshaped
+        return: int
+      - selector: width
+        return: int
+    init_methods:
+      - selector: 'initWithQueue:'
+        return: id
+        params:
+          - name: queue
+            type: id
+    properties:
+      - name: flip_y
+        type: int
+      - name: rotation_degrees
+        type: int
+  - name: EspressoMetalKernelsCache
+    super: NSObject
+    instance_methods:
+      - selector: 'addLibraryAtPath:'
+        return: void
+        params:
+          - name: path
+            type: id
+      - selector: 'kernelForFunction:'
+        return: id
+        params:
+          - name: function
+            type: char *
+      - selector: 'kernelForFunction:cacheString:withConstants:'
+        return: id
+        params:
+          - name: function
+            type: char *
+          - name: string
+            type: char *
+          - name: constants
+            type: id
+      - selector: kernelPrefix
+        return: id
+      - selector: lazySetup
+        return: void
+      - selector: 'loadLibraryNamed:'
+        return: void
+        params:
+          - name: named
+            type: id
+      - selector: m_kernelCache
+        return: id
+      - selector: 'setKernelPrefix:'
+        return: void
+        params:
+          - name: prefix
+            type: id
+      - selector: 'setM_kernelCache:'
+        return: void
+        params:
+          - name: cache
+            type: id
+      - selector: shouldUseTexArray
+        return: BOOL
+      - selector: wasSetup
+        return: BOOL
+    init_methods:
+      - selector: 'initWithDevice:'
+        return: id
+        params:
+          - name: device
+            type: id
+    properties:
+      - name: kernelPrefix
+        type: NSString *
+      - name: m_kernelCache
+        type: NSDictionary *
+  - name: EspressoMetalSingleton
+    super: NSObject
+    class_methods:
+      - selector: shared
+        return: id
+    instance_methods:
+      - selector: is_memory_tight
+        return: int
+      - selector: 'setIs_memory_tight:'
+        return: void
+        params:
+          - name: is_memory_tight
+            type: int
+    properties:
+      - name: is_memory_tight
+        type: int
+  - name: EspressoNetwork
+    super: NSObject
+    instance_methods:
+      - selector: ctx
+        return: id
+      - selector: layers_size
+        return: unsigned long long
+      - selector: net
+        return: shared_ptr<Espresso::net>
+      - selector: wipe_layers_blobs
+        return: void
+    init_methods:
+      - selector: 'initWithJSFile:binSerializerId:context:computePath:'
+        return: id
+        params:
+          - name: jSFile
+            type: char *
+          - name: id
+            type: char *
+          - name: context
+            type: id
+          - name: path
+            type: int
+      - selector: 'initWithJSFile:context:computePath:'
+        return: id
+        params:
+          - name: jSFile
+            type: char *
+          - name: context
+            type: id
+          - name: path
+            type: int
+    properties:
+      - name: ctx
+        type: EspressoContext *
+        readonly: true
+      - name: layers_size
+        type: unsigned long long
+        readonly: true
+      - name: net
+        type: shared_ptr<Espresso::net>
+        readonly: true
+  - name: EspressoOJBC
+    super: NSObject
+  - name: EspressoPass_complete_fixpoint_optimization
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_compress_segments
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_concat_fuse_fix
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_debug_mode
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fastspeech
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_find_shared_weights
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fix_input_underflow
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fold_constants
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_add_and_relu
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_affine_scale
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_blizzard_final_1x1_convolutions
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_broadcastable_transposes
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_conv_batchnorm
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_fast_gelu_1
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_gelu_with_erf
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_gru_activation
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_fuse_pad
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_l2_normalize_5d_to_instancenorm
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_lstm_atomizer
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_make_fully_conv
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_merge_channel_norm
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_merge_pytorch_layernorm
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_merge_tf_layernorm
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_merge_tf_normalization
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_multi_head_program_gen
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_multi_head_prune_undeclared
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_optimize_coreml_conv1d_lrelu
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_quantize_gathers
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_nhwc_nchw_transposes
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_reshape_around_rank2_softmax
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_reshape_around_rank3_inner_product
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_reshape_chain
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_seqw_wseq_transposes
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_squeeze
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_remove_squeeze_expanddims_1d_ops
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_rpn_tracker_merge_convs
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_squeeze_devop
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_batch_matmul_to_inner_product
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_gather_to_lookup
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_gather_to_slice
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_general_slice_to_slice
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_loadc_eltwise__eltwisec
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_remove_identity_transposes
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_reshape_to_flatten
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_style_transfer_parameterize_transplant
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_style_transfer_two_nets
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_style_transfer_two_nets_onlyanepart
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_transform_quantize_kernel
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_transform_static_quantize_kernel
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_transpose_inner_product_weights
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoPass_wavernn_ane
+    super: EspressoCustomPass
+    instance_methods:
+      - selector: 'runOnNetwork:'
+        return: BOOL
+        params:
+          - name: network
+            type: void *
+  - name: EspressoProfilingANEcompilerAnalytics
+    super: NSObject
+    instance_methods:
+      - selector: compiler_analytics_file_names
+        return: id
+      - selector: 'setCompiler_analytics_file_names:'
+        return: void
+        params:
+          - name: compiler_analytics_file_names
+            type: id
+    properties:
+      - name: compiler_analytics_file_names
+        type: NSArray *
+  - name: EspressoProfilingLayerInfo
+    super: NSObject
+    instance_methods:
+      - selector: average_runtime
+        return: double
+      - selector: debug_name
+        return: id
+      - selector: main_engine_support
+        return: id
+      - selector: name
+        return: id
+      - selector: per_platform_support
+        return: id
+      - selector: runtimes
+        return: id
+      - selector: selected_runtime_engine
+        return: int
+      - selector: 'setAverage_runtime:'
+        return: void
+        params:
+          - name: average_runtime
+            type: double
+      - selector: 'setDebug_name:'
+        return: void
+        params:
+          - name: debug_name
+            type: id
+      - selector: 'setMain_engine_support:'
+        return: void
+        params:
+          - name: main_engine_support
+            type: id
+      - selector: 'setName:'
+        return: void
+        params:
+          - name: name
+            type: id
+      - selector: 'setPer_platform_support:'
+        return: void
+        params:
+          - name: per_platform_support
+            type: id
+      - selector: 'setRuntimes:'
+        return: void
+        params:
+          - name: runtimes
+            type: id
+      - selector: 'setSelected_runtime_engine:'
+        return: void
+        params:
+          - name: selected_runtime_engine
+            type: int
+    properties:
+      - name: average_runtime
+        type: double
+      - name: debug_name
+        type: NSString *
+      - name: main_engine_support
+        type: EspressoProfilingLayerSupportInfo *
+      - name: name
+        type: NSString *
+      - name: per_platform_support
+        type: NSDictionary *
+      - name: runtimes
+        type: NSArray *
+      - name: selected_runtime_engine
+        type: int
+  - name: EspressoProfilingLayerRuntime
+    super: NSObject
+    instance_methods:
+      - selector: end_t
+        return: double
+      - selector: 'setEnd_t:'
+        return: void
+        params:
+          - name: end_t
+            type: double
+      - selector: 'setStart_t:'
+        return: void
+        params:
+          - name: start_t
+            type: double
+      - selector: start_t
+        return: double
+    properties:
+      - name: end_t
+        type: double
+      - name: start_t
+        type: double
+  - name: EspressoProfilingLayerSupportInfo
+    super: NSObject
+    instance_methods:
+      - selector: error_private
+        return: id
+      - selector: error_public
+        return: id
+      - selector: exists
+        return: BOOL
+      - selector: has_perf_warning
+        return: BOOL
+      - selector: internal_layer
+        return: BOOL
+      - selector: 'setError_private:'
+        return: void
+        params:
+          - name: error_private
+            type: id
+      - selector: 'setError_public:'
+        return: void
+        params:
+          - name: error_public
+            type: id
+      - selector: 'setExists:'
+        return: void
+        params:
+          - name: exists
+            type: BOOL
+      - selector: 'setHas_perf_warning:'
+        return: void
+        params:
+          - name: has_perf_warning
+            type: BOOL
+      - selector: 'setInternal_layer:'
+        return: void
+        params:
+          - name: internal_layer
+            type: BOOL
+      - selector: 'setSupported:'
+        return: void
+        params:
+          - name: supported
+            type: BOOL
+      - selector: 'setType:'
+        return: void
+        params:
+          - name: type
+            type: id
+      - selector: supported
+        return: BOOL
+      - selector: type
+        return: id
+    properties:
+      - name: error_private
+        type: NSArray *
+      - name: error_public
+        type: NSArray *
+      - name: exists
+        type: BOOL
+      - name: has_perf_warning
+        type: BOOL
+      - name: internal_layer
+        type: BOOL
+      - name: supported
+        type: BOOL
+      - name: type
+        type: NSString *
+  - name: EspressoProfilingNetworkANEInfo
+    super: NSObject
+    instance_methods:
+      - selector: ane_time_per_eval_ns
+        return: unsigned long long
+      - selector: 'setAne_time_per_eval_ns:'
+        return: void
+        params:
+          - name: ane_time_per_eval_ns
+            type: unsigned long long
+      - selector: 'setTotal_ane_time_ns:'
+        return: void
+        params:
+          - name: total_ane_time_ns
+            type: unsigned long long
+      - selector: total_ane_time_ns
+        return: unsigned long long
+    properties:
+      - name: ane_time_per_eval_ns
+        type: unsigned long long
+      - name: total_ane_time_ns
+        type: unsigned long long
+  - name: EspressoProfilingNetworkInfo
+    super: NSObject
+    instance_methods:
+      - selector: ane_compiler_analytics
+        return: id
+      - selector: ane_performance_info
+        return: id
+      - selector: layers
+        return: id
+      - selector: network_at_path
+        return: id
+      - selector: 'setAne_compiler_analytics:'
+        return: void
+        params:
+          - name: ane_compiler_analytics
+            type: id
+      - selector: 'setAne_performance_info:'
+        return: void
+        params:
+          - name: ane_performance_info
+            type: id
+      - selector: 'setLayers:'
+        return: void
+        params:
+          - name: layers
+            type: id
+      - selector: 'setNetwork_at_path:'
+        return: void
+        params:
+          - name: network_at_path
+            type: id
+    properties:
+      - name: ane_compiler_analytics
+        type: EspressoProfilingANEcompilerAnalytics *
+      - name: ane_performance_info
+        type: EspressoProfilingNetworkANEInfo *
+      - name: layers
+        type: NSMutableArray *
+      - name: network_at_path
+        type: NSString *
+  - name: EspressoSharedKernelCacheEntry
+    super: NSObject
+    instance_methods:
+      - selector: cached
+        return: id
+      - selector: 'setCached:'
+        return: void
+        params:
+          - name: cached
+            type: id
+    properties:
+      - name: cached
+        type: EspressoMetalKernelsCache *
+  - name: Espresso_mxnetTools_ImageBinaryRecordReader
+    super: NSObject
+    instance_methods:
+      - selector: currentOffset
+        return: unsigned long long
+      - selector: imageData
+        return: id
+      - selector: imageHeader
+        return: _mxnetTools_imageHeader_t_
+      - selector: imageID
+        return: _mxnetTools_imageID_t_
+      - selector: labels
+        return: id
+      - selector: labelsPrivate
+        return: id
+      - selector: 'nextRecordAndError:'
+        return: BOOL
+        params:
+          - name: error
+            type: id *
+      - selector: recFileHandle
+        return: id
+      - selector: recordHeader
+        return: _mxnetTools_recordHeader_t_
+      - selector: 'seekRecordWithID:error:'
+        return: BOOL
+        params:
+          - name: id
+            type: _mxnetTools_imageID_t_ *
+          - name: error
+            type: id *
+      - selector: 'setCurrentOffset:'
+        return: void
+        params:
+          - name: offset
+            type: unsigned long long
+      - selector: 'setImageHeader:'
+        return: void
+        params:
+          - name: header
+            type: _mxnetTools_imageHeader_t_
+      - selector: 'setLabelsPrivate:'
+        return: void
+        params:
+          - name: private
+            type: id
+      - selector: 'setRecFileHandle:'
+        return: void
+        params:
+          - name: handle
+            type: id
+      - selector: 'setRecordHeader:'
+        return: void
+        params:
+          - name: header
+            type: _mxnetTools_recordHeader_t_
+    init_methods:
+      - selector: 'initWithRecFile:error:'
+        return: id
+        params:
+          - name: file
+            type: id
+          - name: error
+            type: id *
+    properties:
+      - name: currentOffset
+        type: unsigned long long
+      - name: imageHeader
+        type: _mxnetTools_imageHeader_t_
+      - name: labelsPrivate
+        type: NSMutableArray *
+      - name: recFileHandle
+        type: NSFileHandle *
+      - name: recordHeader
+        type: _mxnetTools_recordHeader_t_
