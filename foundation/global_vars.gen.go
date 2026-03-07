@@ -1,0 +1,11350 @@
+// Code generated from Apple documentation. DO NOT EDIT.
+
+package foundation
+
+import (
+	"unsafe"
+	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/objc"
+)
+
+const (
+
+	NotFound int = 9223372036854775807
+
+	OperationQueueDefaultMaxConcurrentOperationCount int = -1
+
+	UndoCloseGroupingRunLoopOrdering uint = 350000
+)
+
+var ABPeoplePickerDisplayedPropertyDidChangeNotification NSNotification
+
+var ABPeoplePickerGroupSelectionDidChangeNotification NSNotification
+
+var ABPeoplePickerNameSelectionDidChangeNotification NSNotification
+
+var ABPeoplePickerValueSelectionDidChangeNotification NSNotification
+
+var AVAssetChapterMetadataGroupsDidChangeNotification NSNotification
+
+var AVAssetContainsFragmentsDidChangeNotification NSNotification
+
+var AVAssetDurationDidChangeNotification NSNotification
+
+var AVAssetMediaSelectionGroupsDidChangeNotification NSNotification
+
+var AVAssetTrackSegmentsDidChangeNotification NSNotification
+
+var AVAssetTrackTimeRangeDidChangeNotification NSNotification
+
+var AVAssetTrackTrackAssociationsDidChangeNotification NSNotification
+
+var AVAssetWasDefragmentedNotification NSNotification
+
+var AVAudioEngineConfigurationChangeNotification NSNotification
+
+var AVAudioUnitComponentTagsDidChangeNotification NSNotification
+
+var AVFragmentedMovieContainsMovieFragmentsDidChangeNotification NSNotification
+
+var AVFragmentedMovieDurationDidChangeNotification NSNotification
+
+var AVFragmentedMovieTrackSegmentsDidChangeNotification NSNotification
+
+var AVFragmentedMovieTrackTimeRangeDidChangeNotification NSNotification
+
+var AVFragmentedMovieWasDefragmentedNotification NSNotification
+
+var AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification NSNotification
+
+var AVRouteDetectorMultipleRoutesDetectedDidChangeNotification NSNotification
+
+var AVSampleBufferAudioRendererOutputConfigurationDidChangeNotification NSNotification
+
+var AVSampleBufferAudioRendererWasFlushedAutomaticallyNotification NSNotification
+
+var AVSampleBufferDisplayLayerFailedToDecodeNotification NSNotification
+
+var AVSampleBufferDisplayLayerOutputObscuredDueToInsufficientExternalProtectionDidChangeNotification NSNotification
+
+var AVSampleBufferDisplayLayerReadyForDisplayDidChangeNotification NSNotification
+
+var AVSampleBufferDisplayLayerRequiresFlushToResumeDecodingDidChangeNotification NSNotification
+
+var CKAccountChangedNotification NSNotification
+
+var CNContactStoreDidChangeNotification NSNotification
+
+var CSSuggestionHighlightAttributeName NSAttributedString
+
+var DRBurnProgressPanelDidFinishNotification NSNotification
+
+var DRBurnProgressPanelWillBeginNotification NSNotification
+
+var DRBurnStatusChangedNotification NSNotification
+
+var DRDeviceAppearedNotification NSNotification
+
+var DRDeviceDisappearedNotification NSNotification
+
+var DRDeviceStatusChangedNotification NSNotification
+
+var DREraseProgressPanelDidFinishNotification NSNotification
+
+var DREraseProgressPanelWillBeginNotification NSNotification
+
+var DREraseStatusChangedNotification NSNotification
+
+var DRSetupPanelDeviceSelectionChangedNotification NSNotification
+
+var EAAccessoryDidConnectNotification NSNotification
+
+var EAAccessoryDidDisconnectNotification NSNotification
+
+var EKEventStoreChangedNotification NSNotification
+
+var GCControllerDidBecomeCurrentNotification NSNotification
+
+var GCControllerDidConnectNotification NSNotification
+
+var GCControllerDidDisconnectNotification NSNotification
+
+var GCControllerDidStopBeingCurrentNotification NSNotification
+
+var GCControllerUserCustomizationsDidChangeNotification NSNotification
+
+var GCKeyboardDidConnectNotification NSNotification
+
+var GCKeyboardDidDisconnectNotification NSNotification
+
+var GCMouseDidBecomeCurrentNotification NSNotification
+
+var GCMouseDidConnectNotification NSNotification
+
+var GCMouseDidDisconnectNotification NSNotification
+
+var GCMouseDidStopBeingCurrentNotification NSNotification
+
+var GCRacingWheelDidConnectNotification NSNotification
+
+var GCRacingWheelDidDisconnectNotification NSNotification
+
+var GKPlayerAuthenticationDidChangeNotificationName NSNotification
+
+var GKPlayerDidChangeNotificationName NSNotification
+
+var HKUserPreferencesDidChangeNotification NSNotification
+
+var IKFilterBrowserFilterDoubleClickNotification NSNotification
+
+var IKFilterBrowserFilterSelectedNotification NSNotification
+
+var IKFilterBrowserWillPreviewFilterNotification NSNotification
+
+var IOBluetoothHostControllerPoweredOffNotification NSNotification
+
+var IOBluetoothHostControllerPoweredOnNotification NSNotification
+
+var IOBluetoothL2CAPChannelPublishedNotification NSNotification
+
+var IOBluetoothL2CAPChannelTerminatedNotification NSNotification
+
+var ITLibraryDidChangeNotification NSNotification
+
+var MEVideoDecoderReadyForMoreMediaDataDidChangeNotification NSNotification
+
+var NEDNSProxyConfigurationDidChangeNotification NSNotification
+
+var NEDNSSettingsConfigurationDidChangeNotification NSNotification
+
+var NEFilterConfigurationDidChangeNotification NSNotification
+
+var NERelayConfigurationDidChangeNotification NSNotification
+
+var NEVPNConfigurationChangeNotification NSNotification
+
+var NEVPNStatusDidChangeNotification NSNotification
+
+var AbortModalException NSExceptionName
+
+var AbortPrintingException NSExceptionName
+
+var AccessibilityAnnotationTextAttribute NSAttributedString
+
+var AccessibilityAutocorrectedTextAttribute NSAttributedString
+
+var AccessibilityBackgroundColorTextAttribute NSAttributedString
+
+var AccessibilityCustomTextAttribute NSAttributedString
+
+var AccessibilityFontBoldAttribute NSAttributedString
+
+var AccessibilityFontItalicAttribute NSAttributedString
+
+var AccessibilityFontTextAttribute NSAttributedString
+
+var AccessibilityForegroundColorTextAttribute NSAttributedString
+
+var AccessibilityLanguageTextAttribute NSAttributedString
+
+var AccessibilityLinkTextAttribute NSAttributedString
+
+var AccessibilityListItemIndexTextAttribute NSAttributedString
+
+var AccessibilityListItemLevelTextAttribute NSAttributedString
+
+var AccessibilityListItemPrefixTextAttribute NSAttributedString
+
+var AccessibilityMarkedMisspelledTextAttribute NSAttributedString
+
+var AccessibilityMisspelledTextAttribute NSAttributedString
+
+var AccessibilityShadowTextAttribute NSAttributedString
+
+var AccessibilityStrikethroughColorTextAttribute NSAttributedString
+
+var AccessibilityStrikethroughTextAttribute NSAttributedString
+
+var AccessibilitySuperscriptTextAttribute NSAttributedString
+
+var AccessibilityTextAlignmentAttribute NSAttributedString
+
+var AccessibilityUnderlineColorTextAttribute NSAttributedString
+
+var AccessibilityUnderlineTextAttribute NSAttributedString
+
+var AdaptiveImageGlyphAttributeName NSAttributedString
+
+var AlternateDescriptionAttributeName NSAttributedStringKey
+
+var AppKitIgnoredException NSExceptionName
+
+var AppKitVirtualMemoryException NSExceptionName
+
+var AppearanceDocumentAttribute NSAttributedString
+
+var AppleEventManagerWillProcessFirstEventNotification NSNotificationName
+
+var AppleEventTimeOutDefault float64
+
+var AppleEventTimeOutNone float64
+
+var AppleScriptErrorAppName string
+
+var AppleScriptErrorBriefMessage string
+
+var AppleScriptErrorMessage string
+
+var AppleScriptErrorNumber string
+
+var AppleScriptErrorRange string
+
+var ApplicationProtectedDataDidBecomeAvailableNotification NSNotification
+
+var ApplicationProtectedDataWillBecomeUnavailableNotification NSNotification
+
+var ApplicationShouldBeginSuppressingHighDynamicRangeContentNotification NSNotification
+
+var ApplicationShouldEndSuppressingHighDynamicRangeContentNotification NSNotification
+
+var ArgumentDomain string
+
+var AssertionHandlerKey string
+
+var AttachmentAttributeName NSAttributedString
+
+var AuthorDocumentAttribute NSAttributedString
+
+var AverageKeyValueOperator NSKeyValueOperator
+
+var BackgroundColorAttributeName NSAttributedString
+
+var BackgroundColorDocumentAttribute NSAttributedString
+
+var BadBitmapParametersException NSExceptionName
+
+var BadComparisonException NSExceptionName
+
+var BadRTFColorTableException NSExceptionName
+
+var BadRTFDirectiveException NSExceptionName
+
+var BadRTFFontTableException NSExceptionName
+
+var BadRTFStyleSheetException NSExceptionName
+
+var BaseURLDocumentOption NSAttributedString
+
+var BaselineOffsetAttributeName NSAttributedString
+
+var BottomMarginDocumentAttribute NSAttributedString
+
+var BrowserIllegalDelegateException NSExceptionName
+
+var BundleDidLoadNotification NSNotificationName
+
+var CalendarDayChangedNotification NSNotificationName
+
+var calendarIdentifierBangla NSCalendarIdentifier
+
+var calendarIdentifierBuddhist NSCalendarIdentifier
+
+var calendarIdentifierChinese NSCalendarIdentifier
+
+var calendarIdentifierCoptic NSCalendarIdentifier
+
+var calendarIdentifierDangi NSCalendarIdentifier
+
+var calendarIdentifierEthiopicAmeteAlem NSCalendarIdentifier
+
+var calendarIdentifierEthiopicAmeteMihret NSCalendarIdentifier
+
+var calendarIdentifierGregorian NSCalendarIdentifier
+
+var calendarIdentifierGujarati NSCalendarIdentifier
+
+var calendarIdentifierHebrew NSCalendarIdentifier
+
+var calendarIdentifierISO8601 NSCalendarIdentifier
+
+var calendarIdentifierIndian NSCalendarIdentifier
+
+var calendarIdentifierIslamic NSCalendarIdentifier
+
+var calendarIdentifierIslamicCivil NSCalendarIdentifier
+
+var calendarIdentifierIslamicTabular NSCalendarIdentifier
+
+var calendarIdentifierIslamicUmmAlQura NSCalendarIdentifier
+
+var calendarIdentifierJapanese NSCalendarIdentifier
+
+var calendarIdentifierKannada NSCalendarIdentifier
+
+var calendarIdentifierMalayalam NSCalendarIdentifier
+
+var calendarIdentifierMarathi NSCalendarIdentifier
+
+var calendarIdentifierOdia NSCalendarIdentifier
+
+var calendarIdentifierPersian NSCalendarIdentifier
+
+var calendarIdentifierRepublicOfChina NSCalendarIdentifier
+
+var calendarIdentifierTamil NSCalendarIdentifier
+
+var calendarIdentifierTelugu NSCalendarIdentifier
+
+var calendarIdentifierVietnamese NSCalendarIdentifier
+
+var calendarIdentifierVikram NSCalendarIdentifier
+
+var CategoryDocumentAttribute NSAttributedString
+
+var CharacterConversionException NSExceptionName
+
+var CharacterEncodingDocumentAttribute NSAttributedString
+
+var CharacterEncodingDocumentOption NSAttributedString
+
+var ClassDescriptionNeededForClassNotification NSNotificationName
+
+var CocoaErrorDomain NSErrorDomain
+
+var CocoaVersionDocumentAttribute NSAttributedString
+
+var ColorListIOException NSExceptionName
+
+var ColorListNotEditableException NSExceptionName
+
+var CommentDocumentAttribute NSAttributedString
+
+var CompanyDocumentAttribute NSAttributedString
+
+var ConvertedDocumentAttribute NSAttributedString
+
+var CopyrightDocumentAttribute NSAttributedString
+
+var CoreDataCoreSpotlightDelegateIndexDidUpdateNotification NSNotification
+
+var CountKeyValueOperator NSKeyValueOperator
+
+var CreationTimeDocumentAttribute NSAttributedString
+
+var CurrentLocaleDidChangeNotification NSNotificationName
+
+var CursorAttributeName NSAttributedString
+
+var DeallocateZombies bool
+
+var DebugDescriptionErrorKey NSErrorUserInfoKey
+
+var DebugEnabled bool
+
+var DecimalNumberDivideByZeroException NSExceptionName
+
+var DecimalNumberExactnessException NSExceptionName
+
+var DecimalNumberOverflowException NSExceptionName
+
+var DecimalNumberUnderflowException NSExceptionName
+
+var DefaultAttributesDocumentAttribute NSAttributedString
+
+var DefaultAttributesDocumentOption NSAttributedString
+
+var DefaultFontExcludedDocumentAttribute NSAttributedString
+
+var RunLoopDefaultMode NSRunLoopMode
+
+var DefaultTabIntervalDocumentAttribute NSAttributedString
+
+var DestinationInvalidException NSExceptionName
+
+//
+// Deprecated: Deprecated since macOS 26.0. Programs no longer transition to single-threaded mode from threaded environments
+var DidBecomeSingleThreadedNotification NSNotificationName
+
+var DistinctUnionOfArraysKeyValueOperator NSKeyValueOperator
+
+var DistinctUnionOfObjectsKeyValueOperator NSKeyValueOperator
+
+var DistinctUnionOfSetsKeyValueOperator NSKeyValueOperator
+
+var DocFormatTextDocumentType NSAttributedString
+
+var DocumentTypeDocumentAttribute NSAttributedString
+
+var DocumentTypeDocumentOption NSAttributedString
+
+var DraggingException NSExceptionName
+
+var EdgeInsetsZero NSEdgeInsets
+
+var EditorDocumentAttribute NSAttributedString
+
+var EventTrackingRunLoopMode RunLoop
+
+var ExcludedElementsDocumentAttribute NSAttributedString
+
+//
+// Deprecated: Deprecated since macOS 26.4. This attribute is not supported with TextKit 2
+var ExpansionAttributeName NSAttributedString
+
+var ExtensionItemAttachmentsKey string
+
+var ExtensionItemAttributedContentTextKey string
+
+var ExtensionItemAttributedTitleKey string
+
+var ExtensionItemsAndErrorsKey string
+
+var ExtensionJavaScriptPreprocessingResultsKey string
+
+var FileAppendOnly NSFileAttributeKey
+
+var FileBusy NSFileAttributeKey
+
+var FileCreationDate NSFileAttributeKey
+
+var FileDeviceIdentifier NSFileAttributeKey
+
+var FileExtensionHidden NSFileAttributeKey
+
+var FileGroupOwnerAccountID NSFileAttributeKey
+
+var FileGroupOwnerAccountName NSFileAttributeKey
+
+var FileHFSCreatorCode NSFileAttributeKey
+
+var FileHFSTypeCode NSFileAttributeKey
+
+var FileHandleConnectionAcceptedNotification NSNotificationName
+
+var FileHandleDataAvailableNotification NSNotificationName
+
+var FileHandleNotificationDataItem string
+
+var FileHandleNotificationFileHandleItem string
+
+var FileHandleOperationException NSExceptionName
+
+var FileHandleReadCompletionNotification NSNotificationName
+
+var FileHandleReadToEndOfFileCompletionNotification NSNotificationName
+
+var FileImmutable NSFileAttributeKey
+
+var FileManagerUnmountDissentingProcessIdentifierErrorKey string
+
+var FileModificationDate NSFileAttributeKey
+
+var FileOwnerAccountID NSFileAttributeKey
+
+var FileOwnerAccountName NSFileAttributeKey
+
+var FilePathErrorKey NSErrorUserInfoKey
+
+var FilePosixPermissions NSFileAttributeKey
+
+var FileProtectionComplete NSFileProtectionType
+
+var FileProtectionCompleteUnlessOpen NSFileProtectionType
+
+var FileProtectionCompleteUntilFirstUserAuthentication NSFileProtectionType
+
+var FileProtectionKey NSFileAttributeKey
+
+var FileProtectionNone NSFileProtectionType
+
+var FileProviderDomainDidChange NSNotification
+
+var FileProviderMaterializedSetDidChange NSNotification
+
+var FileProviderPendingSetDidChange NSNotification
+
+var FileReferenceCount NSFileAttributeKey
+
+var FileSize NSFileAttributeKey
+
+var FileSystemFileNumber NSFileAttributeKey
+
+var FileSystemFreeNodes NSFileAttributeKey
+
+var FileSystemFreeSize NSFileAttributeKey
+
+var FileSystemNodes NSFileAttributeKey
+
+var FileSystemNumber NSFileAttributeKey
+
+var FileSystemSize NSFileAttributeKey
+
+var FileType NSFileAttributeKey
+
+var FileTypeBlockSpecial NSFileAttributeType
+
+var FileTypeCharacterSpecial NSFileAttributeType
+
+var FileTypeDirectory NSFileAttributeType
+
+var FileTypeDocumentAttribute NSAttributedString
+
+var FileTypeDocumentOption NSAttributedString
+
+var FileTypeRegular NSFileAttributeType
+
+var FileTypeSocket NSFileAttributeType
+
+var FileTypeSymbolicLink NSFileAttributeType
+
+var FileTypeUnknown NSFileAttributeType
+
+var FontAttributeName NSAttributedString
+
+var FontUnavailableException NSExceptionName
+
+var ForegroundColorAttributeName NSAttributedString
+
+var FoundationVersionNumber float64
+
+var GenericException NSExceptionName
+
+var GlobalDomain string
+
+var GlyphInfoAttributeName NSAttributedString
+
+var GrammarCorrections string
+
+var GrammarRange string
+
+var GrammarUserDescription string
+
+var HTMLTextDocumentType NSAttributedString
+
+var HTTPCookieComment NSHTTPCookiePropertyKey
+
+var HTTPCookieCommentURL NSHTTPCookiePropertyKey
+
+var HTTPCookieDiscard NSHTTPCookiePropertyKey
+
+var HTTPCookieDomain NSHTTPCookiePropertyKey
+
+var HTTPCookieExpires NSHTTPCookiePropertyKey
+
+var HTTPCookieManagerCookiesChangedNotification NSNotificationName
+
+var HTTPCookieMaximumAge NSHTTPCookiePropertyKey
+
+var HTTPCookieName NSHTTPCookiePropertyKey
+
+var HTTPCookieOriginURL NSHTTPCookiePropertyKey
+
+var HTTPCookiePath NSHTTPCookiePropertyKey
+
+var HTTPCookiePort NSHTTPCookiePropertyKey
+
+var HTTPCookieSameSiteLax NSHTTPCookieStringPolicy
+
+var HTTPCookieSameSitePolicy NSHTTPCookiePropertyKey
+
+var HTTPCookieSameSiteStrict NSHTTPCookieStringPolicy
+
+var HTTPCookieSecure NSHTTPCookiePropertyKey
+
+var HTTPCookieSetByJavaScript NSHTTPCookiePropertyKey
+
+var HTTPCookieValue NSHTTPCookiePropertyKey
+
+var HTTPCookieVersion NSHTTPCookiePropertyKey
+
+var HashTableCopyIn NSPointerFunctionsOptions
+
+var HashTableObjectPointerPersonality NSPointerFunctionsOptions
+
+var HashTableStrongMemory NSPointerFunctionsOptions
+
+var HashTableWeakMemory NSPointerFunctionsOptions
+
+var HelpAnchorErrorKey NSErrorUserInfoKey
+
+var HyphenationFactorDocumentAttribute NSAttributedString
+
+var IllegalSelectorException NSExceptionName
+
+var ImageCacheException NSExceptionName
+
+var ImageURLAttributeName NSAttributedStringKey
+
+var InconsistentArchiveException NSExceptionName
+
+var InflectionAgreementArgumentAttributeName NSAttributedStringKey
+
+var InflectionAgreementConceptAttributeName NSAttributedStringKey
+
+var InflectionAlternativeAttributeName NSAttributedStringKey
+
+var InflectionConceptsKey NSAttributedStringFormattingContextKey
+
+var InflectionReferentConceptAttributeName NSAttributedStringKey
+
+var InflectionRuleAttributeName NSAttributedStringKey
+
+var InlinePresentationIntentAttributeName NSAttributedStringKey
+
+var IntegerHashCallBacks NSHashTableCallBacks
+
+var IntegerMapKeyCallBacks NSMapTableKeyCallBacks
+
+var IntegerMapValueCallBacks NSMapTableValueCallBacks
+
+var InternalInconsistencyException NSExceptionName
+
+var InvalidArchiveOperationException NSExceptionName
+
+var InvalidArgumentException NSExceptionName
+
+var InvalidReceivePortException NSExceptionName
+
+var InvalidSendPortException NSExceptionName
+
+var InvalidUnarchiveOperationException NSExceptionName
+
+var InvocationOperationCancelledException NSExceptionName
+
+var InvocationOperationVoidResultException NSExceptionName
+
+var IsNilTransformerName NSValueTransformerName
+
+var IsNotNilTransformerName NSValueTransformerName
+
+var ItemProviderErrorDomain string
+
+var ItemProviderPreferredImageSizeKey string
+
+var KeepAllocationStatistics bool
+
+var KernAttributeName NSAttributedString
+
+var KeyValueChangeIndexesKey NSKeyValueChangeKey
+
+var KeyValueChangeKindKey NSKeyValueChangeKey
+
+var KeyValueChangeNewKey NSKeyValueChangeKey
+
+var KeyValueChangeNotificationIsPriorKey NSKeyValueChangeKey
+
+var KeyValueChangeOldKey NSKeyValueChangeKey
+
+var KeyedArchiveRootObjectKey string
+
+var KeywordsDocumentAttribute NSAttributedString
+
+var LanguageIdentifierAttributeName NSAttributedStringKey
+
+var LeftMarginDocumentAttribute NSAttributedString
+
+var LigatureAttributeName NSAttributedString
+
+var linguisticTagAdjective NSLinguisticTag
+
+var linguisticTagAdverb NSLinguisticTag
+
+var linguisticTagClassifier NSLinguisticTag
+
+var linguisticTagCloseParenthesis NSLinguisticTag
+
+var linguisticTagCloseQuote NSLinguisticTag
+
+var linguisticTagConjunction NSLinguisticTag
+
+var linguisticTagDash NSLinguisticTag
+
+var linguisticTagDeterminer NSLinguisticTag
+
+var linguisticTagIdiom NSLinguisticTag
+
+var linguisticTagInterjection NSLinguisticTag
+
+var linguisticTagNoun NSLinguisticTag
+
+var linguisticTagNumber NSLinguisticTag
+
+var linguisticTagOpenParenthesis NSLinguisticTag
+
+var linguisticTagOpenQuote NSLinguisticTag
+
+var linguisticTagOrganizationName NSLinguisticTag
+
+var linguisticTagOther NSLinguisticTag
+
+var linguisticTagOtherPunctuation NSLinguisticTag
+
+var linguisticTagOtherWhitespace NSLinguisticTag
+
+var linguisticTagOtherWord NSLinguisticTag
+
+var linguisticTagParagraphBreak NSLinguisticTag
+
+var linguisticTagParticle NSLinguisticTag
+
+var linguisticTagPersonalName NSLinguisticTag
+
+var linguisticTagPlaceName NSLinguisticTag
+
+var linguisticTagPreposition NSLinguisticTag
+
+var linguisticTagPronoun NSLinguisticTag
+
+var linguisticTagPunctuation NSLinguisticTag
+
+var linguisticTagSchemeLanguage NSLinguisticTagScheme
+
+var linguisticTagSchemeLemma NSLinguisticTagScheme
+
+var linguisticTagSchemeLexicalClass NSLinguisticTagScheme
+
+var linguisticTagSchemeNameType NSLinguisticTagScheme
+
+var linguisticTagSchemeNameTypeOrLexicalClass NSLinguisticTagScheme
+
+var linguisticTagSchemeScript NSLinguisticTagScheme
+
+var linguisticTagSchemeTokenType NSLinguisticTagScheme
+
+var linguisticTagSentenceTerminator NSLinguisticTag
+
+var linguisticTagVerb NSLinguisticTag
+
+var linguisticTagWhitespace NSLinguisticTag
+
+var linguisticTagWord NSLinguisticTag
+
+var linguisticTagWordJoiner NSLinguisticTag
+
+var LinkAttributeName NSAttributedString
+
+var ListItemDelimiterAttributeName NSAttributedStringKey
+
+var LoadedClasses string
+
+var LocalNotificationCenterType NSDistributedNotificationCenterType
+
+var LocaleAlternateQuotationBeginDelimiterKey NSLocaleKey
+
+var LocaleAlternateQuotationEndDelimiterKey NSLocaleKey
+
+var LocaleCalendar NSLocaleKey
+
+var LocaleCollationIdentifier NSLocaleKey
+
+var LocaleCollatorIdentifier NSLocaleKey
+
+var LocaleCountryCode NSLocaleKey
+
+var LocaleCurrencyCode NSLocaleKey
+
+var LocaleCurrencySymbol NSLocaleKey
+
+var LocaleDecimalSeparator NSLocaleKey
+
+var LocaleExemplarCharacterSet NSLocaleKey
+
+var LocaleGroupingSeparator NSLocaleKey
+
+var LocaleIdentifier NSLocaleKey
+
+var LocaleLanguageCode NSLocaleKey
+
+var LocaleMeasurementSystem NSLocaleKey
+
+var LocaleQuotationBeginDelimiterKey NSLocaleKey
+
+var LocaleQuotationEndDelimiterKey NSLocaleKey
+
+var LocaleScriptCode NSLocaleKey
+
+var LocaleUsesMetricSystem NSLocaleKey
+
+var LocaleVariantCode NSLocaleKey
+
+var LocalizedDescriptionKey NSErrorUserInfoKey
+
+var LocalizedFailureErrorKey NSErrorUserInfoKey
+
+var LocalizedFailureReasonErrorKey NSErrorUserInfoKey
+
+var LocalizedNumberFormatAttributeName NSAttributedStringKey
+
+var LocalizedRecoveryOptionsErrorKey NSErrorUserInfoKey
+
+var LocalizedRecoverySuggestionErrorKey NSErrorUserInfoKey
+
+var MacSimpleTextDocumentType NSAttributedString
+
+var MachErrorDomain NSErrorDomain
+
+var MallocException NSExceptionName
+
+var ManagedObjectContextDidMergeChangesObjectIDsNotification NSNotification
+
+var ManagedObjectContextDidSaveNotification NSNotification
+
+var ManagedObjectContextDidSaveObjectIDsNotification NSNotification
+
+var ManagedObjectContextObjectsDidChangeNotification NSNotification
+
+var ManagedObjectContextWillSaveNotification NSNotification
+
+var ManagerDocumentAttribute NSAttributedString
+
+var MapTableCopyIn NSPointerFunctionsOptions
+
+var MapTableObjectPointerPersonality NSPointerFunctionsOptions
+
+var MapTableStrongMemory NSPointerFunctionsOptions
+
+var MapTableWeakMemory NSPointerFunctionsOptions
+
+var MarkdownSourcePositionAttributeName NSAttributedStringKey
+
+var MarkedClauseSegmentAttributeName NSAttributedString
+
+var MaximumKeyValueOperator NSKeyValueOperator
+
+var MetadataItemAcquisitionMakeKey string
+
+var MetadataItemAcquisitionModelKey string
+
+var MetadataItemAlbumKey string
+
+var MetadataItemAltitudeKey string
+
+var MetadataItemApertureKey string
+
+var MetadataItemAppleLoopDescriptorsKey string
+
+var MetadataItemAppleLoopsKeyFilterTypeKey string
+
+var MetadataItemAppleLoopsLoopModeKey string
+
+var MetadataItemAppleLoopsRootKeyKey string
+
+var MetadataItemApplicationCategoriesKey string
+
+var MetadataItemAttributeChangeDateKey string
+
+var MetadataItemAudiencesKey string
+
+var MetadataItemAudioBitRateKey string
+
+var MetadataItemAudioChannelCountKey string
+
+var MetadataItemAudioEncodingApplicationKey string
+
+var MetadataItemAudioSampleRateKey string
+
+var MetadataItemAudioTrackNumberKey string
+
+var MetadataItemAuthorAddressesKey string
+
+var MetadataItemAuthorEmailAddressesKey string
+
+var MetadataItemAuthorsKey string
+
+var MetadataItemBitsPerSampleKey string
+
+var MetadataItemCFBundleIdentifierKey string
+
+var MetadataItemCameraOwnerKey string
+
+var MetadataItemCityKey string
+
+var MetadataItemCodecsKey string
+
+var MetadataItemColorSpaceKey string
+
+var MetadataItemCommentKey string
+
+var MetadataItemComposerKey string
+
+var MetadataItemContactKeywordsKey string
+
+var MetadataItemContentCreationDateKey string
+
+var MetadataItemContentModificationDateKey string
+
+var MetadataItemContentTypeKey string
+
+var MetadataItemContentTypeTreeKey string
+
+var MetadataItemContributorsKey string
+
+var MetadataItemCopyrightKey string
+
+var MetadataItemCountryKey string
+
+var MetadataItemCoverageKey string
+
+var MetadataItemCreatorKey string
+
+var MetadataItemDateAddedKey string
+
+var MetadataItemDeliveryTypeKey string
+
+var MetadataItemDescriptionKey string
+
+var MetadataItemDirectorKey string
+
+var MetadataItemDisplayNameKey string
+
+var MetadataItemDownloadedDateKey string
+
+var MetadataItemDueDateKey string
+
+var MetadataItemDurationSecondsKey string
+
+var MetadataItemEXIFGPSVersionKey string
+
+var MetadataItemEXIFVersionKey string
+
+var MetadataItemEditorsKey string
+
+var MetadataItemEmailAddressesKey string
+
+var MetadataItemEncodingApplicationsKey string
+
+var MetadataItemExecutableArchitecturesKey string
+
+var MetadataItemExecutablePlatformKey string
+
+var MetadataItemExposureModeKey string
+
+var MetadataItemExposureProgramKey string
+
+var MetadataItemExposureTimeSecondsKey string
+
+var MetadataItemExposureTimeStringKey string
+
+var MetadataItemFNumberKey string
+
+var MetadataItemFSContentChangeDateKey string
+
+var MetadataItemFSCreationDateKey string
+
+var MetadataItemFSNameKey string
+
+var MetadataItemFSSizeKey string
+
+var MetadataItemFinderCommentKey string
+
+var MetadataItemFlashOnOffKey string
+
+var MetadataItemFocalLength35mmKey string
+
+var MetadataItemFocalLengthKey string
+
+var MetadataItemFontsKey string
+
+var MetadataItemGPSAreaInformationKey string
+
+var MetadataItemGPSDOPKey string
+
+var MetadataItemGPSDateStampKey string
+
+var MetadataItemGPSDestBearingKey string
+
+var MetadataItemGPSDestDistanceKey string
+
+var MetadataItemGPSDestLatitudeKey string
+
+var MetadataItemGPSDestLongitudeKey string
+
+var MetadataItemGPSDifferentalKey string
+
+var MetadataItemGPSMapDatumKey string
+
+var MetadataItemGPSMeasureModeKey string
+
+var MetadataItemGPSProcessingMethodKey string
+
+var MetadataItemGPSStatusKey string
+
+var MetadataItemGPSTrackKey string
+
+var MetadataItemGenreKey string
+
+var MetadataItemHasAlphaChannelKey string
+
+var MetadataItemHeadlineKey string
+
+var MetadataItemISOSpeedKey string
+
+var MetadataItemIdentifierKey string
+
+var MetadataItemImageDirectionKey string
+
+var MetadataItemInformationKey string
+
+var MetadataItemInstantMessageAddressesKey string
+
+var MetadataItemInstructionsKey string
+
+var MetadataItemIsApplicationManagedKey string
+
+var MetadataItemIsGeneralMIDISequenceKey string
+
+var MetadataItemIsLikelyJunkKey string
+
+var MetadataItemIsUbiquitousKey string
+
+var MetadataItemKeySignatureKey string
+
+var MetadataItemKeywordsKey string
+
+var MetadataItemKindKey string
+
+var MetadataItemLanguagesKey string
+
+var MetadataItemLastUsedDateKey string
+
+var MetadataItemLatitudeKey string
+
+var MetadataItemLayerNamesKey string
+
+var MetadataItemLensModelKey string
+
+var MetadataItemLongitudeKey string
+
+var MetadataItemLyricistKey string
+
+var MetadataItemMaxApertureKey string
+
+var MetadataItemMediaTypesKey string
+
+var MetadataItemMeteringModeKey string
+
+var MetadataItemMusicalGenreKey string
+
+var MetadataItemMusicalInstrumentCategoryKey string
+
+var MetadataItemMusicalInstrumentNameKey string
+
+var MetadataItemNamedLocationKey string
+
+var MetadataItemNumberOfPagesKey string
+
+var MetadataItemOrganizationsKey string
+
+var MetadataItemOrientationKey string
+
+var MetadataItemOriginalFormatKey string
+
+var MetadataItemOriginalSourceKey string
+
+var MetadataItemPageHeightKey string
+
+var MetadataItemPageWidthKey string
+
+var MetadataItemParticipantsKey string
+
+var MetadataItemPathKey string
+
+var MetadataItemPerformersKey string
+
+var MetadataItemPhoneNumbersKey string
+
+var MetadataItemPixelCountKey string
+
+var MetadataItemPixelHeightKey string
+
+var MetadataItemPixelWidthKey string
+
+var MetadataItemProducerKey string
+
+var MetadataItemProfileNameKey string
+
+var MetadataItemProjectsKey string
+
+var MetadataItemPublishersKey string
+
+var MetadataItemRecipientAddressesKey string
+
+var MetadataItemRecipientEmailAddressesKey string
+
+var MetadataItemRecipientsKey string
+
+var MetadataItemRecordingDateKey string
+
+var MetadataItemRecordingYearKey string
+
+var MetadataItemRedEyeOnOffKey string
+
+var MetadataItemResolutionHeightDPIKey string
+
+var MetadataItemResolutionWidthDPIKey string
+
+var MetadataItemRightsKey string
+
+var MetadataItemSecurityMethodKey string
+
+var MetadataItemSpeedKey string
+
+var MetadataItemStarRatingKey string
+
+var MetadataItemStateOrProvinceKey string
+
+var MetadataItemStreamableKey string
+
+var MetadataItemSubjectKey string
+
+var MetadataItemTempoKey string
+
+var MetadataItemTextContentKey string
+
+var MetadataItemThemeKey string
+
+var MetadataItemTimeSignatureKey string
+
+var MetadataItemTimestampKey string
+
+var MetadataItemTitleKey string
+
+var MetadataItemTotalBitRateKey string
+
+var MetadataItemURLKey string
+
+var MetadataItemVersionKey string
+
+var MetadataItemVideoBitRateKey string
+
+var MetadataItemWhereFromsKey string
+
+var MetadataItemWhiteBalanceKey string
+
+var MetadataQueryAccessibleUbiquitousExternalDocumentsScope string
+
+var MetadataQueryDidFinishGatheringNotification NSNotificationName
+
+var MetadataQueryDidStartGatheringNotification NSNotificationName
+
+var MetadataQueryDidUpdateNotification NSNotificationName
+
+var MetadataQueryGatheringProgressNotification NSNotificationName
+
+var MetadataQueryIndexedLocalComputerScope string
+
+var MetadataQueryIndexedNetworkScope string
+
+var MetadataQueryLocalComputerScope string
+
+var MetadataQueryNetworkScope string
+
+var MetadataQueryResultContentRelevanceAttribute string
+
+var MetadataQueryUbiquitousDataScope string
+
+var MetadataQueryUbiquitousDocumentsScope string
+
+var MetadataQueryUpdateAddedItemsKey string
+
+var MetadataQueryUpdateChangedItemsKey string
+
+var MetadataQueryUpdateRemovedItemsKey string
+
+var MetadataQueryUserHomeScope string
+
+var MetadataUbiquitousItemContainerDisplayNameKey string
+
+var MetadataUbiquitousItemDownloadRequestedKey string
+
+var MetadataUbiquitousItemDownloadingErrorKey string
+
+var MetadataUbiquitousItemDownloadingStatusCurrent string
+
+var MetadataUbiquitousItemDownloadingStatusDownloaded string
+
+var MetadataUbiquitousItemDownloadingStatusKey string
+
+var MetadataUbiquitousItemDownloadingStatusNotDownloaded string
+
+var MetadataUbiquitousItemHasUnresolvedConflictsKey string
+
+var MetadataUbiquitousItemIsDownloadingKey string
+
+var MetadataUbiquitousItemIsExternalDocumentKey string
+
+var MetadataUbiquitousItemIsSharedKey string
+
+var MetadataUbiquitousItemIsUploadedKey string
+
+var MetadataUbiquitousItemIsUploadingKey string
+
+var MetadataUbiquitousItemPercentDownloadedKey string
+
+var MetadataUbiquitousItemPercentUploadedKey string
+
+var MetadataUbiquitousItemURLInLocalContainerKey string
+
+var MetadataUbiquitousItemUploadingErrorKey string
+
+var MetadataUbiquitousSharedItemCurrentUserPermissionsKey string
+
+var MetadataUbiquitousSharedItemCurrentUserRoleKey string
+
+var MetadataUbiquitousSharedItemMostRecentEditorNameComponentsKey string
+
+var MetadataUbiquitousSharedItemOwnerNameComponentsKey string
+
+var MetadataUbiquitousSharedItemPermissionsReadOnly string
+
+var MetadataUbiquitousSharedItemPermissionsReadWrite string
+
+var MetadataUbiquitousSharedItemRoleOwner string
+
+var MetadataUbiquitousSharedItemRoleParticipant string
+
+var MinimumKeyValueOperator NSKeyValueOperator
+
+var ModalPanelRunLoopMode RunLoop
+
+var ModificationTimeDocumentAttribute NSAttributedString
+
+var MorphologyAttributeName NSAttributedStringKey
+
+var MultipleUnderlyingErrorsKey NSErrorUserInfoKey
+
+var NegateBooleanTransformerName NSValueTransformerName
+
+var NetServicesErrorCode string
+
+var NetServicesErrorDomain NSErrorDomain
+
+var NibLoadingException NSExceptionName
+
+var NonOwnedPointerHashCallBacks NSHashTableCallBacks
+
+var NonOwnedPointerMapKeyCallBacks NSMapTableKeyCallBacks
+
+var NonOwnedPointerMapValueCallBacks NSMapTableValueCallBacks
+
+var NonOwnedPointerOrNullMapKeyCallBacks NSMapTableKeyCallBacks
+
+var NonRetainedObjectHashCallBacks NSHashTableCallBacks
+
+var NonRetainedObjectMapKeyCallBacks NSMapTableKeyCallBacks
+
+var NonRetainedObjectMapValueCallBacks NSMapTableValueCallBacks
+
+
+var NotificationDeliverImmediately NSDistributedNotificationOptions
+
+var NotificationPostToAllSessions NSDistributedNotificationOptions
+
+var OSStatusErrorDomain NSErrorDomain
+
+var ObjectHashCallBacks NSHashTableCallBacks
+
+var ObjectInaccessibleException NSExceptionName
+
+var ObjectMapKeyCallBacks NSMapTableKeyCallBacks
+
+var ObjectMapValueCallBacks NSMapTableValueCallBacks
+
+var ObjectNotAvailableException NSExceptionName
+
+//
+// Deprecated: Deprecated since macOS 26.4. This attribute is not supported with TextKit 2
+var ObliquenessAttributeName NSAttributedString
+
+var OfficeOpenXMLTextDocumentType NSAttributedString
+
+var OldStyleException NSExceptionName
+
+var OpenDocumentTextDocumentType NSAttributedString
+
+var OperationNotSupportedForKeyException string
+
+
+var OwnedObjectIdentityHashCallBacks NSHashTableCallBacks
+
+var OwnedPointerHashCallBacks NSHashTableCallBacks
+
+var OwnedPointerMapKeyCallBacks NSMapTableKeyCallBacks
+
+var OwnedPointerMapValueCallBacks NSMapTableValueCallBacks
+
+var POSIXErrorDomain NSErrorDomain
+
+var PPDIncludeNotFoundException NSExceptionName
+
+var PPDIncludeStackOverflowException NSExceptionName
+
+var PPDIncludeStackUnderflowException NSExceptionName
+
+var PPDParseException NSExceptionName
+
+var PaperSizeDocumentAttribute NSAttributedString
+
+var ParagraphStyleAttributeName NSAttributedString
+
+var ParseErrorException NSExceptionName
+
+var PasteboardCommunicationException NSExceptionName
+
+var PersistentStoreCoordinatorStoresDidChangeNotification NSNotification
+
+var PersistentStoreCoordinatorStoresWillChangeNotification NSNotification
+
+var PersistentStoreCoordinatorWillRemoveStoreNotification NSNotification
+
+var PersistentStoreRemoteChangeNotification NSNotification
+
+var PersonNameComponentDelimiter string
+
+var PersonNameComponentFamilyName string
+
+var PersonNameComponentGivenName string
+
+var PersonNameComponentKey string
+
+var PersonNameComponentMiddleName string
+
+var PersonNameComponentNickname string
+
+var PersonNameComponentPrefix string
+
+var PersonNameComponentSuffix string
+
+var PlainTextDocumentType NSAttributedString
+
+var PointerToStructHashCallBacks NSHashTableCallBacks
+
+var PortDidBecomeInvalidNotification NSNotificationName
+
+var PortReceiveException NSExceptionName
+
+var PortSendException NSExceptionName
+
+var PortTimeoutException NSExceptionName
+
+var PreferencePaneCancelUnselectNotification NSNotification
+
+var PreferencePaneDoUnselectNotification NSNotification
+
+var PreferencePaneSwitchToPaneNotification NSNotification
+
+var PreferencePaneUpdateHelpMenuNotification NSNotification
+
+var PreferencePrefPaneIsAvailableNotification NSNotification
+
+var PrefixSpacesDocumentAttribute NSAttributedString
+
+var PresentationIntentAttributeName NSAttributedStringKey
+
+var PrintOperationExistsException NSExceptionName
+
+var PrintPackageException NSExceptionName
+
+var PrintingCommunicationException NSExceptionName
+
+var ProcessInfoPerformanceProfileDidChangeNotification NSNotification
+
+var ProcessInfoPowerStateDidChangeNotification NSNotificationName
+
+var ProcessInfoThermalStateDidChangeNotification NSNotificationName
+
+var ProgressEstimatedTimeRemainingKey NSProgressUserInfoKey
+
+var ProgressFileAnimationImageKey NSProgressUserInfoKey
+
+var ProgressFileAnimationImageOriginalRectKey NSProgressUserInfoKey
+
+var ProgressFileCompletedCountKey NSProgressUserInfoKey
+
+var ProgressFileIconKey NSProgressUserInfoKey
+
+var progressFileOperationKindCopying NSProgressFileOperationKind
+
+var progressFileOperationKindDecompressingAfterDownloading NSProgressFileOperationKind
+
+var progressFileOperationKindDownloading NSProgressFileOperationKind
+
+var progressFileOperationKindDuplicating NSProgressFileOperationKind
+
+var ProgressFileOperationKindKey NSProgressUserInfoKey
+
+var progressFileOperationKindReceiving NSProgressFileOperationKind
+
+var progressFileOperationKindUploading NSProgressFileOperationKind
+
+var ProgressFileTotalCountKey NSProgressUserInfoKey
+
+var ProgressFileURLKey NSProgressUserInfoKey
+
+var ProgressKindFile NSProgressKind
+
+var ProgressThroughputKey NSProgressUserInfoKey
+
+var RTFDTextDocumentType NSAttributedString
+
+var RTFPropertyStackOverflowException NSExceptionName
+
+var RTFTextDocumentType NSAttributedString
+
+var RangeException NSExceptionName
+
+var ReadAccessURLDocumentOption NSAttributedString
+
+var ReadOnlyDocumentAttribute NSAttributedString
+
+var RecoveryAttempterErrorKey NSErrorUserInfoKey
+
+var RegistrationDomain string
+
+var ReplacementIndexAttributeName NSAttributedStringKey
+
+var RightMarginDocumentAttribute NSAttributedString
+
+var RunLoopCommonModes NSRunLoopMode
+
+var SecureUnarchiveFromDataTransformerName NSValueTransformerName
+
+var ShadowAttributeName NSAttributedString
+
+var SourceTextScalingDocumentAttribute NSAttributedString
+
+var SourceTextScalingDocumentOption NSAttributedString
+
+var SpellCheckerDidChangeAutomaticInlinePredictionNotification NSNotification
+
+var SpellingStateAttributeName NSAttributedString
+
+var StreamDataWrittenToMemoryStreamKey NSStreamPropertyKey
+
+var StreamFileCurrentOffsetKey NSStreamPropertyKey
+
+var StreamNetworkServiceType NSStreamPropertyKey
+
+var StreamNetworkServiceTypeBackground NSStreamNetworkServiceTypeValue
+
+var StreamNetworkServiceTypeCallSignaling NSStreamNetworkServiceTypeValue
+
+var StreamNetworkServiceTypeVideo NSStreamNetworkServiceTypeValue
+
+var StreamNetworkServiceTypeVoice NSStreamNetworkServiceTypeValue
+
+var StreamSOCKSErrorDomain NSErrorDomain
+
+var StreamSOCKSProxyConfigurationKey NSStreamPropertyKey
+
+var StreamSOCKSProxyHostKey NSStreamSOCKSProxyConfiguration
+
+var StreamSOCKSProxyPasswordKey NSStreamSOCKSProxyConfiguration
+
+var StreamSOCKSProxyPortKey NSStreamSOCKSProxyConfiguration
+
+var StreamSOCKSProxyUserKey NSStreamSOCKSProxyConfiguration
+
+var StreamSOCKSProxyVersion4 NSStreamSOCKSProxyVersion
+
+var StreamSOCKSProxyVersion5 NSStreamSOCKSProxyVersion
+
+var StreamSOCKSProxyVersionKey NSStreamSOCKSProxyConfiguration
+
+var StreamSocketSSLErrorDomain NSErrorDomain
+
+var StreamSocketSecurityLevelKey NSStreamPropertyKey
+
+var streamSocketSecurityLevelNegotiatedSSL NSStreamSocketSecurityLevel
+
+var streamSocketSecurityLevelNone NSStreamSocketSecurityLevel
+
+var streamSocketSecurityLevelSSLv2 NSStreamSocketSecurityLevel
+
+var streamSocketSecurityLevelSSLv3 NSStreamSocketSecurityLevel
+
+var streamSocketSecurityLevelTLSv1 NSStreamSocketSecurityLevel
+
+var StrikethroughColorAttributeName NSAttributedString
+
+var StrikethroughStyleAttributeName NSAttributedString
+
+var StringEncodingDetectionAllowLossyKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingDetectionDisallowedEncodingsKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingDetectionFromWindowsKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingDetectionLikelyLanguageKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingDetectionLossySubstitutionKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingDetectionSuggestedEncodingsKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingDetectionUseOnlySuggestedEncodingsKey NSStringEncodingDetectionOptionsKey
+
+var StringEncodingErrorKey NSErrorUserInfoKey
+
+var stringTransformFullwidthToHalfwidth NSStringTransform
+
+var stringTransformHiraganaToKatakana NSStringTransform
+
+var stringTransformLatinToArabic NSStringTransform
+
+var stringTransformLatinToCyrillic NSStringTransform
+
+var stringTransformLatinToGreek NSStringTransform
+
+var stringTransformLatinToHangul NSStringTransform
+
+var stringTransformLatinToHebrew NSStringTransform
+
+var stringTransformLatinToHiragana NSStringTransform
+
+var stringTransformLatinToKatakana NSStringTransform
+
+var stringTransformLatinToThai NSStringTransform
+
+var stringTransformMandarinToLatin NSStringTransform
+
+var stringTransformStripCombiningMarks NSStringTransform
+
+var stringTransformStripDiacritics NSStringTransform
+
+var stringTransformToLatin NSStringTransform
+
+var stringTransformToUnicodeName NSStringTransform
+
+var stringTransformToXMLHex NSStringTransform
+
+var StrokeColorAttributeName NSAttributedString
+
+var StrokeWidthAttributeName NSAttributedString
+
+var SubjectDocumentAttribute NSAttributedString
+
+var SumKeyValueOperator NSKeyValueOperator
+
+var SuperscriptAttributeName NSAttributedString
+
+var SystemClockDidChangeNotification NSNotificationName
+
+var SystemTimeZoneDidChangeNotification NSNotificationName
+
+var TIFFException NSExceptionName
+
+var TargetTextScalingDocumentOption NSAttributedString
+
+var TaskDidTerminateNotification NSNotificationName
+
+var TextAlternativesAttributeName NSAttributedString
+
+var TextCheckingAirlineKey NSTextCheckingKey
+
+var TextCheckingCityKey NSTextCheckingKey
+
+var TextCheckingCountryKey NSTextCheckingKey
+
+var TextCheckingFlightKey NSTextCheckingKey
+
+var TextCheckingJobTitleKey NSTextCheckingKey
+
+var TextCheckingNameKey NSTextCheckingKey
+
+var TextCheckingOrganizationKey NSTextCheckingKey
+
+var TextCheckingPhoneKey NSTextCheckingKey
+
+var TextCheckingStateKey NSTextCheckingKey
+
+var TextCheckingStreetKey NSTextCheckingKey
+
+var TextCheckingZIPKey NSTextCheckingKey
+
+var TextContentStorageUnsupportedAttributeAddedNotification NSNotification
+
+var TextEffectAttributeName NSAttributedString
+
+var TextEffectLetterpressStyle NSAttributedString
+
+var TextEncodingNameDocumentAttribute NSAttributedString
+
+var TextEncodingNameDocumentOption NSAttributedString
+
+var TextHighlightColorSchemeAttributeName NSAttributedString
+
+var TextHighlightColorSchemeBlue NSAttributedString
+
+var TextHighlightColorSchemeDefault NSAttributedString
+
+var TextHighlightColorSchemeMint NSAttributedString
+
+var TextHighlightColorSchemeOrange NSAttributedString
+
+var TextHighlightColorSchemePink NSAttributedString
+
+var TextHighlightColorSchemePurple NSAttributedString
+
+var TextHighlightStyleAttributeName NSAttributedString
+
+var TextHighlightStyleDefault NSAttributedString
+
+var TextKit1ListMarkerFormatDocumentOption NSAttributedString
+
+var TextLayoutSectionOrientation NSAttributedString
+
+var TextLayoutSectionRange NSAttributedString
+
+var TextLayoutSectionsAttribute NSAttributedString
+
+var TextLineTooLongException NSExceptionName
+
+var TextNoSelectionException NSExceptionName
+
+var TextReadException NSExceptionName
+
+var TextScalingDocumentAttribute NSAttributedString
+
+var TextSizeMultiplierDocumentOption NSAttributedString
+
+var TextWriteException NSExceptionName
+
+//
+// Deprecated: Deprecated since macOS 26.0. This notification does not protect against data races
+var ThreadWillExitNotification NSNotificationName
+
+var TimeoutDocumentOption NSAttributedString
+
+var TitleDocumentAttribute NSAttributedString
+
+var ToolTipAttributeName NSAttributedString
+
+var TopMarginDocumentAttribute NSAttributedString
+
+var TrackingAttributeName NSAttributedString
+
+var TypedStreamVersionException NSExceptionName
+
+var URLAddedToDirectoryDateKey NSURLResourceKey
+
+var URLApplicationIsScriptableKey NSURLResourceKey
+
+var URLAttributeModificationDateKey NSURLResourceKey
+
+var URLAuthenticationMethodClientCertificate string
+
+var URLAuthenticationMethodDefault string
+
+var URLAuthenticationMethodHTMLForm string
+
+var URLAuthenticationMethodHTTPBasic string
+
+var URLAuthenticationMethodHTTPDigest string
+
+var URLAuthenticationMethodNTLM string
+
+var URLAuthenticationMethodNegotiate string
+
+var URLAuthenticationMethodServerTrust string
+
+var URLCanonicalPathKey NSURLResourceKey
+
+var URLContentAccessDateKey NSURLResourceKey
+
+var URLContentModificationDateKey NSURLResourceKey
+
+var URLContentTypeKey NSURLResourceKey
+
+var URLCreationDateKey NSURLResourceKey
+
+var URLCredentialStorageRemoveSynchronizableCredentials string
+
+var URLCustomIconKey NSURLResourceKey
+
+var URLDirectoryEntryCountKey NSURLResourceKey
+
+var URLDocumentIdentifierKey NSURLResourceKey
+
+var URLEffectiveIconKey NSURLResourceKey
+
+var URLErrorBackgroundTaskCancelledReasonKey string
+
+var URLErrorDomain NSErrorDomain
+
+var URLErrorFailingURLErrorKey string
+
+var URLErrorFailingURLPeerTrustErrorKey string
+
+//
+// Deprecated: Deprecated since macOS 15.4. Use NSURLErrorFailingURLErrorKey instead
+var URLErrorFailingURLStringErrorKey string
+
+var URLErrorKey NSErrorUserInfoKey
+
+var URLErrorNetworkUnavailableReasonKey NSErrorUserInfoKey
+
+var URLFileAllocatedSizeKey NSURLResourceKey
+
+var URLFileContentIdentifierKey NSURLResourceKey
+
+var URLFileIdentifierKey NSURLResourceKey
+
+var URLFileProtectionComplete NSURLFileProtectionType
+
+var URLFileProtectionCompleteUnlessOpen NSURLFileProtectionType
+
+var URLFileProtectionCompleteUntilFirstUserAuthentication NSURLFileProtectionType
+
+var URLFileProtectionKey NSURLResourceKey
+
+var URLFileProtectionNone NSURLFileProtectionType
+
+var URLFileResourceIdentifierKey NSURLResourceKey
+
+var uRLFileResourceTypeBlockSpecial NSURLFileResourceType
+
+var uRLFileResourceTypeCharacterSpecial NSURLFileResourceType
+
+var uRLFileResourceTypeDirectory NSURLFileResourceType
+
+var URLFileResourceTypeKey NSURLResourceKey
+
+var uRLFileResourceTypeNamedPipe NSURLFileResourceType
+
+var uRLFileResourceTypeRegular NSURLFileResourceType
+
+var uRLFileResourceTypeSocket NSURLFileResourceType
+
+var uRLFileResourceTypeSymbolicLink NSURLFileResourceType
+
+var uRLFileResourceTypeUnknown NSURLFileResourceType
+
+var URLFileScheme string
+
+var URLFileSecurityKey NSURLResourceKey
+
+var URLFileSizeKey NSURLResourceKey
+
+var URLGenerationIdentifierKey NSURLResourceKey
+
+var URLHasHiddenExtensionKey NSURLResourceKey
+
+var URLIsAliasFileKey NSURLResourceKey
+
+var URLIsApplicationKey NSURLResourceKey
+
+var URLIsDirectoryKey NSURLResourceKey
+
+var URLIsExcludedFromBackupKey NSURLResourceKey
+
+var URLIsExecutableKey NSURLResourceKey
+
+var URLIsHiddenKey NSURLResourceKey
+
+var URLIsMountTriggerKey NSURLResourceKey
+
+var URLIsPackageKey NSURLResourceKey
+
+var URLIsPurgeableKey NSURLResourceKey
+
+var URLIsReadableKey NSURLResourceKey
+
+var URLIsRegularFileKey NSURLResourceKey
+
+var URLIsSparseKey NSURLResourceKey
+
+var URLIsSymbolicLinkKey NSURLResourceKey
+
+var URLIsSystemImmutableKey NSURLResourceKey
+
+var URLIsUbiquitousItemKey NSURLResourceKey
+
+var URLIsUserImmutableKey NSURLResourceKey
+
+var URLIsVolumeKey NSURLResourceKey
+
+var URLIsWritableKey NSURLResourceKey
+
+var URLKeysOfUnsetValuesKey NSURLResourceKey
+
+var URLLabelColorKey NSURLResourceKey
+
+var URLLabelNumberKey NSURLResourceKey
+
+var URLLinkCountKey NSURLResourceKey
+
+var URLLocalizedLabelKey NSURLResourceKey
+
+var URLLocalizedNameKey NSURLResourceKey
+
+var URLLocalizedTypeDescriptionKey NSURLResourceKey
+
+var URLMayHaveExtendedAttributesKey NSURLResourceKey
+
+var URLMayShareFileContentKey NSURLResourceKey
+
+var URLNameKey NSURLResourceKey
+
+var URLParentDirectoryURLKey NSURLResourceKey
+
+var URLPathKey NSURLResourceKey
+
+var URLPreferredIOBlockSizeKey NSURLResourceKey
+
+//
+// Deprecated: Deprecated since macOS 15.4. FTP is deprecated and only supported in the classic loading mode
+var URLProtectionSpaceFTP string
+
+//
+// Deprecated: Deprecated since macOS 15.4. FTP is deprecated and only supported in the classic loading mode
+var URLProtectionSpaceFTPProxy string
+
+var URLProtectionSpaceHTTP string
+
+var URLProtectionSpaceHTTPProxy string
+
+var URLProtectionSpaceHTTPS string
+
+var URLProtectionSpaceHTTPSProxy string
+
+var URLProtectionSpaceSOCKSProxy string
+
+var URLQuarantinePropertiesKey NSURLResourceKey
+
+var URLSessionDownloadTaskResumeData string
+
+var URLSessionTaskPriorityDefault float32
+
+var URLSessionTaskPriorityHigh float32
+
+var URLSessionTaskPriorityLow float32
+
+var URLSessionTransferSizeUnknown int64
+
+var URLSessionUploadTaskResumeData string
+
+var URLTagNamesKey NSURLResourceKey
+
+var URLTotalFileAllocatedSizeKey NSURLResourceKey
+
+var URLTotalFileSizeKey NSURLResourceKey
+
+//
+// Deprecated: Deprecated since macOS 26.4. Use NSURLContentTypeKey instead
+var URLTypeIdentifierKey NSURLResourceKey
+
+var URLUbiquitousItemContainerDisplayNameKey NSURLResourceKey
+
+var URLUbiquitousItemDownloadRequestedKey NSURLResourceKey
+
+var URLUbiquitousItemDownloadingErrorKey NSURLResourceKey
+
+var uRLUbiquitousItemDownloadingStatusCurrent NSURLUbiquitousItemDownloadingStatus
+
+var uRLUbiquitousItemDownloadingStatusDownloaded NSURLUbiquitousItemDownloadingStatus
+
+var URLUbiquitousItemDownloadingStatusKey NSURLResourceKey
+
+var uRLUbiquitousItemDownloadingStatusNotDownloaded NSURLUbiquitousItemDownloadingStatus
+
+var URLUbiquitousItemHasUnresolvedConflictsKey NSURLResourceKey
+
+var URLUbiquitousItemIsDownloadingKey NSURLResourceKey
+
+var URLUbiquitousItemIsExcludedFromSyncKey NSURLResourceKey
+
+var URLUbiquitousItemIsSharedKey NSURLResourceKey
+
+var URLUbiquitousItemIsSyncPausedKey NSURLResourceKey
+
+var URLUbiquitousItemIsUploadedKey NSURLResourceKey
+
+var URLUbiquitousItemIsUploadingKey NSURLResourceKey
+
+var URLUbiquitousItemSupportedSyncControlsKey NSURLResourceKey
+
+var URLUbiquitousItemUploadingErrorKey NSURLResourceKey
+
+var URLUbiquitousSharedItemCurrentUserPermissionsKey NSURLResourceKey
+
+var URLUbiquitousSharedItemCurrentUserRoleKey NSURLResourceKey
+
+var URLUbiquitousSharedItemMostRecentEditorNameComponentsKey NSURLResourceKey
+
+var URLUbiquitousSharedItemOwnerNameComponentsKey NSURLResourceKey
+
+var uRLUbiquitousSharedItemPermissionsReadOnly NSURLUbiquitousSharedItemPermissions
+
+var uRLUbiquitousSharedItemPermissionsReadWrite NSURLUbiquitousSharedItemPermissions
+
+var uRLUbiquitousSharedItemRoleOwner NSURLUbiquitousSharedItemRole
+
+var uRLUbiquitousSharedItemRoleParticipant NSURLUbiquitousSharedItemRole
+
+var URLVolumeAvailableCapacityForImportantUsageKey NSURLResourceKey
+
+var URLVolumeAvailableCapacityForOpportunisticUsageKey NSURLResourceKey
+
+var URLVolumeAvailableCapacityKey NSURLResourceKey
+
+var URLVolumeCreationDateKey NSURLResourceKey
+
+var URLVolumeIdentifierKey NSURLResourceKey
+
+var URLVolumeIsAutomountedKey NSURLResourceKey
+
+var URLVolumeIsBrowsableKey NSURLResourceKey
+
+var URLVolumeIsEjectableKey NSURLResourceKey
+
+var URLVolumeIsEncryptedKey NSURLResourceKey
+
+var URLVolumeIsInternalKey NSURLResourceKey
+
+var URLVolumeIsJournalingKey NSURLResourceKey
+
+var URLVolumeIsLocalKey NSURLResourceKey
+
+var URLVolumeIsReadOnlyKey NSURLResourceKey
+
+var URLVolumeIsRemovableKey NSURLResourceKey
+
+var URLVolumeIsRootFileSystemKey NSURLResourceKey
+
+var URLVolumeLocalizedFormatDescriptionKey NSURLResourceKey
+
+var URLVolumeLocalizedNameKey NSURLResourceKey
+
+var URLVolumeMaximumFileSizeKey NSURLResourceKey
+
+var URLVolumeMountFromLocationKey NSURLResourceKey
+
+var URLVolumeNameKey NSURLResourceKey
+
+var URLVolumeResourceCountKey NSURLResourceKey
+
+var URLVolumeSubtypeKey NSURLResourceKey
+
+var URLVolumeSupportsAccessPermissionsKey NSURLResourceKey
+
+var URLVolumeSupportsAdvisoryFileLockingKey NSURLResourceKey
+
+var URLVolumeSupportsCasePreservedNamesKey NSURLResourceKey
+
+var URLVolumeSupportsCaseSensitiveNamesKey NSURLResourceKey
+
+var URLVolumeSupportsCompressionKey NSURLResourceKey
+
+var URLVolumeSupportsExclusiveRenamingKey NSURLResourceKey
+
+var URLVolumeSupportsExtendedSecurityKey NSURLResourceKey
+
+var URLVolumeSupportsFileCloningKey NSURLResourceKey
+
+var URLVolumeSupportsFileProtectionKey NSURLResourceKey
+
+var URLVolumeSupportsHardLinksKey NSURLResourceKey
+
+var URLVolumeSupportsImmutableFilesKey NSURLResourceKey
+
+var URLVolumeSupportsJournalingKey NSURLResourceKey
+
+var URLVolumeSupportsPersistentIDsKey NSURLResourceKey
+
+var URLVolumeSupportsRenamingKey NSURLResourceKey
+
+var URLVolumeSupportsRootDirectoryDatesKey NSURLResourceKey
+
+var URLVolumeSupportsSparseFilesKey NSURLResourceKey
+
+var URLVolumeSupportsSwapRenamingKey NSURLResourceKey
+
+var URLVolumeSupportsSymbolicLinksKey NSURLResourceKey
+
+var URLVolumeSupportsVolumeSizesKey NSURLResourceKey
+
+var URLVolumeSupportsZeroRunsKey NSURLResourceKey
+
+var URLVolumeTotalCapacityKey NSURLResourceKey
+
+var URLVolumeTypeNameKey NSURLResourceKey
+
+var URLVolumeURLForRemountingKey NSURLResourceKey
+
+var URLVolumeURLKey NSURLResourceKey
+
+var URLVolumeUUIDStringKey NSURLResourceKey
+
+var UbiquitousKeyValueStoreChangeReasonKey string
+
+var UbiquitousKeyValueStoreChangedKeysKey string
+
+var UbiquitousKeyValueStoreDidChangeExternallyNotification NSNotificationName
+
+var UbiquityIdentityDidChangeNotification NSNotificationName
+
+var UndefinedKeyException NSExceptionName
+
+var UnderlineColorAttributeName NSAttributedString
+
+var UnderlineStyleAttributeName NSAttributedString
+
+var UnderlyingErrorKey NSErrorUserInfoKey
+
+
+var UndoManagerCheckpointNotification NSNotificationName
+
+var UndoManagerDidCloseUndoGroupNotification NSNotificationName
+
+var UndoManagerDidOpenUndoGroupNotification NSNotificationName
+
+var UndoManagerDidRedoChangeNotification NSNotificationName
+
+var UndoManagerDidUndoChangeNotification NSNotificationName
+
+var UndoManagerGroupIsDiscardableKey string
+
+var UndoManagerWillCloseUndoGroupNotification NSNotificationName
+
+var UndoManagerWillRedoChangeNotification NSNotificationName
+
+var UndoManagerWillUndoChangeNotification NSNotificationName
+
+var UnionOfArraysKeyValueOperator NSKeyValueOperator
+
+var UnionOfObjectsKeyValueOperator NSKeyValueOperator
+
+var UnionOfSetsKeyValueOperator NSKeyValueOperator
+
+var UserActivityTypeBrowsingWeb string
+
+var UserDefaultsDidChangeNotification NSNotificationName
+
+var NSUserDefaultsSizeLimitExceededNotification NSNotification
+
+//
+// Deprecated: Deprecated since macOS 26.4. This attribute is not supported with TextKit 2
+var VerticalGlyphFormAttributeName NSAttributedString
+
+var ViewModeDocumentAttribute NSAttributedString
+
+var ViewSizeDocumentAttribute NSAttributedString
+
+var ViewZoomDocumentAttribute NSAttributedString
+
+var WebArchiveTextDocumentType NSAttributedString
+
+var WebPreferencesDocumentOption NSAttributedString
+
+var WebResourceLoadDelegateDocumentOption NSAttributedString
+
+//
+// Deprecated: Deprecated since macOS 26.0. This notification does not protect against data races
+var WillBecomeMultiThreadedNotification NSNotificationName
+
+var WindowServerCommunicationException NSExceptionName
+
+var WordMLTextDocumentType NSAttributedString
+
+var WordTablesReadException NSExceptionName
+
+var WordTablesWriteException NSExceptionName
+
+var WritingDirectionAttributeName NSAttributedString
+
+var WritingToolsExclusionAttributeName NSAttributedString
+
+var XMLParserErrorDomain NSErrorDomain
+
+var ZombieEnabled bool
+
+var PDFDocumentDidBeginFindNotification NSNotification
+
+var PDFDocumentDidBeginPageFindNotification NSNotification
+
+var PDFDocumentDidBeginPageWriteNotification NSNotification
+
+var PDFDocumentDidBeginWriteNotification NSNotification
+
+var PDFDocumentDidEndFindNotification NSNotification
+
+var PDFDocumentDidEndPageFindNotification NSNotification
+
+var PDFDocumentDidEndPageWriteNotification NSNotification
+
+var PDFDocumentDidEndWriteNotification NSNotification
+
+var PDFDocumentDidFindMatchNotification NSNotification
+
+var PDFDocumentDidUnlockNotification NSNotification
+
+var PDFThumbnailViewDocumentEditedNotification NSNotification
+
+var PDFViewAnnotationHitNotification NSNotification
+
+var PDFViewAnnotationWillHitNotification NSNotification
+
+var PDFViewChangedHistoryNotification NSNotification
+
+var PDFViewCopyPermissionNotification NSNotification
+
+var PDFViewDisplayBoxChangedNotification NSNotification
+
+var PDFViewDisplayModeChangedNotification NSNotification
+
+var PDFViewDocumentChangedNotification NSNotification
+
+var PDFViewPageChangedNotification NSNotification
+
+var PDFViewPrintPermissionNotification NSNotification
+
+var PDFViewScaleChangedNotification NSNotification
+
+var PDFViewSelectionChangedNotification NSNotification
+
+var PDFViewVisiblePagesChangedNotification NSNotification
+
+//
+// Deprecated: Deprecated since macOS 15.0. Use MusicSubscription.subscriptionUpdates from MusicKit.
+var SKCloudServiceCapabilitiesDidChangeNotification NSNotification
+
+//
+// Deprecated: Deprecated since macOS 15.0. Use Storefront.updates.
+var SKStorefrontCountryCodeDidChangeNotification NSNotification
+
+//
+// Deprecated: Deprecated since macOS 15.0. Use Storefront.updates.
+var SKStorefrontIdentifierDidChangeNotification NSNotification
+
+var KABDatabaseChangedExternallyNotification NSNotification
+
+var KABDatabaseChangedNotification NSNotification
+
+var KQuartzFilterManagerDidAddFilterNotification NSNotification
+
+var KQuartzFilterManagerDidModifyFilterNotification NSNotification
+
+var KQuartzFilterManagerDidRemoveFilterNotification NSNotification
+
+var KQuartzFilterManagerDidSelectFilterNotification NSNotification
+
+func init() {
+	if frameworkHandle == 0 {
+		return
+	}
+
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "ABPeoplePickerDisplayedPropertyDidChangeNotification"); err == nil && ptr != 0 {
+		ABPeoplePickerDisplayedPropertyDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "ABPeoplePickerGroupSelectionDidChangeNotification"); err == nil && ptr != 0 {
+		ABPeoplePickerGroupSelectionDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "ABPeoplePickerNameSelectionDidChangeNotification"); err == nil && ptr != 0 {
+		ABPeoplePickerNameSelectionDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "ABPeoplePickerValueSelectionDidChangeNotification"); err == nil && ptr != 0 {
+		ABPeoplePickerValueSelectionDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetChapterMetadataGroupsDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetChapterMetadataGroupsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetContainsFragmentsDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetContainsFragmentsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetDurationDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetDurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetMediaSelectionGroupsDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetMediaSelectionGroupsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetTrackSegmentsDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetTrackSegmentsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetTrackTimeRangeDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetTrackTimeRangeDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetTrackTrackAssociationsDidChangeNotification"); err == nil && ptr != 0 {
+		AVAssetTrackTrackAssociationsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAssetWasDefragmentedNotification"); err == nil && ptr != 0 {
+		AVAssetWasDefragmentedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioEngineConfigurationChangeNotification"); err == nil && ptr != 0 {
+		AVAudioEngineConfigurationChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioUnitComponentTagsDidChangeNotification"); err == nil && ptr != 0 {
+		AVAudioUnitComponentTagsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVFragmentedMovieContainsMovieFragmentsDidChangeNotification"); err == nil && ptr != 0 {
+		AVFragmentedMovieContainsMovieFragmentsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVFragmentedMovieDurationDidChangeNotification"); err == nil && ptr != 0 {
+		AVFragmentedMovieDurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVFragmentedMovieTrackSegmentsDidChangeNotification"); err == nil && ptr != 0 {
+		AVFragmentedMovieTrackSegmentsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVFragmentedMovieTrackTimeRangeDidChangeNotification"); err == nil && ptr != 0 {
+		AVFragmentedMovieTrackTimeRangeDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVFragmentedMovieWasDefragmentedNotification"); err == nil && ptr != 0 {
+		AVFragmentedMovieWasDefragmentedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification"); err == nil && ptr != 0 {
+		AVPlayerInterstitialEventMonitorScheduleRequestCompletedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVRouteDetectorMultipleRoutesDetectedDidChangeNotification"); err == nil && ptr != 0 {
+		AVRouteDetectorMultipleRoutesDetectedDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVSampleBufferAudioRendererOutputConfigurationDidChangeNotification"); err == nil && ptr != 0 {
+		AVSampleBufferAudioRendererOutputConfigurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVSampleBufferAudioRendererWasFlushedAutomaticallyNotification"); err == nil && ptr != 0 {
+		AVSampleBufferAudioRendererWasFlushedAutomaticallyNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVSampleBufferDisplayLayerFailedToDecodeNotification"); err == nil && ptr != 0 {
+		AVSampleBufferDisplayLayerFailedToDecodeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVSampleBufferDisplayLayerOutputObscuredDueToInsufficientExternalProtectionDidChangeNotification"); err == nil && ptr != 0 {
+		AVSampleBufferDisplayLayerOutputObscuredDueToInsufficientExternalProtectionDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVSampleBufferDisplayLayerReadyForDisplayDidChangeNotification"); err == nil && ptr != 0 {
+		AVSampleBufferDisplayLayerReadyForDisplayDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "AVSampleBufferDisplayLayerRequiresFlushToResumeDecodingDidChangeNotification"); err == nil && ptr != 0 {
+		AVSampleBufferDisplayLayerRequiresFlushToResumeDecodingDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "CKAccountChangedNotification"); err == nil && ptr != 0 {
+		CKAccountChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "CNContactStoreDidChangeNotification"); err == nil && ptr != 0 {
+		CNContactStoreDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "CSSuggestionHighlightAttributeName"); err == nil && ptr != 0 {
+		CSSuggestionHighlightAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRBurnProgressPanelDidFinishNotification"); err == nil && ptr != 0 {
+		DRBurnProgressPanelDidFinishNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRBurnProgressPanelWillBeginNotification"); err == nil && ptr != 0 {
+		DRBurnProgressPanelWillBeginNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRBurnStatusChangedNotification"); err == nil && ptr != 0 {
+		DRBurnStatusChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRDeviceAppearedNotification"); err == nil && ptr != 0 {
+		DRDeviceAppearedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRDeviceDisappearedNotification"); err == nil && ptr != 0 {
+		DRDeviceDisappearedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRDeviceStatusChangedNotification"); err == nil && ptr != 0 {
+		DRDeviceStatusChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DREraseProgressPanelDidFinishNotification"); err == nil && ptr != 0 {
+		DREraseProgressPanelDidFinishNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DREraseProgressPanelWillBeginNotification"); err == nil && ptr != 0 {
+		DREraseProgressPanelWillBeginNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DREraseStatusChangedNotification"); err == nil && ptr != 0 {
+		DREraseStatusChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "DRSetupPanelDeviceSelectionChangedNotification"); err == nil && ptr != 0 {
+		DRSetupPanelDeviceSelectionChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "EAAccessoryDidConnectNotification"); err == nil && ptr != 0 {
+		EAAccessoryDidConnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "EAAccessoryDidDisconnectNotification"); err == nil && ptr != 0 {
+		EAAccessoryDidDisconnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "EKEventStoreChangedNotification"); err == nil && ptr != 0 {
+		EKEventStoreChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCControllerDidBecomeCurrentNotification"); err == nil && ptr != 0 {
+		GCControllerDidBecomeCurrentNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCControllerDidConnectNotification"); err == nil && ptr != 0 {
+		GCControllerDidConnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCControllerDidDisconnectNotification"); err == nil && ptr != 0 {
+		GCControllerDidDisconnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCControllerDidStopBeingCurrentNotification"); err == nil && ptr != 0 {
+		GCControllerDidStopBeingCurrentNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCControllerUserCustomizationsDidChangeNotification"); err == nil && ptr != 0 {
+		GCControllerUserCustomizationsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyboardDidConnectNotification"); err == nil && ptr != 0 {
+		GCKeyboardDidConnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyboardDidDisconnectNotification"); err == nil && ptr != 0 {
+		GCKeyboardDidDisconnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCMouseDidBecomeCurrentNotification"); err == nil && ptr != 0 {
+		GCMouseDidBecomeCurrentNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCMouseDidConnectNotification"); err == nil && ptr != 0 {
+		GCMouseDidConnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCMouseDidDisconnectNotification"); err == nil && ptr != 0 {
+		GCMouseDidDisconnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCMouseDidStopBeingCurrentNotification"); err == nil && ptr != 0 {
+		GCMouseDidStopBeingCurrentNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCRacingWheelDidConnectNotification"); err == nil && ptr != 0 {
+		GCRacingWheelDidConnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GCRacingWheelDidDisconnectNotification"); err == nil && ptr != 0 {
+		GCRacingWheelDidDisconnectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GKPlayerAuthenticationDidChangeNotificationName"); err == nil && ptr != 0 {
+		GKPlayerAuthenticationDidChangeNotificationName = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "GKPlayerDidChangeNotificationName"); err == nil && ptr != 0 {
+		GKPlayerDidChangeNotificationName = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "HKUserPreferencesDidChangeNotification"); err == nil && ptr != 0 {
+		HKUserPreferencesDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IKFilterBrowserFilterDoubleClickNotification"); err == nil && ptr != 0 {
+		IKFilterBrowserFilterDoubleClickNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IKFilterBrowserFilterSelectedNotification"); err == nil && ptr != 0 {
+		IKFilterBrowserFilterSelectedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IKFilterBrowserWillPreviewFilterNotification"); err == nil && ptr != 0 {
+		IKFilterBrowserWillPreviewFilterNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IOBluetoothHostControllerPoweredOffNotification"); err == nil && ptr != 0 {
+		IOBluetoothHostControllerPoweredOffNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IOBluetoothHostControllerPoweredOnNotification"); err == nil && ptr != 0 {
+		IOBluetoothHostControllerPoweredOnNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IOBluetoothL2CAPChannelPublishedNotification"); err == nil && ptr != 0 {
+		IOBluetoothL2CAPChannelPublishedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "IOBluetoothL2CAPChannelTerminatedNotification"); err == nil && ptr != 0 {
+		IOBluetoothL2CAPChannelTerminatedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "ITLibraryDidChangeNotification"); err == nil && ptr != 0 {
+		ITLibraryDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "MEVideoDecoderReadyForMoreMediaDataDidChangeNotification"); err == nil && ptr != 0 {
+		MEVideoDecoderReadyForMoreMediaDataDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NEDNSProxyConfigurationDidChangeNotification"); err == nil && ptr != 0 {
+		NEDNSProxyConfigurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NEDNSSettingsConfigurationDidChangeNotification"); err == nil && ptr != 0 {
+		NEDNSSettingsConfigurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NEFilterConfigurationDidChangeNotification"); err == nil && ptr != 0 {
+		NEFilterConfigurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NERelayConfigurationDidChangeNotification"); err == nil && ptr != 0 {
+		NERelayConfigurationDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NEVPNConfigurationChangeNotification"); err == nil && ptr != 0 {
+		NEVPNConfigurationChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NEVPNStatusDidChangeNotification"); err == nil && ptr != 0 {
+		NEVPNStatusDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAbortModalException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AbortModalException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAbortPrintingException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AbortPrintingException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnotationTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityAnnotationTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAutocorrectedTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityAutocorrectedTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBackgroundColorTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityBackgroundColorTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCustomTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityCustomTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontBoldAttribute"); err == nil && ptr != 0 {
+		AccessibilityFontBoldAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontItalicAttribute"); err == nil && ptr != 0 {
+		AccessibilityFontItalicAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityFontTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityForegroundColorTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityForegroundColorTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLanguageTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityLanguageTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLinkTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityLinkTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListItemIndexTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityListItemIndexTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListItemLevelTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityListItemLevelTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListItemPrefixTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityListItemPrefixTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMarkedMisspelledTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityMarkedMisspelledTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMisspelledTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityMisspelledTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityShadowTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityShadowTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStrikethroughColorTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityStrikethroughColorTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStrikethroughTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityStrikethroughTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySuperscriptTextAttribute"); err == nil && ptr != 0 {
+		AccessibilitySuperscriptTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextAlignmentAttribute"); err == nil && ptr != 0 {
+		AccessibilityTextAlignmentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnderlineColorTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityUnderlineColorTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnderlineTextAttribute"); err == nil && ptr != 0 {
+		AccessibilityUnderlineTextAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAdaptiveImageGlyphAttributeName"); err == nil && ptr != 0 {
+		AdaptiveImageGlyphAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAlternateDescriptionAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AlternateDescriptionAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitIgnoredException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppKitIgnoredException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVirtualMemoryException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppKitVirtualMemoryException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceDocumentAttribute"); err == nil && ptr != 0 {
+		AppearanceDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleEventManagerWillProcessFirstEventNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleEventManagerWillProcessFirstEventNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleEventTimeOutDefault"); err == nil && ptr != 0 {
+		AppleEventTimeOutDefault = *(*float64)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleEventTimeOutNone"); err == nil && ptr != 0 {
+		AppleEventTimeOutNone = *(*float64)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorAppName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorAppName = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorBriefMessage"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorBriefMessage = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorMessage"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorMessage = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorNumber"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorNumber = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorRange"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AppleScriptErrorRange = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationProtectedDataDidBecomeAvailableNotification"); err == nil && ptr != 0 {
+		ApplicationProtectedDataDidBecomeAvailableNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationProtectedDataWillBecomeUnavailableNotification"); err == nil && ptr != 0 {
+		ApplicationProtectedDataWillBecomeUnavailableNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationShouldBeginSuppressingHighDynamicRangeContentNotification"); err == nil && ptr != 0 {
+		ApplicationShouldBeginSuppressingHighDynamicRangeContentNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationShouldEndSuppressingHighDynamicRangeContentNotification"); err == nil && ptr != 0 {
+		ApplicationShouldEndSuppressingHighDynamicRangeContentNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSArgumentDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ArgumentDomain = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAssertionHandlerKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AssertionHandlerKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAttachmentAttributeName"); err == nil && ptr != 0 {
+		AttachmentAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAuthorDocumentAttribute"); err == nil && ptr != 0 {
+		AuthorDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAverageKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				AverageKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBackgroundColorAttributeName"); err == nil && ptr != 0 {
+		BackgroundColorAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBackgroundColorDocumentAttribute"); err == nil && ptr != 0 {
+		BackgroundColorDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadBitmapParametersException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BadBitmapParametersException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadComparisonException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BadComparisonException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFColorTableException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BadRTFColorTableException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFDirectiveException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BadRTFDirectiveException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFFontTableException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BadRTFFontTableException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFStyleSheetException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BadRTFStyleSheetException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBaseURLDocumentOption"); err == nil && ptr != 0 {
+		BaseURLDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBaselineOffsetAttributeName"); err == nil && ptr != 0 {
+		BaselineOffsetAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBottomMarginDocumentAttribute"); err == nil && ptr != 0 {
+		BottomMarginDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBrowserIllegalDelegateException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BrowserIllegalDelegateException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSBundleDidLoadNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				BundleDidLoadNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarDayChangedNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CalendarDayChangedNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierBangla"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierBangla = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierBuddhist"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierBuddhist = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierChinese"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierChinese = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierCoptic"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierCoptic = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierDangi"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierDangi = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierEthiopicAmeteAlem"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierEthiopicAmeteAlem = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierEthiopicAmeteMihret"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierEthiopicAmeteMihret = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierGregorian"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierGregorian = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierGujarati"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierGujarati = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierHebrew"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierHebrew = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierISO8601"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierISO8601 = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierIndian"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierIndian = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierIslamic"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierIslamic = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierIslamicCivil"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierIslamicCivil = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierIslamicTabular"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierIslamicTabular = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierIslamicUmmAlQura"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierIslamicUmmAlQura = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierJapanese"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierJapanese = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierKannada"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierKannada = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierMalayalam"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierMalayalam = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierMarathi"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierMarathi = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierOdia"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierOdia = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierPersian"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierPersian = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierRepublicOfChina"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierRepublicOfChina = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierTamil"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierTamil = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierTelugu"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierTelugu = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierVietnamese"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierVietnamese = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalendarIdentifierVikram"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				calendarIdentifierVikram = NSCalendarIdentifier(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCategoryDocumentAttribute"); err == nil && ptr != 0 {
+		CategoryDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCharacterConversionException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CharacterConversionException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCharacterEncodingDocumentAttribute"); err == nil && ptr != 0 {
+		CharacterEncodingDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCharacterEncodingDocumentOption"); err == nil && ptr != 0 {
+		CharacterEncodingDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSClassDescriptionNeededForClassNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ClassDescriptionNeededForClassNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCocoaErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CocoaErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCocoaVersionDocumentAttribute"); err == nil && ptr != 0 {
+		CocoaVersionDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSColorListIOException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ColorListIOException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSColorListNotEditableException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ColorListNotEditableException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCommentDocumentAttribute"); err == nil && ptr != 0 {
+		CommentDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCompanyDocumentAttribute"); err == nil && ptr != 0 {
+		CompanyDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSConvertedDocumentAttribute"); err == nil && ptr != 0 {
+		ConvertedDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCopyrightDocumentAttribute"); err == nil && ptr != 0 {
+		CopyrightDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCoreDataCoreSpotlightDelegateIndexDidUpdateNotification"); err == nil && ptr != 0 {
+		CoreDataCoreSpotlightDelegateIndexDidUpdateNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCountKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CountKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCreationTimeDocumentAttribute"); err == nil && ptr != 0 {
+		CreationTimeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCurrentLocaleDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				CurrentLocaleDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSCursorAttributeName"); err == nil && ptr != 0 {
+		CursorAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeallocateZombies"); err == nil && ptr != 0 {
+		DeallocateZombies = *(*bool)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDebugDescriptionErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DebugDescriptionErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDebugEnabled"); err == nil && ptr != 0 {
+		DebugEnabled = *(*bool)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDecimalNumberDivideByZeroException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DecimalNumberDivideByZeroException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDecimalNumberExactnessException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DecimalNumberExactnessException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDecimalNumberOverflowException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DecimalNumberOverflowException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDecimalNumberUnderflowException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DecimalNumberUnderflowException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultAttributesDocumentAttribute"); err == nil && ptr != 0 {
+		DefaultAttributesDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultAttributesDocumentOption"); err == nil && ptr != 0 {
+		DefaultAttributesDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultFontExcludedDocumentAttribute"); err == nil && ptr != 0 {
+		DefaultFontExcludedDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultRunLoopMode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				RunLoopDefaultMode = NSRunLoopMode(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultTabIntervalDocumentAttribute"); err == nil && ptr != 0 {
+		DefaultTabIntervalDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDestinationInvalidException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DestinationInvalidException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDidBecomeSingleThreadedNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DidBecomeSingleThreadedNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDistinctUnionOfArraysKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DistinctUnionOfArraysKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDistinctUnionOfObjectsKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DistinctUnionOfObjectsKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDistinctUnionOfSetsKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DistinctUnionOfSetsKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocFormatTextDocumentType"); err == nil && ptr != 0 {
+		DocFormatTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocumentTypeDocumentAttribute"); err == nil && ptr != 0 {
+		DocumentTypeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocumentTypeDocumentOption"); err == nil && ptr != 0 {
+		DocumentTypeDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSDraggingException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				DraggingException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSEdgeInsetsZero"); err == nil && ptr != 0 {
+		EdgeInsetsZero = *(*NSEdgeInsets)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSEditorDocumentAttribute"); err == nil && ptr != 0 {
+		EditorDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSEventTrackingRunLoopMode"); err == nil && ptr != 0 {
+		EventTrackingRunLoopMode = *(*RunLoop)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExcludedElementsDocumentAttribute"); err == nil && ptr != 0 {
+		ExcludedElementsDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExpansionAttributeName"); err == nil && ptr != 0 {
+		ExpansionAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExtensionItemAttachmentsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ExtensionItemAttachmentsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExtensionItemAttributedContentTextKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ExtensionItemAttributedContentTextKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExtensionItemAttributedTitleKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ExtensionItemAttributedTitleKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExtensionItemsAndErrorsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ExtensionItemsAndErrorsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSExtensionJavaScriptPreprocessingResultsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ExtensionJavaScriptPreprocessingResultsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileAppendOnly"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileAppendOnly = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileBusy"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileBusy = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileCreationDate"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileCreationDate = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileDeviceIdentifier"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileDeviceIdentifier = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileExtensionHidden"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileExtensionHidden = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileGroupOwnerAccountID"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileGroupOwnerAccountID = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileGroupOwnerAccountName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileGroupOwnerAccountName = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHFSCreatorCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHFSCreatorCode = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHFSTypeCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHFSTypeCode = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleConnectionAcceptedNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleConnectionAcceptedNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleDataAvailableNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleDataAvailableNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleNotificationDataItem"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleNotificationDataItem = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleNotificationFileHandleItem"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleNotificationFileHandleItem = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleOperationException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleOperationException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleReadCompletionNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleReadCompletionNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileHandleReadToEndOfFileCompletionNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileHandleReadToEndOfFileCompletionNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileImmutable"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileImmutable = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileManagerUnmountDissentingProcessIdentifierErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileManagerUnmountDissentingProcessIdentifierErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileModificationDate"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileModificationDate = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileOwnerAccountID"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileOwnerAccountID = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileOwnerAccountName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileOwnerAccountName = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFilePathErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FilePathErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFilePosixPermissions"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FilePosixPermissions = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProtectionComplete"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileProtectionComplete = NSFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProtectionCompleteUnlessOpen"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileProtectionCompleteUnlessOpen = NSFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProtectionCompleteUntilFirstUserAuthentication"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileProtectionCompleteUntilFirstUserAuthentication = NSFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProtectionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileProtectionKey = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProtectionNone"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileProtectionNone = NSFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProviderDomainDidChange"); err == nil && ptr != 0 {
+		FileProviderDomainDidChange = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProviderMaterializedSetDidChange"); err == nil && ptr != 0 {
+		FileProviderMaterializedSetDidChange = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileProviderPendingSetDidChange"); err == nil && ptr != 0 {
+		FileProviderPendingSetDidChange = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileReferenceCount"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileReferenceCount = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSize"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSize = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSystemFileNumber"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSystemFileNumber = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSystemFreeNodes"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSystemFreeNodes = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSystemFreeSize"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSystemFreeSize = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSystemNodes"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSystemNodes = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSystemNumber"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSystemNumber = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileSystemSize"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileSystemSize = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileType"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileType = NSFileAttributeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeBlockSpecial"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeBlockSpecial = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeCharacterSpecial"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeCharacterSpecial = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeDirectory"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeDirectory = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeDocumentAttribute"); err == nil && ptr != 0 {
+		FileTypeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeDocumentOption"); err == nil && ptr != 0 {
+		FileTypeDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeRegular"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeRegular = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeSocket"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeSocket = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeSymbolicLink"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeSymbolicLink = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeUnknown"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FileTypeUnknown = NSFileAttributeType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontAttributeName"); err == nil && ptr != 0 {
+		FontAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontUnavailableException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				FontUnavailableException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSForegroundColorAttributeName"); err == nil && ptr != 0 {
+		ForegroundColorAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSFoundationVersionNumber"); err == nil && ptr != 0 {
+		FoundationVersionNumber = *(*float64)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSGenericException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				GenericException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSGlobalDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				GlobalDomain = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSGlyphInfoAttributeName"); err == nil && ptr != 0 {
+		GlyphInfoAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSGrammarCorrections"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				GrammarCorrections = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSGrammarRange"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				GrammarRange = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSGrammarUserDescription"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				GrammarUserDescription = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTMLTextDocumentType"); err == nil && ptr != 0 {
+		HTMLTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieComment"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieComment = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieCommentURL"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieCommentURL = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieDiscard"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieDiscard = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieDomain = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieExpires"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieExpires = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieManagerCookiesChangedNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieManagerCookiesChangedNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieMaximumAge"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieMaximumAge = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieName = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieOriginURL"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieOriginURL = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookiePath"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookiePath = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookiePort"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookiePort = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieSameSiteLax"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieSameSiteLax = NSHTTPCookieStringPolicy(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieSameSitePolicy"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieSameSitePolicy = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieSameSiteStrict"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieSameSiteStrict = NSHTTPCookieStringPolicy(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieSecure"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieSecure = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieSetByJavaScript"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieSetByJavaScript = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieValue"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieValue = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTTPCookieVersion"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HTTPCookieVersion = NSHTTPCookiePropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHashTableCopyIn"); err == nil && ptr != 0 {
+		HashTableCopyIn = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHashTableObjectPointerPersonality"); err == nil && ptr != 0 {
+		HashTableObjectPointerPersonality = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHashTableStrongMemory"); err == nil && ptr != 0 {
+		HashTableStrongMemory = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHashTableWeakMemory"); err == nil && ptr != 0 {
+		HashTableWeakMemory = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHelpAnchorErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				HelpAnchorErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSHyphenationFactorDocumentAttribute"); err == nil && ptr != 0 {
+		HyphenationFactorDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSIllegalSelectorException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				IllegalSelectorException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageCacheException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ImageCacheException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageURLAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ImageURLAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInconsistentArchiveException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InconsistentArchiveException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInflectionAgreementArgumentAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InflectionAgreementArgumentAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInflectionAgreementConceptAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InflectionAgreementConceptAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInflectionAlternativeAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InflectionAlternativeAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInflectionConceptsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InflectionConceptsKey = NSAttributedStringFormattingContextKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInflectionReferentConceptAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InflectionReferentConceptAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInflectionRuleAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InflectionRuleAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInlinePresentationIntentAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InlinePresentationIntentAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSIntegerHashCallBacks"); err == nil && ptr != 0 {
+		IntegerHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSIntegerMapKeyCallBacks"); err == nil && ptr != 0 {
+		IntegerMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSIntegerMapValueCallBacks"); err == nil && ptr != 0 {
+		IntegerMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInternalInconsistencyException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InternalInconsistencyException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvalidArchiveOperationException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvalidArchiveOperationException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvalidArgumentException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvalidArgumentException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvalidReceivePortException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvalidReceivePortException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvalidSendPortException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvalidSendPortException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvalidUnarchiveOperationException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvalidUnarchiveOperationException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvocationOperationCancelledException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvocationOperationCancelledException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvocationOperationVoidResultException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				InvocationOperationVoidResultException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSIsNilTransformerName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				IsNilTransformerName = NSValueTransformerName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSIsNotNilTransformerName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				IsNotNilTransformerName = NSValueTransformerName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSItemProviderErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ItemProviderErrorDomain = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSItemProviderPreferredImageSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ItemProviderPreferredImageSizeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeepAllocationStatistics"); err == nil && ptr != 0 {
+		KeepAllocationStatistics = *(*bool)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKernAttributeName"); err == nil && ptr != 0 {
+		KernAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyValueChangeIndexesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KeyValueChangeIndexesKey = NSKeyValueChangeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyValueChangeKindKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KeyValueChangeKindKey = NSKeyValueChangeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyValueChangeNewKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KeyValueChangeNewKey = NSKeyValueChangeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyValueChangeNotificationIsPriorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KeyValueChangeNotificationIsPriorKey = NSKeyValueChangeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyValueChangeOldKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KeyValueChangeOldKey = NSKeyValueChangeKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyedArchiveRootObjectKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				KeyedArchiveRootObjectKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeywordsDocumentAttribute"); err == nil && ptr != 0 {
+		KeywordsDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLanguageIdentifierAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LanguageIdentifierAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLeftMarginDocumentAttribute"); err == nil && ptr != 0 {
+		LeftMarginDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLigatureAttributeName"); err == nil && ptr != 0 {
+		LigatureAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagAdjective"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagAdjective = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagAdverb"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagAdverb = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagClassifier"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagClassifier = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagCloseParenthesis"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagCloseParenthesis = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagCloseQuote"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagCloseQuote = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagConjunction"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagConjunction = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagDash"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagDash = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagDeterminer"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagDeterminer = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagIdiom"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagIdiom = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagInterjection"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagInterjection = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagNoun"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagNoun = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagNumber"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagNumber = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOpenParenthesis"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOpenParenthesis = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOpenQuote"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOpenQuote = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOrganizationName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOrganizationName = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOther"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOther = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOtherPunctuation"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOtherPunctuation = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOtherWhitespace"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOtherWhitespace = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagOtherWord"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagOtherWord = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagParagraphBreak"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagParagraphBreak = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagParticle"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagParticle = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagPersonalName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagPersonalName = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagPlaceName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagPlaceName = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagPreposition"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagPreposition = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagPronoun"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagPronoun = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagPunctuation"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagPunctuation = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeLanguage"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeLanguage = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeLemma"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeLemma = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeLexicalClass"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeLexicalClass = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeNameType"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeNameType = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeNameTypeOrLexicalClass"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeNameTypeOrLexicalClass = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeScript"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeScript = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSchemeTokenType"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSchemeTokenType = NSLinguisticTagScheme(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagSentenceTerminator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagSentenceTerminator = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagVerb"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagVerb = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagWhitespace"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagWhitespace = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagWord"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagWord = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinguisticTagWordJoiner"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				linguisticTagWordJoiner = NSLinguisticTag(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinkAttributeName"); err == nil && ptr != 0 {
+		LinkAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSListItemDelimiterAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ListItemDelimiterAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLoadedClasses"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LoadedClasses = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalNotificationCenterType"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalNotificationCenterType = NSDistributedNotificationCenterType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleAlternateQuotationBeginDelimiterKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleAlternateQuotationBeginDelimiterKey = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleAlternateQuotationEndDelimiterKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleAlternateQuotationEndDelimiterKey = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleCalendar"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleCalendar = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleCollationIdentifier"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleCollationIdentifier = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleCollatorIdentifier"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleCollatorIdentifier = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleCountryCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleCountryCode = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleCurrencyCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleCurrencyCode = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleCurrencySymbol"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleCurrencySymbol = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleDecimalSeparator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleDecimalSeparator = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleExemplarCharacterSet"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleExemplarCharacterSet = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleGroupingSeparator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleGroupingSeparator = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleIdentifier"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleIdentifier = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleLanguageCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleLanguageCode = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleMeasurementSystem"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleMeasurementSystem = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleQuotationBeginDelimiterKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleQuotationBeginDelimiterKey = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleQuotationEndDelimiterKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleQuotationEndDelimiterKey = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleScriptCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleScriptCode = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleUsesMetricSystem"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleUsesMetricSystem = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocaleVariantCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocaleVariantCode = NSLocaleKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedDescriptionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalizedDescriptionKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedFailureErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalizedFailureErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedFailureReasonErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalizedFailureReasonErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedNumberFormatAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalizedNumberFormatAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedRecoveryOptionsErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalizedRecoveryOptionsErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedRecoverySuggestionErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				LocalizedRecoverySuggestionErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMacSimpleTextDocumentType"); err == nil && ptr != 0 {
+		MacSimpleTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMachErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MachErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMallocException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MallocException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagedObjectContextDidMergeChangesObjectIDsNotification"); err == nil && ptr != 0 {
+		ManagedObjectContextDidMergeChangesObjectIDsNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagedObjectContextDidSaveNotification"); err == nil && ptr != 0 {
+		ManagedObjectContextDidSaveNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagedObjectContextDidSaveObjectIDsNotification"); err == nil && ptr != 0 {
+		ManagedObjectContextDidSaveObjectIDsNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagedObjectContextObjectsDidChangeNotification"); err == nil && ptr != 0 {
+		ManagedObjectContextObjectsDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagedObjectContextWillSaveNotification"); err == nil && ptr != 0 {
+		ManagedObjectContextWillSaveNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagerDocumentAttribute"); err == nil && ptr != 0 {
+		ManagerDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMapTableCopyIn"); err == nil && ptr != 0 {
+		MapTableCopyIn = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMapTableObjectPointerPersonality"); err == nil && ptr != 0 {
+		MapTableObjectPointerPersonality = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMapTableStrongMemory"); err == nil && ptr != 0 {
+		MapTableStrongMemory = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMapTableWeakMemory"); err == nil && ptr != 0 {
+		MapTableWeakMemory = *(*NSPointerFunctionsOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMarkdownSourcePositionAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MarkdownSourcePositionAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMarkedClauseSegmentAttributeName"); err == nil && ptr != 0 {
+		MarkedClauseSegmentAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMaximumKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MaximumKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAcquisitionMakeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAcquisitionMakeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAcquisitionModelKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAcquisitionModelKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAlbumKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAlbumKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAltitudeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAltitudeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemApertureKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemApertureKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAppleLoopDescriptorsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAppleLoopDescriptorsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAppleLoopsKeyFilterTypeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAppleLoopsKeyFilterTypeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAppleLoopsLoopModeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAppleLoopsLoopModeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAppleLoopsRootKeyKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAppleLoopsRootKeyKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemApplicationCategoriesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemApplicationCategoriesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAttributeChangeDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAttributeChangeDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAudiencesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAudiencesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAudioBitRateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAudioBitRateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAudioChannelCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAudioChannelCountKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAudioEncodingApplicationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAudioEncodingApplicationKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAudioSampleRateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAudioSampleRateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAudioTrackNumberKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAudioTrackNumberKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAuthorAddressesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAuthorAddressesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAuthorEmailAddressesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAuthorEmailAddressesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemAuthorsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemAuthorsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemBitsPerSampleKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemBitsPerSampleKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCFBundleIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCFBundleIdentifierKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCameraOwnerKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCameraOwnerKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCityKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCityKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCodecsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCodecsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemColorSpaceKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemColorSpaceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCommentKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCommentKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemComposerKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemComposerKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemContactKeywordsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemContactKeywordsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemContentCreationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemContentCreationDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemContentModificationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemContentModificationDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemContentTypeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemContentTypeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemContentTypeTreeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemContentTypeTreeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemContributorsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemContributorsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCopyrightKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCopyrightKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCountryKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCountryKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCoverageKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCoverageKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemCreatorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemCreatorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDateAddedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDateAddedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDeliveryTypeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDeliveryTypeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDescriptionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDescriptionKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDirectorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDirectorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDisplayNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDisplayNameKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDownloadedDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDownloadedDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDueDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDueDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemDurationSecondsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemDurationSecondsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemEXIFGPSVersionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemEXIFGPSVersionKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemEXIFVersionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemEXIFVersionKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemEditorsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemEditorsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemEmailAddressesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemEmailAddressesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemEncodingApplicationsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemEncodingApplicationsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemExecutableArchitecturesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemExecutableArchitecturesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemExecutablePlatformKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemExecutablePlatformKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemExposureModeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemExposureModeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemExposureProgramKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemExposureProgramKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemExposureTimeSecondsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemExposureTimeSecondsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemExposureTimeStringKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemExposureTimeStringKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFNumberKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFNumberKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFSContentChangeDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFSContentChangeDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFSCreationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFSCreationDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFSNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFSNameKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFSSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFSSizeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFinderCommentKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFinderCommentKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFlashOnOffKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFlashOnOffKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFocalLength35mmKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFocalLength35mmKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFocalLengthKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFocalLengthKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemFontsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemFontsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSAreaInformationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSAreaInformationKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDOPKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDOPKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDateStampKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDateStampKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDestBearingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDestBearingKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDestDistanceKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDestDistanceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDestLatitudeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDestLatitudeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDestLongitudeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDestLongitudeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSDifferentalKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSDifferentalKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSMapDatumKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSMapDatumKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSMeasureModeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSMeasureModeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSProcessingMethodKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSProcessingMethodKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSStatusKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSStatusKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGPSTrackKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGPSTrackKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemGenreKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemGenreKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemHasAlphaChannelKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemHasAlphaChannelKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemHeadlineKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemHeadlineKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemISOSpeedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemISOSpeedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemIdentifierKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemImageDirectionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemImageDirectionKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemInformationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemInformationKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemInstantMessageAddressesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemInstantMessageAddressesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemInstructionsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemInstructionsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemIsApplicationManagedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemIsApplicationManagedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemIsGeneralMIDISequenceKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemIsGeneralMIDISequenceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemIsLikelyJunkKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemIsLikelyJunkKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemIsUbiquitousKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemIsUbiquitousKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemKeySignatureKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemKeySignatureKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemKeywordsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemKeywordsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemKindKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemKindKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLanguagesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLanguagesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLastUsedDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLastUsedDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLatitudeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLatitudeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLayerNamesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLayerNamesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLensModelKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLensModelKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLongitudeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLongitudeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemLyricistKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemLyricistKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemMaxApertureKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemMaxApertureKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemMediaTypesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemMediaTypesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemMeteringModeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemMeteringModeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemMusicalGenreKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemMusicalGenreKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemMusicalInstrumentCategoryKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemMusicalInstrumentCategoryKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemMusicalInstrumentNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemMusicalInstrumentNameKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemNamedLocationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemNamedLocationKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemNumberOfPagesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemNumberOfPagesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemOrganizationsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemOrganizationsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemOrientationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemOrientationKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemOriginalFormatKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemOriginalFormatKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemOriginalSourceKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemOriginalSourceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPageHeightKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPageHeightKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPageWidthKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPageWidthKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemParticipantsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemParticipantsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPathKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPathKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPerformersKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPerformersKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPhoneNumbersKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPhoneNumbersKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPixelCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPixelCountKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPixelHeightKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPixelHeightKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPixelWidthKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPixelWidthKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemProducerKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemProducerKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemProfileNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemProfileNameKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemProjectsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemProjectsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemPublishersKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemPublishersKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRecipientAddressesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRecipientAddressesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRecipientEmailAddressesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRecipientEmailAddressesKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRecipientsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRecipientsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRecordingDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRecordingDateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRecordingYearKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRecordingYearKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRedEyeOnOffKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRedEyeOnOffKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemResolutionHeightDPIKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemResolutionHeightDPIKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemResolutionWidthDPIKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemResolutionWidthDPIKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemRightsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemRightsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemSecurityMethodKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemSecurityMethodKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemSpeedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemSpeedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemStarRatingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemStarRatingKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemStateOrProvinceKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemStateOrProvinceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemStreamableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemStreamableKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemSubjectKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemSubjectKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemTempoKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemTempoKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemTextContentKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemTextContentKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemThemeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemThemeKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemTimeSignatureKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemTimeSignatureKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemTimestampKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemTimestampKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemTitleKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemTitleKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemTotalBitRateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemTotalBitRateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemURLKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemURLKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemVersionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemVersionKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemVideoBitRateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemVideoBitRateKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemWhereFromsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemWhereFromsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataItemWhiteBalanceKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataItemWhiteBalanceKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryAccessibleUbiquitousExternalDocumentsScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryAccessibleUbiquitousExternalDocumentsScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryDidFinishGatheringNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryDidFinishGatheringNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryDidStartGatheringNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryDidStartGatheringNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryDidUpdateNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryDidUpdateNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryGatheringProgressNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryGatheringProgressNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryIndexedLocalComputerScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryIndexedLocalComputerScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryIndexedNetworkScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryIndexedNetworkScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryLocalComputerScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryLocalComputerScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryNetworkScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryNetworkScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryResultContentRelevanceAttribute"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryResultContentRelevanceAttribute = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryUbiquitousDataScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryUbiquitousDataScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryUbiquitousDocumentsScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryUbiquitousDocumentsScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryUpdateAddedItemsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryUpdateAddedItemsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryUpdateChangedItemsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryUpdateChangedItemsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryUpdateRemovedItemsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryUpdateRemovedItemsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataQueryUserHomeScope"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataQueryUserHomeScope = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemContainerDisplayNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemContainerDisplayNameKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemDownloadRequestedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemDownloadRequestedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemDownloadingErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemDownloadingErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemDownloadingStatusCurrent"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemDownloadingStatusCurrent = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemDownloadingStatusDownloaded"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemDownloadingStatusDownloaded = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemDownloadingStatusKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemDownloadingStatusKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemDownloadingStatusNotDownloaded"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemDownloadingStatusNotDownloaded = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemHasUnresolvedConflictsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemHasUnresolvedConflictsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemIsDownloadingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemIsDownloadingKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemIsExternalDocumentKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemIsExternalDocumentKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemIsSharedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemIsSharedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemIsUploadedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemIsUploadedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemIsUploadingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemIsUploadingKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemPercentDownloadedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemPercentDownloadedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemPercentUploadedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemPercentUploadedKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemURLInLocalContainerKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemURLInLocalContainerKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousItemUploadingErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousItemUploadingErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemCurrentUserPermissionsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemCurrentUserPermissionsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemCurrentUserRoleKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemCurrentUserRoleKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemMostRecentEditorNameComponentsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemMostRecentEditorNameComponentsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemOwnerNameComponentsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemOwnerNameComponentsKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemPermissionsReadOnly"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemPermissionsReadOnly = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemPermissionsReadWrite"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemPermissionsReadWrite = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemRoleOwner"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemRoleOwner = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMetadataUbiquitousSharedItemRoleParticipant"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MetadataUbiquitousSharedItemRoleParticipant = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMinimumKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MinimumKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSModalPanelRunLoopMode"); err == nil && ptr != 0 {
+		ModalPanelRunLoopMode = *(*RunLoop)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSModificationTimeDocumentAttribute"); err == nil && ptr != 0 {
+		ModificationTimeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMorphologyAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MorphologyAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSMultipleUnderlyingErrorsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MultipleUnderlyingErrorsKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNegateBooleanTransformerName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NegateBooleanTransformerName = NSValueTransformerName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNetServicesErrorCode"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NetServicesErrorCode = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNetServicesErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NetServicesErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNibLoadingException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NibLoadingException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerHashCallBacks"); err == nil && ptr != 0 {
+		NonOwnedPointerHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerMapKeyCallBacks"); err == nil && ptr != 0 {
+		NonOwnedPointerMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerMapValueCallBacks"); err == nil && ptr != 0 {
+		NonOwnedPointerMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerOrNullMapKeyCallBacks"); err == nil && ptr != 0 {
+		NonOwnedPointerOrNullMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonRetainedObjectHashCallBacks"); err == nil && ptr != 0 {
+		NonRetainedObjectHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonRetainedObjectMapKeyCallBacks"); err == nil && ptr != 0 {
+		NonRetainedObjectMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonRetainedObjectMapValueCallBacks"); err == nil && ptr != 0 {
+		NonRetainedObjectMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+	}
+
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNotificationDeliverImmediately"); err == nil && ptr != 0 {
+		NotificationDeliverImmediately = *(*NSDistributedNotificationOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSNotificationPostToAllSessions"); err == nil && ptr != 0 {
+		NotificationPostToAllSessions = *(*NSDistributedNotificationOptions)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOSStatusErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				OSStatusErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectHashCallBacks"); err == nil && ptr != 0 {
+		ObjectHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectInaccessibleException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ObjectInaccessibleException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectMapKeyCallBacks"); err == nil && ptr != 0 {
+		ObjectMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectMapValueCallBacks"); err == nil && ptr != 0 {
+		ObjectMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectNotAvailableException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ObjectNotAvailableException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSObliquenessAttributeName"); err == nil && ptr != 0 {
+		ObliquenessAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOfficeOpenXMLTextDocumentType"); err == nil && ptr != 0 {
+		OfficeOpenXMLTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOldStyleException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				OldStyleException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOpenDocumentTextDocumentType"); err == nil && ptr != 0 {
+		OpenDocumentTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOperationNotSupportedForKeyException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				OperationNotSupportedForKeyException = objc.GoString(cstr)
+			}
+		}
+	}
+
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedObjectIdentityHashCallBacks"); err == nil && ptr != 0 {
+		OwnedObjectIdentityHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedPointerHashCallBacks"); err == nil && ptr != 0 {
+		OwnedPointerHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedPointerMapKeyCallBacks"); err == nil && ptr != 0 {
+		OwnedPointerMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedPointerMapValueCallBacks"); err == nil && ptr != 0 {
+		OwnedPointerMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPOSIXErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				POSIXErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDIncludeNotFoundException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PPDIncludeNotFoundException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDIncludeStackOverflowException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PPDIncludeStackOverflowException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDIncludeStackUnderflowException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PPDIncludeStackUnderflowException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDParseException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PPDParseException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPaperSizeDocumentAttribute"); err == nil && ptr != 0 {
+		PaperSizeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSParagraphStyleAttributeName"); err == nil && ptr != 0 {
+		ParagraphStyleAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSParseErrorException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ParseErrorException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardCommunicationException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PasteboardCommunicationException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersistentStoreCoordinatorStoresDidChangeNotification"); err == nil && ptr != 0 {
+		PersistentStoreCoordinatorStoresDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersistentStoreCoordinatorStoresWillChangeNotification"); err == nil && ptr != 0 {
+		PersistentStoreCoordinatorStoresWillChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersistentStoreCoordinatorWillRemoveStoreNotification"); err == nil && ptr != 0 {
+		PersistentStoreCoordinatorWillRemoveStoreNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersistentStoreRemoteChangeNotification"); err == nil && ptr != 0 {
+		PersistentStoreRemoteChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentDelimiter"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentDelimiter = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentFamilyName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentFamilyName = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentGivenName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentGivenName = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentMiddleName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentMiddleName = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentNickname"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentNickname = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentPrefix"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentPrefix = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPersonNameComponentSuffix"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PersonNameComponentSuffix = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPlainTextDocumentType"); err == nil && ptr != 0 {
+		PlainTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPointerToStructHashCallBacks"); err == nil && ptr != 0 {
+		PointerToStructHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPortDidBecomeInvalidNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PortDidBecomeInvalidNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPortReceiveException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PortReceiveException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPortSendException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PortSendException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPortTimeoutException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PortTimeoutException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPreferencePaneCancelUnselectNotification"); err == nil && ptr != 0 {
+		PreferencePaneCancelUnselectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPreferencePaneDoUnselectNotification"); err == nil && ptr != 0 {
+		PreferencePaneDoUnselectNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPreferencePaneSwitchToPaneNotification"); err == nil && ptr != 0 {
+		PreferencePaneSwitchToPaneNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPreferencePaneUpdateHelpMenuNotification"); err == nil && ptr != 0 {
+		PreferencePaneUpdateHelpMenuNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPreferencePrefPaneIsAvailableNotification"); err == nil && ptr != 0 {
+		PreferencePrefPaneIsAvailableNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrefixSpacesDocumentAttribute"); err == nil && ptr != 0 {
+		PrefixSpacesDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPresentationIntentAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PresentationIntentAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintOperationExistsException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PrintOperationExistsException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPackageException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PrintPackageException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintingCommunicationException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				PrintingCommunicationException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessInfoPerformanceProfileDidChangeNotification"); err == nil && ptr != 0 {
+		ProcessInfoPerformanceProfileDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessInfoPowerStateDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProcessInfoPowerStateDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessInfoThermalStateDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProcessInfoThermalStateDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressEstimatedTimeRemainingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressEstimatedTimeRemainingKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileAnimationImageKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileAnimationImageKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileAnimationImageOriginalRectKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileAnimationImageOriginalRectKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileCompletedCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileCompletedCountKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileIconKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileIconKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindCopying"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				progressFileOperationKindCopying = NSProgressFileOperationKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindDecompressingAfterDownloading"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				progressFileOperationKindDecompressingAfterDownloading = NSProgressFileOperationKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindDownloading"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				progressFileOperationKindDownloading = NSProgressFileOperationKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindDuplicating"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				progressFileOperationKindDuplicating = NSProgressFileOperationKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileOperationKindKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindReceiving"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				progressFileOperationKindReceiving = NSProgressFileOperationKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileOperationKindUploading"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				progressFileOperationKindUploading = NSProgressFileOperationKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileTotalCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileTotalCountKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressFileURLKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressFileURLKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressKindFile"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressKindFile = NSProgressKind(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSProgressThroughputKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ProgressThroughputKey = NSProgressUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRTFDTextDocumentType"); err == nil && ptr != 0 {
+		RTFDTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRTFPropertyStackOverflowException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				RTFPropertyStackOverflowException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRTFTextDocumentType"); err == nil && ptr != 0 {
+		RTFTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRangeException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				RangeException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSReadAccessURLDocumentOption"); err == nil && ptr != 0 {
+		ReadAccessURLDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSReadOnlyDocumentAttribute"); err == nil && ptr != 0 {
+		ReadOnlyDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRecoveryAttempterErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				RecoveryAttempterErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRegistrationDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				RegistrationDomain = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSReplacementIndexAttributeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ReplacementIndexAttributeName = NSAttributedStringKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRightMarginDocumentAttribute"); err == nil && ptr != 0 {
+		RightMarginDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSRunLoopCommonModes"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				RunLoopCommonModes = NSRunLoopMode(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSecureUnarchiveFromDataTransformerName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				SecureUnarchiveFromDataTransformerName = NSValueTransformerName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSShadowAttributeName"); err == nil && ptr != 0 {
+		ShadowAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSourceTextScalingDocumentAttribute"); err == nil && ptr != 0 {
+		SourceTextScalingDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSourceTextScalingDocumentOption"); err == nil && ptr != 0 {
+		SourceTextScalingDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticInlinePredictionNotification"); err == nil && ptr != 0 {
+		SpellCheckerDidChangeAutomaticInlinePredictionNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellingStateAttributeName"); err == nil && ptr != 0 {
+		SpellingStateAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamDataWrittenToMemoryStreamKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamDataWrittenToMemoryStreamKey = NSStreamPropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamFileCurrentOffsetKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamFileCurrentOffsetKey = NSStreamPropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamNetworkServiceType"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamNetworkServiceType = NSStreamPropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamNetworkServiceTypeBackground"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamNetworkServiceTypeBackground = NSStreamNetworkServiceTypeValue(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamNetworkServiceTypeCallSignaling"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamNetworkServiceTypeCallSignaling = NSStreamNetworkServiceTypeValue(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamNetworkServiceTypeVideo"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamNetworkServiceTypeVideo = NSStreamNetworkServiceTypeValue(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamNetworkServiceTypeVoice"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamNetworkServiceTypeVoice = NSStreamNetworkServiceTypeValue(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyConfigurationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyConfigurationKey = NSStreamPropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyHostKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyHostKey = NSStreamSOCKSProxyConfiguration(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyPasswordKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyPasswordKey = NSStreamSOCKSProxyConfiguration(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyPortKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyPortKey = NSStreamSOCKSProxyConfiguration(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyUserKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyUserKey = NSStreamSOCKSProxyConfiguration(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyVersion4"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyVersion4 = NSStreamSOCKSProxyVersion(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyVersion5"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyVersion5 = NSStreamSOCKSProxyVersion(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSOCKSProxyVersionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSOCKSProxyVersionKey = NSStreamSOCKSProxyConfiguration(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSSLErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSocketSSLErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSecurityLevelKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StreamSocketSecurityLevelKey = NSStreamPropertyKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSecurityLevelNegotiatedSSL"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				streamSocketSecurityLevelNegotiatedSSL = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSecurityLevelNone"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				streamSocketSecurityLevelNone = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSecurityLevelSSLv2"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				streamSocketSecurityLevelSSLv2 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSecurityLevelSSLv3"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				streamSocketSecurityLevelSSLv3 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStreamSocketSecurityLevelTLSv1"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				streamSocketSecurityLevelTLSv1 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrikethroughColorAttributeName"); err == nil && ptr != 0 {
+		StrikethroughColorAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrikethroughStyleAttributeName"); err == nil && ptr != 0 {
+		StrikethroughStyleAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionAllowLossyKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionAllowLossyKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionDisallowedEncodingsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionDisallowedEncodingsKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionFromWindowsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionFromWindowsKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionLikelyLanguageKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionLikelyLanguageKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionLossySubstitutionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionLossySubstitutionKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionSuggestedEncodingsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionSuggestedEncodingsKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingDetectionUseOnlySuggestedEncodingsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingDetectionUseOnlySuggestedEncodingsKey = NSStringEncodingDetectionOptionsKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringEncodingErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				StringEncodingErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformFullwidthToHalfwidth"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformFullwidthToHalfwidth = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformHiraganaToKatakana"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformHiraganaToKatakana = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToArabic"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToArabic = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToCyrillic"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToCyrillic = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToGreek"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToGreek = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToHangul"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToHangul = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToHebrew"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToHebrew = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToHiragana"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToHiragana = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToKatakana"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToKatakana = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformLatinToThai"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformLatinToThai = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformMandarinToLatin"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformMandarinToLatin = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformStripCombiningMarks"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformStripCombiningMarks = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformStripDiacritics"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformStripDiacritics = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformToLatin"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformToLatin = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformToUnicodeName"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformToUnicodeName = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStringTransformToXMLHex"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				stringTransformToXMLHex = NSStringTransform(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrokeColorAttributeName"); err == nil && ptr != 0 {
+		StrokeColorAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrokeWidthAttributeName"); err == nil && ptr != 0 {
+		StrokeWidthAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSubjectDocumentAttribute"); err == nil && ptr != 0 {
+		SubjectDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSumKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				SumKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSuperscriptAttributeName"); err == nil && ptr != 0 {
+		SuperscriptAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSystemClockDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				SystemClockDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSSystemTimeZoneDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				SystemTimeZoneDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTIFFException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TIFFException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTargetTextScalingDocumentOption"); err == nil && ptr != 0 {
+		TargetTextScalingDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTaskDidTerminateNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TaskDidTerminateNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextAlternativesAttributeName"); err == nil && ptr != 0 {
+		TextAlternativesAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingAirlineKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingAirlineKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingCityKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingCityKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingCountryKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingCountryKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingFlightKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingFlightKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingJobTitleKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingJobTitleKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingNameKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingOrganizationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingOrganizationKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingPhoneKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingPhoneKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingStateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingStateKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingStreetKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingStreetKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingZIPKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextCheckingZIPKey = NSTextCheckingKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentStorageUnsupportedAttributeAddedNotification"); err == nil && ptr != 0 {
+		TextContentStorageUnsupportedAttributeAddedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEffectAttributeName"); err == nil && ptr != 0 {
+		TextEffectAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEffectLetterpressStyle"); err == nil && ptr != 0 {
+		TextEffectLetterpressStyle = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEncodingNameDocumentAttribute"); err == nil && ptr != 0 {
+		TextEncodingNameDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEncodingNameDocumentOption"); err == nil && ptr != 0 {
+		TextEncodingNameDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeAttributeName"); err == nil && ptr != 0 {
+		TextHighlightColorSchemeAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeBlue"); err == nil && ptr != 0 {
+		TextHighlightColorSchemeBlue = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeDefault"); err == nil && ptr != 0 {
+		TextHighlightColorSchemeDefault = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeMint"); err == nil && ptr != 0 {
+		TextHighlightColorSchemeMint = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeOrange"); err == nil && ptr != 0 {
+		TextHighlightColorSchemeOrange = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemePink"); err == nil && ptr != 0 {
+		TextHighlightColorSchemePink = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemePurple"); err == nil && ptr != 0 {
+		TextHighlightColorSchemePurple = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightStyleAttributeName"); err == nil && ptr != 0 {
+		TextHighlightStyleAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightStyleDefault"); err == nil && ptr != 0 {
+		TextHighlightStyleDefault = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextKit1ListMarkerFormatDocumentOption"); err == nil && ptr != 0 {
+		TextKit1ListMarkerFormatDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLayoutSectionOrientation"); err == nil && ptr != 0 {
+		TextLayoutSectionOrientation = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLayoutSectionRange"); err == nil && ptr != 0 {
+		TextLayoutSectionRange = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLayoutSectionsAttribute"); err == nil && ptr != 0 {
+		TextLayoutSectionsAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLineTooLongException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextLineTooLongException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextNoSelectionException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextNoSelectionException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextReadException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextReadException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextScalingDocumentAttribute"); err == nil && ptr != 0 {
+		TextScalingDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextSizeMultiplierDocumentOption"); err == nil && ptr != 0 {
+		TextSizeMultiplierDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextWriteException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TextWriteException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSThreadWillExitNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				ThreadWillExitNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTimeoutDocumentOption"); err == nil && ptr != 0 {
+		TimeoutDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTitleDocumentAttribute"); err == nil && ptr != 0 {
+		TitleDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolTipAttributeName"); err == nil && ptr != 0 {
+		ToolTipAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTopMarginDocumentAttribute"); err == nil && ptr != 0 {
+		TopMarginDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTrackingAttributeName"); err == nil && ptr != 0 {
+		TrackingAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSTypedStreamVersionException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				TypedStreamVersionException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAddedToDirectoryDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAddedToDirectoryDateKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLApplicationIsScriptableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLApplicationIsScriptableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAttributeModificationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAttributeModificationDateKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodClientCertificate"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodClientCertificate = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodDefault"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodDefault = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodHTMLForm"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodHTMLForm = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodHTTPBasic"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodHTTPBasic = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodHTTPDigest"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodHTTPDigest = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodNTLM"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodNTLM = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodNegotiate"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodNegotiate = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLAuthenticationMethodServerTrust"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLAuthenticationMethodServerTrust = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLCanonicalPathKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLCanonicalPathKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLContentAccessDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLContentAccessDateKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLContentModificationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLContentModificationDateKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLContentTypeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLContentTypeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLCreationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLCreationDateKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLCredentialStorageRemoveSynchronizableCredentials"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLCredentialStorageRemoveSynchronizableCredentials = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLCustomIconKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLCustomIconKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLDirectoryEntryCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLDirectoryEntryCountKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLDocumentIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLDocumentIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLEffectiveIconKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLEffectiveIconKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorBackgroundTaskCancelledReasonKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorBackgroundTaskCancelledReasonKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorFailingURLErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorFailingURLErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorFailingURLPeerTrustErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorFailingURLPeerTrustErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorFailingURLStringErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorFailingURLStringErrorKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLErrorNetworkUnavailableReasonKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLErrorNetworkUnavailableReasonKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileAllocatedSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileAllocatedSizeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileContentIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileContentIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileProtectionComplete"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileProtectionComplete = NSURLFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileProtectionCompleteUnlessOpen"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileProtectionCompleteUnlessOpen = NSURLFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileProtectionCompleteUntilFirstUserAuthentication"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileProtectionCompleteUntilFirstUserAuthentication = NSURLFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileProtectionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileProtectionKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileProtectionNone"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileProtectionNone = NSURLFileProtectionType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileResourceIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeBlockSpecial"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeBlockSpecial = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeCharacterSpecial"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeCharacterSpecial = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeDirectory"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeDirectory = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileResourceTypeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeNamedPipe"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeNamedPipe = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeRegular"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeRegular = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeSocket"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeSocket = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeSymbolicLink"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeSymbolicLink = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileResourceTypeUnknown"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLFileResourceTypeUnknown = NSURLFileResourceType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileScheme"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileScheme = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileSecurityKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileSecurityKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLFileSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLFileSizeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLGenerationIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLGenerationIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLHasHiddenExtensionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLHasHiddenExtensionKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsAliasFileKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsAliasFileKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsApplicationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsApplicationKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsDirectoryKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsDirectoryKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsExcludedFromBackupKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsExcludedFromBackupKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsExecutableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsExecutableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsHiddenKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsHiddenKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsMountTriggerKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsMountTriggerKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsPackageKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsPackageKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsPurgeableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsPurgeableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsReadableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsReadableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsRegularFileKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsRegularFileKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsSparseKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsSparseKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsSymbolicLinkKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsSymbolicLinkKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsSystemImmutableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsSystemImmutableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsUbiquitousItemKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsUbiquitousItemKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsUserImmutableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsUserImmutableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsVolumeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsVolumeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLIsWritableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLIsWritableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLKeysOfUnsetValuesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLKeysOfUnsetValuesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLLabelColorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLLabelColorKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLLabelNumberKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLLabelNumberKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLLinkCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLLinkCountKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLLocalizedLabelKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLLocalizedLabelKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLLocalizedNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLLocalizedNameKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLLocalizedTypeDescriptionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLLocalizedTypeDescriptionKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLMayHaveExtendedAttributesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLMayHaveExtendedAttributesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLMayShareFileContentKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLMayShareFileContentKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLNameKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLParentDirectoryURLKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLParentDirectoryURLKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLPathKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLPathKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLPreferredIOBlockSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLPreferredIOBlockSizeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceFTP"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceFTP = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceFTPProxy"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceFTPProxy = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceHTTP"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceHTTP = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceHTTPProxy"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceHTTPProxy = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceHTTPS"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceHTTPS = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceHTTPSProxy"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceHTTPSProxy = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLProtectionSpaceSOCKSProxy"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLProtectionSpaceSOCKSProxy = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLQuarantinePropertiesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLQuarantinePropertiesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionDownloadTaskResumeData"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLSessionDownloadTaskResumeData = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTaskPriorityDefault"); err == nil && ptr != 0 {
+		URLSessionTaskPriorityDefault = *(*float32)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTaskPriorityHigh"); err == nil && ptr != 0 {
+		URLSessionTaskPriorityHigh = *(*float32)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTaskPriorityLow"); err == nil && ptr != 0 {
+		URLSessionTaskPriorityLow = *(*float32)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTransferSizeUnknown"); err == nil && ptr != 0 {
+		URLSessionTransferSizeUnknown = *(*int64)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionUploadTaskResumeData"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLSessionUploadTaskResumeData = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLTagNamesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLTagNamesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLTotalFileAllocatedSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLTotalFileAllocatedSizeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLTotalFileSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLTotalFileSizeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLTypeIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLTypeIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemContainerDisplayNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemContainerDisplayNameKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemDownloadRequestedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemDownloadRequestedKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemDownloadingErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemDownloadingErrorKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemDownloadingStatusCurrent"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousItemDownloadingStatusCurrent = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemDownloadingStatusDownloaded"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousItemDownloadingStatusDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemDownloadingStatusKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemDownloadingStatusKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemDownloadingStatusNotDownloaded"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousItemDownloadingStatusNotDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemHasUnresolvedConflictsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemHasUnresolvedConflictsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemIsDownloadingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemIsDownloadingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemIsExcludedFromSyncKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemIsExcludedFromSyncKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemIsSharedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemIsSharedKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemIsSyncPausedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemIsSyncPausedKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemIsUploadedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemIsUploadedKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemIsUploadingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemIsUploadingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemSupportedSyncControlsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemSupportedSyncControlsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousItemUploadingErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousItemUploadingErrorKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemCurrentUserPermissionsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousSharedItemCurrentUserPermissionsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemCurrentUserRoleKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousSharedItemCurrentUserRoleKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemMostRecentEditorNameComponentsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousSharedItemMostRecentEditorNameComponentsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemOwnerNameComponentsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLUbiquitousSharedItemOwnerNameComponentsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemPermissionsReadOnly"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousSharedItemPermissionsReadOnly = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemPermissionsReadWrite"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousSharedItemPermissionsReadWrite = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemRoleOwner"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousSharedItemRoleOwner = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLUbiquitousSharedItemRoleParticipant"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				uRLUbiquitousSharedItemRoleParticipant = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeAvailableCapacityForImportantUsageKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeAvailableCapacityForImportantUsageKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeAvailableCapacityForOpportunisticUsageKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeAvailableCapacityForOpportunisticUsageKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeAvailableCapacityKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeAvailableCapacityKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeCreationDateKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeCreationDateKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIdentifierKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIdentifierKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsAutomountedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsAutomountedKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsBrowsableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsBrowsableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsEjectableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsEjectableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsEncryptedKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsEncryptedKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsInternalKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsInternalKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsJournalingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsJournalingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsLocalKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsLocalKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsReadOnlyKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsReadOnlyKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsRemovableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsRemovableKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeIsRootFileSystemKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeIsRootFileSystemKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeLocalizedFormatDescriptionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeLocalizedFormatDescriptionKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeLocalizedNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeLocalizedNameKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeMaximumFileSizeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeMaximumFileSizeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeMountFromLocationKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeMountFromLocationKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeNameKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeResourceCountKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeResourceCountKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSubtypeKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSubtypeKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsAccessPermissionsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsAccessPermissionsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsAdvisoryFileLockingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsAdvisoryFileLockingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsCasePreservedNamesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsCasePreservedNamesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsCaseSensitiveNamesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsCaseSensitiveNamesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsCompressionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsCompressionKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsExclusiveRenamingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsExclusiveRenamingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsExtendedSecurityKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsExtendedSecurityKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsFileCloningKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsFileCloningKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsFileProtectionKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsFileProtectionKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsHardLinksKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsHardLinksKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsImmutableFilesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsImmutableFilesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsJournalingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsJournalingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsPersistentIDsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsPersistentIDsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsRenamingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsRenamingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsRootDirectoryDatesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsRootDirectoryDatesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsSparseFilesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsSparseFilesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsSwapRenamingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsSwapRenamingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsSymbolicLinksKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsSymbolicLinksKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsVolumeSizesKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsVolumeSizesKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeSupportsZeroRunsKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeSupportsZeroRunsKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeTotalCapacityKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeTotalCapacityKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeTypeNameKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeTypeNameKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeURLForRemountingKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeURLForRemountingKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeURLKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeURLKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLVolumeUUIDStringKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				URLVolumeUUIDStringKey = NSURLResourceKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUbiquitousKeyValueStoreChangeReasonKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UbiquitousKeyValueStoreChangeReasonKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUbiquitousKeyValueStoreChangedKeysKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UbiquitousKeyValueStoreChangedKeysKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUbiquitousKeyValueStoreDidChangeExternallyNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UbiquitousKeyValueStoreDidChangeExternallyNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUbiquityIdentityDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UbiquityIdentityDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndefinedKeyException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndefinedKeyException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlineColorAttributeName"); err == nil && ptr != 0 {
+		UnderlineColorAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlineStyleAttributeName"); err == nil && ptr != 0 {
+		UnderlineStyleAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlyingErrorKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UnderlyingErrorKey = NSErrorUserInfoKey(objc.GoString(cstr))
+			}
+		}
+	}
+
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerCheckpointNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerCheckpointNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerDidCloseUndoGroupNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerDidCloseUndoGroupNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerDidOpenUndoGroupNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerDidOpenUndoGroupNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerDidRedoChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerDidRedoChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerDidUndoChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerDidUndoChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerGroupIsDiscardableKey"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerGroupIsDiscardableKey = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerWillCloseUndoGroupNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerWillCloseUndoGroupNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerWillRedoChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerWillRedoChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUndoManagerWillUndoChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UndoManagerWillUndoChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnionOfArraysKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UnionOfArraysKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnionOfObjectsKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UnionOfObjectsKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnionOfSetsKeyValueOperator"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UnionOfSetsKeyValueOperator = NSKeyValueOperator(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUserActivityTypeBrowsingWeb"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UserActivityTypeBrowsingWeb = objc.GoString(cstr)
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUserDefaultsDidChangeNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				UserDefaultsDidChangeNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSUserDefaultsSizeLimitExceededNotification"); err == nil && ptr != 0 {
+		NSUserDefaultsSizeLimitExceededNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSVerticalGlyphFormAttributeName"); err == nil && ptr != 0 {
+		VerticalGlyphFormAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewModeDocumentAttribute"); err == nil && ptr != 0 {
+		ViewModeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewSizeDocumentAttribute"); err == nil && ptr != 0 {
+		ViewSizeDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewZoomDocumentAttribute"); err == nil && ptr != 0 {
+		ViewZoomDocumentAttribute = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWebArchiveTextDocumentType"); err == nil && ptr != 0 {
+		WebArchiveTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWebPreferencesDocumentOption"); err == nil && ptr != 0 {
+		WebPreferencesDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWebResourceLoadDelegateDocumentOption"); err == nil && ptr != 0 {
+		WebResourceLoadDelegateDocumentOption = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWillBecomeMultiThreadedNotification"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				WillBecomeMultiThreadedNotification = NSNotificationName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowServerCommunicationException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				WindowServerCommunicationException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWordMLTextDocumentType"); err == nil && ptr != 0 {
+		WordMLTextDocumentType = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWordTablesReadException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				WordTablesReadException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWordTablesWriteException"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				WordTablesWriteException = NSExceptionName(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWritingDirectionAttributeName"); err == nil && ptr != 0 {
+		WritingDirectionAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSWritingToolsExclusionAttributeName"); err == nil && ptr != 0 {
+		WritingToolsExclusionAttributeName = *(*NSAttributedString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSXMLParserErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				XMLParserErrorDomain = NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSZombieEnabled"); err == nil && ptr != 0 {
+		ZombieEnabled = *(*bool)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidBeginFindNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidBeginFindNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidBeginPageFindNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidBeginPageFindNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidBeginPageWriteNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidBeginPageWriteNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidBeginWriteNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidBeginWriteNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidEndFindNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidEndFindNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidEndPageFindNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidEndPageFindNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidEndPageWriteNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidEndPageWriteNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidEndWriteNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidEndWriteNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidFindMatchNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidFindMatchNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentDidUnlockNotification"); err == nil && ptr != 0 {
+		PDFDocumentDidUnlockNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFThumbnailViewDocumentEditedNotification"); err == nil && ptr != 0 {
+		PDFThumbnailViewDocumentEditedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewAnnotationHitNotification"); err == nil && ptr != 0 {
+		PDFViewAnnotationHitNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewAnnotationWillHitNotification"); err == nil && ptr != 0 {
+		PDFViewAnnotationWillHitNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewChangedHistoryNotification"); err == nil && ptr != 0 {
+		PDFViewChangedHistoryNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewCopyPermissionNotification"); err == nil && ptr != 0 {
+		PDFViewCopyPermissionNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewDisplayBoxChangedNotification"); err == nil && ptr != 0 {
+		PDFViewDisplayBoxChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewDisplayModeChangedNotification"); err == nil && ptr != 0 {
+		PDFViewDisplayModeChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewDocumentChangedNotification"); err == nil && ptr != 0 {
+		PDFViewDocumentChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewPageChangedNotification"); err == nil && ptr != 0 {
+		PDFViewPageChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewPrintPermissionNotification"); err == nil && ptr != 0 {
+		PDFViewPrintPermissionNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewScaleChangedNotification"); err == nil && ptr != 0 {
+		PDFViewScaleChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewSelectionChangedNotification"); err == nil && ptr != 0 {
+		PDFViewSelectionChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "PDFViewVisiblePagesChangedNotification"); err == nil && ptr != 0 {
+		PDFViewVisiblePagesChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "SKCloudServiceCapabilitiesDidChangeNotification"); err == nil && ptr != 0 {
+		SKCloudServiceCapabilitiesDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "SKStorefrontCountryCodeDidChangeNotification"); err == nil && ptr != 0 {
+		SKStorefrontCountryCodeDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "SKStorefrontIdentifierDidChangeNotification"); err == nil && ptr != 0 {
+		SKStorefrontIdentifierDidChangeNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kABDatabaseChangedExternallyNotification"); err == nil && ptr != 0 {
+		KABDatabaseChangedExternallyNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kABDatabaseChangedNotification"); err == nil && ptr != 0 {
+		KABDatabaseChangedNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kQuartzFilterManagerDidAddFilterNotification"); err == nil && ptr != 0 {
+		KQuartzFilterManagerDidAddFilterNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kQuartzFilterManagerDidModifyFilterNotification"); err == nil && ptr != 0 {
+		KQuartzFilterManagerDidModifyFilterNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kQuartzFilterManagerDidRemoveFilterNotification"); err == nil && ptr != 0 {
+		KQuartzFilterManagerDidRemoveFilterNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kQuartzFilterManagerDidSelectFilterNotification"); err == nil && ptr != 0 {
+		KQuartzFilterManagerDidSelectFilterNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+	}
+
+}
+
+type NSCalendarIdentifierValues struct{}
+
+// NSCalendarIdentifiers provides typed accessors for [NSCalendarIdentifier] constants.
+var NSCalendarIdentifiers NSCalendarIdentifierValues
+
+func (NSCalendarIdentifierValues) Bangla() NSCalendarIdentifier { return calendarIdentifierBangla }
+
+// Buddhist returns Identifier for the Buddhist calendar.
+func (NSCalendarIdentifierValues) Buddhist() NSCalendarIdentifier { return calendarIdentifierBuddhist }
+
+// Chinese returns Identifier for the Chinese calendar.
+func (NSCalendarIdentifierValues) Chinese() NSCalendarIdentifier { return calendarIdentifierChinese }
+
+// Coptic returns Identifier for the Coptic calendar.
+func (NSCalendarIdentifierValues) Coptic() NSCalendarIdentifier { return calendarIdentifierCoptic }
+
+func (NSCalendarIdentifierValues) Dangi() NSCalendarIdentifier { return calendarIdentifierDangi }
+
+// EthiopicAmeteAlem returns Identifier for the Ethiopic (Amete Alem) calendar.
+func (NSCalendarIdentifierValues) EthiopicAmeteAlem() NSCalendarIdentifier { return calendarIdentifierEthiopicAmeteAlem }
+
+// EthiopicAmeteMihret returns Identifier for the Ethiopic (Amete Mihret) calendar.
+func (NSCalendarIdentifierValues) EthiopicAmeteMihret() NSCalendarIdentifier { return calendarIdentifierEthiopicAmeteMihret }
+
+// Gregorian returns Identifier for the Gregorian calendar.
+func (NSCalendarIdentifierValues) Gregorian() NSCalendarIdentifier { return calendarIdentifierGregorian }
+
+func (NSCalendarIdentifierValues) Gujarati() NSCalendarIdentifier { return calendarIdentifierGujarati }
+
+// Hebrew returns Identifier for the Hebrew calendar.
+func (NSCalendarIdentifierValues) Hebrew() NSCalendarIdentifier { return calendarIdentifierHebrew }
+
+// ISO8601 returns Identifier for the ISO8601 calendar.
+func (NSCalendarIdentifierValues) ISO8601() NSCalendarIdentifier { return calendarIdentifierISO8601 }
+
+// Indian returns Identifier for the Indian calendar.
+func (NSCalendarIdentifierValues) Indian() NSCalendarIdentifier { return calendarIdentifierIndian }
+
+// Islamic returns Identifier for the Islamic calendar.
+func (NSCalendarIdentifierValues) Islamic() NSCalendarIdentifier { return calendarIdentifierIslamic }
+
+// IslamicCivil returns Identifier for the Islamic civil calendar.
+func (NSCalendarIdentifierValues) IslamicCivil() NSCalendarIdentifier { return calendarIdentifierIslamicCivil }
+
+// IslamicTabular returns Identifier for a tabular Islamic calendar.
+func (NSCalendarIdentifierValues) IslamicTabular() NSCalendarIdentifier { return calendarIdentifierIslamicTabular }
+
+// IslamicUmmAlQura returns Identifier for the Islamic Umm al-Qura calendar.
+func (NSCalendarIdentifierValues) IslamicUmmAlQura() NSCalendarIdentifier { return calendarIdentifierIslamicUmmAlQura }
+
+// Japanese returns Identifier for the Japanese calendar.
+func (NSCalendarIdentifierValues) Japanese() NSCalendarIdentifier { return calendarIdentifierJapanese }
+
+func (NSCalendarIdentifierValues) Kannada() NSCalendarIdentifier { return calendarIdentifierKannada }
+
+func (NSCalendarIdentifierValues) Malayalam() NSCalendarIdentifier { return calendarIdentifierMalayalam }
+
+func (NSCalendarIdentifierValues) Marathi() NSCalendarIdentifier { return calendarIdentifierMarathi }
+
+func (NSCalendarIdentifierValues) Odia() NSCalendarIdentifier { return calendarIdentifierOdia }
+
+// Persian returns Identifier for the Persian calendar.
+func (NSCalendarIdentifierValues) Persian() NSCalendarIdentifier { return calendarIdentifierPersian }
+
+// RepublicOfChina returns Identifier for the Republic of China calendar.
+func (NSCalendarIdentifierValues) RepublicOfChina() NSCalendarIdentifier { return calendarIdentifierRepublicOfChina }
+
+func (NSCalendarIdentifierValues) Tamil() NSCalendarIdentifier { return calendarIdentifierTamil }
+
+func (NSCalendarIdentifierValues) Telugu() NSCalendarIdentifier { return calendarIdentifierTelugu }
+
+func (NSCalendarIdentifierValues) Vietnamese() NSCalendarIdentifier { return calendarIdentifierVietnamese }
+
+func (NSCalendarIdentifierValues) Vikram() NSCalendarIdentifier { return calendarIdentifierVikram }
+
+
+type NSLinguisticTagSchemeValues struct{}
+
+// NSLinguisticTagSchemes provides typed accessors for [NSLinguisticTagScheme] constants.
+var NSLinguisticTagSchemes NSLinguisticTagSchemeValues
+
+// Language returns Supplies the language for a token, if one can be determined.
+func (NSLinguisticTagSchemeValues) Language() NSLinguisticTagScheme { return linguisticTagSchemeLanguage }
+
+// Lemma returns Supplies a stem form of a word token, if known.
+func (NSLinguisticTagSchemeValues) Lemma() NSLinguisticTagScheme { return linguisticTagSchemeLemma }
+
+// LexicalClass returns Classifies tokens according to class:  part of speech, type of punctuation, or whitespace.
+func (NSLinguisticTagSchemeValues) LexicalClass() NSLinguisticTagScheme { return linguisticTagSchemeLexicalClass }
+
+// NameType returns Classifies tokens according to whether they are part of a named entity.
+func (NSLinguisticTagSchemeValues) NameType() NSLinguisticTagScheme { return linguisticTagSchemeNameType }
+
+// NameTypeOrLexicalClass returns Classifies tokens corresponding to names according to [nameType](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/lexicalClass>).
+func (NSLinguisticTagSchemeValues) NameTypeOrLexicalClass() NSLinguisticTagScheme { return linguisticTagSchemeNameTypeOrLexicalClass }
+
+// Script returns Supplies the script for a token, if one can be determined.
+func (NSLinguisticTagSchemeValues) Script() NSLinguisticTagScheme { return linguisticTagSchemeScript }
+
+// TokenType returns Classifies tokens according to their broad type:  word, punctuation, or whitespace.
+func (NSLinguisticTagSchemeValues) TokenType() NSLinguisticTagScheme { return linguisticTagSchemeTokenType }
+
+
+type NSLinguisticTagValues struct{}
+
+// NSLinguisticTags provides typed accessors for [NSLinguisticTag] constants.
+var NSLinguisticTags NSLinguisticTagValues
+
+// Adjective returns This token is an adjective
+func (NSLinguisticTagValues) Adjective() NSLinguisticTag { return linguisticTagAdjective }
+
+// Adverb returns This token is an adverb.
+func (NSLinguisticTagValues) Adverb() NSLinguisticTag { return linguisticTagAdverb }
+
+// Classifier returns This token is a classifier.
+func (NSLinguisticTagValues) Classifier() NSLinguisticTag { return linguisticTagClassifier }
+
+// CloseParenthesis returns This token is a close parenthesis.
+func (NSLinguisticTagValues) CloseParenthesis() NSLinguisticTag { return linguisticTagCloseParenthesis }
+
+// CloseQuote returns This token is a close quote.
+func (NSLinguisticTagValues) CloseQuote() NSLinguisticTag { return linguisticTagCloseQuote }
+
+// Conjunction returns This token is a conjunction.
+func (NSLinguisticTagValues) Conjunction() NSLinguisticTag { return linguisticTagConjunction }
+
+// Dash returns This token is a dash.
+func (NSLinguisticTagValues) Dash() NSLinguisticTag { return linguisticTagDash }
+
+// Determiner returns This token is a determiner.
+func (NSLinguisticTagValues) Determiner() NSLinguisticTag { return linguisticTagDeterminer }
+
+// Idiom returns This token is an idiom.
+func (NSLinguisticTagValues) Idiom() NSLinguisticTag { return linguisticTagIdiom }
+
+// Interjection returns This token is an interjection.
+func (NSLinguisticTagValues) Interjection() NSLinguisticTag { return linguisticTagInterjection }
+
+// Noun returns The token is a noun.
+func (NSLinguisticTagValues) Noun() NSLinguisticTag { return linguisticTagNoun }
+
+// Number returns This token is a number.
+func (NSLinguisticTagValues) Number() NSLinguisticTag { return linguisticTagNumber }
+
+// OpenParenthesis returns This token is an open parenthesis.
+func (NSLinguisticTagValues) OpenParenthesis() NSLinguisticTag { return linguisticTagOpenParenthesis }
+
+// OpenQuote returns This token is an open quote.
+func (NSLinguisticTagValues) OpenQuote() NSLinguisticTag { return linguisticTagOpenQuote }
+
+// OrganizationName returns This token is an organization name.
+func (NSLinguisticTagValues) OrganizationName() NSLinguisticTag { return linguisticTagOrganizationName }
+
+// Other returns The token indicates a non-linguistic item, such as a symbol.
+func (NSLinguisticTagValues) Other() NSLinguisticTag { return linguisticTagOther }
+
+// OtherPunctuation returns This token is punctuation other than a kind described by other lexical classes (sentence terminator, open or close quote, open or close parenthesis, word joiner, and dash).
+func (NSLinguisticTagValues) OtherPunctuation() NSLinguisticTag { return linguisticTagOtherPunctuation }
+
+// OtherWhitespace returns This token is whitespace other than a kind described by other lexical classes (paragraph break).
+func (NSLinguisticTagValues) OtherWhitespace() NSLinguisticTag { return linguisticTagOtherWhitespace }
+
+// OtherWord returns This token is a word other than a kind described by other lexical classes (noun, verb, adjective, adverb, pronoun, determiner, particle, preposition, number, conjunction, interjection, classifier, and idiom).
+func (NSLinguisticTagValues) OtherWord() NSLinguisticTag { return linguisticTagOtherWord }
+
+// ParagraphBreak returns This token is a paragraph break.
+func (NSLinguisticTagValues) ParagraphBreak() NSLinguisticTag { return linguisticTagParagraphBreak }
+
+// Particle returns This token is a particle.
+func (NSLinguisticTagValues) Particle() NSLinguisticTag { return linguisticTagParticle }
+
+// PersonalName returns This token is a personal name.
+func (NSLinguisticTagValues) PersonalName() NSLinguisticTag { return linguisticTagPersonalName }
+
+// PlaceName returns This token is a place name.
+func (NSLinguisticTagValues) PlaceName() NSLinguisticTag { return linguisticTagPlaceName }
+
+// Preposition returns This token is a preposition.
+func (NSLinguisticTagValues) Preposition() NSLinguisticTag { return linguisticTagPreposition }
+
+// Pronoun returns This token is a pronoun.
+func (NSLinguisticTagValues) Pronoun() NSLinguisticTag { return linguisticTagPronoun }
+
+// Punctuation returns The token indicates punctuation.
+func (NSLinguisticTagValues) Punctuation() NSLinguisticTag { return linguisticTagPunctuation }
+
+// SentenceTerminator returns This token is a sentence terminator.
+func (NSLinguisticTagValues) SentenceTerminator() NSLinguisticTag { return linguisticTagSentenceTerminator }
+
+// Verb returns This token is a verb.
+func (NSLinguisticTagValues) Verb() NSLinguisticTag { return linguisticTagVerb }
+
+// Whitespace returns The token indicates white space of any sort.
+func (NSLinguisticTagValues) Whitespace() NSLinguisticTag { return linguisticTagWhitespace }
+
+// Word returns The token indicates a word.
+func (NSLinguisticTagValues) Word() NSLinguisticTag { return linguisticTagWord }
+
+// WordJoiner returns This token is a word joiner.
+func (NSLinguisticTagValues) WordJoiner() NSLinguisticTag { return linguisticTagWordJoiner }
+
+
+type NSProgressFileOperationKindValues struct{}
+
+// NSProgressFileOperationKinds provides typed accessors for [NSProgressFileOperationKind] constants.
+var NSProgressFileOperationKinds NSProgressFileOperationKindValues
+
+// Copying returns The progress is tracking the copying of a file from source to destination.
+func (NSProgressFileOperationKindValues) Copying() NSProgressFileOperationKind { return progressFileOperationKindCopying }
+
+// DecompressingAfterDownloading returns The progress is tracking file decompression after a download.
+func (NSProgressFileOperationKindValues) DecompressingAfterDownloading() NSProgressFileOperationKind { return progressFileOperationKindDecompressingAfterDownloading }
+
+// Downloading returns The progress is tracking a file download operation.
+func (NSProgressFileOperationKindValues) Downloading() NSProgressFileOperationKind { return progressFileOperationKindDownloading }
+
+func (NSProgressFileOperationKindValues) Duplicating() NSProgressFileOperationKind { return progressFileOperationKindDuplicating }
+
+// Receiving returns The progress is tracking the receipt of a file from another source.
+func (NSProgressFileOperationKindValues) Receiving() NSProgressFileOperationKind { return progressFileOperationKindReceiving }
+
+// Uploading returns The progress is tracking a file upload operation.
+func (NSProgressFileOperationKindValues) Uploading() NSProgressFileOperationKind { return progressFileOperationKindUploading }
+
+
+type StreamSocketSecurityLevelValues struct{}
+
+// StreamSocketSecurityLevels provides typed accessors for [StreamSocketSecurityLevel] constants.
+var StreamSocketSecurityLevels StreamSocketSecurityLevelValues
+
+// NegotiatedSSL returns Specifies that the highest level security protocol that can be negotiated be set as the security protocol for a socket stream.
+func (StreamSocketSecurityLevelValues) NegotiatedSSL() StreamSocketSecurityLevel { return streamSocketSecurityLevelNegotiatedSSL }
+
+// None returns Specifies that no security level be set for a socket stream.
+func (StreamSocketSecurityLevelValues) None() StreamSocketSecurityLevel { return streamSocketSecurityLevelNone }
+
+// SSLv2 returns Specifies that SSL version 2 be set as the security protocol for a socket stream.
+func (StreamSocketSecurityLevelValues) SSLv2() StreamSocketSecurityLevel { return streamSocketSecurityLevelSSLv2 }
+
+// SSLv3 returns Specifies that SSL version 3 be set as the security protocol for a socket stream.
+func (StreamSocketSecurityLevelValues) SSLv3() StreamSocketSecurityLevel { return streamSocketSecurityLevelSSLv3 }
+
+// TLSv1 returns Specifies that TLS version 1 be set as the security protocol for a socket stream.
+func (StreamSocketSecurityLevelValues) TLSv1() StreamSocketSecurityLevel { return streamSocketSecurityLevelTLSv1 }
+
+
+type StringTransformValues struct{}
+
+// StringTransforms provides typed accessors for [StringTransform] constants.
+var StringTransforms StringTransformValues
+
+// FullwidthToHalfwidth returns A constant containing the transformation of a string from full-width CJK characters to half-width forms.
+func (StringTransformValues) FullwidthToHalfwidth() StringTransform { return stringTransformFullwidthToHalfwidth }
+
+// HiraganaToKatakana returns A constant containing the transliteration of a string from Hiragana script to Katakana script.
+func (StringTransformValues) HiraganaToKatakana() StringTransform { return stringTransformHiraganaToKatakana }
+
+// LatinToArabic returns A constant containing the transliteration of a string from Latin script to Arabic script.
+func (StringTransformValues) LatinToArabic() StringTransform { return stringTransformLatinToArabic }
+
+// LatinToCyrillic returns A constant containing the transliteration of a string from Latin script to Cyrillic script.
+func (StringTransformValues) LatinToCyrillic() StringTransform { return stringTransformLatinToCyrillic }
+
+// LatinToGreek returns A constant containing the transliteration of a string from Latin script to Greek script.
+func (StringTransformValues) LatinToGreek() StringTransform { return stringTransformLatinToGreek }
+
+// LatinToHangul returns A constant containing the transliteration of a string from Latin script to Hangul script.
+func (StringTransformValues) LatinToHangul() StringTransform { return stringTransformLatinToHangul }
+
+// LatinToHebrew returns A constant containing the transliteration of a string from Latin script to Hebrew script.
+func (StringTransformValues) LatinToHebrew() StringTransform { return stringTransformLatinToHebrew }
+
+// LatinToHiragana returns A constant containing the transliteration of a string from Latin script to Hiragana script.
+func (StringTransformValues) LatinToHiragana() StringTransform { return stringTransformLatinToHiragana }
+
+// LatinToKatakana returns A constant containing the transliteration of a string from Latin script to Katakana script.
+func (StringTransformValues) LatinToKatakana() StringTransform { return stringTransformLatinToKatakana }
+
+// LatinToThai returns A constant containing the transliteration of a string from Latin script to Thai script.
+func (StringTransformValues) LatinToThai() StringTransform { return stringTransformLatinToThai }
+
+// MandarinToLatin returns A constant containing the transliteration of a string from Han script to Latin.
+func (StringTransformValues) MandarinToLatin() StringTransform { return stringTransformMandarinToLatin }
+
+// StripCombiningMarks returns A constant containing the transformation of a string by removing combining marks.
+func (StringTransformValues) StripCombiningMarks() StringTransform { return stringTransformStripCombiningMarks }
+
+// StripDiacritics returns A constant containing the transformation of a string by removing diacritics.
+func (StringTransformValues) StripDiacritics() StringTransform { return stringTransformStripDiacritics }
+
+// ToLatin returns A constant containing the transliteration of a string from any script to Latin script.
+func (StringTransformValues) ToLatin() StringTransform { return stringTransformToLatin }
+
+// ToUnicodeName returns An identifier for a transform that converts characters to Unicode names.
+func (StringTransformValues) ToUnicodeName() StringTransform { return stringTransformToUnicodeName }
+
+// ToXMLHex returns A constant containing the transformation of a string from characters to XML hexadecimal escape codes.
+func (StringTransformValues) ToXMLHex() StringTransform { return stringTransformToXMLHex }
+
+
+type URLFileResourceTypeValues struct{}
+
+// URLFileResourceTypes provides typed accessors for [URLFileResourceType] constants.
+var URLFileResourceTypes URLFileResourceTypeValues
+
+// BlockSpecial returns The resource is a block special file.
+func (URLFileResourceTypeValues) BlockSpecial() URLFileResourceType { return uRLFileResourceTypeBlockSpecial }
+
+// CharacterSpecial returns The resource is a character special file.
+func (URLFileResourceTypeValues) CharacterSpecial() URLFileResourceType { return uRLFileResourceTypeCharacterSpecial }
+
+// Directory returns The resource is a directory.
+func (URLFileResourceTypeValues) Directory() URLFileResourceType { return uRLFileResourceTypeDirectory }
+
+// NamedPipe returns The resource is a named pipe.
+func (URLFileResourceTypeValues) NamedPipe() URLFileResourceType { return uRLFileResourceTypeNamedPipe }
+
+// Regular returns The resource is a regular file.
+func (URLFileResourceTypeValues) Regular() URLFileResourceType { return uRLFileResourceTypeRegular }
+
+// Socket returns The resource is a socket.
+func (URLFileResourceTypeValues) Socket() URLFileResourceType { return uRLFileResourceTypeSocket }
+
+// SymbolicLink returns The resource is a symbolic link.
+func (URLFileResourceTypeValues) SymbolicLink() URLFileResourceType { return uRLFileResourceTypeSymbolicLink }
+
+// Unknown returns The resource’s type is unknown.
+func (URLFileResourceTypeValues) Unknown() URLFileResourceType { return uRLFileResourceTypeUnknown }
+
+
+type URLUbiquitousItemDownloadingStatusValues struct{}
+
+// URLUbiquitousItemDownloadingStatuss provides typed accessors for [URLUbiquitousItemDownloadingStatus] constants.
+var URLUbiquitousItemDownloadingStatuss URLUbiquitousItemDownloadingStatusValues
+
+// Current returns A local copy of this item exists and is the most up-to-date version known to the device.
+func (URLUbiquitousItemDownloadingStatusValues) Current() URLUbiquitousItemDownloadingStatus { return uRLUbiquitousItemDownloadingStatusCurrent }
+
+// Downloaded returns A local copy of this item exists, but it is stale. The most recent version will be downloaded as soon as possible.
+func (URLUbiquitousItemDownloadingStatusValues) Downloaded() URLUbiquitousItemDownloadingStatus { return uRLUbiquitousItemDownloadingStatusDownloaded }
+
+// NotDownloaded returns This item has not been downloaded yet. Use [startDownloadingUbiquitousItem(at:)](<doc://com.apple.foundation/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)>) to download it.
+func (URLUbiquitousItemDownloadingStatusValues) NotDownloaded() URLUbiquitousItemDownloadingStatus { return uRLUbiquitousItemDownloadingStatusNotDownloaded }
+
+
+type URLUbiquitousSharedItemPermissionsValues struct{}
+
+// URLUbiquitousSharedItemPermissionss provides typed accessors for [URLUbiquitousSharedItemPermissions] constants.
+var URLUbiquitousSharedItemPermissionss URLUbiquitousSharedItemPermissionsValues
+
+func (URLUbiquitousSharedItemPermissionsValues) ReadOnly() URLUbiquitousSharedItemPermissions { return uRLUbiquitousSharedItemPermissionsReadOnly }
+
+func (URLUbiquitousSharedItemPermissionsValues) ReadWrite() URLUbiquitousSharedItemPermissions { return uRLUbiquitousSharedItemPermissionsReadWrite }
+
+
+type URLUbiquitousSharedItemRoleValues struct{}
+
+// URLUbiquitousSharedItemRoles provides typed accessors for [URLUbiquitousSharedItemRole] constants.
+var URLUbiquitousSharedItemRoles URLUbiquitousSharedItemRoleValues
+
+func (URLUbiquitousSharedItemRoleValues) Owner() URLUbiquitousSharedItemRole { return uRLUbiquitousSharedItemRoleOwner }
+
+func (URLUbiquitousSharedItemRoleValues) Participant() URLUbiquitousSharedItemRole { return uRLUbiquitousSharedItemRoleParticipant }
+
+

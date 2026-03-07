@@ -1,0 +1,234 @@
+// Code generated from Apple documentation for AppKit. DO NOT EDIT.
+
+package appkit
+
+import (
+	"fmt"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objectivec"
+)
+
+var _ = fmt.Sprintf
+
+
+// An interface that provides the content to share from the macOS share sheet.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerToolbarItemDelegate
+type NSSharingServicePickerToolbarItemDelegate interface {
+	objectivec.IObject
+	NSSharingServicePickerDelegate
+
+	// Asks the delegate for the items to share.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerToolbarItemDelegate/items(for:)
+	ItemsForSharingServicePickerToolbarItem(pickerToolbarItem INSSharingServicePickerToolbarItem) foundation.INSArray
+}
+
+
+
+// NSSharingServicePickerToolbarItemDelegateObject wraps an existing Objective-C object that conforms to the NSSharingServicePickerToolbarItemDelegate protocol.
+type NSSharingServicePickerToolbarItemDelegateObject struct {
+	objectivec.Object
+}
+func (o NSSharingServicePickerToolbarItemDelegateObject) BaseObject() objectivec.Object {
+	return o.Object
+}
+
+
+
+// NSSharingServicePickerToolbarItemDelegateObjectFromID constructs a [NSSharingServicePickerToolbarItemDelegateObject] from an objc.ID.
+// The object is determined to conform to the protocol at runtime.
+func NSSharingServicePickerToolbarItemDelegateObjectFromID(id objc.ID) NSSharingServicePickerToolbarItemDelegateObject {
+	return NSSharingServicePickerToolbarItemDelegateObject{
+		Object: objectivec.ObjectFromID(id),
+	}
+}
+
+
+
+
+// Asks the delegate for the items to share.
+//
+// pickerToolbarItem: The toolbar item that displays the share sheet.
+//
+// # Return Value
+// 
+// An array of items to share using the share sheet.
+//
+// # Discussion
+// 
+// In your implementation of this method, return the items in the current
+// window that you want to share. Return the content that is focal to your
+// window or is currently selected. For example, you might share the current
+// photo someone is viewing. For a document window, you might share the
+// document itself.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerToolbarItemDelegate/items(for:)
+
+func (o NSSharingServicePickerToolbarItemDelegateObject) ItemsForSharingServicePickerToolbarItem(pickerToolbarItem INSSharingServicePickerToolbarItem) foundation.INSArray {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("itemsForSharingServicePickerToolbarItem:"), pickerToolbarItem)
+	return foundation.NSArrayFromID(rv)
+	}
+
+// Asks the delegate to specify which services to make available from the
+// sharing service picker.
+//
+// sharingServicePicker: The sharing service picker.
+//
+// items: The items to share. Use the set of items to determine which services are
+// relevant.
+//
+// proposedServices: The proposed services to include in the sharing service picker.
+//
+// # Return Value
+// 
+// An array of services to include in the sharing service picker.
+//
+// # Discussion
+// 
+// Use this method to remove default services, add custom services, or reorder
+// the existing services before the picker appears onscreen. Unless you
+// don’t intend to change the proposed services, create a new mutable array
+// and fill it with the services that are appropriate for the specified set of
+// items. The following example appends a custom [NSSharingService] object to
+// the proposed list of services.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:sharingServicesForItems:proposedSharingServices:)
+
+func (o NSSharingServicePickerToolbarItemDelegateObject) SharingServicePickerSharingServicesForItemsProposedSharingServices(sharingServicePicker INSSharingServicePicker, items foundation.INSArray, proposedServices []NSSharingService) []NSSharingService {
+	
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sharingServicePicker:sharingServicesForItems:proposedSharingServices:"), sharingServicePicker, items, objectivec.IObjectSliceToNSArray(proposedServices))
+	return objc.ConvertSlice(rv, func(id objc.ID) NSSharingService {
+		return NSSharingServiceFromID(id)
+	})
+	}
+
+// Tells the delegate that the person selected a sharing service for the
+// current item.
+//
+// sharingServicePicker: The sharing service picker.
+//
+// service: The selected sharing service. Invoked to give the delegate to the sharing
+// service that is about to be executed.
+//
+// # Discussion
+// 
+// After someone chooses a service, the sharing service picker calls this
+// method to let you know which service they picked. The sharing service
+// receives the item sometime after this method returns.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:didChoose:)
+
+func (o NSSharingServicePickerToolbarItemDelegateObject) SharingServicePickerDidChooseSharingService(sharingServicePicker INSSharingServicePicker, service INSSharingService) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("sharingServicePicker:didChooseSharingService:"), sharingServicePicker, service)
+	}
+
+// Asks your delegate to provide an object that the selected sharing service
+// can use as its delegate.
+//
+// sharingServicePicker: The sharing service picker.
+//
+// sharingService: The selected sharing service.
+//
+// # Return Value
+// 
+// An object that adopts the [NSSharingServiceDelegate] protocol.
+//
+// # Discussion
+// 
+// The sharing service assigns the returned object to its [Delegate] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:delegateFor:)
+
+func (o NSSharingServicePickerToolbarItemDelegateObject) SharingServicePickerDelegateForSharingService(sharingServicePicker INSSharingServicePicker, sharingService INSSharingService) NSSharingServiceDelegate {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingServicePicker:delegateForSharingService:"), sharingServicePicker, sharingService)
+	return NSSharingServiceDelegateObjectFromID(rv)
+	}
+
+// Used to specify the case where the share picker should not support some
+// modes of sharing even if they are supported by the items being shared.
+// Disabling all possible modes at the same time is not supported behavior.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePickerCollaborationModeRestrictions(_:)
+
+func (o NSSharingServicePickerToolbarItemDelegateObject) SharingServicePickerCollaborationModeRestrictions(sharingServicePicker INSSharingServicePicker) []NSSharingCollaborationModeRestriction {
+	
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sharingServicePickerCollaborationModeRestrictions:"), sharingServicePicker)
+	return objc.ConvertSlice(rv, func(id objc.ID) NSSharingCollaborationModeRestriction {
+		return NSSharingCollaborationModeRestrictionFromID(id)
+	})
+	}
+
+
+
+
+
+// NSSharingServicePickerToolbarItemDelegateConfig holds optional typed callbacks for [NSSharingServicePickerToolbarItemDelegate] methods.
+// Set non-nil fields to register the corresponding Objective-C delegate method.
+// Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
+// returns false for them — matching the Objective-C delegate pattern exactly.
+//
+// See [Apple Documentation] for protocol details.
+//
+// [Apple Documentation]: https://developer.apple.com/documentation/appkit/nssharingservicepickertoolbaritemdelegate
+type NSSharingServicePickerToolbarItemDelegateConfig struct {
+
+	// Other Methods
+	// ItemsForSharingServicePickerToolbarItem — Asks the delegate for the items to share.
+	ItemsForSharingServicePickerToolbarItem func(pickerToolbarItem NSSharingServicePickerToolbarItem) foundation.INSArray
+}
+
+// NewNSSharingServicePickerToolbarItemDelegate creates an Objective-C object implementing the [NSSharingServicePickerToolbarItemDelegate] protocol.
+//
+// Each call registers a unique Objective-C class containing only the methods
+// set in config. This means [NSObject.RespondsToSelector] works correctly
+// for optional delegate methods — only non-nil callbacks are registered.
+//
+// The returned [NSSharingServicePickerToolbarItemDelegateObject] satisfies the [NSSharingServicePickerToolbarItemDelegate] interface
+// and can be passed directly to SetDelegate and similar methods.
+//
+// See [Apple Documentation] for protocol details.
+//
+// [Apple Documentation]: https://developer.apple.com/documentation/appkit/nssharingservicepickertoolbaritemdelegate
+func NewNSSharingServicePickerToolbarItemDelegate(config NSSharingServicePickerToolbarItemDelegateConfig) NSSharingServicePickerToolbarItemDelegateObject {
+	n := delegateClassCounter.Add(1)
+	className := fmt.Sprintf("GoNSSharingServicePickerToolbarItemDelegate_%d", n)
+
+	var methods []objc.MethodDef
+
+	if config.ItemsForSharingServicePickerToolbarItem != nil {
+		fn := config.ItemsForSharingServicePickerToolbarItem
+		methods = append(methods, objc.MethodDef{
+			Cmd: objc.RegisterName("itemsForSharingServicePickerToolbarItem:"),
+			Fn: func(self objc.ID, _cmd objc.SEL, pickerToolbarItemID objc.ID) objc.ID {
+				pickerToolbarItem := NSSharingServicePickerToolbarItemFromID(pickerToolbarItemID)
+				return fn(pickerToolbarItem).GetID()
+			},
+		})
+	}
+
+	nsObjectClass := objc.GetClass("NSObject")
+	proto := objc.GetProtocol("NSSharingServicePickerToolbarItemDelegate")
+
+	var protocols []*objc.Protocol
+	if proto != nil {
+		protocols = append(protocols, proto)
+	}
+
+	cls, err := objc.RegisterClass(className, nsObjectClass, protocols, nil, methods)
+	if err != nil {
+		panic(fmt.Sprintf("NewNSSharingServicePickerToolbarItemDelegate: RegisterClass %s: %v", className, err))
+	}
+
+	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
+	return NSSharingServicePickerToolbarItemDelegateObjectFromID(instance)
+}
+
+
+
+
+
