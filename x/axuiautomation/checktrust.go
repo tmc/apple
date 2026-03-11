@@ -275,7 +275,7 @@ func CheckScreenCapture() {
 				baseImg := appkit.NewImageWithSystemSymbolNameAccessibilityDescription(
 					"checkmark.circle.fill", "Permission granted",
 				)
-				sizeCfg := appkit.NewImageSymbolConfigurationWithPointSizeWeight(checkSz, appkit.NSFontWeights.Medium())
+				sizeCfg := appkit.NewImageSymbolConfigurationWithPointSizeWeight(checkSz, appkit.NSFontWeights.Medium)
 				colorCfg := appkit.NewImageSymbolConfigurationWithHierarchicalColor(
 					appkit.GetNSColorClass().SystemGreen(),
 				)
@@ -419,7 +419,7 @@ func showWaitingForPermissionWindow() {
 			baseImg := appkit.NewImageWithSystemSymbolNameAccessibilityDescription(
 				"checkmark.circle.fill", "Permission granted",
 			)
-			sizeCfg := appkit.NewImageSymbolConfigurationWithPointSizeWeight(checkSz, appkit.NSFontWeights.Medium())
+			sizeCfg := appkit.NewImageSymbolConfigurationWithPointSizeWeight(checkSz, appkit.NSFontWeights.Medium)
 			colorCfg := appkit.NewImageSymbolConfigurationWithHierarchicalColor(
 				appkit.GetNSColorClass().SystemGreen(),
 			)
