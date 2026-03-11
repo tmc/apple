@@ -116,17 +116,17 @@ type IANERequest interface {
 	IoSurfacesCount() uint64
 	OutputArray() foundation.INSArray
 	OutputIndexArray() foundation.INSArray
-	PerfStats() IANEPerformanceStats
-	SetPerfStats(value IANEPerformanceStats)
+	PerfStats() *ANEPerformanceStats
+	SetPerfStats(value *ANEPerformanceStats)
 	PerfStatsArray() foundation.INSArray
 	ProcedureIndex() foundation.NSNumber
 	SetCompletionHandler(handler BoolErrorHandler)
-	SharedEvents() IANESharedEvents
-	SetSharedEvents(value IANESharedEvents)
+	SharedEvents() *ANESharedEvents
+	SetSharedEvents(value *ANESharedEvents)
 	TransactionHandle() foundation.NSNumber
 	SetTransactionHandle(value foundation.NSNumber)
 	Validate() bool
-	WeightsBuffer() IANEIOSurfaceObject
+	WeightsBuffer() *ANEIOSurfaceObject
 	InitWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle(inputs objectivec.IObject, indices objectivec.IObject, outputs objectivec.IObject, indices2 objectivec.IObject, buffer objectivec.IObject, stats objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject) ANERequest
 	InitWithVirtualModel(model unsafe.Pointer) ANERequest
 }
@@ -301,11 +301,15 @@ func (a ANERequest) OutputIndexArray() foundation.INSArray {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/perfStats
-func (a ANERequest) PerfStats() IANEPerformanceStats {
+func (a ANERequest) PerfStats() *ANEPerformanceStats {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("perfStats"))
-	return ANEPerformanceStatsFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEPerformanceStatsFromID(objc.ID(rv))
+	return &val
 }
-func (a ANERequest) SetPerfStats(value IANEPerformanceStats) {
+func (a ANERequest) SetPerfStats(value *ANEPerformanceStats) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPerfStats:"), value)
 }
 
@@ -328,11 +332,15 @@ func (a ANERequest) ProcedureIndex() foundation.NSNumber {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/sharedEvents
-func (a ANERequest) SharedEvents() IANESharedEvents {
+func (a ANERequest) SharedEvents() *ANESharedEvents {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedEvents"))
-	return ANESharedEventsFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANESharedEventsFromID(objc.ID(rv))
+	return &val
 }
-func (a ANERequest) SetSharedEvents(value IANESharedEvents) {
+func (a ANERequest) SetSharedEvents(value *ANESharedEvents) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSharedEvents:"), value)
 }
 
@@ -350,9 +358,13 @@ func (a ANERequest) SetTransactionHandle(value foundation.NSNumber) {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/weightsBuffer
-func (a ANERequest) WeightsBuffer() IANEIOSurfaceObject {
+func (a ANERequest) WeightsBuffer() *ANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightsBuffer"))
-	return ANEIOSurfaceObjectFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEIOSurfaceObjectFromID(objc.ID(rv))
+	return &val
 }
 
 

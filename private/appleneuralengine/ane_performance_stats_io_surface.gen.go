@@ -79,7 +79,7 @@ type IANEPerformanceStatsIOSurface interface {
 	// Topic: Methods
 
 	StatType() int64
-	Stats() IANEIOSurfaceObject
+	Stats() *ANEIOSurfaceObject
 	InitWithIOSurfaceStatType(iOSurface objectivec.IObject, type_ int64) ANEPerformanceStatsIOSurface
 }
 
@@ -159,9 +159,13 @@ func (a ANEPerformanceStatsIOSurface) StatType() int64 {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface/stats
-func (a ANEPerformanceStatsIOSurface) Stats() IANEIOSurfaceObject {
+func (a ANEPerformanceStatsIOSurface) Stats() *ANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stats"))
-	return ANEIOSurfaceObjectFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEIOSurfaceObjectFromID(objc.ID(rv))
+	return &val
 }
 
 

@@ -167,13 +167,13 @@ type IANEClient interface {
 	CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	CompiledModelExistsFor(for_ objectivec.IObject) bool
 	CompiledModelExistsMatchingHash(hash objectivec.IObject) bool
-	Conn() IANEDaemonConnection
+	Conn() *ANEDaemonConnection
 	ConnectionForLoadingModelOptions(model objectivec.IObject, options objectivec.IObject) objectivec.IObject
 	ConnectionUsedForLoadingModel(model objectivec.IObject) objectivec.IObject
 	Connections() foundation.INSDictionary
 	ConnectionsUsedForLoadingModels() foundation.INSDictionary
 	DoBuffersReadyWithModelInputBuffersOptionsQosError(model objectivec.IObject, buffers objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
-	DoEnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set IANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error)
+	DoEnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set *ANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error)
 	DoEvaluateDirectWithModelOptionsRequestQosError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32) (bool, error)
 	DoLoadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	DoLoadModelNewInstanceOptionsModelInstParamsQosError(instance objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32) (bool, error)
@@ -181,10 +181,10 @@ type IANEClient interface {
 	DoUnloadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	Echo(echo objectivec.IObject) bool
 	EndRealTimeTask() bool
-	EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set IANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error)
+	EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set *ANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error)
 	EvaluateRealTimeWithModelOptionsRequestError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject) (bool, error)
 	EvaluateWithModelOptionsRequestQosError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32) (bool, error)
-	FastConn() IANEDaemonConnection
+	FastConn() *ANEDaemonConnection
 	FastConnWithoutLock() objectivec.IObject
 	IsAnetoolRootDaemonConnection() bool
 	IsRootDaemon() bool
@@ -202,7 +202,7 @@ type IANEClient interface {
 	UnloadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	UnloadRealTimeModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	UnmapIOSurfacesWithModelRequest(model objectivec.IObject, request objectivec.IObject)
-	VirtualClient() IANEVirtualClient
+	VirtualClient() *ANEVirtualClient
 	InitWithRestrictedAccessAllowed(allowed bool) ANEClient
 }
 
@@ -332,7 +332,7 @@ func (a ANEClient) DoBuffersReadyWithModelInputBuffersOptionsQosError(model obje
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doEnqueueSetsWithModel:outputSet:options:qos:error:
-func (a ANEClient) DoEnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set IANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
+func (a ANEClient) DoEnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set *ANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
 			var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("doEnqueueSetsWithModel:outputSet:options:qos:error:"), model, set, options, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -441,7 +441,7 @@ func (a ANEClient) EndRealTimeTask() bool {
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/enqueueSetsWithModel:outputSet:options:qos:error:
-func (a ANEClient) EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set IANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
+func (a ANEClient) EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set *ANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
 			var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("enqueueSetsWithModel:outputSet:options:qos:error:"), model, set, options, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -669,15 +669,23 @@ func (a ANEClient) InitWithRestrictedAccessAllowed(allowed bool) ANEClient {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/sharedConnection
-func (_ANEClientClass ANEClientClass) SharedConnection() ANEClient {
+func (_ANEClientClass ANEClientClass) SharedConnection() *ANEClient {
 	rv := objc.Send[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedConnection"))
-	return ANEClientFromID(rv)
+	if rv == 0 {
+		return nil
+	}
+	val := ANEClientFromID(rv)
+	return &val
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/sharedPrivateConnection
-func (_ANEClientClass ANEClientClass) SharedPrivateConnection() ANEClient {
+func (_ANEClientClass ANEClientClass) SharedPrivateConnection() *ANEClient {
 	rv := objc.Send[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedPrivateConnection"))
-	return ANEClientFromID(rv)
+	if rv == 0 {
+		return nil
+	}
+	val := ANEClientFromID(rv)
+	return &val
 }
 
 
@@ -696,9 +704,13 @@ func (a ANEClient) AllowRestrictedAccess() bool {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/conn
-func (a ANEClient) Conn() IANEDaemonConnection {
+func (a ANEClient) Conn() *ANEDaemonConnection {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("conn"))
-	return ANEDaemonConnectionFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEDaemonConnectionFromID(objc.ID(rv))
+	return &val
 }
 
 
@@ -720,9 +732,13 @@ func (a ANEClient) ConnectionsUsedForLoadingModels() foundation.INSDictionary {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/fastConn
-func (a ANEClient) FastConn() IANEDaemonConnection {
+func (a ANEClient) FastConn() *ANEDaemonConnection {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fastConn"))
-	return ANEDaemonConnectionFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEDaemonConnectionFromID(objc.ID(rv))
+	return &val
 }
 
 
@@ -744,9 +760,13 @@ func (a ANEClient) PriorityQ() foundation.INSArray {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/virtualClient
-func (a ANEClient) VirtualClient() IANEVirtualClient {
+func (a ANEClient) VirtualClient() *ANEVirtualClient {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("virtualClient"))
-	return ANEVirtualClientFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEVirtualClientFromID(objc.ID(rv))
+	return &val
 }
 
 

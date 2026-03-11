@@ -105,7 +105,7 @@ type IANEProgramForEvaluation interface {
 
 	// Topic: Methods
 
-	Controller() IANEDeviceController
+	Controller() *ANEDeviceController
 	CurrentAsyncRequestsInFlight() int64
 	SetCurrentAsyncRequestsInFlight(value int64)
 	IntermediateBufferHandle() uint64
@@ -268,9 +268,13 @@ func (_ANEProgramForEvaluationClass ANEProgramForEvaluationClass) ProgramWithHan
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/controller
-func (a ANEProgramForEvaluation) Controller() IANEDeviceController {
+func (a ANEProgramForEvaluation) Controller() *ANEDeviceController {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("controller"))
-	return ANEDeviceControllerFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEDeviceControllerFromID(objc.ID(rv))
+	return &val
 }
 
 

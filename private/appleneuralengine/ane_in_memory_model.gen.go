@@ -156,8 +156,8 @@ type IANEInMemoryModel interface {
 	CompilerOptionsFileName() string
 	SetCompilerOptionsFileName(value string)
 	CompilerOptionsWithOptionsIsCompiledModelCached(options objectivec.IObject, cached bool) objectivec.IObject
-	Descriptor() IANEInMemoryModelDescriptor
-	SetDescriptor(value IANEInMemoryModelDescriptor)
+	Descriptor() *ANEInMemoryModelDescriptor
+	SetDescriptor(value *ANEInMemoryModelDescriptor)
 	EvaluateWithQoSOptionsRequestError(s uint32, options objectivec.IObject, request objectivec.IObject) (bool, error)
 	HexStringIdentifier() string
 	IntermediateBufferHandle() uint64
@@ -166,23 +166,23 @@ type IANEInMemoryModel interface {
 	LoadWithQoSOptionsError(s uint32, options objectivec.IObject) (bool, error)
 	LocalModelPath() objectivec.IObject
 	MapIOSurfacesWithRequestCacheInferenceError(request objectivec.IObject, inference bool) (bool, error)
-	Model() IANEModel
-	SetModel(value IANEModel)
+	Model() *ANEModel
+	SetModel(value *ANEModel)
 	ModelAttributes() foundation.INSDictionary
 	SetModelAttributes(value foundation.INSDictionary)
 	ModelURL() foundation.INSURL
 	SetModelURL(value foundation.INSURL)
 	PerfStatsMask() uint32
 	SetPerfStatsMask(value uint32)
-	Program() IANEProgramForEvaluation
-	SetProgram(value IANEProgramForEvaluation)
+	Program() *ANEProgramForEvaluation
+	SetProgram(value *ANEProgramForEvaluation)
 	ProgramHandle() uint64
 	SetProgramHandle(value uint64)
 	PurgeCompiledModel()
 	QueueDepth() int8
 	SetQueueDepth(value int8)
 	SaveModelFiles() objectivec.IObject
-	SharedConnection() IANEClient
+	SharedConnection() *ANEClient
 	State() uint64
 	SetState(value uint64)
 	String_id() uint64
@@ -386,11 +386,15 @@ func (a ANEInMemoryModel) SetCompilerOptionsFileName(value string) {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/descriptor
-func (a ANEInMemoryModel) Descriptor() IANEInMemoryModelDescriptor {
+func (a ANEInMemoryModel) Descriptor() *ANEInMemoryModelDescriptor {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("descriptor"))
-	return ANEInMemoryModelDescriptorFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEInMemoryModelDescriptorFromID(objc.ID(rv))
+	return &val
 }
-func (a ANEInMemoryModel) SetDescriptor(value IANEInMemoryModelDescriptor) {
+func (a ANEInMemoryModel) SetDescriptor(value *ANEInMemoryModelDescriptor) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDescriptor:"), value)
 }
 
@@ -424,11 +428,15 @@ func (a ANEInMemoryModel) IsMILModel() bool {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/model
-func (a ANEInMemoryModel) Model() IANEModel {
+func (a ANEInMemoryModel) Model() *ANEModel {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("model"))
-	return ANEModelFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEModelFromID(objc.ID(rv))
+	return &val
 }
-func (a ANEInMemoryModel) SetModel(value IANEModel) {
+func (a ANEInMemoryModel) SetModel(value *ANEModel) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModel:"), value)
 }
 
@@ -468,11 +476,15 @@ func (a ANEInMemoryModel) SetPerfStatsMask(value uint32) {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/program
-func (a ANEInMemoryModel) Program() IANEProgramForEvaluation {
+func (a ANEInMemoryModel) Program() *ANEProgramForEvaluation {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("program"))
-	return ANEProgramForEvaluationFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEProgramForEvaluationFromID(objc.ID(rv))
+	return &val
 }
-func (a ANEInMemoryModel) SetProgram(value IANEProgramForEvaluation) {
+func (a ANEInMemoryModel) SetProgram(value *ANEProgramForEvaluation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), value)
 }
 
@@ -501,9 +513,13 @@ func (a ANEInMemoryModel) SetQueueDepth(value int8) {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModel/sharedConnection
-func (a ANEInMemoryModel) SharedConnection() IANEClient {
+func (a ANEInMemoryModel) SharedConnection() *ANEClient {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedConnection"))
-	return ANEClientFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEClientFromID(objc.ID(rv))
+	return &val
 }
 
 

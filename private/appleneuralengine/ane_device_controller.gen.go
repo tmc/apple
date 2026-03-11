@@ -199,9 +199,13 @@ func (_ANEDeviceControllerClass ANEDeviceControllerClass) ControllerWithProgramH
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/sharedPrivilegedConnection
-func (_ANEDeviceControllerClass ANEDeviceControllerClass) SharedPrivilegedConnection() ANEDeviceController {
+func (_ANEDeviceControllerClass ANEDeviceControllerClass) SharedPrivilegedConnection() *ANEDeviceController {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceControllerClass.class), objc.Sel("sharedPrivilegedConnection"))
-	return ANEDeviceControllerFromID(rv)
+	if rv == 0 {
+		return nil
+	}
+	val := ANEDeviceControllerFromID(rv)
+	return &val
 }
 
 

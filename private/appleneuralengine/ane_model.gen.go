@@ -177,8 +177,8 @@ type IANEModel interface {
 	Key() string
 	L() objectivec.IObject
 	SetL(value objectivec.IObject)
-	Mapper() IANEProgramIOSurfacesMapper
-	SetMapper(value IANEProgramIOSurfacesMapper)
+	Mapper() *ANEProgramIOSurfacesMapper
+	SetMapper(value *ANEProgramIOSurfacesMapper)
 	ModelAttributes() foundation.INSDictionary
 	SetModelAttributes(value foundation.INSDictionary)
 	ModelURL() foundation.INSURL
@@ -187,8 +187,8 @@ type IANEModel interface {
 	PerfStatsMask() uint32
 	SetPerfStatsMask(value uint32)
 	ProcedureInfoForProcedureIndex(index uint32) objectivec.IObject
-	Program() IANEProgramForEvaluation
-	SetProgram(value IANEProgramForEvaluation)
+	Program() *ANEProgramForEvaluation
+	SetProgram(value *ANEProgramForEvaluation)
 	ProgramHandle() uint64
 	SetProgramHandle(value uint64)
 	QueueDepth() int8
@@ -544,11 +544,15 @@ func (a ANEModel) SetL(value objectivec.IObject) {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/mapper
-func (a ANEModel) Mapper() IANEProgramIOSurfacesMapper {
+func (a ANEModel) Mapper() *ANEProgramIOSurfacesMapper {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("mapper"))
-	return ANEProgramIOSurfacesMapperFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEProgramIOSurfacesMapperFromID(objc.ID(rv))
+	return &val
 }
-func (a ANEModel) SetMapper(value IANEProgramIOSurfacesMapper) {
+func (a ANEModel) SetMapper(value *ANEProgramIOSurfacesMapper) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMapper:"), value)
 }
 
@@ -593,11 +597,15 @@ func (a ANEModel) SetPerfStatsMask(value uint32) {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/program
-func (a ANEModel) Program() IANEProgramForEvaluation {
+func (a ANEModel) Program() *ANEProgramForEvaluation {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("program"))
-	return ANEProgramForEvaluationFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEProgramForEvaluationFromID(objc.ID(rv))
+	return &val
 }
-func (a ANEModel) SetProgram(value IANEProgramForEvaluation) {
+func (a ANEModel) SetProgram(value *ANEProgramForEvaluation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), value)
 }
 

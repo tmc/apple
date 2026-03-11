@@ -86,7 +86,7 @@ type IANEBuffer interface {
 	// Topic: Methods
 
 	EncodeWithCoder(coder objectivec.IObject)
-	IoSurfaceObject() IANEIOSurfaceObject
+	IoSurfaceObject() *ANEIOSurfaceObject
 	Source() int64
 	SymbolIndex() foundation.NSNumber
 	InitWithCoder(coder objectivec.IObject) ANEBuffer
@@ -189,9 +189,13 @@ func (_ANEBufferClass ANEBufferClass) SupportsSecureCoding() bool {
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/ioSurfaceObject
-func (a ANEBuffer) IoSurfaceObject() IANEIOSurfaceObject {
+func (a ANEBuffer) IoSurfaceObject() *ANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("ioSurfaceObject"))
-	return ANEIOSurfaceObjectFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEIOSurfaceObjectFromID(objc.ID(rv))
+	return &val
 }
 
 

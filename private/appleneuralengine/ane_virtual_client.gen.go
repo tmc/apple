@@ -929,9 +929,13 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) SetCodeSigningIdentity(ident
 }
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/sharedConnection
-func (_ANEVirtualClientClass ANEVirtualClientClass) SharedConnection() ANEVirtualClient {
+func (_ANEVirtualClientClass ANEVirtualClientClass) SharedConnection() *ANEVirtualClient {
 	rv := objc.Send[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("sharedConnection"))
-	return ANEVirtualClientFromID(rv)
+	if rv == 0 {
+		return nil
+	}
+	val := ANEVirtualClientFromID(rv)
+	return &val
 }
 
 //

@@ -91,8 +91,8 @@ type IANEProgramIOSurfacesMapper interface {
 
 	// Topic: Methods
 
-	Controller() IANEDeviceController
-	DeviceController() IANEDeviceController
+	Controller() *ANEDeviceController
+	DeviceController() *ANEDeviceController
 	MapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error)
 	PrepareANEMemoryMappingParamsRequest(params unsafe.Pointer, request objectivec.IObject)
 	ProgramHandle() uint64
@@ -221,17 +221,25 @@ func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWi
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/controller
-func (a ANEProgramIOSurfacesMapper) Controller() IANEDeviceController {
+func (a ANEProgramIOSurfacesMapper) Controller() *ANEDeviceController {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("controller"))
-	return ANEDeviceControllerFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEDeviceControllerFromID(objc.ID(rv))
+	return &val
 }
 
 
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/deviceController
-func (a ANEProgramIOSurfacesMapper) DeviceController() IANEDeviceController {
+func (a ANEProgramIOSurfacesMapper) DeviceController() *ANEDeviceController {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("deviceController"))
-	return ANEDeviceControllerFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := ANEDeviceControllerFromID(objc.ID(rv))
+	return &val
 }
 
 
