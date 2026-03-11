@@ -53,7 +53,7 @@ func main() {
 
 		// Title label.
 		title := appkit.NewTextFieldLabelWithString("SF Symbols from Go")
-		title.SetFont(font.SystemFontOfSizeWeight(18, appkit.NSFontWeights.Semibold()))
+		title.SetFont(font.SystemFontOfSizeWeight(18, appkit.NSFontWeights.Semibold))
 		title.SetFrame(corefoundation.CGRect{
 			Origin: corefoundation.CGPoint{X: 20, Y: 410},
 			Size:   corefoundation.CGSize{Width: 480, Height: 28},
@@ -77,9 +77,9 @@ func main() {
 		gridTop := 370.0
 
 		// Three symbol configurations at different scales.
-		configSmall := appkit.NewImageSymbolConfigurationWithPointSizeWeight(16, appkit.NSFontWeights.Regular())
-		configMedium := appkit.NewImageSymbolConfigurationWithPointSizeWeight(24, appkit.NSFontWeights.Medium())
-		configLarge := appkit.NewImageSymbolConfigurationWithPointSizeWeight(32, appkit.NSFontWeights.Light())
+		configSmall := appkit.NewImageSymbolConfigurationWithPointSizeWeight(16, appkit.NSFontWeights.Regular)
+		configMedium := appkit.NewImageSymbolConfigurationWithPointSizeWeight(24, appkit.NSFontWeights.Medium)
+		configLarge := appkit.NewImageSymbolConfigurationWithPointSizeWeight(32, appkit.NSFontWeights.Light)
 
 		// Tint colors for visual variety.
 		tintColors := []appkit.INSColor{

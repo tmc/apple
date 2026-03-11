@@ -17,7 +17,7 @@ func main() {
 		panel.SetPrompt("Open")
 
 		response := panel.RunModal()
-		if response == appkit.NSModalResponses.OK() {
+		if response == appkit.NSModalResponses.OK {
 			urls := panel.URLs()
 			fmt.Printf("Selected %d file(s):\n", len(urls))
 			for _, u := range urls {

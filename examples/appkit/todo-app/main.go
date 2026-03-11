@@ -368,7 +368,7 @@ func refreshTodoList() {
 
 		// Item number.
 		num := appkit.NewTextFieldLabelWithString(fmt.Sprintf("%d", i+1))
-		num.SetFont(font.MonospacedDigitSystemFontOfSizeWeight(12, appkit.NSFontWeights.Regular()))
+		num.SetFont(font.MonospacedDigitSystemFontOfSizeWeight(12, appkit.NSFontWeights.Regular))
 		num.SetTextColor(colors.TertiaryLabelColor())
 		num.SetAlignment(appkit.NSTextAlignmentRight)
 		num.SetFrame(corefoundation.CGRect{
