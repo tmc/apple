@@ -477,12 +477,12 @@ type INSDictionary interface {
 
 	InitWithContentsOfURLError(url INSURL) (NSDictionary, error)
 
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Returns by reference C arrays of the keys and values in the dictionary.
 	GetObjectsAndKeysCount(objects []objectivec.IObject, keys []objectivec.IObject, count uint)
 	// Initializes a newly allocated dictionary with entries constructed from the specified set of values and keys.
 	InitWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionary
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
 
 
@@ -1488,6 +1488,15 @@ func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 	return rv
 }
 
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
 // Returns by reference C arrays of the keys and values in the dictionary.
 //
 // objects: Upon return, contains a C array of the values in the dictionary.
@@ -1529,15 +1538,6 @@ func (d NSDictionary) GetObjectsAndKeysCount(objects []objectivec.IObject, keys 
 func (d NSDictionary) InitWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionary {
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjectsAndKeys:"), firstObject)
 	return rv
-}
-
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 
@@ -1589,22 +1589,6 @@ func (_NSDictionaryClass NSDictionaryClass) Dictionary() NSDictionary {
 	return NSDictionaryFromID(rv)
 }
 
-// Creates a dictionary containing the keys and values from another given
-// dictionary.
-//
-// dict: A dictionary containing the keys and values with which to initialize the
-// new dictionary.
-//
-// # Return Value
-// 
-// A new dictionary containing the keys and values found in `dict`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithDictionary:
-func (_NSDictionaryClass NSDictionaryClass) DictionaryWithDictionary(dict INSDictionary) NSDictionary {
-	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithDictionary:"), dict)
-	return NSDictionaryFromID(rv)
-}
-
 // Creates a dictionary using the keys and values found in a resource
 // specified by a given URL.
 //
@@ -1639,30 +1623,19 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithContentsOfURLError(url
 
 }
 
-// Creates a dictionary containing a specified number of objects from a C
-// array.
+// Creates a dictionary containing the keys and values from another given
+// dictionary.
 //
-// objects: A C array of values for the new dictionary.
+// dict: A dictionary containing the keys and values with which to initialize the
+// new dictionary.
 //
-// keys: A C array of keys for the new dictionary. Each key is copied (using
-// [CopyWithZone]; keys must conform to the [NSCopying] protocol), and the
-// copy is added to the new dictionary.
-//
-// cnt: The number of elements to use from the `keys` and `objects` arrays. `cnt`
-// must not exceed the number of elements in `objects` or `keys`.
-//
-// # Discussion
+// # Return Value
 // 
-// This method steps through the `objects` and `keys` arrays, creating entries
-// in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
-// if a key or value object is `nil`.
-// 
-// The following code fragment illustrates how to create a dictionary that
-// associates the alphabetic characters with their ASCII values:
+// A new dictionary containing the keys and values found in `dict`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithObjects:forKeys:count:
-func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeysCount(objects []objectivec.IObject, keys []NSCopying, cnt uint) NSDictionary {
-	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:count:"), objc.CArray(objects), objc.CArray(keys), cnt)
+// See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithDictionary:
+func (_NSDictionaryClass NSDictionaryClass) DictionaryWithDictionary(dict INSDictionary) NSDictionary {
+	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithDictionary:"), dict)
 	return NSDictionaryFromID(rv)
 }
 
@@ -1713,6 +1686,33 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsAndKeys(firstOb
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithObjects:forKeys:
 func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeys(objects []objectivec.IObject, keys []objectivec.IObject) NSDictionary {
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
+	return NSDictionaryFromID(rv)
+}
+
+// Creates a dictionary containing a specified number of objects from a C
+// array.
+//
+// objects: A C array of values for the new dictionary.
+//
+// keys: A C array of keys for the new dictionary. Each key is copied (using
+// [CopyWithZone]; keys must conform to the [NSCopying] protocol), and the
+// copy is added to the new dictionary.
+//
+// cnt: The number of elements to use from the `keys` and `objects` arrays. `cnt`
+// must not exceed the number of elements in `objects` or `keys`.
+//
+// # Discussion
+// 
+// This method steps through the `objects` and `keys` arrays, creating entries
+// in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
+// if a key or value object is `nil`.
+// 
+// The following code fragment illustrates how to create a dictionary that
+// associates the alphabetic characters with their ASCII values:
+//
+// See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithObjects:forKeys:count:
+func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeysCount(objects []objectivec.IObject, keys []NSCopying, cnt uint) NSDictionary {
+	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:count:"), objc.CArray(objects), objc.CArray(keys), cnt)
 	return NSDictionaryFromID(rv)
 }
 

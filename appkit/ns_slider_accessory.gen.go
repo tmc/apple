@@ -80,8 +80,8 @@ func NSSliderAccessoryFromID(id objc.ID) NSSliderAccessory {
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory
 type INSSliderAccessory interface {
 	objectivec.IObject
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 
 	// Topic: Instance Properties
 

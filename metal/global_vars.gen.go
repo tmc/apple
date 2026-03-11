@@ -28,41 +28,23 @@ var MTLCommandBufferEncoderInfoErrorKey foundation.NSErrorUserInfoKey
 
 var MTLCommandBufferErrorDomain foundation.NSErrorDomain
 
-var mTLCommonCounterClipperInvocations MTLCommonCounter
 
-var mTLCommonCounterClipperPrimitivesOut MTLCommonCounter
 
-var mTLCommonCounterComputeKernelInvocations MTLCommonCounter
 
-var mTLCommonCounterFragmentCycles MTLCommonCounter
 
-var mTLCommonCounterFragmentInvocations MTLCommonCounter
 
-var mTLCommonCounterFragmentsPassed MTLCommonCounter
 
-var mTLCommonCounterPostTessellationVertexCycles MTLCommonCounter
 
-var mTLCommonCounterPostTessellationVertexInvocations MTLCommonCounter
 
-var mTLCommonCounterRenderTargetWriteCycles MTLCommonCounter
 
-var mTLCommonCounterSetStageUtilization MTLCommonCounterSet
 
-var mTLCommonCounterSetStatistic MTLCommonCounterSet
 
-var mTLCommonCounterSetTimestamp MTLCommonCounterSet
 
-var mTLCommonCounterTessellationCycles MTLCommonCounter
 
-var mTLCommonCounterTessellationInputPatches MTLCommonCounter
 
-var mTLCommonCounterTimestamp MTLCommonCounter
 
-var mTLCommonCounterTotalCycles MTLCommonCounter
 
-var mTLCommonCounterVertexCycles MTLCommonCounter
 
-var mTLCommonCounterVertexInvocations MTLCommonCounter
 
 var MTLCounterErrorDomain foundation.NSErrorDomain
 
@@ -86,9 +68,7 @@ var DeviceCertificationiPhonePerformanceGaming NSDeviceCertification
 
 var ProcessInfoPerformanceProfileDidChangeNotification foundation.NSNotificationName
 
-var processPerformanceProfileDefault NSProcessPerformanceProfile
 
-var processPerformanceProfileSustained NSProcessPerformanceProfile
 
 func init() {
 	if frameworkHandle == 0 {
@@ -149,75 +129,75 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterClipperInvocations"); err == nil && ptr != 0 {
-		mTLCommonCounterClipperInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.ClipperInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterClipperPrimitivesOut"); err == nil && ptr != 0 {
-		mTLCommonCounterClipperPrimitivesOut = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.ClipperPrimitivesOut = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterComputeKernelInvocations"); err == nil && ptr != 0 {
-		mTLCommonCounterComputeKernelInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.ComputeKernelInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterFragmentCycles"); err == nil && ptr != 0 {
-		mTLCommonCounterFragmentCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.FragmentCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterFragmentInvocations"); err == nil && ptr != 0 {
-		mTLCommonCounterFragmentInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.FragmentInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterFragmentsPassed"); err == nil && ptr != 0 {
-		mTLCommonCounterFragmentsPassed = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.FragmentsPassed = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterPostTessellationVertexCycles"); err == nil && ptr != 0 {
-		mTLCommonCounterPostTessellationVertexCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.PostTessellationVertexCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterPostTessellationVertexInvocations"); err == nil && ptr != 0 {
-		mTLCommonCounterPostTessellationVertexInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.PostTessellationVertexInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterRenderTargetWriteCycles"); err == nil && ptr != 0 {
-		mTLCommonCounterRenderTargetWriteCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.RenderTargetWriteCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterSetStageUtilization"); err == nil && ptr != 0 {
-		mTLCommonCounterSetStageUtilization = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
+		MTLCommonCounterSets.StageUtilization = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterSetStatistic"); err == nil && ptr != 0 {
-		mTLCommonCounterSetStatistic = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
+		MTLCommonCounterSets.Statistic = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterSetTimestamp"); err == nil && ptr != 0 {
-		mTLCommonCounterSetTimestamp = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
+		MTLCommonCounterSets.Timestamp = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTessellationCycles"); err == nil && ptr != 0 {
-		mTLCommonCounterTessellationCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.TessellationCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTessellationInputPatches"); err == nil && ptr != 0 {
-		mTLCommonCounterTessellationInputPatches = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.TessellationInputPatches = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTimestamp"); err == nil && ptr != 0 {
-		mTLCommonCounterTimestamp = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.Timestamp = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTotalCycles"); err == nil && ptr != 0 {
-		mTLCommonCounterTotalCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.TotalCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterVertexCycles"); err == nil && ptr != 0 {
-		mTLCommonCounterVertexCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.VertexCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterVertexInvocations"); err == nil && ptr != 0 {
-		mTLCommonCounterVertexInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.VertexInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCounterErrorDomain"); err == nil && ptr != 0 {
@@ -325,90 +305,64 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileDefault"); err == nil && ptr != 0 {
-		processPerformanceProfileDefault = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+		NSProcessPerformanceProfiles.Default = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileSustained"); err == nil && ptr != 0 {
-		processPerformanceProfileSustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+		NSProcessPerformanceProfiles.Sustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
 	}
 
 }
 
-type MTLCommonCounterSetValues struct{}
-
 // MTLCommonCounterSets provides typed accessors for [MTLCommonCounterSet] constants.
-var MTLCommonCounterSets MTLCommonCounterSetValues
-
-// StageUtilization returns The common name for the counter set that contains hardware utilization measurements from various render stages.
-func (MTLCommonCounterSetValues) StageUtilization() MTLCommonCounterSet { return mTLCommonCounterSetStageUtilization }
-
-// Statistic returns The common name for the counter set that contains GPU workload statistics.
-func (MTLCommonCounterSetValues) Statistic() MTLCommonCounterSet { return mTLCommonCounterSetStatistic }
-
-// Timestamp returns The common name for the counter set that contains the timestamp counter.
-func (MTLCommonCounterSetValues) Timestamp() MTLCommonCounterSet { return mTLCommonCounterSetTimestamp }
-
-
-type MTLCommonCounterValues struct{}
+var MTLCommonCounterSets struct {
+	// StageUtilization: The common name for the counter set that contains hardware utilization measurements from various render stages.
+	StageUtilization MTLCommonCounterSet
+	// Statistic: The common name for the counter set that contains GPU workload statistics.
+	Statistic MTLCommonCounterSet
+	// Timestamp: The common name for the counter set that contains the timestamp counter.
+	Timestamp MTLCommonCounterSet
+}
 
 // MTLCommonCounters provides typed accessors for [MTLCommonCounter] constants.
-var MTLCommonCounters MTLCommonCounterValues
-
-// ClipperInvocations returns The common name for the counter that tracks the number of primitives a render pass sends to the clip stage.
-func (MTLCommonCounterValues) ClipperInvocations() MTLCommonCounter { return mTLCommonCounterClipperInvocations }
-
-// ClipperPrimitivesOut returns The common name for the counter that tracks the number of primitives the clip stage produces during a render pass.
-func (MTLCommonCounterValues) ClipperPrimitivesOut() MTLCommonCounter { return mTLCommonCounterClipperPrimitivesOut }
-
-// ComputeKernelInvocations returns The common name for the counter that tracks the number of times a pass invokes any compute kernel.
-func (MTLCommonCounterValues) ComputeKernelInvocations() MTLCommonCounter { return mTLCommonCounterComputeKernelInvocations }
-
-// FragmentCycles returns The common name for the counter that tracks the number of cycles the GPU uses to run fragment shaders during a pass.
-func (MTLCommonCounterValues) FragmentCycles() MTLCommonCounter { return mTLCommonCounterFragmentCycles }
-
-// FragmentInvocations returns The common name for the counter that tracks the number of times a render pass calls fragment shaders.
-func (MTLCommonCounterValues) FragmentInvocations() MTLCommonCounter { return mTLCommonCounterFragmentInvocations }
-
-// FragmentsPassed returns The common name for the counter that tracks the number of fragments a render pass sends to the visibility and blend stages.
-func (MTLCommonCounterValues) FragmentsPassed() MTLCommonCounter { return mTLCommonCounterFragmentsPassed }
-
-// PostTessellationVertexCycles returns The common name for the counter that tracks the number of cycles the GPU uses to run post-tessellation vertex shaders during a pass.
-func (MTLCommonCounterValues) PostTessellationVertexCycles() MTLCommonCounter { return mTLCommonCounterPostTessellationVertexCycles }
-
-// PostTessellationVertexInvocations returns The common name for the counter that tracks the number of vertices a render pass sends to a post-tessellation vertex shader.
-func (MTLCommonCounterValues) PostTessellationVertexInvocations() MTLCommonCounter { return mTLCommonCounterPostTessellationVertexInvocations }
-
-// RenderTargetWriteCycles returns The common name for the counter that tracks the number of cycles the GPU uses to write data to render targets during a render pass.
-func (MTLCommonCounterValues) RenderTargetWriteCycles() MTLCommonCounter { return mTLCommonCounterRenderTargetWriteCycles }
-
-// TessellationCycles returns The common name for the counter that tracks the number of cycles the GPU uses to run the tessellation stage during a pass.
-func (MTLCommonCounterValues) TessellationCycles() MTLCommonCounter { return mTLCommonCounterTessellationCycles }
-
-// TessellationInputPatches returns The common name for the counter that tracks the number of tessellation patches a render pass sends to the tessellation stage.
-func (MTLCommonCounterValues) TessellationInputPatches() MTLCommonCounter { return mTLCommonCounterTessellationInputPatches }
-
-// Timestamp returns The common name for the counter that tracks the current time.
-func (MTLCommonCounterValues) Timestamp() MTLCommonCounter { return mTLCommonCounterTimestamp }
-
-// TotalCycles returns The common name for the counter that tracks the total number of cycles the GPU uses to run a pass.
-func (MTLCommonCounterValues) TotalCycles() MTLCommonCounter { return mTLCommonCounterTotalCycles }
-
-// VertexCycles returns The common name for the counter that tracks the number of cycles the GPU uses to run vertex shaders during a pass.
-func (MTLCommonCounterValues) VertexCycles() MTLCommonCounter { return mTLCommonCounterVertexCycles }
-
-// VertexInvocations returns The common name for the counter that tracks the number of times a render pass calls any vertex shader.
-func (MTLCommonCounterValues) VertexInvocations() MTLCommonCounter { return mTLCommonCounterVertexInvocations }
-
-
-type NSProcessPerformanceProfileValues struct{}
+var MTLCommonCounters struct {
+	// ClipperInvocations: The common name for the counter that tracks the number of primitives a render pass sends to the clip stage.
+	ClipperInvocations MTLCommonCounter
+	// ClipperPrimitivesOut: The common name for the counter that tracks the number of primitives the clip stage produces during a render pass.
+	ClipperPrimitivesOut MTLCommonCounter
+	// ComputeKernelInvocations: The common name for the counter that tracks the number of times a pass invokes any compute kernel.
+	ComputeKernelInvocations MTLCommonCounter
+	// FragmentCycles: The common name for the counter that tracks the number of cycles the GPU uses to run fragment shaders during a pass.
+	FragmentCycles MTLCommonCounter
+	// FragmentInvocations: The common name for the counter that tracks the number of times a render pass calls fragment shaders.
+	FragmentInvocations MTLCommonCounter
+	// FragmentsPassed: The common name for the counter that tracks the number of fragments a render pass sends to the visibility and blend stages.
+	FragmentsPassed MTLCommonCounter
+	// PostTessellationVertexCycles: The common name for the counter that tracks the number of cycles the GPU uses to run post-tessellation vertex shaders during a pass.
+	PostTessellationVertexCycles MTLCommonCounter
+	// PostTessellationVertexInvocations: The common name for the counter that tracks the number of vertices a render pass sends to a post-tessellation vertex shader.
+	PostTessellationVertexInvocations MTLCommonCounter
+	// RenderTargetWriteCycles: The common name for the counter that tracks the number of cycles the GPU uses to write data to render targets during a render pass.
+	RenderTargetWriteCycles MTLCommonCounter
+	// TessellationCycles: The common name for the counter that tracks the number of cycles the GPU uses to run the tessellation stage during a pass.
+	TessellationCycles MTLCommonCounter
+	// TessellationInputPatches: The common name for the counter that tracks the number of tessellation patches a render pass sends to the tessellation stage.
+	TessellationInputPatches MTLCommonCounter
+	// Timestamp: The common name for the counter that tracks the current time.
+	Timestamp MTLCommonCounter
+	// TotalCycles: The common name for the counter that tracks the total number of cycles the GPU uses to run a pass.
+	TotalCycles MTLCommonCounter
+	// VertexCycles: The common name for the counter that tracks the number of cycles the GPU uses to run vertex shaders during a pass.
+	VertexCycles MTLCommonCounter
+	// VertexInvocations: The common name for the counter that tracks the number of times a render pass calls any vertex shader.
+	VertexInvocations MTLCommonCounter
+}
 
 // NSProcessPerformanceProfiles provides typed accessors for [NSProcessPerformanceProfile] constants.
-var NSProcessPerformanceProfiles NSProcessPerformanceProfileValues
-
-// Default returns The default performance profile for a device.
-func (NSProcessPerformanceProfileValues) Default() NSProcessPerformanceProfile { return processPerformanceProfileDefault }
-
-// Sustained returns The performance profile for a device representing sustained performance.
-func (NSProcessPerformanceProfileValues) Sustained() NSProcessPerformanceProfile { return processPerformanceProfileSustained }
-
+var NSProcessPerformanceProfiles struct {
+	// Default: The default performance profile for a device.
+	Default NSProcessPerformanceProfile
+	// Sustained: The performance profile for a device representing sustained performance.
+	Sustained NSProcessPerformanceProfile
+}
 

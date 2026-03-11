@@ -410,14 +410,14 @@ type INSAttributedString interface {
 	// Returns a Boolean value that indicates if the attributed string contains an attachment in the specified range.
 	ContainsAttachmentsInRange(range_ NSRange) bool
 
-	// A Boolean value that indicates whether the attribute string contains any attachment attributes.
-	ContainsAttachments() bool
-	// The link for the text.
-	Link() NSAttributedStringKey
 	// The string encoding for the document.
 	CharacterEncoding() INSString
+	// A Boolean value that indicates whether the attribute string contains any attachment attributes.
+	ContainsAttachments() bool
 	// The HTML elements to exclude in generated HTML.
 	ExcludedElements() INSString
+	// The link for the text.
+	Link() NSAttributedStringKey
 	// The number of spaces for indenting nested HTML elements.
 	PrefixSpaces() INSString
 	// The name of the text encoding to use.
@@ -426,47 +426,47 @@ type INSAttributedString interface {
 	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect
 	// Draws the attributed string with the specified options within the specified rectangle in the current graphics context.
 	DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions)
-	// Creates an attributed string by decoding the stream of RTF commands and data in the specified data object.
-	InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
-	// Creates an attributed string by decoding the stream of RTFD commands and data in the specified data object.
-	InitWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
-	// Creates an attributed string from the HTML in the specified data object.
-	InitWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
-	// Creates an attributed string from the specified file wrapper that contains an RTFD document.
-	InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString
-	// Creates an attributed string from the HTML in the specified data object.
-	InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString
-	// Creates an attributed string from the HTML in the specified data object and base URL.
-	InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString
-	// Creates an attributed string from the contents of the specified URL.
-	InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error)
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Creates a new attributed string from the contents of another attributed string.
 	InitWithAttributedString(attrStr INSAttributedString) NSAttributedString
-	// Creates an attributed string from Microsoft Word format data in the specified data object.
-	InitWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
-	// Creates an attributed string with the specified text and no attribute information.
-	InitWithString(str string) NSAttributedString
-	// Creates an attributed string with the specified text and attributes.
-	InitWithStringAttributes(str string, attrs INSDictionary) NSAttributedString
+	InitWithCoder(coder INSCoder) NSAttributedString
 	// Creates an attributed string from the contents of a specified URL that contains Markdown-formatted data using the provided options.
 	InitWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markdownFile INSURL, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
 	// Creates an attributed string from the contents of the specified data object.
 	InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error)
+	// Creates an attributed string from Microsoft Word format data in the specified data object.
+	InitWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
 	// Initializes an attributed string by substituting arguments into a specially formatted string.
 	InitWithFormatOptionsLocale(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale) NSAttributedString
-	// Initializes an attributed string by substituting a list of function arguments into a specially formatted string and applying additional contextual information.
-	InitWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSAttributedString
 	// Initializes an attributed string by substituting a list of function arguments into a specially formatted string.
 	InitWithFormatOptionsLocaleArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, arguments unsafe.Pointer) NSAttributedString
 	// Initializes an attributed string by substituting arguments into a specially formatted string and applying additional contextual information.
 	InitWithFormatOptionsLocaleContext(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary) NSAttributedString
+	// Initializes an attributed string by substituting a list of function arguments into a specially formatted string and applying additional contextual information.
+	InitWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSAttributedString
+	// Creates an attributed string from the HTML in the specified data object and base URL.
+	InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString
+	// Creates an attributed string from the HTML in the specified data object.
+	InitWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	// Creates an attributed string from the HTML in the specified data object.
+	InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString
 	// Creates an attributed string from Markdown-formatted data using the provided options.
 	InitWithMarkdownOptionsBaseURLError(markdown INSData, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
 	// Creates an attributed string from a Markdown-formatted string using the provided options.
 	InitWithMarkdownStringOptionsBaseURLError(markdownString string, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
-	InitWithCoder(coder INSCoder) NSAttributedString
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
+	// Creates an attributed string by decoding the stream of RTFD commands and data in the specified data object.
+	InitWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	// Creates an attributed string from the specified file wrapper that contains an RTFD document.
+	InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString
+	// Creates an attributed string by decoding the stream of RTF commands and data in the specified data object.
+	InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	// Creates an attributed string with the specified text and no attribute information.
+	InitWithString(str string) NSAttributedString
+	// Creates an attributed string with the specified text and attributes.
+	InitWithStringAttributes(str string, attrs INSDictionary) NSAttributedString
+	// Creates an attributed string from the contents of the specified URL.
+	InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error)
 }
 
 
@@ -2237,208 +2237,13 @@ func (a NSAttributedString) DrawWithRectOptions(rect corefoundation.CGRect, opti
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:"), rect, options)
 }
 
-// Creates an attributed string by decoding the stream of RTF commands and
-// data in the specified data object.
+// Encodes the receiver using a given archiver.
 //
-// data: The data containing RTF content.
+// coder: An archiver object.
 //
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized attributed string object, or `nil` if the method
-// can’t decode the data.
-//
-// # Discussion
-// 
-// Also returns by reference in `dict` a dictionary containing document-level
-// attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
-// may be [NULL], in which case no document attributes are returned. Returns
-// an initialized object, or `nil` if `data` can’t be decoded.
-//
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
-func (a NSAttributedString) InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
-	return rv
-}
-
-// Creates an attributed string by decoding the stream of RTFD commands and
-// data in the specified data object.
-//
-// data: The data containing the RTFD content.
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized attributed string object, or `nil` if the method
-// can’t decode the data.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFD:documentAttributes:)
-func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
-	return rv
-}
-
-// Creates an attributed string from the HTML in the specified data object.
-//
-// data: A data object with text in HTML format. The method uses this data to create
-// the attributed string.
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes
-//
-// # Return Value
-// 
-// Returns an initialized object, or `nil` if the data can’t be decoded.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
-func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
-	return rv
-}
-
-// Creates an attributed string from the specified file wrapper that contains
-// an RTFD document.
-//
-// wrapper: The [NSFileWrapper] containing the RTFD document.
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized attributed string object, or `nil` if the method
-// can’t decode the data.
-//
-// # Discussion
-// 
-// Also returns by reference in `dict` a dictionary containing document-level
-// attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
-// may be [NULL], in which case no document attributes are returned. Returns
-// an initialized object, or `nil` if `wrapper` can’t be interpreted as an
-// RTFD document.
-//
-// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
-func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
-	return rv
-}
-
-// Creates an attributed string from the HTML in the specified data object.
-//
-// data: A data object with text in HTML format. The method uses this data to create
-// the attributed string.
-//
-// options: Specifies additional options for loading the document. For a list of
-// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized object, or `nil` if the data can’t be decoded.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
-func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
-	return rv
-}
-
-// Creates an attributed string from the HTML in the specified data object and
-// base URL.
-//
-// data: A data object with text in HTML format. The method uses this data to create
-// the attributed string.
-//
-// base: An [NSURL] that represents the base URL for all links within the HTML.
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized object, or `nil` if the data can’t be decoded.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
-func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
-	return rv
-}
-
-// Creates an attributed string from the contents of the specified URL.
-//
-// url: An [NSURL] object specifying the document to load.
-//
-// options: Attributes for interpreting the document contents. Specify the
-// [documentType] or [fileType] option to interpret the data as a specific
-// type. When sharing files between different platforms, specify the
-// [sourceTextScaling] or [targetTextScaling] options for any required text
-// scaling behaviors. Specify the [characterEncoding] attribute for plain-text
-// files. Specify the [defaultAttributes] key to apply document attributes to
-// the returned string. If you specify an empty dictionary, the method
-// identifies the data format from the data itself.
-// //
-// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
-// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
-// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized attributed string object, or `nil` if the method
-// can’t decode the data.
-//
-// # Discussion
-// 
-// Filter services can be used to convert the file into a format recognized by
-// Cocoa. The `options` dictionary specifies how the document should be loaded
-// and can contain the values described in
-// [NSAttributedStringDocumentReadingOptionKey]. If you specify the
-// [documentType] or [fileType] attribute, this method treats the data as if
-// it is in the specified format. If you don’t specify one of these options,
-// the method examines the document and loads it using whatever format it
-// seems to contain.
-// 
-// If an error occurs, the method returns `nil` and sets the `error` parameter
-// to an [NSError] object with information about why it couldn’t create the
-// attributed string object.
-//
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
-// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
-func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedString{}, NSErrorFrom(errorPtr)
-	}
-	return NSAttributedStringFromID(rv), nil
-
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (a NSAttributedString) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // Creates a new attributed string from the contents of another attributed
@@ -2457,58 +2262,10 @@ func (a NSAttributedString) InitWithAttributedString(attrStr INSAttributedString
 	return rv
 }
 
-// Creates an attributed string from Microsoft Word format data in the
-// specified data object.
 //
-// data: The data from which to create the string.
-//
-// dict: An in-out dictionary containing document-level attributes. On output, this
-// method updates the dictionary to contain any document-specific keys found
-// in the data. Specify `nil` if you don’t want the document attributes.
-//
-// # Return Value
-// 
-// Returns an initialized attributed string object, or `nil` if the method
-// can’t decode the data.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(docFormat:documentAttributes:)
-func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
-	return rv
-}
-
-// Creates an attributed string with the specified text and no attribute
-// information.
-//
-// str: The text for the new attributed string.
-//
-// # Return Value
-// 
-// An [NSAttributedString] object initialized with the characters of `str` and
-// no attribute information.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(string:)
-func (a NSAttributedString) InitWithString(str string) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:"), objc.String(str))
-	return rv
-}
-
-// Creates an attributed string with the specified text and attributes.
-//
-// str: The text for the new attributed string.
-//
-// attrs: The attributes for the new attributed string. This method applies the
-// attributes to the entire string. For a list of attributes that you can
-// include in this dictionary, see [NSAttributedStringKey].
-//
-// # Discussion
-// 
-// Returns an [NSAttributedString] object initialized with the characters of
-// `str` and the attributes of `attrs`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(string:attributes:)
-func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:attributes:"), objc.String(str), attrs)
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (a NSAttributedString) InitWithCoder(coder INSCoder) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -2600,6 +2357,26 @@ func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSD
 
 }
 
+// Creates an attributed string from Microsoft Word format data in the
+// specified data object.
+//
+// data: The data from which to create the string.
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized attributed string object, or `nil` if the method
+// can’t decode the data.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(docFormat:documentAttributes:)
+func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
+	return rv
+}
+
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string.
 //
@@ -2626,35 +2403,6 @@ func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSD
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:
 func (a NSAttributedString) InitWithFormatOptionsLocale(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:"), format, options, locale)
-	return rv
-}
-
-// Initializes an attributed string by substituting a list of function
-// arguments into a specially formatted string and applying additional
-// contextual information.
-//
-// format: The format string to use to create the final string. For a list of format
-// specifiers you can include in this string, see [String Format Specifiers].
-// //
-// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
-//
-// options: Options for how to apply attributes to the string’s content.
-//
-// locale: The locale to use for formatting the string. The locale controls the
-// formatting of region-sensitive values such as numbers and currencies.
-//
-// context: Additional options to apply to the string.
-//
-// arguments: A list of arguments to substitute into the `format` string.
-//
-// # Return Value
-// 
-// An initialized attributed string that combines the format string with the
-// provided arguments and other information.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:arguments:
-func (a NSAttributedString) InitWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:arguments:"), format, options, locale, context, arguments)
 	return rv
 }
 
@@ -2712,6 +2460,100 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleArguments(format INSAttri
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:
 func (a NSAttributedString) InitWithFormatOptionsLocaleContext(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:"), format, options, locale, context)
+	return rv
+}
+
+// Initializes an attributed string by substituting a list of function
+// arguments into a specially formatted string and applying additional
+// contextual information.
+//
+// format: The format string to use to create the final string. For a list of format
+// specifiers you can include in this string, see [String Format Specifiers].
+// //
+// [String Format Specifiers]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFStrings/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265
+//
+// options: Options for how to apply attributes to the string’s content.
+//
+// locale: The locale to use for formatting the string. The locale controls the
+// formatting of region-sensitive values such as numbers and currencies.
+//
+// context: Additional options to apply to the string.
+//
+// arguments: A list of arguments to substitute into the `format` string.
+//
+// # Return Value
+// 
+// An initialized attributed string that combines the format string with the
+// provided arguments and other information.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithFormat:options:locale:context:arguments:
+func (a NSAttributedString) InitWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments unsafe.Pointer) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:arguments:"), format, options, locale, context, arguments)
+	return rv
+}
+
+// Creates an attributed string from the HTML in the specified data object and
+// base URL.
+//
+// data: A data object with text in HTML format. The method uses this data to create
+// the attributed string.
+//
+// base: An [NSURL] that represents the base URL for all links within the HTML.
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized object, or `nil` if the data can’t be decoded.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
+func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
+	return rv
+}
+
+// Creates an attributed string from the HTML in the specified data object.
+//
+// data: A data object with text in HTML format. The method uses this data to create
+// the attributed string.
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes
+//
+// # Return Value
+// 
+// Returns an initialized object, or `nil` if the data can’t be decoded.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
+func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
+	return rv
+}
+
+// Creates an attributed string from the HTML in the specified data object.
+//
+// data: A data object with text in HTML format. The method uses this data to create
+// the attributed string.
+//
+// options: Specifies additional options for loading the document. For a list of
+// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
+// //
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized object, or `nil` if the data can’t be decoded.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
+func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
 	return rv
 }
 
@@ -2781,20 +2623,193 @@ func (a NSAttributedString) InitWithMarkdownStringOptionsBaseURLError(markdownSt
 
 }
 
+// Creates an attributed string by decoding the stream of RTFD commands and
+// data in the specified data object.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (a NSAttributedString) InitWithCoder(coder INSCoder) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithCoder:"), coder)
+// data: The data containing the RTFD content.
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized attributed string object, or `nil` if the method
+// can’t decode the data.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFD:documentAttributes:)
+func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
 	return rv
 }
 
-// Encodes the receiver using a given archiver.
+// Creates an attributed string from the specified file wrapper that contains
+// an RTFD document.
 //
-// coder: An archiver object.
+// wrapper: The [NSFileWrapper] containing the RTFD document.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (a NSAttributedString) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized attributed string object, or `nil` if the method
+// can’t decode the data.
+//
+// # Discussion
+// 
+// Also returns by reference in `dict` a dictionary containing document-level
+// attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
+// may be [NULL], in which case no document attributes are returned. Returns
+// an initialized object, or `nil` if `wrapper` can’t be interpreted as an
+// RTFD document.
+//
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
+func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
+	return rv
+}
+
+// Creates an attributed string by decoding the stream of RTF commands and
+// data in the specified data object.
+//
+// data: The data containing RTF content.
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized attributed string object, or `nil` if the method
+// can’t decode the data.
+//
+// # Discussion
+// 
+// Also returns by reference in `dict` a dictionary containing document-level
+// attributes described in [NSAttributedString.DocumentAttributeKey]. `dict`
+// may be [NULL], in which case no document attributes are returned. Returns
+// an initialized object, or `nil` if `data` can’t be decoded.
+//
+// [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
+func (a NSAttributedString) InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
+	return rv
+}
+
+// Creates an attributed string with the specified text and no attribute
+// information.
+//
+// str: The text for the new attributed string.
+//
+// # Return Value
+// 
+// An [NSAttributedString] object initialized with the characters of `str` and
+// no attribute information.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(string:)
+func (a NSAttributedString) InitWithString(str string) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:"), objc.String(str))
+	return rv
+}
+
+// Creates an attributed string with the specified text and attributes.
+//
+// str: The text for the new attributed string.
+//
+// attrs: The attributes for the new attributed string. This method applies the
+// attributes to the entire string. For a list of attributes that you can
+// include in this dictionary, see [NSAttributedStringKey].
+//
+// # Discussion
+// 
+// Returns an [NSAttributedString] object initialized with the characters of
+// `str` and the attributes of `attrs`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(string:attributes:)
+func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:attributes:"), objc.String(str), attrs)
+	return rv
+}
+
+// Creates an attributed string from the contents of the specified URL.
+//
+// url: An [NSURL] object specifying the document to load.
+//
+// options: Attributes for interpreting the document contents. Specify the
+// [documentType] or [fileType] option to interpret the data as a specific
+// type. When sharing files between different platforms, specify the
+// [sourceTextScaling] or [targetTextScaling] options for any required text
+// scaling behaviors. Specify the [characterEncoding] attribute for plain-text
+// files. Specify the [defaultAttributes] key to apply document attributes to
+// the returned string. If you specify an empty dictionary, the method
+// identifies the data format from the data itself.
+// //
+// [characterEncoding]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/characterEncoding
+// [defaultAttributes]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/defaultAttributes
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
+// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
+// [sourceTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/sourceTextScaling
+// [targetTextScaling]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/targetTextScaling
+//
+// dict: An in-out dictionary containing document-level attributes. On output, this
+// method updates the dictionary to contain any document-specific keys found
+// in the data. Specify `nil` if you don’t want the document attributes.
+//
+// # Return Value
+// 
+// Returns an initialized attributed string object, or `nil` if the method
+// can’t decode the data.
+//
+// # Discussion
+// 
+// Filter services can be used to convert the file into a format recognized by
+// Cocoa. The `options` dictionary specifies how the document should be loaded
+// and can contain the values described in
+// [NSAttributedStringDocumentReadingOptionKey]. If you specify the
+// [documentType] or [fileType] attribute, this method treats the data as if
+// it is in the specified format. If you don’t specify one of these options,
+// the method examines the document and loads it using whatever format it
+// seems to contain.
+// 
+// If an error occurs, the method returns `nil` and sets the `error` parameter
+// to an [NSError] object with information about why it couldn’t create the
+// attributed string object.
+//
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+// [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
+// [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
+func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	return NSAttributedStringFromID(rv), nil
+
+}
+
+// Asks the item provider for the representation visibility specification for
+// the given UTI.
+//
+// typeIdentifier: A uniform type identifier (UTI).
+//
+// # Return Value
+// 
+// A representation visibility specification for the given UTI.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
+func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
+	rv := objc.Send[NSItemProviderRepresentationVisibility](a.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
+	return NSItemProviderRepresentationVisibility(rv)
 }
 
 // Loads data of a particular type, identified by the given UTI.
@@ -2820,24 +2835,84 @@ func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionH
 	return NSProgressFromID(rv)
 }
 
-// Asks the item provider for the representation visibility specification for
-// the given UTI.
+
+
+
+
+// Creates an attributed string from the specified HTML data.
 //
-// typeIdentifier: A uniform type identifier (UTI).
+// data: A data object with text in HTML format. The method uses this data to create
+// the attributed string.
 //
-// # Return Value
-// 
-// A representation visibility specification for the given UTI.
+// options: Specifies additional options for loading the document. For a list of
+// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
+// //
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
 //
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
-func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
-	rv := objc.Send[NSItemProviderRepresentationVisibility](a.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
-	return NSItemProviderRepresentationVisibility(rv)
+// completionHandler: A completion handler to execute with the results.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
+		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+	defer _cleanup2()
+		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
 }
 
+// Creates an attributed string by converting the content of a local HTML file
+// at the specified URL.
+//
+// fileURL: A URL that specifies the file to load.
+//
+// options: Specifies additional options for loading the document. For a list of
+// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
+// //
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+//
+// completionHandler: A completion handler to execute with the results.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
+		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+	defer _cleanup2()
+		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
+}
 
+// Creates an attributed string by converting the contents of the specified
+// HTML URL request.
+//
+// request: A request to fetch an HTML document.
+//
+// options: Specifies additional options for loading the document. For a list of
+// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
+// //
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+//
+// completionHandler: A completion handler to execute with the results.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
+		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+	defer _cleanup2()
+		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
+}
 
-
+// Creates an attributed string from the specified HTML string.
+//
+// string: A string that contains the HTML to convert to an attributed string.
+//
+// options: Specifies additional options for loading the document. For a list of
+// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
+// //
+// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
+//
+// completionHandler: A completion handler to execute with the results.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {
+		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+	defer _cleanup2()
+		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
+}
 
 // Creates an attributed string by substituting arguments into a specially
 // formatted string.
@@ -2944,81 +3019,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 	return NSAttributedStringFromID(rv)
 }
 
-// Creates an attributed string from the specified HTML data.
-//
-// data: A data object with text in HTML format. The method uses this data to create
-// the attributed string.
-//
-// options: Specifies additional options for loading the document. For a list of
-// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-//
-// completionHandler: A completion handler to execute with the results.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
-}
-
-// Creates an attributed string by converting the content of a local HTML file
-// at the specified URL.
-//
-// fileURL: A URL that specifies the file to load.
-//
-// options: Specifies additional options for loading the document. For a list of
-// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-//
-// completionHandler: A completion handler to execute with the results.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
-}
-
-// Creates an attributed string from the specified HTML string.
-//
-// string: A string that contains the HTML to convert to an attributed string.
-//
-// options: Specifies additional options for loading the document. For a list of
-// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-//
-// completionHandler: A completion handler to execute with the results.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
-}
-
-// Creates an attributed string by converting the contents of the specified
-// HTML URL request.
-//
-// request: A request to fetch an HTML document.
-//
-// options: Specifies additional options for loading the document. For a list of
-// possible keys, see [NSAttributedStringDocumentReadingOptionKey].
-// //
-// [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-//
-// completionHandler: A completion handler to execute with the results.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
-}
-
 // Creates a new instance of a class using the given data and UTI string.
 //
 // data: The data used to create the object.
@@ -3081,6 +3081,16 @@ func (a NSAttributedString) Length() uint {
 
 
 
+// The string encoding for the document.
+//
+// See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/characterencoding
+func (a NSAttributedString) CharacterEncoding() INSString {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("characterEncoding"))
+	return NSStringFromID(objc.ID(rv))
+}
+
+
+
 // A Boolean value that indicates whether the attribute string contains any
 // attachment attributes.
 //
@@ -3102,32 +3112,22 @@ func (a NSAttributedString) ContainsAttachments() bool {
 
 
 
-// The link for the text.
-//
-// See: https://developer.apple.com/documentation/foundation/nsattributedstring/key/link
-func (a NSAttributedString) Link() NSAttributedStringKey {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("link"))
-	return NSAttributedStringKey(NSStringFromID(rv).String())
-}
-
-
-
-// The string encoding for the document.
-//
-// See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/characterencoding
-func (a NSAttributedString) CharacterEncoding() INSString {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("characterEncoding"))
-	return NSStringFromID(objc.ID(rv))
-}
-
-
-
 // The HTML elements to exclude in generated HTML.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/excludedelements
 func (a NSAttributedString) ExcludedElements() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("excludedElements"))
 	return NSStringFromID(objc.ID(rv))
+}
+
+
+
+// The link for the text.
+//
+// See: https://developer.apple.com/documentation/foundation/nsattributedstring/key/link
+func (a NSAttributedString) Link() NSAttributedStringKey {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("link"))
+	return NSAttributedStringKey(NSStringFromID(rv).String())
 }
 
 

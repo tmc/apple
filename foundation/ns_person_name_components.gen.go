@@ -345,9 +345,9 @@ type INSPersonNameComponents interface {
 	PhoneticRepresentation() INSPersonNameComponents
 	SetPhoneticRepresentation(value INSPersonNameComponents)
 
-	InitWithCoder(coder INSCoder) NSPersonNameComponents
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSPersonNameComponents
 }
 
 
@@ -392,13 +392,6 @@ func NewPersonNameComponentsWithCoder(coder INSCoder) NSPersonNameComponents {
 
 
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameComponents {
-	rv := objc.Send[NSPersonNameComponents](p.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -406,6 +399,13 @@ func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameCompon
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (p NSPersonNameComponents) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameComponents {
+	rv := objc.Send[NSPersonNameComponents](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

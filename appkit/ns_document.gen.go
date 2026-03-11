@@ -686,7 +686,7 @@ type INSDocument interface {
 	// Sets the contents of this document by reading from a file or file package, of a specified type, located by a URL.
 	ReadFromURLOfTypeError(url foundation.INSURL, typeName string) (bool, error)
 	// Sets the contents of this document by reading from a file wrapper of a specified type.
-	ReadFromFileWrapperOfTypeError(fileWrapper *foundation.NSFileWrapper, typeName string) (bool, error)
+	ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFileWrapper, typeName string) (bool, error)
 	// Sets the contents of this document by reading from data of a specified type.
 	ReadFromDataOfTypeError(data foundation.INSData, typeName string) (bool, error)
 
@@ -776,7 +776,7 @@ type INSDocument interface {
 	// Returns the default draft name for the document subclass.
 	DefaultDraftName() string
 	// Saves the interface-related state of the document.
-	EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue *foundation.NSOperationQueue)
+	EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue)
 
 	// Topic: Configuring the Autosave Behavior
 
@@ -820,8 +820,8 @@ type INSDocument interface {
 	// Topic: Managing Undo and Redo Actions
 
 	// The object that the document uses to support undo/redo operations.
-	UndoManager() *foundation.NSUndoManager
-	SetUndoManager(value *foundation.NSUndoManager)
+	UndoManager() foundation.NSUndoManager
+	SetUndoManager(value foundation.NSUndoManager)
 	// A Boolean value that indicates whether the document owns an undo manager object.
 	HasUndoManager() bool
 	SetHasUndoManager(value bool)
@@ -1346,7 +1346,7 @@ func (d NSDocument) ReadFromURLOfTypeError(url foundation.INSURL, typeName strin
 // [loadFileWrapperRepresentation:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/loadFileWrapperRepresentation:ofType:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/read(from:ofType:)-3rzsi
-func (d NSDocument) ReadFromFileWrapperOfTypeError(fileWrapper *foundation.NSFileWrapper, typeName string) (bool, error) {
+func (d NSDocument) ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFileWrapper, typeName string) (bool, error) {
 			var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("readFromFileWrapper:ofType:error:"), fileWrapper, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -2127,7 +2127,7 @@ func (d NSDocument) DefaultDraftName() string {
 // [Archives and Serializations Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Archiving/Archiving.html#//apple_ref/doc/uid/10000047i
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/encodeRestorableState(with:backgroundQueue:)
-func (d NSDocument) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue *foundation.NSOperationQueue) {
+func (d NSDocument) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeRestorableStateWithCoder:backgroundQueue:"), coder, queue)
 }
 
@@ -3909,15 +3909,44 @@ func (d NSDocument) SavePresentedItemChangesWithCompletionHandler(completionHand
 }
 
 //
+// See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidBeginEditing(_:)
+func (d NSDocument) ObjectDidBeginEditing(editor NSEditor) {
+	objc.Send[objc.ID](d.ID, objc.Sel("objectDidBeginEditing:"), editor)
+}
+
+//
 // See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidEndEditing(_:)
 func (d NSDocument) ObjectDidEndEditing(editor NSEditor) {
 	objc.Send[objc.ID](d.ID, objc.Sel("objectDidEndEditing:"), editor)
 }
 
+// Restores the state necessary to continue the specified user activity.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidBeginEditing(_:)
-func (d NSDocument) ObjectDidBeginEditing(editor NSEditor) {
-	objc.Send[objc.ID](d.ID, objc.Sel("objectDidBeginEditing:"), editor)
+// userActivity: The user activity to continue.
+//
+// # Discussion
+// 
+// Implement this method to restore an object’s state using the specified
+// user activity. The system calls this method on any responders or documents
+// passed to the `restorationHandler` in
+// [ApplicationContinueUserActivityRestorationHandler]. The system calls this
+// method on the main thread. Your implementation should use the state data
+// contained in the specified user activity’s [userInfo] dictionary to
+// restore the object.
+// 
+// On macOS, the system can automatically restore activities managed by
+// [NSDocument] if you don’t implement
+// [ApplicationContinueUserActivityRestorationHandler], or if you return
+// [false]. When this occurs, the system opens the document using
+// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
+// `restoreUserActivityState` on it.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
+//
+// See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
+func (d NSDocument) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
+	objc.Send[objc.ID](d.ID, objc.Sel("restoreUserActivityState:"), userActivity)
 }
 
 // Implemented to override the default action of enabling or disabling a
@@ -3949,35 +3978,6 @@ func (d NSDocument) ObjectDidBeginEditing(editor NSEditor) {
 func (d NSDocument) ValidateMenuItem(menuItem INSMenuItem) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
-}
-
-// Restores the state necessary to continue the specified user activity.
-//
-// userActivity: The user activity to continue.
-//
-// # Discussion
-// 
-// Implement this method to restore an object’s state using the specified
-// user activity. The system calls this method on any responders or documents
-// passed to the `restorationHandler` in
-// [ApplicationContinueUserActivityRestorationHandler]. The system calls this
-// method on the main thread. Your implementation should use the state data
-// contained in the specified user activity’s [userInfo] dictionary to
-// restore the object.
-// 
-// On macOS, the system can automatically restore activities managed by
-// [NSDocument] if you don’t implement
-// [ApplicationContinueUserActivityRestorationHandler], or if you return
-// [false]. When this occurs, the system opens the document using
-// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
-// `restoreUserActivityState` on it.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
-//
-// See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
-func (d NSDocument) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
-	objc.Send[objc.ID](d.ID, objc.Sel("restoreUserActivityState:"), userActivity)
 }
 
 
@@ -4546,15 +4546,11 @@ func (d NSDocument) BrowsingVersions() bool {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/undoManager
-func (d NSDocument) UndoManager() *foundation.NSUndoManager {
+func (d NSDocument) UndoManager() foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("undoManager"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSUndoManagerFromID(objc.ID(rv))
-	return &val
+	return foundation.NSUndoManagerFromID(objc.ID(rv))
 }
-func (d NSDocument) SetUndoManager(value *foundation.NSUndoManager) {
+func (d NSDocument) SetUndoManager(value foundation.NSUndoManager) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUndoManager:"), value)
 }
 

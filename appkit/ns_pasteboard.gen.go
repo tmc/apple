@@ -275,7 +275,7 @@ type INSPasteboard interface {
 	// Writes the contents of the specified file to the pasteboard.
 	WriteFileContents(filename string) bool
 	// Writes the serialized contents of the specified file wrapper to the pasteboard.
-	WriteFileWrapper(wrapper *foundation.NSFileWrapper) bool
+	WriteFileWrapper(wrapper foundation.NSFileWrapper) bool
 
 	// Topic: Reading data (macOS 10.5 and earlier)
 
@@ -287,6 +287,9 @@ type INSPasteboard interface {
 	// An array of calendar events that the data detection system identifies.
 	CalendarEvents() objectivec.IObject
 	SetCalendarEvents(value objectivec.IObject)
+	// The content type of a file that the data detection system identifies when the pasteboard contains a file URL.
+	ContentType() uniformtypeidentifiers.UTType
+	SetContentType(value uniformtypeidentifiers.UTType)
 	// An array of email addresses that the data detection system identifies.
 	EmailAddresses() objectivec.IObject
 	SetEmailAddresses(value objectivec.IObject)
@@ -296,6 +299,9 @@ type INSPasteboard interface {
 	// An array of web links that the data detection system identifies.
 	Links() objectivec.IObject
 	SetLinks(value objectivec.IObject)
+	// A set of key paths that represent metadata types that the data detection system identifies.
+	MetadataTypes() objectivec.IObject
+	SetMetadataTypes(value objectivec.IObject)
 	// An array of money amounts and currencies that the data detection system identifies.
 	MoneyAmounts() objectivec.IObject
 	SetMoneyAmounts(value objectivec.IObject)
@@ -320,12 +326,6 @@ type INSPasteboard interface {
 	// An array of parcel tracking numbers and carriers that the data detection system identifies.
 	ShipmentTrackingNumbers() objectivec.IObject
 	SetShipmentTrackingNumbers(value objectivec.IObject)
-	// The content type of a file that the data detection system identifies when the pasteboard contains a file URL.
-	ContentType() uniformtypeidentifiers.UTType
-	SetContentType(value uniformtypeidentifiers.UTType)
-	// A set of key paths that represent metadata types that the data detection system identifies.
-	MetadataTypes() objectivec.IObject
-	SetMetadataTypes(value objectivec.IObject)
 }
 
 
@@ -981,7 +981,7 @@ func (p NSPasteboard) WriteFileContents(filename string) bool {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/write(_:)
-func (p NSPasteboard) WriteFileWrapper(wrapper *foundation.NSFileWrapper) bool {
+func (p NSPasteboard) WriteFileWrapper(wrapper foundation.NSFileWrapper) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("writeFileWrapper:"), wrapper)
 	return rv
 }
@@ -1186,6 +1186,20 @@ func (p NSPasteboard) SetCalendarEvents(value objectivec.IObject) {
 
 
 
+// The content type of a file that the data detection system identifies when
+// the pasteboard contains a file URL.
+//
+// See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedmetadata/contenttype
+func (p NSPasteboard) ContentType() uniformtypeidentifiers.UTType {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("contentType"))
+	return uniformtypeidentifiers.UTTypeFromID(objc.ID(rv))
+}
+func (p NSPasteboard) SetContentType(value uniformtypeidentifiers.UTType) {
+	objc.Send[struct{}](p.ID, objc.Sel("setContentType:"), value)
+}
+
+
+
 // An array of email addresses that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/emailaddresses
@@ -1221,6 +1235,20 @@ func (p NSPasteboard) Links() objectivec.IObject {
 }
 func (p NSPasteboard) SetLinks(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLinks:"), value)
+}
+
+
+
+// A set of key paths that represent metadata types that the data detection
+// system identifies.
+//
+// See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedmetadata/metadatatypes
+func (p NSPasteboard) MetadataTypes() objectivec.IObject {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("metadataTypes"))
+	return objectivec.Object{ID: rv}
+}
+func (p NSPasteboard) SetMetadataTypes(value objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setMetadataTypes:"), value)
 }
 
 
@@ -1330,34 +1358,6 @@ func (p NSPasteboard) ShipmentTrackingNumbers() objectivec.IObject {
 }
 func (p NSPasteboard) SetShipmentTrackingNumbers(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShipmentTrackingNumbers:"), value)
-}
-
-
-
-// The content type of a file that the data detection system identifies when
-// the pasteboard contains a file URL.
-//
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedmetadata/contenttype
-func (p NSPasteboard) ContentType() uniformtypeidentifiers.UTType {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("contentType"))
-	return uniformtypeidentifiers.UTTypeFromID(objc.ID(rv))
-}
-func (p NSPasteboard) SetContentType(value uniformtypeidentifiers.UTType) {
-	objc.Send[struct{}](p.ID, objc.Sel("setContentType:"), value)
-}
-
-
-
-// A set of key paths that represent metadata types that the data detection
-// system identifies.
-//
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedmetadata/metadatatypes
-func (p NSPasteboard) MetadataTypes() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("metadataTypes"))
-	return objectivec.Object{ID: rv}
-}
-func (p NSPasteboard) SetMetadataTypes(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setMetadataTypes:"), value)
 }
 
 

@@ -141,7 +141,7 @@ type INSAppearance interface {
 	// Topic: Creating an Appearance
 
 	// Creates an appearance object from the named appearance file located in the specified bundle.
-	InitWithAppearanceNamedBundle(name NSAppearanceName, bundle *foundation.NSBundle) NSAppearance
+	InitWithAppearanceNamedBundle(name NSAppearanceName, bundle foundation.NSBundle) NSAppearance
 	InitWithCoder(coder foundation.INSCoder) NSAppearance
 
 	// Topic: Getting the Appearance Name
@@ -236,7 +236,7 @@ func NewAppearanceNamed(name NSAppearanceName) NSAppearance {
 // An initialized appearance object, or `nil` if an error occurs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(appearanceNamed:bundle:)
-func NewAppearanceWithAppearanceNamedBundle(name NSAppearanceName, bundle *foundation.NSBundle) NSAppearance {
+func NewAppearanceWithAppearanceNamedBundle(name NSAppearanceName, bundle foundation.NSBundle) NSAppearance {
 	instance := getNSAppearanceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAppearanceNamed:bundle:"), objc.String(string(name)), bundle)
 	return NSAppearanceFromID(rv)
@@ -271,7 +271,7 @@ func NewAppearanceWithCoder(coder foundation.INSCoder) NSAppearance {
 // An initialized appearance object, or `nil` if an error occurs.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(appearanceNamed:bundle:)
-func (a NSAppearance) InitWithAppearanceNamedBundle(name NSAppearanceName, bundle *foundation.NSBundle) NSAppearance {
+func (a NSAppearance) InitWithAppearanceNamedBundle(name NSAppearanceName, bundle foundation.NSBundle) NSAppearance {
 	rv := objc.Send[NSAppearance](a.ID, objc.Sel("initWithAppearanceNamed:bundle:"), objc.String(string(name)), bundle)
 	return rv
 }

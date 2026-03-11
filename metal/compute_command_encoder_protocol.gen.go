@@ -171,15 +171,15 @@ type MTLComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setIntersectionFunctionTables:withBufferRange:
 	SetIntersectionFunctionTablesWithBufferRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange)
 
-	// Encodes multiple texture samplers, allowing compute kernels to use them for sampling textures on the GPU.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:withRange:
-	SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
-
 	// Encodes multiple texture samplers with custom levels of detail clamping, allowing compute kernels to use them for sampling textures on the GPU.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:lodMinClamps:lodMaxClamps:withRange:
 	SetSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
+
+	// Encodes multiple texture samplers, allowing compute kernels to use them for sampling textures on the GPU.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:withRange:
+	SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
 
 	// Binds multiple textures to the texture argument table, allowing compute kernels to access their data on the GPU.
 	//
@@ -191,15 +191,15 @@ type MTLComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setVisibleFunctionTables:withBufferRange:
 	SetVisibleFunctionTablesWithBufferRange(visibleFunctionTables []MTLVisibleFunctionTable, range_ foundation.NSRange)
 
-	// Ensures kernel calls that the system encodes in subsequent commands have access to multiple resources.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
-	UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage)
-
 	// Ensures the shaders in the render pass’s subsequent draw commands have access to all of the resources you allocate from multiple heaps.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useHeaps:count:
 	UseHeapsCount(heaps []MTLHeap, count uint)
+
+	// Ensures kernel calls that the system encodes in subsequent commands have access to multiple resources.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
+	UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage)
 }
 
 
@@ -1035,24 +1035,6 @@ func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTablesWithBufferR
 	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTables:withBufferRange:"), intersectionFunctionTables, range_)
 	}
 
-// Encodes multiple texture samplers, allowing compute kernels to use them for
-// sampling textures on the GPU.
-//
-// samplers: An array of [MTLSamplerState] instances to bind to the sampler argument
-// table.
-//
-// range: The sampler table indexes to bind each of the `samplers` to, in the order
-// they appear.
-//
-// # Discussion
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:withRange:
-
-func (o MTLComputeCommandEncoderObject) SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:withRange:"), samplers, range_)
-	}
-
 // Encodes multiple texture samplers with custom levels of detail clamping,
 // allowing compute kernels to use them for sampling textures on the GPU.
 //
@@ -1078,6 +1060,24 @@ func (o MTLComputeCommandEncoderObject) SetSamplerStatesWithRange(samplers []MTL
 func (o MTLComputeCommandEncoderObject) SetSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), samplers, lodMinClamps, lodMaxClamps, range_)
+	}
+
+// Encodes multiple texture samplers, allowing compute kernels to use them for
+// sampling textures on the GPU.
+//
+// samplers: An array of [MTLSamplerState] instances to bind to the sampler argument
+// table.
+//
+// range: The sampler table indexes to bind each of the `samplers` to, in the order
+// they appear.
+//
+// # Discussion
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:withRange:
+
+func (o MTLComputeCommandEncoderObject) SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:withRange:"), samplers, range_)
 	}
 
 // Binds multiple textures to the texture argument table, allowing compute
@@ -1112,52 +1112,6 @@ func (o MTLComputeCommandEncoderObject) SetTexturesWithRange(textures []MTLTextu
 func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTablesWithBufferRange(visibleFunctionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withBufferRange:"), visibleFunctionTables, range_)
-	}
-
-// Ensures kernel calls that the system encodes in subsequent commands have
-// access to multiple resources.
-//
-// resources: An array of [MTLResource] instances used in one or more argument buffers.
-//
-// count: The number of resources in the array.
-//
-// usage: All the applicable access types the compute pass’s use of these
-// resources, including [ResourceUsageRead] and [ResourceUsageWrite]. Your
-// resource usage type applies to all resources passed to this method call.
-// 
-// For applicable resources, you may be able to prevent the GPU from
-// unnecessarily decompressing color attachments on some devices by setting
-// `usage` to [ResourceUsageRead].
-//
-// # Discussion
-// 
-// You can make many resources (available in GPU memory) for the remaining
-// duration of the compute pass by calling this method. Call the method before
-// encoding function calls that may access these `resources` through an
-// argument buffer. The method ensures the resource is in a format that’s
-// compatible with the kernels that depend on it.
-// 
-// The method also informs Metal when to apply hazard tracking for a resource
-// you create with [HazardTrackingModeTracked]. For a resource you create with
-// [HazardTrackingModeUntracked], you need to apply an [MTLFence] or an
-// [MTLEvent] to account for potential reading and writing hazards.
-// 
-// You can reconfigure an individual resource’s `usage` options for
-// subsequent draw calls with the [UseResourceUsage] method.
-// 
-// Apps typically call this method for a resource in an argument buffer as a
-// part of their implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
-//
-// [Go bindless with Metal 3]: https://developer.apple.com/videos/play/wwdc2022/10101/
-// [Improving CPU performance by using argument buffers]: https://developer.apple.com/documentation/Metal/improving-cpu-performance-by-using-argument-buffers
-//
-// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
-
-func (o MTLComputeCommandEncoderObject) UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("useResources:count:usage:"), objc.CArray(resources), count, usage)
 	}
 
 // Ensures the shaders in the render pass’s subsequent draw commands have
@@ -1212,6 +1166,52 @@ func (o MTLComputeCommandEncoderObject) UseResourcesCountUsage(resources []MTLRe
 func (o MTLComputeCommandEncoderObject) UseHeapsCount(heaps []MTLHeap, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useHeaps:count:"), objc.CArray(heaps), count)
+	}
+
+// Ensures kernel calls that the system encodes in subsequent commands have
+// access to multiple resources.
+//
+// resources: An array of [MTLResource] instances used in one or more argument buffers.
+//
+// count: The number of resources in the array.
+//
+// usage: All the applicable access types the compute pass’s use of these
+// resources, including [ResourceUsageRead] and [ResourceUsageWrite]. Your
+// resource usage type applies to all resources passed to this method call.
+// 
+// For applicable resources, you may be able to prevent the GPU from
+// unnecessarily decompressing color attachments on some devices by setting
+// `usage` to [ResourceUsageRead].
+//
+// # Discussion
+// 
+// You can make many resources (available in GPU memory) for the remaining
+// duration of the compute pass by calling this method. Call the method before
+// encoding function calls that may access these `resources` through an
+// argument buffer. The method ensures the resource is in a format that’s
+// compatible with the kernels that depend on it.
+// 
+// The method also informs Metal when to apply hazard tracking for a resource
+// you create with [HazardTrackingModeTracked]. For a resource you create with
+// [HazardTrackingModeUntracked], you need to apply an [MTLFence] or an
+// [MTLEvent] to account for potential reading and writing hazards.
+// 
+// You can reconfigure an individual resource’s `usage` options for
+// subsequent draw calls with the [UseResourceUsage] method.
+// 
+// Apps typically call this method for a resource in an argument buffer as a
+// part of their implementation. For more information about argument buffers
+// and bindless implementations, see [Improving CPU performance by using
+// argument buffers] and [Go bindless with Metal 3], respectively.
+//
+// [Go bindless with Metal 3]: https://developer.apple.com/videos/play/wwdc2022/10101/
+// [Improving CPU performance by using argument buffers]: https://developer.apple.com/documentation/Metal/improving-cpu-performance-by-using-argument-buffers
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
+
+func (o MTLComputeCommandEncoderObject) UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("useResources:count:usage:"), objc.CArray(resources), count, usage)
 	}
 
 // Declares that all command generation from the encoder is completed.

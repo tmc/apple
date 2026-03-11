@@ -270,9 +270,9 @@ type INSIndexSet interface {
 	// Executes a given Block using the indexes in the specified range, using the specified enumeration options.
 	EnumerateIndexesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block bool)
 
-	InitWithCoder(coder INSCoder) NSIndexSet
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSIndexSet
 }
 
 
@@ -1019,13 +1019,6 @@ func (i NSIndexSet) EnumerateIndexesInRangeOptionsUsingBlock(range_ NSRange, opt
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateIndexesInRange:options:usingBlock:"), range_, opts, block)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (i NSIndexSet) InitWithCoder(coder INSCoder) NSIndexSet {
-	rv := objc.Send[NSIndexSet](i.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1033,6 +1026,13 @@ func (i NSIndexSet) InitWithCoder(coder INSCoder) NSIndexSet {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (i NSIndexSet) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (i NSIndexSet) InitWithCoder(coder INSCoder) NSIndexSet {
+	rv := objc.Send[NSIndexSet](i.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 
@@ -1048,6 +1048,20 @@ func (i NSIndexSet) EncodeWithCoder(coder INSCoder) {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexSet
 func (_NSIndexSetClass NSIndexSetClass) IndexSet() NSIndexSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSIndexSetClass.class), objc.Sel("indexSet"))
+	return NSIndexSetFromID(rv)
+}
+
+// Creates an index set with an index.
+//
+// value: An index. Must be in the range `0 .. NSNotFound - 1`.
+//
+// # Return Value
+// 
+// [NSIndexSet] object containing `index`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexSetWithIndex:
+func (_NSIndexSetClass NSIndexSetClass) IndexSetWithIndex(value uint) NSIndexSet {
+	rv := objc.Send[objc.ID](objc.ID(_NSIndexSetClass.class), objc.Sel("indexSetWithIndex:"), value)
 	return NSIndexSetFromID(rv)
 }
 
@@ -1068,20 +1082,6 @@ func (_NSIndexSetClass NSIndexSetClass) IndexSet() NSIndexSet {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexSetWithIndexesInRange:
 func (_NSIndexSetClass NSIndexSetClass) IndexSetWithIndexesInRange(range_ NSRange) NSIndexSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSIndexSetClass.class), objc.Sel("indexSetWithIndexesInRange:"), range_)
-	return NSIndexSetFromID(rv)
-}
-
-// Creates an index set with an index.
-//
-// value: An index. Must be in the range `0 .. NSNotFound - 1`.
-//
-// # Return Value
-// 
-// [NSIndexSet] object containing `index`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexSetWithIndex:
-func (_NSIndexSetClass NSIndexSetClass) IndexSetWithIndex(value uint) NSIndexSet {
-	rv := objc.Send[objc.ID](objc.ID(_NSIndexSetClass.class), objc.Sel("indexSetWithIndex:"), value)
 	return NSIndexSetFromID(rv)
 }
 

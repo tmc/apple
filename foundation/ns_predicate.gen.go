@@ -158,9 +158,9 @@ type INSPredicate interface {
 
 	AllowEvaluationWithValidatorError(validator NSPredicateValidating) (bool, error)
 
-	InitWithCoder(coder INSCoder) NSPredicate
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSPredicate
 }
 
 
@@ -400,13 +400,6 @@ func (p NSPredicate) AllowEvaluationWithValidatorError(validator NSPredicateVali
 
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (p NSPredicate) InitWithCoder(coder INSCoder) NSPredicate {
-	rv := objc.Send[NSPredicate](p.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -414,6 +407,13 @@ func (p NSPredicate) InitWithCoder(coder INSCoder) NSPredicate {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (p NSPredicate) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (p NSPredicate) InitWithCoder(coder INSCoder) NSPredicate {
+	rv := objc.Send[NSPredicate](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

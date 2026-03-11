@@ -301,18 +301,18 @@ type IFileHandle interface {
 	// Currently unused.
 	NSFileHandleNotificationMonitorModes() string
 
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Get the current position of the file pointer within the file.
 	GetOffsetError() (uint64, error)
-	// Reads data synchronously up to the specified number of bytes.
-	ReadDataUpToLengthError(length uint) (INSData, error)
 	// Reads the available data synchronously up to the end of file or maximum number of bytes.
 	ReadDataToEndOfFileAndReturnError() (INSData, error)
+	// Reads data synchronously up to the specified number of bytes.
+	ReadDataUpToLengthError(length uint) (INSData, error)
 	// Places the file pointer at the end of the file referenced by the file handle and returns the new file offset.
 	SeekToEndReturningOffsetError() (uint64, error)
 	// Writes the specified data synchronously to the file handle.
 	WriteDataError(data INSData) (bool, error)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
 
 
@@ -904,6 +904,15 @@ func (f FileHandle) TruncateAtOffsetError(offset uint64) (bool, error) {
 
 }
 
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (f FileHandle) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
 // Get the current position of the file pointer within the file.
 //
 // offsetInFile: When the return value is [true], this provides the current position of the
@@ -947,6 +956,34 @@ func (f FileHandle) GetOffsetError() (uint64, error) {
 	return offsetInFile, nil
 }
 
+// Reads the available data synchronously up to the end of file or maximum
+// number of bytes.
+//
+// error: When the return value is `nil`, this provides an [NSError] indicating why
+// the read operation failed.
+//
+// # Return Value
+// 
+// The data available through the file handle up to the maximum size that can
+// be represented by an [NSData] object or, if a communications channel, until
+// an end-of-file indicator is returned.
+//
+// # Discussion
+// 
+// This method invokes [ReadDataOfLength] as part of its implementation.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFileHandle/readDataToEndOfFileAndReturnError:
+func (f FileHandle) ReadDataToEndOfFileAndReturnError() (INSData, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("readDataToEndOfFileAndReturnError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSData{}, NSErrorFrom(errorPtr)
+	}
+	return NSDataFromID(rv), nil
+
+}
+
 // Reads data synchronously up to the specified number of bytes.
 //
 // length: The number of bytes to read from the file handle.
@@ -977,34 +1014,6 @@ func (f FileHandle) GetOffsetError() (uint64, error) {
 func (f FileHandle) ReadDataUpToLengthError(length uint) (INSData, error) {
 			var errorPtr objc.ID
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("readDataUpToLength:error:"), length, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSData{}, NSErrorFrom(errorPtr)
-	}
-	return NSDataFromID(rv), nil
-
-}
-
-// Reads the available data synchronously up to the end of file or maximum
-// number of bytes.
-//
-// error: When the return value is `nil`, this provides an [NSError] indicating why
-// the read operation failed.
-//
-// # Return Value
-// 
-// The data available through the file handle up to the maximum size that can
-// be represented by an [NSData] object or, if a communications channel, until
-// an end-of-file indicator is returned.
-//
-// # Discussion
-// 
-// This method invokes [ReadDataOfLength] as part of its implementation.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFileHandle/readDataToEndOfFileAndReturnError:
-func (f FileHandle) ReadDataToEndOfFileAndReturnError() (INSData, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("readDataToEndOfFileAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSData{}, NSErrorFrom(errorPtr)
@@ -1095,15 +1104,6 @@ func (f FileHandle) WriteDataError(data INSData) (bool, error) {
 	}
 	return rv, nil
 
-}
-
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (f FileHandle) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 

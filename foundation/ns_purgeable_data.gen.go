@@ -459,6 +459,19 @@ func (p NSPurgeableData) BeginContentAccess() bool {
 	return rv
 }
 
+// Called to discard the contents of the receiver if the value of the accessed
+// counter is 0.
+//
+// # Discussion
+// 
+// This method should only discard the contents of the object if the value of
+// the accessed counter is 0. Otherwise, it should do nothing.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/discardContentIfPossible()
+func (p NSPurgeableData) DiscardContentIfPossible() {
+	objc.Send[objc.ID](p.ID, objc.Sel("discardContentIfPossible"))
+}
+
 // Called if the discardable contents are no longer being accessed.
 //
 // # Discussion
@@ -471,19 +484,6 @@ func (p NSPurgeableData) BeginContentAccess() bool {
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/endContentAccess()
 func (p NSPurgeableData) EndContentAccess() {
 	objc.Send[objc.ID](p.ID, objc.Sel("endContentAccess"))
-}
-
-// Called to discard the contents of the receiver if the value of the accessed
-// counter is 0.
-//
-// # Discussion
-// 
-// This method should only discard the contents of the object if the value of
-// the accessed counter is 0. Otherwise, it should do nothing.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/discardContentIfPossible()
-func (p NSPurgeableData) DiscardContentIfPossible() {
-	objc.Send[objc.ID](p.ID, objc.Sel("discardContentIfPossible"))
 }
 
 // Returns a Boolean value indicating whether the content has been discarded.

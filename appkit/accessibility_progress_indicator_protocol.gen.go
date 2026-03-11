@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProgressIndicator
 type NSAccessibilityProgressIndicator interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 	NSAccessibilityGroup
 
 	// Returns the progress indicator’s value.

@@ -379,6 +379,8 @@ const (
 	KCGDisplayStreamFrameStatusFrameIdle CGDisplayStreamFrameStatus = 1
 	// KCGDisplayStreamFrameStatusStopped: The display stream was stopped.
 	KCGDisplayStreamFrameStatusStopped CGDisplayStreamFrameStatus = 3
+	// KCGMouseEventSubtype: Key to access an integer field that encodes the mouse event subtype as a .
+	KCGMouseEventSubtype CGDisplayStreamFrameStatus = 0
 )
 
 
@@ -411,8 +413,6 @@ const (
 	KCGDisplayStreamUpdateReducedDirtyRects CGDisplayStreamUpdateRectType = 3
 	// KCGDisplayStreamUpdateRefreshedRects: The rectangles for the portions of the display that were redrawn.
 	KCGDisplayStreamUpdateRefreshedRects CGDisplayStreamUpdateRectType = 0
-	// KCGMouseEventSubtype: Key to access an integer field that encodes the mouse event subtype as a .
-	KCGMouseEventSubtype CGDisplayStreamUpdateRectType = 0
 )
 
 

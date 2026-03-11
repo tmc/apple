@@ -102,13 +102,25 @@ func CFAllocatorCreate(allocator CFAllocatorRef, context *CFAllocatorContext) CF
 }
 
 
+var _cFAllocatorCreateWithZone func(allocator CFAllocatorRef, zone unsafe.Pointer) CFAllocatorRef
 
-var _cFAllocatorDeallocate func(allocator CFAllocatorRef, ptr unsafe.Pointer) 
+// CFAllocatorCreateWithZone.
+//
+// See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorCreateWithZone
+func CFAllocatorCreateWithZone(allocator CFAllocatorRef, zone unsafe.Pointer) CFAllocatorRef {
+	if _cFAllocatorCreateWithZone == nil {
+		panic("CoreFoundation: symbol CFAllocatorCreateWithZone not loaded")
+	}
+	return _cFAllocatorCreateWithZone(allocator, zone)
+}
+
+
+var _cFAllocatorDeallocate func(allocator CFAllocatorRef, ptr unsafe.Pointer)
 
 // CFAllocatorDeallocate deallocates a block of memory with a given allocator.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorDeallocate(_:_:)
-func CFAllocatorDeallocate(allocator CFAllocatorRef, ptr unsafe.Pointer)  {
+func CFAllocatorDeallocate(allocator CFAllocatorRef, ptr unsafe.Pointer) {
 	if _cFAllocatorDeallocate == nil {
 		panic("CoreFoundation: symbol CFAllocatorDeallocate not loaded")
 	}
@@ -116,12 +128,12 @@ func CFAllocatorDeallocate(allocator CFAllocatorRef, ptr unsafe.Pointer)  {
 }
 
 
-var _cFAllocatorGetContext func(allocator CFAllocatorRef, context *CFAllocatorContext) 
+var _cFAllocatorGetContext func(allocator CFAllocatorRef, context *CFAllocatorContext)
 
 // CFAllocatorGetContext obtains the context of the specified allocator or of the default allocator.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorGetContext(_:_:)
-func CFAllocatorGetContext(allocator CFAllocatorRef, context *CFAllocatorContext)  {
+func CFAllocatorGetContext(allocator CFAllocatorRef, context *CFAllocatorContext) {
 	if _cFAllocatorGetContext == nil {
 		panic("CoreFoundation: symbol CFAllocatorGetContext not loaded")
 	}
@@ -207,12 +219,12 @@ func CFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer, ne
 }
 
 
-var _cFAllocatorSetDefault func(allocator CFAllocatorRef) 
+var _cFAllocatorSetDefault func(allocator CFAllocatorRef)
 
 // CFAllocatorSetDefault sets the given allocator as the default for the current thread.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorSetDefault(_:)
-func CFAllocatorSetDefault(allocator CFAllocatorRef)  {
+func CFAllocatorSetDefault(allocator CFAllocatorRef) {
 	if _cFAllocatorSetDefault == nil {
 		panic("CoreFoundation: symbol CFAllocatorSetDefault not loaded")
 	}
@@ -220,12 +232,12 @@ func CFAllocatorSetDefault(allocator CFAllocatorRef)  {
 }
 
 
-var _cFArrayAppendArray func(theArray CFMutableArrayRef, otherArray CFArrayRef, otherRange CFRange) 
+var _cFArrayAppendArray func(theArray CFMutableArrayRef, otherArray CFArrayRef, otherRange CFRange)
 
 // CFArrayAppendArray adds the values from one array to another array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayAppendArray(_:_:_:)
-func CFArrayAppendArray(theArray CFMutableArrayRef, otherArray CFArrayRef, otherRange CFRange)  {
+func CFArrayAppendArray(theArray CFMutableArrayRef, otherArray CFArrayRef, otherRange CFRange) {
 	if _cFArrayAppendArray == nil {
 		panic("CoreFoundation: symbol CFArrayAppendArray not loaded")
 	}
@@ -233,12 +245,12 @@ func CFArrayAppendArray(theArray CFMutableArrayRef, otherArray CFArrayRef, other
 }
 
 
-var _cFArrayAppendValue func(theArray CFMutableArrayRef, value unsafe.Pointer) 
+var _cFArrayAppendValue func(theArray CFMutableArrayRef, value unsafe.Pointer)
 
 // CFArrayAppendValue adds a value to an array giving it the new largest index.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayAppendValue(_:_:)
-func CFArrayAppendValue(theArray CFMutableArrayRef, value unsafe.Pointer)  {
+func CFArrayAppendValue(theArray CFMutableArrayRef, value unsafe.Pointer) {
 	if _cFArrayAppendValue == nil {
 		panic("CoreFoundation: symbol CFArrayAppendValue not loaded")
 	}
@@ -246,12 +258,12 @@ func CFArrayAppendValue(theArray CFMutableArrayRef, value unsafe.Pointer)  {
 }
 
 
-var _cFArrayApplyFunction func(theArray CFArrayRef, range_ CFRange, applier CFArrayApplierFunction, context unsafe.Pointer) 
+var _cFArrayApplyFunction func(theArray CFArrayRef, range_ CFRange, applier CFArrayApplierFunction, context unsafe.Pointer)
 
 // CFArrayApplyFunction calls a function once for each element in range in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayApplyFunction(_:_:_:_:)
-func CFArrayApplyFunction(theArray CFArrayRef, range_ CFRange, applier CFArrayApplierFunction, context unsafe.Pointer)  {
+func CFArrayApplyFunction(theArray CFArrayRef, range_ CFRange, applier CFArrayApplierFunction, context unsafe.Pointer) {
 	if _cFArrayApplyFunction == nil {
 		panic("CoreFoundation: symbol CFArrayApplyFunction not loaded")
 	}
@@ -337,12 +349,12 @@ func CFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArray C
 }
 
 
-var _cFArrayExchangeValuesAtIndices func(theArray CFMutableArrayRef, idx1 int, idx2 int) 
+var _cFArrayExchangeValuesAtIndices func(theArray CFMutableArrayRef, idx1 int, idx2 int)
 
 // CFArrayExchangeValuesAtIndices exchanges the values at two indices of an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayExchangeValuesAtIndices(_:_:_:)
-func CFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 int, idx2 int)  {
+func CFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 int, idx2 int) {
 	if _cFArrayExchangeValuesAtIndices == nil {
 		panic("CoreFoundation: symbol CFArrayExchangeValuesAtIndices not loaded")
 	}
@@ -428,12 +440,12 @@ func CFArrayGetValueAtIndex(theArray CFArrayRef, idx int) unsafe.Pointer {
 }
 
 
-var _cFArrayGetValues func(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer) 
+var _cFArrayGetValues func(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer)
 
 // CFArrayGetValues fills a buffer with values from an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetValues(_:_:_:)
-func CFArrayGetValues(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer)  {
+func CFArrayGetValues(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer) {
 	if _cFArrayGetValues == nil {
 		panic("CoreFoundation: symbol CFArrayGetValues not loaded")
 	}
@@ -441,12 +453,12 @@ func CFArrayGetValues(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer
 }
 
 
-var _cFArrayInsertValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) 
+var _cFArrayInsertValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)
 
 // CFArrayInsertValueAtIndex inserts a value into an array at a given index.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayInsertValueAtIndex(_:_:_:)
-func CFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)  {
+func CFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) {
 	if _cFArrayInsertValueAtIndex == nil {
 		panic("CoreFoundation: symbol CFArrayInsertValueAtIndex not loaded")
 	}
@@ -454,12 +466,12 @@ func CFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe
 }
 
 
-var _cFArrayRemoveAllValues func(theArray CFMutableArrayRef) 
+var _cFArrayRemoveAllValues func(theArray CFMutableArrayRef)
 
 // CFArrayRemoveAllValues removes all the values from an array, making it empty.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayRemoveAllValues(_:)
-func CFArrayRemoveAllValues(theArray CFMutableArrayRef)  {
+func CFArrayRemoveAllValues(theArray CFMutableArrayRef) {
 	if _cFArrayRemoveAllValues == nil {
 		panic("CoreFoundation: symbol CFArrayRemoveAllValues not loaded")
 	}
@@ -467,12 +479,12 @@ func CFArrayRemoveAllValues(theArray CFMutableArrayRef)  {
 }
 
 
-var _cFArrayRemoveValueAtIndex func(theArray CFMutableArrayRef, idx int) 
+var _cFArrayRemoveValueAtIndex func(theArray CFMutableArrayRef, idx int)
 
 // CFArrayRemoveValueAtIndex removes the value at a given index from an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayRemoveValueAtIndex(_:_:)
-func CFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int)  {
+func CFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int) {
 	if _cFArrayRemoveValueAtIndex == nil {
 		panic("CoreFoundation: symbol CFArrayRemoveValueAtIndex not loaded")
 	}
@@ -480,12 +492,12 @@ func CFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int)  {
 }
 
 
-var _cFArrayReplaceValues func(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int) 
+var _cFArrayReplaceValues func(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int)
 
 // CFArrayReplaceValues replaces a range of values in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayReplaceValues(_:_:_:_:)
-func CFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int)  {
+func CFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int) {
 	if _cFArrayReplaceValues == nil {
 		panic("CoreFoundation: symbol CFArrayReplaceValues not loaded")
 	}
@@ -493,12 +505,12 @@ func CFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues 
 }
 
 
-var _cFArraySetValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) 
+var _cFArraySetValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)
 
 // CFArraySetValueAtIndex changes the value at a given index in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArraySetValueAtIndex(_:_:_:)
-func CFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)  {
+func CFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) {
 	if _cFArraySetValueAtIndex == nil {
 		panic("CoreFoundation: symbol CFArraySetValueAtIndex not loaded")
 	}
@@ -506,12 +518,12 @@ func CFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Po
 }
 
 
-var _cFArraySortValues func(theArray CFMutableArrayRef, range_ CFRange, comparator CFComparatorFunction, context unsafe.Pointer) 
+var _cFArraySortValues func(theArray CFMutableArrayRef, range_ CFRange, comparator CFComparatorFunction, context unsafe.Pointer)
 
 // CFArraySortValues sorts the values in an array using a given comparison function.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArraySortValues(_:_:_:_:)
-func CFArraySortValues(theArray CFMutableArrayRef, range_ CFRange, comparator CFComparatorFunction, context unsafe.Pointer)  {
+func CFArraySortValues(theArray CFMutableArrayRef, range_ CFRange, comparator CFComparatorFunction, context unsafe.Pointer) {
 	if _cFArraySortValues == nil {
 		panic("CoreFoundation: symbol CFArraySortValues not loaded")
 	}
@@ -519,12 +531,12 @@ func CFArraySortValues(theArray CFMutableArrayRef, range_ CFRange, comparator CF
 }
 
 
-var _cFAttributedStringBeginEditing func(aStr CFMutableAttributedStringRef) 
+var _cFAttributedStringBeginEditing func(aStr CFMutableAttributedStringRef)
 
 // CFAttributedStringBeginEditing defers internal consistency-checking and coalescing for a mutable attributed string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringBeginEditing(_:)
-func CFAttributedStringBeginEditing(aStr CFMutableAttributedStringRef)  {
+func CFAttributedStringBeginEditing(aStr CFMutableAttributedStringRef) {
 	if _cFAttributedStringBeginEditing == nil {
 		panic("CoreFoundation: symbol CFAttributedStringBeginEditing not loaded")
 	}
@@ -597,12 +609,12 @@ func CFAttributedStringCreateWithSubstring(alloc CFAllocatorRef, aStr CFAttribut
 }
 
 
-var _cFAttributedStringEndEditing func(aStr CFMutableAttributedStringRef) 
+var _cFAttributedStringEndEditing func(aStr CFMutableAttributedStringRef)
 
 // CFAttributedStringEndEditing re-enables internal consistency-checking and coalescing for a mutable attributed string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringEndEditing(_:)
-func CFAttributedStringEndEditing(aStr CFMutableAttributedStringRef)  {
+func CFAttributedStringEndEditing(aStr CFMutableAttributedStringRef) {
 	if _cFAttributedStringEndEditing == nil {
 		panic("CoreFoundation: symbol CFAttributedStringEndEditing not loaded")
 	}
@@ -740,12 +752,12 @@ func CFAttributedStringGetTypeID() uint {
 }
 
 
-var _cFAttributedStringRemoveAttribute func(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef) 
+var _cFAttributedStringRemoveAttribute func(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef)
 
 // CFAttributedStringRemoveAttribute removes the value of a single attribute over a specified range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringRemoveAttribute(_:_:_:)
-func CFAttributedStringRemoveAttribute(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef)  {
+func CFAttributedStringRemoveAttribute(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef) {
 	if _cFAttributedStringRemoveAttribute == nil {
 		panic("CoreFoundation: symbol CFAttributedStringRemoveAttribute not loaded")
 	}
@@ -753,12 +765,12 @@ func CFAttributedStringRemoveAttribute(aStr CFMutableAttributedStringRef, range_
 }
 
 
-var _cFAttributedStringReplaceAttributedString func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFAttributedStringRef) 
+var _cFAttributedStringReplaceAttributedString func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFAttributedStringRef)
 
 // CFAttributedStringReplaceAttributedString replaces the attributed substring over a range with another attributed string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringReplaceAttributedString(_:_:_:)
-func CFAttributedStringReplaceAttributedString(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFAttributedStringRef)  {
+func CFAttributedStringReplaceAttributedString(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFAttributedStringRef) {
 	if _cFAttributedStringReplaceAttributedString == nil {
 		panic("CoreFoundation: symbol CFAttributedStringReplaceAttributedString not loaded")
 	}
@@ -766,12 +778,12 @@ func CFAttributedStringReplaceAttributedString(aStr CFMutableAttributedStringRef
 }
 
 
-var _cFAttributedStringReplaceString func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFStringRef) 
+var _cFAttributedStringReplaceString func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFStringRef)
 
 // CFAttributedStringReplaceString modifies the string of an attributed string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringReplaceString(_:_:_:)
-func CFAttributedStringReplaceString(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFStringRef)  {
+func CFAttributedStringReplaceString(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFStringRef) {
 	if _cFAttributedStringReplaceString == nil {
 		panic("CoreFoundation: symbol CFAttributedStringReplaceString not loaded")
 	}
@@ -779,12 +791,12 @@ func CFAttributedStringReplaceString(aStr CFMutableAttributedStringRef, range_ C
 }
 
 
-var _cFAttributedStringSetAttribute func(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef, value CFTypeRef) 
+var _cFAttributedStringSetAttribute func(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef, value CFTypeRef)
 
 // CFAttributedStringSetAttribute sets the value of a single attribute over the specified range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringSetAttribute(_:_:_:_:)
-func CFAttributedStringSetAttribute(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef, value CFTypeRef)  {
+func CFAttributedStringSetAttribute(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef, value CFTypeRef) {
 	if _cFAttributedStringSetAttribute == nil {
 		panic("CoreFoundation: symbol CFAttributedStringSetAttribute not loaded")
 	}
@@ -792,12 +804,12 @@ func CFAttributedStringSetAttribute(aStr CFMutableAttributedStringRef, range_ CF
 }
 
 
-var _cFAttributedStringSetAttributes func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFDictionaryRef, clearOtherAttributes bool) 
+var _cFAttributedStringSetAttributes func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFDictionaryRef, clearOtherAttributes bool)
 
 // CFAttributedStringSetAttributes sets the value of attributes of a mutable attributed string over a specified range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringSetAttributes(_:_:_:_:)
-func CFAttributedStringSetAttributes(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFDictionaryRef, clearOtherAttributes bool)  {
+func CFAttributedStringSetAttributes(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFDictionaryRef, clearOtherAttributes bool) {
 	if _cFAttributedStringSetAttributes == nil {
 		panic("CoreFoundation: symbol CFAttributedStringSetAttributes not loaded")
 	}
@@ -818,12 +830,12 @@ func CFAutorelease(arg CFTypeRef) CFTypeRef {
 }
 
 
-var _cFBagAddValue func(theBag CFMutableBagRef, value unsafe.Pointer) 
+var _cFBagAddValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
 // CFBagAddValue adds a value to a mutable bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagAddValue(_:_:)
-func CFBagAddValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
+func CFBagAddValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	if _cFBagAddValue == nil {
 		panic("CoreFoundation: symbol CFBagAddValue not loaded")
 	}
@@ -831,12 +843,12 @@ func CFBagAddValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
 }
 
 
-var _cFBagApplyFunction func(theBag CFBagRef, applier CFBagApplierFunction, context unsafe.Pointer) 
+var _cFBagApplyFunction func(theBag CFBagRef, applier CFBagApplierFunction, context unsafe.Pointer)
 
 // CFBagApplyFunction calls a function once for each value in a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagApplyFunction(_:_:_:)
-func CFBagApplyFunction(theBag CFBagRef, applier CFBagApplierFunction, context unsafe.Pointer)  {
+func CFBagApplyFunction(theBag CFBagRef, applier CFBagApplierFunction, context unsafe.Pointer) {
 	if _cFBagApplyFunction == nil {
 		panic("CoreFoundation: symbol CFBagApplyFunction not loaded")
 	}
@@ -974,12 +986,12 @@ func CFBagGetValueIfPresent(theBag CFBagRef, candidate unsafe.Pointer, value uns
 }
 
 
-var _cFBagGetValues func(theBag CFBagRef, values unsafe.Pointer) 
+var _cFBagGetValues func(theBag CFBagRef, values unsafe.Pointer)
 
 // CFBagGetValues fills a buffer with values from a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagGetValues(_:_:)
-func CFBagGetValues(theBag CFBagRef, values unsafe.Pointer)  {
+func CFBagGetValues(theBag CFBagRef, values unsafe.Pointer) {
 	if _cFBagGetValues == nil {
 		panic("CoreFoundation: symbol CFBagGetValues not loaded")
 	}
@@ -987,12 +999,12 @@ func CFBagGetValues(theBag CFBagRef, values unsafe.Pointer)  {
 }
 
 
-var _cFBagRemoveAllValues func(theBag CFMutableBagRef) 
+var _cFBagRemoveAllValues func(theBag CFMutableBagRef)
 
 // CFBagRemoveAllValues removes all values from a mutable bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagRemoveAllValues(_:)
-func CFBagRemoveAllValues(theBag CFMutableBagRef)  {
+func CFBagRemoveAllValues(theBag CFMutableBagRef) {
 	if _cFBagRemoveAllValues == nil {
 		panic("CoreFoundation: symbol CFBagRemoveAllValues not loaded")
 	}
@@ -1000,12 +1012,12 @@ func CFBagRemoveAllValues(theBag CFMutableBagRef)  {
 }
 
 
-var _cFBagRemoveValue func(theBag CFMutableBagRef, value unsafe.Pointer) 
+var _cFBagRemoveValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
 // CFBagRemoveValue removes a value from a mutable bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagRemoveValue(_:_:)
-func CFBagRemoveValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
+func CFBagRemoveValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	if _cFBagRemoveValue == nil {
 		panic("CoreFoundation: symbol CFBagRemoveValue not loaded")
 	}
@@ -1013,12 +1025,12 @@ func CFBagRemoveValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
 }
 
 
-var _cFBagReplaceValue func(theBag CFMutableBagRef, value unsafe.Pointer) 
+var _cFBagReplaceValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
 // CFBagReplaceValue replaces a value in a mutable bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagReplaceValue(_:_:)
-func CFBagReplaceValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
+func CFBagReplaceValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	if _cFBagReplaceValue == nil {
 		panic("CoreFoundation: symbol CFBagReplaceValue not loaded")
 	}
@@ -1026,12 +1038,12 @@ func CFBagReplaceValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
 }
 
 
-var _cFBagSetValue func(theBag CFMutableBagRef, value unsafe.Pointer) 
+var _cFBagSetValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
 // CFBagSetValue sets a value in a mutable bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagSetValue(_:_:)
-func CFBagSetValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
+func CFBagSetValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	if _cFBagSetValue == nil {
 		panic("CoreFoundation: symbol CFBagSetValue not loaded")
 	}
@@ -1039,12 +1051,12 @@ func CFBagSetValue(theBag CFMutableBagRef, value unsafe.Pointer)  {
 }
 
 
-var _cFBinaryHeapAddValue func(heap CFBinaryHeapRef, value unsafe.Pointer) 
+var _cFBinaryHeapAddValue func(heap CFBinaryHeapRef, value unsafe.Pointer)
 
 // CFBinaryHeapAddValue adds a value to a binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapAddValue(_:_:)
-func CFBinaryHeapAddValue(heap CFBinaryHeapRef, value unsafe.Pointer)  {
+func CFBinaryHeapAddValue(heap CFBinaryHeapRef, value unsafe.Pointer) {
 	if _cFBinaryHeapAddValue == nil {
 		panic("CoreFoundation: symbol CFBinaryHeapAddValue not loaded")
 	}
@@ -1052,12 +1064,12 @@ func CFBinaryHeapAddValue(heap CFBinaryHeapRef, value unsafe.Pointer)  {
 }
 
 
-var _cFBinaryHeapApplyFunction func(heap CFBinaryHeapRef, applier CFBinaryHeapApplierFunction, context unsafe.Pointer) 
+var _cFBinaryHeapApplyFunction func(heap CFBinaryHeapRef, applier CFBinaryHeapApplierFunction, context unsafe.Pointer)
 
 // CFBinaryHeapApplyFunction iteratively applies a function to all the values in a binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapApplyFunction(_:_:_:)
-func CFBinaryHeapApplyFunction(heap CFBinaryHeapRef, applier CFBinaryHeapApplierFunction, context unsafe.Pointer)  {
+func CFBinaryHeapApplyFunction(heap CFBinaryHeapRef, applier CFBinaryHeapApplierFunction, context unsafe.Pointer) {
 	if _cFBinaryHeapApplyFunction == nil {
 		panic("CoreFoundation: symbol CFBinaryHeapApplyFunction not loaded")
 	}
@@ -1169,12 +1181,12 @@ func CFBinaryHeapGetTypeID() uint {
 }
 
 
-var _cFBinaryHeapGetValues func(heap CFBinaryHeapRef, values unsafe.Pointer) 
+var _cFBinaryHeapGetValues func(heap CFBinaryHeapRef, values unsafe.Pointer)
 
 // CFBinaryHeapGetValues copies all the values from a binary heap into a sorted C array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapGetValues(_:_:)
-func CFBinaryHeapGetValues(heap CFBinaryHeapRef, values unsafe.Pointer)  {
+func CFBinaryHeapGetValues(heap CFBinaryHeapRef, values unsafe.Pointer) {
 	if _cFBinaryHeapGetValues == nil {
 		panic("CoreFoundation: symbol CFBinaryHeapGetValues not loaded")
 	}
@@ -1182,12 +1194,12 @@ func CFBinaryHeapGetValues(heap CFBinaryHeapRef, values unsafe.Pointer)  {
 }
 
 
-var _cFBinaryHeapRemoveAllValues func(heap CFBinaryHeapRef) 
+var _cFBinaryHeapRemoveAllValues func(heap CFBinaryHeapRef)
 
 // CFBinaryHeapRemoveAllValues removes all values from a binary heap, making it empty.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapRemoveAllValues(_:)
-func CFBinaryHeapRemoveAllValues(heap CFBinaryHeapRef)  {
+func CFBinaryHeapRemoveAllValues(heap CFBinaryHeapRef) {
 	if _cFBinaryHeapRemoveAllValues == nil {
 		panic("CoreFoundation: symbol CFBinaryHeapRemoveAllValues not loaded")
 	}
@@ -1195,12 +1207,12 @@ func CFBinaryHeapRemoveAllValues(heap CFBinaryHeapRef)  {
 }
 
 
-var _cFBinaryHeapRemoveMinimumValue func(heap CFBinaryHeapRef) 
+var _cFBinaryHeapRemoveMinimumValue func(heap CFBinaryHeapRef)
 
 // CFBinaryHeapRemoveMinimumValue removes the minimum value from a binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapRemoveMinimumValue(_:)
-func CFBinaryHeapRemoveMinimumValue(heap CFBinaryHeapRef)  {
+func CFBinaryHeapRemoveMinimumValue(heap CFBinaryHeapRef) {
 	if _cFBinaryHeapRemoveMinimumValue == nil {
 		panic("CoreFoundation: symbol CFBinaryHeapRemoveMinimumValue not loaded")
 	}
@@ -1273,12 +1285,12 @@ func CFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv CFB
 }
 
 
-var _cFBitVectorFlipBitAtIndex func(bv CFMutableBitVectorRef, idx int) 
+var _cFBitVectorFlipBitAtIndex func(bv CFMutableBitVectorRef, idx int)
 
 // CFBitVectorFlipBitAtIndex flips a bit value in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorFlipBitAtIndex(_:_:)
-func CFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int)  {
+func CFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int) {
 	if _cFBitVectorFlipBitAtIndex == nil {
 		panic("CoreFoundation: symbol CFBitVectorFlipBitAtIndex not loaded")
 	}
@@ -1286,12 +1298,12 @@ func CFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int)  {
 }
 
 
-var _cFBitVectorFlipBits func(bv CFMutableBitVectorRef, range_ CFRange) 
+var _cFBitVectorFlipBits func(bv CFMutableBitVectorRef, range_ CFRange)
 
 // CFBitVectorFlipBits flips a range of bit values in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorFlipBits(_:_:)
-func CFBitVectorFlipBits(bv CFMutableBitVectorRef, range_ CFRange)  {
+func CFBitVectorFlipBits(bv CFMutableBitVectorRef, range_ CFRange) {
 	if _cFBitVectorFlipBits == nil {
 		panic("CoreFoundation: symbol CFBitVectorFlipBits not loaded")
 	}
@@ -1312,12 +1324,12 @@ func CFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx int) CFBit {
 }
 
 
-var _cFBitVectorGetBits func(bv CFBitVectorRef, range_ CFRange, bytes *uint8) 
+var _cFBitVectorGetBits func(bv CFBitVectorRef, range_ CFRange, bytes *uint8)
 
 // CFBitVectorGetBits returns the bit values in a range of indices in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetBits(_:_:_:)
-func CFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes *uint8)  {
+func CFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes *uint8) {
 	if _cFBitVectorGetBits == nil {
 		panic("CoreFoundation: symbol CFBitVectorGetBits not loaded")
 	}
@@ -1390,12 +1402,12 @@ func CFBitVectorGetTypeID() uint {
 }
 
 
-var _cFBitVectorSetAllBits func(bv CFMutableBitVectorRef, value CFBit) 
+var _cFBitVectorSetAllBits func(bv CFMutableBitVectorRef, value CFBit)
 
 // CFBitVectorSetAllBits sets all bits in a bit vector to a particular value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorSetAllBits(_:_:)
-func CFBitVectorSetAllBits(bv CFMutableBitVectorRef, value CFBit)  {
+func CFBitVectorSetAllBits(bv CFMutableBitVectorRef, value CFBit) {
 	if _cFBitVectorSetAllBits == nil {
 		panic("CoreFoundation: symbol CFBitVectorSetAllBits not loaded")
 	}
@@ -1403,12 +1415,12 @@ func CFBitVectorSetAllBits(bv CFMutableBitVectorRef, value CFBit)  {
 }
 
 
-var _cFBitVectorSetBitAtIndex func(bv CFMutableBitVectorRef, idx int, value CFBit) 
+var _cFBitVectorSetBitAtIndex func(bv CFMutableBitVectorRef, idx int, value CFBit)
 
 // CFBitVectorSetBitAtIndex sets the value of a particular bit in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorSetBitAtIndex(_:_:_:)
-func CFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit)  {
+func CFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit) {
 	if _cFBitVectorSetBitAtIndex == nil {
 		panic("CoreFoundation: symbol CFBitVectorSetBitAtIndex not loaded")
 	}
@@ -1416,12 +1428,12 @@ func CFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit)  {
 }
 
 
-var _cFBitVectorSetBits func(bv CFMutableBitVectorRef, range_ CFRange, value CFBit) 
+var _cFBitVectorSetBits func(bv CFMutableBitVectorRef, range_ CFRange, value CFBit)
 
 // CFBitVectorSetBits sets a range of bits in a bit vector to a particular value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorSetBits(_:_:_:)
-func CFBitVectorSetBits(bv CFMutableBitVectorRef, range_ CFRange, value CFBit)  {
+func CFBitVectorSetBits(bv CFMutableBitVectorRef, range_ CFRange, value CFBit) {
 	if _cFBitVectorSetBits == nil {
 		panic("CoreFoundation: symbol CFBitVectorSetBits not loaded")
 	}
@@ -1429,12 +1441,12 @@ func CFBitVectorSetBits(bv CFMutableBitVectorRef, range_ CFRange, value CFBit)  
 }
 
 
-var _cFBitVectorSetCount func(bv CFMutableBitVectorRef, count int) 
+var _cFBitVectorSetCount func(bv CFMutableBitVectorRef, count int)
 
 // CFBitVectorSetCount changes the size of a mutable bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorSetCount(_:_:)
-func CFBitVectorSetCount(bv CFMutableBitVectorRef, count int)  {
+func CFBitVectorSetCount(bv CFMutableBitVectorRef, count int) {
 	if _cFBitVectorSetCount == nil {
 		panic("CoreFoundation: symbol CFBitVectorSetCount not loaded")
 	}
@@ -1858,12 +1870,12 @@ func CFBundleGetDataPointerForName(bundle CFBundleRef, symbolName CFStringRef) u
 }
 
 
-var _cFBundleGetDataPointersForNames func(bundle CFBundleRef, symbolNames CFArrayRef, stbl unsafe.Pointer) 
+var _cFBundleGetDataPointersForNames func(bundle CFBundleRef, symbolNames CFArrayRef, stbl unsafe.Pointer)
 
 // CFBundleGetDataPointersForNames returns a C array of data pointer to symbols of the given names.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBundleGetDataPointersForNames(_:_:_:)
-func CFBundleGetDataPointersForNames(bundle CFBundleRef, symbolNames CFArrayRef, stbl unsafe.Pointer)  {
+func CFBundleGetDataPointersForNames(bundle CFBundleRef, symbolNames CFArrayRef, stbl unsafe.Pointer) {
 	if _cFBundleGetDataPointersForNames == nil {
 		panic("CoreFoundation: symbol CFBundleGetDataPointersForNames not loaded")
 	}
@@ -1897,12 +1909,12 @@ func CFBundleGetFunctionPointerForName(bundle CFBundleRef, functionName CFString
 }
 
 
-var _cFBundleGetFunctionPointersForNames func(bundle CFBundleRef, functionNames CFArrayRef, ftbl unsafe.Pointer) 
+var _cFBundleGetFunctionPointersForNames func(bundle CFBundleRef, functionNames CFArrayRef, ftbl unsafe.Pointer)
 
 // CFBundleGetFunctionPointersForNames constructs a function table containing pointers to all of the functions found in a bundle’s main executable code.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBundleGetFunctionPointersForNames(_:_:_:)
-func CFBundleGetFunctionPointersForNames(bundle CFBundleRef, functionNames CFArrayRef, ftbl unsafe.Pointer)  {
+func CFBundleGetFunctionPointersForNames(bundle CFBundleRef, functionNames CFArrayRef, ftbl unsafe.Pointer) {
 	if _cFBundleGetFunctionPointersForNames == nil {
 		panic("CoreFoundation: symbol CFBundleGetFunctionPointersForNames not loaded")
 	}
@@ -1962,12 +1974,12 @@ func CFBundleGetMainBundle() CFBundleRef {
 }
 
 
-var _cFBundleGetPackageInfo func(bundle CFBundleRef, packageType *uint32, packageCreator *uint32) 
+var _cFBundleGetPackageInfo func(bundle CFBundleRef, packageType *uint32, packageCreator *uint32)
 
 // CFBundleGetPackageInfo returns a bundle’s package type and creator.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBundleGetPackageInfo(_:_:_:)
-func CFBundleGetPackageInfo(bundle CFBundleRef, packageType *uint32, packageCreator *uint32)  {
+func CFBundleGetPackageInfo(bundle CFBundleRef, packageType *uint32, packageCreator *uint32) {
 	if _cFBundleGetPackageInfo == nil {
 		panic("CoreFoundation: symbol CFBundleGetPackageInfo not loaded")
 	}
@@ -2131,12 +2143,12 @@ func CFBundlePreflightExecutable(bundle CFBundleRef, err *CFErrorRef) bool {
 }
 
 
-var _cFBundleUnloadExecutable func(bundle CFBundleRef) 
+var _cFBundleUnloadExecutable func(bundle CFBundleRef)
 
 // CFBundleUnloadExecutable unloads the main executable for the specified bundle.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBundleUnloadExecutable(_:)
-func CFBundleUnloadExecutable(bundle CFBundleRef)  {
+func CFBundleUnloadExecutable(bundle CFBundleRef) {
 	if _cFBundleUnloadExecutable == nil {
 		panic("CoreFoundation: symbol CFBundleUnloadExecutable not loaded")
 	}
@@ -2366,12 +2378,12 @@ func CFCalendarGetTypeID() uint {
 }
 
 
-var _cFCalendarSetFirstWeekday func(calendar CFCalendarRef, wkdy int) 
+var _cFCalendarSetFirstWeekday func(calendar CFCalendarRef, wkdy int)
 
 // CFCalendarSetFirstWeekday sets the first weekday for a calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarSetFirstWeekday(_:_:)
-func CFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int)  {
+func CFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int) {
 	if _cFCalendarSetFirstWeekday == nil {
 		panic("CoreFoundation: symbol CFCalendarSetFirstWeekday not loaded")
 	}
@@ -2379,12 +2391,12 @@ func CFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int)  {
 }
 
 
-var _cFCalendarSetLocale func(calendar CFCalendarRef, locale CFLocaleRef) 
+var _cFCalendarSetLocale func(calendar CFCalendarRef, locale CFLocaleRef)
 
 // CFCalendarSetLocale sets the locale for a calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarSetLocale(_:_:)
-func CFCalendarSetLocale(calendar CFCalendarRef, locale CFLocaleRef)  {
+func CFCalendarSetLocale(calendar CFCalendarRef, locale CFLocaleRef) {
 	if _cFCalendarSetLocale == nil {
 		panic("CoreFoundation: symbol CFCalendarSetLocale not loaded")
 	}
@@ -2392,12 +2404,12 @@ func CFCalendarSetLocale(calendar CFCalendarRef, locale CFLocaleRef)  {
 }
 
 
-var _cFCalendarSetMinimumDaysInFirstWeek func(calendar CFCalendarRef, mwd int) 
+var _cFCalendarSetMinimumDaysInFirstWeek func(calendar CFCalendarRef, mwd int)
 
 // CFCalendarSetMinimumDaysInFirstWeek sets the minimum number of days in the first week of a specified calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarSetMinimumDaysInFirstWeek(_:_:)
-func CFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int)  {
+func CFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int) {
 	if _cFCalendarSetMinimumDaysInFirstWeek == nil {
 		panic("CoreFoundation: symbol CFCalendarSetMinimumDaysInFirstWeek not loaded")
 	}
@@ -2405,12 +2417,12 @@ func CFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int)  {
 }
 
 
-var _cFCalendarSetTimeZone func(calendar CFCalendarRef, tz CFTimeZoneRef) 
+var _cFCalendarSetTimeZone func(calendar CFCalendarRef, tz CFTimeZoneRef)
 
 // CFCalendarSetTimeZone sets the time zone for a calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarSetTimeZone(_:_:)
-func CFCalendarSetTimeZone(calendar CFCalendarRef, tz CFTimeZoneRef)  {
+func CFCalendarSetTimeZone(calendar CFCalendarRef, tz CFTimeZoneRef) {
 	if _cFCalendarSetTimeZone == nil {
 		panic("CoreFoundation: symbol CFCalendarSetTimeZone not loaded")
 	}
@@ -2418,12 +2430,12 @@ func CFCalendarSetTimeZone(calendar CFCalendarRef, tz CFTimeZoneRef)  {
 }
 
 
-var _cFCharacterSetAddCharactersInRange func(theSet CFMutableCharacterSetRef, theRange CFRange) 
+var _cFCharacterSetAddCharactersInRange func(theSet CFMutableCharacterSetRef, theRange CFRange)
 
 // CFCharacterSetAddCharactersInRange adds a given range to a character set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetAddCharactersInRange(_:_:)
-func CFCharacterSetAddCharactersInRange(theSet CFMutableCharacterSetRef, theRange CFRange)  {
+func CFCharacterSetAddCharactersInRange(theSet CFMutableCharacterSetRef, theRange CFRange) {
 	if _cFCharacterSetAddCharactersInRange == nil {
 		panic("CoreFoundation: symbol CFCharacterSetAddCharactersInRange not loaded")
 	}
@@ -2431,12 +2443,12 @@ func CFCharacterSetAddCharactersInRange(theSet CFMutableCharacterSetRef, theRang
 }
 
 
-var _cFCharacterSetAddCharactersInString func(theSet CFMutableCharacterSetRef, theString CFStringRef) 
+var _cFCharacterSetAddCharactersInString func(theSet CFMutableCharacterSetRef, theString CFStringRef)
 
 // CFCharacterSetAddCharactersInString adds the characters in a given string to a character set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetAddCharactersInString(_:_:)
-func CFCharacterSetAddCharactersInString(theSet CFMutableCharacterSetRef, theString CFStringRef)  {
+func CFCharacterSetAddCharactersInString(theSet CFMutableCharacterSetRef, theString CFStringRef) {
 	if _cFCharacterSetAddCharactersInString == nil {
 		panic("CoreFoundation: symbol CFCharacterSetAddCharactersInString not loaded")
 	}
@@ -2587,12 +2599,12 @@ func CFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane int) bool
 }
 
 
-var _cFCharacterSetIntersect func(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef) 
+var _cFCharacterSetIntersect func(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef)
 
 // CFCharacterSetIntersect forms an intersection of two character sets.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetIntersect(_:_:)
-func CFCharacterSetIntersect(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef)  {
+func CFCharacterSetIntersect(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef) {
 	if _cFCharacterSetIntersect == nil {
 		panic("CoreFoundation: symbol CFCharacterSetIntersect not loaded")
 	}
@@ -2600,12 +2612,12 @@ func CFCharacterSetIntersect(theSet CFMutableCharacterSetRef, theOtherSet CFChar
 }
 
 
-var _cFCharacterSetInvert func(theSet CFMutableCharacterSetRef) 
+var _cFCharacterSetInvert func(theSet CFMutableCharacterSetRef)
 
 // CFCharacterSetInvert inverts the content of a given character set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetInvert(_:)
-func CFCharacterSetInvert(theSet CFMutableCharacterSetRef)  {
+func CFCharacterSetInvert(theSet CFMutableCharacterSetRef) {
 	if _cFCharacterSetInvert == nil {
 		panic("CoreFoundation: symbol CFCharacterSetInvert not loaded")
 	}
@@ -2652,12 +2664,12 @@ func CFCharacterSetIsSupersetOfSet(theSet CFCharacterSetRef, theOtherset CFChara
 }
 
 
-var _cFCharacterSetRemoveCharactersInRange func(theSet CFMutableCharacterSetRef, theRange CFRange) 
+var _cFCharacterSetRemoveCharactersInRange func(theSet CFMutableCharacterSetRef, theRange CFRange)
 
 // CFCharacterSetRemoveCharactersInRange removes a given range of Unicode characters from a character set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetRemoveCharactersInRange(_:_:)
-func CFCharacterSetRemoveCharactersInRange(theSet CFMutableCharacterSetRef, theRange CFRange)  {
+func CFCharacterSetRemoveCharactersInRange(theSet CFMutableCharacterSetRef, theRange CFRange) {
 	if _cFCharacterSetRemoveCharactersInRange == nil {
 		panic("CoreFoundation: symbol CFCharacterSetRemoveCharactersInRange not loaded")
 	}
@@ -2665,12 +2677,12 @@ func CFCharacterSetRemoveCharactersInRange(theSet CFMutableCharacterSetRef, theR
 }
 
 
-var _cFCharacterSetRemoveCharactersInString func(theSet CFMutableCharacterSetRef, theString CFStringRef) 
+var _cFCharacterSetRemoveCharactersInString func(theSet CFMutableCharacterSetRef, theString CFStringRef)
 
 // CFCharacterSetRemoveCharactersInString removes the characters in a given string from a character set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetRemoveCharactersInString(_:_:)
-func CFCharacterSetRemoveCharactersInString(theSet CFMutableCharacterSetRef, theString CFStringRef)  {
+func CFCharacterSetRemoveCharactersInString(theSet CFMutableCharacterSetRef, theString CFStringRef) {
 	if _cFCharacterSetRemoveCharactersInString == nil {
 		panic("CoreFoundation: symbol CFCharacterSetRemoveCharactersInString not loaded")
 	}
@@ -2678,12 +2690,12 @@ func CFCharacterSetRemoveCharactersInString(theSet CFMutableCharacterSetRef, the
 }
 
 
-var _cFCharacterSetUnion func(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef) 
+var _cFCharacterSetUnion func(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef)
 
 // CFCharacterSetUnion forms the union of two character sets.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetUnion(_:_:)
-func CFCharacterSetUnion(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef)  {
+func CFCharacterSetUnion(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef) {
 	if _cFCharacterSetUnion == nil {
 		panic("CoreFoundation: symbol CFCharacterSetUnion not loaded")
 	}
@@ -2725,12 +2737,12 @@ func CFCopyTypeIDDescription(type_id uint) CFStringRef {
 }
 
 
-var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *uint8, length int) 
+var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *uint8, length int)
 
 // CFDataAppendBytes appends the bytes from a byte buffer to the contents of a CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataAppendBytes(_:_:_:)
-func CFDataAppendBytes(theData CFMutableDataRef, bytes *uint8, length int)  {
+func CFDataAppendBytes(theData CFMutableDataRef, bytes *uint8, length int) {
 	if _cFDataAppendBytes == nil {
 		panic("CoreFoundation: symbol CFDataAppendBytes not loaded")
 	}
@@ -2803,12 +2815,12 @@ func CFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes *uint8, length 
 }
 
 
-var _cFDataDeleteBytes func(theData CFMutableDataRef, range_ CFRange) 
+var _cFDataDeleteBytes func(theData CFMutableDataRef, range_ CFRange)
 
 // CFDataDeleteBytes deletes the bytes in a CFMutableData object within a specified range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataDeleteBytes(_:_:)
-func CFDataDeleteBytes(theData CFMutableDataRef, range_ CFRange)  {
+func CFDataDeleteBytes(theData CFMutableDataRef, range_ CFRange) {
 	if _cFDataDeleteBytes == nil {
 		panic("CoreFoundation: symbol CFDataDeleteBytes not loaded")
 	}
@@ -2842,12 +2854,12 @@ func CFDataGetBytePtr(theData CFDataRef) *uint8 {
 }
 
 
-var _cFDataGetBytes func(theData CFDataRef, range_ CFRange, buffer *uint8) 
+var _cFDataGetBytes func(theData CFDataRef, range_ CFRange, buffer *uint8)
 
 // CFDataGetBytes copies the byte contents of a CFData object to an external buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataGetBytes(_:_:_:)
-func CFDataGetBytes(theData CFDataRef, range_ CFRange, buffer *uint8)  {
+func CFDataGetBytes(theData CFDataRef, range_ CFRange, buffer *uint8) {
 	if _cFDataGetBytes == nil {
 		panic("CoreFoundation: symbol CFDataGetBytes not loaded")
 	}
@@ -2894,12 +2906,12 @@ func CFDataGetTypeID() uint {
 }
 
 
-var _cFDataIncreaseLength func(theData CFMutableDataRef, extraLength int) 
+var _cFDataIncreaseLength func(theData CFMutableDataRef, extraLength int)
 
 // CFDataIncreaseLength increases the length of a CFMutableData object’s internal byte buffer, zero-filling the extension to the buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataIncreaseLength(_:_:)
-func CFDataIncreaseLength(theData CFMutableDataRef, extraLength int)  {
+func CFDataIncreaseLength(theData CFMutableDataRef, extraLength int) {
 	if _cFDataIncreaseLength == nil {
 		panic("CoreFoundation: symbol CFDataIncreaseLength not loaded")
 	}
@@ -2907,12 +2919,12 @@ func CFDataIncreaseLength(theData CFMutableDataRef, extraLength int)  {
 }
 
 
-var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int) 
+var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int)
 
 // CFDataReplaceBytes replaces those bytes in a CFMutableData object that fall within a specified range with other bytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataReplaceBytes(_:_:_:_:)
-func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int)  {
+func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int) {
 	if _cFDataReplaceBytes == nil {
 		panic("CoreFoundation: symbol CFDataReplaceBytes not loaded")
 	}
@@ -2920,12 +2932,12 @@ func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes *uint
 }
 
 
-var _cFDataSetLength func(theData CFMutableDataRef, length int) 
+var _cFDataSetLength func(theData CFMutableDataRef, length int)
 
 // CFDataSetLength resets the length of a CFMutableData object’s internal byte buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataSetLength(_:_:)
-func CFDataSetLength(theData CFMutableDataRef, length int)  {
+func CFDataSetLength(theData CFMutableDataRef, length int) {
 	if _cFDataSetLength == nil {
 		panic("CoreFoundation: symbol CFDataSetLength not loaded")
 	}
@@ -3128,12 +3140,12 @@ func CFDateFormatterGetTypeID() uint {
 }
 
 
-var _cFDateFormatterSetFormat func(formatter CFDateFormatterRef, formatString CFStringRef) 
+var _cFDateFormatterSetFormat func(formatter CFDateFormatterRef, formatString CFStringRef)
 
 // CFDateFormatterSetFormat sets the format string of the given date formatter to the specified value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterSetFormat(_:_:)
-func CFDateFormatterSetFormat(formatter CFDateFormatterRef, formatString CFStringRef)  {
+func CFDateFormatterSetFormat(formatter CFDateFormatterRef, formatString CFStringRef) {
 	if _cFDateFormatterSetFormat == nil {
 		panic("CoreFoundation: symbol CFDateFormatterSetFormat not loaded")
 	}
@@ -3141,12 +3153,12 @@ func CFDateFormatterSetFormat(formatter CFDateFormatterRef, formatString CFStrin
 }
 
 
-var _cFDateFormatterSetProperty func(formatter CFDateFormatterRef, key CFStringRef, value CFTypeRef) 
+var _cFDateFormatterSetProperty func(formatter CFDateFormatterRef, key CFStringRef, value CFTypeRef)
 
 // CFDateFormatterSetProperty sets a date formatter property using a key-value pair.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterSetProperty(_:_:_:)
-func CFDateFormatterSetProperty(formatter CFDateFormatterRef, key CFStringRef, value CFTypeRef)  {
+func CFDateFormatterSetProperty(formatter CFDateFormatterRef, key CFStringRef, value CFTypeRef) {
 	if _cFDateFormatterSetProperty == nil {
 		panic("CoreFoundation: symbol CFDateFormatterSetProperty not loaded")
 	}
@@ -3193,12 +3205,12 @@ func CFDateGetTypeID() uint {
 }
 
 
-var _cFDictionaryAddValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) 
+var _cFDictionaryAddValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)
 
 // CFDictionaryAddValue adds a key-value pair to a dictionary if the specified key is not already present.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryAddValue(_:_:_:)
-func CFDictionaryAddValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)  {
+func CFDictionaryAddValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) {
 	if _cFDictionaryAddValue == nil {
 		panic("CoreFoundation: symbol CFDictionaryAddValue not loaded")
 	}
@@ -3206,12 +3218,12 @@ func CFDictionaryAddValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, va
 }
 
 
-var _cFDictionaryApplyFunction func(theDict CFDictionaryRef, applier CFDictionaryApplierFunction, context unsafe.Pointer) 
+var _cFDictionaryApplyFunction func(theDict CFDictionaryRef, applier CFDictionaryApplierFunction, context unsafe.Pointer)
 
 // CFDictionaryApplyFunction calls a function once for each key-value pair in a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryApplyFunction(_:_:_:)
-func CFDictionaryApplyFunction(theDict CFDictionaryRef, applier CFDictionaryApplierFunction, context unsafe.Pointer)  {
+func CFDictionaryApplyFunction(theDict CFDictionaryRef, applier CFDictionaryApplierFunction, context unsafe.Pointer) {
 	if _cFDictionaryApplyFunction == nil {
 		panic("CoreFoundation: symbol CFDictionaryApplyFunction not loaded")
 	}
@@ -3336,12 +3348,12 @@ func CFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointer) 
 }
 
 
-var _cFDictionaryGetKeysAndValues func(theDict CFDictionaryRef, keys unsafe.Pointer, values unsafe.Pointer) 
+var _cFDictionaryGetKeysAndValues func(theDict CFDictionaryRef, keys unsafe.Pointer, values unsafe.Pointer)
 
 // CFDictionaryGetKeysAndValues fills two buffers with the keys and values from a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryGetKeysAndValues(_:_:_:)
-func CFDictionaryGetKeysAndValues(theDict CFDictionaryRef, keys unsafe.Pointer, values unsafe.Pointer)  {
+func CFDictionaryGetKeysAndValues(theDict CFDictionaryRef, keys unsafe.Pointer, values unsafe.Pointer) {
 	if _cFDictionaryGetKeysAndValues == nil {
 		panic("CoreFoundation: symbol CFDictionaryGetKeysAndValues not loaded")
 	}
@@ -3388,12 +3400,12 @@ func CFDictionaryGetValueIfPresent(theDict CFDictionaryRef, key unsafe.Pointer, 
 }
 
 
-var _cFDictionaryRemoveAllValues func(theDict CFMutableDictionaryRef) 
+var _cFDictionaryRemoveAllValues func(theDict CFMutableDictionaryRef)
 
 // CFDictionaryRemoveAllValues removes all the key-value pairs from a dictionary, making it empty.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryRemoveAllValues(_:)
-func CFDictionaryRemoveAllValues(theDict CFMutableDictionaryRef)  {
+func CFDictionaryRemoveAllValues(theDict CFMutableDictionaryRef) {
 	if _cFDictionaryRemoveAllValues == nil {
 		panic("CoreFoundation: symbol CFDictionaryRemoveAllValues not loaded")
 	}
@@ -3401,12 +3413,12 @@ func CFDictionaryRemoveAllValues(theDict CFMutableDictionaryRef)  {
 }
 
 
-var _cFDictionaryRemoveValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer) 
+var _cFDictionaryRemoveValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer)
 
 // CFDictionaryRemoveValue removes a key-value pair.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryRemoveValue(_:_:)
-func CFDictionaryRemoveValue(theDict CFMutableDictionaryRef, key unsafe.Pointer)  {
+func CFDictionaryRemoveValue(theDict CFMutableDictionaryRef, key unsafe.Pointer) {
 	if _cFDictionaryRemoveValue == nil {
 		panic("CoreFoundation: symbol CFDictionaryRemoveValue not loaded")
 	}
@@ -3414,12 +3426,12 @@ func CFDictionaryRemoveValue(theDict CFMutableDictionaryRef, key unsafe.Pointer)
 }
 
 
-var _cFDictionaryReplaceValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) 
+var _cFDictionaryReplaceValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)
 
 // CFDictionaryReplaceValue replaces a value corresponding to a given key.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryReplaceValue(_:_:_:)
-func CFDictionaryReplaceValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)  {
+func CFDictionaryReplaceValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) {
 	if _cFDictionaryReplaceValue == nil {
 		panic("CoreFoundation: symbol CFDictionaryReplaceValue not loaded")
 	}
@@ -3427,12 +3439,12 @@ func CFDictionaryReplaceValue(theDict CFMutableDictionaryRef, key unsafe.Pointer
 }
 
 
-var _cFDictionarySetValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) 
+var _cFDictionarySetValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)
 
 // CFDictionarySetValue sets the value corresponding to a given key.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionarySetValue(_:_:_:)
-func CFDictionarySetValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)  {
+func CFDictionarySetValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) {
 	if _cFDictionarySetValue == nil {
 		panic("CoreFoundation: symbol CFDictionarySetValue not loaded")
 	}
@@ -3596,12 +3608,12 @@ func CFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescr
 }
 
 
-var _cFFileDescriptorDisableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64) 
+var _cFFileDescriptorDisableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64)
 
 // CFFileDescriptorDisableCallBacks disables callbacks for a given CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorDisableCallBacks(_:_:)
-func CFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes uint64)  {
+func CFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes uint64) {
 	if _cFFileDescriptorDisableCallBacks == nil {
 		panic("CoreFoundation: symbol CFFileDescriptorDisableCallBacks not loaded")
 	}
@@ -3609,12 +3621,12 @@ func CFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes uint6
 }
 
 
-var _cFFileDescriptorEnableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64) 
+var _cFFileDescriptorEnableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64)
 
 // CFFileDescriptorEnableCallBacks enables callbacks for a given CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorEnableCallBacks(_:_:)
-func CFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uint64)  {
+func CFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uint64) {
 	if _cFFileDescriptorEnableCallBacks == nil {
 		panic("CoreFoundation: symbol CFFileDescriptorEnableCallBacks not loaded")
 	}
@@ -3622,12 +3634,12 @@ func CFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uint64
 }
 
 
-var _cFFileDescriptorGetContext func(f CFFileDescriptorRef, context *CFFileDescriptorContext) 
+var _cFFileDescriptorGetContext func(f CFFileDescriptorRef, context *CFFileDescriptorContext)
 
 // CFFileDescriptorGetContext gets the context for a given CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorGetContext(_:_:)
-func CFFileDescriptorGetContext(f CFFileDescriptorRef, context *CFFileDescriptorContext)  {
+func CFFileDescriptorGetContext(f CFFileDescriptorRef, context *CFFileDescriptorContext) {
 	if _cFFileDescriptorGetContext == nil {
 		panic("CoreFoundation: symbol CFFileDescriptorGetContext not loaded")
 	}
@@ -3661,12 +3673,12 @@ func CFFileDescriptorGetTypeID() uint {
 }
 
 
-var _cFFileDescriptorInvalidate func(f CFFileDescriptorRef) 
+var _cFFileDescriptorInvalidate func(f CFFileDescriptorRef)
 
 // CFFileDescriptorInvalidate invalidates a CFFileDescriptor object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorInvalidate(_:)
-func CFFileDescriptorInvalidate(f CFFileDescriptorRef)  {
+func CFFileDescriptorInvalidate(f CFFileDescriptorRef) {
 	if _cFFileDescriptorInvalidate == nil {
 		panic("CoreFoundation: symbol CFFileDescriptorInvalidate not loaded")
 	}
@@ -3699,6 +3711,18 @@ func CFFileSecurityClearProperties(fileSec CFFileSecurityRef, clearPropertyMask 
 	return _cFFileSecurityClearProperties(fileSec, clearPropertyMask)
 }
 
+
+var _cFFileSecurityCopyAccessControlList func(fileSec CFFileSecurityRef, accessControlList uintptr) bool
+
+// CFFileSecurityCopyAccessControlList copies the access control list associated with a [CFFileSecurityRef] object.
+//
+// See: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurityCopyAccessControlList(_:_:)
+func CFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessControlList uintptr) bool {
+	if _cFFileSecurityCopyAccessControlList == nil {
+		panic("CoreFoundation: symbol CFFileSecurityCopyAccessControlList not loaded")
+	}
+	return _cFFileSecurityCopyAccessControlList(fileSec, accessControlList)
+}
 
 
 var _cFFileSecurityCopyGroupUUID func(fileSec CFFileSecurityRef, groupUUID *CFUUIDRef) bool
@@ -4273,12 +4297,12 @@ func CFMachPortCreateWithPort(allocator CFAllocatorRef, portNum uint32, callout 
 }
 
 
-var _cFMachPortGetContext func(port CFMachPortRef, context *CFMachPortContext) 
+var _cFMachPortGetContext func(port CFMachPortRef, context *CFMachPortContext)
 
 // CFMachPortGetContext returns the context information for a CFMachPort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortGetContext(_:_:)
-func CFMachPortGetContext(port CFMachPortRef, context *CFMachPortContext)  {
+func CFMachPortGetContext(port CFMachPortRef, context *CFMachPortContext) {
 	if _cFMachPortGetContext == nil {
 		panic("CoreFoundation: symbol CFMachPortGetContext not loaded")
 	}
@@ -4325,12 +4349,12 @@ func CFMachPortGetTypeID() uint {
 }
 
 
-var _cFMachPortInvalidate func(port CFMachPortRef) 
+var _cFMachPortInvalidate func(port CFMachPortRef)
 
 // CFMachPortInvalidate invalidates a CFMachPort object, stopping it from receiving any more messages.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortInvalidate(_:)
-func CFMachPortInvalidate(port CFMachPortRef)  {
+func CFMachPortInvalidate(port CFMachPortRef) {
 	if _cFMachPortInvalidate == nil {
 		panic("CoreFoundation: symbol CFMachPortInvalidate not loaded")
 	}
@@ -4351,12 +4375,12 @@ func CFMachPortIsValid(port CFMachPortRef) bool {
 }
 
 
-var _cFMachPortSetInvalidationCallBack func(port CFMachPortRef, callout CFMachPortInvalidationCallBack) 
+var _cFMachPortSetInvalidationCallBack func(port CFMachPortRef, callout CFMachPortInvalidationCallBack)
 
 // CFMachPortSetInvalidationCallBack sets the callback function invoked when a CFMachPort object is invalidated.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortSetInvalidationCallBack(_:_:)
-func CFMachPortSetInvalidationCallBack(port CFMachPortRef, callout CFMachPortInvalidationCallBack)  {
+func CFMachPortSetInvalidationCallBack(port CFMachPortRef, callout CFMachPortInvalidationCallBack) {
 	if _cFMachPortSetInvalidationCallBack == nil {
 		panic("CoreFoundation: symbol CFMachPortSetInvalidationCallBack not loaded")
 	}
@@ -4416,12 +4440,12 @@ func CFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessageP
 }
 
 
-var _cFMessagePortGetContext func(ms CFMessagePortRef, context *CFMessagePortContext) 
+var _cFMessagePortGetContext func(ms CFMessagePortRef, context *CFMessagePortContext)
 
 // CFMessagePortGetContext returns the context information for a CFMessagePort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortGetContext(_:_:)
-func CFMessagePortGetContext(ms CFMessagePortRef, context *CFMessagePortContext)  {
+func CFMessagePortGetContext(ms CFMessagePortRef, context *CFMessagePortContext) {
 	if _cFMessagePortGetContext == nil {
 		panic("CoreFoundation: symbol CFMessagePortGetContext not loaded")
 	}
@@ -4468,12 +4492,12 @@ func CFMessagePortGetTypeID() uint {
 }
 
 
-var _cFMessagePortInvalidate func(ms CFMessagePortRef) 
+var _cFMessagePortInvalidate func(ms CFMessagePortRef)
 
 // CFMessagePortInvalidate invalidates a CFMessagePort object, stopping it from receiving or sending any more messages.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortInvalidate(_:)
-func CFMessagePortInvalidate(ms CFMessagePortRef)  {
+func CFMessagePortInvalidate(ms CFMessagePortRef) {
 	if _cFMessagePortInvalidate == nil {
 		panic("CoreFoundation: symbol CFMessagePortInvalidate not loaded")
 	}
@@ -4520,12 +4544,12 @@ func CFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDataR
 }
 
 
-var _cFMessagePortSetDispatchQueue func(ms CFMessagePortRef, queue uintptr) 
+var _cFMessagePortSetDispatchQueue func(ms CFMessagePortRef, queue uintptr)
 
 // CFMessagePortSetDispatchQueue schedules callbacks for the specified message port on the specified dispatch queue.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortSetDispatchQueue(_:_:)
-func CFMessagePortSetDispatchQueue(ms CFMessagePortRef, queue dispatch.Queue)  {
+func CFMessagePortSetDispatchQueue(ms CFMessagePortRef, queue dispatch.Queue) {
 	if _cFMessagePortSetDispatchQueue == nil {
 		panic("CoreFoundation: symbol CFMessagePortSetDispatchQueue not loaded")
 	}
@@ -4533,12 +4557,12 @@ func CFMessagePortSetDispatchQueue(ms CFMessagePortRef, queue dispatch.Queue)  {
 }
 
 
-var _cFMessagePortSetInvalidationCallBack func(ms CFMessagePortRef, callout CFMessagePortInvalidationCallBack) 
+var _cFMessagePortSetInvalidationCallBack func(ms CFMessagePortRef, callout CFMessagePortInvalidationCallBack)
 
 // CFMessagePortSetInvalidationCallBack sets the callback function invoked when a CFMessagePort object is invalidated.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortSetInvalidationCallBack(_:_:)
-func CFMessagePortSetInvalidationCallBack(ms CFMessagePortRef, callout CFMessagePortInvalidationCallBack)  {
+func CFMessagePortSetInvalidationCallBack(ms CFMessagePortRef, callout CFMessagePortInvalidationCallBack) {
 	if _cFMessagePortSetInvalidationCallBack == nil {
 		panic("CoreFoundation: symbol CFMessagePortSetInvalidationCallBack not loaded")
 	}
@@ -4559,12 +4583,12 @@ func CFMessagePortSetName(ms CFMessagePortRef, newName CFStringRef) bool {
 }
 
 
-var _cFNotificationCenterAddObserver func(center CFNotificationCenterRef, observer unsafe.Pointer, callBack CFNotificationCallback, name CFStringRef, object unsafe.Pointer, suspensionBehavior CFNotificationSuspensionBehavior) 
+var _cFNotificationCenterAddObserver func(center CFNotificationCenterRef, observer unsafe.Pointer, callBack CFNotificationCallback, name CFStringRef, object unsafe.Pointer, suspensionBehavior CFNotificationSuspensionBehavior)
 
 // CFNotificationCenterAddObserver registers an observer to receive notifications.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterAddObserver(_:_:_:_:_:_:)
-func CFNotificationCenterAddObserver(center CFNotificationCenterRef, observer unsafe.Pointer, callBack CFNotificationCallback, name CFStringRef, object unsafe.Pointer, suspensionBehavior CFNotificationSuspensionBehavior)  {
+func CFNotificationCenterAddObserver(center CFNotificationCenterRef, observer unsafe.Pointer, callBack CFNotificationCallback, name CFStringRef, object unsafe.Pointer, suspensionBehavior CFNotificationSuspensionBehavior) {
 	if _cFNotificationCenterAddObserver == nil {
 		panic("CoreFoundation: symbol CFNotificationCenterAddObserver not loaded")
 	}
@@ -4624,12 +4648,12 @@ func CFNotificationCenterGetTypeID() uint {
 }
 
 
-var _cFNotificationCenterPostNotification func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, deliverImmediately bool) 
+var _cFNotificationCenterPostNotification func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, deliverImmediately bool)
 
 // CFNotificationCenterPostNotification posts a notification for an object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterPostNotification(_:_:_:_:_:)
-func CFNotificationCenterPostNotification(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, deliverImmediately bool)  {
+func CFNotificationCenterPostNotification(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, deliverImmediately bool) {
 	if _cFNotificationCenterPostNotification == nil {
 		panic("CoreFoundation: symbol CFNotificationCenterPostNotification not loaded")
 	}
@@ -4637,12 +4661,12 @@ func CFNotificationCenterPostNotification(center CFNotificationCenterRef, name C
 }
 
 
-var _cFNotificationCenterPostNotificationWithOptions func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64) 
+var _cFNotificationCenterPostNotificationWithOptions func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64)
 
 // CFNotificationCenterPostNotificationWithOptions posts a notification for an object using specified options.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterPostNotificationWithOptions(_:_:_:_:_:)
-func CFNotificationCenterPostNotificationWithOptions(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64)  {
+func CFNotificationCenterPostNotificationWithOptions(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64) {
 	if _cFNotificationCenterPostNotificationWithOptions == nil {
 		panic("CoreFoundation: symbol CFNotificationCenterPostNotificationWithOptions not loaded")
 	}
@@ -4650,12 +4674,12 @@ func CFNotificationCenterPostNotificationWithOptions(center CFNotificationCenter
 }
 
 
-var _cFNotificationCenterRemoveEveryObserver func(center CFNotificationCenterRef, observer unsafe.Pointer) 
+var _cFNotificationCenterRemoveEveryObserver func(center CFNotificationCenterRef, observer unsafe.Pointer)
 
 // CFNotificationCenterRemoveEveryObserver stops an observer from receiving any notifications from any object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterRemoveEveryObserver(_:_:)
-func CFNotificationCenterRemoveEveryObserver(center CFNotificationCenterRef, observer unsafe.Pointer)  {
+func CFNotificationCenterRemoveEveryObserver(center CFNotificationCenterRef, observer unsafe.Pointer) {
 	if _cFNotificationCenterRemoveEveryObserver == nil {
 		panic("CoreFoundation: symbol CFNotificationCenterRemoveEveryObserver not loaded")
 	}
@@ -4663,12 +4687,12 @@ func CFNotificationCenterRemoveEveryObserver(center CFNotificationCenterRef, obs
 }
 
 
-var _cFNotificationCenterRemoveObserver func(center CFNotificationCenterRef, observer unsafe.Pointer, name CFNotificationName, object unsafe.Pointer) 
+var _cFNotificationCenterRemoveObserver func(center CFNotificationCenterRef, observer unsafe.Pointer, name CFNotificationName, object unsafe.Pointer)
 
 // CFNotificationCenterRemoveObserver stops an observer from receiving certain notifications.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterRemoveObserver(_:_:_:_:)
-func CFNotificationCenterRemoveObserver(center CFNotificationCenterRef, observer unsafe.Pointer, name CFNotificationName, object unsafe.Pointer)  {
+func CFNotificationCenterRemoveObserver(center CFNotificationCenterRef, observer unsafe.Pointer, name CFNotificationName, object unsafe.Pointer) {
 	if _cFNotificationCenterRemoveObserver == nil {
 		panic("CoreFoundation: symbol CFNotificationCenterRemoveObserver not loaded")
 	}
@@ -4858,12 +4882,12 @@ func CFNumberFormatterGetValueFromString(formatter CFNumberFormatterRef, string_
 }
 
 
-var _cFNumberFormatterSetFormat func(formatter CFNumberFormatterRef, formatString CFStringRef) 
+var _cFNumberFormatterSetFormat func(formatter CFNumberFormatterRef, formatString CFStringRef)
 
 // CFNumberFormatterSetFormat sets the format string of a number formatter.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterSetFormat(_:_:)
-func CFNumberFormatterSetFormat(formatter CFNumberFormatterRef, formatString CFStringRef)  {
+func CFNumberFormatterSetFormat(formatter CFNumberFormatterRef, formatString CFStringRef) {
 	if _cFNumberFormatterSetFormat == nil {
 		panic("CoreFoundation: symbol CFNumberFormatterSetFormat not loaded")
 	}
@@ -4871,12 +4895,12 @@ func CFNumberFormatterSetFormat(formatter CFNumberFormatterRef, formatString CFS
 }
 
 
-var _cFNumberFormatterSetProperty func(formatter CFNumberFormatterRef, key CFNumberFormatterKey, value CFTypeRef) 
+var _cFNumberFormatterSetProperty func(formatter CFNumberFormatterRef, key CFNumberFormatterKey, value CFTypeRef)
 
 // CFNumberFormatterSetProperty sets a number formatter property using a key-value pair.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterSetProperty(_:_:_:)
-func CFNumberFormatterSetProperty(formatter CFNumberFormatterRef, key CFNumberFormatterKey, value CFTypeRef)  {
+func CFNumberFormatterSetProperty(formatter CFNumberFormatterRef, key CFNumberFormatterKey, value CFTypeRef) {
 	if _cFNumberFormatterSetProperty == nil {
 		panic("CoreFoundation: symbol CFNumberFormatterSetProperty not loaded")
 	}
@@ -4949,12 +4973,12 @@ func CFNumberIsFloatType(number CFNumberRef) bool {
 }
 
 
-var _cFPlugInAddInstanceForFactory func(factoryID CFUUIDRef) 
+var _cFPlugInAddInstanceForFactory func(factoryID CFUUIDRef)
 
 // CFPlugInAddInstanceForFactory registers a new instance of a type with [CFPlugIn].
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInAddInstanceForFactory(_:)
-func CFPlugInAddInstanceForFactory(factoryID CFUUIDRef)  {
+func CFPlugInAddInstanceForFactory(factoryID CFUUIDRef) {
 	if _cFPlugInAddInstanceForFactory == nil {
 		panic("CoreFoundation: symbol CFPlugInAddInstanceForFactory not loaded")
 	}
@@ -5157,12 +5181,12 @@ func CFPlugInRegisterPlugInType(factoryUUID CFUUIDRef, typeUUID CFUUIDRef) bool 
 }
 
 
-var _cFPlugInRemoveInstanceForFactory func(factoryID CFUUIDRef) 
+var _cFPlugInRemoveInstanceForFactory func(factoryID CFUUIDRef)
 
 // CFPlugInRemoveInstanceForFactory unregisters an instance of a type with [CFPlugIn].
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInRemoveInstanceForFactory(_:)
-func CFPlugInRemoveInstanceForFactory(factoryID CFUUIDRef)  {
+func CFPlugInRemoveInstanceForFactory(factoryID CFUUIDRef) {
 	if _cFPlugInRemoveInstanceForFactory == nil {
 		panic("CoreFoundation: symbol CFPlugInRemoveInstanceForFactory not loaded")
 	}
@@ -5170,12 +5194,12 @@ func CFPlugInRemoveInstanceForFactory(factoryID CFUUIDRef)  {
 }
 
 
-var _cFPlugInSetLoadOnDemand func(plugIn CFPlugInRef, flag bool) 
+var _cFPlugInSetLoadOnDemand func(plugIn CFPlugInRef, flag bool)
 
 // CFPlugInSetLoadOnDemand enables or disables load on demand for plug-ins that do dynamic registration (only when a client requests an instance of a supported type).
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInSetLoadOnDemand(_:_:)
-func CFPlugInSetLoadOnDemand(plugIn CFPlugInRef, flag bool)  {
+func CFPlugInSetLoadOnDemand(plugIn CFPlugInRef, flag bool) {
 	if _cFPlugInSetLoadOnDemand == nil {
 		panic("CoreFoundation: symbol CFPlugInSetLoadOnDemand not loaded")
 	}
@@ -5209,12 +5233,12 @@ func CFPlugInUnregisterPlugInType(factoryUUID CFUUIDRef, typeUUID CFUUIDRef) boo
 }
 
 
-var _cFPreferencesAddSuitePreferencesToApp func(applicationID CFStringRef, suiteID CFStringRef) 
+var _cFPreferencesAddSuitePreferencesToApp func(applicationID CFStringRef, suiteID CFStringRef)
 
 // CFPreferencesAddSuitePreferencesToApp adds suite preferences to an application’s preference search chain.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPreferencesAddSuitePreferencesToApp(_:_:)
-func CFPreferencesAddSuitePreferencesToApp(applicationID CFStringRef, suiteID CFStringRef)  {
+func CFPreferencesAddSuitePreferencesToApp(applicationID CFStringRef, suiteID CFStringRef) {
 	if _cFPreferencesAddSuitePreferencesToApp == nil {
 		panic("CoreFoundation: symbol CFPreferencesAddSuitePreferencesToApp not loaded")
 	}
@@ -5326,12 +5350,12 @@ func CFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringRef,
 }
 
 
-var _cFPreferencesRemoveSuitePreferencesFromApp func(applicationID CFStringRef, suiteID CFStringRef) 
+var _cFPreferencesRemoveSuitePreferencesFromApp func(applicationID CFStringRef, suiteID CFStringRef)
 
 // CFPreferencesRemoveSuitePreferencesFromApp removes suite preferences from an application’s search chain.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPreferencesRemoveSuitePreferencesFromApp(_:_:)
-func CFPreferencesRemoveSuitePreferencesFromApp(applicationID CFStringRef, suiteID CFStringRef)  {
+func CFPreferencesRemoveSuitePreferencesFromApp(applicationID CFStringRef, suiteID CFStringRef) {
 	if _cFPreferencesRemoveSuitePreferencesFromApp == nil {
 		panic("CoreFoundation: symbol CFPreferencesRemoveSuitePreferencesFromApp not loaded")
 	}
@@ -5339,12 +5363,12 @@ func CFPreferencesRemoveSuitePreferencesFromApp(applicationID CFStringRef, suite
 }
 
 
-var _cFPreferencesSetAppValue func(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef) 
+var _cFPreferencesSetAppValue func(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef)
 
 // CFPreferencesSetAppValue adds, modifies, or removes a preference.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPreferencesSetAppValue(_:_:_:)
-func CFPreferencesSetAppValue(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef)  {
+func CFPreferencesSetAppValue(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef) {
 	if _cFPreferencesSetAppValue == nil {
 		panic("CoreFoundation: symbol CFPreferencesSetAppValue not loaded")
 	}
@@ -5352,12 +5376,12 @@ func CFPreferencesSetAppValue(key CFStringRef, value CFPropertyListRef, applicat
 }
 
 
-var _cFPreferencesSetMultiple func(keysToSet CFDictionaryRef, keysToRemove CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) 
+var _cFPreferencesSetMultiple func(keysToSet CFDictionaryRef, keysToRemove CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef)
 
 // CFPreferencesSetMultiple convenience function that allows you to set and remove multiple preference values.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPreferencesSetMultiple(_:_:_:_:_:)
-func CFPreferencesSetMultiple(keysToSet CFDictionaryRef, keysToRemove CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef)  {
+func CFPreferencesSetMultiple(keysToSet CFDictionaryRef, keysToRemove CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) {
 	if _cFPreferencesSetMultiple == nil {
 		panic("CoreFoundation: symbol CFPreferencesSetMultiple not loaded")
 	}
@@ -5365,12 +5389,12 @@ func CFPreferencesSetMultiple(keysToSet CFDictionaryRef, keysToRemove CFArrayRef
 }
 
 
-var _cFPreferencesSetValue func(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) 
+var _cFPreferencesSetValue func(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef)
 
 // CFPreferencesSetValue adds, modifies, or removes a preference value for the specified domain.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPreferencesSetValue(_:_:_:_:_:)
-func CFPreferencesSetValue(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef)  {
+func CFPreferencesSetValue(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) {
 	if _cFPreferencesSetValue == nil {
 		panic("CoreFoundation: symbol CFPreferencesSetValue not loaded")
 	}
@@ -5470,12 +5494,12 @@ func CFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStreamRef
 
 
 
-var _cFReadStreamClose func(stream CFReadStreamRef) 
+var _cFReadStreamClose func(stream CFReadStreamRef)
 
 // CFReadStreamClose closes a readable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamClose(_:)
-func CFReadStreamClose(stream CFReadStreamRef)  {
+func CFReadStreamClose(stream CFReadStreamRef) {
 	if _cFReadStreamClose == nil {
 		panic("CoreFoundation: symbol CFReadStreamClose not loaded")
 	}
@@ -5641,12 +5665,12 @@ func CFReadStreamRead(stream CFReadStreamRef, buffer *uint8, bufferLength int) i
 }
 
 
-var _cFReadStreamScheduleWithRunLoop func(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) 
+var _cFReadStreamScheduleWithRunLoop func(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
 // CFReadStreamScheduleWithRunLoop schedules a stream into a run loop.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamScheduleWithRunLoop(_:_:_:)
-func CFReadStreamScheduleWithRunLoop(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)  {
+func CFReadStreamScheduleWithRunLoop(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) {
 	if _cFReadStreamScheduleWithRunLoop == nil {
 		panic("CoreFoundation: symbol CFReadStreamScheduleWithRunLoop not loaded")
 	}
@@ -5667,12 +5691,12 @@ func CFReadStreamSetClient(stream CFReadStreamRef, streamEvents uint64, clientCB
 }
 
 
-var _cFReadStreamSetDispatchQueue func(stream CFReadStreamRef, q uintptr) 
+var _cFReadStreamSetDispatchQueue func(stream CFReadStreamRef, q uintptr)
 
 // CFReadStreamSetDispatchQueue.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamSetDispatchQueue(_:_:)
-func CFReadStreamSetDispatchQueue(stream CFReadStreamRef, q dispatch.Queue)  {
+func CFReadStreamSetDispatchQueue(stream CFReadStreamRef, q dispatch.Queue) {
 	if _cFReadStreamSetDispatchQueue == nil {
 		panic("CoreFoundation: symbol CFReadStreamSetDispatchQueue not loaded")
 	}
@@ -5693,12 +5717,12 @@ func CFReadStreamSetProperty(stream CFReadStreamRef, propertyName CFStreamProper
 }
 
 
-var _cFReadStreamUnscheduleFromRunLoop func(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) 
+var _cFReadStreamUnscheduleFromRunLoop func(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
 // CFReadStreamUnscheduleFromRunLoop removes a read stream from a given run loop.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamUnscheduleFromRunLoop(_:_:_:)
-func CFReadStreamUnscheduleFromRunLoop(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)  {
+func CFReadStreamUnscheduleFromRunLoop(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) {
 	if _cFReadStreamUnscheduleFromRunLoop == nil {
 		panic("CoreFoundation: symbol CFReadStreamUnscheduleFromRunLoop not loaded")
 	}
@@ -5706,12 +5730,12 @@ func CFReadStreamUnscheduleFromRunLoop(stream CFReadStreamRef, runLoop CFRunLoop
 }
 
 
-var _cFRelease func(cf CFTypeRef) 
+var _cFRelease func(cf CFTypeRef)
 
 // CFRelease releases a Core Foundation object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRelease
-func CFRelease(cf CFTypeRef)  {
+func CFRelease(cf CFTypeRef) {
 	if _cFRelease == nil {
 		panic("CoreFoundation: symbol CFRelease not loaded")
 	}
@@ -5732,12 +5756,12 @@ func CFRetain(cf CFTypeRef) CFTypeRef {
 }
 
 
-var _cFRunLoopAddCommonMode func(rl CFRunLoopRef, mode CFRunLoopMode) 
+var _cFRunLoopAddCommonMode func(rl CFRunLoopRef, mode CFRunLoopMode)
 
 // CFRunLoopAddCommonMode adds a mode to the set of run loop common modes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopAddCommonMode(_:_:)
-func CFRunLoopAddCommonMode(rl CFRunLoopRef, mode CFRunLoopMode)  {
+func CFRunLoopAddCommonMode(rl CFRunLoopRef, mode CFRunLoopMode) {
 	if _cFRunLoopAddCommonMode == nil {
 		panic("CoreFoundation: symbol CFRunLoopAddCommonMode not loaded")
 	}
@@ -5745,12 +5769,12 @@ func CFRunLoopAddCommonMode(rl CFRunLoopRef, mode CFRunLoopMode)  {
 }
 
 
-var _cFRunLoopAddObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode) 
+var _cFRunLoopAddObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode)
 
 // CFRunLoopAddObserver adds a CFRunLoopObserver object to a run loop mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopAddObserver(_:_:_:)
-func CFRunLoopAddObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode)  {
+func CFRunLoopAddObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode) {
 	if _cFRunLoopAddObserver == nil {
 		panic("CoreFoundation: symbol CFRunLoopAddObserver not loaded")
 	}
@@ -5758,12 +5782,12 @@ func CFRunLoopAddObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode C
 }
 
 
-var _cFRunLoopAddSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode) 
+var _cFRunLoopAddSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode)
 
 // CFRunLoopAddSource adds a CFRunLoopSource object to a run loop mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopAddSource(_:_:_:)
-func CFRunLoopAddSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode)  {
+func CFRunLoopAddSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode) {
 	if _cFRunLoopAddSource == nil {
 		panic("CoreFoundation: symbol CFRunLoopAddSource not loaded")
 	}
@@ -5771,12 +5795,12 @@ func CFRunLoopAddSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLo
 }
 
 
-var _cFRunLoopAddTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode) 
+var _cFRunLoopAddTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode)
 
 // CFRunLoopAddTimer adds a CFRunLoopTimer object to a run loop mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopAddTimer(_:_:_:)
-func CFRunLoopAddTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode)  {
+func CFRunLoopAddTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode) {
 	if _cFRunLoopAddTimer == nil {
 		panic("CoreFoundation: symbol CFRunLoopAddTimer not loaded")
 	}
@@ -5966,12 +5990,12 @@ func CFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) uint64 {
 }
 
 
-var _cFRunLoopObserverGetContext func(observer CFRunLoopObserverRef, context *CFRunLoopObserverContext) 
+var _cFRunLoopObserverGetContext func(observer CFRunLoopObserverRef, context *CFRunLoopObserverContext)
 
 // CFRunLoopObserverGetContext returns the context information for a CFRunLoopObserver object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverGetContext(_:_:)
-func CFRunLoopObserverGetContext(observer CFRunLoopObserverRef, context *CFRunLoopObserverContext)  {
+func CFRunLoopObserverGetContext(observer CFRunLoopObserverRef, context *CFRunLoopObserverContext) {
 	if _cFRunLoopObserverGetContext == nil {
 		panic("CoreFoundation: symbol CFRunLoopObserverGetContext not loaded")
 	}
@@ -6005,12 +6029,12 @@ func CFRunLoopObserverGetTypeID() uint {
 }
 
 
-var _cFRunLoopObserverInvalidate func(observer CFRunLoopObserverRef) 
+var _cFRunLoopObserverInvalidate func(observer CFRunLoopObserverRef)
 
 // CFRunLoopObserverInvalidate invalidates a CFRunLoopObserver object, stopping it from ever firing again.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverInvalidate(_:)
-func CFRunLoopObserverInvalidate(observer CFRunLoopObserverRef)  {
+func CFRunLoopObserverInvalidate(observer CFRunLoopObserverRef) {
 	if _cFRunLoopObserverInvalidate == nil {
 		panic("CoreFoundation: symbol CFRunLoopObserverInvalidate not loaded")
 	}
@@ -6031,12 +6055,12 @@ func CFRunLoopObserverIsValid(observer CFRunLoopObserverRef) bool {
 }
 
 
-var _cFRunLoopPerformBlock func(rl CFRunLoopRef, mode CFTypeRef) 
+var _cFRunLoopPerformBlock func(rl CFRunLoopRef, mode CFTypeRef)
 
 // CFRunLoopPerformBlock enqueues a block object on a given runloop to be executed as the runloop cycles in specified modes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopPerformBlock(_:_:_:)
-func CFRunLoopPerformBlock(rl CFRunLoopRef, mode CFTypeRef)  {
+func CFRunLoopPerformBlock(rl CFRunLoopRef, mode CFTypeRef) {
 	if _cFRunLoopPerformBlock == nil {
 		panic("CoreFoundation: symbol CFRunLoopPerformBlock not loaded")
 	}
@@ -6044,12 +6068,12 @@ func CFRunLoopPerformBlock(rl CFRunLoopRef, mode CFTypeRef)  {
 }
 
 
-var _cFRunLoopRemoveObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode) 
+var _cFRunLoopRemoveObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode)
 
 // CFRunLoopRemoveObserver removes a CFRunLoopObserver object from a run loop mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRemoveObserver(_:_:_:)
-func CFRunLoopRemoveObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode)  {
+func CFRunLoopRemoveObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode) {
 	if _cFRunLoopRemoveObserver == nil {
 		panic("CoreFoundation: symbol CFRunLoopRemoveObserver not loaded")
 	}
@@ -6057,12 +6081,12 @@ func CFRunLoopRemoveObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mod
 }
 
 
-var _cFRunLoopRemoveSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode) 
+var _cFRunLoopRemoveSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode)
 
 // CFRunLoopRemoveSource removes a CFRunLoopSource object from a run loop mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRemoveSource(_:_:_:)
-func CFRunLoopRemoveSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode)  {
+func CFRunLoopRemoveSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode) {
 	if _cFRunLoopRemoveSource == nil {
 		panic("CoreFoundation: symbol CFRunLoopRemoveSource not loaded")
 	}
@@ -6070,12 +6094,12 @@ func CFRunLoopRemoveSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRu
 }
 
 
-var _cFRunLoopRemoveTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode) 
+var _cFRunLoopRemoveTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode)
 
 // CFRunLoopRemoveTimer removes a CFRunLoopTimer object from a run loop mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRemoveTimer(_:_:_:)
-func CFRunLoopRemoveTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode)  {
+func CFRunLoopRemoveTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode) {
 	if _cFRunLoopRemoveTimer == nil {
 		panic("CoreFoundation: symbol CFRunLoopRemoveTimer not loaded")
 	}
@@ -6083,12 +6107,12 @@ func CFRunLoopRemoveTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLo
 }
 
 
-var _cFRunLoopRun func() 
+var _cFRunLoopRun func()
 
 // CFRunLoopRun runs the current thread’s CFRunLoop object in its default mode indefinitely.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRun()
-func CFRunLoopRun()  {
+func CFRunLoopRun() {
 	if _cFRunLoopRun == nil {
 		panic("CoreFoundation: symbol CFRunLoopRun not loaded")
 	}
@@ -6122,12 +6146,12 @@ func CFRunLoopSourceCreate(allocator CFAllocatorRef, order int, context *CFRunLo
 }
 
 
-var _cFRunLoopSourceGetContext func(source CFRunLoopSourceRef, context *CFRunLoopSourceContext) 
+var _cFRunLoopSourceGetContext func(source CFRunLoopSourceRef, context *CFRunLoopSourceContext)
 
 // CFRunLoopSourceGetContext returns the context information for a CFRunLoopSource object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopSourceGetContext(_:_:)
-func CFRunLoopSourceGetContext(source CFRunLoopSourceRef, context *CFRunLoopSourceContext)  {
+func CFRunLoopSourceGetContext(source CFRunLoopSourceRef, context *CFRunLoopSourceContext) {
 	if _cFRunLoopSourceGetContext == nil {
 		panic("CoreFoundation: symbol CFRunLoopSourceGetContext not loaded")
 	}
@@ -6161,12 +6185,12 @@ func CFRunLoopSourceGetTypeID() uint {
 }
 
 
-var _cFRunLoopSourceInvalidate func(source CFRunLoopSourceRef) 
+var _cFRunLoopSourceInvalidate func(source CFRunLoopSourceRef)
 
 // CFRunLoopSourceInvalidate invalidates a CFRunLoopSource object, stopping it from ever firing again.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopSourceInvalidate(_:)
-func CFRunLoopSourceInvalidate(source CFRunLoopSourceRef)  {
+func CFRunLoopSourceInvalidate(source CFRunLoopSourceRef) {
 	if _cFRunLoopSourceInvalidate == nil {
 		panic("CoreFoundation: symbol CFRunLoopSourceInvalidate not loaded")
 	}
@@ -6187,12 +6211,12 @@ func CFRunLoopSourceIsValid(source CFRunLoopSourceRef) bool {
 }
 
 
-var _cFRunLoopSourceSignal func(source CFRunLoopSourceRef) 
+var _cFRunLoopSourceSignal func(source CFRunLoopSourceRef)
 
 // CFRunLoopSourceSignal signals a CFRunLoopSource object, marking it as ready to fire.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopSourceSignal(_:)
-func CFRunLoopSourceSignal(source CFRunLoopSourceRef)  {
+func CFRunLoopSourceSignal(source CFRunLoopSourceRef) {
 	if _cFRunLoopSourceSignal == nil {
 		panic("CoreFoundation: symbol CFRunLoopSourceSignal not loaded")
 	}
@@ -6200,12 +6224,12 @@ func CFRunLoopSourceSignal(source CFRunLoopSourceRef)  {
 }
 
 
-var _cFRunLoopStop func(rl CFRunLoopRef) 
+var _cFRunLoopStop func(rl CFRunLoopRef)
 
 // CFRunLoopStop forces a CFRunLoop object to stop running.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopStop(_:)
-func CFRunLoopStop(rl CFRunLoopRef)  {
+func CFRunLoopStop(rl CFRunLoopRef) {
 	if _cFRunLoopStop == nil {
 		panic("CoreFoundation: symbol CFRunLoopStop not loaded")
 	}
@@ -6252,12 +6276,12 @@ func CFRunLoopTimerDoesRepeat(timer CFRunLoopTimerRef) bool {
 }
 
 
-var _cFRunLoopTimerGetContext func(timer CFRunLoopTimerRef, context *CFRunLoopTimerContext) 
+var _cFRunLoopTimerGetContext func(timer CFRunLoopTimerRef, context *CFRunLoopTimerContext)
 
 // CFRunLoopTimerGetContext returns the context information for a CFRunLoopTimer object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerGetContext(_:_:)
-func CFRunLoopTimerGetContext(timer CFRunLoopTimerRef, context *CFRunLoopTimerContext)  {
+func CFRunLoopTimerGetContext(timer CFRunLoopTimerRef, context *CFRunLoopTimerContext) {
 	if _cFRunLoopTimerGetContext == nil {
 		panic("CoreFoundation: symbol CFRunLoopTimerGetContext not loaded")
 	}
@@ -6330,12 +6354,12 @@ func CFRunLoopTimerGetTypeID() uint {
 }
 
 
-var _cFRunLoopTimerInvalidate func(timer CFRunLoopTimerRef) 
+var _cFRunLoopTimerInvalidate func(timer CFRunLoopTimerRef)
 
 // CFRunLoopTimerInvalidate invalidates a CFRunLoopTimer object, stopping it from ever firing again.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerInvalidate(_:)
-func CFRunLoopTimerInvalidate(timer CFRunLoopTimerRef)  {
+func CFRunLoopTimerInvalidate(timer CFRunLoopTimerRef) {
 	if _cFRunLoopTimerInvalidate == nil {
 		panic("CoreFoundation: symbol CFRunLoopTimerInvalidate not loaded")
 	}
@@ -6356,12 +6380,12 @@ func CFRunLoopTimerIsValid(timer CFRunLoopTimerRef) bool {
 }
 
 
-var _cFRunLoopTimerSetNextFireDate func(timer CFRunLoopTimerRef, fireDate CFAbsoluteTime) 
+var _cFRunLoopTimerSetNextFireDate func(timer CFRunLoopTimerRef, fireDate CFAbsoluteTime)
 
 // CFRunLoopTimerSetNextFireDate sets the next firing date for a CFRunLoopTimer object .
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerSetNextFireDate(_:_:)
-func CFRunLoopTimerSetNextFireDate(timer CFRunLoopTimerRef, fireDate CFAbsoluteTime)  {
+func CFRunLoopTimerSetNextFireDate(timer CFRunLoopTimerRef, fireDate CFAbsoluteTime) {
 	if _cFRunLoopTimerSetNextFireDate == nil {
 		panic("CoreFoundation: symbol CFRunLoopTimerSetNextFireDate not loaded")
 	}
@@ -6369,12 +6393,12 @@ func CFRunLoopTimerSetNextFireDate(timer CFRunLoopTimerRef, fireDate CFAbsoluteT
 }
 
 
-var _cFRunLoopTimerSetTolerance func(timer CFRunLoopTimerRef, tolerance float64) 
+var _cFRunLoopTimerSetTolerance func(timer CFRunLoopTimerRef, tolerance float64)
 
 // CFRunLoopTimerSetTolerance.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerSetTolerance(_:_:)
-func CFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64)  {
+func CFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64) {
 	if _cFRunLoopTimerSetTolerance == nil {
 		panic("CoreFoundation: symbol CFRunLoopTimerSetTolerance not loaded")
 	}
@@ -6382,12 +6406,12 @@ func CFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64)  {
 }
 
 
-var _cFRunLoopWakeUp func(rl CFRunLoopRef) 
+var _cFRunLoopWakeUp func(rl CFRunLoopRef)
 
 // CFRunLoopWakeUp wakes a waiting CFRunLoop object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopWakeUp(_:)
-func CFRunLoopWakeUp(rl CFRunLoopRef)  {
+func CFRunLoopWakeUp(rl CFRunLoopRef) {
 	if _cFRunLoopWakeUp == nil {
 		panic("CoreFoundation: symbol CFRunLoopWakeUp not loaded")
 	}
@@ -6395,12 +6419,12 @@ func CFRunLoopWakeUp(rl CFRunLoopRef)  {
 }
 
 
-var _cFSetAddValue func(theSet CFMutableSetRef, value unsafe.Pointer) 
+var _cFSetAddValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
 // CFSetAddValue adds a value to a CFMutableSet object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetAddValue(_:_:)
-func CFSetAddValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
+func CFSetAddValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	if _cFSetAddValue == nil {
 		panic("CoreFoundation: symbol CFSetAddValue not loaded")
 	}
@@ -6408,12 +6432,12 @@ func CFSetAddValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
 }
 
 
-var _cFSetApplyFunction func(theSet CFSetRef, applier CFSetApplierFunction, context unsafe.Pointer) 
+var _cFSetApplyFunction func(theSet CFSetRef, applier CFSetApplierFunction, context unsafe.Pointer)
 
 // CFSetApplyFunction calls a function once for each value in a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetApplyFunction(_:_:_:)
-func CFSetApplyFunction(theSet CFSetRef, applier CFSetApplierFunction, context unsafe.Pointer)  {
+func CFSetApplyFunction(theSet CFSetRef, applier CFSetApplierFunction, context unsafe.Pointer) {
 	if _cFSetApplyFunction == nil {
 		panic("CoreFoundation: symbol CFSetApplyFunction not loaded")
 	}
@@ -6551,12 +6575,12 @@ func CFSetGetValueIfPresent(theSet CFSetRef, candidate unsafe.Pointer, value uns
 }
 
 
-var _cFSetGetValues func(theSet CFSetRef, values unsafe.Pointer) 
+var _cFSetGetValues func(theSet CFSetRef, values unsafe.Pointer)
 
 // CFSetGetValues obtains all values in a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetGetValues(_:_:)
-func CFSetGetValues(theSet CFSetRef, values unsafe.Pointer)  {
+func CFSetGetValues(theSet CFSetRef, values unsafe.Pointer) {
 	if _cFSetGetValues == nil {
 		panic("CoreFoundation: symbol CFSetGetValues not loaded")
 	}
@@ -6564,12 +6588,12 @@ func CFSetGetValues(theSet CFSetRef, values unsafe.Pointer)  {
 }
 
 
-var _cFSetRemoveAllValues func(theSet CFMutableSetRef) 
+var _cFSetRemoveAllValues func(theSet CFMutableSetRef)
 
 // CFSetRemoveAllValues removes all values from a CFMutableSet object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetRemoveAllValues(_:)
-func CFSetRemoveAllValues(theSet CFMutableSetRef)  {
+func CFSetRemoveAllValues(theSet CFMutableSetRef) {
 	if _cFSetRemoveAllValues == nil {
 		panic("CoreFoundation: symbol CFSetRemoveAllValues not loaded")
 	}
@@ -6577,12 +6601,12 @@ func CFSetRemoveAllValues(theSet CFMutableSetRef)  {
 }
 
 
-var _cFSetRemoveValue func(theSet CFMutableSetRef, value unsafe.Pointer) 
+var _cFSetRemoveValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
 // CFSetRemoveValue removes a value from a CFMutableSet object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetRemoveValue(_:_:)
-func CFSetRemoveValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
+func CFSetRemoveValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	if _cFSetRemoveValue == nil {
 		panic("CoreFoundation: symbol CFSetRemoveValue not loaded")
 	}
@@ -6590,12 +6614,12 @@ func CFSetRemoveValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
 }
 
 
-var _cFSetReplaceValue func(theSet CFMutableSetRef, value unsafe.Pointer) 
+var _cFSetReplaceValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
 // CFSetReplaceValue replaces a value in a CFMutableSet object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetReplaceValue(_:_:)
-func CFSetReplaceValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
+func CFSetReplaceValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	if _cFSetReplaceValue == nil {
 		panic("CoreFoundation: symbol CFSetReplaceValue not loaded")
 	}
@@ -6603,12 +6627,12 @@ func CFSetReplaceValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
 }
 
 
-var _cFSetSetValue func(theSet CFMutableSetRef, value unsafe.Pointer) 
+var _cFSetSetValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
 // CFSetSetValue sets a value in a CFMutableSet object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetSetValue(_:_:)
-func CFSetSetValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
+func CFSetSetValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	if _cFSetSetValue == nil {
 		panic("CoreFoundation: symbol CFSetSetValue not loaded")
 	}
@@ -6616,12 +6640,12 @@ func CFSetSetValue(theSet CFMutableSetRef, value unsafe.Pointer)  {
 }
 
 
-var _cFShow func(obj CFTypeRef) 
+var _cFShow func(obj CFTypeRef)
 
 // CFShow prints a description of a Core Foundation object to stderr.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFShow(_:)
-func CFShow(obj CFTypeRef)  {
+func CFShow(obj CFTypeRef) {
 	if _cFShow == nil {
 		panic("CoreFoundation: symbol CFShow not loaded")
 	}
@@ -6629,12 +6653,12 @@ func CFShow(obj CFTypeRef)  {
 }
 
 
-var _cFShowStr func(str CFStringRef) 
+var _cFShowStr func(str CFStringRef)
 
 // CFShowStr prints the attributes of a string during debugging.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFShowStr(_:)
-func CFShowStr(str CFStringRef)  {
+func CFShowStr(str CFStringRef) {
 	if _cFShowStr == nil {
 		panic("CoreFoundation: symbol CFShowStr not loaded")
 	}
@@ -6772,12 +6796,12 @@ func CFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSo
 }
 
 
-var _cFSocketDisableCallBacks func(s CFSocketRef, callBackTypes uint64) 
+var _cFSocketDisableCallBacks func(s CFSocketRef, callBackTypes uint64)
 
 // CFSocketDisableCallBacks disables the callback function of a CFSocket object for certain types of socket activity.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketDisableCallBacks(_:_:)
-func CFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64)  {
+func CFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64) {
 	if _cFSocketDisableCallBacks == nil {
 		panic("CoreFoundation: symbol CFSocketDisableCallBacks not loaded")
 	}
@@ -6785,12 +6809,12 @@ func CFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64)  {
 }
 
 
-var _cFSocketEnableCallBacks func(s CFSocketRef, callBackTypes uint64) 
+var _cFSocketEnableCallBacks func(s CFSocketRef, callBackTypes uint64)
 
 // CFSocketEnableCallBacks enables the callback function of a CFSocket object for certain types of socket activity.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketEnableCallBacks(_:_:)
-func CFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64)  {
+func CFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64) {
 	if _cFSocketEnableCallBacks == nil {
 		panic("CoreFoundation: symbol CFSocketEnableCallBacks not loaded")
 	}
@@ -6798,12 +6822,12 @@ func CFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64)  {
 }
 
 
-var _cFSocketGetContext func(s CFSocketRef, context *CFSocketContext) 
+var _cFSocketGetContext func(s CFSocketRef, context *CFSocketContext)
 
 // CFSocketGetContext returns the context information for a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketGetContext(_:_:)
-func CFSocketGetContext(s CFSocketRef, context *CFSocketContext)  {
+func CFSocketGetContext(s CFSocketRef, context *CFSocketContext) {
 	if _cFSocketGetContext == nil {
 		panic("CoreFoundation: symbol CFSocketGetContext not loaded")
 	}
@@ -6863,12 +6887,12 @@ func CFSocketGetTypeID() uint {
 }
 
 
-var _cFSocketInvalidate func(s CFSocketRef) 
+var _cFSocketInvalidate func(s CFSocketRef)
 
 // CFSocketInvalidate invalidates a CFSocket object, stopping it from sending or receiving any more messages.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketInvalidate(_:)
-func CFSocketInvalidate(s CFSocketRef)  {
+func CFSocketInvalidate(s CFSocketRef) {
 	if _cFSocketInvalidate == nil {
 		panic("CoreFoundation: symbol CFSocketInvalidate not loaded")
 	}
@@ -6941,12 +6965,12 @@ func CFSocketSetAddress(s CFSocketRef, address CFDataRef) CFSocketError {
 }
 
 
-var _cFSocketSetDefaultNameRegistryPortNumber func(port uint16) 
+var _cFSocketSetDefaultNameRegistryPortNumber func(port uint16)
 
 // CFSocketSetDefaultNameRegistryPortNumber sets the default port number with which to connect to a CFSocket name server.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketSetDefaultNameRegistryPortNumber(_:)
-func CFSocketSetDefaultNameRegistryPortNumber(port uint16)  {
+func CFSocketSetDefaultNameRegistryPortNumber(port uint16) {
 	if _cFSocketSetDefaultNameRegistryPortNumber == nil {
 		panic("CoreFoundation: symbol CFSocketSetDefaultNameRegistryPortNumber not loaded")
 	}
@@ -6954,12 +6978,12 @@ func CFSocketSetDefaultNameRegistryPortNumber(port uint16)  {
 }
 
 
-var _cFSocketSetSocketFlags func(s CFSocketRef, flags uint64) 
+var _cFSocketSetSocketFlags func(s CFSocketRef, flags uint64)
 
 // CFSocketSetSocketFlags sets flags that control certain behaviors of a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketSetSocketFlags(_:_:)
-func CFSocketSetSocketFlags(s CFSocketRef, flags uint64)  {
+func CFSocketSetSocketFlags(s CFSocketRef, flags uint64) {
 	if _cFSocketSetSocketFlags == nil {
 		panic("CoreFoundation: symbol CFSocketSetSocketFlags not loaded")
 	}
@@ -6980,12 +7004,12 @@ func CFSocketUnregister(nameServerSignature *CFSocketSignature, timeout float64,
 }
 
 
-var _cFStreamCreateBoundPair func(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int) 
+var _cFStreamCreateBoundPair func(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int)
 
 // CFStreamCreateBoundPair creates a bound pair of read and write streams.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamCreateBoundPair(_:_:_:_:)
-func CFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int)  {
+func CFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int) {
 	if _cFStreamCreateBoundPair == nil {
 		panic("CoreFoundation: symbol CFStreamCreateBoundPair not loaded")
 	}
@@ -6993,14 +7017,14 @@ func CFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, 
 }
 
 
-var _cFStreamCreatePairWithPeerSocketSignature func(alloc CFAllocatorRef, signature *CFSocketSignature, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef) 
+var _cFStreamCreatePairWithPeerSocketSignature func(alloc CFAllocatorRef, signature *CFSocketSignature, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)
 
 // CFStreamCreatePairWithPeerSocketSignature creates readable and writable streams connected to a socket.
 //
 // Deprecated: Deprecated since macOS 26.2. Use nw_connection_t in Network framework instead
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamCreatePairWithPeerSocketSignature(_:_:_:_:)
-func CFStreamCreatePairWithPeerSocketSignature(alloc CFAllocatorRef, signature *CFSocketSignature, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)  {
+func CFStreamCreatePairWithPeerSocketSignature(alloc CFAllocatorRef, signature *CFSocketSignature, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef) {
 	if _cFStreamCreatePairWithPeerSocketSignature == nil {
 		panic("CoreFoundation: symbol CFStreamCreatePairWithPeerSocketSignature not loaded")
 	}
@@ -7008,14 +7032,14 @@ func CFStreamCreatePairWithPeerSocketSignature(alloc CFAllocatorRef, signature *
 }
 
 
-var _cFStreamCreatePairWithSocket func(alloc CFAllocatorRef, sock CFSocketNativeHandle, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef) 
+var _cFStreamCreatePairWithSocket func(alloc CFAllocatorRef, sock CFSocketNativeHandle, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)
 
 // CFStreamCreatePairWithSocket creates readable and writable streams connected to a socket.
 //
 // Deprecated: Deprecated since macOS 26.2. Use nw_connection_t in Network framework instead
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamCreatePairWithSocket(_:_:_:_:)
-func CFStreamCreatePairWithSocket(alloc CFAllocatorRef, sock CFSocketNativeHandle, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)  {
+func CFStreamCreatePairWithSocket(alloc CFAllocatorRef, sock CFSocketNativeHandle, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef) {
 	if _cFStreamCreatePairWithSocket == nil {
 		panic("CoreFoundation: symbol CFStreamCreatePairWithSocket not loaded")
 	}
@@ -7023,14 +7047,14 @@ func CFStreamCreatePairWithSocket(alloc CFAllocatorRef, sock CFSocketNativeHandl
 }
 
 
-var _cFStreamCreatePairWithSocketToHost func(alloc CFAllocatorRef, host CFStringRef, port uint32, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef) 
+var _cFStreamCreatePairWithSocketToHost func(alloc CFAllocatorRef, host CFStringRef, port uint32, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)
 
 // CFStreamCreatePairWithSocketToHost creates readable and writable streams connected to a TCP/IP port of a particular host.
 //
 // Deprecated: Deprecated since macOS 26.2. Use nw_connection_t in Network framework instead
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamCreatePairWithSocketToHost(_:_:_:_:_:)
-func CFStreamCreatePairWithSocketToHost(alloc CFAllocatorRef, host CFStringRef, port uint32, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)  {
+func CFStreamCreatePairWithSocketToHost(alloc CFAllocatorRef, host CFStringRef, port uint32, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef) {
 	if _cFStreamCreatePairWithSocketToHost == nil {
 		panic("CoreFoundation: symbol CFStreamCreatePairWithSocketToHost not loaded")
 	}
@@ -7038,12 +7062,12 @@ func CFStreamCreatePairWithSocketToHost(alloc CFAllocatorRef, host CFStringRef, 
 }
 
 
-var _cFStringAppend func(theString CFMutableStringRef, appendedString CFStringRef) 
+var _cFStringAppend func(theString CFMutableStringRef, appendedString CFStringRef)
 
 // CFStringAppend appends the characters of a string to those of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppend(_:_:)
-func CFStringAppend(theString CFMutableStringRef, appendedString CFStringRef)  {
+func CFStringAppend(theString CFMutableStringRef, appendedString CFStringRef) {
 	if _cFStringAppend == nil {
 		panic("CoreFoundation: symbol CFStringAppend not loaded")
 	}
@@ -7051,12 +7075,12 @@ func CFStringAppend(theString CFMutableStringRef, appendedString CFStringRef)  {
 }
 
 
-var _cFStringAppendCString func(theString CFMutableStringRef, cStr *byte, encoding uint32) 
+var _cFStringAppendCString func(theString CFMutableStringRef, cStr *byte, encoding uint32)
 
 // CFStringAppendCString appends a C string to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendCString(_:_:_:)
-func CFStringAppendCString(theString CFMutableStringRef, cStr *byte, encoding uint32)  {
+func CFStringAppendCString(theString CFMutableStringRef, cStr *byte, encoding uint32) {
 	if _cFStringAppendCString == nil {
 		panic("CoreFoundation: symbol CFStringAppendCString not loaded")
 	}
@@ -7064,12 +7088,12 @@ func CFStringAppendCString(theString CFMutableStringRef, cStr *byte, encoding ui
 }
 
 
-var _cFStringAppendCharacters func(theString CFMutableStringRef, chars *uint16, numChars int) 
+var _cFStringAppendCharacters func(theString CFMutableStringRef, chars *uint16, numChars int)
 
 // CFStringAppendCharacters appends a buffer of Unicode characters to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendCharacters(_:_:_:)
-func CFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numChars int)  {
+func CFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numChars int) {
 	if _cFStringAppendCharacters == nil {
 		panic("CoreFoundation: symbol CFStringAppendCharacters not loaded")
 	}
@@ -7077,12 +7101,12 @@ func CFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numCh
 }
 
 
-var _cFStringAppendFormat func(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef) 
+var _cFStringAppendFormat func(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef)
 
 // CFStringAppendFormat appends a formatted string to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendFormat
-func CFStringAppendFormat(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef)  {
+func CFStringAppendFormat(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef) {
 	if _cFStringAppendFormat == nil {
 		panic("CoreFoundation: symbol CFStringAppendFormat not loaded")
 	}
@@ -7090,13 +7114,25 @@ func CFStringAppendFormat(theString CFMutableStringRef, formatOptions CFDictiona
 }
 
 
+var _cFStringAppendFormatAndArguments func(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef, arguments uintptr)
 
-var _cFStringAppendPascalString func(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32) 
+// CFStringAppendFormatAndArguments appends a formatted string to the character contents of a CFMutableString object.
+//
+// See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendFormatAndArguments(_:_:_:_:)
+func CFStringAppendFormatAndArguments(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef, arguments uintptr) {
+	if _cFStringAppendFormatAndArguments == nil {
+		panic("CoreFoundation: symbol CFStringAppendFormatAndArguments not loaded")
+	}
+	_cFStringAppendFormatAndArguments(theString, formatOptions, format, arguments)
+}
+
+
+var _cFStringAppendPascalString func(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32)
 
 // CFStringAppendPascalString appends a Pascal string to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendPascalString(_:_:_:)
-func CFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32)  {
+func CFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32) {
 	if _cFStringAppendPascalString == nil {
 		panic("CoreFoundation: symbol CFStringAppendPascalString not loaded")
 	}
@@ -7104,12 +7140,12 @@ func CFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointe
 }
 
 
-var _cFStringCapitalize func(theString CFMutableStringRef, locale CFLocaleRef) 
+var _cFStringCapitalize func(theString CFMutableStringRef, locale CFLocaleRef)
 
 // CFStringCapitalize changes the first character in each word of a string to uppercase (if it is a lowercase alphabetical character).
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCapitalize(_:_:)
-func CFStringCapitalize(theString CFMutableStringRef, locale CFLocaleRef)  {
+func CFStringCapitalize(theString CFMutableStringRef, locale CFLocaleRef) {
 	if _cFStringCapitalize == nil {
 		panic("CoreFoundation: symbol CFStringCapitalize not loaded")
 	}
@@ -7364,6 +7400,18 @@ func CFStringCreateStringWithValidatedFormat(alloc CFAllocatorRef, formatOptions
 }
 
 
+var _cFStringCreateStringWithValidatedFormatAndArguments func(alloc CFAllocatorRef, formatOptions CFDictionaryRef, validFormatSpecifiers CFStringRef, format CFStringRef, arguments uintptr, errorPtr *CFErrorRef) CFStringRef
+
+// CFStringCreateStringWithValidatedFormatAndArguments.
+//
+// See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateStringWithValidatedFormatAndArguments
+func CFStringCreateStringWithValidatedFormatAndArguments(alloc CFAllocatorRef, formatOptions CFDictionaryRef, validFormatSpecifiers CFStringRef, format CFStringRef, arguments uintptr, errorPtr *CFErrorRef) CFStringRef {
+	if _cFStringCreateStringWithValidatedFormatAndArguments == nil {
+		panic("CoreFoundation: symbol CFStringCreateStringWithValidatedFormatAndArguments not loaded")
+	}
+	return _cFStringCreateStringWithValidatedFormatAndArguments(alloc, formatOptions, validFormatSpecifiers, format, arguments, errorPtr)
+}
+
 
 var _cFStringCreateWithBytes func(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef
 
@@ -7469,6 +7517,18 @@ func CFStringCreateWithFormat(alloc CFAllocatorRef, formatOptions CFDictionaryRe
 }
 
 
+var _cFStringCreateWithFormatAndArguments func(alloc CFAllocatorRef, formatOptions CFDictionaryRef, format CFStringRef, arguments uintptr) CFStringRef
+
+// CFStringCreateWithFormatAndArguments creates an immutable string from a formatted string and a variable number of arguments (specified in a parameter of type `va_list`).
+//
+// See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithFormatAndArguments(_:_:_:_:)
+func CFStringCreateWithFormatAndArguments(alloc CFAllocatorRef, formatOptions CFDictionaryRef, format CFStringRef, arguments uintptr) CFStringRef {
+	if _cFStringCreateWithFormatAndArguments == nil {
+		panic("CoreFoundation: symbol CFStringCreateWithFormatAndArguments not loaded")
+	}
+	return _cFStringCreateWithFormatAndArguments(alloc, formatOptions, format, arguments)
+}
+
 
 var _cFStringCreateWithPascalString func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32) CFStringRef
 
@@ -7509,12 +7569,12 @@ func CFStringCreateWithSubstring(alloc CFAllocatorRef, str CFStringRef, range_ C
 }
 
 
-var _cFStringDelete func(theString CFMutableStringRef, range_ CFRange) 
+var _cFStringDelete func(theString CFMutableStringRef, range_ CFRange)
 
 // CFStringDelete deletes a range of characters in a string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringDelete(_:_:)
-func CFStringDelete(theString CFMutableStringRef, range_ CFRange)  {
+func CFStringDelete(theString CFMutableStringRef, range_ CFRange) {
 	if _cFStringDelete == nil {
 		panic("CoreFoundation: symbol CFStringDelete not loaded")
 	}
@@ -7587,12 +7647,12 @@ func CFStringFindWithOptionsAndLocale(theString CFStringRef, stringToFind CFStri
 }
 
 
-var _cFStringFold func(theString CFMutableStringRef, theFlags CFStringCompareFlags, theLocale CFLocaleRef) 
+var _cFStringFold func(theString CFMutableStringRef, theFlags CFStringCompareFlags, theLocale CFLocaleRef)
 
 // CFStringFold folds a given string into the form specified by optional flags.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringFold(_:_:_:)
-func CFStringFold(theString CFMutableStringRef, theFlags CFStringCompareFlags, theLocale CFLocaleRef)  {
+func CFStringFold(theString CFMutableStringRef, theFlags CFStringCompareFlags, theLocale CFLocaleRef) {
 	if _cFStringFold == nil {
 		panic("CoreFoundation: symbol CFStringFold not loaded")
 	}
@@ -7653,12 +7713,12 @@ func CFStringGetCharacterAtIndex(theString CFStringRef, idx int) uint16 {
 
 
 
-var _cFStringGetCharacters func(theString CFStringRef, range_ CFRange, buffer *uint16) 
+var _cFStringGetCharacters func(theString CFStringRef, range_ CFRange, buffer *uint16)
 
 // CFStringGetCharacters copies a range of the Unicode characters from a string to a user-provided buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetCharacters(_:_:_:)
-func CFStringGetCharacters(theString CFStringRef, range_ CFRange, buffer *uint16)  {
+func CFStringGetCharacters(theString CFStringRef, range_ CFRange, buffer *uint16) {
 	if _cFStringGetCharacters == nil {
 		panic("CoreFoundation: symbol CFStringGetCharacters not loaded")
 	}
@@ -7757,12 +7817,12 @@ func CFStringGetLength(theString CFStringRef) int {
 }
 
 
-var _cFStringGetLineBounds func(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int) 
+var _cFStringGetLineBounds func(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int)
 
 // CFStringGetLineBounds given a range of characters in a string, obtains the line bounds—that is, the indexes of the first character and the final characters of the lines containing the range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetLineBounds(_:_:_:_:_:)
-func CFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int)  {
+func CFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int) {
 	if _cFStringGetLineBounds == nil {
 		panic("CoreFoundation: symbol CFStringGetLineBounds not loaded")
 	}
@@ -7836,12 +7896,12 @@ func CFStringGetNameOfEncoding(encoding uint32) CFStringRef {
 }
 
 
-var _cFStringGetParagraphBounds func(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int) 
+var _cFStringGetParagraphBounds func(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int)
 
 // CFStringGetParagraphBounds given a range of characters in a string, obtains the paragraph bounds—that is, the indexes of the first character and the final characters of the paragraph(s) containing the range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetParagraphBounds(_:_:_:_:_:)
-func CFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int)  {
+func CFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int) {
 	if _cFStringGetParagraphBounds == nil {
 		panic("CoreFoundation: symbol CFStringGetParagraphBounds not loaded")
 	}
@@ -7955,12 +8015,12 @@ func CFStringHasSuffix(theString CFStringRef, suffix CFStringRef) bool {
 
 
 
-var _cFStringInsert func(str CFMutableStringRef, idx int, insertedStr CFStringRef) 
+var _cFStringInsert func(str CFMutableStringRef, idx int, insertedStr CFStringRef)
 
 // CFStringInsert inserts a string at a specified location in the character buffer of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringInsert(_:_:_:)
-func CFStringInsert(str CFMutableStringRef, idx int, insertedStr CFStringRef)  {
+func CFStringInsert(str CFMutableStringRef, idx int, insertedStr CFStringRef) {
 	if _cFStringInsert == nil {
 		panic("CoreFoundation: symbol CFStringInsert not loaded")
 	}
@@ -7996,12 +8056,12 @@ func CFStringIsHyphenationAvailableForLocale(locale CFLocaleRef) bool {
 
 
 
-var _cFStringLowercase func(theString CFMutableStringRef, locale CFLocaleRef) 
+var _cFStringLowercase func(theString CFMutableStringRef, locale CFLocaleRef)
 
 // CFStringLowercase changes all uppercase alphabetical characters in a CFMutableString to lowercase.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringLowercase(_:_:)
-func CFStringLowercase(theString CFMutableStringRef, locale CFLocaleRef)  {
+func CFStringLowercase(theString CFMutableStringRef, locale CFLocaleRef) {
 	if _cFStringLowercase == nil {
 		panic("CoreFoundation: symbol CFStringLowercase not loaded")
 	}
@@ -8009,12 +8069,12 @@ func CFStringLowercase(theString CFMutableStringRef, locale CFLocaleRef)  {
 }
 
 
-var _cFStringNormalize func(theString CFMutableStringRef, theForm CFStringNormalizationForm) 
+var _cFStringNormalize func(theString CFMutableStringRef, theForm CFStringNormalizationForm)
 
 // CFStringNormalize normalizes the string into the specified form as described in Unicode Technical Report #15.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringNormalize(_:_:)
-func CFStringNormalize(theString CFMutableStringRef, theForm CFStringNormalizationForm)  {
+func CFStringNormalize(theString CFMutableStringRef, theForm CFStringNormalizationForm) {
 	if _cFStringNormalize == nil {
 		panic("CoreFoundation: symbol CFStringNormalize not loaded")
 	}
@@ -8022,12 +8082,12 @@ func CFStringNormalize(theString CFMutableStringRef, theForm CFStringNormalizati
 }
 
 
-var _cFStringPad func(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int) 
+var _cFStringPad func(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int)
 
 // CFStringPad enlarges a string, padding it with specified characters, or truncates the string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringPad(_:_:_:_:)
-func CFStringPad(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int)  {
+func CFStringPad(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int) {
 	if _cFStringPad == nil {
 		panic("CoreFoundation: symbol CFStringPad not loaded")
 	}
@@ -8035,12 +8095,12 @@ func CFStringPad(theString CFMutableStringRef, padString CFStringRef, length int
 }
 
 
-var _cFStringReplace func(theString CFMutableStringRef, range_ CFRange, replacement CFStringRef) 
+var _cFStringReplace func(theString CFMutableStringRef, range_ CFRange, replacement CFStringRef)
 
 // CFStringReplace replaces part of the character contents of a CFMutableString object with another string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringReplace(_:_:_:)
-func CFStringReplace(theString CFMutableStringRef, range_ CFRange, replacement CFStringRef)  {
+func CFStringReplace(theString CFMutableStringRef, range_ CFRange, replacement CFStringRef) {
 	if _cFStringReplace == nil {
 		panic("CoreFoundation: symbol CFStringReplace not loaded")
 	}
@@ -8048,12 +8108,12 @@ func CFStringReplace(theString CFMutableStringRef, range_ CFRange, replacement C
 }
 
 
-var _cFStringReplaceAll func(theString CFMutableStringRef, replacement CFStringRef) 
+var _cFStringReplaceAll func(theString CFMutableStringRef, replacement CFStringRef)
 
 // CFStringReplaceAll replaces all characters of a CFMutableString object with other characters.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringReplaceAll(_:_:)
-func CFStringReplaceAll(theString CFMutableStringRef, replacement CFStringRef)  {
+func CFStringReplaceAll(theString CFMutableStringRef, replacement CFStringRef) {
 	if _cFStringReplaceAll == nil {
 		panic("CoreFoundation: symbol CFStringReplaceAll not loaded")
 	}
@@ -8061,12 +8121,12 @@ func CFStringReplaceAll(theString CFMutableStringRef, replacement CFStringRef)  
 }
 
 
-var _cFStringSetExternalCharactersNoCopy func(theString CFMutableStringRef, chars *uint16, length int, capacity int) 
+var _cFStringSetExternalCharactersNoCopy func(theString CFMutableStringRef, chars *uint16, length int, capacity int)
 
 // CFStringSetExternalCharactersNoCopy notifies a CFMutableString object that its external backing store of Unicode characters has changed.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringSetExternalCharactersNoCopy(_:_:_:_:)
-func CFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *uint16, length int, capacity int)  {
+func CFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *uint16, length int, capacity int) {
 	if _cFStringSetExternalCharactersNoCopy == nil {
 		panic("CoreFoundation: symbol CFStringSetExternalCharactersNoCopy not loaded")
 	}
@@ -8178,12 +8238,12 @@ func CFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index int
 }
 
 
-var _cFStringTokenizerSetString func(tokenizer CFStringTokenizerRef, string_ CFStringRef, range_ CFRange) 
+var _cFStringTokenizerSetString func(tokenizer CFStringTokenizerRef, string_ CFStringRef, range_ CFRange)
 
 // CFStringTokenizerSetString sets the string for a tokenizer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerSetString(_:_:_:)
-func CFStringTokenizerSetString(tokenizer CFStringTokenizerRef, string_ CFStringRef, range_ CFRange)  {
+func CFStringTokenizerSetString(tokenizer CFStringTokenizerRef, string_ CFStringRef, range_ CFRange) {
 	if _cFStringTokenizerSetString == nil {
 		panic("CoreFoundation: symbol CFStringTokenizerSetString not loaded")
 	}
@@ -8204,12 +8264,12 @@ func CFStringTransform(string_ CFMutableStringRef, range_ *CFRange, transform CF
 }
 
 
-var _cFStringTrim func(theString CFMutableStringRef, trimString CFStringRef) 
+var _cFStringTrim func(theString CFMutableStringRef, trimString CFStringRef)
 
 // CFStringTrim trims a specified substring from the beginning and end of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTrim(_:_:)
-func CFStringTrim(theString CFMutableStringRef, trimString CFStringRef)  {
+func CFStringTrim(theString CFMutableStringRef, trimString CFStringRef) {
 	if _cFStringTrim == nil {
 		panic("CoreFoundation: symbol CFStringTrim not loaded")
 	}
@@ -8217,12 +8277,12 @@ func CFStringTrim(theString CFMutableStringRef, trimString CFStringRef)  {
 }
 
 
-var _cFStringTrimWhitespace func(theString CFMutableStringRef) 
+var _cFStringTrimWhitespace func(theString CFMutableStringRef)
 
 // CFStringTrimWhitespace trims whitespace from the beginning and end of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTrimWhitespace(_:)
-func CFStringTrimWhitespace(theString CFMutableStringRef)  {
+func CFStringTrimWhitespace(theString CFMutableStringRef) {
 	if _cFStringTrimWhitespace == nil {
 		panic("CoreFoundation: symbol CFStringTrimWhitespace not loaded")
 	}
@@ -8230,12 +8290,12 @@ func CFStringTrimWhitespace(theString CFMutableStringRef)  {
 }
 
 
-var _cFStringUppercase func(theString CFMutableStringRef, locale CFLocaleRef) 
+var _cFStringUppercase func(theString CFMutableStringRef, locale CFLocaleRef)
 
 // CFStringUppercase changes all lowercase alphabetical characters in a CFMutableString object to uppercase.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringUppercase(_:_:)
-func CFStringUppercase(theString CFMutableStringRef, locale CFLocaleRef)  {
+func CFStringUppercase(theString CFMutableStringRef, locale CFLocaleRef) {
 	if _cFStringUppercase == nil {
 		panic("CoreFoundation: symbol CFStringUppercase not loaded")
 	}
@@ -8466,12 +8526,12 @@ func CFTimeZoneIsDaylightSavingTime(tz CFTimeZoneRef, at CFAbsoluteTime) bool {
 }
 
 
-var _cFTimeZoneResetSystem func() 
+var _cFTimeZoneResetSystem func()
 
 // CFTimeZoneResetSystem clears the previously determined system time zone, if any.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneResetSystem()
-func CFTimeZoneResetSystem()  {
+func CFTimeZoneResetSystem() {
 	if _cFTimeZoneResetSystem == nil {
 		panic("CoreFoundation: symbol CFTimeZoneResetSystem not loaded")
 	}
@@ -8479,12 +8539,12 @@ func CFTimeZoneResetSystem()  {
 }
 
 
-var _cFTimeZoneSetAbbreviationDictionary func(dict CFDictionaryRef) 
+var _cFTimeZoneSetAbbreviationDictionary func(dict CFDictionaryRef)
 
 // CFTimeZoneSetAbbreviationDictionary sets the abbreviation dictionary to a given dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneSetAbbreviationDictionary(_:)
-func CFTimeZoneSetAbbreviationDictionary(dict CFDictionaryRef)  {
+func CFTimeZoneSetAbbreviationDictionary(dict CFDictionaryRef) {
 	if _cFTimeZoneSetAbbreviationDictionary == nil {
 		panic("CoreFoundation: symbol CFTimeZoneSetAbbreviationDictionary not loaded")
 	}
@@ -8492,12 +8552,12 @@ func CFTimeZoneSetAbbreviationDictionary(dict CFDictionaryRef)  {
 }
 
 
-var _cFTimeZoneSetDefault func(tz CFTimeZoneRef) 
+var _cFTimeZoneSetDefault func(tz CFTimeZoneRef)
 
 // CFTimeZoneSetDefault sets the default time zone for your application the given time zone.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneSetDefault(_:)
-func CFTimeZoneSetDefault(tz CFTimeZoneRef)  {
+func CFTimeZoneSetDefault(tz CFTimeZoneRef) {
 	if _cFTimeZoneSetDefault == nil {
 		panic("CoreFoundation: symbol CFTimeZoneSetDefault not loaded")
 	}
@@ -8505,12 +8565,12 @@ func CFTimeZoneSetDefault(tz CFTimeZoneRef)  {
 }
 
 
-var _cFTreeAppendChild func(tree CFTreeRef, newChild CFTreeRef) 
+var _cFTreeAppendChild func(tree CFTreeRef, newChild CFTreeRef)
 
 // CFTreeAppendChild adds a new child to a tree as the last in its list of children.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeAppendChild(_:_:)
-func CFTreeAppendChild(tree CFTreeRef, newChild CFTreeRef)  {
+func CFTreeAppendChild(tree CFTreeRef, newChild CFTreeRef) {
 	if _cFTreeAppendChild == nil {
 		panic("CoreFoundation: symbol CFTreeAppendChild not loaded")
 	}
@@ -8518,12 +8578,12 @@ func CFTreeAppendChild(tree CFTreeRef, newChild CFTreeRef)  {
 }
 
 
-var _cFTreeApplyFunctionToChildren func(tree CFTreeRef, applier CFTreeApplierFunction, context unsafe.Pointer) 
+var _cFTreeApplyFunctionToChildren func(tree CFTreeRef, applier CFTreeApplierFunction, context unsafe.Pointer)
 
 // CFTreeApplyFunctionToChildren calls a function once for each immediate child of a tree.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeApplyFunctionToChildren(_:_:_:)
-func CFTreeApplyFunctionToChildren(tree CFTreeRef, applier CFTreeApplierFunction, context unsafe.Pointer)  {
+func CFTreeApplyFunctionToChildren(tree CFTreeRef, applier CFTreeApplierFunction, context unsafe.Pointer) {
 	if _cFTreeApplyFunctionToChildren == nil {
 		panic("CoreFoundation: symbol CFTreeApplyFunctionToChildren not loaded")
 	}
@@ -8583,12 +8643,12 @@ func CFTreeGetChildCount(tree CFTreeRef) int {
 }
 
 
-var _cFTreeGetChildren func(tree CFTreeRef, children *CFTreeRef) 
+var _cFTreeGetChildren func(tree CFTreeRef, children *CFTreeRef)
 
 // CFTreeGetChildren fills a buffer with children from the tree.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeGetChildren(_:_:)
-func CFTreeGetChildren(tree CFTreeRef, children *CFTreeRef)  {
+func CFTreeGetChildren(tree CFTreeRef, children *CFTreeRef) {
 	if _cFTreeGetChildren == nil {
 		panic("CoreFoundation: symbol CFTreeGetChildren not loaded")
 	}
@@ -8596,12 +8656,12 @@ func CFTreeGetChildren(tree CFTreeRef, children *CFTreeRef)  {
 }
 
 
-var _cFTreeGetContext func(tree CFTreeRef, context *CFTreeContext) 
+var _cFTreeGetContext func(tree CFTreeRef, context *CFTreeContext)
 
 // CFTreeGetContext returns the context of the specified tree.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeGetContext(_:_:)
-func CFTreeGetContext(tree CFTreeRef, context *CFTreeContext)  {
+func CFTreeGetContext(tree CFTreeRef, context *CFTreeContext) {
 	if _cFTreeGetContext == nil {
 		panic("CoreFoundation: symbol CFTreeGetContext not loaded")
 	}
@@ -8661,12 +8721,12 @@ func CFTreeGetTypeID() uint {
 }
 
 
-var _cFTreeInsertSibling func(tree CFTreeRef, newSibling CFTreeRef) 
+var _cFTreeInsertSibling func(tree CFTreeRef, newSibling CFTreeRef)
 
 // CFTreeInsertSibling inserts a new sibling after a given tree.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeInsertSibling(_:_:)
-func CFTreeInsertSibling(tree CFTreeRef, newSibling CFTreeRef)  {
+func CFTreeInsertSibling(tree CFTreeRef, newSibling CFTreeRef) {
 	if _cFTreeInsertSibling == nil {
 		panic("CoreFoundation: symbol CFTreeInsertSibling not loaded")
 	}
@@ -8674,12 +8734,12 @@ func CFTreeInsertSibling(tree CFTreeRef, newSibling CFTreeRef)  {
 }
 
 
-var _cFTreePrependChild func(tree CFTreeRef, newChild CFTreeRef) 
+var _cFTreePrependChild func(tree CFTreeRef, newChild CFTreeRef)
 
 // CFTreePrependChild adds a new child to the specified tree as the first in its list of children.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreePrependChild(_:_:)
-func CFTreePrependChild(tree CFTreeRef, newChild CFTreeRef)  {
+func CFTreePrependChild(tree CFTreeRef, newChild CFTreeRef) {
 	if _cFTreePrependChild == nil {
 		panic("CoreFoundation: symbol CFTreePrependChild not loaded")
 	}
@@ -8687,12 +8747,12 @@ func CFTreePrependChild(tree CFTreeRef, newChild CFTreeRef)  {
 }
 
 
-var _cFTreeRemove func(tree CFTreeRef) 
+var _cFTreeRemove func(tree CFTreeRef)
 
 // CFTreeRemove removes a tree from its parent.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeRemove(_:)
-func CFTreeRemove(tree CFTreeRef)  {
+func CFTreeRemove(tree CFTreeRef) {
 	if _cFTreeRemove == nil {
 		panic("CoreFoundation: symbol CFTreeRemove not loaded")
 	}
@@ -8700,12 +8760,12 @@ func CFTreeRemove(tree CFTreeRef)  {
 }
 
 
-var _cFTreeRemoveAllChildren func(tree CFTreeRef) 
+var _cFTreeRemoveAllChildren func(tree CFTreeRef)
 
 // CFTreeRemoveAllChildren removes all the children of a tree.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeRemoveAllChildren(_:)
-func CFTreeRemoveAllChildren(tree CFTreeRef)  {
+func CFTreeRemoveAllChildren(tree CFTreeRef) {
 	if _cFTreeRemoveAllChildren == nil {
 		panic("CoreFoundation: symbol CFTreeRemoveAllChildren not loaded")
 	}
@@ -8713,12 +8773,12 @@ func CFTreeRemoveAllChildren(tree CFTreeRef)  {
 }
 
 
-var _cFTreeSetContext func(tree CFTreeRef, context *CFTreeContext) 
+var _cFTreeSetContext func(tree CFTreeRef, context *CFTreeContext)
 
 // CFTreeSetContext replaces the context of a tree by releasing the old information pointer and retaining the new one.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeSetContext(_:_:)
-func CFTreeSetContext(tree CFTreeRef, context *CFTreeContext)  {
+func CFTreeSetContext(tree CFTreeRef, context *CFTreeContext) {
 	if _cFTreeSetContext == nil {
 		panic("CoreFoundation: symbol CFTreeSetContext not loaded")
 	}
@@ -8726,12 +8786,12 @@ func CFTreeSetContext(tree CFTreeRef, context *CFTreeContext)  {
 }
 
 
-var _cFTreeSortChildren func(tree CFTreeRef, comparator CFComparatorFunction, context unsafe.Pointer) 
+var _cFTreeSortChildren func(tree CFTreeRef, comparator CFComparatorFunction, context unsafe.Pointer)
 
 // CFTreeSortChildren sorts the immediate children of a tree using a specified comparator function.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeSortChildren(_:_:_:)
-func CFTreeSortChildren(tree CFTreeRef, comparator CFComparatorFunction, context unsafe.Pointer)  {
+func CFTreeSortChildren(tree CFTreeRef, comparator CFComparatorFunction, context unsafe.Pointer) {
 	if _cFTreeSortChildren == nil {
 		panic("CoreFoundation: symbol CFTreeSortChildren not loaded")
 	}
@@ -8752,12 +8812,12 @@ func CFURLCanBeDecomposed(anURL CFURLRef) bool {
 }
 
 
-var _cFURLClearResourcePropertyCache func(url CFURLRef) 
+var _cFURLClearResourcePropertyCache func(url CFURLRef)
 
 // CFURLClearResourcePropertyCache removes all cached resource values and temporary resource values from the URL object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLClearResourcePropertyCache(_:)
-func CFURLClearResourcePropertyCache(url CFURLRef)  {
+func CFURLClearResourcePropertyCache(url CFURLRef) {
 	if _cFURLClearResourcePropertyCache == nil {
 		panic("CoreFoundation: symbol CFURLClearResourcePropertyCache not loaded")
 	}
@@ -8765,12 +8825,12 @@ func CFURLClearResourcePropertyCache(url CFURLRef)  {
 }
 
 
-var _cFURLClearResourcePropertyCacheForKey func(url CFURLRef, key CFStringRef) 
+var _cFURLClearResourcePropertyCacheForKey func(url CFURLRef, key CFStringRef)
 
 // CFURLClearResourcePropertyCacheForKey removes the cached resource value identified by a given key from the URL object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLClearResourcePropertyCacheForKey(_:_:)
-func CFURLClearResourcePropertyCacheForKey(url CFURLRef, key CFStringRef)  {
+func CFURLClearResourcePropertyCacheForKey(url CFURLRef, key CFStringRef) {
 	if _cFURLClearResourcePropertyCacheForKey == nil {
 		panic("CoreFoundation: symbol CFURLClearResourcePropertyCacheForKey not loaded")
 	}
@@ -9311,12 +9371,12 @@ func CFURLEnumeratorGetTypeID() uint {
 }
 
 
-var _cFURLEnumeratorSkipDescendents func(enumerator CFURLEnumeratorRef) 
+var _cFURLEnumeratorSkipDescendents func(enumerator CFURLEnumeratorRef)
 
 // CFURLEnumeratorSkipDescendents tells a recursive enumerator not to descend into the directory at the URL that was returned by the most recent call to the CFURLEnumeratorGetNextURL(_:_:_:) function.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLEnumeratorSkipDescendents(_:)
-func CFURLEnumeratorSkipDescendents(enumerator CFURLEnumeratorRef)  {
+func CFURLEnumeratorSkipDescendents(enumerator CFURLEnumeratorRef) {
 	if _cFURLEnumeratorSkipDescendents == nil {
 		panic("CoreFoundation: symbol CFURLEnumeratorSkipDescendents not loaded")
 	}
@@ -9480,12 +9540,12 @@ func CFURLSetResourcePropertyForKey(url CFURLRef, key CFStringRef, propertyValue
 }
 
 
-var _cFURLSetTemporaryResourcePropertyForKey func(url CFURLRef, key CFStringRef, propertyValue CFTypeRef) 
+var _cFURLSetTemporaryResourcePropertyForKey func(url CFURLRef, key CFStringRef, propertyValue CFTypeRef)
 
 // CFURLSetTemporaryResourcePropertyForKey sets a temporary resource value on the URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLSetTemporaryResourcePropertyForKey(_:_:_:)
-func CFURLSetTemporaryResourcePropertyForKey(url CFURLRef, key CFStringRef, propertyValue CFTypeRef)  {
+func CFURLSetTemporaryResourcePropertyForKey(url CFURLRef, key CFStringRef, propertyValue CFTypeRef) {
 	if _cFURLSetTemporaryResourcePropertyForKey == nil {
 		panic("CoreFoundation: symbol CFURLSetTemporaryResourcePropertyForKey not loaded")
 	}
@@ -9506,12 +9566,12 @@ func CFURLStartAccessingSecurityScopedResource(url CFURLRef) bool {
 }
 
 
-var _cFURLStopAccessingSecurityScopedResource func(url CFURLRef) 
+var _cFURLStopAccessingSecurityScopedResource func(url CFURLRef)
 
 // CFURLStopAccessingSecurityScopedResource in an app that adopts App Sandbox, revokes access to the resource pointed to by a security-scoped URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLStopAccessingSecurityScopedResource(_:)
-func CFURLStopAccessingSecurityScopedResource(url CFURLRef)  {
+func CFURLStopAccessingSecurityScopedResource(url CFURLRef) {
 	if _cFURLStopAccessingSecurityScopedResource == nil {
 		panic("CoreFoundation: symbol CFURLStopAccessingSecurityScopedResource not loaded")
 	}
@@ -9782,12 +9842,12 @@ func CFWriteStreamCanAcceptBytes(stream CFWriteStreamRef) bool {
 }
 
 
-var _cFWriteStreamClose func(stream CFWriteStreamRef) 
+var _cFWriteStreamClose func(stream CFWriteStreamRef)
 
 // CFWriteStreamClose closes a writable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamClose(_:)
-func CFWriteStreamClose(stream CFWriteStreamRef)  {
+func CFWriteStreamClose(stream CFWriteStreamRef) {
 	if _cFWriteStreamClose == nil {
 		panic("CoreFoundation: symbol CFWriteStreamClose not loaded")
 	}
@@ -9927,12 +9987,12 @@ func CFWriteStreamOpen(stream CFWriteStreamRef) bool {
 }
 
 
-var _cFWriteStreamScheduleWithRunLoop func(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) 
+var _cFWriteStreamScheduleWithRunLoop func(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
 // CFWriteStreamScheduleWithRunLoop schedules a stream into a run loop.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamScheduleWithRunLoop(_:_:_:)
-func CFWriteStreamScheduleWithRunLoop(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)  {
+func CFWriteStreamScheduleWithRunLoop(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) {
 	if _cFWriteStreamScheduleWithRunLoop == nil {
 		panic("CoreFoundation: symbol CFWriteStreamScheduleWithRunLoop not loaded")
 	}
@@ -9953,12 +10013,12 @@ func CFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents uint64, client
 }
 
 
-var _cFWriteStreamSetDispatchQueue func(stream CFWriteStreamRef, q uintptr) 
+var _cFWriteStreamSetDispatchQueue func(stream CFWriteStreamRef, q uintptr)
 
 // CFWriteStreamSetDispatchQueue.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamSetDispatchQueue(_:_:)
-func CFWriteStreamSetDispatchQueue(stream CFWriteStreamRef, q dispatch.Queue)  {
+func CFWriteStreamSetDispatchQueue(stream CFWriteStreamRef, q dispatch.Queue) {
 	if _cFWriteStreamSetDispatchQueue == nil {
 		panic("CoreFoundation: symbol CFWriteStreamSetDispatchQueue not loaded")
 	}
@@ -9979,12 +10039,12 @@ func CFWriteStreamSetProperty(stream CFWriteStreamRef, propertyName CFStreamProp
 }
 
 
-var _cFWriteStreamUnscheduleFromRunLoop func(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) 
+var _cFWriteStreamUnscheduleFromRunLoop func(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
 // CFWriteStreamUnscheduleFromRunLoop removes a stream from a particular run loop.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamUnscheduleFromRunLoop(_:_:_:)
-func CFWriteStreamUnscheduleFromRunLoop(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)  {
+func CFWriteStreamUnscheduleFromRunLoop(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode) {
 	if _cFWriteStreamUnscheduleFromRunLoop == nil {
 		panic("CoreFoundation: symbol CFWriteStreamUnscheduleFromRunLoop not loaded")
 	}
@@ -10122,12 +10182,12 @@ func CFXMLNodeGetVersion(node unsafe.Pointer) int {
 }
 
 
-var _cFXMLParserAbort func(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef) 
+var _cFXMLParserAbort func(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef)
 
 // CFXMLParserAbort causes a parser to abort with the given error code and description.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserAbort
-func CFXMLParserAbort(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef)  {
+func CFXMLParserAbort(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef) {
 	if _cFXMLParserAbort == nil {
 		panic("CoreFoundation: symbol CFXMLParserAbort not loaded")
 	}
@@ -10174,12 +10234,12 @@ func CFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURL
 }
 
 
-var _cFXMLParserGetCallBacks func(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks) 
+var _cFXMLParserGetCallBacks func(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks)
 
 // CFXMLParserGetCallBacks returns the callbacks associated with an XML parser when it was created.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetCallBacks
-func CFXMLParserGetCallBacks(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks)  {
+func CFXMLParserGetCallBacks(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks) {
 	if _cFXMLParserGetCallBacks == nil {
 		panic("CoreFoundation: symbol CFXMLParserGetCallBacks not loaded")
 	}
@@ -10187,12 +10247,12 @@ func CFXMLParserGetCallBacks(parser CFXMLParserRef, callBacks *CFXMLParserCallBa
 }
 
 
-var _cFXMLParserGetContext func(parser CFXMLParserRef, context *CFXMLParserContext) 
+var _cFXMLParserGetContext func(parser CFXMLParserRef, context *CFXMLParserContext)
 
 // CFXMLParserGetContext returns the context for an XML parser.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetContext
-func CFXMLParserGetContext(parser CFXMLParserRef, context *CFXMLParserContext)  {
+func CFXMLParserGetContext(parser CFXMLParserRef, context *CFXMLParserContext) {
 	if _cFXMLParserGetContext == nil {
 		panic("CoreFoundation: symbol CFXMLParserGetContext not loaded")
 	}
@@ -10379,6 +10439,7 @@ func init() {
 		registerFunc(&_cFAllocatorAllocateBytes, frameworkHandle, "CFAllocatorAllocateBytes")
 		registerFunc(&_cFAllocatorAllocateTyped, frameworkHandle, "CFAllocatorAllocateTyped")
 		registerFunc(&_cFAllocatorCreate, frameworkHandle, "CFAllocatorCreate")
+		registerFunc(&_cFAllocatorCreateWithZone, frameworkHandle, "CFAllocatorCreateWithZone")
 		registerFunc(&_cFAllocatorDeallocate, frameworkHandle, "CFAllocatorDeallocate")
 		registerFunc(&_cFAllocatorGetContext, frameworkHandle, "CFAllocatorGetContext")
 		registerFunc(&_cFAllocatorGetDefault, frameworkHandle, "CFAllocatorGetDefault")
@@ -10655,6 +10716,7 @@ func init() {
 		registerFunc(&_cFFileDescriptorInvalidate, frameworkHandle, "CFFileDescriptorInvalidate")
 		registerFunc(&_cFFileDescriptorIsValid, frameworkHandle, "CFFileDescriptorIsValid")
 		registerFunc(&_cFFileSecurityClearProperties, frameworkHandle, "CFFileSecurityClearProperties")
+		registerFunc(&_cFFileSecurityCopyAccessControlList, frameworkHandle, "CFFileSecurityCopyAccessControlList")
 		registerFunc(&_cFFileSecurityCopyGroupUUID, frameworkHandle, "CFFileSecurityCopyGroupUUID")
 		registerFunc(&_cFFileSecurityCopyOwnerUUID, frameworkHandle, "CFFileSecurityCopyOwnerUUID")
 		registerFunc(&_cFFileSecurityCreate, frameworkHandle, "CFFileSecurityCreate")
@@ -10915,6 +10977,7 @@ func init() {
 		registerFunc(&_cFStringAppendCString, frameworkHandle, "CFStringAppendCString")
 		registerFunc(&_cFStringAppendCharacters, frameworkHandle, "CFStringAppendCharacters")
 		registerFunc(&_cFStringAppendFormat, frameworkHandle, "CFStringAppendFormat")
+		registerFunc(&_cFStringAppendFormatAndArguments, frameworkHandle, "CFStringAppendFormatAndArguments")
 		registerFunc(&_cFStringAppendPascalString, frameworkHandle, "CFStringAppendPascalString")
 		registerFunc(&_cFStringCapitalize, frameworkHandle, "CFStringCapitalize")
 		registerFunc(&_cFStringCompare, frameworkHandle, "CFStringCompare")
@@ -10936,6 +10999,7 @@ func init() {
 		registerFunc(&_cFStringCreateMutableCopy, frameworkHandle, "CFStringCreateMutableCopy")
 		registerFunc(&_cFStringCreateMutableWithExternalCharactersNoCopy, frameworkHandle, "CFStringCreateMutableWithExternalCharactersNoCopy")
 		registerFunc(&_cFStringCreateStringWithValidatedFormat, frameworkHandle, "CFStringCreateStringWithValidatedFormat")
+		registerFunc(&_cFStringCreateStringWithValidatedFormatAndArguments, frameworkHandle, "CFStringCreateStringWithValidatedFormatAndArguments")
 		registerFunc(&_cFStringCreateWithBytes, frameworkHandle, "CFStringCreateWithBytes")
 		registerFunc(&_cFStringCreateWithBytesNoCopy, frameworkHandle, "CFStringCreateWithBytesNoCopy")
 		registerFunc(&_cFStringCreateWithCString, frameworkHandle, "CFStringCreateWithCString")
@@ -10944,6 +11008,7 @@ func init() {
 		registerFunc(&_cFStringCreateWithCharactersNoCopy, frameworkHandle, "CFStringCreateWithCharactersNoCopy")
 		registerFunc(&_cFStringCreateWithFileSystemRepresentation, frameworkHandle, "CFStringCreateWithFileSystemRepresentation")
 		registerFunc(&_cFStringCreateWithFormat, frameworkHandle, "CFStringCreateWithFormat")
+		registerFunc(&_cFStringCreateWithFormatAndArguments, frameworkHandle, "CFStringCreateWithFormatAndArguments")
 		registerFunc(&_cFStringCreateWithPascalString, frameworkHandle, "CFStringCreateWithPascalString")
 		registerFunc(&_cFStringCreateWithPascalStringNoCopy, frameworkHandle, "CFStringCreateWithPascalStringNoCopy")
 		registerFunc(&_cFStringCreateWithSubstring, frameworkHandle, "CFStringCreateWithSubstring")

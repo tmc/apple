@@ -1778,31 +1778,6 @@ func (c NSCollectionView) SetDraggingSourceOperationMaskForLocal(dragOperationMa
 	objc.Send[objc.ID](c.ID, objc.Sel("setDraggingSourceOperationMask:forLocal:"), dragOperationMask, localDestination)
 }
 
-// Declares the types of operations the source allows to be performed.
-//
-// session: The dragging session.
-//
-// context: The dragging context. See [NSDraggingContext] for the supported values.
-// //
-// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
-//
-// # Return Value
-// 
-// The appropriate dragging operation as defined in
-//
-// # Discussion
-// 
-// In the future Apple may provide more specific “within” values in the
-// future. To account for this, for unrecognized localities, return the
-// operation mask for the most specific context that you are concerned with.
-// The following code is an example of how to implement this functionality:
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
-func (c NSCollectionView) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
-	rv := objc.Send[NSDragOperation](c.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
-	return NSDragOperation(rv)
-}
-
 // Invoked when the dragging session has completed.
 //
 // session: The dragging session.
@@ -1827,6 +1802,31 @@ func (c NSCollectionView) DraggingSessionEndedAtPointOperation(session INSDraggi
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:movedTo:)
 func (c NSCollectionView) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
+}
+
+// Declares the types of operations the source allows to be performed.
+//
+// session: The dragging session.
+//
+// context: The dragging context. See [NSDraggingContext] for the supported values.
+// //
+// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
+//
+// # Return Value
+// 
+// The appropriate dragging operation as defined in
+//
+// # Discussion
+// 
+// In the future Apple may provide more specific “within” values in the
+// future. To account for this, for unrecognized localities, return the
+// operation mask for the most specific context that you are concerned with.
+// The following code is an example of how to implement this functionality:
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
+func (c NSCollectionView) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
+	rv := objc.Send[NSDragOperation](c.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
+	return NSDragOperation(rv)
 }
 
 // Invoked when the drag will begin.

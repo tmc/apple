@@ -355,14 +355,14 @@ type INSOrderedSet interface {
 	DifferenceFromOrderedSetWithOptions(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
 	// Compares two ordered sets, using the provided block and with options, to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Copies the objects contained in the ordered set that fall within the specified range to `objects`.
 	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSOrderedSet
 	// Creates a new ordered set by applying a difference object to an existing ordered set.
 	OrderedSetByApplyingDifference(difference INSOrderedCollectionDifference) INSOrderedSet
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
 
 
@@ -1588,6 +1588,33 @@ func (o NSOrderedSet) InitWithCoder(coder INSCoder) NSOrderedSet {
 	return rv
 }
 
+// Returns by reference a C array of objects over which the sender should
+// iterate, and as the return value the number of objects in the array.
+//
+// state: Context information that is used in the enumeration to, in addition to
+// other possibilities, ensure that the collection has not been mutated.
+//
+// buffer: A C array of objects over which the sender is to iterate.
+//
+// len: The maximum number of objects to return in `stackbuf`.
+//
+// # Return Value
+// 
+// The number of objects returned in `stackbuf`. Returns `0` when the
+// iteration is finished.
+//
+// # Discussion
+// 
+// The state structure is assumed to be of stack local memory, so you can
+// recast the passed in state structure to one more suitable for your
+// iteration.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
+func (o NSOrderedSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
+	return rv
+}
+
 // Compares two ordered sets to create a difference object that represents the
 // changes between them.
 //
@@ -1644,6 +1671,15 @@ func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(ot
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
 
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (o NSOrderedSet) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
 // Copies the objects contained in the ordered set that fall within the
 // specified range to `objects`.
 //
@@ -1697,42 +1733,6 @@ func (o NSOrderedSet) InitWithObjects(firstObj objectivec.IObject) NSOrderedSet 
 func (o NSOrderedSet) OrderedSetByApplyingDifference(difference INSOrderedCollectionDifference) INSOrderedSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("orderedSetByApplyingDifference:"), difference)
 	return NSOrderedSetFromID(rv)
-}
-
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (o NSOrderedSet) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-// 
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
-//
-// # Discussion
-// 
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (o NSOrderedSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
 }
 
 
@@ -1796,20 +1796,6 @@ func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithArray(array []objectiv
 	return NSOrderedSetFromID(rv)
 }
 
-// Creates and returns a ordered set that contains a single given object.
-//
-// object: The object to add to the new set.
-//
-// # Return Value
-// 
-// A new ordered set containing `object`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetWithObject:
-func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithObject(object objectivec.IObject) NSOrderedSet {
-	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithObject:"), object)
-	return NSOrderedSetFromID(rv)
-}
-
 // Creates and returns a new ordered set for a specified range of objects in
 // an array.
 //
@@ -1830,6 +1816,20 @@ func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithObject(object objectiv
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetWithArray:range:copyItems:
 func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithArrayRangeCopyItems(array []objectivec.IObject, range_ NSRange, flag bool) NSOrderedSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithArray:range:copyItems:"), objectivec.IObjectSliceToNSArray(array), range_, flag)
+	return NSOrderedSetFromID(rv)
+}
+
+// Creates and returns a ordered set that contains a single given object.
+//
+// object: The object to add to the new set.
+//
+// # Return Value
+// 
+// A new ordered set containing `object`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetWithObject:
+func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithObject(object objectivec.IObject) NSOrderedSet {
+	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithObject:"), object)
 	return NSOrderedSetFromID(rv)
 }
 
@@ -1874,6 +1874,29 @@ func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithOrderedSet(set INSOrde
 	return NSOrderedSetFromID(rv)
 }
 
+// Creates and returns a new ordered set for a specified range of objects in
+// an ordered set.
+//
+// set: An ordered set.
+//
+// range: The range of objects in `set` to add to the ordered set.
+//
+// flag: If [true] the objects are copied to the ordered set; otherwise [false].
+// //
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Return Value
+// 
+// A new ordered set containing a uniqued collection of the objects contained
+// in the specified range of the ordered set.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetWithOrderedSet:range:copyItems:
+func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithOrderedSetRangeCopyItems(set INSOrderedSet, range_ NSRange, flag bool) NSOrderedSet {
+	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithOrderedSet:range:copyItems:"), set, range_, flag)
+	return NSOrderedSetFromID(rv)
+}
+
 // Creates and returns an ordered set with the contents of a set.
 //
 // set: A set.
@@ -1907,29 +1930,6 @@ func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithSet(set INSSet) NSOrde
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetWithSet:copyItems:
 func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithSetCopyItems(set INSSet, flag bool) NSOrderedSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithSet:copyItems:"), set, flag)
-	return NSOrderedSetFromID(rv)
-}
-
-// Creates and returns a new ordered set for a specified range of objects in
-// an ordered set.
-//
-// set: An ordered set.
-//
-// range: The range of objects in `set` to add to the ordered set.
-//
-// flag: If [true] the objects are copied to the ordered set; otherwise [false].
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Return Value
-// 
-// A new ordered set containing a uniqued collection of the objects contained
-// in the specified range of the ordered set.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetWithOrderedSet:range:copyItems:
-func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithOrderedSetRangeCopyItems(set INSOrderedSet, range_ NSRange, flag bool) NSOrderedSet {
-	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithOrderedSet:range:copyItems:"), set, range_, flag)
 	return NSOrderedSetFromID(rv)
 }
 

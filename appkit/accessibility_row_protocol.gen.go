@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow
 type NSAccessibilityRow interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 	NSAccessibilityGroup
 
 	// Returns the index for the row.

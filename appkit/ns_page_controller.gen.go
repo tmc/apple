@@ -342,10 +342,10 @@ type INSPageController interface {
 	// The view controller associated with the selected object..
 	SelectedViewController() INSViewController
 
-	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
-	Animator() INSPageController
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
+	Animator() INSPageController
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -413,7 +413,7 @@ func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSPageController {
+func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSPageController {
 	instance := getNSPageControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSPageControllerFromID(rv)
@@ -506,32 +506,6 @@ func (p NSPageController) CompleteTransition() {
 	objc.Send[objc.ID](p.ID, objc.Sel("completeTransition"))
 }
 
-// Returns a proxy object for the receiver that can be used to initiate
-// implied animation for property changes.
-//
-// # Return Value
-// 
-// Returns a proxy object for the receiver that can initiate implied
-// animations in response to property changes.
-//
-// # Discussion
-// 
-// The animator proxy object should be treated as if it was the receiver
-// itself, and may be passed to any code that accepts the receiver as a
-// parameter.
-// 
-// Sending key-value coding compliant “set” messages to the proxy will
-// trigger animation for automatically animated properties of its target
-// object, if the active [NSAnimationContext] in the current thread has a
-// duration value greater than zero, and an animation for the property key is
-// found by the [NSAnimatablePropertyContainer] search mechanism.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (p NSPageController) Animator() INSPageController {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("animator"))
-	return NSPageControllerFromID(rv)
-}
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -563,6 +537,32 @@ func (p NSPageController) Animator() INSPageController {
 func (p NSPageController) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
+}
+
+// Returns a proxy object for the receiver that can be used to initiate
+// implied animation for property changes.
+//
+// # Return Value
+// 
+// Returns a proxy object for the receiver that can initiate implied
+// animations in response to property changes.
+//
+// # Discussion
+// 
+// The animator proxy object should be treated as if it was the receiver
+// itself, and may be passed to any code that accepts the receiver as a
+// parameter.
+// 
+// Sending key-value coding compliant “set” messages to the proxy will
+// trigger animation for automatically animated properties of its target
+// object, if the active [NSAnimationContext] in the current thread has a
+// duration value greater than zero, and an animation for the property key is
+// found by the [NSAnimatablePropertyContainer] search mechanism.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
+func (p NSPageController) Animator() INSPageController {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("animator"))
+	return NSPageControllerFromID(rv)
 }
 func (p NSPageController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)

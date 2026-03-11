@@ -152,9 +152,9 @@ type INSMeasurement interface {
 	// Returns a new measurement by subtracting the specified measurement from the receiver.
 	MeasurementBySubtractingMeasurement(measurement INSMeasurement) INSMeasurement
 
-	InitWithCoder(coder INSCoder) NSMeasurement
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSMeasurement
 }
 
 
@@ -321,13 +321,6 @@ func (m NSMeasurement) MeasurementBySubtractingMeasurement(measurement INSMeasur
 	return NSMeasurementFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
-	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -335,6 +328,13 @@ func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (m NSMeasurement) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
+	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

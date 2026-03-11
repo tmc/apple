@@ -256,7 +256,7 @@ func NewTabViewControllerWithCoder(coder foundation.INSCoder) NSTabViewControlle
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewTabViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSTabViewController {
+func NewTabViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSTabViewController {
 	instance := getNSTabViewControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSTabViewControllerFromID(rv)
@@ -608,6 +608,29 @@ func (t NSTabViewController) ToolbarDidRemoveItem(notification foundation.NSNoti
 	objc.Send[objc.ID](t.ID, objc.Sel("toolbarDidRemoveItem:"), notification)
 }
 
+// Asks the delegate to provide the items that people can’t remove from the
+// toolbar or rearrange during the customization process.
+//
+// toolbar: The toolbar that contains the items.
+//
+// # Return Value
+// 
+// The set of item identifiers that people can’t remove from the toolbar or
+// move to other locations in the toolbar. Return an empty set to let someone
+// customize all toolbar items.
+//
+// # Discussion
+// 
+// Implement this method in your delegate and return any items you don’t
+// want people to remove or rearrange. If you don’t implement this method,
+// the toolbar lets people rearrange and remove all toolbar items.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarImmovableItemIdentifiers(_:)
+func (t NSTabViewController) ToolbarImmovableItemIdentifiers(toolbar INSToolbar) foundation.INSSet {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("toolbarImmovableItemIdentifiers:"), toolbar)
+	return foundation.NSSetFromID(rv)
+}
+
 // Asks the delegate for a Boolean value that indicates whether the toolbar
 // can place the item at the specified position.
 //
@@ -659,29 +682,6 @@ func (t NSTabViewController) ToolbarItemIdentifierCanBeInsertedAtIndex(toolbar I
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarWillAddItem(_:)
 func (t NSTabViewController) ToolbarWillAddItem(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("toolbarWillAddItem:"), notification)
-}
-
-// Asks the delegate to provide the items that people can’t remove from the
-// toolbar or rearrange during the customization process.
-//
-// toolbar: The toolbar that contains the items.
-//
-// # Return Value
-// 
-// The set of item identifiers that people can’t remove from the toolbar or
-// move to other locations in the toolbar. Return an empty set to let someone
-// customize all toolbar items.
-//
-// # Discussion
-// 
-// Implement this method in your delegate and return any items you don’t
-// want people to remove or rearrange. If you don’t implement this method,
-// the toolbar lets people rearrange and remove all toolbar items.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarImmovableItemIdentifiers(_:)
-func (t NSTabViewController) ToolbarImmovableItemIdentifiers(toolbar INSToolbar) foundation.INSSet {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("toolbarImmovableItemIdentifiers:"), toolbar)
-	return foundation.NSSetFromID(rv)
 }
 func (t NSTabViewController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)

@@ -158,7 +158,7 @@ func NewNSStoryboard() NSStoryboard {
 // A new storyboard object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboard/init(name:bundle:)
-func NewStoryboardWithNameBundle(name NSStoryboardName, storyboardBundleOrNil *foundation.NSBundle) NSStoryboard {
+func NewStoryboardWithNameBundle(name NSStoryboardName, storyboardBundleOrNil foundation.NSBundle) NSStoryboard {
 	rv := objc.Send[objc.ID](objc.ID(getNSStoryboardClass().class), objc.Sel("storyboardWithName:bundle:"), objc.String(string(name)), storyboardBundleOrNil)
 	return NSStoryboardFromID(rv)
 }

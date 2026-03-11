@@ -78,12 +78,12 @@ func CVBufferHasAttachment(buffer CVBufferRef, key corefoundation.CFStringRef) b
 }
 
 
-var _cVBufferPropagateAttachments func(sourceBuffer CVBufferRef, destinationBuffer CVBufferRef) 
+var _cVBufferPropagateAttachments func(sourceBuffer CVBufferRef, destinationBuffer CVBufferRef)
 
 // CVBufferPropagateAttachments copies all attachments that Core Video can propagate from one buffer to another.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVBufferPropagateAttachments(_:_:)
-func CVBufferPropagateAttachments(sourceBuffer CVBufferRef, destinationBuffer CVBufferRef)  {
+func CVBufferPropagateAttachments(sourceBuffer CVBufferRef, destinationBuffer CVBufferRef) {
 	if _cVBufferPropagateAttachments == nil {
 		panic("CoreVideo: symbol CVBufferPropagateAttachments not loaded")
 	}
@@ -91,12 +91,12 @@ func CVBufferPropagateAttachments(sourceBuffer CVBufferRef, destinationBuffer CV
 }
 
 
-var _cVBufferRelease func(buffer CVBufferRef) 
+var _cVBufferRelease func(buffer CVBufferRef)
 
 // CVBufferRelease releases a Core Video buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVBufferRelease
-func CVBufferRelease(buffer CVBufferRef)  {
+func CVBufferRelease(buffer CVBufferRef) {
 	if _cVBufferRelease == nil {
 		panic("CoreVideo: symbol CVBufferRelease not loaded")
 	}
@@ -104,12 +104,12 @@ func CVBufferRelease(buffer CVBufferRef)  {
 }
 
 
-var _cVBufferRemoveAllAttachments func(buffer CVBufferRef) 
+var _cVBufferRemoveAllAttachments func(buffer CVBufferRef)
 
 // CVBufferRemoveAllAttachments removes all attachments from a Core Video buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVBufferRemoveAllAttachments(_:)
-func CVBufferRemoveAllAttachments(buffer CVBufferRef)  {
+func CVBufferRemoveAllAttachments(buffer CVBufferRef) {
 	if _cVBufferRemoveAllAttachments == nil {
 		panic("CoreVideo: symbol CVBufferRemoveAllAttachments not loaded")
 	}
@@ -117,12 +117,12 @@ func CVBufferRemoveAllAttachments(buffer CVBufferRef)  {
 }
 
 
-var _cVBufferRemoveAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef) 
+var _cVBufferRemoveAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef)
 
 // CVBufferRemoveAttachment removes the attachment you specify from a Core Video buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVBufferRemoveAttachment(_:_:)
-func CVBufferRemoveAttachment(buffer CVBufferRef, key corefoundation.CFStringRef)  {
+func CVBufferRemoveAttachment(buffer CVBufferRef, key corefoundation.CFStringRef) {
 	if _cVBufferRemoveAttachment == nil {
 		panic("CoreVideo: symbol CVBufferRemoveAttachment not loaded")
 	}
@@ -143,12 +143,12 @@ func CVBufferRetain(buffer CVBufferRef) CVBufferRef {
 }
 
 
-var _cVBufferSetAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CVAttachmentMode) 
+var _cVBufferSetAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CVAttachmentMode)
 
 // CVBufferSetAttachment sets or adds an attachment to a Core Video buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVBufferSetAttachment(_:_:_:_:)
-func CVBufferSetAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CVAttachmentMode)  {
+func CVBufferSetAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CVAttachmentMode) {
 	if _cVBufferSetAttachment == nil {
 		panic("CoreVideo: symbol CVBufferSetAttachment not loaded")
 	}
@@ -156,12 +156,12 @@ func CVBufferSetAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, v
 }
 
 
-var _cVBufferSetAttachments func(buffer CVBufferRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CVAttachmentMode) 
+var _cVBufferSetAttachments func(buffer CVBufferRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CVAttachmentMode)
 
 // CVBufferSetAttachments sets a dictionary of attachments on a Core Video buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVBufferSetAttachments(_:_:_:)
-func CVBufferSetAttachments(buffer CVBufferRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CVAttachmentMode)  {
+func CVBufferSetAttachments(buffer CVBufferRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CVAttachmentMode) {
 	if _cVBufferSetAttachments == nil {
 		panic("CoreVideo: symbol CVBufferSetAttachments not loaded")
 	}
@@ -360,12 +360,12 @@ func CVDisplayLinkIsRunning(displayLink CVDisplayLinkRef) bool {
 }
 
 
-var _cVDisplayLinkRelease func(displayLink CVDisplayLinkRef) 
+var _cVDisplayLinkRelease func(displayLink CVDisplayLinkRef)
 
 // CVDisplayLinkRelease releases a display link.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkRelease
-func CVDisplayLinkRelease(displayLink CVDisplayLinkRef)  {
+func CVDisplayLinkRelease(displayLink CVDisplayLinkRef) {
 	if _cVDisplayLinkRelease == nil {
 		panic("CoreVideo: symbol CVDisplayLinkRelease not loaded")
 	}
@@ -647,12 +647,12 @@ func CVMetalBufferCacheCreateBufferFromImage(allocator corefoundation.CFAllocato
 }
 
 
-var _cVMetalBufferCacheFlush func(bufferCache CVMetalBufferCacheRef, options CVOptionFlags) 
+var _cVMetalBufferCacheFlush func(bufferCache CVMetalBufferCacheRef, options CVOptionFlags)
 
 // CVMetalBufferCacheFlush.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalBufferCacheFlush(_:_:)
-func CVMetalBufferCacheFlush(bufferCache CVMetalBufferCacheRef, options CVOptionFlags)  {
+func CVMetalBufferCacheFlush(bufferCache CVMetalBufferCacheRef, options CVOptionFlags) {
 	if _cVMetalBufferCacheFlush == nil {
 		panic("CoreVideo: symbol CVMetalBufferCacheFlush not loaded")
 	}
@@ -725,12 +725,12 @@ func CVMetalTextureCacheCreateTextureFromImage(allocator corefoundation.CFAlloca
 }
 
 
-var _cVMetalTextureCacheFlush func(textureCache CVMetalTextureCacheRef, options CVOptionFlags) 
+var _cVMetalTextureCacheFlush func(textureCache CVMetalTextureCacheRef, options CVOptionFlags)
 
 // CVMetalTextureCacheFlush manually flushes the contents of the provided texture cache.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalTextureCacheFlush(_:_:)
-func CVMetalTextureCacheFlush(textureCache CVMetalTextureCacheRef, options CVOptionFlags)  {
+func CVMetalTextureCacheFlush(textureCache CVMetalTextureCacheRef, options CVOptionFlags) {
 	if _cVMetalTextureCacheFlush == nil {
 		panic("CoreVideo: symbol CVMetalTextureCacheFlush not loaded")
 	}
@@ -751,12 +751,12 @@ func CVMetalTextureCacheGetTypeID() uint {
 }
 
 
-var _cVMetalTextureGetCleanTexCoords func(image CVMetalTextureRef, lowerLeft unsafe.Pointer, lowerRight unsafe.Pointer, upperRight unsafe.Pointer, upperLeft unsafe.Pointer) 
+var _cVMetalTextureGetCleanTexCoords func(image CVMetalTextureRef, lowerLeft unsafe.Pointer, lowerRight unsafe.Pointer, upperRight unsafe.Pointer, upperLeft unsafe.Pointer)
 
 // CVMetalTextureGetCleanTexCoords returns convenient normalized texture coordinates for the part of the image that should be displayed.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalTextureGetCleanTexCoords(_:_:_:_:_:)
-func CVMetalTextureGetCleanTexCoords(image CVMetalTextureRef, lowerLeft unsafe.Pointer, lowerRight unsafe.Pointer, upperRight unsafe.Pointer, upperLeft unsafe.Pointer)  {
+func CVMetalTextureGetCleanTexCoords(image CVMetalTextureRef, lowerLeft unsafe.Pointer, lowerRight unsafe.Pointer, upperRight unsafe.Pointer, upperLeft unsafe.Pointer) {
 	if _cVMetalTextureGetCleanTexCoords == nil {
 		panic("CoreVideo: symbol CVMetalTextureGetCleanTexCoords not loaded")
 	}
@@ -803,12 +803,12 @@ func CVMetalTextureIsFlipped(image CVMetalTextureRef) bool {
 }
 
 
-var _cVOpenGLBufferPoolRelease func(openGLBufferPool CVOpenGLBufferPoolRef) 
+var _cVOpenGLBufferPoolRelease func(openGLBufferPool CVOpenGLBufferPoolRef)
 
 // CVOpenGLBufferPoolRelease releases an OpenGL buffer pool.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLBufferPoolRelease
-func CVOpenGLBufferPoolRelease(openGLBufferPool CVOpenGLBufferPoolRef)  {
+func CVOpenGLBufferPoolRelease(openGLBufferPool CVOpenGLBufferPoolRef) {
 	if _cVOpenGLBufferPoolRelease == nil {
 		panic("CoreVideo: symbol CVOpenGLBufferPoolRelease not loaded")
 	}
@@ -829,12 +829,12 @@ func CVOpenGLBufferPoolRetain(openGLBufferPool CVOpenGLBufferPoolRef) CVOpenGLBu
 }
 
 
-var _cVOpenGLBufferRelease func(buffer CVOpenGLBufferRef) 
+var _cVOpenGLBufferRelease func(buffer CVOpenGLBufferRef)
 
 // CVOpenGLBufferRelease releases a Core Video OpenGL buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLBufferRelease
-func CVOpenGLBufferRelease(buffer CVOpenGLBufferRef)  {
+func CVOpenGLBufferRelease(buffer CVOpenGLBufferRef) {
 	if _cVOpenGLBufferRelease == nil {
 		panic("CoreVideo: symbol CVOpenGLBufferRelease not loaded")
 	}
@@ -855,12 +855,12 @@ func CVOpenGLBufferRetain(buffer CVOpenGLBufferRef) CVOpenGLBufferRef {
 }
 
 
-var _cVOpenGLTextureCacheRelease func(textureCache CVOpenGLTextureCacheRef) 
+var _cVOpenGLTextureCacheRelease func(textureCache CVOpenGLTextureCacheRef)
 
 // CVOpenGLTextureCacheRelease releases a texture cache object.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLTextureCacheRelease
-func CVOpenGLTextureCacheRelease(textureCache CVOpenGLTextureCacheRef)  {
+func CVOpenGLTextureCacheRelease(textureCache CVOpenGLTextureCacheRef) {
 	if _cVOpenGLTextureCacheRelease == nil {
 		panic("CoreVideo: symbol CVOpenGLTextureCacheRelease not loaded")
 	}
@@ -881,12 +881,12 @@ func CVOpenGLTextureCacheRetain(textureCache CVOpenGLTextureCacheRef) CVOpenGLTe
 }
 
 
-var _cVOpenGLTextureRelease func(texture CVOpenGLTextureRef) 
+var _cVOpenGLTextureRelease func(texture CVOpenGLTextureRef)
 
 // CVOpenGLTextureRelease releases a Core Video OpenGL texture.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLTextureRelease
-func CVOpenGLTextureRelease(texture CVOpenGLTextureRef)  {
+func CVOpenGLTextureRelease(texture CVOpenGLTextureRef) {
 	if _cVOpenGLTextureRelease == nil {
 		panic("CoreVideo: symbol CVOpenGLTextureRelease not loaded")
 	}
@@ -1063,12 +1063,12 @@ func CVPixelBufferGetDataSize(pixelBuffer CVPixelBufferRef) uintptr {
 }
 
 
-var _cVPixelBufferGetExtendedPixels func(pixelBuffer CVPixelBufferRef, extraColumnsOnLeft *uintptr, extraColumnsOnRight *uintptr, extraRowsOnTop *uintptr, extraRowsOnBottom *uintptr) 
+var _cVPixelBufferGetExtendedPixels func(pixelBuffer CVPixelBufferRef, extraColumnsOnLeft *uintptr, extraColumnsOnRight *uintptr, extraRowsOnTop *uintptr, extraRowsOnBottom *uintptr)
 
 // CVPixelBufferGetExtendedPixels returns the amount of extended pixel padding in the pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferGetExtendedPixels(_:_:_:_:_:)
-func CVPixelBufferGetExtendedPixels(pixelBuffer CVPixelBufferRef, extraColumnsOnLeft *uintptr, extraColumnsOnRight *uintptr, extraRowsOnTop *uintptr, extraRowsOnBottom *uintptr)  {
+func CVPixelBufferGetExtendedPixels(pixelBuffer CVPixelBufferRef, extraColumnsOnLeft *uintptr, extraColumnsOnRight *uintptr, extraRowsOnTop *uintptr, extraRowsOnBottom *uintptr) {
 	if _cVPixelBufferGetExtendedPixels == nil {
 		panic("CoreVideo: symbol CVPixelBufferGetExtendedPixels not loaded")
 	}
@@ -1258,12 +1258,12 @@ func CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(allocator corefoundatio
 }
 
 
-var _cVPixelBufferPoolFlush func(pool CVPixelBufferPoolRef, options CVPixelBufferPoolFlushFlags) 
+var _cVPixelBufferPoolFlush func(pool CVPixelBufferPoolRef, options CVPixelBufferPoolFlushFlags)
 
 // CVPixelBufferPoolFlush frees pixel buffers from the pool based on the options that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferPoolFlush(_:_:)
-func CVPixelBufferPoolFlush(pool CVPixelBufferPoolRef, options CVPixelBufferPoolFlushFlags)  {
+func CVPixelBufferPoolFlush(pool CVPixelBufferPoolRef, options CVPixelBufferPoolFlushFlags) {
 	if _cVPixelBufferPoolFlush == nil {
 		panic("CoreVideo: symbol CVPixelBufferPoolFlush not loaded")
 	}
@@ -1310,12 +1310,12 @@ func CVPixelBufferPoolGetTypeID() uint {
 }
 
 
-var _cVPixelBufferPoolRelease func(pixelBufferPool CVPixelBufferPoolRef) 
+var _cVPixelBufferPoolRelease func(pixelBufferPool CVPixelBufferPoolRef)
 
 // CVPixelBufferPoolRelease releases a pixel buffer pool.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferPoolRelease
-func CVPixelBufferPoolRelease(pixelBufferPool CVPixelBufferPoolRef)  {
+func CVPixelBufferPoolRelease(pixelBufferPool CVPixelBufferPoolRef) {
 	if _cVPixelBufferPoolRelease == nil {
 		panic("CoreVideo: symbol CVPixelBufferPoolRelease not loaded")
 	}
@@ -1336,12 +1336,12 @@ func CVPixelBufferPoolRetain(pixelBufferPool CVPixelBufferPoolRef) CVPixelBuffer
 }
 
 
-var _cVPixelBufferRelease func(texture CVPixelBufferRef) 
+var _cVPixelBufferRelease func(texture CVPixelBufferRef)
 
 // CVPixelBufferRelease releases a pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferRelease
-func CVPixelBufferRelease(texture CVPixelBufferRef)  {
+func CVPixelBufferRelease(texture CVPixelBufferRef) {
 	if _cVPixelBufferRelease == nil {
 		panic("CoreVideo: symbol CVPixelBufferRelease not loaded")
 	}
@@ -1401,12 +1401,12 @@ func CVPixelFormatDescriptionCreateWithPixelFormatType(allocator corefoundation.
 }
 
 
-var _cVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType func(description corefoundation.CFDictionaryRef, pixelFormat uint32) 
+var _cVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType func(description corefoundation.CFDictionaryRef, pixelFormat uint32)
 
 // CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType registers a pixel format description with Core Video.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(_:_:)
-func CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(description corefoundation.CFDictionaryRef, pixelFormat uint32)  {
+func CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(description corefoundation.CFDictionaryRef, pixelFormat uint32) {
 	if _cVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType == nil {
 		panic("CoreVideo: symbol CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType not loaded")
 	}

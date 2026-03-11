@@ -193,9 +193,9 @@ type INSMapTable interface {
 	// The pointer functions the map table uses to manage values.
 	ValuePointerFunctions() INSPointerFunctions
 
-	InitWithCoder(coder INSCoder) NSMapTable
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSMapTable
 }
 
 
@@ -439,22 +439,6 @@ func (m NSMapTable) DictionaryRepresentation() INSDictionary {
 	return NSDictionaryFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (m NSMapTable) InitWithCoder(coder INSCoder) NSMapTable {
-	rv := objc.Send[NSMapTable](m.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (m NSMapTable) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -479,6 +463,22 @@ func (m NSMapTable) EncodeWithCoder(coder INSCoder) {
 // See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
 func (m NSMapTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
+	return rv
+}
+
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (m NSMapTable) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (m NSMapTable) InitWithCoder(coder INSCoder) NSMapTable {
+	rv := objc.Send[NSMapTable](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 

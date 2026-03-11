@@ -957,21 +957,6 @@ func (n NSNumber) InitWithUnsignedLong(value uint64) NSNumber {
 
 
 // Creates and returns an [NSNumber] object containing a given value, treating
-// it as a signed `char`.
-//
-// value: The value for the new number.
-//
-// # Return Value
-// 
-// An [NSNumber] object containing `value`, treating it as a signed `char`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithChar:
-func (_NSNumberClass NSNumberClass) NumberWithChar(value int8) NSNumber {
-	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithChar:"), value)
-	return NSNumberFromID(rv)
-}
-
-// Creates and returns an [NSNumber] object containing a given value, treating
 // it as a [BOOL].
 //
 // value: The value for the new number.
@@ -983,6 +968,21 @@ func (_NSNumberClass NSNumberClass) NumberWithChar(value int8) NSNumber {
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithBool:
 func (_NSNumberClass NSNumberClass) NumberWithBool(value bool) NSNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithBool:"), value)
+	return NSNumberFromID(rv)
+}
+
+// Creates and returns an [NSNumber] object containing a given value, treating
+// it as a signed `char`.
+//
+// value: The value for the new number.
+//
+// # Return Value
+// 
+// An [NSNumber] object containing `value`, treating it as a signed `char`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithChar:
+func (_NSNumberClass NSNumberClass) NumberWithChar(value int8) NSNumber {
+	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithChar:"), value)
 	return NSNumberFromID(rv)
 }
 
@@ -1077,52 +1077,6 @@ func (_NSNumberClass NSNumberClass) NumberWithLongLong(value int64) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-// Creates and returns an [NSNumber] object containing a given value, treating
-// it as an `unsigned long`.
-//
-// value: The value for the new number.
-//
-// # Return Value
-// 
-// An [NSNumber] object containing `value`, treating it as an `unsigned long`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedLong:
-func (_NSNumberClass NSNumberClass) NumberWithUnsignedLong(value uint64) NSNumber {
-	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedLong:"), value)
-	return NSNumberFromID(rv)
-}
-
-// Creates and returns an [NSNumber] object containing a given value, treating
-// it as an [NSUInteger].
-//
-// value: The value for the new number.
-//
-// # Return Value
-// 
-// An [NSNumber] object containing `value`, treating it as an [NSUInteger].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedInteger:
-func (_NSNumberClass NSNumberClass) NumberWithUnsignedInteger(value uint) NSNumber {
-	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedInteger:"), value)
-	return NSNumberFromID(rv)
-}
-
-// Creates and returns an [NSNumber] object containing a given value, treating
-// it as an `unsigned long long`.
-//
-// value: The value for the new number.
-//
-// # Return Value
-// 
-// An [NSNumber] object containing `value`, treating it as an `unsigned long
-// long`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedLongLong:
-func (_NSNumberClass NSNumberClass) NumberWithUnsignedLongLong(value uint64) NSNumber {
-	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedLongLong:"), value)
-	return NSNumberFromID(rv)
-}
-
 // Creates and returns an [NSNumber] object containing `value`, treating it as
 // a signed `short`.
 //
@@ -1154,6 +1108,67 @@ func (_NSNumberClass NSNumberClass) NumberWithUnsignedChar(value byte) NSNumber 
 }
 
 // Creates and returns an [NSNumber] object containing a given value, treating
+// it as an `unsigned int`.
+//
+// value: The value for the new number.
+//
+// # Return Value
+// 
+// An [NSNumber] object containing `value`, treating it as an `unsigned int`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedInt:
+func (_NSNumberClass NSNumberClass) NumberWithUnsignedInt(value uint32) NSNumber {
+	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedInt:"), value)
+	return NSNumberFromID(rv)
+}
+
+// Creates and returns an [NSNumber] object containing a given value, treating
+// it as an [NSUInteger].
+//
+// value: The value for the new number.
+//
+// # Return Value
+// 
+// An [NSNumber] object containing `value`, treating it as an [NSUInteger].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedInteger:
+func (_NSNumberClass NSNumberClass) NumberWithUnsignedInteger(value uint) NSNumber {
+	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedInteger:"), value)
+	return NSNumberFromID(rv)
+}
+
+// Creates and returns an [NSNumber] object containing a given value, treating
+// it as an `unsigned long`.
+//
+// value: The value for the new number.
+//
+// # Return Value
+// 
+// An [NSNumber] object containing `value`, treating it as an `unsigned long`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedLong:
+func (_NSNumberClass NSNumberClass) NumberWithUnsignedLong(value uint64) NSNumber {
+	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedLong:"), value)
+	return NSNumberFromID(rv)
+}
+
+// Creates and returns an [NSNumber] object containing a given value, treating
+// it as an `unsigned long long`.
+//
+// value: The value for the new number.
+//
+// # Return Value
+// 
+// An [NSNumber] object containing `value`, treating it as an `unsigned long
+// long`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedLongLong:
+func (_NSNumberClass NSNumberClass) NumberWithUnsignedLongLong(value uint64) NSNumber {
+	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedLongLong:"), value)
+	return NSNumberFromID(rv)
+}
+
+// Creates and returns an [NSNumber] object containing a given value, treating
 // it as an `unsigned short`.
 //
 // value: The value for the new number.
@@ -1166,21 +1181,6 @@ func (_NSNumberClass NSNumberClass) NumberWithUnsignedChar(value byte) NSNumber 
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedShort:
 func (_NSNumberClass NSNumberClass) NumberWithUnsignedShort(value uint16) NSNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedShort:"), value)
-	return NSNumberFromID(rv)
-}
-
-// Creates and returns an [NSNumber] object containing a given value, treating
-// it as an `unsigned int`.
-//
-// value: The value for the new number.
-//
-// # Return Value
-// 
-// An [NSNumber] object containing `value`, treating it as an `unsigned int`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithUnsignedInt:
-func (_NSNumberClass NSNumberClass) NumberWithUnsignedInt(value uint32) NSNumber {
-	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithUnsignedInt:"), value)
 	return NSNumberFromID(rv)
 }
 

@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityContainsTransientUI
 type NSAccessibilityContainsTransientUI interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 
 	// Displays the accessibility element’s alternative UI.
 	//

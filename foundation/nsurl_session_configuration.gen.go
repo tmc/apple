@@ -411,12 +411,12 @@ type IURLSessionConfiguration interface {
 	EnablesEarlyData() bool
 	SetEnablesEarlyData(value bool)
 
-	// An array of proxy configuration objects containing information about the proxies to use within this session.
-	ProxyConfigurations() []objectivec.Object
-	SetProxyConfigurations(value []objectivec.Object)
 	// A copy of the configuration object for this session.
 	Configuration() INSURLSessionConfiguration
 	SetConfiguration(value INSURLSessionConfiguration)
+	// An array of proxy configuration objects containing information about the proxies to use within this session.
+	ProxyConfigurations() []objectivec.Object
+	SetProxyConfigurations(value []objectivec.Object)
 }
 
 
@@ -1292,6 +1292,19 @@ func (u URLSessionConfiguration) SetAllowsUltraConstrainedNetworkAccess(value bo
 
 
 
+// A copy of the configuration object for this session.
+//
+// See: https://developer.apple.com/documentation/foundation/urlsession/configuration
+func (u URLSessionConfiguration) Configuration() INSURLSessionConfiguration {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("configuration"))
+	return NSURLSessionConfigurationFromID(objc.ID(rv))
+}
+func (u URLSessionConfiguration) SetConfiguration(value INSURLSessionConfiguration) {
+	objc.Send[struct{}](u.ID, objc.Sel("setConfiguration:"), value)
+}
+
+
+
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/enablesEarlyData
 func (u URLSessionConfiguration) EnablesEarlyData() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("enablesEarlyData"))
@@ -1323,19 +1336,6 @@ func (u URLSessionConfiguration) ProxyConfigurations() []objectivec.Object {
 }
 func (u URLSessionConfiguration) SetProxyConfigurations(value []objectivec.Object) {
 	objc.Send[struct{}](u.ID, objc.Sel("setProxyConfigurations:"), objectivec.IObjectSliceToNSArray(value))
-}
-
-
-
-// A copy of the configuration object for this session.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsession/configuration
-func (u URLSessionConfiguration) Configuration() INSURLSessionConfiguration {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("configuration"))
-	return NSURLSessionConfigurationFromID(objc.ID(rv))
-}
-func (u URLSessionConfiguration) SetConfiguration(value INSURLSessionConfiguration) {
-	objc.Send[struct{}](u.ID, objc.Sel("setConfiguration:"), value)
 }
 
 

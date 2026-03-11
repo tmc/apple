@@ -495,6 +495,21 @@ func (u NSURLComponents) URLRelativeToURL(baseURL INSURL) INSURL {
 
 
 
+// Returns a URL components object by parsing a URL in string form.
+//
+// URLString: The URL string to parse.
+//
+// # Return Value
+// 
+// Returns the new URL components object, or `nil` if the URL string could not
+// be parsed.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/componentsWithString:
+func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithString(URLString string) NSURLComponents {
+	rv := objc.Send[objc.ID](objc.ID(_NSURLComponentsClass.class), objc.Sel("componentsWithString:"), objc.String(URLString))
+	return NSURLComponentsFromID(rv)
+}
+
 // Returns a URL components instance from the provided string, optionally
 // IDNA- and percent-encoding any invalid characters.
 //
@@ -539,21 +554,6 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithStringEncodingIn
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/componentsWithURL:resolvingAgainstBaseURL:
 func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NSURLComponents {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLComponentsClass.class), objc.Sel("componentsWithURL:resolvingAgainstBaseURL:"), url, resolve)
-	return NSURLComponentsFromID(rv)
-}
-
-// Returns a URL components object by parsing a URL in string form.
-//
-// URLString: The URL string to parse.
-//
-// # Return Value
-// 
-// Returns the new URL components object, or `nil` if the URL string could not
-// be parsed.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/componentsWithString:
-func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithString(URLString string) NSURLComponents {
-	rv := objc.Send[objc.ID](objc.ID(_NSURLComponentsClass.class), objc.Sel("componentsWithString:"), objc.String(URLString))
 	return NSURLComponentsFromID(rv)
 }
 

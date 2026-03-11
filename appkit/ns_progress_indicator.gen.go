@@ -184,8 +184,8 @@ type INSProgressIndicator interface {
 	// Topic: Observing the progress bar
 
 	// The progress object to use for updating the progress view.
-	ObservedProgress() *foundation.NSProgress
-	SetObservedProgress(value *foundation.NSProgress)
+	ObservedProgress() foundation.NSProgress
+	SetObservedProgress(value foundation.NSProgress)
 
 	// Topic: Setting the appearance
 
@@ -469,15 +469,11 @@ func (p NSProgressIndicator) SetMaxValue(value float64) {
 // [Progress]: https://developer.apple.com/documentation/Foundation/Progress
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/observedProgress
-func (p NSProgressIndicator) ObservedProgress() *foundation.NSProgress {
+func (p NSProgressIndicator) ObservedProgress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("observedProgress"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSProgressFromID(objc.ID(rv))
-	return &val
+	return foundation.NSProgressFromID(objc.ID(rv))
 }
-func (p NSProgressIndicator) SetObservedProgress(value *foundation.NSProgress) {
+func (p NSProgressIndicator) SetObservedProgress(value foundation.NSProgress) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObservedProgress:"), value)
 }
 

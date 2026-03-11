@@ -536,6 +536,9 @@ func (v MTKView) Draw() {
 func (v MTKView) ReleaseDrawables() {
 	objc.Send[objc.ID](v.ID, objc.Sel("releaseDrawables"))
 }
+func (v MTKView) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
+}
 
 
 

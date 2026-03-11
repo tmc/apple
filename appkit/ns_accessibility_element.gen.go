@@ -114,7 +114,7 @@ func NSAccessibilityElementFromID(id objc.ID) NSAccessibilityElement {
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElement-swift.class
 type INSAccessibilityElement interface {
 	objectivec.IObject
-	
+	NSAccessibilityProtocol
 
 	// Topic: Supporting the Accessibility Hierarchy
 

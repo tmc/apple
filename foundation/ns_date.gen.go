@@ -669,22 +669,6 @@ func (_NSDateClass NSDateClass) Date() NSDate {
 	return NSDateFromID(rv)
 }
 
-// Creates and returns a date object set to a given number of seconds from the
-// current date and time.
-//
-// secs: The number of seconds from the current date and time for the new date. Use
-// a negative value to specify a date before the current date.
-//
-// # Return Value
-// 
-// An [NSDate] object set to `secs` seconds from the current date and time.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDate/dateWithTimeIntervalSinceNow:
-func (_NSDateClass NSDateClass) DateWithTimeIntervalSinceNow(secs float64) NSDate {
-	rv := objc.Send[objc.ID](objc.ID(_NSDateClass.class), objc.Sel("dateWithTimeIntervalSinceNow:"), secs)
-	return NSDateFromID(rv)
-}
-
 // Creates and returns a date object set to the given number of seconds from
 // 00:00:00 UTC on 1 January 1970.
 //
@@ -711,6 +695,22 @@ func (_NSDateClass NSDateClass) DateWithTimeIntervalSince1970(secs float64) NSDa
 // See: https://developer.apple.com/documentation/Foundation/NSDate/dateWithTimeInterval:sinceDate:
 func (_NSDateClass NSDateClass) DateWithTimeIntervalSinceDate(secsToBeAdded float64, date INSDate) NSDate {
 	rv := objc.Send[objc.ID](objc.ID(_NSDateClass.class), objc.Sel("dateWithTimeInterval:sinceDate:"), secsToBeAdded, date)
+	return NSDateFromID(rv)
+}
+
+// Creates and returns a date object set to a given number of seconds from the
+// current date and time.
+//
+// secs: The number of seconds from the current date and time for the new date. Use
+// a negative value to specify a date before the current date.
+//
+// # Return Value
+// 
+// An [NSDate] object set to `secs` seconds from the current date and time.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSDate/dateWithTimeIntervalSinceNow:
+func (_NSDateClass NSDateClass) DateWithTimeIntervalSinceNow(secs float64) NSDate {
+	rv := objc.Send[objc.ID](objc.ID(_NSDateClass.class), objc.Sel("dateWithTimeIntervalSinceNow:"), secs)
 	return NSDateFromID(rv)
 }
 

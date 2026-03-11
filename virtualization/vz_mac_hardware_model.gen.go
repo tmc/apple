@@ -133,12 +133,12 @@ type IVZMacHardwareModel interface {
 	// A Boolean value that indicates whether the host supports this hardware model.
 	Supported() bool
 
-	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
-	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
-	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 	// The Mac hardware model.
 	HardwareModel() IVZMacHardwareModel
 	SetHardwareModel(value IVZMacHardwareModel)
+	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
+	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
+	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
 
@@ -243,6 +243,19 @@ func (m VZMacHardwareModel) Supported() bool {
 
 
 
+// The Mac hardware model.
+//
+// See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
+func (m VZMacHardwareModel) HardwareModel() IVZMacHardwareModel {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
+	return VZMacHardwareModelFromID(objc.ID(rv))
+}
+func (m VZMacHardwareModel) SetHardwareModel(value IVZMacHardwareModel) {
+	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
+}
+
+
+
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //
@@ -253,19 +266,6 @@ func (m VZMacHardwareModel) MostFeaturefulSupportedConfiguration() IVZMacOSConfi
 }
 func (m VZMacHardwareModel) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
-}
-
-
-
-// The Mac hardware model.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
-func (m VZMacHardwareModel) HardwareModel() IVZMacHardwareModel {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
-	return VZMacHardwareModelFromID(objc.ID(rv))
-}
-func (m VZMacHardwareModel) SetHardwareModel(value IVZMacHardwareModel) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
 
 

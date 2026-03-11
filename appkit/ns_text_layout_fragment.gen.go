@@ -205,8 +205,8 @@ type INSTextLayoutFragment interface {
 	// Topic: Accessing the layout processing queue
 
 	// The queue on which the framework dispatches layout operations.
-	LayoutQueue() *foundation.NSOperationQueue
-	SetLayoutQueue(value *foundation.NSOperationQueue)
+	LayoutQueue() foundation.NSOperationQueue
+	SetLayoutQueue(value foundation.NSOperationQueue)
 
 	// Topic: Defining margins and padding
 
@@ -550,15 +550,11 @@ func (t NSTextLayoutFragment) TextAttachmentViewProviders() []NSTextAttachmentVi
 // If non-`nil`, the queue the framework uses for layout operations.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/layoutQueue
-func (t NSTextLayoutFragment) LayoutQueue() *foundation.NSOperationQueue {
+func (t NSTextLayoutFragment) LayoutQueue() foundation.NSOperationQueue {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("layoutQueue"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSOperationQueueFromID(objc.ID(rv))
-	return &val
+	return foundation.NSOperationQueueFromID(objc.ID(rv))
 }
-func (t NSTextLayoutFragment) SetLayoutQueue(value *foundation.NSOperationQueue) {
+func (t NSTextLayoutFragment) SetLayoutQueue(value foundation.NSOperationQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutQueue:"), value)
 }
 

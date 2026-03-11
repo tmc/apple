@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutItem
 type NSAccessibilityLayoutItem interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 	NSAccessibilityGroup
 }
 

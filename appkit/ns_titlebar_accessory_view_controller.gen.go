@@ -158,10 +158,10 @@ type INSTitlebarAccessoryViewController interface {
 	// The toolbar’s full screen accessory view.
 	FullScreenAccessoryView() INSView
 	SetFullScreenAccessoryView(value INSView)
-	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
-	Animator() INSTitlebarAccessoryViewController
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
+	Animator() INSTitlebarAccessoryViewController
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -229,7 +229,7 @@ func NewTitlebarAccessoryViewControllerWithCoder(coder foundation.INSCoder) NSTi
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSTitlebarAccessoryViewController {
+func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSTitlebarAccessoryViewController {
 	instance := getNSTitlebarAccessoryViewControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSTitlebarAccessoryViewControllerFromID(rv)
@@ -241,63 +241,18 @@ func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName,
 
 
 
-// Returns a proxy object for the receiver that can be used to initiate
-// implied animation for property changes.
+// Sent to the delegate when the specified animation completes its run.
 //
-// # Return Value
-// 
-// Returns a proxy object for the receiver that can initiate implied
-// animations in response to property changes.
+// animation: The [NSAnimation] instance that completed its run.
 //
 // # Discussion
 // 
-// The animator proxy object should be treated as if it was the receiver
-// itself, and may be passed to any code that accepts the receiver as a
-// parameter.
-// 
-// Sending key-value coding compliant “set” messages to the proxy will
-// trigger animation for automatically animated properties of its target
-// object, if the active [NSAnimationContext] in the current thread has a
-// duration value greater than zero, and an animation for the property key is
-// found by the [NSAnimatablePropertyContainer] search mechanism.
+// When an [NSAnimation] object reaches the end of its planned duration, it
+// has a progress value of 1.0.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (t NSTitlebarAccessoryViewController) Animator() INSTitlebarAccessoryViewController {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("animator"))
-	return NSTitlebarAccessoryViewControllerFromID(rv)
-}
-
-// Returns the animation that should be performed for the specified key.
-//
-// key: The action name or property specified as a string.
-//
-// # Return Value
-// 
-// The animation to perform. A subclass of [CAAnimation].
-//
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
-// # Discussion
-// 
-// When the action specified by `key` is triggered for an object, this method
-// is consulted to find the animation, if any, that should be performed in
-// response.
-// 
-// Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
-// method is a funnel point that defines the order in which the search for an
-// animation proceeds.It first checks the receiver’s Getting the Animator
-// Proxy dictionary for a value matching `key`, then falls back to [Animator]
-// for the receiver’s class.
-// 
-// Subclasses should not typically need to override this method.
-//
-// [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
-// [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
-func (t NSTitlebarAccessoryViewController) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
-	return objectivec.Object{ID: rv}
+// See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidEnd(_:)
+func (t NSTitlebarAccessoryViewController) AnimationDidEnd(animation INSAnimation) {
+	objc.Send[objc.ID](t.ID, objc.Sel("animationDidEnd:"), animation)
 }
 
 // Sent to the delegate when an animation reaches a specific progress mark.
@@ -337,18 +292,37 @@ func (t NSTitlebarAccessoryViewController) AnimationDidStop(animation INSAnimati
 	objc.Send[objc.ID](t.ID, objc.Sel("animationDidStop:"), animation)
 }
 
-// Sent to the delegate when the specified animation completes its run.
+// Returns the animation that should be performed for the specified key.
 //
-// animation: The [NSAnimation] instance that completed its run.
+// key: The action name or property specified as a string.
+//
+// # Return Value
+// 
+// The animation to perform. A subclass of [CAAnimation].
+//
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
 //
 // # Discussion
 // 
-// When an [NSAnimation] object reaches the end of its planned duration, it
-// has a progress value of 1.0.
+// When the action specified by `key` is triggered for an object, this method
+// is consulted to find the animation, if any, that should be performed in
+// response.
+// 
+// Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
+// method is a funnel point that defines the order in which the search for an
+// animation proceeds.It first checks the receiver’s Getting the Animator
+// Proxy dictionary for a value matching `key`, then falls back to [Animator]
+// for the receiver’s class.
+// 
+// Subclasses should not typically need to override this method.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidEnd(_:)
-func (t NSTitlebarAccessoryViewController) AnimationDidEnd(animation INSAnimation) {
-	objc.Send[objc.ID](t.ID, objc.Sel("animationDidEnd:"), animation)
+// [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
+// [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
+func (t NSTitlebarAccessoryViewController) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
+	return objectivec.Object{ID: rv}
 }
 
 // Sent to the delegate just after an animation is started.
@@ -404,6 +378,32 @@ func (t NSTitlebarAccessoryViewController) AnimationShouldStart(animation INSAni
 func (t NSTitlebarAccessoryViewController) AnimationValueForProgress(animation INSAnimation, progress NSAnimationProgress) float32 {
 	rv := objc.Send[float32](t.ID, objc.Sel("animation:valueForProgress:"), animation, progress)
 	return rv
+}
+
+// Returns a proxy object for the receiver that can be used to initiate
+// implied animation for property changes.
+//
+// # Return Value
+// 
+// Returns a proxy object for the receiver that can initiate implied
+// animations in response to property changes.
+//
+// # Discussion
+// 
+// The animator proxy object should be treated as if it was the receiver
+// itself, and may be passed to any code that accepts the receiver as a
+// parameter.
+// 
+// Sending key-value coding compliant “set” messages to the proxy will
+// trigger animation for automatically animated properties of its target
+// object, if the active [NSAnimationContext] in the current thread has a
+// duration value greater than zero, and an animation for the property key is
+// found by the [NSAnimatablePropertyContainer] search mechanism.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
+func (t NSTitlebarAccessoryViewController) Animator() INSTitlebarAccessoryViewController {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("animator"))
+	return NSTitlebarAccessoryViewControllerFromID(rv)
 }
 func (t NSTitlebarAccessoryViewController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -563,19 +563,6 @@ func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 
 
 
-// The toolbar’s full screen accessory view.
-//
-// See: https://developer.apple.com/documentation/appkit/nstoolbar/fullscreenaccessoryview
-func (t NSTitlebarAccessoryViewController) FullScreenAccessoryView() INSView {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("fullScreenAccessoryView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (t NSTitlebarAccessoryViewController) SetFullScreenAccessoryView(value INSView) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenAccessoryView:"), value)
-}
-
-
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -586,6 +573,19 @@ func (t NSTitlebarAccessoryViewController) Animations() foundation.INSDictionary
 }
 func (t NSTitlebarAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAnimations:"), value)
+}
+
+
+
+// The toolbar’s full screen accessory view.
+//
+// See: https://developer.apple.com/documentation/appkit/nstoolbar/fullscreenaccessoryview
+func (t NSTitlebarAccessoryViewController) FullScreenAccessoryView() INSView {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("fullScreenAccessoryView"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (t NSTitlebarAccessoryViewController) SetFullScreenAccessoryView(value INSView) {
+	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenAccessoryView:"), value)
 }
 
 

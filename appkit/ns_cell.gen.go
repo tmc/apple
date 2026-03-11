@@ -523,8 +523,8 @@ func NSCellFromID(id objc.ID) NSCell {
 // See: https://developer.apple.com/documentation/AppKit/NSCell
 type INSCell interface {
 	objectivec.IObject
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 	NSUserInterfaceItemIdentification
 
 	// Topic: Initializing a Cell
@@ -675,8 +675,8 @@ type INSCell interface {
 	// Topic: Formatting and Validating Data
 
 	// The cell’s formatter object.
-	Formatter() *foundation.NSFormatter
-	SetFormatter(value *foundation.NSFormatter)
+	Formatter() foundation.NSFormatter
+	SetFormatter(value foundation.NSFormatter)
 
 	// Topic: Managing Menus
 
@@ -2775,15 +2775,11 @@ func (c NSCell) SetTag(value int) {
 // current value to a string object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/formatter
-func (c NSCell) Formatter() *foundation.NSFormatter {
+func (c NSCell) Formatter() foundation.NSFormatter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatter"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSFormatterFromID(objc.ID(rv))
-	return &val
+	return foundation.NSFormatterFromID(objc.ID(rv))
 }
-func (c NSCell) SetFormatter(value *foundation.NSFormatter) {
+func (c NSCell) SetFormatter(value foundation.NSFormatter) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatter:"), value)
 }
 

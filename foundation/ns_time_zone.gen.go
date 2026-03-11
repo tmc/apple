@@ -231,9 +231,9 @@ type INSTimeZone interface {
 	// A notification posted when the time zone changes.
 	NSSystemTimeZoneDidChange() NSNotificationName
 
-	InitWithCoder(coder INSCoder) NSTimeZone
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSTimeZone
 }
 
 
@@ -531,13 +531,6 @@ func (t NSTimeZone) LocalizedNameLocale(style NSTimeZoneNameStyle, locale INSLoc
 	return NSStringFromID(rv).String()
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (t NSTimeZone) InitWithCoder(coder INSCoder) NSTimeZone {
-	rv := objc.Send[NSTimeZone](t.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -545,6 +538,13 @@ func (t NSTimeZone) InitWithCoder(coder INSCoder) NSTimeZone {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (t NSTimeZone) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (t NSTimeZone) InitWithCoder(coder INSCoder) NSTimeZone {
+	rv := objc.Send[NSTimeZone](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 
@@ -563,6 +563,21 @@ func (t NSTimeZone) EncodeWithCoder(coder INSCoder) {
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/resetSystemTimeZone()
 func (_NSTimeZoneClass NSTimeZoneClass) ResetSystemTimeZone() {
 	objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("resetSystemTimeZone"))
+}
+
+// Returns the time zone object identified by a given identifier.
+//
+// tzName: The ID for the time zone.
+//
+// # Return Value
+// 
+// The time zone in the information directory with a name matching `tzName`.
+// Returns `nil` if there is no match for the name.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSTimeZone/timeZoneWithName:
+func (_NSTimeZoneClass NSTimeZoneClass) TimeZoneWithName(tzName string) NSTimeZone {
+	rv := objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("timeZoneWithName:"), objc.String(tzName))
+	return NSTimeZoneFromID(rv)
 }
 
 // Returns the time zone with a given identifier whose data has been
@@ -584,21 +599,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) ResetSystemTimeZone() {
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/timeZoneWithName:data:
 func (_NSTimeZoneClass NSTimeZoneClass) TimeZoneWithNameData(tzName string, aData INSData) NSTimeZone {
 	rv := objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("timeZoneWithName:data:"), objc.String(tzName), aData)
-	return NSTimeZoneFromID(rv)
-}
-
-// Returns the time zone object identified by a given identifier.
-//
-// tzName: The ID for the time zone.
-//
-// # Return Value
-// 
-// The time zone in the information directory with a name matching `tzName`.
-// Returns `nil` if there is no match for the name.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSTimeZone/timeZoneWithName:
-func (_NSTimeZoneClass NSTimeZoneClass) TimeZoneWithName(tzName string) NSTimeZone {
-	rv := objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("timeZoneWithName:"), objc.String(tzName))
 	return NSTimeZoneFromID(rv)
 }
 

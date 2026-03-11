@@ -464,8 +464,8 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 // See: https://developer.apple.com/documentation/AppKit/NSApplication
 type INSApplication interface {
 	INSResponder
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSMenuItemValidation
 	NSUserInterfaceValidations
@@ -641,6 +641,9 @@ type INSApplication interface {
 	// The graphics context associated with the app.
 	Context() INSGraphicsContext
 	SetContext(value INSGraphicsContext)
+	// A Boolean value indicating whether the main menu contains an item for customizing the contents of the Touch Bar.
+	IsAutomaticCustomizeTouchBarMenuItemEnabled() bool
+	SetIsAutomaticCustomizeTouchBarMenuItemEnabled(value bool)
 	// A Boolean value indicating whether the app is hidden.
 	IsHidden() bool
 	SetIsHidden(value bool)
@@ -649,50 +652,47 @@ type INSApplication interface {
 	// The window that currently receives keyboard events.
 	KeyWindow() INSWindow
 	SetKeyWindow(value INSWindow)
-	// The app’s main window.
-	MainWindow() INSWindow
-	SetMainWindow(value INSWindow)
-	// The occlusion state of the app.
-	OcclusionState() objectivec.IObject
-	SetOcclusionState(value objectivec.IObject)
-	// An array of the app’s window objects.
-	Windows() INSWindow
-	SetWindows(value INSWindow)
-	// The modal window displayed by the app.
-	ModalWindow() INSWindow
-	SetModalWindow(value INSWindow)
-	// A Boolean value indicating whether the main menu contains an item for customizing the contents of the Touch Bar.
-	IsAutomaticCustomizeTouchBarMenuItemEnabled() bool
-	SetIsAutomaticCustomizeTouchBarMenuItemEnabled(value bool)
 	// The app’s main menu bar.
 	MainMenu() INSMenu
 	SetMainMenu(value INSMenu)
+	// The app’s main window.
+	MainWindow() INSWindow
+	SetMainWindow(value INSWindow)
+	// The modal window displayed by the app.
+	ModalWindow() INSWindow
+	SetModalWindow(value INSWindow)
+	// The occlusion state of the app.
+	OcclusionState() objectivec.IObject
+	SetOcclusionState(value objectivec.IObject)
 	// The app’s Services menu.
 	ServicesMenu() INSMenu
 	SetServicesMenu(value INSMenu)
+	// An array of the app’s window objects.
+	Windows() INSWindow
+	SetWindows(value INSWindow)
 	// The Window menu of the app.
 	WindowsMenu() INSMenu
 	SetWindowsMenu(value INSMenu)
 	// Aborts the event loop started by [runModal(for:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModal(for:)>) or [runModalSession(_:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModalSession(_:)>).
 	AbortModal()
-	// Arranges windows listed in the Window menu in front of all other windows.
-	ArrangeInFront(sender objectivec.IObject)
 	// Adds an item to the Window menu for a given window.
 	AddWindowsItemTitleFilename(win INSWindow, string_ string, isFilename bool)
-	// Completes the extended state restoration.
-	CompleteStateRestoration()
+	// Arranges windows listed in the Window menu in front of all other windows.
+	ArrangeInFront(sender objectivec.IObject)
 	// Sets up a modal session with the given window and returns a pointer to the [NSModalSession] structure representing the session.
 	BeginModalSessionForWindow(window INSWindow) objectivec.IObject
 	// Changes the item for a given window in the Window menu to a given string.
 	ChangeWindowsItemTitleFilename(win INSWindow, string_ string, isFilename bool)
-	// Allows an app to extend its state restoration period.
-	ExtendStateRestoration()
+	// Completes the extended state restoration.
+	CompleteStateRestoration()
 	// Finishes a modal session.
 	EndModalSession(session objectivec.IObject)
-	// Hides all the receiver’s windows, and the next app in line is activated.
-	Hide(sender objectivec.IObject)
 	// Executes a block for each of the app’s windows.
 	EnumerateWindowsWithOptionsUsingBlock(options uint, block bool)
+	// Allows an app to extend its state restoration period.
+	ExtendStateRestoration()
+	// Hides all the receiver’s windows, and the next app in line is activated.
+	Hide(sender objectivec.IObject)
 	// Miniaturizes all the receiver’s windows.
 	MiniaturizeAll(sender objectivec.IObject)
 	// Opens the character palette.
@@ -709,28 +709,28 @@ type INSApplication interface {
 	RegisterServicesMenuSendTypesReturnTypes(sendTypes []string, returnTypes []string)
 	// Removes the Window menu item for a given window.
 	RemoveWindowsItem(win INSWindow)
-	// Displays the receiver’s page layout panel, an instance of [NSPageLayout].
-	RunPageLayout(sender objectivec.IObject)
 	// Invoked to request that a window be restored.
 	RestoreWindowWithIdentifierStateCompletionHandler(identifier NSUserInterfaceItemIdentifier, state foundation.INSCoder, completionHandler WindowErrorHandler) bool
-	// Runs a given modal session, as defined in a previous invocation of [beginModalSession(for:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/beginModalSession(for:)>).
-	RunModalSession(session objectivec.IObject) NSModalResponse
-	// Sets whether the receiver’s windows need updating when the receiver has finished processing the current event.
-	SetWindowsNeedUpdate(needUpdate bool)
 	// Starts a modal event loop for the specified window.
 	RunModalForWindow(window INSWindow) NSModalResponse
+	// Runs a given modal session, as defined in a previous invocation of [beginModalSession(for:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/beginModalSession(for:)>).
+	RunModalSession(session objectivec.IObject) NSModalResponse
+	// Displays the receiver’s page layout panel, an instance of [NSPageLayout].
+	RunPageLayout(sender objectivec.IObject)
+	// Sets whether the receiver’s windows need updating when the receiver has finished processing the current event.
+	SetWindowsNeedUpdate(needUpdate bool)
 	// Stops a modal event loop.
 	StopModal()
-	// Restores hidden windows to the screen and makes the receiver active.
-	Unhide(sender objectivec.IObject)
 	// Stops a modal event loop, allowing you to return a custom result code.
 	StopModalWithCode(returnCode NSModalResponse)
+	// Restores hidden windows to the screen and makes the receiver active.
+	Unhide(sender objectivec.IObject)
 	// Restores hidden windows without activating their owner (the receiver).
 	UnhideWithoutActivation()
-	// Updates the Window menu item for a given window to reflect the edited status of that window.
-	UpdateWindowsItem(win INSWindow)
 	// Sends an [update()](<doc://com.apple.appkit/documentation/AppKit/NSWindow/update()>) message to each onscreen window.
 	UpdateWindows()
+	// Updates the Window menu item for a given window to reflect the edited status of that window.
+	UpdateWindowsItem(win INSWindow)
 	// Returns the window corresponding to the specified window number.
 	WindowWithWindowNumber(windowNum int) INSWindow
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -1520,20 +1520,6 @@ func (a NSApplication) AbortModal() {
 	objc.Send[objc.ID](a.ID, objc.Sel("abortModal"))
 }
 
-// Arranges windows listed in the Window menu in front of all other windows.
-//
-// sender: The object that sent the command.
-//
-// # Discussion
-// 
-// Windows associated with the app but not listed in the Window menu are not
-// ordered to the front.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/arrangeInFront(_:)
-func (a NSApplication) ArrangeInFront(sender objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("arrangeInFront:"), sender)
-}
-
 // Adds an item to the Window menu for a given window.
 //
 // win: The window being added to the menu. If this window object already exists in
@@ -1560,34 +1546,18 @@ func (a NSApplication) AddWindowsItemTitleFilename(win INSWindow, string_ string
 	objc.Send[objc.ID](a.ID, objc.Sel("addWindowsItem:title:filename:"), win, objc.String(string_), isFilename)
 }
 
-// Completes the extended state restoration.
+// Arranges windows listed in the Window menu in front of all other windows.
+//
+// sender: The object that sent the command.
 //
 // # Discussion
 // 
-// This method informs the app that the extended state restoration is
-// completed for the balancing .
-// 
-// If a window has some state that may take a long time to restore, such as a
-// web page, you may use this method and methods to `completeStateRestoration`
-// to extend the period of this crash protection beyond the default.
-// 
-// You call [ExtendStateRestoration] within your implementation of
-// [RestoreWindowWithIdentifierStateCompletionHandler]. You would then call
-// `completeStateRestoration` some time after the window is fully restored. If
-// the app crashes in the interim, then it may offer to discard restorable
-// state on the next launch.
-// 
-// The [ExtendStateRestoration] and `completeStateRestoration` method act as a
-// counter. Each call to [ExtendStateRestoration]increments the counter, and
-// must be matched with a corresponding call to `completeStateRestoration`
-// which decrements it. When the counter reaches zero, the app is considered
-// to have been fully restored, and any further calls are silently ignored.
-// 
-// This method is thread safe.
+// Windows associated with the app but not listed in the Window menu are not
+// ordered to the front.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/completeStateRestoration()
-func (a NSApplication) CompleteStateRestoration() {
-	objc.Send[objc.ID](a.ID, objc.Sel("completeStateRestoration"))
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/arrangeInFront(_:)
+func (a NSApplication) ArrangeInFront(sender objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("arrangeInFront:"), sender)
 }
 
 // Sets up a modal session with the given window and returns a pointer to the
@@ -1646,6 +1616,68 @@ func (a NSApplication) ChangeWindowsItemTitleFilename(win INSWindow, string_ str
 	objc.Send[objc.ID](a.ID, objc.Sel("changeWindowsItem:title:filename:"), win, objc.String(string_), isFilename)
 }
 
+// Completes the extended state restoration.
+//
+// # Discussion
+// 
+// This method informs the app that the extended state restoration is
+// completed for the balancing .
+// 
+// If a window has some state that may take a long time to restore, such as a
+// web page, you may use this method and methods to `completeStateRestoration`
+// to extend the period of this crash protection beyond the default.
+// 
+// You call [ExtendStateRestoration] within your implementation of
+// [RestoreWindowWithIdentifierStateCompletionHandler]. You would then call
+// `completeStateRestoration` some time after the window is fully restored. If
+// the app crashes in the interim, then it may offer to discard restorable
+// state on the next launch.
+// 
+// The [ExtendStateRestoration] and `completeStateRestoration` method act as a
+// counter. Each call to [ExtendStateRestoration]increments the counter, and
+// must be matched with a corresponding call to `completeStateRestoration`
+// which decrements it. When the counter reaches zero, the app is considered
+// to have been fully restored, and any further calls are silently ignored.
+// 
+// This method is thread safe.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/completeStateRestoration()
+func (a NSApplication) CompleteStateRestoration() {
+	objc.Send[objc.ID](a.ID, objc.Sel("completeStateRestoration"))
+}
+
+// Finishes a modal session.
+//
+// session: A modal session structure returned by a previous invocation of
+// [BeginModalSessionForWindow].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/endModalSession(_:)
+func (a NSApplication) EndModalSession(session objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("endModalSession:"), session)
+}
+
+// Executes a block for each of the app’s windows.
+//
+// options: A constant that indicates window ordering. See
+// [NSApplication.WindowListOptions] for possible values.
+// //
+// [NSApplication.WindowListOptions]: https://developer.apple.com/documentation/AppKit/NSApplication/WindowListOptions
+//
+// block: The block to execute for each window. The block takes the following
+// parameters:
+// 
+// window: The window for which to execute the block. stop: A Boolean value
+// that stops the enumeration early when set to [true] (the default value is
+// [false]).
+// //
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/enumerateWindows(options:using:)
+func (a NSApplication) EnumerateWindowsWithOptionsUsingBlock(options uint, block bool) {
+	objc.Send[objc.ID](a.ID, objc.Sel("enumerateWindowsWithOptions:usingBlock:"), options, block)
+}
+
 // Allows an app to extend its state restoration period.
 //
 // # Discussion
@@ -1677,16 +1709,6 @@ func (a NSApplication) ExtendStateRestoration() {
 	objc.Send[objc.ID](a.ID, objc.Sel("extendStateRestoration"))
 }
 
-// Finishes a modal session.
-//
-// session: A modal session structure returned by a previous invocation of
-// [BeginModalSessionForWindow].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/endModalSession(_:)
-func (a NSApplication) EndModalSession(session objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("endModalSession:"), session)
-}
-
 // Hides all the receiver’s windows, and the next app in line is activated.
 //
 // sender: The object that sent the command.
@@ -1704,28 +1726,6 @@ func (a NSApplication) EndModalSession(session objectivec.IObject) {
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/hide(_:)
 func (a NSApplication) Hide(sender objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("hide:"), sender)
-}
-
-// Executes a block for each of the app’s windows.
-//
-// options: A constant that indicates window ordering. See
-// [NSApplication.WindowListOptions] for possible values.
-// //
-// [NSApplication.WindowListOptions]: https://developer.apple.com/documentation/AppKit/NSApplication/WindowListOptions
-//
-// block: The block to execute for each window. The block takes the following
-// parameters:
-// 
-// window: The window for which to execute the block. stop: A Boolean value
-// that stops the enumeration early when set to [true] (the default value is
-// [false]).
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/enumerateWindows(options:using:)
-func (a NSApplication) EnumerateWindowsWithOptionsUsingBlock(options uint, block bool) {
-	objc.Send[objc.ID](a.ID, objc.Sel("enumerateWindowsWithOptions:usingBlock:"), options, block)
 }
 
 // Miniaturizes all the receiver’s windows.
@@ -1854,21 +1854,6 @@ func (a NSApplication) RemoveWindowsItem(win INSWindow) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeWindowsItem:"), win)
 }
 
-// Displays the receiver’s page layout panel, an instance of [NSPageLayout].
-//
-// sender: The object that sent the command.
-//
-// # Discussion
-// 
-// If the [NSPageLayout] instance does not exist, this method creates one.
-// This method is typically invoked when the user chooses Page Setup from the
-// app’s File menu.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/runPageLayout(_:)
-func (a NSApplication) RunPageLayout(sender objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("runPageLayout:"), sender)
-}
-
 // Invoked to request that a window be restored.
 //
 // identifier: The unique interface item identifier string that was previously associated
@@ -1920,6 +1905,45 @@ func (a NSApplication) RestoreWindowWithIdentifierStateCompletionHandler(identif
 	defer _cleanup2()
 		rv := objc.Send[bool](a.ID, objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 	return rv
+}
+
+// Starts a modal event loop for the specified window.
+//
+// window: The window to be displayed modally. If it is not already visible, the
+// window is centered on the screen using the value in its [Center] method and
+// made visible and key. If it is already visible, it is simply made key.
+//
+// # Return Value
+// 
+// An integer indicating the reason that this method returned. See
+// [NSModalResponse] possible return values.
+//
+// # Discussion
+// 
+// This method runs a modal event loop for the specified window synchronously.
+// It displays the specified window, makes it key, starts the run loop, and
+// processes events for that window. (You do not need to show the window
+// yourself.) While the app is in that loop, it does not respond to any other
+// events (including mouse, keyboard, or window-close events) unless they are
+// associated with the window. It also does not perform any tasks (such as
+// firing timers) that are not associated with the modal run loop. In other
+// words, this method consumes only enough CPU time to process events and
+// dispatch them to the action methods associated with the modal window.
+// 
+// You can exit the modal loop by calling the [StopModal],
+// [StopModalWithCode], or [AbortModal] methods from your modal window code.
+// If you use the [StopModalWithCode] method to stop the modal event loop,
+// this method returns the argument passed to [StopModalWithCode]. If you use
+// [StopModal] instead, this method returns the constant [stop]. If you use
+// [AbortModal], this method returns the constant [abort].
+//
+// [abort]: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/abort
+// [stop]: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/stop
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/runModal(for:)
+func (a NSApplication) RunModalForWindow(window INSWindow) NSModalResponse {
+	rv := objc.Send[NSModalResponse](a.ID, objc.Sel("runModalForWindow:"), window)
+	return NSModalResponse(rv)
 }
 
 // Runs a given modal session, as defined in a previous invocation of
@@ -1975,6 +1999,21 @@ func (a NSApplication) RunModalSession(session objectivec.IObject) NSModalRespon
 	return NSModalResponse(rv)
 }
 
+// Displays the receiver’s page layout panel, an instance of [NSPageLayout].
+//
+// sender: The object that sent the command.
+//
+// # Discussion
+// 
+// If the [NSPageLayout] instance does not exist, this method creates one.
+// This method is typically invoked when the user chooses Page Setup from the
+// app’s File menu.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/runPageLayout(_:)
+func (a NSApplication) RunPageLayout(sender objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("runPageLayout:"), sender)
+}
+
 // Sets whether the receiver’s windows need updating when the receiver has
 // finished processing the current event.
 //
@@ -1994,45 +2033,6 @@ func (a NSApplication) SetWindowsNeedUpdate(needUpdate bool) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setWindowsNeedUpdate:"), needUpdate)
 }
 
-// Starts a modal event loop for the specified window.
-//
-// window: The window to be displayed modally. If it is not already visible, the
-// window is centered on the screen using the value in its [Center] method and
-// made visible and key. If it is already visible, it is simply made key.
-//
-// # Return Value
-// 
-// An integer indicating the reason that this method returned. See
-// [NSModalResponse] possible return values.
-//
-// # Discussion
-// 
-// This method runs a modal event loop for the specified window synchronously.
-// It displays the specified window, makes it key, starts the run loop, and
-// processes events for that window. (You do not need to show the window
-// yourself.) While the app is in that loop, it does not respond to any other
-// events (including mouse, keyboard, or window-close events) unless they are
-// associated with the window. It also does not perform any tasks (such as
-// firing timers) that are not associated with the modal run loop. In other
-// words, this method consumes only enough CPU time to process events and
-// dispatch them to the action methods associated with the modal window.
-// 
-// You can exit the modal loop by calling the [StopModal],
-// [StopModalWithCode], or [AbortModal] methods from your modal window code.
-// If you use the [StopModalWithCode] method to stop the modal event loop,
-// this method returns the argument passed to [StopModalWithCode]. If you use
-// [StopModal] instead, this method returns the constant [stop]. If you use
-// [AbortModal], this method returns the constant [abort].
-//
-// [abort]: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/abort
-// [stop]: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/stop
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/runModal(for:)
-func (a NSApplication) RunModalForWindow(window INSWindow) NSModalResponse {
-	rv := objc.Send[NSModalResponse](a.ID, objc.Sel("runModalForWindow:"), window)
-	return NSModalResponse(rv)
-}
-
 // Stops a modal event loop.
 //
 // # Discussion
@@ -2050,19 +2050,6 @@ func (a NSApplication) RunModalForWindow(window INSWindow) NSModalResponse {
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/stopModal()
 func (a NSApplication) StopModal() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopModal"))
-}
-
-// Restores hidden windows to the screen and makes the receiver active.
-//
-// sender: The object that sent the command.
-//
-// # Discussion
-// 
-// Invokes [UnhideWithoutActivation].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/unhide(_:)
-func (a NSApplication) Unhide(sender objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("unhide:"), sender)
 }
 
 // Stops a modal event loop, allowing you to return a custom result code.
@@ -2087,6 +2074,19 @@ func (a NSApplication) StopModalWithCode(returnCode NSModalResponse) {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopModalWithCode:"), returnCode)
 }
 
+// Restores hidden windows to the screen and makes the receiver active.
+//
+// sender: The object that sent the command.
+//
+// # Discussion
+// 
+// Invokes [UnhideWithoutActivation].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/unhide(_:)
+func (a NSApplication) Unhide(sender objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("unhide:"), sender)
+}
+
 // Restores hidden windows without activating their owner (the receiver).
 //
 // # Discussion
@@ -2101,21 +2101,6 @@ func (a NSApplication) StopModalWithCode(returnCode NSModalResponse) {
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/unhideWithoutActivation()
 func (a NSApplication) UnhideWithoutActivation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("unhideWithoutActivation"))
-}
-
-// Updates the Window menu item for a given window to reflect the edited
-// status of that window.
-//
-// win: The window whose menu item is to be updated.
-//
-// # Discussion
-// 
-// You rarely need to invoke this method because it is invoked automatically
-// when the edit status of an [NSWindow] object is set.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/updateWindowsItem(_:)
-func (a NSApplication) UpdateWindowsItem(win INSWindow) {
-	objc.Send[objc.ID](a.ID, objc.Sel("updateWindowsItem:"), win)
 }
 
 // Sends an [Update] message to each onscreen window.
@@ -2139,24 +2124,19 @@ func (a NSApplication) UpdateWindows() {
 	objc.Send[objc.ID](a.ID, objc.Sel("updateWindows"))
 }
 
-// Returns the window corresponding to the specified window number.
+// Updates the Window menu item for a given window to reflect the edited
+// status of that window.
 //
-// windowNum: The unique window number associated with the desired [NSWindow] object.
-//
-// # Return Value
-// 
-// The desired window object or `nil` if the window could not be found.
+// win: The window whose menu item is to be updated.
 //
 // # Discussion
 // 
-// [WindowWithWindowNumber] may return `nil` for window numbers found using
-// [WindowNumbersWithOptions] if there is no corresponding window object owned
-// by your app—for example, the menu bar.
+// You rarely need to invoke this method because it is invoked automatically
+// when the edit status of an [NSWindow] object is set.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSApplication/window(withWindowNumber:)
-func (a NSApplication) WindowWithWindowNumber(windowNum int) INSWindow {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("windowWithWindowNumber:"), windowNum)
-	return NSWindowFromID(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/updateWindowsItem(_:)
+func (a NSApplication) UpdateWindowsItem(win INSWindow) {
+	objc.Send[objc.ID](a.ID, objc.Sel("updateWindowsItem:"), win)
 }
 
 // Implemented to override the default action of enabling or disabling a
@@ -2207,6 +2187,26 @@ func (a NSApplication) ValidateMenuItem(menuItem INSMenuItem) bool {
 func (a NSApplication) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
+}
+
+// Returns the window corresponding to the specified window number.
+//
+// windowNum: The unique window number associated with the desired [NSWindow] object.
+//
+// # Return Value
+// 
+// The desired window object or `nil` if the window could not be found.
+//
+// # Discussion
+// 
+// [WindowWithWindowNumber] may return `nil` for window numbers found using
+// [WindowNumbersWithOptions] if there is no corresponding window object owned
+// by your app—for example, the menu bar.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSApplication/window(withWindowNumber:)
+func (a NSApplication) WindowWithWindowNumber(windowNum int) INSWindow {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("windowWithWindowNumber:"), windowNum)
+	return NSWindowFromID(rv)
 }
 func (a NSApplication) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -2667,6 +2667,20 @@ func (a NSApplication) SetContext(value INSGraphicsContext) {
 
 
 
+// A Boolean value indicating whether the main menu contains an item for
+// customizing the contents of the Touch Bar.
+//
+// See: https://developer.apple.com/documentation/appkit/nsapplication/isautomaticcustomizetouchbarmenuitemenabled
+func (a NSApplication) IsAutomaticCustomizeTouchBarMenuItemEnabled() bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("automaticCustomizeTouchBarMenuItemEnabled"))
+	return rv
+}
+func (a NSApplication) SetIsAutomaticCustomizeTouchBarMenuItemEnabled(value bool) {
+	objc.Send[struct{}](a.ID, objc.Sel("setAutomaticCustomizeTouchBarMenuItemEnabled:"), value)
+}
+
+
+
 // A Boolean value indicating whether the app is hidden.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/ishidden
@@ -2704,6 +2718,19 @@ func (a NSApplication) SetKeyWindow(value INSWindow) {
 
 
 
+// The app’s main menu bar.
+//
+// See: https://developer.apple.com/documentation/appkit/nsapplication/mainmenu
+func (a NSApplication) MainMenu() INSMenu {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("mainMenu"))
+	return NSMenuFromID(objc.ID(rv))
+}
+func (a NSApplication) SetMainMenu(value INSMenu) {
+	objc.Send[struct{}](a.ID, objc.Sel("setMainMenu:"), value)
+}
+
+
+
 // The app’s main window.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/mainwindow
@@ -2713,32 +2740,6 @@ func (a NSApplication) MainWindow() INSWindow {
 }
 func (a NSApplication) SetMainWindow(value INSWindow) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMainWindow:"), value)
-}
-
-
-
-// The occlusion state of the app.
-//
-// See: https://developer.apple.com/documentation/appkit/nsapplication/occlusionstate-swift.property
-func (a NSApplication) OcclusionState() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("occlusionState"))
-	return objectivec.Object{ID: rv}
-}
-func (a NSApplication) SetOcclusionState(value objectivec.IObject) {
-	objc.Send[struct{}](a.ID, objc.Sel("setOcclusionState:"), value)
-}
-
-
-
-// An array of the app’s window objects.
-//
-// See: https://developer.apple.com/documentation/appkit/nsapplication/windows
-func (a NSApplication) Windows() INSWindow {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("windows"))
-	return NSWindowFromID(objc.ID(rv))
-}
-func (a NSApplication) SetWindows(value INSWindow) {
-	objc.Send[struct{}](a.ID, objc.Sel("setWindows:"), value)
 }
 
 
@@ -2756,29 +2757,15 @@ func (a NSApplication) SetModalWindow(value INSWindow) {
 
 
 
-// A Boolean value indicating whether the main menu contains an item for
-// customizing the contents of the Touch Bar.
+// The occlusion state of the app.
 //
-// See: https://developer.apple.com/documentation/appkit/nsapplication/isautomaticcustomizetouchbarmenuitemenabled
-func (a NSApplication) IsAutomaticCustomizeTouchBarMenuItemEnabled() bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("automaticCustomizeTouchBarMenuItemEnabled"))
-	return rv
+// See: https://developer.apple.com/documentation/appkit/nsapplication/occlusionstate-swift.property
+func (a NSApplication) OcclusionState() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("occlusionState"))
+	return objectivec.Object{ID: rv}
 }
-func (a NSApplication) SetIsAutomaticCustomizeTouchBarMenuItemEnabled(value bool) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAutomaticCustomizeTouchBarMenuItemEnabled:"), value)
-}
-
-
-
-// The app’s main menu bar.
-//
-// See: https://developer.apple.com/documentation/appkit/nsapplication/mainmenu
-func (a NSApplication) MainMenu() INSMenu {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("mainMenu"))
-	return NSMenuFromID(objc.ID(rv))
-}
-func (a NSApplication) SetMainMenu(value INSMenu) {
-	objc.Send[struct{}](a.ID, objc.Sel("setMainMenu:"), value)
+func (a NSApplication) SetOcclusionState(value objectivec.IObject) {
+	objc.Send[struct{}](a.ID, objc.Sel("setOcclusionState:"), value)
 }
 
 
@@ -2792,6 +2779,19 @@ func (a NSApplication) ServicesMenu() INSMenu {
 }
 func (a NSApplication) SetServicesMenu(value INSMenu) {
 	objc.Send[struct{}](a.ID, objc.Sel("setServicesMenu:"), value)
+}
+
+
+
+// An array of the app’s window objects.
+//
+// See: https://developer.apple.com/documentation/appkit/nsapplication/windows
+func (a NSApplication) Windows() INSWindow {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("windows"))
+	return NSWindowFromID(objc.ID(rv))
+}
+func (a NSApplication) SetWindows(value INSWindow) {
+	objc.Send[struct{}](a.ID, objc.Sel("setWindows:"), value)
 }
 
 

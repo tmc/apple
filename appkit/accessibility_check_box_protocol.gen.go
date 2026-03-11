@@ -15,6 +15,7 @@ import (
 type NSAccessibilityCheckBox interface {
 	objectivec.IObject
 	NSAccessibilityButton
+	NSAccessibilityElementProtocol
 
 	// Returns the checkbox’s value.
 	//

@@ -303,22 +303,22 @@ type INSPathCell interface {
 	// A Boolean value indicating whether the cell’s text can be selected.
 	IsSelectable() bool
 	SetIsSelectable(value bool)
+	// Tells the delegate that the user changed the selected directory to the directory located at the specified URL.
+	PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL)
 	// [NSSavePanel]: Optional — Sent when the user changes the current type. [NSOpenPanel]: Not sent.
 	PanelDidSelectType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType)
 	// [NSSavePanel]: Optional — Sent when the content type popup is displayed and the save panel needs the display name for a type. If `nil` is returned, the save panel will display type’s `localizedDescription`. [NSOpenPanel]: Not sent.
 	PanelDisplayNameForType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType) string
-	// Tells the delegate that the user changed the selected directory to the directory located at the specified URL.
-	PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL)
+	// Tells the delegate that the user changed the selection in the specified Save panel.
+	PanelSelectionDidChange(sender objectivec.IObject)
 	// Asks the delegate whether the specified URL should be enabled in the Open panel.
 	PanelShouldEnableURL(sender objectivec.IObject, url foundation.INSURL) bool
 	// Tells the delegate that the user confirmed a filename choice by clicking Save in a Save panel.
 	PanelUserEnteredFilenameConfirmed(sender objectivec.IObject, filename string, okFlag bool) string
-	// Tells the delegate that the Save panel is about to expand or collapse because the user clicked the disclosure triangle that displays or hides the file browser.
-	PanelWillExpand(sender objectivec.IObject, expanding bool)
-	// Tells the delegate that the user changed the selection in the specified Save panel.
-	PanelSelectionDidChange(sender objectivec.IObject)
 	// Asks the delegate to validate the URL for a file that the user selected.
 	PanelValidateURLError(sender objectivec.IObject, url foundation.INSURL) (bool, error)
+	// Tells the delegate that the Save panel is about to expand or collapse because the user clicked the disclosure triangle that displays or hides the file browser.
+	PanelWillExpand(sender objectivec.IObject, expanding bool)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -487,35 +487,19 @@ func (p NSPathCell) PathComponentCellAtPointWithFrameInView(point corefoundation
 	return NSPathComponentCellFromID(rv)
 }
 
-// Implemented to override the default action of enabling or disabling a
-// specific menu item.
+// Tells the delegate that the user changed the selected directory to the
+// directory located at the specified URL.
 //
-// menuItem: An [NSMenuItem] object that represents the menu item.
+// sender: The panel whose directory changed.
 //
-// # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
+// url: The URL of the new directory, or `nil` if it can’t be represented by an
+// [NSURL] object.
+// //
+// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// The object implementing this method must be the target of `menuItem`. You
-// can determine which menu item `menuItem` is by querying it for its tag or
-// action.
-// 
-// The following example disables the menu item associated with the
-// `nextRecord` action method when the selected line in a table view is the
-// last one; conversely, it disables the menu item with `priorRecord` as its
-// action method when the selected row is the first one in the table view.
-// (The `countryOrRegionKeys` array contains names that appear in the table
-// view.)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSMenuItemValidation/validateMenuItem(_:)
-func (p NSPathCell) ValidateMenuItem(menuItem INSMenuItem) bool {
-	rv := objc.Send[bool](p.ID, objc.Sel("validateMenuItem:"), menuItem)
-	return rv
+// See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didChangeToDirectoryURL:)
+func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
+	objc.Send[objc.ID](p.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
 }
 
 // [NSSavePanel]: Optional — Sent when the user changes the current type.
@@ -537,19 +521,14 @@ func (p NSPathCell) PanelDisplayNameForType(sender objectivec.IObject, type_ uni
 	return foundation.NSStringFromID(rv).String()
 }
 
-// Tells the delegate that the user changed the selected directory to the
-// directory located at the specified URL.
+// Tells the delegate that the user changed the selection in the specified
+// Save panel.
 //
-// sender: The panel whose directory changed.
+// sender: The panel whose selection changed.
 //
-// url: The URL of the new directory, or `nil` if it can’t be represented by an
-// [NSURL] object.
-// //
-// [NSURL]: https://developer.apple.com/documentation/Foundation/NSURL
-//
-// See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didChangeToDirectoryURL:)
-func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
-	objc.Send[objc.ID](p.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
+// See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panelSelectionDidChange(_:)
+func (p NSPathCell) PanelSelectionDidChange(sender objectivec.IObject) {
+	objc.Send[objc.ID](p.ID, objc.Sel("panelSelectionDidChange:"), sender)
 }
 
 // Asks the delegate whether the specified URL should be enabled in the Open
@@ -623,33 +602,6 @@ func (p NSPathCell) PanelUserEnteredFilenameConfirmed(sender objectivec.IObject,
 	return foundation.NSStringFromID(rv).String()
 }
 
-// Tells the delegate that the Save panel is about to expand or collapse
-// because the user clicked the disclosure triangle that displays or hides the
-// file browser.
-//
-// sender: The panel that is about to expand or collapse.
-//
-// expanding: [true] specifies that the panel is expanding; [false] specifies that it is
-// collapsing.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:willExpand:)
-func (p NSPathCell) PanelWillExpand(sender objectivec.IObject, expanding bool) {
-	objc.Send[objc.ID](p.ID, objc.Sel("panel:willExpand:"), sender, expanding)
-}
-
-// Tells the delegate that the user changed the selection in the specified
-// Save panel.
-//
-// sender: The panel whose selection changed.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panelSelectionDidChange(_:)
-func (p NSPathCell) PanelSelectionDidChange(sender objectivec.IObject) {
-	objc.Send[objc.ID](p.ID, objc.Sel("panelSelectionDidChange:"), sender)
-}
-
 // Asks the delegate to validate the URL for a file that the user selected.
 //
 // sender: The panel that requests URL validation.
@@ -675,6 +627,54 @@ func (p NSPathCell) PanelValidateURLError(sender objectivec.IObject, url foundat
 	}
 	return rv, nil
 
+}
+
+// Tells the delegate that the Save panel is about to expand or collapse
+// because the user clicked the disclosure triangle that displays or hides the
+// file browser.
+//
+// sender: The panel that is about to expand or collapse.
+//
+// expanding: [true] specifies that the panel is expanding; [false] specifies that it is
+// collapsing.
+// //
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:willExpand:)
+func (p NSPathCell) PanelWillExpand(sender objectivec.IObject, expanding bool) {
+	objc.Send[objc.ID](p.ID, objc.Sel("panel:willExpand:"), sender, expanding)
+}
+
+// Implemented to override the default action of enabling or disabling a
+// specific menu item.
+//
+// menuItem: An [NSMenuItem] object that represents the menu item.
+//
+// # Return Value
+// 
+// [true] to enable `menuItem`, [false] to disable it.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// The object implementing this method must be the target of `menuItem`. You
+// can determine which menu item `menuItem` is by querying it for its tag or
+// action.
+// 
+// The following example disables the menu item associated with the
+// `nextRecord` action method when the selected line in a table view is the
+// last one; conversely, it disables the menu item with `priorRecord` as its
+// action method when the selected row is the first one in the table view.
+// (The `countryOrRegionKeys` array contains names that appear in the table
+// view.)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSMenuItemValidation/validateMenuItem(_:)
+func (p NSPathCell) ValidateMenuItem(menuItem INSMenuItem) bool {
+	rv := objc.Send[bool](p.ID, objc.Sel("validateMenuItem:"), menuItem)
+	return rv
 }
 func (p NSPathCell) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)

@@ -317,8 +317,8 @@ func NSMenuItemFromID(id objc.ID) NSMenuItem {
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem
 type INSMenuItem interface {
 	objectivec.IObject
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 	NSUserInterfaceItemIdentification
 	NSValidatedUserInterfaceItem
 

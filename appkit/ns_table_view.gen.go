@@ -2067,52 +2067,6 @@ func (t NSTableView) UnhideRowsAtIndexesWithAnimation(indexes foundation.NSIndex
 	objc.Send[objc.ID](t.ID, objc.Sel("unhideRowsAtIndexes:withAnimation:"), indexes, rowAnimation)
 }
 
-// Returns a short description of the table.
-//
-// # Return Value
-// 
-// The description of the table.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
-// 
-// Do not include the control’s type in the label (for example, use
-// [Employees], not `Employees Table`). If possible use a single word. To help
-// ensure that accessibility clients such as VoiceOver read the label with the
-// correct intonation, start this label with a capital letter. Do not put a
-// period at the end. Always localize the label.
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityLabel()
-func (t NSTableView) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the row accessibility elements for the table.
-//
-// # Return Value
-// 
-// An array containing the table’s row elements.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityRows] property.
-//
-// [accessibilityRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRows()
-func (t NSTableView) AccessibilityRows() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilityRows"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
-}
-
 // Returns the column header accessibility elements for the table.
 //
 // # Return Value
@@ -2151,6 +2105,31 @@ func (t NSTableView) AccessibilityColumns() foundation.INSArray {
 	return foundation.NSArrayFromID(rv)
 }
 
+// Returns a short description of the table.
+//
+// # Return Value
+// 
+// The description of the table.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityLabel] property.
+// 
+// Do not include the control’s type in the label (for example, use
+// [Employees], not `Employees Table`). If possible use a single word. To help
+// ensure that accessibility clients such as VoiceOver read the label with the
+// correct intonation, start this label with a capital letter. Do not put a
+// period at the end. Always localize the label.
+//
+// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityLabel()
+func (t NSTableView) AccessibilityLabel() string {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityLabel"))
+	return foundation.NSStringFromID(rv).String()
+}
+
 // Returns the row header accessibility elements for the table.
 //
 // # Return Value
@@ -2168,6 +2147,95 @@ func (t NSTableView) AccessibilityColumns() foundation.INSArray {
 func (t NSTableView) AccessibilityRowHeaderUIElements() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityRowHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
+}
+
+// Returns the row accessibility elements for the table.
+//
+// # Return Value
+// 
+// An array containing the table’s row elements.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityRows] property.
+//
+// [accessibilityRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRows()
+func (t NSTableView) AccessibilityRows() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilityRows"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
+}
+
+// The currently selected cells for the table.
+//
+// # Return Value
+// 
+// An array containing the currently selected cells for the table.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilitySelectedCells] property. Additionally, your class needs to
+// send a [selectedCellsChanged] notification whenever the table’s selected
+// cells change.
+//
+// [accessibilitySelectedCells]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
+// [selectedCellsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedCellsChanged
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedCells()
+func (t NSTableView) AccessibilitySelectedCells() foundation.INSArray {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedCells"))
+	return foundation.NSArrayFromID(rv)
+}
+
+// Returns the currently selected columns for the table.
+//
+// # Return Value
+// 
+// An array containing the currently selected columns for the table.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilitySelectedColumns] property. Additionally, your class needs to
+// send a [selectedColumnsChanged] notification whenever the table’s
+// selected columns change.
+//
+// [accessibilitySelectedColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
+// [selectedColumnsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedColumnsChanged
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedColumns()
+func (t NSTableView) AccessibilitySelectedColumns() foundation.INSArray {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedColumns"))
+	return foundation.NSArrayFromID(rv)
+}
+
+// Returns the currently selected rows for the table.
+//
+// # Return Value
+// 
+// An array containing the currently selected rows for the table.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilitySelectedRows] property. Additionally, your class needs to
+// send a [selectedRowsChanged] notification whenever the table’s selected
+// rows change.
+//
+// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
+// [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedRows()
+func (t NSTableView) AccessibilitySelectedRows() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilitySelectedRows"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
 
 // Returns the visible cells for the table.
@@ -2229,92 +2297,30 @@ func (t NSTableView) AccessibilityVisibleRows() []objectivec.IObject {
 	})
 }
 
-// Returns the currently selected rows for the table.
+// Invoked when the dragging session has completed.
 //
-// # Return Value
-// 
-// An array containing the currently selected rows for the table.
+// session: The dragging session.
 //
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedRows] property. Additionally, your class needs to
-// send a [selectedRowsChanged] notification whenever the table’s selected
-// rows change.
+// screenPoint: The point where the drag ended, in screen coordinates.
 //
-// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
-// [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
+// operation: The drag operation. See [NSDragOperation] for drag operation types.
+// //
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
 //
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedRows()
-func (t NSTableView) AccessibilitySelectedRows() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilitySelectedRows"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:endedAt:operation:)
+func (t NSTableView) DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
+	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:endedAtPoint:operation:"), session, screenPoint, operation)
 }
 
-// Returns the currently selected columns for the table.
+// Invoked when the drag moves on the screen.
 //
-// # Return Value
-// 
-// An array containing the currently selected columns for the table.
+// session: The dragging session.
 //
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedColumns] property. Additionally, your class needs to
-// send a [selectedColumnsChanged] notification whenever the table’s
-// selected columns change.
+// screenPoint: The point where the drag moved to, in screen coordinates.
 //
-// [accessibilitySelectedColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
-// [selectedColumnsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedColumnsChanged
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedColumns()
-func (t NSTableView) AccessibilitySelectedColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// The currently selected cells for the table.
-//
-// # Return Value
-// 
-// An array containing the currently selected cells for the table.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedCells] property. Additionally, your class needs to
-// send a [selectedCellsChanged] notification whenever the table’s selected
-// cells change.
-//
-// [accessibilitySelectedCells]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
-// [selectedCellsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedCellsChanged
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedCells()
-func (t NSTableView) AccessibilitySelectedCells() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedCells"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Sets the table’s currently selected rows.
-//
-// selectedRows: An array containing the row elements to be selected.
-//
-// # Discussion
-// 
-// This method is the setter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedRows] property. Implementing this method allows the
-// user to change the selected row using an accessibility client.
-// Additionally, your class needs to send a [selectedRowsChanged] notification
-// whenever the table’s selected rows change.
-//
-// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
-// [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/setAccessibilitySelectedRows(_:)
-func (t NSTableView) SetAccessibilitySelectedRows(selectedRows []objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:movedTo:)
+func (t NSTableView) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
+	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
 }
 
 // Declares the types of operations the source allows to be performed.
@@ -2340,32 +2346,6 @@ func (t NSTableView) SetAccessibilitySelectedRows(selectedRows []objectivec.IObj
 func (t NSTableView) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
 	rv := objc.Send[NSDragOperation](t.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
 	return NSDragOperation(rv)
-}
-
-// Invoked when the dragging session has completed.
-//
-// session: The dragging session.
-//
-// screenPoint: The point where the drag ended, in screen coordinates.
-//
-// operation: The drag operation. See [NSDragOperation] for drag operation types.
-// //
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:endedAt:operation:)
-func (t NSTableView) DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
-	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:endedAtPoint:operation:"), session, screenPoint, operation)
-}
-
-// Invoked when the drag moves on the screen.
-//
-// session: The dragging session.
-//
-// screenPoint: The point where the drag moved to, in screen coordinates.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:movedTo:)
-func (t NSTableView) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
-	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
 }
 
 // Invoked when the drag will begin.
@@ -2397,6 +2377,40 @@ func (t NSTableView) IgnoreModifierKeysForDraggingSession(session INSDraggingSes
 	return rv
 }
 
+// Sets the table’s currently selected rows.
+//
+// selectedRows: An array containing the row elements to be selected.
+//
+// # Discussion
+// 
+// This method is the setter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilitySelectedRows] property. Implementing this method allows the
+// user to change the selected row using an accessibility client.
+// Additionally, your class needs to send a [selectedRowsChanged] notification
+// whenever the table’s selected rows change.
+//
+// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
+// [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/setAccessibilitySelectedRows(_:)
+func (t NSTableView) SetAccessibilitySelectedRows(selectedRows []objectivec.IObject) {
+	objc.Send[objc.ID](t.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
+}
+
+// Informs the delegate that the text object has begun editing (that the user
+// has begun changing it).
+//
+// # Discussion
+// 
+// The name of `aNotification` is [didBeginEditingNotification].
+//
+// [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidBeginEditing(_:)
+func (t NSTableView) TextDidBeginEditing(notification foundation.NSNotification) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textDidBeginEditing:"), notification)
+}
+
 // Informs the delegate that the text object has changed its characters or
 // formatting attributes.
 //
@@ -2425,38 +2439,6 @@ func (t NSTableView) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidEndEditing:"), notification)
 }
 
-// Invoked from a text object’s implementation of [ResignFirstResponder],
-// this method requests permission for `aTextObject` to end editing.
-//
-// # Discussion
-// 
-// If the delegate returns [true], the text object proceeds to finish editing
-// and resign first responder status. If the delegate returns [false], the
-// text object selects all of its text and remains the first responder.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldEndEditing(_:)
-func (t NSTableView) TextShouldEndEditing(textObject INSText) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("textShouldEndEditing:"), textObject)
-	return rv
-}
-
-// Informs the delegate that the text object has begun editing (that the user
-// has begun changing it).
-//
-// # Discussion
-// 
-// The name of `aNotification` is [didBeginEditingNotification].
-//
-// [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidBeginEditing(_:)
-func (t NSTableView) TextDidBeginEditing(notification foundation.NSNotification) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textDidBeginEditing:"), notification)
-}
-
 // Invoked when a text object begins to change its text, this method requests
 // permission for `aTextObject` to begin editing.
 //
@@ -2473,6 +2455,24 @@ func (t NSTableView) TextDidBeginEditing(notification foundation.NSNotification)
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldBeginEditing(_:)
 func (t NSTableView) TextShouldBeginEditing(textObject INSText) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("textShouldBeginEditing:"), textObject)
+	return rv
+}
+
+// Invoked from a text object’s implementation of [ResignFirstResponder],
+// this method requests permission for `aTextObject` to end editing.
+//
+// # Discussion
+// 
+// If the delegate returns [true], the text object proceeds to finish editing
+// and resign first responder status. If the delegate returns [false], the
+// text object selects all of its text and remains the first responder.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldEndEditing(_:)
+func (t NSTableView) TextShouldEndEditing(textObject INSText) bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
 }
 
@@ -2514,51 +2514,6 @@ func (t NSTableView) TextViewClickedOnCellInRectAtIndex(textView INSTextView, ce
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:clickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
 }
 
-// Returns the actual completions for a partial word.
-//
-// textView: The text view sending the message.
-//
-// words: The proposed array of completions.
-//
-// charRange: The range of characters to be completed.
-//
-// index: On return, the index of the initially selected completion. The default is
-// 0, and –1 indicates no selection.
-//
-// # Return Value
-// 
-// The actual array of completions that will be presented for the partial word
-// at the given range. Returning `nil` or a zero-length array suppresses
-// completion.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:completions:forPartialWordRange:indexOfSelectedItem:)
-func (t NSTableView) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:completions:forPartialWordRange:indexOfSelectedItem:"), textView, objectivec.StringSliceToNSArray(words), charRange, index)
-	return objc.ConvertSliceToStrings(rv)
-}
-
-// Sent when the user attempts to drag a cell.
-//
-// view: The text view sending the message.
-//
-// cell: The cell being dragged.
-//
-// rect: The rectangle from which the cell was dragged.
-//
-// event: The mouse-down event that preceded the mouse-dragged event.
-//
-// charIndex: The character position where the mouse button was clicked.
-//
-// # Discussion
-// 
-// The delegate can use this message as its cue to initiate a dragging
-// operation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:draggedCell:in:event:at:)
-func (t NSTableView) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cell NSTextAttachmentCell, rect corefoundation.CGRect, event INSEvent, charIndex uint) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textView:draggedCell:inRect:event:atIndex:"), view, cell, rect, event, charIndex)
-}
-
 // Sent after the user clicks a link.
 //
 // textView: The text view sending the message.
@@ -2595,55 +2550,49 @@ func (t NSTableView) TextViewClickedOnLinkAtIndex(textView INSTextView, link obj
 	return rv
 }
 
-// Sent when the user double-clicks a cell.
+// Returns the actual completions for a partial word.
 //
 // textView: The text view sending the message.
 //
-// cell: The cell double-clicked by the user.
+// words: The proposed array of completions.
 //
-// cellFrame: The frame of the double-clicked cell.
+// charRange: The range of characters to be completed.
 //
-// charIndex: The character index of the double-clicked cell.
-//
-// # Discussion
-// 
-// The delegate can use this message as its cue to perform an action, such as
-// opening the file represented by the attachment. `aTextView` is the first
-// text view in a series shared by a layout manager, not necessarily the one
-// that draws `cell`.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:doubleClickedOn:in:at:)
-func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textView:doubleClickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
-}
-
-// Sent when a text view needs to determine if text in an array of specified
-// ranges should be changed.
-//
-// textView: The text view sending the message. This is the first text view in a series
-// shared by a layout manager, not necessarily the text view displaying the
-// selected text.
-//
-// affectedRanges: The array of ranges of characters to be replaced. This array must be a
-// non-nil, non-empty array of objects responding to the NSValue `rangeValue`
-// method, and in addition its elements must be sorted, non-overlapping,
-// non-contiguous, and (except for the case of a single range) have
-// non-zero-length.
-//
-// replacementStrings: The array of strings that will replace the characters in `affectedRanges`,
-// one string for each range; `nil` if only text attributes are being changed.
+// index: On return, the index of the initially selected completion. The default is
+// 0, and –1 indicates no selection.
 //
 // # Return Value
 // 
-// [true] to allow the replacement, or [false] to reject the change.
+// The actual array of completions that will be presented for the partial word
+// at the given range. Returning `nil` or a zero-length array suppresses
+// completion.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:completions:forPartialWordRange:indexOfSelectedItem:)
+func (t NSTableView) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:completions:forPartialWordRange:indexOfSelectedItem:"), textView, objectivec.StringSliceToNSArray(words), charRange, index)
+	return objc.ConvertSliceToStrings(rv)
+}
+
+// Sent when the selection changes in the text view.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldChangeTextInRanges:replacementStrings:)
-func (t NSTableView) TextViewShouldChangeTextInRangesReplacementStrings(textView INSTextView, affectedRanges []foundation.NSValue, replacementStrings []string) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("textView:shouldChangeTextInRanges:replacementStrings:"), textView, objectivec.IObjectSliceToNSArray(affectedRanges), objectivec.StringSliceToNSArray(replacementStrings))
-	return rv
+// notification: A notification named [didChangeSelectionNotification].
+// //
+// [didChangeSelectionNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewDidChangeSelection(_:)
+func (t NSTableView) TextViewDidChangeSelection(notification foundation.NSNotification) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textViewDidChangeSelection:"), notification)
+}
+
+// Sent when a text view’s typing attributes change.
+//
+// notification: A notification named [didChangeTypingAttributesNotification].
+// //
+// [didChangeTypingAttributesNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewDidChangeTypingAttributes(_:)
+func (t NSTableView) TextViewDidChangeTypingAttributes(notification foundation.NSNotification) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textViewDidChangeTypingAttributes:"), notification)
 }
 
 // Invoked to allow the delegate to modify the text checking results after
@@ -2717,22 +2666,74 @@ func (t NSTableView) TextViewDoCommandBySelector(textView INSTextView, commandSe
 	return rv
 }
 
-// Sent when the typing attributes are changed.
+// Sent when the user double-clicks a cell.
 //
 // textView: The text view sending the message.
 //
-// oldTypingAttributes: The old typing attributes.
+// cell: The cell double-clicked by the user.
 //
-// newTypingAttributes: The proposed typing attributes.
+// cellFrame: The frame of the double-clicked cell.
+//
+// charIndex: The character index of the double-clicked cell.
+//
+// # Discussion
+// 
+// The delegate can use this message as its cue to perform an action, such as
+// opening the file represented by the attachment. `aTextView` is the first
+// text view in a series shared by a layout manager, not necessarily the one
+// that draws `cell`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:doubleClickedOn:in:at:)
+func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textView:doubleClickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
+}
+
+// Sent when the user attempts to drag a cell.
+//
+// view: The text view sending the message.
+//
+// cell: The cell being dragged.
+//
+// rect: The rectangle from which the cell was dragged.
+//
+// event: The mouse-down event that preceded the mouse-dragged event.
+//
+// charIndex: The character position where the mouse button was clicked.
+//
+// # Discussion
+// 
+// The delegate can use this message as its cue to initiate a dragging
+// operation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:draggedCell:in:event:at:)
+func (t NSTableView) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cell NSTextAttachmentCell, rect corefoundation.CGRect, event INSEvent, charIndex uint) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textView:draggedCell:inRect:event:atIndex:"), view, cell, rect, event, charIndex)
+}
+
+// Allows delegate to control the context menu returned by the text view.
+//
+// view: The text view sending the message.
+//
+// menu: The proposed contextual menu.
+//
+// event: The mouse-down event that initiated the contextual menu’s display.
+//
+// charIndex: The character position where the mouse button was clicked.
 //
 // # Return Value
 // 
-// The actual new typing attributes.
+// A menu to use as the contextual menu. You can return `menu` unaltered, or
+// you can return a customized menu.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldChangeTypingAttributes:toAttributes:)
-func (t NSTableView) TextViewShouldChangeTypingAttributesToAttributes(textView INSTextView, oldTypingAttributes foundation.INSDictionary, newTypingAttributes foundation.INSDictionary) foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:shouldChangeTypingAttributes:toAttributes:"), textView, oldTypingAttributes, newTypingAttributes)
-	return foundation.NSDictionaryFromID(rv)
+// # Discussion
+// 
+// This method allows the delegate to control the context menu returned by
+// [MenuForEvent].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:menu:for:at:)
+func (t NSTableView) TextViewMenuForEventAtIndex(view INSTextView, menu INSMenu, event INSEvent, charIndex uint) INSMenu {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:menu:forEvent:atIndex:"), view, menu, event, charIndex)
+	return NSMenuFromID(rv)
 }
 
 // Sent when a text view needs to determine if text in a specified range
@@ -2767,6 +2768,53 @@ func (t NSTableView) TextViewShouldChangeTextInRangeReplacementString(textView I
 	return rv
 }
 
+// Sent when a text view needs to determine if text in an array of specified
+// ranges should be changed.
+//
+// textView: The text view sending the message. This is the first text view in a series
+// shared by a layout manager, not necessarily the text view displaying the
+// selected text.
+//
+// affectedRanges: The array of ranges of characters to be replaced. This array must be a
+// non-nil, non-empty array of objects responding to the NSValue `rangeValue`
+// method, and in addition its elements must be sorted, non-overlapping,
+// non-contiguous, and (except for the case of a single range) have
+// non-zero-length.
+//
+// replacementStrings: The array of strings that will replace the characters in `affectedRanges`,
+// one string for each range; `nil` if only text attributes are being changed.
+//
+// # Return Value
+// 
+// [true] to allow the replacement, or [false] to reject the change.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldChangeTextInRanges:replacementStrings:)
+func (t NSTableView) TextViewShouldChangeTextInRangesReplacementStrings(textView INSTextView, affectedRanges []foundation.NSValue, replacementStrings []string) bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("textView:shouldChangeTextInRanges:replacementStrings:"), textView, objectivec.IObjectSliceToNSArray(affectedRanges), objectivec.StringSliceToNSArray(replacementStrings))
+	return rv
+}
+
+// Sent when the typing attributes are changed.
+//
+// textView: The text view sending the message.
+//
+// oldTypingAttributes: The old typing attributes.
+//
+// newTypingAttributes: The proposed typing attributes.
+//
+// # Return Value
+// 
+// The actual new typing attributes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldChangeTypingAttributes:toAttributes:)
+func (t NSTableView) TextViewShouldChangeTypingAttributesToAttributes(textView INSTextView, oldTypingAttributes foundation.INSDictionary, newTypingAttributes foundation.INSDictionary) foundation.INSDictionary {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:shouldChangeTypingAttributes:toAttributes:"), textView, oldTypingAttributes, newTypingAttributes)
+	return foundation.NSDictionaryFromID(rv)
+}
+
 // Returns a Boolean value that indicates whether to select the text object at
 // the index.
 //
@@ -2784,6 +2832,54 @@ func (t NSTableView) TextViewShouldChangeTextInRangeReplacementString(textView I
 func (t NSTableView) TextViewShouldSelectCandidateAtIndex(textView INSTextView, index uint) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:shouldSelectCandidateAtIndex:"), textView, index)
 	return rv
+}
+
+// Sent when the spelling state is changed.
+//
+// textView: The text view sending the message.
+//
+// value: The proposed spelling state value to set. Possible values, for the
+// temporary attribute on the layout manager using the key
+// NSSpellingStateAttributeName, are:
+// 
+// - [NSSpellingStateSpellingFlag] to highlight spelling issues. -
+// [NSSpellingStateGrammarFlag] to highlight grammar issues.
+// //
+// [NSSpellingStateGrammarFlag]: https://developer.apple.com/documentation/AppKit/NSSpellingState/NSSpellingStateGrammarFlag
+// [NSSpellingStateSpellingFlag]: https://developer.apple.com/documentation/AppKit/NSSpellingState/NSSpellingStateSpellingFlag
+//
+// affectedCharRange: The character range over which to set the given spelling state.
+//
+// # Return Value
+// 
+// The actual spelling state to set.
+//
+// # Discussion
+// 
+// Delegate only. Allows delegate to control the setting of spelling and
+// grammar indicators.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldSetSpellingState:range:)
+func (t NSTableView) TextViewShouldSetSpellingStateRange(textView INSTextView, value int, affectedCharRange foundation.NSRange) int {
+	rv := objc.Send[int](t.ID, objc.Sel("textView:shouldSetSpellingState:range:"), textView, value, affectedCharRange)
+	return rv
+}
+
+// Returns and array of touch bar elements for the framework to update.
+//
+// textView: The text view that sent the message.
+//
+// identifiers: An array of touch bar identifiers to evaluate.
+//
+// # Return Value
+// 
+// Returns an array of [NSTouchBarItemIdentifier] elements for framework to
+// update.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldUpdateTouchBarItemIdentifiers:)
+func (t NSTableView) TextViewShouldUpdateTouchBarItemIdentifiers(textView INSTextView, identifiers []string) []string {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:shouldUpdateTouchBarItemIdentifiers:"), textView, objectivec.StringSliceToNSArray(identifiers))
+	return objc.ConvertSliceToStrings(rv)
 }
 
 // Returns a URL representing the document contents for a text attachment.
@@ -2908,229 +3004,6 @@ func (t NSTableView) TextViewWillChangeSelectionFromCharacterRangesToCharacterRa
 	})
 }
 
-// Returns the actual tooltip to display.
-//
-// textView: The text view sending the message.
-//
-// tooltip: The proposed tooltip to display.
-//
-// characterIndex: The location in `textView`.
-//
-// # Return Value
-// 
-// The actual tooltip to display, or `nil` to suppress display of the tooltip.
-//
-// # Discussion
-// 
-// The tooltip string is the value of the [toolTip] attribute at
-// `characterIndex`.
-//
-// [toolTip]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/toolTip
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willDisplayToolTip:forCharacterAt:)
-func (t NSTableView) TextViewWillDisplayToolTipForCharacterAtIndex(textView INSTextView, tooltip string, characterIndex uint) string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willDisplayToolTip:forCharacterAtIndex:"), textView, objc.String(tooltip), characterIndex)
-	return foundation.NSStringFromID(rv).String()
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writingToolsIgnoredRangesInEnclosingRange:)
-func (t NSTableView) TextViewWritingToolsIgnoredRangesInEnclosingRange(textView INSTextView, enclosingRange foundation.NSRange) []foundation.NSValue {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:writingToolsIgnoredRangesInEnclosingRange:"), textView, enclosingRange)
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
-		return foundation.NSValueFromID(id)
-	})
-}
-
-// Returns and array of touch bar elements for the framework to update.
-//
-// textView: The text view that sent the message.
-//
-// identifiers: An array of touch bar identifiers to evaluate.
-//
-// # Return Value
-// 
-// Returns an array of [NSTouchBarItemIdentifier] elements for framework to
-// update.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldUpdateTouchBarItemIdentifiers:)
-func (t NSTableView) TextViewShouldUpdateTouchBarItemIdentifiers(textView INSTextView, identifiers []string) []string {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:shouldUpdateTouchBarItemIdentifiers:"), textView, objectivec.StringSliceToNSArray(identifiers))
-	return objc.ConvertSliceToStrings(rv)
-}
-
-// Returns whether data of the specified type for the given cell could be
-// written to the specified pasteboard.
-//
-// view: The text view sending the message.
-//
-// cell: The cell whose contents should be written to the pasteboard.
-//
-// charIndex: The index at which the cell was accessed.
-//
-// pboard: The pasteboard to which the cell’s contents should be written.
-//
-// type: The type of data that should be written.
-//
-// # Return Value
-// 
-// [true] if the write succeeded, [false] otherwise.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// The receiver should attempt to write the `cell` to `pboard` with the given
-// `type`, and return success or failure.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:write:at:to:type:)
-func (t NSTableView) TextViewWriteCellAtIndexToPasteboardType(view INSTextView, cell NSTextAttachmentCell, charIndex uint, pboard INSPasteboard, type_ NSPasteboardType) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("textView:writeCell:atIndex:toPasteboard:type:"), view, cell, charIndex, pboard, objc.String(string(type_)))
-	return rv
-}
-
-// Sent when the spelling state is changed.
-//
-// textView: The text view sending the message.
-//
-// value: The proposed spelling state value to set. Possible values, for the
-// temporary attribute on the layout manager using the key
-// NSSpellingStateAttributeName, are:
-// 
-// - [NSSpellingStateSpellingFlag] to highlight spelling issues. -
-// [NSSpellingStateGrammarFlag] to highlight grammar issues.
-// //
-// [NSSpellingStateGrammarFlag]: https://developer.apple.com/documentation/AppKit/NSSpellingState/NSSpellingStateGrammarFlag
-// [NSSpellingStateSpellingFlag]: https://developer.apple.com/documentation/AppKit/NSSpellingState/NSSpellingStateSpellingFlag
-//
-// affectedCharRange: The character range over which to set the given spelling state.
-//
-// # Return Value
-// 
-// The actual spelling state to set.
-//
-// # Discussion
-// 
-// Delegate only. Allows delegate to control the setting of spelling and
-// grammar indicators.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:shouldSetSpellingState:range:)
-func (t NSTableView) TextViewShouldSetSpellingStateRange(textView INSTextView, value int, affectedCharRange foundation.NSRange) int {
-	rv := objc.Send[int](t.ID, objc.Sel("textView:shouldSetSpellingState:range:"), textView, value, affectedCharRange)
-	return rv
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsDidEnd(_:)
-func (t NSTableView) TextViewWritingToolsDidEnd(textView INSTextView) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textViewWritingToolsDidEnd:"), textView)
-}
-
-// Sent when a text view’s typing attributes change.
-//
-// notification: A notification named [didChangeTypingAttributesNotification].
-// //
-// [didChangeTypingAttributesNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewDidChangeTypingAttributes(_:)
-func (t NSTableView) TextViewDidChangeTypingAttributes(notification foundation.NSNotification) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textViewDidChangeTypingAttributes:"), notification)
-}
-
-// Sent when the selection changes in the text view.
-//
-// notification: A notification named [didChangeSelectionNotification].
-// //
-// [didChangeSelectionNotification]: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewDidChangeSelection(_:)
-func (t NSTableView) TextViewDidChangeSelection(notification foundation.NSNotification) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textViewDidChangeSelection:"), notification)
-}
-
-// Returns a sharing service picker for the current selection.
-//
-// textView: The text view.
-//
-// servicePicker: The service picker.
-//
-// items: The ranges of the items to share.
-//
-// # Return Value
-// 
-// An [NSSharingServicePicker] instance. The original sharing picker or a new
-// sharing picker instance can be returned.
-//
-// # Discussion
-// 
-// Returns a sharing service picker created for items right before shown to
-// the screen when the `` method. Return `nil` to remove the Share item from
-// the menu.
-// 
-// The delegate is specified as the delegate for the [NSSharingServicePicker]
-// instance.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willShow:forItems:)
-func (t NSTableView) TextViewWillShowSharingServicePickerForItems(textView INSTextView, servicePicker INSSharingServicePicker, items foundation.INSArray) INSSharingServicePicker {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willShowSharingServicePicker:forItems:"), textView, servicePicker, items)
-	return NSSharingServicePickerFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsWillBegin(_:)
-func (t NSTableView) TextViewWritingToolsWillBegin(textView INSTextView) {
-	objc.Send[objc.ID](t.ID, objc.Sel("textViewWritingToolsWillBegin:"), textView)
-}
-
-// Returns the writable pasteboard types for a given cell.
-//
-// view: The text view sending the message.
-//
-// cell: The cell in question.
-//
-// charIndex: The character index in the text view that was clicked.
-//
-// # Return Value
-// 
-// An array of types that can be written to the pasteboard for `cell`.
-//
-// # Discussion
-// 
-// This method is invoked after the user clicks `cell` at the specified
-// `charIndex` location in `aTextView`. If the
-// [TextViewDraggedCellInRectEventAtIndex] is not used, this method and
-// [TextViewWriteCellAtIndexToPasteboardType] allow `aTextView` to take care
-// of attachment dragging and pasting, with the delegate responsible only for
-// writing the attachment to the pasteboard.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writablePasteboardTypesFor:at:)
-func (t NSTableView) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextView, cell NSTextAttachmentCell, charIndex uint) []string {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:writablePasteboardTypesForCell:atIndex:"), view, cell, charIndex)
-	return objc.ConvertSliceToStrings(rv)
-}
-
-// Returns the undo manager for the specified text view.
-//
-// view: The text view whose undo manager should be returned.
-//
-// # Return Value
-// 
-// The undo manager for `view`.
-//
-// # Discussion
-// 
-// This method provides the flexibility to return a custom undo manager for
-// the text view. Although [NSTextView] implements undo and redo for changes
-// to text, applications may need a custom undo manager to handle interactions
-// between changes to text and changes to other items in the application.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/undoManager(for:)
-func (t NSTableView) UndoManagerForTextView(view INSTextView) foundation.NSUndoManager {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("undoManagerForTextView:"), view)
-	return foundation.NSUndoManagerFromID(rv)
-}
-
 // Invoked to allow the delegate to modify the text checking process before it
 // occurs.
 //
@@ -3166,30 +3039,157 @@ func (t NSTableView) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, 
 	return foundation.NSDictionaryFromID(rv)
 }
 
-// Allows delegate to control the context menu returned by the text view.
+// Returns the actual tooltip to display.
 //
-// view: The text view sending the message.
+// textView: The text view sending the message.
 //
-// menu: The proposed contextual menu.
+// tooltip: The proposed tooltip to display.
 //
-// event: The mouse-down event that initiated the contextual menu’s display.
-//
-// charIndex: The character position where the mouse button was clicked.
+// characterIndex: The location in `textView`.
 //
 // # Return Value
 // 
-// A menu to use as the contextual menu. You can return `menu` unaltered, or
-// you can return a customized menu.
+// The actual tooltip to display, or `nil` to suppress display of the tooltip.
 //
 // # Discussion
 // 
-// This method allows the delegate to control the context menu returned by
-// [MenuForEvent].
+// The tooltip string is the value of the [toolTip] attribute at
+// `characterIndex`.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:menu:for:at:)
-func (t NSTableView) TextViewMenuForEventAtIndex(view INSTextView, menu INSMenu, event INSEvent, charIndex uint) INSMenu {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:menu:forEvent:atIndex:"), view, menu, event, charIndex)
-	return NSMenuFromID(rv)
+// [toolTip]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/toolTip
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willDisplayToolTip:forCharacterAt:)
+func (t NSTableView) TextViewWillDisplayToolTipForCharacterAtIndex(textView INSTextView, tooltip string, characterIndex uint) string {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willDisplayToolTip:forCharacterAtIndex:"), textView, objc.String(tooltip), characterIndex)
+	return foundation.NSStringFromID(rv).String()
+}
+
+// Returns a sharing service picker for the current selection.
+//
+// textView: The text view.
+//
+// servicePicker: The service picker.
+//
+// items: The ranges of the items to share.
+//
+// # Return Value
+// 
+// An [NSSharingServicePicker] instance. The original sharing picker or a new
+// sharing picker instance can be returned.
+//
+// # Discussion
+// 
+// Returns a sharing service picker created for items right before shown to
+// the screen when the `` method. Return `nil` to remove the Share item from
+// the menu.
+// 
+// The delegate is specified as the delegate for the [NSSharingServicePicker]
+// instance.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willShow:forItems:)
+func (t NSTableView) TextViewWillShowSharingServicePickerForItems(textView INSTextView, servicePicker INSSharingServicePicker, items foundation.INSArray) INSSharingServicePicker {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willShowSharingServicePicker:forItems:"), textView, servicePicker, items)
+	return NSSharingServicePickerFromID(rv)
+}
+
+// Returns the writable pasteboard types for a given cell.
+//
+// view: The text view sending the message.
+//
+// cell: The cell in question.
+//
+// charIndex: The character index in the text view that was clicked.
+//
+// # Return Value
+// 
+// An array of types that can be written to the pasteboard for `cell`.
+//
+// # Discussion
+// 
+// This method is invoked after the user clicks `cell` at the specified
+// `charIndex` location in `aTextView`. If the
+// [TextViewDraggedCellInRectEventAtIndex] is not used, this method and
+// [TextViewWriteCellAtIndexToPasteboardType] allow `aTextView` to take care
+// of attachment dragging and pasting, with the delegate responsible only for
+// writing the attachment to the pasteboard.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writablePasteboardTypesFor:at:)
+func (t NSTableView) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextView, cell NSTextAttachmentCell, charIndex uint) []string {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:writablePasteboardTypesForCell:atIndex:"), view, cell, charIndex)
+	return objc.ConvertSliceToStrings(rv)
+}
+
+// Returns whether data of the specified type for the given cell could be
+// written to the specified pasteboard.
+//
+// view: The text view sending the message.
+//
+// cell: The cell whose contents should be written to the pasteboard.
+//
+// charIndex: The index at which the cell was accessed.
+//
+// pboard: The pasteboard to which the cell’s contents should be written.
+//
+// type: The type of data that should be written.
+//
+// # Return Value
+// 
+// [true] if the write succeeded, [false] otherwise.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// The receiver should attempt to write the `cell` to `pboard` with the given
+// `type`, and return success or failure.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:write:at:to:type:)
+func (t NSTableView) TextViewWriteCellAtIndexToPasteboardType(view INSTextView, cell NSTextAttachmentCell, charIndex uint, pboard INSPasteboard, type_ NSPasteboardType) bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("textView:writeCell:atIndex:toPasteboard:type:"), view, cell, charIndex, pboard, objc.String(string(type_)))
+	return rv
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsDidEnd(_:)
+func (t NSTableView) TextViewWritingToolsDidEnd(textView INSTextView) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textViewWritingToolsDidEnd:"), textView)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writingToolsIgnoredRangesInEnclosingRange:)
+func (t NSTableView) TextViewWritingToolsIgnoredRangesInEnclosingRange(textView INSTextView, enclosingRange foundation.NSRange) []foundation.NSValue {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:writingToolsIgnoredRangesInEnclosingRange:"), textView, enclosingRange)
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
+		return foundation.NSValueFromID(id)
+	})
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsWillBegin(_:)
+func (t NSTableView) TextViewWritingToolsWillBegin(textView INSTextView) {
+	objc.Send[objc.ID](t.ID, objc.Sel("textViewWritingToolsWillBegin:"), textView)
+}
+
+// Returns the undo manager for the specified text view.
+//
+// view: The text view whose undo manager should be returned.
+//
+// # Return Value
+// 
+// The undo manager for `view`.
+//
+// # Discussion
+// 
+// This method provides the flexibility to return a custom undo manager for
+// the text view. Although [NSTextView] implements undo and redo for changes
+// to text, applications may need a custom undo manager to handle interactions
+// between changes to text and changes to other items in the application.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/undoManager(for:)
+func (t NSTableView) UndoManagerForTextView(view INSTextView) foundation.NSUndoManager {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("undoManagerForTextView:"), view)
+	return foundation.NSUndoManagerFromID(rv)
 }
 
 // Returns a Boolean value that indicates whether the sender should be

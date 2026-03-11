@@ -144,9 +144,9 @@ type INSUUID interface {
 
 	Compare(otherUUID INSUUID) ComparisonResult
 
-	InitWithCoder(coder INSCoder) NSUUID
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSUUID
 }
 
 
@@ -271,13 +271,6 @@ func (u NSUUID) Compare(otherUUID INSUUID) ComparisonResult {
 	return ComparisonResult(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
-	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -285,6 +278,13 @@ func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u NSUUID) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
+	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

@@ -15,6 +15,7 @@ import (
 type NSAccessibilityRadioButton interface {
 	objectivec.IObject
 	NSAccessibilityButton
+	NSAccessibilityElementProtocol
 
 	// Returns the radio button’s value.
 	//

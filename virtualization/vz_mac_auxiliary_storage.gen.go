@@ -141,15 +141,15 @@ type IVZMacAuxiliaryStorage interface {
 	// The URL of the auxiliary storage on the local file system.
 	URL() foundation.INSURL
 
-	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
-	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
-	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 	// The Mac auxiliary storage.
 	AuxiliaryStorage() IVZMacAuxiliaryStorage
 	SetAuxiliaryStorage(value IVZMacAuxiliaryStorage)
 	// The Mac hardware model.
 	HardwareModel() IVZMacHardwareModel
 	SetHardwareModel(value IVZMacHardwareModel)
+	// This object represents the most fully featured configuration that’s supported by both the current host and by this restore image.
+	MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements
+	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
 
@@ -318,20 +318,6 @@ func (m VZMacAuxiliaryStorage) URL() foundation.INSURL {
 
 
 
-// This object represents the most fully featured configuration that’s
-// supported by both the current host and by this restore image.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzmacosrestoreimage/mostfeaturefulsupportedconfiguration
-func (m VZMacAuxiliaryStorage) MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mostFeaturefulSupportedConfiguration"))
-	return VZMacOSConfigurationRequirementsFromID(objc.ID(rv))
-}
-func (m VZMacAuxiliaryStorage) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
-}
-
-
-
 // The Mac auxiliary storage.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/auxiliarystorage
@@ -354,6 +340,20 @@ func (m VZMacAuxiliaryStorage) HardwareModel() IVZMacHardwareModel {
 }
 func (m VZMacAuxiliaryStorage) SetHardwareModel(value IVZMacHardwareModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
+}
+
+
+
+// This object represents the most fully featured configuration that’s
+// supported by both the current host and by this restore image.
+//
+// See: https://developer.apple.com/documentation/virtualization/vzmacosrestoreimage/mostfeaturefulsupportedconfiguration
+func (m VZMacAuxiliaryStorage) MostFeaturefulSupportedConfiguration() IVZMacOSConfigurationRequirements {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("mostFeaturefulSupportedConfiguration"))
+	return VZMacOSConfigurationRequirementsFromID(objc.ID(rv))
+}
+func (m VZMacAuxiliaryStorage) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }
 
 

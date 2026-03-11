@@ -80,9 +80,9 @@ func NSXPCListenerEndpointFromID(id objc.ID) NSXPCListenerEndpoint {
 type INSXPCListenerEndpoint interface {
 	objectivec.IObject
 
-	InitWithCoder(coder INSCoder) NSXPCListenerEndpoint
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSXPCListenerEndpoint
 }
 
 
@@ -127,13 +127,6 @@ func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 
 
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoint {
-	rv := objc.Send[NSXPCListenerEndpoint](x.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -141,6 +134,13 @@ func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoi
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (x NSXPCListenerEndpoint) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoint {
+	rv := objc.Send[NSXPCListenerEndpoint](x.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

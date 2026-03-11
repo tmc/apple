@@ -709,6 +709,21 @@ func (u NSUserActivity) GetContinuationStreamsWithCompletionHandler(completionHa
 		objc.Send[objc.ID](u.ID, objc.Sel("getContinuationStreamsWithCompletionHandler:"), _block0)
 }
 
+// Asks the item provider for the representation visibility specification for
+// the given UTI.
+//
+// typeIdentifier: A uniform type identifier (UTI).
+//
+// # Return Value
+// 
+// A representation visibility specification for the given UTI.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
+func (u NSUserActivity) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
+	rv := objc.Send[NSItemProviderRepresentationVisibility](u.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
+	return NSItemProviderRepresentationVisibility(rv)
+}
+
 // Loads data of a particular type, identified by the given UTI.
 //
 // typeIdentifier: The uniform type identifier (UTI) identifying the type of data to load.
@@ -730,21 +745,6 @@ func (u NSUserActivity) LoadDataWithTypeIdentifierForItemProviderCompletionHandl
 	defer _cleanup1()
 		rv := objc.Send[objc.ID](u.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
-}
-
-// Asks the item provider for the representation visibility specification for
-// the given UTI.
-//
-// typeIdentifier: A uniform type identifier (UTI).
-//
-// # Return Value
-// 
-// A representation visibility specification for the given UTI.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
-func (u NSUserActivity) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
-	rv := objc.Send[NSItemProviderRepresentationVisibility](u.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
-	return NSItemProviderRepresentationVisibility(rv)
 }
 
 

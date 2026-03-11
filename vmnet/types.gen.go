@@ -11,10 +11,10 @@ import (
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/vmnet/vmpktdesc
 type Vmpktdesc struct {
-	Vm_pkt_size int // The size of the packet, in bytes.
+	Vm_pkt_size uintptr // The size of the packet, in bytes.
 	Vm_pkt_iovcnt uint32 // The number of packet buffers in `vm_pkt_iov`.
 	Vm_flags uint32 // Option flags. Should be set to `0` on read.
-	Vm_pkt_iov objectivec.IObject // An array of packet buffers.
+	Vm_pkt_iov *objectivec.IObject // An array of packet buffers.
 
 }
 

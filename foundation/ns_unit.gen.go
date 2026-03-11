@@ -118,9 +118,9 @@ type IUnit interface {
 	// Initializes a new unit with the specified symbol.
 	InitWithSymbol(symbol string) Unit
 
-	InitWithCoder(coder INSCoder) Unit
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) Unit
 }
 
 
@@ -195,13 +195,6 @@ func (u Unit) InitWithSymbol(symbol string) Unit {
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u Unit) InitWithCoder(coder INSCoder) Unit {
-	rv := objc.Send[Unit](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -209,6 +202,13 @@ func (u Unit) InitWithCoder(coder INSCoder) Unit {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u Unit) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u Unit) InitWithCoder(coder INSCoder) Unit {
+	rv := objc.Send[Unit](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

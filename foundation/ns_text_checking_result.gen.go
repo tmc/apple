@@ -273,9 +273,9 @@ type INSTextCheckingResult interface {
 	// A value indicating that a requested item couldn’t be found or doesn’t exist.
 	NSNotFound() int
 	SetNSNotFound(value int)
-	InitWithCoder(coder INSCoder) NSTextCheckingResult
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSTextCheckingResult
 }
 
 
@@ -365,13 +365,6 @@ func (t NSTextCheckingResult) RangeWithName(name string) NSRange {
 	return NSRange(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (t NSTextCheckingResult) InitWithCoder(coder INSCoder) NSTextCheckingResult {
-	rv := objc.Send[NSTextCheckingResult](t.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -379,6 +372,13 @@ func (t NSTextCheckingResult) InitWithCoder(coder INSCoder) NSTextCheckingResult
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (t NSTextCheckingResult) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (t NSTextCheckingResult) InitWithCoder(coder INSCoder) NSTextCheckingResult {
+	rv := objc.Send[NSTextCheckingResult](t.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

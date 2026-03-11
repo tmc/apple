@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable
 type NSAccessibilityTable interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 	NSAccessibilityGroup
 
 	// Returns a short description of the table.

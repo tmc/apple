@@ -515,20 +515,20 @@ type INSArray interface {
 	ArrayByApplyingDifference(difference INSOrderedCollectionDifference) []objectivec.IObject
 	// Compares two arrays to create a difference object that represents the changes between them.
 	DifferenceFromArray(other []objectivec.IObject) INSOrderedCollectionDifference
-	// Compares two arrays, using the provided block and with options, to create a difference object that represents the changes between them.
-	DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference
 	// Compares two arrays, with options, to create a difference object that represents the changes between them.
 	DifferenceFromArrayWithOptions(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
+	// Compares two arrays, using the provided block and with options, to create a difference object that represents the changes between them.
+	DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Copies references to objects contained in the array that fall within the specified range to `aBuffer`.
 	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
 	// Initializes a newly allocated array by placing in it the objects in the argument list.
 	InitWithObjects(firstObj objectivec.IObject) NSArray
-	// Sends the `aSelector` message to each object in the array, starting with the first object and continuing through the array to the last object.
-	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 	// Sends to each object in the array the message identified by a given selector, starting with the first object and continuing through the array to the last object.
 	MakeObjectsPerformSelector(aSelector objc.SEL)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
+	// Sends the `aSelector` message to each object in the array, starting with the first object and continuing through the array to the last object.
+	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
 
 
@@ -2076,6 +2076,33 @@ func (a NSArray) ArrayByApplyingDifference(difference INSOrderedCollectionDiffer
 	})
 }
 
+// Returns by reference a C array of objects over which the sender should
+// iterate, and as the return value the number of objects in the array.
+//
+// state: Context information that is used in the enumeration to, in addition to
+// other possibilities, ensure that the collection has not been mutated.
+//
+// buffer: A C array of objects over which the sender is to iterate.
+//
+// len: The maximum number of objects to return in `stackbuf`.
+//
+// # Return Value
+// 
+// The number of objects returned in `stackbuf`. Returns `0` when the
+// iteration is finished.
+//
+// # Discussion
+// 
+// The state structure is assumed to be of stack local memory, so you can
+// recast the passed in state structure to one more suitable for your
+// iteration.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
+func (a NSArray) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
+	rv := objc.Send[uint](a.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
+	return rv
+}
+
 // Compares two arrays to create a difference object that represents the
 // changes between them.
 //
@@ -2089,23 +2116,6 @@ func (a NSArray) ArrayByApplyingDifference(difference INSOrderedCollectionDiffer
 // See: https://developer.apple.com/documentation/Foundation/NSArray/differenceFromArray:
 func (a NSArray) DifferenceFromArray(other []objectivec.IObject) INSOrderedCollectionDifference {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("differenceFromArray:"), objectivec.IObjectSliceToNSArray(other))
-	return NSOrderedCollectionDifferenceFromID(rv)
-}
-
-// Compares two arrays, using the provided block and with options, to create a
-// difference object that represents the changes between them.
-//
-// # Discussion
-// 
-// The options allow you to choose to omit insertion or removal references to
-// the change objects within the difference object’s changes. Don’t use
-// the option [OrderedCollectionDifferenceCalculationInferMoves] when
-// providing a block for the equivalence test. The changes returned in the
-// difference object don’t include valid values for [AssociatedIndex].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSArray/differenceFromArray:withOptions:usingEquivalenceTest:
-func (a NSArray) DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("differenceFromArray:withOptions:usingEquivalenceTest:"), objectivec.IObjectSliceToNSArray(other), options, block)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
 
@@ -2130,6 +2140,32 @@ func (a NSArray) DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []obje
 func (a NSArray) DifferenceFromArrayWithOptions(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("differenceFromArray:withOptions:"), objectivec.IObjectSliceToNSArray(other), options)
 	return NSOrderedCollectionDifferenceFromID(rv)
+}
+
+// Compares two arrays, using the provided block and with options, to create a
+// difference object that represents the changes between them.
+//
+// # Discussion
+// 
+// The options allow you to choose to omit insertion or removal references to
+// the change objects within the difference object’s changes. Don’t use
+// the option [OrderedCollectionDifferenceCalculationInferMoves] when
+// providing a block for the equivalence test. The changes returned in the
+// difference object don’t include valid values for [AssociatedIndex].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSArray/differenceFromArray:withOptions:usingEquivalenceTest:
+func (a NSArray) DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("differenceFromArray:withOptions:usingEquivalenceTest:"), objectivec.IObjectSliceToNSArray(other), options, block)
+	return NSOrderedCollectionDifferenceFromID(rv)
+}
+
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (a NSArray) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // Copies references to objects contained in the array that fall within the
@@ -2185,26 +2221,6 @@ func (a NSArray) InitWithObjects(firstObj objectivec.IObject) NSArray {
 	return rv
 }
 
-// Sends the `aSelector` message to each object in the array, starting with
-// the first object and continuing through the array to the last object.
-//
-// aSelector: A selector that identifies the message to send to the objects in the array.
-// The method must take a single argument of type id, and must not have the
-// side effect of modifying the receiving array.
-//
-// argument: The object to send as the argument to each invocation of the `aSelector`
-// method.
-//
-// # Discussion
-// 
-// This method raises an [NSInvalidArgumentException] if `aSelector` is
-// [NULL].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSArray/makeObjectsPerformSelector:withObject:
-func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
-}
-
 // Sends to each object in the array the message identified by a given
 // selector, starting with the first object and continuing through the array
 // to the last object.
@@ -2223,40 +2239,24 @@ func (a NSArray) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
-// Encodes the receiver using a given archiver.
+// Sends the `aSelector` message to each object in the array, starting with
+// the first object and continuing through the array to the last object.
 //
-// coder: An archiver object.
+// aSelector: A selector that identifies the message to send to the objects in the array.
+// The method must take a single argument of type id, and must not have the
+// side effect of modifying the receiving array.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (a NSArray) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-// 
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
+// argument: The object to send as the argument to each invocation of the `aSelector`
+// method.
 //
 // # Discussion
 // 
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
+// This method raises an [NSInvalidArgumentException] if `aSelector` is
+// [NULL].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (a NSArray) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](a.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
+// See: https://developer.apple.com/documentation/Foundation/NSArray/makeObjectsPerformSelector:withObject:
+func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
+	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 
 
@@ -2287,21 +2287,6 @@ func (_NSArrayClass NSArrayClass) ArrayWithObjectsCount(objects []objectivec.IOb
 	return NSArrayFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSArray/arrayWithContentsOfURL:error:
-func (_NSArrayClass NSArrayClass) ArrayWithContentsOfURLError(url INSURL) ([]objectivec.IObject, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[[]objc.ID](objc.ID(_NSArrayClass.class), objc.Sel("arrayWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, NSErrorFrom(errorPtr)
-	}
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	}), nil
-
-}
-
 // Creates and returns an empty array.
 //
 // # Return Value
@@ -2330,6 +2315,21 @@ func (_NSArrayClass NSArrayClass) Array() NSArray {
 func (_NSArrayClass NSArrayClass) ArrayWithArray(array []objectivec.IObject) NSArray {
 	rv := objc.Send[objc.ID](objc.ID(_NSArrayClass.class), objc.Sel("arrayWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSArrayFromID(rv)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSArray/arrayWithContentsOfURL:error:
+func (_NSArrayClass NSArrayClass) ArrayWithContentsOfURLError(url INSURL) ([]objectivec.IObject, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[[]objc.ID](objc.ID(_NSArrayClass.class), objc.Sel("arrayWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, NSErrorFrom(errorPtr)
+	}
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	}), nil
+
 }
 
 // Creates and returns an array containing the objects in the argument list.

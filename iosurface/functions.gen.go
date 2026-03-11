@@ -128,12 +128,12 @@ func IOSurfaceCreateXPCObject(aSurface IOSurfaceRef) unsafe.Pointer {
 }
 
 
-var _iOSurfaceDecrementUseCount func(buffer IOSurfaceRef) 
+var _iOSurfaceDecrementUseCount func(buffer IOSurfaceRef)
 
 // IOSurfaceDecrementUseCount decrements the per-process usage count for an IOSurface.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceDecrementUseCount(_:)
-func IOSurfaceDecrementUseCount(buffer IOSurfaceRef)  {
+func IOSurfaceDecrementUseCount(buffer IOSurfaceRef) {
 	if _iOSurfaceDecrementUseCount == nil {
 		panic("IOSurface: symbol IOSurfaceDecrementUseCount not loaded")
 	}
@@ -531,12 +531,12 @@ func IOSurfaceGetWidthOfPlane(buffer IOSurfaceRef, planeIndex uintptr) uintptr {
 }
 
 
-var _iOSurfaceIncrementUseCount func(buffer IOSurfaceRef) 
+var _iOSurfaceIncrementUseCount func(buffer IOSurfaceRef)
 
 // IOSurfaceIncrementUseCount increments the per-process usage count for an IOSurface.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceIncrementUseCount(_:)
-func IOSurfaceIncrementUseCount(buffer IOSurfaceRef)  {
+func IOSurfaceIncrementUseCount(buffer IOSurfaceRef) {
 	if _iOSurfaceIncrementUseCount == nil {
 		panic("IOSurface: symbol IOSurfaceIncrementUseCount not loaded")
 	}
@@ -609,12 +609,12 @@ func IOSurfaceLookupFromXPCObject(xobj unsafe.Pointer) IOSurfaceRef {
 }
 
 
-var _iOSurfaceRemoveAllValues func(buffer IOSurfaceRef) 
+var _iOSurfaceRemoveAllValues func(buffer IOSurfaceRef)
 
 // IOSurfaceRemoveAllValues.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceRemoveAllValues(_:)
-func IOSurfaceRemoveAllValues(buffer IOSurfaceRef)  {
+func IOSurfaceRemoveAllValues(buffer IOSurfaceRef) {
 	if _iOSurfaceRemoveAllValues == nil {
 		panic("IOSurface: symbol IOSurfaceRemoveAllValues not loaded")
 	}
@@ -622,18 +622,30 @@ func IOSurfaceRemoveAllValues(buffer IOSurfaceRef)  {
 }
 
 
-var _iOSurfaceRemoveValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef) 
+var _iOSurfaceRemoveValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef)
 
 // IOSurfaceRemoveValue deletes a value in the dictionary associated with the buffer.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceRemoveValue(_:_:)
-func IOSurfaceRemoveValue(buffer IOSurfaceRef, key corefoundation.CFStringRef)  {
+func IOSurfaceRemoveValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) {
 	if _iOSurfaceRemoveValue == nil {
 		panic("IOSurface: symbol IOSurfaceRemoveValue not loaded")
 	}
 	_iOSurfaceRemoveValue(buffer, key)
 }
 
+
+var _iOSurfaceSetOwnershipIdentity func(buffer IOSurfaceRef, task_id_token uintptr, newLedgerTag int, newLedgerOptions uint32) int32
+
+// IOSurfaceSetOwnershipIdentity.
+//
+// See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSetOwnershipIdentity(_:_:_:_:)
+func IOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token uintptr, newLedgerTag int, newLedgerOptions uint32) int32 {
+	if _iOSurfaceSetOwnershipIdentity == nil {
+		panic("IOSurface: symbol IOSurfaceSetOwnershipIdentity not loaded")
+	}
+	return _iOSurfaceSetOwnershipIdentity(buffer, task_id_token, newLedgerTag, newLedgerOptions)
+}
 
 
 var _iOSurfaceSetPurgeable func(buffer IOSurfaceRef, newState uint32, oldState *uint32) int32
@@ -649,12 +661,12 @@ func IOSurfaceSetPurgeable(buffer IOSurfaceRef, newState uint32, oldState *uint3
 }
 
 
-var _iOSurfaceSetValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef) 
+var _iOSurfaceSetValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef)
 
 // IOSurfaceSetValue sets a value in the dictionary associated with the buffer.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSetValue(_:_:_:)
-func IOSurfaceSetValue(buffer IOSurfaceRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef)  {
+func IOSurfaceSetValue(buffer IOSurfaceRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef) {
 	if _iOSurfaceSetValue == nil {
 		panic("IOSurface: symbol IOSurfaceSetValue not loaded")
 	}
@@ -662,12 +674,12 @@ func IOSurfaceSetValue(buffer IOSurfaceRef, key corefoundation.CFStringRef, valu
 }
 
 
-var _iOSurfaceSetValues func(buffer IOSurfaceRef, keysAndValues corefoundation.CFDictionaryRef) 
+var _iOSurfaceSetValues func(buffer IOSurfaceRef, keysAndValues corefoundation.CFDictionaryRef)
 
 // IOSurfaceSetValues.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSetValues(_:_:)
-func IOSurfaceSetValues(buffer IOSurfaceRef, keysAndValues corefoundation.CFDictionaryRef)  {
+func IOSurfaceSetValues(buffer IOSurfaceRef, keysAndValues corefoundation.CFDictionaryRef) {
 	if _iOSurfaceSetValues == nil {
 		panic("IOSurface: symbol IOSurfaceSetValues not loaded")
 	}
@@ -739,6 +751,7 @@ func init() {
 		registerFunc(&_iOSurfaceLookupFromXPCObject, frameworkHandle, "IOSurfaceLookupFromXPCObject")
 		registerFunc(&_iOSurfaceRemoveAllValues, frameworkHandle, "IOSurfaceRemoveAllValues")
 		registerFunc(&_iOSurfaceRemoveValue, frameworkHandle, "IOSurfaceRemoveValue")
+		registerFunc(&_iOSurfaceSetOwnershipIdentity, frameworkHandle, "IOSurfaceSetOwnershipIdentity")
 		registerFunc(&_iOSurfaceSetPurgeable, frameworkHandle, "IOSurfaceSetPurgeable")
 		registerFunc(&_iOSurfaceSetValue, frameworkHandle, "IOSurfaceSetValue")
 		registerFunc(&_iOSurfaceSetValues, frameworkHandle, "IOSurfaceSetValues")

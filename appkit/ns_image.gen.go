@@ -1027,7 +1027,7 @@ func NewImageWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHa
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(symbolName:bundle:variableValue:)
-func NewImageWithSymbolNameBundleVariableValue(name string, bundle *foundation.NSBundle, value float64) NSImage {
+func NewImageWithSymbolNameBundleVariableValue(name string, bundle foundation.NSBundle, value float64) NSImage {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageClass().class), objc.Sel("imageWithSymbolName:bundle:variableValue:"), objc.String(name), bundle, value)
 	return NSImageFromID(rv)
 }

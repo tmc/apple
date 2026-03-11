@@ -271,7 +271,7 @@ type INSWorkspace interface {
 	// Topic: Accessing the Workspace Notification Center
 
 	// The notification center for workspace notifications.
-	NotificationCenter() *foundation.NSNotificationCenter
+	NotificationCenter() foundation.NSNotificationCenter
 
 	// Topic: Opening URLs
 
@@ -1230,13 +1230,9 @@ func (w NSWorkspace) RequestAuthorizationOfTypeCompletionHandler(type_ NSWorkspa
 // and later.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/notificationCenter
-func (w NSWorkspace) NotificationCenter() *foundation.NSNotificationCenter {
+func (w NSWorkspace) NotificationCenter() foundation.NSNotificationCenter {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("notificationCenter"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSNotificationCenterFromID(objc.ID(rv))
-	return &val
+	return foundation.NSNotificationCenterFromID(objc.ID(rv))
 }
 
 

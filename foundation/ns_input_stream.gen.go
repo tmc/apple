@@ -379,13 +379,6 @@ func (i InputStream) GetBufferLength(buffer uint8, len_ uint) bool {
 
 
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSInputStream/inputStreamWithURL:
-func (_InputStreamClass InputStreamClass) InputStreamWithURL(url INSURL) InputStream {
-	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithURL:"), url)
-	return NSInputStreamFromID(rv)
-}
-
 // Creates and returns an initialized [NSInputStream] object for reading from
 // a given [NSData] object.
 //
@@ -423,6 +416,13 @@ func (_InputStreamClass InputStreamClass) InputStreamWithData(data INSData) Inpu
 // See: https://developer.apple.com/documentation/Foundation/NSInputStream/inputStreamWithFileAtPath:
 func (_InputStreamClass InputStreamClass) InputStreamWithFileAtPath(path string) InputStream {
 	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithFileAtPath:"), objc.String(path))
+	return NSInputStreamFromID(rv)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSInputStream/inputStreamWithURL:
+func (_InputStreamClass InputStreamClass) InputStreamWithURL(url INSURL) InputStream {
+	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithURL:"), url)
 	return NSInputStreamFromID(rv)
 }
 

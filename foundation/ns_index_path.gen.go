@@ -178,9 +178,9 @@ type INSIndexPath interface {
 	// Copies the indexes stored in the index path from the positions specified by the position range into the specified indexes.
 	GetIndexesRange(indexes uint, positionRange NSRange)
 
-	InitWithCoder(coder INSCoder) NSIndexPath
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSIndexPath
 }
 
 
@@ -451,13 +451,6 @@ func (i NSIndexPath) GetIndexesRange(indexes uint, positionRange NSRange) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getIndexes:range:"), indexes, positionRange)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
-	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -465,6 +458,13 @@ func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (i NSIndexPath) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
+	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

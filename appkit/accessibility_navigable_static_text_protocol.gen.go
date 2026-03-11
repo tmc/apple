@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText
 type NSAccessibilityNavigableStaticText interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 	NSAccessibilityStaticText
 
 	// Returns the rectangle that encloses the specified range of characters.

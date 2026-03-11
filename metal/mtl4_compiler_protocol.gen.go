@@ -54,6 +54,11 @@ type MTL4Compiler interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newBinaryFunctionWithDescriptor:compilerTaskOptions:error:
 	NewBinaryFunctionWithDescriptorCompilerTaskOptionsError(descriptor IMTL4BinaryFunctionDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions) (MTL4BinaryFunction, error)
 
+	// Creates a new compute pipeline state asynchronously.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
+	NewComputePipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4ComputePipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask
+
 	// Creates a new compute pipeline state object synchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:compilerTaskOptions:error:
@@ -61,43 +66,38 @@ type MTL4Compiler interface {
 
 	// Creates a new compute pipeline state asynchronously.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
-	NewComputePipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4ComputePipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask
-
-	// Creates a new dynamic Metal library instance asynchronously.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibrary:completionHandler:
-	NewDynamicLibraryCompletionHandler(library MTLLibrary, completionHandler ErrorHandler) MTL4CompilerTask
-
-	// Creates a new compute pipeline state asynchronously.
-	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:dynamicLinkingDescriptor:compilerTaskOptions:completionHandler:
 	NewComputePipelineStateWithDescriptorDynamicLinkingDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4ComputePipelineDescriptor, dynamicLinkingDescriptor IMTL4PipelineStageDynamicLinkingDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask
-
-	// Creates a new dynamic library from the contents of a file at an URL location synchronously.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibraryWithURL:completionHandler:
-	NewDynamicLibraryWithURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) MTL4CompilerTask
 
 	// Creates a new compute pipeline state synchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:dynamicLinkingDescriptor:compilerTaskOptions:error:
 	NewComputePipelineStateWithDescriptorDynamicLinkingDescriptorCompilerTaskOptionsError(descriptor IMTL4ComputePipelineDescriptor, dynamicLinkingDescriptor IMTL4PipelineStageDynamicLinkingDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions) (MTLComputePipelineState, error)
 
+	// Creates a new dynamic Metal library instance asynchronously.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibrary:completionHandler:
+	NewDynamicLibraryCompletionHandler(library MTLLibrary, completionHandler ErrorHandler) MTL4CompilerTask
+
+	// Creates a new dynamic library from the contents of a file at an URL location synchronously.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibraryWithURL:completionHandler:
+	NewDynamicLibraryWithURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) MTL4CompilerTask
+
 	// Creates a new Metal library instance asynchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newLibraryWithDescriptor:completionHandler:
 	NewLibraryWithDescriptorCompletionHandler(descriptor IMTL4LibraryDescriptor, completionHandler ErrorHandler) MTL4CompilerTask
 
-	// Creates a new ML pipeline state with descriptor.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newMachineLearningPipelineStateWithDescriptor:error:
-	NewMachineLearningPipelineStateWithDescriptorError(descriptor IMTL4MachineLearningPipelineDescriptor) (MTL4MachineLearningPipelineState, error)
-
 	// Creates a new machine learning pipeline state asynchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newMachineLearningPipelineStateWithDescriptor:completionHandler:
 	NewMachineLearningPipelineStateWithDescriptorCompletionHandler(descriptor IMTL4MachineLearningPipelineDescriptor, completionHandler ErrorHandler) MTL4CompilerTask
+
+	// Creates a new ML pipeline state with descriptor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newMachineLearningPipelineStateWithDescriptor:error:
+	NewMachineLearningPipelineStateWithDescriptorError(descriptor IMTL4MachineLearningPipelineDescriptor) (MTL4MachineLearningPipelineState, error)
 
 	// Creates a new render pipeline state from another, previously unspecialized, pipeline state
 	//
@@ -109,15 +109,15 @@ type MTL4Compiler interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateBySpecializationWithDescriptor:pipeline:error:
 	NewRenderPipelineStateBySpecializationWithDescriptorPipelineError(descriptor IMTL4PipelineDescriptor, pipeline MTLRenderPipelineState) (MTLRenderPipelineState, error)
 
-	// Creates a new render pipeline state synchronously.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateWithDescriptor:compilerTaskOptions:error:
-	NewRenderPipelineStateWithDescriptorCompilerTaskOptionsError(descriptor IMTL4PipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions) (MTLRenderPipelineState, error)
-
 	// Creates a new render pipeline state asynchronously.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
 	NewRenderPipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4PipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask
+
+	// Creates a new render pipeline state synchronously.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateWithDescriptor:compilerTaskOptions:error:
+	NewRenderPipelineStateWithDescriptorCompilerTaskOptionsError(descriptor IMTL4PipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions) (MTLRenderPipelineState, error)
 
 	// Creates a new render pipeline state asynchronously.
 	//
@@ -288,6 +288,28 @@ func (o MTL4CompilerObject) NewBinaryFunctionWithDescriptorCompilerTaskOptionsEr
 	return MTL4BinaryFunctionObjectFromID(rv), nil
 	}
 
+// Creates a new compute pipeline state asynchronously.
+//
+// descriptor: A compute pipeline state descriptor, describing the compute pipeline to
+// create.
+//
+// compilerTaskOptions: A descriptor of the compilation itself, providing parameters that influence
+// execution of the compilation process.
+//
+// completionHandler: A block Metal calls when it finishes the build task.
+//
+// # Return Value
+// 
+// A compiler task representing the asynchronous compilation task.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
+
+func (o MTL4CompilerObject) NewComputePipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4ComputePipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:compilerTaskOptions:completionHandler:"), descriptor, compilerTaskOptions, completionHandler)
+	return MTL4CompilerTaskObjectFromID(rv)
+	}
+
 // Creates a new compute pipeline state object synchronously.
 //
 // descriptor: A compute pipeline state descriptor describing the pipeline this compiler
@@ -319,46 +341,6 @@ func (o MTL4CompilerObject) NewComputePipelineStateWithDescriptorCompilerTaskOpt
 // descriptor: A compute pipeline state descriptor, describing the compute pipeline to
 // create.
 //
-// compilerTaskOptions: A descriptor of the compilation itself, providing parameters that influence
-// execution of the compilation process.
-//
-// completionHandler: A block Metal calls when it finishes the build task.
-//
-// # Return Value
-// 
-// A compiler task representing the asynchronous compilation task.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newComputePipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
-
-func (o MTL4CompilerObject) NewComputePipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4ComputePipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask {
-	
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:compilerTaskOptions:completionHandler:"), descriptor, compilerTaskOptions, completionHandler)
-	return MTL4CompilerTaskObjectFromID(rv)
-	}
-
-// Creates a new dynamic Metal library instance asynchronously.
-//
-// library: A library from which this compiler creates the new a dynamic library
-//
-// completionHandler: A block Metal calls when it finishes the build task.
-//
-// # Return Value
-// 
-// A compiler task representing the asynchronous compilation task.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibrary:completionHandler:
-
-func (o MTL4CompilerObject) NewDynamicLibraryCompletionHandler(library MTLLibrary, completionHandler ErrorHandler) MTL4CompilerTask {
-	
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDynamicLibrary:completionHandler:"), library, completionHandler)
-	return MTL4CompilerTaskObjectFromID(rv)
-	}
-
-// Creates a new compute pipeline state asynchronously.
-//
-// descriptor: A compute pipeline state descriptor, describing the compute pipeline to
-// create.
-//
 // dynamicLinkingDescriptor: An optional parameter that provides additional configuration for linking
 // the pipeline state object.
 //
@@ -376,26 +358,6 @@ func (o MTL4CompilerObject) NewDynamicLibraryCompletionHandler(library MTLLibrar
 func (o MTL4CompilerObject) NewComputePipelineStateWithDescriptorDynamicLinkingDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4ComputePipelineDescriptor, dynamicLinkingDescriptor IMTL4PipelineStageDynamicLinkingDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:dynamicLinkingDescriptor:compilerTaskOptions:completionHandler:"), descriptor, dynamicLinkingDescriptor, compilerTaskOptions, completionHandler)
-	return MTL4CompilerTaskObjectFromID(rv)
-	}
-
-// Creates a new dynamic library from the contents of a file at an URL
-// location synchronously.
-//
-// url: An URL referencing a file whose contents this compiler uses to build a
-// dynamic library.
-//
-// completionHandler: A block Metal calls when it finishes the build task.
-//
-// # Return Value
-// 
-// A compiler task representing the asynchronous compilation task.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibraryWithURL:completionHandler:
-
-func (o MTL4CompilerObject) NewDynamicLibraryWithURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) MTL4CompilerTask {
-	
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDynamicLibraryWithURL:completionHandler:"), url, completionHandler)
 	return MTL4CompilerTaskObjectFromID(rv)
 	}
 
@@ -428,6 +390,44 @@ func (o MTL4CompilerObject) NewComputePipelineStateWithDescriptorDynamicLinkingD
 	return MTLComputePipelineStateObjectFromID(rv), nil
 	}
 
+// Creates a new dynamic Metal library instance asynchronously.
+//
+// library: A library from which this compiler creates the new a dynamic library
+//
+// completionHandler: A block Metal calls when it finishes the build task.
+//
+// # Return Value
+// 
+// A compiler task representing the asynchronous compilation task.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibrary:completionHandler:
+
+func (o MTL4CompilerObject) NewDynamicLibraryCompletionHandler(library MTLLibrary, completionHandler ErrorHandler) MTL4CompilerTask {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDynamicLibrary:completionHandler:"), library, completionHandler)
+	return MTL4CompilerTaskObjectFromID(rv)
+	}
+
+// Creates a new dynamic library from the contents of a file at an URL
+// location synchronously.
+//
+// url: An URL referencing a file whose contents this compiler uses to build a
+// dynamic library.
+//
+// completionHandler: A block Metal calls when it finishes the build task.
+//
+// # Return Value
+// 
+// A compiler task representing the asynchronous compilation task.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newDynamicLibraryWithURL:completionHandler:
+
+func (o MTL4CompilerObject) NewDynamicLibraryWithURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) MTL4CompilerTask {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDynamicLibraryWithURL:completionHandler:"), url, completionHandler)
+	return MTL4CompilerTaskObjectFromID(rv)
+	}
+
 // Creates a new Metal library instance asynchronously.
 //
 // descriptor: A description of the library to create.
@@ -443,6 +443,25 @@ func (o MTL4CompilerObject) NewComputePipelineStateWithDescriptorDynamicLinkingD
 func (o MTL4CompilerObject) NewLibraryWithDescriptorCompletionHandler(descriptor IMTL4LibraryDescriptor, completionHandler ErrorHandler) MTL4CompilerTask {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newLibraryWithDescriptor:completionHandler:"), descriptor, completionHandler)
+	return MTL4CompilerTaskObjectFromID(rv)
+	}
+
+// Creates a new machine learning pipeline state asynchronously.
+//
+// descriptor: A machine learning pipeline state descriptor to use for creating the new
+// pipeline state.
+//
+// completionHandler: A block Metal calls when it finishes the build task.
+//
+// # Return Value
+// 
+// A compiler task representing the asynchronous compilation task.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newMachineLearningPipelineStateWithDescriptor:completionHandler:
+
+func (o MTL4CompilerObject) NewMachineLearningPipelineStateWithDescriptorCompletionHandler(descriptor IMTL4MachineLearningPipelineDescriptor, completionHandler ErrorHandler) MTL4CompilerTask {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("newMachineLearningPipelineStateWithDescriptor:completionHandler:"), descriptor, completionHandler)
 	return MTL4CompilerTaskObjectFromID(rv)
 	}
 
@@ -468,25 +487,6 @@ func (o MTL4CompilerObject) NewMachineLearningPipelineStateWithDescriptorError(d
 		return nil, err
 	}
 	return MTL4MachineLearningPipelineStateObjectFromID(rv), nil
-	}
-
-// Creates a new machine learning pipeline state asynchronously.
-//
-// descriptor: A machine learning pipeline state descriptor to use for creating the new
-// pipeline state.
-//
-// completionHandler: A block Metal calls when it finishes the build task.
-//
-// # Return Value
-// 
-// A compiler task representing the asynchronous compilation task.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newMachineLearningPipelineStateWithDescriptor:completionHandler:
-
-func (o MTL4CompilerObject) NewMachineLearningPipelineStateWithDescriptorCompletionHandler(descriptor IMTL4MachineLearningPipelineDescriptor, completionHandler ErrorHandler) MTL4CompilerTask {
-	
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newMachineLearningPipelineStateWithDescriptor:completionHandler:"), descriptor, completionHandler)
-	return MTL4CompilerTaskObjectFromID(rv)
 	}
 
 // Creates a new render pipeline state from another, previously unspecialized,
@@ -571,6 +571,37 @@ func (o MTL4CompilerObject) NewRenderPipelineStateBySpecializationWithDescriptor
 	return MTLRenderPipelineStateObjectFromID(rv), nil
 	}
 
+// Creates a new render pipeline state asynchronously.
+//
+// descriptor: A render, tile, or mesh pipeline state descriptor that describes the
+// pipeline to create.
+//
+// compilerTaskOptions: A description of the compilation process itself, providing parameters that
+// influence execution of the compilation process.
+//
+// completionHandler: A block Metal calls when it finishes the build task.
+//
+// # Return Value
+// 
+// A compiler task representing the asynchronous compilation task.
+//
+// # Discussion
+// 
+// Use this method to build any render pipeline type, including render, tile,
+// and mesh render pipeline states. The type of the descriptor you pass
+// indicates the pipeline type this method builds.
+// 
+// Passing in a compute pipeline descriptor to the `descriptor` parameter
+// produces an error.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
+
+func (o MTL4CompilerObject) NewRenderPipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4PipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:compilerTaskOptions:completionHandler:"), descriptor, compilerTaskOptions, completionHandler)
+	return MTL4CompilerTaskObjectFromID(rv)
+	}
+
 // Creates a new render pipeline state synchronously.
 //
 // descriptor: A render, tile, or mesh pipeline state descriptor that describes the
@@ -604,37 +635,6 @@ func (o MTL4CompilerObject) NewRenderPipelineStateWithDescriptorCompilerTaskOpti
 		return nil, err
 	}
 	return MTLRenderPipelineStateObjectFromID(rv), nil
-	}
-
-// Creates a new render pipeline state asynchronously.
-//
-// descriptor: A render, tile, or mesh pipeline state descriptor that describes the
-// pipeline to create.
-//
-// compilerTaskOptions: A description of the compilation process itself, providing parameters that
-// influence execution of the compilation process.
-//
-// completionHandler: A block Metal calls when it finishes the build task.
-//
-// # Return Value
-// 
-// A compiler task representing the asynchronous compilation task.
-//
-// # Discussion
-// 
-// Use this method to build any render pipeline type, including render, tile,
-// and mesh render pipeline states. The type of the descriptor you pass
-// indicates the pipeline type this method builds.
-// 
-// Passing in a compute pipeline descriptor to the `descriptor` parameter
-// produces an error.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Compiler/newRenderPipelineStateWithDescriptor:compilerTaskOptions:completionHandler:
-
-func (o MTL4CompilerObject) NewRenderPipelineStateWithDescriptorCompilerTaskOptionsCompletionHandler(descriptor IMTL4PipelineDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions, completionHandler ErrorHandler) MTL4CompilerTask {
-	
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:compilerTaskOptions:completionHandler:"), descriptor, compilerTaskOptions, completionHandler)
-	return MTL4CompilerTaskObjectFromID(rv)
 	}
 
 // Creates a new render pipeline state asynchronously.

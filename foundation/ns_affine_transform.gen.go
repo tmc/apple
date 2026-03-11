@@ -198,9 +198,9 @@ type INSAffineTransform interface {
 	// Appends the receiver’s matrix to the current transformation matrix stored in the current graphics context, replacing the current transformation matrix with the result.
 	Concat()
 
-	InitWithCoder(coder INSCoder) NSAffineTransform
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSAffineTransform
 }
 
 
@@ -514,13 +514,6 @@ func (a NSAffineTransform) Concat() {
 	objc.Send[objc.ID](a.ID, objc.Sel("concat"))
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (a NSAffineTransform) InitWithCoder(coder INSCoder) NSAffineTransform {
-	rv := objc.Send[NSAffineTransform](a.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -528,6 +521,13 @@ func (a NSAffineTransform) InitWithCoder(coder INSCoder) NSAffineTransform {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (a NSAffineTransform) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (a NSAffineTransform) InitWithCoder(coder INSCoder) NSAffineTransform {
+	rv := objc.Send[NSAffineTransform](a.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

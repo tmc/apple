@@ -2910,7 +2910,7 @@ const (
 	// MTLLanguageVersion3_2: Version 3.2 of the Metal shading language.
 	MTLLanguageVersion3_2 MTLLanguageVersion = 131075
 	MTLLanguageVersion4_0 MTLLanguageVersion = 131076
-	// Deprecated: use MTLLanguageVersion1_2.
+	// Deprecated: use MTLLanguageVersion1_1.
 	MTLLanguageVersion1_0 MTLLanguageVersion = 65536
 )
 

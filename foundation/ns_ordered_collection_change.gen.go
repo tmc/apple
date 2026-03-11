@@ -270,6 +270,26 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndexAssociatedIndex(anObje
 
 
 // Creates an change object that represents inserting or removing an object
+// from an ordered collection at a specific index.
+//
+// anObject: An object to be removed or inserted by the change.
+//
+// type: The type of change
+//
+// index: The index location within an ordered collection where the change applies.
+//
+// # Return Value
+// 
+// An object that represents an indexed change to an ordered collection and
+// references the object to be inserted or removed.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/changeWithObject:type:index:
+func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWithObjectTypeIndex(anObject objectivec.IObject, type_ NSCollectionChangeType, index uint) NSOrderedCollectionChange {
+	rv := objc.Send[objc.ID](objc.ID(_NSOrderedCollectionChangeClass.class), objc.Sel("changeWithObject:type:index:"), anObject, type_, index)
+	return NSOrderedCollectionChangeFromID(rv)
+}
+
+// Creates an change object that represents inserting or removing an object
 // from an ordered collection at a specific index, matched with an associated
 // location that infers a move within the collection.
 //
@@ -308,26 +328,6 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndexAssociatedIndex(anObje
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/changeWithObject:type:index:associatedIndex:
 func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWithObjectTypeIndexAssociatedIndex(anObject objectivec.IObject, type_ NSCollectionChangeType, index uint, associatedIndex uint) NSOrderedCollectionChange {
 	rv := objc.Send[objc.ID](objc.ID(_NSOrderedCollectionChangeClass.class), objc.Sel("changeWithObject:type:index:associatedIndex:"), anObject, type_, index, associatedIndex)
-	return NSOrderedCollectionChangeFromID(rv)
-}
-
-// Creates an change object that represents inserting or removing an object
-// from an ordered collection at a specific index.
-//
-// anObject: An object to be removed or inserted by the change.
-//
-// type: The type of change
-//
-// index: The index location within an ordered collection where the change applies.
-//
-// # Return Value
-// 
-// An object that represents an indexed change to an ordered collection and
-// references the object to be inserted or removed.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/changeWithObject:type:index:
-func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWithObjectTypeIndex(anObject objectivec.IObject, type_ NSCollectionChangeType, index uint) NSOrderedCollectionChange {
-	rv := objc.Send[objc.ID](objc.ID(_NSOrderedCollectionChangeClass.class), objc.Sel("changeWithObject:type:index:"), anObject, type_, index)
 	return NSOrderedCollectionChangeFromID(rv)
 }
 

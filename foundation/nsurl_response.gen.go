@@ -125,9 +125,9 @@ type IURLResponse interface {
 	// The URL for the response.
 	URL() INSURL
 
-	InitWithCoder(coder INSCoder) URLResponse
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLResponse
 }
 
 
@@ -226,13 +226,6 @@ func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(UR
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
-	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -240,6 +233,13 @@ func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u URLResponse) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
+	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

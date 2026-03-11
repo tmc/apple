@@ -75,15 +75,15 @@ type BNNSArithmeticUnary struct {
 type BNNSConvolutionLayerParameters struct {
 	Activation BNNSActivation // The layer activation function.
 	Bias BNNSLayerData // Layer bias, one for each output channel.
-	In_channels int // The number of input channels.
-	K_height int // The height of the convolution kernel.
-	K_width int // The width of the convolution kernel.
-	Out_channels int // The number of output channels.
+	In_channels uintptr // The number of input channels.
+	K_height uintptr // The height of the convolution kernel.
+	K_width uintptr // The width of the convolution kernel.
+	Out_channels uintptr // The number of output channels.
 	Weights BNNSLayerData // Convolution weights.
-	X_padding int // The X padding.
-	X_stride int // The X increment in the input image.
-	Y_padding int // The Y padding.
-	Y_stride int // The Y increment in the input image.
+	X_padding uintptr // The X padding.
+	X_stride uintptr // The X increment in the input image.
+	Y_padding uintptr // The Y padding.
+	Y_stride uintptr // The Y increment in the input image.
 
 }
 
@@ -93,7 +93,7 @@ type BNNSConvolutionLayerParameters struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSFilterParameters
 type BNNSFilterParameters struct {
 	Flags uint32 // A logical OR of zero or more values from BNNS flags.
-	N_threads int // The number of worker threads to execute.
+	N_threads uintptr // The number of worker threads to execute.
 	Alloc_memory BNNSAlloc // The function called to allocate memory.
 	Free_memory BNNSFree // The function called to deallocate memory.
 	Allocator BNNSAlloc
@@ -110,7 +110,7 @@ type BNNSFullyConnectedLayerParameters struct {
 	Activation BNNSActivation // The layer activation function.
 	Bias BNNSLayerData // Layer bias, one for each output component.
 	In_size uintptr // The size of the input vector.
-	Out_size int // The size of the output vector.
+	Out_size uintptr // The size of the output vector.
 	Weights BNNSLayerData // Matrix coefficients.
 
 }
@@ -124,9 +124,9 @@ type BNNSImageStackDescriptor struct {
 	Data_bias float32
 	Data_scale float32
 	Data_type unsafe.Pointer
-	Height int
+	Height uintptr
 	Image_stride uintptr
-	Row_stride int
+	Row_stride uintptr
 	Width uintptr
 
 }
@@ -163,7 +163,7 @@ type BNNSLayerData struct {
 	Data unsafe.Pointer // Pointer to layer values (weights, bias), layout and size are specific to each layer.
 	Data_bias float32 // Conversion bias for values, used for integer data types only, ignored for indexed and float data types.
 	Data_scale float32 // Conversion scale for values, used for integer data types only, ignored for indexed and float data types.
-	Data_table float32 // Conversion table (256 values) for indexed floating point data, used for indexed data types only.
+	Data_table []float32 // Conversion table (256 values) for indexed floating point data, used for indexed data types only.
 	Data_type unsafe.Pointer // Storage data type for the values stored in data.
 
 }
@@ -219,14 +219,14 @@ type BNNSLayerParametersConvolution struct {
 	O_desc BNNSNDArrayDescriptor // The descriptor of the output.
 	Bias BNNSNDArrayDescriptor // The bias descriptor.
 	Activation BNNSActivation // The activation function that the layer applies to the output.
-	X_stride int // The width increment of the input image.
-	Y_stride int // The height increment of the input image.
-	X_dilation_stride int // The width increment between elements in the input image during convolution.
-	Y_dilation_stride int // The height increment between elements in the input image during convolution.
-	X_padding int // The width padding, which is the number of virtual zeros added to the left and right of each channel.
-	Y_padding int // The height padding, which is the number of virtual zeros added to the top and bottom of each channel.
-	Groups int // Convolution group size.
-	Pad int // Padding which is asymmetric and ignored if the width or height padding values are greater than zero.
+	X_stride uintptr // The width increment of the input image.
+	Y_stride uintptr // The height increment of the input image.
+	X_dilation_stride uintptr // The width increment between elements in the input image during convolution.
+	Y_dilation_stride uintptr // The height increment between elements in the input image during convolution.
+	X_padding uintptr // The width padding, which is the number of virtual zeros added to the left and right of each channel.
+	Y_padding uintptr // The height padding, which is the number of virtual zeros added to the top and bottom of each channel.
+	Groups uintptr // Convolution group size.
+	Pad uintptr // Padding which is asymmetric and ignored if the width or height padding values are greater than zero.
 
 }
 
@@ -235,7 +235,7 @@ type BNNSLayerParametersConvolution struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersCropResize
 type BNNSLayerParametersCropResize struct {
-	Normalized_coordinates bool // A Boolean value that specifies whether the operation treats the coordinates as normalized to 
+	Normalized_coordinates bool // A Boolean value that specifies whether the operation treats the coordinates as normalized to `0...1`.
 	Spatial_scale float32 // An additional spatial scale that mutliplies the bounding box coordinates.
 	Extrapolation_value float32 // A value that the operation uses for extrapolation. Default value is `0`.
 	Sampling_mode uint // The sampling mode that the operation uses to select sample points.
@@ -266,7 +266,7 @@ type BNNSLayerParametersEmbedding struct {
 	I_desc BNNSNDArrayDescriptor // The signed or unsigned integer descriptor of the input.
 	O_desc BNNSNDArrayDescriptor // The descriptor of the output.
 	Dictionary BNNSNDArrayDescriptor // The descriptor of the dictionary.
-	Padding_idx int // The padding index.
+	Padding_idx uintptr // The padding index.
 	Max_norm float32 // The maximum norm.
 	Norm_type float32 // The norm type.
 
@@ -301,11 +301,11 @@ type BNNSLayerParametersGram struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerParametersLSTM
 type BNNSLayerParametersLSTM struct {
-	Input_size int // The number of elements in the input.
+	Input_size uintptr // The number of elements in the input.
 	Hidden_size uintptr // The number of elements in the hidden state.
-	Batch_size int // The number of input and output samples.
-	Num_layers int // The number of stacked long short-term memory (LSTM) layers.
-	Seq_len int // The size of the sequential input.
+	Batch_size uintptr // The number of input and output samples.
+	Num_layers uintptr // The number of stacked long short-term memory (LSTM) layers.
+	Seq_len uintptr // The size of the sequential input.
 	Dropout float32 // The dropout ratio to apply between long short-term memory (LSTM) layers.
 	Lstm_flags uint32 // Flags that control the behavior of a long short-term memory (LSTM) layer.
 	Sequence_descriptor BNNSNDArrayDescriptor // A 1D array of unsigned-integer elements that determines the batch size for each step.
@@ -427,8 +427,8 @@ type BNNSLayerParametersNormalization struct {
 	Momentum float32 // A value, between 0 and 1, the normalization operation uses to update the moving mean and moving variance during training.
 	Epsilon float32 // The epsilon in the computation of the standard deviation.
 	Activation BNNSActivation // The activation function that the layer applies to the output.
-	Num_groups int // The number of groups over which the layer computes normalization statistics.
-	Normalization_axis int // The axis on which a layer normalization operation starts normalization.
+	Num_groups uintptr // The number of groups over which the layer computes normalization statistics.
+	Normalization_axis uintptr // The axis on which a layer normalization operation starts normalization.
 
 }
 
@@ -555,8 +555,8 @@ type BNNSNDArrayDescriptor struct {
 	Table_data_type unsafe.Pointer // The data type of the lookup table.
 	Data_scale float32 // The scale you use to convert integer and unsigned integer data to floating point.
 	Data_bias float32 // The bias you use to convert integer and unsigned integer data to floating point.
-	Size int // The number of values in each dimension.
-	Stride int // The increment, in values, between consecutive elements in each dimension.
+	Size uintptr // The number of values in each dimension.
+	Stride uintptr // The increment, in values, between consecutive elements in each dimension.
 
 }
 
@@ -688,12 +688,12 @@ type BNNSPoolingLayerParameters struct {
 	In_channels uintptr // The number of input channels.
 	K_height uintptr // The height of the convolution kernel.
 	K_width uintptr // The width of the convolution kernel.
-	Out_channels int // The number of output channels.
+	Out_channels uintptr // The number of output channels.
 	Pooling_function unsafe.Pointer // The pooling function to apply to each sample.
-	X_padding int // The X padding.
-	X_stride int // The X increment in the input image.
-	Y_padding int // The Y padding.
-	Y_stride int // The Y increment in the input image.
+	X_padding uintptr // The X padding.
+	X_stride uintptr // The X increment in the input image.
+	Y_padding uintptr // The Y padding.
+	Y_stride uintptr // The Y increment in the input image.
 
 }
 
@@ -733,7 +733,7 @@ type BNNSVectorDescriptor struct {
 	Data_bias float32
 	Data_scale float32
 	Data_type unsafe.Pointer
-	Size int
+	Size uintptr
 
 }
 
@@ -855,7 +855,7 @@ type DenseVector_Complex_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Double
 type DenseVector_Double struct {
 	Count int // The number of items in the vector.
-	Data float64 // The array of double-precision, floating-point values.
+	Data []float64 // The array of double-precision, floating-point values.
 
 }
 
@@ -865,7 +865,7 @@ type DenseVector_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Float
 type DenseVector_Float struct {
 	Count int // The number of items in the vector.
-	Data float32 // The array of single-precision, floating-point values.
+	Data []float32 // The array of single-precision, floating-point values.
 
 }
 
@@ -928,10 +928,10 @@ type SparseIterativeMethod struct {
 	Method int // The iterative method this structure represents.
 	Options unsafe.Pointer // The options for the method.
 	Base uint
-	Padding int8
-	Lsmr SparseLSMROptions // LSMR is MINRES specialised for solving least squares.
-	Gmres SparseGMRESOptions // Right-preconditioned (F/DQ)GMRES Parameters Options.
 	Cg SparseCGOptions // Conjugate Gradient Options.
+	Gmres SparseGMRESOptions // Right-preconditioned (F/DQ)GMRES Parameters Options.
+	Lsmr SparseLSMROptions // LSMR is MINRES specialised for solving least squares.
+	Padding int8
 
 }
 
@@ -945,7 +945,7 @@ type SparseLSMROptions struct {
 	ConvergenceTest unsafe.Pointer // The convergence test to use for iterative solve methods.
 	Atol float64 // The absolute tolerance (default test) or  tolerance (Fong-Saunders test).
 	Rtol float64 // The relative convergence tolerance (default test only).
-	Btol float64 // The 
+	Btol float64 // The  tolerance (Fong-Saunders test only).
 	ConditionLimit float64 // The condition number limit (Fong-Saunders test only).
 	MaxIterations int // The maximum number of iterations.
 	ReportError func(*byte) // An optional error-reporting routine.
@@ -1218,7 +1218,7 @@ type SparseSymbolicFactorOptions struct {
 	OrderMethod unsafe.Pointer // The ordering algorithm.
 	Order []int // The user-supplied array for ordering.
 	IgnoreRowsAndColumns []int // An array that contains row and column indices to ignore.
-	Malloc unsafe.Pointer // The function for allocating any necessary storage.
+	Malloc func(uint) unsafe.Pointer // The function for allocating any necessary storage.
 	Free func(unsafe.Pointer) // The function for freeing allocated storage.
 	ReportError func(*byte) // The function for reporting parameter errors.
 
@@ -1229,7 +1229,7 @@ type SparseSymbolicFactorOptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/bnns_graph_argument_t
 type Bnns_graph_argument_t struct {
-	Data_ptr_size int // size in bytes of 
+	Data_ptr_size uintptr // size in bytes of `data_ptr`, if set
 	Data_ptr unsafe.Pointer // Direct pointer to numerical data
 	Descriptor *BNNSNDArrayDescriptor // Pointer to BNNSNDArrayDescriptor (deprecated, use BNNSTensor instead)
 	Tensor *BNNSTensor // Pointer to BNNSTensor
@@ -1252,7 +1252,7 @@ type Bnns_graph_compile_options_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/bnns_graph_context_t
 type Bnns_graph_context_t struct {
 	Data unsafe.Pointer // A pointer to the opaque graph context object.
-	Size int // The size, in bytes, of the opaque graph context object.
+	Size uintptr // The size, in bytes, of the opaque graph context object.
 
 }
 
@@ -1272,7 +1272,7 @@ type Bnns_graph_shape_t struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/bnns_graph_t
 type Bnns_graph_t struct {
 	Data unsafe.Pointer // A pointer to opaque graph object.
-	Size int // The size, in bytes, of the opaque graph object.
+	Size uintptr // The size, in bytes, of the opaque graph object.
 
 }
 
@@ -1307,7 +1307,7 @@ type Descriptor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/quadrature_integrate_function
 type Quadrature_integrate_function struct {
-	Fun objectivec.IObject
+	Fun Quadrature_function_array
 	Fun_arg unsafe.Pointer
 
 }
@@ -1320,8 +1320,8 @@ type Quadrature_integrate_options struct {
 	Integrator unsafe.Pointer
 	Abs_tolerance float64
 	Rel_tolerance float64
-	Qag_points_per_interval int
-	Max_intervals int
+	Qag_points_per_interval uintptr
+	Max_intervals uintptr
 
 }
 
@@ -1331,7 +1331,7 @@ type Quadrature_integrate_options struct {
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double2x2
 type Simd_double2x2 struct {
 	Determinant float64 // The determinant of the matrix.
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double2 // The columns of the matrix.
 
 }
 
@@ -1340,7 +1340,7 @@ type Simd_double2x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double2x3
 type Simd_double2x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double3 // The columns of the matrix.
 
 }
 
@@ -1349,7 +1349,7 @@ type Simd_double2x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double2x4
 type Simd_double2x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double4 // The columns of the matrix.
 
 }
 
@@ -1358,7 +1358,7 @@ type Simd_double2x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double3x2
 type Simd_double3x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double2 // The columns of the matrix.
 
 }
 
@@ -1368,7 +1368,7 @@ type Simd_double3x2 struct {
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double3x3
 type Simd_double3x3 struct {
 	Determinant float64 // The determinant of the matrix.
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double3 // The columns of the matrix.
 
 }
 
@@ -1377,7 +1377,7 @@ type Simd_double3x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double3x4
 type Simd_double3x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double4 // The columns of the matrix.
 
 }
 
@@ -1386,7 +1386,7 @@ type Simd_double3x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double4x2
 type Simd_double4x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double2 // The columns of the matrix.
 
 }
 
@@ -1395,7 +1395,7 @@ type Simd_double4x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double4x3
 type Simd_double4x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double3 // The columns of the matrix.
 
 }
 
@@ -1405,7 +1405,7 @@ type Simd_double4x3 struct {
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_double4x4
 type Simd_double4x4 struct {
 	Determinant float64 // The determinant of the matrix.
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_double4 // The columns of the matrix.
 
 }
 
@@ -1415,7 +1415,7 @@ type Simd_double4x4 struct {
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float2x2
 type Simd_float2x2 struct {
 	Determinant float32 // The determinant of the matrix.
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float2 // The columns of the matrix.
 
 }
 
@@ -1424,7 +1424,7 @@ type Simd_float2x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float2x3
 type Simd_float2x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float3 // The columns of the matrix.
 
 }
 
@@ -1433,7 +1433,7 @@ type Simd_float2x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float2x4
 type Simd_float2x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float4 // The columns of the matrix.
 
 }
 
@@ -1442,7 +1442,7 @@ type Simd_float2x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float3x2
 type Simd_float3x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float2 // The columns of the matrix.
 
 }
 
@@ -1452,7 +1452,7 @@ type Simd_float3x2 struct {
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float3x3
 type Simd_float3x3 struct {
 	Determinant float32 // The determinant of the matrix.
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float3 // The columns of the matrix.
 
 }
 
@@ -1461,7 +1461,7 @@ type Simd_float3x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float3x4
 type Simd_float3x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float4 // The columns of the matrix.
 
 }
 
@@ -1470,7 +1470,7 @@ type Simd_float3x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float4x2
 type Simd_float4x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float2 // The columns of the matrix.
 
 }
 
@@ -1479,7 +1479,7 @@ type Simd_float4x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float4x3
 type Simd_float4x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float3 // The columns of the matrix.
 
 }
 
@@ -1489,7 +1489,7 @@ type Simd_float4x3 struct {
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_float4x4
 type Simd_float4x4 struct {
 	Determinant float32 // The determinant of the matrix.
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_float4 // The columns of the matrix.
 
 }
 
@@ -1498,7 +1498,7 @@ type Simd_float4x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half2x2
 type Simd_half2x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half2 // The columns of the matrix.
 
 }
 
@@ -1507,7 +1507,7 @@ type Simd_half2x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half2x3
 type Simd_half2x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half3 // The columns of the matrix.
 
 }
 
@@ -1516,7 +1516,7 @@ type Simd_half2x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half2x4
 type Simd_half2x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half4 // The columns of the matrix.
 
 }
 
@@ -1525,7 +1525,7 @@ type Simd_half2x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half3x2
 type Simd_half3x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half2 // The columns of the matrix.
 
 }
 
@@ -1534,7 +1534,7 @@ type Simd_half3x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half3x3
 type Simd_half3x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half3 // The columns of the matrix.
 
 }
 
@@ -1543,7 +1543,7 @@ type Simd_half3x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half3x4
 type Simd_half3x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half4 // The columns of the matrix.
 
 }
 
@@ -1552,7 +1552,7 @@ type Simd_half3x4 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half4x2
 type Simd_half4x2 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half2 // The columns of the matrix.
 
 }
 
@@ -1561,7 +1561,7 @@ type Simd_half4x2 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half4x3
 type Simd_half4x3 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half3 // The columns of the matrix.
 
 }
 
@@ -1570,7 +1570,7 @@ type Simd_half4x3 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/simd/simd_half4x4
 type Simd_half4x4 struct {
-	Columns objectivec.IObject // The columns of the matrix.
+	Columns Simd_half4 // The columns of the matrix.
 
 }
 
@@ -1584,7 +1584,7 @@ type Simd_quatd struct {
 	Imag float64 // The imaginary part of the quaternion.
 	Real float64 // The real part of the quaternion.
 	Length float64 // The length of the quaternion.
-	Vector objectivec.IObject // The underlying vector of the quaternion.
+	Vector Simd_double4 // The underlying vector of the quaternion.
 
 }
 
@@ -1598,7 +1598,7 @@ type Simd_quatf struct {
 	Imag float32 // The imaginary part of the quaternion.
 	Real float32 // The real part of the quaternion.
 	Length float32 // The length of the quaternion.
-	Vector objectivec.IObject // The underlying vector of the quaternion.
+	Vector Simd_float4 // The underlying vector of the quaternion.
 
 }
 
@@ -1645,14 +1645,14 @@ type VImageChannelDescription struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImageRGBPrimaries
 type VImageRGBPrimaries struct {
-	Red_x float32 // The red 
-	Green_x float32 // The green 
+	Red_x float32 // The red `x` value according to the CIE 1931 color space.
+	Green_x float32 // The green `x` value according to the CIE 1931 color space.
 	Blue_x float32 // The blue `x` value according to the CIE 1931 color space.
-	White_x float32 // The white point 
-	Red_y float32 // The red 
-	Green_y float32 // The green_ _
-	Blue_y float32 // The blue 
-	White_y float32 // The white point 
+	White_x float32 // The white point `x` value according to the CIE 1931 color space.
+	Red_y float32 // The red `y` value according to the CIE 1931 color space.
+	Green_y float32 // The green_ _`y` value according to the CIE 1931 color space.
+	Blue_y float32 // The blue `y` value according to the CIE 1931 color space.
+	White_y float32 // The white point `y` value according to the CIE 1931 color space.
 
 }
 
@@ -1677,8 +1677,8 @@ type VImageTransferFunction struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImageWhitePoint
 type VImageWhitePoint struct {
-	White_x float32 // The white point 
-	White_y float32 // The white point 
+	White_x float32 // The white point `x` value according to the CIE 1931 color space.
+	White_y float32 // The white point `y` value according to the CIE 1931 color space.
 
 }
 
@@ -1717,7 +1717,7 @@ type VImage_AffineTransform struct {
 	C float32 // The entry at position `[2,1]` in the matrix.
 	D float32 // The entry at position `[2,2]` in the matrix.
 	Tx float32 // The entry at position `[3,1]` in the matrix.
-	Ty float32 // The entry at position 
+	Ty float32 // The entry at position `[3,2]` in the matrix.
 
 }
 
@@ -1730,8 +1730,8 @@ type VImage_AffineTransform_Double struct {
 	B float64 // The entry at position `[1,2]` in the matrix.
 	C float64 // The entry at position `[2,1]` in the matrix.
 	D float64 // The entry at position `[2,2]` in the matrix.
-	Tx float64 // The entry at position 
-	Ty float64 // The entry at position 
+	Tx float64 // The entry at position `[3,1]` in the matrix.
+	Ty float64 // The entry at position `[3,2]` in the matrix.
 
 }
 

@@ -82,10 +82,10 @@ type IMTLLogicalToPhysicalColorAttachmentMap interface {
 
 	Reset()
 
-	// Maps a physical color attachment index to a logical index.
-	SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint)
 	// Queries the physical color attachment index corresponding to a logical index.
 	GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint
+	// Maps a physical color attachment index to a logical index.
+	SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint)
 }
 
 
@@ -125,6 +125,15 @@ func (l MTLLogicalToPhysicalColorAttachmentMap) Reset() {
 	objc.Send[objc.ID](l.ID, objc.Sel("reset"))
 }
 
+// Queries the physical color attachment index corresponding to a logical
+// index.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/getPhysicalIndexForLogicalIndex:
+func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint {
+	rv := objc.Send[uint](l.ID, objc.Sel("getPhysicalIndexForLogicalIndex:"), logicalIndex)
+	return rv
+}
+
 // Maps a physical color attachment index to a logical index.
 //
 // physicalIndex: Index of the color attachment’s physical mapping.
@@ -134,15 +143,6 @@ func (l MTLLogicalToPhysicalColorAttachmentMap) Reset() {
 // See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/setPhysicalIndex:forLogicalIndex:
 func (l MTLLogicalToPhysicalColorAttachmentMap) SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setPhysicalIndex:forLogicalIndex:"), physicalIndex, logicalIndex)
-}
-
-// Queries the physical color attachment index corresponding to a logical
-// index.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/getPhysicalIndexForLogicalIndex:
-func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(logicalIndex uint) uint {
-	rv := objc.Send[uint](l.ID, objc.Sel("getPhysicalIndexForLogicalIndex:"), logicalIndex)
-	return rv
 }
 
 

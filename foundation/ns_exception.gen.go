@@ -138,9 +138,9 @@ type INSException interface {
 	// An array containing the current call stack symbols.
 	CallStackSymbols() []string
 
-	InitWithCoder(coder INSCoder) NSException
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSException
 }
 
 
@@ -249,13 +249,6 @@ func (e NSException) Raise() {
 	objc.Send[objc.ID](e.ID, objc.Sel("raise"))
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (e NSException) InitWithCoder(coder INSCoder) NSException {
-	rv := objc.Send[NSException](e.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -263,6 +256,13 @@ func (e NSException) InitWithCoder(coder INSCoder) NSException {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (e NSException) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (e NSException) InitWithCoder(coder INSCoder) NSException {
+	rv := objc.Send[NSException](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

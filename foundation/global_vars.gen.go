@@ -285,59 +285,32 @@ var BundleDidLoadNotification NSNotificationName
 
 var CalendarDayChangedNotification NSNotificationName
 
-var calendarIdentifierBangla NSCalendarIdentifier
 
-var calendarIdentifierBuddhist NSCalendarIdentifier
 
-var calendarIdentifierChinese NSCalendarIdentifier
 
-var calendarIdentifierCoptic NSCalendarIdentifier
 
-var calendarIdentifierDangi NSCalendarIdentifier
 
-var calendarIdentifierEthiopicAmeteAlem NSCalendarIdentifier
 
-var calendarIdentifierEthiopicAmeteMihret NSCalendarIdentifier
 
-var calendarIdentifierGregorian NSCalendarIdentifier
 
-var calendarIdentifierGujarati NSCalendarIdentifier
 
-var calendarIdentifierHebrew NSCalendarIdentifier
 
-var calendarIdentifierISO8601 NSCalendarIdentifier
 
-var calendarIdentifierIndian NSCalendarIdentifier
 
-var calendarIdentifierIslamic NSCalendarIdentifier
 
-var calendarIdentifierIslamicCivil NSCalendarIdentifier
 
-var calendarIdentifierIslamicTabular NSCalendarIdentifier
 
-var calendarIdentifierIslamicUmmAlQura NSCalendarIdentifier
 
-var calendarIdentifierJapanese NSCalendarIdentifier
 
-var calendarIdentifierKannada NSCalendarIdentifier
 
-var calendarIdentifierMalayalam NSCalendarIdentifier
 
-var calendarIdentifierMarathi NSCalendarIdentifier
 
-var calendarIdentifierOdia NSCalendarIdentifier
 
-var calendarIdentifierPersian NSCalendarIdentifier
 
-var calendarIdentifierRepublicOfChina NSCalendarIdentifier
 
-var calendarIdentifierTamil NSCalendarIdentifier
 
-var calendarIdentifierTelugu NSCalendarIdentifier
 
-var calendarIdentifierVietnamese NSCalendarIdentifier
 
-var calendarIdentifierVikram NSCalendarIdentifier
 
 var CategoryDocumentAttribute NSAttributedString
 
@@ -685,81 +658,43 @@ var LeftMarginDocumentAttribute NSAttributedString
 
 var LigatureAttributeName NSAttributedString
 
-var linguisticTagAdjective NSLinguisticTag
 
-var linguisticTagAdverb NSLinguisticTag
 
-var linguisticTagClassifier NSLinguisticTag
 
-var linguisticTagCloseParenthesis NSLinguisticTag
 
-var linguisticTagCloseQuote NSLinguisticTag
 
-var linguisticTagConjunction NSLinguisticTag
 
-var linguisticTagDash NSLinguisticTag
 
-var linguisticTagDeterminer NSLinguisticTag
 
-var linguisticTagIdiom NSLinguisticTag
 
-var linguisticTagInterjection NSLinguisticTag
 
-var linguisticTagNoun NSLinguisticTag
 
-var linguisticTagNumber NSLinguisticTag
 
-var linguisticTagOpenParenthesis NSLinguisticTag
 
-var linguisticTagOpenQuote NSLinguisticTag
 
-var linguisticTagOrganizationName NSLinguisticTag
 
-var linguisticTagOther NSLinguisticTag
 
-var linguisticTagOtherPunctuation NSLinguisticTag
 
-var linguisticTagOtherWhitespace NSLinguisticTag
 
-var linguisticTagOtherWord NSLinguisticTag
 
-var linguisticTagParagraphBreak NSLinguisticTag
 
-var linguisticTagParticle NSLinguisticTag
 
-var linguisticTagPersonalName NSLinguisticTag
 
-var linguisticTagPlaceName NSLinguisticTag
 
-var linguisticTagPreposition NSLinguisticTag
 
-var linguisticTagPronoun NSLinguisticTag
 
-var linguisticTagPunctuation NSLinguisticTag
 
-var linguisticTagSchemeLanguage NSLinguisticTagScheme
 
-var linguisticTagSchemeLemma NSLinguisticTagScheme
 
-var linguisticTagSchemeLexicalClass NSLinguisticTagScheme
 
-var linguisticTagSchemeNameType NSLinguisticTagScheme
 
-var linguisticTagSchemeNameTypeOrLexicalClass NSLinguisticTagScheme
 
-var linguisticTagSchemeScript NSLinguisticTagScheme
 
-var linguisticTagSchemeTokenType NSLinguisticTagScheme
 
-var linguisticTagSentenceTerminator NSLinguisticTag
 
-var linguisticTagVerb NSLinguisticTag
 
-var linguisticTagWhitespace NSLinguisticTag
 
-var linguisticTagWord NSLinguisticTag
 
-var linguisticTagWordJoiner NSLinguisticTag
 
 var LinkAttributeName NSAttributedString
 
@@ -1403,19 +1338,13 @@ var ProgressFileCompletedCountKey NSProgressUserInfoKey
 
 var ProgressFileIconKey NSProgressUserInfoKey
 
-var progressFileOperationKindCopying NSProgressFileOperationKind
 
-var progressFileOperationKindDecompressingAfterDownloading NSProgressFileOperationKind
 
-var progressFileOperationKindDownloading NSProgressFileOperationKind
 
-var progressFileOperationKindDuplicating NSProgressFileOperationKind
 
 var ProgressFileOperationKindKey NSProgressUserInfoKey
 
-var progressFileOperationKindReceiving NSProgressFileOperationKind
 
-var progressFileOperationKindUploading NSProgressFileOperationKind
 
 var ProgressFileTotalCountKey NSProgressUserInfoKey
 
@@ -1495,15 +1424,10 @@ var StreamSocketSSLErrorDomain NSErrorDomain
 
 var StreamSocketSecurityLevelKey NSStreamPropertyKey
 
-var streamSocketSecurityLevelNegotiatedSSL NSStreamSocketSecurityLevel
 
-var streamSocketSecurityLevelNone NSStreamSocketSecurityLevel
 
-var streamSocketSecurityLevelSSLv2 NSStreamSocketSecurityLevel
 
-var streamSocketSecurityLevelSSLv3 NSStreamSocketSecurityLevel
 
-var streamSocketSecurityLevelTLSv1 NSStreamSocketSecurityLevel
 
 var StrikethroughColorAttributeName NSAttributedString
 
@@ -1525,37 +1449,21 @@ var StringEncodingDetectionUseOnlySuggestedEncodingsKey NSStringEncodingDetectio
 
 var StringEncodingErrorKey NSErrorUserInfoKey
 
-var stringTransformFullwidthToHalfwidth NSStringTransform
 
-var stringTransformHiraganaToKatakana NSStringTransform
 
-var stringTransformLatinToArabic NSStringTransform
 
-var stringTransformLatinToCyrillic NSStringTransform
 
-var stringTransformLatinToGreek NSStringTransform
 
-var stringTransformLatinToHangul NSStringTransform
 
-var stringTransformLatinToHebrew NSStringTransform
 
-var stringTransformLatinToHiragana NSStringTransform
 
-var stringTransformLatinToKatakana NSStringTransform
 
-var stringTransformLatinToThai NSStringTransform
 
-var stringTransformMandarinToLatin NSStringTransform
 
-var stringTransformStripCombiningMarks NSStringTransform
 
-var stringTransformStripDiacritics NSStringTransform
 
-var stringTransformToLatin NSStringTransform
 
-var stringTransformToUnicodeName NSStringTransform
 
-var stringTransformToXMLHex NSStringTransform
 
 var StrokeColorAttributeName NSAttributedString
 
@@ -1741,23 +1649,15 @@ var URLFileProtectionNone NSURLFileProtectionType
 
 var URLFileResourceIdentifierKey NSURLResourceKey
 
-var uRLFileResourceTypeBlockSpecial NSURLFileResourceType
 
-var uRLFileResourceTypeCharacterSpecial NSURLFileResourceType
 
-var uRLFileResourceTypeDirectory NSURLFileResourceType
 
 var URLFileResourceTypeKey NSURLResourceKey
 
-var uRLFileResourceTypeNamedPipe NSURLFileResourceType
 
-var uRLFileResourceTypeRegular NSURLFileResourceType
 
-var uRLFileResourceTypeSocket NSURLFileResourceType
 
-var uRLFileResourceTypeSymbolicLink NSURLFileResourceType
 
-var uRLFileResourceTypeUnknown NSURLFileResourceType
 
 var URLFileScheme string
 
@@ -1879,13 +1779,10 @@ var URLUbiquitousItemDownloadRequestedKey NSURLResourceKey
 
 var URLUbiquitousItemDownloadingErrorKey NSURLResourceKey
 
-var uRLUbiquitousItemDownloadingStatusCurrent NSURLUbiquitousItemDownloadingStatus
 
-var uRLUbiquitousItemDownloadingStatusDownloaded NSURLUbiquitousItemDownloadingStatus
 
 var URLUbiquitousItemDownloadingStatusKey NSURLResourceKey
 
-var uRLUbiquitousItemDownloadingStatusNotDownloaded NSURLUbiquitousItemDownloadingStatus
 
 var URLUbiquitousItemHasUnresolvedConflictsKey NSURLResourceKey
 
@@ -1913,13 +1810,9 @@ var URLUbiquitousSharedItemMostRecentEditorNameComponentsKey NSURLResourceKey
 
 var URLUbiquitousSharedItemOwnerNameComponentsKey NSURLResourceKey
 
-var uRLUbiquitousSharedItemPermissionsReadOnly NSURLUbiquitousSharedItemPermissions
 
-var uRLUbiquitousSharedItemPermissionsReadWrite NSURLUbiquitousSharedItemPermissions
 
-var uRLUbiquitousSharedItemRoleOwner NSURLUbiquitousSharedItemRole
 
-var uRLUbiquitousSharedItemRoleParticipant NSURLUbiquitousSharedItemRole
 
 var URLVolumeAvailableCapacityForImportantUsageKey NSURLResourceKey
 
@@ -2853,7 +2746,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierBangla = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Bangla = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2863,7 +2756,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierBuddhist = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Buddhist = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2873,7 +2766,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierChinese = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Chinese = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2883,7 +2776,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierCoptic = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Coptic = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2893,7 +2786,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierDangi = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Dangi = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2903,7 +2796,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierEthiopicAmeteAlem = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.EthiopicAmeteAlem = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2913,7 +2806,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierEthiopicAmeteMihret = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.EthiopicAmeteMihret = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2923,7 +2816,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierGregorian = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Gregorian = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2933,7 +2826,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierGujarati = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Gujarati = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2943,7 +2836,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierHebrew = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Hebrew = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2953,7 +2846,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierISO8601 = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.ISO8601 = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2963,7 +2856,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierIndian = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Indian = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2973,7 +2866,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierIslamic = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Islamic = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2983,7 +2876,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierIslamicCivil = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.IslamicCivil = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -2993,7 +2886,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierIslamicTabular = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.IslamicTabular = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3003,7 +2896,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierIslamicUmmAlQura = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.IslamicUmmAlQura = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3013,7 +2906,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierJapanese = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Japanese = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3023,7 +2916,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierKannada = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Kannada = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3033,7 +2926,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierMalayalam = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Malayalam = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3043,7 +2936,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierMarathi = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Marathi = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3053,7 +2946,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierOdia = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Odia = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3063,7 +2956,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierPersian = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Persian = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3073,7 +2966,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierRepublicOfChina = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.RepublicOfChina = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3083,7 +2976,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierTamil = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Tamil = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3093,7 +2986,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierTelugu = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Telugu = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3103,7 +2996,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierVietnamese = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Vietnamese = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -3113,7 +3006,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				calendarIdentifierVikram = NSCalendarIdentifier(objc.GoString(cstr))
+				NSCalendarIdentifiers.Vikram = NSCalendarIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4545,7 +4438,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagAdjective = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Adjective = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4555,7 +4448,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagAdverb = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Adverb = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4565,7 +4458,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagClassifier = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Classifier = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4575,7 +4468,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagCloseParenthesis = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.CloseParenthesis = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4585,7 +4478,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagCloseQuote = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.CloseQuote = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4595,7 +4488,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagConjunction = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Conjunction = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4605,7 +4498,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagDash = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Dash = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4615,7 +4508,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagDeterminer = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Determiner = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4625,7 +4518,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagIdiom = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Idiom = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4635,7 +4528,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagInterjection = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Interjection = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4645,7 +4538,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagNoun = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Noun = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4655,7 +4548,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagNumber = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Number = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4665,7 +4558,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOpenParenthesis = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.OpenParenthesis = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4675,7 +4568,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOpenQuote = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.OpenQuote = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4685,7 +4578,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOrganizationName = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.OrganizationName = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4695,7 +4588,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOther = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Other = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4705,7 +4598,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOtherPunctuation = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.OtherPunctuation = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4715,7 +4608,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOtherWhitespace = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.OtherWhitespace = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4725,7 +4618,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagOtherWord = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.OtherWord = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4735,7 +4628,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagParagraphBreak = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.ParagraphBreak = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4745,7 +4638,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagParticle = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Particle = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4755,7 +4648,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagPersonalName = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.PersonalName = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4765,7 +4658,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagPlaceName = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.PlaceName = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4775,7 +4668,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagPreposition = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Preposition = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4785,7 +4678,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagPronoun = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Pronoun = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4795,7 +4688,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagPunctuation = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Punctuation = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4805,7 +4698,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeLanguage = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.Language = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4815,7 +4708,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeLemma = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.Lemma = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4825,7 +4718,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeLexicalClass = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.LexicalClass = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4835,7 +4728,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeNameType = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.NameType = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4845,7 +4738,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeNameTypeOrLexicalClass = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.NameTypeOrLexicalClass = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4855,7 +4748,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeScript = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.Script = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4865,7 +4758,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSchemeTokenType = NSLinguisticTagScheme(objc.GoString(cstr))
+				NSLinguisticTagSchemes.TokenType = NSLinguisticTagScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4875,7 +4768,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagSentenceTerminator = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.SentenceTerminator = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4885,7 +4778,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagVerb = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Verb = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4895,7 +4788,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagWhitespace = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Whitespace = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4905,7 +4798,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagWord = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.Word = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -4915,7 +4808,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				linguisticTagWordJoiner = NSLinguisticTag(objc.GoString(cstr))
+				NSLinguisticTags.WordJoiner = NSLinguisticTag(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7823,7 +7716,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				progressFileOperationKindCopying = NSProgressFileOperationKind(objc.GoString(cstr))
+				NSProgressFileOperationKinds.Copying = NSProgressFileOperationKind(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7833,7 +7726,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				progressFileOperationKindDecompressingAfterDownloading = NSProgressFileOperationKind(objc.GoString(cstr))
+				NSProgressFileOperationKinds.DecompressingAfterDownloading = NSProgressFileOperationKind(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7843,7 +7736,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				progressFileOperationKindDownloading = NSProgressFileOperationKind(objc.GoString(cstr))
+				NSProgressFileOperationKinds.Downloading = NSProgressFileOperationKind(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7853,7 +7746,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				progressFileOperationKindDuplicating = NSProgressFileOperationKind(objc.GoString(cstr))
+				NSProgressFileOperationKinds.Duplicating = NSProgressFileOperationKind(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7873,7 +7766,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				progressFileOperationKindReceiving = NSProgressFileOperationKind(objc.GoString(cstr))
+				NSProgressFileOperationKinds.Receiving = NSProgressFileOperationKind(objc.GoString(cstr))
 			}
 		}
 	}
@@ -7883,7 +7776,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				progressFileOperationKindUploading = NSProgressFileOperationKind(objc.GoString(cstr))
+				NSProgressFileOperationKinds.Uploading = NSProgressFileOperationKind(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8223,7 +8116,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				streamSocketSecurityLevelNegotiatedSSL = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				StreamSocketSecurityLevels.NegotiatedSSL = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8233,7 +8126,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				streamSocketSecurityLevelNone = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				StreamSocketSecurityLevels.None = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8243,7 +8136,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				streamSocketSecurityLevelSSLv2 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				StreamSocketSecurityLevels.SSLv2 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8253,7 +8146,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				streamSocketSecurityLevelSSLv3 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				StreamSocketSecurityLevels.SSLv3 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8263,7 +8156,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				streamSocketSecurityLevelTLSv1 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
+				StreamSocketSecurityLevels.TLSv1 = NSStreamSocketSecurityLevel(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8361,7 +8254,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformFullwidthToHalfwidth = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.FullwidthToHalfwidth = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8371,7 +8264,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformHiraganaToKatakana = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.HiraganaToKatakana = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8381,7 +8274,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToArabic = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToArabic = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8391,7 +8284,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToCyrillic = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToCyrillic = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8401,7 +8294,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToGreek = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToGreek = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8411,7 +8304,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToHangul = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToHangul = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8421,7 +8314,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToHebrew = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToHebrew = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8431,7 +8324,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToHiragana = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToHiragana = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8441,7 +8334,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToKatakana = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToKatakana = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8451,7 +8344,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformLatinToThai = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.LatinToThai = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8461,7 +8354,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformMandarinToLatin = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.MandarinToLatin = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8471,7 +8364,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformStripCombiningMarks = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.StripCombiningMarks = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8481,7 +8374,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformStripDiacritics = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.StripDiacritics = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8491,7 +8384,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformToLatin = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.ToLatin = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8501,7 +8394,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformToUnicodeName = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.ToUnicodeName = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8511,7 +8404,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				stringTransformToXMLHex = NSStringTransform(objc.GoString(cstr))
+				StringTransforms.ToXMLHex = NSStringTransform(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9235,7 +9128,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeBlockSpecial = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.BlockSpecial = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9245,7 +9138,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeCharacterSpecial = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.CharacterSpecial = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9255,7 +9148,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeDirectory = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.Directory = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9275,7 +9168,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeNamedPipe = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.NamedPipe = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9285,7 +9178,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeRegular = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.Regular = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9295,7 +9188,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeSocket = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.Socket = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9305,7 +9198,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeSymbolicLink = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.SymbolicLink = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9315,7 +9208,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLFileResourceTypeUnknown = NSURLFileResourceType(objc.GoString(cstr))
+				URLFileResourceTypes.Unknown = NSURLFileResourceType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9871,7 +9764,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousItemDownloadingStatusCurrent = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+				URLUbiquitousItemDownloadingStatuss.Current = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9881,7 +9774,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousItemDownloadingStatusDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+				URLUbiquitousItemDownloadingStatuss.Downloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9901,7 +9794,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousItemDownloadingStatusNotDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
+				URLUbiquitousItemDownloadingStatuss.NotDownloaded = NSURLUbiquitousItemDownloadingStatus(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10041,7 +9934,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousSharedItemPermissionsReadOnly = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
+				URLUbiquitousSharedItemPermissionss.ReadOnly = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10051,7 +9944,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousSharedItemPermissionsReadWrite = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
+				URLUbiquitousSharedItemPermissionss.ReadWrite = NSURLUbiquitousSharedItemPermissions(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10061,7 +9954,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousSharedItemRoleOwner = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
+				URLUbiquitousSharedItemRoles.Owner = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10071,7 +9964,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				uRLUbiquitousSharedItemRoleParticipant = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
+				URLUbiquitousSharedItemRoles.Participant = NSURLUbiquitousSharedItemRole(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10983,368 +10876,241 @@ func init() {
 
 }
 
-type NSCalendarIdentifierValues struct{}
-
 // NSCalendarIdentifiers provides typed accessors for [NSCalendarIdentifier] constants.
-var NSCalendarIdentifiers NSCalendarIdentifierValues
-
-func (NSCalendarIdentifierValues) Bangla() NSCalendarIdentifier { return calendarIdentifierBangla }
-
-// Buddhist returns Identifier for the Buddhist calendar.
-func (NSCalendarIdentifierValues) Buddhist() NSCalendarIdentifier { return calendarIdentifierBuddhist }
-
-// Chinese returns Identifier for the Chinese calendar.
-func (NSCalendarIdentifierValues) Chinese() NSCalendarIdentifier { return calendarIdentifierChinese }
-
-// Coptic returns Identifier for the Coptic calendar.
-func (NSCalendarIdentifierValues) Coptic() NSCalendarIdentifier { return calendarIdentifierCoptic }
-
-func (NSCalendarIdentifierValues) Dangi() NSCalendarIdentifier { return calendarIdentifierDangi }
-
-// EthiopicAmeteAlem returns Identifier for the Ethiopic (Amete Alem) calendar.
-func (NSCalendarIdentifierValues) EthiopicAmeteAlem() NSCalendarIdentifier { return calendarIdentifierEthiopicAmeteAlem }
-
-// EthiopicAmeteMihret returns Identifier for the Ethiopic (Amete Mihret) calendar.
-func (NSCalendarIdentifierValues) EthiopicAmeteMihret() NSCalendarIdentifier { return calendarIdentifierEthiopicAmeteMihret }
-
-// Gregorian returns Identifier for the Gregorian calendar.
-func (NSCalendarIdentifierValues) Gregorian() NSCalendarIdentifier { return calendarIdentifierGregorian }
-
-func (NSCalendarIdentifierValues) Gujarati() NSCalendarIdentifier { return calendarIdentifierGujarati }
-
-// Hebrew returns Identifier for the Hebrew calendar.
-func (NSCalendarIdentifierValues) Hebrew() NSCalendarIdentifier { return calendarIdentifierHebrew }
-
-// ISO8601 returns Identifier for the ISO8601 calendar.
-func (NSCalendarIdentifierValues) ISO8601() NSCalendarIdentifier { return calendarIdentifierISO8601 }
-
-// Indian returns Identifier for the Indian calendar.
-func (NSCalendarIdentifierValues) Indian() NSCalendarIdentifier { return calendarIdentifierIndian }
-
-// Islamic returns Identifier for the Islamic calendar.
-func (NSCalendarIdentifierValues) Islamic() NSCalendarIdentifier { return calendarIdentifierIslamic }
-
-// IslamicCivil returns Identifier for the Islamic civil calendar.
-func (NSCalendarIdentifierValues) IslamicCivil() NSCalendarIdentifier { return calendarIdentifierIslamicCivil }
-
-// IslamicTabular returns Identifier for a tabular Islamic calendar.
-func (NSCalendarIdentifierValues) IslamicTabular() NSCalendarIdentifier { return calendarIdentifierIslamicTabular }
-
-// IslamicUmmAlQura returns Identifier for the Islamic Umm al-Qura calendar.
-func (NSCalendarIdentifierValues) IslamicUmmAlQura() NSCalendarIdentifier { return calendarIdentifierIslamicUmmAlQura }
-
-// Japanese returns Identifier for the Japanese calendar.
-func (NSCalendarIdentifierValues) Japanese() NSCalendarIdentifier { return calendarIdentifierJapanese }
-
-func (NSCalendarIdentifierValues) Kannada() NSCalendarIdentifier { return calendarIdentifierKannada }
-
-func (NSCalendarIdentifierValues) Malayalam() NSCalendarIdentifier { return calendarIdentifierMalayalam }
-
-func (NSCalendarIdentifierValues) Marathi() NSCalendarIdentifier { return calendarIdentifierMarathi }
-
-func (NSCalendarIdentifierValues) Odia() NSCalendarIdentifier { return calendarIdentifierOdia }
-
-// Persian returns Identifier for the Persian calendar.
-func (NSCalendarIdentifierValues) Persian() NSCalendarIdentifier { return calendarIdentifierPersian }
-
-// RepublicOfChina returns Identifier for the Republic of China calendar.
-func (NSCalendarIdentifierValues) RepublicOfChina() NSCalendarIdentifier { return calendarIdentifierRepublicOfChina }
-
-func (NSCalendarIdentifierValues) Tamil() NSCalendarIdentifier { return calendarIdentifierTamil }
-
-func (NSCalendarIdentifierValues) Telugu() NSCalendarIdentifier { return calendarIdentifierTelugu }
-
-func (NSCalendarIdentifierValues) Vietnamese() NSCalendarIdentifier { return calendarIdentifierVietnamese }
-
-func (NSCalendarIdentifierValues) Vikram() NSCalendarIdentifier { return calendarIdentifierVikram }
-
-
-type NSLinguisticTagSchemeValues struct{}
+var NSCalendarIdentifiers struct {
+	Bangla NSCalendarIdentifier
+	// Buddhist: Identifier for the Buddhist calendar.
+	Buddhist NSCalendarIdentifier
+	// Chinese: Identifier for the Chinese calendar.
+	Chinese NSCalendarIdentifier
+	// Coptic: Identifier for the Coptic calendar.
+	Coptic NSCalendarIdentifier
+	Dangi NSCalendarIdentifier
+	// EthiopicAmeteAlem: Identifier for the Ethiopic (Amete Alem) calendar.
+	EthiopicAmeteAlem NSCalendarIdentifier
+	// EthiopicAmeteMihret: Identifier for the Ethiopic (Amete Mihret) calendar.
+	EthiopicAmeteMihret NSCalendarIdentifier
+	// Gregorian: Identifier for the Gregorian calendar.
+	Gregorian NSCalendarIdentifier
+	Gujarati NSCalendarIdentifier
+	// Hebrew: Identifier for the Hebrew calendar.
+	Hebrew NSCalendarIdentifier
+	// ISO8601: Identifier for the ISO8601 calendar.
+	ISO8601 NSCalendarIdentifier
+	// Indian: Identifier for the Indian calendar.
+	Indian NSCalendarIdentifier
+	// Islamic: Identifier for the Islamic calendar.
+	Islamic NSCalendarIdentifier
+	// IslamicCivil: Identifier for the Islamic civil calendar.
+	IslamicCivil NSCalendarIdentifier
+	// IslamicTabular: Identifier for a tabular Islamic calendar.
+	IslamicTabular NSCalendarIdentifier
+	// IslamicUmmAlQura: Identifier for the Islamic Umm al-Qura calendar.
+	IslamicUmmAlQura NSCalendarIdentifier
+	// Japanese: Identifier for the Japanese calendar.
+	Japanese NSCalendarIdentifier
+	Kannada NSCalendarIdentifier
+	Malayalam NSCalendarIdentifier
+	Marathi NSCalendarIdentifier
+	Odia NSCalendarIdentifier
+	// Persian: Identifier for the Persian calendar.
+	Persian NSCalendarIdentifier
+	// RepublicOfChina: Identifier for the Republic of China calendar.
+	RepublicOfChina NSCalendarIdentifier
+	Tamil NSCalendarIdentifier
+	Telugu NSCalendarIdentifier
+	Vietnamese NSCalendarIdentifier
+	Vikram NSCalendarIdentifier
+}
 
 // NSLinguisticTagSchemes provides typed accessors for [NSLinguisticTagScheme] constants.
-var NSLinguisticTagSchemes NSLinguisticTagSchemeValues
-
-// Language returns Supplies the language for a token, if one can be determined.
-func (NSLinguisticTagSchemeValues) Language() NSLinguisticTagScheme { return linguisticTagSchemeLanguage }
-
-// Lemma returns Supplies a stem form of a word token, if known.
-func (NSLinguisticTagSchemeValues) Lemma() NSLinguisticTagScheme { return linguisticTagSchemeLemma }
-
-// LexicalClass returns Classifies tokens according to class:  part of speech, type of punctuation, or whitespace.
-func (NSLinguisticTagSchemeValues) LexicalClass() NSLinguisticTagScheme { return linguisticTagSchemeLexicalClass }
-
-// NameType returns Classifies tokens according to whether they are part of a named entity.
-func (NSLinguisticTagSchemeValues) NameType() NSLinguisticTagScheme { return linguisticTagSchemeNameType }
-
-// NameTypeOrLexicalClass returns Classifies tokens corresponding to names according to [nameType](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/lexicalClass>).
-func (NSLinguisticTagSchemeValues) NameTypeOrLexicalClass() NSLinguisticTagScheme { return linguisticTagSchemeNameTypeOrLexicalClass }
-
-// Script returns Supplies the script for a token, if one can be determined.
-func (NSLinguisticTagSchemeValues) Script() NSLinguisticTagScheme { return linguisticTagSchemeScript }
-
-// TokenType returns Classifies tokens according to their broad type:  word, punctuation, or whitespace.
-func (NSLinguisticTagSchemeValues) TokenType() NSLinguisticTagScheme { return linguisticTagSchemeTokenType }
-
-
-type NSLinguisticTagValues struct{}
+var NSLinguisticTagSchemes struct {
+	// Language: Supplies the language for a token, if one can be determined.
+	Language NSLinguisticTagScheme
+	// Lemma: Supplies a stem form of a word token, if known.
+	Lemma NSLinguisticTagScheme
+	// LexicalClass: Classifies tokens according to class:  part of speech, type of punctuation, or whitespace.
+	LexicalClass NSLinguisticTagScheme
+	// NameType: Classifies tokens according to whether they are part of a named entity.
+	NameType NSLinguisticTagScheme
+	// NameTypeOrLexicalClass: Classifies tokens corresponding to names according to [nameType](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/lexicalClass>).
+	NameTypeOrLexicalClass NSLinguisticTagScheme
+	// Script: Supplies the script for a token, if one can be determined.
+	Script NSLinguisticTagScheme
+	// TokenType: Classifies tokens according to their broad type:  word, punctuation, or whitespace.
+	TokenType NSLinguisticTagScheme
+}
 
 // NSLinguisticTags provides typed accessors for [NSLinguisticTag] constants.
-var NSLinguisticTags NSLinguisticTagValues
-
-// Adjective returns This token is an adjective
-func (NSLinguisticTagValues) Adjective() NSLinguisticTag { return linguisticTagAdjective }
-
-// Adverb returns This token is an adverb.
-func (NSLinguisticTagValues) Adverb() NSLinguisticTag { return linguisticTagAdverb }
-
-// Classifier returns This token is a classifier.
-func (NSLinguisticTagValues) Classifier() NSLinguisticTag { return linguisticTagClassifier }
-
-// CloseParenthesis returns This token is a close parenthesis.
-func (NSLinguisticTagValues) CloseParenthesis() NSLinguisticTag { return linguisticTagCloseParenthesis }
-
-// CloseQuote returns This token is a close quote.
-func (NSLinguisticTagValues) CloseQuote() NSLinguisticTag { return linguisticTagCloseQuote }
-
-// Conjunction returns This token is a conjunction.
-func (NSLinguisticTagValues) Conjunction() NSLinguisticTag { return linguisticTagConjunction }
-
-// Dash returns This token is a dash.
-func (NSLinguisticTagValues) Dash() NSLinguisticTag { return linguisticTagDash }
-
-// Determiner returns This token is a determiner.
-func (NSLinguisticTagValues) Determiner() NSLinguisticTag { return linguisticTagDeterminer }
-
-// Idiom returns This token is an idiom.
-func (NSLinguisticTagValues) Idiom() NSLinguisticTag { return linguisticTagIdiom }
-
-// Interjection returns This token is an interjection.
-func (NSLinguisticTagValues) Interjection() NSLinguisticTag { return linguisticTagInterjection }
-
-// Noun returns The token is a noun.
-func (NSLinguisticTagValues) Noun() NSLinguisticTag { return linguisticTagNoun }
-
-// Number returns This token is a number.
-func (NSLinguisticTagValues) Number() NSLinguisticTag { return linguisticTagNumber }
-
-// OpenParenthesis returns This token is an open parenthesis.
-func (NSLinguisticTagValues) OpenParenthesis() NSLinguisticTag { return linguisticTagOpenParenthesis }
-
-// OpenQuote returns This token is an open quote.
-func (NSLinguisticTagValues) OpenQuote() NSLinguisticTag { return linguisticTagOpenQuote }
-
-// OrganizationName returns This token is an organization name.
-func (NSLinguisticTagValues) OrganizationName() NSLinguisticTag { return linguisticTagOrganizationName }
-
-// Other returns The token indicates a non-linguistic item, such as a symbol.
-func (NSLinguisticTagValues) Other() NSLinguisticTag { return linguisticTagOther }
-
-// OtherPunctuation returns This token is punctuation other than a kind described by other lexical classes (sentence terminator, open or close quote, open or close parenthesis, word joiner, and dash).
-func (NSLinguisticTagValues) OtherPunctuation() NSLinguisticTag { return linguisticTagOtherPunctuation }
-
-// OtherWhitespace returns This token is whitespace other than a kind described by other lexical classes (paragraph break).
-func (NSLinguisticTagValues) OtherWhitespace() NSLinguisticTag { return linguisticTagOtherWhitespace }
-
-// OtherWord returns This token is a word other than a kind described by other lexical classes (noun, verb, adjective, adverb, pronoun, determiner, particle, preposition, number, conjunction, interjection, classifier, and idiom).
-func (NSLinguisticTagValues) OtherWord() NSLinguisticTag { return linguisticTagOtherWord }
-
-// ParagraphBreak returns This token is a paragraph break.
-func (NSLinguisticTagValues) ParagraphBreak() NSLinguisticTag { return linguisticTagParagraphBreak }
-
-// Particle returns This token is a particle.
-func (NSLinguisticTagValues) Particle() NSLinguisticTag { return linguisticTagParticle }
-
-// PersonalName returns This token is a personal name.
-func (NSLinguisticTagValues) PersonalName() NSLinguisticTag { return linguisticTagPersonalName }
-
-// PlaceName returns This token is a place name.
-func (NSLinguisticTagValues) PlaceName() NSLinguisticTag { return linguisticTagPlaceName }
-
-// Preposition returns This token is a preposition.
-func (NSLinguisticTagValues) Preposition() NSLinguisticTag { return linguisticTagPreposition }
-
-// Pronoun returns This token is a pronoun.
-func (NSLinguisticTagValues) Pronoun() NSLinguisticTag { return linguisticTagPronoun }
-
-// Punctuation returns The token indicates punctuation.
-func (NSLinguisticTagValues) Punctuation() NSLinguisticTag { return linguisticTagPunctuation }
-
-// SentenceTerminator returns This token is a sentence terminator.
-func (NSLinguisticTagValues) SentenceTerminator() NSLinguisticTag { return linguisticTagSentenceTerminator }
-
-// Verb returns This token is a verb.
-func (NSLinguisticTagValues) Verb() NSLinguisticTag { return linguisticTagVerb }
-
-// Whitespace returns The token indicates white space of any sort.
-func (NSLinguisticTagValues) Whitespace() NSLinguisticTag { return linguisticTagWhitespace }
-
-// Word returns The token indicates a word.
-func (NSLinguisticTagValues) Word() NSLinguisticTag { return linguisticTagWord }
-
-// WordJoiner returns This token is a word joiner.
-func (NSLinguisticTagValues) WordJoiner() NSLinguisticTag { return linguisticTagWordJoiner }
-
-
-type NSProgressFileOperationKindValues struct{}
+var NSLinguisticTags struct {
+	// Adjective: This token is an adjective
+	Adjective NSLinguisticTag
+	// Adverb: This token is an adverb.
+	Adverb NSLinguisticTag
+	// Classifier: This token is a classifier.
+	Classifier NSLinguisticTag
+	// CloseParenthesis: This token is a close parenthesis.
+	CloseParenthesis NSLinguisticTag
+	// CloseQuote: This token is a close quote.
+	CloseQuote NSLinguisticTag
+	// Conjunction: This token is a conjunction.
+	Conjunction NSLinguisticTag
+	// Dash: This token is a dash.
+	Dash NSLinguisticTag
+	// Determiner: This token is a determiner.
+	Determiner NSLinguisticTag
+	// Idiom: This token is an idiom.
+	Idiom NSLinguisticTag
+	// Interjection: This token is an interjection.
+	Interjection NSLinguisticTag
+	// Noun: The token is a noun.
+	Noun NSLinguisticTag
+	// Number: This token is a number.
+	Number NSLinguisticTag
+	// OpenParenthesis: This token is an open parenthesis.
+	OpenParenthesis NSLinguisticTag
+	// OpenQuote: This token is an open quote.
+	OpenQuote NSLinguisticTag
+	// OrganizationName: This token is an organization name.
+	OrganizationName NSLinguisticTag
+	// Other: The token indicates a non-linguistic item, such as a symbol.
+	Other NSLinguisticTag
+	// OtherPunctuation: This token is punctuation other than a kind described by other lexical classes (sentence terminator, open or close quote, open or close parenthesis, word joiner, and dash).
+	OtherPunctuation NSLinguisticTag
+	// OtherWhitespace: This token is whitespace other than a kind described by other lexical classes (paragraph break).
+	OtherWhitespace NSLinguisticTag
+	// OtherWord: This token is a word other than a kind described by other lexical classes (noun, verb, adjective, adverb, pronoun, determiner, particle, preposition, number, conjunction, interjection, classifier, and idiom).
+	OtherWord NSLinguisticTag
+	// ParagraphBreak: This token is a paragraph break.
+	ParagraphBreak NSLinguisticTag
+	// Particle: This token is a particle.
+	Particle NSLinguisticTag
+	// PersonalName: This token is a personal name.
+	PersonalName NSLinguisticTag
+	// PlaceName: This token is a place name.
+	PlaceName NSLinguisticTag
+	// Preposition: This token is a preposition.
+	Preposition NSLinguisticTag
+	// Pronoun: This token is a pronoun.
+	Pronoun NSLinguisticTag
+	// Punctuation: The token indicates punctuation.
+	Punctuation NSLinguisticTag
+	// SentenceTerminator: This token is a sentence terminator.
+	SentenceTerminator NSLinguisticTag
+	// Verb: This token is a verb.
+	Verb NSLinguisticTag
+	// Whitespace: The token indicates white space of any sort.
+	Whitespace NSLinguisticTag
+	// Word: The token indicates a word.
+	Word NSLinguisticTag
+	// WordJoiner: This token is a word joiner.
+	WordJoiner NSLinguisticTag
+}
 
 // NSProgressFileOperationKinds provides typed accessors for [NSProgressFileOperationKind] constants.
-var NSProgressFileOperationKinds NSProgressFileOperationKindValues
-
-// Copying returns The progress is tracking the copying of a file from source to destination.
-func (NSProgressFileOperationKindValues) Copying() NSProgressFileOperationKind { return progressFileOperationKindCopying }
-
-// DecompressingAfterDownloading returns The progress is tracking file decompression after a download.
-func (NSProgressFileOperationKindValues) DecompressingAfterDownloading() NSProgressFileOperationKind { return progressFileOperationKindDecompressingAfterDownloading }
-
-// Downloading returns The progress is tracking a file download operation.
-func (NSProgressFileOperationKindValues) Downloading() NSProgressFileOperationKind { return progressFileOperationKindDownloading }
-
-func (NSProgressFileOperationKindValues) Duplicating() NSProgressFileOperationKind { return progressFileOperationKindDuplicating }
-
-// Receiving returns The progress is tracking the receipt of a file from another source.
-func (NSProgressFileOperationKindValues) Receiving() NSProgressFileOperationKind { return progressFileOperationKindReceiving }
-
-// Uploading returns The progress is tracking a file upload operation.
-func (NSProgressFileOperationKindValues) Uploading() NSProgressFileOperationKind { return progressFileOperationKindUploading }
-
-
-type StreamSocketSecurityLevelValues struct{}
+var NSProgressFileOperationKinds struct {
+	// Copying: The progress is tracking the copying of a file from source to destination.
+	Copying NSProgressFileOperationKind
+	// DecompressingAfterDownloading: The progress is tracking file decompression after a download.
+	DecompressingAfterDownloading NSProgressFileOperationKind
+	// Downloading: The progress is tracking a file download operation.
+	Downloading NSProgressFileOperationKind
+	Duplicating NSProgressFileOperationKind
+	// Receiving: The progress is tracking the receipt of a file from another source.
+	Receiving NSProgressFileOperationKind
+	// Uploading: The progress is tracking a file upload operation.
+	Uploading NSProgressFileOperationKind
+}
 
 // StreamSocketSecurityLevels provides typed accessors for [StreamSocketSecurityLevel] constants.
-var StreamSocketSecurityLevels StreamSocketSecurityLevelValues
-
-// NegotiatedSSL returns Specifies that the highest level security protocol that can be negotiated be set as the security protocol for a socket stream.
-func (StreamSocketSecurityLevelValues) NegotiatedSSL() StreamSocketSecurityLevel { return streamSocketSecurityLevelNegotiatedSSL }
-
-// None returns Specifies that no security level be set for a socket stream.
-func (StreamSocketSecurityLevelValues) None() StreamSocketSecurityLevel { return streamSocketSecurityLevelNone }
-
-// SSLv2 returns Specifies that SSL version 2 be set as the security protocol for a socket stream.
-func (StreamSocketSecurityLevelValues) SSLv2() StreamSocketSecurityLevel { return streamSocketSecurityLevelSSLv2 }
-
-// SSLv3 returns Specifies that SSL version 3 be set as the security protocol for a socket stream.
-func (StreamSocketSecurityLevelValues) SSLv3() StreamSocketSecurityLevel { return streamSocketSecurityLevelSSLv3 }
-
-// TLSv1 returns Specifies that TLS version 1 be set as the security protocol for a socket stream.
-func (StreamSocketSecurityLevelValues) TLSv1() StreamSocketSecurityLevel { return streamSocketSecurityLevelTLSv1 }
-
-
-type StringTransformValues struct{}
+var StreamSocketSecurityLevels struct {
+	// NegotiatedSSL: Specifies that the highest level security protocol that can be negotiated be set as the security protocol for a socket stream.
+	NegotiatedSSL StreamSocketSecurityLevel
+	// None: Specifies that no security level be set for a socket stream.
+	None StreamSocketSecurityLevel
+	// SSLv2: Specifies that SSL version 2 be set as the security protocol for a socket stream.
+	SSLv2 StreamSocketSecurityLevel
+	// SSLv3: Specifies that SSL version 3 be set as the security protocol for a socket stream.
+	SSLv3 StreamSocketSecurityLevel
+	// TLSv1: Specifies that TLS version 1 be set as the security protocol for a socket stream.
+	TLSv1 StreamSocketSecurityLevel
+}
 
 // StringTransforms provides typed accessors for [StringTransform] constants.
-var StringTransforms StringTransformValues
-
-// FullwidthToHalfwidth returns A constant containing the transformation of a string from full-width CJK characters to half-width forms.
-func (StringTransformValues) FullwidthToHalfwidth() StringTransform { return stringTransformFullwidthToHalfwidth }
-
-// HiraganaToKatakana returns A constant containing the transliteration of a string from Hiragana script to Katakana script.
-func (StringTransformValues) HiraganaToKatakana() StringTransform { return stringTransformHiraganaToKatakana }
-
-// LatinToArabic returns A constant containing the transliteration of a string from Latin script to Arabic script.
-func (StringTransformValues) LatinToArabic() StringTransform { return stringTransformLatinToArabic }
-
-// LatinToCyrillic returns A constant containing the transliteration of a string from Latin script to Cyrillic script.
-func (StringTransformValues) LatinToCyrillic() StringTransform { return stringTransformLatinToCyrillic }
-
-// LatinToGreek returns A constant containing the transliteration of a string from Latin script to Greek script.
-func (StringTransformValues) LatinToGreek() StringTransform { return stringTransformLatinToGreek }
-
-// LatinToHangul returns A constant containing the transliteration of a string from Latin script to Hangul script.
-func (StringTransformValues) LatinToHangul() StringTransform { return stringTransformLatinToHangul }
-
-// LatinToHebrew returns A constant containing the transliteration of a string from Latin script to Hebrew script.
-func (StringTransformValues) LatinToHebrew() StringTransform { return stringTransformLatinToHebrew }
-
-// LatinToHiragana returns A constant containing the transliteration of a string from Latin script to Hiragana script.
-func (StringTransformValues) LatinToHiragana() StringTransform { return stringTransformLatinToHiragana }
-
-// LatinToKatakana returns A constant containing the transliteration of a string from Latin script to Katakana script.
-func (StringTransformValues) LatinToKatakana() StringTransform { return stringTransformLatinToKatakana }
-
-// LatinToThai returns A constant containing the transliteration of a string from Latin script to Thai script.
-func (StringTransformValues) LatinToThai() StringTransform { return stringTransformLatinToThai }
-
-// MandarinToLatin returns A constant containing the transliteration of a string from Han script to Latin.
-func (StringTransformValues) MandarinToLatin() StringTransform { return stringTransformMandarinToLatin }
-
-// StripCombiningMarks returns A constant containing the transformation of a string by removing combining marks.
-func (StringTransformValues) StripCombiningMarks() StringTransform { return stringTransformStripCombiningMarks }
-
-// StripDiacritics returns A constant containing the transformation of a string by removing diacritics.
-func (StringTransformValues) StripDiacritics() StringTransform { return stringTransformStripDiacritics }
-
-// ToLatin returns A constant containing the transliteration of a string from any script to Latin script.
-func (StringTransformValues) ToLatin() StringTransform { return stringTransformToLatin }
-
-// ToUnicodeName returns An identifier for a transform that converts characters to Unicode names.
-func (StringTransformValues) ToUnicodeName() StringTransform { return stringTransformToUnicodeName }
-
-// ToXMLHex returns A constant containing the transformation of a string from characters to XML hexadecimal escape codes.
-func (StringTransformValues) ToXMLHex() StringTransform { return stringTransformToXMLHex }
-
-
-type URLFileResourceTypeValues struct{}
+var StringTransforms struct {
+	// FullwidthToHalfwidth: A constant containing the transformation of a string from full-width CJK characters to half-width forms.
+	FullwidthToHalfwidth StringTransform
+	// HiraganaToKatakana: A constant containing the transliteration of a string from Hiragana script to Katakana script.
+	HiraganaToKatakana StringTransform
+	// LatinToArabic: A constant containing the transliteration of a string from Latin script to Arabic script.
+	LatinToArabic StringTransform
+	// LatinToCyrillic: A constant containing the transliteration of a string from Latin script to Cyrillic script.
+	LatinToCyrillic StringTransform
+	// LatinToGreek: A constant containing the transliteration of a string from Latin script to Greek script.
+	LatinToGreek StringTransform
+	// LatinToHangul: A constant containing the transliteration of a string from Latin script to Hangul script.
+	LatinToHangul StringTransform
+	// LatinToHebrew: A constant containing the transliteration of a string from Latin script to Hebrew script.
+	LatinToHebrew StringTransform
+	// LatinToHiragana: A constant containing the transliteration of a string from Latin script to Hiragana script.
+	LatinToHiragana StringTransform
+	// LatinToKatakana: A constant containing the transliteration of a string from Latin script to Katakana script.
+	LatinToKatakana StringTransform
+	// LatinToThai: A constant containing the transliteration of a string from Latin script to Thai script.
+	LatinToThai StringTransform
+	// MandarinToLatin: A constant containing the transliteration of a string from Han script to Latin.
+	MandarinToLatin StringTransform
+	// StripCombiningMarks: A constant containing the transformation of a string by removing combining marks.
+	StripCombiningMarks StringTransform
+	// StripDiacritics: A constant containing the transformation of a string by removing diacritics.
+	StripDiacritics StringTransform
+	// ToLatin: A constant containing the transliteration of a string from any script to Latin script.
+	ToLatin StringTransform
+	// ToUnicodeName: An identifier for a transform that converts characters to Unicode names.
+	ToUnicodeName StringTransform
+	// ToXMLHex: A constant containing the transformation of a string from characters to XML hexadecimal escape codes.
+	ToXMLHex StringTransform
+}
 
 // URLFileResourceTypes provides typed accessors for [URLFileResourceType] constants.
-var URLFileResourceTypes URLFileResourceTypeValues
-
-// BlockSpecial returns The resource is a block special file.
-func (URLFileResourceTypeValues) BlockSpecial() URLFileResourceType { return uRLFileResourceTypeBlockSpecial }
-
-// CharacterSpecial returns The resource is a character special file.
-func (URLFileResourceTypeValues) CharacterSpecial() URLFileResourceType { return uRLFileResourceTypeCharacterSpecial }
-
-// Directory returns The resource is a directory.
-func (URLFileResourceTypeValues) Directory() URLFileResourceType { return uRLFileResourceTypeDirectory }
-
-// NamedPipe returns The resource is a named pipe.
-func (URLFileResourceTypeValues) NamedPipe() URLFileResourceType { return uRLFileResourceTypeNamedPipe }
-
-// Regular returns The resource is a regular file.
-func (URLFileResourceTypeValues) Regular() URLFileResourceType { return uRLFileResourceTypeRegular }
-
-// Socket returns The resource is a socket.
-func (URLFileResourceTypeValues) Socket() URLFileResourceType { return uRLFileResourceTypeSocket }
-
-// SymbolicLink returns The resource is a symbolic link.
-func (URLFileResourceTypeValues) SymbolicLink() URLFileResourceType { return uRLFileResourceTypeSymbolicLink }
-
-// Unknown returns The resource’s type is unknown.
-func (URLFileResourceTypeValues) Unknown() URLFileResourceType { return uRLFileResourceTypeUnknown }
-
-
-type URLUbiquitousItemDownloadingStatusValues struct{}
+var URLFileResourceTypes struct {
+	// BlockSpecial: The resource is a block special file.
+	BlockSpecial URLFileResourceType
+	// CharacterSpecial: The resource is a character special file.
+	CharacterSpecial URLFileResourceType
+	// Directory: The resource is a directory.
+	Directory URLFileResourceType
+	// NamedPipe: The resource is a named pipe.
+	NamedPipe URLFileResourceType
+	// Regular: The resource is a regular file.
+	Regular URLFileResourceType
+	// Socket: The resource is a socket.
+	Socket URLFileResourceType
+	// SymbolicLink: The resource is a symbolic link.
+	SymbolicLink URLFileResourceType
+	// Unknown: The resource’s type is unknown.
+	Unknown URLFileResourceType
+}
 
 // URLUbiquitousItemDownloadingStatuss provides typed accessors for [URLUbiquitousItemDownloadingStatus] constants.
-var URLUbiquitousItemDownloadingStatuss URLUbiquitousItemDownloadingStatusValues
-
-// Current returns A local copy of this item exists and is the most up-to-date version known to the device.
-func (URLUbiquitousItemDownloadingStatusValues) Current() URLUbiquitousItemDownloadingStatus { return uRLUbiquitousItemDownloadingStatusCurrent }
-
-// Downloaded returns A local copy of this item exists, but it is stale. The most recent version will be downloaded as soon as possible.
-func (URLUbiquitousItemDownloadingStatusValues) Downloaded() URLUbiquitousItemDownloadingStatus { return uRLUbiquitousItemDownloadingStatusDownloaded }
-
-// NotDownloaded returns This item has not been downloaded yet. Use [startDownloadingUbiquitousItem(at:)](<doc://com.apple.foundation/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)>) to download it.
-func (URLUbiquitousItemDownloadingStatusValues) NotDownloaded() URLUbiquitousItemDownloadingStatus { return uRLUbiquitousItemDownloadingStatusNotDownloaded }
-
-
-type URLUbiquitousSharedItemPermissionsValues struct{}
+var URLUbiquitousItemDownloadingStatuss struct {
+	// Current: A local copy of this item exists and is the most up-to-date version known to the device.
+	Current URLUbiquitousItemDownloadingStatus
+	// Downloaded: A local copy of this item exists, but it is stale. The most recent version will be downloaded as soon as possible.
+	Downloaded URLUbiquitousItemDownloadingStatus
+	// NotDownloaded: This item has not been downloaded yet. Use [startDownloadingUbiquitousItem(at:)](<doc://com.apple.foundation/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)>) to download it.
+	NotDownloaded URLUbiquitousItemDownloadingStatus
+}
 
 // URLUbiquitousSharedItemPermissionss provides typed accessors for [URLUbiquitousSharedItemPermissions] constants.
-var URLUbiquitousSharedItemPermissionss URLUbiquitousSharedItemPermissionsValues
-
-func (URLUbiquitousSharedItemPermissionsValues) ReadOnly() URLUbiquitousSharedItemPermissions { return uRLUbiquitousSharedItemPermissionsReadOnly }
-
-func (URLUbiquitousSharedItemPermissionsValues) ReadWrite() URLUbiquitousSharedItemPermissions { return uRLUbiquitousSharedItemPermissionsReadWrite }
-
-
-type URLUbiquitousSharedItemRoleValues struct{}
+var URLUbiquitousSharedItemPermissionss struct {
+	ReadOnly URLUbiquitousSharedItemPermissions
+	ReadWrite URLUbiquitousSharedItemPermissions
+}
 
 // URLUbiquitousSharedItemRoles provides typed accessors for [URLUbiquitousSharedItemRole] constants.
-var URLUbiquitousSharedItemRoles URLUbiquitousSharedItemRoleValues
-
-func (URLUbiquitousSharedItemRoleValues) Owner() URLUbiquitousSharedItemRole { return uRLUbiquitousSharedItemRoleOwner }
-
-func (URLUbiquitousSharedItemRoleValues) Participant() URLUbiquitousSharedItemRole { return uRLUbiquitousSharedItemRoleParticipant }
-
+var URLUbiquitousSharedItemRoles struct {
+	Owner URLUbiquitousSharedItemRole
+	Participant URLUbiquitousSharedItemRole
+}
 

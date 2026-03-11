@@ -161,9 +161,9 @@ type IURLAuthenticationChallenge interface {
 	// The sender of the challenge.
 	Sender() NSURLAuthenticationChallengeSender
 
-	InitWithCoder(coder INSCoder) URLAuthenticationChallenge
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLAuthenticationChallenge
 }
 
 
@@ -362,13 +362,6 @@ func (u URLAuthenticationChallenge) InitWithProtectionSpaceProposedCredentialPre
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u URLAuthenticationChallenge) InitWithCoder(coder INSCoder) URLAuthenticationChallenge {
-	rv := objc.Send[URLAuthenticationChallenge](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -376,6 +369,13 @@ func (u URLAuthenticationChallenge) InitWithCoder(coder INSCoder) URLAuthenticat
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u URLAuthenticationChallenge) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u URLAuthenticationChallenge) InitWithCoder(coder INSCoder) URLAuthenticationChallenge {
+	rv := objc.Send[URLAuthenticationChallenge](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

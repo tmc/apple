@@ -76,7 +76,7 @@ func NSTextAttachmentCellFromID(id objc.ID) NSTextAttachmentCell {
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCell-swift.class
 type INSTextAttachmentCell interface {
 	INSCell
-	
+	NSTextAttachmentCellProtocol
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }

@@ -10,23 +10,14 @@ import (
 
 var SCStreamErrorDomain string
 
-var sCStreamFrameInfoBoundingRect SCStreamFrameInfo
 
-var sCStreamFrameInfoContentRect SCStreamFrameInfo
 
-var sCStreamFrameInfoContentScale SCStreamFrameInfo
 
-var sCStreamFrameInfoDirtyRects SCStreamFrameInfo
 
-var sCStreamFrameInfoDisplayTime SCStreamFrameInfo
 
-var sCStreamFrameInfoPresenterOverlayContentRect SCStreamFrameInfo
 
-var sCStreamFrameInfoScaleFactor SCStreamFrameInfo
 
-var sCStreamFrameInfoScreenRect SCStreamFrameInfo
 
-var sCStreamFrameInfoStatus SCStreamFrameInfo
 
 func init() {
 	if frameworkHandle == 0 {
@@ -49,7 +40,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoBoundingRect = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.BoundingRect = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -59,7 +50,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoContentRect = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.ContentRect = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -69,7 +60,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoContentScale = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.ContentScale = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -79,7 +70,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoDirtyRects = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.DirtyRects = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -89,7 +80,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoDisplayTime = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.DisplayTime = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -99,7 +90,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoPresenterOverlayContentRect = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.PresenterOverlayContentRect = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -109,7 +100,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoScaleFactor = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.ScaleFactor = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -119,7 +110,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoScreenRect = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.ScreenRect = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
@@ -129,42 +120,31 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sCStreamFrameInfoStatus = SCStreamFrameInfo(objc.GoString(cstr))
+				SCStreamFrameInfos.Status = SCStreamFrameInfo(objc.GoString(cstr))
 			}
 		}
 	}
 
 }
 
-type SCStreamFrameInfoValues struct{}
-
 // SCStreamFrameInfos provides typed accessors for [SCStreamFrameInfo] constants.
-var SCStreamFrameInfos SCStreamFrameInfoValues
-
-// BoundingRect returns A key to retrieve the bounding rectangle for a video frame.
-func (SCStreamFrameInfoValues) BoundingRect() SCStreamFrameInfo { return sCStreamFrameInfoBoundingRect }
-
-// ContentRect returns A key to retrieve the content rectangle of a video frame.
-func (SCStreamFrameInfoValues) ContentRect() SCStreamFrameInfo { return sCStreamFrameInfoContentRect }
-
-// ContentScale returns A key to retrieve the content scale of a video frame.
-func (SCStreamFrameInfoValues) ContentScale() SCStreamFrameInfo { return sCStreamFrameInfoContentScale }
-
-// DirtyRects returns A key to retrieve the areas of a video frame that contain changes.
-func (SCStreamFrameInfoValues) DirtyRects() SCStreamFrameInfo { return sCStreamFrameInfoDirtyRects }
-
-// DisplayTime returns A key to retrieve the display time of a video frame.
-func (SCStreamFrameInfoValues) DisplayTime() SCStreamFrameInfo { return sCStreamFrameInfoDisplayTime }
-
-func (SCStreamFrameInfoValues) PresenterOverlayContentRect() SCStreamFrameInfo { return sCStreamFrameInfoPresenterOverlayContentRect }
-
-// ScaleFactor returns A key to retrieve the scale factor of a video frame.
-func (SCStreamFrameInfoValues) ScaleFactor() SCStreamFrameInfo { return sCStreamFrameInfoScaleFactor }
-
-// ScreenRect returns A key to retrieve the onscreen location of captured content.
-func (SCStreamFrameInfoValues) ScreenRect() SCStreamFrameInfo { return sCStreamFrameInfoScreenRect }
-
-// Status returns A key to retrieve the status of a video frame.
-func (SCStreamFrameInfoValues) Status() SCStreamFrameInfo { return sCStreamFrameInfoStatus }
-
+var SCStreamFrameInfos struct {
+	// BoundingRect: A key to retrieve the bounding rectangle for a video frame.
+	BoundingRect SCStreamFrameInfo
+	// ContentRect: A key to retrieve the content rectangle of a video frame.
+	ContentRect SCStreamFrameInfo
+	// ContentScale: A key to retrieve the content scale of a video frame.
+	ContentScale SCStreamFrameInfo
+	// DirtyRects: A key to retrieve the areas of a video frame that contain changes.
+	DirtyRects SCStreamFrameInfo
+	// DisplayTime: A key to retrieve the display time of a video frame.
+	DisplayTime SCStreamFrameInfo
+	PresenterOverlayContentRect SCStreamFrameInfo
+	// ScaleFactor: A key to retrieve the scale factor of a video frame.
+	ScaleFactor SCStreamFrameInfo
+	// ScreenRect: A key to retrieve the onscreen location of captured content.
+	ScreenRect SCStreamFrameInfo
+	// Status: A key to retrieve the status of a video frame.
+	Status SCStreamFrameInfo
+}
 

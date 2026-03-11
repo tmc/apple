@@ -633,23 +633,6 @@ func (b NSButton) Highlight(flag bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("highlight:"), flag)
 }
 
-// Simulates clicking the button.
-//
-// # Return Value
-// 
-// [true] if the action was successfully triggered; otherwise, [false]. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
-func (b NSButton) AccessibilityPerformPress() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("accessibilityPerformPress"))
-	return rv
-}
-
 // Returns a short description of the button.
 //
 // # Return Value
@@ -673,6 +656,23 @@ func (b NSButton) AccessibilityPerformPress() bool {
 func (b NSButton) AccessibilityLabel() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
+}
+
+// Simulates clicking the button.
+//
+// # Return Value
+// 
+// [true] if the action was successfully triggered; otherwise, [false]. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
+func (b NSButton) AccessibilityPerformPress() bool {
+	rv := objc.Send[bool](b.ID, objc.Sel("accessibilityPerformPress"))
+	return rv
 }
 
 // Returns a Boolean value that indicates whether the sender should be

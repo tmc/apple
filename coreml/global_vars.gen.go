@@ -9,10 +9,6 @@ import (
 	"github.com/tmc/apple/foundation"
 )
 
-var mLFeatureValueImageOptionCropAndScale MLFeatureValueImageOption
-
-var mLFeatureValueImageOptionCropRect MLFeatureValueImageOption
-
 var MLModelAuthorKey MLModelMetadataKey
 
 var MLModelCollectionDidChangeNotification foundation.NSNotification
@@ -27,9 +23,7 @@ var MLModelLicenseKey MLModelMetadataKey
 
 var MLModelVersionStringKey MLModelMetadataKey
 
-var mLMultiArrayDataTypeFloat MLMultiArrayDataType
 
-var mLMultiArrayDataTypeFloat64 MLMultiArrayDataType
 
 func init() {
 	if frameworkHandle == 0 {
@@ -42,7 +36,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mLFeatureValueImageOptionCropAndScale = MLFeatureValueImageOption(objc.GoString(cstr))
+				MLFeatureValueImageOptions.CropAndScale = MLFeatureValueImageOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -52,7 +46,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mLFeatureValueImageOptionCropRect = MLFeatureValueImageOption(objc.GoString(cstr))
+				MLFeatureValueImageOptions.CropRect = MLFeatureValueImageOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -122,36 +116,28 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLMultiArrayDataTypeFloat"); err == nil && ptr != 0 {
-		mLMultiArrayDataTypeFloat = *(*MLMultiArrayDataType)(unsafe.Pointer(ptr))
+		MLMultiArrayDataTypes.Float = *(*MLMultiArrayDataType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLMultiArrayDataTypeFloat64"); err == nil && ptr != 0 {
-		mLMultiArrayDataTypeFloat64 = *(*MLMultiArrayDataType)(unsafe.Pointer(ptr))
+		MLMultiArrayDataTypes.Float64 = *(*MLMultiArrayDataType)(unsafe.Pointer(ptr))
 	}
 
 }
 
-type MLFeatureValueImageOptionValues struct{}
-
 // MLFeatureValueImageOptions provides typed accessors for [MLFeatureValueImageOption] constants.
-var MLFeatureValueImageOptions MLFeatureValueImageOptionValues
-
-// CropAndScale returns The option you use to crop and scale an image when creating an image feature value.
-func (MLFeatureValueImageOptionValues) CropAndScale() MLFeatureValueImageOption { return mLFeatureValueImageOptionCropAndScale }
-
-// CropRect returns The option you use to crop an image when creating an image feature value.
-func (MLFeatureValueImageOptionValues) CropRect() MLFeatureValueImageOption { return mLFeatureValueImageOptionCropRect }
-
-
-type MLMultiArrayDataTypeValues struct{}
+var MLFeatureValueImageOptions struct {
+	// CropAndScale: The option you use to crop and scale an image when creating an image feature value.
+	CropAndScale MLFeatureValueImageOption
+	// CropRect: The option you use to crop an image when creating an image feature value.
+	CropRect MLFeatureValueImageOption
+}
 
 // MLMultiArrayDataTypes provides typed accessors for [MLMultiArrayDataType] constants.
-var MLMultiArrayDataTypes MLMultiArrayDataTypeValues
-
-// Float returns Designates the multiarray’s elements as floats.
-func (MLMultiArrayDataTypeValues) Float() MLMultiArrayDataType { return mLMultiArrayDataTypeFloat }
-
-// Float64 returns Designates the multiarray’s elements as 64-bit floats.
-func (MLMultiArrayDataTypeValues) Float64() MLMultiArrayDataType { return mLMultiArrayDataTypeFloat64 }
-
+var MLMultiArrayDataTypes struct {
+	// Float: Designates the multiarray’s elements as floats.
+	Float MLMultiArrayDataType
+	// Float64: Designates the multiarray’s elements as 64-bit floats.
+	Float64 MLMultiArrayDataType
+}
 

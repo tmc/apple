@@ -188,9 +188,9 @@ type IPort interface {
 	// This method should be implemented by a subclass to set up monitoring of a port when added to a given run loop in a given input mode.
 	ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode)
 
-	InitWithCoder(coder INSCoder) Port
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) Port
 }
 
 
@@ -353,13 +353,6 @@ func (p Port) ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](p.ID, objc.Sel("scheduleInRunLoop:forMode:"), runLoop, objc.String(string(mode)))
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (p Port) InitWithCoder(coder INSCoder) Port {
-	rv := objc.Send[Port](p.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -367,6 +360,13 @@ func (p Port) InitWithCoder(coder INSCoder) Port {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (p Port) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (p Port) InitWithCoder(coder INSCoder) Port {
+	rv := objc.Send[Port](p.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

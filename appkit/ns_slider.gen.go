@@ -443,6 +443,30 @@ func (s NSSlider) AccessibilityLabel() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
+// Decrements the slider’s value.
+//
+// # Return Value
+// 
+// [true] if the action was successfully triggered; otherwise, [false]. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// This method must post an [valueChanged] notification after changing the
+// slider’s value.
+//
+// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityPerformDecrement()
+func (s NSSlider) AccessibilityPerformDecrement() bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
+	return rv
+}
+
 // Increments the slider’s value.
 //
 // # Return Value
@@ -484,30 +508,6 @@ func (s NSSlider) AccessibilityPerformIncrement() bool {
 func (s NSSlider) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
-}
-
-// Decrements the slider’s value.
-//
-// # Return Value
-// 
-// [true] if the action was successfully triggered; otherwise, [false]. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// This method must post an [valueChanged] notification after changing the
-// slider’s value.
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityPerformDecrement()
-func (s NSSlider) AccessibilityPerformDecrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
-	return rv
 }
 func (s NSSlider) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)

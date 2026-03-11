@@ -380,27 +380,27 @@ type INSTouchBarItem interface {
 	// The view associated with this item.
 	View() INSView
 
-	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
-	IsContinuous() bool
-	SetIsContinuous(value bool)
-	// A bar that holds this group’s items.
-	GroupTouchBar() INSTouchBar
-	SetGroupTouchBar(value INSTouchBar)
 	// The view displayed when this item is displayed in its parent bar.
 	CollapsedRepresentation() INSView
 	SetCollapsedRepresentation(value INSView)
+	// A bar that holds this group’s items.
+	GroupTouchBar() INSTouchBar
+	SetGroupTouchBar(value INSTouchBar)
+	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
+	IsContinuous() bool
+	SetIsContinuous(value bool)
 	// The bar displayed when this item is “popped.”
 	PopoverTouchBar() INSTouchBar
 	SetPopoverTouchBar(value INSTouchBar)
 	// The bar that is displayed when a user press-and-holds on the popover item.
 	PressAndHoldTouchBar() INSTouchBar
 	SetPressAndHoldTouchBar(value INSTouchBar)
-	// The type of tracking behavior the control exhibits.
-	TrackingMode() NSSegmentSwitchTracking
-	SetTrackingMode(value NSSegmentSwitchTracking)
 	// The identifier of an item you want the system to center in the Touch Bar.
 	PrincipalItemIdentifier() NSTouchBarItemIdentifier
 	SetPrincipalItemIdentifier(value NSTouchBarItemIdentifier)
+	// The type of tracking behavior the control exhibits.
+	TrackingMode() NSSegmentSwitchTracking
+	SetTrackingMode(value NSSegmentSwitchTracking)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -582,16 +582,15 @@ func (t NSTouchBarItem) View() INSView {
 
 
 
-// A Boolean value indicating whether the receiver’s cell sends its action
-// message continuously to its target during mouse tracking.
+// The view displayed when this item is displayed in its parent bar.
 //
-// See: https://developer.apple.com/documentation/appkit/nscontrol/iscontinuous
-func (t NSTouchBarItem) IsContinuous() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("continuous"))
-	return rv
+// See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/collapsedrepresentation
+func (t NSTouchBarItem) CollapsedRepresentation() INSView {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("collapsedRepresentation"))
+	return NSViewFromID(objc.ID(rv))
 }
-func (t NSTouchBarItem) SetIsContinuous(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setContinuous:"), value)
+func (t NSTouchBarItem) SetCollapsedRepresentation(value INSView) {
+	objc.Send[struct{}](t.ID, objc.Sel("setCollapsedRepresentation:"), value)
 }
 
 
@@ -609,15 +608,16 @@ func (t NSTouchBarItem) SetGroupTouchBar(value INSTouchBar) {
 
 
 
-// The view displayed when this item is displayed in its parent bar.
+// A Boolean value indicating whether the receiver’s cell sends its action
+// message continuously to its target during mouse tracking.
 //
-// See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/collapsedrepresentation
-func (t NSTouchBarItem) CollapsedRepresentation() INSView {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("collapsedRepresentation"))
-	return NSViewFromID(objc.ID(rv))
+// See: https://developer.apple.com/documentation/appkit/nscontrol/iscontinuous
+func (t NSTouchBarItem) IsContinuous() bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("continuous"))
+	return rv
 }
-func (t NSTouchBarItem) SetCollapsedRepresentation(value INSView) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCollapsedRepresentation:"), value)
+func (t NSTouchBarItem) SetIsContinuous(value bool) {
+	objc.Send[struct{}](t.ID, objc.Sel("setContinuous:"), value)
 }
 
 
@@ -648,19 +648,6 @@ func (t NSTouchBarItem) SetPressAndHoldTouchBar(value INSTouchBar) {
 
 
 
-// The type of tracking behavior the control exhibits.
-//
-// See: https://developer.apple.com/documentation/appkit/nssegmentedcontrol/trackingmode
-func (t NSTouchBarItem) TrackingMode() NSSegmentSwitchTracking {
-	rv := objc.Send[NSSegmentSwitchTracking](t.ID, objc.Sel("trackingMode"))
-	return NSSegmentSwitchTracking(rv)
-}
-func (t NSTouchBarItem) SetTrackingMode(value NSSegmentSwitchTracking) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTrackingMode:"), value)
-}
-
-
-
 // The identifier of an item you want the system to center in the Touch Bar.
 //
 // See: https://developer.apple.com/documentation/appkit/nstouchbar/principalitemidentifier
@@ -670,6 +657,19 @@ func (t NSTouchBarItem) PrincipalItemIdentifier() NSTouchBarItemIdentifier {
 }
 func (t NSTouchBarItem) SetPrincipalItemIdentifier(value NSTouchBarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPrincipalItemIdentifier:"), objc.String(string(value)))
+}
+
+
+
+// The type of tracking behavior the control exhibits.
+//
+// See: https://developer.apple.com/documentation/appkit/nssegmentedcontrol/trackingmode
+func (t NSTouchBarItem) TrackingMode() NSSegmentSwitchTracking {
+	rv := objc.Send[NSSegmentSwitchTracking](t.ID, objc.Sel("trackingMode"))
+	return NSSegmentSwitchTracking(rv)
+}
+func (t NSTouchBarItem) SetTrackingMode(value NSSegmentSwitchTracking) {
+	objc.Send[struct{}](t.ID, objc.Sel("setTrackingMode:"), value)
 }
 
 

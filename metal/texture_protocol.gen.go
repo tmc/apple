@@ -203,15 +203,15 @@ type MTLTexture interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureView(with:)
 	NewTextureViewWithDescriptor(descriptor IMTLTextureViewDescriptor) MTLTexture
 
-	// Creates a new view of the texture, reinterpreting a subset of its data using a different type, pixel format, and swizzle pattern.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
-	NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture
-
 	// Creates a new view of the texture, reinterpreting a subset of its data using a different type and pixel format.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:
 	NewTextureViewWithPixelFormatTextureTypeLevelsSlices(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange) MTLTexture
+
+	// Creates a new view of the texture, reinterpreting a subset of its data using a different type, pixel format, and swizzle pattern.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
+	NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture
 }
 
 
@@ -887,44 +887,6 @@ func (o MTLTextureObject) NewTextureViewWithDescriptor(descriptor IMTLTextureVie
 	}
 
 // Creates a new view of the texture, reinterpreting a subset of its data
-// using a different type, pixel format, and swizzle pattern.
-//
-// pixelFormat: A new pixel format, which needs to be compatible with the original pixel
-// format.
-//
-// textureType: A new texture type.
-//
-// levelRange: A new base level range that restricts which mipmap levels are visible in
-// the new texture.
-//
-// sliceRange: A new base slice range that restricts which array slices are visible in the
-// new texture.
-//
-// swizzle: The swizzle pattern the GPU uses to reorder the data when sampling or
-// reading the texture.
-//
-// # Return Value
-// 
-// A new texture view.
-//
-// # Discussion
-// 
-// For more information on texture views, see
-// [NewTextureViewWithPixelFormatTextureTypeLevelsSlices].
-// 
-// The swizzle pattern of the view is combined with that of the parent texture
-// to generate the final swizzle pattern. For example: An `[R,G,A,B]` swizzle
-// of a texture with a `[R,1,1,G]` swizzle pattern is `[R,1,G,1]`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
-
-func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture {
-	
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:"), pixelFormat, textureType, levelRange, sliceRange, swizzle)
-	return MTLTextureObjectFromID(rv)
-	}
-
-// Creates a new view of the texture, reinterpreting a subset of its data
 // using a different type and pixel format.
 //
 // pixelFormat: A new pixel format, which needs to be compatible with the original pixel
@@ -963,6 +925,44 @@ func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSw
 func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlices(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange) MTLTexture {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:textureType:levels:slices:"), pixelFormat, textureType, levelRange, sliceRange)
+	return MTLTextureObjectFromID(rv)
+	}
+
+// Creates a new view of the texture, reinterpreting a subset of its data
+// using a different type, pixel format, and swizzle pattern.
+//
+// pixelFormat: A new pixel format, which needs to be compatible with the original pixel
+// format.
+//
+// textureType: A new texture type.
+//
+// levelRange: A new base level range that restricts which mipmap levels are visible in
+// the new texture.
+//
+// sliceRange: A new base slice range that restricts which array slices are visible in the
+// new texture.
+//
+// swizzle: The swizzle pattern the GPU uses to reorder the data when sampling or
+// reading the texture.
+//
+// # Return Value
+// 
+// A new texture view.
+//
+// # Discussion
+// 
+// For more information on texture views, see
+// [NewTextureViewWithPixelFormatTextureTypeLevelsSlices].
+// 
+// The swizzle pattern of the view is combined with that of the parent texture
+// to generate the final swizzle pattern. For example: An `[R,G,A,B]` swizzle
+// of a texture with a `[R,1,1,G]` swizzle pattern is `[R,1,G,1]`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
+
+func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture {
+	
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:"), pixelFormat, textureType, levelRange, sliceRange, swizzle)
 	return MTLTextureObjectFromID(rv)
 	}
 

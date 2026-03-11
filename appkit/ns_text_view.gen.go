@@ -2893,6 +2893,20 @@ func (t NSTextView) Highlight(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("highlight:"), sender)
 }
 
+// Returns the attributed substring for the specified range of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+// 
+// An attributed string representing the specified characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
+func (t NSTextView) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
+	return foundation.NSAttributedStringFromID(rv)
+}
+
 // Returns the rectangle that encloses the specified range of characters.
 //
 // range: The range of characters.
@@ -2910,6 +2924,21 @@ func (t NSTextView) Highlight(sender objectivec.IObject) {
 func (t NSTextView) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("accessibilityFrameForRange:"), range_)
 	return corefoundation.CGRect(rv)
+}
+
+// Returns the line number for the line that contains the specified character
+// index.
+//
+// index: The index for a character.
+//
+// # Return Value
+// 
+// The line number for the line holding the specified character index.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
+func (t NSTextView) AccessibilityLineForIndex(index int) int {
+	rv := objc.Send[int](t.ID, objc.Sel("accessibilityLineForIndex:"), index)
+	return rv
 }
 
 // Returns the range of characters in the specified line.
@@ -2941,21 +2970,6 @@ func (t NSTextView) AccessibilityStringForRange(range_ foundation.NSRange) strin
 	return foundation.NSStringFromID(rv).String()
 }
 
-// Returns the line number for the line that contains the specified character
-// index.
-//
-// index: The index for a character.
-//
-// # Return Value
-// 
-// The line number for the line holding the specified character index.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
-func (t NSTextView) AccessibilityLineForIndex(index int) int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityLineForIndex:"), index)
-	return rv
-}
-
 // Returns the text that the accessibility element displays.
 //
 // # Return Value
@@ -2973,20 +2987,6 @@ func (t NSTextView) AccessibilityLineForIndex(index int) int {
 func (t NSTextView) AccessibilityValue() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the attributed substring for the specified range of characters.
-//
-// range: The range of characters.
-//
-// # Return Value
-// 
-// An attributed string representing the specified characters.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
-func (t NSTextView) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
-	return foundation.NSAttributedStringFromID(rv)
 }
 
 // Returns the range of visible characters in the document.
@@ -3008,6 +3008,75 @@ func (t NSTextView) AccessibilityAttributedStringForRange(range_ foundation.NSRa
 func (t NSTextView) AccessibilityVisibleCharacterRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("accessibilityVisibleCharacterRange"))
 	return foundation.NSRange(rv)
+}
+
+// Returns an attributed string representing the receiver’s text storage.
+//
+// # Return Value
+// 
+// The attributed string of the receiver’s text storage.
+//
+// # Discussion
+// 
+// Implementation of this method is optional. A class adopting the
+// [NSTextInputClient] protocol can implement this interface if it can be done
+// efficiently to enable callers of this interface to access arbitrary
+// portions of the receiver’s content more efficiently.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedString()
+func (t NSTextView) AttributedString() foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
+	return foundation.NSAttributedStringFromID(rv)
+}
+
+// Returns an attributed string derived from the given range in the
+// receiver’s text storage.
+//
+// range: The range in the text storage from which to create the returned string.
+//
+// actualRange: The actual range of the returned string if it was adjusted, for example, to
+// a grapheme cluster boundary or for performance or other reasons. [NULL] if
+// range was not adjusted.
+//
+// # Return Value
+// 
+// The string created from the given range. May return `nil`.
+//
+// # Discussion
+// 
+// An implementation of this method should be prepared for `aRange` to be out
+// of bounds. For example, the InkWell text input service can ask for the
+// contents of the text input client that extends beyond the document’s
+// range. In this case, you should return the intersection of the document’s
+// range and `aRange`. If the location of `aRange` is completely outside of
+// the document’s range, return `nil`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
+func (t NSTextView) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
+	return foundation.NSAttributedStringFromID(rv)
+}
+
+// Returns the baseline position of a given character relative to the origin
+// of rectangle returned by [FirstRectForCharacterRangeActualRange].
+//
+// anIndex: Index of the character whose baseline is tested.
+//
+// # Return Value
+// 
+// The vertical distance, in points, between the baseline of the character at
+// `anIndex` and the rectangle origin.
+//
+// # Discussion
+// 
+// Implementation of this method is optional. This information allows the
+// caller to determine finer-grained character positioning within the text
+// storage of the text view adopting [NSTextInputClient].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/baselineDeltaForCharacter(at:)
+func (t NSTextView) BaselineDeltaForCharacterAtIndex(anIndex uint) float64 {
+	rv := objc.Send[float64](t.ID, objc.Sel("baselineDeltaForCharacterAtIndex:"), anIndex)
+	return rv
 }
 
 // Tells the delegate that the user has started touching one of the candidates
@@ -3069,29 +3138,21 @@ func (t NSTextView) CandidateListTouchBarItemEndSelectingCandidateAtIndex(anItem
 	objc.Send[objc.ID](t.ID, objc.Sel("candidateListTouchBarItem:endSelectingCandidateAtIndex:"), anItem, index)
 }
 
-// Declares the types of operations the source allows to be performed.
+// Returns the index of the character whose bounding rectangle includes the
+// given point.
 //
-// session: The dragging session.
-//
-// context: The dragging context. See [NSDraggingContext] for the supported values.
-// //
-// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
+// point: The point to test, in screen coordinates.
 //
 // # Return Value
 // 
-// The appropriate dragging operation as defined in
+// The character index, measured from the start of the receiver’s text
+// storage, of the character containing the given point. Returns [NSNotFound]
+// if the cursor is not within a character’s bounding rectangle.
 //
-// # Discussion
-// 
-// In the future Apple may provide more specific “within” values in the
-// future. To account for this, for unrecognized localities, return the
-// operation mask for the most specific context that you are concerned with.
-// The following code is an example of how to implement this functionality:
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
-func (t NSTextView) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
-	rv := objc.Send[NSDragOperation](t.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
-	return NSDragOperation(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/characterIndex(for:)
+func (t NSTextView) CharacterIndexForPoint(point corefoundation.CGPoint) uint {
+	rv := objc.Send[uint](t.ID, objc.Sel("characterIndexForPoint:"), point)
+	return rv
 }
 
 // Invoked when the dragging session has completed.
@@ -3120,6 +3181,31 @@ func (t NSTextView) DraggingSessionMovedToPoint(session INSDraggingSession, scre
 	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
 }
 
+// Declares the types of operations the source allows to be performed.
+//
+// session: The dragging session.
+//
+// context: The dragging context. See [NSDraggingContext] for the supported values.
+// //
+// [NSDraggingContext]: https://developer.apple.com/documentation/AppKit/NSDraggingContext
+//
+// # Return Value
+// 
+// The appropriate dragging operation as defined in
+//
+// # Discussion
+// 
+// In the future Apple may provide more specific “within” values in the
+// future. To account for this, for unrecognized localities, return the
+// operation mask for the most specific context that you are concerned with.
+// The following code is an example of how to implement this functionality:
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
+func (t NSTextView) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
+	rv := objc.Send[NSDragOperation](t.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
+	return NSDragOperation(rv)
+}
+
 // Invoked when the drag will begin.
 //
 // session: The dragging session.
@@ -3129,6 +3215,116 @@ func (t NSTextView) DraggingSessionMovedToPoint(session INSDraggingSession, scre
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:willBeginAt:)
 func (t NSTextView) DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:willBeginAtPoint:"), session, screenPoint)
+}
+
+// Informs the text input management system whether the protocol-conforming
+// client renders the character at the given index vertically.
+//
+// charIndex: The index of the character to test.
+//
+// # Return Value
+// 
+// [true] if the character is rendered vertically; otherwise [false].
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/drawsVerticallyForCharacter(at:)
+func (t NSTextView) DrawsVerticallyForCharacterAtIndex(charIndex uint) bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("drawsVerticallyForCharacterAtIndex:"), charIndex)
+	return rv
+}
+
+// Returns the first logical boundary rectangle for characters in the given
+// range.
+//
+// range: The character range whose boundary rectangle is returned.
+//
+// actualRange: If non-[NULL], contains the character range corresponding to the returned
+// area if it was adjusted, for example, to a grapheme cluster boundary or
+// characters in the first line fragment.
+//
+// # Return Value
+// 
+// The boundary rectangle for the given range of characters, in screen
+// coordinates. The rectangle’s `size` value can be negative if the text
+// flows to the left.
+//
+// # Discussion
+// 
+// If `aRange` spans multiple lines of text in the text view, the rectangle
+// returned is the one surrounding the characters in the first line. In that
+// case `actualRange` contains the range covered by the first rect, so you can
+// query all line fragments by invoking this method repeatedly. If the length
+// of `aRange` is 0 (as it would be if there is nothing selected at the
+// insertion point), the rectangle coincides with the insertion point, and its
+// width is 0.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
+func (t NSTextView) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
+	return corefoundation.CGRect(rv)
+}
+
+// Returns the fraction of the distance from the left side of the character to
+// the right side that a given point lies.
+//
+// point: The point to test.
+//
+// # Return Value
+// 
+// The fraction of the distance `aPoint` is through the glyph in which it
+// lies. May be 0 or 1 if `aPoint` is not within the bounding rectangle of a
+// glyph (0 if the point is to the left or above the glyph; 1 if it’s to the
+// right or below).
+//
+// # Discussion
+// 
+// Implementation of this method is optional. This allows caller to perform
+// precise selection handling.
+// 
+// For purposes such as dragging out a selection or placing the insertion
+// point, a partial percentage less than or equal to 0.5 indicates that
+// `aPoint` should be considered as falling before the glyph; a partial
+// percentage greater than 0.5 indicates that it should be considered as
+// falling after the glyph. If the nearest glyph doesn’t lie under `aPoint`
+// at all (for example, if `aPoint` is beyond the beginning or end of a line),
+// this ratio is 0 or 1.
+// 
+// For example, if the glyph stream contains the glyphs “A” and “b”,
+// with the width of “A” being 13 points, and `aPoint` is 8 points from
+// the left side of “A”, then the fraction of the distance is 8/13, or
+// 0.615. In this case, the `aPoint` should be considered as falling between
+// “A” and “b” for purposes such as dragging out a selection or
+// placing the insertion point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/fractionOfDistanceThroughGlyph(for:)
+func (t NSTextView) FractionOfDistanceThroughGlyphForPoint(point corefoundation.CGPoint) float64 {
+	rv := objc.Send[float64](t.ID, objc.Sel("fractionOfDistanceThroughGlyphForPoint:"), point)
+	return rv
+}
+
+// Returns a Boolean value indicating whether the receiver has marked text.
+//
+// # Return Value
+// 
+// [true] if the receiver has marked text; otherwise [false].
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// The text view itself may call this method to determine whether there
+// currently is marked text. [NSTextView], for example, disables the Edit >
+// Copy menu item when this method returns [true].
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/hasMarkedText()
+func (t NSTextView) HasMarkedText() bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("hasMarkedText"))
+	return rv
 }
 
 // Returns whether the modifier keys will be ignored for this dragging
@@ -3149,80 +3345,15 @@ func (t NSTextView) IgnoreModifierKeysForDraggingSession(session INSDraggingSess
 	return rv
 }
 
-// Implemented to override the default action of enabling or disabling a
-// specific menu item.
+// Inserts an adaptive image into the text at the specifed location.
 //
-// menuItem: An [NSMenuItem] object that represents the menu item.
+// adaptiveImageGlyph: The adaptive image to add to the text.
 //
-// # Return Value
-// 
-// [true] to enable `menuItem`, [false] to disable it.
+// replacementRange: The text range at which to insert the image.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// The object implementing this method must be the target of `menuItem`. You
-// can determine which menu item `menuItem` is by querying it for its tag or
-// action.
-// 
-// The following example disables the menu item associated with the
-// `nextRecord` action method when the selected line in a table view is the
-// last one; conversely, it disables the menu item with `priorRecord` as its
-// action method when the selected row is the first one in the table view.
-// (The `countryOrRegionKeys` array contains names that appear in the table
-// view.)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSMenuItemValidation/validateMenuItem(_:)
-func (t NSTextView) ValidateMenuItem(menuItem INSMenuItem) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("validateMenuItem:"), menuItem)
-	return rv
-}
-
-// Returns the index of the character whose bounding rectangle includes the
-// given point.
-//
-// point: The point to test, in screen coordinates.
-//
-// # Return Value
-// 
-// The character index, measured from the start of the receiver’s text
-// storage, of the character containing the given point. Returns [NSNotFound]
-// if the cursor is not within a character’s bounding rectangle.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/characterIndex(for:)
-func (t NSTextView) CharacterIndexForPoint(point corefoundation.CGPoint) uint {
-	rv := objc.Send[uint](t.ID, objc.Sel("characterIndexForPoint:"), point)
-	return rv
-}
-
-// Returns an attributed string derived from the given range in the
-// receiver’s text storage.
-//
-// range: The range in the text storage from which to create the returned string.
-//
-// actualRange: The actual range of the returned string if it was adjusted, for example, to
-// a grapheme cluster boundary or for performance or other reasons. [NULL] if
-// range was not adjusted.
-//
-// # Return Value
-// 
-// The string created from the given range. May return `nil`.
-//
-// # Discussion
-// 
-// An implementation of this method should be prepared for `aRange` to be out
-// of bounds. For example, the InkWell text input service can ask for the
-// contents of the text input client that extends beyond the document’s
-// range. In this case, you should return the intersection of the document’s
-// range and `aRange`. If the location of `aRange` is completely outside of
-// the document’s range, return `nil`.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
-func (t NSTextView) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
-	return foundation.NSAttributedStringFromID(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insert(_:replacementRange:)
+func (t NSTextView) InsertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph INSAdaptiveImageGlyph, replacementRange foundation.NSRange) {
+	objc.Send[objc.ID](t.ID, objc.Sel("insertAdaptiveImageGlyph:replacementRange:"), adaptiveImageGlyph, replacementRange)
 }
 
 // Inserts the given string into the receiver, replacing the specified
@@ -3265,58 +3396,10 @@ func (t NSTextView) MarkedRange() foundation.NSRange {
 	return foundation.NSRange(rv)
 }
 
-// Returns the first logical boundary rectangle for characters in the given
-// range.
-//
-// range: The character range whose boundary rectangle is returned.
-//
-// actualRange: If non-[NULL], contains the character range corresponding to the returned
-// area if it was adjusted, for example, to a grapheme cluster boundary or
-// characters in the first line fragment.
-//
-// # Return Value
-// 
-// The boundary rectangle for the given range of characters, in screen
-// coordinates. The rectangle’s `size` value can be negative if the text
-// flows to the left.
-//
-// # Discussion
-// 
-// If `aRange` spans multiple lines of text in the text view, the rectangle
-// returned is the one surrounding the characters in the first line. In that
-// case `actualRange` contains the range covered by the first rect, so you can
-// query all line fragments by invoking this method repeatedly. If the length
-// of `aRange` is 0 (as it would be if there is nothing selected at the
-// insertion point), the rectangle coincides with the insertion point, and its
-// width is 0.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
-func (t NSTextView) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
-	return corefoundation.CGRect(rv)
-}
-
-// Returns a Boolean value indicating whether the receiver has marked text.
-//
-// # Return Value
-// 
-// [true] if the receiver has marked text; otherwise [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// The text view itself may call this method to determine whether there
-// currently is marked text. [NSTextView], for example, disables the Edit >
-// Copy menu item when this method returns [true].
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/hasMarkedText()
-func (t NSTextView) HasMarkedText() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("hasMarkedText"))
-	return rv
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/preferredTextAccessoryPlacement()
+func (t NSTextView) PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlacement {
+	rv := objc.Send[NSTextCursorAccessoryPlacement](t.ID, objc.Sel("preferredTextAccessoryPlacement"))
+	return NSTextCursorAccessoryPlacement(rv)
 }
 
 // Replaces a specified range in the receiver’s text storage with the given
@@ -3342,6 +3425,29 @@ func (t NSTextView) HasMarkedText() bool {
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
 func (t NSTextView) SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setMarkedText:selectedRange:replacementRange:"), string_, selectedRange, replacementRange)
+}
+
+// Asks the delegate object for the bar item for the specified bar and item
+// identifier.
+//
+// touchBar: The bar that’s requesting the bar item.
+//
+// identifier: The item identifier associated with the item being requested.
+//
+// # Return Value
+// 
+// A fully initialized bar item for the specified bar and identifier.
+//
+// # Discussion
+// 
+// When the system needs to populate a bar’s items array, the system calls
+// this delegate method to retrieve an item if that item can’t be found in
+// the bar’s private array or in the bar’s [TemplateItems] property.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTouchBarDelegate/touchBar(_:makeItemForIdentifier:)
+func (t NSTextView) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("touchBar:makeItemForIdentifier:"), touchBar, objc.String(string(identifier)))
+	return NSTouchBarItemFromID(rv)
 }
 
 // Unmarks the marked text.
@@ -3377,159 +3483,35 @@ func (t NSTextView) ValidAttributesForMarkedText() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-// Returns an attributed string representing the receiver’s text storage.
+// Implemented to override the default action of enabling or disabling a
+// specific menu item.
+//
+// menuItem: An [NSMenuItem] object that represents the menu item.
 //
 // # Return Value
 // 
-// The attributed string of the receiver’s text storage.
-//
-// # Discussion
-// 
-// Implementation of this method is optional. A class adopting the
-// [NSTextInputClient] protocol can implement this interface if it can be done
-// efficiently to enable callers of this interface to access arbitrary
-// portions of the receiver’s content more efficiently.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedString()
-func (t NSTextView) AttributedString() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
-	return foundation.NSAttributedStringFromID(rv)
-}
-
-// Returns the baseline position of a given character relative to the origin
-// of rectangle returned by [FirstRectForCharacterRangeActualRange].
-//
-// anIndex: Index of the character whose baseline is tested.
-//
-// # Return Value
-// 
-// The vertical distance, in points, between the baseline of the character at
-// `anIndex` and the rectangle origin.
-//
-// # Discussion
-// 
-// Implementation of this method is optional. This information allows the
-// caller to determine finer-grained character positioning within the text
-// storage of the text view adopting [NSTextInputClient].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/baselineDeltaForCharacter(at:)
-func (t NSTextView) BaselineDeltaForCharacterAtIndex(anIndex uint) float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("baselineDeltaForCharacterAtIndex:"), anIndex)
-	return rv
-}
-
-// Informs the text input management system whether the protocol-conforming
-// client renders the character at the given index vertically.
-//
-// charIndex: The index of the character to test.
-//
-// # Return Value
-// 
-// [true] if the character is rendered vertically; otherwise [false].
+// [true] to enable `menuItem`, [false] to disable it.
 //
 // [false]: https://developer.apple.com/documentation/Swift/false
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/drawsVerticallyForCharacter(at:)
-func (t NSTextView) DrawsVerticallyForCharacterAtIndex(charIndex uint) bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("drawsVerticallyForCharacterAtIndex:"), charIndex)
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/preferredTextAccessoryPlacement()
-func (t NSTextView) PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlacement {
-	rv := objc.Send[NSTextCursorAccessoryPlacement](t.ID, objc.Sel("preferredTextAccessoryPlacement"))
-	return NSTextCursorAccessoryPlacement(rv)
-}
-
-// Inserts an adaptive image into the text at the specifed location.
-//
-// adaptiveImageGlyph: The adaptive image to add to the text.
-//
-// replacementRange: The text range at which to insert the image.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insert(_:replacementRange:)
-func (t NSTextView) InsertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph INSAdaptiveImageGlyph, replacementRange foundation.NSRange) {
-	objc.Send[objc.ID](t.ID, objc.Sel("insertAdaptiveImageGlyph:replacementRange:"), adaptiveImageGlyph, replacementRange)
-}
-
-// Returns the fraction of the distance from the left side of the character to
-// the right side that a given point lies.
-//
-// point: The point to test.
-//
-// # Return Value
-// 
-// The fraction of the distance `aPoint` is through the glyph in which it
-// lies. May be 0 or 1 if `aPoint` is not within the bounding rectangle of a
-// glyph (0 if the point is to the left or above the glyph; 1 if it’s to the
-// right or below).
-//
 // # Discussion
 // 
-// Implementation of this method is optional. This allows caller to perform
-// precise selection handling.
+// The object implementing this method must be the target of `menuItem`. You
+// can determine which menu item `menuItem` is by querying it for its tag or
+// action.
 // 
-// For purposes such as dragging out a selection or placing the insertion
-// point, a partial percentage less than or equal to 0.5 indicates that
-// `aPoint` should be considered as falling before the glyph; a partial
-// percentage greater than 0.5 indicates that it should be considered as
-// falling after the glyph. If the nearest glyph doesn’t lie under `aPoint`
-// at all (for example, if `aPoint` is beyond the beginning or end of a line),
-// this ratio is 0 or 1.
-// 
-// For example, if the glyph stream contains the glyphs “A” and “b”,
-// with the width of “A” being 13 points, and `aPoint` is 8 points from
-// the left side of “A”, then the fraction of the distance is 8/13, or
-// 0.615. In this case, the `aPoint` should be considered as falling between
-// “A” and “b” for purposes such as dragging out a selection or
-// placing the insertion point.
+// The following example disables the menu item associated with the
+// `nextRecord` action method when the selected line in a table view is the
+// last one; conversely, it disables the menu item with `priorRecord` as its
+// action method when the selected row is the first one in the table view.
+// (The `countryOrRegionKeys` array contains names that appear in the table
+// view.)
 //
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/fractionOfDistanceThroughGlyph(for:)
-func (t NSTextView) FractionOfDistanceThroughGlyphForPoint(point corefoundation.CGPoint) float64 {
-	rv := objc.Send[float64](t.ID, objc.Sel("fractionOfDistanceThroughGlyphForPoint:"), point)
+// See: https://developer.apple.com/documentation/AppKit/NSMenuItemValidation/validateMenuItem(_:)
+func (t NSTextView) ValidateMenuItem(menuItem INSMenuItem) bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
-}
-
-// Returns the window level of the receiver.
-//
-// # Return Value
-// 
-// The window level of the receiver.
-//
-// # Discussion
-// 
-// Implementation of this method is optional. A class adopting
-// [NSTextInputClient] can implement this interface to specify its window
-// level if it is higher than [NSFloatingWindowLevel].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/windowLevel()
-func (t NSTextView) WindowLevel() int {
-	rv := objc.Send[int](t.ID, objc.Sel("windowLevel"))
-	return rv
-}
-
-// Asks the delegate object for the bar item for the specified bar and item
-// identifier.
-//
-// touchBar: The bar that’s requesting the bar item.
-//
-// identifier: The item identifier associated with the item being requested.
-//
-// # Return Value
-// 
-// A fully initialized bar item for the specified bar and identifier.
-//
-// # Discussion
-// 
-// When the system needs to populate a bar’s items array, the system calls
-// this delegate method to retrieve an item if that item can’t be found in
-// the bar’s private array or in the bar’s [TemplateItems] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTouchBarDelegate/touchBar(_:makeItemForIdentifier:)
-func (t NSTextView) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("touchBar:makeItemForIdentifier:"), touchBar, objc.String(string(identifier)))
-	return NSTouchBarItemFromID(rv)
 }
 
 // Returns a Boolean value that indicates whether the sender should be
@@ -3548,6 +3530,24 @@ func (t NSTextView) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifi
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceValidations/validateUserInterfaceItem(_:)
 func (t NSTextView) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("validateUserInterfaceItem:"), item)
+	return rv
+}
+
+// Returns the window level of the receiver.
+//
+// # Return Value
+// 
+// The window level of the receiver.
+//
+// # Discussion
+// 
+// Implementation of this method is optional. A class adopting
+// [NSTextInputClient] can implement this interface to specify its window
+// level if it is higher than [NSFloatingWindowLevel].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/windowLevel()
+func (t NSTextView) WindowLevel() int {
+	rv := objc.Send[int](t.ID, objc.Sel("windowLevel"))
 	return rv
 }
 func (t NSTextView) EncodeWithCoder(coder foundation.INSCoder) {
@@ -4653,16 +4653,6 @@ func (t NSTextView) SetWritingToolsBehavior(value NSWritingToolsBehavior) {
 
 
 
-// Type for the find panel metadata property list.
-//
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/findpanelsearchoptions
-func (t NSTextView) FindPanelSearchOptions() NSPasteboardType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSFindPanelSearchOptionsPboardType"))
-	return NSPasteboardType(foundation.NSStringFromID(rv).String())
-}
-
-
-
 // The semantic meaning for a text input area.
 //
 // # Discussion
@@ -4696,10 +4686,32 @@ func (t NSTextView) DocumentVisibleRect() corefoundation.CGRect {
 
 
 
-// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
-func (t NSTextView) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("unionRectInVisibleSelectedRange"))
-	return corefoundation.CGRect(rv)
+// Type for the find panel metadata property list.
+//
+// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/findpanelsearchoptions
+func (t NSTextView) FindPanelSearchOptions() NSPasteboardType {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSFindPanelSearchOptionsPboardType"))
+	return NSPasteboardType(foundation.NSStringFromID(rv).String())
+}
+
+
+
+// The default layout orientation.
+//
+// # Discussion
+// 
+// This property contains the default layout orientation for text in the
+// object that adopts the protocol. If the text contains an explicit
+// [verticalGlyphForm] attribute, that attribute overrides the value in this
+// property. When rendering, TextKit assumes the coordinate system is
+// appropriately rotated.
+//
+// [verticalGlyphForm]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/verticalGlyphForm
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
+func (t NSTextView) LayoutOrientation() NSTextLayoutOrientation {
+	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
+	return NSTextLayoutOrientation(rv)
 }
 
 
@@ -4725,22 +4737,10 @@ func (t NSTextView) SupportsAdaptiveImageGlyph() bool {
 
 
 
-// The default layout orientation.
-//
-// # Discussion
-// 
-// This property contains the default layout orientation for text in the
-// object that adopts the protocol. If the text contains an explicit
-// [verticalGlyphForm] attribute, that attribute overrides the value in this
-// property. When rendering, TextKit assumes the coordinate system is
-// appropriately rotated.
-//
-// [verticalGlyphForm]: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/verticalGlyphForm
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
-func (t NSTextView) LayoutOrientation() NSTextLayoutOrientation {
-	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
-	return NSTextLayoutOrientation(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
+func (t NSTextView) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("unionRectInVisibleSelectedRange"))
+	return corefoundation.CGRect(rv)
 }
 
 

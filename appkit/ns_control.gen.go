@@ -373,8 +373,8 @@ type INSControl interface {
 	UsesSingleLineMode() bool
 	SetUsesSingleLineMode(value bool)
 	// The receiver’s formatter.
-	Formatter() *foundation.NSFormatter
-	SetFormatter(value *foundation.NSFormatter)
+	Formatter() foundation.NSFormatter
+	SetFormatter(value foundation.NSFormatter)
 	// The initial writing direction used to determine the actual writing direction for text.
 	BaseWritingDirection() NSWritingDirection
 	SetBaseWritingDirection(value NSWritingDirection)
@@ -1379,15 +1379,11 @@ func (c NSControl) SetUsesSingleLineMode(value bool) {
 // The receiver’s formatter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/formatter
-func (c NSControl) Formatter() *foundation.NSFormatter {
+func (c NSControl) Formatter() foundation.NSFormatter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatter"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSFormatterFromID(objc.ID(rv))
-	return &val
+	return foundation.NSFormatterFromID(objc.ID(rv))
 }
-func (c NSControl) SetFormatter(value *foundation.NSFormatter) {
+func (c NSControl) SetFormatter(value foundation.NSFormatter) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatter:"), value)
 }
 

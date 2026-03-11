@@ -271,15 +271,15 @@ type IURLSessionTaskTransactionMetrics interface {
 	ResourceFetchType() NSURLSessionTaskMetricsResourceFetchType
 	DomainResolutionProtocol() NSURLSessionTaskMetricsDomainResolutionProtocol
 
-	// The TLS cipher suite the task negotiated with the endpoint for the connection.
-	NegotiatedTLSCipherSuite() INSNumber
-	// The port number of the remote interface for the connection.
-	RemotePort() INSNumber
 	// The port number of the local interface for the connection.
 	LocalPort() INSNumber
+	// The TLS cipher suite the task negotiated with the endpoint for the connection.
+	NegotiatedTLSCipherSuite() INSNumber
 	// The number of redirects that occurred during the execution of the task.
 	RedirectCount() int
 	SetRedirectCount(value int)
+	// The port number of the remote interface for the connection.
+	RemotePort() INSNumber
 	// The time interval between when a task is instantiated and when the task is completed.
 	TaskInterval() INSDateInterval
 	SetTaskInterval(value INSDateInterval)
@@ -765,6 +765,21 @@ func (u URLSessionTaskTransactionMetrics) DomainResolutionProtocol() NSURLSessio
 
 
 
+// The port number of the local interface for the connection.
+//
+// # Discussion
+// 
+// For multipath protocols, this is the local port of the initial flow. If the
+// app didn’t use the connection, this value is `nil`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSURLSessionTaskTransactionMetrics/localPort
+func (u URLSessionTaskTransactionMetrics) LocalPort() INSNumber {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("localPort"))
+	return NSNumberFromID(objc.ID(rv))
+}
+
+
+
 // The TLS cipher suite the task negotiated with the endpoint for the
 // connection.
 //
@@ -784,6 +799,19 @@ func (u URLSessionTaskTransactionMetrics) NegotiatedTLSCipherSuite() INSNumber {
 
 
 
+// The number of redirects that occurred during the execution of the task.
+//
+// See: https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/redirectcount
+func (u URLSessionTaskTransactionMetrics) RedirectCount() int {
+	rv := objc.Send[int](u.ID, objc.Sel("redirectCount"))
+	return rv
+}
+func (u URLSessionTaskTransactionMetrics) SetRedirectCount(value int) {
+	objc.Send[struct{}](u.ID, objc.Sel("setRedirectCount:"), value)
+}
+
+
+
 // The port number of the remote interface for the connection.
 //
 // # Discussion
@@ -795,34 +823,6 @@ func (u URLSessionTaskTransactionMetrics) NegotiatedTLSCipherSuite() INSNumber {
 func (u URLSessionTaskTransactionMetrics) RemotePort() INSNumber {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("remotePort"))
 	return NSNumberFromID(objc.ID(rv))
-}
-
-
-
-// The port number of the local interface for the connection.
-//
-// # Discussion
-// 
-// For multipath protocols, this is the local port of the initial flow. If the
-// app didn’t use the connection, this value is `nil`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURLSessionTaskTransactionMetrics/localPort
-func (u URLSessionTaskTransactionMetrics) LocalPort() INSNumber {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("localPort"))
-	return NSNumberFromID(objc.ID(rv))
-}
-
-
-
-// The number of redirects that occurred during the execution of the task.
-//
-// See: https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/redirectcount
-func (u URLSessionTaskTransactionMetrics) RedirectCount() int {
-	rv := objc.Send[int](u.ID, objc.Sel("redirectCount"))
-	return rv
-}
-func (u URLSessionTaskTransactionMetrics) SetRedirectCount(value int) {
-	objc.Send[struct{}](u.ID, objc.Sel("setRedirectCount:"), value)
 }
 
 

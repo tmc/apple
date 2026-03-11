@@ -338,14 +338,14 @@ type INSItemProvider interface {
 	// An optional array of media data associated with the extension item.
 	Attachments() INSItemProvider
 	SetAttachments(value INSItemProvider)
-	// Asynchronously copies the content type data into a generic data object with the specified parameters.
-	LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress
-	// Asynchronously copies the provided, typed data into a generic data object, returning a progress object.
-	LoadDataRepresentationForContentTypeCompletionHandler(contentType objectivec.IObject, completionHandler DataErrorHandler) INSProgress
-	// Registers an existing collaboration object on a server.
-	RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject)
 	// Provides data-backed content from an existing file with the specified parameters.
 	InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility(fileURL INSURL, contentType objectivec.IObject, openInPlace bool, coordinated bool, visibility NSItemProviderRepresentationVisibility) NSItemProvider
+	// Asynchronously copies the provided, typed data into a generic data object, returning a progress object.
+	LoadDataRepresentationForContentTypeCompletionHandler(contentType objectivec.IObject, completionHandler DataErrorHandler) INSProgress
+	// Asynchronously copies the content type data into a generic data object with the specified parameters.
+	LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress
+	// Registers an existing collaboration object on a server.
+	RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject)
 	// Creates and registers a new collaboration object using a collection of records to share.
 	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler)
 	// Lazily registers an item, according to the item provider type coercion policy.
@@ -937,15 +937,35 @@ func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objc.C
 		objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
 }
 
-// Asynchronously copies the content type data into a generic data object with
-// the specified parameters.
+// Provides data-backed content from an existing file with the specified
+// parameters.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentationForContentType:openInPlace:completionHandler:
-func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress {
-		_block2, _cleanup2 := NewURLErrorBlock(completionHandler)
-	defer _cleanup2()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
-	return NSProgressFromID(rv)
+// fileURL: The URL of the file to use for the item provider’s data.
+//
+// contentType: The content type of the specified file.
+//
+// openInPlace: `true` if the system opens the file in place.
+//
+// coordinated: `true` if the returned file must be accessed using [NSFileCoordinator].
+//
+// visibility: The [NSItemProviderRepresentationVisibility] setting the system uses to
+// identify which processes can see this content.
+// //
+// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
+//
+// # Return Value
+// 
+// An item provider for the specified file or `nil` if an error occurred.
+//
+// # Discussion
+// 
+// If [ItemProviderFileOptionOpenInPlace] is set to `false`, the system copies
+// the file provided before the load handler returns.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:
+func (i NSItemProvider) InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility(fileURL INSURL, contentType objectivec.IObject, openInPlace bool, coordinated bool, visibility NSItemProviderRepresentationVisibility) NSItemProvider {
+	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:"), fileURL, contentType, openInPlace, coordinated, visibility)
+	return rv
 }
 
 // Asynchronously copies the provided, typed data into a generic data object,
@@ -956,6 +976,17 @@ func (i NSItemProvider) LoadDataRepresentationForContentTypeCompletionHandler(co
 		_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	defer _cleanup1()
 		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForContentType:completionHandler:"), contentType, _block1)
+	return NSProgressFromID(rv)
+}
+
+// Asynchronously copies the content type data into a generic data object with
+// the specified parameters.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentationForContentType:openInPlace:completionHandler:
+func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress {
+		_block2, _cleanup2 := NewURLErrorBlock(completionHandler)
+	defer _cleanup2()
+		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
 	return NSProgressFromID(rv)
 }
 
@@ -992,37 +1023,6 @@ func (i NSItemProvider) LoadDataRepresentationForContentTypeCompletionHandler(co
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCKShare:container:allowedSharingOptions:
 func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShare:container:allowedSharingOptions:"), share, container, allowedOptions)
-}
-
-// Provides data-backed content from an existing file with the specified
-// parameters.
-//
-// fileURL: The URL of the file to use for the item provider’s data.
-//
-// contentType: The content type of the specified file.
-//
-// openInPlace: `true` if the system opens the file in place.
-//
-// coordinated: `true` if the returned file must be accessed using [NSFileCoordinator].
-//
-// visibility: The [NSItemProviderRepresentationVisibility] setting the system uses to
-// identify which processes can see this content.
-// //
-// [NSItemProviderRepresentationVisibility]: https://developer.apple.com/documentation/Foundation/NSItemProviderRepresentationVisibility
-//
-// # Return Value
-// 
-// An item provider for the specified file or `nil` if an error occurred.
-//
-// # Discussion
-// 
-// If [ItemProviderFileOptionOpenInPlace] is set to `false`, the system copies
-// the file provided before the load handler returns.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProvider/initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:
-func (i NSItemProvider) InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility(fileURL INSURL, contentType objectivec.IObject, openInPlace bool, coordinated bool, visibility NSItemProviderRepresentationVisibility) NSItemProvider {
-	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:"), fileURL, contentType, openInPlace, coordinated, visibility)
-	return rv
 }
 
 // Creates and registers a new collaboration object using a collection of

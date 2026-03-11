@@ -62,15 +62,15 @@ type NSObject interface {
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isProxy()
 	IsProxy() bool
 
-	// Increments the receiver’s reference count.
-	//
-	// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-	Retain() IObject
-
 	// Decrements the receiver’s reference count.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
 	Release()
+
+	// Increments the receiver’s reference count.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
+	Retain() IObject
 }
 
 
@@ -511,6 +511,36 @@ func (o NSObjectObject) IsProxy() bool {
 	return rv
 	}
 
+// Decrements the receiver’s reference count.
+//
+// # Discussion
+// 
+// The receiver is sent a [dealloc] message when its reference count reaches
+// `0`.
+// 
+// You would only implement this method to define your own reference-counting
+// scheme. Such implementations should not invoke the inherited method; that
+// is, they should not include a release message to `super`.
+// 
+// For more information on the reference counting mechanism, see [Advanced
+// Memory Management Programming Guide].
+// 
+// # Special Considerations
+// 
+// Instead of using manual reference counting, you should adopt ARC—see
+// [Transitioning to ARC Release Notes].
+//
+// [Advanced Memory Management Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i
+// [Transitioning to ARC Release Notes]: https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226
+// [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
+
+func (o NSObjectObject) Release() {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("release"))
+	}
+
 // Increments the receiver’s reference count.
 //
 // # Return Value
@@ -549,36 +579,6 @@ func (o NSObjectObject) Retain() IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("retain"))
 	return Object{ID: rv}
-	}
-
-// Decrements the receiver’s reference count.
-//
-// # Discussion
-// 
-// The receiver is sent a [dealloc] message when its reference count reaches
-// `0`.
-// 
-// You would only implement this method to define your own reference-counting
-// scheme. Such implementations should not invoke the inherited method; that
-// is, they should not include a release message to `super`.
-// 
-// For more information on the reference counting mechanism, see [Advanced
-// Memory Management Programming Guide].
-// 
-// # Special Considerations
-// 
-// Instead of using manual reference counting, you should adopt ARC—see
-// [Transitioning to ARC Release Notes].
-//
-// [Advanced Memory Management Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i
-// [Transitioning to ARC Release Notes]: https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226
-// [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
-
-func (o NSObjectObject) Release() {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("release"))
 	}
 
 

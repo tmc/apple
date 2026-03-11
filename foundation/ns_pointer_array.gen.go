@@ -172,9 +172,9 @@ type INSPointerArray interface {
 	// The functions in use by the receiver.
 	PointerFunctions() INSPointerFunctions
 
-	InitWithCoder(coder INSCoder) NSPointerArray
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSPointerArray
 }
 
 
@@ -360,22 +360,6 @@ func (p NSPointerArray) Compact() {
 	objc.Send[objc.ID](p.ID, objc.Sel("compact"))
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (p NSPointerArray) InitWithCoder(coder INSCoder) NSPointerArray {
-	rv := objc.Send[NSPointerArray](p.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (p NSPointerArray) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -400,6 +384,22 @@ func (p NSPointerArray) EncodeWithCoder(coder INSCoder) {
 // See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
 func (p NSPointerArray) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
+	return rv
+}
+
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (p NSPointerArray) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (p NSPointerArray) InitWithCoder(coder INSCoder) NSPointerArray {
+	rv := objc.Send[NSPointerArray](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 

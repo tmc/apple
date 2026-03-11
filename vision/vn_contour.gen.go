@@ -122,11 +122,11 @@ type IVNContour interface {
 	// Retrieves the child contour object at the specified index.
 	ChildContourAtIndexError(childContourIndex uint) (IVNContour, error)
 
-	// The contour’s array of points in normalized coordinates.
-	NormalizedPoints() objectivec.IObject
 	// The total number of detected contours.
 	ContourCount() int
 	SetContourCount(value int)
+	// The contour’s array of points in normalized coordinates.
+	NormalizedPoints() objectivec.IObject
 	// The total number of detected top-level contours.
 	TopLevelContourCount() int
 	SetTopLevelContourCount(value int)
@@ -287,6 +287,19 @@ func (c VNContour) ChildContours() []VNContour {
 
 
 
+// The total number of detected contours.
+//
+// See: https://developer.apple.com/documentation/vision/vncontoursobservation/contourcount
+func (c VNContour) ContourCount() int {
+	rv := objc.Send[int](c.ID, objc.Sel("contourCount"))
+	return rv
+}
+func (c VNContour) SetContourCount(value int) {
+	objc.Send[struct{}](c.ID, objc.Sel("setContourCount:"), value)
+}
+
+
+
 // The contour’s array of points in normalized coordinates.
 //
 // # Discussion
@@ -304,15 +317,13 @@ func (c VNContour) NormalizedPoints() objectivec.IObject {
 
 
 
-// The total number of detected contours.
+// The revision of the [VNRequest] subclass used to generate the implementing
+// object.
 //
-// See: https://developer.apple.com/documentation/vision/vncontoursobservation/contourcount
-func (c VNContour) ContourCount() int {
-	rv := objc.Send[int](c.ID, objc.Sel("contourCount"))
+// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
+func (c VNContour) RequestRevision() uint {
+	rv := objc.Send[uint](c.ID, objc.Sel("requestRevision"))
 	return rv
-}
-func (c VNContour) SetContourCount(value int) {
-	objc.Send[struct{}](c.ID, objc.Sel("setContourCount:"), value)
 }
 
 
@@ -339,17 +350,6 @@ func (c VNContour) TopLevelContours() IVNContour {
 }
 func (c VNContour) SetTopLevelContours(value IVNContour) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTopLevelContours:"), value)
-}
-
-
-
-// The revision of the [VNRequest] subclass used to generate the implementing
-// object.
-//
-// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
-func (c VNContour) RequestRevision() uint {
-	rv := objc.Send[uint](c.ID, objc.Sel("requestRevision"))
-	return rv
 }
 
 

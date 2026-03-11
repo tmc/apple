@@ -303,7 +303,7 @@ func NewCollectionViewItemWithCoder(coder foundation.INSCoder) NSCollectionViewI
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSCollectionViewItem {
+func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSCollectionViewItem {
 	instance := getNSCollectionViewItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSCollectionViewItemFromID(rv)
@@ -314,6 +314,24 @@ func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrN
 
 
 
+
+// Applies the specified layout attributes to the element.
+//
+// layoutAttributes: The layout attributes to apply.
+//
+// # Discussion
+// 
+// In your custom elements, you can use this method to apply the specified
+// attributes to your content. For example, if your element object is a view
+// controller, you would override this method and use it to apply the
+// attributes to the root view object. When using your element with a layout
+// object that supports custom attributes, you would also use this method to
+// apply those custom attributes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/apply(_:)
+func (c NSCollectionViewItem) ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes) {
+	objc.Send[objc.ID](c.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
+}
 
 // Tells the element that the layout object of the collection view changed.
 //
@@ -362,24 +380,6 @@ func (c NSCollectionViewItem) DidTransitionFromLayoutToLayout(oldLayout INSColle
 func (c NSCollectionViewItem) PreferredLayoutAttributesFittingAttributes(layoutAttributes INSCollectionViewLayoutAttributes) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredLayoutAttributesFittingAttributes:"), layoutAttributes)
 	return NSCollectionViewLayoutAttributesFromID(rv)
-}
-
-// Applies the specified layout attributes to the element.
-//
-// layoutAttributes: The layout attributes to apply.
-//
-// # Discussion
-// 
-// In your custom elements, you can use this method to apply the specified
-// attributes to your content. For example, if your element object is a view
-// controller, you would override this method and use it to apply the
-// attributes to the root view object. When using your element with a layout
-// object that supports custom attributes, you would also use this method to
-// apply those custom attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/apply(_:)
-func (c NSCollectionViewItem) ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes) {
-	objc.Send[objc.ID](c.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
 }
 
 // Performs any necessary cleanup to prepare the element for use again.

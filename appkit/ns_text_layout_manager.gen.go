@@ -212,8 +212,8 @@ type INSTextLayoutManager interface {
 	// Topic: Configuring global layout manager options
 
 	// The queue that the framework dispatches layout operations on.
-	LayoutQueue() *foundation.NSOperationQueue
-	SetLayoutQueue(value *foundation.NSOperationQueue)
+	LayoutQueue() foundation.NSOperationQueue
+	SetLayoutQueue(value foundation.NSOperationQueue)
 	// A callback block that the framework invokes whenever the text layout manager needs to validate the rendering attributes for the range.
 	RenderingAttributesValidator() TextLayoutManagerTextLayoutFragmentHandler
 	SetRenderingAttributesValidator(value TextLayoutManagerTextLayoutFragmentHandler)
@@ -663,6 +663,28 @@ func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingB
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, block)
 }
 
+// Enumerates all the container boundaries starting from the location you
+// specify.
+//
+// location: The location where the enumeration starts.
+//
+// reverse: A Boolean value that indicates the enumeration starts at the end of the
+// container.
+//
+// block: A closure to invoke to evaluate the container boundaries; end the
+// enumeration early by returning `false`.
+//
+// # Discussion
+// 
+// This is an optional method you implement to enumerate the text up to the
+// container or page boundary when the text selection data provider supports
+// this layout functionality.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
+func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block bool) {
+	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, block)
+}
+
 // Enumerates the textual segment boundaries starting at the location you
 // specify.
 //
@@ -680,6 +702,24 @@ func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingB
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateSubstrings(from:options:using:)
 func (t NSTextLayoutManager) EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateSubstringsFromLocation:options:usingBlock:"), location, options, block)
+}
+
+// Returns the range of the line fragment that contains the point you specify.
+//
+// point: The starting point that contains the line fragment, in the coordinate
+// system of `location`.
+//
+// location: The location of the line fragment.
+//
+// # Return Value
+// 
+// An [NSTextRange] that describes the location of the line fragment, or nil
+// if the range isn’t found.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/lineFragmentRange(for:inContainerAt:)
+func (t NSTextLayoutManager) LineFragmentRangeForPointInContainerAtLocation(point corefoundation.CGPoint, location NSTextLocation) INSTextRange {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("lineFragmentRangeForPoint:inContainerAtLocation:"), point, location)
+	return NSTextRangeFromID(rv)
 }
 
 // Returns a new location using the location and offset you specify.
@@ -704,6 +744,35 @@ func (t NSTextLayoutManager) LocationFromLocationWithOffset(location NSTextLocat
 	return NSTextLocationObjectFromID(rv)
 }
 
+// Returns the offset between the two locations you specify.
+//
+// from: The starting location.
+//
+// to: The ending location.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/offset(from:to:)
+func (t NSTextLayoutManager) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
+	rv := objc.Send[int](t.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
+	return rv
+}
+
+// Returns the layout orientation at the location you specify.
+//
+// location: The location where you want to examine the text’s layout orientation.
+//
+// # Return Value
+// 
+// Returns an [NSTextSelectionNavigation.LayoutOrientation] that describes the
+// orientation of the layout.
+//
+// [NSTextSelectionNavigation.LayoutOrientation]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/LayoutOrientation
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/textLayoutOrientation(at:)
+func (t NSTextLayoutManager) TextLayoutOrientationAtLocation(location NSTextLocation) NSTextSelectionNavigationLayoutOrientation {
+	rv := objc.Send[NSTextSelectionNavigationLayoutOrientation](t.ID, objc.Sel("textLayoutOrientationAtLocation:"), location)
+	return NSTextSelectionNavigationLayoutOrientation(rv)
+}
+
 // Returns a text range that corresponds to selection granularity of the
 // enclosing location.
 //
@@ -722,75 +791,6 @@ func (t NSTextLayoutManager) LocationFromLocationWithOffset(location NSTextLocat
 func (t NSTextLayoutManager) TextRangeForSelectionGranularityEnclosingLocation(selectionGranularity NSTextSelectionGranularity, location NSTextLocation) INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textRangeForSelectionGranularity:enclosingLocation:"), selectionGranularity, location)
 	return NSTextRangeFromID(rv)
-}
-
-// Returns the range of the line fragment that contains the point you specify.
-//
-// point: The starting point that contains the line fragment, in the coordinate
-// system of `location`.
-//
-// location: The location of the line fragment.
-//
-// # Return Value
-// 
-// An [NSTextRange] that describes the location of the line fragment, or nil
-// if the range isn’t found.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/lineFragmentRange(for:inContainerAt:)
-func (t NSTextLayoutManager) LineFragmentRangeForPointInContainerAtLocation(point corefoundation.CGPoint, location NSTextLocation) INSTextRange {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("lineFragmentRangeForPoint:inContainerAtLocation:"), point, location)
-	return NSTextRangeFromID(rv)
-}
-
-// Returns the offset between the two locations you specify.
-//
-// from: The starting location.
-//
-// to: The ending location.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/offset(from:to:)
-func (t NSTextLayoutManager) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
-	rv := objc.Send[int](t.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
-	return rv
-}
-
-// Enumerates all the container boundaries starting from the location you
-// specify.
-//
-// location: The location where the enumeration starts.
-//
-// reverse: A Boolean value that indicates the enumeration starts at the end of the
-// container.
-//
-// block: A closure to invoke to evaluate the container boundaries; end the
-// enumeration early by returning `false`.
-//
-// # Discussion
-// 
-// This is an optional method you implement to enumerate the text up to the
-// container or page boundary when the text selection data provider supports
-// this layout functionality.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
-func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block bool) {
-	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, block)
-}
-
-// Returns the layout orientation at the location you specify.
-//
-// location: The location where you want to examine the text’s layout orientation.
-//
-// # Return Value
-// 
-// Returns an [NSTextSelectionNavigation.LayoutOrientation] that describes the
-// orientation of the layout.
-//
-// [NSTextSelectionNavigation.LayoutOrientation]: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/LayoutOrientation
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/textLayoutOrientation(at:)
-func (t NSTextLayoutManager) TextLayoutOrientationAtLocation(location NSTextLocation) NSTextSelectionNavigationLayoutOrientation {
-	rv := objc.Send[NSTextSelectionNavigationLayoutOrientation](t.ID, objc.Sel("textLayoutOrientationAtLocation:"), location)
-	return NSTextSelectionNavigationLayoutOrientation(rv)
 }
 func (t NSTextLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -815,15 +815,11 @@ func (t NSTextLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 // `estimatedUsageBounds` becomes `false`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/layoutQueue
-func (t NSTextLayoutManager) LayoutQueue() *foundation.NSOperationQueue {
+func (t NSTextLayoutManager) LayoutQueue() foundation.NSOperationQueue {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("layoutQueue"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSOperationQueueFromID(objc.ID(rv))
-	return &val
+	return foundation.NSOperationQueueFromID(objc.ID(rv))
 }
-func (t NSTextLayoutManager) SetLayoutQueue(value *foundation.NSOperationQueue) {
+func (t NSTextLayoutManager) SetLayoutQueue(value foundation.NSOperationQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutQueue:"), value)
 }
 

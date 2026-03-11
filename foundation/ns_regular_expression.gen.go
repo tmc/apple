@@ -360,21 +360,21 @@ type INSRegularExpression interface {
 	// A value indicating that a requested item couldn’t be found or doesn’t exist.
 	NSNotFound() int
 	SetNSNotFound(value int)
+	// Returns the range of the result that the receiver represents.
+	Range() NSRange
+	SetRange(value NSRange)
+	// Matches a regular expression.
+	RegularExpression() NSTextCheckingType
+	SetRegularExpression(value NSTextCheckingType)
 	// Call the Block once after the completion of any matching. This option has no effect for methods other than 
 	ReportCompletion() NSMatchingOptions
 	SetReportCompletion(value NSMatchingOptions)
 	// Call the Block periodically during long-running match operations. This option has no effect for methods other than 
 	ReportProgress() NSMatchingOptions
 	SetReportProgress(value NSMatchingOptions)
-	// Matches a regular expression.
-	RegularExpression() NSTextCheckingType
-	SetRegularExpression(value NSTextCheckingType)
-	// Returns the range of the result that the receiver represents.
-	Range() NSRange
-	SetRange(value NSRange)
-	InitWithCoder(coder INSCoder) NSRegularExpression
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSRegularExpression
 }
 
 
@@ -788,13 +788,6 @@ func (r NSRegularExpression) ReplacementStringForResultInStringOffsetTemplate(re
 	return NSStringFromID(rv).String()
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (r NSRegularExpression) InitWithCoder(coder INSCoder) NSRegularExpression {
-	rv := objc.Send[NSRegularExpression](r.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -802,6 +795,13 @@ func (r NSRegularExpression) InitWithCoder(coder INSCoder) NSRegularExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (r NSRegularExpression) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (r NSRegularExpression) InitWithCoder(coder INSCoder) NSRegularExpression {
+	rv := objc.Send[NSRegularExpression](r.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 
@@ -967,6 +967,32 @@ func (r NSRegularExpression) SetNSNotFound(value int) {
 
 
 
+// Returns the range of the result that the receiver represents.
+//
+// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/range
+func (r NSRegularExpression) Range() NSRange {
+	rv := objc.Send[NSRange](r.ID, objc.Sel("range"))
+	return NSRange(rv)
+}
+func (r NSRegularExpression) SetRange(value NSRange) {
+	objc.Send[struct{}](r.ID, objc.Sel("setRange:"), value)
+}
+
+
+
+// Matches a regular expression.
+//
+// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/regularexpression
+func (r NSRegularExpression) RegularExpression() NSTextCheckingType {
+	rv := objc.Send[NSTextCheckingType](r.ID, objc.Sel("NSTextCheckingTypeRegularExpression"))
+	return NSTextCheckingType(rv)
+}
+func (r NSRegularExpression) SetRegularExpression(value NSTextCheckingType) {
+	objc.Send[struct{}](r.ID, objc.Sel("setNSTextCheckingTypeRegularExpression:"), value)
+}
+
+
+
 // Call the Block once after the completion of any matching. This option has
 // no effect for methods other than
 //
@@ -991,32 +1017,6 @@ func (r NSRegularExpression) ReportProgress() NSMatchingOptions {
 }
 func (r NSRegularExpression) SetReportProgress(value NSMatchingOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSMatchingReportProgress:"), value)
-}
-
-
-
-// Matches a regular expression.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/regularexpression
-func (r NSRegularExpression) RegularExpression() NSTextCheckingType {
-	rv := objc.Send[NSTextCheckingType](r.ID, objc.Sel("NSTextCheckingTypeRegularExpression"))
-	return NSTextCheckingType(rv)
-}
-func (r NSRegularExpression) SetRegularExpression(value NSTextCheckingType) {
-	objc.Send[struct{}](r.ID, objc.Sel("setNSTextCheckingTypeRegularExpression:"), value)
-}
-
-
-
-// Returns the range of the result that the receiver represents.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/range
-func (r NSRegularExpression) Range() NSRange {
-	rv := objc.Send[NSRange](r.ID, objc.Sel("range"))
-	return NSRange(rv)
-}
-func (r NSRegularExpression) SetRange(value NSRange) {
-	objc.Send[struct{}](r.ID, objc.Sel("setRange:"), value)
 }
 
 

@@ -8,39 +8,21 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var mTKModelErrorDomain MTKModelError
-
-var mTKModelErrorKey MTKModelError
-
 var MTKTextureLoaderCubeLayoutVertical MTKTextureLoaderCubeLayout
 
-var mTKTextureLoaderErrorDomain MTKTextureLoaderError
 
-var mTKTextureLoaderErrorKey MTKTextureLoaderError
 
-var mTKTextureLoaderOptionAllocateMipmaps MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionCubeLayout MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionGenerateMipmaps MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionLoadAsArray MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionOrigin MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionSRGB MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionTextureCPUCacheMode MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionTextureStorageMode MTKTextureLoaderOption
 
-var mTKTextureLoaderOptionTextureUsage MTKTextureLoaderOption
 
-var mTKTextureLoaderOriginBottomLeft MTKTextureLoaderOrigin
 
-var mTKTextureLoaderOriginFlippedVertically MTKTextureLoaderOrigin
 
-var mTKTextureLoaderOriginTopLeft MTKTextureLoaderOrigin
 
 func init() {
 	if frameworkHandle == 0 {
@@ -53,7 +35,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKModelErrorDomain = MTKModelError(objc.GoString(cstr))
+				MTKModelErrors.Domain = MTKModelError(objc.GoString(cstr))
 			}
 		}
 	}
@@ -63,7 +45,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKModelErrorKey = MTKModelError(objc.GoString(cstr))
+				MTKModelErrors.Key = MTKModelError(objc.GoString(cstr))
 			}
 		}
 	}
@@ -83,7 +65,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderErrorDomain = MTKTextureLoaderError(objc.GoString(cstr))
+				MTKTextureLoaderErrors.Domain = MTKTextureLoaderError(objc.GoString(cstr))
 			}
 		}
 	}
@@ -93,7 +75,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderErrorKey = MTKTextureLoaderError(objc.GoString(cstr))
+				MTKTextureLoaderErrors.Key = MTKTextureLoaderError(objc.GoString(cstr))
 			}
 		}
 	}
@@ -103,7 +85,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionAllocateMipmaps = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.AllocateMipmaps = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -113,7 +95,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionCubeLayout = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.CubeLayout = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -123,7 +105,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionGenerateMipmaps = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.GenerateMipmaps = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -133,7 +115,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionLoadAsArray = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.LoadAsArray = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -143,7 +125,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionOrigin = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.Origin = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -153,7 +135,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionSRGB = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.SRGB = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -163,7 +145,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionTextureCPUCacheMode = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.TextureCPUCacheMode = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -173,7 +155,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionTextureStorageMode = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.TextureStorageMode = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -183,7 +165,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOptionTextureUsage = MTKTextureLoaderOption(objc.GoString(cstr))
+				MTKTextureLoaderOptions.TextureUsage = MTKTextureLoaderOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -193,7 +175,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOriginBottomLeft = MTKTextureLoaderOrigin(objc.GoString(cstr))
+				MTKTextureLoaderOrigins.BottomLeft = MTKTextureLoaderOrigin(objc.GoString(cstr))
 			}
 		}
 	}
@@ -203,7 +185,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOriginFlippedVertically = MTKTextureLoaderOrigin(objc.GoString(cstr))
+				MTKTextureLoaderOrigins.FlippedVertically = MTKTextureLoaderOrigin(objc.GoString(cstr))
 			}
 		}
 	}
@@ -213,81 +195,57 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				mTKTextureLoaderOriginTopLeft = MTKTextureLoaderOrigin(objc.GoString(cstr))
+				MTKTextureLoaderOrigins.TopLeft = MTKTextureLoaderOrigin(objc.GoString(cstr))
 			}
 		}
 	}
 
 }
 
-type MTKModelErrorValues struct{}
-
 // MTKModelErrors provides typed accessors for [MTKModelError] constants.
-var MTKModelErrors MTKModelErrorValues
-
-// Domain returns The error domain used by MetalKit when returning mesh initialization errors.
-func (MTKModelErrorValues) Domain() MTKModelError { return mTKModelErrorDomain }
-
-// Key returns The key used to retrieve an error string from an error object’s [userInfo](<doc://com.apple.documentation/documentation/Foundation/NSError/userInfo>) dictionary.
-func (MTKModelErrorValues) Key() MTKModelError { return mTKModelErrorKey }
-
-
-type MTKTextureLoaderErrorValues struct{}
+var MTKModelErrors struct {
+	// Domain: The error domain used by MetalKit when returning mesh initialization errors.
+	Domain MTKModelError
+	// Key: The key used to retrieve an error string from an error object’s [userInfo](<doc://com.apple.documentation/documentation/Foundation/NSError/userInfo>) dictionary.
+	Key MTKModelError
+}
 
 // MTKTextureLoaderErrors provides typed accessors for [MTKTextureLoaderError] constants.
-var MTKTextureLoaderErrors MTKTextureLoaderErrorValues
-
-// Domain returns The error domain used by [MetalKit] when returning texture loading errors.
-func (MTKTextureLoaderErrorValues) Domain() MTKTextureLoaderError { return mTKTextureLoaderErrorDomain }
-
-// Key returns The key used to retrieve an error string from an error object’s [userInfo](<doc://com.apple.documentation/documentation/Foundation/NSError/userInfo>) dictionary.
-func (MTKTextureLoaderErrorValues) Key() MTKTextureLoaderError { return mTKTextureLoaderErrorKey }
-
-
-type MTKTextureLoaderOptionValues struct{}
+var MTKTextureLoaderErrors struct {
+	// Domain: The error domain used by [MetalKit] when returning texture loading errors.
+	Domain MTKTextureLoaderError
+	// Key: The key used to retrieve an error string from an error object’s [userInfo](<doc://com.apple.documentation/documentation/Foundation/NSError/userInfo>) dictionary.
+	Key MTKTextureLoaderError
+}
 
 // MTKTextureLoaderOptions provides typed accessors for [MTKTextureLoaderOption] constants.
-var MTKTextureLoaderOptions MTKTextureLoaderOptionValues
-
-// AllocateMipmaps returns A key used to specify whether the texture loader should allocate memory for mipmaps in the texture.
-func (MTKTextureLoaderOptionValues) AllocateMipmaps() MTKTextureLoaderOption { return mTKTextureLoaderOptionAllocateMipmaps }
-
-// CubeLayout returns A key used to specify how cube texture data is arranged in the source image.
-func (MTKTextureLoaderOptionValues) CubeLayout() MTKTextureLoaderOption { return mTKTextureLoaderOptionCubeLayout }
-
-// GenerateMipmaps returns A key used to specify whether the texture loader should generate mipmaps for the texture.
-func (MTKTextureLoaderOptionValues) GenerateMipmaps() MTKTextureLoaderOption { return mTKTextureLoaderOptionGenerateMipmaps }
-
-func (MTKTextureLoaderOptionValues) LoadAsArray() MTKTextureLoaderOption { return mTKTextureLoaderOptionLoadAsArray }
-
-// Origin returns A key used to specify when to flip the pixel coordinates of the texture.
-func (MTKTextureLoaderOptionValues) Origin() MTKTextureLoaderOption { return mTKTextureLoaderOptionOrigin }
-
-// SRGB returns A key used to specify whether the texture data is stored as sRGB image data.
-func (MTKTextureLoaderOptionValues) SRGB() MTKTextureLoaderOption { return mTKTextureLoaderOptionSRGB }
-
-// TextureCPUCacheMode returns A key used to specify the CPU cache mode for the texture.
-func (MTKTextureLoaderOptionValues) TextureCPUCacheMode() MTKTextureLoaderOption { return mTKTextureLoaderOptionTextureCPUCacheMode }
-
-// TextureStorageMode returns A key used to specify the storage mode for the texture.
-func (MTKTextureLoaderOptionValues) TextureStorageMode() MTKTextureLoaderOption { return mTKTextureLoaderOptionTextureStorageMode }
-
-// TextureUsage returns A key used to specify the intended usage of the texture.
-func (MTKTextureLoaderOptionValues) TextureUsage() MTKTextureLoaderOption { return mTKTextureLoaderOptionTextureUsage }
-
-
-type MTKTextureLoaderOriginValues struct{}
+var MTKTextureLoaderOptions struct {
+	// AllocateMipmaps: A key used to specify whether the texture loader should allocate memory for mipmaps in the texture.
+	AllocateMipmaps MTKTextureLoaderOption
+	// CubeLayout: A key used to specify how cube texture data is arranged in the source image.
+	CubeLayout MTKTextureLoaderOption
+	// GenerateMipmaps: A key used to specify whether the texture loader should generate mipmaps for the texture.
+	GenerateMipmaps MTKTextureLoaderOption
+	LoadAsArray MTKTextureLoaderOption
+	// Origin: A key used to specify when to flip the pixel coordinates of the texture.
+	Origin MTKTextureLoaderOption
+	// SRGB: A key used to specify whether the texture data is stored as sRGB image data.
+	SRGB MTKTextureLoaderOption
+	// TextureCPUCacheMode: A key used to specify the CPU cache mode for the texture.
+	TextureCPUCacheMode MTKTextureLoaderOption
+	// TextureStorageMode: A key used to specify the storage mode for the texture.
+	TextureStorageMode MTKTextureLoaderOption
+	// TextureUsage: A key used to specify the intended usage of the texture.
+	TextureUsage MTKTextureLoaderOption
+}
 
 // MTKTextureLoaderOrigins provides typed accessors for [MTKTextureLoaderOrigin] constants.
-var MTKTextureLoaderOrigins MTKTextureLoaderOriginValues
-
-// BottomLeft returns An option for specifying images that should be flipped only to put their origin in the bottom-left corner.
-func (MTKTextureLoaderOriginValues) BottomLeft() MTKTextureLoaderOrigin { return mTKTextureLoaderOriginBottomLeft }
-
-// FlippedVertically returns An option that specifies that images should always be flipped.
-func (MTKTextureLoaderOriginValues) FlippedVertically() MTKTextureLoaderOrigin { return mTKTextureLoaderOriginFlippedVertically }
-
-// TopLeft returns An option for specifying images that should be flipped only to put their origin in the top-left corner.
-func (MTKTextureLoaderOriginValues) TopLeft() MTKTextureLoaderOrigin { return mTKTextureLoaderOriginTopLeft }
-
+var MTKTextureLoaderOrigins struct {
+	// BottomLeft: An option for specifying images that should be flipped only to put their origin in the bottom-left corner.
+	BottomLeft MTKTextureLoaderOrigin
+	// FlippedVertically: An option that specifies that images should always be flipped.
+	FlippedVertically MTKTextureLoaderOrigin
+	// TopLeft: An option for specifying images that should be flipped only to put their origin in the top-left corner.
+	TopLeft MTKTextureLoaderOrigin
+}
 

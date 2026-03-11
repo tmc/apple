@@ -143,18 +143,18 @@ type IVNTargetedImageRequest interface {
 	InitWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a Core Image image.
 	InitWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
-	// Creates a new request that targets an image in a sample buffer.
-	InitWithTargetedCMSampleBufferOptions(sampleBuffer objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a Core Image image of known orientation.
 	InitWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
+	// Creates a new request that targets an image in a sample buffer.
+	InitWithTargetedCMSampleBufferOptions(sampleBuffer objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request that targets an image of a known orientation in a sample buffer.
 	InitWithTargetedCMSampleBufferOrientationOptions(sampleBuffer objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
+	// Creates a new request targeting an image in a pixel buffer.
+	InitWithTargetedCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image in a pixel buffer of known orientation.
 	InitWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image as raw data.
 	InitWithTargetedImageDataOptions(imageData foundation.INSData, options foundation.INSDictionary) VNTargetedImageRequest
-	// Creates a new request targeting an image in a pixel buffer.
-	InitWithTargetedCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a raw data image of known orientation.
 	InitWithTargetedImageDataOrientationOptions(imageData foundation.INSData, orientation objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image at the specified URL.
@@ -1006,22 +1006,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOptions(ciImage objective
 	return rv
 }
 
-// Creates a new request that targets an image in a sample buffer.
-//
-// sampleBuffer: A sample buffer containing a valid [imageBuffer].
-// //
-// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
-//
-// options: A dictionary with options specifying auxiliary information for the image.
-//
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
-//
-// See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:options:
-func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptions(sampleBuffer objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest {
-	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
-	return rv
-}
-
 // Creates a new request targeting a Core Image image of known orientation.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -1046,6 +1030,22 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptions(ciImag
 	return rv
 }
 
+// Creates a new request that targets an image in a sample buffer.
+//
+// sampleBuffer: A sample buffer containing a valid [imageBuffer].
+// //
+// [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
+//
+// options: A dictionary with options specifying auxiliary information for the image.
+//
+// sampleBuffer is a [coremedia.CMSampleBufferRef].
+//
+// See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:options:
+func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptions(sampleBuffer objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest {
+	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
+	return rv
+}
+
 // Creates a new request that targets an image of a known orientation in a
 // sample buffer.
 //
@@ -1067,6 +1067,18 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptions(ciImag
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCMSampleBuffer:orientation:options:
 func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptions(sampleBuffer objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
+	return rv
+}
+
+// Creates a new request targeting an image in a pixel buffer.
+//
+// pixelBuffer: The pixel buffer containing the targeted image.
+//
+// options: A dictionary with options specifying auxiliary information for the image.
+//
+// See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:options:
+func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNTargetedImageRequest {
+	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:"), pixelBuffer, options)
 	return rv
 }
 
@@ -1100,18 +1112,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptions(
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageData:options:
 func (t VNTargetedImageRequest) InitWithTargetedImageDataOptions(imageData foundation.INSData, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageData:options:"), imageData, options)
-	return rv
-}
-
-// Creates a new request targeting an image in a pixel buffer.
-//
-// pixelBuffer: The pixel buffer containing the targeted image.
-//
-// options: A dictionary with options specifying auxiliary information for the image.
-//
-// See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:options:
-func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNTargetedImageRequest {
-	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:"), pixelBuffer, options)
 	return rv
 }
 

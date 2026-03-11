@@ -141,60 +141,70 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/memoryBarrierWithResources:count:afterStages:beforeStages:
 	MemoryBarrierWithResourcesCountAfterStagesBeforeStages(resources []MTLResource, count uint, after MTLRenderStages, before MTLRenderStages)
 
+	// Configures each pixel component value, including alpha, for the render pipeline’s constant blend color.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setBlendColor(red:green:blue:alpha:)
+	SetBlendColorRedGreenBlueAlpha(red float32, green float32, blue float32, alpha float32)
+
 	// Sets the mapping from logical shader color output to physical render pass color attachments.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorAttachmentMap(_:)
 	SetColorAttachmentMap(mapping IMTLLogicalToPhysicalColorAttachmentMap)
-
-	// Configures how the render pipeline determines which primitives to remove.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setCullMode(_:)
-	SetCullMode(cullMode MTLCullMode)
-
-	// Configures the store action options for a color attachment.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreActionOptions(_:index:)
-	SetColorStoreActionOptionsAtIndex(storeActionOptions MTLStoreActionOptions, colorAttachmentIndex uint)
 
 	// Configures the store action for a color attachment.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreAction(_:index:)
 	SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint)
 
-	// Configures the combined depth and stencil state.
+	// Configures the store action options for a color attachment.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStencilState(_:)
-	SetDepthStencilState(depthStencilState MTLDepthStencilState)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreActionOptions(_:index:)
+	SetColorStoreActionOptionsAtIndex(storeActionOptions MTLStoreActionOptions, colorAttachmentIndex uint)
 
-	// Configures the store action options for the depth attachment.
+	// Configures how the render pipeline determines which primitives to remove.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreActionOptions(_:)
-	SetDepthStoreActionOptions(storeActionOptions MTLStoreActionOptions)
-
-	// Configures the store action for the depth attachment.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreAction(_:)
-	SetDepthStoreAction(storeAction MTLStoreAction)
-
-	// Configures how the render pipeline handles fragments outside the near and far planes of the view frustum.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthClipMode(_:)
-	SetDepthClipMode(depthClipMode MTLDepthClipMode)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setCullMode(_:)
+	SetCullMode(cullMode MTLCullMode)
 
 	// Configures the adjustments a render pass applies to depth values from fragment functions by a scaling factor and bias.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthBias(_:slopeScale:clamp:)
 	SetDepthBiasSlopeScaleClamp(depthBias float32, slopeScale float32, clamp float32)
 
-	// Assigns an acceleration structure to an entry in the fragment shader argument table.
+	// Configures how the render pipeline handles fragments outside the near and far planes of the view frustum.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentAccelerationStructure(_:bufferIndex:)
-	SetFragmentAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthClipMode(_:)
+	SetDepthClipMode(depthClipMode MTLDepthClipMode)
+
+	// Configures the combined depth and stencil state.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStencilState(_:)
+	SetDepthStencilState(depthStencilState MTLDepthStencilState)
+
+	// Configures the store action for the depth attachment.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreAction(_:)
+	SetDepthStoreAction(storeAction MTLStoreAction)
+
+	// Configures the store action options for the depth attachment.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreActionOptions(_:)
+	SetDepthStoreActionOptions(storeActionOptions MTLStoreActionOptions)
 
 	// Configures the minimum and maximum bounds for depth bounds testing.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthTestMinBound:maxBound:
 	SetDepthTestMinBoundMaxBound(minBound float32, maxBound float32)
+
+	// Assigns an acceleration structure to an entry in the fragment shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentAccelerationStructure(_:bufferIndex:)
+	SetFragmentAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint)
+
+	// Updates an entry in the fragment shader argument table with a new location within the entry’s current buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBufferOffset(_:index:)
+	SetFragmentBufferOffsetAtIndex(offset uint, index uint)
 
 	// Assigns multiple buffers to a range of entries in the fragment shader argument table.
 	//
@@ -221,20 +231,10 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentSamplerState(_:index:)
 	SetFragmentSamplerStateAtIndex(sampler MTLSamplerState, index uint)
 
-	// Assigns a buffer to an entry in the fragment shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBuffer(_:offset:index:)
-	SetFragmentBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint)
-
 	// Assigns a sampler state and clamp values to an entry in the fragment shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentSamplerState(_:lodMinClamp:lodMaxClamp:index:)
 	SetFragmentSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
-
-	// Assigns a texture to an entry in the fragment shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentTexture(_:index:)
-	SetFragmentTextureAtIndex(texture MTLTexture, index uint)
 
 	// Assigns multiple sampler states and clamp values to a range of entries in the fragment shader argument table.
 	//
@@ -245,6 +245,11 @@ type MTLRenderCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentSamplerStates:withRange:
 	SetFragmentSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
+
+	// Assigns a texture to an entry in the fragment shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentTexture(_:index:)
+	SetFragmentTextureAtIndex(texture MTLTexture, index uint)
 
 	// Assigns multiple textures to a range of entries in the fragment shader argument table.
 	//
@@ -266,15 +271,20 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFrontFacing(_:)
 	SetFrontFacingWinding(frontFacingWinding MTLWinding)
 
-	// Assigns a buffer to an entry in the mesh shader argument table.
+	// Updates an entry in the mesh shader argument table with a new location within the entry’s current buffer.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBuffer(_:offset:index:)
-	SetMeshBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBufferOffset(_:index:)
+	SetMeshBufferOffsetAtIndex(offset uint, index uint)
 
 	// Assigns multiple buffers to a range of entries in the mesh shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBuffers:offsets:withRange:
 	SetMeshBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange)
+
+	// Creates a buffer from bytes and assigns it to an entry in the mesh shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
+	SetMeshBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns a sampler state to an entry in the mesh shader argument table.
 	//
@@ -286,40 +296,35 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshSamplerState(_:lodMinClamp:lodMaxClamp:index:)
 	SetMeshSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
 
-	// Creates a buffer from bytes and assigns it to an entry in the mesh shader argument table.
+	// Assigns multiple sampler states and clamp values to a range of entries in the mesh shader argument table.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-	SetMeshBytesLengthAtIndex(bytes []byte, index uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshSamplerStates:lodMinClamps:lodMaxClamps:withRange:
+	SetMeshSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
 
 	// Assigns multiple sampler states to a range of entries in the mesh shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshSamplerStates:withRange:
 	SetMeshSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
 
-	// Assigns multiple textures to a range of entries in the mesh shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTextures:withRange:
-	SetMeshTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange)
-
 	// Assigns a texture to an entry in the mesh shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTexture(_:index:)
 	SetMeshTextureAtIndex(texture MTLTexture, index uint)
 
-	// Assigns a buffer to an entry in the object shader argument table.
+	// Assigns multiple textures to a range of entries in the mesh shader argument table.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffer(_:offset:index:)
-	SetObjectBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTextures:withRange:
+	SetMeshTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange)
+
+	// Updates an entry in the object shader argument table with a new location within the entry’s current buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBufferOffset(_:index:)
+	SetObjectBufferOffsetAtIndex(offset uint, index uint)
 
 	// Encodes a command that assigns multiple buffers to a range of entries in the object shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffers:offsets:withRange:
 	SetObjectBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange)
-
-	// Assigns multiple sampler states and clamp values to a range of entries in the mesh shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-	SetMeshSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
 
 	// Creates a buffer from bytes and assigns it to an entry in the object shader argument table.
 	//
@@ -331,10 +336,20 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerState(_:index:)
 	SetObjectSamplerStateAtIndex(sampler MTLSamplerState, index uint)
 
+	// Assigns a sampler state and clamp values to an entry in the object shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerState(_:lodMinClamp:lodMaxClamp:index:)
+	SetObjectSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
+
 	// Assigns multiple sampler states and clamp values to a range of entries in the object shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerStates:lodMinClamps:lodMaxClamps:withRange:
 	SetObjectSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
+
+	// Assigns multiple sampler states to a range of entries in the object shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerStates:withRange:
+	SetObjectSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
 
 	// Assigns a texture to an entry in the object shader argument table.
 	//
@@ -356,15 +371,25 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setRenderPipelineState(_:)
 	SetRenderPipelineState(pipelineState MTLRenderPipelineState)
 
+	// Configures a rectangle for the fragment scissor test.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setScissorRect(_:)
+	SetScissorRect(rect MTLScissorRect)
+
 	// Configures multiple rectangles for the fragment scissor test.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setScissorRects:count:
 	SetScissorRectsCount(scissorRects []MTLScissorRect, count uint)
 
-	// Assigns multiple sampler states to a range of entries in the object shader argument table.
+	// Configures different comparison values for front- and back-facing primitives.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerStates:withRange:
-	SetObjectSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValues(front:back:)
+	SetStencilFrontReferenceValueBackReferenceValue(frontReferenceValue uint32, backReferenceValue uint32)
+
+	// Configures the same comparison value for front- and back-facing primitives.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValue(_:)
+	SetStencilReferenceValue(referenceValue uint32)
 
 	// Configures the store action for the stencil attachment.
 	//
@@ -375,6 +400,11 @@ type MTLRenderCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilStoreActionOptions(_:)
 	SetStencilStoreActionOptions(storeActionOptions MTLStoreActionOptions)
+
+	// Configures the per-patch tessellation factors for any subsequent patch-drawing commands.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTessellationFactorBuffer(_:offset:instanceStride:)
+	SetTessellationFactorBufferOffsetInstanceStride(buffer MTLBuffer, offset uint, instanceStride uint)
 
 	// Configures the scale factor for per-patch tessellation factors.
 	//
@@ -391,35 +421,25 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileAccelerationStructure(_:bufferIndex:)
 	SetTileAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint)
 
-	// Configures a rectangle for the fragment scissor test.
+	// Updates an entry in the tile shader argument table with a new location within the entry’s current buffer.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setScissorRect(_:)
-	SetScissorRect(rect MTLScissorRect)
-
-	// Configures each pixel component value, including alpha, for the render pipeline’s constant blend color.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setBlendColor(red:green:blue:alpha:)
-	SetBlendColorRedGreenBlueAlpha(red float32, green float32, blue float32, alpha float32)
-
-	// Configures the per-patch tessellation factors for any subsequent patch-drawing commands.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTessellationFactorBuffer(_:offset:instanceStride:)
-	SetTessellationFactorBufferOffsetInstanceStride(buffer MTLBuffer, offset uint, instanceStride uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBufferOffset(_:index:)
+	SetTileBufferOffsetAtIndex(offset uint, index uint)
 
 	// Assigns multiple buffers to a range of entries in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBuffers:offsets:withRange:
 	SetTileBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange)
 
-	// Updates an entry in the tile shader argument table with a new location within the entry’s current buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBufferOffset(_:index:)
-	SetTileBufferOffsetAtIndex(offset uint, index uint)
-
 	// Creates a buffer from bytes and assigns it to an entry in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
 	SetTileBytesLengthAtIndex(bytes []byte, index uint)
+
+	// Assigns an intersection function table to an entry in the tile shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileIntersectionFunctionTable(_:bufferIndex:)
+	SetTileIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint)
 
 	// Assigns multiple intersection function tables to a range of entries in the tile shader argument table.
 	//
@@ -431,15 +451,15 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileSamplerState(_:index:)
 	SetTileSamplerStateAtIndex(sampler MTLSamplerState, index uint)
 
+	// Assigns a sampler state and clamp values to an entry in the tile shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileSamplerState(_:lodMinClamp:lodMaxClamp:index:)
+	SetTileSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
+
 	// Assigns multiple sampler states and clamp values to a range of entries in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileSamplerStates:lodMinClamps:lodMaxClamps:withRange:
 	SetTileSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
-
-	// Configures the same comparison value for front- and back-facing primitives.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValue(_:)
-	SetStencilReferenceValue(referenceValue uint32)
 
 	// Assigns multiple sampler states to a range of entries in the tile shader argument table.
 	//
@@ -456,75 +476,45 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileTextures:withRange:
 	SetTileTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange)
 
-	// Assigns an intersection function table to an entry in the tile shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileIntersectionFunctionTable(_:bufferIndex:)
-	SetTileIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint)
-
-	// Assigns a sampler state and clamp values to an entry in the tile shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileSamplerState(_:lodMinClamp:lodMaxClamp:index:)
-	SetTileSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
-
-	// Assigns an acceleration structure to an entry in the vertex shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexAccelerationStructure(_:bufferIndex:)
-	SetVertexAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint)
-
-	// Configures how subsequent draw commands rasterize triangle and triangle strip primitives.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTriangleFillMode(_:)
-	SetTriangleFillMode(fillMode MTLTriangleFillMode)
-
 	// Assigns a visible function table to an entry in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileVisibleFunctionTable(_:bufferIndex:)
 	SetTileVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint)
-
-	// Assigns a sampler state and clamp values to an entry in the object shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerState(_:lodMinClamp:lodMaxClamp:index:)
-	SetObjectSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
-
-	// Configures the number of output vertices the render pipeline produces for each input vertex, optionally with render target and viewport offsets.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexAmplificationCount(_:viewMappings:)
-	SetVertexAmplificationCountViewMappings(count uint, viewMappings *MTLVertexAmplificationViewMapping)
-
-	// SetVertexBufferOffsetAttributeStrideAtIndex protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:attributeStride:index:)
-	SetVertexBufferOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint)
-
-	// SetVertexBuffersOffsetsAttributeStridesWithRange protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffers:offsets:attributeStrides:withRange:
-	SetVertexBuffersOffsetsAttributeStridesWithRange(buffers []MTLBuffer, offsets uint, strides uint, range_ foundation.NSRange)
-
-	// Assigns a buffer to an entry in the vertex shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
-	SetVertexBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint)
 
 	// Assigns multiple visible function tables to a range of entries in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileVisibleFunctionTables:withBufferRange:
 	SetTileVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, range_ foundation.NSRange)
 
-	// Assigns multiple intersection function tables to a range of entries in the vertex shader argument table.
+	// Configures how subsequent draw commands rasterize triangle and triangle strip primitives.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTables:withBufferRange:
-	SetVertexIntersectionFunctionTablesWithBufferRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTriangleFillMode(_:)
+	SetTriangleFillMode(fillMode MTLTriangleFillMode)
 
-	// Assigns an intersection function table to an entry in the vertex shader argument table.
+	// Assigns an acceleration structure to an entry in the vertex shader argument table.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTable(_:bufferIndex:)
-	SetVertexIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexAccelerationStructure(_:bufferIndex:)
+	SetVertexAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint)
 
-	// SetVertexBytesLengthAttributeStrideAtIndex protocol.
+	// Configures the number of output vertices the render pipeline produces for each input vertex, optionally with render target and viewport offsets.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexAmplificationCount(_:viewMappings:)
+	SetVertexAmplificationCountViewMappings(count uint, viewMappings *MTLVertexAmplificationViewMapping)
+
+	// Updates an entry in the vertex shader argument table with a new location within the entry’s current buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBufferOffset(_:index:)
+	SetVertexBufferOffsetAtIndex(offset uint, index uint)
+
+	// SetVertexBufferOffsetAttributeStrideAtIndex protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBufferOffset(offset:attributeStride:index:)
+	SetVertexBufferOffsetAttributeStrideAtIndex(offset uint, stride uint, index uint)
+
+	// SetVertexBuffersOffsetsAttributeStridesWithRange protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffers:offsets:attributeStrides:withRange:
+	SetVertexBuffersOffsetsAttributeStridesWithRange(buffers []MTLBuffer, offsets uint, strides uint, range_ foundation.NSRange)
 
 	// Assigns multiple buffers to a range of entries in the vertex shader argument table.
 	//
@@ -536,65 +526,75 @@ type MTLRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
 	SetVertexBytesLengthAtIndex(bytes []byte, index uint)
 
+	// SetVertexBytesLengthAttributeStrideAtIndex protocol.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
+	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
+
+	// Assigns an intersection function table to an entry in the vertex shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTable(_:bufferIndex:)
+	SetVertexIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint)
+
+	// Assigns multiple intersection function tables to a range of entries in the vertex shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTables:withBufferRange:
+	SetVertexIntersectionFunctionTablesWithBufferRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange)
+
 	// Assigns a sampler state to an entry in the vertex shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerState(_:index:)
 	SetVertexSamplerStateAtIndex(sampler MTLSamplerState, index uint)
-
-	// Assigns multiple sampler states to a range of entries in the vertex shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerStates:withRange:
-	SetVertexSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
-
-	// Assigns multiple sampler states and clamp values to a range of entries in the vertex shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-	SetVertexSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
-
-	// Assigns a texture to an entry in the vertex shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexTexture(_:index:)
-	SetVertexTextureAtIndex(texture MTLTexture, index uint)
-
-	// Configures different comparison values for front- and back-facing primitives.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValues(front:back:)
-	SetStencilFrontReferenceValueBackReferenceValue(frontReferenceValue uint32, backReferenceValue uint32)
-
-	// Assigns a visible function table to an entry in the vertex shader argument table.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexVisibleFunctionTable(_:bufferIndex:)
-	SetVertexVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint)
-
-	// Configures the render pipeline with a viewport that applies a transformation and a clipping rectangle.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setViewport(_:)
-	SetViewport(viewport MTLViewport)
 
 	// Assigns a sampler state and clamp values to an entry in the vertex shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerState(_:lodMinClamp:lodMaxClamp:index:)
 	SetVertexSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint)
 
-	// Configures which visibility test the GPU runs and the destination for any results it generates.
+	// Assigns multiple sampler states and clamp values to a range of entries in the vertex shader argument table.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVisibilityResultMode(_:offset:)
-	SetVisibilityResultModeOffset(mode MTLVisibilityResultMode, offset uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerStates:lodMinClamps:lodMaxClamps:withRange:
+	SetVertexSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange)
 
-	// Configures the render pipeline with multiple viewports that apply transformations and clipping rectangles.
+	// Assigns multiple sampler states to a range of entries in the vertex shader argument table.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setViewports:count:
-	SetViewportsCount(viewports []MTLViewport, count uint)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerStates:withRange:
+	SetVertexSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange)
+
+	// Assigns a texture to an entry in the vertex shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexTexture(_:index:)
+	SetVertexTextureAtIndex(texture MTLTexture, index uint)
+
+	// Assigns multiple textures to a range of entries in the vertex shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexTextures:withRange:
+	SetVertexTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange)
+
+	// Assigns a visible function table to an entry in the vertex shader argument table.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexVisibleFunctionTable(_:bufferIndex:)
+	SetVertexVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint)
 
 	// Assigns multiple visible function tables to a range of entries in the vertex shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexVisibleFunctionTables:withBufferRange:
 	SetVertexVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, range_ foundation.NSRange)
 
-	// Assigns multiple textures to a range of entries in the vertex shader argument table.
+	// Configures the render pipeline with a viewport that applies a transformation and a clipping rectangle.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexTextures:withRange:
-	SetVertexTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange)
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setViewport(_:)
+	SetViewport(viewport MTLViewport)
+
+	// Configures the render pipeline with multiple viewports that apply transformations and clipping rectangles.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setViewports:count:
+	SetViewportsCount(viewports []MTLViewport, count uint)
+
+	// Configures which visibility test the GPU runs and the destination for any results it generates.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVisibilityResultMode(_:offset:)
+	SetVisibilityResultModeOffset(mode MTLVisibilityResultMode, offset uint)
 
 	// Ensures the shaders in the render pass’s subsequent draw commands have access to the resources you allocate from a heap.
 	//
@@ -645,11 +645,12 @@ func MTLRenderCommandEncoderObjectFromID(id objc.ID) MTLRenderCommandEncoderObje
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // vertexStart: The lowest value the command passes to your vertex shader’s parameter
 // with the `vertex_id` attribute. The command assigns each vertex a unique
@@ -686,11 +687,12 @@ func (o MTLRenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCount(prim
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // vertexStart: The lowest value the command passes to your vertex shader’s parameter
 // with the `vertex_id` attribute. The command assigns each vertex a unique
@@ -739,11 +741,12 @@ func (o MTLRenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCountInsta
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // vertexStart: The lowest value the command passes to your vertex shader’s parameter
 // with the `vertex_id` attribute. The command assigns each vertex a unique
@@ -796,11 +799,12 @@ func (o MTLRenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCountInsta
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // indirectBuffer: An [MTLBuffer] instance with data that matches the layout of the
 // [MTLDrawPrimitivesIndirectArguments] structure.
@@ -840,11 +844,12 @@ func (o MTLRenderCommandEncoderObject) DrawPrimitivesIndirectBufferIndirectBuffe
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // indexCount: An integer that represents the number of vertices the command reads from
 // `indexBuffer`.
@@ -888,11 +893,12 @@ func (o MTLRenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexTypeI
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // indexCount: An integer that represents the number of vertices the command reads from
 // `indexBuffer` for each instance.
@@ -940,11 +946,12 @@ func (o MTLRenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexTypeI
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // indexCount: An integer that represents the number of vertices the command reads from
 // `indexBuffer` for each instance.
@@ -1015,11 +1022,12 @@ func (o MTLRenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexTypeI
 // primitiveType: An [MTLPrimitiveType] instance that represents how the command interprets
 // vertex argument data.
 // 
-// See the [SetVertexBufferOffsetAtIndex] method and its siblings for more
+// See the [setVertexBuffer(_:offset:index:)] method and its siblings for more
 // information about setting an entry in the vertex shader argument table for
 // buffers.
 // //
 // [MTLPrimitiveType]: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // indexType: An [MTLIndexType] instance that represents the index’s format, including
 // [IndexTypeUInt16] and [IndexTypeUInt32].
@@ -1648,6 +1656,39 @@ func (o MTLRenderCommandEncoderObject) MemoryBarrierWithResourcesCountAfterStage
 	objc.Send[struct{}](o.ID, objc.Sel("memoryBarrierWithResources:count:afterStages:beforeStages:"), objc.CArray(resources), count, after, before)
 	}
 
+// Configures each pixel component value, including alpha, for the render
+// pipeline’s constant blend color.
+//
+// red: A value for the red component for the blend color constant.
+//
+// green: A value for the green component for the blend color constant.
+//
+// blue: A value for the blue component for the blend color constant.
+//
+// alpha: A value for the alpha component for the blend color constant.
+//
+// # Discussion
+// 
+// The alpha and color values apply to all the render pass’s attachments.
+// The `red`, `green`, and `blue` color parameters apply to the
+// [BlendFactorBlendColor] and [BlendFactorOneMinusBlendColor] blend factors.
+// 
+// The `alpha` parameter applies to the [BlendFactorBlendAlpha] and
+// [BlendFactorOneMinusBlendAlpha] blend factors.
+// 
+// The render pipeline’s default blend color value is `0.0` for each
+// parameter, which is equivalent to [BlendFactorZero]. For other blending
+// factor values, see [MTLBlendFactor].
+//
+// [MTLBlendFactor]: https://developer.apple.com/documentation/Metal/MTLBlendFactor
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setBlendColor(red:green:blue:alpha:)
+
+func (o MTLRenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float32, green float32, blue float32, alpha float32) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setBlendColorRed:green:blue:alpha:"), red, green, blue, alpha)
+	}
+
 // Sets the mapping from logical shader color output to physical render pass
 // color attachments.
 //
@@ -1669,6 +1710,41 @@ func (o MTLRenderCommandEncoderObject) MemoryBarrierWithResourcesCountAfterStage
 func (o MTLRenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogicalToPhysicalColorAttachmentMap) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setColorAttachmentMap:"), mapping)
+	}
+
+// Configures the store action for a color attachment.
+//
+// storeAction: A store action for the color attachment that can’t be
+// [StoreActionUnknown].
+//
+// colorAttachmentIndex: The index of a color attachment.
+//
+// # Discussion
+// 
+// This method changes the render command encoder’s store action for a color
+// attachment. You can assign the default store action for a color attachment
+// by configuring the [StoreAction] property of its
+// [MTLRenderPassColorAttachmentDescriptor] (see [MTLRenderPassDescriptor] and
+// its [ColorAttachments] property).
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreAction(_:index:)
+
+func (o MTLRenderCommandEncoderObject) SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreAction:atIndex:"), storeAction, colorAttachmentIndex)
+	}
+
+// Configures the store action options for a color attachment.
+//
+// storeActionOptions: Additional options for the store action of a color attachment.
+//
+// colorAttachmentIndex: The index of a color attachment.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreActionOptions(_:index:)
+
+func (o MTLRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex(storeActionOptions MTLStoreActionOptions, colorAttachmentIndex uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreActionOptions:atIndex:"), storeActionOptions, colorAttachmentIndex)
 	}
 
 // Configures how the render pipeline determines which primitives to remove.
@@ -1700,119 +1776,6 @@ func (o MTLRenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogical
 func (o MTLRenderCommandEncoderObject) SetCullMode(cullMode MTLCullMode) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setCullMode:"), cullMode)
-	}
-
-// Configures the store action options for a color attachment.
-//
-// storeActionOptions: Additional options for the store action of a color attachment.
-//
-// colorAttachmentIndex: The index of a color attachment.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreActionOptions(_:index:)
-
-func (o MTLRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex(storeActionOptions MTLStoreActionOptions, colorAttachmentIndex uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreActionOptions:atIndex:"), storeActionOptions, colorAttachmentIndex)
-	}
-
-// Configures the store action for a color attachment.
-//
-// storeAction: A store action for the color attachment that can’t be
-// [StoreActionUnknown].
-//
-// colorAttachmentIndex: The index of a color attachment.
-//
-// # Discussion
-// 
-// This method changes the render command encoder’s store action for a color
-// attachment. You can assign the default store action for a color attachment
-// by configuring the [StoreAction] property of its
-// [MTLRenderPassColorAttachmentDescriptor] (see [MTLRenderPassDescriptor] and
-// its [ColorAttachments] property).
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setColorStoreAction(_:index:)
-
-func (o MTLRenderCommandEncoderObject) SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreAction:atIndex:"), storeAction, colorAttachmentIndex)
-	}
-
-// Configures the combined depth and stencil state.
-//
-// depthStencilState: An instance that conforms to the [MTLDepthStencilState] protocol.
-//
-// # Discussion
-// 
-// This method changes the combined depth and stencil state for the render
-// command encoder that’s compatible with its depth and stencil attachment
-// configuration. For example, if the new state enables depth testing or depth
-// writing, the render pass needs to have a depth attachment. Similarly, if
-// the new state enables stencil testing or stencil writing, the render
-// pass’s stencil needs to have a stencil attachment. You create depth and
-// stencil attachments for a render pass by assigning the [DepthAttachment]
-// and [StencilAttachment] properties of the [MTLRenderPassDescriptor]
-// instance that creates it.
-// 
-// Pass `nil` to clear the state from the previous call, which restores a
-// state that’s equivalent to the default values of an
-// [MTLDepthStencilDescriptor] instance’s properties.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStencilState(_:)
-
-func (o MTLRenderCommandEncoderObject) SetDepthStencilState(depthStencilState MTLDepthStencilState) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setDepthStencilState:"), depthStencilState)
-	}
-
-// Configures the store action options for the depth attachment.
-//
-// storeActionOptions: Additional options for the store action of the depth attachment.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreActionOptions(_:)
-
-func (o MTLRenderCommandEncoderObject) SetDepthStoreActionOptions(storeActionOptions MTLStoreActionOptions) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreActionOptions:"), storeActionOptions)
-	}
-
-// Configures the store action for the depth attachment.
-//
-// storeAction: A store action for the depth attachment that can’t be
-// [StoreActionUnknown].
-//
-// # Discussion
-// 
-// This method changes the render command encoder’s store action for the
-// depth attachment. You can assign the default store action for the depth
-// attachment by configuring the [StoreAction] property of its
-// [MTLRenderPassDepthAttachmentDescriptor] (see [MTLRenderPassDescriptor] and
-// its [DepthAttachment] property).
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreAction(_:)
-
-func (o MTLRenderCommandEncoderObject) SetDepthStoreAction(storeAction MTLStoreAction) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreAction:"), storeAction)
-	}
-
-// Configures how the render pipeline handles fragments outside the near and
-// far planes of the view frustum.
-//
-// depthClipMode: The mode that determines how to handle fragments outside the near and far
-// planes.
-//
-// # Discussion
-// 
-// You can use depth clipping to ignore fragments outside the z-axis
-// boundaries of a viewing volume.
-// 
-// The render pass’s default clip mode is [DepthClipModeClip].
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthClipMode(_:)
-
-func (o MTLRenderCommandEncoderObject) SetDepthClipMode(depthClipMode MTLDepthClipMode) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setDepthClipMode:"), depthClipMode)
 	}
 
 // Configures the adjustments a render pass applies to depth values from
@@ -1847,25 +1810,82 @@ func (o MTLRenderCommandEncoderObject) SetDepthBiasSlopeScaleClamp(depthBias flo
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthBias:slopeScale:clamp:"), depthBias, slopeScale, clamp)
 	}
 
-// Assigns an acceleration structure to an entry in the fragment shader
-// argument table.
+// Configures how the render pipeline handles fragments outside the near and
+// far planes of the view frustum.
 //
-// accelerationStructure: An [MTLAccelerationStructure] instance the command assigns to an entry in
-// the fragment shader argument table for acceleration structures.
-//
-// bufferIndex: An integer that represents the entry in the fragment shader argument table
-// for acceleration structures that stores a record of
-// `accelerationStructure`.
+// depthClipMode: The mode that determines how to handle fragments outside the near and far
+// planes.
 //
 // # Discussion
 // 
-// By default, the acceleration structure at each index is `nil`.
+// You can use depth clipping to ignore fragments outside the z-axis
+// boundaries of a viewing volume.
+// 
+// The render pass’s default clip mode is [DepthClipModeClip].
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentAccelerationStructure(_:bufferIndex:)
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthClipMode(_:)
 
-func (o MTLRenderCommandEncoderObject) SetFragmentAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint) {
+func (o MTLRenderCommandEncoderObject) SetDepthClipMode(depthClipMode MTLDepthClipMode) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setFragmentAccelerationStructure:atBufferIndex:"), accelerationStructure, bufferIndex)
+	objc.Send[struct{}](o.ID, objc.Sel("setDepthClipMode:"), depthClipMode)
+	}
+
+// Configures the combined depth and stencil state.
+//
+// depthStencilState: An instance that conforms to the [MTLDepthStencilState] protocol.
+//
+// # Discussion
+// 
+// This method changes the combined depth and stencil state for the render
+// command encoder that’s compatible with its depth and stencil attachment
+// configuration. For example, if the new state enables depth testing or depth
+// writing, the render pass needs to have a depth attachment. Similarly, if
+// the new state enables stencil testing or stencil writing, the render
+// pass’s stencil needs to have a stencil attachment. You create depth and
+// stencil attachments for a render pass by assigning the [DepthAttachment]
+// and [StencilAttachment] properties of the [MTLRenderPassDescriptor]
+// instance that creates it.
+// 
+// Pass `nil` to clear the state from the previous call, which restores a
+// state that’s equivalent to the default values of an
+// [MTLDepthStencilDescriptor] instance’s properties.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStencilState(_:)
+
+func (o MTLRenderCommandEncoderObject) SetDepthStencilState(depthStencilState MTLDepthStencilState) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setDepthStencilState:"), depthStencilState)
+	}
+
+// Configures the store action for the depth attachment.
+//
+// storeAction: A store action for the depth attachment that can’t be
+// [StoreActionUnknown].
+//
+// # Discussion
+// 
+// This method changes the render command encoder’s store action for the
+// depth attachment. You can assign the default store action for the depth
+// attachment by configuring the [StoreAction] property of its
+// [MTLRenderPassDepthAttachmentDescriptor] (see [MTLRenderPassDescriptor] and
+// its [DepthAttachment] property).
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreAction(_:)
+
+func (o MTLRenderCommandEncoderObject) SetDepthStoreAction(storeAction MTLStoreAction) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreAction:"), storeAction)
+	}
+
+// Configures the store action options for the depth attachment.
+//
+// storeActionOptions: Additional options for the store action of the depth attachment.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setDepthStoreActionOptions(_:)
+
+func (o MTLRenderCommandEncoderObject) SetDepthStoreActionOptions(storeActionOptions MTLStoreActionOptions) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreActionOptions:"), storeActionOptions)
 	}
 
 // Configures the minimum and maximum bounds for depth bounds testing.
@@ -1891,6 +1911,67 @@ func (o MTLRenderCommandEncoderObject) SetFragmentAccelerationStructureAtBufferI
 func (o MTLRenderCommandEncoderObject) SetDepthTestMinBoundMaxBound(minBound float32, maxBound float32) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthTestMinBound:maxBound:"), minBound, maxBound)
+	}
+
+// Assigns an acceleration structure to an entry in the fragment shader
+// argument table.
+//
+// accelerationStructure: An [MTLAccelerationStructure] instance the command assigns to an entry in
+// the fragment shader argument table for acceleration structures.
+//
+// bufferIndex: An integer that represents the entry in the fragment shader argument table
+// for acceleration structures that stores a record of
+// `accelerationStructure`.
+//
+// # Discussion
+// 
+// By default, the acceleration structure at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentAccelerationStructure(_:bufferIndex:)
+
+func (o MTLRenderCommandEncoderObject) SetFragmentAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setFragmentAccelerationStructure:atBufferIndex:"), accelerationStructure, bufferIndex)
+	}
+
+// Updates an entry in the fragment shader argument table with a new location
+// within the entry’s current buffer.
+//
+// offset: An integer that represents the location, in bytes, from the start of
+// `buffer` where the fragment shader argument data begins.
+// 
+// See the [Metal feature set tables (PDF)] to check for offset alignment
+// requirements for buffers in `device` and `constant` address space.
+// //
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+//
+// index: An integer that represents the entry in the fragment shader argument table
+// for buffers that already stores a record of an [MTLBuffer].
+//
+// # Discussion
+// 
+// The command this method encodes changes the offset for a fragment buffer
+// that already has a previous assignment from one of your earlier commands.
+// 
+// For more information, see:
+// 
+// - [setFragmentBuffer(_:offset:index:)] -
+// [setFragmentBuffers(_:offsets:range:)] (Swift) -
+// [SetFragmentBuffersOffsetsWithRange] (Objective-C)
+// 
+// The command can also adjust the offset for an entry that you previously set
+// with the [SetFragmentBytesLengthAtIndex] method.
+// 
+// By default, the buffer at each index is `nil`.
+//
+// [setFragmentBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBuffer(_:offset:index:)
+// [setFragmentBuffers(_:offsets:range:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBuffers(_:offsets:range:)
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBufferOffset(_:index:)
+
+func (o MTLRenderCommandEncoderObject) SetFragmentBufferOffsetAtIndex(offset uint, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBufferOffset:atIndex:"), offset, index)
 	}
 
 // Assigns multiple buffers to a range of entries in the fragment shader
@@ -1938,14 +2019,17 @@ func (o MTLRenderCommandEncoderObject) SetFragmentBuffersOffsetsWithRange(buffer
 // # Discussion
 // 
 // The method is equivalent to creating an [MTLBuffer] instance that contains
-// the same data as `bytes` and calling the [SetFragmentBufferOffsetAtIndex]
-// method. However, this method avoids the overhead of creating a buffer to
-// store your data; instead, Metal manages the data.
+// the same data as `bytes` and calling the
+// [setFragmentBuffer(_:offset:index:)] method. However, this method avoids
+// the overhead of creating a buffer to store your data; instead, Metal
+// manages the data.
 // 
 // For data that’s more than 4 KB, create an [MTLBuffer] instance and pass
-// it to [SetFragmentBufferOffsetAtIndex].
+// it to [setFragmentBuffer(_:offset:index:)].
 // 
 // By default, the buffer at each index is `nil`.
+//
+// [setFragmentBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBuffer(_:offset:index:)
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
 
@@ -2016,33 +2100,6 @@ func (o MTLRenderCommandEncoderObject) SetFragmentSamplerStateAtIndex(sampler MT
 	objc.Send[struct{}](o.ID, objc.Sel("setFragmentSamplerState:atIndex:"), sampler, index)
 	}
 
-// Assigns a buffer to an entry in the fragment shader argument table.
-//
-// buffer: An [MTLBuffer] instance the command assigns to an entry in the fragment
-// shader argument table for buffers.
-//
-// offset: An integer that represents the location, in bytes, from the start of
-// `buffer` where the fragment shader argument data begins.
-// 
-// See the [Metal feature set tables (PDF)] to check for offset alignment
-// requirements for buffers in `device` and `constant` address space.
-// //
-// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
-// index: An integer that represents the entry in the fragment shader argument table
-// for buffers that stores a record of `buffer` and `offset`.
-//
-// # Discussion
-// 
-// By default, the buffer at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBuffer(_:offset:index:)
-
-func (o MTLRenderCommandEncoderObject) SetFragmentBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBuffer:offset:atIndex:"), buffer, offset, index)
-	}
-
 // Assigns a sampler state and clamp values to an entry in the fragment shader
 // argument table.
 //
@@ -2072,25 +2129,6 @@ func (o MTLRenderCommandEncoderObject) SetFragmentBufferOffsetAtIndex(buffer MTL
 func (o MTLRenderCommandEncoderObject) SetFragmentSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setFragmentSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
-	}
-
-// Assigns a texture to an entry in the fragment shader argument table.
-//
-// texture: An [MTLTexture] instance the command assigns to an entry in the fragment
-// shader argument table for textures.
-//
-// index: An integer that represents the entry in the fragment shader argument table
-// for textures that stores a record of `texture`.
-//
-// # Discussion
-// 
-// By default, the texture at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentTexture(_:index:)
-
-func (o MTLRenderCommandEncoderObject) SetFragmentTextureAtIndex(texture MTLTexture, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setFragmentTexture:atIndex:"), texture, index)
 	}
 
 // Assigns multiple sampler states and clamp values to a range of entries in
@@ -2147,6 +2185,25 @@ func (o MTLRenderCommandEncoderObject) SetFragmentSamplerStatesLodMinClampsLodMa
 func (o MTLRenderCommandEncoderObject) SetFragmentSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setFragmentSamplerStates:withRange:"), samplers, range_)
+	}
+
+// Assigns a texture to an entry in the fragment shader argument table.
+//
+// texture: An [MTLTexture] instance the command assigns to an entry in the fragment
+// shader argument table for textures.
+//
+// index: An integer that represents the entry in the fragment shader argument table
+// for textures that stores a record of `texture`.
+//
+// # Discussion
+// 
+// By default, the texture at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentTexture(_:index:)
+
+func (o MTLRenderCommandEncoderObject) SetFragmentTextureAtIndex(texture MTLTexture, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setFragmentTexture:atIndex:"), texture, index)
 	}
 
 // Assigns multiple textures to a range of entries in the fragment shader
@@ -2233,10 +2290,8 @@ func (o MTLRenderCommandEncoderObject) SetFrontFacingWinding(frontFacingWinding 
 	objc.Send[struct{}](o.ID, objc.Sel("setFrontFacingWinding:"), frontFacingWinding)
 	}
 
-// Assigns a buffer to an entry in the mesh shader argument table.
-//
-// buffer: An [MTLBuffer] instance the command assigns to an entry in the mesh shader
-// argument table for buffers.
+// Updates an entry in the mesh shader argument table with a new location
+// within the entry’s current buffer.
 //
 // offset: An integer that represents the location, in bytes, from the start of
 // `buffer` where the mesh shader argument data begins.
@@ -2247,17 +2302,29 @@ func (o MTLRenderCommandEncoderObject) SetFrontFacingWinding(frontFacingWinding 
 // [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
 //
 // index: An integer that represents the entry in the mesh shader argument table for
-// buffers that stores a record of `buffer` and `offset`.
+// buffers that already stores a record of an [MTLBuffer].
 //
 // # Discussion
 // 
-// By default, the texture at each index is `nil`.
+// The command this method encodes changes the offset for a mesh buffer that
+// already has a previous assignment from one of your earlier commands.
+// 
+// For more information, see:
+// 
+// - [setMeshBuffer(_:offset:index:)] - [setMeshBuffers(_:offsets:range:)]
+// (Swift) - [SetMeshBuffersOffsetsWithRange] (Objective-C)
+// 
+// The command can also adjust the offset for an entry that you previously set
+// with the [SetMeshBytesLengthAtIndex] method.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBuffer(_:offset:index:)
+// [setMeshBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBuffer(_:offset:index:)
+// [setMeshBuffers(_:offsets:range:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBuffers(_:offsets:range:)
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBufferOffset(_:index:)
 
-func (o MTLRenderCommandEncoderObject) SetMeshBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
+func (o MTLRenderCommandEncoderObject) SetMeshBufferOffsetAtIndex(offset uint, index uint) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshBuffer:offset:atIndex:"), buffer, offset, index)
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshBufferOffset:atIndex:"), offset, index)
 	}
 
 // Assigns multiple buffers to a range of entries in the mesh shader argument
@@ -2288,6 +2355,37 @@ func (o MTLRenderCommandEncoderObject) SetMeshBufferOffsetAtIndex(buffer MTLBuff
 func (o MTLRenderCommandEncoderObject) SetMeshBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setMeshBuffers:offsets:withRange:"), buffers, offsets, range_)
+	}
+
+// Creates a buffer from bytes and assigns it to an entry in the mesh shader
+// argument table.
+//
+// bytes: A pointer to argument data the method copies to an [MTLBuffer] and assigns
+// to an entry in the mesh shader argument table for buffers.
+//
+// length: The number of bytes the method copies from the `bytes` pointer.
+//
+// index: An integer that represents the entry in the mesh shader argument table for
+// buffers that stores a record of the [MTLBuffer] the method creates from
+// `bytes`.
+//
+// # Discussion
+// 
+// The method is equivalent to creating an [MTLBuffer] instance that contains
+// the same data as `bytes` and calling the [setMeshBuffer(_:offset:index:)]
+// method. However, this method avoids the overhead of creating a buffer to
+// store your data; instead, Metal manages the data.
+// 
+// For data that’s more than 4 KB, create an [MTLBuffer] instance and pass
+// it to [SetMeshBufferOffsetAtIndex].
+//
+// [setMeshBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBuffer(_:offset:index:)
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
+
+func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 	}
 
 // Assigns a sampler state to an entry in the mesh shader argument table.
@@ -2340,155 +2438,6 @@ func (o MTLRenderCommandEncoderObject) SetMeshSamplerStateLodMinClampLodMaxClamp
 	objc.Send[struct{}](o.ID, objc.Sel("setMeshSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
 	}
 
-// Creates a buffer from bytes and assigns it to an entry in the mesh shader
-// argument table.
-//
-// bytes: A pointer to argument data the method copies to an [MTLBuffer] and assigns
-// to an entry in the mesh shader argument table for buffers.
-//
-// length: The number of bytes the method copies from the `bytes` pointer.
-//
-// index: An integer that represents the entry in the mesh shader argument table for
-// buffers that stores a record of the [MTLBuffer] the method creates from
-// `bytes`.
-//
-// # Discussion
-// 
-// The method is equivalent to creating an [MTLBuffer] instance that contains
-// the same data as `bytes` and calling the [SetMeshBufferOffsetAtIndex]
-// method. However, this method avoids the overhead of creating a buffer to
-// store your data; instead, Metal manages the data.
-// 
-// For data that’s more than 4 KB, create an [MTLBuffer] instance and pass
-// it to [setMeshBufferOffset(_:index:)].
-//
-// [setMeshBufferOffset(_:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBufferOffset(_:index:)
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-
-func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
-	}
-
-// Assigns multiple sampler states to a range of entries in the mesh shader
-// argument table.
-//
-// samplers: A pointer to a C array of [MTLSamplerState] instances the command assigns
-// to entries in the mesh shader argument table for sampler states.
-//
-// range: A span of integers that represent the entries in the mesh shader argument
-// table for sampler states. Each entry stores a record of the corresponding
-// element in `samplers`.
-//
-// # Discussion
-// 
-// By default, the sampler state at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshSamplerStates:withRange:
-
-func (o MTLRenderCommandEncoderObject) SetMeshSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshSamplerStates:withRange:"), samplers, range_)
-	}
-
-// Assigns multiple textures to a range of entries in the mesh shader argument
-// table.
-//
-// textures: A pointer to a C array of [MTLTexture] instances the command assigns to
-// entries in the mesh shader argument table for textures.
-//
-// range: A span of integers that represent the entries in the mesh shader argument
-// table for textures. Each entry stores a record of the corresponding element
-// in `textures`.
-//
-// # Discussion
-// 
-// By default, the texture at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTextures:withRange:
-
-func (o MTLRenderCommandEncoderObject) SetMeshTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshTextures:withRange:"), textures, range_)
-	}
-
-// Assigns a texture to an entry in the mesh shader argument table.
-//
-// texture: An [MTLTexture] instance the command assigns to an entry in the mesh shader
-// argument table for textures.
-//
-// index: An integer that represents the entry in the mesh shader argument table for
-// textures that stores a record of `texture`.
-//
-// # Discussion
-// 
-// By default, the texture at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTexture(_:index:)
-
-func (o MTLRenderCommandEncoderObject) SetMeshTextureAtIndex(texture MTLTexture, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshTexture:atIndex:"), texture, index)
-	}
-
-// Assigns a buffer to an entry in the object shader argument table.
-//
-// buffer: An [MTLBuffer] instance the command assigns to an entry in the object
-// shader argument table for buffers.
-//
-// offset: An integer that represents the location, in bytes, from the start of
-// `buffer` where the object shader argument data begins.
-// 
-// See the [Metal feature set tables (PDF)] to check for offset alignment
-// requirements for buffers in `device` and `constant` address space.
-// //
-// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
-// index: An integer that represents the entry in the object shader argument table
-// for buffers that stores a record of `buffer` and `offset`.
-//
-// # Discussion
-// 
-// By default, the texture at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffer(_:offset:index:)
-
-func (o MTLRenderCommandEncoderObject) SetObjectBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectBuffer:offset:atIndex:"), buffer, offset, index)
-	}
-
-// Encodes a command that assigns multiple buffers to a range of entries in
-// the object shader argument table.
-//
-// buffers: A pointer to a C array of [MTLBuffer] instances the command assigns to
-// entries in the object shader argument table for buffers.
-//
-// offsets: A pointer to a C array of unsigned integers. Each element represents the
-// location, in bytes, from the start of the corresponding [MTLBuffer] element
-// in `buffers` where the object shader argument data begins.
-// 
-// See the [Metal feature set tables (PDF)] to check for offset alignment
-// requirements for buffers in `device` and `constant` address space.
-// //
-// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
-// range: A span of integers that represent the entries in the object shader argument
-// table for buffers. Each entry stores a record of the corresponding element
-// in `buffers` and `offsets`.
-//
-// # Discussion
-// 
-// By default, the texture at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffers:offsets:withRange:
-
-func (o MTLRenderCommandEncoderObject) SetObjectBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectBuffers:offsets:withRange:"), buffers, offsets, range_)
-	}
-
 // Assigns multiple sampler states and clamp values to a range of entries in
 // the mesh shader argument table.
 //
@@ -2524,6 +2473,134 @@ func (o MTLRenderCommandEncoderObject) SetMeshSamplerStatesLodMinClampsLodMaxCla
 	objc.Send[struct{}](o.ID, objc.Sel("setMeshSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), samplers, lodMinClamps, lodMaxClamps, range_)
 	}
 
+// Assigns multiple sampler states to a range of entries in the mesh shader
+// argument table.
+//
+// samplers: A pointer to a C array of [MTLSamplerState] instances the command assigns
+// to entries in the mesh shader argument table for sampler states.
+//
+// range: A span of integers that represent the entries in the mesh shader argument
+// table for sampler states. Each entry stores a record of the corresponding
+// element in `samplers`.
+//
+// # Discussion
+// 
+// By default, the sampler state at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshSamplerStates:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetMeshSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshSamplerStates:withRange:"), samplers, range_)
+	}
+
+// Assigns a texture to an entry in the mesh shader argument table.
+//
+// texture: An [MTLTexture] instance the command assigns to an entry in the mesh shader
+// argument table for textures.
+//
+// index: An integer that represents the entry in the mesh shader argument table for
+// textures that stores a record of `texture`.
+//
+// # Discussion
+// 
+// By default, the texture at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTexture(_:index:)
+
+func (o MTLRenderCommandEncoderObject) SetMeshTextureAtIndex(texture MTLTexture, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshTexture:atIndex:"), texture, index)
+	}
+
+// Assigns multiple textures to a range of entries in the mesh shader argument
+// table.
+//
+// textures: A pointer to a C array of [MTLTexture] instances the command assigns to
+// entries in the mesh shader argument table for textures.
+//
+// range: A span of integers that represent the entries in the mesh shader argument
+// table for textures. Each entry stores a record of the corresponding element
+// in `textures`.
+//
+// # Discussion
+// 
+// By default, the texture at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshTextures:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetMeshTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshTextures:withRange:"), textures, range_)
+	}
+
+// Updates an entry in the object shader argument table with a new location
+// within the entry’s current buffer.
+//
+// offset: An integer that represents the location, in bytes, from the start of
+// `buffer` where the object shader argument data begins.
+// 
+// See the [Metal feature set tables (PDF)] to check for offset alignment
+// requirements for buffers in `device` and `constant` address space.
+// //
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+//
+// index: An integer that represents the entry in the object shader argument table
+// for buffers that already stores a record of an [MTLBuffer].
+//
+// # Discussion
+// 
+// The command this method encodes changes the offset for a mesh buffer that
+// already has a previous assignment from one of your earlier commands.
+// 
+// For more information, see:
+// 
+// - [setObjectBuffer(_:offset:index:)] - [setObjectBuffers(_:offsets:range:)]
+// (Swift) - [SetObjectBuffersOffsetsWithRange] (Objective-C)
+// 
+// The command can also adjust the offset for an entry that you previously set
+// with the [SetObjectBytesLengthAtIndex] method.
+//
+// [setObjectBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffer(_:offset:index:)
+// [setObjectBuffers(_:offsets:range:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffers(_:offsets:range:)
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBufferOffset(_:index:)
+
+func (o MTLRenderCommandEncoderObject) SetObjectBufferOffsetAtIndex(offset uint, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectBufferOffset:atIndex:"), offset, index)
+	}
+
+// Encodes a command that assigns multiple buffers to a range of entries in
+// the object shader argument table.
+//
+// buffers: A pointer to a C array of [MTLBuffer] instances the command assigns to
+// entries in the object shader argument table for buffers.
+//
+// offsets: A pointer to a C array of unsigned integers. Each element represents the
+// location, in bytes, from the start of the corresponding [MTLBuffer] element
+// in `buffers` where the object shader argument data begins.
+// 
+// See the [Metal feature set tables (PDF)] to check for offset alignment
+// requirements for buffers in `device` and `constant` address space.
+// //
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+//
+// range: A span of integers that represent the entries in the object shader argument
+// table for buffers. Each entry stores a record of the corresponding element
+// in `buffers` and `offsets`.
+//
+// # Discussion
+// 
+// By default, the texture at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffers:offsets:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetObjectBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectBuffers:offsets:withRange:"), buffers, offsets, range_)
+	}
+
 // Creates a buffer from bytes and assigns it to an entry in the object shader
 // argument table.
 //
@@ -2539,14 +2616,14 @@ func (o MTLRenderCommandEncoderObject) SetMeshSamplerStatesLodMinClampsLodMaxCla
 // # Discussion
 // 
 // The method is equivalent to creating an [MTLBuffer] instance that contains
-// the same data as `bytes` and calling the [setObjectBufferOffset(_:index:)]
+// the same data as `bytes` and calling the [SetObjectBufferOffsetAtIndex]
 // method. However, this method avoids the overhead of creating a buffer to
 // store your data; instead, Metal manages the data.
 // 
 // For data that’s more than 4 KB, create an [MTLBuffer] instance and pass
-// it to [SetObjectBufferOffsetAtIndex].
+// it to [setObjectBuffer(_:offset:index:)].
 //
-// [setObjectBufferOffset(_:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBufferOffset(_:index:)
+// [setObjectBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBuffer(_:offset:index:)
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
 
@@ -2572,6 +2649,37 @@ func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte,
 func (o MTLRenderCommandEncoderObject) SetObjectSamplerStateAtIndex(sampler MTLSamplerState, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectSamplerState:atIndex:"), sampler, index)
+	}
+
+// Assigns a sampler state and clamp values to an entry in the object shader
+// argument table.
+//
+// sampler: An [MTLSamplerState] instance the command assigns to an entry in the object
+// shader argument table for sampler states.
+//
+// lodMinClamp: The smallest level of detail value an object shader can use when it samples
+// a texture.
+//
+// lodMaxClamp: The largest level of detail value an object shader can use when it samples
+// a texture.
+//
+// index: An integer that represents the entry in the object argument table for
+// sampler states that stores a record of `sampler`.
+//
+// # Discussion
+// 
+// The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
+// default values for `sampler`. You can set the sampler’s default values by
+// configuring the [LodMinClamp] and [LodMaxClamp] properties of
+// [MTLSamplerDescriptor] before you create the sampler.
+// 
+// By default, the sampler state at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerState(_:lodMinClamp:lodMaxClamp:index:)
+
+func (o MTLRenderCommandEncoderObject) SetObjectSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
 	}
 
 // Assigns multiple sampler states and clamp values to a range of entries in
@@ -2607,6 +2715,27 @@ func (o MTLRenderCommandEncoderObject) SetObjectSamplerStateAtIndex(sampler MTLS
 func (o MTLRenderCommandEncoderObject) SetObjectSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), samplers, lodMinClamps, lodMaxClamps, range_)
+	}
+
+// Assigns multiple sampler states to a range of entries in the object shader
+// argument table.
+//
+// samplers: A pointer to a C array of [MTLSamplerState] instances the command assigns
+// to entries in the object shader argument table for sampler states.
+//
+// range: A span of integers that represent the entries in the object shader argument
+// table for sampler states. Each entry stores a record of the corresponding
+// element in `samplers`.
+//
+// # Discussion
+// 
+// By default, the sampler state at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerStates:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetObjectSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectSamplerStates:withRange:"), samplers, range_)
 	}
 
 // Assigns a texture to an entry in the object shader argument table.
@@ -2695,6 +2824,29 @@ func (o MTLRenderCommandEncoderObject) SetRenderPipelineState(pipelineState MTLR
 	objc.Send[struct{}](o.ID, objc.Sel("setRenderPipelineState:"), pipelineState)
 	}
 
+// Configures a rectangle for the fragment scissor test.
+//
+// rect: An [MTLScissorRect] instance that represents a rectangle that needs to lie
+// completely within the current render attachment.
+// //
+// [MTLScissorRect]: https://developer.apple.com/documentation/Metal/MTLScissorRect
+//
+// # Discussion
+// 
+// The rendering pipeline discards any fragments that lie outside the scissor
+// rectangle.
+// 
+// The default scissor rectangle is the same size as the current render
+// attachment, with its origin coordinates in the upper-left corner at `(0,
+// 0)`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setScissorRect(_:)
+
+func (o MTLRenderCommandEncoderObject) SetScissorRect(rect MTLScissorRect) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setScissorRect:"), rect)
+	}
+
 // Configures multiple rectangles for the fragment scissor test.
 //
 // scissorRects: An array of [MTLScissorRect] instances the command applies to the render
@@ -2741,25 +2893,52 @@ func (o MTLRenderCommandEncoderObject) SetScissorRectsCount(scissorRects []MTLSc
 	objc.Send[struct{}](o.ID, objc.Sel("setScissorRects:count:"), objc.CArray(scissorRects), count)
 	}
 
-// Assigns multiple sampler states to a range of entries in the object shader
-// argument table.
+// Configures different comparison values for front- and back-facing
+// primitives.
 //
-// samplers: A pointer to a C array of [MTLSamplerState] instances the command assigns
-// to entries in the object shader argument table for sampler states.
+// frontReferenceValue: A stencil test comparison value the render pipeline applies to only
+// front-facing primitives.
 //
-// range: A span of integers that represent the entries in the object shader argument
-// table for sampler states. Each entry stores a record of the corresponding
-// element in `samplers`.
+// backReferenceValue: A stencil test comparison value the render pipeline applies to only
+// back-facing primitives.
 //
 // # Discussion
 // 
-// By default, the sampler state at each index is `nil`.
+// The command sets separate reference values for front- and back-facing
+// primitives (see [StencilCompareFunction], [FrontFaceStencil], and
+// [BackFaceStencil]). These reference values apply to the stencil state you
+// set with the [SetDepthStencilState] method.
+// 
+// The render pass’s default reference value for the front and back stencil
+// compare function is `0`.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerStates:withRange:
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValues(front:back:)
 
-func (o MTLRenderCommandEncoderObject) SetObjectSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
+func (o MTLRenderCommandEncoderObject) SetStencilFrontReferenceValueBackReferenceValue(frontReferenceValue uint32, backReferenceValue uint32) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectSamplerStates:withRange:"), samplers, range_)
+	objc.Send[struct{}](o.ID, objc.Sel("setStencilFrontReferenceValue:backReferenceValue:"), frontReferenceValue, backReferenceValue)
+	}
+
+// Configures the same comparison value for front- and back-facing primitives.
+//
+// referenceValue: A stencil test comparison value the render pipeline applies to both front-
+// and back-facing primitives.
+//
+// # Discussion
+// 
+// The command sets the same reference value for front- and back-facing
+// primitives (see [StencilCompareFunction], [FrontFaceStencil], and
+// [BackFaceStencil]). This reference value applies to the stencil state you
+// set with the [SetDepthStencilState] method.
+// 
+// The render pass’s default reference value for the front and back stencil
+// compare function is `0`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValue(_:)
+
+func (o MTLRenderCommandEncoderObject) SetStencilReferenceValue(referenceValue uint32) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setStencilReferenceValue:"), referenceValue)
 	}
 
 // Configures the store action for the stencil attachment.
@@ -2791,6 +2970,29 @@ func (o MTLRenderCommandEncoderObject) SetStencilStoreAction(storeAction MTLStor
 func (o MTLRenderCommandEncoderObject) SetStencilStoreActionOptions(storeActionOptions MTLStoreActionOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setStencilStoreActionOptions:"), storeActionOptions)
+	}
+
+// Configures the per-patch tessellation factors for any subsequent
+// patch-drawing commands.
+//
+// buffer: An [MTLBuffer] instance that stores the per-patch tessellation factors,
+// which can’t be empty or `nil`.
+//
+// offset: The distance, in bytes, between the start of the data and the start of the
+// buffer, which needs to be a multiple of `4`.
+//
+// instanceStride: The number of bytes between two instances of data in `buffer`, which needs
+// to be a multiple of `4`.
+//
+// # Discussion
+// 
+// Call this method before encoding patch-drawing commands.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTessellationFactorBuffer(_:offset:instanceStride:)
+
+func (o MTLRenderCommandEncoderObject) SetTessellationFactorBufferOffsetInstanceStride(buffer MTLBuffer, offset uint, instanceStride uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setTessellationFactorBuffer:offset:instanceStride:"), buffer, offset, instanceStride)
 	}
 
 // Configures the scale factor for per-patch tessellation factors.
@@ -2856,115 +3058,6 @@ func (o MTLRenderCommandEncoderObject) SetTileAccelerationStructureAtBufferIndex
 	objc.Send[struct{}](o.ID, objc.Sel("setTileAccelerationStructure:atBufferIndex:"), accelerationStructure, bufferIndex)
 	}
 
-// Configures a rectangle for the fragment scissor test.
-//
-// rect: An [MTLScissorRect] instance that represents a rectangle that needs to lie
-// completely within the current render attachment.
-// //
-// [MTLScissorRect]: https://developer.apple.com/documentation/Metal/MTLScissorRect
-//
-// # Discussion
-// 
-// The rendering pipeline discards any fragments that lie outside the scissor
-// rectangle.
-// 
-// The default scissor rectangle is the same size as the current render
-// attachment, with its origin coordinates in the upper-left corner at `(0,
-// 0)`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setScissorRect(_:)
-
-func (o MTLRenderCommandEncoderObject) SetScissorRect(rect MTLScissorRect) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setScissorRect:"), rect)
-	}
-
-// Configures each pixel component value, including alpha, for the render
-// pipeline’s constant blend color.
-//
-// red: A value for the red component for the blend color constant.
-//
-// green: A value for the green component for the blend color constant.
-//
-// blue: A value for the blue component for the blend color constant.
-//
-// alpha: A value for the alpha component for the blend color constant.
-//
-// # Discussion
-// 
-// The alpha and color values apply to all the render pass’s attachments.
-// The `red`, `green`, and `blue` color parameters apply to the
-// [BlendFactorBlendColor] and [BlendFactorOneMinusBlendColor] blend factors.
-// 
-// The `alpha` parameter applies to the [BlendFactorBlendAlpha] and
-// [BlendFactorOneMinusBlendAlpha] blend factors.
-// 
-// The render pipeline’s default blend color value is `0.0` for each
-// parameter, which is equivalent to [BlendFactorZero]. For other blending
-// factor values, see [MTLBlendFactor].
-//
-// [MTLBlendFactor]: https://developer.apple.com/documentation/Metal/MTLBlendFactor
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setBlendColor(red:green:blue:alpha:)
-
-func (o MTLRenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float32, green float32, blue float32, alpha float32) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setBlendColorRed:green:blue:alpha:"), red, green, blue, alpha)
-	}
-
-// Configures the per-patch tessellation factors for any subsequent
-// patch-drawing commands.
-//
-// buffer: An [MTLBuffer] instance that stores the per-patch tessellation factors,
-// which can’t be empty or `nil`.
-//
-// offset: The distance, in bytes, between the start of the data and the start of the
-// buffer, which needs to be a multiple of `4`.
-//
-// instanceStride: The number of bytes between two instances of data in `buffer`, which needs
-// to be a multiple of `4`.
-//
-// # Discussion
-// 
-// Call this method before encoding patch-drawing commands.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTessellationFactorBuffer(_:offset:instanceStride:)
-
-func (o MTLRenderCommandEncoderObject) SetTessellationFactorBufferOffsetInstanceStride(buffer MTLBuffer, offset uint, instanceStride uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setTessellationFactorBuffer:offset:instanceStride:"), buffer, offset, instanceStride)
-	}
-
-// Assigns multiple buffers to a range of entries in the tile shader argument
-// table.
-//
-// buffers: A pointer to a C array of [MTLBuffer] instances the command assigns to
-// entries in the tile shader argument table for buffers.
-//
-// offsets: A pointer to a C array of unsigned integers. Each element represents the
-// location, in bytes, from the start of the corresponding [MTLBuffer] element
-// in `buffers` where the tile shader argument data begins.
-// 
-// See the [Metal feature set tables (PDF)] to check for offset alignment
-// requirements for buffers in `device` and `constant` address space.
-// //
-// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-//
-// range: A span of integers that represent the entries in the tile shader argument
-// table for buffers. Each entry stores a record of the corresponding element
-// in `buffers` and `offsets`.
-//
-// # Discussion
-// 
-// By default, the buffer at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBuffers:offsets:withRange:
-
-func (o MTLRenderCommandEncoderObject) SetTileBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setTileBuffers:offsets:withRange:"), buffers, offsets, range_)
-	}
-
 // Updates an entry in the tile shader argument table with a new location
 // within the entry’s current buffer.
 //
@@ -3004,6 +3097,36 @@ func (o MTLRenderCommandEncoderObject) SetTileBufferOffsetAtIndex(offset uint, i
 	objc.Send[struct{}](o.ID, objc.Sel("setTileBufferOffset:atIndex:"), offset, index)
 	}
 
+// Assigns multiple buffers to a range of entries in the tile shader argument
+// table.
+//
+// buffers: A pointer to a C array of [MTLBuffer] instances the command assigns to
+// entries in the tile shader argument table for buffers.
+//
+// offsets: A pointer to a C array of unsigned integers. Each element represents the
+// location, in bytes, from the start of the corresponding [MTLBuffer] element
+// in `buffers` where the tile shader argument data begins.
+// 
+// See the [Metal feature set tables (PDF)] to check for offset alignment
+// requirements for buffers in `device` and `constant` address space.
+// //
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+//
+// range: A span of integers that represent the entries in the tile shader argument
+// table for buffers. Each entry stores a record of the corresponding element
+// in `buffers` and `offsets`.
+//
+// # Discussion
+// 
+// By default, the buffer at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBuffers:offsets:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetTileBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setTileBuffers:offsets:withRange:"), buffers, offsets, range_)
+	}
+
 // Creates a buffer from bytes and assigns it to an entry in the tile shader
 // argument table.
 //
@@ -3035,6 +3158,27 @@ func (o MTLRenderCommandEncoderObject) SetTileBufferOffsetAtIndex(offset uint, i
 func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+	}
+
+// Assigns an intersection function table to an entry in the tile shader
+// argument table.
+//
+// intersectionFunctionTable: An [MTLIntersectionFunctionTable] instance the command assigns to an entry
+// in the tile shader argument table for intersection function tables.
+//
+// bufferIndex: An integer that represents the entry in the tile shader argument table for
+// intersection function tables that stores a record of
+// `intersectionFunctionTable`.
+//
+// # Discussion
+// 
+// By default, the intersection function table at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileIntersectionFunctionTable(_:bufferIndex:)
+
+func (o MTLRenderCommandEncoderObject) SetTileIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setTileIntersectionFunctionTable:atBufferIndex:"), intersectionFunctionTable, bufferIndex)
 	}
 
 // Assigns multiple intersection function tables to a range of entries in the
@@ -3078,6 +3222,37 @@ func (o MTLRenderCommandEncoderObject) SetTileSamplerStateAtIndex(sampler MTLSam
 	objc.Send[struct{}](o.ID, objc.Sel("setTileSamplerState:atIndex:"), sampler, index)
 	}
 
+// Assigns a sampler state and clamp values to an entry in the tile shader
+// argument table.
+//
+// sampler: An [MTLSamplerState] instance the command assigns to an entry in the tile
+// shader argument table for sampler states.
+//
+// lodMinClamp: The smallest level of detail value a tile shader can use when it samples a
+// texture.
+//
+// lodMaxClamp: The largest level of detail value a tile shader can use when it samples a
+// texture.
+//
+// index: An integer that represents the entry in the tile shader argument table for
+// sampler states that stores a record of `sampler`.
+//
+// # Discussion
+// 
+// The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
+// default values for `sampler`. You can set the sampler’s default values by
+// configuring the [LodMinClamp] and [LodMaxClamp] properties of
+// [MTLSamplerDescriptor] before you create the sampler.
+// 
+// By default, the sampler state at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileSamplerState(_:lodMinClamp:lodMaxClamp:index:)
+
+func (o MTLRenderCommandEncoderObject) SetTileSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setTileSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
+	}
+
 // Assigns multiple sampler states and clamp values to a range of entries in
 // the tile shader argument table.
 //
@@ -3111,28 +3286,6 @@ func (o MTLRenderCommandEncoderObject) SetTileSamplerStateAtIndex(sampler MTLSam
 func (o MTLRenderCommandEncoderObject) SetTileSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setTileSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), samplers, lodMinClamps, lodMaxClamps, range_)
-	}
-
-// Configures the same comparison value for front- and back-facing primitives.
-//
-// referenceValue: A stencil test comparison value the render pipeline applies to both front-
-// and back-facing primitives.
-//
-// # Discussion
-// 
-// The command sets the same reference value for front- and back-facing
-// primitives (see [StencilCompareFunction], [FrontFaceStencil], and
-// [BackFaceStencil]). This reference value applies to the stencil state you
-// set with the [SetDepthStencilState] method.
-// 
-// The render pass’s default reference value for the front and back stencil
-// compare function is `0`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValue(_:)
-
-func (o MTLRenderCommandEncoderObject) SetStencilReferenceValue(referenceValue uint32) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setStencilReferenceValue:"), referenceValue)
 	}
 
 // Assigns multiple sampler states to a range of entries in the tile shader
@@ -3196,56 +3349,63 @@ func (o MTLRenderCommandEncoderObject) SetTileTexturesWithRange(textures []MTLTe
 	objc.Send[struct{}](o.ID, objc.Sel("setTileTextures:withRange:"), textures, range_)
 	}
 
-// Assigns an intersection function table to an entry in the tile shader
-// argument table.
+// Assigns a visible function table to an entry in the tile shader argument
+// table.
 //
-// intersectionFunctionTable: An [MTLIntersectionFunctionTable] instance the command assigns to an entry
-// in the tile shader argument table for intersection function tables.
+// functionTable: An [MTLVisibleFunctionTable] instance the command assigns to an entry in
+// the tile shader argument table for visible function tables.
 //
 // bufferIndex: An integer that represents the entry in the tile shader argument table for
-// intersection function tables that stores a record of
-// `intersectionFunctionTable`.
+// visible function tables that stores a record of `functionTable`.
 //
 // # Discussion
 // 
-// By default, the intersection function table at each index is `nil`.
+// By default, the visible function table at each index is `nil`.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileIntersectionFunctionTable(_:bufferIndex:)
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileVisibleFunctionTable(_:bufferIndex:)
 
-func (o MTLRenderCommandEncoderObject) SetTileIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint) {
+func (o MTLRenderCommandEncoderObject) SetTileVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setTileIntersectionFunctionTable:atBufferIndex:"), intersectionFunctionTable, bufferIndex)
+	objc.Send[struct{}](o.ID, objc.Sel("setTileVisibleFunctionTable:atBufferIndex:"), functionTable, bufferIndex)
 	}
 
-// Assigns a sampler state and clamp values to an entry in the tile shader
-// argument table.
+// Assigns multiple visible function tables to a range of entries in the tile
+// shader argument table.
 //
-// sampler: An [MTLSamplerState] instance the command assigns to an entry in the tile
-// shader argument table for sampler states.
+// functionTables: A pointer to a C array of [MTLVisibleFunctionTable] instances the command
+// assigns to entries in the tile shader argument table for visible function
+// tables.
 //
-// lodMinClamp: The smallest level of detail value a tile shader can use when it samples a
-// texture.
-//
-// lodMaxClamp: The largest level of detail value a tile shader can use when it samples a
-// texture.
-//
-// index: An integer that represents the entry in the tile shader argument table for
-// sampler states that stores a record of `sampler`.
+// range: A span of integers that represent the entries in the tile shader argument
+// table for visible function tables. Each entry stores a record of the
+// corresponding element in `functionTables`.
 //
 // # Discussion
 // 
-// The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
-// default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
-// 
-// By default, the sampler state at each index is `nil`.
+// By default, the visible function table at each index is `nil`.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileSamplerState(_:lodMinClamp:lodMaxClamp:index:)
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileVisibleFunctionTables:withBufferRange:
 
-func (o MTLRenderCommandEncoderObject) SetTileSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
+func (o MTLRenderCommandEncoderObject) SetTileVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setTileSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
+	objc.Send[struct{}](o.ID, objc.Sel("setTileVisibleFunctionTables:withBufferRange:"), functionTables, range_)
+	}
+
+// Configures how subsequent draw commands rasterize triangle and triangle
+// strip primitives.
+//
+// fillMode: A triangle filling mode the render pass applies to draw commands that
+// rasterize triangles or triangle strips.
+//
+// # Discussion
+// 
+// The render pass’s default mode is [TriangleFillModeFill].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTriangleFillMode(_:)
+
+func (o MTLRenderCommandEncoderObject) SetTriangleFillMode(fillMode MTLTriangleFillMode) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setTriangleFillMode:"), fillMode)
 	}
 
 // Assigns an acceleration structure to an entry in the vertex shader argument
@@ -3267,74 +3427,6 @@ func (o MTLRenderCommandEncoderObject) SetTileSamplerStateLodMinClampLodMaxClamp
 func (o MTLRenderCommandEncoderObject) SetVertexAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexAccelerationStructure:atBufferIndex:"), accelerationStructure, bufferIndex)
-	}
-
-// Configures how subsequent draw commands rasterize triangle and triangle
-// strip primitives.
-//
-// fillMode: A triangle filling mode the render pass applies to draw commands that
-// rasterize triangles or triangle strips.
-//
-// # Discussion
-// 
-// The render pass’s default mode is [TriangleFillModeFill].
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTriangleFillMode(_:)
-
-func (o MTLRenderCommandEncoderObject) SetTriangleFillMode(fillMode MTLTriangleFillMode) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setTriangleFillMode:"), fillMode)
-	}
-
-// Assigns a visible function table to an entry in the tile shader argument
-// table.
-//
-// functionTable: An [MTLVisibleFunctionTable] instance the command assigns to an entry in
-// the tile shader argument table for visible function tables.
-//
-// bufferIndex: An integer that represents the entry in the tile shader argument table for
-// visible function tables that stores a record of `functionTable`.
-//
-// # Discussion
-// 
-// By default, the visible function table at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileVisibleFunctionTable(_:bufferIndex:)
-
-func (o MTLRenderCommandEncoderObject) SetTileVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setTileVisibleFunctionTable:atBufferIndex:"), functionTable, bufferIndex)
-	}
-
-// Assigns a sampler state and clamp values to an entry in the object shader
-// argument table.
-//
-// sampler: An [MTLSamplerState] instance the command assigns to an entry in the object
-// shader argument table for sampler states.
-//
-// lodMinClamp: The smallest level of detail value an object shader can use when it samples
-// a texture.
-//
-// lodMaxClamp: The largest level of detail value an object shader can use when it samples
-// a texture.
-//
-// index: An integer that represents the entry in the object argument table for
-// sampler states that stores a record of `sampler`.
-//
-// # Discussion
-// 
-// The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
-// default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
-// 
-// By default, the sampler state at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectSamplerState(_:lodMinClamp:lodMaxClamp:index:)
-
-func (o MTLRenderCommandEncoderObject) SetObjectSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
 	}
 
 // Configures the number of output vertices the render pipeline produces for
@@ -3368,26 +3460,8 @@ func (o MTLRenderCommandEncoderObject) SetVertexAmplificationCountViewMappings(c
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexAmplificationCount:viewMappings:"), count, viewMappings)
 	}
 
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:attributeStride:index:)
-
-func (o MTLRenderCommandEncoderObject) SetVertexBufferOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
-	}
-
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffers:offsets:attributeStrides:withRange:
-
-func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsAttributeStridesWithRange(buffers []MTLBuffer, offsets uint, strides uint, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBuffers:offsets:attributeStrides:withRange:"), buffers, offsets, strides, range_)
-	}
-
-// Assigns a buffer to an entry in the vertex shader argument table.
-//
-// buffer: An [MTLBuffer] instance the command assigns to an entry in the vertex
-// shader argument table for buffers.
+// Updates an entry in the vertex shader argument table with a new location
+// within the entry’s current buffer.
 //
 // offset: An integer that represents the location, in bytes, from the start of
 // `buffer` where the vertex shader argument data begins.
@@ -3398,90 +3472,47 @@ func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsAttributeStridesWi
 // [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
 //
 // index: An integer that represents the entry in the vertex shader argument table
-// for buffers that stores a record of `buffer` and `offset`.
+// for buffers that already stores a record of an [MTLBuffer].
 //
 // # Discussion
+// 
+// The command this method encodes changes the offset for a fragment buffer
+// that already has a previous assignment from one of your earlier commands.
+// 
+// For more information, see:
+// 
+// - [setVertexBuffer(_:offset:index:)] - [setVertexBuffers(_:offsets:range:)]
+// (Swift) - [SetVertexBuffersOffsetsWithRange] (Objective-C)
+// 
+// The command can also adjust the offset for an entry that you previously set
+// with the [SetVertexBytesLengthAtIndex] method.
 // 
 // By default, the buffer at each index is `nil`.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
+// [setVertexBuffers(_:offsets:range:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffers(_:offsets:range:)
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBufferOffset(_:index:)
 
-func (o MTLRenderCommandEncoderObject) SetVertexBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
+func (o MTLRenderCommandEncoderObject) SetVertexBufferOffsetAtIndex(offset uint, index uint) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBuffer:offset:atIndex:"), buffer, offset, index)
-	}
-
-// Assigns multiple visible function tables to a range of entries in the tile
-// shader argument table.
-//
-// functionTables: A pointer to a C array of [MTLVisibleFunctionTable] instances the command
-// assigns to entries in the tile shader argument table for visible function
-// tables.
-//
-// range: A span of integers that represent the entries in the tile shader argument
-// table for visible function tables. Each entry stores a record of the
-// corresponding element in `functionTables`.
-//
-// # Discussion
-// 
-// By default, the visible function table at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileVisibleFunctionTables:withBufferRange:
-
-func (o MTLRenderCommandEncoderObject) SetTileVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setTileVisibleFunctionTables:withBufferRange:"), functionTables, range_)
-	}
-
-// Assigns multiple intersection function tables to a range of entries in the
-// vertex shader argument table.
-//
-// intersectionFunctionTables: A pointer to a C array of [MTLIntersectionFunctionTable] instances the
-// command assigns to entries in the vertex shader argument table for
-// intersection function tables.
-//
-// range: A span of integers that represent the entries in the vertex shader argument
-// table for intersection function tables. Each entry stores a record of the
-// corresponding element in `intersectionFunctionTables`.
-//
-// # Discussion
-// 
-// By default, the intersection function table at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTables:withBufferRange:
-
-func (o MTLRenderCommandEncoderObject) SetVertexIntersectionFunctionTablesWithBufferRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexIntersectionFunctionTables:withBufferRange:"), intersectionFunctionTables, range_)
-	}
-
-// Assigns an intersection function table to an entry in the vertex shader
-// argument table.
-//
-// intersectionFunctionTable: An [MTLIntersectionFunctionTable] instance the command assigns to an entry
-// in the vertex shader argument table for intersection function tables.
-//
-// bufferIndex: An integer that represents the entry in the vertex shader argument table
-// for intersection function tables that stores a record of
-// `intersectionFunctionTable`.
-//
-// # Discussion
-// 
-// By default, the intersection function table at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTable(_:bufferIndex:)
-
-func (o MTLRenderCommandEncoderObject) SetVertexIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexIntersectionFunctionTable:atBufferIndex:"), intersectionFunctionTable, bufferIndex)
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBufferOffset:atIndex:"), offset, index)
 	}
 
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBufferOffset(offset:attributeStride:index:)
 
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
+func (o MTLRenderCommandEncoderObject) SetVertexBufferOffsetAttributeStrideAtIndex(offset uint, stride uint, index uint) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBufferOffset:attributeStride:atIndex:"), offset, stride, index)
+	}
+
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffers:offsets:attributeStrides:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsAttributeStridesWithRange(buffers []MTLBuffer, offsets uint, strides uint, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBuffers:offsets:attributeStrides:withRange:"), buffers, offsets, strides, range_)
 	}
 
 // Assigns multiple buffers to a range of entries in the vertex shader
@@ -3529,20 +3560,73 @@ func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsWithRange(buffers 
 // # Discussion
 // 
 // The method is equivalent to creating an [MTLBuffer] instance that contains
-// the same data as `bytes` and calling the [SetVertexBufferOffsetAtIndex]
+// the same data as `bytes` and calling the [setVertexBuffer(_:offset:index:)]
 // method. However, this method avoids the overhead of creating a buffer to
 // store your data; instead, Metal manages the data.
 // 
 // For data that’s more than 4 KB, create an [MTLBuffer] instance and pass
-// it to [SetVertexBufferOffsetAtIndex].
+// it to [setVertexBuffer(_:offset:index:)].
 // 
 // By default, the buffer at each index is `nil`.
+//
+// [setVertexBuffer(_:offset:index:)]: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBuffer(_:offset:index:)
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
 
 func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
+	}
+
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
+
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
+	}
+
+// Assigns an intersection function table to an entry in the vertex shader
+// argument table.
+//
+// intersectionFunctionTable: An [MTLIntersectionFunctionTable] instance the command assigns to an entry
+// in the vertex shader argument table for intersection function tables.
+//
+// bufferIndex: An integer that represents the entry in the vertex shader argument table
+// for intersection function tables that stores a record of
+// `intersectionFunctionTable`.
+//
+// # Discussion
+// 
+// By default, the intersection function table at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTable(_:bufferIndex:)
+
+func (o MTLRenderCommandEncoderObject) SetVertexIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexIntersectionFunctionTable:atBufferIndex:"), intersectionFunctionTable, bufferIndex)
+	}
+
+// Assigns multiple intersection function tables to a range of entries in the
+// vertex shader argument table.
+//
+// intersectionFunctionTables: A pointer to a C array of [MTLIntersectionFunctionTable] instances the
+// command assigns to entries in the vertex shader argument table for
+// intersection function tables.
+//
+// range: A span of integers that represent the entries in the vertex shader argument
+// table for intersection function tables. Each entry stores a record of the
+// corresponding element in `intersectionFunctionTables`.
+//
+// # Discussion
+// 
+// By default, the intersection function table at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexIntersectionFunctionTables:withBufferRange:
+
+func (o MTLRenderCommandEncoderObject) SetVertexIntersectionFunctionTablesWithBufferRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexIntersectionFunctionTables:withBufferRange:"), intersectionFunctionTables, range_)
 	}
 
 // Assigns a sampler state to an entry in the vertex shader argument table.
@@ -3564,25 +3648,35 @@ func (o MTLRenderCommandEncoderObject) SetVertexSamplerStateAtIndex(sampler MTLS
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexSamplerState:atIndex:"), sampler, index)
 	}
 
-// Assigns multiple sampler states to a range of entries in the vertex shader
+// Assigns a sampler state and clamp values to an entry in the vertex shader
 // argument table.
 //
-// samplers: A pointer to a C array of [MTLSamplerState] instances the command assigns
-// to entries in the vertex shader argument table for sampler states.
+// sampler: An [MTLSamplerState] instance the command assigns to an entry in the vertex
+// shader argument table for sampler states.
 //
-// range: A span of integers that represent the entries in the vertex shader argument
-// table for sampler states. Each entry stores a record of the corresponding
-// element in `samplers`.
+// lodMinClamp: The smallest level of detail value a vertex shader can use when it samples
+// a texture.
+//
+// lodMaxClamp: The largest level of detail value a vertex shader can use when it samples a
+// texture.
+//
+// index: An integer that represents the entry in the vertex shader argument table
+// for sampler states that stores a record of `sampler`.
 //
 // # Discussion
 // 
+// The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
+// default values for `sampler`. You can set the sampler’s default values by
+// configuring the [LodMinClamp] and [LodMaxClamp] properties of
+// [MTLSamplerDescriptor] before you create the sampler.
+// 
 // By default, the sampler state at each index is `nil`.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerStates:withRange:
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerState(_:lodMinClamp:lodMaxClamp:index:)
 
-func (o MTLRenderCommandEncoderObject) SetVertexSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
+func (o MTLRenderCommandEncoderObject) SetVertexSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexSamplerStates:withRange:"), samplers, range_)
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
 	}
 
 // Assigns multiple sampler states and clamp values to a range of entries in
@@ -3620,6 +3714,27 @@ func (o MTLRenderCommandEncoderObject) SetVertexSamplerStatesLodMinClampsLodMaxC
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), samplers, lodMinClamps, lodMaxClamps, range_)
 	}
 
+// Assigns multiple sampler states to a range of entries in the vertex shader
+// argument table.
+//
+// samplers: A pointer to a C array of [MTLSamplerState] instances the command assigns
+// to entries in the vertex shader argument table for sampler states.
+//
+// range: A span of integers that represent the entries in the vertex shader argument
+// table for sampler states. Each entry stores a record of the corresponding
+// element in `samplers`.
+//
+// # Discussion
+// 
+// By default, the sampler state at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerStates:withRange:
+
+func (o MTLRenderCommandEncoderObject) SetVertexSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexSamplerStates:withRange:"), samplers, range_)
+	}
+
 // Assigns a texture to an entry in the vertex shader argument table.
 //
 // texture: An [MTLTexture] instance the command assigns to an entry in the vertex
@@ -3639,30 +3754,25 @@ func (o MTLRenderCommandEncoderObject) SetVertexTextureAtIndex(texture MTLTextur
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexTexture:atIndex:"), texture, index)
 	}
 
-// Configures different comparison values for front- and back-facing
-// primitives.
+// Assigns multiple textures to a range of entries in the vertex shader
+// argument table.
 //
-// frontReferenceValue: A stencil test comparison value the render pipeline applies to only
-// front-facing primitives.
+// textures: A pointer to a C array of [MTLTexture] instances the command assigns to
+// entries in the vertex shader argument table for textures.
 //
-// backReferenceValue: A stencil test comparison value the render pipeline applies to only
-// back-facing primitives.
+// range: A span of integers that represent the entries in the vertex shader argument
+// table for textures. Each entry stores a record of the corresponding element
+// in `textures`.
 //
 // # Discussion
 // 
-// The command sets separate reference values for front- and back-facing
-// primitives (see [StencilCompareFunction], [FrontFaceStencil], and
-// [BackFaceStencil]). These reference values apply to the stencil state you
-// set with the [SetDepthStencilState] method.
-// 
-// The render pass’s default reference value for the front and back stencil
-// compare function is `0`.
+// By default, the texture at each index is `nil`.
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setStencilReferenceValues(front:back:)
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexTextures:withRange:
 
-func (o MTLRenderCommandEncoderObject) SetStencilFrontReferenceValueBackReferenceValue(frontReferenceValue uint32, backReferenceValue uint32) {
+func (o MTLRenderCommandEncoderObject) SetVertexTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setStencilFrontReferenceValue:backReferenceValue:"), frontReferenceValue, backReferenceValue)
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexTextures:withRange:"), textures, range_)
 	}
 
 // Assigns a visible function table to an entry in the vertex shader argument
@@ -3683,6 +3793,28 @@ func (o MTLRenderCommandEncoderObject) SetStencilFrontReferenceValueBackReferenc
 func (o MTLRenderCommandEncoderObject) SetVertexVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexVisibleFunctionTable:atBufferIndex:"), functionTable, bufferIndex)
+	}
+
+// Assigns multiple visible function tables to a range of entries in the
+// vertex shader argument table.
+//
+// functionTables: A pointer to a C array of [MTLVisibleFunctionTable] instances the command
+// assigns to entries in the vertex shader argument table for visible function
+// tables.
+//
+// range: A span of integers that represent the entries in the vertex shader argument
+// table for visible function tables. Each entry stores a record of the
+// corresponding element in `functionTables`.
+//
+// # Discussion
+// 
+// By default, the visible function table at each index is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexVisibleFunctionTables:withBufferRange:
+
+func (o MTLRenderCommandEncoderObject) SetVertexVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexVisibleFunctionTables:withBufferRange:"), functionTables, range_)
 	}
 
 // Configures the render pipeline with a viewport that applies a
@@ -3721,71 +3853,6 @@ func (o MTLRenderCommandEncoderObject) SetVertexVisibleFunctionTableAtBufferInde
 func (o MTLRenderCommandEncoderObject) SetViewport(viewport MTLViewport) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setViewport:"), viewport)
-	}
-
-// Assigns a sampler state and clamp values to an entry in the vertex shader
-// argument table.
-//
-// sampler: An [MTLSamplerState] instance the command assigns to an entry in the vertex
-// shader argument table for sampler states.
-//
-// lodMinClamp: The smallest level of detail value a vertex shader can use when it samples
-// a texture.
-//
-// lodMaxClamp: The largest level of detail value a vertex shader can use when it samples a
-// texture.
-//
-// index: An integer that represents the entry in the vertex shader argument table
-// for sampler states that stores a record of `sampler`.
-//
-// # Discussion
-// 
-// The method’s `lodMinClamp` and `lodMaxClamp` parameters override the
-// default values for `sampler`. You can set the sampler’s default values by
-// configuring the [LodMinClamp] and [LodMaxClamp] properties of
-// [MTLSamplerDescriptor] before you create the sampler.
-// 
-// By default, the sampler state at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexSamplerState(_:lodMinClamp:lodMaxClamp:index:)
-
-func (o MTLRenderCommandEncoderObject) SetVertexSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
-	}
-
-// Configures which visibility test the GPU runs and the destination for any
-// results it generates.
-//
-// mode: An [MTLVisibilityResultMode] that configures which visibility test results
-// the render pass saves to a buffer, or disables visibility testing.
-// //
-// [MTLVisibilityResultMode]: https://developer.apple.com/documentation/Metal/MTLVisibilityResultMode
-//
-// offset: A location, in bytes, relative to the start of the render pass’s
-// [VisibilityResultBuffer]. The GPU stores the result of a visibility test at
-// `offset`, which needs to be a multiple of 8.
-//
-// # Discussion
-// 
-// To create a render pass that can enable visibility testing, assign an
-// [MTLBuffer] instance to the [VisibilityResultBuffer] property of an
-// [MTLRenderPassDescriptor].
-// 
-// You can monitor one or more drawing commands with a visibility test by
-// calling this method before the drawing commands. The encoder uses the new
-// visibility mode and offset for subsequent drawing commands until you change
-// the configuration by calling the method again. For example, you can change
-// the offset or entirely disable visibility tests for subsequent commands by
-// passing [VisibilityResultModeDisabled].
-// 
-// The default mode for a render pass is [VisibilityResultModeDisabled].
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVisibilityResultMode(_:offset:)
-
-func (o MTLRenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVisibilityResultMode, offset uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVisibilityResultMode:offset:"), mode, offset)
 	}
 
 // Configures the render pipeline with multiple viewports that apply
@@ -3850,47 +3917,38 @@ func (o MTLRenderCommandEncoderObject) SetViewportsCount(viewports []MTLViewport
 	objc.Send[struct{}](o.ID, objc.Sel("setViewports:count:"), objc.CArray(viewports), count)
 	}
 
-// Assigns multiple visible function tables to a range of entries in the
-// vertex shader argument table.
+// Configures which visibility test the GPU runs and the destination for any
+// results it generates.
 //
-// functionTables: A pointer to a C array of [MTLVisibleFunctionTable] instances the command
-// assigns to entries in the vertex shader argument table for visible function
-// tables.
+// mode: An [MTLVisibilityResultMode] that configures which visibility test results
+// the render pass saves to a buffer, or disables visibility testing.
+// //
+// [MTLVisibilityResultMode]: https://developer.apple.com/documentation/Metal/MTLVisibilityResultMode
 //
-// range: A span of integers that represent the entries in the vertex shader argument
-// table for visible function tables. Each entry stores a record of the
-// corresponding element in `functionTables`.
-//
-// # Discussion
-// 
-// By default, the visible function table at each index is `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexVisibleFunctionTables:withBufferRange:
-
-func (o MTLRenderCommandEncoderObject) SetVertexVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexVisibleFunctionTables:withBufferRange:"), functionTables, range_)
-	}
-
-// Assigns multiple textures to a range of entries in the vertex shader
-// argument table.
-//
-// textures: A pointer to a C array of [MTLTexture] instances the command assigns to
-// entries in the vertex shader argument table for textures.
-//
-// range: A span of integers that represent the entries in the vertex shader argument
-// table for textures. Each entry stores a record of the corresponding element
-// in `textures`.
+// offset: A location, in bytes, relative to the start of the render pass’s
+// [VisibilityResultBuffer]. The GPU stores the result of a visibility test at
+// `offset`, which needs to be a multiple of 8.
 //
 // # Discussion
 // 
-// By default, the texture at each index is `nil`.
+// To create a render pass that can enable visibility testing, assign an
+// [MTLBuffer] instance to the [VisibilityResultBuffer] property of an
+// [MTLRenderPassDescriptor].
+// 
+// You can monitor one or more drawing commands with a visibility test by
+// calling this method before the drawing commands. The encoder uses the new
+// visibility mode and offset for subsequent drawing commands until you change
+// the configuration by calling the method again. For example, you can change
+// the offset or entirely disable visibility tests for subsequent commands by
+// passing [VisibilityResultModeDisabled].
+// 
+// The default mode for a render pass is [VisibilityResultModeDisabled].
 //
-// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexTextures:withRange:
+// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVisibilityResultMode(_:offset:)
 
-func (o MTLRenderCommandEncoderObject) SetVertexTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
+func (o MTLRenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVisibilityResultMode, offset uint) {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexTextures:withRange:"), textures, range_)
+	objc.Send[struct{}](o.ID, objc.Sel("setVisibilityResultMode:offset:"), mode, offset)
 	}
 
 // Ensures the shaders in the render pass’s subsequent draw commands have

@@ -342,9 +342,9 @@ type INSAppleEventDescriptor interface {
 
 	SendEventWithOptionsTimeoutError(sendOptions NSAppleEventSendOptions, timeoutInSeconds float64) (INSAppleEventDescriptor, error)
 
-	InitWithCoder(coder INSCoder) NSAppleEventDescriptor
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSAppleEventDescriptor
 }
 
 
@@ -1036,13 +1036,6 @@ func (a NSAppleEventDescriptor) SendEventWithOptionsTimeoutError(sendOptions NSA
 
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (a NSAppleEventDescriptor) InitWithCoder(coder INSCoder) NSAppleEventDescriptor {
-	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1050,6 +1043,13 @@ func (a NSAppleEventDescriptor) InitWithCoder(coder INSCoder) NSAppleEventDescri
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (a NSAppleEventDescriptor) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (a NSAppleEventDescriptor) InitWithCoder(coder INSCoder) NSAppleEventDescriptor {
+	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

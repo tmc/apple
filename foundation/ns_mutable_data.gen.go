@@ -761,22 +761,6 @@ func (m NSMutableData) DecompressUsingAlgorithmError(algorithm NSDataCompression
 
 
 
-// Creates and returns an mutable data object containing a given number of
-// zeroed bytes.
-//
-// length: The number of bytes the new data object initially contains.
-//
-// # Return Value
-// 
-// A new [NSMutableData] object of `length` bytes, filled with zeros. The
-// returned object has the same memory alignment guarantees as `malloc(_:)`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSMutableData/dataWithLength:
-func (_NSMutableDataClass NSMutableDataClass) DataWithLength(length uint) NSMutableData {
-	rv := objc.Send[objc.ID](objc.ID(_NSMutableDataClass.class), objc.Sel("dataWithLength:"), length)
-	return NSMutableDataFromID(rv)
-}
-
 // Creates and returns a mutable data object capable of holding the specified
 // number of bytes.
 //
@@ -804,6 +788,22 @@ func (_NSMutableDataClass NSMutableDataClass) DataWithLength(length uint) NSMuta
 // See: https://developer.apple.com/documentation/Foundation/NSMutableData/dataWithCapacity:
 func (_NSMutableDataClass NSMutableDataClass) DataWithCapacity(aNumItems uint) NSMutableData {
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableDataClass.class), objc.Sel("dataWithCapacity:"), aNumItems)
+	return NSMutableDataFromID(rv)
+}
+
+// Creates and returns an mutable data object containing a given number of
+// zeroed bytes.
+//
+// length: The number of bytes the new data object initially contains.
+//
+// # Return Value
+// 
+// A new [NSMutableData] object of `length` bytes, filled with zeros. The
+// returned object has the same memory alignment guarantees as `malloc(_:)`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSMutableData/dataWithLength:
+func (_NSMutableDataClass NSMutableDataClass) DataWithLength(length uint) NSMutableData {
+	rv := objc.Send[objc.ID](objc.ID(_NSMutableDataClass.class), objc.Sel("dataWithLength:"), length)
 	return NSMutableDataFromID(rv)
 }
 

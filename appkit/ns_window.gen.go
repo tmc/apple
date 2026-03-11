@@ -1013,8 +1013,8 @@ func NSWindowFromID(id objc.ID) NSWindow {
 // See: https://developer.apple.com/documentation/AppKit/NSWindow
 type INSWindow interface {
 	INSResponder
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSMenuItemValidation
 	NSUserInterfaceItemIdentification
@@ -1718,8 +1718,6 @@ type INSWindow interface {
 	RequestSharingOfWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler)
 	RequestSharingOfWindowUsingPreviewTitleCompletionHandler(image INSImage, title string, completionHandler ErrorHandler)
 
-	// Name of an exception that occurs when you pass an invalid argument to a method, such as a `nil` pointer where a non-`nil` object is required.
-	InvalidArgumentException() foundation.NSString
 	// The location of the window’s backing store.
 	BackingLocation() objectivec.IObject
 	SetBackingLocation(value objectivec.IObject)
@@ -1729,6 +1727,8 @@ type INSWindow interface {
 	// The graphics context associated with the window for the current thread.
 	GraphicsContext() INSGraphicsContext
 	SetGraphicsContext(value INSGraphicsContext)
+	// Name of an exception that occurs when you pass an invalid argument to a method, such as a `nil` pointer where a non-`nil` object is required.
+	InvalidArgumentException() foundation.NSString
 	// A Boolean value that indicates whether the window automatically displays views that need to be displayed.
 	IsAutodisplay() bool
 	SetIsAutodisplay(value bool)
@@ -1747,10 +1747,10 @@ type INSWindow interface {
 	// The Carbon window reference associated with the window, creating one if necessary.
 	WindowRef() WindowRef
 	SetWindowRef(value WindowRef)
-	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
-	Animator() INSWindow
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
+	Animator() INSWindow
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -4224,32 +4224,6 @@ func (w NSWindow) RequestSharingOfWindowUsingPreviewTitleCompletionHandler(image
 		objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindowUsingPreview:title:completionHandler:"), image, objc.String(title), _block2)
 }
 
-// Returns a proxy object for the receiver that can be used to initiate
-// implied animation for property changes.
-//
-// # Return Value
-// 
-// Returns a proxy object for the receiver that can initiate implied
-// animations in response to property changes.
-//
-// # Discussion
-// 
-// The animator proxy object should be treated as if it was the receiver
-// itself, and may be passed to any code that accepts the receiver as a
-// parameter.
-// 
-// Sending key-value coding compliant “set” messages to the proxy will
-// trigger animation for automatically animated properties of its target
-// object, if the active [NSAnimationContext] in the current thread has a
-// duration value greater than zero, and an animation for the property key is
-// found by the [NSAnimatablePropertyContainer] search mechanism.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (w NSWindow) Animator() INSWindow {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("animator"))
-	return NSWindowFromID(rv)
-}
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -4281,6 +4255,32 @@ func (w NSWindow) Animator() INSWindow {
 func (w NSWindow) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
+}
+
+// Returns a proxy object for the receiver that can be used to initiate
+// implied animation for property changes.
+//
+// # Return Value
+// 
+// Returns a proxy object for the receiver that can initiate implied
+// animations in response to property changes.
+//
+// # Discussion
+// 
+// The animator proxy object should be treated as if it was the receiver
+// itself, and may be passed to any code that accepts the receiver as a
+// parameter.
+// 
+// Sending key-value coding compliant “set” messages to the proxy will
+// trigger animation for automatically animated properties of its target
+// object, if the active [NSAnimationContext] in the current thread has a
+// duration value greater than zero, and an animation for the property key is
+// found by the [NSAnimatablePropertyContainer] search mechanism.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
+func (w NSWindow) Animator() INSWindow {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("animator"))
+	return NSWindowFromID(rv)
 }
 
 // Implemented to override the default action of enabling or disabling a
@@ -6956,13 +6956,36 @@ func (w NSWindow) CascadingReferenceFrame() corefoundation.CGRect {
 
 
 
-// Name of an exception that occurs when you pass an invalid argument to a
-// method, such as a `nil` pointer where a non-`nil` object is required.
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
-func (w NSWindow) InvalidArgumentException() foundation.NSString {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("invalidArgumentException"))
-	return foundation.NSStringFromID(objc.ID(rv))
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (w NSWindow) Animations() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("animations"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+func (w NSWindow) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](w.ID, objc.Sel("setAnimations:"), value)
+}
+
+
+
+// The appearance of the receiver, in an [NSAppearance] object.
+//
+// # Discussion
+// 
+// The default value for this property is `nil`, which means that the receiver
+// uses the appearance it inherits from the nearest ancestor that has set an
+// appearance. When you set `appearance` to a non-`nil` value, the receiver
+// and the views it contains use the specified appearance.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
+func (w NSWindow) Appearance() INSAppearance {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("appearance"))
+	return NSAppearanceFromID(objc.ID(rv))
+}
+func (w NSWindow) SetAppearance(value INSAppearance) {
+	objc.Send[struct{}](w.ID, objc.Sel("setAppearance:"), value)
 }
 
 
@@ -6993,6 +7016,25 @@ func (w NSWindow) SetDrawers(value objc.ID) {
 
 
 
+// The appearance that will be used when the receiver is drawn onscreen, in an
+// [NSAppearance] object. (read-only)
+//
+// # Discussion
+// 
+// The default value for this property is provided by the nearest ancestor of
+// the receiver that has set an appearance.
+// 
+// You can use this property to ensure that an offscreen view sets the
+// appropriate current appearance when it draws onscreen.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
+func (w NSWindow) EffectiveAppearance() INSAppearance {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("effectiveAppearance"))
+	return NSAppearanceFromID(objc.ID(rv))
+}
+
+
+
 // The graphics context associated with the window for the current thread.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/graphicscontext
@@ -7002,6 +7044,57 @@ func (w NSWindow) GraphicsContext() INSGraphicsContext {
 }
 func (w NSWindow) SetGraphicsContext(value INSGraphicsContext) {
 	objc.Send[struct{}](w.ID, objc.Sel("setGraphicsContext:"), value)
+}
+
+
+
+// A string that identifies the user interface item.
+//
+// # Discussion
+// 
+// Identifiers are used during window restoration operations to uniquely
+// identify the windows of the application. You can set the value of this
+// string programmatically or in Interface Builder. If you create an item in
+// Interface Builder and do not set a value for this string, a unique value is
+// created for the item when the nib file is loaded. For programmatically
+// created views, you typically set this value after creating the item but
+// before adding it to a window.
+// 
+// You should not change the value of a window’s identifier after adding any
+// views to the window. For views and controls in a window, the value you
+// specify for this string must be unique on a per-window basis.
+// 
+// The slash (`/`), backslash (`\`), or colon (`:`) characters are reserved
+// and must not be used in your custom identifiers. Similarly, Apple reserves
+// all identifiers beginning with an underscore (`_`) character. Applications
+// and frameworks should use a consistent prefix for their identifiers to
+// avoid collisions with other frameworks. For a list of prefixes used by the
+// system frameworks, see [OS X Frameworks] in [Mac Technology Overview].
+// 
+// If you are subclassing a class from one of the system frameworks, do not
+// override the accessor methods of this protocol.
+//
+// [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
+// [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
+//
+// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
+func (w NSWindow) Identifier() NSUserInterfaceItemIdentifier {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("identifier"))
+	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
+}
+func (w NSWindow) SetIdentifier(value NSUserInterfaceItemIdentifier) {
+	objc.Send[struct{}](w.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
+}
+
+
+
+// Name of an exception that occurs when you pass an invalid argument to a
+// method, such as a `nil` pointer where a non-`nil` object is required.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
+func (w NSWindow) InvalidArgumentException() foundation.NSString {
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("invalidArgumentException"))
+	return foundation.NSStringFromID(objc.ID(rv))
 }
 
 
@@ -7086,99 +7179,6 @@ func (w NSWindow) WindowRef() WindowRef {
 }
 func (w NSWindow) SetWindowRef(value WindowRef) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindowRef:"), value)
-}
-
-
-
-// Sets the option dictionary that maps event trigger keys to animation
-// objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-func (w NSWindow) Animations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("animations"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-func (w NSWindow) SetAnimations(value foundation.INSDictionary) {
-	objc.Send[struct{}](w.ID, objc.Sel("setAnimations:"), value)
-}
-
-
-
-// The appearance of the receiver, in an [NSAppearance] object.
-//
-// # Discussion
-// 
-// The default value for this property is `nil`, which means that the receiver
-// uses the appearance it inherits from the nearest ancestor that has set an
-// appearance. When you set `appearance` to a non-`nil` value, the receiver
-// and the views it contains use the specified appearance.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
-func (w NSWindow) Appearance() INSAppearance {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("appearance"))
-	return NSAppearanceFromID(objc.ID(rv))
-}
-func (w NSWindow) SetAppearance(value INSAppearance) {
-	objc.Send[struct{}](w.ID, objc.Sel("setAppearance:"), value)
-}
-
-
-
-// The appearance that will be used when the receiver is drawn onscreen, in an
-// [NSAppearance] object. (read-only)
-//
-// # Discussion
-// 
-// The default value for this property is provided by the nearest ancestor of
-// the receiver that has set an appearance.
-// 
-// You can use this property to ensure that an offscreen view sets the
-// appropriate current appearance when it draws onscreen.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
-func (w NSWindow) EffectiveAppearance() INSAppearance {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("effectiveAppearance"))
-	return NSAppearanceFromID(objc.ID(rv))
-}
-
-
-
-// A string that identifies the user interface item.
-//
-// # Discussion
-// 
-// Identifiers are used during window restoration operations to uniquely
-// identify the windows of the application. You can set the value of this
-// string programmatically or in Interface Builder. If you create an item in
-// Interface Builder and do not set a value for this string, a unique value is
-// created for the item when the nib file is loaded. For programmatically
-// created views, you typically set this value after creating the item but
-// before adding it to a window.
-// 
-// You should not change the value of a window’s identifier after adding any
-// views to the window. For views and controls in a window, the value you
-// specify for this string must be unique on a per-window basis.
-// 
-// The slash (`/`), backslash (`\`), or colon (`:`) characters are reserved
-// and must not be used in your custom identifiers. Similarly, Apple reserves
-// all identifiers beginning with an underscore (`_`) character. Applications
-// and frameworks should use a consistent prefix for their identifiers to
-// avoid collisions with other frameworks. For a list of prefixes used by the
-// system frameworks, see [OS X Frameworks] in [Mac Technology Overview].
-// 
-// If you are subclassing a class from one of the system frameworks, do not
-// override the accessor methods of this protocol.
-//
-// [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
-// [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
-//
-// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
-func (w NSWindow) Identifier() NSUserInterfaceItemIdentifier {
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("identifier"))
-	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
-}
-func (w NSWindow) SetIdentifier(value NSUserInterfaceItemIdentifier) {
-	objc.Send[struct{}](w.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
 
 

@@ -147,9 +147,9 @@ type IFormatter interface {
 	// This method should be implemented in subclasses that want to validate user changes to a string in a field, where the user changes are not necessarily at the end of the string, and preserve the selection (or set a different one, such as selecting the erroneous part of the string the user has typed).
 	IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription(partialStringPtr string, proposedSelRangePtr NSRangePointer, origString string, origSelRange NSRange, error_ string) bool
 
-	InitWithCoder(coder INSCoder) Formatter
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) Formatter
 }
 
 
@@ -438,13 +438,6 @@ func (f Formatter) IsPartialStringValidProposedSelectedRangeOriginalStringOrigin
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (f Formatter) InitWithCoder(coder INSCoder) Formatter {
-	rv := objc.Send[Formatter](f.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -452,6 +445,13 @@ func (f Formatter) InitWithCoder(coder INSCoder) Formatter {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (f Formatter) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (f Formatter) InitWithCoder(coder INSCoder) Formatter {
+	rv := objc.Send[Formatter](f.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

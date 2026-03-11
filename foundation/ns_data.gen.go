@@ -345,9 +345,9 @@ type INSData interface {
 	InitWithContentsOfURL(url INSURL) NSData
 	InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error)
 
-	InitWithCoder(coder INSCoder) NSData
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSData
 }
 
 
@@ -1246,13 +1246,6 @@ func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NS
 
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (d NSData) InitWithCoder(coder INSCoder) NSData {
-	rv := objc.Send[NSData](d.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1260,6 +1253,13 @@ func (d NSData) InitWithCoder(coder INSCoder) NSData {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (d NSData) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (d NSData) InitWithCoder(coder INSCoder) NSData {
+	rv := objc.Send[NSData](d.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 
@@ -1278,6 +1278,41 @@ func (d NSData) EncodeWithCoder(coder INSCoder) {
 // See: https://developer.apple.com/documentation/Foundation/NSData/data
 func (_NSDataClass NSDataClass) Data() NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("data"))
+	return NSDataFromID(rv)
+}
+
+// Creates a data object containing a given number of bytes copied from a
+// given buffer.
+//
+// bytes: A buffer containing data for the new object.
+//
+// length: The number of bytes to copy from `bytes`. This value must not exceed the
+// length of `bytes`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/dataWithBytes:length:
+func (_NSDataClass NSDataClass) DataWithBytesLength(bytes []byte) NSData {
+	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
+	return NSDataFromID(rv)
+}
+
+// Creates a data object that holds a given number of bytes from a given
+// buffer.
+//
+// bytes: A buffer containing data for the new object. `bytes` must point to a memory
+// block allocated with `malloc`.
+//
+// length: The number of bytes to hold from `bytes`. This value must not exceed the
+// length of `bytes`.
+//
+// # Discussion
+// 
+// The returned object takes ownership of the `bytes` pointer and frees it on
+// deallocation. Therefore, `bytes` must point to a memory block allocated
+// with `malloc`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSData/dataWithBytesNoCopy:length:
+func (_NSDataClass NSDataClass) DataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSData {
+	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytesNoCopy:length:"), bytes, length)
 	return NSDataFromID(rv)
 }
 
@@ -1326,25 +1361,33 @@ func (_NSDataClass NSDataClass) DataWithContentsOfFile(path string) NSData {
 	return NSDataFromID(rv)
 }
 
-// Creates a data object that holds a given number of bytes from a given
-// buffer.
+// Creates a data object by reading every byte from the file at a given path.
 //
-// bytes: A buffer containing data for the new object. `bytes` must point to a memory
-// block allocated with `malloc`.
+// path: The absolute path of the file from which to read data.
 //
-// length: The number of bytes to hold from `bytes`. This value must not exceed the
-// length of `bytes`.
+// readOptionsMask: A mask that specifies options for reading the data. Constant components are
+// described in [NSData.ReadingOptions].
+// //
+// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
+//
+// errorPtr: If an error occurs, upon return contains an error object that describes the
+// problem.
 //
 // # Discussion
 // 
-// The returned object takes ownership of the `bytes` pointer and frees it on
-// deallocation. Therefore, `bytes` must point to a memory block allocated
-// with `malloc`.
+// This method returns `nil` if the data object could not be created. In this
+// case, `errorPtr` will contain an [NSError] indicating the problem.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSData/dataWithBytesNoCopy:length:
-func (_NSDataClass NSDataClass) DataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSData {
-	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytesNoCopy:length:"), bytes, length)
-	return NSDataFromID(rv)
+// See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfFile:options:error:
+func (_NSDataClass NSDataClass) DataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataReadingOptions) (NSData, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfFile:options:error:"), objc.String(path), readOptionsMask, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSData{}, NSErrorFrom(errorPtr)
+	}
+	return NSDataFromID(rv), nil
+
 }
 
 //
@@ -1375,49 +1418,6 @@ func (_NSDataClass NSDataClass) DataWithContentsOfURLOptionsError(url INSURL, re
 func (_NSDataClass NSDataClass) DataWithData(data INSData) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithData:"), data)
 	return NSDataFromID(rv)
-}
-
-// Creates a data object containing a given number of bytes copied from a
-// given buffer.
-//
-// bytes: A buffer containing data for the new object.
-//
-// length: The number of bytes to copy from `bytes`. This value must not exceed the
-// length of `bytes`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/dataWithBytes:length:
-func (_NSDataClass NSDataClass) DataWithBytesLength(bytes []byte) NSData {
-	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
-	return NSDataFromID(rv)
-}
-
-// Creates a data object by reading every byte from the file at a given path.
-//
-// path: The absolute path of the file from which to read data.
-//
-// readOptionsMask: A mask that specifies options for reading the data. Constant components are
-// described in [NSData.ReadingOptions].
-// //
-// [NSData.ReadingOptions]: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
-//
-// errorPtr: If an error occurs, upon return contains an error object that describes the
-// problem.
-//
-// # Discussion
-// 
-// This method returns `nil` if the data object could not be created. In this
-// case, `errorPtr` will contain an [NSError] indicating the problem.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfFile:options:error:
-func (_NSDataClass NSDataClass) DataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataReadingOptions) (NSData, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfFile:options:error:"), objc.String(path), readOptionsMask, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSData{}, NSErrorFrom(errorPtr)
-	}
-	return NSDataFromID(rv), nil
-
 }
 
 

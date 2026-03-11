@@ -100,11 +100,11 @@ type INSDecimalNumberHandler interface {
 	// The rounding increment used by the receiver.
 	RoundingIncrement() INSNumber
 	SetRoundingIncrement(value INSNumber)
-	InitWithCoder(coder INSCoder) NSDecimalNumberHandler
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
 	// Specifies what an [NSDecimalNumber] object will do when it encounters an error.
 	ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber
+	InitWithCoder(coder INSCoder) NSDecimalNumberHandler
 	// Returns the number of digits allowed after the decimal separator.
 	Scale() int16
 }
@@ -251,13 +251,6 @@ func (d NSDecimalNumberHandler) InitWithRoundingModeScaleRaiseOnExactnessRaiseOn
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (d NSDecimalNumberHandler) InitWithCoder(coder INSCoder) NSDecimalNumberHandler {
-	rv := objc.Send[NSDecimalNumberHandler](d.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -309,6 +302,13 @@ func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (d NSDecimalNumberHandler) InitWithCoder(coder INSCoder) NSDecimalNumberHandler {
+	rv := objc.Send[NSDecimalNumberHandler](d.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Returns the number of digits allowed after the decimal separator.

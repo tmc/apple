@@ -117,9 +117,9 @@ type INSExtensionItem interface {
 	AttributedContentText() INSAttributedString
 	SetAttributedContentText(value INSAttributedString)
 
-	InitWithCoder(coder INSCoder) NSExtensionItem
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSExtensionItem
 }
 
 
@@ -164,13 +164,6 @@ func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
 
 
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
-	rv := objc.Send[NSExtensionItem](e.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -178,6 +171,13 @@ func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (e NSExtensionItem) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
+	rv := objc.Send[NSExtensionItem](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

@@ -140,7 +140,7 @@ type INSDataAsset interface {
 	// Initializes and returns an object with a reference to the named data asset in an asset catalog.
 	InitWithName(name NSDataAssetName) NSDataAsset
 	// Initializes and returns an object with a reference to the named data asset that’s in an asset catalog in the specified bundle.
-	InitWithNameBundle(name NSDataAssetName, bundle *foundation.NSBundle) NSDataAsset
+	InitWithNameBundle(name NSDataAssetName, bundle foundation.NSBundle) NSDataAsset
 
 	// Topic: Accessing data
 
@@ -233,7 +233,7 @@ func NewDataAssetWithName(name NSDataAssetName) NSDataAsset {
 // `bundle` parameter for the named data set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDataAsset/init(name:bundle:)
-func NewDataAssetWithNameBundle(name NSDataAssetName, bundle *foundation.NSBundle) NSDataAsset {
+func NewDataAssetWithNameBundle(name NSDataAssetName, bundle foundation.NSBundle) NSDataAsset {
 	instance := getNSDataAssetClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:bundle:"), objc.String(string(name)), bundle)
 	return NSDataAssetFromID(rv)
@@ -293,7 +293,7 @@ func (d NSDataAsset) InitWithName(name NSDataAssetName) NSDataAsset {
 // `bundle` parameter for the named data set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDataAsset/init(name:bundle:)
-func (d NSDataAsset) InitWithNameBundle(name NSDataAssetName, bundle *foundation.NSBundle) NSDataAsset {
+func (d NSDataAsset) InitWithNameBundle(name NSDataAssetName, bundle foundation.NSBundle) NSDataAsset {
 	rv := objc.Send[NSDataAsset](d.ID, objc.Sel("initWithName:bundle:"), objc.String(string(name)), bundle)
 	return rv
 }

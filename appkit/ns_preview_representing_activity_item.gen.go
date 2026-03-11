@@ -293,16 +293,6 @@ func (p NSPreviewRepresentingActivityItem) ImageProvider() foundation.NSItemProv
 
 
 
-// A localized string that contains the name of the item.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title
-func (p NSPreviewRepresentingActivityItem) Title() string {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("title"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-
-
 // The app-specific item you want to share.
 //
 // # Discussion
@@ -317,6 +307,16 @@ func (p NSPreviewRepresentingActivityItem) Title() string {
 func (p NSPreviewRepresentingActivityItem) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
+}
+
+
+
+// A localized string that contains the name of the item.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title
+func (p NSPreviewRepresentingActivityItem) Title() string {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("title"))
+	return foundation.NSStringFromID(rv).String()
 }
 
 

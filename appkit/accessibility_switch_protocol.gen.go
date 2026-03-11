@@ -15,6 +15,7 @@ import (
 type NSAccessibilitySwitch interface {
 	objectivec.IObject
 	NSAccessibilityButton
+	NSAccessibilityElementProtocol
 
 	// Returns the switch’s value.
 	//

@@ -64,15 +64,15 @@ type MTL4CommandQueue interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:
 	CommitCount(commandBuffers []MTL4CommandBuffer, count uint)
 
-	// Copies multiple offsets within a source placement sparse buffer to a destination placement sparse buffer.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
-	CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint)
-
 	// Enqueues an array of command buffer instances for execution with a set of options.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:options:
 	CommitCountOptions(commandBuffers []MTL4CommandBuffer, count uint, options IMTL4CommitOptions)
+
+	// Copies multiple offsets within a source placement sparse buffer to a destination placement sparse buffer.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
+	CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint)
 
 	// Copies multiple regions within a source placement sparse texture to a destination placement sparse texture.
 	//
@@ -310,36 +310,6 @@ func (o MTL4CommandQueueObject) CommitCount(commandBuffers []MTL4CommandBuffer, 
 	objc.Send[struct{}](o.ID, objc.Sel("commit:count:"), objc.CArray(commandBuffers), count)
 	}
 
-// Copies multiple offsets within a source placement sparse buffer to a
-// destination placement sparse buffer.
-//
-// sourceBuffer: The source placement sparse [MTLBuffer].
-//
-// destinationBuffer: The destination placement sparse [MTLBuffer].
-//
-// operations: An array of [MTL4CopySparseBufferMappingOperation] instances to perform.
-// //
-// [MTL4CopySparseBufferMappingOperation]: https://developer.apple.com/documentation/Metal/MTL4CopySparseBufferMappingOperation
-//
-// count: Number of operations to perform.
-//
-// # Discussion
-// 
-// You are responsible for ensuring the source destination sparse buffers have
-// the same `placementSparsePageSize` when you create them via
-// [NewBufferWithLengthOptionsPlacementSparsePageSize].
-// 
-// Additionally, you are responsible for ensuring both the source and
-// destination sparse buffers don’t use the same aliased tiles at the same
-// time.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
-
-func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("copyBufferMappingsFromBuffer:toBuffer:operations:count:"), sourceBuffer, destinationBuffer, objc.CArray(operations), count)
-	}
-
 // Enqueues an array of command buffer instances for execution with a set of
 // options.
 //
@@ -374,6 +344,36 @@ func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCo
 func (o MTL4CommandQueueObject) CommitCountOptions(commandBuffers []MTL4CommandBuffer, count uint, options IMTL4CommitOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("commit:count:options:"), objc.CArray(commandBuffers), count, options)
+	}
+
+// Copies multiple offsets within a source placement sparse buffer to a
+// destination placement sparse buffer.
+//
+// sourceBuffer: The source placement sparse [MTLBuffer].
+//
+// destinationBuffer: The destination placement sparse [MTLBuffer].
+//
+// operations: An array of [MTL4CopySparseBufferMappingOperation] instances to perform.
+// //
+// [MTL4CopySparseBufferMappingOperation]: https://developer.apple.com/documentation/Metal/MTL4CopySparseBufferMappingOperation
+//
+// count: Number of operations to perform.
+//
+// # Discussion
+// 
+// You are responsible for ensuring the source destination sparse buffers have
+// the same `placementSparsePageSize` when you create them via
+// [NewBufferWithLengthOptionsPlacementSparsePageSize].
+// 
+// Additionally, you are responsible for ensuring both the source and
+// destination sparse buffers don’t use the same aliased tiles at the same
+// time.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
+
+func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("copyBufferMappingsFromBuffer:toBuffer:operations:count:"), sourceBuffer, destinationBuffer, objc.CArray(operations), count)
 	}
 
 // Copies multiple regions within a source placement sparse texture to a

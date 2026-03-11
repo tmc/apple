@@ -83,9 +83,9 @@ type INSNull interface {
 	// A value indicating that a requested item couldn’t be found or doesn’t exist.
 	NSNotFound() int
 	SetNSNotFound(value int)
-	InitWithCoder(coder INSCoder) NSNull
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSNull
 }
 
 
@@ -130,13 +130,6 @@ func NewNullWithCoder(coder INSCoder) NSNull {
 
 
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (n NSNull) InitWithCoder(coder INSCoder) NSNull {
-	rv := objc.Send[NSNull](n.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -144,6 +137,13 @@ func (n NSNull) InitWithCoder(coder INSCoder) NSNull {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (n NSNull) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (n NSNull) InitWithCoder(coder INSCoder) NSNull {
+	rv := objc.Send[NSNull](n.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

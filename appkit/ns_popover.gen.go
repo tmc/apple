@@ -174,8 +174,8 @@ func NSPopoverFromID(id objc.ID) NSPopover {
 // See: https://developer.apple.com/documentation/AppKit/NSPopover
 type INSPopover interface {
 	INSResponder
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 
 	// Topic: Accessing a Popover’s Content View Controller
 

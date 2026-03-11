@@ -400,9 +400,9 @@ type IProcessInfo interface {
 	// The amount of physical memory on the computer in bytes.
 	PhysicalMemory() uint64
 	// Indicates whether the device supports the requested performance tier.
-	IsDeviceCertifiedFor(performanceTier int) bool
+	IsDeviceCertifiedFor(performanceTier objectivec.IObject) bool
 	// Indicates whether an app is running under a known performance profile.
-	HasPerformanceProfile(performanceProfile int) bool
+	HasPerformanceProfile(performanceProfile objectivec.IObject) bool
 	// The amount of time the system has been awake since the last time it was restarted.
 	SystemUptime() float64
 
@@ -591,7 +591,7 @@ func (p ProcessInfo) IsOperatingSystemAtLeastVersion(version NSOperatingSystemVe
 // [True] if the device meets the requirements for the given performance tier.
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/isDeviceCertified(for:)
-func (p ProcessInfo) IsDeviceCertifiedFor(performanceTier int) bool {
+func (p ProcessInfo) IsDeviceCertifiedFor(performanceTier objectivec.IObject) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isDeviceCertifiedFor:"), performanceTier)
 	return rv
 }
@@ -612,7 +612,7 @@ func (p ProcessInfo) IsDeviceCertifiedFor(performanceTier int) bool {
 // [sustained]: https://developer.apple.com/documentation/Metal/NSProcessPerformanceProfile/sustained
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/hasPerformanceProfile(_:)
-func (p ProcessInfo) HasPerformanceProfile(performanceProfile int) bool {
+func (p ProcessInfo) HasPerformanceProfile(performanceProfile objectivec.IObject) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("hasPerformanceProfile:"), performanceProfile)
 	return rv
 }

@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText
 type NSAccessibilityStaticText interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 
 	// Returns the text that the accessibility element displays.
 	//

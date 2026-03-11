@@ -109,10 +109,10 @@ type INSSplitViewItemAccessoryViewController interface {
 	// The following methods allow you to add accessory views to the top/bottom of this splitViewItem. See 
 	TopAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController
 	SetTopAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController)
-	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
-	Animator() INSSplitViewItemAccessoryViewController
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
+	Animator() INSSplitViewItemAccessoryViewController
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -180,7 +180,7 @@ func NewSplitViewItemAccessoryViewControllerWithCoder(coder foundation.INSCoder)
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewSplitViewItemAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSSplitViewItemAccessoryViewController {
+func NewSplitViewItemAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSSplitViewItemAccessoryViewController {
 	instance := getNSSplitViewItemAccessoryViewControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSSplitViewItemAccessoryViewControllerFromID(rv)
@@ -191,32 +191,6 @@ func NewSplitViewItemAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNib
 
 
 
-
-// Returns a proxy object for the receiver that can be used to initiate
-// implied animation for property changes.
-//
-// # Return Value
-// 
-// Returns a proxy object for the receiver that can initiate implied
-// animations in response to property changes.
-//
-// # Discussion
-// 
-// The animator proxy object should be treated as if it was the receiver
-// itself, and may be passed to any code that accepts the receiver as a
-// parameter.
-// 
-// Sending key-value coding compliant “set” messages to the proxy will
-// trigger animation for automatically animated properties of its target
-// object, if the active [NSAnimationContext] in the current thread has a
-// duration value greater than zero, and an animation for the property key is
-// found by the [NSAnimatablePropertyContainer] search mechanism.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (s NSSplitViewItemAccessoryViewController) Animator() INSSplitViewItemAccessoryViewController {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("animator"))
-	return NSSplitViewItemAccessoryViewControllerFromID(rv)
-}
 
 // Returns the animation that should be performed for the specified key.
 //
@@ -249,6 +223,32 @@ func (s NSSplitViewItemAccessoryViewController) Animator() INSSplitViewItemAcces
 func (s NSSplitViewItemAccessoryViewController) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
+}
+
+// Returns a proxy object for the receiver that can be used to initiate
+// implied animation for property changes.
+//
+// # Return Value
+// 
+// Returns a proxy object for the receiver that can initiate implied
+// animations in response to property changes.
+//
+// # Discussion
+// 
+// The animator proxy object should be treated as if it was the receiver
+// itself, and may be passed to any code that accepts the receiver as a
+// parameter.
+// 
+// Sending key-value coding compliant “set” messages to the proxy will
+// trigger animation for automatically animated properties of its target
+// object, if the active [NSAnimationContext] in the current thread has a
+// duration value greater than zero, and an animation for the property key is
+// found by the [NSAnimatablePropertyContainer] search mechanism.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
+func (s NSSplitViewItemAccessoryViewController) Animator() INSSplitViewItemAccessoryViewController {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("animator"))
+	return NSSplitViewItemAccessoryViewControllerFromID(rv)
 }
 func (s NSSplitViewItemAccessoryViewController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -353,6 +353,20 @@ func (s NSSplitViewItemAccessoryViewController) SetHidden(value bool) {
 
 
 
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (s NSSplitViewItemAccessoryViewController) Animations() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("animations"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+func (s NSSplitViewItemAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](s.ID, objc.Sel("setAnimations:"), value)
+}
+
+
+
 // See: https://developer.apple.com/documentation/appkit/nssplitviewitem/bottomalignedaccessoryviewcontrollers
 func (s NSSplitViewItemAccessoryViewController) BottomAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("bottomAlignedAccessoryViewControllers"))
@@ -374,20 +388,6 @@ func (s NSSplitViewItemAccessoryViewController) TopAlignedAccessoryViewControlle
 }
 func (s NSSplitViewItemAccessoryViewController) SetTopAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTopAlignedAccessoryViewControllers:"), value)
-}
-
-
-
-// Sets the option dictionary that maps event trigger keys to animation
-// objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-func (s NSSplitViewItemAccessoryViewController) Animations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("animations"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-func (s NSSplitViewItemAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAnimations:"), value)
 }
 
 

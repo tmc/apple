@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton
 type NSAccessibilityButton interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 
 	// Returns a short description of the button.
 	//

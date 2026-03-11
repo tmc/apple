@@ -240,9 +240,9 @@ type INSError interface {
 
 	// The corresponding value is an object that conforms to the NSErrorRecoveryAttempting informal protocol.
 	NSRecoveryAttempterErrorKey() string
-	InitWithCoder(coder INSCoder) NSError
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSError
 	Error() string
 }
 
@@ -342,13 +342,6 @@ func (e NSError) InitWithDomainCodeUserInfo(domain NSErrorDomain, code int, dict
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (e NSError) InitWithCoder(coder INSCoder) NSError {
-	rv := objc.Send[NSError](e.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -356,6 +349,13 @@ func (e NSError) InitWithCoder(coder INSCoder) NSError {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (e NSError) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (e NSError) InitWithCoder(coder INSCoder) NSError {
+	rv := objc.Send[NSError](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

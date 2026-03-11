@@ -185,23 +185,6 @@ func NewSwitchWithFrame(frameRect corefoundation.CGRect) NSSwitch {
 
 
 
-// Simulates clicking the button.
-//
-// # Return Value
-// 
-// [true] if the action was successfully triggered; otherwise, [false]. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
-func (s NSSwitch) AccessibilityPerformPress() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformPress"))
-	return rv
-}
-
 // Returns a short description of the button.
 //
 // # Return Value
@@ -224,25 +207,6 @@ func (s NSSwitch) AccessibilityPerformPress() bool {
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
 func (s NSSwitch) AccessibilityLabel() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the switch’s value.
-//
-// # Return Value
-// 
-// The value for the switch.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityValue()
-func (s NSSwitch) AccessibilityValue() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSStringFromID(rv).String()
 }
 
@@ -292,6 +256,42 @@ func (s NSSwitch) AccessibilityPerformDecrement() bool {
 func (s NSSwitch) AccessibilityPerformIncrement() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
+}
+
+// Simulates clicking the button.
+//
+// # Return Value
+// 
+// [true] if the action was successfully triggered; otherwise, [false]. This
+// method does not indicate the success or failure of the action, just the
+// fact that the action was successfully triggered.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
+func (s NSSwitch) AccessibilityPerformPress() bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformPress"))
+	return rv
+}
+
+// Returns the switch’s value.
+//
+// # Return Value
+// 
+// The value for the switch.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityValue] property.
+//
+// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityValue()
+func (s NSSwitch) AccessibilityValue() string {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
+	return foundation.NSStringFromID(rv).String()
 }
 func (s NSSwitch) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)

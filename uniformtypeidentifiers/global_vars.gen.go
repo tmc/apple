@@ -14,283 +14,144 @@ var UTTagClassMIMEType string
 
 var UTType3DContent UTType
 
-var uTTypeAHAP UTType
 
-var uTTypeAIFF UTType
 
-var uTTypeARReferenceObject UTType
 
-var uTTypeAVI UTType
 
-var uTTypeAliasFile UTType
 
-var uTTypeAppleArchive UTType
 
-var uTTypeAppleProtectedMPEG4Audio UTType
 
-var uTTypeAppleProtectedMPEG4Video UTType
 
-var uTTypeAppleScript UTType
 
-var uTTypeApplication UTType
 
-var uTTypeApplicationBundle UTType
 
-var uTTypeApplicationExtension UTType
 
-var uTTypeArchive UTType
 
-var uTTypeAssemblyLanguageSource UTType
 
-var uTTypeAudio UTType
 
-var uTTypeAudiovisualContent UTType
 
-var uTTypeBMP UTType
 
-var uTTypeBZ2 UTType
 
-var uTTypeBinaryPropertyList UTType
 
-var uTTypeBookmark UTType
 
-var uTTypeBundle UTType
 
-var uTTypeCHeader UTType
 
-var uTTypeCPlusPlusHeader UTType
 
-var uTTypeCPlusPlusSource UTType
 
-var uTTypeCSS UTType
 
-var uTTypeCSource UTType
 
-var uTTypeCalendarEvent UTType
 
-var uTTypeCommaSeparatedText UTType
 
-var uTTypeCompositeContent UTType
 
-var uTTypeContact UTType
 
-var uTTypeContent UTType
 
-var uTTypeDNG UTType
 
-var uTTypeData UTType
 
-var uTTypeDatabase UTType
 
-var uTTypeDelimitedText UTType
 
-var uTTypeDirectory UTType
 
-var uTTypeDiskImage UTType
 
-var uTTypeEPUB UTType
 
-var uTTypeEXE UTType
 
-var uTTypeEXR UTType
 
-var uTTypeEmailMessage UTType
 
-var uTTypeExecutable UTType
 
-var uTTypeFileURL UTType
 
-var uTTypeFlatRTFD UTType
 
-var uTTypeFolder UTType
 
-var uTTypeFont UTType
 
-var uTTypeFramework UTType
 
-var uTTypeGIF UTType
 
-var uTTypeGZIP UTType
 
-var uTTypeGeoJSON UTType
 
-var uTTypeHEIC UTType
 
-var uTTypeHEICS UTType
 
-var uTTypeHEIF UTType
 
-var uTTypeHTML UTType
 
-var uTTypeICNS UTType
 
-var uTTypeICO UTType
 
-var uTTypeImage UTType
 
-var uTTypeInternetLocation UTType
 
-var uTTypeInternetShortcut UTType
 
-var uTTypeItem UTType
 
-var uTTypeJPEG UTType
 
-var uTTypeJPEGXL UTType
 
-var uTTypeJSON UTType
 
-var uTTypeJavaScript UTType
 
-var uTTypeLinkPresentationMetadata UTType
 
-var uTTypeLivePhoto UTType
 
-var uTTypeLog UTType
 
-var uTTypeM3UPlaylist UTType
 
-var uTTypeMIDI UTType
 
-var uTTypeMP3 UTType
 
-var uTTypeMPEG UTType
 
-var uTTypeMPEG2TransportStream UTType
 
-var uTTypeMPEG2Video UTType
 
-var uTTypeMPEG4Audio UTType
 
-var uTTypeMPEG4Movie UTType
 
-var uTTypeMakefile UTType
 
-var uTTypeMessage UTType
 
-var uTTypeMountPoint UTType
 
-var uTTypeMovie UTType
 
-var uTTypeOSAScript UTType
 
-var uTTypeOSAScriptBundle UTType
 
-var uTTypeObjectiveCPlusPlusSource UTType
 
-var uTTypeObjectiveCSource UTType
 
-var uTTypePDF UTType
 
-var uTTypePHPScript UTType
 
-var uTTypePKCS12 UTType
 
-var uTTypePNG UTType
 
-var uTTypePackage UTType
 
-var uTTypePerlScript UTType
 
-var uTTypePlainText UTType
 
-var uTTypePlaylist UTType
 
-var uTTypePluginBundle UTType
 
-var uTTypePresentation UTType
 
-var uTTypePropertyList UTType
 
-var uTTypePythonScript UTType
 
-var uTTypeQuickLookGenerator UTType
 
-var uTTypeQuickTimeMovie UTType
 
-var uTTypeRAWImage UTType
 
-var uTTypeRTF UTType
 
-var uTTypeRTFD UTType
 
-var uTTypeRealityFile UTType
 
-var uTTypeResolvable UTType
 
-var uTTypeRubyScript UTType
 
-var uTTypeSVG UTType
 
-var uTTypeSceneKitScene UTType
 
-var uTTypeScript UTType
 
-var uTTypeShellScript UTType
 
-var uTTypeSourceCode UTType
 
-var uTTypeSpotlightImporter UTType
 
-var uTTypeSpreadsheet UTType
 
-var uTTypeSwiftSource UTType
 
-var uTTypeSymbolicLink UTType
 
-var uTTypeSystemPreferencesPane UTType
 
-var uTTypeTIFF UTType
 
-var uTTypeTabSeparatedText UTType
 
-var uTTypeTarArchive UTType
 
-var uTTypeText UTType
 
-var uTTypeToDoItem UTType
 
-var uTTypeURL UTType
 
-var uTTypeURLBookmarkData UTType
 
-var uTTypeUSD UTType
 
-var uTTypeUSDZ UTType
 
-var uTTypeUTF16ExternalPlainText UTType
 
-var uTTypeUTF16PlainText UTType
 
-var uTTypeUTF8PlainText UTType
 
-var uTTypeUTF8TabSeparatedText UTType
 
-var uTTypeUnixExecutable UTType
 
-var uTTypeVCard UTType
 
-var uTTypeVideo UTType
 
-var uTTypeVolume UTType
 
-var uTTypeWAV UTType
 
-var uTTypeWebArchive UTType
 
-var uTTypeWebP UTType
 
-var uTTypeX509Certificate UTType
 
-var uTTypeXML UTType
 
-var uTTypeXMLPropertyList UTType
 
-var uTTypeXPCService UTType
 
-var uTTypeYAML UTType
 
-var uTTypeZIP UTType
 
 func init() {
 	if frameworkHandle == 0 {
@@ -323,974 +184,833 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAHAP"); err == nil && ptr != 0 {
-		uTTypeAHAP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AHAP = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAIFF"); err == nil && ptr != 0 {
-		uTTypeAIFF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AIFF = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeARReferenceObject"); err == nil && ptr != 0 {
-		uTTypeARReferenceObject = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ARReferenceObject = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAVI"); err == nil && ptr != 0 {
-		uTTypeAVI = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AVI = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAliasFile"); err == nil && ptr != 0 {
-		uTTypeAliasFile = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AliasFile = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleArchive"); err == nil && ptr != 0 {
-		uTTypeAppleArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleArchive = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleProtectedMPEG4Audio"); err == nil && ptr != 0 {
-		uTTypeAppleProtectedMPEG4Audio = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleProtectedMPEG4Audio = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleProtectedMPEG4Video"); err == nil && ptr != 0 {
-		uTTypeAppleProtectedMPEG4Video = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleProtectedMPEG4Video = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleScript"); err == nil && ptr != 0 {
-		uTTypeAppleScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeApplication"); err == nil && ptr != 0 {
-		uTTypeApplication = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Application = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeApplicationBundle"); err == nil && ptr != 0 {
-		uTTypeApplicationBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ApplicationBundle = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeApplicationExtension"); err == nil && ptr != 0 {
-		uTTypeApplicationExtension = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ApplicationExtension = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeArchive"); err == nil && ptr != 0 {
-		uTTypeArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Archive = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAssemblyLanguageSource"); err == nil && ptr != 0 {
-		uTTypeAssemblyLanguageSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AssemblyLanguageSource = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAudio"); err == nil && ptr != 0 {
-		uTTypeAudio = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Audio = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAudiovisualContent"); err == nil && ptr != 0 {
-		uTTypeAudiovisualContent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AudiovisualContent = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBMP"); err == nil && ptr != 0 {
-		uTTypeBMP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.BMP = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBZ2"); err == nil && ptr != 0 {
-		uTTypeBZ2 = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.BZ2 = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBinaryPropertyList"); err == nil && ptr != 0 {
-		uTTypeBinaryPropertyList = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.BinaryPropertyList = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBookmark"); err == nil && ptr != 0 {
-		uTTypeBookmark = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Bookmark = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBundle"); err == nil && ptr != 0 {
-		uTTypeBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Bundle = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCHeader"); err == nil && ptr != 0 {
-		uTTypeCHeader = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CHeader = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCPlusPlusHeader"); err == nil && ptr != 0 {
-		uTTypeCPlusPlusHeader = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CPlusPlusHeader = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCPlusPlusSource"); err == nil && ptr != 0 {
-		uTTypeCPlusPlusSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CPlusPlusSource = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCSS"); err == nil && ptr != 0 {
-		uTTypeCSS = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CSS = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCSource"); err == nil && ptr != 0 {
-		uTTypeCSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CSource = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCalendarEvent"); err == nil && ptr != 0 {
-		uTTypeCalendarEvent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CalendarEvent = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCommaSeparatedText"); err == nil && ptr != 0 {
-		uTTypeCommaSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CommaSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCompositeContent"); err == nil && ptr != 0 {
-		uTTypeCompositeContent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CompositeContent = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeContact"); err == nil && ptr != 0 {
-		uTTypeContact = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Contact = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeContent"); err == nil && ptr != 0 {
-		uTTypeContent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Content = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDNG"); err == nil && ptr != 0 {
-		uTTypeDNG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.DNG = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeData"); err == nil && ptr != 0 {
-		uTTypeData = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Data = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDatabase"); err == nil && ptr != 0 {
-		uTTypeDatabase = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Database = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDelimitedText"); err == nil && ptr != 0 {
-		uTTypeDelimitedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.DelimitedText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDirectory"); err == nil && ptr != 0 {
-		uTTypeDirectory = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Directory = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDiskImage"); err == nil && ptr != 0 {
-		uTTypeDiskImage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.DiskImage = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEPUB"); err == nil && ptr != 0 {
-		uTTypeEPUB = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EPUB = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEXE"); err == nil && ptr != 0 {
-		uTTypeEXE = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EXE = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEXR"); err == nil && ptr != 0 {
-		uTTypeEXR = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EXR = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEmailMessage"); err == nil && ptr != 0 {
-		uTTypeEmailMessage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EmailMessage = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeExecutable"); err == nil && ptr != 0 {
-		uTTypeExecutable = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Executable = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFileURL"); err == nil && ptr != 0 {
-		uTTypeFileURL = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.FileURL = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFlatRTFD"); err == nil && ptr != 0 {
-		uTTypeFlatRTFD = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.FlatRTFD = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFolder"); err == nil && ptr != 0 {
-		uTTypeFolder = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Folder = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFont"); err == nil && ptr != 0 {
-		uTTypeFont = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Font = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFramework"); err == nil && ptr != 0 {
-		uTTypeFramework = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Framework = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeGIF"); err == nil && ptr != 0 {
-		uTTypeGIF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.GIF = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeGZIP"); err == nil && ptr != 0 {
-		uTTypeGZIP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.GZIP = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeGeoJSON"); err == nil && ptr != 0 {
-		uTTypeGeoJSON = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.GeoJSON = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHEIC"); err == nil && ptr != 0 {
-		uTTypeHEIC = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HEIC = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHEICS"); err == nil && ptr != 0 {
-		uTTypeHEICS = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HEICS = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHEIF"); err == nil && ptr != 0 {
-		uTTypeHEIF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HEIF = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHTML"); err == nil && ptr != 0 {
-		uTTypeHTML = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HTML = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeICNS"); err == nil && ptr != 0 {
-		uTTypeICNS = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ICNS = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeICO"); err == nil && ptr != 0 {
-		uTTypeICO = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ICO = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeImage"); err == nil && ptr != 0 {
-		uTTypeImage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Image = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeInternetLocation"); err == nil && ptr != 0 {
-		uTTypeInternetLocation = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.InternetLocation = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeInternetShortcut"); err == nil && ptr != 0 {
-		uTTypeInternetShortcut = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.InternetShortcut = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeItem"); err == nil && ptr != 0 {
-		uTTypeItem = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Item = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJPEG"); err == nil && ptr != 0 {
-		uTTypeJPEG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JPEG = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJPEGXL"); err == nil && ptr != 0 {
-		uTTypeJPEGXL = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JPEGXL = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJSON"); err == nil && ptr != 0 {
-		uTTypeJSON = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JSON = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJavaScript"); err == nil && ptr != 0 {
-		uTTypeJavaScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JavaScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeLinkPresentationMetadata"); err == nil && ptr != 0 {
-		uTTypeLinkPresentationMetadata = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.LinkPresentationMetadata = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeLivePhoto"); err == nil && ptr != 0 {
-		uTTypeLivePhoto = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.LivePhoto = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeLog"); err == nil && ptr != 0 {
-		uTTypeLog = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Log = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeM3UPlaylist"); err == nil && ptr != 0 {
-		uTTypeM3UPlaylist = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.M3UPlaylist = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMIDI"); err == nil && ptr != 0 {
-		uTTypeMIDI = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MIDI = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMP3"); err == nil && ptr != 0 {
-		uTTypeMP3 = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MP3 = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG"); err == nil && ptr != 0 {
-		uTTypeMPEG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG2TransportStream"); err == nil && ptr != 0 {
-		uTTypeMPEG2TransportStream = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG2TransportStream = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG2Video"); err == nil && ptr != 0 {
-		uTTypeMPEG2Video = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG2Video = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG4Audio"); err == nil && ptr != 0 {
-		uTTypeMPEG4Audio = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG4Audio = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG4Movie"); err == nil && ptr != 0 {
-		uTTypeMPEG4Movie = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG4Movie = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMakefile"); err == nil && ptr != 0 {
-		uTTypeMakefile = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Makefile = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMessage"); err == nil && ptr != 0 {
-		uTTypeMessage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Message = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMountPoint"); err == nil && ptr != 0 {
-		uTTypeMountPoint = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MountPoint = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMovie"); err == nil && ptr != 0 {
-		uTTypeMovie = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Movie = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeOSAScript"); err == nil && ptr != 0 {
-		uTTypeOSAScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.OSAScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeOSAScriptBundle"); err == nil && ptr != 0 {
-		uTTypeOSAScriptBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.OSAScriptBundle = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeObjectiveCPlusPlusSource"); err == nil && ptr != 0 {
-		uTTypeObjectiveCPlusPlusSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ObjectiveCPlusPlusSource = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeObjectiveCSource"); err == nil && ptr != 0 {
-		uTTypeObjectiveCSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ObjectiveCSource = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePDF"); err == nil && ptr != 0 {
-		uTTypePDF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PDF = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePHPScript"); err == nil && ptr != 0 {
-		uTTypePHPScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PHPScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePKCS12"); err == nil && ptr != 0 {
-		uTTypePKCS12 = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PKCS12 = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePNG"); err == nil && ptr != 0 {
-		uTTypePNG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PNG = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePackage"); err == nil && ptr != 0 {
-		uTTypePackage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Package = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePerlScript"); err == nil && ptr != 0 {
-		uTTypePerlScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PerlScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePlainText"); err == nil && ptr != 0 {
-		uTTypePlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PlainText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePlaylist"); err == nil && ptr != 0 {
-		uTTypePlaylist = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Playlist = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePluginBundle"); err == nil && ptr != 0 {
-		uTTypePluginBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PluginBundle = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePresentation"); err == nil && ptr != 0 {
-		uTTypePresentation = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Presentation = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePropertyList"); err == nil && ptr != 0 {
-		uTTypePropertyList = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PropertyList = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePythonScript"); err == nil && ptr != 0 {
-		uTTypePythonScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PythonScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeQuickLookGenerator"); err == nil && ptr != 0 {
-		uTTypeQuickLookGenerator = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.QuickLookGenerator = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeQuickTimeMovie"); err == nil && ptr != 0 {
-		uTTypeQuickTimeMovie = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.QuickTimeMovie = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRAWImage"); err == nil && ptr != 0 {
-		uTTypeRAWImage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RAWImage = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRTF"); err == nil && ptr != 0 {
-		uTTypeRTF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RTF = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRTFD"); err == nil && ptr != 0 {
-		uTTypeRTFD = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RTFD = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRealityFile"); err == nil && ptr != 0 {
-		uTTypeRealityFile = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RealityFile = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeResolvable"); err == nil && ptr != 0 {
-		uTTypeResolvable = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Resolvable = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRubyScript"); err == nil && ptr != 0 {
-		uTTypeRubyScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RubyScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSVG"); err == nil && ptr != 0 {
-		uTTypeSVG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SVG = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSceneKitScene"); err == nil && ptr != 0 {
-		uTTypeSceneKitScene = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SceneKitScene = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeScript"); err == nil && ptr != 0 {
-		uTTypeScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Script = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeShellScript"); err == nil && ptr != 0 {
-		uTTypeShellScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ShellScript = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSourceCode"); err == nil && ptr != 0 {
-		uTTypeSourceCode = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SourceCode = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSpotlightImporter"); err == nil && ptr != 0 {
-		uTTypeSpotlightImporter = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SpotlightImporter = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSpreadsheet"); err == nil && ptr != 0 {
-		uTTypeSpreadsheet = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Spreadsheet = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSwiftSource"); err == nil && ptr != 0 {
-		uTTypeSwiftSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SwiftSource = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSymbolicLink"); err == nil && ptr != 0 {
-		uTTypeSymbolicLink = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SymbolicLink = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSystemPreferencesPane"); err == nil && ptr != 0 {
-		uTTypeSystemPreferencesPane = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SystemPreferencesPane = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeTIFF"); err == nil && ptr != 0 {
-		uTTypeTIFF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.TIFF = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeTabSeparatedText"); err == nil && ptr != 0 {
-		uTTypeTabSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.TabSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeTarArchive"); err == nil && ptr != 0 {
-		uTTypeTarArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.TarArchive = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeText"); err == nil && ptr != 0 {
-		uTTypeText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Text = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeToDoItem"); err == nil && ptr != 0 {
-		uTTypeToDoItem = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ToDoItem = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeURL"); err == nil && ptr != 0 {
-		uTTypeURL = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.URL = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeURLBookmarkData"); err == nil && ptr != 0 {
-		uTTypeURLBookmarkData = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.URLBookmarkData = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUSD"); err == nil && ptr != 0 {
-		uTTypeUSD = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.USD = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUSDZ"); err == nil && ptr != 0 {
-		uTTypeUSDZ = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.USDZ = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF16ExternalPlainText"); err == nil && ptr != 0 {
-		uTTypeUTF16ExternalPlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF16ExternalPlainText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF16PlainText"); err == nil && ptr != 0 {
-		uTTypeUTF16PlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF16PlainText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF8PlainText"); err == nil && ptr != 0 {
-		uTTypeUTF8PlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF8PlainText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF8TabSeparatedText"); err == nil && ptr != 0 {
-		uTTypeUTF8TabSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF8TabSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUnixExecutable"); err == nil && ptr != 0 {
-		uTTypeUnixExecutable = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UnixExecutable = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeVCard"); err == nil && ptr != 0 {
-		uTTypeVCard = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.VCard = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeVideo"); err == nil && ptr != 0 {
-		uTTypeVideo = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Video = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeVolume"); err == nil && ptr != 0 {
-		uTTypeVolume = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Volume = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeWAV"); err == nil && ptr != 0 {
-		uTTypeWAV = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.WAV = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeWebArchive"); err == nil && ptr != 0 {
-		uTTypeWebArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.WebArchive = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeWebP"); err == nil && ptr != 0 {
-		uTTypeWebP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.WebP = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeX509Certificate"); err == nil && ptr != 0 {
-		uTTypeX509Certificate = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.X509Certificate = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeXML"); err == nil && ptr != 0 {
-		uTTypeXML = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.XML = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeXMLPropertyList"); err == nil && ptr != 0 {
-		uTTypeXMLPropertyList = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.XMLPropertyList = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeXPCService"); err == nil && ptr != 0 {
-		uTTypeXPCService = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.XPCService = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeYAML"); err == nil && ptr != 0 {
-		uTTypeYAML = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.YAML = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeZIP"); err == nil && ptr != 0 {
-		uTTypeZIP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ZIP = *(*UTType)(unsafe.Pointer(ptr))
 	}
 
 }
 
-type UTTypeValues struct{}
-
 // UTTypes provides typed accessors for [UTType] constants.
-var UTTypes UTTypeValues
-
-func (UTTypeValues) AHAP() UTType { return uTTypeAHAP }
-
-// AIFF returns A type that represents data in AIFF audio format.
-func (UTTypeValues) AIFF() UTType { return uTTypeAIFF }
-
-// ARReferenceObject returns A type that represents an augmented reality reference object.
-func (UTTypeValues) ARReferenceObject() UTType { return uTTypeARReferenceObject }
-
-// AVI returns A type that represents data in AVI movie format.
-func (UTTypeValues) AVI() UTType { return uTTypeAVI }
-
-// AliasFile returns A type that represents an alias file.
-func (UTTypeValues) AliasFile() UTType { return uTTypeAliasFile }
-
-// AppleArchive returns A type that represents an Apple archive of files and directories.
-func (UTTypeValues) AppleArchive() UTType { return uTTypeAppleArchive }
-
-// AppleProtectedMPEG4Audio returns A type that represents data in Apple-protected MPEG-4 format.
-func (UTTypeValues) AppleProtectedMPEG4Audio() UTType { return uTTypeAppleProtectedMPEG4Audio }
-
-// AppleProtectedMPEG4Video returns A type that represents data in Apple-protected MPEG-4 format.
-func (UTTypeValues) AppleProtectedMPEG4Video() UTType { return uTTypeAppleProtectedMPEG4Video }
-
-// AppleScript returns A type that represents an AppleScript text-based script.
-func (UTTypeValues) AppleScript() UTType { return uTTypeAppleScript }
-
-// Application returns A base type that represents a macOS, iOS, iPadOS, watchOS, and tvOS app.
-func (UTTypeValues) Application() UTType { return uTTypeApplication }
-
-// ApplicationBundle returns A type that represents a bundled app.
-func (UTTypeValues) ApplicationBundle() UTType { return uTTypeApplicationBundle }
-
-// ApplicationExtension returns A type that represents an app extension.
-func (UTTypeValues) ApplicationExtension() UTType { return uTTypeApplicationExtension }
-
-// Archive returns A base type that represents an archive of files and directories.
-func (UTTypeValues) Archive() UTType { return uTTypeArchive }
-
-// AssemblyLanguageSource returns A type that represents assembly language source code.
-func (UTTypeValues) AssemblyLanguageSource() UTType { return uTTypeAssemblyLanguageSource }
-
-// Audio returns A type that represents audio that doesn’t contain video.
-func (UTTypeValues) Audio() UTType { return uTTypeAudio }
-
-// AudiovisualContent returns A base type that represents data that contains video content that may or may not also include audio.
-func (UTTypeValues) AudiovisualContent() UTType { return uTTypeAudiovisualContent }
-
-// BMP returns A type that represents a Windows bitmap image.
-func (UTTypeValues) BMP() UTType { return uTTypeBMP }
-
-// BZ2 returns A type that represents a bzip2 archive.
-func (UTTypeValues) BZ2() UTType { return uTTypeBZ2 }
-
-// BinaryPropertyList returns A type that represents a binary property list.
-func (UTTypeValues) BinaryPropertyList() UTType { return uTTypeBinaryPropertyList }
-
-// Bookmark returns A base type that represents bookmark data.
-func (UTTypeValues) Bookmark() UTType { return uTTypeBookmark }
-
-// Bundle returns A base type that represents a directory that conforms to one of the bundle layouts.
-func (UTTypeValues) Bundle() UTType { return uTTypeBundle }
-
-// CHeader returns A type that represents a C header file.
-func (UTTypeValues) CHeader() UTType { return uTTypeCHeader }
-
-// CPlusPlusHeader returns A type that represents a C++ header file.
-func (UTTypeValues) CPlusPlusHeader() UTType { return uTTypeCPlusPlusHeader }
-
-// CPlusPlusSource returns A type that represents a C++ source code file.
-func (UTTypeValues) CPlusPlusSource() UTType { return uTTypeCPlusPlusSource }
-
-func (UTTypeValues) CSS() UTType { return uTTypeCSS }
-
-// CSource returns A type that represents a C source code file.
-func (UTTypeValues) CSource() UTType { return uTTypeCSource }
-
-// CalendarEvent returns A base type that represents a calendar event.
-func (UTTypeValues) CalendarEvent() UTType { return uTTypeCalendarEvent }
-
-// CommaSeparatedText returns A type that represents text containing comma-separated values.
-func (UTTypeValues) CommaSeparatedText() UTType { return uTTypeCommaSeparatedText }
-
-// CompositeContent returns A base type that represents a content format supporting mixed embedded content.
-func (UTTypeValues) CompositeContent() UTType { return uTTypeCompositeContent }
-
-// Contact returns A base type that represents contact information.
-func (UTTypeValues) Contact() UTType { return uTTypeContact }
-
-// Content returns A base type that represents anything containing user-viewable content.
-func (UTTypeValues) Content() UTType { return uTTypeContent }
-
-func (UTTypeValues) DNG() UTType { return uTTypeDNG }
-
-// Data returns A base type that represents any sort of byte stream, including files and in-memory data.
-func (UTTypeValues) Data() UTType { return uTTypeData }
-
-// Database returns A base type that represents a database store.
-func (UTTypeValues) Database() UTType { return uTTypeDatabase }
-
-// DelimitedText returns A base type that represents text containing delimited values.
-func (UTTypeValues) DelimitedText() UTType { return uTTypeDelimitedText }
-
-// Directory returns A type that represents a file system directory, including packages and folders.
-func (UTTypeValues) Directory() UTType { return uTTypeDirectory }
-
-// DiskImage returns A type that represents a data item that’s mountable as a volume.
-func (UTTypeValues) DiskImage() UTType { return uTTypeDiskImage }
-
-// EPUB returns A type that represents data in the electronic publication (EPUB) format.
-func (UTTypeValues) EPUB() UTType { return uTTypeEPUB }
-
-// EXE returns A type that represents a Windows executable.
-func (UTTypeValues) EXE() UTType { return uTTypeEXE }
-
-func (UTTypeValues) EXR() UTType { return uTTypeEXR }
-
-// EmailMessage returns A type that represents an email message.
-func (UTTypeValues) EmailMessage() UTType { return uTTypeEmailMessage }
-
-// Executable returns A type that represents an executable.
-func (UTTypeValues) Executable() UTType { return uTTypeExecutable }
-
-// FileURL returns A type that represents a URL to a file in the file system.
-func (UTTypeValues) FileURL() UTType { return uTTypeFileURL }
-
-// FlatRTFD returns A type that represents flattened Rich Text Format Directory documents.
-func (UTTypeValues) FlatRTFD() UTType { return uTTypeFlatRTFD }
-
-// Folder returns A type that represents a user-browsable directory.
-func (UTTypeValues) Folder() UTType { return uTTypeFolder }
-
-// Font returns A base type that represents a font.
-func (UTTypeValues) Font() UTType { return uTTypeFont }
-
-// Framework returns A type that represents an Apple framework bundle.
-func (UTTypeValues) Framework() UTType { return uTTypeFramework }
-
-// GIF returns A type that represents a GIF image.
-func (UTTypeValues) GIF() UTType { return uTTypeGIF }
-
-// GZIP returns A type that represents a GNU zip archive.
-func (UTTypeValues) GZIP() UTType { return uTTypeGZIP }
-
-func (UTTypeValues) GeoJSON() UTType { return uTTypeGeoJSON }
-
-// HEIC returns A type that represents High Efficiency Image Coding images.
-func (UTTypeValues) HEIC() UTType { return uTTypeHEIC }
-
-func (UTTypeValues) HEICS() UTType { return uTTypeHEICS }
-
-// HEIF returns A type that represents High Efficiency Image File Format images.
-func (UTTypeValues) HEIF() UTType { return uTTypeHEIF }
-
-// HTML returns A type that represents any version of HTML.
-func (UTTypeValues) HTML() UTType { return uTTypeHTML }
-
-// ICNS returns A type that represents Apple icon data.
-func (UTTypeValues) ICNS() UTType { return uTTypeICNS }
-
-// ICO returns A type that represents Windows icon data.
-func (UTTypeValues) ICO() UTType { return uTTypeICO }
-
-// Image returns A base type that represents image data.
-func (UTTypeValues) Image() UTType { return uTTypeImage }
-
-// InternetLocation returns A base type that represents an Apple internet location file.
-func (UTTypeValues) InternetLocation() UTType { return uTTypeInternetLocation }
-
-// InternetShortcut returns A type that represents a Microsoft internet shortcut file.
-func (UTTypeValues) InternetShortcut() UTType { return uTTypeInternetShortcut }
-
-// Item returns A generic base type for most objects, such as files or directories.
-func (UTTypeValues) Item() UTType { return uTTypeItem }
-
-// JPEG returns A type that represents a JPEG image.
-func (UTTypeValues) JPEG() UTType { return uTTypeJPEG }
-
-func (UTTypeValues) JPEGXL() UTType { return uTTypeJPEGXL }
-
-// JSON returns A type that represents JavaScript Object Notation (JSON) data.
-func (UTTypeValues) JSON() UTType { return uTTypeJSON }
-
-// JavaScript returns A type that represents JavaScript source code.
-func (UTTypeValues) JavaScript() UTType { return uTTypeJavaScript }
-
-func (UTTypeValues) LinkPresentationMetadata() UTType { return uTTypeLinkPresentationMetadata }
-
-// LivePhoto returns A type that represents Live Photos.
-func (UTTypeValues) LivePhoto() UTType { return uTTypeLivePhoto }
-
-// Log returns A base type that represents console log data.
-func (UTTypeValues) Log() UTType { return uTTypeLog }
-
-// M3UPlaylist returns A type that represents an M3U or M3U8 playlist.
-func (UTTypeValues) M3UPlaylist() UTType { return uTTypeM3UPlaylist }
-
-// MIDI returns A type that represents data in MIDI audio format.
-func (UTTypeValues) MIDI() UTType { return uTTypeMIDI }
-
-// MP3 returns A type that represents MP3 audio.
-func (UTTypeValues) MP3() UTType { return uTTypeMP3 }
-
-// MPEG returns A type that represents an MPEG-1 or MPEG-2 movie.
-func (UTTypeValues) MPEG() UTType { return uTTypeMPEG }
-
-// MPEG2TransportStream returns A type that represents data in MPEG-2 transport stream movie format.
-func (UTTypeValues) MPEG2TransportStream() UTType { return uTTypeMPEG2TransportStream }
-
-// MPEG2Video returns A type that represents an MPEG-2 video.
-func (UTTypeValues) MPEG2Video() UTType { return uTTypeMPEG2Video }
-
-// MPEG4Audio returns A type that represents an MPEG-4 audio layer file.
-func (UTTypeValues) MPEG4Audio() UTType { return uTTypeMPEG4Audio }
-
-// MPEG4Movie returns A type that represents an MPEG-4 movie.
-func (UTTypeValues) MPEG4Movie() UTType { return uTTypeMPEG4Movie }
-
-// Makefile returns A type that represents a Makefile.
-func (UTTypeValues) Makefile() UTType { return uTTypeMakefile }
-
-// Message returns A base type that represents a message.
-func (UTTypeValues) Message() UTType { return uTTypeMessage }
-
-// MountPoint returns A type that represents a volume mount point.
-func (UTTypeValues) MountPoint() UTType { return uTTypeMountPoint }
-
-// Movie returns A base type representing media formats that may contain both video and audio.
-func (UTTypeValues) Movie() UTType { return uTTypeMovie }
-
-// OSAScript returns A type that represents an Open Scripting Architecture binary script.
-func (UTTypeValues) OSAScript() UTType { return uTTypeOSAScript }
-
-// OSAScriptBundle returns A type that represents an Open Scripting Architecture script bundle.
-func (UTTypeValues) OSAScriptBundle() UTType { return uTTypeOSAScriptBundle }
-
-// ObjectiveCPlusPlusSource returns A type that represents an Objective-C++ source code file.
-func (UTTypeValues) ObjectiveCPlusPlusSource() UTType { return uTTypeObjectiveCPlusPlusSource }
-
-// ObjectiveCSource returns A type that represents an Objective-C source code file.
-func (UTTypeValues) ObjectiveCSource() UTType { return uTTypeObjectiveCSource }
-
-// PDF returns A type that represents Adobe Portable Document Format (PDF) documents.
-func (UTTypeValues) PDF() UTType { return uTTypePDF }
-
-// PHPScript returns A type that represents a PHP script.
-func (UTTypeValues) PHPScript() UTType { return uTTypePHPScript }
-
-// PKCS12 returns A type that represents Public Key Cryptography Standard (PKCS) 12 data.
-func (UTTypeValues) PKCS12() UTType { return uTTypePKCS12 }
-
-// PNG returns A type that represents a PNG image.
-func (UTTypeValues) PNG() UTType { return uTTypePNG }
-
-// Package returns A base type that represents a packaged directory.
-func (UTTypeValues) Package() UTType { return uTTypePackage }
-
-// PerlScript returns A type that represents a Perl script.
-func (UTTypeValues) PerlScript() UTType { return uTTypePerlScript }
-
-// PlainText returns A type that represents text with no markup and an unspecified encoding.
-func (UTTypeValues) PlainText() UTType { return uTTypePlainText }
-
-// Playlist returns A base type that represents a playlist.
-func (UTTypeValues) Playlist() UTType { return uTTypePlaylist }
-
-// PluginBundle returns A base type that represents a bundle-based plug-in.
-func (UTTypeValues) PluginBundle() UTType { return uTTypePluginBundle }
-
-// Presentation returns A base type that represents a presentation document.
-func (UTTypeValues) Presentation() UTType { return uTTypePresentation }
-
-// PropertyList returns A base type that represents a property list.
-func (UTTypeValues) PropertyList() UTType { return uTTypePropertyList }
-
-// PythonScript returns A type that represents a Python script.
-func (UTTypeValues) PythonScript() UTType { return uTTypePythonScript }
-
-// QuickLookGenerator returns A type that represents a QuickLook preview generator bundle.
-func (UTTypeValues) QuickLookGenerator() UTType { return uTTypeQuickLookGenerator }
-
-// QuickTimeMovie returns A type that represents a QuickTime movie.
-func (UTTypeValues) QuickTimeMovie() UTType { return uTTypeQuickTimeMovie }
-
-// RAWImage returns A base type that represents a raw image format that you use in digital photography.
-func (UTTypeValues) RAWImage() UTType { return uTTypeRAWImage }
-
-// RTF returns A type that represents Rich Text Format data.
-func (UTTypeValues) RTF() UTType { return uTTypeRTF }
-
-// RTFD returns A type that represents Rich Text Format Directory documents.
-func (UTTypeValues) RTFD() UTType { return uTTypeRTFD }
-
-// RealityFile returns A type that represents a Reality Composer file.
-func (UTTypeValues) RealityFile() UTType { return uTTypeRealityFile }
-
-// Resolvable returns A base type that represents a resolvable reference, including symbolic links and aliases.
-func (UTTypeValues) Resolvable() UTType { return uTTypeResolvable }
-
-// RubyScript returns A type that represents a Ruby script.
-func (UTTypeValues) RubyScript() UTType { return uTTypeRubyScript }
-
-// SVG returns A type that represents a scalable vector graphics (SVG) image.
-func (UTTypeValues) SVG() UTType { return uTTypeSVG }
-
-// SceneKitScene returns A type that represents a SceneKit serialized scene.
-func (UTTypeValues) SceneKitScene() UTType { return uTTypeSceneKitScene }
-
-// Script returns A base type that represents any scripting language source.
-func (UTTypeValues) Script() UTType { return uTTypeScript }
-
-// ShellScript returns A base type that represents a shell script.
-func (UTTypeValues) ShellScript() UTType { return uTTypeShellScript }
-
-// SourceCode returns A base type that represents source code of any programming language.
-func (UTTypeValues) SourceCode() UTType { return uTTypeSourceCode }
-
-// SpotlightImporter returns A type that represents a Spotlight metadata importer bundle.
-func (UTTypeValues) SpotlightImporter() UTType { return uTTypeSpotlightImporter }
-
-// Spreadsheet returns A base type that represents a spreadsheet document.
-func (UTTypeValues) Spreadsheet() UTType { return uTTypeSpreadsheet }
-
-// SwiftSource returns A type that represents a Swift source code file.
-func (UTTypeValues) SwiftSource() UTType { return uTTypeSwiftSource }
-
-// SymbolicLink returns A type that represents a symbolic link.
-func (UTTypeValues) SymbolicLink() UTType { return uTTypeSymbolicLink }
-
-// SystemPreferencesPane returns A type that represents a System Preferences pane.
-func (UTTypeValues) SystemPreferencesPane() UTType { return uTTypeSystemPreferencesPane }
-
-// TIFF returns A type that represents a TIFF image.
-func (UTTypeValues) TIFF() UTType { return uTTypeTIFF }
-
-// TabSeparatedText returns A type that represents text containing tab-separated values.
-func (UTTypeValues) TabSeparatedText() UTType { return uTTypeTabSeparatedText }
-
-func (UTTypeValues) TarArchive() UTType { return uTTypeTarArchive }
-
-// Text returns A base type that represents all text-encoded data, including text with markup.
-func (UTTypeValues) Text() UTType { return uTTypeText }
-
-// ToDoItem returns A type that represents a to-do item.
-func (UTTypeValues) ToDoItem() UTType { return uTTypeToDoItem }
-
-// URL returns A type that represents a URL.
-func (UTTypeValues) URL() UTType { return uTTypeURL }
-
-// URLBookmarkData returns A type that represents a URL bookmark.
-func (UTTypeValues) URLBookmarkData() UTType { return uTTypeURLBookmarkData }
-
-// USD returns A type that represents Universal Scene Description content.
-func (UTTypeValues) USD() UTType { return uTTypeUSD }
-
-// USDZ returns A type that represents Universal Scene Description Package content.
-func (UTTypeValues) USDZ() UTType { return uTTypeUSDZ }
-
-// UTF16ExternalPlainText returns A type that represents plain text encoded as UTF-16 with an optional BOM.
-func (UTTypeValues) UTF16ExternalPlainText() UTType { return uTTypeUTF16ExternalPlainText }
-
-// UTF16PlainText returns A type that represents plain text encoded as UTF-16 in native byte order with an optional bill of materials.
-func (UTTypeValues) UTF16PlainText() UTType { return uTTypeUTF16PlainText }
-
-// UTF8PlainText returns A type that represents plain text encoded as UTF-8.
-func (UTTypeValues) UTF8PlainText() UTType { return uTTypeUTF8PlainText }
-
-// UTF8TabSeparatedText returns A type that represents UTF-8–encoded text containing tab-separated values.
-func (UTTypeValues) UTF8TabSeparatedText() UTType { return uTTypeUTF8TabSeparatedText }
-
-// UnixExecutable returns A type that represents a UNIX executable.
-func (UTTypeValues) UnixExecutable() UTType { return uTTypeUnixExecutable }
-
-// VCard returns A type that represents a vCard file.
-func (UTTypeValues) VCard() UTType { return uTTypeVCard }
-
-// Video returns A type that represents video that doesn’t contain audio.
-func (UTTypeValues) Video() UTType { return uTTypeVideo }
-
-// Volume returns A type that represents the root folder of a volume or mount point.
-func (UTTypeValues) Volume() UTType { return uTTypeVolume }
-
-// WAV returns A type that represents data in Microsoft Waveform Audio File Format.
-func (UTTypeValues) WAV() UTType { return uTTypeWAV }
-
-// WebArchive returns A type that represents WebKit web archive data.
-func (UTTypeValues) WebArchive() UTType { return uTTypeWebArchive }
-
-// WebP returns A type that represents a WebP image.
-func (UTTypeValues) WebP() UTType { return uTTypeWebP }
-
-// X509Certificate returns A type that represents an X.509 certificate.
-func (UTTypeValues) X509Certificate() UTType { return uTTypeX509Certificate }
-
-// XML returns A type that represents generic XML data.
-func (UTTypeValues) XML() UTType { return uTTypeXML }
-
-// XMLPropertyList returns A type that represents an XML property list.
-func (UTTypeValues) XMLPropertyList() UTType { return uTTypeXMLPropertyList }
-
-// XPCService returns A type that represents an XPC service bundle.
-func (UTTypeValues) XPCService() UTType { return uTTypeXPCService }
-
-// YAML returns A type that represents Yet Another Markup Language data.
-func (UTTypeValues) YAML() UTType { return uTTypeYAML }
-
-// ZIP returns A type that represents a zip archive.
-func (UTTypeValues) ZIP() UTType { return uTTypeZIP }
-
+var UTTypes struct {
+	AHAP UTType
+	// AIFF: A type that represents data in AIFF audio format.
+	AIFF UTType
+	// ARReferenceObject: A type that represents an augmented reality reference object.
+	ARReferenceObject UTType
+	// AVI: A type that represents data in AVI movie format.
+	AVI UTType
+	// AliasFile: A type that represents an alias file.
+	AliasFile UTType
+	// AppleArchive: A type that represents an Apple archive of files and directories.
+	AppleArchive UTType
+	// AppleProtectedMPEG4Audio: A type that represents data in Apple-protected MPEG-4 format.
+	AppleProtectedMPEG4Audio UTType
+	// AppleProtectedMPEG4Video: A type that represents data in Apple-protected MPEG-4 format.
+	AppleProtectedMPEG4Video UTType
+	// AppleScript: A type that represents an AppleScript text-based script.
+	AppleScript UTType
+	// Application: A base type that represents a macOS, iOS, iPadOS, watchOS, and tvOS app.
+	Application UTType
+	// ApplicationBundle: A type that represents a bundled app.
+	ApplicationBundle UTType
+	// ApplicationExtension: A type that represents an app extension.
+	ApplicationExtension UTType
+	// Archive: A base type that represents an archive of files and directories.
+	Archive UTType
+	// AssemblyLanguageSource: A type that represents assembly language source code.
+	AssemblyLanguageSource UTType
+	// Audio: A type that represents audio that doesn’t contain video.
+	Audio UTType
+	// AudiovisualContent: A base type that represents data that contains video content that may or may not also include audio.
+	AudiovisualContent UTType
+	// BMP: A type that represents a Windows bitmap image.
+	BMP UTType
+	// BZ2: A type that represents a bzip2 archive.
+	BZ2 UTType
+	// BinaryPropertyList: A type that represents a binary property list.
+	BinaryPropertyList UTType
+	// Bookmark: A base type that represents bookmark data.
+	Bookmark UTType
+	// Bundle: A base type that represents a directory that conforms to one of the bundle layouts.
+	Bundle UTType
+	// CHeader: A type that represents a C header file.
+	CHeader UTType
+	// CPlusPlusHeader: A type that represents a C++ header file.
+	CPlusPlusHeader UTType
+	// CPlusPlusSource: A type that represents a C++ source code file.
+	CPlusPlusSource UTType
+	CSS UTType
+	// CSource: A type that represents a C source code file.
+	CSource UTType
+	// CalendarEvent: A base type that represents a calendar event.
+	CalendarEvent UTType
+	// CommaSeparatedText: A type that represents text containing comma-separated values.
+	CommaSeparatedText UTType
+	// CompositeContent: A base type that represents a content format supporting mixed embedded content.
+	CompositeContent UTType
+	// Contact: A base type that represents contact information.
+	Contact UTType
+	// Content: A base type that represents anything containing user-viewable content.
+	Content UTType
+	DNG UTType
+	// Data: A base type that represents any sort of byte stream, including files and in-memory data.
+	Data UTType
+	// Database: A base type that represents a database store.
+	Database UTType
+	// DelimitedText: A base type that represents text containing delimited values.
+	DelimitedText UTType
+	// Directory: A type that represents a file system directory, including packages and folders.
+	Directory UTType
+	// DiskImage: A type that represents a data item that’s mountable as a volume.
+	DiskImage UTType
+	// EPUB: A type that represents data in the electronic publication (EPUB) format.
+	EPUB UTType
+	// EXE: A type that represents a Windows executable.
+	EXE UTType
+	EXR UTType
+	// EmailMessage: A type that represents an email message.
+	EmailMessage UTType
+	// Executable: A type that represents an executable.
+	Executable UTType
+	// FileURL: A type that represents a URL to a file in the file system.
+	FileURL UTType
+	// FlatRTFD: A type that represents flattened Rich Text Format Directory documents.
+	FlatRTFD UTType
+	// Folder: A type that represents a user-browsable directory.
+	Folder UTType
+	// Font: A base type that represents a font.
+	Font UTType
+	// Framework: A type that represents an Apple framework bundle.
+	Framework UTType
+	// GIF: A type that represents a GIF image.
+	GIF UTType
+	// GZIP: A type that represents a GNU zip archive.
+	GZIP UTType
+	GeoJSON UTType
+	// HEIC: A type that represents High Efficiency Image Coding images.
+	HEIC UTType
+	HEICS UTType
+	// HEIF: A type that represents High Efficiency Image File Format images.
+	HEIF UTType
+	// HTML: A type that represents any version of HTML.
+	HTML UTType
+	// ICNS: A type that represents Apple icon data.
+	ICNS UTType
+	// ICO: A type that represents Windows icon data.
+	ICO UTType
+	// Image: A base type that represents image data.
+	Image UTType
+	// InternetLocation: A base type that represents an Apple internet location file.
+	InternetLocation UTType
+	// InternetShortcut: A type that represents a Microsoft internet shortcut file.
+	InternetShortcut UTType
+	// Item: A generic base type for most objects, such as files or directories.
+	Item UTType
+	// JPEG: A type that represents a JPEG image.
+	JPEG UTType
+	JPEGXL UTType
+	// JSON: A type that represents JavaScript Object Notation (JSON) data.
+	JSON UTType
+	// JavaScript: A type that represents JavaScript source code.
+	JavaScript UTType
+	LinkPresentationMetadata UTType
+	// LivePhoto: A type that represents Live Photos.
+	LivePhoto UTType
+	// Log: A base type that represents console log data.
+	Log UTType
+	// M3UPlaylist: A type that represents an M3U or M3U8 playlist.
+	M3UPlaylist UTType
+	// MIDI: A type that represents data in MIDI audio format.
+	MIDI UTType
+	// MP3: A type that represents MP3 audio.
+	MP3 UTType
+	// MPEG: A type that represents an MPEG-1 or MPEG-2 movie.
+	MPEG UTType
+	// MPEG2TransportStream: A type that represents data in MPEG-2 transport stream movie format.
+	MPEG2TransportStream UTType
+	// MPEG2Video: A type that represents an MPEG-2 video.
+	MPEG2Video UTType
+	// MPEG4Audio: A type that represents an MPEG-4 audio layer file.
+	MPEG4Audio UTType
+	// MPEG4Movie: A type that represents an MPEG-4 movie.
+	MPEG4Movie UTType
+	// Makefile: A type that represents a Makefile.
+	Makefile UTType
+	// Message: A base type that represents a message.
+	Message UTType
+	// MountPoint: A type that represents a volume mount point.
+	MountPoint UTType
+	// Movie: A base type representing media formats that may contain both video and audio.
+	Movie UTType
+	// OSAScript: A type that represents an Open Scripting Architecture binary script.
+	OSAScript UTType
+	// OSAScriptBundle: A type that represents an Open Scripting Architecture script bundle.
+	OSAScriptBundle UTType
+	// ObjectiveCPlusPlusSource: A type that represents an Objective-C++ source code file.
+	ObjectiveCPlusPlusSource UTType
+	// ObjectiveCSource: A type that represents an Objective-C source code file.
+	ObjectiveCSource UTType
+	// PDF: A type that represents Adobe Portable Document Format (PDF) documents.
+	PDF UTType
+	// PHPScript: A type that represents a PHP script.
+	PHPScript UTType
+	// PKCS12: A type that represents Public Key Cryptography Standard (PKCS) 12 data.
+	PKCS12 UTType
+	// PNG: A type that represents a PNG image.
+	PNG UTType
+	// Package: A base type that represents a packaged directory.
+	Package UTType
+	// PerlScript: A type that represents a Perl script.
+	PerlScript UTType
+	// PlainText: A type that represents text with no markup and an unspecified encoding.
+	PlainText UTType
+	// Playlist: A base type that represents a playlist.
+	Playlist UTType
+	// PluginBundle: A base type that represents a bundle-based plug-in.
+	PluginBundle UTType
+	// Presentation: A base type that represents a presentation document.
+	Presentation UTType
+	// PropertyList: A base type that represents a property list.
+	PropertyList UTType
+	// PythonScript: A type that represents a Python script.
+	PythonScript UTType
+	// QuickLookGenerator: A type that represents a QuickLook preview generator bundle.
+	QuickLookGenerator UTType
+	// QuickTimeMovie: A type that represents a QuickTime movie.
+	QuickTimeMovie UTType
+	// RAWImage: A base type that represents a raw image format that you use in digital photography.
+	RAWImage UTType
+	// RTF: A type that represents Rich Text Format data.
+	RTF UTType
+	// RTFD: A type that represents Rich Text Format Directory documents.
+	RTFD UTType
+	// RealityFile: A type that represents a Reality Composer file.
+	RealityFile UTType
+	// Resolvable: A base type that represents a resolvable reference, including symbolic links and aliases.
+	Resolvable UTType
+	// RubyScript: A type that represents a Ruby script.
+	RubyScript UTType
+	// SVG: A type that represents a scalable vector graphics (SVG) image.
+	SVG UTType
+	// SceneKitScene: A type that represents a SceneKit serialized scene.
+	SceneKitScene UTType
+	// Script: A base type that represents any scripting language source.
+	Script UTType
+	// ShellScript: A base type that represents a shell script.
+	ShellScript UTType
+	// SourceCode: A base type that represents source code of any programming language.
+	SourceCode UTType
+	// SpotlightImporter: A type that represents a Spotlight metadata importer bundle.
+	SpotlightImporter UTType
+	// Spreadsheet: A base type that represents a spreadsheet document.
+	Spreadsheet UTType
+	// SwiftSource: A type that represents a Swift source code file.
+	SwiftSource UTType
+	// SymbolicLink: A type that represents a symbolic link.
+	SymbolicLink UTType
+	// SystemPreferencesPane: A type that represents a System Preferences pane.
+	SystemPreferencesPane UTType
+	// TIFF: A type that represents a TIFF image.
+	TIFF UTType
+	// TabSeparatedText: A type that represents text containing tab-separated values.
+	TabSeparatedText UTType
+	TarArchive UTType
+	// Text: A base type that represents all text-encoded data, including text with markup.
+	Text UTType
+	// ToDoItem: A type that represents a to-do item.
+	ToDoItem UTType
+	// URL: A type that represents a URL.
+	URL UTType
+	// URLBookmarkData: A type that represents a URL bookmark.
+	URLBookmarkData UTType
+	// USD: A type that represents Universal Scene Description content.
+	USD UTType
+	// USDZ: A type that represents Universal Scene Description Package content.
+	USDZ UTType
+	// UTF16ExternalPlainText: A type that represents plain text encoded as UTF-16 with an optional BOM.
+	UTF16ExternalPlainText UTType
+	// UTF16PlainText: A type that represents plain text encoded as UTF-16 in native byte order with an optional bill of materials.
+	UTF16PlainText UTType
+	// UTF8PlainText: A type that represents plain text encoded as UTF-8.
+	UTF8PlainText UTType
+	// UTF8TabSeparatedText: A type that represents UTF-8–encoded text containing tab-separated values.
+	UTF8TabSeparatedText UTType
+	// UnixExecutable: A type that represents a UNIX executable.
+	UnixExecutable UTType
+	// VCard: A type that represents a vCard file.
+	VCard UTType
+	// Video: A type that represents video that doesn’t contain audio.
+	Video UTType
+	// Volume: A type that represents the root folder of a volume or mount point.
+	Volume UTType
+	// WAV: A type that represents data in Microsoft Waveform Audio File Format.
+	WAV UTType
+	// WebArchive: A type that represents WebKit web archive data.
+	WebArchive UTType
+	// WebP: A type that represents a WebP image.
+	WebP UTType
+	// X509Certificate: A type that represents an X.509 certificate.
+	X509Certificate UTType
+	// XML: A type that represents generic XML data.
+	XML UTType
+	// XMLPropertyList: A type that represents an XML property list.
+	XMLPropertyList UTType
+	// XPCService: A type that represents an XPC service bundle.
+	XPCService UTType
+	// YAML: A type that represents Yet Another Markup Language data.
+	YAML UTType
+	// ZIP: A type that represents a zip archive.
+	ZIP UTType
+}
 

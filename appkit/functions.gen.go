@@ -78,12 +78,12 @@ func NSAccessibilityPointInView(parentView *NSView, point corefoundation.CGPoint
 }
 
 
-var _nSAccessibilityPostNotification func(element objectivec.Object, notification NSAccessibilityNotificationName) 
+var _nSAccessibilityPostNotification func(element objectivec.Object, notification NSAccessibilityNotificationName)
 
 // NSAccessibilityPostNotification sends a notification to any observing assistive apps.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/post(element:notification:)
-func NSAccessibilityPostNotification(element objectivec.Object, notification NSAccessibilityNotificationName)  {
+func NSAccessibilityPostNotification(element objectivec.Object, notification NSAccessibilityNotificationName) {
 	if _nSAccessibilityPostNotification == nil {
 		panic("AppKit: symbol NSAccessibilityPostNotification not loaded")
 	}
@@ -222,12 +222,12 @@ func NSAvailableWindowDepths() *NSWindowDepth {
 }
 
 
-var _nSBeep func() 
+var _nSBeep func()
 
 // NSBeep plays the system beep.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBeep
-func NSBeep()  {
+func NSBeep() {
 	if _nSBeep == nil {
 		panic("AppKit: symbol NSBeep not loaded")
 	}
@@ -300,12 +300,12 @@ func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyt
 }
 
 
-var _nSCopyBits func(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint) 
+var _nSCopyBits func(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint)
 
 // NSCopyBits copies a bitmap image to the location specified by a destination point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCopyBits(_:_:_:)
-func NSCopyBits(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint)  {
+func NSCopyBits(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint) {
 	if _nSCopyBits == nil {
 		panic("AppKit: symbol NSCopyBits not loaded")
 	}
@@ -313,12 +313,12 @@ func NSCopyBits(srcGState int, srcRect corefoundation.CGRect, destPoint corefoun
 }
 
 
-var _nSCountWindows func(count *int) 
+var _nSCountWindows func(count *int)
 
 // NSCountWindows counts the number of onscreen windows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCountWindows
-func NSCountWindows(count *int)  {
+func NSCountWindows(count *int) {
 	if _nSCountWindows == nil {
 		panic("AppKit: symbol NSCountWindows not loaded")
 	}
@@ -326,12 +326,12 @@ func NSCountWindows(count *int)  {
 }
 
 
-var _nSCountWindowsForContext func(context int, count *int) 
+var _nSCountWindowsForContext func(context int, count *int)
 
 // NSCountWindowsForContext counts the number of onscreen windows belonging to a particular application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCountWindowsForContext
-func NSCountWindowsForContext(context int, count *int)  {
+func NSCountWindowsForContext(context int, count *int) {
 	if _nSCountWindowsForContext == nil {
 		panic("AppKit: symbol NSCountWindowsForContext not loaded")
 	}
@@ -370,12 +370,12 @@ func NSCreateFilenamePboardType(fileType foundation.NSString) NSPasteboardType {
 
 
 
-var _nSDottedFrameRect func(rect corefoundation.CGRect) 
+var _nSDottedFrameRect func(rect corefoundation.CGRect)
 
 // NSDottedFrameRect draws a bordered rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDottedFrameRect(_:)
-func NSDottedFrameRect(rect corefoundation.CGRect)  {
+func NSDottedFrameRect(rect corefoundation.CGRect) {
 	if _nSDottedFrameRect == nil {
 		panic("AppKit: symbol NSDottedFrameRect not loaded")
 	}
@@ -383,12 +383,12 @@ func NSDottedFrameRect(rect corefoundation.CGRect)  {
 }
 
 
-var _nSDrawBitmap func(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte) 
+var _nSDrawBitmap func(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte)
 
 // NSDrawBitmap draws a bitmap image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawBitmap(_:_:_:_:_:_:_:_:_:_:_:)
-func NSDrawBitmap(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte)  {
+func NSDrawBitmap(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte) {
 	if _nSDrawBitmap == nil {
 		panic("AppKit: symbol NSDrawBitmap not loaded")
 	}
@@ -396,12 +396,12 @@ func NSDrawBitmap(rect corefoundation.CGRect, width int, height int, bps int, sp
 }
 
 
-var _nSDrawButton func(rect corefoundation.CGRect, clipRect corefoundation.CGRect) 
+var _nSDrawButton func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawButton draws a gray-filled rectangle representing a user-interface button.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawButton(_:_:)
-func NSDrawButton(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
+func NSDrawButton(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	if _nSDrawButton == nil {
 		panic("AppKit: symbol NSDrawButton not loaded")
 	}
@@ -422,12 +422,12 @@ func NSDrawColorTiledRects(boundsRect corefoundation.CGRect, clipRect corefounda
 }
 
 
-var _nSDrawDarkBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect) 
+var _nSDrawDarkBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawDarkBezel draws a dark gray-filled rectangle with a bezel border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawDarkBezel(_:_:)
-func NSDrawDarkBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
+func NSDrawDarkBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	if _nSDrawDarkBezel == nil {
 		panic("AppKit: symbol NSDrawDarkBezel not loaded")
 	}
@@ -435,12 +435,12 @@ func NSDrawDarkBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 }
 
 
-var _nSDrawGrayBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect) 
+var _nSDrawGrayBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawGrayBezel draws a gray-filled rectangle with a bezel border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawGrayBezel(_:_:)
-func NSDrawGrayBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
+func NSDrawGrayBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	if _nSDrawGrayBezel == nil {
 		panic("AppKit: symbol NSDrawGrayBezel not loaded")
 	}
@@ -448,12 +448,12 @@ func NSDrawGrayBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 }
 
 
-var _nSDrawGroove func(rect corefoundation.CGRect, clipRect corefoundation.CGRect) 
+var _nSDrawGroove func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawGroove draws a gray-filled rectangle with a groove border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawGroove(_:_:)
-func NSDrawGroove(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
+func NSDrawGroove(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	if _nSDrawGroove == nil {
 		panic("AppKit: symbol NSDrawGroove not loaded")
 	}
@@ -461,12 +461,12 @@ func NSDrawGroove(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
 }
 
 
-var _nSDrawLightBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect) 
+var _nSDrawLightBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawLightBezel draws a white-filled rectangle with a bezel border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawLightBezel(_:_:)
-func NSDrawLightBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
+func NSDrawLightBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	if _nSDrawLightBezel == nil {
 		panic("AppKit: symbol NSDrawLightBezel not loaded")
 	}
@@ -474,12 +474,12 @@ func NSDrawLightBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect
 }
 
 
-var _nSDrawNinePartImage func(frame corefoundation.CGRect, topLeftCorner *NSImage, topEdgeFill *NSImage, topRightCorner *NSImage, leftEdgeFill *NSImage, centerFill *NSImage, rightEdgeFill *NSImage, bottomLeftCorner *NSImage, bottomEdgeFill *NSImage, bottomRightCorner *NSImage, op NSCompositingOperation, alphaFraction float64, flipped bool) 
+var _nSDrawNinePartImage func(frame corefoundation.CGRect, topLeftCorner *NSImage, topEdgeFill *NSImage, topRightCorner *NSImage, leftEdgeFill *NSImage, centerFill *NSImage, rightEdgeFill *NSImage, bottomLeftCorner *NSImage, bottomEdgeFill *NSImage, bottomRightCorner *NSImage, op NSCompositingOperation, alphaFraction float64, flipped bool)
 
 // NSDrawNinePartImage draws a nine-part tiled image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawNinePartImage(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func NSDrawNinePartImage(frame corefoundation.CGRect, topLeftCorner *NSImage, topEdgeFill *NSImage, topRightCorner *NSImage, leftEdgeFill *NSImage, centerFill *NSImage, rightEdgeFill *NSImage, bottomLeftCorner *NSImage, bottomEdgeFill *NSImage, bottomRightCorner *NSImage, op NSCompositingOperation, alphaFraction float64, flipped bool)  {
+func NSDrawNinePartImage(frame corefoundation.CGRect, topLeftCorner *NSImage, topEdgeFill *NSImage, topRightCorner *NSImage, leftEdgeFill *NSImage, centerFill *NSImage, rightEdgeFill *NSImage, bottomLeftCorner *NSImage, bottomEdgeFill *NSImage, bottomRightCorner *NSImage, op NSCompositingOperation, alphaFraction float64, flipped bool) {
 	if _nSDrawNinePartImage == nil {
 		panic("AppKit: symbol NSDrawNinePartImage not loaded")
 	}
@@ -487,12 +487,12 @@ func NSDrawNinePartImage(frame corefoundation.CGRect, topLeftCorner *NSImage, to
 }
 
 
-var _nSDrawThreePartImage func(frame corefoundation.CGRect, startCap *NSImage, centerFill *NSImage, endCap *NSImage, vertical bool, op NSCompositingOperation, alphaFraction float64, flipped bool) 
+var _nSDrawThreePartImage func(frame corefoundation.CGRect, startCap *NSImage, centerFill *NSImage, endCap *NSImage, vertical bool, op NSCompositingOperation, alphaFraction float64, flipped bool)
 
 // NSDrawThreePartImage draws a three-part tiled image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawThreePartImage(_:_:_:_:_:_:_:_:)
-func NSDrawThreePartImage(frame corefoundation.CGRect, startCap *NSImage, centerFill *NSImage, endCap *NSImage, vertical bool, op NSCompositingOperation, alphaFraction float64, flipped bool)  {
+func NSDrawThreePartImage(frame corefoundation.CGRect, startCap *NSImage, centerFill *NSImage, endCap *NSImage, vertical bool, op NSCompositingOperation, alphaFraction float64, flipped bool) {
 	if _nSDrawThreePartImage == nil {
 		panic("AppKit: symbol NSDrawThreePartImage not loaded")
 	}
@@ -513,12 +513,12 @@ func NSDrawTiledRects(boundsRect corefoundation.CGRect, clipRect corefoundation.
 }
 
 
-var _nSDrawWhiteBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect) 
+var _nSDrawWhiteBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawWhiteBezel draws a white-filled rectangle with a bezel border.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawWhiteBezel(_:_:)
-func NSDrawWhiteBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)  {
+func NSDrawWhiteBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	if _nSDrawWhiteBezel == nil {
 		panic("AppKit: symbol NSDrawWhiteBezel not loaded")
 	}
@@ -526,12 +526,12 @@ func NSDrawWhiteBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect
 }
 
 
-var _nSDrawWindowBackground func(rect corefoundation.CGRect) 
+var _nSDrawWindowBackground func(rect corefoundation.CGRect)
 
 // NSDrawWindowBackground draws the window’s default background pattern into the specified rectangle of the currently focused view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawWindowBackground(_:)
-func NSDrawWindowBackground(rect corefoundation.CGRect)  {
+func NSDrawWindowBackground(rect corefoundation.CGRect) {
 	if _nSDrawWindowBackground == nil {
 		panic("AppKit: symbol NSDrawWindowBackground not loaded")
 	}
@@ -539,12 +539,12 @@ func NSDrawWindowBackground(rect corefoundation.CGRect)  {
 }
 
 
-var _nSEraseRect func(rect corefoundation.CGRect) 
+var _nSEraseRect func(rect corefoundation.CGRect)
 
 // NSEraseRect erases the specified rect by filling it with white.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEraseRect(_:)
-func NSEraseRect(rect corefoundation.CGRect)  {
+func NSEraseRect(rect corefoundation.CGRect) {
 	if _nSEraseRect == nil {
 		panic("AppKit: symbol NSEraseRect not loaded")
 	}
@@ -553,12 +553,12 @@ func NSEraseRect(rect corefoundation.CGRect)  {
 
 
 
-var _nSFrameRect func(rect corefoundation.CGRect) 
+var _nSFrameRect func(rect corefoundation.CGRect)
 
 // NSFrameRect draws a bordered rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFrameRect
-func NSFrameRect(rect corefoundation.CGRect)  {
+func NSFrameRect(rect corefoundation.CGRect) {
 	if _nSFrameRect == nil {
 		panic("AppKit: symbol NSFrameRect not loaded")
 	}
@@ -566,12 +566,12 @@ func NSFrameRect(rect corefoundation.CGRect)  {
 }
 
 
-var _nSFrameRectWithWidth func(rect corefoundation.CGRect, frameWidth float64) 
+var _nSFrameRectWithWidth func(rect corefoundation.CGRect, frameWidth float64)
 
 // NSFrameRectWithWidth draws a bordered rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFrameRectWithWidth
-func NSFrameRectWithWidth(rect corefoundation.CGRect, frameWidth float64)  {
+func NSFrameRectWithWidth(rect corefoundation.CGRect, frameWidth float64) {
 	if _nSFrameRectWithWidth == nil {
 		panic("AppKit: symbol NSFrameRectWithWidth not loaded")
 	}
@@ -579,12 +579,12 @@ func NSFrameRectWithWidth(rect corefoundation.CGRect, frameWidth float64)  {
 }
 
 
-var _nSFrameRectWithWidthUsingOperation func(rect corefoundation.CGRect, frameWidth float64, op NSCompositingOperation) 
+var _nSFrameRectWithWidthUsingOperation func(rect corefoundation.CGRect, frameWidth float64, op NSCompositingOperation)
 
 // NSFrameRectWithWidthUsingOperation draws a bordered rectangle using the specified compositing operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFrameRectWithWidthUsingOperation
-func NSFrameRectWithWidthUsingOperation(rect corefoundation.CGRect, frameWidth float64, op NSCompositingOperation)  {
+func NSFrameRectWithWidthUsingOperation(rect corefoundation.CGRect, frameWidth float64, op NSCompositingOperation) {
 	if _nSFrameRectWithWidthUsingOperation == nil {
 		panic("AppKit: symbol NSFrameRectWithWidthUsingOperation not loaded")
 	}
@@ -622,18 +622,30 @@ func NSGetFileTypes(pboardTypes []foundation.NSString) []foundation.NSString {
 }
 
 
-var _nSHighlightRect func(rect corefoundation.CGRect) 
+var _nSHighlightRect func(rect corefoundation.CGRect)
 
 // NSHighlightRect highlights the specified rect by filling it with white.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHighlightRect
-func NSHighlightRect(rect corefoundation.CGRect)  {
+func NSHighlightRect(rect corefoundation.CGRect) {
 	if _nSHighlightRect == nil {
 		panic("AppKit: symbol NSHighlightRect not loaded")
 	}
 	_nSHighlightRect(rect)
 }
 
+
+var _nSInterfaceStyleForKey func(key foundation.NSString, responder *NSResponder) unsafe.Pointer
+
+// NSInterfaceStyleForKey returns an interface style value for the specified key and responder.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSInterfaceStyleForKey
+func NSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) unsafe.Pointer {
+	if _nSInterfaceStyleForKey == nil {
+		panic("AppKit: symbol NSInterfaceStyleForKey not loaded")
+	}
+	return _nSInterfaceStyleForKey(key, responder)
+}
 
 
 var _nSIsControllerMarker func(object objectivec.Object) bool
@@ -688,12 +700,12 @@ func NSPlanarFromDepth(depth NSWindowDepth) bool {
 }
 
 
-var _nSRectClip func(rect corefoundation.CGRect) 
+var _nSRectClip func(rect corefoundation.CGRect)
 
 // NSRectClip modifies the current clipping path by intersecting it with the passed rect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectClip
-func NSRectClip(rect corefoundation.CGRect)  {
+func NSRectClip(rect corefoundation.CGRect) {
 	if _nSRectClip == nil {
 		panic("AppKit: symbol NSRectClip not loaded")
 	}
@@ -701,12 +713,12 @@ func NSRectClip(rect corefoundation.CGRect)  {
 }
 
 
-var _nSRectClipList func(rects *corefoundation.CGRect, count int) 
+var _nSRectClipList func(rects *corefoundation.CGRect, count int)
 
 // NSRectClipList modifies the current clipping path by intersecting it with the passed rect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectClipList
-func NSRectClipList(rects *corefoundation.CGRect, count int)  {
+func NSRectClipList(rects *corefoundation.CGRect, count int) {
 	if _nSRectClipList == nil {
 		panic("AppKit: symbol NSRectClipList not loaded")
 	}
@@ -714,12 +726,12 @@ func NSRectClipList(rects *corefoundation.CGRect, count int)  {
 }
 
 
-var _nSRectFill func(rect corefoundation.CGRect) 
+var _nSRectFill func(rect corefoundation.CGRect)
 
 // NSRectFill fills the passed rectangle with the current color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFill
-func NSRectFill(rect corefoundation.CGRect)  {
+func NSRectFill(rect corefoundation.CGRect) {
 	if _nSRectFill == nil {
 		panic("AppKit: symbol NSRectFill not loaded")
 	}
@@ -727,12 +739,12 @@ func NSRectFill(rect corefoundation.CGRect)  {
 }
 
 
-var _nSRectFillList func(rects *corefoundation.CGRect, count int) 
+var _nSRectFillList func(rects *corefoundation.CGRect, count int)
 
 // NSRectFillList fills the rectangles in the passed list with the current fill color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFillList
-func NSRectFillList(rects *corefoundation.CGRect, count int)  {
+func NSRectFillList(rects *corefoundation.CGRect, count int) {
 	if _nSRectFillList == nil {
 		panic("AppKit: symbol NSRectFillList not loaded")
 	}
@@ -740,12 +752,12 @@ func NSRectFillList(rects *corefoundation.CGRect, count int)  {
 }
 
 
-var _nSRectFillListUsingOperation func(rects *corefoundation.CGRect, count int, op NSCompositingOperation) 
+var _nSRectFillListUsingOperation func(rects *corefoundation.CGRect, count int, op NSCompositingOperation)
 
 // NSRectFillListUsingOperation fills the rectangles in a list using the current fill color and specified compositing operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFillListUsingOperation
-func NSRectFillListUsingOperation(rects *corefoundation.CGRect, count int, op NSCompositingOperation)  {
+func NSRectFillListUsingOperation(rects *corefoundation.CGRect, count int, op NSCompositingOperation) {
 	if _nSRectFillListUsingOperation == nil {
 		panic("AppKit: symbol NSRectFillListUsingOperation not loaded")
 	}
@@ -753,12 +765,12 @@ func NSRectFillListUsingOperation(rects *corefoundation.CGRect, count int, op NS
 }
 
 
-var _nSRectFillListWithColors func(rects *corefoundation.CGRect, colors NSColor, num int) 
+var _nSRectFillListWithColors func(rects *corefoundation.CGRect, colors NSColor, num int)
 
 // NSRectFillListWithColors fills the rectangles in the passed list with the passed list of colors.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFillListWithColors
-func NSRectFillListWithColors(rects *corefoundation.CGRect, colors NSColor, num int)  {
+func NSRectFillListWithColors(rects *corefoundation.CGRect, colors NSColor, num int) {
 	if _nSRectFillListWithColors == nil {
 		panic("AppKit: symbol NSRectFillListWithColors not loaded")
 	}
@@ -766,12 +778,12 @@ func NSRectFillListWithColors(rects *corefoundation.CGRect, colors NSColor, num 
 }
 
 
-var _nSRectFillListWithColorsUsingOperation func(rects *corefoundation.CGRect, colors NSColor, num int, op NSCompositingOperation) 
+var _nSRectFillListWithColorsUsingOperation func(rects *corefoundation.CGRect, colors NSColor, num int, op NSCompositingOperation)
 
 // NSRectFillListWithColorsUsingOperation fills the rectangles in a list using the specified colors and compositing operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFillListWithColorsUsingOperation
-func NSRectFillListWithColorsUsingOperation(rects *corefoundation.CGRect, colors NSColor, num int, op NSCompositingOperation)  {
+func NSRectFillListWithColorsUsingOperation(rects *corefoundation.CGRect, colors NSColor, num int, op NSCompositingOperation) {
 	if _nSRectFillListWithColorsUsingOperation == nil {
 		panic("AppKit: symbol NSRectFillListWithColorsUsingOperation not loaded")
 	}
@@ -779,12 +791,12 @@ func NSRectFillListWithColorsUsingOperation(rects *corefoundation.CGRect, colors
 }
 
 
-var _nSRectFillListWithGrays func(rects *corefoundation.CGRect, grays *float64, num int) 
+var _nSRectFillListWithGrays func(rects *corefoundation.CGRect, grays *float64, num int)
 
 // NSRectFillListWithGrays fills the rectangles in the passed list with the passed list of grays.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFillListWithGrays
-func NSRectFillListWithGrays(rects *corefoundation.CGRect, grays *float64, num int)  {
+func NSRectFillListWithGrays(rects *corefoundation.CGRect, grays *float64, num int) {
 	if _nSRectFillListWithGrays == nil {
 		panic("AppKit: symbol NSRectFillListWithGrays not loaded")
 	}
@@ -792,12 +804,12 @@ func NSRectFillListWithGrays(rects *corefoundation.CGRect, grays *float64, num i
 }
 
 
-var _nSRectFillUsingOperation func(rect corefoundation.CGRect, op NSCompositingOperation) 
+var _nSRectFillUsingOperation func(rect corefoundation.CGRect, op NSCompositingOperation)
 
 // NSRectFillUsingOperation fills a rectangle using the current fill color and the specified compositing operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRectFillUsingOperation
-func NSRectFillUsingOperation(rect corefoundation.CGRect, op NSCompositingOperation)  {
+func NSRectFillUsingOperation(rect corefoundation.CGRect, op NSCompositingOperation) {
 	if _nSRectFillUsingOperation == nil {
 		panic("AppKit: symbol NSRectFillUsingOperation not loaded")
 	}
@@ -805,12 +817,12 @@ func NSRectFillUsingOperation(rect corefoundation.CGRect, op NSCompositingOperat
 }
 
 
-var _nSRegisterServicesProvider func(provider objectivec.Object, name NSServiceProviderName) 
+var _nSRegisterServicesProvider func(provider objectivec.Object, name NSServiceProviderName)
 
 // NSRegisterServicesProvider registers a service provider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRegisterServicesProvider(_:_:)
-func NSRegisterServicesProvider(provider objectivec.Object, name NSServiceProviderName)  {
+func NSRegisterServicesProvider(provider objectivec.Object, name NSServiceProviderName) {
 	if _nSRegisterServicesProvider == nil {
 		panic("AppKit: symbol NSRegisterServicesProvider not loaded")
 	}
@@ -870,14 +882,14 @@ func NSSetShowsServicesMenuItem(itemName foundation.NSString, enabled bool) int 
 }
 
 
-var _nSShowAnimationEffect func(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr) 
+var _nSShowAnimationEffect func(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr)
 
 // NSShowAnimationEffect runs a system animation effect.
 //
 // Deprecated: Deprecated since macOS 14.0. Use [disappearingItem](<doc://com.apple.appkit/documentation/AppKit/NSCursor/disappearingItem>) instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSShowAnimationEffect
-func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr)  {
+func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr) {
 	if _nSShowAnimationEffect == nil {
 		panic("AppKit: symbol NSShowAnimationEffect not loaded")
 	}
@@ -899,12 +911,12 @@ func NSShowsServicesMenuItem(itemName foundation.NSString) bool {
 
 
 
-var _nSUnregisterServicesProvider func(name NSServiceProviderName) 
+var _nSUnregisterServicesProvider func(name NSServiceProviderName)
 
 // NSUnregisterServicesProvider unregisters a service provider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUnregisterServicesProvider(_:)
-func NSUnregisterServicesProvider(name NSServiceProviderName)  {
+func NSUnregisterServicesProvider(name NSServiceProviderName) {
 	if _nSUnregisterServicesProvider == nil {
 		panic("AppKit: symbol NSUnregisterServicesProvider not loaded")
 	}
@@ -912,12 +924,12 @@ func NSUnregisterServicesProvider(name NSServiceProviderName)  {
 }
 
 
-var _nSUpdateDynamicServices func() 
+var _nSUpdateDynamicServices func()
 
 // NSUpdateDynamicServices causes the services information for the system to be updated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUpdateDynamicServices()
-func NSUpdateDynamicServices()  {
+func NSUpdateDynamicServices() {
 	if _nSUpdateDynamicServices == nil {
 		panic("AppKit: symbol NSUpdateDynamicServices not loaded")
 	}
@@ -925,12 +937,12 @@ func NSUpdateDynamicServices()  {
 }
 
 
-var _nSWindowList func(size int, list int) 
+var _nSWindowList func(size int, list int)
 
 // NSWindowList gets information about onscreen windows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowList
-func NSWindowList(size int, list int)  {
+func NSWindowList(size int, list int) {
 	if _nSWindowList == nil {
 		panic("AppKit: symbol NSWindowList not loaded")
 	}
@@ -938,12 +950,12 @@ func NSWindowList(size int, list int)  {
 }
 
 
-var _nSWindowListForContext func(context int, size int, list int) 
+var _nSWindowListForContext func(context int, size int, list int)
 
 // NSWindowListForContext gets information about an application’s onscreen windows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowListForContext
-func NSWindowListForContext(context int, size int, list int)  {
+func NSWindowListForContext(context int, size int, list int) {
 	if _nSWindowListForContext == nil {
 		panic("AppKit: symbol NSWindowListForContext not loaded")
 	}
@@ -1001,6 +1013,7 @@ func init() {
 		registerFunc(&_nSGetFileType, frameworkHandle, "NSGetFileType")
 		registerFunc(&_nSGetFileTypes, frameworkHandle, "NSGetFileTypes")
 		registerFunc(&_nSHighlightRect, frameworkHandle, "NSHighlightRect")
+		registerFunc(&_nSInterfaceStyleForKey, frameworkHandle, "NSInterfaceStyleForKey")
 		registerFunc(&_nSIsControllerMarker, frameworkHandle, "NSIsControllerMarker")
 		registerFunc(&_nSNumberOfColorComponents, frameworkHandle, "NSNumberOfColorComponents")
 		registerFunc(&_nSPerformService, frameworkHandle, "NSPerformService")

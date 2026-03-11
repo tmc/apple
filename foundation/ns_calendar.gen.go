@@ -555,9 +555,9 @@ type INSCalendar interface {
 	// A notification that is posted whenever the calendar day of the system changes, as determined by the system calendar, locale, and time zone.
 	NSCalendarDayChanged() NSNotificationName
 
-	InitWithCoder(coder INSCoder) NSCalendar
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSCalendar
 }
 
 
@@ -1729,13 +1729,6 @@ func (c NSCalendar) IsDateInYesterday(date INSDate) bool {
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (c NSCalendar) InitWithCoder(coder INSCoder) NSCalendar {
-	rv := objc.Send[NSCalendar](c.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1743,6 +1736,13 @@ func (c NSCalendar) InitWithCoder(coder INSCoder) NSCalendar {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (c NSCalendar) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (c NSCalendar) InitWithCoder(coder INSCoder) NSCalendar {
+	rv := objc.Send[NSCalendar](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

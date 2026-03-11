@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea
 type NSAccessibilityLayoutArea interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 	NSAccessibilityGroup
 
 	// Returns the accessibility element’s children in the accessibility hierarchy.

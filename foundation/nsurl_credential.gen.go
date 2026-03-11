@@ -140,9 +140,9 @@ type IURLCredential interface {
 	// The credential’s persistence setting.
 	Persistence() NSURLCredentialPersistence
 
-	InitWithCoder(coder INSCoder) URLCredential
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLCredential
 }
 
 
@@ -409,13 +409,6 @@ func (u URLCredential) InitWithUserPasswordPersistence(user string, password str
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
-	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -423,6 +416,13 @@ func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u URLCredential) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
+	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

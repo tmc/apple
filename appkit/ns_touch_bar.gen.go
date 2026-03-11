@@ -720,11 +720,20 @@ type INSTouchBar interface {
 	CustomizationRequiredItemIdentifiers() []string
 	SetCustomizationRequiredItemIdentifiers(value []string)
 
+	// A Boolean value indicating whether the view accepts touch events.
+	AcceptsTouchEvents() bool
+	SetAcceptsTouchEvents(value bool)
+	AllowedTouchTypes() NSTouchTypeMask
+	SetAllowedTouchTypes(value NSTouchTypeMask)
 	// The color of the button’s bezel, in appearances that support it.
 	BezelColor() INSColor
 	SetBezelColor(value INSColor)
-	AllowedTouchTypes() NSTouchTypeMask
-	SetAllowedTouchTypes(value NSTouchTypeMask)
+	// The user-visible string identifying this item during bar customization.
+	CustomizationLabel() string
+	SetCustomizationLabel(value string)
+	// A direct touch from a user’s finger on a screen.
+	Direct() NSTouchTypeMask
+	SetDirect(value NSTouchTypeMask)
 	// A bar that holds this group’s items.
 	GroupTouchBar() INSTouchBar
 	SetGroupTouchBar(value INSTouchBar)
@@ -737,21 +746,12 @@ type INSTouchBar interface {
 	// The color of the selected segment’s bezel, in appearances that support it.
 	SelectedSegmentBezelColor() INSColor
 	SetSelectedSegmentBezelColor(value INSColor)
-	// The color of the filled portion of the slider track, in appearances that support it.
-	TrackFillColor() INSColor
-	SetTrackFillColor(value INSColor)
-	// A direct touch from a user’s finger on a screen.
-	Direct() NSTouchTypeMask
-	SetDirect(value NSTouchTypeMask)
-	// The user-visible string identifying this item during bar customization.
-	CustomizationLabel() string
-	SetCustomizationLabel(value string)
 	// The property you implement to provide a Touch Bar object.
 	TouchBar() INSTouchBar
 	SetTouchBar(value INSTouchBar)
-	// A Boolean value indicating whether the view accepts touch events.
-	AcceptsTouchEvents() bool
-	SetAcceptsTouchEvents(value bool)
+	// The color of the filled portion of the slider track, in appearances that support it.
+	TrackFillColor() INSColor
+	SetTrackFillColor(value INSColor)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -1105,6 +1105,30 @@ func (t NSTouchBar) SetCustomizationRequiredItemIdentifiers(value []string) {
 
 
 
+// A Boolean value indicating whether the view accepts touch events.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/acceptstouchevents
+func (t NSTouchBar) AcceptsTouchEvents() bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("acceptsTouchEvents"))
+	return rv
+}
+func (t NSTouchBar) SetAcceptsTouchEvents(value bool) {
+	objc.Send[struct{}](t.ID, objc.Sel("setAcceptsTouchEvents:"), value)
+}
+
+
+
+// See: https://developer.apple.com/documentation/appkit/nsgesturerecognizer/allowedtouchtypes
+func (t NSTouchBar) AllowedTouchTypes() NSTouchTypeMask {
+	rv := objc.Send[NSTouchTypeMask](t.ID, objc.Sel("allowedTouchTypes"))
+	return NSTouchTypeMask(rv)
+}
+func (t NSTouchBar) SetAllowedTouchTypes(value NSTouchTypeMask) {
+	objc.Send[struct{}](t.ID, objc.Sel("setAllowedTouchTypes:"), value)
+}
+
+
+
 // The color of the button’s bezel, in appearances that support it.
 //
 // See: https://developer.apple.com/documentation/appkit/nsbutton/bezelcolor
@@ -1118,13 +1142,28 @@ func (t NSTouchBar) SetBezelColor(value INSColor) {
 
 
 
-// See: https://developer.apple.com/documentation/appkit/nsgesturerecognizer/allowedtouchtypes
-func (t NSTouchBar) AllowedTouchTypes() NSTouchTypeMask {
-	rv := objc.Send[NSTouchTypeMask](t.ID, objc.Sel("allowedTouchTypes"))
+// The user-visible string identifying this item during bar customization.
+//
+// See: https://developer.apple.com/documentation/appkit/nstouchbaritem/customizationlabel
+func (t NSTouchBar) CustomizationLabel() string {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("customizationLabel"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (t NSTouchBar) SetCustomizationLabel(value string) {
+	objc.Send[struct{}](t.ID, objc.Sel("setCustomizationLabel:"), objc.String(value))
+}
+
+
+
+// A direct touch from a user’s finger on a screen.
+//
+// See: https://developer.apple.com/documentation/appkit/nstouch/touchtypemask/direct
+func (t NSTouchBar) Direct() NSTouchTypeMask {
+	rv := objc.Send[NSTouchTypeMask](t.ID, objc.Sel("NSTouchTypeMaskDirect"))
 	return NSTouchTypeMask(rv)
 }
-func (t NSTouchBar) SetAllowedTouchTypes(value NSTouchTypeMask) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAllowedTouchTypes:"), value)
+func (t NSTouchBar) SetDirect(value NSTouchTypeMask) {
+	objc.Send[struct{}](t.ID, objc.Sel("setNSTouchTypeMaskDirect:"), value)
 }
 
 
@@ -1182,46 +1221,6 @@ func (t NSTouchBar) SetSelectedSegmentBezelColor(value INSColor) {
 
 
 
-// The color of the filled portion of the slider track, in appearances that
-// support it.
-//
-// See: https://developer.apple.com/documentation/appkit/nsslider/trackfillcolor
-func (t NSTouchBar) TrackFillColor() INSColor {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("trackFillColor"))
-	return NSColorFromID(objc.ID(rv))
-}
-func (t NSTouchBar) SetTrackFillColor(value INSColor) {
-	objc.Send[struct{}](t.ID, objc.Sel("setTrackFillColor:"), value)
-}
-
-
-
-// A direct touch from a user’s finger on a screen.
-//
-// See: https://developer.apple.com/documentation/appkit/nstouch/touchtypemask/direct
-func (t NSTouchBar) Direct() NSTouchTypeMask {
-	rv := objc.Send[NSTouchTypeMask](t.ID, objc.Sel("NSTouchTypeMaskDirect"))
-	return NSTouchTypeMask(rv)
-}
-func (t NSTouchBar) SetDirect(value NSTouchTypeMask) {
-	objc.Send[struct{}](t.ID, objc.Sel("setNSTouchTypeMaskDirect:"), value)
-}
-
-
-
-// The user-visible string identifying this item during bar customization.
-//
-// See: https://developer.apple.com/documentation/appkit/nstouchbaritem/customizationlabel
-func (t NSTouchBar) CustomizationLabel() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("customizationLabel"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (t NSTouchBar) SetCustomizationLabel(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setCustomizationLabel:"), objc.String(value))
-}
-
-
-
 // The property you implement to provide a Touch Bar object.
 //
 // See: https://developer.apple.com/documentation/appkit/nstouchbarprovider/touchbar
@@ -1235,15 +1234,16 @@ func (t NSTouchBar) SetTouchBar(value INSTouchBar) {
 
 
 
-// A Boolean value indicating whether the view accepts touch events.
+// The color of the filled portion of the slider track, in appearances that
+// support it.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/acceptstouchevents
-func (t NSTouchBar) AcceptsTouchEvents() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("acceptsTouchEvents"))
-	return rv
+// See: https://developer.apple.com/documentation/appkit/nsslider/trackfillcolor
+func (t NSTouchBar) TrackFillColor() INSColor {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("trackFillColor"))
+	return NSColorFromID(objc.ID(rv))
 }
-func (t NSTouchBar) SetAcceptsTouchEvents(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAcceptsTouchEvents:"), value)
+func (t NSTouchBar) SetTrackFillColor(value INSColor) {
+	objc.Send[struct{}](t.ID, objc.Sel("setTrackFillColor:"), value)
 }
 
 

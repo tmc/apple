@@ -465,7 +465,7 @@ type INSResponder interface {
 	// Saves the interface-related state of the responder.
 	EncodeRestorableStateWithCoder(coder foundation.INSCoder)
 	// Saves the interface-related state of the responder to a keyed archiver either synchronously or asynchronously on the given operation queue.
-	EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue *foundation.NSOperationQueue)
+	EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue)
 	// Restores the interface-related state of the responder.
 	RestoreStateWithCoder(coder foundation.INSCoder)
 	// Marks the responder’s interface-related state as dirty.
@@ -507,7 +507,7 @@ type INSResponder interface {
 	// Topic: Getting the Undo Manager
 
 	// The undo manager for this responder.
-	UndoManager() *foundation.NSUndoManager
+	UndoManager() foundation.NSUndoManager
 
 	// Topic: Testing Events
 
@@ -1200,7 +1200,7 @@ func (r NSResponder) EncodeRestorableStateWithCoder(coder foundation.INSCoder) {
 // [OperationQueue]: https://developer.apple.com/documentation/Foundation/OperationQueue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/encodeRestorableState(with:backgroundQueue:)
-func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue *foundation.NSOperationQueue) {
+func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeRestorableStateWithCoder:backgroundQueue:"), coder, queue)
 }
 
@@ -1839,16 +1839,6 @@ func (r NSResponder) ShowWritingTools(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("showWritingTools:"), sender)
 }
 
-// Implemented by subclasses to invoke the help system, displaying information
-// relevant to the receiver and its current state.
-//
-// sender: Typically the object that invoked this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSResponder/showContextHelp(_:)
-func (r NSResponder) ShowContextHelp(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("showContextHelp:"), sender)
-}
-
 // Cancels the current operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/cancelOperation(_:)
@@ -1857,15 +1847,29 @@ func (r NSResponder) CancelOperation(sender objectivec.IObject) {
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/complete(_:)
-func (r NSResponder) Complete(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("complete:"), sender)
-}
-
-//
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/capitalizeWord(_:)
 func (r NSResponder) CapitalizeWord(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("capitalizeWord:"), sender)
+}
+
+// Moves the visible content region so the current selection is visually
+// centered.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/centerSelectionInVisibleArea(_:)
+func (r NSResponder) CenterSelectionInVisibleArea(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("centerSelectionInVisibleArea:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/changeCaseOfLetter(_:)
+func (r NSResponder) ChangeCaseOfLetter(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("changeCaseOfLetter:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/complete(_:)
+func (r NSResponder) Complete(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("complete:"), sender)
 }
 
 // Deletes content moving backward from the current insertion point.
@@ -1873,12 +1877,6 @@ func (r NSResponder) CapitalizeWord(sender objectivec.IObject) {
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteBackward(_:)
 func (r NSResponder) DeleteBackward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteBackward:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/changeCaseOfLetter(_:)
-func (r NSResponder) ChangeCaseOfLetter(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("changeCaseOfLetter:"), sender)
 }
 
 //
@@ -1894,11 +1892,58 @@ func (r NSResponder) DeleteForward(sender objectivec.IObject) {
 }
 
 // Deletes content from the insertion point to the beginning of the current
+// line.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToBeginningOfLine(_:)
+func (r NSResponder) DeleteToBeginningOfLine(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("deleteToBeginningOfLine:"), sender)
+}
+
+// Deletes content from the insertion point to the beginning of the current
 // paragraph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToBeginningOfParagraph(_:)
 func (r NSResponder) DeleteToBeginningOfParagraph(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteToBeginningOfParagraph:"), sender)
+}
+
+// Deletes content from the insertion point to the end of the current line.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToEndOfLine(_:)
+func (r NSResponder) DeleteToEndOfLine(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("deleteToEndOfLine:"), sender)
+}
+
+// Deletes content from the insertion point to the end of the current
+// paragraph.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToEndOfParagraph(_:)
+func (r NSResponder) DeleteToEndOfParagraph(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("deleteToEndOfParagraph:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToMark(_:)
+func (r NSResponder) DeleteToMark(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("deleteToMark:"), sender)
+}
+
+// Deletes the word preceding the current insertion point.
+//
+// # Discussion
+// 
+// If the insertion point is in the middle of a word, this method deletes only
+// the portion of the word preceding the insertion point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteWordBackward(_:)
+func (r NSResponder) DeleteWordBackward(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("deleteWordBackward:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteWordForward(_:)
+func (r NSResponder) DeleteWordForward(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("deleteWordForward:"), sender)
 }
 
 // Performs the given selector if possible.
@@ -1910,54 +1955,11 @@ func (r NSResponder) DoCommandBySelector(selector objc.SEL) {
 	objc.Send[objc.ID](r.ID, objc.Sel("doCommandBySelector:"), selector)
 }
 
-// Deletes content from the insertion point to the end of the current
-// paragraph.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToEndOfParagraph(_:)
-func (r NSResponder) DeleteToEndOfParagraph(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("deleteToEndOfParagraph:"), sender)
-}
-
-// Deletes content from the insertion point to the beginning of the current
-// line.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToBeginningOfLine(_:)
-func (r NSResponder) DeleteToBeginningOfLine(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("deleteToBeginningOfLine:"), sender)
-}
-
 // Indents the content at the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/indent(_:)
 func (r NSResponder) Indent(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("indent:"), sender)
-}
-
-// Moves the visible content region so the current selection is visually
-// centered.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/centerSelectionInVisibleArea(_:)
-func (r NSResponder) CenterSelectionInVisibleArea(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("centerSelectionInVisibleArea:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToMark(_:)
-func (r NSResponder) DeleteToMark(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("deleteToMark:"), sender)
-}
-
-// Deletes content from the insertion point to the end of the current line.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToEndOfLine(_:)
-func (r NSResponder) DeleteToEndOfLine(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("deleteToEndOfLine:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteWordForward(_:)
-func (r NSResponder) DeleteWordForward(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("deleteWordForward:"), sender)
 }
 
 // Inserts a backtab character.
@@ -1974,18 +1976,26 @@ func (r NSResponder) InsertContainerBreak(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertContainerBreak:"), sender)
 }
 
+// Inserts a double quotation mark without substituting a curly quotation
+// mark.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertDoubleQuoteIgnoringSubstitution(_:)
+func (r NSResponder) InsertDoubleQuoteIgnoringSubstitution(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("insertDoubleQuoteIgnoringSubstitution:"), sender)
+}
+
+// Inserts a line break character.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertLineBreak(_:)
+func (r NSResponder) InsertLineBreak(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("insertLineBreak:"), sender)
+}
+
 // Inserts a newline character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertNewline(_:)
 func (r NSResponder) InsertNewline(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertNewline:"), sender)
-}
-
-// Inserts a tab character.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertTab(_:)
-func (r NSResponder) InsertTab(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("insertTab:"), sender)
 }
 
 // Inserts a newline character without invoking the field editor’s normal
@@ -2004,15 +2014,16 @@ func (r NSResponder) InsertParagraphSeparator(sender objectivec.IObject) {
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/lowercaseWord(_:)
-func (r NSResponder) LowercaseWord(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("lowercaseWord:"), sender)
-}
-
-//
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertSingleQuoteIgnoringSubstitution(_:)
 func (r NSResponder) InsertSingleQuoteIgnoringSubstitution(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertSingleQuoteIgnoringSubstitution:"), sender)
+}
+
+// Inserts a tab character.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertTab(_:)
+func (r NSResponder) InsertTab(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("insertTab:"), sender)
 }
 
 //
@@ -2030,16 +2041,16 @@ func (r NSResponder) InsertText(insertString objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertText:"), insertString)
 }
 
-// Deletes the word preceding the current insertion point.
 //
-// # Discussion
-// 
-// If the insertion point is in the middle of a word, this method deletes only
-// the portion of the word preceding the insertion point.
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/lowercaseWord(_:)
+func (r NSResponder) LowercaseWord(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("lowercaseWord:"), sender)
+}
+
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteWordBackward(_:)
-func (r NSResponder) DeleteWordBackward(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("deleteWordBackward:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionLeftToRight(_:)
+func (r NSResponder) MakeBaseWritingDirectionLeftToRight(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionLeftToRight:"), sender)
 }
 
 //
@@ -2048,11 +2059,10 @@ func (r NSResponder) MakeBaseWritingDirectionNatural(sender objectivec.IObject) 
 	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionNatural:"), sender)
 }
 
-// Inserts a line break character.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertLineBreak(_:)
-func (r NSResponder) InsertLineBreak(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("insertLineBreak:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionRightToLeft(_:)
+func (r NSResponder) MakeBaseWritingDirectionRightToLeft(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionRightToLeft:"), sender)
 }
 
 //
@@ -2062,23 +2072,15 @@ func (r NSResponder) MakeTextWritingDirectionLeftToRight(sender objectivec.IObje
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionRightToLeft(_:)
-func (r NSResponder) MakeBaseWritingDirectionRightToLeft(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionRightToLeft:"), sender)
-}
-
-// Inserts a double quotation mark without substituting a curly quotation
-// mark.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertDoubleQuoteIgnoringSubstitution(_:)
-func (r NSResponder) InsertDoubleQuoteIgnoringSubstitution(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("insertDoubleQuoteIgnoringSubstitution:"), sender)
-}
-
-//
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeTextWritingDirectionNatural(_:)
 func (r NSResponder) MakeTextWritingDirectionNatural(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeTextWritingDirectionNatural:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeTextWritingDirectionRightToLeft(_:)
+func (r NSResponder) MakeTextWritingDirectionRightToLeft(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("makeTextWritingDirectionRightToLeft:"), sender)
 }
 
 // Moves the insertion pointer backward in the current content.
@@ -2095,6 +2097,13 @@ func (r NSResponder) MoveBackwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveBackwardAndModifySelection:"), sender)
 }
 
+// Moves the insertion pointer down in the current content.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveDown(_:)
+func (r NSResponder) MoveDown(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveDown:"), sender)
+}
+
 // Extends the selection to include the content below the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveDownAndModifySelection(_:)
@@ -2102,10 +2111,11 @@ func (r NSResponder) MoveDownAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveDownAndModifySelection:"), sender)
 }
 
+// Moves the insertion pointer forward in the current content.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveParagraphBackwardAndModifySelection(_:)
-func (r NSResponder) MoveParagraphBackwardAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveParagraphBackwardAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveForward(_:)
+func (r NSResponder) MoveForward(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveForward:"), sender)
 }
 
 // Extends the selection to include the content after the current selection.
@@ -2115,17 +2125,25 @@ func (r NSResponder) MoveForwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveForwardAndModifySelection:"), sender)
 }
 
+// Moves the insertion pointer left in the current content.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeTextWritingDirectionRightToLeft(_:)
-func (r NSResponder) MakeTextWritingDirectionRightToLeft(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("makeTextWritingDirectionRightToLeft:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveLeft(_:)
+func (r NSResponder) MoveLeft(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveLeft:"), sender)
 }
 
-// Moves the insertion pointer down in the current content.
+// Extends the selection to include the content to the left of the current
+// selection.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveDown(_:)
-func (r NSResponder) MoveDown(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveDown:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveLeftAndModifySelection(_:)
+func (r NSResponder) MoveLeftAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveLeftAndModifySelection:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveParagraphBackwardAndModifySelection(_:)
+func (r NSResponder) MoveParagraphBackwardAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveParagraphBackwardAndModifySelection:"), sender)
 }
 
 //
@@ -2134,24 +2152,19 @@ func (r NSResponder) MoveParagraphForwardAndModifySelection(sender objectivec.IO
 	objc.Send[objc.ID](r.ID, objc.Sel("moveParagraphForwardAndModifySelection:"), sender)
 }
 
-// Moves the insertion pointer left in the current content.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveLeft(_:)
-func (r NSResponder) MoveLeft(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveLeft:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionLeftToRight(_:)
-func (r NSResponder) MakeBaseWritingDirectionLeftToRight(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionLeftToRight:"), sender)
-}
-
 // Moves the insertion pointer right in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveRight(_:)
 func (r NSResponder) MoveRight(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveRight:"), sender)
+}
+
+// Extends the selection to include the content to the right of the current
+// selection.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveRightAndModifySelection(_:)
+func (r NSResponder) MoveRightAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveRightAndModifySelection:"), sender)
 }
 
 //
@@ -2166,26 +2179,10 @@ func (r NSResponder) MoveToBeginningOfDocumentAndModifySelection(sender objectiv
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfDocumentAndModifySelection:"), sender)
 }
 
-// Extends the selection to include the content to the right of the current
-// selection.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveRightAndModifySelection(_:)
-func (r NSResponder) MoveRightAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveRightAndModifySelection:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfParagraph(_:)
-func (r NSResponder) MoveToBeginningOfParagraph(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfParagraph:"), sender)
-}
-
-// Extends the selection to include the content to the left of the current
-// selection.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveLeftAndModifySelection(_:)
-func (r NSResponder) MoveLeftAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveLeftAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfLine(_:)
+func (r NSResponder) MoveToBeginningOfLine(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfLine:"), sender)
 }
 
 //
@@ -2195,46 +2192,9 @@ func (r NSResponder) MoveToBeginningOfLineAndModifySelection(sender objectivec.I
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfDocumentAndModifySelection(_:)
-func (r NSResponder) MoveToEndOfDocumentAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfDocumentAndModifySelection:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfDocument(_:)
-func (r NSResponder) MoveToEndOfDocument(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfDocument:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfLineAndModifySelection(_:)
-func (r NSResponder) MoveToEndOfLineAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfLineAndModifySelection:"), sender)
-}
-
-// Moves the insertion pointer forward in the current content.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveForward(_:)
-func (r NSResponder) MoveForward(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveForward:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToLeftEndOfLine(_:)
-func (r NSResponder) MoveToLeftEndOfLine(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToLeftEndOfLine:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfLine(_:)
-func (r NSResponder) MoveToEndOfLine(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfLine:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfParagraphAndModifySelection(_:)
-func (r NSResponder) MoveToEndOfParagraphAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfParagraphAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfParagraph(_:)
+func (r NSResponder) MoveToBeginningOfParagraph(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfParagraph:"), sender)
 }
 
 //
@@ -2244,39 +2204,27 @@ func (r NSResponder) MoveToBeginningOfParagraphAndModifySelection(sender objecti
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToLeftEndOfLineAndModifySelection(_:)
-func (r NSResponder) MoveToLeftEndOfLineAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToLeftEndOfLineAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfDocument(_:)
+func (r NSResponder) MoveToEndOfDocument(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfDocument:"), sender)
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToRightEndOfLineAndModifySelection(_:)
-func (r NSResponder) MoveToRightEndOfLineAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToRightEndOfLineAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfDocumentAndModifySelection(_:)
+func (r NSResponder) MoveToEndOfDocumentAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfDocumentAndModifySelection:"), sender)
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToRightEndOfLine(_:)
-func (r NSResponder) MoveToRightEndOfLine(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToRightEndOfLine:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfLine(_:)
+func (r NSResponder) MoveToEndOfLine(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfLine:"), sender)
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfLine(_:)
-func (r NSResponder) MoveToBeginningOfLine(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfLine:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordBackward(_:)
-func (r NSResponder) MoveWordBackward(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordBackward:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordForward(_:)
-func (r NSResponder) MoveWordForward(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordForward:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfLineAndModifySelection(_:)
+func (r NSResponder) MoveToEndOfLineAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfLineAndModifySelection:"), sender)
 }
 
 //
@@ -2286,22 +2234,33 @@ func (r NSResponder) MoveToEndOfParagraph(sender objectivec.IObject) {
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordLeft(_:)
-func (r NSResponder) MoveWordLeft(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordLeft:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfParagraphAndModifySelection(_:)
+func (r NSResponder) MoveToEndOfParagraphAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfParagraphAndModifySelection:"), sender)
 }
 
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordRight(_:)
-func (r NSResponder) MoveWordRight(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordRight:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToLeftEndOfLine(_:)
+func (r NSResponder) MoveToLeftEndOfLine(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToLeftEndOfLine:"), sender)
 }
 
-// Extends the selection to include the content above the current selection.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveUpAndModifySelection(_:)
-func (r NSResponder) MoveUpAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveUpAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToLeftEndOfLineAndModifySelection(_:)
+func (r NSResponder) MoveToLeftEndOfLineAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToLeftEndOfLineAndModifySelection:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToRightEndOfLine(_:)
+func (r NSResponder) MoveToRightEndOfLine(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToRightEndOfLine:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToRightEndOfLineAndModifySelection(_:)
+func (r NSResponder) MoveToRightEndOfLineAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveToRightEndOfLineAndModifySelection:"), sender)
 }
 
 // Moves the insertion pointer up in the current content.
@@ -2311,10 +2270,59 @@ func (r NSResponder) MoveUp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveUp:"), sender)
 }
 
+// Extends the selection to include the content above the current selection.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveUpAndModifySelection(_:)
+func (r NSResponder) MoveUpAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveUpAndModifySelection:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordBackward(_:)
+func (r NSResponder) MoveWordBackward(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordBackward:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordBackwardAndModifySelection(_:)
+func (r NSResponder) MoveWordBackwardAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordBackwardAndModifySelection:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordForward(_:)
+func (r NSResponder) MoveWordForward(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordForward:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordForwardAndModifySelection(_:)
+func (r NSResponder) MoveWordForwardAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordForwardAndModifySelection:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordLeft(_:)
+func (r NSResponder) MoveWordLeft(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordLeft:"), sender)
+}
+
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordLeftAndModifySelection(_:)
 func (r NSResponder) MoveWordLeftAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordLeftAndModifySelection:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordRight(_:)
+func (r NSResponder) MoveWordRight(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordRight:"), sender)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordRightAndModifySelection(_:)
+func (r NSResponder) MoveWordRightAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("moveWordRightAndModifySelection:"), sender)
 }
 
 // Moves the visible content region down by a page.
@@ -2324,11 +2332,19 @@ func (r NSResponder) PageDown(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pageDown:"), sender)
 }
 
-// Invokes QuickLook to preview the current selection.
+// Moves the visible content region down by a page, and extends the current
+// selection.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/quickLookPreviewItems(_:)
-func (r NSResponder) QuickLookPreviewItems(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("quickLookPreviewItems:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/pageDownAndModifySelection(_:)
+func (r NSResponder) PageDownAndModifySelection(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("pageDownAndModifySelection:"), sender)
+}
+
+// Moves the visible content region up by a page.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/pageUp(_:)
+func (r NSResponder) PageUp(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("pageUp:"), sender)
 }
 
 // Moves the visible content region up by a page, and extends the current
@@ -2339,17 +2355,40 @@ func (r NSResponder) PageUpAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pageUpAndModifySelection:"), sender)
 }
 
-// Moves the visible content region up by a page.
+// Invokes QuickLook to preview the current selection.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/pageUp(_:)
-func (r NSResponder) PageUp(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("pageUp:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/quickLookPreviewItems(_:)
+func (r NSResponder) QuickLookPreviewItems(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("quickLookPreviewItems:"), sender)
 }
 
+// Restores the state necessary to continue the specified user activity.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordBackwardAndModifySelection(_:)
-func (r NSResponder) MoveWordBackwardAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordBackwardAndModifySelection:"), sender)
+// userActivity: The user activity to continue.
+//
+// # Discussion
+// 
+// Implement this method to restore an object’s state using the specified
+// user activity. The system calls this method on any responders or documents
+// passed to the `restorationHandler` in
+// [ApplicationContinueUserActivityRestorationHandler]. The system calls this
+// method on the main thread. Your implementation should use the state data
+// contained in the specified user activity’s [userInfo] dictionary to
+// restore the object.
+// 
+// On macOS, the system can automatically restore activities managed by
+// [NSDocument] if you don’t implement
+// [ApplicationContinueUserActivityRestorationHandler], or if you return
+// [false]. When this occurs, the system opens the document using
+// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
+// `restoreUserActivityState` on it.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
+//
+// See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
+func (r NSResponder) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
+	objc.Send[objc.ID](r.ID, objc.Sel("restoreUserActivityState:"), userActivity)
 }
 
 // Scrolls the content down by a line.
@@ -2366,24 +2405,32 @@ func (r NSResponder) ScrollLineUp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollLineUp:"), sender)
 }
 
-// Moves the visible content region down by a page, and extends the current
-// selection.
+// Scrolls the content down by a page.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/pageDownAndModifySelection(_:)
-func (r NSResponder) PageDownAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("pageDownAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollPageDown(_:)
+func (r NSResponder) ScrollPageDown(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("scrollPageDown:"), sender)
 }
 
+// Scrolls the content up by a page.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordRightAndModifySelection(_:)
-func (r NSResponder) MoveWordRightAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordRightAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollPageUp(_:)
+func (r NSResponder) ScrollPageUp(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("scrollPageUp:"), sender)
 }
 
+// Scrolls the content to the beginning of the document.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordForwardAndModifySelection(_:)
-func (r NSResponder) MoveWordForwardAndModifySelection(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("moveWordForwardAndModifySelection:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollToBeginningOfDocument(_:)
+func (r NSResponder) ScrollToBeginningOfDocument(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("scrollToBeginningOfDocument:"), sender)
+}
+
+// Scrolls the content to the end of the document.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollToEndOfDocument(_:)
+func (r NSResponder) ScrollToEndOfDocument(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("scrollToEndOfDocument:"), sender)
 }
 
 //
@@ -2411,15 +2458,25 @@ func (r NSResponder) SelectToMark(sender objectivec.IObject) {
 }
 
 //
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectWord(_:)
+func (r NSResponder) SelectWord(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("selectWord:"), sender)
+}
+
+//
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/setMark(_:)
 func (r NSResponder) SetMark(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setMark:"), sender)
 }
 
+// Implemented by subclasses to invoke the help system, displaying information
+// relevant to the receiver and its current state.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectWord(_:)
-func (r NSResponder) SelectWord(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("selectWord:"), sender)
+// sender: Typically the object that invoked this method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSResponder/showContextHelp(_:)
+func (r NSResponder) ShowContextHelp(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("showContextHelp:"), sender)
 }
 
 //
@@ -2453,52 +2510,17 @@ func (r NSResponder) ShowContextMenuForSelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("showContextMenuForSelection:"), sender)
 }
 
-// Transposes the content around the current selection.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/transpose(_:)
-func (r NSResponder) Transpose(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("transpose:"), sender)
-}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/swapWithMark(_:)
 func (r NSResponder) SwapWithMark(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("swapWithMark:"), sender)
 }
 
-// Scrolls the content up by a page.
+// Transposes the content around the current selection.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollPageUp(_:)
-func (r NSResponder) ScrollPageUp(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("scrollPageUp:"), sender)
-}
-
-// Scrolls the content down by a page.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollPageDown(_:)
-func (r NSResponder) ScrollPageDown(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("scrollPageDown:"), sender)
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/uppercaseWord(_:)
-func (r NSResponder) UppercaseWord(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("uppercaseWord:"), sender)
-}
-
-// Scrolls the content to the end of the document.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollToEndOfDocument(_:)
-func (r NSResponder) ScrollToEndOfDocument(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("scrollToEndOfDocument:"), sender)
-}
-
-// Deletes the current selection, placing it in a temporary buffer, such as
-// the Clipboard.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/yank(_:)
-func (r NSResponder) Yank(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("yank:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/transpose(_:)
+func (r NSResponder) Transpose(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("transpose:"), sender)
 }
 
 // Transposes the words around the current selection.
@@ -2508,40 +2530,18 @@ func (r NSResponder) TransposeWords(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("transposeWords:"), sender)
 }
 
-// Scrolls the content to the beginning of the document.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollToBeginningOfDocument(_:)
-func (r NSResponder) ScrollToBeginningOfDocument(sender objectivec.IObject) {
-	objc.Send[objc.ID](r.ID, objc.Sel("scrollToBeginningOfDocument:"), sender)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/uppercaseWord(_:)
+func (r NSResponder) UppercaseWord(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("uppercaseWord:"), sender)
 }
 
-// Restores the state necessary to continue the specified user activity.
+// Deletes the current selection, placing it in a temporary buffer, such as
+// the Clipboard.
 //
-// userActivity: The user activity to continue.
-//
-// # Discussion
-// 
-// Implement this method to restore an object’s state using the specified
-// user activity. The system calls this method on any responders or documents
-// passed to the `restorationHandler` in
-// [ApplicationContinueUserActivityRestorationHandler]. The system calls this
-// method on the main thread. Your implementation should use the state data
-// contained in the specified user activity’s [userInfo] dictionary to
-// restore the object.
-// 
-// On macOS, the system can automatically restore activities managed by
-// [NSDocument] if you don’t implement
-// [ApplicationContinueUserActivityRestorationHandler], or if you return
-// [false]. When this occurs, the system opens the document using
-// [OpenDocumentWithContentsOfURLDisplayCompletionHandler], and calls
-// `restoreUserActivityState` on it.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
-//
-// See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
-func (r NSResponder) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
-	objc.Send[objc.ID](r.ID, objc.Sel("restoreUserActivityState:"), userActivity)
+// See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/yank(_:)
+func (r NSResponder) Yank(sender objectivec.IObject) {
+	objc.Send[objc.ID](r.ID, objc.Sel("yank:"), sender)
 }
 func (r NSResponder) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -2684,13 +2684,9 @@ func (r NSResponder) SetMenu(value INSMenu) {
 // responder.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/undoManager
-func (r NSResponder) UndoManager() *foundation.NSUndoManager {
+func (r NSResponder) UndoManager() foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("undoManager"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSUndoManagerFromID(objc.ID(rv))
-	return &val
+	return foundation.NSUndoManagerFromID(objc.ID(rv))
 }
 
 

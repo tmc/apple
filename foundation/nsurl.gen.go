@@ -560,9 +560,9 @@ type INSURL interface {
 	CustomPlaygroundQuickLook() objectivec.IObject
 	SetCustomPlaygroundQuickLook(value objectivec.IObject)
 
-	InitWithCoder(coder INSCoder) NSURL
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSURL
 }
 
 
@@ -1984,13 +1984,6 @@ func (u NSURL) WriteToPasteboard(pasteBoard objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("writeToPasteboard:"), pasteBoard)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u NSURL) InitWithCoder(coder INSCoder) NSURL {
-	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1998,6 +1991,28 @@ func (u NSURL) InitWithCoder(coder INSCoder) NSURL {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u NSURL) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u NSURL) InitWithCoder(coder INSCoder) NSURL {
+	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
+
+// Asks the item provider for the representation visibility specification for
+// the given UTI.
+//
+// typeIdentifier: A uniform type identifier (UTI).
+//
+// # Return Value
+// 
+// A representation visibility specification for the given UTI.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
+func (u NSURL) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
+	rv := objc.Send[NSItemProviderRepresentationVisibility](u.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
+	return NSItemProviderRepresentationVisibility(rv)
 }
 
 // Loads data of a particular type, identified by the given UTI.
@@ -2021,21 +2036,6 @@ func (u NSURL) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeId
 	defer _cleanup1()
 		rv := objc.Send[objc.ID](u.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
-}
-
-// Asks the item provider for the representation visibility specification for
-// the given UTI.
-//
-// typeIdentifier: A uniform type identifier (UTI).
-//
-// # Return Value
-// 
-// A representation visibility specification for the given UTI.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
-func (u NSURL) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
-	rv := objc.Send[NSItemProviderRepresentationVisibility](u.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
-	return NSItemProviderRepresentationVisibility(rv)
 }
 
 
@@ -2260,61 +2260,26 @@ func (_NSURLClass NSURLClass) WriteBookmarkDataToURLOptionsError(bookmarkData IN
 
 }
 
+// Creates a new instance of a class using the given data and UTI string.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithDataRepresentation:relativeToURL:
-func (_NSURLClass NSURLClass) URLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
-	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithDataRepresentation:relativeToURL:"), data, baseURL)
-	return NSURLFromID(rv)
-}
-
-// Creates and returns an NSURL object initialized with a provided URL string.
+// data: The data used to create the object.
 //
-// URLString: The URL string with which to initialize the NSURL object. Linked on or
-// after iOS 17, this method parses [URLString] according to RFC 3986. Linked
-// before iOS 17, this method parses [URLString] according to RFCs 1738 and
-// 1808.
+// typeIdentifier: The uniform type identifier (UTI) representing the data type of `data`.
 //
 // # Return Value
 // 
-// An NSURL object initialized with [URLString]. If the URL string was
-// malformed or `nil`, returns `nil`.
+// An object created from the given data.
 //
-// # Discussion
-// 
-// To check if [URLString] is strictly valid according to the RFC, use the new
-// `[NSURL URLWithString:URLString NO]` method. This method leaves all
-// characters as they are and returns `nil` if [URLString] is explicitly
-// invalid.
-// 
-// For apps linked before iOS 17, this method expects [URLString] to contain
-// only characters that are allowed in a properly formed URL. All other
-// characters must be properly percent encoded. Any percent-encoded characters
-// are interpreted using UTF-8 encoding.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithString:
-func (_NSURLClass NSURLClass) URLWithString(URLString string) NSURL {
-	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:"), objc.String(URLString))
-	return NSURLFromID(rv)
-}
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
+func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data INSData, typeIdentifier string) (NSURL, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("objectWithItemProviderData:typeIdentifier:error:"), data, objc.String(typeIdentifier), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSURL{}, NSErrorFrom(errorPtr)
+	}
+	return NSURLFromID(rv), nil
 
-// Creates and returns an instance from the provided string, optionally IDNA-
-// and percent-encoding any invalid characters.
-//
-// URLString: A URL location.
-//
-// encodingInvalidCharacters: A Boolean value that indicates whether the initializer attempts to encode
-// any invalid characters in `string`.
-//
-// # Discussion
-// 
-// If `encodingInvalidCharacters` is `true`, this initializer tries to encode
-// the string to create a valid URL. If the URL string is still invalid after
-// encoding, the method returns `nil`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithString:encodingInvalidCharacters:
-func (_NSURLClass NSURLClass) URLWithStringEncodingInvalidCharacters(URLString string, encodingInvalidCharacters bool) NSURL {
-	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
-	return NSURLFromID(rv)
 }
 
 // Returns a new URL made by resolving bookmark data.
@@ -2395,6 +2360,63 @@ func (_NSURLClass NSURLClass) URLByResolvingBookmarkDataOptionsRelativeToURLBook
 
 }
 
+//
+// See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithDataRepresentation:relativeToURL:
+func (_NSURLClass NSURLClass) URLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
+	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithDataRepresentation:relativeToURL:"), data, baseURL)
+	return NSURLFromID(rv)
+}
+
+// Creates and returns an NSURL object initialized with a provided URL string.
+//
+// URLString: The URL string with which to initialize the NSURL object. Linked on or
+// after iOS 17, this method parses [URLString] according to RFC 3986. Linked
+// before iOS 17, this method parses [URLString] according to RFCs 1738 and
+// 1808.
+//
+// # Return Value
+// 
+// An NSURL object initialized with [URLString]. If the URL string was
+// malformed or `nil`, returns `nil`.
+//
+// # Discussion
+// 
+// To check if [URLString] is strictly valid according to the RFC, use the new
+// `[NSURL URLWithString:URLString NO]` method. This method leaves all
+// characters as they are and returns `nil` if [URLString] is explicitly
+// invalid.
+// 
+// For apps linked before iOS 17, this method expects [URLString] to contain
+// only characters that are allowed in a properly formed URL. All other
+// characters must be properly percent encoded. Any percent-encoded characters
+// are interpreted using UTF-8 encoding.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithString:
+func (_NSURLClass NSURLClass) URLWithString(URLString string) NSURL {
+	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:"), objc.String(URLString))
+	return NSURLFromID(rv)
+}
+
+// Creates and returns an instance from the provided string, optionally IDNA-
+// and percent-encoding any invalid characters.
+//
+// URLString: A URL location.
+//
+// encodingInvalidCharacters: A Boolean value that indicates whether the initializer attempts to encode
+// any invalid characters in `string`.
+//
+// # Discussion
+// 
+// If `encodingInvalidCharacters` is `true`, this initializer tries to encode
+// the string to create a valid URL. If the URL string is still invalid after
+// encoding, the method returns `nil`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithString:encodingInvalidCharacters:
+func (_NSURLClass NSURLClass) URLWithStringEncodingInvalidCharacters(URLString string, encodingInvalidCharacters bool) NSURL {
+	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
+	return NSURLFromID(rv)
+}
+
 // Creates and returns an NSURL object initialized with a base URL and a
 // relative string.
 //
@@ -2432,28 +2454,6 @@ func (_NSURLClass NSURLClass) URLByResolvingBookmarkDataOptionsRelativeToURLBook
 func (_NSURLClass NSURLClass) URLWithStringRelativeToURL(URLString string, baseURL INSURL) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:relativeToURL:"), objc.String(URLString), baseURL)
 	return NSURLFromID(rv)
-}
-
-// Creates a new instance of a class using the given data and UTI string.
-//
-// data: The data used to create the object.
-//
-// typeIdentifier: The uniform type identifier (UTI) representing the data type of `data`.
-//
-// # Return Value
-// 
-// An object created from the given data.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
-func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data INSData, typeIdentifier string) (NSURL, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("objectWithItemProviderData:typeIdentifier:error:"), data, objc.String(typeIdentifier), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSURL{}, NSErrorFrom(errorPtr)
-	}
-	return NSURLFromID(rv), nil
-
 }
 
 

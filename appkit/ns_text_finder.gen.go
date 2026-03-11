@@ -490,35 +490,35 @@ type INSTextFinder interface {
 
 	InitWithCoder(coder foundation.INSCoder) NSTextFinder
 
-	// Type for the Find panel metadata property list.
-	TextFinderOptions() NSPasteboardType
+	// Returns whether multiple items can be selected.
+	AllowsMultipleSelection() bool
+	SetAllowsMultipleSelection(value bool)
 	// The position of the find bar.
 	FindBarPosition() NSScrollViewFindBarPosition
 	SetFindBarPosition(value NSScrollViewFindBarPosition)
 	// The view assigned by the text bar as the find bar view for the container.
 	FindBarView() INSView
 	SetFindBarView(value INSView)
-	// Returns whether the container should display its find bar.
-	IsFindBarVisible() bool
-	SetIsFindBarVisible(value bool)
-	// Returns whether multiple items can be selected.
-	AllowsMultipleSelection() bool
-	SetAllowsMultipleSelection(value bool)
 	// Returns the currently selected range.
 	FirstSelectedRange() foundation.NSRange
 	SetFirstSelectedRange(value foundation.NSRange)
+	// Returns whether the container should display its find bar.
+	IsFindBarVisible() bool
+	SetIsFindBarVisible(value bool)
 	// Returns whether the text is selectable.
 	IsSelectable() bool
 	SetIsSelectable(value bool)
 	// Returns an array of selected ranges.
 	SelectedRanges() foundation.NSValue
 	SetSelectedRanges(value foundation.NSValue)
-	// An array of visible character ranges.
-	VisibleCharacterRanges() foundation.NSValue
-	SetVisibleCharacterRanges(value foundation.NSValue)
+	// Type for the Find panel metadata property list.
+	TextFinderOptions() NSPasteboardType
 	// A Boolean value that indicates whether to use the find bar for this text view.
 	UsesFindBar() bool
 	SetUsesFindBar(value bool)
+	// An array of visible character ranges.
+	VisibleCharacterRanges() foundation.NSValue
+	SetVisibleCharacterRanges(value foundation.NSValue)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -861,12 +861,15 @@ func (t NSTextFinder) SetIncrementalSearchingShouldDimContentView(value bool) {
 
 
 
-// Type for the Find panel metadata property list.
+// Returns whether multiple items can be selected.
 //
-// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/textfinderoptions
-func (t NSTextFinder) TextFinderOptions() NSPasteboardType {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSPasteboardTypeTextFinderOptions"))
-	return NSPasteboardType(foundation.NSStringFromID(rv).String())
+// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/allowsmultipleselection
+func (t NSTextFinder) AllowsMultipleSelection() bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("allowsMultipleSelection"))
+	return rv
+}
+func (t NSTextFinder) SetAllowsMultipleSelection(value bool) {
+	objc.Send[struct{}](t.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
 
 
@@ -897,32 +900,6 @@ func (t NSTextFinder) SetFindBarView(value INSView) {
 
 
 
-// Returns whether the container should display its find bar.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderbarcontainer/isfindbarvisible
-func (t NSTextFinder) IsFindBarVisible() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("findBarVisible"))
-	return rv
-}
-func (t NSTextFinder) SetIsFindBarVisible(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setFindBarVisible:"), value)
-}
-
-
-
-// Returns whether multiple items can be selected.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/allowsmultipleselection
-func (t NSTextFinder) AllowsMultipleSelection() bool {
-	rv := objc.Send[bool](t.ID, objc.Sel("allowsMultipleSelection"))
-	return rv
-}
-func (t NSTextFinder) SetAllowsMultipleSelection(value bool) {
-	objc.Send[struct{}](t.ID, objc.Sel("setAllowsMultipleSelection:"), value)
-}
-
-
-
 // Returns the currently selected range.
 //
 // See: https://developer.apple.com/documentation/appkit/nstextfinderclient/firstselectedrange
@@ -932,6 +909,19 @@ func (t NSTextFinder) FirstSelectedRange() foundation.NSRange {
 }
 func (t NSTextFinder) SetFirstSelectedRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFirstSelectedRange:"), value)
+}
+
+
+
+// Returns whether the container should display its find bar.
+//
+// See: https://developer.apple.com/documentation/appkit/nstextfinderbarcontainer/isfindbarvisible
+func (t NSTextFinder) IsFindBarVisible() bool {
+	rv := objc.Send[bool](t.ID, objc.Sel("findBarVisible"))
+	return rv
+}
+func (t NSTextFinder) SetIsFindBarVisible(value bool) {
+	objc.Send[struct{}](t.ID, objc.Sel("setFindBarVisible:"), value)
 }
 
 
@@ -962,15 +952,12 @@ func (t NSTextFinder) SetSelectedRanges(value foundation.NSValue) {
 
 
 
-// An array of visible character ranges.
+// Type for the Find panel metadata property list.
 //
-// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/visiblecharacterranges
-func (t NSTextFinder) VisibleCharacterRanges() foundation.NSValue {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("visibleCharacterRanges"))
-	return foundation.NSValueFromID(objc.ID(rv))
-}
-func (t NSTextFinder) SetVisibleCharacterRanges(value foundation.NSValue) {
-	objc.Send[struct{}](t.ID, objc.Sel("setVisibleCharacterRanges:"), value)
+// See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboardtype/textfinderoptions
+func (t NSTextFinder) TextFinderOptions() NSPasteboardType {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSPasteboardTypeTextFinderOptions"))
+	return NSPasteboardType(foundation.NSStringFromID(rv).String())
 }
 
 
@@ -985,6 +972,19 @@ func (t NSTextFinder) UsesFindBar() bool {
 }
 func (t NSTextFinder) SetUsesFindBar(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesFindBar:"), value)
+}
+
+
+
+// An array of visible character ranges.
+//
+// See: https://developer.apple.com/documentation/appkit/nstextfinderclient/visiblecharacterranges
+func (t NSTextFinder) VisibleCharacterRanges() foundation.NSValue {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("visibleCharacterRanges"))
+	return foundation.NSValueFromID(objc.ID(rv))
+}
+func (t NSTextFinder) SetVisibleCharacterRanges(value foundation.NSValue) {
+	objc.Send[struct{}](t.ID, objc.Sel("setVisibleCharacterRanges:"), value)
 }
 
 

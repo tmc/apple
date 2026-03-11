@@ -185,15 +185,15 @@ type IMLMultiArray interface {
 	// A reference to the multiarray’s underlying pixel buffer.
 	PixelBuffer() corevideo.CVImageBufferRef
 
-	// The constraints on a multidimensional array feature.
-	MultiArrayConstraint() IMLMultiArrayConstraint
-	SetMultiArrayConstraint(value IMLMultiArrayConstraint)
-	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
-	ModelDescription() IMLModelDescription
-	SetModelDescription(value IMLModelDescription)
 	// A dictionary of input feature descriptions, which the model keys by the input’s name.
 	InputDescriptionsByName() IMLFeatureDescription
 	SetInputDescriptionsByName(value IMLFeatureDescription)
+	// Model information you use at runtime during development, which Xcode also displays in its Core ML model editor view.
+	ModelDescription() IMLModelDescription
+	SetModelDescription(value IMLModelDescription)
+	// The constraints on a multidimensional array feature.
+	MultiArrayConstraint() IMLMultiArrayConstraint
+	SetMultiArrayConstraint(value IMLMultiArrayConstraint)
 	// A dictionary of output feature descriptions, which the model keys by the output’s name.
 	OutputDescriptionsByName() IMLFeatureDescription
 	SetOutputDescriptionsByName(value IMLFeatureDescription)
@@ -520,15 +520,16 @@ func (m MLMultiArray) PixelBuffer() corevideo.CVImageBufferRef {
 
 
 
-// The constraints on a multidimensional array feature.
+// A dictionary of input feature descriptions, which the model keys by the
+// input’s name.
 //
-// See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
-func (m MLMultiArray) MultiArrayConstraint() IMLMultiArrayConstraint {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArrayConstraint"))
-	return MLMultiArrayConstraintFromID(objc.ID(rv))
+// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/inputdescriptionsbyname
+func (m MLMultiArray) InputDescriptionsByName() IMLFeatureDescription {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDescriptionsByName"))
+	return MLFeatureDescriptionFromID(objc.ID(rv))
 }
-func (m MLMultiArray) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMultiArrayConstraint:"), value)
+func (m MLMultiArray) SetInputDescriptionsByName(value IMLFeatureDescription) {
+	objc.Send[struct{}](m.ID, objc.Sel("setInputDescriptionsByName:"), value)
 }
 
 
@@ -547,16 +548,15 @@ func (m MLMultiArray) SetModelDescription(value IMLModelDescription) {
 
 
 
-// A dictionary of input feature descriptions, which the model keys by the
-// input’s name.
+// The constraints on a multidimensional array feature.
 //
-// See: https://developer.apple.com/documentation/coreml/mlmodeldescription/inputdescriptionsbyname
-func (m MLMultiArray) InputDescriptionsByName() IMLFeatureDescription {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDescriptionsByName"))
-	return MLFeatureDescriptionFromID(objc.ID(rv))
+// See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
+func (m MLMultiArray) MultiArrayConstraint() IMLMultiArrayConstraint {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("multiArrayConstraint"))
+	return MLMultiArrayConstraintFromID(objc.ID(rv))
 }
-func (m MLMultiArray) SetInputDescriptionsByName(value IMLFeatureDescription) {
-	objc.Send[struct{}](m.ID, objc.Sel("setInputDescriptionsByName:"), value)
+func (m MLMultiArray) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
+	objc.Send[struct{}](m.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
 
 
@@ -585,8 +585,6 @@ func (m MLMultiArray) ShapeConstraint() IMLMultiArrayShapeConstraint {
 func (m MLMultiArray) SetShapeConstraint(value IMLMultiArrayShapeConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShapeConstraint:"), value)
 }
-
-
 
 
 

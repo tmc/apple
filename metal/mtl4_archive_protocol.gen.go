@@ -24,25 +24,25 @@ type MTL4Archive interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/makeBinaryFunction(descriptor:)
 	NewBinaryFunctionWithDescriptorError(descriptor IMTL4BinaryFunctionDescriptor) (MTL4BinaryFunction, error)
 
-	// Creates a compute pipeline state from the archive with a descriptor.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:error:
-	NewComputePipelineStateWithDescriptorError(descriptor IMTL4ComputePipelineDescriptor) (MTLComputePipelineState, error)
-
 	// Creates a compute pipeline state from the archive with a compute descriptor and a dynamic linking descriptor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:dynamicLinkingDescriptor:error:
 	NewComputePipelineStateWithDescriptorDynamicLinkingDescriptorError(descriptor IMTL4ComputePipelineDescriptor, dynamicLinkingDescriptor IMTL4PipelineStageDynamicLinkingDescriptor) (MTLComputePipelineState, error)
 
-	// Creates a render pipeline state from the archive with a descriptor.
+	// Creates a compute pipeline state from the archive with a descriptor.
 	//
-	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newRenderPipelineStateWithDescriptor:error:
-	NewRenderPipelineStateWithDescriptorError(descriptor IMTL4PipelineDescriptor) (MTLRenderPipelineState, error)
+	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:error:
+	NewComputePipelineStateWithDescriptorError(descriptor IMTL4ComputePipelineDescriptor) (MTLComputePipelineState, error)
 
 	// Creates a render pipeline state from the archive with a render descriptor and a dynamic linking descriptor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newRenderPipelineStateWithDescriptor:dynamicLinkingDescriptor:error:
 	NewRenderPipelineStateWithDescriptorDynamicLinkingDescriptorError(descriptor IMTL4PipelineDescriptor, dynamicLinkingDescriptor IMTL4RenderPipelineDynamicLinkingDescriptor) (MTLRenderPipelineState, error)
+
+	// Creates a render pipeline state from the archive with a descriptor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newRenderPipelineStateWithDescriptor:error:
+	NewRenderPipelineStateWithDescriptorError(descriptor IMTL4PipelineDescriptor) (MTLRenderPipelineState, error)
 
 	// A label that you can associate with this archive.
 	//
@@ -104,28 +104,6 @@ func (o MTL4ArchiveObject) NewBinaryFunctionWithDescriptorError(descriptor IMTL4
 	return MTL4BinaryFunctionObjectFromID(rv), nil
 	}
 
-// Creates a compute pipeline state from the archive with a descriptor.
-//
-// descriptor: A compute pipeline descriptor.
-//
-// error: On return, if the method fails, a pointer to an error information instance;
-// otherwise `nil`.
-//
-// # Return Value
-// 
-// A compute pipeline state if the method succeeds, otherwise `nil`.
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:error:
-
-func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorError(descriptor IMTL4ComputePipelineDescriptor) (MTLComputePipelineState, error) {
-	
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:error:"), descriptor)
-	if err != nil {
-		return nil, err
-	}
-	return MTLComputePipelineStateObjectFromID(rv), nil
-	}
-
 // Creates a compute pipeline state from the archive with a compute descriptor
 // and a dynamic linking descriptor.
 //
@@ -152,33 +130,26 @@ func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorDynamicLinkingDe
 	return MTLComputePipelineStateObjectFromID(rv), nil
 	}
 
-// Creates a render pipeline state from the archive with a descriptor.
+// Creates a compute pipeline state from the archive with a descriptor.
 //
-// descriptor: A render pipeline descriptor.
+// descriptor: A compute pipeline descriptor.
 //
 // error: On return, if the method fails, a pointer to an error information instance;
 // otherwise `nil`.
 //
 // # Return Value
 // 
-// A render pipeline state if the method succeeds, otherwise `nil`.
+// A compute pipeline state if the method succeeds, otherwise `nil`.
 //
-// # Discussion
-// 
-// You create any kind of render pipeline states with this method, including:
-// 
-// - Traditional render pipelines - Mesh render pipelines - Tile render
-// pipelines
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newRenderPipelineStateWithDescriptor:error:
+// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newComputePipelineStateWithDescriptor:error:
 
-func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorError(descriptor IMTL4PipelineDescriptor) (MTLRenderPipelineState, error) {
+func (o MTL4ArchiveObject) NewComputePipelineStateWithDescriptorError(descriptor IMTL4ComputePipelineDescriptor) (MTLComputePipelineState, error) {
 	
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:error:"), descriptor)
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
 	}
-	return MTLRenderPipelineStateObjectFromID(rv), nil
+	return MTLComputePipelineStateObjectFromID(rv), nil
 	}
 
 // Creates a render pipeline state from the archive with a render descriptor
@@ -208,6 +179,35 @@ func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorError(descriptor 
 func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorDynamicLinkingDescriptorError(descriptor IMTL4PipelineDescriptor, dynamicLinkingDescriptor IMTL4RenderPipelineDynamicLinkingDescriptor) (MTLRenderPipelineState, error) {
 	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:dynamicLinkingDescriptor:error:"), descriptor, dynamicLinkingDescriptor)
+	if err != nil {
+		return nil, err
+	}
+	return MTLRenderPipelineStateObjectFromID(rv), nil
+	}
+
+// Creates a render pipeline state from the archive with a descriptor.
+//
+// descriptor: A render pipeline descriptor.
+//
+// error: On return, if the method fails, a pointer to an error information instance;
+// otherwise `nil`.
+//
+// # Return Value
+// 
+// A render pipeline state if the method succeeds, otherwise `nil`.
+//
+// # Discussion
+// 
+// You create any kind of render pipeline states with this method, including:
+// 
+// - Traditional render pipelines - Mesh render pipelines - Tile render
+// pipelines
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4Archive/newRenderPipelineStateWithDescriptor:error:
+
+func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorError(descriptor IMTL4PipelineDescriptor) (MTLRenderPipelineState, error) {
+	
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
 	}

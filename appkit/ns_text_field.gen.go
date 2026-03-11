@@ -707,6 +707,20 @@ func (t NSTextField) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidEndEditing:"), notification)
 }
 
+// Returns the attributed substring for the specified range of characters.
+//
+// range: The range of characters.
+//
+// # Return Value
+// 
+// An attributed string representing the specified characters.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
+func (t NSTextField) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
+	return foundation.NSAttributedStringFromID(rv)
+}
+
 // Returns the rectangle that encloses the specified range of characters.
 //
 // range: The range of characters.
@@ -724,6 +738,21 @@ func (t NSTextField) TextDidEndEditing(notification foundation.NSNotification) {
 func (t NSTextField) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("accessibilityFrameForRange:"), range_)
 	return corefoundation.CGRect(rv)
+}
+
+// Returns the line number for the line that contains the specified character
+// index.
+//
+// index: The index for a character.
+//
+// # Return Value
+// 
+// The line number for the line holding the specified character index.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
+func (t NSTextField) AccessibilityLineForIndex(index int) int {
+	rv := objc.Send[int](t.ID, objc.Sel("accessibilityLineForIndex:"), index)
+	return rv
 }
 
 // Returns the range of characters in the specified line.
@@ -755,21 +784,6 @@ func (t NSTextField) AccessibilityStringForRange(range_ foundation.NSRange) stri
 	return foundation.NSStringFromID(rv).String()
 }
 
-// Returns the line number for the line that contains the specified character
-// index.
-//
-// index: The index for a character.
-//
-// # Return Value
-// 
-// The line number for the line holding the specified character index.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
-func (t NSTextField) AccessibilityLineForIndex(index int) int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityLineForIndex:"), index)
-	return rv
-}
-
 // Returns the text that the accessibility element displays.
 //
 // # Return Value
@@ -787,20 +801,6 @@ func (t NSTextField) AccessibilityLineForIndex(index int) int {
 func (t NSTextField) AccessibilityValue() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the attributed substring for the specified range of characters.
-//
-// range: The range of characters.
-//
-// # Return Value
-// 
-// An attributed string representing the specified characters.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
-func (t NSTextField) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
-	return foundation.NSAttributedStringFromID(rv)
 }
 
 // Returns the range of visible characters in the document.
@@ -1297,20 +1297,6 @@ func (t NSTextField) SetResolvesNaturalAlignmentWithBaseWritingDirection(value b
 
 
 
-// The delegate that provides text suggestions for the receiving text field
-// and responds to the user highlighting and selecting items.
-//
-// See: https://developer.apple.com/documentation/appkit/nstextfield/suggestionsdelegate
-func (t NSTextField) SuggestionsDelegate() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("suggestionsDelegate"))
-	return objectivec.Object{ID: rv}
-}
-func (t NSTextField) SetSuggestionsDelegate(value objectivec.IObject) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSuggestionsDelegate:"), value)
-}
-
-
-
 // The semantic meaning for a text input area.
 //
 // # Discussion
@@ -1332,6 +1318,20 @@ func (t NSTextField) ContentType() NSTextContentType {
 }
 func (t NSTextField) SetContentType(value NSTextContentType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContentType:"), objc.String(string(value)))
+}
+
+
+
+// The delegate that provides text suggestions for the receiving text field
+// and responds to the user highlighting and selecting items.
+//
+// See: https://developer.apple.com/documentation/appkit/nstextfield/suggestionsdelegate
+func (t NSTextField) SuggestionsDelegate() objectivec.IObject {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("suggestionsDelegate"))
+	return objectivec.Object{ID: rv}
+}
+func (t NSTextField) SetSuggestionsDelegate(value objectivec.IObject) {
+	objc.Send[struct{}](t.ID, objc.Sel("setSuggestionsDelegate:"), value)
 }
 
 

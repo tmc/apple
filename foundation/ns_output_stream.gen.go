@@ -425,10 +425,27 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamToMemory() OutputStream 
 	return NSOutputStreamFromID(rv)
 }
 
+// Creates and returns an initialized output stream that can write to a
+// provided buffer.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamWithURL:append:
-func (_OutputStreamClass OutputStreamClass) OutputStreamWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
-	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamWithURL:append:"), url, shouldAppend)
+// buffer: The buffer the output stream will write to.
+//
+// capacity: The size of the buffer in bytes.
+//
+// # Return Value
+// 
+// An initialized output stream that can write to `buffer`.
+//
+// # Discussion
+// 
+// The stream must be opened before it can be used.
+// 
+// When the number of bytes written to `buffer` has reached `capacity`, the
+// stream’s [StreamStatus] will return [NSStreamStatusAtEnd].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamToBuffer:capacity:
+func (_OutputStreamClass OutputStreamClass) OutputStreamToBufferCapacity(buffer uint8, capacity uint) OutputStream {
+	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToBuffer:capacity:"), buffer, capacity)
 	return NSOutputStreamFromID(rv)
 }
 
@@ -457,27 +474,10 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamToFileAtPathAppend(path 
 	return NSOutputStreamFromID(rv)
 }
 
-// Creates and returns an initialized output stream that can write to a
-// provided buffer.
 //
-// buffer: The buffer the output stream will write to.
-//
-// capacity: The size of the buffer in bytes.
-//
-// # Return Value
-// 
-// An initialized output stream that can write to `buffer`.
-//
-// # Discussion
-// 
-// The stream must be opened before it can be used.
-// 
-// When the number of bytes written to `buffer` has reached `capacity`, the
-// stream’s [StreamStatus] will return [NSStreamStatusAtEnd].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamToBuffer:capacity:
-func (_OutputStreamClass OutputStreamClass) OutputStreamToBufferCapacity(buffer uint8, capacity uint) OutputStream {
-	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToBuffer:capacity:"), buffer, capacity)
+// See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamWithURL:append:
+func (_OutputStreamClass OutputStreamClass) OutputStreamWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
+	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamWithURL:append:"), url, shouldAppend)
 	return NSOutputStreamFromID(rv)
 }
 

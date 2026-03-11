@@ -502,20 +502,20 @@ type INSCoder interface {
 	DecodeDictionaryWithKeysOfClassObjectsOfClassForKey(keyCls objc.Class, objectCls objc.Class, key string) INSDictionary
 	// Decodes the \c NSDictionary object for the given \c key, which should be an \c NSDictionary, with keys of the types given in \c keyClasses and objects of the given non-collection classes in \c objectClasses (no nested dictionaries or other dictionaries contained in the dictionary, etc) from the given coder.
 	DecodeDictionaryWithKeysOfClassesObjectsOfClassesForKey(keyClasses INSSet, objectClasses INSSet, key string) INSDictionary
-	// Decodes an object for the key, restricted to the specified classes.
-	DecodeObjectOfClassesForKey(classes INSSet, key string) objectivec.IObject
 	// Decodes an object for the key, restricted to the specified class.
 	DecodeObjectOfClassForKey(aClass objc.Class, key string) objectivec.IObject
+	// Decodes an object for the key, restricted to the specified classes.
+	DecodeObjectOfClassesForKey(classes INSSet, key string) objectivec.IObject
 	// Decodes the previously-encoded object associated by a key, populating an error if decoding fails.
 	DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject, error)
 	// Decode an object as an expected type, failing if the archived type does not match.
 	DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key string) (objectivec.IObject, error)
 	// Decodes a series of potentially different Objective-C types.
 	DecodeValuesOfObjCTypes(types []byte)
-	// This method is present for historical reasons and has no effect.
-	ObjectZone() NSZone
 	// Encodes a series of values of potentially differing Objective-C types.
 	EncodeValuesOfObjCTypes(types []byte)
+	// This method is present for historical reasons and has no effect.
+	ObjectZone() NSZone
 }
 
 
@@ -1474,28 +1474,6 @@ func (c NSCoder) DecodeDictionaryWithKeysOfClassesObjectsOfClassesForKey(keyClas
 	return NSDictionaryFromID(rv)
 }
 
-// Decodes an object for the key, restricted to the specified classes.
-//
-// classes: A set of the expected classes.
-//
-// key: The coder key.
-//
-// # Return Value
-// 
-// The decoded object.
-//
-// # Discussion
-// 
-// The class of the object may be any class in the `classes` set, or a
-// subclass of any class in the set. Otherwise, the behavior is the same as
-// [DecodeObjectOfClassForKey].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeObjectOfClasses:forKey:
-func (c NSCoder) DecodeObjectOfClassesForKey(classes INSSet, key string) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectOfClasses:forKey:"), classes, objc.String(key))
-	return objectivec.Object{ID: rv}
-}
-
 // Decodes an object for the key, restricted to the specified class.
 //
 // aClass: The expect class type.
@@ -1523,6 +1501,28 @@ func (c NSCoder) DecodeObjectOfClassesForKey(classes INSSet, key string) objecti
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeObjectOfClass:forKey:
 func (c NSCoder) DecodeObjectOfClassForKey(aClass objc.Class, key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectOfClass:forKey:"), aClass, objc.String(key))
+	return objectivec.Object{ID: rv}
+}
+
+// Decodes an object for the key, restricted to the specified classes.
+//
+// classes: A set of the expected classes.
+//
+// key: The coder key.
+//
+// # Return Value
+// 
+// The decoded object.
+//
+// # Discussion
+// 
+// The class of the object may be any class in the `classes` set, or a
+// subclass of any class in the set. Otherwise, the behavior is the same as
+// [DecodeObjectOfClassForKey].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeObjectOfClasses:forKey:
+func (c NSCoder) DecodeObjectOfClassesForKey(classes INSSet, key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectOfClasses:forKey:"), classes, objc.String(key))
 	return objectivec.Object{ID: rv}
 }
 
@@ -1621,19 +1621,6 @@ func (c NSCoder) DecodeValuesOfObjCTypes(types []byte) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
 }
 
-// This method is present for historical reasons and has no effect.
-//
-// # Discussion
-// 
-// [NSCoder]’s implementation returns the default memory zone, as given by
-// `NSDefaultMallocZone()`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoder/objectZone
-func (c NSCoder) ObjectZone() NSZone {
-	rv := objc.Send[NSZone](c.ID, objc.Sel("objectZone"))
-	return NSZone(rv)
-}
-
 // Encodes a series of values of potentially differing Objective-C types.
 //
 // # Discussion
@@ -1666,6 +1653,19 @@ func (c NSCoder) ObjectZone() NSZone {
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeValuesOfObjCTypes:
 func (c NSCoder) EncodeValuesOfObjCTypes(types []byte) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
+}
+
+// This method is present for historical reasons and has no effect.
+//
+// # Discussion
+// 
+// [NSCoder]’s implementation returns the default memory zone, as given by
+// `NSDefaultMallocZone()`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoder/objectZone
+func (c NSCoder) ObjectZone() NSZone {
+	rv := objc.Send[NSZone](c.ID, objc.Sel("objectZone"))
+	return NSZone(rv)
 }
 
 

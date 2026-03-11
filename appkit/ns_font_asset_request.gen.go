@@ -103,7 +103,7 @@ type INSFontAssetRequest interface {
 
 	// Topic: Getting the Download Progress
 
-	Progress() *foundation.NSProgress
+	Progress() foundation.NSProgress
 }
 
 
@@ -185,13 +185,9 @@ func (f NSFontAssetRequest) DownloadedFontDescriptors() []NSFontDescriptor {
 
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/progress
-func (f NSFontAssetRequest) Progress() *foundation.NSProgress {
+func (f NSFontAssetRequest) Progress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSProgressFromID(objc.ID(rv))
-	return &val
+	return foundation.NSProgressFromID(objc.ID(rv))
 }
 
 

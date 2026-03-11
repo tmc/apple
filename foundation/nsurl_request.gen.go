@@ -292,9 +292,9 @@ type INSURLRequest interface {
 	CookiePartitionIdentifier() string
 	RequiresDNSSECValidation() bool
 
-	InitWithCoder(coder INSCoder) NSURLRequest
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSURLRequest
 }
 
 
@@ -445,13 +445,6 @@ func (u NSURLRequest) ValueForHTTPHeaderField(field string) string {
 	return NSStringFromID(rv).String()
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u NSURLRequest) InitWithCoder(coder INSCoder) NSURLRequest {
-	rv := objc.Send[NSURLRequest](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -459,6 +452,13 @@ func (u NSURLRequest) InitWithCoder(coder INSCoder) NSURLRequest {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u NSURLRequest) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u NSURLRequest) InitWithCoder(coder INSCoder) NSURLRequest {
+	rv := objc.Send[NSURLRequest](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

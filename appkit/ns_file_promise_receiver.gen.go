@@ -105,7 +105,7 @@ type INSFilePromiseReceiver interface {
 	// Topic: Instance Methods
 
 	// Fulfills the promises at the specified destination.
-	ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue *foundation.NSOperationQueue, reader URLErrorHandler)
+	ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue, reader URLErrorHandler)
 
 	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver
@@ -202,7 +202,7 @@ func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objecti
 // the reader block call is wrapped in a file coordination read.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/receivePromisedFiles(atDestination:options:operationQueue:reader:)
-func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue *foundation.NSOperationQueue, reader URLErrorHandler) {
+func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue, reader URLErrorHandler) {
 		_block3, _cleanup3 := NewURLErrorBlock(reader)
 	defer _cleanup3()
 		objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
@@ -379,7 +379,7 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableDraggedTyp
 
 // ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync is a synchronous wrapper around [NSFilePromiseReceiver.ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
 // It blocks until the completion handler fires or the context is cancelled.
-func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue *foundation.NSOperationQueue) (*foundation.NSURL, error) {
+func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue) (*foundation.NSURL, error) {
 	type result struct {
 		val *foundation.NSURL
 		err error

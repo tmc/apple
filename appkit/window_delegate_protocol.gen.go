@@ -1820,4 +1820,3 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 
 
 
-

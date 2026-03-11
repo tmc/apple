@@ -46,7 +46,7 @@ type NSEdgeInsets struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Foundation/NSFastEnumerationState
 type NSFastEnumerationState struct {
-	State uint // Arbitrary state information used by the iterator. Typically this is set to 
+	State uint // Arbitrary state information used by the iterator. Typically this is set to `0` at the beginning of the iteration.
 	MutationsPtr *uint // Arbitrary state information used to detect whether the collection has been mutated.
 	Extra uint // A C array that you can use to hold returned values.
 	ItemsPtr unsafe.Pointer // A C array of objects.

@@ -116,12 +116,12 @@ type INSUserDefaultsController interface {
 	// Topic: Initializing a user defaults controller
 
 	// Returns an initialized NSUserDefaultsController object using the NSUserDefaults instance specified in `defaults` and the initial default values contained in the `initialValues` dictionary.
-	InitWithDefaultsInitialValues(defaults *foundation.NSUserDefaults, initialValues foundation.INSDictionary) NSUserDefaultsController
+	InitWithDefaultsInitialValues(defaults foundation.NSUserDefaults, initialValues foundation.INSDictionary) NSUserDefaultsController
 
 	// Topic: Managing user defaults values
 
 	// Returns the instance of NSUserDefaults in use by the receiver.
-	Defaults() *foundation.NSUserDefaults
+	Defaults() foundation.NSUserDefaults
 	// Returns a dictionary containing the receiver’s initial default values.
 	InitialValues() foundation.INSDictionary
 	SetInitialValues(value foundation.INSDictionary)
@@ -191,7 +191,7 @@ func NewUserDefaultsControllerWithCoder(coder foundation.INSCoder) NSUserDefault
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/init(defaults:initialValues:)
-func NewUserDefaultsControllerWithDefaultsInitialValues(defaults *foundation.NSUserDefaults, initialValues foundation.INSDictionary) NSUserDefaultsController {
+func NewUserDefaultsControllerWithDefaultsInitialValues(defaults foundation.NSUserDefaults, initialValues foundation.INSDictionary) NSUserDefaultsController {
 	instance := getNSUserDefaultsControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDefaults:initialValues:"), defaults, initialValues)
 	return NSUserDefaultsControllerFromID(rv)
@@ -215,7 +215,7 @@ func NewUserDefaultsControllerWithDefaultsInitialValues(defaults *foundation.NSU
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/init(defaults:initialValues:)
-func (u NSUserDefaultsController) InitWithDefaultsInitialValues(defaults *foundation.NSUserDefaults, initialValues foundation.INSDictionary) NSUserDefaultsController {
+func (u NSUserDefaultsController) InitWithDefaultsInitialValues(defaults foundation.NSUserDefaults, initialValues foundation.INSDictionary) NSUserDefaultsController {
 	rv := objc.Send[NSUserDefaultsController](u.ID, objc.Sel("initWithDefaults:initialValues:"), defaults, initialValues)
 	return rv
 }
@@ -289,13 +289,9 @@ func (u NSUserDefaultsController) EncodeWithCoder(coder foundation.INSCoder) {
 // This property is observable using key-value observing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/defaults
-func (u NSUserDefaultsController) Defaults() *foundation.NSUserDefaults {
+func (u NSUserDefaultsController) Defaults() foundation.NSUserDefaults {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("defaults"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSUserDefaultsFromID(objc.ID(rv))
-	return &val
+	return foundation.NSUserDefaultsFromID(objc.ID(rv))
 }
 
 

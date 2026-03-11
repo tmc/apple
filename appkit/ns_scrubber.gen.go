@@ -634,12 +634,18 @@ type INSScrubber interface {
 	// Returns the view for the item at the specified index.
 	ItemViewForItemAtIndex(index int) INSScrubberItemView
 
+	// The item’s alpha value.
+	Alpha() float64
+	SetAlpha(value float64)
 	// The alignment of the image within the scrubber item.
 	ImageAlignment() NSImageAlignment
 	SetImageAlignment(value NSImageAlignment)
 	// The image view that the scrubber item uses to display its image.
 	ImageView() INSImageView
 	SetImageView(value INSImageView)
+	// The index of the scrubber item that is represented by the item’s layout attributes.
+	ItemIndex() int
+	SetItemIndex(value int)
 	// The size required to contain all elements within the scrubber.
 	ScrubberContentSize() corefoundation.CGSize
 	SetScrubberContentSize(value corefoundation.CGSize)
@@ -649,12 +655,6 @@ type INSScrubber interface {
 	// Determines whether the scrubber should refresh its layout when the selection changes.
 	ShouldInvalidateLayoutForSelectionChange() bool
 	SetShouldInvalidateLayoutForSelectionChange(value bool)
-	// The item’s alpha value.
-	Alpha() float64
-	SetAlpha(value float64)
-	// The index of the scrubber item that is represented by the item’s layout attributes.
-	ItemIndex() int
-	SetItemIndex(value int)
 	// The text field that the scrubber item uses to display its text.
 	TextField() INSTextField
 	SetTextField(value INSTextField)
@@ -1205,6 +1205,19 @@ func (s NSScrubber) SetSelectedIndex(value int) {
 
 
 
+// The item’s alpha value.
+//
+// See: https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes/alpha
+func (s NSScrubber) Alpha() float64 {
+	rv := objc.Send[float64](s.ID, objc.Sel("alpha"))
+	return rv
+}
+func (s NSScrubber) SetAlpha(value float64) {
+	objc.Send[struct{}](s.ID, objc.Sel("setAlpha:"), value)
+}
+
+
+
 // The alignment of the image within the scrubber item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscrubberimageitemview/imagealignment
@@ -1227,6 +1240,20 @@ func (s NSScrubber) ImageView() INSImageView {
 }
 func (s NSScrubber) SetImageView(value INSImageView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageView:"), value)
+}
+
+
+
+// The index of the scrubber item that is represented by the item’s layout
+// attributes.
+//
+// See: https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes/itemindex
+func (s NSScrubber) ItemIndex() int {
+	rv := objc.Send[int](s.ID, objc.Sel("itemIndex"))
+	return rv
+}
+func (s NSScrubber) SetItemIndex(value int) {
+	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
 }
 
 
@@ -1268,33 +1295,6 @@ func (s NSScrubber) ShouldInvalidateLayoutForSelectionChange() bool {
 }
 func (s NSScrubber) SetShouldInvalidateLayoutForSelectionChange(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShouldInvalidateLayoutForSelectionChange:"), value)
-}
-
-
-
-// The item’s alpha value.
-//
-// See: https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes/alpha
-func (s NSScrubber) Alpha() float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("alpha"))
-	return rv
-}
-func (s NSScrubber) SetAlpha(value float64) {
-	objc.Send[struct{}](s.ID, objc.Sel("setAlpha:"), value)
-}
-
-
-
-// The index of the scrubber item that is represented by the item’s layout
-// attributes.
-//
-// See: https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes/itemindex
-func (s NSScrubber) ItemIndex() int {
-	rv := objc.Send[int](s.ID, objc.Sel("itemIndex"))
-	return rv
-}
-func (s NSScrubber) SetItemIndex(value int) {
-	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
 }
 
 

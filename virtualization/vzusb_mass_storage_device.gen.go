@@ -163,19 +163,6 @@ func (u VZUSBMassStorageDevice) InitWithConfiguration(configuration IVZUSBMassSt
 
 
 
-// The list of attached USB devices for the controller.
-//
-// See: https://developer.apple.com/documentation/virtualization/vzusbcontroller/usbdevices
-func (u VZUSBMassStorageDevice) UsbDevices() VZUSBDevice {
-	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbDevices"))
-	return VZUSBDeviceObjectFromID(rv)
-}
-func (u VZUSBMassStorageDevice) SetUsbDevices(value VZUSBDevice) {
-	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), value)
-}
-
-
-
 // The USB controller that has an attachment to the device.
 //
 // # Discussion
@@ -188,6 +175,19 @@ func (u VZUSBMassStorageDevice) SetUsbDevices(value VZUSBDevice) {
 func (u VZUSBMassStorageDevice) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(objc.ID(rv))
+}
+
+
+
+// The list of attached USB devices for the controller.
+//
+// See: https://developer.apple.com/documentation/virtualization/vzusbcontroller/usbdevices
+func (u VZUSBMassStorageDevice) UsbDevices() VZUSBDevice {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbDevices"))
+	return VZUSBDeviceObjectFromID(rv)
+}
+func (u VZUSBMassStorageDevice) SetUsbDevices(value VZUSBDevice) {
+	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), value)
 }
 
 

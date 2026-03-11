@@ -8,50 +8,6 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var iOSurfacePropertyKeyAllocSize string
-
-var iOSurfacePropertyKeyBytesPerElement string
-
-var iOSurfacePropertyKeyBytesPerRow string
-
-var iOSurfacePropertyKeyCacheMode string
-
-var iOSurfacePropertyKeyElementHeight string
-
-var iOSurfacePropertyKeyElementWidth string
-
-var iOSurfacePropertyKeyHeight string
-
-var iOSurfacePropertyKeyName string
-
-var iOSurfacePropertyKeyOffset string
-
-var iOSurfacePropertyKeyPixelFormat string
-
-var iOSurfacePropertyKeyPixelSizeCastingAllowed string
-
-var iOSurfacePropertyKeyPlaneBase string
-
-var iOSurfacePropertyKeyPlaneBytesPerElement string
-
-var iOSurfacePropertyKeyPlaneBytesPerRow string
-
-var iOSurfacePropertyKeyPlaneElementHeight string
-
-var iOSurfacePropertyKeyPlaneElementWidth string
-
-var iOSurfacePropertyKeyPlaneHeight string
-
-var iOSurfacePropertyKeyPlaneInfo string
-
-var iOSurfacePropertyKeyPlaneOffset string
-
-var iOSurfacePropertyKeyPlaneSize string
-
-var iOSurfacePropertyKeyPlaneWidth string
-
-var iOSurfacePropertyKeyWidth string
-
 var KIOSurfaceAllocSize string
 
 var KIOSurfaceBytesPerElement string
@@ -127,7 +83,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyAllocSize = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.AllocSize = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -137,7 +93,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyBytesPerElement = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.BytesPerElement = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -147,7 +103,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyBytesPerRow = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.BytesPerRow = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -157,7 +113,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyCacheMode = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.CacheMode = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -167,7 +123,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyElementHeight = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.ElementHeight = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -177,7 +133,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyElementWidth = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.ElementWidth = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -187,7 +143,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyHeight = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.Height = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -197,7 +153,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyName = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.Name = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -207,7 +163,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyOffset = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.Offset = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -217,7 +173,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPixelFormat = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PixelFormat = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -227,7 +183,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPixelSizeCastingAllowed = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PixelSizeCastingAllowed = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -237,7 +193,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneBase = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneBase = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -247,7 +203,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneBytesPerElement = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneBytesPerElement = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -257,7 +213,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneBytesPerRow = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneBytesPerRow = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -267,7 +223,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneElementHeight = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneElementHeight = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -277,7 +233,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneElementWidth = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneElementWidth = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -287,7 +243,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneHeight = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneHeight = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -297,7 +253,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneInfo = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneInfo = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -307,7 +263,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneOffset = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneOffset = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -317,7 +273,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneSize = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneSize = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -327,7 +283,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyPlaneWidth = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.PlaneWidth = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -337,7 +293,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				iOSurfacePropertyKeyWidth = string(objc.GoString(cstr))
+				IOSurfacePropertyKeys.Width = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -664,53 +620,29 @@ func init() {
 
 }
 
-type IOSurfacePropertyKeyValues struct{}
-
 // IOSurfacePropertyKeys provides typed accessors for [IOSurfacePropertyKey] constants.
-var IOSurfacePropertyKeys IOSurfacePropertyKeyValues
-
-func (IOSurfacePropertyKeyValues) AllocSize() IOSurfacePropertyKey { return iOSurfacePropertyKeyAllocSize }
-
-func (IOSurfacePropertyKeyValues) BytesPerElement() IOSurfacePropertyKey { return iOSurfacePropertyKeyBytesPerElement }
-
-func (IOSurfacePropertyKeyValues) BytesPerRow() IOSurfacePropertyKey { return iOSurfacePropertyKeyBytesPerRow }
-
-func (IOSurfacePropertyKeyValues) CacheMode() IOSurfacePropertyKey { return iOSurfacePropertyKeyCacheMode }
-
-func (IOSurfacePropertyKeyValues) ElementHeight() IOSurfacePropertyKey { return iOSurfacePropertyKeyElementHeight }
-
-func (IOSurfacePropertyKeyValues) ElementWidth() IOSurfacePropertyKey { return iOSurfacePropertyKeyElementWidth }
-
-func (IOSurfacePropertyKeyValues) Height() IOSurfacePropertyKey { return iOSurfacePropertyKeyHeight }
-
-func (IOSurfacePropertyKeyValues) Name() IOSurfacePropertyKey { return iOSurfacePropertyKeyName }
-
-func (IOSurfacePropertyKeyValues) Offset() IOSurfacePropertyKey { return iOSurfacePropertyKeyOffset }
-
-func (IOSurfacePropertyKeyValues) PixelFormat() IOSurfacePropertyKey { return iOSurfacePropertyKeyPixelFormat }
-
-func (IOSurfacePropertyKeyValues) PixelSizeCastingAllowed() IOSurfacePropertyKey { return iOSurfacePropertyKeyPixelSizeCastingAllowed }
-
-func (IOSurfacePropertyKeyValues) PlaneBase() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneBase }
-
-func (IOSurfacePropertyKeyValues) PlaneBytesPerElement() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneBytesPerElement }
-
-func (IOSurfacePropertyKeyValues) PlaneBytesPerRow() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneBytesPerRow }
-
-func (IOSurfacePropertyKeyValues) PlaneElementHeight() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneElementHeight }
-
-func (IOSurfacePropertyKeyValues) PlaneElementWidth() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneElementWidth }
-
-func (IOSurfacePropertyKeyValues) PlaneHeight() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneHeight }
-
-func (IOSurfacePropertyKeyValues) PlaneInfo() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneInfo }
-
-func (IOSurfacePropertyKeyValues) PlaneOffset() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneOffset }
-
-func (IOSurfacePropertyKeyValues) PlaneSize() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneSize }
-
-func (IOSurfacePropertyKeyValues) PlaneWidth() IOSurfacePropertyKey { return iOSurfacePropertyKeyPlaneWidth }
-
-func (IOSurfacePropertyKeyValues) Width() IOSurfacePropertyKey { return iOSurfacePropertyKeyWidth }
-
+var IOSurfacePropertyKeys struct {
+	AllocSize IOSurfacePropertyKey
+	BytesPerElement IOSurfacePropertyKey
+	BytesPerRow IOSurfacePropertyKey
+	CacheMode IOSurfacePropertyKey
+	ElementHeight IOSurfacePropertyKey
+	ElementWidth IOSurfacePropertyKey
+	Height IOSurfacePropertyKey
+	Name IOSurfacePropertyKey
+	Offset IOSurfacePropertyKey
+	PixelFormat IOSurfacePropertyKey
+	PixelSizeCastingAllowed IOSurfacePropertyKey
+	PlaneBase IOSurfacePropertyKey
+	PlaneBytesPerElement IOSurfacePropertyKey
+	PlaneBytesPerRow IOSurfacePropertyKey
+	PlaneElementHeight IOSurfacePropertyKey
+	PlaneElementWidth IOSurfacePropertyKey
+	PlaneHeight IOSurfacePropertyKey
+	PlaneInfo IOSurfacePropertyKey
+	PlaneOffset IOSurfacePropertyKey
+	PlaneSize IOSurfacePropertyKey
+	PlaneWidth IOSurfacePropertyKey
+	Width IOSurfacePropertyKey
+}
 

@@ -412,25 +412,6 @@ func (t NSTableRowView) ViewAtColumn(column int) objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-// Returns the index for the row.
-//
-// # Return Value
-// 
-// The index for the row.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIndex] property.
-//
-// [accessibilityIndex]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityIndex()
-func (t NSTableRowView) AccessibilityIndex() int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityIndex"))
-	return rv
-}
-
 // Returns the indention level for the row.
 //
 // # Return Value
@@ -447,6 +428,25 @@ func (t NSTableRowView) AccessibilityIndex() int {
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityDisclosureLevel()
 func (t NSTableRowView) AccessibilityDisclosureLevel() int {
 	rv := objc.Send[int](t.ID, objc.Sel("accessibilityDisclosureLevel"))
+	return rv
+}
+
+// Returns the index for the row.
+//
+// # Return Value
+// 
+// The index for the row.
+//
+// # Discussion
+// 
+// This method is the getter for the [NSAccessibilityProtocol] protocol’s
+// [accessibilityIndex] property.
+//
+// [accessibilityIndex]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityIndex()
+func (t NSTableRowView) AccessibilityIndex() int {
+	rv := objc.Send[int](t.ID, objc.Sel("accessibilityIndex"))
 	return rv
 }
 func (t NSTableRowView) EncodeWithCoder(coder foundation.INSCoder) {

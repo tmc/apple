@@ -345,6 +345,26 @@ func (t NSTextContentManager) TextElementsForRange(range_ INSTextRange) []NSText
 	})
 }
 
+// A method you implement if the location backing store requires manual
+// adjustment after editing.
+//
+// textRange: An [NSTextRange] that the method adjusts.
+//
+// forEditingTextSelection: A Boolean value that indicates if `textRange` is for the text selection
+// associated with the edit session.
+//
+// # Return Value
+// 
+// When `textRange` is intersecting or following the current edited range, the
+// method returns the range adjusted for the modification in the editing
+// session. Returns `nil`, when no adjustment necessary.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/adjustedRange(from:forEditingTextSelection:)
+func (t NSTextContentManager) AdjustedRangeFromRangeForEditingTextSelection(textRange INSTextRange, forEditingTextSelection bool) INSTextRange {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("adjustedRangeFromRange:forEditingTextSelection:"), textRange, forEditingTextSelection)
+	return NSTextRangeFromID(rv)
+}
+
 // Enumerates text elements starting at the text location you provide.
 //
 // textLocation: The [NSTextLocation] at which to start the enumeration.
@@ -379,6 +399,49 @@ func (t NSTextContentManager) EnumerateTextElementsFromLocationOptionsUsingBlock
 	defer _cleanup2()
 		rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, _block2)
 	return NSTextLocationObjectFromID(rv)
+}
+
+// Returns a new location from location with offset you provide.
+//
+// location: An [NSTextLocation] in the text element.
+//
+// offset: An offset of the number of characters to or from `location`.
+//
+// # Return Value
+// 
+// An new [NSTextLocation], or `nil` of the offset exceeds the bounds of the
+// text.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/location(_:offsetBy:)
+func (t NSTextContentManager) LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("locationFromLocation:withOffset:"), location, offset)
+	return NSTextLocationObjectFromID(rv)
+}
+
+// Returns the offset between the two specified locations.
+//
+// from: A starting location.
+//
+// to: An ending location.
+//
+// # Return Value
+// 
+// An [Integer] that represents the offset between the starting and ending
+// locations.
+//
+// # Discussion
+// 
+// The return value could be positive or negative. This method can return
+// [NSNotFound] when the method can’t represent an offset as an integer
+// value. This can occur, for example, if the locations aren’t in the same
+// document).
+//
+// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/offset(from:to:)
+func (t NSTextContentManager) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
+	rv := objc.Send[int](t.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
+	return rv
 }
 
 // Replaces the characters specified by range with the text elements you
@@ -416,69 +479,6 @@ func (t NSTextContentManager) SynchronizeToBackingStore(completionHandler ErrorH
 		_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 		objc.Send[objc.ID](t.ID, objc.Sel("synchronizeToBackingStore:"), _block0)
-}
-
-// Returns the offset between the two specified locations.
-//
-// from: A starting location.
-//
-// to: An ending location.
-//
-// # Return Value
-// 
-// An [Integer] that represents the offset between the starting and ending
-// locations.
-//
-// # Discussion
-// 
-// The return value could be positive or negative. This method can return
-// [NSNotFound] when the method can’t represent an offset as an integer
-// value. This can occur, for example, if the locations aren’t in the same
-// document).
-//
-// [NSNotFound]: https://developer.apple.com/documentation/Foundation/NSNotFound-4qp9h
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/offset(from:to:)
-func (t NSTextContentManager) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
-	rv := objc.Send[int](t.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
-	return rv
-}
-
-// A method you implement if the location backing store requires manual
-// adjustment after editing.
-//
-// textRange: An [NSTextRange] that the method adjusts.
-//
-// forEditingTextSelection: A Boolean value that indicates if `textRange` is for the text selection
-// associated with the edit session.
-//
-// # Return Value
-// 
-// When `textRange` is intersecting or following the current edited range, the
-// method returns the range adjusted for the modification in the editing
-// session. Returns `nil`, when no adjustment necessary.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/adjustedRange(from:forEditingTextSelection:)
-func (t NSTextContentManager) AdjustedRangeFromRangeForEditingTextSelection(textRange INSTextRange, forEditingTextSelection bool) INSTextRange {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("adjustedRangeFromRange:forEditingTextSelection:"), textRange, forEditingTextSelection)
-	return NSTextRangeFromID(rv)
-}
-
-// Returns a new location from location with offset you provide.
-//
-// location: An [NSTextLocation] in the text element.
-//
-// offset: An offset of the number of characters to or from `location`.
-//
-// # Return Value
-// 
-// An new [NSTextLocation], or `nil` of the offset exceeds the bounds of the
-// text.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/location(_:offsetBy:)
-func (t NSTextContentManager) LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("locationFromLocation:withOffset:"), location, offset)
-	return NSTextLocationObjectFromID(rv)
 }
 func (t NSTextContentManager) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)

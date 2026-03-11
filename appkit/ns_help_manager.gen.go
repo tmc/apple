@@ -123,7 +123,7 @@ type INSHelpManager interface {
 	// Topic: Dynamically Adding Help Books
 
 	// Registers one or more help books in the given bundle.
-	RegisterBooksInBundle(bundle *foundation.NSBundle) bool
+	RegisterBooksInBundle(bundle foundation.NSBundle) bool
 
 	// Topic: Configuring Context-Sensitive Help
 
@@ -237,7 +237,7 @@ func (h NSHelpManager) OpenHelpAnchorInBook(anchor NSHelpAnchorName, book NSHelp
 // [FindStringInBook].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/registerBooks(in:)
-func (h NSHelpManager) RegisterBooksInBundle(bundle *foundation.NSBundle) bool {
+func (h NSHelpManager) RegisterBooksInBundle(bundle foundation.NSBundle) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("registerBooksInBundle:"), bundle)
 	return rv
 }

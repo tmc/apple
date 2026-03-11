@@ -253,12 +253,12 @@ type IMTLRenderPassDescriptor interface {
 	VisibilityResultType() MTLVisibilityResultType
 	SetVisibilityResultType(value MTLVisibilityResultType)
 
-	// Options that determine how you can use the texture.
-	Usage() MTLTextureUsage
-	SetUsage(value MTLTextureUsage)
 	// An option for rendering to the texture in a render pass.
 	RenderTarget() MTLTextureUsage
 	SetRenderTarget(value MTLTextureUsage)
+	// Options that determine how you can use the texture.
+	Usage() MTLTextureUsage
+	SetUsage(value MTLTextureUsage)
 	// Retrieves the programmable sample positions set for a render pass.
 	GetSamplePositionsCount(positions []MTLSamplePosition, count uint) uint
 	// Sets the programmable sample positions for a render pass.
@@ -637,19 +637,6 @@ func (r MTLRenderPassDescriptor) SetVisibilityResultType(value MTLVisibilityResu
 
 
 
-// Options that determine how you can use the texture.
-//
-// See: https://developer.apple.com/documentation/metal/mtltexturedescriptor/usage
-func (r MTLRenderPassDescriptor) Usage() MTLTextureUsage {
-	rv := objc.Send[MTLTextureUsage](r.ID, objc.Sel("usage"))
-	return MTLTextureUsage(rv)
-}
-func (r MTLRenderPassDescriptor) SetUsage(value MTLTextureUsage) {
-	objc.Send[struct{}](r.ID, objc.Sel("setUsage:"), value)
-}
-
-
-
 // An option for rendering to the texture in a render pass.
 //
 // See: https://developer.apple.com/documentation/metal/mtltextureusage/rendertarget
@@ -659,6 +646,19 @@ func (r MTLRenderPassDescriptor) RenderTarget() MTLTextureUsage {
 }
 func (r MTLRenderPassDescriptor) SetRenderTarget(value MTLTextureUsage) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMTLTextureUsageRenderTarget:"), value)
+}
+
+
+
+// Options that determine how you can use the texture.
+//
+// See: https://developer.apple.com/documentation/metal/mtltexturedescriptor/usage
+func (r MTLRenderPassDescriptor) Usage() MTLTextureUsage {
+	rv := objc.Send[MTLTextureUsage](r.ID, objc.Sel("usage"))
+	return MTLTextureUsage(rv)
+}
+func (r MTLRenderPassDescriptor) SetUsage(value MTLTextureUsage) {
+	objc.Send[struct{}](r.ID, objc.Sel("setUsage:"), value)
 }
 
 

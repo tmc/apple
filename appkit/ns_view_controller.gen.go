@@ -317,7 +317,7 @@ type INSViewController interface {
 	// Topic: Creating A View Controller
 
 	// Returns a view controller object initialized to the nib file in the specified bundle.
-	InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSViewController
+	InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSViewController
 	// Instantiates a view from a nib file and sets the value of the [view](<doc://com.apple.appkit/documentation/AppKit/NSViewController/view>) property.
 	LoadView()
 
@@ -330,7 +330,7 @@ type INSViewController interface {
 	// Topic: Nib Properties
 
 	// The nib bundle to be loaded to instantiate the receiver’s primary view.
-	NibBundle() *foundation.NSBundle
+	NibBundle() foundation.NSBundle
 	// The name of the nib file to be loaded to instantiate the receiver’s primary view.
 	NibName() NSNibName
 
@@ -512,7 +512,7 @@ func NewViewControllerWithCoder(coder foundation.INSCoder) NSViewController {
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSViewController {
+func NewViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSViewController {
 	instance := getNSViewControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSViewControllerFromID(rv)
@@ -551,7 +551,7 @@ func NewViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func (v NSViewController) InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSViewController {
+func (v NSViewController) InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSViewController {
 	rv := objc.Send[NSViewController](v.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return rv
 }
@@ -1272,13 +1272,9 @@ func (v NSViewController) SetRepresentedObject(value objectivec.IObject) {
 // parameter in the [InitWithNibNameBundle] method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/nibBundle
-func (v NSViewController) NibBundle() *foundation.NSBundle {
+func (v NSViewController) NibBundle() foundation.NSBundle {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nibBundle"))
-	if rv == 0 {
-		return nil
-	}
-	val := foundation.NSBundleFromID(objc.ID(rv))
-	return &val
+	return foundation.NSBundleFromID(objc.ID(rv))
 }
 
 

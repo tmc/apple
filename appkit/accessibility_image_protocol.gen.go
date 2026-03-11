@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityImage
 type NSAccessibilityImage interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 
 	// Returns a short description of the image’s label.
 	//

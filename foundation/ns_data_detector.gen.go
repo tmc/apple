@@ -145,12 +145,12 @@ type INSDataDetector interface {
 	// Attempts to locate dates.
 	Date() NSTextCheckingType
 	SetDate(value NSTextCheckingType)
-	// Attempts to locate URL links.
-	Link() NSTextCheckingType
-	SetLink(value NSTextCheckingType)
 	// The duration component of a type checking result.
 	Duration() float64
 	SetDuration(value float64)
+	// Attempts to locate URL links.
+	Link() NSTextCheckingType
+	SetLink(value NSTextCheckingType)
 	// The time zone component of a type checking result.
 	TimeZone() INSTimeZone
 	SetTimeZone(value INSTimeZone)
@@ -378,19 +378,6 @@ func (d NSDataDetector) SetDate(value NSTextCheckingType) {
 
 
 
-// Attempts to locate URL links.
-//
-// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/link
-func (d NSDataDetector) Link() NSTextCheckingType {
-	rv := objc.Send[NSTextCheckingType](d.ID, objc.Sel("NSTextCheckingTypeLink"))
-	return NSTextCheckingType(rv)
-}
-func (d NSDataDetector) SetLink(value NSTextCheckingType) {
-	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeLink:"), value)
-}
-
-
-
 // The duration component of a type checking result.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/duration
@@ -400,6 +387,19 @@ func (d NSDataDetector) Duration() float64 {
 }
 func (d NSDataDetector) SetDuration(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDuration:"), value)
+}
+
+
+
+// Attempts to locate URL links.
+//
+// See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/link
+func (d NSDataDetector) Link() NSTextCheckingType {
+	rv := objc.Send[NSTextCheckingType](d.ID, objc.Sel("NSTextCheckingTypeLink"))
+	return NSTextCheckingType(rv)
+}
+func (d NSDataDetector) SetLink(value NSTextCheckingType) {
+	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeLink:"), value)
 }
 
 

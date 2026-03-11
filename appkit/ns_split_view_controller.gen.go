@@ -259,7 +259,7 @@ func NewSplitViewControllerWithCoder(coder foundation.INSCoder) NSSplitViewContr
 // [View] is invoked, or override [LoadView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(nibName:bundle:)
-func NewSplitViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil *foundation.NSBundle) NSSplitViewController {
+func NewSplitViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSSplitViewController {
 	instance := getNSSplitViewControllerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSSplitViewControllerFromID(rv)
@@ -377,72 +377,36 @@ func (s NSSplitViewController) SplitViewCanCollapseSubview(splitView INSSplitVie
 	return rv
 }
 
-// Allows the split view controller to determine whether the user can drag a
-// divider or adjust it off the edge of the split view.
-//
-// # Discussion
-// 
-// By default, [NSSplitViewController] hides the first and last dividers if
-// their outer neighbor is in a collapsed state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/splitView(_:shouldHideDividerAt:)
-func (s NSSplitViewController) SplitViewShouldHideDividerAtIndex(splitView INSSplitView, dividerIndex int) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("splitView:shouldHideDividerAtIndex:"), splitView, dividerIndex)
-	return rv
-}
-
-// Returns a Boolean value that indicates whether to enable the specified
-// item.
-//
-// item: The user interface item to validate.
-//
-// # Return Value
-// 
-// [true] if the specified item responds to [ToggleSidebar], [false] if it
-// doesn’t.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/validateUserInterfaceItem(_:)
-func (s NSSplitViewController) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("validateUserInterfaceItem:"), item)
-	return rv
-}
-
-// Allows the split view controller to modify the rectangle where mouse clicks
-// initiate divider dragging.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/splitView(_:effectiveRect:forDrawnRect:ofDividerAt:)
-func (s NSSplitViewController) SplitViewEffectiveRectForDrawnRectOfDividerAtIndex(splitView INSSplitView, proposedEffectiveRect corefoundation.CGRect, drawnRect corefoundation.CGRect, dividerIndex int) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("splitView:effectiveRect:forDrawnRect:ofDividerAtIndex:"), splitView, proposedEffectiveRect, drawnRect, dividerIndex)
-	return corefoundation.CGRect(rv)
-}
-
-// Allows the delegate to constrain the divider to certain positions.
+// Allows the delegate to constrain the maximum coordinate limit of a divider
+// when the user drags it.
 //
 // splitView: The split view that sends the message.
 //
-// proposedPosition: The cursor’s current position, and the proposed position of the divider.
+// proposedMaximumPosition: The proposed maximum coordinate limit of the subview in the split view’s
+// flipped coordinate system.
 //
-// dividerIndex: The index of the divider the user is moving, with the first divider being
-// `0` and increasing from top to bottom (or left to right).
+// dividerIndex: Specifies the divider the user is moving, with the first divider being 0
+// and increasing from top to bottom (or left to right).
 //
 // # Return Value
 // 
-// The position for constraining the divider.
+// The maximum coordinate limit of the divider.
 //
 // # Discussion
 // 
-// If the delegate implements this method, the split view calls it repeatedly
-// as the user moves the divider.
+// The delegate receives this message before the split view begins tracking
+// the mouse to position a divider. You can further constrain the limits, but
+// you can’t extend the divider limits.
 // 
-// If a subview’s height must be a multiple of a certain number, use this
-// method to return the multiple nearest to `proposedPosition`.
+// If the split bars are horizontal (views are one on top of the other),
+// `proposedMax` is the bottom limit. If the split bars are vertical (views
+// are side by side), `proposedMax` is the right limit. The initial value of
+// `proposedMax` is the bottom (or right side) of the subview after the
+// divider.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainSplitPosition:ofSubviewAt:)
-func (s NSSplitViewController) SplitViewConstrainSplitPositionOfSubviewAt(splitView INSSplitView, proposedPosition float64, dividerIndex int) float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainSplitPosition:ofSubviewAt:"), splitView, proposedPosition, dividerIndex)
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainMaxCoordinate:ofSubviewAt:)
+func (s NSSplitViewController) SplitViewConstrainMaxCoordinateOfSubviewAt(splitView INSSplitView, proposedMaximumPosition float64, dividerIndex int) float64 {
+	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainMaxCoordinate:ofSubviewAt:"), splitView, proposedMaximumPosition, dividerIndex)
 	return rv
 }
 
@@ -478,37 +442,60 @@ func (s NSSplitViewController) SplitViewConstrainMinCoordinateOfSubviewAt(splitV
 	return rv
 }
 
-// Allows the delegate to constrain the maximum coordinate limit of a divider
-// when the user drags it.
+// Allows the delegate to constrain the divider to certain positions.
 //
 // splitView: The split view that sends the message.
 //
-// proposedMaximumPosition: The proposed maximum coordinate limit of the subview in the split view’s
-// flipped coordinate system.
+// proposedPosition: The cursor’s current position, and the proposed position of the divider.
 //
-// dividerIndex: Specifies the divider the user is moving, with the first divider being 0
-// and increasing from top to bottom (or left to right).
+// dividerIndex: The index of the divider the user is moving, with the first divider being
+// `0` and increasing from top to bottom (or left to right).
 //
 // # Return Value
 // 
-// The maximum coordinate limit of the divider.
+// The position for constraining the divider.
 //
 // # Discussion
 // 
-// The delegate receives this message before the split view begins tracking
-// the mouse to position a divider. You can further constrain the limits, but
-// you can’t extend the divider limits.
+// If the delegate implements this method, the split view calls it repeatedly
+// as the user moves the divider.
 // 
-// If the split bars are horizontal (views are one on top of the other),
-// `proposedMax` is the bottom limit. If the split bars are vertical (views
-// are side by side), `proposedMax` is the right limit. The initial value of
-// `proposedMax` is the bottom (or right side) of the subview after the
-// divider.
+// If a subview’s height must be a multiple of a certain number, use this
+// method to return the multiple nearest to `proposedPosition`.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainMaxCoordinate:ofSubviewAt:)
-func (s NSSplitViewController) SplitViewConstrainMaxCoordinateOfSubviewAt(splitView INSSplitView, proposedMaximumPosition float64, dividerIndex int) float64 {
-	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainMaxCoordinate:ofSubviewAt:"), splitView, proposedMaximumPosition, dividerIndex)
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainSplitPosition:ofSubviewAt:)
+func (s NSSplitViewController) SplitViewConstrainSplitPositionOfSubviewAt(splitView INSSplitView, proposedPosition float64, dividerIndex int) float64 {
+	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainSplitPosition:ofSubviewAt:"), splitView, proposedPosition, dividerIndex)
 	return rv
+}
+
+// Notifies the delegate when the split view resizes its subviews.
+//
+// notification: A notification named [didResizeSubviewsNotification], which posts after a
+// change to the size of some or all subviews of a split view.
+// //
+// [didResizeSubviewsNotification]: https://developer.apple.com/documentation/AppKit/NSSplitView/didResizeSubviewsNotification
+//
+// # Discussion
+// 
+// If the delegate implements this method, the system automatically registers
+// it to receive this notification.
+// 
+// The default notification center invokes this method after the split view
+// resizes two of its subviews in response to the repositioning of a divider.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitViewDidResizeSubviews(_:)
+func (s NSSplitViewController) SplitViewDidResizeSubviews(notification foundation.NSNotification) {
+	objc.Send[objc.ID](s.ID, objc.Sel("splitViewDidResizeSubviews:"), notification)
+}
+
+// Allows the split view controller to modify the rectangle where mouse clicks
+// initiate divider dragging.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/splitView(_:effectiveRect:forDrawnRect:ofDividerAt:)
+func (s NSSplitViewController) SplitViewEffectiveRectForDrawnRectOfDividerAtIndex(splitView INSSplitView, proposedEffectiveRect corefoundation.CGRect, drawnRect corefoundation.CGRect, dividerIndex int) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("splitView:effectiveRect:forDrawnRect:ofDividerAtIndex:"), splitView, proposedEffectiveRect, drawnRect, dividerIndex)
+	return corefoundation.CGRect(rv)
 }
 
 // Allows the delegate to specify custom sizing behavior for the subviews of
@@ -535,26 +522,6 @@ func (s NSSplitViewController) SplitViewConstrainMaxCoordinateOfSubviewAt(splitV
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:resizeSubviewsWithOldSize:)
 func (s NSSplitViewController) SplitViewResizeSubviewsWithOldSize(splitView INSSplitView, oldSize corefoundation.CGSize) {
 	objc.Send[objc.ID](s.ID, objc.Sel("splitView:resizeSubviewsWithOldSize:"), splitView, oldSize)
-}
-
-// Notifies the delegate when the split view resizes its subviews.
-//
-// notification: A notification named [didResizeSubviewsNotification], which posts after a
-// change to the size of some or all subviews of a split view.
-// //
-// [didResizeSubviewsNotification]: https://developer.apple.com/documentation/AppKit/NSSplitView/didResizeSubviewsNotification
-//
-// # Discussion
-// 
-// If the delegate implements this method, the system automatically registers
-// it to receive this notification.
-// 
-// The default notification center invokes this method after the split view
-// resizes two of its subviews in response to the repositioning of a divider.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitViewDidResizeSubviews(_:)
-func (s NSSplitViewController) SplitViewDidResizeSubviews(notification foundation.NSNotification) {
-	objc.Send[objc.ID](s.ID, objc.Sel("splitViewDidResizeSubviews:"), notification)
 }
 
 // Allows the delegate to specify whether to resize the subview.
@@ -589,6 +556,20 @@ func (s NSSplitViewController) SplitViewShouldAdjustSizeOfSubview(splitView INSS
 	return rv
 }
 
+// Allows the split view controller to determine whether the user can drag a
+// divider or adjust it off the edge of the split view.
+//
+// # Discussion
+// 
+// By default, [NSSplitViewController] hides the first and last dividers if
+// their outer neighbor is in a collapsed state.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/splitView(_:shouldHideDividerAt:)
+func (s NSSplitViewController) SplitViewShouldHideDividerAtIndex(splitView INSSplitView, dividerIndex int) bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("splitView:shouldHideDividerAtIndex:"), splitView, dividerIndex)
+	return rv
+}
+
 // Notifies the delegate when the split view is about to resize its subviews.
 //
 // notification: A notification named [willResizeSubviewsNotification], which posts before a
@@ -607,6 +588,25 @@ func (s NSSplitViewController) SplitViewShouldAdjustSizeOfSubview(splitView INSS
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitViewWillResizeSubviews(_:)
 func (s NSSplitViewController) SplitViewWillResizeSubviews(notification foundation.NSNotification) {
 	objc.Send[objc.ID](s.ID, objc.Sel("splitViewWillResizeSubviews:"), notification)
+}
+
+// Returns a Boolean value that indicates whether to enable the specified
+// item.
+//
+// item: The user interface item to validate.
+//
+// # Return Value
+// 
+// [true] if the specified item responds to [ToggleSidebar], [false] if it
+// doesn’t.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/validateUserInterfaceItem(_:)
+func (s NSSplitViewController) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("validateUserInterfaceItem:"), item)
+	return rv
 }
 func (s NSSplitViewController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)

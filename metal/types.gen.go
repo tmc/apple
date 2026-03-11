@@ -335,8 +335,8 @@ type MTLMapIndirectArguments struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLOrigin
 type MTLOrigin struct {
-	X int // The x coordinate of the origin.
-	Y int // The y coordinate of the origin.
+	X uint // The x coordinate of the origin.
+	Y uint // The y coordinate of the origin.
 	Z uint // The z coordinate of the origin.
 
 }
@@ -418,9 +418,9 @@ type MTLSamplePosition struct {
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLScissorRect
 type MTLScissorRect struct {
 	Height uint // The height of the scissor rectangle, in pixels.
-	Width int // The width of the scissor rectangle, in pixels.
-	X int // The x window coordinate of the upper-left corner of the scissor rectangle.
-	Y int // The y window coordinate of the upper-left corner of the scissor rectangle.
+	Width uint // The width of the scissor rectangle, in pixels.
+	X uint // The x window coordinate of the upper-left corner of the scissor rectangle.
+	Y uint // The y window coordinate of the upper-left corner of the scissor rectangle.
 
 }
 
@@ -429,7 +429,7 @@ type MTLScissorRect struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLSize
 type MTLSize struct {
-	Width int // A value for the x-axis dimension.
+	Width uint // A value for the x-axis dimension.
 	Height uint // A value for the y-axis dimension.
 	Depth uint // A value for the z-axis dimension.
 

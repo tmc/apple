@@ -3154,6 +3154,19 @@ func (l NSLayoutManager) TemporaryAttributesAtCharacterIndexLongestEffectiveRang
 	return foundation.NSDictionaryFromID(rv)
 }
 
+// Returns the text storage object from which the [NSGlyphGenerator] object
+// procures characters for glyph generation.
+//
+// # Return Value
+// 
+// The receiver’s text storage object.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/attributedString()
+func (l NSLayoutManager) AttributedString() foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](l.ID, objc.Sel("attributedString"))
+	return foundation.NSAttributedStringFromID(rv)
+}
+
 // Returns the glyph at the specified index.
 //
 // glyphIndex: The index of a glyph in the receiver. This value must not exceed the bounds
@@ -3204,6 +3217,18 @@ func (l NSLayoutManager) GlyphAtIndex(glyphIndex uint) NSGlyph {
 func (l NSLayoutManager) GlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex bool) NSGlyph {
 	rv := objc.Send[NSGlyph](l.ID, objc.Sel("glyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
 	return NSGlyph(rv)
+}
+
+// Returns the current layout options.
+//
+// # Return Value
+// 
+// The layout options as a bit mask, as defined in Constants.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/layoutOptions()
+func (l NSLayoutManager) LayoutOptions() uint {
+	rv := objc.Send[uint](l.ID, objc.Sel("layoutOptions"))
+	return rv
 }
 
 // Returns an array of rectangles and, by reference, the number of such
@@ -3315,31 +3340,6 @@ func (l NSLayoutManager) RectArrayForCharacterRangeWithinSelectedCharacterRangeI
 func (l NSLayoutManager) RectArrayForGlyphRangeWithinSelectedGlyphRangeInTextContainerRectCount(glyphRange foundation.NSRange, selGlyphRange foundation.NSRange, container INSTextContainer, rectCount uint) foundation.NSRect {
 	rv := objc.Send[foundation.NSRect](l.ID, objc.Sel("rectArrayForGlyphRange:withinSelectedGlyphRange:inTextContainer:rectCount:"), glyphRange, selGlyphRange, container, rectCount)
 	return foundation.NSRect(rv)
-}
-
-// Returns the text storage object from which the [NSGlyphGenerator] object
-// procures characters for glyph generation.
-//
-// # Return Value
-// 
-// The receiver’s text storage object.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/attributedString()
-func (l NSLayoutManager) AttributedString() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("attributedString"))
-	return foundation.NSAttributedStringFromID(rv)
-}
-
-// Returns the current layout options.
-//
-// # Return Value
-// 
-// The layout options as a bit mask, as defined in Constants.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/layoutOptions()
-func (l NSLayoutManager) LayoutOptions() uint {
-	rv := objc.Send[uint](l.ID, objc.Sel("layoutOptions"))
-	return rv
 }
 func (l NSLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)

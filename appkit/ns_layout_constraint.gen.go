@@ -235,10 +235,10 @@ type INSLayoutConstraint interface {
 	ShouldBeArchived() bool
 	SetShouldBeArchived(value bool)
 
-	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
-	Animator() INSLayoutConstraint
 	// Returns the animation that should be performed for the specified key.
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
+	Animator() INSLayoutConstraint
 }
 
 
@@ -315,32 +315,6 @@ func NewLayoutConstraintWithItemAttributeRelatedByToItemAttributeMultiplierConst
 
 
 
-// Returns a proxy object for the receiver that can be used to initiate
-// implied animation for property changes.
-//
-// # Return Value
-// 
-// Returns a proxy object for the receiver that can initiate implied
-// animations in response to property changes.
-//
-// # Discussion
-// 
-// The animator proxy object should be treated as if it was the receiver
-// itself, and may be passed to any code that accepts the receiver as a
-// parameter.
-// 
-// Sending key-value coding compliant “set” messages to the proxy will
-// trigger animation for automatically animated properties of its target
-// object, if the active [NSAnimationContext] in the current thread has a
-// duration value greater than zero, and an animation for the property key is
-// found by the [NSAnimatablePropertyContainer] search mechanism.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (l NSLayoutConstraint) Animator() INSLayoutConstraint {
-	rv := objc.Send[objc.ID](l.ID, objc.Sel("animator"))
-	return NSLayoutConstraintFromID(rv)
-}
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -372,6 +346,32 @@ func (l NSLayoutConstraint) Animator() INSLayoutConstraint {
 func (l NSLayoutConstraint) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
+}
+
+// Returns a proxy object for the receiver that can be used to initiate
+// implied animation for property changes.
+//
+// # Return Value
+// 
+// Returns a proxy object for the receiver that can initiate implied
+// animations in response to property changes.
+//
+// # Discussion
+// 
+// The animator proxy object should be treated as if it was the receiver
+// itself, and may be passed to any code that accepts the receiver as a
+// parameter.
+// 
+// Sending key-value coding compliant “set” messages to the proxy will
+// trigger animation for automatically animated properties of its target
+// object, if the active [NSAnimationContext] in the current thread has a
+// duration value greater than zero, and an animation for the property key is
+// found by the [NSAnimatablePropertyContainer] search mechanism.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
+func (l NSLayoutConstraint) Animator() INSLayoutConstraint {
+	rv := objc.Send[objc.ID](l.ID, objc.Sel("animator"))
+	return NSLayoutConstraintFromID(rv)
 }
 
 

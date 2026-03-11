@@ -167,8 +167,8 @@ func NSViewFromID(id objc.ID) NSView {
 // See: https://developer.apple.com/documentation/AppKit/NSView
 type INSView interface {
 	INSResponder
-	
-	
+	NSAccessibilityElementProtocol
+	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSDraggingDestination
 	NSUserInterfaceItemIdentification
@@ -188,93 +188,164 @@ type INSView interface {
 	WritingToolsCoordinator() INSWritingToolsCoordinator
 	SetWritingToolsCoordinator(value INSWritingToolsCoordinator)
 
-	// The view’s frame rectangle, which defines its position and size in its superview’s coordinate system.
-	Frame() corefoundation.CGRect
-	SetFrame(value corefoundation.CGRect)
+	// A Boolean value indicating whether the view accepts touch events.
+	AcceptsTouchEvents() bool
+	SetAcceptsTouchEvents(value bool)
+	// Custom insets that you specify to modify your view’s safe area
+	AdditionalSafeAreaInsets() foundation.NSEdgeInsets
+	SetAdditionalSafeAreaInsets(value foundation.NSEdgeInsets)
+	// The insets (in points) from the view’s frame that define its content rectangle.
+	AlignmentRectInsets() foundation.NSEdgeInsets
+	SetAlignmentRectInsets(value foundation.NSEdgeInsets)
+	// The types of touch interactions the view allows.
+	AllowedTouchTypes() NSTouchTypeMask
+	SetAllowedTouchTypes(value NSTouchTypeMask)
+	// A Boolean value indicating whether the view ensures it is vibrant on top of other content.
+	AllowsVibrancy() bool
+	SetAllowsVibrancy(value bool)
+	// The opacity of the view.
+	AlphaValue() float64
+	SetAlphaValue(value float64)
+	// A Boolean value indicating whether the view applies the autoresizing behavior to its subviews when its frame size changes.
+	AutoresizesSubviews() bool
+	SetAutoresizesSubviews(value bool)
+	// The options that determine how the view is resized relative to its superview.
+	AutoresizingMask() uint
+	SetAutoresizingMask(value uint)
+	// An array of Core Image filters to apply to the view’s background.
+	BackgroundFilters() objectivec.IObject
+	SetBackgroundFilters(value objectivec.IObject)
+	// The distance (in points) between the bottom of the view’s alignment rectangle and its baseline.
+	BaselineOffsetFromBottom() float64
+	SetBaselineOffsetFromBottom(value float64)
+	// A layout anchor representing the bottom edge of the view’s frame.
+	BottomAnchor() INSLayoutYAxisAnchor
+	SetBottomAnchor(value INSLayoutYAxisAnchor)
 	// The view’s bounds rectangle, which expresses its location and size in its own coordinate system.
 	Bounds() corefoundation.CGRect
 	SetBounds(value corefoundation.CGRect)
-	// A Boolean value that determines whether the view needs to be redrawn before being displayed.
-	NeedsDisplay() bool
-	SetNeedsDisplay(value bool)
-	// The view’s window object, if it is installed in a window.
-	Window() INSWindow
-	SetWindow(value INSWindow)
+	// The angle of rotation, measured in degrees, applied to the view’s bounds rectangle relative to its frame rectangle.
+	BoundsRotation() float64
+	SetBoundsRotation(value float64)
+	// A Boolean value indicating whether the view can become key view.
+	CanBecomeKeyView() bool
+	SetCanBecomeKeyView(value bool)
+	// A Boolean value indicating whether drawing commands will produce any results.
+	CanDraw() bool
+	SetCanDraw(value bool)
+	// A Boolean value indicating whether the view can draw its contents on a background thread.
+	CanDrawConcurrently() bool
+	SetCanDrawConcurrently(value bool)
+	// A Boolean value indicating whether the view incorporates content from its subviews into its own layer.
+	CanDrawSubviewsIntoLayer() bool
+	SetCanDrawSubviewsIntoLayer(value bool)
+	CandidateListTouchBarItem() INSCandidateListTouchBarItem
+	SetCandidateListTouchBarItem(value INSCandidateListTouchBarItem)
+	// A layout anchor representing the horizontal center of the view’s frame.
+	CenterXAnchor() INSLayoutXAxisAnchor
+	SetCenterXAnchor(value INSLayoutXAxisAnchor)
+	// A layout anchor representing the vertical center of the view’s frame.
+	CenterYAnchor() INSLayoutYAxisAnchor
+	SetCenterYAnchor(value INSLayoutYAxisAnchor)
+	// A Boolean value that indicates whether the view, and its subviews, confine their drawing areas to the bounds of the view.
+	ClipsToBounds() bool
+	SetClipsToBounds(value bool)
+	// The Core Image filter used to composite the view’s contents with its background.
+	CompositingFilter() objectivec.IObject
+	SetCompositingFilter(value objectivec.IObject)
+	// Returns the constraints held by the view.
+	Constraints() INSLayoutConstraint
+	SetConstraints(value INSLayoutConstraint)
+	// An array of Core Image filters to apply to the contents of the view and its sublayers.
+	ContentFilters() objectivec.IObject
+	SetContentFilters(value objectivec.IObject)
 	// The menu item containing the view or any of its superviews in the view hierarchy.
 	EnclosingMenuItem() INSMenuItem
 	SetEnclosingMenuItem(value INSMenuItem)
 	// The nearest ancestor scroll view that contains the current view.
 	EnclosingScrollView() INSScrollView
 	SetEnclosingScrollView(value INSScrollView)
-	// The view’s closest opaque ancestor, which might be the view itself.
-	OpaqueAncestor() INSView
-	SetOpaqueAncestor(value INSView)
-	// The array of views embedded in the current view.
-	Subviews() INSView
-	SetSubviews(value INSView)
-	// The view that is the parent of the current view.
-	Superview() INSView
-	SetSuperview(value INSView)
-	// The view’s tag, which is an integer that you use to identify the view within your app.
-	Tag() int
-	SetTag(value int)
-	// The angle of rotation, measured in degrees, applied to the view’s bounds rectangle relative to its frame rectangle.
-	BoundsRotation() float64
-	SetBoundsRotation(value float64)
-	// The angle of rotation, measured in degrees, applied to the view’s frame rectangle relative to its superview’s coordinate system.
-	FrameRotation() float64
-	SetFrameRotation(value float64)
-	// A Boolean value indicating whether the view uses a flipped coordinate system.
-	IsFlipped() bool
-	SetIsFlipped(value bool)
-	// A Boolean value indicating whether the view or any of its ancestors has ever had a rotation factor applied to its frame or bounds.
-	IsRotatedFromBase() bool
-	SetIsRotatedFromBase(value bool)
-	// A Boolean value indicating whether the view or any of its ancestors has ever had a rotation factor applied to its frame or bounds, or has been scaled from the window’s base coordinate system.
-	IsRotatedOrScaledFromBase() bool
-	SetIsRotatedOrScaledFromBase(value bool)
-	// A Boolean value indicating whether the view posts notifications when its bounds rectangle changes.
-	PostsBoundsChangedNotifications() bool
-	SetPostsBoundsChangedNotifications(value bool)
-	// A Boolean value indicating whether the view posts notifications when its frame rectangle changes.
-	PostsFrameChangedNotifications() bool
-	SetPostsFrameChangedNotifications(value bool)
-	// A Boolean value indicating whether the view ensures it is vibrant on top of other content.
-	AllowsVibrancy() bool
-	SetAllowsVibrancy(value bool)
+	// A layout anchor representing the baseline for the topmost line of text in the view.
+	FirstBaselineAnchor() INSLayoutYAxisAnchor
+	SetFirstBaselineAnchor(value INSLayoutYAxisAnchor)
+	// The distance (in points) between the top of the view’s alignment rectangle and its topmost baseline.
+	FirstBaselineOffsetFromTop() float64
+	SetFirstBaselineOffsetFromTop(value float64)
+	// The minimum size of the view that satisfies the constraints it holds.
+	FittingSize() corefoundation.CGSize
+	SetFittingSize(value corefoundation.CGSize)
 	// The focus ring mask bounds, specified in the view’s coordinate space.
 	FocusRingMaskBounds() corefoundation.CGRect
 	SetFocusRingMaskBounds(value corefoundation.CGRect)
 	// The type of focus ring drawn around the view.
 	FocusRingType() NSFocusRingType
 	SetFocusRingType(value NSFocusRingType)
+	// The view’s frame rectangle, which defines its position and size in its superview’s coordinate system.
+	Frame() corefoundation.CGRect
+	SetFrame(value corefoundation.CGRect)
+	// The rotation angle of the view around the center of its layer.
+	FrameCenterRotation() float64
+	SetFrameCenterRotation(value float64)
+	// The angle of rotation, measured in degrees, applied to the view’s frame rectangle relative to its superview’s coordinate system.
+	FrameRotation() float64
+	SetFrameRotation(value float64)
+	// The gesture recognize objects currently attached to the view.
+	GestureRecognizers() INSGestureRecognizer
+	SetGestureRecognizers(value INSGestureRecognizer)
+	// A Boolean value indicating whether the constraints impacting the layout of the view incompletely specify the location of the view.
+	HasAmbiguousLayout() bool
+	SetHasAmbiguousLayout(value bool)
+	// The fraction of the page that can be pushed onto the next page during automatic pagination to prevent items such as lines of text from being divided across pages.
+	HeightAdjustLimit() float64
+	SetHeightAdjustLimit(value float64)
+	// A layout anchor representing the height of the view’s frame.
+	HeightAnchor() INSLayoutDimension
+	SetHeightAnchor(value INSLayoutDimension)
+	// A Boolean value indicating whether the view is being rendered as part of a live resizing operation.
+	InLiveResize() bool
+	SetInLiveResize(value bool)
+	// The text input context object for the view.
+	InputContext() INSTextInputContext
+	SetInputContext(value INSTextInputContext)
+	// The natural size for the receiving view, considering only properties of the view itself.
+	IntrinsicContentSize() corefoundation.CGSize
+	SetIntrinsicContentSize(value corefoundation.CGSize)
 	// A Boolean value indicating whether the view or one of its ancestors is being drawn for a find indicator.
 	IsDrawingFindIndicator() bool
 	SetIsDrawingFindIndicator(value bool)
+	// A Boolean value indicating whether the view uses a flipped coordinate system.
+	IsFlipped() bool
+	SetIsFlipped(value bool)
 	// A Boolean value indicating whether the view is hidden.
 	IsHidden() bool
 	SetIsHidden(value bool)
 	// A Boolean value indicating whether the view is hidden from sight because it, or one of its ancestors, is marked as hidden.
 	IsHiddenOrHasHiddenAncestor() bool
 	SetIsHiddenOrHasHiddenAncestor(value bool)
-	// The opacity of the view.
-	AlphaValue() float64
-	SetAlphaValue(value float64)
-	// An array of Core Image filters to apply to the view’s background.
-	BackgroundFilters() objectivec.IObject
-	SetBackgroundFilters(value objectivec.IObject)
-	// A Boolean value indicating whether the view incorporates content from its subviews into its own layer.
-	CanDrawSubviewsIntoLayer() bool
-	SetCanDrawSubviewsIntoLayer(value bool)
-	// The Core Image filter used to composite the view’s contents with its background.
-	CompositingFilter() objectivec.IObject
-	SetCompositingFilter(value objectivec.IObject)
-	// An array of Core Image filters to apply to the contents of the view and its sublayers.
-	ContentFilters() objectivec.IObject
-	SetContentFilters(value objectivec.IObject)
-	// The rotation angle of the view around the center of its layer.
-	FrameCenterRotation() float64
-	SetFrameCenterRotation(value float64)
+	// A Boolean value that indicates whether the view’s horizontal size constraints are active.
+	IsHorizontalContentSizeConstraintActive() bool
+	SetIsHorizontalContentSizeConstraintActive(value bool)
+	// A Boolean value indicating whether the view is in full screen mode.
+	IsInFullScreenMode() bool
+	SetIsInFullScreenMode(value bool)
+	// A Boolean value indicating whether the view fills its frame rectangle with opaque content.
+	IsOpaque() bool
+	SetIsOpaque(value bool)
+	// A Boolean value indicating whether the view or any of its ancestors has ever had a rotation factor applied to its frame or bounds.
+	IsRotatedFromBase() bool
+	SetIsRotatedFromBase(value bool)
+	// A Boolean value indicating whether the view or any of its ancestors has ever had a rotation factor applied to its frame or bounds, or has been scaled from the window’s base coordinate system.
+	IsRotatedOrScaledFromBase() bool
+	SetIsRotatedOrScaledFromBase(value bool)
+	// A Boolean value that indicates whether the view’s vertical size constraints are active.
+	IsVerticalContentSizeConstraintActive() bool
+	SetIsVerticalContentSizeConstraintActive(value bool)
+	// A layout anchor representing the baseline for the bottommost line of text in the view.
+	LastBaselineAnchor() INSLayoutYAxisAnchor
+	SetLastBaselineAnchor(value INSLayoutYAxisAnchor)
+	// The distance (in points) between the bottom of the view’s alignment rectangle and its bottommost baseline.
+	LastBaselineOffsetFromBottom() float64
+	SetLastBaselineOffsetFromBottom(value float64)
 	// The Core Animation layer that the view uses as its backing store.
 	Layer() objectivec.IObject
 	SetLayer(value objectivec.IObject)
@@ -287,75 +358,6 @@ type INSView interface {
 	// A Boolean value indicating whether the view’s layer uses Core Image filters and needs in-process rendering.
 	LayerUsesCoreImageFilters() bool
 	SetLayerUsesCoreImageFilters(value bool)
-	// The shadow displayed underneath the view.
-	Shadow() INSShadow
-	SetShadow(value INSShadow)
-	// A Boolean value indicating whether the view uses a layer as its backing store.
-	WantsLayer() bool
-	SetWantsLayer(value bool)
-	// A Boolean value indicating which drawing path the view takes when updating its contents.
-	WantsUpdateLayer() bool
-	SetWantsUpdateLayer(value bool)
-	// The text for the view’s tooltip.
-	ToolTip() string
-	SetToolTip(value string)
-	// Custom insets that you specify to modify your view’s safe area
-	AdditionalSafeAreaInsets() foundation.NSEdgeInsets
-	SetAdditionalSafeAreaInsets(value foundation.NSEdgeInsets)
-	// The insets (in points) from the view’s frame that define its content rectangle.
-	AlignmentRectInsets() foundation.NSEdgeInsets
-	SetAlignmentRectInsets(value foundation.NSEdgeInsets)
-	// A Boolean value indicating whether the view applies the autoresizing behavior to its subviews when its frame size changes.
-	AutoresizesSubviews() bool
-	SetAutoresizesSubviews(value bool)
-	// The options that determine how the view is resized relative to its superview.
-	AutoresizingMask() uint
-	SetAutoresizingMask(value uint)
-	// The distance (in points) between the bottom of the view’s alignment rectangle and its baseline.
-	BaselineOffsetFromBottom() float64
-	SetBaselineOffsetFromBottom(value float64)
-	// A layout anchor representing the bottom edge of the view’s frame.
-	BottomAnchor() INSLayoutYAxisAnchor
-	SetBottomAnchor(value INSLayoutYAxisAnchor)
-	// A layout anchor representing the horizontal center of the view’s frame.
-	CenterXAnchor() INSLayoutXAxisAnchor
-	SetCenterXAnchor(value INSLayoutXAxisAnchor)
-	// A layout anchor representing the vertical center of the view’s frame.
-	CenterYAnchor() INSLayoutYAxisAnchor
-	SetCenterYAnchor(value INSLayoutYAxisAnchor)
-	// Returns the constraints held by the view.
-	Constraints() INSLayoutConstraint
-	SetConstraints(value INSLayoutConstraint)
-	// A layout anchor representing the baseline for the topmost line of text in the view.
-	FirstBaselineAnchor() INSLayoutYAxisAnchor
-	SetFirstBaselineAnchor(value INSLayoutYAxisAnchor)
-	// The distance (in points) between the top of the view’s alignment rectangle and its topmost baseline.
-	FirstBaselineOffsetFromTop() float64
-	SetFirstBaselineOffsetFromTop(value float64)
-	// The minimum size of the view that satisfies the constraints it holds.
-	FittingSize() corefoundation.CGSize
-	SetFittingSize(value corefoundation.CGSize)
-	// A Boolean value indicating whether the constraints impacting the layout of the view incompletely specify the location of the view.
-	HasAmbiguousLayout() bool
-	SetHasAmbiguousLayout(value bool)
-	// A layout anchor representing the height of the view’s frame.
-	HeightAnchor() INSLayoutDimension
-	SetHeightAnchor(value INSLayoutDimension)
-	// The natural size for the receiving view, considering only properties of the view itself.
-	IntrinsicContentSize() corefoundation.CGSize
-	SetIntrinsicContentSize(value corefoundation.CGSize)
-	// A Boolean value that indicates whether the view’s horizontal size constraints are active.
-	IsHorizontalContentSizeConstraintActive() bool
-	SetIsHorizontalContentSizeConstraintActive(value bool)
-	// A Boolean value that indicates whether the view’s vertical size constraints are active.
-	IsVerticalContentSizeConstraintActive() bool
-	SetIsVerticalContentSizeConstraintActive(value bool)
-	// A layout anchor representing the baseline for the bottommost line of text in the view.
-	LastBaselineAnchor() INSLayoutYAxisAnchor
-	SetLastBaselineAnchor(value INSLayoutYAxisAnchor)
-	// The distance (in points) between the bottom of the view’s alignment rectangle and its bottommost baseline.
-	LastBaselineOffsetFromBottom() float64
-	SetLastBaselineOffsetFromBottom(value float64)
 	// The array of layout guide objects owned by this view.
 	LayoutGuides() INSLayoutGuide
 	SetLayoutGuides(value INSLayoutGuide)
@@ -368,12 +370,66 @@ type INSView interface {
 	// A layout anchor representing the left edge of the view’s frame.
 	LeftAnchor() INSLayoutXAxisAnchor
 	SetLeftAnchor(value INSLayoutXAxisAnchor)
+	// A Boolean value indicating whether the view can pass mouse down events through to its superviews.
+	MouseDownCanMoveWindow() bool
+	SetMouseDownCanMoveWindow(value bool)
+	// A Boolean value that determines whether the view needs to be redrawn before being displayed.
+	NeedsDisplay() bool
+	SetNeedsDisplay(value bool)
 	// A Boolean value indicating whether the view needs a layout pass before it can be drawn.
 	NeedsLayout() bool
 	SetNeedsLayout(value bool)
+	// A Boolean value indicating whether the view needs its panel to become the key window before it can handle keyboard input and navigation.
+	NeedsPanelToBecomeKey() bool
+	SetNeedsPanelToBecomeKey(value bool)
 	// A Boolean value indicating whether the view’s constraints need to be updated.
 	NeedsUpdateConstraints() bool
 	SetNeedsUpdateConstraints(value bool)
+	// The view object that follows the current view in the key view loop.
+	NextKeyView() INSView
+	SetNextKeyView(value INSView)
+	// The closest view object in the key view loop that follows the current view in the key view loop and accepts first responder status.
+	NextValidKeyView() INSView
+	SetNextValidKeyView(value INSView)
+	// The view’s closest opaque ancestor, which might be the view itself.
+	OpaqueAncestor() INSView
+	SetOpaqueAncestor(value INSView)
+	// A default footer string that includes the current page number and page count.
+	PageFooter() foundation.NSAttributedString
+	SetPageFooter(value foundation.NSAttributedString)
+	// A default header string that includes the print job title and date.
+	PageHeader() foundation.NSAttributedString
+	SetPageHeader(value foundation.NSAttributedString)
+	// A Boolean value indicating whether the view posts notifications when its bounds rectangle changes.
+	PostsBoundsChangedNotifications() bool
+	SetPostsBoundsChangedNotifications(value bool)
+	// A Boolean value indicating whether the view posts notifications when its frame rectangle changes.
+	PostsFrameChangedNotifications() bool
+	SetPostsFrameChangedNotifications(value bool)
+	// The portion of the view that has been rendered and is available for responsive scrolling.
+	PreparedContentRect() corefoundation.CGRect
+	SetPreparedContentRect(value corefoundation.CGRect)
+	// A Boolean value indicating whether the view optimizes live-resize operations by preserving content that has not moved.
+	PreservesContentDuringLiveResize() bool
+	SetPreservesContentDuringLiveResize(value bool)
+	// Configures the behavior and progression of the Force Touch trackpad when responding to touch input produced by the user when the cursor is over the view.
+	PressureConfiguration() INSPressureConfiguration
+	SetPressureConfiguration(value INSPressureConfiguration)
+	// The view object preceding the current view in the key view loop.
+	PreviousKeyView() INSView
+	SetPreviousKeyView(value INSView)
+	// The closest view object in the key view loop that precedes the current view and accepts first responder status.
+	PreviousValidKeyView() INSView
+	SetPreviousValidKeyView(value INSView)
+	// The view’s print job title.
+	PrintJobTitle() string
+	SetPrintJobTitle(value string)
+	// The rectangle identifying the portion of your view that did not change during a live resize operation.
+	RectPreservedDuringLiveResize() corefoundation.CGRect
+	SetRectPreservedDuringLiveResize(value corefoundation.CGRect)
+	// The array of pasteboard drag types that the view can accept.
+	RegisteredDraggedTypes() NSPasteboardType
+	SetRegisteredDraggedTypes(value NSPasteboardType)
 	// A layout anchor representing the right edge of the view’s frame.
 	RightAnchor() INSLayoutXAxisAnchor
 	SetRightAnchor(value INSLayoutXAxisAnchor)
@@ -386,9 +442,27 @@ type INSView interface {
 	// A rectangle in the view’s coordinate system that contains the unobscured portion of the view.
 	SafeAreaRect() corefoundation.CGRect
 	SetSafeAreaRect(value corefoundation.CGRect)
+	// The shadow displayed underneath the view.
+	Shadow() INSShadow
+	SetShadow(value INSShadow)
+	// The array of views embedded in the current view.
+	Subviews() INSView
+	SetSubviews(value INSView)
+	// The view that is the parent of the current view.
+	Superview() INSView
+	SetSuperview(value INSView)
+	// The view’s tag, which is an integer that you use to identify the view within your app.
+	Tag() int
+	SetTag(value int)
+	// The text for the view’s tooltip.
+	ToolTip() string
+	SetToolTip(value string)
 	// A layout anchor representing the top edge of the view’s frame.
 	TopAnchor() INSLayoutYAxisAnchor
 	SetTopAnchor(value INSLayoutYAxisAnchor)
+	// An array of the view’s tracking areas.
+	TrackingAreas() INSTrackingArea
+	SetTrackingAreas(value INSTrackingArea)
 	// A layout anchor representing the trailing edge of the view’s frame.
 	TrailingAnchor() INSLayoutXAxisAnchor
 	SetTrailingAnchor(value INSLayoutXAxisAnchor)
@@ -398,115 +472,45 @@ type INSView interface {
 	// The layout direction for content in the view.
 	UserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection
 	SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection)
-	// A layout anchor representing the width of the view’s frame.
-	WidthAnchor() INSLayoutDimension
-	SetWidthAnchor(value INSLayoutDimension)
-	// A Boolean value indicating whether the view can draw its contents on a background thread.
-	CanDrawConcurrently() bool
-	SetCanDrawConcurrently(value bool)
-	// A Boolean value that indicates whether the view, and its subviews, confine their drawing areas to the bounds of the view.
-	ClipsToBounds() bool
-	SetClipsToBounds(value bool)
-	// A Boolean value indicating whether the view is being rendered as part of a live resizing operation.
-	InLiveResize() bool
-	SetInLiveResize(value bool)
-	// A Boolean value indicating whether the view is in full screen mode.
-	IsInFullScreenMode() bool
-	SetIsInFullScreenMode(value bool)
-	// A Boolean value indicating whether the view fills its frame rectangle with opaque content.
-	IsOpaque() bool
-	SetIsOpaque(value bool)
-	// A Boolean value indicating whether the view optimizes live-resize operations by preserving content that has not moved.
-	PreservesContentDuringLiveResize() bool
-	SetPreservesContentDuringLiveResize(value bool)
-	// The rectangle identifying the portion of your view that did not change during a live resize operation.
-	RectPreservedDuringLiveResize() corefoundation.CGRect
-	SetRectPreservedDuringLiveResize(value corefoundation.CGRect)
 	// The portion of the view that isn’t clipped by its superviews.
 	VisibleRect() corefoundation.CGRect
 	SetVisibleRect(value corefoundation.CGRect)
-	// A Boolean value indicating whether AppKit’s default clipping behavior is in effect.
-	WantsDefaultClipping() bool
-	SetWantsDefaultClipping(value bool)
-	// The fraction of the page that can be pushed onto the next page during automatic pagination to prevent items such as lines of text from being divided across pages.
-	HeightAdjustLimit() float64
-	SetHeightAdjustLimit(value float64)
-	// A default footer string that includes the current page number and page count.
-	PageFooter() foundation.NSAttributedString
-	SetPageFooter(value foundation.NSAttributedString)
-	// A default header string that includes the print job title and date.
-	PageHeader() foundation.NSAttributedString
-	SetPageHeader(value foundation.NSAttributedString)
-	// The view’s print job title.
-	PrintJobTitle() string
-	SetPrintJobTitle(value string)
-	// The fraction of the page that can be pushed onto the next page during automatic pagination to prevent items such as small images or text columns from being divided across pages.
-	WidthAdjustLimit() float64
-	SetWidthAdjustLimit(value float64)
-	// The types of touch interactions the view allows.
-	AllowedTouchTypes() NSTouchTypeMask
-	SetAllowedTouchTypes(value NSTouchTypeMask)
-	// A Boolean value indicating whether the view can become key view.
-	CanBecomeKeyView() bool
-	SetCanBecomeKeyView(value bool)
-	CandidateListTouchBarItem() INSCandidateListTouchBarItem
-	SetCandidateListTouchBarItem(value INSCandidateListTouchBarItem)
-	// The gesture recognize objects currently attached to the view.
-	GestureRecognizers() INSGestureRecognizer
-	SetGestureRecognizers(value INSGestureRecognizer)
-	// The text input context object for the view.
-	InputContext() INSTextInputContext
-	SetInputContext(value INSTextInputContext)
-	// A Boolean value indicating whether the view can pass mouse down events through to its superviews.
-	MouseDownCanMoveWindow() bool
-	SetMouseDownCanMoveWindow(value bool)
-	// A Boolean value indicating whether the view needs its panel to become the key window before it can handle keyboard input and navigation.
-	NeedsPanelToBecomeKey() bool
-	SetNeedsPanelToBecomeKey(value bool)
-	// The view object that follows the current view in the key view loop.
-	NextKeyView() INSView
-	SetNextKeyView(value INSView)
-	// The closest view object in the key view loop that follows the current view in the key view loop and accepts first responder status.
-	NextValidKeyView() INSView
-	SetNextValidKeyView(value INSView)
-	// The portion of the view that has been rendered and is available for responsive scrolling.
-	PreparedContentRect() corefoundation.CGRect
-	SetPreparedContentRect(value corefoundation.CGRect)
-	// Configures the behavior and progression of the Force Touch trackpad when responding to touch input produced by the user when the cursor is over the view.
-	PressureConfiguration() INSPressureConfiguration
-	SetPressureConfiguration(value INSPressureConfiguration)
-	// The view object preceding the current view in the key view loop.
-	PreviousKeyView() INSView
-	SetPreviousKeyView(value INSView)
-	// The closest view object in the key view loop that precedes the current view and accepts first responder status.
-	PreviousValidKeyView() INSView
-	SetPreviousValidKeyView(value INSView)
-	// The array of pasteboard drag types that the view can accept.
-	RegisteredDraggedTypes() NSPasteboardType
-	SetRegisteredDraggedTypes(value NSPasteboardType)
-	// An array of the view’s tracking areas.
-	TrackingAreas() INSTrackingArea
-	SetTrackingAreas(value INSTrackingArea)
-	// A Boolean value indicating whether the view wants resting touches.
-	WantsRestingTouches() bool
-	SetWantsRestingTouches(value bool)
-	// A Boolean value indicating whether the view accepts touch events.
-	AcceptsTouchEvents() bool
-	SetAcceptsTouchEvents(value bool)
-	// A Boolean value indicating whether drawing commands will produce any results.
-	CanDraw() bool
-	SetCanDraw(value bool)
 	// A Boolean value indicating whether the view wants an OpenGL backing surface with a resolution greater than 1 pixel per point.
 	WantsBestResolutionOpenGLSurface() bool
 	SetWantsBestResolutionOpenGLSurface(value bool)
+	// A Boolean value indicating whether AppKit’s default clipping behavior is in effect.
+	WantsDefaultClipping() bool
+	SetWantsDefaultClipping(value bool)
 	WantsExtendedDynamicRangeOpenGLSurface() bool
 	SetWantsExtendedDynamicRangeOpenGLSurface(value bool)
+	// A Boolean value indicating whether the view uses a layer as its backing store.
+	WantsLayer() bool
+	SetWantsLayer(value bool)
+	// A Boolean value indicating whether the view wants resting touches.
+	WantsRestingTouches() bool
+	SetWantsRestingTouches(value bool)
+	// A Boolean value indicating which drawing path the view takes when updating its contents.
+	WantsUpdateLayer() bool
+	SetWantsUpdateLayer(value bool)
+	// The fraction of the page that can be pushed onto the next page during automatic pagination to prevent items such as small images or text columns from being divided across pages.
+	WidthAdjustLimit() float64
+	SetWidthAdjustLimit(value float64)
+	// A layout anchor representing the width of the view’s frame.
+	WidthAnchor() INSLayoutDimension
+	SetWidthAnchor(value INSLayoutDimension)
+	// The view’s window object, if it is installed in a window.
+	Window() INSWindow
+	SetWindow(value INSWindow)
+	// Returns a Boolean value that indicates whether the view accepts the initial mouse-down event.
+	AcceptsFirstMouse(event INSEvent) bool
 	// Adds a constraint on the layout of the receiving view or its subviews.
 	AddConstraint(constraint INSLayoutConstraint)
-	// Attaches a gesture recognizer to the view.
-	AddGestureRecognizer(gestureRecognizer INSGestureRecognizer)
 	// Adds multiple constraints on the layout of the receiving view or its subviews.
 	AddConstraints(constraints []NSLayoutConstraint)
+	// Establishes  the cursor to be used when the mouse pointer lies within a specified region.
+	AddCursorRectCursor(rect corefoundation.CGRect, object INSCursor)
+	// Attaches a gesture recognizer to the view.
+	AddGestureRecognizer(gestureRecognizer INSGestureRecognizer)
 	// Adds the provided layout guide to the view.
 	AddLayoutGuide(guide INSLayoutGuide)
 	// Adds a view to the view’s subviews so it’s displayed above its siblings.
@@ -515,143 +519,151 @@ type INSView interface {
 	AddSubviewPositionedRelativeTo(view INSView, place NSWindowOrderingMode, otherView INSView)
 	// Creates a tooltip for a defined area in the view and returns a tag that identifies the tooltip rectangle.
 	AddToolTipRectOwnerUserData(rect corefoundation.CGRect, owner objectivec.IObject, data unsafe.Pointer) objectivec.IObject
-	// Establishes  an area for tracking mouse-entered and mouse-exited events within the view and returns a tag that identifies the tracking rectangle.
-	AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGRect, owner objectivec.IObject, data unsafe.Pointer, flag bool) objectivec.IObject
-	// Establishes  the cursor to be used when the mouse pointer lies within a specified region.
-	AddCursorRectCursor(rect corefoundation.CGRect, object INSCursor)
-	// Overridden by subclasses to modify a given rectangle, returning the altered rectangle.
-	AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CGRect
-	// Overridden by subclasses to adjust page width during automatic pagination.
-	AdjustPageWidthNewLeftRightLimit(newRight float64, oldLeft float64, oldRight float64, rightLimit float64)
-	// Returns the view’s alignment rectangle for a given frame.
-	AlignmentRectForFrame(frame corefoundation.CGRect) corefoundation.CGRect
 	// Adds a given tracking area to the view.
 	AddTrackingArea(trackingArea INSTrackingArea)
+	// Establishes  an area for tracking mouse-entered and mouse-exited events within the view and returns a tag that identifies the tracking rectangle.
+	AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGRect, owner objectivec.IObject, data unsafe.Pointer, flag bool) objectivec.IObject
+	// Overridden by subclasses to adjust page height during automatic pagination.
+	AdjustPageHeightNewTopBottomLimit(newBottom float64, oldTop float64, oldBottom float64, bottomLimit float64)
+	// Overridden by subclasses to adjust page width during automatic pagination.
+	AdjustPageWidthNewLeftRightLimit(newRight float64, oldLeft float64, oldRight float64, rightLimit float64)
+	// Overridden by subclasses to modify a given rectangle, returning the altered rectangle.
+	AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CGRect
+	// Returns the view’s alignment rectangle for a given frame.
+	AlignmentRectForFrame(frame corefoundation.CGRect) corefoundation.CGRect
 	// Returns the closest ancestor shared by the view and another specified view.
 	AncestorSharedWithView(view INSView) INSView
+	// Returns the animation that should be performed for the specified key.
+	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
+	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
+	Animator() INSView
+	// Scrolls the view’s closest ancestor [NSClipView](<doc://com.apple.appkit/documentation/AppKit/NSClipView>) object proportionally to the distance of an event that occurs outside of it.
+	Autoscroll(event INSEvent) bool
+	// Returns a backing store pixel-aligned rectangle in local view coordinates.
+	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect
 	// Invoked at the beginning of the printing session, this method sets up the current graphics context.
 	BeginDocument()
+	// Initiates a dragging session with a group of dragging items.
+	BeginDraggingSessionWithItemsEventSource(items []NSDraggingItem, event INSEvent, source NSDraggingSource) INSDraggingSession
 	// Called at the beginning of each page, this method sets up the coordinate system so that a region inside the view’s bounds is translated to a specified location.
 	BeginPageInRectAtPlacement(rect corefoundation.CGRect, location corefoundation.CGPoint)
 	// Returns a bitmap-representation object suitable for caching the specified portion of the view.
 	BitmapImageRepForCachingDisplayInRect(rect corefoundation.CGRect) INSBitmapImageRep
-	// Returns a backing store pixel-aligned rectangle in local view coordinates.
-	BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect
 	// Draws the specified area of the view, and its descendants, into a provided bitmap-representation object.
 	CacheDisplayInRectToBitmapImageRep(rect corefoundation.CGRect, bitmapImageRep INSBitmapImageRep)
-	// Returns the constraints impacting the layout of the view for a given orientation.
-	ConstraintsAffectingLayoutForOrientation(orientation NSLayoutConstraintOrientation) []NSLayoutConstraint
-	// Scrolls the view’s closest ancestor [NSClipView](<doc://com.apple.appkit/documentation/AppKit/NSClipView>) object proportionally to the distance of an event that occurs outside of it.
-	Autoscroll(event INSEvent) bool
-	// Initiates a dragging session with a group of dragging items.
-	BeginDraggingSessionWithItemsEventSource(items []NSDraggingItem, event INSEvent, source NSDraggingSource) INSDraggingSession
 	// Converts the corners of a specified rectangle to lie on the center of device pixels, which is useful in compensating for rendering overscanning when the coordinate system has been scaled.
 	CenterScanRect(rect corefoundation.CGRect) corefoundation.CGRect
+	// Returns the constraints impacting the layout of the view for a given orientation.
+	ConstraintsAffectingLayoutForOrientation(orientation NSLayoutConstraintOrientation) []NSLayoutConstraint
 	// Returns the priority with which a view resists being made smaller than its intrinsic size.
 	ContentCompressionResistancePriorityForOrientation(orientation NSLayoutConstraintOrientation) NSLayoutPriority
-	// Converts a point from the coordinate system of a given view to that of the view.
-	ConvertPointFromView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint
 	// Returns the priority with which a view resists being made larger than its intrinsic size.
 	ContentHuggingPriorityForOrientation(orientation NSLayoutConstraintOrientation) NSLayoutPriority
-	// Converts a size from another view’s coordinate system to that of the view.
-	ConvertSizeFromView(size corefoundation.CGSize, view INSView) corefoundation.CGSize
-	// Converts a rectangle from the coordinate system of another view to that of the view.
-	ConvertRectFromView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect
-	// Converts a rectangle from the view’s coordinate system to that of another view.
-	ConvertRectToView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect
 	// Converts a point from its pixel aligned backing store coordinate system to the view’s interior coordinate system.
 	ConvertPointFromBacking(point corefoundation.CGPoint) corefoundation.CGPoint
-	// Converts a point from the view’s coordinate system to that of a given view.
-	ConvertPointToView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint
-	// Overridden by subclasses to adjust page height during automatic pagination.
-	AdjustPageHeightNewTopBottomLimit(newBottom float64, oldTop float64, oldBottom float64, bottomLimit float64)
 	// Convert the point from the layer’s interior coordinate system to the view’s interior coordinate system.
 	ConvertPointFromLayer(point corefoundation.CGPoint) corefoundation.CGPoint
-	// Converts a size from its pixel aligned backing store coordinate system to the view’s interior coordinate system.
-	ConvertSizeFromBacking(size corefoundation.CGSize) corefoundation.CGSize
+	// Converts a point from the coordinate system of a given view to that of the view.
+	ConvertPointFromView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint
 	// Converts a point from the view’s interior coordinate system to its pixel aligned backing store coordinate system.
 	ConvertPointToBacking(point corefoundation.CGPoint) corefoundation.CGPoint
-	// Convert the rectangle from the layer’s interior coordinate system to the view’s interior coordinate system.
-	ConvertRectFromLayer(rect corefoundation.CGRect) corefoundation.CGRect
-	// Returns a Boolean value that indicates whether the view accepts the initial mouse-down event.
-	AcceptsFirstMouse(event INSEvent) bool
-	// Converts a rectangle from the view’s interior coordinate system to its pixel aligned backing store coordinate system.
-	ConvertRectToBacking(rect corefoundation.CGRect) corefoundation.CGRect
-	// Converts a size from the view’s interior coordinate system to its pixel aligned backing store coordinate system.
-	ConvertSizeToBacking(size corefoundation.CGSize) corefoundation.CGSize
-	// Returns EPS data that draws the region of the view within a specified rectangle.
-	DataWithEPSInsideRect(rect corefoundation.CGRect) foundation.INSData
-	// Convert the size from the view’s interior coordinate system to the layer’s interior coordinate system.
-	ConvertRectToLayer(rect corefoundation.CGRect) corefoundation.CGRect
-	// Called after a contextual menu that was displayed from the receiving view has been closed.
-	DidCloseMenuWithEvent(menu INSMenu, event INSEvent)
-	// Convert the size from the view’s interior coordinate system to the layer’s interior coordinate system.
-	ConvertSizeToLayer(size corefoundation.CGSize) corefoundation.CGSize
-	// Invalidates all cursor rectangles set up using [addCursorRect(_:cursor:)](<doc://com.apple.appkit/documentation/AppKit/NSView/addCursorRect(_:cursor:)>).
-	DiscardCursorRects()
 	// Convert the size from the view’s interior coordinate system to the layer’s interior coordinate system.
 	ConvertPointToLayer(point corefoundation.CGPoint) corefoundation.CGPoint
-	// Displays the view and all its subviews if any part of the view has been marked as needing display.
-	DisplayIfNeeded()
+	// Converts a point from the view’s coordinate system to that of a given view.
+	ConvertPointToView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint
+	// Converts a rectangle from its pixel aligned backing store coordinate system to the view’s interior coordinate system.
+	ConvertRectFromBacking(rect corefoundation.CGRect) corefoundation.CGRect
+	// Convert the rectangle from the layer’s interior coordinate system to the view’s interior coordinate system.
+	ConvertRectFromLayer(rect corefoundation.CGRect) corefoundation.CGRect
+	// Converts a rectangle from the coordinate system of another view to that of the view.
+	ConvertRectFromView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect
+	// Converts a rectangle from the view’s interior coordinate system to its pixel aligned backing store coordinate system.
+	ConvertRectToBacking(rect corefoundation.CGRect) corefoundation.CGRect
+	// Convert the size from the view’s interior coordinate system to the layer’s interior coordinate system.
+	ConvertRectToLayer(rect corefoundation.CGRect) corefoundation.CGRect
+	// Converts a rectangle from the view’s coordinate system to that of another view.
+	ConvertRectToView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect
+	// Converts a size from its pixel aligned backing store coordinate system to the view’s interior coordinate system.
+	ConvertSizeFromBacking(size corefoundation.CGSize) corefoundation.CGSize
+	// Convert the size from the layer’s interior coordinate system to the view’s interior coordinate system.
+	ConvertSizeFromLayer(size corefoundation.CGSize) corefoundation.CGSize
+	// Converts a size from another view’s coordinate system to that of the view.
+	ConvertSizeFromView(size corefoundation.CGSize, view INSView) corefoundation.CGSize
+	// Converts a size from the view’s interior coordinate system to its pixel aligned backing store coordinate system.
+	ConvertSizeToBacking(size corefoundation.CGSize) corefoundation.CGSize
+	// Convert the size from the view’s interior coordinate system to the layer’s interior coordinate system.
+	ConvertSizeToLayer(size corefoundation.CGSize) corefoundation.CGSize
+	// Converts a size from the view’s coordinate system to that of another view.
+	ConvertSizeToView(size corefoundation.CGSize, view INSView) corefoundation.CGSize
+	// Returns EPS data that draws the region of the view within a specified rectangle.
+	DataWithEPSInsideRect(rect corefoundation.CGRect) foundation.INSData
+	// Returns PDF data that draws the region of the view within a specified rectangle.
+	DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.INSData
 	// Overridden by subclasses to perform additional actions when subviews are added to the view.
 	DidAddSubview(subview INSView)
+	// Called after a contextual menu that was displayed from the receiving view has been closed.
+	DidCloseMenuWithEvent(menu INSMenu, event INSEvent)
+	// Invalidates all cursor rectangles set up using [addCursorRect(_:cursor:)](<doc://com.apple.appkit/documentation/AppKit/NSView/addCursorRect(_:cursor:)>).
+	DiscardCursorRects()
 	// Displays the view and all its subviews if possible, invoking each of the [NSView] methods [lockFocus()](<doc://com.apple.appkit/documentation/AppKit/NSView/lockFocus()>), [draw(_:)](<doc://com.apple.appkit/documentation/AppKit/NSView/draw(_:)>), and [unlockFocus()](<doc://com.apple.appkit/documentation/AppKit/NSView/unlockFocus()>) as necessary.
 	Display()
-	// Acts as [display()](<doc://com.apple.appkit/documentation/AppKit/NSView/display()>), but confining drawing to a rectangular region of the view.
-	DisplayRect(rect corefoundation.CGRect)
+	// Displays the view and all its subviews if any part of the view has been marked as needing display.
+	DisplayIfNeeded()
 	// Acts as [displayIfNeeded()](<doc://com.apple.appkit/documentation/AppKit/NSView/displayIfNeeded()>), except that this method doesn’t back up to the first opaque ancestor—it simply causes the view and its descendants to execute their drawing code.
 	DisplayIfNeededIgnoringOpacity()
 	// Acts as [displayIfNeeded()](<doc://com.apple.appkit/documentation/AppKit/NSView/displayIfNeeded()>), confining drawing to a specified region of the view.
 	DisplayIfNeededInRect(rect corefoundation.CGRect)
-	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject
 	// Acts as [displayIfNeeded()](<doc://com.apple.appkit/documentation/AppKit/NSView/displayIfNeeded()>), but confining drawing to `aRect` and not backing up to the first opaque ancestor—it simply causes the view and its descendants to execute their drawing code.
 	DisplayIfNeededInRectIgnoringOpacity(rect corefoundation.CGRect)
-	// Draws the focus ring mask for the view.
-	DrawFocusRingMask()
+	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject
+	// Acts as [display()](<doc://com.apple.appkit/documentation/AppKit/NSView/display()>), but confining drawing to a rectangular region of the view.
+	DisplayRect(rect corefoundation.CGRect)
 	// Displays the view but confines drawing to a specified region and does not back up to the first opaque ancestor—it simply causes the view and its descendants to execute their drawing code.
 	DisplayRectIgnoringOpacity(rect corefoundation.CGRect)
-	// Returns PDF data that draws the region of the view within a specified rectangle.
-	DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.INSData
-	// Converts a rectangle from its pixel aligned backing store coordinate system to the view’s interior coordinate system.
-	ConvertRectFromBacking(rect corefoundation.CGRect) corefoundation.CGRect
+	// Causes the view and its descendants to be redrawn to the specified graphics context.
+	DisplayRectIgnoringOpacityInContext(rect corefoundation.CGRect, context INSGraphicsContext)
+	// Draws the focus ring mask for the view.
+	DrawFocusRingMask()
 	// Allows applications that use the AppKit pagination facility to draw additional marks on each logical page.
 	DrawPageBorderWithSize(borderSize corefoundation.CGSize)
+	// Overridden by subclasses to draw the view’s image within the specified rectangle.
+	DrawRect(dirtyRect corefoundation.CGRect)
 	// This method is invoked at the end of the printing session.
 	EndDocument()
 	// Writes the end of a conforming page.
 	EndPage()
+	// Sets the view to full screen mode.
+	EnterFullScreenModeWithOptions(screen INSScreen, options foundation.INSDictionary) bool
 	// Randomly changes the frame of a view with an ambiguous layout between the different valid values.
 	ExerciseAmbiguityInLayout()
 	// Instructs the view to exit full screen mode.
 	ExitFullScreenModeWithOptions(options foundation.INSDictionary)
-	// Overridden by subclasses to draw the view’s image within the specified rectangle.
-	DrawRect(dirtyRect corefoundation.CGRect)
-	// Sets the view to full screen mode.
-	EnterFullScreenModeWithOptions(screen INSScreen, options foundation.INSDictionary) bool
 	// Returns the view’s frame for a given alignment rectangle.
 	FrameForAlignmentRect(alignmentRect corefoundation.CGRect) corefoundation.CGRect
-	// Causes the view and its descendants to be redrawn to the specified graphics context.
-	DisplayRectIgnoringOpacityInContext(rect corefoundation.CGRect, context INSGraphicsContext)
-	// Returns a list of rectangles indicating the newly exposed areas of the view.
-	GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count int)
 	// Returns by indirection a list of nonoverlapping rectangles that define the area the view is being asked to draw in [draw(_:)](<doc://com.apple.appkit/documentation/AppKit/NSView/draw(_:)>).
 	GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count int)
+	// Returns a list of rectangles indicating the newly exposed areas of the view.
+	GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count int)
 	// Returns the farthest descendant of the view in the view hierarchy (including itself) that contains a specified point, or `nil` if that point lies completely outside the view.
 	HitTest(point corefoundation.CGPoint) INSView
-	// Returns a Boolean value that indicates whether the view handles page boundaries.
-	KnowsPageRange(range_ foundation.NSRange) bool
-	// Returns a Boolean value that indicates whether the view is a subview of the specified view.
-	IsDescendantOf(view INSView) bool
 	// Invalidates the view’s intrinsic content size.
 	InvalidateIntrinsicContentSize()
-	// Returns whether a region of the view contains a specified point, accounting for whether the view is flipped or not.
-	MouseInRect(point corefoundation.CGPoint, rect corefoundation.CGRect) bool
+	// Returns a Boolean value that indicates whether the view is a subview of the specified view.
+	IsDescendantOf(view INSView) bool
+	// Returns a Boolean value that indicates whether the view handles page boundaries.
+	KnowsPageRange(range_ foundation.NSRange) bool
 	// Perform layout in concert with the constraint-based layout system.
 	Layout()
 	// Updates the layout of the receiving view and its subviews based on the current views and constraints.
 	LayoutSubtreeIfNeeded()
+	// Invoked by [printView(_:)](<doc://com.apple.appkit/documentation/AppKit/NSView/printView(_:)>) to determine the location of the region of the view being printed on the physical page.
+	LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.CGPoint
 	// Creates the view’s backing layer.
 	MakeBackingLayer() objectivec.IObject
+	// Overridden by subclasses to return a context-sensitive pop-up menu for a given mouse-down event.
+	MenuForEvent(event INSEvent) INSMenu
+	// Returns whether a region of the view contains a specified point, accounting for whether the view is flipped or not.
+	MouseInRect(point corefoundation.CGPoint, rect corefoundation.CGRect) bool
 	// Returns a Boolean value indicating whether the specified rectangle intersects any part of the area that the view is being asked to draw.
 	NeedsToDrawRect(rect corefoundation.CGRect) bool
 	// Invoked to notify the view that the focus ring mask requires updating.
@@ -660,54 +672,55 @@ type INSView interface {
 	PrepareContentInRect(rect corefoundation.CGRect)
 	// This action method opens the Print panel, and if the user chooses an option other than canceling, prints the view and all its subviews to the device specified in the Print panel.
 	Print(sender objectivec.IObject)
-	// Returns the appropriate rectangle to use when magnifying around the specified point.
-	RectForSmartMagnificationAtPointInRect(location corefoundation.CGPoint, visibleRect corefoundation.CGRect) corefoundation.CGRect
-	// Overridden by subclasses to return a context-sensitive pop-up menu for a given mouse-down event.
-	MenuForEvent(event INSEvent) INSMenu
 	// Implemented by subclasses to determine the portion of the view to be printed for the specified page number.
 	RectForPage(page int) corefoundation.CGRect
+	// Returns the appropriate rectangle to use when magnifying around the specified point.
+	RectForSmartMagnificationAtPointInRect(location corefoundation.CGPoint, visibleRect corefoundation.CGRect) corefoundation.CGRect
+	// Notifies a clip view’s superview that either the clip view’s bounds rectangle or the document view’s frame rectangle has changed, and that any indicators of the scroll position need to be adjusted.
+	ReflectScrolledClipView(clipView INSClipView)
 	// Registers the pasteboard types that the view will accept as the destination of an image-dragging session.
 	RegisterForDraggedTypes(newTypes []string)
 	// Removes all tooltips assigned to the view.
 	RemoveAllToolTips()
-	// Notifies a clip view’s superview that either the clip view’s bounds rectangle or the document view’s frame rectangle has changed, and that any indicators of the scroll position need to be adjusted.
-	ReflectScrolledClipView(clipView INSClipView)
 	// Removes the specified constraint from the view.
 	RemoveConstraint(constraint INSLayoutConstraint)
-	// Unlinks the view from its superview and its window, removes it from the responder chain, and invalidates its cursor rectangles.
-	RemoveFromSuperview()
-	// Detaches a gesture recognizer from the view.
-	RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer)
-	// Unlinks the view from its superview and its window and removes it from the responder chain, but does not invalidate its cursor rectangles to cause redrawing.
-	RemoveFromSuperviewWithoutNeedingDisplay()
+	// Removes the specified constraints from the view.
+	RemoveConstraints(constraints []NSLayoutConstraint)
 	// Completely removes a cursor rectangle from the view.
 	RemoveCursorRectCursor(rect corefoundation.CGRect, object INSCursor)
-	// Removes the tooltip identified by specified tag.
-	RemoveToolTip(tag objectivec.IObject)
+	// Unlinks the view from its superview and its window, removes it from the responder chain, and invalidates its cursor rectangles.
+	RemoveFromSuperview()
+	// Unlinks the view from its superview and its window and removes it from the responder chain, but does not invalidate its cursor rectangles to cause redrawing.
+	RemoveFromSuperviewWithoutNeedingDisplay()
+	// Detaches a gesture recognizer from the view.
+	RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer)
 	// Removes the provided layout guide from the view.
 	RemoveLayoutGuide(guide INSLayoutGuide)
-	// Removes the tracking rectangle identified by a tag.
-	RemoveTrackingRect(tag objectivec.IObject)
+	// Removes the tooltip identified by specified tag.
+	RemoveToolTip(tag objectivec.IObject)
 	// Removes a given tracking area from the view.
 	RemoveTrackingArea(trackingArea INSTrackingArea)
-	// Informs the view that the bounds size of its superview has changed.
-	ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize)
+	// Removes the tracking rectangle identified by a tag.
+	RemoveTrackingRect(tag objectivec.IObject)
 	// Replaces one of the view’s subviews with another view.
 	ReplaceSubviewWith(oldView INSView, newView INSView)
-	// Informs the view’s subviews that the view’s bounds rectangle size has changed.
-	ResizeSubviewsWithOldSize(oldSize corefoundation.CGSize)
-	// Rotates the view’s bounds rectangle by a specified degree value around the origin of the coordinate system, (0.0, 0.0).
-	RotateByAngle(angle float64)
-	// Informs the client that `aRulerView` allowed the user to move `aMarker`.
-	RulerViewDidMoveMarker(ruler INSRulerView, marker INSRulerMarker)
 	// Overridden by subclasses to define their default cursor rectangles.
 	ResetCursorRects()
+	// Informs the view’s subviews that the view’s bounds rectangle size has changed.
+	ResizeSubviewsWithOldSize(oldSize corefoundation.CGSize)
+	// Informs the view that the bounds size of its superview has changed.
+	ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize)
+	// Rotates the view’s bounds rectangle by a specified degree value around the origin of the coordinate system, (0.0, 0.0).
+	RotateByAngle(angle float64)
+	// Informs the client that `aRulerView` allowed the user to add `aMarker`.
+	RulerViewDidAddMarker(ruler INSRulerView, marker INSRulerMarker)
+	// Informs the client that `aRulerView` allowed the user to move `aMarker`.
+	RulerViewDidMoveMarker(ruler INSRulerView, marker INSRulerMarker)
 	// Informs the client that `aRulerView` allowed the user to remove `aMarker`.
 	RulerViewDidRemoveMarker(ruler INSRulerView, marker INSRulerMarker)
-	// Converts a size from the view’s coordinate system to that of another view.
-	ConvertSizeToView(size corefoundation.CGSize, view INSView) corefoundation.CGSize
 	// Informs the client that the user has pressed the mouse button while the cursor is in the ruler area of `aRulerView`.
 	RulerViewHandleMouseDown(ruler INSRulerView, event INSEvent)
+	RulerViewLocationForPoint(ruler INSRulerView, point corefoundation.CGPoint) float64
 	RulerViewPointForLocation(ruler INSRulerView, point float64) corefoundation.CGPoint
 	// Requests permission for `aRulerView` to add `aMarker`, an NSRulerMarker being dragged onto the ruler by the user.
 	RulerViewShouldAddMarker(ruler INSRulerView, marker INSRulerMarker) bool
@@ -717,15 +730,16 @@ type INSView interface {
 	RulerViewShouldRemoveMarker(ruler INSRulerView, marker INSRulerMarker) bool
 	// Informs the client that `aRulerView` will add the new NSRulerMarker, `aMarker`.
 	RulerViewWillAddMarkerAtLocation(ruler INSRulerView, marker INSRulerMarker, location float64) float64
-	// Removes the specified constraints from the view.
-	RemoveConstraints(constraints []NSLayoutConstraint)
 	// Informs the client that `aRulerView` will move `aMarker`, an NSRulerMarker already on the ruler view.
 	RulerViewWillMoveMarkerToLocation(ruler INSRulerView, marker INSRulerMarker, location float64) float64
-	RulerViewLocationForPoint(ruler INSRulerView, point corefoundation.CGPoint) float64
 	// Informs the client view that `aRulerView` is about to be appropriated by `newClient`.
 	RulerViewWillSetClientView(ruler INSRulerView, newClient INSView)
 	// Scales the view’s coordinate system so that the unit square scales to the specified dimensions.
 	ScaleUnitSquareToSize(newUnitSize corefoundation.CGSize)
+	// Notifies the superview of a clip view that the clip view needs to reset the origin of its bounds rectangle.
+	ScrollClipViewToPoint(clipView INSClipView, point corefoundation.CGPoint)
+	// Scrolls the view’s closest ancestor [NSClipView](<doc://com.apple.appkit/documentation/AppKit/NSClipView>) object so a point in the view lies at the origin of the clip view’s bounds rectangle.
+	ScrollPoint(point corefoundation.CGPoint)
 	// Scrolls the view’s closest ancestor [NSClipView](<doc://com.apple.appkit/documentation/AppKit/NSClipView>) object the minimum distance needed so a specified region of the view becomes visible in the clip view.
 	ScrollRectToVisible(rect corefoundation.CGRect) bool
 	// Sets the origin of the view’s bounds rectangle to a specified point.
@@ -734,84 +748,70 @@ type INSView interface {
 	SetBoundsSize(newSize corefoundation.CGSize)
 	// Sets the priority with which a view resists being made smaller than its intrinsic size.
 	SetContentCompressionResistancePriorityForOrientation(priority NSLayoutPriority, orientation NSLayoutConstraintOrientation)
-	// Sets the origin of the view’s frame rectangle to the specified point, effectively repositioning it within its superview.
-	SetFrameOrigin(newOrigin corefoundation.CGPoint)
-	// Informs the client that `aRulerView` allowed the user to add `aMarker`.
-	RulerViewDidAddMarker(ruler INSRulerView, marker INSRulerMarker)
-	// Invalidates the area around the focus ring.
-	SetKeyboardFocusRingNeedsDisplayInRect(rect corefoundation.CGRect)
-	// Notifies the superview of a clip view that the clip view needs to reset the origin of its bounds rectangle.
-	ScrollClipViewToPoint(clipView INSClipView, point corefoundation.CGPoint)
 	// Sets the priority with which a view resists being made larger than its intrinsic size.
 	SetContentHuggingPriorityForOrientation(priority NSLayoutPriority, orientation NSLayoutConstraintOrientation)
-	// Shows a window displaying the definition of the attributed string at the specified point.
-	ShowDefinitionForAttributedStringAtPoint(attrString foundation.NSAttributedString, textBaselineOrigin corefoundation.CGPoint)
-	// Convert the size from the layer’s interior coordinate system to the view’s interior coordinate system.
-	ConvertSizeFromLayer(size corefoundation.CGSize) corefoundation.CGSize
-	// Scrolls the view’s closest ancestor [NSClipView](<doc://com.apple.appkit/documentation/AppKit/NSClipView>) object so a point in the view lies at the origin of the clip view’s bounds rectangle.
-	ScrollPoint(point corefoundation.CGPoint)
+	// Sets the origin of the view’s frame rectangle to the specified point, effectively repositioning it within its superview.
+	SetFrameOrigin(newOrigin corefoundation.CGPoint)
+	// Sets the size of the view’s frame rectangle to the specified dimensions, resizing it within its superview without affecting its coordinate system.
+	SetFrameSize(newSize corefoundation.CGSize)
+	// Invalidates the area around the focus ring.
+	SetKeyboardFocusRingNeedsDisplayInRect(rect corefoundation.CGRect)
 	// Marks the region of the view within the specified rectangle as needing display, increasing the view’s existing invalid region to include it.
 	SetNeedsDisplayInRect(invalidRect corefoundation.CGRect)
-	// Translates the view’s coordinate system so that its origin moves to a new location.
-	TranslateOriginToPoint(translation corefoundation.CGPoint)
+	// Allows the user to drag objects from the view without activating the app or moving the window of the view forward, possibly obscuring the destination.
+	ShouldDelayWindowOrderingForEvent(event INSEvent) bool
+	// Shows a window displaying the definition of the attributed string at the specified point.
+	ShowDefinitionForAttributedStringAtPoint(attrString foundation.NSAttributedString, textBaselineOrigin corefoundation.CGPoint)
+	// Shows a window displaying the definition of the specified range of the attributed string.
+	ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider RangeHandler)
 	// Orders the view’s immediate subviews using the specified comparator function.
 	SortSubviewsUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer)
-	// Unregisters the view as a possible destination in a dragging session.
-	UnregisterDraggedTypes()
-	// Updates the constraints for the receiving view and its subviews.
-	UpdateConstraintsForSubtreeIfNeeded()
-	// Update constraints for the view.
-	UpdateConstraints()
+	// Translates the view’s coordinate system so that its origin moves to a new location.
+	TranslateOriginToPoint(translation corefoundation.CGPoint)
 	// Translates the display rectangles by the specified delta.
 	TranslateRectsNeedingDisplayInRectBy(clipRect corefoundation.CGRect, delta corefoundation.CGSize)
+	// Unregisters the view as a possible destination in a dragging session.
+	UnregisterDraggedTypes()
+	// Update constraints for the view.
+	UpdateConstraints()
+	// Updates the constraints for the receiving view and its subviews.
+	UpdateConstraintsForSubtreeIfNeeded()
+	// Updates the view’s content by modifying its underlying layer.
+	UpdateLayer()
 	// Invoked automatically when the view’s geometry changes such that its tracking areas need to be recalculated.
 	UpdateTrackingAreas()
 	// Responds when the view’s backing store properties change.
 	ViewDidChangeBackingProperties()
 	// Informs the view that its effective appearance changed.
 	ViewDidChangeEffectiveAppearance()
-	// Shows a window displaying the definition of the specified range of the attributed string.
-	ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider RangeHandler)
-	// Updates the view’s content by modifying its underlying layer.
-	UpdateLayer()
+	// Informs the view of the end of a live resize—the user has finished resizing the view.
+	ViewDidEndLiveResize()
 	// Invoked when the view is hidden, either directly, or in response to an ancestor being hidden.
 	ViewDidHide()
 	// Informs the view that its superview has changed (possibly to `nil`).
 	ViewDidMoveToSuperview()
-	// Invoked when the view is unhidden, either directly, or in response to an ancestor being unhidden
-	ViewDidUnhide()
 	// Informs the view that it has been added to a new view hierarchy.
 	ViewDidMoveToWindow()
-	// Informs the view of the end of a live resize—the user has finished resizing the view.
-	ViewDidEndLiveResize()
-	// Returns the view’s nearest descendant (including itself) with a specific tag, or `nil` if no subview has that tag.
-	ViewWithTag(tag int) INSView
+	// Invoked when the view is unhidden, either directly, or in response to an ancestor being unhidden
+	ViewDidUnhide()
+	// Informs the view that it’s required to draw content.
+	ViewWillDraw()
+	// Informs the view that its superview is about to change to the specified superview (which may be `nil`).
+	ViewWillMoveToSuperview(newSuperview INSView)
 	// Informs the view that it’s being added to the view hierarchy of the specified window object (which may be `nil`).
 	ViewWillMoveToWindow(newWindow INSWindow)
 	// Informs the view of the start of a live resize—the user has started resizing the view.
 	ViewWillStartLiveResize()
+	// Returns the view’s nearest descendant (including itself) with a specific tag, or `nil` if no subview has that tag.
+	ViewWithTag(tag int) INSView
 	// Called just before a contextual menu for a view is opened on screen.
 	WillOpenMenuWithEvent(menu INSMenu, event INSEvent)
-	// Informs the view that it’s required to draw content.
-	ViewWillDraw()
+	// Overridden by subclasses to perform additional actions before subviews are removed from the view.
+	WillRemoveSubview(subview INSView)
 	// Writes EPS data that draws the region of the view within a specified rectangle onto a pasteboard.
 	WriteEPSInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard)
 	// Writes PDF data that draws the region of the view within a specified rectangle onto a pasteboard.
 	WritePDFInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard)
-	// Overridden by subclasses to perform additional actions before subviews are removed from the view.
-	WillRemoveSubview(subview INSView)
-	// Sets the size of the view’s frame rectangle to the specified dimensions, resizing it within its superview without affecting its coordinate system.
-	SetFrameSize(newSize corefoundation.CGSize)
-	// Invoked by [printView(_:)](<doc://com.apple.appkit/documentation/AppKit/NSView/printView(_:)>) to determine the location of the region of the view being printed on the physical page.
-	LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.CGPoint
-	// Informs the view that its superview is about to change to the specified superview (which may be `nil`).
-	ViewWillMoveToSuperview(newSuperview INSView)
-	// Allows the user to drag objects from the view without activating the app or moving the window of the view forward, possibly obscuring the destination.
-	ShouldDelayWindowOrderingForEvent(event INSEvent) bool
-	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
-	Animator() INSView
-	// Returns the animation that should be performed for the specified key.
-	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -930,6 +930,38 @@ func (v NSView) PrepareForReuse() {
 	objc.Send[objc.ID](v.ID, objc.Sel("prepareForReuse"))
 }
 
+// Returns a Boolean value that indicates whether the view accepts the initial
+// mouse-down event.
+//
+// event: The initial mouse-down event, which must be over the view in its window.
+//
+// # Discussion
+// 
+// Subclasses can override this method to return [true] if the view should be
+// sent a [MouseDown] message for an initial mouse-down event, [false] if not.
+// 
+// The view can either return a value unconditionally or use the location of
+// `event` to determine whether or not it wants the event. The default
+// implementation ignores `event` and returns [false].
+// 
+// Override this method in a subclass to allow instances to respond to
+// click-through. This allows the user to click on a view in an inactive
+// window, activating the view with one click, instead of clicking first to
+// make the window active and then clicking the view. Most view objects refuse
+// a click-through attempt, so the event simply activates the window. Many
+// control objects, however, such as instances of [NSButton] and [NSSlider],
+// do accept them, so the user can immediately manipulate the control without
+// having to release the mouse button.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/acceptsFirstMouse(for:)
+func (v NSView) AcceptsFirstMouse(event INSEvent) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("acceptsFirstMouse:"), event)
+	return rv
+}
+
 // Adds a constraint on the layout of the receiving view or its subviews.
 //
 // constraint: The constraint to be added to the view. The constraint may only reference
@@ -947,23 +979,6 @@ func (v NSView) PrepareForReuse() {
 // See: https://developer.apple.com/documentation/AppKit/NSView/addConstraint(_:)
 func (v NSView) AddConstraint(constraint INSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addConstraint:"), constraint)
-}
-
-// Attaches a gesture recognizer to the view.
-//
-// gestureRecognizer: The gesture recognizer to attach to the view. This parameter must not be
-// `nil`.
-//
-// # Discussion
-// 
-// Attaching a gesture recognizer to a view defines the scope of the
-// represented gesture, causing it to receive touches occurring only in the
-// view or one of its subviews. The view establishes a strong reference to the
-// specified gesture recognizer.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/addGestureRecognizer(_:)
-func (v NSView) AddGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
-	objc.Send[objc.ID](v.ID, objc.Sel("addGestureRecognizer:"), gestureRecognizer)
 }
 
 // Adds multiple constraints on the layout of the receiving view or its
@@ -984,6 +999,45 @@ func (v NSView) AddGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
 // See: https://developer.apple.com/documentation/AppKit/NSView/addConstraints(_:)
 func (v NSView) AddConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
+}
+
+// Establishes the cursor to be used when the mouse pointer lies within a
+// specified region.
+//
+// rect: A rectangle defining a region of the view.
+//
+// object: An object representing a cursor.
+//
+// # Discussion
+// 
+// Cursor rectangles aren’t subject to clipping by superviews, nor are they
+// intended for use with rotated views. You should explicitly confine a cursor
+// rectangle to the view’s visible rectangle to prevent improper behavior.
+// 
+// This method is intended to be invoked only by the [ResetCursorRects]
+// method. If invoked in any other way, the resulting cursor rectangle will be
+// discarded the next time the view’s cursor rectangles are rebuilt.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/addCursorRect(_:cursor:)
+func (v NSView) AddCursorRectCursor(rect corefoundation.CGRect, object INSCursor) {
+	objc.Send[objc.ID](v.ID, objc.Sel("addCursorRect:cursor:"), rect, object)
+}
+
+// Attaches a gesture recognizer to the view.
+//
+// gestureRecognizer: The gesture recognizer to attach to the view. This parameter must not be
+// `nil`.
+//
+// # Discussion
+// 
+// Attaching a gesture recognizer to a view defines the scope of the
+// represented gesture, causing it to receive touches occurring only in the
+// view or one of its subviews. The view establishes a strong reference to the
+// specified gesture recognizer.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/addGestureRecognizer(_:)
+func (v NSView) AddGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
+	objc.Send[objc.ID](v.ID, objc.Sel("addGestureRecognizer:"), gestureRecognizer)
 }
 
 // Adds the provided layout guide to the view.
@@ -1095,6 +1149,15 @@ func (v NSView) AddToolTipRectOwnerUserData(rect corefoundation.CGRect, owner ob
 	return objectivec.Object{ID: rv}
 }
 
+// Adds a given tracking area to the view.
+//
+// trackingArea: The tracking area to add to the view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/addTrackingArea(_:)
+func (v NSView) AddTrackingArea(trackingArea INSTrackingArea) {
+	objc.Send[objc.ID](v.ID, objc.Sel("addTrackingArea:"), trackingArea)
+}
+
 // Establishes an area for tracking mouse-entered and mouse-exited events
 // within the view and returns a tag that identifies the tracking rectangle.
 //
@@ -1142,49 +1205,48 @@ func (v NSView) AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGR
 	return objectivec.Object{ID: rv}
 }
 
-// Establishes the cursor to be used when the mouse pointer lies within a
-// specified region.
+// Overridden by subclasses to adjust page height during automatic pagination.
 //
-// rect: A rectangle defining a region of the view.
+// newBottom: Returns by indirection a new [CGFloat] value for the bottom edge of the
+// pending page rectangle in the view’s coordinate system.
+// //
+// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 //
-// object: An object representing a cursor.
+// oldTop: A [CGFloat] value that sets the top edge of the pending page rectangle in
+// the view’s coordinate system.
+// //
+// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 //
-// # Discussion
-// 
-// Cursor rectangles aren’t subject to clipping by superviews, nor are they
-// intended for use with rotated views. You should explicitly confine a cursor
-// rectangle to the view’s visible rectangle to prevent improper behavior.
-// 
-// This method is intended to be invoked only by the [ResetCursorRects]
-// method. If invoked in any other way, the resulting cursor rectangle will be
-// discarded the next time the view’s cursor rectangles are rebuilt.
+// oldBottom: A [CGFloat] value that sets the bottom edge of the pending page rectangle
+// in the view’s coordinate system.
+// //
+// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/addCursorRect(_:cursor:)
-func (v NSView) AddCursorRectCursor(rect corefoundation.CGRect, object INSCursor) {
-	objc.Send[objc.ID](v.ID, objc.Sel("addCursorRect:cursor:"), rect, object)
-}
-
-// Overridden by subclasses to modify a given rectangle, returning the altered
-// rectangle.
-//
-// newVisible: A rectangle that defines a region of the view.
+// bottomLimit: The topmost [CGFloat] value `newBottom` can be set to, as calculated using
+// the value of the [heightAdjustLimit] property.
+// //
+// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
+// [heightAdjustLimit]: https://developer.apple.com/documentation/AppKit/NSView/heightAdjustLimit
 //
 // # Discussion
 // 
-// [NSClipView] invokes this method to allow its document view to adjust its
-// position during scrolling. For example, a custom view object that displays
-// a table of data can adjust the origin of `newVisible` so rows or columns
-// aren’t cut off by the edge of the enclosing [NSClipView]. The [NSView]
-// implementation simply returns `newVisible`.
+// This method is invoked by [Print]. The view can raise the bottom edge and
+// return the new value in `newBottom`, allowing it to prevent items such as
+// lines of text from being divided across pages. If `bottomLimit` is
+// exceeded, the pagination mechanism simply uses `bottomLimit` for the bottom
+// edge.
 // 
-// [NSClipView] only invokes this method during automatic or user controlled
-// scrolling. Its [ScrollToPoint] method doesn’t invoke this method, so you
-// can still force a scroll to an arbitrary point.
+// The default implementation of this method propagates the message to its
+// subviews, allowing nested views to adjust page height for their drawing as
+// well. An [NSButton] object or other small view, for example, will nudge the
+// bottom edge up if necessary to prevent itself from being cut in two
+// (thereby pushing it onto an adjacent page). Subclasses should invoke
+// `super`’s implementation, if desired, after first making their own
+// adjustments.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/adjustScroll(_:)
-func (v NSView) AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("adjustScroll:"), newVisible)
-	return corefoundation.CGRect(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSView/adjustPageHeightNew(_:top:bottom:limit:)
+func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom float64, oldTop float64, oldBottom float64, bottomLimit float64) {
+	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageHeightNew:top:bottom:limit:"), newBottom, oldTop, oldBottom, bottomLimit)
 }
 
 // Overridden by subclasses to adjust page width during automatic pagination.
@@ -1231,6 +1293,29 @@ func (v NSView) AdjustPageWidthNewLeftRightLimit(newRight float64, oldLeft float
 	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageWidthNew:left:right:limit:"), newRight, oldLeft, oldRight, rightLimit)
 }
 
+// Overridden by subclasses to modify a given rectangle, returning the altered
+// rectangle.
+//
+// newVisible: A rectangle that defines a region of the view.
+//
+// # Discussion
+// 
+// [NSClipView] invokes this method to allow its document view to adjust its
+// position during scrolling. For example, a custom view object that displays
+// a table of data can adjust the origin of `newVisible` so rows or columns
+// aren’t cut off by the edge of the enclosing [NSClipView]. The [NSView]
+// implementation simply returns `newVisible`.
+// 
+// [NSClipView] only invokes this method during automatic or user controlled
+// scrolling. Its [ScrollToPoint] method doesn’t invoke this method, so you
+// can still force a scroll to an arbitrary point.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/adjustScroll(_:)
+func (v NSView) AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("adjustScroll:"), newVisible)
+	return corefoundation.CGRect(rv)
+}
+
 // Returns the view’s alignment rectangle for a given frame.
 //
 // frame: The frame whose corresponding alignment rectangle is desired.
@@ -1263,15 +1348,6 @@ func (v NSView) AlignmentRectForFrame(frame corefoundation.CGRect) corefoundatio
 	return corefoundation.CGRect(rv)
 }
 
-// Adds a given tracking area to the view.
-//
-// trackingArea: The tracking area to add to the view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/addTrackingArea(_:)
-func (v NSView) AddTrackingArea(trackingArea INSTrackingArea) {
-	objc.Send[objc.ID](v.ID, objc.Sel("addTrackingArea:"), trackingArea)
-}
-
 // Returns the closest ancestor shared by the view and another specified view.
 //
 // view: Another view to test for closest shared ancestor with the view.
@@ -1285,6 +1361,120 @@ func (v NSView) AddTrackingArea(trackingArea INSTrackingArea) {
 func (v NSView) AncestorSharedWithView(view INSView) INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ancestorSharedWithView:"), view)
 	return NSViewFromID(rv)
+}
+
+// Returns the animation that should be performed for the specified key.
+//
+// key: The action name or property specified as a string.
+//
+// # Return Value
+// 
+// The animation to perform. A subclass of [CAAnimation].
+//
+// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
+//
+// # Discussion
+// 
+// When the action specified by `key` is triggered for an object, this method
+// is consulted to find the animation, if any, that should be performed in
+// response.
+// 
+// Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
+// method is a funnel point that defines the order in which the search for an
+// animation proceeds.It first checks the receiver’s Getting the Animator
+// Proxy dictionary for a value matching `key`, then falls back to [Animator]
+// for the receiver’s class.
+// 
+// Subclasses should not typically need to override this method.
+//
+// [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
+// [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
+func (v NSView) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
+	return objectivec.Object{ID: rv}
+}
+
+// Returns a proxy object for the receiver that can be used to initiate
+// implied animation for property changes.
+//
+// # Return Value
+// 
+// Returns a proxy object for the receiver that can initiate implied
+// animations in response to property changes.
+//
+// # Discussion
+// 
+// The animator proxy object should be treated as if it was the receiver
+// itself, and may be passed to any code that accepts the receiver as a
+// parameter.
+// 
+// Sending key-value coding compliant “set” messages to the proxy will
+// trigger animation for automatically animated properties of its target
+// object, if the active [NSAnimationContext] in the current thread has a
+// duration value greater than zero, and an animation for the property key is
+// found by the [NSAnimatablePropertyContainer] search mechanism.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
+func (v NSView) Animator() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("animator"))
+	return NSViewFromID(rv)
+}
+
+// Scrolls the view’s closest ancestor [NSClipView] object proportionally to
+// the distance of an event that occurs outside of it.
+//
+// event: An event object whose location should be expressed in the window’s base
+// coordinate system (which it normally is), not the receiving view’s.
+//
+// # Return Value
+// 
+// Returns [true] if any scrolling is performed; otherwise returns [false].
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// View objects that track mouse-dragged events can use this method to scroll
+// automatically when the cursor is dragged outside of the [NSClipView]
+// object. Repeated invocations of this method (with an appropriate delay)
+// result in continual scrolling, even when the mouse doesn’t move.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/autoscroll(with:)
+func (v NSView) Autoscroll(event INSEvent) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("autoscroll:"), event)
+	return rv
+}
+
+// Returns a backing store pixel-aligned rectangle in local view coordinates.
+//
+// rect: The rectangle in the view’s interior coordinate system.
+//
+// options: The alignment options. See [AlignmentOptions] for possible values. (Note
+// that although the alignment options specify integral values, the rectangle
+// returned by this method is pixel-aligned.)
+// //
+// [AlignmentOptions]: https://developer.apple.com/documentation/Foundation/AlignmentOptions
+//
+// # Return Value
+// 
+// A rectangle in the view’s interior coordinate system that is aligned to
+// the backing store pixels using the specified options.
+//
+// # Discussion
+// 
+// Uses the [NSIntegralRectWithOptions(_:_:)] function and the given input
+// rectangle and options to produce a backing store pixel-aligned rectangle in
+// the view’s interior coordinates.
+//
+// [NSIntegralRectWithOptions(_:_:)]: https://developer.apple.com/documentation/Foundation/NSIntegralRectWithOptions(_:_:)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/backingAlignedRect(_:options:)
+func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("backingAlignedRect:options:"), rect, options)
+	return corefoundation.CGRect(rv)
 }
 
 // Invoked at the beginning of the printing session, this method sets up the
@@ -1303,6 +1493,41 @@ func (v NSView) AncestorSharedWithView(view INSView) INSView {
 // See: https://developer.apple.com/documentation/AppKit/NSView/beginDocument()
 func (v NSView) BeginDocument() {
 	objc.Send[objc.ID](v.ID, objc.Sel("beginDocument"))
+}
+
+// Initiates a dragging session with a group of dragging items.
+//
+// items: The dragging items. The frame property of each [NSDraggingItem] must be in
+// the view’s coordinate system.
+//
+// event: The mouse-down event object from which to initiate the drag operation. In
+// particular, its mouse location is used for the offset of the icon being
+// dragged.
+//
+// source: An object that serves as the controller of the dragging operation. It must
+// conform to the [NSDraggingSource] protocol and is typically the view itself
+// or its [NSWindow] object.
+//
+// # Return Value
+// 
+// The dragging session for the drag.
+//
+// # Discussion
+// 
+// A basic drag starts by calling ``.
+// 
+// The caller can take the returned [NSDraggingSession] and continue to modify
+// its properties. When the drag actually starts, the source is sent a
+// [DraggingSessionWillBeginAtPoint] message followed by multiple
+// [DraggingSessionMovedToPoint] messages as the user drags.
+// 
+// Once the drag is ended or cancelled, the source receives a
+// [DraggingSessionEndedAtPointOperation] method and the drag is complete.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/beginDraggingSession(with:event:source:)
+func (v NSView) BeginDraggingSessionWithItemsEventSource(items []NSDraggingItem, event INSEvent, source NSDraggingSource) INSDraggingSession {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("beginDraggingSessionWithItems:event:source:"), objectivec.IObjectSliceToNSArray(items), event, source)
+	return NSDraggingSessionFromID(rv)
 }
 
 // Called at the beginning of each page, this method sets up the coordinate
@@ -1344,35 +1569,6 @@ func (v NSView) BitmapImageRepForCachingDisplayInRect(rect corefoundation.CGRect
 	return NSBitmapImageRepFromID(rv)
 }
 
-// Returns a backing store pixel-aligned rectangle in local view coordinates.
-//
-// rect: The rectangle in the view’s interior coordinate system.
-//
-// options: The alignment options. See [AlignmentOptions] for possible values. (Note
-// that although the alignment options specify integral values, the rectangle
-// returned by this method is pixel-aligned.)
-// //
-// [AlignmentOptions]: https://developer.apple.com/documentation/Foundation/AlignmentOptions
-//
-// # Return Value
-// 
-// A rectangle in the view’s interior coordinate system that is aligned to
-// the backing store pixels using the specified options.
-//
-// # Discussion
-// 
-// Uses the [NSIntegralRectWithOptions(_:_:)] function and the given input
-// rectangle and options to produce a backing store pixel-aligned rectangle in
-// the view’s interior coordinates.
-//
-// [NSIntegralRectWithOptions(_:_:)]: https://developer.apple.com/documentation/Foundation/NSIntegralRectWithOptions(_:_:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/backingAlignedRect(_:options:)
-func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options foundation.AlignmentOptions) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("backingAlignedRect:options:"), rect, options)
-	return corefoundation.CGRect(rv)
-}
-
 // Draws the specified area of the view, and its descendants, into a provided
 // bitmap-representation object.
 //
@@ -1395,6 +1591,62 @@ func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options fo
 // See: https://developer.apple.com/documentation/AppKit/NSView/cacheDisplay(in:to:)
 func (v NSView) CacheDisplayInRectToBitmapImageRep(rect corefoundation.CGRect, bitmapImageRep INSBitmapImageRep) {
 	objc.Send[objc.ID](v.ID, objc.Sel("cacheDisplayInRect:toBitmapImageRep:"), rect, bitmapImageRep)
+}
+
+// Converts the corners of a specified rectangle to lie on the center of
+// device pixels, which is useful in compensating for rendering overscanning
+// when the coordinate system has been scaled.
+//
+// rect: The rectangle whose corners are to be converted.
+//
+// # Return Value
+// 
+// The adjusted rectangle.
+//
+// # Discussion
+// 
+// This method converts the given rectangle to device coordinates, adjusts the
+// rectangle to lie in the center of the pixels, and converts the resulting
+// rectangle back to the view’s coordinate system. Note that this method
+// does not take into account any transformations performed using the
+// [NSAffineTransform] class or Quartz 2D routines.
+//
+// [NSAffineTransform]: https://developer.apple.com/documentation/Foundation/NSAffineTransform
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/centerScanRect(_:)
+func (v NSView) CenterScanRect(rect corefoundation.CGRect) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("centerScanRect:"), rect)
+	return corefoundation.CGRect(rv)
+}
+
+// Invoked when the dragging operation is complete, signaling the receiver to
+// perform any necessary clean-up.
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// # Discussion
+// 
+// For this method to be invoked, the previous [PerformDragOperation] must
+// have returned [true].
+// 
+// The destination implements this method to perform any tidying up that it
+// needs to do, such as updating its visual representation now that it has
+// incorporated the dragged data. This message is the last message sent from
+// `sender` to the destination during a dragging session.
+// 
+// If the `sender` object’s [AnimatesToDestination] property was set to
+// [true] in [PrepareForDragOperation], then the drag image is still visible.
+// At this point you should draw the final visual representation in the view.
+// When this method returns, the drag image is removed form the screen. If
+// your final visual representation matches the visual representation in the
+// drag, this is a seamless transition.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/concludeDragOperation(_:)
+func (v NSView) ConcludeDragOperation(sender NSDraggingInfo) {
+	objc.Send[objc.ID](v.ID, objc.Sel("concludeDragOperation:"), sender)
 }
 
 // Returns the constraints impacting the layout of the view for a given
@@ -1427,93 +1679,6 @@ func (v NSView) ConstraintsAffectingLayoutForOrientation(orientation NSLayoutCon
 	})
 }
 
-// Scrolls the view’s closest ancestor [NSClipView] object proportionally to
-// the distance of an event that occurs outside of it.
-//
-// event: An event object whose location should be expressed in the window’s base
-// coordinate system (which it normally is), not the receiving view’s.
-//
-// # Return Value
-// 
-// Returns [true] if any scrolling is performed; otherwise returns [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// View objects that track mouse-dragged events can use this method to scroll
-// automatically when the cursor is dragged outside of the [NSClipView]
-// object. Repeated invocations of this method (with an appropriate delay)
-// result in continual scrolling, even when the mouse doesn’t move.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/autoscroll(with:)
-func (v NSView) Autoscroll(event INSEvent) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("autoscroll:"), event)
-	return rv
-}
-
-// Initiates a dragging session with a group of dragging items.
-//
-// items: The dragging items. The frame property of each [NSDraggingItem] must be in
-// the view’s coordinate system.
-//
-// event: The mouse-down event object from which to initiate the drag operation. In
-// particular, its mouse location is used for the offset of the icon being
-// dragged.
-//
-// source: An object that serves as the controller of the dragging operation. It must
-// conform to the [NSDraggingSource] protocol and is typically the view itself
-// or its [NSWindow] object.
-//
-// # Return Value
-// 
-// The dragging session for the drag.
-//
-// # Discussion
-// 
-// A basic drag starts by calling ``.
-// 
-// The caller can take the returned [NSDraggingSession] and continue to modify
-// its properties. When the drag actually starts, the source is sent a
-// [DraggingSessionWillBeginAtPoint] message followed by multiple
-// [DraggingSessionMovedToPoint] messages as the user drags.
-// 
-// Once the drag is ended or cancelled, the source receives a
-// [DraggingSessionEndedAtPointOperation] method and the drag is complete.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/beginDraggingSession(with:event:source:)
-func (v NSView) BeginDraggingSessionWithItemsEventSource(items []NSDraggingItem, event INSEvent, source NSDraggingSource) INSDraggingSession {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("beginDraggingSessionWithItems:event:source:"), objectivec.IObjectSliceToNSArray(items), event, source)
-	return NSDraggingSessionFromID(rv)
-}
-
-// Converts the corners of a specified rectangle to lie on the center of
-// device pixels, which is useful in compensating for rendering overscanning
-// when the coordinate system has been scaled.
-//
-// rect: The rectangle whose corners are to be converted.
-//
-// # Return Value
-// 
-// The adjusted rectangle.
-//
-// # Discussion
-// 
-// This method converts the given rectangle to device coordinates, adjusts the
-// rectangle to lie in the center of the pixels, and converts the resulting
-// rectangle back to the view’s coordinate system. Note that this method
-// does not take into account any transformations performed using the
-// [NSAffineTransform] class or Quartz 2D routines.
-//
-// [NSAffineTransform]: https://developer.apple.com/documentation/Foundation/NSAffineTransform
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/centerScanRect(_:)
-func (v NSView) CenterScanRect(rect corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("centerScanRect:"), rect)
-	return corefoundation.CGRect(rv)
-}
-
 // Returns the priority with which a view resists being made smaller than its
 // intrinsic size.
 //
@@ -1543,26 +1708,6 @@ func (v NSView) ContentCompressionResistancePriorityForOrientation(orientation N
 	return NSLayoutPriority(rv)
 }
 
-// Converts a point from the coordinate system of a given view to that of the
-// view.
-//
-// point: A point specifying a location in the coordinate system of `view`.
-//
-// view: The view with `point` in its coordinate system. Both `view` and the view
-// must belong to the same [NSWindow] object, and that window must not be
-// `nil`. If `view` is `nil`, this method converts from window coordinates
-// instead.
-//
-// # Return Value
-// 
-// The point converted to the coordinate system of the view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:from:)-1dq9l
-func (v NSView) ConvertPointFromView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPoint:fromView:"), point, view)
-	return corefoundation.CGPoint(rv)
-}
-
 // Returns the priority with which a view resists being made larger than its
 // intrinsic size.
 //
@@ -1590,6 +1735,274 @@ func (v NSView) ConvertPointFromView(point corefoundation.CGPoint, view INSView)
 func (v NSView) ContentHuggingPriorityForOrientation(orientation NSLayoutConstraintOrientation) NSLayoutPriority {
 	rv := objc.Send[NSLayoutPriority](v.ID, objc.Sel("contentHuggingPriorityForOrientation:"), orientation)
 	return NSLayoutPriority(rv)
+}
+
+// Converts a point from its pixel aligned backing store coordinate system to
+// the view’s interior coordinate system.
+//
+// point: The point in the pixel backing store aligned coordinate system.
+//
+// # Return Value
+// 
+// A point in the view’s interior coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromBacking(_:)-229ps
+func (v NSView) ConvertPointFromBacking(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointFromBacking:"), point)
+	return corefoundation.CGPoint(rv)
+}
+
+// Convert the point from the layer’s interior coordinate system to the
+// view’s interior coordinate system.
+//
+// point: The point in the layer’s interior coordinate system.
+//
+// # Return Value
+// 
+// The point in the view’s interior coordinate system.
+//
+// # Discussion
+// 
+// The layer’s space is virtual, and doesn’t take into account the
+// layer’s [contentsScale] setting.
+//
+// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromLayer(_:)-3nsbu
+func (v NSView) ConvertPointFromLayer(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointFromLayer:"), point)
+	return corefoundation.CGPoint(rv)
+}
+
+// Converts a point from the coordinate system of a given view to that of the
+// view.
+//
+// point: A point specifying a location in the coordinate system of `view`.
+//
+// view: The view with `point` in its coordinate system. Both `view` and the view
+// must belong to the same [NSWindow] object, and that window must not be
+// `nil`. If `view` is `nil`, this method converts from window coordinates
+// instead.
+//
+// # Return Value
+// 
+// The point converted to the coordinate system of the view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:from:)-1dq9l
+func (v NSView) ConvertPointFromView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPoint:fromView:"), point, view)
+	return corefoundation.CGPoint(rv)
+}
+
+// Converts a point from the view’s interior coordinate system to its pixel
+// aligned backing store coordinate system.
+//
+// point: The point in the view’s interior coordinate system.
+//
+// # Return Value
+// 
+// A point in its pixel aligned backing store coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertToBacking(_:)-2xx45
+func (v NSView) ConvertPointToBacking(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointToBacking:"), point)
+	return corefoundation.CGPoint(rv)
+}
+
+// Convert the size from the view’s interior coordinate system to the
+// layer’s interior coordinate system.
+//
+// point: A point in the view’s interior coordinate system.
+//
+// # Return Value
+// 
+// A point in the view’s layer interior coordinate system.
+//
+// # Discussion
+// 
+// The layer’s space is virtual, and doesn’t take into account the
+// layer’s [contentsScale] setting.
+//
+// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertToLayer(_:)-44u7d
+func (v NSView) ConvertPointToLayer(point corefoundation.CGPoint) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointToLayer:"), point)
+	return corefoundation.CGPoint(rv)
+}
+
+// Converts a point from the view’s coordinate system to that of a given
+// view.
+//
+// point: A point specifying a location in the coordinate system of the view.
+//
+// view: The view into whose coordinate system `point` is to be converted. Both
+// `view` and the view must belong to the same [NSWindow] object, and that
+// window must not be `nil`. If `view` is `nil`, this method converts to
+// window coordinates instead.
+//
+// # Return Value
+// 
+// The point converted to the coordinate system of `aView`.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:to:)-6u9ir
+func (v NSView) ConvertPointToView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPoint:toView:"), point, view)
+	return corefoundation.CGPoint(rv)
+}
+
+// Converts a rectangle from its pixel aligned backing store coordinate system
+// to the view’s interior coordinate system.
+//
+// rect: The rectangle in the pixel backing store coordinate system.
+//
+// # Return Value
+// 
+// A rectangle in the view’s interior coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromBacking(_:)-2njpa
+func (v NSView) ConvertRectFromBacking(rect corefoundation.CGRect) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectFromBacking:"), rect)
+	return corefoundation.CGRect(rv)
+}
+
+// Convert the rectangle from the layer’s interior coordinate system to the
+// view’s interior coordinate system.
+//
+// rect: A rectangle in the layer’s interior coordinate system.
+//
+// # Return Value
+// 
+// A rectangle in the view’s interior coordinate system.
+//
+// # Discussion
+// 
+// The layer’s space is virtual, and doesn’t take into account the
+// layer’s [contentsScale] setting.
+//
+// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromLayer(_:)-8s5bi
+func (v NSView) ConvertRectFromLayer(rect corefoundation.CGRect) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectFromLayer:"), rect)
+	return corefoundation.CGRect(rv)
+}
+
+// Converts a rectangle from the coordinate system of another view to that of
+// the view.
+//
+// rect: The rectangle in the `view` coordinate system.
+//
+// view: The view with `rect` in its coordinate system. Both `view` and the view
+// must belong to the same [NSWindow] object, and that window must not be
+// `nil`. If `view` is `nil`, this method converts from window coordinates
+// instead.
+//
+// # Return Value
+// 
+// The converted rectangle.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:from:)-7fbb6
+func (v NSView) ConvertRectFromView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRect:fromView:"), rect, view)
+	return corefoundation.CGRect(rv)
+}
+
+// Converts a rectangle from the view’s interior coordinate system to its
+// pixel aligned backing store coordinate system.
+//
+// rect: A rectangle in the view’s interior coordinate system.
+//
+// # Return Value
+// 
+// A rectangle in its pixel aligned backing store coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertToBacking(_:)-3zors
+func (v NSView) ConvertRectToBacking(rect corefoundation.CGRect) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectToBacking:"), rect)
+	return corefoundation.CGRect(rv)
+}
+
+// Convert the size from the view’s interior coordinate system to the
+// layer’s interior coordinate system.
+//
+// rect: A rectangle in the view’s interior coordinate system.
+//
+// # Return Value
+// 
+// A rectangle in the layer’s interior coordinate system.
+//
+// # Discussion
+// 
+// The layer’s space is virtual, and doesn’t take into account the
+// layer’s [contentsScale] setting.
+//
+// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertToLayer(_:)-160pw
+func (v NSView) ConvertRectToLayer(rect corefoundation.CGRect) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectToLayer:"), rect)
+	return corefoundation.CGRect(rv)
+}
+
+// Converts a rectangle from the view’s coordinate system to that of another
+// view.
+//
+// rect: A rectangle in the view’s coordinate system.
+//
+// view: The view that’s the target of the conversion operation. Both `view` and
+// the view must belong to the same [NSWindow] object, and that window must
+// not be `nil`. If `view` is `nil`, this method converts the rectangle to
+// window coordinates instead.
+//
+// # Return Value
+// 
+// The converted rectangle.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:to:)-3cqqt
+func (v NSView) ConvertRectToView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRect:toView:"), rect, view)
+	return corefoundation.CGRect(rv)
+}
+
+// Converts a size from its pixel aligned backing store coordinate system to
+// the view’s interior coordinate system.
+//
+// size: The size in the pixel aligned coordinate system.
+//
+// # Return Value
+// 
+// The size in the view’s interior coordinate system.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromBacking(_:)-4agf9
+func (v NSView) ConvertSizeFromBacking(size corefoundation.CGSize) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeFromBacking:"), size)
+	return corefoundation.CGSize(rv)
+}
+
+// Convert the size from the layer’s interior coordinate system to the
+// view’s interior coordinate system.
+//
+// size: A size in the layer’s interior coordinate system.
+//
+// # Return Value
+// 
+// A size in the view’s interior coordinate system.
+//
+// # Discussion
+// 
+// The layer’s space is virtual, and doesn’t take into account the
+// layer’s [contentsScale] setting.
+// 
+// The returned [NSSize] values are always forced to have positive a width and
+// height.
+//
+// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromLayer(_:)-3usqp
+func (v NSView) ConvertSizeFromLayer(size corefoundation.CGSize) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeFromLayer:"), size)
+	return corefoundation.CGSize(rv)
 }
 
 // Converts a size from another view’s coordinate system to that of the
@@ -1624,246 +2037,6 @@ func (v NSView) ConvertSizeFromView(size corefoundation.CGSize, view INSView) co
 	return corefoundation.CGSize(rv)
 }
 
-// Converts a rectangle from the coordinate system of another view to that of
-// the view.
-//
-// rect: The rectangle in the `view` coordinate system.
-//
-// view: The view with `rect` in its coordinate system. Both `view` and the view
-// must belong to the same [NSWindow] object, and that window must not be
-// `nil`. If `view` is `nil`, this method converts from window coordinates
-// instead.
-//
-// # Return Value
-// 
-// The converted rectangle.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:from:)-7fbb6
-func (v NSView) ConvertRectFromView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRect:fromView:"), rect, view)
-	return corefoundation.CGRect(rv)
-}
-
-// Converts a rectangle from the view’s coordinate system to that of another
-// view.
-//
-// rect: A rectangle in the view’s coordinate system.
-//
-// view: The view that’s the target of the conversion operation. Both `view` and
-// the view must belong to the same [NSWindow] object, and that window must
-// not be `nil`. If `view` is `nil`, this method converts the rectangle to
-// window coordinates instead.
-//
-// # Return Value
-// 
-// The converted rectangle.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:to:)-3cqqt
-func (v NSView) ConvertRectToView(rect corefoundation.CGRect, view INSView) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRect:toView:"), rect, view)
-	return corefoundation.CGRect(rv)
-}
-
-// Converts a point from its pixel aligned backing store coordinate system to
-// the view’s interior coordinate system.
-//
-// point: The point in the pixel backing store aligned coordinate system.
-//
-// # Return Value
-// 
-// A point in the view’s interior coordinate system.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromBacking(_:)-229ps
-func (v NSView) ConvertPointFromBacking(point corefoundation.CGPoint) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointFromBacking:"), point)
-	return corefoundation.CGPoint(rv)
-}
-
-// Converts a point from the view’s coordinate system to that of a given
-// view.
-//
-// point: A point specifying a location in the coordinate system of the view.
-//
-// view: The view into whose coordinate system `point` is to be converted. Both
-// `view` and the view must belong to the same [NSWindow] object, and that
-// window must not be `nil`. If `view` is `nil`, this method converts to
-// window coordinates instead.
-//
-// # Return Value
-// 
-// The point converted to the coordinate system of `aView`.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:to:)-6u9ir
-func (v NSView) ConvertPointToView(point corefoundation.CGPoint, view INSView) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPoint:toView:"), point, view)
-	return corefoundation.CGPoint(rv)
-}
-
-// Overridden by subclasses to adjust page height during automatic pagination.
-//
-// newBottom: Returns by indirection a new [CGFloat] value for the bottom edge of the
-// pending page rectangle in the view’s coordinate system.
-// //
-// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
-//
-// oldTop: A [CGFloat] value that sets the top edge of the pending page rectangle in
-// the view’s coordinate system.
-// //
-// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
-//
-// oldBottom: A [CGFloat] value that sets the bottom edge of the pending page rectangle
-// in the view’s coordinate system.
-// //
-// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
-//
-// bottomLimit: The topmost [CGFloat] value `newBottom` can be set to, as calculated using
-// the value of the [heightAdjustLimit] property.
-// //
-// [CGFloat]: https://developer.apple.com/documentation/CoreFoundation/CGFloat-swift.struct
-// [heightAdjustLimit]: https://developer.apple.com/documentation/AppKit/NSView/heightAdjustLimit
-//
-// # Discussion
-// 
-// This method is invoked by [Print]. The view can raise the bottom edge and
-// return the new value in `newBottom`, allowing it to prevent items such as
-// lines of text from being divided across pages. If `bottomLimit` is
-// exceeded, the pagination mechanism simply uses `bottomLimit` for the bottom
-// edge.
-// 
-// The default implementation of this method propagates the message to its
-// subviews, allowing nested views to adjust page height for their drawing as
-// well. An [NSButton] object or other small view, for example, will nudge the
-// bottom edge up if necessary to prevent itself from being cut in two
-// (thereby pushing it onto an adjacent page). Subclasses should invoke
-// `super`’s implementation, if desired, after first making their own
-// adjustments.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/adjustPageHeightNew(_:top:bottom:limit:)
-func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom float64, oldTop float64, oldBottom float64, bottomLimit float64) {
-	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageHeightNew:top:bottom:limit:"), newBottom, oldTop, oldBottom, bottomLimit)
-}
-
-// Convert the point from the layer’s interior coordinate system to the
-// view’s interior coordinate system.
-//
-// point: The point in the layer’s interior coordinate system.
-//
-// # Return Value
-// 
-// The point in the view’s interior coordinate system.
-//
-// # Discussion
-// 
-// The layer’s space is virtual, and doesn’t take into account the
-// layer’s [contentsScale] setting.
-//
-// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromLayer(_:)-3nsbu
-func (v NSView) ConvertPointFromLayer(point corefoundation.CGPoint) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointFromLayer:"), point)
-	return corefoundation.CGPoint(rv)
-}
-
-// Converts a size from its pixel aligned backing store coordinate system to
-// the view’s interior coordinate system.
-//
-// size: The size in the pixel aligned coordinate system.
-//
-// # Return Value
-// 
-// The size in the view’s interior coordinate system.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromBacking(_:)-4agf9
-func (v NSView) ConvertSizeFromBacking(size corefoundation.CGSize) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeFromBacking:"), size)
-	return corefoundation.CGSize(rv)
-}
-
-// Converts a point from the view’s interior coordinate system to its pixel
-// aligned backing store coordinate system.
-//
-// point: The point in the view’s interior coordinate system.
-//
-// # Return Value
-// 
-// A point in its pixel aligned backing store coordinate system.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertToBacking(_:)-2xx45
-func (v NSView) ConvertPointToBacking(point corefoundation.CGPoint) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointToBacking:"), point)
-	return corefoundation.CGPoint(rv)
-}
-
-// Convert the rectangle from the layer’s interior coordinate system to the
-// view’s interior coordinate system.
-//
-// rect: A rectangle in the layer’s interior coordinate system.
-//
-// # Return Value
-// 
-// A rectangle in the view’s interior coordinate system.
-//
-// # Discussion
-// 
-// The layer’s space is virtual, and doesn’t take into account the
-// layer’s [contentsScale] setting.
-//
-// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromLayer(_:)-8s5bi
-func (v NSView) ConvertRectFromLayer(rect corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectFromLayer:"), rect)
-	return corefoundation.CGRect(rv)
-}
-
-// Returns a Boolean value that indicates whether the view accepts the initial
-// mouse-down event.
-//
-// event: The initial mouse-down event, which must be over the view in its window.
-//
-// # Discussion
-// 
-// Subclasses can override this method to return [true] if the view should be
-// sent a [MouseDown] message for an initial mouse-down event, [false] if not.
-// 
-// The view can either return a value unconditionally or use the location of
-// `event` to determine whether or not it wants the event. The default
-// implementation ignores `event` and returns [false].
-// 
-// Override this method in a subclass to allow instances to respond to
-// click-through. This allows the user to click on a view in an inactive
-// window, activating the view with one click, instead of clicking first to
-// make the window active and then clicking the view. Most view objects refuse
-// a click-through attempt, so the event simply activates the window. Many
-// control objects, however, such as instances of [NSButton] and [NSSlider],
-// do accept them, so the user can immediately manipulate the control without
-// having to release the mouse button.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/acceptsFirstMouse(for:)
-func (v NSView) AcceptsFirstMouse(event INSEvent) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("acceptsFirstMouse:"), event)
-	return rv
-}
-
-// Converts a rectangle from the view’s interior coordinate system to its
-// pixel aligned backing store coordinate system.
-//
-// rect: A rectangle in the view’s interior coordinate system.
-//
-// # Return Value
-// 
-// A rectangle in its pixel aligned backing store coordinate system.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertToBacking(_:)-3zors
-func (v NSView) ConvertRectToBacking(rect corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectToBacking:"), rect)
-	return corefoundation.CGRect(rv)
-}
-
 // Converts a size from the view’s interior coordinate system to its pixel
 // aligned backing store coordinate system.
 //
@@ -1877,65 +2050,6 @@ func (v NSView) ConvertRectToBacking(rect corefoundation.CGRect) corefoundation.
 func (v NSView) ConvertSizeToBacking(size corefoundation.CGSize) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeToBacking:"), size)
 	return corefoundation.CGSize(rv)
-}
-
-// Returns EPS data that draws the region of the view within a specified
-// rectangle.
-//
-// rect: A rectangle defining the region.
-//
-// # Discussion
-// 
-// This data can be placed on an [NSPasteboard] object, written to a file, or
-// used to create an [NSImage] object.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/dataWithEPS(inside:)
-func (v NSView) DataWithEPSInsideRect(rect corefoundation.CGRect) foundation.INSData {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithEPSInsideRect:"), rect)
-	return foundation.NSDataFromID(rv)
-}
-
-// Convert the size from the view’s interior coordinate system to the
-// layer’s interior coordinate system.
-//
-// rect: A rectangle in the view’s interior coordinate system.
-//
-// # Return Value
-// 
-// A rectangle in the layer’s interior coordinate system.
-//
-// # Discussion
-// 
-// The layer’s space is virtual, and doesn’t take into account the
-// layer’s [contentsScale] setting.
-//
-// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertToLayer(_:)-160pw
-func (v NSView) ConvertRectToLayer(rect corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectToLayer:"), rect)
-	return corefoundation.CGRect(rv)
-}
-
-// Called after a contextual menu that was displayed from the receiving view
-// has been closed.
-//
-// menu: The menu that was closed.
-//
-// event: The event that caused the menu to close, if there was one. If an event did
-// not cause the menu to close, this value is `nil`.
-//
-// # Discussion
-// 
-// This method is called only if the contextual menu had been opened and the
-// view has previously received the [WillOpenMenuWithEvent] method. When the
-// view receives [DidCloseMenuWithEvent], it should reset its visual state, if
-// necessary. For example, if a table view selected a row in response to a
-// contextual menu being displayed, this method could deselect the row.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/didCloseMenu(_:with:)
-func (v NSView) DidCloseMenuWithEvent(menu INSMenu, event INSEvent) {
-	objc.Send[objc.ID](v.ID, objc.Sel("didCloseMenu:withEvent:"), menu, event)
 }
 
 // Convert the size from the view’s interior coordinate system to the
@@ -1963,61 +2077,63 @@ func (v NSView) ConvertSizeToLayer(size corefoundation.CGSize) corefoundation.CG
 	return corefoundation.CGSize(rv)
 }
 
-// Invalidates all cursor rectangles set up using [AddCursorRectCursor].
+// Converts a size from the view’s coordinate system to that of another
+// view.
 //
-// # Discussion
-// 
-// You need never invoke this method directly; neither is it typically invoked
-// during the invalidation of cursor rectangles. [NSWindow] automatically
-// invalidates cursor rectangles in response to [InvalidateCursorRectsForView]
-// and before the view’s cursor rectangles are reestablished using
-// [ResetCursorRects]. This method is invoked just before the view is removed
-// from a window and when the view is deallocated.
+// size: The size (width and height) in the view’s coordinate system.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/discardCursorRects()
-func (v NSView) DiscardCursorRects() {
-	objc.Send[objc.ID](v.ID, objc.Sel("discardCursorRects"))
-}
-
-// Convert the size from the view’s interior coordinate system to the
-// layer’s interior coordinate system.
-//
-// point: A point in the view’s interior coordinate system.
+// view: The view that’s the target of the conversion operation. Both `view` and
+// the view must belong to the same [NSWindow] object, and that window must
+// not be `nil`. If `view` is `nil`, this method converts to window
+// coordinates instead.
 //
 // # Return Value
 // 
-// A point in the view’s layer interior coordinate system.
+// The converted size, as an [NSSize] structure.
+//
+// [NSSize]: https://developer.apple.com/documentation/Foundation/NSSize
 //
 // # Discussion
 // 
-// The layer’s space is virtual, and doesn’t take into account the
-// layer’s [contentsScale] setting.
+// The returned [NSSize] values are always forced to have positive a width and
+// height.
 //
-// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertToLayer(_:)-44u7d
-func (v NSView) ConvertPointToLayer(point corefoundation.CGPoint) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointToLayer:"), point)
-	return corefoundation.CGPoint(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:to:)-5nptx
+func (v NSView) ConvertSizeToView(size corefoundation.CGSize, view INSView) corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSize:toView:"), size, view)
+	return corefoundation.CGSize(rv)
 }
 
-// Displays the view and all its subviews if any part of the view has been
-// marked as needing display.
+// Returns EPS data that draws the region of the view within a specified
+// rectangle.
+//
+// rect: A rectangle defining the region.
 //
 // # Discussion
 // 
-// This method invokes the [NSView] methods [lockFocus()], [DrawRect], and
-// [unlockFocus()] as necessary. If the view isn’t opaque, this method backs
-// up the view hierarchy to the first opaque ancestor, calculates the portion
-// of the opaque ancestor covered by the view, and begins displaying from
-// there.
+// This data can be placed on an [NSPasteboard] object, written to a file, or
+// used to create an [NSImage] object.
 //
-// [lockFocus()]: https://developer.apple.com/documentation/AppKit/NSView/lockFocus()
-// [unlockFocus()]: https://developer.apple.com/documentation/AppKit/NSView/unlockFocus()
+// See: https://developer.apple.com/documentation/AppKit/NSView/dataWithEPS(inside:)
+func (v NSView) DataWithEPSInsideRect(rect corefoundation.CGRect) foundation.INSData {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithEPSInsideRect:"), rect)
+	return foundation.NSDataFromID(rv)
+}
+
+// Returns PDF data that draws the region of the view within a specified
+// rectangle.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/displayIfNeeded()
-func (v NSView) DisplayIfNeeded() {
-	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeeded"))
+// rect: A rectangle defining the region.
+//
+// # Discussion
+// 
+// This data can be placed on an [NSPasteboard] object, written to a file, or
+// used to create an [NSImage] object.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/dataWithPDF(inside:)
+func (v NSView) DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.INSData {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithPDFInsideRect:"), rect)
+	return foundation.NSDataFromID(rv)
 }
 
 // Overridden by subclasses to perform additional actions when subviews are
@@ -2032,6 +2148,43 @@ func (v NSView) DisplayIfNeeded() {
 // See: https://developer.apple.com/documentation/AppKit/NSView/didAddSubview(_:)
 func (v NSView) DidAddSubview(subview INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("didAddSubview:"), subview)
+}
+
+// Called after a contextual menu that was displayed from the receiving view
+// has been closed.
+//
+// menu: The menu that was closed.
+//
+// event: The event that caused the menu to close, if there was one. If an event did
+// not cause the menu to close, this value is `nil`.
+//
+// # Discussion
+// 
+// This method is called only if the contextual menu had been opened and the
+// view has previously received the [WillOpenMenuWithEvent] method. When the
+// view receives [DidCloseMenuWithEvent], it should reset its visual state, if
+// necessary. For example, if a table view selected a row in response to a
+// contextual menu being displayed, this method could deselect the row.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/didCloseMenu(_:with:)
+func (v NSView) DidCloseMenuWithEvent(menu INSMenu, event INSEvent) {
+	objc.Send[objc.ID](v.ID, objc.Sel("didCloseMenu:withEvent:"), menu, event)
+}
+
+// Invalidates all cursor rectangles set up using [AddCursorRectCursor].
+//
+// # Discussion
+// 
+// You need never invoke this method directly; neither is it typically invoked
+// during the invalidation of cursor rectangles. [NSWindow] automatically
+// invalidates cursor rectangles in response to [InvalidateCursorRectsForView]
+// and before the view’s cursor rectangles are reestablished using
+// [ResetCursorRects]. This method is invoked just before the view is removed
+// from a window and when the view is deallocated.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/discardCursorRects()
+func (v NSView) DiscardCursorRects() {
+	objc.Send[objc.ID](v.ID, objc.Sel("discardCursorRects"))
 }
 
 // Displays the view and all its subviews if possible, invoking each of the
@@ -2052,15 +2205,23 @@ func (v NSView) Display() {
 	objc.Send[objc.ID](v.ID, objc.Sel("display"))
 }
 
-// Acts as [Display], but confining drawing to a rectangular region of the
-// view.
+// Displays the view and all its subviews if any part of the view has been
+// marked as needing display.
 //
-// rect: A rectangle defining the region of the view to be redrawn; it should be
-// specified in the coordinate system of the view.
+// # Discussion
+// 
+// This method invokes the [NSView] methods [lockFocus()], [DrawRect], and
+// [unlockFocus()] as necessary. If the view isn’t opaque, this method backs
+// up the view hierarchy to the first opaque ancestor, calculates the portion
+// of the opaque ancestor covered by the view, and begins displaying from
+// there.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/display(_:)
-func (v NSView) DisplayRect(rect corefoundation.CGRect) {
-	objc.Send[objc.ID](v.ID, objc.Sel("displayRect:"), rect)
+// [lockFocus()]: https://developer.apple.com/documentation/AppKit/NSView/lockFocus()
+// [unlockFocus()]: https://developer.apple.com/documentation/AppKit/NSView/unlockFocus()
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/displayIfNeeded()
+func (v NSView) DisplayIfNeeded() {
+	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeeded"))
 }
 
 // Acts as [DisplayIfNeeded], except that this method doesn’t back up to the
@@ -2083,13 +2244,6 @@ func (v NSView) DisplayIfNeededInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededInRect:"), rect)
 }
 
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/displayLink(target:selector:)
-func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("displayLinkWithTarget:selector:"), target, selector)
-	return objectivec.Object{ID: rv}
-}
-
 // Acts as [DisplayIfNeeded], but confining drawing to `aRect` and not backing
 // up to the first opaque ancestor—it simply causes the view and its
 // descendants to execute their drawing code.
@@ -2100,6 +2254,185 @@ func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selecto
 // See: https://developer.apple.com/documentation/AppKit/NSView/displayIfNeededIgnoringOpacity(_:)
 func (v NSView) DisplayIfNeededInRectIgnoringOpacity(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededInRectIgnoringOpacity:"), rect)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/displayLink(target:selector:)
+func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("displayLinkWithTarget:selector:"), target, selector)
+	return objectivec.Object{ID: rv}
+}
+
+// Acts as [Display], but confining drawing to a rectangular region of the
+// view.
+//
+// rect: A rectangle defining the region of the view to be redrawn; it should be
+// specified in the coordinate system of the view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/display(_:)
+func (v NSView) DisplayRect(rect corefoundation.CGRect) {
+	objc.Send[objc.ID](v.ID, objc.Sel("displayRect:"), rect)
+}
+
+// Displays the view but confines drawing to a specified region and does not
+// back up to the first opaque ancestor—it simply causes the view and its
+// descendants to execute their drawing code.
+//
+// rect: A rectangle defining the region of the view to be redrawn; it should be
+// specified in the coordinate system of the view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/displayIgnoringOpacity(_:)
+func (v NSView) DisplayRectIgnoringOpacity(rect corefoundation.CGRect) {
+	objc.Send[objc.ID](v.ID, objc.Sel("displayRectIgnoringOpacity:"), rect)
+}
+
+// Causes the view and its descendants to be redrawn to the specified graphics
+// context.
+//
+// rect: A rectangle defining the region of the view to be redrawn. It should be
+// specified in the coordinate system of the view.
+//
+// context: The graphics context in which drawing will occur. See the discussion below
+// for more about this parameter.
+//
+// # Discussion
+// 
+// Acts as [Display], but confines drawing to `aRect`. This method initiates
+// drawing with the view, even if the view is not opaque. Appropriate scaling
+// factors for the view are obtained from `context`.
+// 
+// If the `context` parameter represents the context for the window containing
+// the view, then all of the necessary transformations are applied. This
+// includes the application of the view’s bounds and frame transforms along
+// with any transforms it inherited from its ancestors. In this situation, the
+// view is also marked as no longer needing an update for the specified
+// rectangle.
+// 
+// If `context` specifies any other graphics context, then only the view’s
+// bounds transform is applied. This means that drawing is not constrained to
+// the view’s visible rectangle. It also means that any dirty rectangles are
+// not cleared, since they are not being redrawn to the window.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/displayIgnoringOpacity(_:in:)
+func (v NSView) DisplayRectIgnoringOpacityInContext(rect corefoundation.CGRect, context INSGraphicsContext) {
+	objc.Send[objc.ID](v.ID, objc.Sel("displayRectIgnoringOpacity:inContext:"), rect, context)
+}
+
+// Called when a drag operation ends.
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// # Discussion
+// 
+// Implement this method if you want to be notified when a drag operation
+// ends, which can be useful if the drag ends in some other destination. For
+// example, this method might be used by a destination doing auto-expansion in
+// order to collapse any auto-expands.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingEnded(_:)
+func (v NSView) DraggingEnded(sender NSDraggingInfo) {
+	objc.Send[objc.ID](v.ID, objc.Sel("draggingEnded:"), sender)
+}
+
+// Invoked when the dragged image enters destination bounds or frame; delegate
+// returns dragging operation to perform.
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// # Return Value
+// 
+// One (and only one) of the dragging operation constants described in
+// [NSDragOperation] in the [NSDraggingInfo] reference. The default return
+// value (if this method is not implemented by the destination) is the value
+// returned by the previous [DraggingEntered] message.
+//
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
+//
+// # Discussion
+// 
+// Invoked when a dragged image enters the destination but only if the
+// destination has registered for the pasteboard data type involved in the
+// drag operation. Specifically, this method is invoked when the mouse pointer
+// enters the destination’s bounds rectangle (if it is a view object) or its
+// frame rectangle (if it is a window object).
+// 
+// This method must return a value that indicates which dragging operation the
+// destination will perform when the image is released. In deciding which
+// dragging operation to return, the method should evaluate the overlap
+// between both the dragging operations allowed by the source (obtained from
+// `sender` with the [DraggingSourceOperationMask] method) and the dragging
+// operations and pasteboard data types the destination itself supports.
+// 
+// If none of the operations is appropriate, this method should return
+// [NSDragOperationNone] (this is the default response if the method is not
+// implemented by the destination). A destination will still receive
+// [DraggingUpdated] and [DraggingExited] even if [NSDragOperationNone] is
+// returned by this method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingEntered(_:)
+func (v NSView) DraggingEntered(sender NSDraggingInfo) NSDragOperation {
+	rv := objc.Send[NSDragOperation](v.ID, objc.Sel("draggingEntered:"), sender)
+	return NSDragOperation(rv)
+}
+
+// Invoked when the dragged image exits the destination’s bounds rectangle
+// (in the case of a view object) or its frame rectangle (in the case of a
+// window object).
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingExited(_:)
+func (v NSView) DraggingExited(sender NSDraggingInfo) {
+	objc.Send[objc.ID](v.ID, objc.Sel("draggingExited:"), sender)
+}
+
+// Invoked periodically as the image is held within the destination area,
+// allowing modification of the dragging operation or mouse-pointer position.
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// # Return Value
+// 
+// One (and only one) of the dragging operation constants described in
+// [NSDragOperation] in the [NSDraggingInfo] reference. The default return
+// value (if this method is not implemented by the destination) is the value
+// returned by the previous [DraggingEntered] message.
+//
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
+//
+// # Discussion
+// 
+// For this to be invoked, the destination must have registered for the
+// pasteboard data type involved in the drag operation. The messages continue
+// until the image is either released or dragged out of the window or view.
+// 
+// This method provides the destination with an opportunity to modify the
+// dragging operation depending on the position of the mouse pointer inside of
+// the destination view or window object. For example, you may have several
+// graphics or areas of text contained within the same view and wish to tailor
+// the dragging operation, or to ignore the drag event completely, depending
+// upon which object is underneath the mouse pointer at the time when the user
+// releases the dragged image and the [PerformDragOperation] method is
+// invoked.
+// 
+// You typically examine the contents of the pasteboard in the
+// [DraggingEntered] method, where this examination is performed only once,
+// rather than in the [DraggingUpdated] method, which is invoked multiple
+// times.
+// 
+// Only one destination at a time receives a sequence of [DraggingUpdated]
+// messages. If the mouse pointer is within the bounds of two overlapping
+// views that are both valid destinations, the uppermost view receives these
+// messages until the image is either released or dragged out.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingUpdated(_:)
+func (v NSView) DraggingUpdated(sender NSDraggingInfo) NSDragOperation {
+	rv := objc.Send[NSDragOperation](v.ID, objc.Sel("draggingUpdated:"), sender)
+	return NSDragOperation(rv)
 }
 
 // Draws the focus ring mask for the view.
@@ -2125,49 +2458,6 @@ func (v NSView) DrawFocusRingMask() {
 	objc.Send[objc.ID](v.ID, objc.Sel("drawFocusRingMask"))
 }
 
-// Displays the view but confines drawing to a specified region and does not
-// back up to the first opaque ancestor—it simply causes the view and its
-// descendants to execute their drawing code.
-//
-// rect: A rectangle defining the region of the view to be redrawn; it should be
-// specified in the coordinate system of the view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/displayIgnoringOpacity(_:)
-func (v NSView) DisplayRectIgnoringOpacity(rect corefoundation.CGRect) {
-	objc.Send[objc.ID](v.ID, objc.Sel("displayRectIgnoringOpacity:"), rect)
-}
-
-// Returns PDF data that draws the region of the view within a specified
-// rectangle.
-//
-// rect: A rectangle defining the region.
-//
-// # Discussion
-// 
-// This data can be placed on an [NSPasteboard] object, written to a file, or
-// used to create an [NSImage] object.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/dataWithPDF(inside:)
-func (v NSView) DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.INSData {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithPDFInsideRect:"), rect)
-	return foundation.NSDataFromID(rv)
-}
-
-// Converts a rectangle from its pixel aligned backing store coordinate system
-// to the view’s interior coordinate system.
-//
-// rect: The rectangle in the pixel backing store coordinate system.
-//
-// # Return Value
-// 
-// A rectangle in the view’s interior coordinate system.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromBacking(_:)-2njpa
-func (v NSView) ConvertRectFromBacking(rect corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectFromBacking:"), rect)
-	return corefoundation.CGRect(rv)
-}
-
 // Allows applications that use the AppKit pagination facility to draw
 // additional marks on each logical page.
 //
@@ -2181,69 +2471,6 @@ func (v NSView) ConvertRectFromBacking(rect corefoundation.CGRect) corefoundatio
 // See: https://developer.apple.com/documentation/AppKit/NSView/drawPageBorder(with:)
 func (v NSView) DrawPageBorderWithSize(borderSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("drawPageBorderWithSize:"), borderSize)
-}
-
-// This method is invoked at the end of the printing session.
-//
-// # Discussion
-// 
-// If you override this method, call the superclass implementation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/endDocument()
-func (v NSView) EndDocument() {
-	objc.Send[objc.ID](v.ID, objc.Sel("endDocument"))
-}
-
-// Writes the end of a conforming page.
-//
-// # Discussion
-// 
-// This method is invoked after each page is printed. It invokes
-// [unlockFocus()]. This method also generates comments for the bounding box
-// and page fonts, if they were specified as being at the end of the page.
-//
-// [unlockFocus()]: https://developer.apple.com/documentation/AppKit/NSView/unlockFocus()
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/endPage()
-func (v NSView) EndPage() {
-	objc.Send[objc.ID](v.ID, objc.Sel("endPage"))
-}
-
-// Randomly changes the frame of a view with an ambiguous layout between the
-// different valid values.
-//
-// # Discussion
-// 
-// This method randomly changes the frame of a view with an ambiguous layout
-// between its different valid values, causing the view to move in the
-// interface. This makes it easy to visually identify what the valid frames
-// are and may enable the developer to discern what constraints need to be
-// added to the layout to fully specify a location for the view.
-// 
-// This method should only be used for debugging constraint-based layout. No
-// application should ship with calls to this method as part of its operation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/exerciseAmbiguityInLayout()
-func (v NSView) ExerciseAmbiguityInLayout() {
-	objc.Send[objc.ID](v.ID, objc.Sel("exerciseAmbiguityInLayout"))
-}
-
-// Instructs the view to exit full screen mode.
-//
-// options: A dictionary of options for the mode. For possible keys, see `Full Screen
-// Mode Options`.
-//
-// # Discussion
-// 
-// When the [fullScreenModeApplicationPresentationOptions] options is
-// specified when [EnterFullScreenModeWithOptions] is invoked, exiting full
-// screen mode will restore the previously active [PresentationOptions].
-//
-// [fullScreenModeApplicationPresentationOptions]: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey/fullScreenModeApplicationPresentationOptions
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/exitFullScreenMode(options:)
-func (v NSView) ExitFullScreenModeWithOptions(options foundation.INSDictionary) {
-	objc.Send[objc.ID](v.ID, objc.Sel("exitFullScreenModeWithOptions:"), options)
 }
 
 // Overridden by subclasses to draw the view’s image within the specified
@@ -2284,6 +2511,32 @@ func (v NSView) ExitFullScreenModeWithOptions(options foundation.INSDictionary) 
 // See: https://developer.apple.com/documentation/AppKit/NSView/draw(_:)
 func (v NSView) DrawRect(dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("drawRect:"), dirtyRect)
+}
+
+// This method is invoked at the end of the printing session.
+//
+// # Discussion
+// 
+// If you override this method, call the superclass implementation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/endDocument()
+func (v NSView) EndDocument() {
+	objc.Send[objc.ID](v.ID, objc.Sel("endDocument"))
+}
+
+// Writes the end of a conforming page.
+//
+// # Discussion
+// 
+// This method is invoked after each page is printed. It invokes
+// [unlockFocus()]. This method also generates comments for the bounding box
+// and page fonts, if they were specified as being at the end of the page.
+//
+// [unlockFocus()]: https://developer.apple.com/documentation/AppKit/NSView/unlockFocus()
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/endPage()
+func (v NSView) EndPage() {
+	objc.Send[objc.ID](v.ID, objc.Sel("endPage"))
 }
 
 // Sets the view to full screen mode.
@@ -2330,6 +2583,43 @@ func (v NSView) EnterFullScreenModeWithOptions(screen INSScreen, options foundat
 	return rv
 }
 
+// Randomly changes the frame of a view with an ambiguous layout between the
+// different valid values.
+//
+// # Discussion
+// 
+// This method randomly changes the frame of a view with an ambiguous layout
+// between its different valid values, causing the view to move in the
+// interface. This makes it easy to visually identify what the valid frames
+// are and may enable the developer to discern what constraints need to be
+// added to the layout to fully specify a location for the view.
+// 
+// This method should only be used for debugging constraint-based layout. No
+// application should ship with calls to this method as part of its operation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/exerciseAmbiguityInLayout()
+func (v NSView) ExerciseAmbiguityInLayout() {
+	objc.Send[objc.ID](v.ID, objc.Sel("exerciseAmbiguityInLayout"))
+}
+
+// Instructs the view to exit full screen mode.
+//
+// options: A dictionary of options for the mode. For possible keys, see `Full Screen
+// Mode Options`.
+//
+// # Discussion
+// 
+// When the [fullScreenModeApplicationPresentationOptions] options is
+// specified when [EnterFullScreenModeWithOptions] is invoked, exiting full
+// screen mode will restore the previously active [PresentationOptions].
+//
+// [fullScreenModeApplicationPresentationOptions]: https://developer.apple.com/documentation/AppKit/NSView/FullScreenModeOptionKey/fullScreenModeApplicationPresentationOptions
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/exitFullScreenMode(options:)
+func (v NSView) ExitFullScreenModeWithOptions(options foundation.INSDictionary) {
+	objc.Send[objc.ID](v.ID, objc.Sel("exitFullScreenModeWithOptions:"), options)
+}
+
 // Returns the view’s frame for a given alignment rectangle.
 //
 // alignmentRect: The alignment rectangle whose corresponding frame is desired.
@@ -2360,69 +2650,6 @@ func (v NSView) EnterFullScreenModeWithOptions(screen INSScreen, options foundat
 func (v NSView) FrameForAlignmentRect(alignmentRect corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("frameForAlignmentRect:"), alignmentRect)
 	return corefoundation.CGRect(rv)
-}
-
-// Causes the view and its descendants to be redrawn to the specified graphics
-// context.
-//
-// rect: A rectangle defining the region of the view to be redrawn. It should be
-// specified in the coordinate system of the view.
-//
-// context: The graphics context in which drawing will occur. See the discussion below
-// for more about this parameter.
-//
-// # Discussion
-// 
-// Acts as [Display], but confines drawing to `aRect`. This method initiates
-// drawing with the view, even if the view is not opaque. Appropriate scaling
-// factors for the view are obtained from `context`.
-// 
-// If the `context` parameter represents the context for the window containing
-// the view, then all of the necessary transformations are applied. This
-// includes the application of the view’s bounds and frame transforms along
-// with any transforms it inherited from its ancestors. In this situation, the
-// view is also marked as no longer needing an update for the specified
-// rectangle.
-// 
-// If `context` specifies any other graphics context, then only the view’s
-// bounds transform is applied. This means that drawing is not constrained to
-// the view’s visible rectangle. It also means that any dirty rectangles are
-// not cleared, since they are not being redrawn to the window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/displayIgnoringOpacity(_:in:)
-func (v NSView) DisplayRectIgnoringOpacityInContext(rect corefoundation.CGRect, context INSGraphicsContext) {
-	objc.Send[objc.ID](v.ID, objc.Sel("displayRectIgnoringOpacity:inContext:"), rect, context)
-}
-
-// Returns a list of rectangles indicating the newly exposed areas of the
-// view.
-//
-// exposedRects: On return, contains the list of rectangles. The returned rectangles are in
-// the coordinate space of the view.
-//
-// count: Contains the number of rectangles in `exposedRects`; this value may be 0
-// and is guaranteed to be no more than 4.
-//
-// # Discussion
-// 
-// If your view does not support content preservation during live resizing,
-// the entire area of your view is returned in the `exposedRects` parameter.
-// To support content preservation, override the
-// [preservesContentDuringLiveResize] property in your view and have your
-// implementation return [true].
-// 
-// If the view decreased in both height and width, the list of returned
-// rectangles will be empty. If the view increased in both height and width
-// and its upper-left corner stayed anchored in the same position, the list of
-// returned rectangles will contain a vertical and horizontal component
-// indicating the exposed area.
-//
-// [preservesContentDuringLiveResize]: https://developer.apple.com/documentation/AppKit/NSView/preservesContentDuringLiveResize
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/getRectsExposedDuringLiveResize(_:count:)
-func (v NSView) GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count int) {
-	objc.Send[objc.ID](v.ID, objc.Sel("getRectsExposedDuringLiveResize:count:"), objc.CArray(exposedRects), count)
 }
 
 // Returns by indirection a list of nonoverlapping rectangles that define the
@@ -2456,6 +2683,37 @@ func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count int
 	objc.Send[objc.ID](v.ID, objc.Sel("getRectsBeingDrawn:count:"), objc.CArray(rects), count)
 }
 
+// Returns a list of rectangles indicating the newly exposed areas of the
+// view.
+//
+// exposedRects: On return, contains the list of rectangles. The returned rectangles are in
+// the coordinate space of the view.
+//
+// count: Contains the number of rectangles in `exposedRects`; this value may be 0
+// and is guaranteed to be no more than 4.
+//
+// # Discussion
+// 
+// If your view does not support content preservation during live resizing,
+// the entire area of your view is returned in the `exposedRects` parameter.
+// To support content preservation, override the
+// [preservesContentDuringLiveResize] property in your view and have your
+// implementation return [true].
+// 
+// If the view decreased in both height and width, the list of returned
+// rectangles will be empty. If the view increased in both height and width
+// and its upper-left corner stayed anchored in the same position, the list of
+// returned rectangles will contain a vertical and horizontal component
+// indicating the exposed area.
+//
+// [preservesContentDuringLiveResize]: https://developer.apple.com/documentation/AppKit/NSView/preservesContentDuringLiveResize
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/getRectsExposedDuringLiveResize(_:count:)
+func (v NSView) GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count int) {
+	objc.Send[objc.ID](v.ID, objc.Sel("getRectsExposedDuringLiveResize:count:"), objc.CArray(exposedRects), count)
+}
+
 // Returns the farthest descendant of the view in the view hierarchy
 // (including itself) that contains a specified point, or `nil` if that point
 // lies completely outside the view.
@@ -2478,6 +2736,43 @@ func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count int
 func (v NSView) HitTest(point corefoundation.CGPoint) INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("hitTest:"), point)
 	return NSViewFromID(rv)
+}
+
+// Invalidates the view’s intrinsic content size.
+//
+// # Discussion
+// 
+// Call this when something changes in your custom view that invalidates its
+// intrinsic content size. This allows the constraint-based layout system to
+// take the new intrinsic content size into account in its next layout pass.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/invalidateIntrinsicContentSize()
+func (v NSView) InvalidateIntrinsicContentSize() {
+	objc.Send[objc.ID](v.ID, objc.Sel("invalidateIntrinsicContentSize"))
+}
+
+// Returns a Boolean value that indicates whether the view is a subview of the
+// specified view.
+//
+// view: The view to test for subview relationship within the view hierarchy.
+//
+// # Return Value
+// 
+// [true] if the view is a subview, or distant subview, of the specified view.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// The method returns [true] if the view is either an immediate or distant
+// subview of `aView`.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/isDescendant(of:)
+func (v NSView) IsDescendantOf(view INSView) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("isDescendantOf:"), view)
+	return rv
 }
 
 // Returns a Boolean value that indicates whether the view handles page
@@ -2506,79 +2801,6 @@ func (v NSView) HitTest(point corefoundation.CGPoint) INSView {
 // See: https://developer.apple.com/documentation/AppKit/NSView/knowsPageRange(_:)
 func (v NSView) KnowsPageRange(range_ foundation.NSRange) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("knowsPageRange:"), range_)
-	return rv
-}
-
-// Returns a Boolean value that indicates whether the view is a subview of the
-// specified view.
-//
-// view: The view to test for subview relationship within the view hierarchy.
-//
-// # Return Value
-// 
-// [true] if the view is a subview, or distant subview, of the specified view.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// The method returns [true] if the view is either an immediate or distant
-// subview of `aView`.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/isDescendant(of:)
-func (v NSView) IsDescendantOf(view INSView) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("isDescendantOf:"), view)
-	return rv
-}
-
-// Invalidates the view’s intrinsic content size.
-//
-// # Discussion
-// 
-// Call this when something changes in your custom view that invalidates its
-// intrinsic content size. This allows the constraint-based layout system to
-// take the new intrinsic content size into account in its next layout pass.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/invalidateIntrinsicContentSize()
-func (v NSView) InvalidateIntrinsicContentSize() {
-	objc.Send[objc.ID](v.ID, objc.Sel("invalidateIntrinsicContentSize"))
-}
-
-// Returns whether a region of the view contains a specified point, accounting
-// for whether the view is flipped or not.
-//
-// point: A point that is expressed in the view’s coordinate system. This point
-// generally represents the hot spot of the mouse cursor.
-//
-// rect: A rectangle that is expressed in the view’s coordinate system.
-//
-// # Return Value
-// 
-// [true] if `aRect` contains `aPoint`, [false] otherwise.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// Point-in-rectangle functions generally assume that the bottom edge of a
-// rectangle is outside of the rectangle boundaries, while the upper edge is
-// inside the boundaries. This method views `aRect` from the point of view of
-// the user—that is, this method always treats the bottom edge of the
-// rectangle as the one closest to the bottom edge of the user’s screen. By
-// making this adjustment, this function ensures consistent mouse-detection
-// behavior from the user’s perspective.
-// 
-// Never use the Foundation’s [NSPointInRect(_:_:)] function as a substitute
-// for this method. It doesn’t account for flipped coordinate systems.
-//
-// [NSPointInRect(_:_:)]: https://developer.apple.com/documentation/Foundation/NSPointInRect(_:_:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/isMousePoint(_:in:)
-func (v NSView) MouseInRect(point corefoundation.CGPoint, rect corefoundation.CGRect) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("mouse:inRect:"), point, rect)
 	return rv
 }
 
@@ -2624,6 +2846,36 @@ func (v NSView) LayoutSubtreeIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("layoutSubtreeIfNeeded"))
 }
 
+// Invoked by [Print] to determine the location of the region of the view
+// being printed on the physical page.
+//
+// rect: A rectangle defining a region of the view; it is expressed in the default
+// coordinate system of the page.
+//
+// # Return Value
+// 
+// A point to be used for setting the origin for `aRect`, whose size the view
+// can examine in order to properly place it. It is expressed in the default
+// coordinate system of the page.
+//
+// # Discussion
+// 
+// The default implementation places `aRect` according to the status of the
+// [NSPrintInfo] object for the print job. By default it places the image in
+// the upper-left corner of the page, but if the [NSPrintInfo] methods
+// [HorizontallyCentered] or [VerticallyCentered] return [true], it centers a
+// single-page image along the appropriate axis. A multiple-page document,
+// however, is always placed so the divided pieces can be assembled at their
+// edges.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/locationOfPrintRect(_:)
+func (v NSView) LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.CGPoint {
+	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("locationOfPrintRect:"), rect)
+	return corefoundation.CGPoint(rv)
+}
+
 // Creates the view’s backing layer.
 //
 // # Return Value
@@ -2634,6 +2886,63 @@ func (v NSView) LayoutSubtreeIfNeeded() {
 func (v NSView) MakeBackingLayer() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeBackingLayer"))
 	return objectivec.Object{ID: rv}
+}
+
+// Overridden by subclasses to return a context-sensitive pop-up menu for a
+// given mouse-down event.
+//
+// event: An object representing a mouse-down event.
+//
+// # Discussion
+// 
+// The view can use information in the mouse event, such as its location over
+// a particular element of the view, to determine what kind of menu to return.
+// For example, a text object might display a text-editing menu when the
+// cursor lies over text and a menu for changing graphics attributes when the
+// cursor lies over an embedded image.
+// 
+// The default implementation returns the view’s normal menu.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/menu(for:)
+func (v NSView) MenuForEvent(event INSEvent) INSMenu {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("menuForEvent:"), event)
+	return NSMenuFromID(rv)
+}
+
+// Returns whether a region of the view contains a specified point, accounting
+// for whether the view is flipped or not.
+//
+// point: A point that is expressed in the view’s coordinate system. This point
+// generally represents the hot spot of the mouse cursor.
+//
+// rect: A rectangle that is expressed in the view’s coordinate system.
+//
+// # Return Value
+// 
+// [true] if `aRect` contains `aPoint`, [false] otherwise.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// Point-in-rectangle functions generally assume that the bottom edge of a
+// rectangle is outside of the rectangle boundaries, while the upper edge is
+// inside the boundaries. This method views `aRect` from the point of view of
+// the user—that is, this method always treats the bottom edge of the
+// rectangle as the one closest to the bottom edge of the user’s screen. By
+// making this adjustment, this function ensures consistent mouse-detection
+// behavior from the user’s perspective.
+// 
+// Never use the Foundation’s [NSPointInRect(_:_:)] function as a substitute
+// for this method. It doesn’t account for flipped coordinate systems.
+//
+// [NSPointInRect(_:_:)]: https://developer.apple.com/documentation/Foundation/NSPointInRect(_:_:)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/isMousePoint(_:in:)
+func (v NSView) MouseInRect(point corefoundation.CGPoint, rect corefoundation.CGRect) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("mouse:inRect:"), point, rect)
+	return rv
 }
 
 // Returns a Boolean value indicating whether the specified rectangle
@@ -2680,6 +2989,40 @@ func (v NSView) NoteFocusRingMaskChanged() {
 	objc.Send[objc.ID](v.ID, objc.Sel("noteFocusRingMaskChanged"))
 }
 
+// Invoked after the released image has been removed from the screen,
+// signaling the receiver to import the pasteboard data.
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// # Return Value
+// 
+// If the destination accepts the data, it returns [true]; otherwise it
+// returns [false]. The default is to return [false].
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// For this method to be invoked, the previous [PrepareForDragOperation]
+// message must have returned [true]. The destination should implement this
+// method to do the real work of importing the pasteboard data represented by
+// the image.
+// 
+// If the sender object’s [AnimatesToDestination] was set to [true] in
+// [PrepareForDragOperation], then setup any animation to arrange space for
+// the drag items to animate to. Also at this time, enumerate through the
+// dragging items to set their destination frames and destination images.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/performDragOperation(_:)
+func (v NSView) PerformDragOperation(sender NSDraggingInfo) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("performDragOperation:"), sender)
+	return rv
+}
+
 // Prepares the overdraw region for drawing.
 //
 // rect: The current overdraw region, specified in the view’s coordinate system.
@@ -2718,6 +3061,38 @@ func (v NSView) PrepareContentInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("prepareContentInRect:"), rect)
 }
 
+// Invoked when the image is released, allowing the receiver to agree to or
+// refuse drag operation.
+//
+// sender: The object sending the message; use it to get details about the dragging
+// operation.
+//
+// # Return Value
+// 
+// [true] if the receiver agrees to perform the drag operation and [false] if
+// not.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// This method is invoked only if the most recent [DraggingEntered] or
+// [DraggingUpdated] message returned an acceptable drag-operation value.
+// 
+// If you want the drag items to animate from their current location on screen
+// to their final location in your view, set the sender object’s
+// [AnimatesToDestination] property to [true] in your implementation of this
+// method.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/prepareForDragOperation(_:)
+func (v NSView) PrepareForDragOperation(sender NSDraggingInfo) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("prepareForDragOperation:"), sender)
+	return rv
+}
+
 // This action method opens the Print panel, and if the user chooses an option
 // other than canceling, prints the view and all its subviews to the device
 // specified in the Print panel.
@@ -2727,6 +3102,37 @@ func (v NSView) PrepareContentInRect(rect corefoundation.CGRect) {
 // See: https://developer.apple.com/documentation/AppKit/NSView/printView(_:)
 func (v NSView) Print(sender objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("print:"), sender)
+}
+
+// Implemented by subclasses to determine the portion of the view to be
+// printed for the specified page number.
+//
+// page: An integer indicating a page number. Page numbers are one-based—that is
+// pages run from one to .
+//
+// # Return Value
+// 
+// A rectangle defining the region of the view to be printed for `pageNumber`.
+// This method returns [NSZeroRect] if `pageNumber` is outside the view’s
+// bounds.
+//
+// # Discussion
+// 
+// If the view responded [true] to an earlier [KnowsPageRange] message, this
+// method is invoked for each page it specified in the out parameters of that
+// message. The view is later made to display this rectangle in order to
+// generate the image for this page.
+// 
+// If an [NSView] object responds [false] to [KnowsPageRange], this method
+// isn’t invoked by the printing mechanism.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/rectForPage(_:)
+func (v NSView) RectForPage(page int) corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectForPage:"), page)
+	return corefoundation.CGRect(rv)
 }
 
 // Returns the appropriate rectangle to use when magnifying around the
@@ -2771,56 +3177,19 @@ func (v NSView) RectForSmartMagnificationAtPointInRect(location corefoundation.C
 	return corefoundation.CGRect(rv)
 }
 
-// Overridden by subclasses to return a context-sensitive pop-up menu for a
-// given mouse-down event.
+// Notifies a clip view’s superview that either the clip view’s bounds
+// rectangle or the document view’s frame rectangle has changed, and that
+// any indicators of the scroll position need to be adjusted.
 //
-// event: An object representing a mouse-down event.
-//
-// # Discussion
-// 
-// The view can use information in the mouse event, such as its location over
-// a particular element of the view, to determine what kind of menu to return.
-// For example, a text object might display a text-editing menu when the
-// cursor lies over text and a menu for changing graphics attributes when the
-// cursor lies over an embedded image.
-// 
-// The default implementation returns the view’s normal menu.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/menu(for:)
-func (v NSView) MenuForEvent(event INSEvent) INSMenu {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("menuForEvent:"), event)
-	return NSMenuFromID(rv)
-}
-
-// Implemented by subclasses to determine the portion of the view to be
-// printed for the specified page number.
-//
-// page: An integer indicating a page number. Page numbers are one-based—that is
-// pages run from one to .
-//
-// # Return Value
-// 
-// A rectangle defining the region of the view to be printed for `pageNumber`.
-// This method returns [NSZeroRect] if `pageNumber` is outside the view’s
-// bounds.
+// clipView: The [NSClipView] object whose superview is to be notified.
 //
 // # Discussion
 // 
-// If the view responded [true] to an earlier [KnowsPageRange] message, this
-// method is invoked for each page it specified in the out parameters of that
-// message. The view is later made to display this rectangle in order to
-// generate the image for this page.
-// 
-// If an [NSView] object responds [false] to [KnowsPageRange], this method
-// isn’t invoked by the printing mechanism.
+// [NSScrollView] implements this method to update its [NSScroller] objects.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/rectForPage(_:)
-func (v NSView) RectForPage(page int) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectForPage:"), page)
-	return corefoundation.CGRect(rv)
+// See: https://developer.apple.com/documentation/AppKit/NSView/reflectScrolledClipView(_:)
+func (v NSView) ReflectScrolledClipView(clipView INSClipView) {
+	objc.Send[objc.ID](v.ID, objc.Sel("reflectScrolledClipView:"), clipView)
 }
 
 // Registers the pasteboard types that the view will accept as the destination
@@ -2860,21 +3229,6 @@ func (v NSView) RemoveAllToolTips() {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeAllToolTips"))
 }
 
-// Notifies a clip view’s superview that either the clip view’s bounds
-// rectangle or the document view’s frame rectangle has changed, and that
-// any indicators of the scroll position need to be adjusted.
-//
-// clipView: The [NSClipView] object whose superview is to be notified.
-//
-// # Discussion
-// 
-// [NSScrollView] implements this method to update its [NSScroller] objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/reflectScrolledClipView(_:)
-func (v NSView) ReflectScrolledClipView(clipView INSClipView) {
-	objc.Send[objc.ID](v.ID, objc.Sel("reflectScrolledClipView:"), clipView)
-}
-
 // Removes the specified constraint from the view.
 //
 // constraint: The constraint to remove. Removing a constraint not held by the view has no
@@ -2885,56 +3239,13 @@ func (v NSView) RemoveConstraint(constraint INSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeConstraint:"), constraint)
 }
 
-// Unlinks the view from its superview and its window, removes it from the
-// responder chain, and invalidates its cursor rectangles.
+// Removes the specified constraints from the view.
 //
-// # Discussion
-// 
-// The view is also released; if you plan to reuse it, be sure to retain it
-// before sending this message and to release it as appropriate when adding it
-// as a subview of another [NSView].
-// 
-// Calling this method removes any constraints that refer to the view you are
-// removing, or that refer to any view in the subtree of the view you are
-// removing.
-// 
-// Never invoke this method during display.
+// constraints: The constraints to remove.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/removeFromSuperview()
-func (v NSView) RemoveFromSuperview() {
-	objc.Send[objc.ID](v.ID, objc.Sel("removeFromSuperview"))
-}
-
-// Detaches a gesture recognizer from the view.
-//
-// gestureRecognizer: The gesture recognizer to remove. This parameter must not be `nil`.
-//
-// # Discussion
-// 
-// Removing a gesture recognizer also removes the strong reference to it held
-// by the view.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/removeGestureRecognizer(_:)
-func (v NSView) RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
-	objc.Send[objc.ID](v.ID, objc.Sel("removeGestureRecognizer:"), gestureRecognizer)
-}
-
-// Unlinks the view from its superview and its window and removes it from the
-// responder chain, but does not invalidate its cursor rectangles to cause
-// redrawing.
-//
-// # Discussion
-// 
-// The view is also released; if you plan to reuse it, be sure to retain it
-// before sending this message and to release it as appropriate when adding it
-// as a subview of another view.
-// 
-// Unlike its counterpart, [RemoveFromSuperview], this method can be safely
-// invoked during display.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/removeFromSuperviewWithoutNeedingDisplay()
-func (v NSView) RemoveFromSuperviewWithoutNeedingDisplay() {
-	objc.Send[objc.ID](v.ID, objc.Sel("removeFromSuperviewWithoutNeedingDisplay"))
+// See: https://developer.apple.com/documentation/AppKit/NSView/removeConstraints(_:)
+func (v NSView) RemoveConstraints(constraints []NSLayoutConstraint) {
+	objc.Send[objc.ID](v.ID, objc.Sel("removeConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
 
 // Completely removes a cursor rectangle from the view.
@@ -2959,14 +3270,56 @@ func (v NSView) RemoveCursorRectCursor(rect corefoundation.CGRect, object INSCur
 	objc.Send[objc.ID](v.ID, objc.Sel("removeCursorRect:cursor:"), rect, object)
 }
 
-// Removes the tooltip identified by specified tag.
+// Unlinks the view from its superview and its window, removes it from the
+// responder chain, and invalidates its cursor rectangles.
 //
-// tag: An integer tag that is the value returned by a previous
-// [AddToolTipRectOwnerUserData] message.
+// # Discussion
+// 
+// The view is also released; if you plan to reuse it, be sure to retain it
+// before sending this message and to release it as appropriate when adding it
+// as a subview of another [NSView].
+// 
+// Calling this method removes any constraints that refer to the view you are
+// removing, or that refer to any view in the subtree of the view you are
+// removing.
+// 
+// Never invoke this method during display.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/removeToolTip(_:)
-func (v NSView) RemoveToolTip(tag objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("removeToolTip:"), tag)
+// See: https://developer.apple.com/documentation/AppKit/NSView/removeFromSuperview()
+func (v NSView) RemoveFromSuperview() {
+	objc.Send[objc.ID](v.ID, objc.Sel("removeFromSuperview"))
+}
+
+// Unlinks the view from its superview and its window and removes it from the
+// responder chain, but does not invalidate its cursor rectangles to cause
+// redrawing.
+//
+// # Discussion
+// 
+// The view is also released; if you plan to reuse it, be sure to retain it
+// before sending this message and to release it as appropriate when adding it
+// as a subview of another view.
+// 
+// Unlike its counterpart, [RemoveFromSuperview], this method can be safely
+// invoked during display.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/removeFromSuperviewWithoutNeedingDisplay()
+func (v NSView) RemoveFromSuperviewWithoutNeedingDisplay() {
+	objc.Send[objc.ID](v.ID, objc.Sel("removeFromSuperviewWithoutNeedingDisplay"))
+}
+
+// Detaches a gesture recognizer from the view.
+//
+// gestureRecognizer: The gesture recognizer to remove. This parameter must not be `nil`.
+//
+// # Discussion
+// 
+// Removing a gesture recognizer also removes the strong reference to it held
+// by the view.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/removeGestureRecognizer(_:)
+func (v NSView) RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
+	objc.Send[objc.ID](v.ID, objc.Sel("removeGestureRecognizer:"), gestureRecognizer)
 }
 
 // Removes the provided layout guide from the view.
@@ -2989,14 +3342,14 @@ func (v NSView) RemoveLayoutGuide(guide INSLayoutGuide) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeLayoutGuide:"), guide)
 }
 
-// Removes the tracking rectangle identified by a tag.
+// Removes the tooltip identified by specified tag.
 //
-// tag: An integer value identifying a tracking rectangle. It was returned by a
-// previously sent [AddTrackingRectOwnerUserDataAssumeInside] message.
+// tag: An integer tag that is the value returned by a previous
+// [AddToolTipRectOwnerUserData] message.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/removeTrackingRect(_:)
-func (v NSView) RemoveTrackingRect(tag objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("removeTrackingRect:"), tag)
+// See: https://developer.apple.com/documentation/AppKit/NSView/removeToolTip(_:)
+func (v NSView) RemoveToolTip(tag objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("removeToolTip:"), tag)
 }
 
 // Removes a given tracking area from the view.
@@ -3008,29 +3361,14 @@ func (v NSView) RemoveTrackingArea(trackingArea INSTrackingArea) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeTrackingArea:"), trackingArea)
 }
 
-// Informs the view that the bounds size of its superview has changed.
+// Removes the tracking rectangle identified by a tag.
 //
-// oldSize: The previous size of the superview’s bounds rectangle.
+// tag: An integer value identifying a tracking rectangle. It was returned by a
+// previously sent [AddTrackingRectOwnerUserDataAssumeInside] message.
 //
-// # Discussion
-// 
-// This method is normally invoked automatically from
-// [ResizeSubviewsWithOldSize].
-// 
-// The default implementation resizes the view according to the autoresizing
-// options specified by the [autoresizingMask] property. You shouldn’t
-// invoke this method directly, but you can override it to define a specific
-// resizing behavior.
-// 
-// If you override this method and call `super` as part of your
-// implementation, you should be sure to call `super` before making changes to
-// the receiving view’s frame yourself.
-//
-// [autoresizingMask]: https://developer.apple.com/documentation/AppKit/NSView/autoresizingMask-swift.property
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/resize(withOldSuperviewSize:)
-func (v NSView) ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize) {
-	objc.Send[objc.ID](v.ID, objc.Sel("resizeWithOldSuperviewSize:"), oldSize)
+// See: https://developer.apple.com/documentation/AppKit/NSView/removeTrackingRect(_:)
+func (v NSView) RemoveTrackingRect(tag objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("removeTrackingRect:"), tag)
 }
 
 // Replaces one of the view’s subviews with another view.
@@ -3058,6 +3396,26 @@ func (v NSView) ReplaceSubviewWith(oldView INSView, newView INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("replaceSubview:with:"), oldView, newView)
 }
 
+// Overridden by subclasses to define their default cursor rectangles.
+//
+// # Discussion
+// 
+// A subclass’s implementation must invoke [AddCursorRectCursor] for each
+// cursor rectangle it wants to establish. The default implementation does
+// nothing.
+// 
+// Application code should never invoke this method directly; it’s invoked
+// automatically as described in “[Responding to User Events and
+// Actions].” Use the [InvalidateCursorRectsForView] method instead to
+// explicitly rebuild cursor rectangles.
+//
+// [Responding to User Events and Actions]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaViewsGuide/SubclassingNSView/SubclassingNSView.html#//apple_ref/doc/uid/TP40002978-CH7-SW26
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/resetCursorRects()
+func (v NSView) ResetCursorRects() {
+	objc.Send[objc.ID](v.ID, objc.Sel("resetCursorRects"))
+}
+
 // Informs the view’s subviews that the view’s bounds rectangle size has
 // changed.
 //
@@ -3076,6 +3434,31 @@ func (v NSView) ReplaceSubviewWith(oldView INSView, newView INSView) {
 // See: https://developer.apple.com/documentation/AppKit/NSView/resizeSubviews(withOldSize:)
 func (v NSView) ResizeSubviewsWithOldSize(oldSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("resizeSubviewsWithOldSize:"), oldSize)
+}
+
+// Informs the view that the bounds size of its superview has changed.
+//
+// oldSize: The previous size of the superview’s bounds rectangle.
+//
+// # Discussion
+// 
+// This method is normally invoked automatically from
+// [ResizeSubviewsWithOldSize].
+// 
+// The default implementation resizes the view according to the autoresizing
+// options specified by the [autoresizingMask] property. You shouldn’t
+// invoke this method directly, but you can override it to define a specific
+// resizing behavior.
+// 
+// If you override this method and call `super` as part of your
+// implementation, you should be sure to call `super` before making changes to
+// the receiving view’s frame yourself.
+//
+// [autoresizingMask]: https://developer.apple.com/documentation/AppKit/NSView/autoresizingMask-swift.property
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/resize(withOldSuperviewSize:)
+func (v NSView) ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize) {
+	objc.Send[objc.ID](v.ID, objc.Sel("resizeWithOldSuperviewSize:"), oldSize)
 }
 
 // Rotates the view’s bounds rectangle by a specified degree value around
@@ -3102,6 +3485,19 @@ func (v NSView) RotateByAngle(angle float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rotateByAngle:"), angle)
 }
 
+// Informs the client that `aRulerView` allowed the user to add `aMarker`.
+//
+// # Discussion
+// 
+// The client can take whatever action it needs based on this message, such as
+// adding a new tab stop to the selected paragraph or creating a layout
+// guideline.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:didAdd:)
+func (v NSView) RulerViewDidAddMarker(ruler INSRulerView, marker INSRulerMarker) {
+	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didAddMarker:"), ruler, marker)
+}
+
 // Informs the client that `aRulerView` allowed the user to move `aMarker`.
 //
 // # Discussion
@@ -3113,26 +3509,6 @@ func (v NSView) RotateByAngle(angle float64) {
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:didMove:)
 func (v NSView) RulerViewDidMoveMarker(ruler INSRulerView, marker INSRulerMarker) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didMoveMarker:"), ruler, marker)
-}
-
-// Overridden by subclasses to define their default cursor rectangles.
-//
-// # Discussion
-// 
-// A subclass’s implementation must invoke [AddCursorRectCursor] for each
-// cursor rectangle it wants to establish. The default implementation does
-// nothing.
-// 
-// Application code should never invoke this method directly; it’s invoked
-// automatically as described in “[Responding to User Events and
-// Actions].” Use the [InvalidateCursorRectsForView] method instead to
-// explicitly rebuild cursor rectangles.
-//
-// [Responding to User Events and Actions]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaViewsGuide/SubclassingNSView/SubclassingNSView.html#//apple_ref/doc/uid/TP40002978-CH7-SW26
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/resetCursorRects()
-func (v NSView) ResetCursorRects() {
-	objc.Send[objc.ID](v.ID, objc.Sel("resetCursorRects"))
 }
 
 // Informs the client that `aRulerView` allowed the user to remove `aMarker`.
@@ -3148,33 +3524,6 @@ func (v NSView) RulerViewDidRemoveMarker(ruler INSRulerView, marker INSRulerMark
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didRemoveMarker:"), ruler, marker)
 }
 
-// Converts a size from the view’s coordinate system to that of another
-// view.
-//
-// size: The size (width and height) in the view’s coordinate system.
-//
-// view: The view that’s the target of the conversion operation. Both `view` and
-// the view must belong to the same [NSWindow] object, and that window must
-// not be `nil`. If `view` is `nil`, this method converts to window
-// coordinates instead.
-//
-// # Return Value
-// 
-// The converted size, as an [NSSize] structure.
-//
-// [NSSize]: https://developer.apple.com/documentation/Foundation/NSSize
-//
-// # Discussion
-// 
-// The returned [NSSize] values are always forced to have positive a width and
-// height.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convert(_:to:)-5nptx
-func (v NSView) ConvertSizeToView(size corefoundation.CGSize, view INSView) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSize:toView:"), size, view)
-	return corefoundation.CGSize(rv)
-}
-
 // Informs the client that the user has pressed the mouse button while the
 // cursor is in the ruler area of `aRulerView`.
 //
@@ -3188,6 +3537,13 @@ func (v NSView) ConvertSizeToView(size corefoundation.CGSize, view INSView) core
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:handleMouseDownWith:)
 func (v NSView) RulerViewHandleMouseDown(ruler INSRulerView, event INSEvent) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:handleMouseDown:"), ruler, event)
+}
+
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:locationFor:)
+func (v NSView) RulerViewLocationForPoint(ruler INSRulerView, point corefoundation.CGPoint) float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("rulerView:locationForPoint:"), ruler, point)
+	return rv
 }
 
 //
@@ -3278,15 +3634,6 @@ func (v NSView) RulerViewWillAddMarkerAtLocation(ruler INSRulerView, marker INSR
 	return rv
 }
 
-// Removes the specified constraints from the view.
-//
-// constraints: The constraints to remove.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/removeConstraints(_:)
-func (v NSView) RemoveConstraints(constraints []NSLayoutConstraint) {
-	objc.Send[objc.ID](v.ID, objc.Sel("removeConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
-}
-
 // Informs the client that `aRulerView` will move `aMarker`, an NSRulerMarker
 // already on the ruler view.
 //
@@ -3301,13 +3648,6 @@ func (v NSView) RemoveConstraints(constraints []NSLayoutConstraint) {
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:willMove:toLocation:)
 func (v NSView) RulerViewWillMoveMarkerToLocation(ruler INSRulerView, marker INSRulerMarker, location float64) float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("rulerView:willMoveMarker:toLocation:"), ruler, marker, location)
-	return rv
-}
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:locationFor:)
-func (v NSView) RulerViewLocationForPoint(ruler INSRulerView, point corefoundation.CGPoint) float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("rulerView:locationForPoint:"), ruler, point)
 	return rv
 }
 
@@ -3351,6 +3691,36 @@ func (v NSView) RulerViewWillSetClientView(ruler INSRulerView, newClient INSView
 // See: https://developer.apple.com/documentation/AppKit/NSView/scaleUnitSquare(to:)
 func (v NSView) ScaleUnitSquareToSize(newUnitSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("scaleUnitSquareToSize:"), newUnitSize)
+}
+
+// Notifies the superview of a clip view that the clip view needs to reset the
+// origin of its bounds rectangle.
+//
+// clipView: The [NSClipView] object whose superview is to be notified.
+//
+// point: A point that specifies the new origin of the clip view’s bounds
+// rectangle.
+//
+// # Discussion
+// 
+// The superview of `clipView` should then send a [ScrollToPoint] message to
+// `clipView` with `point` as the argument. This mechanism is provided so the
+// [NSClipView] object’s superview can coordinate scrolling of multiple
+// tiled clip views.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:to:)
+func (v NSView) ScrollClipViewToPoint(clipView INSClipView, point corefoundation.CGPoint) {
+	objc.Send[objc.ID](v.ID, objc.Sel("scrollClipView:toPoint:"), clipView, point)
+}
+
+// Scrolls the view’s closest ancestor [NSClipView] object so a point in the
+// view lies at the origin of the clip view’s bounds rectangle.
+//
+// point: The point in the view to scroll to.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:)
+func (v NSView) ScrollPoint(point corefoundation.CGPoint) {
+	objc.Send[objc.ID](v.ID, objc.Sel("scrollPoint:"), point)
 }
 
 // Scrolls the view’s closest ancestor [NSClipView] object the minimum
@@ -3462,73 +3832,6 @@ func (v NSView) SetContentCompressionResistancePriorityForOrientation(priority N
 	objc.Send[objc.ID](v.ID, objc.Sel("setContentCompressionResistancePriority:forOrientation:"), priority, orientation)
 }
 
-// Sets the origin of the view’s frame rectangle to the specified point,
-// effectively repositioning it within its superview.
-//
-// newOrigin: The point that is the new origin of the view’s frame.
-//
-// # Discussion
-// 
-// Changing the frame does not mark the view as needing to be displayed. Set
-// the [needsDisplay] property to [true] when you want the view to be
-// redisplayed.
-// 
-// Changing the frame origin results in the posting of an
-// [frameDidChangeNotification] to the default notification center if the view
-// is configured to do so.
-//
-// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
-// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/setFrameOrigin(_:)
-func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setFrameOrigin:"), newOrigin)
-}
-
-// Informs the client that `aRulerView` allowed the user to add `aMarker`.
-//
-// # Discussion
-// 
-// The client can take whatever action it needs based on this message, such as
-// adding a new tab stop to the selected paragraph or creating a layout
-// guideline.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:didAdd:)
-func (v NSView) RulerViewDidAddMarker(ruler INSRulerView, marker INSRulerMarker) {
-	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didAddMarker:"), ruler, marker)
-}
-
-// Invalidates the area around the focus ring.
-//
-// rect: The rectangle of the control or cell defining the area around the focus
-// ring. `rect` will be expanded to include the focus ring for invalidation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/setKeyboardFocusRingNeedsDisplay(_:)
-func (v NSView) SetKeyboardFocusRingNeedsDisplayInRect(rect corefoundation.CGRect) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setKeyboardFocusRingNeedsDisplayInRect:"), rect)
-}
-
-// Notifies the superview of a clip view that the clip view needs to reset the
-// origin of its bounds rectangle.
-//
-// clipView: The [NSClipView] object whose superview is to be notified.
-//
-// point: A point that specifies the new origin of the clip view’s bounds
-// rectangle.
-//
-// # Discussion
-// 
-// The superview of `clipView` should then send a [ScrollToPoint] message to
-// `clipView` with `point` as the argument. This mechanism is provided so the
-// [NSClipView] object’s superview can coordinate scrolling of multiple
-// tiled clip views.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:to:)
-func (v NSView) ScrollClipViewToPoint(clipView INSClipView, point corefoundation.CGPoint) {
-	objc.Send[objc.ID](v.ID, objc.Sel("scrollClipView:toPoint:"), clipView, point)
-}
-
 // Sets the priority with which a view resists being made larger than its
 // intrinsic size.
 //
@@ -3555,6 +3858,130 @@ func (v NSView) SetContentHuggingPriorityForOrientation(priority NSLayoutPriorit
 	objc.Send[objc.ID](v.ID, objc.Sel("setContentHuggingPriority:forOrientation:"), priority, orientation)
 }
 
+// Sets the origin of the view’s frame rectangle to the specified point,
+// effectively repositioning it within its superview.
+//
+// newOrigin: The point that is the new origin of the view’s frame.
+//
+// # Discussion
+// 
+// Changing the frame does not mark the view as needing to be displayed. Set
+// the [needsDisplay] property to [true] when you want the view to be
+// redisplayed.
+// 
+// Changing the frame origin results in the posting of an
+// [frameDidChangeNotification] to the default notification center if the view
+// is configured to do so.
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
+// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/setFrameOrigin(_:)
+func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
+	objc.Send[objc.ID](v.ID, objc.Sel("setFrameOrigin:"), newOrigin)
+}
+
+// Sets the size of the view’s frame rectangle to the specified dimensions,
+// resizing it within its superview without affecting its coordinate system.
+//
+// newSize: An [NSSize] structure specifying the new height and width of the frame
+// rectangle.
+//
+// # Discussion
+// 
+// Changing the frame does not mark the view as needing to be displayed. Set
+// the [needsDisplay] property to [true] when you want the view to be
+// redisplayed.
+// 
+// Changing the frame size results in the posting of an
+// [frameDidChangeNotification] to the default notification center if the view
+// is configured to do so.
+// 
+// In macOS 10.4 and later, you can override this method to support content
+// preservation during live resizing. In your overridden implementation,
+// include some conditional code to be executed only during a live resize
+// operation. Your code must invalidate any portions of your view that need to
+// be redrawn.
+//
+// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
+// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/setFrameSize(_:)
+func (v NSView) SetFrameSize(newSize corefoundation.CGSize) {
+	objc.Send[objc.ID](v.ID, objc.Sel("setFrameSize:"), newSize)
+}
+
+// Invalidates the area around the focus ring.
+//
+// rect: The rectangle of the control or cell defining the area around the focus
+// ring. `rect` will be expanded to include the focus ring for invalidation.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/setKeyboardFocusRingNeedsDisplay(_:)
+func (v NSView) SetKeyboardFocusRingNeedsDisplayInRect(rect corefoundation.CGRect) {
+	objc.Send[objc.ID](v.ID, objc.Sel("setKeyboardFocusRingNeedsDisplayInRect:"), rect)
+}
+
+// Marks the region of the view within the specified rectangle as needing
+// display, increasing the view’s existing invalid region to include it.
+//
+// invalidRect: The rectangular region of the view to mark as invalid; it should be
+// specified in the coordinate system of the view.
+//
+// # Discussion
+// 
+// A later `displayIfNeeded` method will then perform drawing only within the
+// invalid region. View objects marked as needing display are automatically
+// redisplayed on each pass through the application’s event loop. (View
+// objects that need to redisplay before the event loop comes around can of
+// course immediately be sent the appropriate `display` method.)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/setNeedsDisplay(_:)
+func (v NSView) SetNeedsDisplayInRect(invalidRect corefoundation.CGRect) {
+	objc.Send[objc.ID](v.ID, objc.Sel("setNeedsDisplayInRect:"), invalidRect)
+}
+
+// Allows the user to drag objects from the view without activating the app or
+// moving the window of the view forward, possibly obscuring the destination.
+//
+// event: An object representing an initial mouse-down event.
+//
+// # Return Value
+// 
+// If this method returns [true], the normal window-ordering and activation
+// mechanism is delayed (not necessarily prevented) until the next mouse-up
+// event. If it returns [false], then normal ordering and activation occur.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Discussion
+// 
+// Never invoke this method directly; it’s invoked automatically for each
+// mouse-down event directed at the NSView.
+// 
+// An [NSView] subclass that allows dragging should implement this method to
+// return [true] if `theEvent` is potentially the beginning of a dragging
+// session or of some other context where window ordering isn’t appropriate.
+// This method is invoked before a [MouseDown] message for `theEvent` is sent.
+// The default implementation returns [false].
+// 
+// If, after delaying window ordering, the view actually initiates a dragging
+// session or similar operation, it should also send a [PreventWindowOrdering]
+// message to [NSApp], which completely prevents the window from ordering
+// forward and the activation from becoming active. [PreventWindowOrdering] is
+// sent automatically by the `` and `` methods of [NSView].
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/shouldDelayWindowOrdering(for:)
+func (v NSView) ShouldDelayWindowOrderingForEvent(event INSEvent) bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("shouldDelayWindowOrderingForEvent:"), event)
+	return rv
+}
+
 // Shows a window displaying the definition of the attributed string at the
 // specified point.
 //
@@ -3577,230 +4004,6 @@ func (v NSView) SetContentHuggingPriorityForOrientation(priority NSLayoutPriorit
 // See: https://developer.apple.com/documentation/AppKit/NSView/showDefinition(for:at:)
 func (v NSView) ShowDefinitionForAttributedStringAtPoint(attrString foundation.NSAttributedString, textBaselineOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("showDefinitionForAttributedString:atPoint:"), attrString, textBaselineOrigin)
-}
-
-// Convert the size from the layer’s interior coordinate system to the
-// view’s interior coordinate system.
-//
-// size: A size in the layer’s interior coordinate system.
-//
-// # Return Value
-// 
-// A size in the view’s interior coordinate system.
-//
-// # Discussion
-// 
-// The layer’s space is virtual, and doesn’t take into account the
-// layer’s [contentsScale] setting.
-// 
-// The returned [NSSize] values are always forced to have positive a width and
-// height.
-//
-// [contentsScale]: https://developer.apple.com/documentation/QuartzCore/CALayer/contentsScale
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/convertFromLayer(_:)-3usqp
-func (v NSView) ConvertSizeFromLayer(size corefoundation.CGSize) corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeFromLayer:"), size)
-	return corefoundation.CGSize(rv)
-}
-
-// Scrolls the view’s closest ancestor [NSClipView] object so a point in the
-// view lies at the origin of the clip view’s bounds rectangle.
-//
-// point: The point in the view to scroll to.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:)
-func (v NSView) ScrollPoint(point corefoundation.CGPoint) {
-	objc.Send[objc.ID](v.ID, objc.Sel("scrollPoint:"), point)
-}
-
-// Marks the region of the view within the specified rectangle as needing
-// display, increasing the view’s existing invalid region to include it.
-//
-// invalidRect: The rectangular region of the view to mark as invalid; it should be
-// specified in the coordinate system of the view.
-//
-// # Discussion
-// 
-// A later `displayIfNeeded` method will then perform drawing only within the
-// invalid region. View objects marked as needing display are automatically
-// redisplayed on each pass through the application’s event loop. (View
-// objects that need to redisplay before the event loop comes around can of
-// course immediately be sent the appropriate `display` method.)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/setNeedsDisplay(_:)
-func (v NSView) SetNeedsDisplayInRect(invalidRect corefoundation.CGRect) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setNeedsDisplayInRect:"), invalidRect)
-}
-
-// Translates the view’s coordinate system so that its origin moves to a new
-// location.
-//
-// translation: A point that specifies the new origin.
-//
-// # Discussion
-// 
-// In the process, the origin of the view’s bounds rectangle is shifted by
-// (`–translation.X()`, `–translation.Y()`). This method neither
-// redisplays the view nor marks it as needing display. You must do this
-// yourself by calling the [Display] method or setting the [needsDisplay]
-// property.
-// 
-// Note the difference between this method and setting the bounds origin.
-// Translation effectively moves the image inside the bounds rectangle, while
-// setting the bounds origin effectively moves the rectangle over the image.
-// The two are in a sense inverse, although translation is cumulative, and
-// setting the bounds origin is absolute.
-// 
-// This method posts an [boundsDidChangeNotification] to the default
-// notification center if the view is configured to do so.
-//
-// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
-// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/translateOrigin(to:)
-func (v NSView) TranslateOriginToPoint(translation corefoundation.CGPoint) {
-	objc.Send[objc.ID](v.ID, objc.Sel("translateOriginToPoint:"), translation)
-}
-
-// Orders the view’s immediate subviews using the specified comparator
-// function.
-//
-// compare: A pointer to the comparator function. This function must take as arguments
-// two subviews to be ordered and contextual data (supplied in `context` which
-// may be arbitrary data used to help in the comparison. The comparator
-// function should return [NSOrderedAscending] if the first subview should be
-// ordered lower, [NSOrderedDescending] if the second subview should be
-// ordered lower, and [NSOrderedSame] if their ordering isn’t important.
-//
-// context: Arbitrary data that might help the comparator function `compare` in its
-// decisions.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/sortSubviews(_:context:)
-func (v NSView) SortSubviewsUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer) {
-	objc.Send[objc.ID](v.ID, objc.Sel("sortSubviewsUsingFunction:context:"), compare, context)
-}
-
-// Unregisters the view as a possible destination in a dragging session.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/unregisterDraggedTypes()
-func (v NSView) UnregisterDraggedTypes() {
-	objc.Send[objc.ID](v.ID, objc.Sel("unregisterDraggedTypes"))
-}
-
-// Updates the constraints for the receiving view and its subviews.
-//
-// # Discussion
-// 
-// Whenever a new layout pass is triggered for a view, the system invokes this
-// method to ensure that any constraints for the view and its subviews are
-// updated with information from the current view hierarchy and its
-// constraints. This method is called automatically by the system, but may be
-// invoked manually if you need to examine the most up to date constraints.
-// 
-// Subclasses should not override this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/updateConstraintsForSubtreeIfNeeded()
-func (v NSView) UpdateConstraintsForSubtreeIfNeeded() {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateConstraintsForSubtreeIfNeeded"))
-}
-
-// Update constraints for the view.
-//
-// # Discussion
-// 
-// Override this method to optimize changes to your constraints.
-// 
-// To schedule a change, set the view’s [needsUpdateConstraints] property to
-// [true]. The system then calls your implementation of [UpdateConstraints]
-// before the layout occurs. This lets you verify that all necessary
-// constraints for your content are in place at a time when your custom
-// view’s properties are not changing.
-// 
-// Your implementation must be as efficient as possible. Do not deactivate all
-// your constraints, then reactivate the ones you need. Instead, your app must
-// have some way of tracking your constraints, and validating them during each
-// update pass. Only change items that need to be changed. During each update
-// pass, you must ensure that you have the appropriate constraints for the
-// app’s current state.
-// 
-// Do not set the [needsUpdateConstraints] property inside your
-// implementation. Setting [needsUpdateConstraints] to [true] schedules
-// another update pass, creating a feedback loop.
-//
-// [needsUpdateConstraints]: https://developer.apple.com/documentation/AppKit/NSView/needsUpdateConstraints
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/updateConstraints()
-func (v NSView) UpdateConstraints() {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateConstraints"))
-}
-
-// Translates the display rectangles by the specified delta.
-//
-// clipRect: A rectangle defining the region of the view, typically the view’s bounds.
-//
-// delta: A NSSize structure that specifies an offset from aRect’s origin.
-//
-// # Discussion
-// 
-// This method performs the shifting of dirty rectangles that an equivalent
-// [scroll(_:by:)] operation would cause, without performing the actual scroll
-// operation. It is only useful in very rare cases where a view implements its
-// own low-level scrolling mechanics.
-// 
-// This method:
-// 
-// - Collects the receiving view’s dirty rectangles. - Clears all dirty
-// rectangles in the intersection of `clipRect` and the view’s bounds. -
-// Shifts the retrieved rectangles by the `delta` offset. - Clips the result
-// to the intersection of `clipRect` and the view’s bounds - Marks the
-// resultant rectangles as needing display.
-// 
-// The developer must ensure that `clipRect` and `delta` are pixel-aligned in
-// order to guarantee correct drawing. See [Transforming View Coordinates To
-// and From Base Space] for a description of how to pixel-align view
-// coordinates.
-//
-// [Transforming View Coordinates To and From Base Space]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaViewsGuide/WorkingWithAViewHierarchy/WorkingWithAViewHierarchy.html#//apple_ref/doc/uid/TP40002978-CH4-SW25
-// [scroll(_:by:)]: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:by:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/translateRectsNeedingDisplay(in:by:)
-func (v NSView) TranslateRectsNeedingDisplayInRectBy(clipRect corefoundation.CGRect, delta corefoundation.CGSize) {
-	objc.Send[objc.ID](v.ID, objc.Sel("translateRectsNeedingDisplayInRect:by:"), clipRect, delta)
-}
-
-// Invoked automatically when the view’s geometry changes such that its
-// tracking areas need to be recalculated.
-//
-// # Discussion
-// 
-// You should override this method to remove out of date tracking areas and
-// add recomputed tracking areas; your implementation should call `super`.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/updateTrackingAreas()
-func (v NSView) UpdateTrackingAreas() {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateTrackingAreas"))
-}
-
-// Responds when the view’s backing store properties change.
-//
-// # Discussion
-// 
-// The view gets this message when the backing store scale or color space
-// changes. Provide an implementation if you need to swap assets or make other
-// adjustments when a view’s backing store properties change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidChangeBackingProperties()
-func (v NSView) ViewDidChangeBackingProperties() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidChangeBackingProperties"))
-}
-
-// Informs the view that its effective appearance changed.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidChangeEffectiveAppearance()
-func (v NSView) ViewDidChangeEffectiveAppearance() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidChangeEffectiveAppearance"))
 }
 
 // Shows a window displaying the definition of the specified range of the
@@ -3845,6 +4048,175 @@ func (v NSView) ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvi
 		objc.Send[objc.ID](v.ID, objc.Sel("showDefinitionForAttributedString:range:options:baselineOriginProvider:"), attrString, targetRange, options, _block3)
 }
 
+// Orders the view’s immediate subviews using the specified comparator
+// function.
+//
+// compare: A pointer to the comparator function. This function must take as arguments
+// two subviews to be ordered and contextual data (supplied in `context` which
+// may be arbitrary data used to help in the comparison. The comparator
+// function should return [NSOrderedAscending] if the first subview should be
+// ordered lower, [NSOrderedDescending] if the second subview should be
+// ordered lower, and [NSOrderedSame] if their ordering isn’t important.
+//
+// context: Arbitrary data that might help the comparator function `compare` in its
+// decisions.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/sortSubviews(_:context:)
+func (v NSView) SortSubviewsUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer) {
+	objc.Send[objc.ID](v.ID, objc.Sel("sortSubviewsUsingFunction:context:"), compare, context)
+}
+
+// Translates the view’s coordinate system so that its origin moves to a new
+// location.
+//
+// translation: A point that specifies the new origin.
+//
+// # Discussion
+// 
+// In the process, the origin of the view’s bounds rectangle is shifted by
+// (`–translation.X()`, `–translation.Y()`). This method neither
+// redisplays the view nor marks it as needing display. You must do this
+// yourself by calling the [Display] method or setting the [needsDisplay]
+// property.
+// 
+// Note the difference between this method and setting the bounds origin.
+// Translation effectively moves the image inside the bounds rectangle, while
+// setting the bounds origin effectively moves the rectangle over the image.
+// The two are in a sense inverse, although translation is cumulative, and
+// setting the bounds origin is absolute.
+// 
+// This method posts an [boundsDidChangeNotification] to the default
+// notification center if the view is configured to do so.
+//
+// [boundsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
+// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/translateOrigin(to:)
+func (v NSView) TranslateOriginToPoint(translation corefoundation.CGPoint) {
+	objc.Send[objc.ID](v.ID, objc.Sel("translateOriginToPoint:"), translation)
+}
+
+// Translates the display rectangles by the specified delta.
+//
+// clipRect: A rectangle defining the region of the view, typically the view’s bounds.
+//
+// delta: A NSSize structure that specifies an offset from aRect’s origin.
+//
+// # Discussion
+// 
+// This method performs the shifting of dirty rectangles that an equivalent
+// [scroll(_:by:)] operation would cause, without performing the actual scroll
+// operation. It is only useful in very rare cases where a view implements its
+// own low-level scrolling mechanics.
+// 
+// This method:
+// 
+// - Collects the receiving view’s dirty rectangles. - Clears all dirty
+// rectangles in the intersection of `clipRect` and the view’s bounds. -
+// Shifts the retrieved rectangles by the `delta` offset. - Clips the result
+// to the intersection of `clipRect` and the view’s bounds - Marks the
+// resultant rectangles as needing display.
+// 
+// The developer must ensure that `clipRect` and `delta` are pixel-aligned in
+// order to guarantee correct drawing. See [Transforming View Coordinates To
+// and From Base Space] for a description of how to pixel-align view
+// coordinates.
+//
+// [Transforming View Coordinates To and From Base Space]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaViewsGuide/WorkingWithAViewHierarchy/WorkingWithAViewHierarchy.html#//apple_ref/doc/uid/TP40002978-CH4-SW25
+// [scroll(_:by:)]: https://developer.apple.com/documentation/AppKit/NSView/scroll(_:by:)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/translateRectsNeedingDisplay(in:by:)
+func (v NSView) TranslateRectsNeedingDisplayInRectBy(clipRect corefoundation.CGRect, delta corefoundation.CGSize) {
+	objc.Send[objc.ID](v.ID, objc.Sel("translateRectsNeedingDisplayInRect:by:"), clipRect, delta)
+}
+
+// Unregisters the view as a possible destination in a dragging session.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/unregisterDraggedTypes()
+func (v NSView) UnregisterDraggedTypes() {
+	objc.Send[objc.ID](v.ID, objc.Sel("unregisterDraggedTypes"))
+}
+
+// Update constraints for the view.
+//
+// # Discussion
+// 
+// Override this method to optimize changes to your constraints.
+// 
+// To schedule a change, set the view’s [needsUpdateConstraints] property to
+// [true]. The system then calls your implementation of [UpdateConstraints]
+// before the layout occurs. This lets you verify that all necessary
+// constraints for your content are in place at a time when your custom
+// view’s properties are not changing.
+// 
+// Your implementation must be as efficient as possible. Do not deactivate all
+// your constraints, then reactivate the ones you need. Instead, your app must
+// have some way of tracking your constraints, and validating them during each
+// update pass. Only change items that need to be changed. During each update
+// pass, you must ensure that you have the appropriate constraints for the
+// app’s current state.
+// 
+// Do not set the [needsUpdateConstraints] property inside your
+// implementation. Setting [needsUpdateConstraints] to [true] schedules
+// another update pass, creating a feedback loop.
+//
+// [needsUpdateConstraints]: https://developer.apple.com/documentation/AppKit/NSView/needsUpdateConstraints
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/updateConstraints()
+func (v NSView) UpdateConstraints() {
+	objc.Send[objc.ID](v.ID, objc.Sel("updateConstraints"))
+}
+
+// Updates the constraints for the receiving view and its subviews.
+//
+// # Discussion
+// 
+// Whenever a new layout pass is triggered for a view, the system invokes this
+// method to ensure that any constraints for the view and its subviews are
+// updated with information from the current view hierarchy and its
+// constraints. This method is called automatically by the system, but may be
+// invoked manually if you need to examine the most up to date constraints.
+// 
+// Subclasses should not override this method.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/updateConstraintsForSubtreeIfNeeded()
+func (v NSView) UpdateConstraintsForSubtreeIfNeeded() {
+	objc.Send[objc.ID](v.ID, objc.Sel("updateConstraintsForSubtreeIfNeeded"))
+}
+
+// Invoked when the dragging images should be changed.
+//
+// sender: The object sending the message; use this object to get details about the
+// dragging operation.
+//
+// # Discussion
+// 
+// While a destination may change the dragging images at any time, it is
+// recommended to wait until this method is called before updating the
+// dragging images.
+// 
+// This allows the system to delay changing the dragging images until it is
+// likely that the user will drop on this destination. Otherwise, the dragging
+// images will change too often during the drag which would be distracting to
+// the user.
+// 
+// During `` you may set non-acceptable drag items images to `nil` to hide
+// them or use the enumeration option of
+// [DraggingItemEnumerationClearNonenumeratedImages] If there are items that
+// you hide, then after enumeration, you need to set the
+// [NumberOfValidItemsForDrop] to the number of non-hidden drag items.
+// However, if the valid item count is `0`, then it is better to return
+// [NSDragOperationNone] from your implementation of [DraggingEntered] and, or
+// [DraggingUpdated] instead of hiding all drag items during enumeration.
+//
+// [NSDragOperationNone]: https://developer.apple.com/documentation/AppKit/NSDragOperation/NSDragOperationNone
+//
+// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/updateDraggingItemsForDrag(_:)
+func (v NSView) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
+	objc.Send[objc.ID](v.ID, objc.Sel("updateDraggingItemsForDrag:"), sender)
+}
+
 // Updates the view’s content by modifying its underlying layer.
 //
 // # Discussion
@@ -3874,71 +4246,37 @@ func (v NSView) UpdateLayer() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateLayer"))
 }
 
-// Invoked when the view is hidden, either directly, or in response to an
-// ancestor being hidden.
+// Invoked automatically when the view’s geometry changes such that its
+// tracking areas need to be recalculated.
 //
 // # Discussion
 // 
-// The view receives this message when its [isHiddenOrHasHiddenAncestor]
-// property changes from [false] to [true]. This happens when the view or an
-// ancestor is marked as hidden, or when the view or an ancestor is inserted
-// into a new view hierarchy.
+// You should override this method to remove out of date tracking areas and
+// add recomputed tracking areas; your implementation should call `super`.
 //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [isHiddenOrHasHiddenAncestor]: https://developer.apple.com/documentation/AppKit/NSView/isHiddenOrHasHiddenAncestor
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidHide()
-func (v NSView) ViewDidHide() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidHide"))
+// See: https://developer.apple.com/documentation/AppKit/NSView/updateTrackingAreas()
+func (v NSView) UpdateTrackingAreas() {
+	objc.Send[objc.ID](v.ID, objc.Sel("updateTrackingAreas"))
 }
 
-// Informs the view that its superview has changed (possibly to `nil`).
+// Responds when the view’s backing store properties change.
 //
 // # Discussion
 // 
-// The default implementation does nothing; subclasses can override this
-// method to perform whatever actions are necessary.
+// The view gets this message when the backing store scale or color space
+// changes. Provide an implementation if you need to swap assets or make other
+// adjustments when a view’s backing store properties change.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidMoveToSuperview()
-func (v NSView) ViewDidMoveToSuperview() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToSuperview"))
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidChangeBackingProperties()
+func (v NSView) ViewDidChangeBackingProperties() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewDidChangeBackingProperties"))
 }
 
-// Invoked when the view is unhidden, either directly, or in response to an
-// ancestor being unhidden
+// Informs the view that its effective appearance changed.
 //
-// # Discussion
-// 
-// The view receives this message when its `isHiddenOrHasHiddenAncestor` state
-// goes from [true] to [false]. This can happen when the view or an ancestor
-// is marked as not hidden, or when the view or an ancestor is removed from
-// its containing view hierarchy.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidUnhide()
-func (v NSView) ViewDidUnhide() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidUnhide"))
-}
-
-// Informs the view that it has been added to a new view hierarchy.
-//
-// # Discussion
-// 
-// The default implementation does nothing; subclasses can override this
-// method to perform whatever actions are necessary.
-// 
-// If the view’s [window] property is `nil`, that result signifies that the
-// view was removed from its window and does not currently reside in any
-// window.
-//
-// [window]: https://developer.apple.com/documentation/AppKit/NSView/window
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidMoveToWindow()
-func (v NSView) ViewDidMoveToWindow() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToWindow"))
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidChangeEffectiveAppearance()
+func (v NSView) ViewDidChangeEffectiveAppearance() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewDidChangeEffectiveAppearance"))
 }
 
 // Informs the view of the end of a live resize—the user has finished
@@ -3976,15 +4314,111 @@ func (v NSView) ViewDidEndLiveResize() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidEndLiveResize"))
 }
 
-// Returns the view’s nearest descendant (including itself) with a specific
-// tag, or `nil` if no subview has that tag.
+// Invoked when the view is hidden, either directly, or in response to an
+// ancestor being hidden.
 //
-// tag: An integer identifier associated with a view object.
+// # Discussion
+// 
+// The view receives this message when its [isHiddenOrHasHiddenAncestor]
+// property changes from [false] to [true]. This happens when the view or an
+// ancestor is marked as hidden, or when the view or an ancestor is inserted
+// into a new view hierarchy.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewWithTag(_:)
-func (v NSView) ViewWithTag(tag int) INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("viewWithTag:"), tag)
-	return NSViewFromID(rv)
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [isHiddenOrHasHiddenAncestor]: https://developer.apple.com/documentation/AppKit/NSView/isHiddenOrHasHiddenAncestor
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidHide()
+func (v NSView) ViewDidHide() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewDidHide"))
+}
+
+// Informs the view that its superview has changed (possibly to `nil`).
+//
+// # Discussion
+// 
+// The default implementation does nothing; subclasses can override this
+// method to perform whatever actions are necessary.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidMoveToSuperview()
+func (v NSView) ViewDidMoveToSuperview() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToSuperview"))
+}
+
+// Informs the view that it has been added to a new view hierarchy.
+//
+// # Discussion
+// 
+// The default implementation does nothing; subclasses can override this
+// method to perform whatever actions are necessary.
+// 
+// If the view’s [window] property is `nil`, that result signifies that the
+// view was removed from its window and does not currently reside in any
+// window.
+//
+// [window]: https://developer.apple.com/documentation/AppKit/NSView/window
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidMoveToWindow()
+func (v NSView) ViewDidMoveToWindow() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToWindow"))
+}
+
+// Invoked when the view is unhidden, either directly, or in response to an
+// ancestor being unhidden
+//
+// # Discussion
+// 
+// The view receives this message when its `isHiddenOrHasHiddenAncestor` state
+// goes from [true] to [false]. This can happen when the view or an ancestor
+// is marked as not hidden, or when the view or an ancestor is removed from
+// its containing view hierarchy.
+//
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewDidUnhide()
+func (v NSView) ViewDidUnhide() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewDidUnhide"))
+}
+
+// Informs the view that it’s required to draw content.
+//
+// # Discussion
+// 
+// In response to receiving one of the `display` methods, the view recurses
+// down the view hierarchy, sending this message to each of the views that may
+// be involved in the display operation.
+// 
+// Subclasses can override this method to move or resize views, mark
+// additional areas as requiring display, or take other actions that can best
+// be deferred until they are required for drawing. During the recursion,
+// setting the [needsDisplay] property or sending the [SetNeedsDisplayInRect]
+// message to views in the hierarchy that are about to be drawn is valid and
+// supported, and affects the assessment of the total area to be rendered in
+// that drawing pass.
+// 
+// The following is an example of a generic subclass implementation:
+//
+// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewWillDraw()
+func (v NSView) ViewWillDraw() {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewWillDraw"))
+}
+
+// Informs the view that its superview is about to change to the specified
+// superview (which may be `nil`).
+//
+// newSuperview: A view object that will be the new superview of the view.
+//
+// # Discussion
+// 
+// Subclasses can override this method to perform whatever actions are
+// necessary.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewWillMove(toSuperview:)
+func (v NSView) ViewWillMoveToSuperview(newSuperview INSView) {
+	objc.Send[objc.ID](v.ID, objc.Sel("viewWillMoveToSuperview:"), newSuperview)
 }
 
 // Informs the view that it’s being added to the view hierarchy of the
@@ -4054,507 +4488,15 @@ func (v NSView) ViewWillStartLiveResize() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillStartLiveResize"))
 }
 
-// Called just before a contextual menu for a view is opened on screen.
+// Returns the view’s nearest descendant (including itself) with a specific
+// tag, or `nil` if no subview has that tag.
 //
-// menu: The menu that will be opened.
+// tag: An integer identifier associated with a view object.
 //
-// event: The event that caused the menu to open.
-//
-// # Discussion
-// 
-// This method is called just before a contextual menu for a view is opened on
-// screen. It provides an opportunity to make any desired changes to the
-// visual state of the view. For example, a table view might select a row in
-// response to the contextual menu being displayed.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/willOpenMenu(_:with:)
-func (v NSView) WillOpenMenuWithEvent(menu INSMenu, event INSEvent) {
-	objc.Send[objc.ID](v.ID, objc.Sel("willOpenMenu:withEvent:"), menu, event)
-}
-
-// Informs the view that it’s required to draw content.
-//
-// # Discussion
-// 
-// In response to receiving one of the `display` methods, the view recurses
-// down the view hierarchy, sending this message to each of the views that may
-// be involved in the display operation.
-// 
-// Subclasses can override this method to move or resize views, mark
-// additional areas as requiring display, or take other actions that can best
-// be deferred until they are required for drawing. During the recursion,
-// setting the [needsDisplay] property or sending the [SetNeedsDisplayInRect]
-// message to views in the hierarchy that are about to be drawn is valid and
-// supported, and affects the assessment of the total area to be rendered in
-// that drawing pass.
-// 
-// The following is an example of a generic subclass implementation:
-//
-// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewWillDraw()
-func (v NSView) ViewWillDraw() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewWillDraw"))
-}
-
-// Writes EPS data that draws the region of the view within a specified
-// rectangle onto a pasteboard.
-//
-// rect: A rectangle defining the region.
-//
-// pasteboard: An object representing a pasteboard.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/writeEPS(inside:to:)
-func (v NSView) WriteEPSInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard) {
-	objc.Send[objc.ID](v.ID, objc.Sel("writeEPSInsideRect:toPasteboard:"), rect, pasteboard)
-}
-
-// Writes PDF data that draws the region of the view within a specified
-// rectangle onto a pasteboard.
-//
-// rect: A rectangle defining the region.
-//
-// pasteboard: An object representing a pasteboard.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/writePDF(inside:to:)
-func (v NSView) WritePDFInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard) {
-	objc.Send[objc.ID](v.ID, objc.Sel("writePDFInsideRect:toPasteboard:"), rect, pasteboard)
-}
-
-// Overridden by subclasses to perform additional actions before subviews are
-// removed from the view.
-//
-// subview: The subview that will be removed.
-//
-// # Discussion
-// 
-// This method is invoked when `subview` receives a [RemoveFromSuperview]
-// message or `subview` is removed from the view due to it being added to
-// another view with [AddSubview].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/willRemoveSubview(_:)
-func (v NSView) WillRemoveSubview(subview INSView) {
-	objc.Send[objc.ID](v.ID, objc.Sel("willRemoveSubview:"), subview)
-}
-
-// Sets the size of the view’s frame rectangle to the specified dimensions,
-// resizing it within its superview without affecting its coordinate system.
-//
-// newSize: An [NSSize] structure specifying the new height and width of the frame
-// rectangle.
-//
-// # Discussion
-// 
-// Changing the frame does not mark the view as needing to be displayed. Set
-// the [needsDisplay] property to [true] when you want the view to be
-// redisplayed.
-// 
-// Changing the frame size results in the posting of an
-// [frameDidChangeNotification] to the default notification center if the view
-// is configured to do so.
-// 
-// In macOS 10.4 and later, you can override this method to support content
-// preservation during live resizing. In your overridden implementation,
-// include some conditional code to be executed only during a live resize
-// operation. Your code must invalidate any portions of your view that need to
-// be redrawn.
-//
-// [frameDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
-// [needsDisplay]: https://developer.apple.com/documentation/AppKit/NSView/needsDisplay
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/setFrameSize(_:)
-func (v NSView) SetFrameSize(newSize corefoundation.CGSize) {
-	objc.Send[objc.ID](v.ID, objc.Sel("setFrameSize:"), newSize)
-}
-
-// Invoked by [Print] to determine the location of the region of the view
-// being printed on the physical page.
-//
-// rect: A rectangle defining a region of the view; it is expressed in the default
-// coordinate system of the page.
-//
-// # Return Value
-// 
-// A point to be used for setting the origin for `aRect`, whose size the view
-// can examine in order to properly place it. It is expressed in the default
-// coordinate system of the page.
-//
-// # Discussion
-// 
-// The default implementation places `aRect` according to the status of the
-// [NSPrintInfo] object for the print job. By default it places the image in
-// the upper-left corner of the page, but if the [NSPrintInfo] methods
-// [HorizontallyCentered] or [VerticallyCentered] return [true], it centers a
-// single-page image along the appropriate axis. A multiple-page document,
-// however, is always placed so the divided pieces can be assembled at their
-// edges.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/locationOfPrintRect(_:)
-func (v NSView) LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("locationOfPrintRect:"), rect)
-	return corefoundation.CGPoint(rv)
-}
-
-// Informs the view that its superview is about to change to the specified
-// superview (which may be `nil`).
-//
-// newSuperview: A view object that will be the new superview of the view.
-//
-// # Discussion
-// 
-// Subclasses can override this method to perform whatever actions are
-// necessary.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/viewWillMove(toSuperview:)
-func (v NSView) ViewWillMoveToSuperview(newSuperview INSView) {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewWillMoveToSuperview:"), newSuperview)
-}
-
-// Allows the user to drag objects from the view without activating the app or
-// moving the window of the view forward, possibly obscuring the destination.
-//
-// event: An object representing an initial mouse-down event.
-//
-// # Return Value
-// 
-// If this method returns [true], the normal window-ordering and activation
-// mechanism is delayed (not necessarily prevented) until the next mouse-up
-// event. If it returns [false], then normal ordering and activation occur.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// Never invoke this method directly; it’s invoked automatically for each
-// mouse-down event directed at the NSView.
-// 
-// An [NSView] subclass that allows dragging should implement this method to
-// return [true] if `theEvent` is potentially the beginning of a dragging
-// session or of some other context where window ordering isn’t appropriate.
-// This method is invoked before a [MouseDown] message for `theEvent` is sent.
-// The default implementation returns [false].
-// 
-// If, after delaying window ordering, the view actually initiates a dragging
-// session or similar operation, it should also send a [PreventWindowOrdering]
-// message to [NSApp], which completely prevents the window from ordering
-// forward and the activation from becoming active. [PreventWindowOrdering] is
-// sent automatically by the `` and `` methods of [NSView].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSView/shouldDelayWindowOrdering(for:)
-func (v NSView) ShouldDelayWindowOrderingForEvent(event INSEvent) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("shouldDelayWindowOrderingForEvent:"), event)
-	return rv
-}
-
-// Returns a proxy object for the receiver that can be used to initiate
-// implied animation for property changes.
-//
-// # Return Value
-// 
-// Returns a proxy object for the receiver that can initiate implied
-// animations in response to property changes.
-//
-// # Discussion
-// 
-// The animator proxy object should be treated as if it was the receiver
-// itself, and may be passed to any code that accepts the receiver as a
-// parameter.
-// 
-// Sending key-value coding compliant “set” messages to the proxy will
-// trigger animation for automatically animated properties of its target
-// object, if the active [NSAnimationContext] in the current thread has a
-// duration value greater than zero, and an animation for the property key is
-// found by the [NSAnimatablePropertyContainer] search mechanism.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (v NSView) Animator() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("animator"))
+// See: https://developer.apple.com/documentation/AppKit/NSView/viewWithTag(_:)
+func (v NSView) ViewWithTag(tag int) INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("viewWithTag:"), tag)
 	return NSViewFromID(rv)
-}
-
-// Returns the animation that should be performed for the specified key.
-//
-// key: The action name or property specified as a string.
-//
-// # Return Value
-// 
-// The animation to perform. A subclass of [CAAnimation].
-//
-// [CAAnimation]: https://developer.apple.com/documentation/QuartzCore/CAAnimation
-//
-// # Discussion
-// 
-// When the action specified by `key` is triggered for an object, this method
-// is consulted to find the animation, if any, that should be performed in
-// response.
-// 
-// Like its Core Animation [CALayer] counterpart, [action(forKey:)], this
-// method is a funnel point that defines the order in which the search for an
-// animation proceeds.It first checks the receiver’s Getting the Animator
-// Proxy dictionary for a value matching `key`, then falls back to [Animator]
-// for the receiver’s class.
-// 
-// Subclasses should not typically need to override this method.
-//
-// [CALayer]: https://developer.apple.com/documentation/QuartzCore/CALayer
-// [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
-func (v NSView) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
-	return objectivec.Object{ID: rv}
-}
-
-// Invoked when the dragging operation is complete, signaling the receiver to
-// perform any necessary clean-up.
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// # Discussion
-// 
-// For this method to be invoked, the previous [PerformDragOperation] must
-// have returned [true].
-// 
-// The destination implements this method to perform any tidying up that it
-// needs to do, such as updating its visual representation now that it has
-// incorporated the dragged data. This message is the last message sent from
-// `sender` to the destination during a dragging session.
-// 
-// If the `sender` object’s [AnimatesToDestination] property was set to
-// [true] in [PrepareForDragOperation], then the drag image is still visible.
-// At this point you should draw the final visual representation in the view.
-// When this method returns, the drag image is removed form the screen. If
-// your final visual representation matches the visual representation in the
-// drag, this is a seamless transition.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/concludeDragOperation(_:)
-func (v NSView) ConcludeDragOperation(sender NSDraggingInfo) {
-	objc.Send[objc.ID](v.ID, objc.Sel("concludeDragOperation:"), sender)
-}
-
-// Called when a drag operation ends.
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// # Discussion
-// 
-// Implement this method if you want to be notified when a drag operation
-// ends, which can be useful if the drag ends in some other destination. For
-// example, this method might be used by a destination doing auto-expansion in
-// order to collapse any auto-expands.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingEnded(_:)
-func (v NSView) DraggingEnded(sender NSDraggingInfo) {
-	objc.Send[objc.ID](v.ID, objc.Sel("draggingEnded:"), sender)
-}
-
-// Invoked when the dragged image exits the destination’s bounds rectangle
-// (in the case of a view object) or its frame rectangle (in the case of a
-// window object).
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingExited(_:)
-func (v NSView) DraggingExited(sender NSDraggingInfo) {
-	objc.Send[objc.ID](v.ID, objc.Sel("draggingExited:"), sender)
-}
-
-// Invoked after the released image has been removed from the screen,
-// signaling the receiver to import the pasteboard data.
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// # Return Value
-// 
-// If the destination accepts the data, it returns [true]; otherwise it
-// returns [false]. The default is to return [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// For this method to be invoked, the previous [PrepareForDragOperation]
-// message must have returned [true]. The destination should implement this
-// method to do the real work of importing the pasteboard data represented by
-// the image.
-// 
-// If the sender object’s [AnimatesToDestination] was set to [true] in
-// [PrepareForDragOperation], then setup any animation to arrange space for
-// the drag items to animate to. Also at this time, enumerate through the
-// dragging items to set their destination frames and destination images.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/performDragOperation(_:)
-func (v NSView) PerformDragOperation(sender NSDraggingInfo) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("performDragOperation:"), sender)
-	return rv
-}
-
-// Invoked periodically as the image is held within the destination area,
-// allowing modification of the dragging operation or mouse-pointer position.
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// # Return Value
-// 
-// One (and only one) of the dragging operation constants described in
-// [NSDragOperation] in the [NSDraggingInfo] reference. The default return
-// value (if this method is not implemented by the destination) is the value
-// returned by the previous [DraggingEntered] message.
-//
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
-//
-// # Discussion
-// 
-// For this to be invoked, the destination must have registered for the
-// pasteboard data type involved in the drag operation. The messages continue
-// until the image is either released or dragged out of the window or view.
-// 
-// This method provides the destination with an opportunity to modify the
-// dragging operation depending on the position of the mouse pointer inside of
-// the destination view or window object. For example, you may have several
-// graphics or areas of text contained within the same view and wish to tailor
-// the dragging operation, or to ignore the drag event completely, depending
-// upon which object is underneath the mouse pointer at the time when the user
-// releases the dragged image and the [PerformDragOperation] method is
-// invoked.
-// 
-// You typically examine the contents of the pasteboard in the
-// [DraggingEntered] method, where this examination is performed only once,
-// rather than in the [DraggingUpdated] method, which is invoked multiple
-// times.
-// 
-// Only one destination at a time receives a sequence of [DraggingUpdated]
-// messages. If the mouse pointer is within the bounds of two overlapping
-// views that are both valid destinations, the uppermost view receives these
-// messages until the image is either released or dragged out.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingUpdated(_:)
-func (v NSView) DraggingUpdated(sender NSDraggingInfo) NSDragOperation {
-	rv := objc.Send[NSDragOperation](v.ID, objc.Sel("draggingUpdated:"), sender)
-	return NSDragOperation(rv)
-}
-
-// Invoked when the dragged image enters destination bounds or frame; delegate
-// returns dragging operation to perform.
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// # Return Value
-// 
-// One (and only one) of the dragging operation constants described in
-// [NSDragOperation] in the [NSDraggingInfo] reference. The default return
-// value (if this method is not implemented by the destination) is the value
-// returned by the previous [DraggingEntered] message.
-//
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
-//
-// # Discussion
-// 
-// Invoked when a dragged image enters the destination but only if the
-// destination has registered for the pasteboard data type involved in the
-// drag operation. Specifically, this method is invoked when the mouse pointer
-// enters the destination’s bounds rectangle (if it is a view object) or its
-// frame rectangle (if it is a window object).
-// 
-// This method must return a value that indicates which dragging operation the
-// destination will perform when the image is released. In deciding which
-// dragging operation to return, the method should evaluate the overlap
-// between both the dragging operations allowed by the source (obtained from
-// `sender` with the [DraggingSourceOperationMask] method) and the dragging
-// operations and pasteboard data types the destination itself supports.
-// 
-// If none of the operations is appropriate, this method should return
-// [NSDragOperationNone] (this is the default response if the method is not
-// implemented by the destination). A destination will still receive
-// [DraggingUpdated] and [DraggingExited] even if [NSDragOperationNone] is
-// returned by this method.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingEntered(_:)
-func (v NSView) DraggingEntered(sender NSDraggingInfo) NSDragOperation {
-	rv := objc.Send[NSDragOperation](v.ID, objc.Sel("draggingEntered:"), sender)
-	return NSDragOperation(rv)
-}
-
-// Invoked when the image is released, allowing the receiver to agree to or
-// refuse drag operation.
-//
-// sender: The object sending the message; use it to get details about the dragging
-// operation.
-//
-// # Return Value
-// 
-// [true] if the receiver agrees to perform the drag operation and [false] if
-// not.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// This method is invoked only if the most recent [DraggingEntered] or
-// [DraggingUpdated] message returned an acceptable drag-operation value.
-// 
-// If you want the drag items to animate from their current location on screen
-// to their final location in your view, set the sender object’s
-// [AnimatesToDestination] property to [true] in your implementation of this
-// method.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/prepareForDragOperation(_:)
-func (v NSView) PrepareForDragOperation(sender NSDraggingInfo) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("prepareForDragOperation:"), sender)
-	return rv
-}
-
-// Invoked when the dragging images should be changed.
-//
-// sender: The object sending the message; use this object to get details about the
-// dragging operation.
-//
-// # Discussion
-// 
-// While a destination may change the dragging images at any time, it is
-// recommended to wait until this method is called before updating the
-// dragging images.
-// 
-// This allows the system to delay changing the dragging images until it is
-// likely that the user will drop on this destination. Otherwise, the dragging
-// images will change too often during the drag which would be distracting to
-// the user.
-// 
-// During `` you may set non-acceptable drag items images to `nil` to hide
-// them or use the enumeration option of
-// [DraggingItemEnumerationClearNonenumeratedImages] If there are items that
-// you hide, then after enumeration, you need to set the
-// [NumberOfValidItemsForDrop] to the number of non-hidden drag items.
-// However, if the valid item count is `0`, then it is better to return
-// [NSDragOperationNone] from your implementation of [DraggingEntered] and, or
-// [DraggingUpdated] instead of hiding all drag items during enumeration.
-//
-// [NSDragOperationNone]: https://developer.apple.com/documentation/AppKit/NSDragOperation/NSDragOperationNone
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/updateDraggingItemsForDrag(_:)
-func (v NSView) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateDraggingItemsForDrag:"), sender)
 }
 
 // Asks the destination object whether it wants to receive periodic
@@ -4581,6 +4523,64 @@ func (v NSView) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
 func (v NSView) WantsPeriodicDraggingUpdates() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("wantsPeriodicDraggingUpdates"))
 	return rv
+}
+
+// Called just before a contextual menu for a view is opened on screen.
+//
+// menu: The menu that will be opened.
+//
+// event: The event that caused the menu to open.
+//
+// # Discussion
+// 
+// This method is called just before a contextual menu for a view is opened on
+// screen. It provides an opportunity to make any desired changes to the
+// visual state of the view. For example, a table view might select a row in
+// response to the contextual menu being displayed.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/willOpenMenu(_:with:)
+func (v NSView) WillOpenMenuWithEvent(menu INSMenu, event INSEvent) {
+	objc.Send[objc.ID](v.ID, objc.Sel("willOpenMenu:withEvent:"), menu, event)
+}
+
+// Overridden by subclasses to perform additional actions before subviews are
+// removed from the view.
+//
+// subview: The subview that will be removed.
+//
+// # Discussion
+// 
+// This method is invoked when `subview` receives a [RemoveFromSuperview]
+// message or `subview` is removed from the view due to it being added to
+// another view with [AddSubview].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/willRemoveSubview(_:)
+func (v NSView) WillRemoveSubview(subview INSView) {
+	objc.Send[objc.ID](v.ID, objc.Sel("willRemoveSubview:"), subview)
+}
+
+// Writes EPS data that draws the region of the view within a specified
+// rectangle onto a pasteboard.
+//
+// rect: A rectangle defining the region.
+//
+// pasteboard: An object representing a pasteboard.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/writeEPS(inside:to:)
+func (v NSView) WriteEPSInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard) {
+	objc.Send[objc.ID](v.ID, objc.Sel("writeEPSInsideRect:toPasteboard:"), rect, pasteboard)
+}
+
+// Writes PDF data that draws the region of the view within a specified
+// rectangle onto a pasteboard.
+//
+// rect: A rectangle defining the region.
+//
+// pasteboard: An object representing a pasteboard.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSView/writePDF(inside:to:)
+func (v NSView) WritePDFInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard) {
+	objc.Send[objc.ID](v.ID, objc.Sel("writePDFInsideRect:toPasteboard:"), rect, pasteboard)
 }
 func (v NSView) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
@@ -4664,6 +4664,476 @@ func (v NSView) SetWritingToolsCoordinator(value INSWritingToolsCoordinator) {
 
 
 
+// A Boolean value indicating whether the view accepts touch events.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/acceptstouchevents
+func (v NSView) AcceptsTouchEvents() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("acceptsTouchEvents"))
+	return rv
+}
+func (v NSView) SetAcceptsTouchEvents(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAcceptsTouchEvents:"), value)
+}
+
+
+
+// Custom insets that you specify to modify your view’s safe area
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/additionalsafeareainsets
+func (v NSView) AdditionalSafeAreaInsets() foundation.NSEdgeInsets {
+	rv := objc.Send[foundation.NSEdgeInsets](v.ID, objc.Sel("additionalSafeAreaInsets"))
+	return foundation.NSEdgeInsets(rv)
+}
+func (v NSView) SetAdditionalSafeAreaInsets(value foundation.NSEdgeInsets) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalSafeAreaInsets:"), value)
+}
+
+
+
+// The insets (in points) from the view’s frame that define its content
+// rectangle.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/alignmentrectinsets
+func (v NSView) AlignmentRectInsets() foundation.NSEdgeInsets {
+	rv := objc.Send[foundation.NSEdgeInsets](v.ID, objc.Sel("alignmentRectInsets"))
+	return foundation.NSEdgeInsets(rv)
+}
+func (v NSView) SetAlignmentRectInsets(value foundation.NSEdgeInsets) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAlignmentRectInsets:"), value)
+}
+
+
+
+// The types of touch interactions the view allows.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/allowedtouchtypes
+func (v NSView) AllowedTouchTypes() NSTouchTypeMask {
+	rv := objc.Send[NSTouchTypeMask](v.ID, objc.Sel("allowedTouchTypes"))
+	return NSTouchTypeMask(rv)
+}
+func (v NSView) SetAllowedTouchTypes(value NSTouchTypeMask) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAllowedTouchTypes:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view ensures it is vibrant on top of
+// other content.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/allowsvibrancy
+func (v NSView) AllowsVibrancy() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("allowsVibrancy"))
+	return rv
+}
+func (v NSView) SetAllowsVibrancy(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAllowsVibrancy:"), value)
+}
+
+
+
+// The opacity of the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/alphavalue
+func (v NSView) AlphaValue() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("alphaValue"))
+	return rv
+}
+func (v NSView) SetAlphaValue(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAlphaValue:"), value)
+}
+
+
+
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (v NSView) Animations() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("animations"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+func (v NSView) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAnimations:"), value)
+}
+
+
+
+// The appearance of the receiver, in an [NSAppearance] object.
+//
+// # Discussion
+// 
+// The default value for this property is `nil`, which means that the receiver
+// uses the appearance it inherits from the nearest ancestor that has set an
+// appearance. When you set `appearance` to a non-`nil` value, the receiver
+// and the views it contains use the specified appearance.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
+func (v NSView) Appearance() INSAppearance {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("appearance"))
+	return NSAppearanceFromID(objc.ID(rv))
+}
+func (v NSView) SetAppearance(value INSAppearance) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAppearance:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view applies the autoresizing
+// behavior to its subviews when its frame size changes.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/autoresizessubviews
+func (v NSView) AutoresizesSubviews() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("autoresizesSubviews"))
+	return rv
+}
+func (v NSView) SetAutoresizesSubviews(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAutoresizesSubviews:"), value)
+}
+
+
+
+// The options that determine how the view is resized relative to its
+// superview.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/autoresizingmask-swift.property
+func (v NSView) AutoresizingMask() uint {
+	rv := objc.Send[uint](v.ID, objc.Sel("autoresizingMask"))
+	return rv
+}
+func (v NSView) SetAutoresizingMask(value uint) {
+	objc.Send[struct{}](v.ID, objc.Sel("setAutoresizingMask:"), value)
+}
+
+
+
+// An array of Core Image filters to apply to the view’s background.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/backgroundfilters
+func (v NSView) BackgroundFilters() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("backgroundFilters"))
+	return objectivec.Object{ID: rv}
+}
+func (v NSView) SetBackgroundFilters(value objectivec.IObject) {
+	objc.Send[struct{}](v.ID, objc.Sel("setBackgroundFilters:"), value)
+}
+
+
+
+// The distance (in points) between the bottom of the view’s alignment
+// rectangle and its baseline.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/baselineoffsetfrombottom
+func (v NSView) BaselineOffsetFromBottom() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("baselineOffsetFromBottom"))
+	return rv
+}
+func (v NSView) SetBaselineOffsetFromBottom(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setBaselineOffsetFromBottom:"), value)
+}
+
+
+
+// A layout anchor representing the bottom edge of the view’s frame.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/bottomanchor
+func (v NSView) BottomAnchor() INSLayoutYAxisAnchor {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("bottomAnchor"))
+	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
+}
+func (v NSView) SetBottomAnchor(value INSLayoutYAxisAnchor) {
+	objc.Send[struct{}](v.ID, objc.Sel("setBottomAnchor:"), value)
+}
+
+
+
+// The view’s bounds rectangle, which expresses its location and size in its
+// own coordinate system.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/bounds
+func (v NSView) Bounds() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("bounds"))
+	return corefoundation.CGRect(rv)
+}
+func (v NSView) SetBounds(value corefoundation.CGRect) {
+	objc.Send[struct{}](v.ID, objc.Sel("setBounds:"), value)
+}
+
+
+
+// The angle of rotation, measured in degrees, applied to the view’s bounds
+// rectangle relative to its frame rectangle.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/boundsrotation
+func (v NSView) BoundsRotation() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("boundsRotation"))
+	return rv
+}
+func (v NSView) SetBoundsRotation(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setBoundsRotation:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view can become key view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/canbecomekeyview
+func (v NSView) CanBecomeKeyView() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("canBecomeKeyView"))
+	return rv
+}
+func (v NSView) SetCanBecomeKeyView(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCanBecomeKeyView:"), value)
+}
+
+
+
+// A Boolean value indicating whether drawing commands will produce any
+// results.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/candraw
+func (v NSView) CanDraw() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("canDraw"))
+	return rv
+}
+func (v NSView) SetCanDraw(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCanDraw:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view can draw its contents on a
+// background thread.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/candrawconcurrently
+func (v NSView) CanDrawConcurrently() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("canDrawConcurrently"))
+	return rv
+}
+func (v NSView) SetCanDrawConcurrently(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCanDrawConcurrently:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view incorporates content from its
+// subviews into its own layer.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/candrawsubviewsintolayer
+func (v NSView) CanDrawSubviewsIntoLayer() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("canDrawSubviewsIntoLayer"))
+	return rv
+}
+func (v NSView) SetCanDrawSubviewsIntoLayer(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCanDrawSubviewsIntoLayer:"), value)
+}
+
+
+
+// See: https://developer.apple.com/documentation/appkit/nsview/candidatelisttouchbaritem
+func (v NSView) CandidateListTouchBarItem() INSCandidateListTouchBarItem {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("candidateListTouchBarItem"))
+	return NSCandidateListTouchBarItemFromID(objc.ID(rv))
+}
+func (v NSView) SetCandidateListTouchBarItem(value INSCandidateListTouchBarItem) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCandidateListTouchBarItem:"), value)
+}
+
+
+
+// A layout anchor representing the horizontal center of the view’s frame.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/centerxanchor
+func (v NSView) CenterXAnchor() INSLayoutXAxisAnchor {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("centerXAnchor"))
+	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
+}
+func (v NSView) SetCenterXAnchor(value INSLayoutXAxisAnchor) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCenterXAnchor:"), value)
+}
+
+
+
+// A layout anchor representing the vertical center of the view’s frame.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/centeryanchor
+func (v NSView) CenterYAnchor() INSLayoutYAxisAnchor {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("centerYAnchor"))
+	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
+}
+func (v NSView) SetCenterYAnchor(value INSLayoutYAxisAnchor) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCenterYAnchor:"), value)
+}
+
+
+
+// A Boolean value that indicates whether the view, and its subviews, confine
+// their drawing areas to the bounds of the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/clipstobounds
+func (v NSView) ClipsToBounds() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("clipsToBounds"))
+	return rv
+}
+func (v NSView) SetClipsToBounds(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setClipsToBounds:"), value)
+}
+
+
+
+// The Core Image filter used to composite the view’s contents with its
+// background.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/compositingfilter
+func (v NSView) CompositingFilter() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("compositingFilter"))
+	return objectivec.Object{ID: rv}
+}
+func (v NSView) SetCompositingFilter(value objectivec.IObject) {
+	objc.Send[struct{}](v.ID, objc.Sel("setCompositingFilter:"), value)
+}
+
+
+
+// Returns the constraints held by the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/constraints
+func (v NSView) Constraints() INSLayoutConstraint {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("constraints"))
+	return NSLayoutConstraintFromID(objc.ID(rv))
+}
+func (v NSView) SetConstraints(value INSLayoutConstraint) {
+	objc.Send[struct{}](v.ID, objc.Sel("setConstraints:"), value)
+}
+
+
+
+// An array of Core Image filters to apply to the contents of the view and its
+// sublayers.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/contentfilters
+func (v NSView) ContentFilters() objectivec.IObject {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("contentFilters"))
+	return objectivec.Object{ID: rv}
+}
+func (v NSView) SetContentFilters(value objectivec.IObject) {
+	objc.Send[struct{}](v.ID, objc.Sel("setContentFilters:"), value)
+}
+
+
+
+// The appearance that will be used when the receiver is drawn onscreen, in an
+// [NSAppearance] object. (read-only)
+//
+// # Discussion
+// 
+// The default value for this property is provided by the nearest ancestor of
+// the receiver that has set an appearance.
+// 
+// You can use this property to ensure that an offscreen view sets the
+// appropriate current appearance when it draws onscreen.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
+func (v NSView) EffectiveAppearance() INSAppearance {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("effectiveAppearance"))
+	return NSAppearanceFromID(objc.ID(rv))
+}
+
+
+
+// The menu item containing the view or any of its superviews in the view
+// hierarchy.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/enclosingmenuitem
+func (v NSView) EnclosingMenuItem() INSMenuItem {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("enclosingMenuItem"))
+	return NSMenuItemFromID(objc.ID(rv))
+}
+func (v NSView) SetEnclosingMenuItem(value INSMenuItem) {
+	objc.Send[struct{}](v.ID, objc.Sel("setEnclosingMenuItem:"), value)
+}
+
+
+
+// The nearest ancestor scroll view that contains the current view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/enclosingscrollview
+func (v NSView) EnclosingScrollView() INSScrollView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("enclosingScrollView"))
+	return NSScrollViewFromID(objc.ID(rv))
+}
+func (v NSView) SetEnclosingScrollView(value INSScrollView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setEnclosingScrollView:"), value)
+}
+
+
+
+// A layout anchor representing the baseline for the topmost line of text in
+// the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/firstbaselineanchor
+func (v NSView) FirstBaselineAnchor() INSLayoutYAxisAnchor {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("firstBaselineAnchor"))
+	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
+}
+func (v NSView) SetFirstBaselineAnchor(value INSLayoutYAxisAnchor) {
+	objc.Send[struct{}](v.ID, objc.Sel("setFirstBaselineAnchor:"), value)
+}
+
+
+
+// The distance (in points) between the top of the view’s alignment
+// rectangle and its topmost baseline.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/firstbaselineoffsetfromtop
+func (v NSView) FirstBaselineOffsetFromTop() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("firstBaselineOffsetFromTop"))
+	return rv
+}
+func (v NSView) SetFirstBaselineOffsetFromTop(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setFirstBaselineOffsetFromTop:"), value)
+}
+
+
+
+// The minimum size of the view that satisfies the constraints it holds.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/fittingsize
+func (v NSView) FittingSize() corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("fittingSize"))
+	return corefoundation.CGSize(rv)
+}
+func (v NSView) SetFittingSize(value corefoundation.CGSize) {
+	objc.Send[struct{}](v.ID, objc.Sel("setFittingSize:"), value)
+}
+
+
+
+// The focus ring mask bounds, specified in the view’s coordinate space.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/focusringmaskbounds
+func (v NSView) FocusRingMaskBounds() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("focusRingMaskBounds"))
+	return corefoundation.CGRect(rv)
+}
+func (v NSView) SetFocusRingMaskBounds(value corefoundation.CGRect) {
+	objc.Send[struct{}](v.ID, objc.Sel("setFocusRingMaskBounds:"), value)
+}
+
+
+
+// The type of focus ring drawn around the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/focusringtype
+func (v NSView) FocusRingType() NSFocusRingType {
+	rv := objc.Send[NSFocusRingType](v.ID, objc.Sel("focusRingType"))
+	return NSFocusRingType(rv)
+}
+func (v NSView) SetFocusRingType(value NSFocusRingType) {
+	objc.Send[struct{}](v.ID, objc.Sel("setFocusRingType:"), value)
+}
+
+
+
 // The view’s frame rectangle, which defines its position and size in its
 // superview’s coordinate system.
 //
@@ -4707,137 +5177,15 @@ func (v NSView) SetFrame(value corefoundation.CGRect) {
 
 
 
-// The view’s bounds rectangle, which expresses its location and size in its
-// own coordinate system.
+// The rotation angle of the view around the center of its layer.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/bounds
-func (v NSView) Bounds() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("bounds"))
-	return corefoundation.CGRect(rv)
-}
-func (v NSView) SetBounds(value corefoundation.CGRect) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBounds:"), value)
-}
-
-
-
-// A Boolean value that determines whether the view needs to be redrawn before
-// being displayed.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/needsdisplay
-func (v NSView) NeedsDisplay() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("needsDisplay"))
+// See: https://developer.apple.com/documentation/appkit/nsview/framecenterrotation
+func (v NSView) FrameCenterRotation() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("frameCenterRotation"))
 	return rv
 }
-func (v NSView) SetNeedsDisplay(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setNeedsDisplay:"), value)
-}
-
-
-
-// The view’s window object, if it is installed in a window.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/window
-func (v NSView) Window() INSWindow {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("window"))
-	return NSWindowFromID(objc.ID(rv))
-}
-func (v NSView) SetWindow(value INSWindow) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWindow:"), value)
-}
-
-
-
-// The menu item containing the view or any of its superviews in the view
-// hierarchy.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/enclosingmenuitem
-func (v NSView) EnclosingMenuItem() INSMenuItem {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("enclosingMenuItem"))
-	return NSMenuItemFromID(objc.ID(rv))
-}
-func (v NSView) SetEnclosingMenuItem(value INSMenuItem) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEnclosingMenuItem:"), value)
-}
-
-
-
-// The nearest ancestor scroll view that contains the current view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/enclosingscrollview
-func (v NSView) EnclosingScrollView() INSScrollView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("enclosingScrollView"))
-	return NSScrollViewFromID(objc.ID(rv))
-}
-func (v NSView) SetEnclosingScrollView(value INSScrollView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setEnclosingScrollView:"), value)
-}
-
-
-
-// The view’s closest opaque ancestor, which might be the view itself.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/opaqueancestor
-func (v NSView) OpaqueAncestor() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("opaqueAncestor"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetOpaqueAncestor(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setOpaqueAncestor:"), value)
-}
-
-
-
-// The array of views embedded in the current view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/subviews
-func (v NSView) Subviews() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("subviews"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetSubviews(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSubviews:"), value)
-}
-
-
-
-// The view that is the parent of the current view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/superview
-func (v NSView) Superview() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("superview"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetSuperview(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setSuperview:"), value)
-}
-
-
-
-// The view’s tag, which is an integer that you use to identify the view
-// within your app.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/tag
-func (v NSView) Tag() int {
-	rv := objc.Send[int](v.ID, objc.Sel("tag"))
-	return rv
-}
-func (v NSView) SetTag(value int) {
-	objc.Send[struct{}](v.ID, objc.Sel("setTag:"), value)
-}
-
-
-
-// The angle of rotation, measured in degrees, applied to the view’s bounds
-// rectangle relative to its frame rectangle.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/boundsrotation
-func (v NSView) BoundsRotation() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("boundsRotation"))
-	return rv
-}
-func (v NSView) SetBoundsRotation(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBoundsRotation:"), value)
+func (v NSView) SetFrameCenterRotation(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setFrameCenterRotation:"), value)
 }
 
 
@@ -4856,6 +5204,156 @@ func (v NSView) SetFrameRotation(value float64) {
 
 
 
+// The gesture recognize objects currently attached to the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/gesturerecognizers
+func (v NSView) GestureRecognizers() INSGestureRecognizer {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("gestureRecognizers"))
+	return NSGestureRecognizerFromID(objc.ID(rv))
+}
+func (v NSView) SetGestureRecognizers(value INSGestureRecognizer) {
+	objc.Send[struct{}](v.ID, objc.Sel("setGestureRecognizers:"), value)
+}
+
+
+
+// A Boolean value indicating whether the constraints impacting the layout of
+// the view incompletely specify the location of the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/hasambiguouslayout
+func (v NSView) HasAmbiguousLayout() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("hasAmbiguousLayout"))
+	return rv
+}
+func (v NSView) SetHasAmbiguousLayout(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setHasAmbiguousLayout:"), value)
+}
+
+
+
+// The fraction of the page that can be pushed onto the next page during
+// automatic pagination to prevent items such as lines of text from being
+// divided across pages.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/heightadjustlimit
+func (v NSView) HeightAdjustLimit() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("heightAdjustLimit"))
+	return rv
+}
+func (v NSView) SetHeightAdjustLimit(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setHeightAdjustLimit:"), value)
+}
+
+
+
+// A layout anchor representing the height of the view’s frame.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/heightanchor
+func (v NSView) HeightAnchor() INSLayoutDimension {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("heightAnchor"))
+	return NSLayoutDimensionFromID(objc.ID(rv))
+}
+func (v NSView) SetHeightAnchor(value INSLayoutDimension) {
+	objc.Send[struct{}](v.ID, objc.Sel("setHeightAnchor:"), value)
+}
+
+
+
+// A string that identifies the user interface item.
+//
+// # Discussion
+// 
+// Identifiers are used during window restoration operations to uniquely
+// identify the windows of the application. You can set the value of this
+// string programmatically or in Interface Builder. If you create an item in
+// Interface Builder and do not set a value for this string, a unique value is
+// created for the item when the nib file is loaded. For programmatically
+// created views, you typically set this value after creating the item but
+// before adding it to a window.
+// 
+// You should not change the value of a window’s identifier after adding any
+// views to the window. For views and controls in a window, the value you
+// specify for this string must be unique on a per-window basis.
+// 
+// The slash (`/`), backslash (`\`), or colon (`:`) characters are reserved
+// and must not be used in your custom identifiers. Similarly, Apple reserves
+// all identifiers beginning with an underscore (`_`) character. Applications
+// and frameworks should use a consistent prefix for their identifiers to
+// avoid collisions with other frameworks. For a list of prefixes used by the
+// system frameworks, see [OS X Frameworks] in [Mac Technology Overview].
+// 
+// If you are subclassing a class from one of the system frameworks, do not
+// override the accessor methods of this protocol.
+//
+// [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
+// [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
+//
+// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
+func (v NSView) Identifier() NSUserInterfaceItemIdentifier {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
+	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
+}
+func (v NSView) SetIdentifier(value NSUserInterfaceItemIdentifier) {
+	objc.Send[struct{}](v.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
+}
+
+
+
+// A Boolean value indicating whether the view is being rendered as part of a
+// live resizing operation.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/inliveresize
+func (v NSView) InLiveResize() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("inLiveResize"))
+	return rv
+}
+func (v NSView) SetInLiveResize(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setInLiveResize:"), value)
+}
+
+
+
+// The text input context object for the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/inputcontext
+func (v NSView) InputContext() INSTextInputContext {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("inputContext"))
+	return NSTextInputContextFromID(objc.ID(rv))
+}
+func (v NSView) SetInputContext(value INSTextInputContext) {
+	objc.Send[struct{}](v.ID, objc.Sel("setInputContext:"), value)
+}
+
+
+
+// The natural size for the receiving view, considering only properties of the
+// view itself.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/intrinsiccontentsize
+func (v NSView) IntrinsicContentSize() corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("intrinsicContentSize"))
+	return corefoundation.CGSize(rv)
+}
+func (v NSView) SetIntrinsicContentSize(value corefoundation.CGSize) {
+	objc.Send[struct{}](v.ID, objc.Sel("setIntrinsicContentSize:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view or one of its ancestors is
+// being drawn for a find indicator.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/isdrawingfindindicator
+func (v NSView) IsDrawingFindIndicator() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("drawingFindIndicator"))
+	return rv
+}
+func (v NSView) SetIsDrawingFindIndicator(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setDrawingFindIndicator:"), value)
+}
+
+
+
 // A Boolean value indicating whether the view uses a flipped coordinate
 // system.
 //
@@ -4866,6 +5364,74 @@ func (v NSView) IsFlipped() bool {
 }
 func (v NSView) SetIsFlipped(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFlipped:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view is hidden.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/ishidden
+func (v NSView) IsHidden() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("hidden"))
+	return rv
+}
+func (v NSView) SetIsHidden(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setHidden:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view is hidden from sight because
+// it, or one of its ancestors, is marked as hidden.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/ishiddenorhashiddenancestor
+func (v NSView) IsHiddenOrHasHiddenAncestor() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("hiddenOrHasHiddenAncestor"))
+	return rv
+}
+func (v NSView) SetIsHiddenOrHasHiddenAncestor(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setHiddenOrHasHiddenAncestor:"), value)
+}
+
+
+
+// A Boolean value that indicates whether the view’s horizontal size
+// constraints are active.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/ishorizontalcontentsizeconstraintactive
+func (v NSView) IsHorizontalContentSizeConstraintActive() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("horizontalContentSizeConstraintActive"))
+	return rv
+}
+func (v NSView) SetIsHorizontalContentSizeConstraintActive(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setHorizontalContentSizeConstraintActive:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view is in full screen mode.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/isinfullscreenmode
+func (v NSView) IsInFullScreenMode() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("inFullScreenMode"))
+	return rv
+}
+func (v NSView) SetIsInFullScreenMode(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setInFullScreenMode:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view fills its frame rectangle with
+// opaque content.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/isopaque
+func (v NSView) IsOpaque() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("opaque"))
+	return rv
+}
+func (v NSView) SetIsOpaque(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setOpaque:"), value)
 }
 
 
@@ -4899,192 +5465,44 @@ func (v NSView) SetIsRotatedOrScaledFromBase(value bool) {
 
 
 
-// A Boolean value indicating whether the view posts notifications when its
-// bounds rectangle changes.
+// A Boolean value that indicates whether the view’s vertical size
+// constraints are active.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/postsboundschangednotifications
-func (v NSView) PostsBoundsChangedNotifications() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("postsBoundsChangedNotifications"))
+// See: https://developer.apple.com/documentation/appkit/nsview/isverticalcontentsizeconstraintactive
+func (v NSView) IsVerticalContentSizeConstraintActive() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("verticalContentSizeConstraintActive"))
 	return rv
 }
-func (v NSView) SetPostsBoundsChangedNotifications(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPostsBoundsChangedNotifications:"), value)
+func (v NSView) SetIsVerticalContentSizeConstraintActive(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setVerticalContentSizeConstraintActive:"), value)
 }
 
 
 
-// A Boolean value indicating whether the view posts notifications when its
-// frame rectangle changes.
+// A layout anchor representing the baseline for the bottommost line of text
+// in the view.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/postsframechangednotifications
-func (v NSView) PostsFrameChangedNotifications() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("postsFrameChangedNotifications"))
+// See: https://developer.apple.com/documentation/appkit/nsview/lastbaselineanchor
+func (v NSView) LastBaselineAnchor() INSLayoutYAxisAnchor {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("lastBaselineAnchor"))
+	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
+}
+func (v NSView) SetLastBaselineAnchor(value INSLayoutYAxisAnchor) {
+	objc.Send[struct{}](v.ID, objc.Sel("setLastBaselineAnchor:"), value)
+}
+
+
+
+// The distance (in points) between the bottom of the view’s alignment
+// rectangle and its bottommost baseline.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/lastbaselineoffsetfrombottom
+func (v NSView) LastBaselineOffsetFromBottom() float64 {
+	rv := objc.Send[float64](v.ID, objc.Sel("lastBaselineOffsetFromBottom"))
 	return rv
 }
-func (v NSView) SetPostsFrameChangedNotifications(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPostsFrameChangedNotifications:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view ensures it is vibrant on top of
-// other content.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/allowsvibrancy
-func (v NSView) AllowsVibrancy() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("allowsVibrancy"))
-	return rv
-}
-func (v NSView) SetAllowsVibrancy(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAllowsVibrancy:"), value)
-}
-
-
-
-// The focus ring mask bounds, specified in the view’s coordinate space.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/focusringmaskbounds
-func (v NSView) FocusRingMaskBounds() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("focusRingMaskBounds"))
-	return corefoundation.CGRect(rv)
-}
-func (v NSView) SetFocusRingMaskBounds(value corefoundation.CGRect) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFocusRingMaskBounds:"), value)
-}
-
-
-
-// The type of focus ring drawn around the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/focusringtype
-func (v NSView) FocusRingType() NSFocusRingType {
-	rv := objc.Send[NSFocusRingType](v.ID, objc.Sel("focusRingType"))
-	return NSFocusRingType(rv)
-}
-func (v NSView) SetFocusRingType(value NSFocusRingType) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFocusRingType:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view or one of its ancestors is
-// being drawn for a find indicator.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/isdrawingfindindicator
-func (v NSView) IsDrawingFindIndicator() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("drawingFindIndicator"))
-	return rv
-}
-func (v NSView) SetIsDrawingFindIndicator(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setDrawingFindIndicator:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view is hidden.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/ishidden
-func (v NSView) IsHidden() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("hidden"))
-	return rv
-}
-func (v NSView) SetIsHidden(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHidden:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view is hidden from sight because
-// it, or one of its ancestors, is marked as hidden.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/ishiddenorhashiddenancestor
-func (v NSView) IsHiddenOrHasHiddenAncestor() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("hiddenOrHasHiddenAncestor"))
-	return rv
-}
-func (v NSView) SetIsHiddenOrHasHiddenAncestor(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHiddenOrHasHiddenAncestor:"), value)
-}
-
-
-
-// The opacity of the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/alphavalue
-func (v NSView) AlphaValue() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("alphaValue"))
-	return rv
-}
-func (v NSView) SetAlphaValue(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAlphaValue:"), value)
-}
-
-
-
-// An array of Core Image filters to apply to the view’s background.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/backgroundfilters
-func (v NSView) BackgroundFilters() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("backgroundFilters"))
-	return objectivec.Object{ID: rv}
-}
-func (v NSView) SetBackgroundFilters(value objectivec.IObject) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBackgroundFilters:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view incorporates content from its
-// subviews into its own layer.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/candrawsubviewsintolayer
-func (v NSView) CanDrawSubviewsIntoLayer() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("canDrawSubviewsIntoLayer"))
-	return rv
-}
-func (v NSView) SetCanDrawSubviewsIntoLayer(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCanDrawSubviewsIntoLayer:"), value)
-}
-
-
-
-// The Core Image filter used to composite the view’s contents with its
-// background.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/compositingfilter
-func (v NSView) CompositingFilter() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("compositingFilter"))
-	return objectivec.Object{ID: rv}
-}
-func (v NSView) SetCompositingFilter(value objectivec.IObject) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCompositingFilter:"), value)
-}
-
-
-
-// An array of Core Image filters to apply to the contents of the view and its
-// sublayers.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/contentfilters
-func (v NSView) ContentFilters() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("contentFilters"))
-	return objectivec.Object{ID: rv}
-}
-func (v NSView) SetContentFilters(value objectivec.IObject) {
-	objc.Send[struct{}](v.ID, objc.Sel("setContentFilters:"), value)
-}
-
-
-
-// The rotation angle of the view around the center of its layer.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/framecenterrotation
-func (v NSView) FrameCenterRotation() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("frameCenterRotation"))
-	return rv
-}
-func (v NSView) SetFrameCenterRotation(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFrameCenterRotation:"), value)
+func (v NSView) SetLastBaselineOffsetFromBottom(value float64) {
+	objc.Send[struct{}](v.ID, objc.Sel("setLastBaselineOffsetFromBottom:"), value)
 }
 
 
@@ -5142,319 +5560,6 @@ func (v NSView) SetLayerUsesCoreImageFilters(value bool) {
 
 
 
-// The shadow displayed underneath the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/shadow
-func (v NSView) Shadow() INSShadow {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("shadow"))
-	return NSShadowFromID(objc.ID(rv))
-}
-func (v NSView) SetShadow(value INSShadow) {
-	objc.Send[struct{}](v.ID, objc.Sel("setShadow:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view uses a layer as its backing
-// store.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/wantslayer
-func (v NSView) WantsLayer() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("wantsLayer"))
-	return rv
-}
-func (v NSView) SetWantsLayer(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWantsLayer:"), value)
-}
-
-
-
-// A Boolean value indicating which drawing path the view takes when updating
-// its contents.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/wantsupdatelayer
-func (v NSView) WantsUpdateLayer() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("wantsUpdateLayer"))
-	return rv
-}
-func (v NSView) SetWantsUpdateLayer(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWantsUpdateLayer:"), value)
-}
-
-
-
-// The text for the view’s tooltip.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/tooltip
-func (v NSView) ToolTip() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("toolTip"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (v NSView) SetToolTip(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("setToolTip:"), objc.String(value))
-}
-
-
-
-// Custom insets that you specify to modify your view’s safe area
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/additionalsafeareainsets
-func (v NSView) AdditionalSafeAreaInsets() foundation.NSEdgeInsets {
-	rv := objc.Send[foundation.NSEdgeInsets](v.ID, objc.Sel("additionalSafeAreaInsets"))
-	return foundation.NSEdgeInsets(rv)
-}
-func (v NSView) SetAdditionalSafeAreaInsets(value foundation.NSEdgeInsets) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalSafeAreaInsets:"), value)
-}
-
-
-
-// The insets (in points) from the view’s frame that define its content
-// rectangle.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/alignmentrectinsets
-func (v NSView) AlignmentRectInsets() foundation.NSEdgeInsets {
-	rv := objc.Send[foundation.NSEdgeInsets](v.ID, objc.Sel("alignmentRectInsets"))
-	return foundation.NSEdgeInsets(rv)
-}
-func (v NSView) SetAlignmentRectInsets(value foundation.NSEdgeInsets) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAlignmentRectInsets:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view applies the autoresizing
-// behavior to its subviews when its frame size changes.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/autoresizessubviews
-func (v NSView) AutoresizesSubviews() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("autoresizesSubviews"))
-	return rv
-}
-func (v NSView) SetAutoresizesSubviews(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAutoresizesSubviews:"), value)
-}
-
-
-
-// The options that determine how the view is resized relative to its
-// superview.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/autoresizingmask-swift.property
-func (v NSView) AutoresizingMask() uint {
-	rv := objc.Send[uint](v.ID, objc.Sel("autoresizingMask"))
-	return rv
-}
-func (v NSView) SetAutoresizingMask(value uint) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAutoresizingMask:"), value)
-}
-
-
-
-// The distance (in points) between the bottom of the view’s alignment
-// rectangle and its baseline.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/baselineoffsetfrombottom
-func (v NSView) BaselineOffsetFromBottom() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("baselineOffsetFromBottom"))
-	return rv
-}
-func (v NSView) SetBaselineOffsetFromBottom(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBaselineOffsetFromBottom:"), value)
-}
-
-
-
-// A layout anchor representing the bottom edge of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/bottomanchor
-func (v NSView) BottomAnchor() INSLayoutYAxisAnchor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("bottomAnchor"))
-	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
-}
-func (v NSView) SetBottomAnchor(value INSLayoutYAxisAnchor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setBottomAnchor:"), value)
-}
-
-
-
-// A layout anchor representing the horizontal center of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/centerxanchor
-func (v NSView) CenterXAnchor() INSLayoutXAxisAnchor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("centerXAnchor"))
-	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
-}
-func (v NSView) SetCenterXAnchor(value INSLayoutXAxisAnchor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCenterXAnchor:"), value)
-}
-
-
-
-// A layout anchor representing the vertical center of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/centeryanchor
-func (v NSView) CenterYAnchor() INSLayoutYAxisAnchor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("centerYAnchor"))
-	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
-}
-func (v NSView) SetCenterYAnchor(value INSLayoutYAxisAnchor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCenterYAnchor:"), value)
-}
-
-
-
-// Returns the constraints held by the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/constraints
-func (v NSView) Constraints() INSLayoutConstraint {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("constraints"))
-	return NSLayoutConstraintFromID(objc.ID(rv))
-}
-func (v NSView) SetConstraints(value INSLayoutConstraint) {
-	objc.Send[struct{}](v.ID, objc.Sel("setConstraints:"), value)
-}
-
-
-
-// A layout anchor representing the baseline for the topmost line of text in
-// the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/firstbaselineanchor
-func (v NSView) FirstBaselineAnchor() INSLayoutYAxisAnchor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("firstBaselineAnchor"))
-	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
-}
-func (v NSView) SetFirstBaselineAnchor(value INSLayoutYAxisAnchor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFirstBaselineAnchor:"), value)
-}
-
-
-
-// The distance (in points) between the top of the view’s alignment
-// rectangle and its topmost baseline.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/firstbaselineoffsetfromtop
-func (v NSView) FirstBaselineOffsetFromTop() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("firstBaselineOffsetFromTop"))
-	return rv
-}
-func (v NSView) SetFirstBaselineOffsetFromTop(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFirstBaselineOffsetFromTop:"), value)
-}
-
-
-
-// The minimum size of the view that satisfies the constraints it holds.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/fittingsize
-func (v NSView) FittingSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("fittingSize"))
-	return corefoundation.CGSize(rv)
-}
-func (v NSView) SetFittingSize(value corefoundation.CGSize) {
-	objc.Send[struct{}](v.ID, objc.Sel("setFittingSize:"), value)
-}
-
-
-
-// A Boolean value indicating whether the constraints impacting the layout of
-// the view incompletely specify the location of the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/hasambiguouslayout
-func (v NSView) HasAmbiguousLayout() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("hasAmbiguousLayout"))
-	return rv
-}
-func (v NSView) SetHasAmbiguousLayout(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHasAmbiguousLayout:"), value)
-}
-
-
-
-// A layout anchor representing the height of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/heightanchor
-func (v NSView) HeightAnchor() INSLayoutDimension {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("heightAnchor"))
-	return NSLayoutDimensionFromID(objc.ID(rv))
-}
-func (v NSView) SetHeightAnchor(value INSLayoutDimension) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHeightAnchor:"), value)
-}
-
-
-
-// The natural size for the receiving view, considering only properties of the
-// view itself.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/intrinsiccontentsize
-func (v NSView) IntrinsicContentSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("intrinsicContentSize"))
-	return corefoundation.CGSize(rv)
-}
-func (v NSView) SetIntrinsicContentSize(value corefoundation.CGSize) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIntrinsicContentSize:"), value)
-}
-
-
-
-// A Boolean value that indicates whether the view’s horizontal size
-// constraints are active.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/ishorizontalcontentsizeconstraintactive
-func (v NSView) IsHorizontalContentSizeConstraintActive() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("horizontalContentSizeConstraintActive"))
-	return rv
-}
-func (v NSView) SetIsHorizontalContentSizeConstraintActive(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHorizontalContentSizeConstraintActive:"), value)
-}
-
-
-
-// A Boolean value that indicates whether the view’s vertical size
-// constraints are active.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/isverticalcontentsizeconstraintactive
-func (v NSView) IsVerticalContentSizeConstraintActive() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("verticalContentSizeConstraintActive"))
-	return rv
-}
-func (v NSView) SetIsVerticalContentSizeConstraintActive(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setVerticalContentSizeConstraintActive:"), value)
-}
-
-
-
-// A layout anchor representing the baseline for the bottommost line of text
-// in the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/lastbaselineanchor
-func (v NSView) LastBaselineAnchor() INSLayoutYAxisAnchor {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("lastBaselineAnchor"))
-	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
-}
-func (v NSView) SetLastBaselineAnchor(value INSLayoutYAxisAnchor) {
-	objc.Send[struct{}](v.ID, objc.Sel("setLastBaselineAnchor:"), value)
-}
-
-
-
-// The distance (in points) between the bottom of the view’s alignment
-// rectangle and its bottommost baseline.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/lastbaselineoffsetfrombottom
-func (v NSView) LastBaselineOffsetFromBottom() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("lastBaselineOffsetFromBottom"))
-	return rv
-}
-func (v NSView) SetLastBaselineOffsetFromBottom(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setLastBaselineOffsetFromBottom:"), value)
-}
-
-
-
 // The array of layout guide objects owned by this view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/layoutguides
@@ -5508,6 +5613,34 @@ func (v NSView) SetLeftAnchor(value INSLayoutXAxisAnchor) {
 
 
 
+// A Boolean value indicating whether the view can pass mouse down events
+// through to its superviews.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/mousedowncanmovewindow
+func (v NSView) MouseDownCanMoveWindow() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("mouseDownCanMoveWindow"))
+	return rv
+}
+func (v NSView) SetMouseDownCanMoveWindow(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setMouseDownCanMoveWindow:"), value)
+}
+
+
+
+// A Boolean value that determines whether the view needs to be redrawn before
+// being displayed.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/needsdisplay
+func (v NSView) NeedsDisplay() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("needsDisplay"))
+	return rv
+}
+func (v NSView) SetNeedsDisplay(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setNeedsDisplay:"), value)
+}
+
+
+
 // A Boolean value indicating whether the view needs a layout pass before it
 // can be drawn.
 //
@@ -5522,6 +5655,20 @@ func (v NSView) SetNeedsLayout(value bool) {
 
 
 
+// A Boolean value indicating whether the view needs its panel to become the
+// key window before it can handle keyboard input and navigation.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/needspaneltobecomekey
+func (v NSView) NeedsPanelToBecomeKey() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("needsPanelToBecomeKey"))
+	return rv
+}
+func (v NSView) SetNeedsPanelToBecomeKey(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setNeedsPanelToBecomeKey:"), value)
+}
+
+
+
 // A Boolean value indicating whether the view’s constraints need to be
 // updated.
 //
@@ -5532,6 +5679,211 @@ func (v NSView) NeedsUpdateConstraints() bool {
 }
 func (v NSView) SetNeedsUpdateConstraints(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNeedsUpdateConstraints:"), value)
+}
+
+
+
+// The view object that follows the current view in the key view loop.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/nextkeyview
+func (v NSView) NextKeyView() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("nextKeyView"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetNextKeyView(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setNextKeyView:"), value)
+}
+
+
+
+// The closest view object in the key view loop that follows the current view
+// in the key view loop and accepts first responder status.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/nextvalidkeyview
+func (v NSView) NextValidKeyView() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("nextValidKeyView"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetNextValidKeyView(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setNextValidKeyView:"), value)
+}
+
+
+
+// The view’s closest opaque ancestor, which might be the view itself.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/opaqueancestor
+func (v NSView) OpaqueAncestor() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("opaqueAncestor"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetOpaqueAncestor(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setOpaqueAncestor:"), value)
+}
+
+
+
+// A default footer string that includes the current page number and page
+// count.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/pagefooter
+func (v NSView) PageFooter() foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("pageFooter"))
+	return foundation.NSAttributedStringFromID(objc.ID(rv))
+}
+func (v NSView) SetPageFooter(value foundation.NSAttributedString) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPageFooter:"), value)
+}
+
+
+
+// A default header string that includes the print job title and date.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/pageheader
+func (v NSView) PageHeader() foundation.NSAttributedString {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("pageHeader"))
+	return foundation.NSAttributedStringFromID(objc.ID(rv))
+}
+func (v NSView) SetPageHeader(value foundation.NSAttributedString) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPageHeader:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view posts notifications when its
+// bounds rectangle changes.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/postsboundschangednotifications
+func (v NSView) PostsBoundsChangedNotifications() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("postsBoundsChangedNotifications"))
+	return rv
+}
+func (v NSView) SetPostsBoundsChangedNotifications(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPostsBoundsChangedNotifications:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view posts notifications when its
+// frame rectangle changes.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/postsframechangednotifications
+func (v NSView) PostsFrameChangedNotifications() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("postsFrameChangedNotifications"))
+	return rv
+}
+func (v NSView) SetPostsFrameChangedNotifications(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPostsFrameChangedNotifications:"), value)
+}
+
+
+
+// The portion of the view that has been rendered and is available for
+// responsive scrolling.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/preparedcontentrect
+func (v NSView) PreparedContentRect() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("preparedContentRect"))
+	return corefoundation.CGRect(rv)
+}
+func (v NSView) SetPreparedContentRect(value corefoundation.CGRect) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPreparedContentRect:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view optimizes live-resize
+// operations by preserving content that has not moved.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/preservescontentduringliveresize
+func (v NSView) PreservesContentDuringLiveResize() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("preservesContentDuringLiveResize"))
+	return rv
+}
+func (v NSView) SetPreservesContentDuringLiveResize(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPreservesContentDuringLiveResize:"), value)
+}
+
+
+
+// Configures the behavior and progression of the Force Touch trackpad when
+// responding to touch input produced by the user when the cursor is over the
+// view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/pressureconfiguration
+func (v NSView) PressureConfiguration() INSPressureConfiguration {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("pressureConfiguration"))
+	return NSPressureConfigurationFromID(objc.ID(rv))
+}
+func (v NSView) SetPressureConfiguration(value INSPressureConfiguration) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPressureConfiguration:"), value)
+}
+
+
+
+// The view object preceding the current view in the key view loop.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/previouskeyview
+func (v NSView) PreviousKeyView() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("previousKeyView"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetPreviousKeyView(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPreviousKeyView:"), value)
+}
+
+
+
+// The closest view object in the key view loop that precedes the current view
+// and accepts first responder status.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/previousvalidkeyview
+func (v NSView) PreviousValidKeyView() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("previousValidKeyView"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetPreviousValidKeyView(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPreviousValidKeyView:"), value)
+}
+
+
+
+// The view’s print job title.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/printjobtitle
+func (v NSView) PrintJobTitle() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("printJobTitle"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (v NSView) SetPrintJobTitle(value string) {
+	objc.Send[struct{}](v.ID, objc.Sel("setPrintJobTitle:"), objc.String(value))
+}
+
+
+
+// The rectangle identifying the portion of your view that did not change
+// during a live resize operation.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/rectpreservedduringliveresize
+func (v NSView) RectPreservedDuringLiveResize() corefoundation.CGRect {
+	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectPreservedDuringLiveResize"))
+	return corefoundation.CGRect(rv)
+}
+func (v NSView) SetRectPreservedDuringLiveResize(value corefoundation.CGRect) {
+	objc.Send[struct{}](v.ID, objc.Sel("setRectPreservedDuringLiveResize:"), value)
+}
+
+
+
+// The array of pasteboard drag types that the view can accept.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/registereddraggedtypes
+func (v NSView) RegisteredDraggedTypes() NSPasteboardType {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("registeredDraggedTypes"))
+	return NSPasteboardType(foundation.NSStringFromID(rv).String())
+}
+func (v NSView) SetRegisteredDraggedTypes(value NSPasteboardType) {
+	objc.Send[struct{}](v.ID, objc.Sel("setRegisteredDraggedTypes:"), objc.String(string(value)))
 }
 
 
@@ -5590,6 +5942,72 @@ func (v NSView) SetSafeAreaRect(value corefoundation.CGRect) {
 
 
 
+// The shadow displayed underneath the view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/shadow
+func (v NSView) Shadow() INSShadow {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("shadow"))
+	return NSShadowFromID(objc.ID(rv))
+}
+func (v NSView) SetShadow(value INSShadow) {
+	objc.Send[struct{}](v.ID, objc.Sel("setShadow:"), value)
+}
+
+
+
+// The array of views embedded in the current view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/subviews
+func (v NSView) Subviews() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("subviews"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetSubviews(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setSubviews:"), value)
+}
+
+
+
+// The view that is the parent of the current view.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/superview
+func (v NSView) Superview() INSView {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("superview"))
+	return NSViewFromID(objc.ID(rv))
+}
+func (v NSView) SetSuperview(value INSView) {
+	objc.Send[struct{}](v.ID, objc.Sel("setSuperview:"), value)
+}
+
+
+
+// The view’s tag, which is an integer that you use to identify the view
+// within your app.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/tag
+func (v NSView) Tag() int {
+	rv := objc.Send[int](v.ID, objc.Sel("tag"))
+	return rv
+}
+func (v NSView) SetTag(value int) {
+	objc.Send[struct{}](v.ID, objc.Sel("setTag:"), value)
+}
+
+
+
+// The text for the view’s tooltip.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/tooltip
+func (v NSView) ToolTip() string {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("toolTip"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (v NSView) SetToolTip(value string) {
+	objc.Send[struct{}](v.ID, objc.Sel("setToolTip:"), objc.String(value))
+}
+
+
+
 // A layout anchor representing the top edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/topanchor
@@ -5599,6 +6017,19 @@ func (v NSView) TopAnchor() INSLayoutYAxisAnchor {
 }
 func (v NSView) SetTopAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTopAnchor:"), value)
+}
+
+
+
+// An array of the view’s tracking areas.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/trackingareas
+func (v NSView) TrackingAreas() INSTrackingArea {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("trackingAreas"))
+	return NSTrackingAreaFromID(objc.ID(rv))
+}
+func (v NSView) SetTrackingAreas(value INSTrackingArea) {
+	objc.Send[struct{}](v.ID, objc.Sel("setTrackingAreas:"), value)
 }
 
 
@@ -5643,116 +6074,6 @@ func (v NSView) SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirec
 
 
 
-// A layout anchor representing the width of the view’s frame.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/widthanchor
-func (v NSView) WidthAnchor() INSLayoutDimension {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("widthAnchor"))
-	return NSLayoutDimensionFromID(objc.ID(rv))
-}
-func (v NSView) SetWidthAnchor(value INSLayoutDimension) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWidthAnchor:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view can draw its contents on a
-// background thread.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/candrawconcurrently
-func (v NSView) CanDrawConcurrently() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("canDrawConcurrently"))
-	return rv
-}
-func (v NSView) SetCanDrawConcurrently(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCanDrawConcurrently:"), value)
-}
-
-
-
-// A Boolean value that indicates whether the view, and its subviews, confine
-// their drawing areas to the bounds of the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/clipstobounds
-func (v NSView) ClipsToBounds() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("clipsToBounds"))
-	return rv
-}
-func (v NSView) SetClipsToBounds(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setClipsToBounds:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view is being rendered as part of a
-// live resizing operation.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/inliveresize
-func (v NSView) InLiveResize() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("inLiveResize"))
-	return rv
-}
-func (v NSView) SetInLiveResize(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setInLiveResize:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view is in full screen mode.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/isinfullscreenmode
-func (v NSView) IsInFullScreenMode() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("inFullScreenMode"))
-	return rv
-}
-func (v NSView) SetIsInFullScreenMode(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setInFullScreenMode:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view fills its frame rectangle with
-// opaque content.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/isopaque
-func (v NSView) IsOpaque() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("opaque"))
-	return rv
-}
-func (v NSView) SetIsOpaque(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setOpaque:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view optimizes live-resize
-// operations by preserving content that has not moved.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/preservescontentduringliveresize
-func (v NSView) PreservesContentDuringLiveResize() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("preservesContentDuringLiveResize"))
-	return rv
-}
-func (v NSView) SetPreservesContentDuringLiveResize(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPreservesContentDuringLiveResize:"), value)
-}
-
-
-
-// The rectangle identifying the portion of your view that did not change
-// during a live resize operation.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/rectpreservedduringliveresize
-func (v NSView) RectPreservedDuringLiveResize() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectPreservedDuringLiveResize"))
-	return corefoundation.CGRect(rv)
-}
-func (v NSView) SetRectPreservedDuringLiveResize(value corefoundation.CGRect) {
-	objc.Send[struct{}](v.ID, objc.Sel("setRectPreservedDuringLiveResize:"), value)
-}
-
-
-
 // The portion of the view that isn’t clipped by its superviews.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/visiblerect
@@ -5762,6 +6083,20 @@ func (v NSView) VisibleRect() corefoundation.CGRect {
 }
 func (v NSView) SetVisibleRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVisibleRect:"), value)
+}
+
+
+
+// A Boolean value indicating whether the view wants an OpenGL backing surface
+// with a resolution greater than 1 pixel per point.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/wantsbestresolutionopenglsurface
+func (v NSView) WantsBestResolutionOpenGLSurface() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("wantsBestResolutionOpenGLSurface"))
+	return rv
+}
+func (v NSView) SetWantsBestResolutionOpenGLSurface(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWantsBestResolutionOpenGLSurface:"), value)
 }
 
 
@@ -5780,57 +6115,54 @@ func (v NSView) SetWantsDefaultClipping(value bool) {
 
 
 
-// The fraction of the page that can be pushed onto the next page during
-// automatic pagination to prevent items such as lines of text from being
-// divided across pages.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/heightadjustlimit
-func (v NSView) HeightAdjustLimit() float64 {
-	rv := objc.Send[float64](v.ID, objc.Sel("heightAdjustLimit"))
+// See: https://developer.apple.com/documentation/appkit/nsview/wantsextendeddynamicrangeopenglsurface
+func (v NSView) WantsExtendedDynamicRangeOpenGLSurface() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("wantsExtendedDynamicRangeOpenGLSurface"))
 	return rv
 }
-func (v NSView) SetHeightAdjustLimit(value float64) {
-	objc.Send[struct{}](v.ID, objc.Sel("setHeightAdjustLimit:"), value)
+func (v NSView) SetWantsExtendedDynamicRangeOpenGLSurface(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWantsExtendedDynamicRangeOpenGLSurface:"), value)
 }
 
 
 
-// A default footer string that includes the current page number and page
-// count.
+// A Boolean value indicating whether the view uses a layer as its backing
+// store.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/pagefooter
-func (v NSView) PageFooter() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("pageFooter"))
-	return foundation.NSAttributedStringFromID(objc.ID(rv))
+// See: https://developer.apple.com/documentation/appkit/nsview/wantslayer
+func (v NSView) WantsLayer() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("wantsLayer"))
+	return rv
 }
-func (v NSView) SetPageFooter(value foundation.NSAttributedString) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPageFooter:"), value)
+func (v NSView) SetWantsLayer(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWantsLayer:"), value)
 }
 
 
 
-// A default header string that includes the print job title and date.
+// A Boolean value indicating whether the view wants resting touches.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/pageheader
-func (v NSView) PageHeader() foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("pageHeader"))
-	return foundation.NSAttributedStringFromID(objc.ID(rv))
+// See: https://developer.apple.com/documentation/appkit/nsview/wantsrestingtouches
+func (v NSView) WantsRestingTouches() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("wantsRestingTouches"))
+	return rv
 }
-func (v NSView) SetPageHeader(value foundation.NSAttributedString) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPageHeader:"), value)
+func (v NSView) SetWantsRestingTouches(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWantsRestingTouches:"), value)
 }
 
 
 
-// The view’s print job title.
+// A Boolean value indicating which drawing path the view takes when updating
+// its contents.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/printjobtitle
-func (v NSView) PrintJobTitle() string {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("printJobTitle"))
-	return foundation.NSStringFromID(rv).String()
+// See: https://developer.apple.com/documentation/appkit/nsview/wantsupdatelayer
+func (v NSView) WantsUpdateLayer() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("wantsUpdateLayer"))
+	return rv
 }
-func (v NSView) SetPrintJobTitle(value string) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPrintJobTitle:"), objc.String(value))
+func (v NSView) SetWantsUpdateLayer(value bool) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWantsUpdateLayer:"), value)
 }
 
 
@@ -5850,360 +6182,28 @@ func (v NSView) SetWidthAdjustLimit(value float64) {
 
 
 
-// The types of touch interactions the view allows.
+// A layout anchor representing the width of the view’s frame.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/allowedtouchtypes
-func (v NSView) AllowedTouchTypes() NSTouchTypeMask {
-	rv := objc.Send[NSTouchTypeMask](v.ID, objc.Sel("allowedTouchTypes"))
-	return NSTouchTypeMask(rv)
+// See: https://developer.apple.com/documentation/appkit/nsview/widthanchor
+func (v NSView) WidthAnchor() INSLayoutDimension {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("widthAnchor"))
+	return NSLayoutDimensionFromID(objc.ID(rv))
 }
-func (v NSView) SetAllowedTouchTypes(value NSTouchTypeMask) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAllowedTouchTypes:"), value)
+func (v NSView) SetWidthAnchor(value INSLayoutDimension) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWidthAnchor:"), value)
 }
 
 
 
-// A Boolean value indicating whether the view can become key view.
+// The view’s window object, if it is installed in a window.
 //
-// See: https://developer.apple.com/documentation/appkit/nsview/canbecomekeyview
-func (v NSView) CanBecomeKeyView() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("canBecomeKeyView"))
-	return rv
+// See: https://developer.apple.com/documentation/appkit/nsview/window
+func (v NSView) Window() INSWindow {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("window"))
+	return NSWindowFromID(objc.ID(rv))
 }
-func (v NSView) SetCanBecomeKeyView(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCanBecomeKeyView:"), value)
-}
-
-
-
-// See: https://developer.apple.com/documentation/appkit/nsview/candidatelisttouchbaritem
-func (v NSView) CandidateListTouchBarItem() INSCandidateListTouchBarItem {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("candidateListTouchBarItem"))
-	return NSCandidateListTouchBarItemFromID(objc.ID(rv))
-}
-func (v NSView) SetCandidateListTouchBarItem(value INSCandidateListTouchBarItem) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCandidateListTouchBarItem:"), value)
-}
-
-
-
-// The gesture recognize objects currently attached to the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/gesturerecognizers
-func (v NSView) GestureRecognizers() INSGestureRecognizer {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("gestureRecognizers"))
-	return NSGestureRecognizerFromID(objc.ID(rv))
-}
-func (v NSView) SetGestureRecognizers(value INSGestureRecognizer) {
-	objc.Send[struct{}](v.ID, objc.Sel("setGestureRecognizers:"), value)
-}
-
-
-
-// The text input context object for the view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/inputcontext
-func (v NSView) InputContext() INSTextInputContext {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("inputContext"))
-	return NSTextInputContextFromID(objc.ID(rv))
-}
-func (v NSView) SetInputContext(value INSTextInputContext) {
-	objc.Send[struct{}](v.ID, objc.Sel("setInputContext:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view can pass mouse down events
-// through to its superviews.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/mousedowncanmovewindow
-func (v NSView) MouseDownCanMoveWindow() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("mouseDownCanMoveWindow"))
-	return rv
-}
-func (v NSView) SetMouseDownCanMoveWindow(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setMouseDownCanMoveWindow:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view needs its panel to become the
-// key window before it can handle keyboard input and navigation.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/needspaneltobecomekey
-func (v NSView) NeedsPanelToBecomeKey() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("needsPanelToBecomeKey"))
-	return rv
-}
-func (v NSView) SetNeedsPanelToBecomeKey(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setNeedsPanelToBecomeKey:"), value)
-}
-
-
-
-// The view object that follows the current view in the key view loop.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/nextkeyview
-func (v NSView) NextKeyView() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("nextKeyView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetNextKeyView(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setNextKeyView:"), value)
-}
-
-
-
-// The closest view object in the key view loop that follows the current view
-// in the key view loop and accepts first responder status.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/nextvalidkeyview
-func (v NSView) NextValidKeyView() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("nextValidKeyView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetNextValidKeyView(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setNextValidKeyView:"), value)
-}
-
-
-
-// The portion of the view that has been rendered and is available for
-// responsive scrolling.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/preparedcontentrect
-func (v NSView) PreparedContentRect() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("preparedContentRect"))
-	return corefoundation.CGRect(rv)
-}
-func (v NSView) SetPreparedContentRect(value corefoundation.CGRect) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPreparedContentRect:"), value)
-}
-
-
-
-// Configures the behavior and progression of the Force Touch trackpad when
-// responding to touch input produced by the user when the cursor is over the
-// view.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/pressureconfiguration
-func (v NSView) PressureConfiguration() INSPressureConfiguration {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("pressureConfiguration"))
-	return NSPressureConfigurationFromID(objc.ID(rv))
-}
-func (v NSView) SetPressureConfiguration(value INSPressureConfiguration) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPressureConfiguration:"), value)
-}
-
-
-
-// The view object preceding the current view in the key view loop.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/previouskeyview
-func (v NSView) PreviousKeyView() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("previousKeyView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetPreviousKeyView(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPreviousKeyView:"), value)
-}
-
-
-
-// The closest view object in the key view loop that precedes the current view
-// and accepts first responder status.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/previousvalidkeyview
-func (v NSView) PreviousValidKeyView() INSView {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("previousValidKeyView"))
-	return NSViewFromID(objc.ID(rv))
-}
-func (v NSView) SetPreviousValidKeyView(value INSView) {
-	objc.Send[struct{}](v.ID, objc.Sel("setPreviousValidKeyView:"), value)
-}
-
-
-
-// The array of pasteboard drag types that the view can accept.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/registereddraggedtypes
-func (v NSView) RegisteredDraggedTypes() NSPasteboardType {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("registeredDraggedTypes"))
-	return NSPasteboardType(foundation.NSStringFromID(rv).String())
-}
-func (v NSView) SetRegisteredDraggedTypes(value NSPasteboardType) {
-	objc.Send[struct{}](v.ID, objc.Sel("setRegisteredDraggedTypes:"), objc.String(string(value)))
-}
-
-
-
-// An array of the view’s tracking areas.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/trackingareas
-func (v NSView) TrackingAreas() INSTrackingArea {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("trackingAreas"))
-	return NSTrackingAreaFromID(objc.ID(rv))
-}
-func (v NSView) SetTrackingAreas(value INSTrackingArea) {
-	objc.Send[struct{}](v.ID, objc.Sel("setTrackingAreas:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view wants resting touches.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/wantsrestingtouches
-func (v NSView) WantsRestingTouches() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("wantsRestingTouches"))
-	return rv
-}
-func (v NSView) SetWantsRestingTouches(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWantsRestingTouches:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view accepts touch events.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/acceptstouchevents
-func (v NSView) AcceptsTouchEvents() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("acceptsTouchEvents"))
-	return rv
-}
-func (v NSView) SetAcceptsTouchEvents(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAcceptsTouchEvents:"), value)
-}
-
-
-
-// A Boolean value indicating whether drawing commands will produce any
-// results.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/candraw
-func (v NSView) CanDraw() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("canDraw"))
-	return rv
-}
-func (v NSView) SetCanDraw(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCanDraw:"), value)
-}
-
-
-
-// A Boolean value indicating whether the view wants an OpenGL backing surface
-// with a resolution greater than 1 pixel per point.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/wantsbestresolutionopenglsurface
-func (v NSView) WantsBestResolutionOpenGLSurface() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("wantsBestResolutionOpenGLSurface"))
-	return rv
-}
-func (v NSView) SetWantsBestResolutionOpenGLSurface(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWantsBestResolutionOpenGLSurface:"), value)
-}
-
-
-
-// See: https://developer.apple.com/documentation/appkit/nsview/wantsextendeddynamicrangeopenglsurface
-func (v NSView) WantsExtendedDynamicRangeOpenGLSurface() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("wantsExtendedDynamicRangeOpenGLSurface"))
-	return rv
-}
-func (v NSView) SetWantsExtendedDynamicRangeOpenGLSurface(value bool) {
-	objc.Send[struct{}](v.ID, objc.Sel("setWantsExtendedDynamicRangeOpenGLSurface:"), value)
-}
-
-
-
-// Sets the option dictionary that maps event trigger keys to animation
-// objects.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-func (v NSView) Animations() foundation.INSDictionary {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("animations"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
-}
-func (v NSView) SetAnimations(value foundation.INSDictionary) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAnimations:"), value)
-}
-
-
-
-// The appearance of the receiver, in an [NSAppearance] object.
-//
-// # Discussion
-// 
-// The default value for this property is `nil`, which means that the receiver
-// uses the appearance it inherits from the nearest ancestor that has set an
-// appearance. When you set `appearance` to a non-`nil` value, the receiver
-// and the views it contains use the specified appearance.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
-func (v NSView) Appearance() INSAppearance {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("appearance"))
-	return NSAppearanceFromID(objc.ID(rv))
-}
-func (v NSView) SetAppearance(value INSAppearance) {
-	objc.Send[struct{}](v.ID, objc.Sel("setAppearance:"), value)
-}
-
-
-
-// The appearance that will be used when the receiver is drawn onscreen, in an
-// [NSAppearance] object. (read-only)
-//
-// # Discussion
-// 
-// The default value for this property is provided by the nearest ancestor of
-// the receiver that has set an appearance.
-// 
-// You can use this property to ensure that an offscreen view sets the
-// appropriate current appearance when it draws onscreen.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
-func (v NSView) EffectiveAppearance() INSAppearance {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("effectiveAppearance"))
-	return NSAppearanceFromID(objc.ID(rv))
-}
-
-
-
-// A string that identifies the user interface item.
-//
-// # Discussion
-// 
-// Identifiers are used during window restoration operations to uniquely
-// identify the windows of the application. You can set the value of this
-// string programmatically or in Interface Builder. If you create an item in
-// Interface Builder and do not set a value for this string, a unique value is
-// created for the item when the nib file is loaded. For programmatically
-// created views, you typically set this value after creating the item but
-// before adding it to a window.
-// 
-// You should not change the value of a window’s identifier after adding any
-// views to the window. For views and controls in a window, the value you
-// specify for this string must be unique on a per-window basis.
-// 
-// The slash (`/`), backslash (`\`), or colon (`:`) characters are reserved
-// and must not be used in your custom identifiers. Similarly, Apple reserves
-// all identifiers beginning with an underscore (`_`) character. Applications
-// and frameworks should use a consistent prefix for their identifiers to
-// avoid collisions with other frameworks. For a list of prefixes used by the
-// system frameworks, see [OS X Frameworks] in [Mac Technology Overview].
-// 
-// If you are subclassing a class from one of the system frameworks, do not
-// override the accessor methods of this protocol.
-//
-// [Mac Technology Overview]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067
-// [OS X Frameworks]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/SystemFrameworks/SystemFrameworks.html#//apple_ref/doc/uid/TP40001067-CH210
-//
-// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
-func (v NSView) Identifier() NSUserInterfaceItemIdentifier {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("identifier"))
-	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
-}
-func (v NSView) SetIdentifier(value NSUserInterfaceItemIdentifier) {
-	objc.Send[struct{}](v.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
+func (v NSView) SetWindow(value INSWindow) {
+	objc.Send[struct{}](v.ID, objc.Sel("setWindow:"), value)
 }
 
 
@@ -6252,6 +6252,19 @@ func (_NSViewClass NSViewClass) SetFocusView(value NSView) {
 
 
 
+// A Boolean value that indicates whether views support responsive scrolling.
+//
+// See: https://developer.apple.com/documentation/appkit/nsview/iscompatiblewithresponsivescrolling
+func (_NSViewClass NSViewClass) IsCompatibleWithResponsiveScrolling() bool {
+	rv := objc.Send[bool](objc.ID(_NSViewClass.class), objc.Sel("compatibleWithResponsiveScrolling"))
+	return rv
+}
+func (_NSViewClass NSViewClass) SetIsCompatibleWithResponsiveScrolling(value bool) {
+	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setCompatibleWithResponsiveScrolling:"), value)
+}
+
+
+
 // Returns a Boolean value indicating whether the view depends on the
 // constraint-based layout system.
 //
@@ -6262,19 +6275,6 @@ func (_NSViewClass NSViewClass) RequiresConstraintBasedLayout() bool {
 }
 func (_NSViewClass NSViewClass) SetRequiresConstraintBasedLayout(value bool) {
 	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setRequiresConstraintBasedLayout:"), value)
-}
-
-
-
-// A Boolean value that indicates whether views support responsive scrolling.
-//
-// See: https://developer.apple.com/documentation/appkit/nsview/iscompatiblewithresponsivescrolling
-func (_NSViewClass NSViewClass) IsCompatibleWithResponsiveScrolling() bool {
-	rv := objc.Send[bool](objc.ID(_NSViewClass.class), objc.Sel("compatibleWithResponsiveScrolling"))
-	return rv
-}
-func (_NSViewClass NSViewClass) SetIsCompatibleWithResponsiveScrolling(value bool) {
-	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setCompatibleWithResponsiveScrolling:"), value)
 }
 
 

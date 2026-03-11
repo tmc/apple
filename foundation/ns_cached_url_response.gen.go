@@ -129,9 +129,9 @@ type ICachedURLResponse interface {
 	// The cached response’s user info dictionary.
 	UserInfo() INSDictionary
 
-	InitWithCoder(coder INSCoder) CachedURLResponse
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) CachedURLResponse
 }
 
 
@@ -264,13 +264,6 @@ func (c CachedURLResponse) InitWithResponseDataUserInfoStoragePolicy(response IN
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (c CachedURLResponse) InitWithCoder(coder INSCoder) CachedURLResponse {
-	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -278,6 +271,13 @@ func (c CachedURLResponse) InitWithCoder(coder INSCoder) CachedURLResponse {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (c CachedURLResponse) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (c CachedURLResponse) InitWithCoder(coder INSCoder) CachedURLResponse {
+	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

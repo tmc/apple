@@ -980,18 +980,18 @@ type INSString interface {
 	StringByAppendingPathComponentConformingToType(partialName string, contentType objectivec.IObject) string
 	StringByAppendingPathExtensionForType(contentType objectivec.IObject) string
 
-	InitWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error)
-	InitWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error)
-	InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error)
-	InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error)
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted.
 	InitWithFormat(format string) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted according to given locale.
 	InitWithFormatLocale(format string, locale objectivec.IObject) NSString
+	InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error)
+	InitWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error)
+	InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error)
+	InitWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error)
 	// Returns a string made by appending to the receiver a string constructed from a given format string and the following arguments.
 	StringByAppendingFormat(format string) string
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
 
 
@@ -4313,56 +4313,13 @@ func (s NSString) StringByAppendingPathExtensionForType(contentType objectivec.I
 	return NSStringFromID(rv).String()
 }
 
+// Encodes the receiver using a given archiver.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
-func (s NSString) InitWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSString{}, NSErrorFrom(errorPtr)
-	}
-	return NSStringFromID(rv), nil
-
-}
-
+// coder: An archiver object.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
-func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSString{}, NSErrorFrom(errorPtr)
-	}
-	return NSStringFromID(rv), nil
-
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
-func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSString{}, NSErrorFrom(errorPtr)
-	}
-	return NSStringFromID(rv), nil
-
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
-func (s NSString) InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSString{}, NSErrorFrom(errorPtr)
-	}
-	return NSStringFromID(rv), nil
-
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (s NSString) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 // Returns an [NSString] object initialized by using a given format string as
@@ -4428,37 +4385,71 @@ func (s NSString) InitWithFormatLocale(format string, locale objectivec.IObject)
 	return rv
 }
 
-// Returns a string made by appending to the receiver a string constructed
-// from a given format string and the following arguments.
 //
-// format: A format string. See [Formatting String Objects] for more information. This
-// value must not be `nil`.
-// //
-// [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
+// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
+func (s NSString) InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSString{}, NSErrorFrom(errorPtr)
+	}
+	return NSStringFromID(rv), nil
+
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
+func (s NSString) InitWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSString{}, NSErrorFrom(errorPtr)
+	}
+	return NSStringFromID(rv), nil
+
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
+func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSString{}, NSErrorFrom(errorPtr)
+	}
+	return NSStringFromID(rv), nil
+
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
+func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSString{}, NSErrorFrom(errorPtr)
+	}
+	return NSStringFromID(rv), nil
+
+}
+
+// Asks the item provider for the representation visibility specification for
+// the given UTI.
+//
+// typeIdentifier: A uniform type identifier (UTI).
 //
 // # Return Value
 // 
-// A string made by appending to the receiver a string constructed from
-// `format` and the following arguments, in the manner of [StringWithFormat].
+// A representation visibility specification for the given UTI.
 //
-// # Discussion
-// 
-// Pass a comma-separated list of variadic arguments to substitute into
-// `format`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringByAppendingFormat:
-func (s NSString) StringByAppendingFormat(format string) string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByAppendingFormat:"), objc.String(format))
-	return NSStringFromID(rv).String()
-}
-
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (s NSString) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
+func (s NSString) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
+	rv := objc.Send[NSItemProviderRepresentationVisibility](s.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
+	return NSItemProviderRepresentationVisibility(rv)
 }
 
 // Loads data of a particular type, identified by the given UTI.
@@ -4484,19 +4475,28 @@ func (s NSString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typ
 	return NSProgressFromID(rv)
 }
 
-// Asks the item provider for the representation visibility specification for
-// the given UTI.
+// Returns a string made by appending to the receiver a string constructed
+// from a given format string and the following arguments.
 //
-// typeIdentifier: A uniform type identifier (UTI).
+// format: A format string. See [Formatting String Objects] for more information. This
+// value must not be `nil`.
+// //
+// [Formatting String Objects]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/FormatStrings.html#//apple_ref/doc/uid/20000943
 //
 // # Return Value
 // 
-// A representation visibility specification for the given UTI.
+// A string made by appending to the receiver a string constructed from
+// `format` and the following arguments, in the manner of [StringWithFormat].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
-func (s NSString) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
-	rv := objc.Send[NSItemProviderRepresentationVisibility](s.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
-	return NSItemProviderRepresentationVisibility(rv)
+// # Discussion
+// 
+// Pass a comma-separated list of variadic arguments to substitute into
+// `format`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/stringByAppendingFormat:
+func (s NSString) StringByAppendingFormat(format string) string {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByAppendingFormat:"), objc.String(format))
+	return NSStringFromID(rv).String()
 }
 
 
@@ -4606,16 +4606,16 @@ func (_NSStringClass NSStringClass) PathWithComponents(components []string) stri
 }
 
 //
-// See: https://developer.apple.com/documentation/Foundation/NSString/deferredLocalizedIntentsStringWithFormat:fromTable:
-func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFromTable(format string, table string) string {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("deferredLocalizedIntentsStringWithFormat:fromTable:"), objc.String(format), objc.String(table))
+// See: https://developer.apple.com/documentation/Foundation/NSString/deferredLocalizedIntentsStringWithFormat:
+func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormat(format string) string {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("deferredLocalizedIntentsStringWithFormat:"), objc.String(format))
 	return NSStringFromID(rv).String()
 }
 
 //
-// See: https://developer.apple.com/documentation/Foundation/NSString/deferredLocalizedIntentsStringWithFormat:
-func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormat(format string) string {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("deferredLocalizedIntentsStringWithFormat:"), objc.String(format))
+// See: https://developer.apple.com/documentation/Foundation/NSString/deferredLocalizedIntentsStringWithFormat:fromTable:
+func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFromTable(format string, table string) string {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("deferredLocalizedIntentsStringWithFormat:fromTable:"), objc.String(format), objc.String(table))
 	return NSStringFromID(rv).String()
 }
 
@@ -4624,19 +4624,6 @@ func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormat(for
 func (_NSStringClass NSStringClass) DeferredLocalizedIntentsStringWithFormatFromTableArguments(format string, table string, arguments unsafe.Pointer) string {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("deferredLocalizedIntentsStringWithFormat:fromTable:arguments:"), objc.String(format), objc.String(table), arguments)
 	return NSStringFromID(rv).String()
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/localizedStringWithValidatedFormat:validFormatSpecifiers:error:
-func (_NSStringClass NSStringClass) LocalizedStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("localizedStringWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSString{}, NSErrorFrom(errorPtr)
-	}
-	return NSStringFromID(rv), nil
-
 }
 
 // Returns a string created by using a given format string as a template into
@@ -4684,6 +4671,78 @@ func (_NSStringClass NSStringClass) LocalizedStringWithValidatedFormatValidForma
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedStringWithFormat:
 func (_NSStringClass NSStringClass) LocalizedStringWithFormat(format string) NSString {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("localizedStringWithFormat:"), objc.String(format))
+	return NSStringFromID(rv)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/localizedStringWithValidatedFormat:validFormatSpecifiers:error:
+func (_NSStringClass NSStringClass) LocalizedStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("localizedStringWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSString{}, NSErrorFrom(errorPtr)
+	}
+	return NSStringFromID(rv), nil
+
+}
+
+// Creates a new instance of a class using the given data and UTI string.
+//
+// data: The data used to create the object.
+//
+// typeIdentifier: The uniform type identifier (UTI) representing the data type of `data`.
+//
+// # Return Value
+// 
+// An object created from the given data.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
+func (_NSStringClass NSStringClass) ObjectWithItemProviderDataTypeIdentifierError(data INSData, typeIdentifier string) (NSString, error) {
+			var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("objectWithItemProviderData:typeIdentifier:error:"), data, objc.String(typeIdentifier), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return NSString{}, NSErrorFrom(errorPtr)
+	}
+	return NSStringFromID(rv), nil
+
+}
+
+// Returns an empty string.
+//
+// # Return Value
+// 
+// An empty string.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/string
+func (_NSStringClass NSStringClass) String() NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("string"))
+	return NSStringFromID(rv)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCString:encoding:
+func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString []byte, enc uint) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCString:encoding:"), unsafe.Pointer(unsafe.SliceData(cString)), enc)
+	return NSStringFromID(rv)
+}
+
+// Returns a string containing a given number of characters taken from a given
+// C array of UTF-16 code units.
+//
+// characters: A C array of UTF-16 code units; the value must not be [NULL].
+//
+// length: The number of characters to use from `chars`.
+//
+// # Return Value
+// 
+// A string containing `length` UTF-16 code units taken (starting with the
+// first) from `chars`.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCharacters:length:
+func (_NSStringClass NSStringClass) StringWithCharactersLength(characters uint16, length uint) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCharacters:length:"), characters, length)
 	return NSStringFromID(rv)
 }
 
@@ -4751,49 +4810,17 @@ func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(pa
 
 }
 
-// Returns a string containing a given number of characters taken from a given
-// C array of UTF-16 code units.
 //
-// characters: A C array of UTF-16 code units; the value must not be [NULL].
-//
-// length: The number of characters to use from `chars`.
-//
-// # Return Value
-// 
-// A string containing `length` UTF-16 code units taken (starting with the
-// first) from `chars`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCharacters:length:
-func (_NSStringClass NSStringClass) StringWithCharactersLength(characters uint16, length uint) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCharacters:length:"), characters, length)
-	return NSStringFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithValidatedFormat:validFormatSpecifiers:error:
-func (_NSStringClass NSStringClass) StringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
+// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfURL:encoding:error:
+func (_NSStringClass NSStringClass) StringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error) {
 			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithUTF8String:
-func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString []byte) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
-	return NSStringFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCString:encoding:
-func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString []byte, enc uint) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCString:encoding:"), unsafe.Pointer(unsafe.SliceData(cString)), enc)
-	return NSStringFromID(rv)
 }
 
 //
@@ -4801,31 +4828,6 @@ func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString []byte, en
 func (_NSStringClass NSStringClass) StringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error) {
 			var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSString{}, NSErrorFrom(errorPtr)
-	}
-	return NSStringFromID(rv), nil
-
-}
-
-// Returns an empty string.
-//
-// # Return Value
-// 
-// An empty string.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/string
-func (_NSStringClass NSStringClass) String() NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("string"))
-	return NSStringFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfURL:encoding:error:
-func (_NSStringClass NSStringClass) StringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSString{}, NSErrorFrom(errorPtr)
@@ -4880,20 +4882,18 @@ func (_NSStringClass NSStringClass) StringWithString(string_ string) NSString {
 	return NSStringFromID(rv)
 }
 
-// Creates a new instance of a class using the given data and UTI string.
 //
-// data: The data used to create the object.
+// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithUTF8String:
+func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString []byte) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
+	return NSStringFromID(rv)
+}
+
 //
-// typeIdentifier: The uniform type identifier (UTI) representing the data type of `data`.
-//
-// # Return Value
-// 
-// An object created from the given data.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
-func (_NSStringClass NSStringClass) ObjectWithItemProviderDataTypeIdentifierError(data INSData, typeIdentifier string) (NSString, error) {
+// See: https://developer.apple.com/documentation/Foundation/NSString/stringWithValidatedFormat:validFormatSpecifiers:error:
+func (_NSStringClass NSStringClass) StringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
 			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("objectWithItemProviderData:typeIdentifier:error:"), data, objc.String(typeIdentifier), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSString{}, NSErrorFrom(errorPtr)

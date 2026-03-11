@@ -102,12 +102,12 @@ func NXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint, in
 }
 
 
-var _nXEmptyHashTable func(table *NXHashTable) 
+var _nXEmptyHashTable func(table *NXHashTable)
 
 // NXEmptyHashTable.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXEmptyHashTable
-func NXEmptyHashTable(table *NXHashTable)  {
+func NXEmptyHashTable(table *NXHashTable) {
 	if _nXEmptyHashTable == nil {
 		panic("ObjectiveC: symbol NXEmptyHashTable not loaded")
 	}
@@ -115,12 +115,12 @@ func NXEmptyHashTable(table *NXHashTable)  {
 }
 
 
-var _nXFreeHashTable func(table *NXHashTable) 
+var _nXFreeHashTable func(table *NXHashTable)
 
 // NXFreeHashTable.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXFreeHashTable
-func NXFreeHashTable(table *NXHashTable)  {
+func NXFreeHashTable(table *NXHashTable) {
 	if _nXFreeHashTable == nil {
 		panic("ObjectiveC: symbol NXFreeHashTable not loaded")
 	}
@@ -219,12 +219,12 @@ func NXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer
 }
 
 
-var _nXNoEffectFree func(info unsafe.Pointer, data unsafe.Pointer) 
+var _nXNoEffectFree func(info unsafe.Pointer, data unsafe.Pointer)
 
 // NXNoEffectFree.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXNoEffectFree
-func NXNoEffectFree(info unsafe.Pointer, data unsafe.Pointer)  {
+func NXNoEffectFree(info unsafe.Pointer, data unsafe.Pointer) {
 	if _nXNoEffectFree == nil {
 		panic("ObjectiveC: symbol NXNoEffectFree not loaded")
 	}
@@ -258,12 +258,12 @@ func NXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointe
 }
 
 
-var _nXReallyFree func(info unsafe.Pointer, data unsafe.Pointer) 
+var _nXReallyFree func(info unsafe.Pointer, data unsafe.Pointer)
 
 // NXReallyFree.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXReallyFree
-func NXReallyFree(info unsafe.Pointer, data unsafe.Pointer)  {
+func NXReallyFree(info unsafe.Pointer, data unsafe.Pointer) {
 	if _nXReallyFree == nil {
 		panic("ObjectiveC: symbol NXReallyFree not loaded")
 	}
@@ -271,12 +271,12 @@ func NXReallyFree(info unsafe.Pointer, data unsafe.Pointer)  {
 }
 
 
-var _nXResetHashTable func(table *NXHashTable) 
+var _nXResetHashTable func(table *NXHashTable)
 
 // NXResetHashTable.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXResetHashTable
-func NXResetHashTable(table *NXHashTable)  {
+func NXResetHashTable(table *NXHashTable) {
 	if _nXResetHashTable == nil {
 		panic("ObjectiveC: symbol NXResetHashTable not loaded")
 	}
@@ -400,18 +400,6 @@ func Class_copyMethodList(cls objc.Class, outCount *uint) Method {
 	return _class_copyMethodList(cls, outCount)
 }
 
-
-var _class_copyPropertyList func(cls objc.Class, outCount *uint) *Objc_property_t
-
-// Class_copyPropertyList describes the properties declared by a class.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/class_copyPropertyList(_:_:)
-func Class_copyPropertyList(cls objc.Class, outCount *uint) *Objc_property_t {
-	if _class_copyPropertyList == nil {
-		panic("ObjectiveC: symbol class_copyPropertyList not loaded")
-	}
-	return _class_copyPropertyList(cls, outCount)
-}
 
 
 var _class_copyProtocolList func(cls objc.Class, outCount *uint) **Protocol
@@ -648,12 +636,12 @@ func Class_replaceMethod(cls objc.Class, name SEL, imp IMP, types *byte) IMP {
 }
 
 
-var _class_replaceProperty func(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint) 
+var _class_replaceProperty func(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint)
 
 // Class_replaceProperty replace a property of a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_replaceProperty(_:_:_:_:)
-func Class_replaceProperty(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint)  {
+func Class_replaceProperty(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint) {
 	if _class_replaceProperty == nil {
 		panic("ObjectiveC: symbol class_replaceProperty not loaded")
 	}
@@ -674,12 +662,12 @@ func Class_respondsToSelector(cls objc.Class, sel SEL) bool {
 }
 
 
-var _class_setIvarLayout func(cls objc.Class, layout *uint8) 
+var _class_setIvarLayout func(cls objc.Class, layout *uint8)
 
 // Class_setIvarLayout sets the [Ivar] layout for a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_setIvarLayout(_:_:)
-func Class_setIvarLayout(cls objc.Class, layout *uint8)  {
+func Class_setIvarLayout(cls objc.Class, layout *uint8) {
 	if _class_setIvarLayout == nil {
 		panic("ObjectiveC: symbol class_setIvarLayout not loaded")
 	}
@@ -687,12 +675,12 @@ func Class_setIvarLayout(cls objc.Class, layout *uint8)  {
 }
 
 
-var _class_setVersion func(cls objc.Class, version int) 
+var _class_setVersion func(cls objc.Class, version int)
 
 // Class_setVersion sets the version number of a class definition.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_setVersion(_:_:)
-func Class_setVersion(cls objc.Class, version int)  {
+func Class_setVersion(cls objc.Class, version int) {
 	if _class_setVersion == nil {
 		panic("ObjectiveC: symbol class_setVersion not loaded")
 	}
@@ -700,12 +688,12 @@ func Class_setVersion(cls objc.Class, version int)  {
 }
 
 
-var _class_setWeakIvarLayout func(cls objc.Class, layout *uint8) 
+var _class_setWeakIvarLayout func(cls objc.Class, layout *uint8)
 
 // Class_setWeakIvarLayout sets the layout for weak [Ivar]s for a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_setWeakIvarLayout(_:_:)
-func Class_setWeakIvarLayout(cls objc.Class, layout *uint8)  {
+func Class_setWeakIvarLayout(cls objc.Class, layout *uint8) {
 	if _class_setWeakIvarLayout == nil {
 		panic("ObjectiveC: symbol class_setWeakIvarLayout not loaded")
 	}
@@ -817,12 +805,12 @@ func Method_copyReturnType(m Method) *byte {
 }
 
 
-var _method_exchangeImplementations func(m1 Method, m2 Method) 
+var _method_exchangeImplementations func(m1 Method, m2 Method)
 
 // Method_exchangeImplementations exchanges the implementations of two methods.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_exchangeImplementations(_:_:)
-func Method_exchangeImplementations(m1 Method, m2 Method)  {
+func Method_exchangeImplementations(m1 Method, m2 Method) {
 	if _method_exchangeImplementations == nil {
 		panic("ObjectiveC: symbol method_exchangeImplementations not loaded")
 	}
@@ -830,12 +818,12 @@ func Method_exchangeImplementations(m1 Method, m2 Method)  {
 }
 
 
-var _method_getArgumentType func(m Method, index uint, dst *byte, dst_len uintptr) 
+var _method_getArgumentType func(m Method, index uint, dst *byte, dst_len uintptr)
 
 // Method_getArgumentType returns by reference a string describing a single parameter type of a method.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_getArgumentType(_:_:_:_:)
-func Method_getArgumentType(m Method, index uint, dst *byte, dst_len uintptr)  {
+func Method_getArgumentType(m Method, index uint, dst *byte, dst_len uintptr) {
 	if _method_getArgumentType == nil {
 		panic("ObjectiveC: symbol method_getArgumentType not loaded")
 	}
@@ -895,12 +883,12 @@ func Method_getNumberOfArguments(m Method) uint {
 }
 
 
-var _method_getReturnType func(m Method, dst *byte, dst_len uintptr) 
+var _method_getReturnType func(m Method, dst *byte, dst_len uintptr)
 
 // Method_getReturnType returns by reference a string describing a method’s return type.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_getReturnType(_:_:_:)
-func Method_getReturnType(m Method, dst *byte, dst_len uintptr)  {
+func Method_getReturnType(m Method, dst *byte, dst_len uintptr) {
 	if _method_getReturnType == nil {
 		panic("ObjectiveC: symbol method_getReturnType not loaded")
 	}
@@ -921,12 +909,12 @@ func Method_getTypeEncoding(m Method) *byte {
 }
 
 
-var _method_invoke func() 
+var _method_invoke func()
 
 // Method_invoke calls the implementation of a specified method.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_invoke
-func Method_invoke()  {
+func Method_invoke() {
 	if _method_invoke == nil {
 		panic("ObjectiveC: symbol method_invoke not loaded")
 	}
@@ -960,12 +948,12 @@ func Objc_addExceptionHandler(fn unsafe.Pointer, context unsafe.Pointer) uintptr
 }
 
 
-var _objc_addLoadImageFunc func(func_ unsafe.Pointer) 
+var _objc_addLoadImageFunc func(func_ unsafe.Pointer)
 
 // Objc_addLoadImageFunc.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_addLoadImageFunc(_:)
-func Objc_addLoadImageFunc(func_ unsafe.Pointer)  {
+func Objc_addLoadImageFunc(func_ unsafe.Pointer) {
 	if _objc_addLoadImageFunc == nil {
 		panic("ObjectiveC: symbol objc_addLoadImageFunc not loaded")
 	}
@@ -1108,12 +1096,12 @@ func Objc_destructInstance(obj Object) unsafe.Pointer {
 }
 
 
-var _objc_disposeClassPair func(cls objc.Class) 
+var _objc_disposeClassPair func(cls objc.Class)
 
 // Objc_disposeClassPair destroys a class and its associated metaclass.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_disposeClassPair(_:)
-func Objc_disposeClassPair(cls objc.Class)  {
+func Objc_disposeClassPair(cls objc.Class) {
 	if _objc_disposeClassPair == nil {
 		panic("ObjectiveC: symbol objc_disposeClassPair not loaded")
 	}
@@ -1134,12 +1122,12 @@ func Objc_duplicateClass(original objc.Class, name *byte, extraBytes uintptr) ob
 }
 
 
-var _objc_end_catch func() 
+var _objc_end_catch func()
 
 // Objc_end_catch.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_end_catch()
-func Objc_end_catch()  {
+func Objc_end_catch() {
 	if _objc_end_catch == nil {
 		panic("ObjectiveC: symbol objc_end_catch not loaded")
 	}
@@ -1147,12 +1135,12 @@ func Objc_end_catch()  {
 }
 
 
-var _objc_enumerateClasses func(image unsafe.Pointer, namePrefix *byte, conformingTo **Protocol, subclassing objc.Class) 
+var _objc_enumerateClasses func(image unsafe.Pointer, namePrefix *byte, conformingTo **Protocol, subclassing objc.Class)
 
 // Objc_enumerateClasses.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_enumerateClasses
-func Objc_enumerateClasses(image unsafe.Pointer, namePrefix *byte, conformingTo **Protocol, subclassing objc.Class)  {
+func Objc_enumerateClasses(image unsafe.Pointer, namePrefix *byte, conformingTo **Protocol, subclassing objc.Class) {
 	if _objc_enumerateClasses == nil {
 		panic("ObjectiveC: symbol objc_enumerateClasses not loaded")
 	}
@@ -1160,12 +1148,12 @@ func Objc_enumerateClasses(image unsafe.Pointer, namePrefix *byte, conformingTo 
 }
 
 
-var _objc_enumerationMutation func(obj Object) 
+var _objc_enumerationMutation func(obj Object)
 
 // Objc_enumerationMutation inserted by the compiler when a mutation is detected during a foreach iteration.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_enumerationMutation(_:)
-func Objc_enumerationMutation(obj Object)  {
+func Objc_enumerationMutation(obj Object) {
 	if _objc_enumerationMutation == nil {
 		panic("ObjectiveC: symbol objc_enumerationMutation not loaded")
 	}
@@ -1173,12 +1161,12 @@ func Objc_enumerationMutation(obj Object)  {
 }
 
 
-var _objc_exception_rethrow func() 
+var _objc_exception_rethrow func()
 
 // Objc_exception_rethrow.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_exception_rethrow()
-func Objc_exception_rethrow()  {
+func Objc_exception_rethrow() {
 	if _objc_exception_rethrow == nil {
 		panic("ObjectiveC: symbol objc_exception_rethrow not loaded")
 	}
@@ -1186,12 +1174,12 @@ func Objc_exception_rethrow()  {
 }
 
 
-var _objc_exception_throw func(exception Object) 
+var _objc_exception_throw func(exception Object)
 
 // Objc_exception_throw throw a runtime exception.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_exception_throw(_:)
-func Objc_exception_throw(exception Object)  {
+func Objc_exception_throw(exception Object) {
 	if _objc_exception_throw == nil {
 		panic("ObjectiveC: symbol objc_exception_throw not loaded")
 	}
@@ -1319,12 +1307,12 @@ func Objc_lookUpClass(name *byte) objc.Class {
 
 
 
-var _objc_msgSend func() 
+var _objc_msgSend func()
 
 // Objc_msgSend sends a message with a simple return value to an instance of a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_msgSend
-func Objc_msgSend()  {
+func Objc_msgSend() {
 	if _objc_msgSend == nil {
 		panic("ObjectiveC: symbol objc_msgSend not loaded")
 	}
@@ -1332,12 +1320,12 @@ func Objc_msgSend()  {
 }
 
 
-var _objc_msgSendSuper func() 
+var _objc_msgSendSuper func()
 
 // Objc_msgSendSuper sends a message with a simple return value to the superclass of an instance of a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_msgSendSuper
-func Objc_msgSendSuper()  {
+func Objc_msgSendSuper() {
 	if _objc_msgSendSuper == nil {
 		panic("ObjectiveC: symbol objc_msgSendSuper not loaded")
 	}
@@ -1347,12 +1335,12 @@ func Objc_msgSendSuper()  {
 
 
 
-var _objc_registerClassPair func(cls objc.Class) 
+var _objc_registerClassPair func(cls objc.Class)
 
 // Objc_registerClassPair registers a class that was allocated using objc_allocateClassPair(_:_:_:).
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_registerClassPair(_:)
-func Objc_registerClassPair(cls objc.Class)  {
+func Objc_registerClassPair(cls objc.Class) {
 	if _objc_registerClassPair == nil {
 		panic("ObjectiveC: symbol objc_registerClassPair not loaded")
 	}
@@ -1360,12 +1348,12 @@ func Objc_registerClassPair(cls objc.Class)  {
 }
 
 
-var _objc_registerProtocol func(proto **Protocol) 
+var _objc_registerProtocol func(proto **Protocol)
 
 // Objc_registerProtocol registers a newly created protocol with the Objective-C runtime.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_registerProtocol(_:)
-func Objc_registerProtocol(proto **Protocol)  {
+func Objc_registerProtocol(proto **Protocol) {
 	if _objc_registerProtocol == nil {
 		panic("ObjectiveC: symbol objc_registerProtocol not loaded")
 	}
@@ -1374,12 +1362,12 @@ func Objc_registerProtocol(proto **Protocol)  {
 
 
 
-var _objc_removeAssociatedObjects func(object Object) 
+var _objc_removeAssociatedObjects func(object Object)
 
 // Objc_removeAssociatedObjects removes all associations for a given object.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_removeAssociatedObjects(_:)
-func Objc_removeAssociatedObjects(object Object)  {
+func Objc_removeAssociatedObjects(object Object) {
 	if _objc_removeAssociatedObjects == nil {
 		panic("ObjectiveC: symbol objc_removeAssociatedObjects not loaded")
 	}
@@ -1387,12 +1375,12 @@ func Objc_removeAssociatedObjects(object Object)  {
 }
 
 
-var _objc_removeExceptionHandler func(token uintptr) 
+var _objc_removeExceptionHandler func(token uintptr)
 
 // Objc_removeExceptionHandler.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_removeExceptionHandler(_:)
-func Objc_removeExceptionHandler(token uintptr)  {
+func Objc_removeExceptionHandler(token uintptr) {
 	if _objc_removeExceptionHandler == nil {
 		panic("ObjectiveC: symbol objc_removeExceptionHandler not loaded")
 	}
@@ -1400,15 +1388,27 @@ func Objc_removeExceptionHandler(token uintptr)  {
 }
 
 
+var _objc_setAssociatedObject func(object Object, key unsafe.Pointer, value Object, policy uintptr)
+
+// Objc_setAssociatedObject sets an associated value for a given object using a given key and association policy.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/objc_setAssociatedObject(_:_:_:_:)
+func Objc_setAssociatedObject(object Object, key unsafe.Pointer, value Object, policy uintptr) {
+	if _objc_setAssociatedObject == nil {
+		panic("ObjectiveC: symbol objc_setAssociatedObject not loaded")
+	}
+	_objc_setAssociatedObject(object, key, value, policy)
+}
 
 
 
-var _objc_setEnumerationMutationHandler func(handler func(Object)) 
+
+var _objc_setEnumerationMutationHandler func(handler func(Object))
 
 // Objc_setEnumerationMutationHandler sets the current mutation handler.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_setEnumerationMutationHandler(_:)
-func Objc_setEnumerationMutationHandler(handler func(Object))  {
+func Objc_setEnumerationMutationHandler(handler func(Object)) {
 	if _objc_setEnumerationMutationHandler == nil {
 		panic("ObjectiveC: symbol objc_setEnumerationMutationHandler not loaded")
 	}
@@ -1442,12 +1442,12 @@ func Objc_setExceptionPreprocessor(fn unsafe.Pointer) unsafe.Pointer {
 }
 
 
-var _objc_setForwardHandler func(fwd unsafe.Pointer, fwd_stret unsafe.Pointer) 
+var _objc_setForwardHandler func(fwd unsafe.Pointer, fwd_stret unsafe.Pointer)
 
 // Objc_setForwardHandler set the function to be called by objc_msgForward.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_setForwardHandler(_:_:)
-func Objc_setForwardHandler(fwd unsafe.Pointer, fwd_stret unsafe.Pointer)  {
+func Objc_setForwardHandler(fwd unsafe.Pointer, fwd_stret unsafe.Pointer) {
 	if _objc_setForwardHandler == nil {
 		panic("ObjectiveC: symbol objc_setForwardHandler not loaded")
 	}
@@ -1455,43 +1455,7 @@ func Objc_setForwardHandler(fwd unsafe.Pointer, fwd_stret unsafe.Pointer)  {
 }
 
 
-var _objc_setHook_getClass func(newValue unsafe.Pointer, outOldValue *Objc_hook_getClass) 
 
-// Objc_setHook_getClass.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/objc_setHook_getClass(_:_:)
-func Objc_setHook_getClass(newValue unsafe.Pointer, outOldValue *Objc_hook_getClass)  {
-	if _objc_setHook_getClass == nil {
-		panic("ObjectiveC: symbol objc_setHook_getClass not loaded")
-	}
-	_objc_setHook_getClass(newValue, outOldValue)
-}
-
-
-var _objc_setHook_getImageName func(newValue unsafe.Pointer, outOldValue *Objc_hook_getImageName) 
-
-// Objc_setHook_getImageName.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/objc_setHook_getImageName(_:_:)
-func Objc_setHook_getImageName(newValue unsafe.Pointer, outOldValue *Objc_hook_getImageName)  {
-	if _objc_setHook_getImageName == nil {
-		panic("ObjectiveC: symbol objc_setHook_getImageName not loaded")
-	}
-	_objc_setHook_getImageName(newValue, outOldValue)
-}
-
-
-var _objc_setHook_lazyClassNamer func(newValue unsafe.Pointer, oldOutValue *Objc_hook_lazyClassNamer) 
-
-// Objc_setHook_lazyClassNamer.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/objc_setHook_lazyClassNamer(_:_:)
-func Objc_setHook_lazyClassNamer(newValue unsafe.Pointer, oldOutValue *Objc_hook_lazyClassNamer)  {
-	if _objc_setHook_lazyClassNamer == nil {
-		panic("ObjectiveC: symbol objc_setHook_lazyClassNamer not loaded")
-	}
-	_objc_setHook_lazyClassNamer(newValue, oldOutValue)
-}
 
 
 var _objc_setUncaughtExceptionHandler func(fn unsafe.Pointer) unsafe.Pointer
@@ -1550,12 +1514,12 @@ func Objc_sync_exit(obj Object) int {
 }
 
 
-var _objc_terminate func() 
+var _objc_terminate func()
 
 // Objc_terminate.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_terminate()
-func Objc_terminate()  {
+func Objc_terminate() {
 	if _objc_terminate == nil {
 		panic("ObjectiveC: symbol objc_terminate not loaded")
 	}
@@ -1720,12 +1684,12 @@ func Object_setInstanceVariableWithStrongDefault(obj Object, name *byte, value u
 }
 
 
-var _object_setIvar func(obj Object, ivar Ivar, value Object) 
+var _object_setIvar func(obj Object, ivar Ivar, value Object)
 
 // Object_setIvar sets the value of an instance variable in an object.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/object_setIvar(_:_:_:)
-func Object_setIvar(obj Object, ivar Ivar, value Object)  {
+func Object_setIvar(obj Object, ivar Ivar, value Object) {
 	if _object_setIvar == nil {
 		panic("ObjectiveC: symbol object_setIvar not loaded")
 	}
@@ -1733,12 +1697,12 @@ func Object_setIvar(obj Object, ivar Ivar, value Object)  {
 }
 
 
-var _object_setIvarWithStrongDefault func(obj Object, ivar Ivar, value Object) 
+var _object_setIvarWithStrongDefault func(obj Object, ivar Ivar, value Object)
 
 // Object_setIvarWithStrongDefault.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/object_setIvarWithStrongDefault(_:_:_:)
-func Object_setIvarWithStrongDefault(obj Object, ivar Ivar, value Object)  {
+func Object_setIvarWithStrongDefault(obj Object, ivar Ivar, value Object) {
 	if _object_setIvarWithStrongDefault == nil {
 		panic("ObjectiveC: symbol object_setIvarWithStrongDefault not loaded")
 	}
@@ -1798,12 +1762,12 @@ func Property_getName(property unsafe.Pointer) *byte {
 }
 
 
-var _protocol_addMethodDescription func(proto **Protocol, name SEL, types *byte, isRequiredMethod bool, isInstanceMethod bool) 
+var _protocol_addMethodDescription func(proto **Protocol, name SEL, types *byte, isRequiredMethod bool, isInstanceMethod bool)
 
 // Protocol_addMethodDescription adds a method to a protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_addMethodDescription(_:_:_:_:_:)
-func Protocol_addMethodDescription(proto **Protocol, name SEL, types *byte, isRequiredMethod bool, isInstanceMethod bool)  {
+func Protocol_addMethodDescription(proto **Protocol, name SEL, types *byte, isRequiredMethod bool, isInstanceMethod bool) {
 	if _protocol_addMethodDescription == nil {
 		panic("ObjectiveC: symbol protocol_addMethodDescription not loaded")
 	}
@@ -1811,12 +1775,12 @@ func Protocol_addMethodDescription(proto **Protocol, name SEL, types *byte, isRe
 }
 
 
-var _protocol_addProperty func(proto **Protocol, name *byte, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool) 
+var _protocol_addProperty func(proto **Protocol, name *byte, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool)
 
 // Protocol_addProperty adds a property to a protocol that is under construction.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_addProperty(_:_:_:_:_:_:)
-func Protocol_addProperty(proto **Protocol, name *byte, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool)  {
+func Protocol_addProperty(proto **Protocol, name *byte, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool) {
 	if _protocol_addProperty == nil {
 		panic("ObjectiveC: symbol protocol_addProperty not loaded")
 	}
@@ -1824,12 +1788,12 @@ func Protocol_addProperty(proto **Protocol, name *byte, attributes *Objc_propert
 }
 
 
-var _protocol_addProtocol func(proto **Protocol, addition **Protocol) 
+var _protocol_addProtocol func(proto **Protocol, addition **Protocol)
 
 // Protocol_addProtocol adds a registered protocol to another protocol that is under construction.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_addProtocol(_:_:)
-func Protocol_addProtocol(proto **Protocol, addition **Protocol)  {
+func Protocol_addProtocol(proto **Protocol, addition **Protocol) {
 	if _protocol_addProtocol == nil {
 		panic("ObjectiveC: symbol protocol_addProtocol not loaded")
 	}
@@ -1863,30 +1827,6 @@ func Protocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool,
 }
 
 
-var _protocol_copyPropertyList func(proto **Protocol, outCount *uint) *Objc_property_t
-
-// Protocol_copyPropertyList returns an array of the properties declared by a protocol.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyPropertyList(_:_:)
-func Protocol_copyPropertyList(proto **Protocol, outCount *uint) *Objc_property_t {
-	if _protocol_copyPropertyList == nil {
-		panic("ObjectiveC: symbol protocol_copyPropertyList not loaded")
-	}
-	return _protocol_copyPropertyList(proto, outCount)
-}
-
-
-var _protocol_copyPropertyList2 func(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t
-
-// Protocol_copyPropertyList2.
-//
-// See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyPropertyList2(_:_:_:_:)
-func Protocol_copyPropertyList2(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t {
-	if _protocol_copyPropertyList2 == nil {
-		panic("ObjectiveC: symbol protocol_copyPropertyList2 not loaded")
-	}
-	return _protocol_copyPropertyList2(proto, outCount, isRequiredProperty, isInstanceProperty)
-}
 
 
 var _protocol_copyProtocolList func(proto **Protocol, outCount *uint) **Protocol
@@ -2052,7 +1992,6 @@ func init() {
 		registerFunc(&_class_conformsToProtocol, frameworkHandle, "class_conformsToProtocol")
 		registerFunc(&_class_copyIvarList, frameworkHandle, "class_copyIvarList")
 		registerFunc(&_class_copyMethodList, frameworkHandle, "class_copyMethodList")
-		registerFunc(&_class_copyPropertyList, frameworkHandle, "class_copyPropertyList")
 		registerFunc(&_class_copyProtocolList, frameworkHandle, "class_copyProtocolList")
 		registerFunc(&_class_createInstance, frameworkHandle, "class_createInstance")
 		registerFunc(&_class_createInstanceFromZone, frameworkHandle, "class_createInstanceFromZone")
@@ -2127,13 +2066,11 @@ func init() {
 		registerFunc(&_objc_registerProtocol, frameworkHandle, "objc_registerProtocol")
 		registerFunc(&_objc_removeAssociatedObjects, frameworkHandle, "objc_removeAssociatedObjects")
 		registerFunc(&_objc_removeExceptionHandler, frameworkHandle, "objc_removeExceptionHandler")
+		registerFunc(&_objc_setAssociatedObject, frameworkHandle, "objc_setAssociatedObject")
 		registerFunc(&_objc_setEnumerationMutationHandler, frameworkHandle, "objc_setEnumerationMutationHandler")
 		registerFunc(&_objc_setExceptionMatcher, frameworkHandle, "objc_setExceptionMatcher")
 		registerFunc(&_objc_setExceptionPreprocessor, frameworkHandle, "objc_setExceptionPreprocessor")
 		registerFunc(&_objc_setForwardHandler, frameworkHandle, "objc_setForwardHandler")
-		registerFunc(&_objc_setHook_getClass, frameworkHandle, "objc_setHook_getClass")
-		registerFunc(&_objc_setHook_getImageName, frameworkHandle, "objc_setHook_getImageName")
-		registerFunc(&_objc_setHook_lazyClassNamer, frameworkHandle, "objc_setHook_lazyClassNamer")
 		registerFunc(&_objc_setUncaughtExceptionHandler, frameworkHandle, "objc_setUncaughtExceptionHandler")
 		registerFunc(&_objc_storeWeak, frameworkHandle, "objc_storeWeak")
 		registerFunc(&_objc_sync_enter, frameworkHandle, "objc_sync_enter")
@@ -2162,8 +2099,6 @@ func init() {
 		registerFunc(&_protocol_addProtocol, frameworkHandle, "protocol_addProtocol")
 		registerFunc(&_protocol_conformsToProtocol, frameworkHandle, "protocol_conformsToProtocol")
 		registerFunc(&_protocol_copyMethodDescriptionList, frameworkHandle, "protocol_copyMethodDescriptionList")
-		registerFunc(&_protocol_copyPropertyList, frameworkHandle, "protocol_copyPropertyList")
-		registerFunc(&_protocol_copyPropertyList2, frameworkHandle, "protocol_copyPropertyList2")
 		registerFunc(&_protocol_copyProtocolList, frameworkHandle, "protocol_copyProtocolList")
 		registerFunc(&_protocol_getMethodDescription, frameworkHandle, "protocol_getMethodDescription")
 		registerFunc(&_protocol_getName, frameworkHandle, "protocol_getName")

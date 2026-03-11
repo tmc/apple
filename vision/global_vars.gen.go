@@ -118,126 +118,67 @@ const (
 	VNTranslationalImageRegistrationRequestRevision1 uint = 1
 )
 
-var vNAnimalBodyPoseObservationJointNameLeftBackElbow VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftBackKnee VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftBackPaw VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftEarBottom VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftEarMiddle VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftEarTop VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftEye VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftFrontElbow VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftFrontKnee VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameLeftFrontPaw VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameNeck VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameNose VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightBackElbow VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightBackKnee VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightBackPaw VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightEarBottom VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightEarMiddle VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightEarTop VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightEye VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightFrontElbow VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightFrontKnee VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameRightFrontPaw VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameTailBottom VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameTailMiddle VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointNameTailTop VNAnimalBodyPoseObservationJointName
-
-var vNAnimalBodyPoseObservationJointsGroupNameAll VNAnimalBodyPoseObservationJointsGroupName
-
-var vNAnimalBodyPoseObservationJointsGroupNameForelegs VNAnimalBodyPoseObservationJointsGroupName
-
-var vNAnimalBodyPoseObservationJointsGroupNameHead VNAnimalBodyPoseObservationJointsGroupName
-
-var vNAnimalBodyPoseObservationJointsGroupNameHindlegs VNAnimalBodyPoseObservationJointsGroupName
-
-var vNAnimalBodyPoseObservationJointsGroupNameTail VNAnimalBodyPoseObservationJointsGroupName
-
-var vNAnimalBodyPoseObservationJointsGroupNameTrunk VNAnimalBodyPoseObservationJointsGroupName
-
-var vNAnimalIdentifierCat VNAnimalIdentifier
-
-var vNAnimalIdentifierDog VNAnimalIdentifier
-
-var vNBarcodeSymbologyAztec VNBarcodeSymbology
-
-var vNBarcodeSymbologyCodabar VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode128 VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode39 VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode39Checksum VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode39FullASCII VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode39FullASCIIChecksum VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode93 VNBarcodeSymbology
-
-var vNBarcodeSymbologyCode93i VNBarcodeSymbology
-
-var vNBarcodeSymbologyDataMatrix VNBarcodeSymbology
-
-var vNBarcodeSymbologyEAN13 VNBarcodeSymbology
-
-var vNBarcodeSymbologyEAN8 VNBarcodeSymbology
-
-var vNBarcodeSymbologyGS1DataBar VNBarcodeSymbology
-
-var vNBarcodeSymbologyGS1DataBarExpanded VNBarcodeSymbology
-
-var vNBarcodeSymbologyGS1DataBarLimited VNBarcodeSymbology
-
-var vNBarcodeSymbologyI2of5 VNBarcodeSymbology
-
-var vNBarcodeSymbologyI2of5Checksum VNBarcodeSymbology
-
-var vNBarcodeSymbologyITF14 VNBarcodeSymbology
-
-var vNBarcodeSymbologyMSIPlessey VNBarcodeSymbology
-
-var vNBarcodeSymbologyMicroPDF417 VNBarcodeSymbology
-
-var vNBarcodeSymbologyMicroQR VNBarcodeSymbology
-
-var vNBarcodeSymbologyPDF417 VNBarcodeSymbology
-
-var vNBarcodeSymbologyQR VNBarcodeSymbology
-
-var vNBarcodeSymbologyUPCE VNBarcodeSymbology
 
 
 
 
-var vNComputeStageMain VNComputeStage
 
-var vNComputeStagePostProcessing VNComputeStage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -277,165 +218,85 @@ var VNErrorDomain string
 
 
 
-var vNHumanBodyPose3DObservationJointNameCenterHead VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameCenterShoulder VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameLeftAnkle VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameLeftElbow VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameLeftHip VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameLeftKnee VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameLeftShoulder VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameLeftWrist VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRightAnkle VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRightElbow VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRightHip VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRightKnee VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRightShoulder VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRightWrist VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameRoot VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameSpine VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointNameTopHead VNHumanBodyPose3DObservationJointName
 
-var vNHumanBodyPose3DObservationJointsGroupNameAll VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPose3DObservationJointsGroupNameHead VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPose3DObservationJointsGroupNameLeftArm VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPose3DObservationJointsGroupNameLeftLeg VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPose3DObservationJointsGroupNameRightArm VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPose3DObservationJointsGroupNameRightLeg VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPose3DObservationJointsGroupNameTorso VNHumanBodyPose3DObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointNameLeftAnkle VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftEar VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftElbow VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftEye VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftHip VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftKnee VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftShoulder VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameLeftWrist VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameNeck VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameNose VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightAnkle VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightEar VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightElbow VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightEye VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightHip VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightKnee VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightShoulder VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRightWrist VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointNameRoot VNHumanBodyPoseObservationJointName
 
-var vNHumanBodyPoseObservationJointsGroupNameAll VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointsGroupNameFace VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointsGroupNameLeftArm VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointsGroupNameLeftLeg VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointsGroupNameRightArm VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointsGroupNameRightLeg VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanBodyPoseObservationJointsGroupNameTorso VNHumanBodyPoseObservationJointsGroupName
 
-var vNHumanHandPoseObservationJointNameIndexDIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameIndexMCP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameIndexPIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameIndexTip VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameLittleDIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameLittleMCP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameLittlePIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameLittleTip VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameMiddleDIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameMiddleMCP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameMiddlePIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameMiddleTip VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameRingDIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameRingMCP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameRingPIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameRingTip VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameThumbCMC VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameThumbIP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameThumbMP VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameThumbTip VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointNameWrist VNHumanHandPoseObservationJointName
 
-var vNHumanHandPoseObservationJointsGroupNameAll VNHumanHandPoseObservationJointsGroupName
 
-var vNHumanHandPoseObservationJointsGroupNameIndexFinger VNHumanHandPoseObservationJointsGroupName
 
-var vNHumanHandPoseObservationJointsGroupNameLittleFinger VNHumanHandPoseObservationJointsGroupName
 
-var vNHumanHandPoseObservationJointsGroupNameMiddleFinger VNHumanHandPoseObservationJointsGroupName
 
-var vNHumanHandPoseObservationJointsGroupNameRingFinger VNHumanHandPoseObservationJointsGroupName
 
-var vNHumanHandPoseObservationJointsGroupNameThumb VNHumanHandPoseObservationJointsGroupName
 
-var vNImageOptionCIContext VNImageOption
 
-var vNImageOptionCameraIntrinsics VNImageOption
 
-var vNImageOptionProperties VNImageOption
 
 var VNNormalizedIdentityRect corefoundation.CGRect
 
@@ -465,127 +326,127 @@ func init() {
 
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackElbow"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackKnee"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftBackKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftBackKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackPaw"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftBackPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftBackPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEarBottom"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftEarBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEarBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEarMiddle"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftEarMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEarMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEarTop"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftEarTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEarTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEye"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftEye = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEye = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftFrontElbow"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftFrontElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftFrontElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftFrontKnee"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftFrontKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftFrontKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftFrontPaw"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameLeftFrontPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftFrontPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameNeck"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameNeck = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.Neck = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameNose"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameNose = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.Nose = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightBackElbow"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightBackKnee"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightBackKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightBackKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightBackPaw"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightBackPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightBackPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEarBottom"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightEarBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEarBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEarMiddle"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightEarMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEarMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEarTop"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightEarTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEarTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEye"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightEye = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEye = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightFrontElbow"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightFrontElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightFrontElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightFrontKnee"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightFrontKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightFrontKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightFrontPaw"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameRightFrontPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightFrontPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameTailBottom"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameTailBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.TailBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameTailMiddle"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameTailMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.TailMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameTailTop"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointNameTailTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.TailTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointsGroupNameAll = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.All = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameForelegs"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointsGroupNameForelegs = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Forelegs = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameHead"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointsGroupNameHead = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Head = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameHindlegs"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointsGroupNameHindlegs = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Hindlegs = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameTail"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointsGroupNameTail = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Tail = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameTrunk"); err == nil && ptr != 0 {
-		vNAnimalBodyPoseObservationJointsGroupNameTrunk = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Trunk = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalIdentifierCat"); err == nil && ptr != 0 {
@@ -593,7 +454,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNAnimalIdentifierCat = VNAnimalIdentifier(objc.GoString(cstr))
+				VNAnimalIdentifiers.Cat = VNAnimalIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -603,7 +464,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNAnimalIdentifierDog = VNAnimalIdentifier(objc.GoString(cstr))
+				VNAnimalIdentifiers.Dog = VNAnimalIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -613,7 +474,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyAztec = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Aztec = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -623,7 +484,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCodabar = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Codabar = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -633,7 +494,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode128 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code128 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -643,7 +504,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode39 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code39 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -653,7 +514,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode39Checksum = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code39Checksum = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -663,7 +524,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode39FullASCII = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code39FullASCII = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -673,7 +534,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode39FullASCIIChecksum = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code39FullASCIIChecksum = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -683,7 +544,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode93 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code93 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -693,7 +554,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyCode93i = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.Code93i = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -703,7 +564,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyDataMatrix = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.DataMatrix = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -713,7 +574,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyEAN13 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.EAN13 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -723,7 +584,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyEAN8 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.EAN8 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -733,7 +594,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyGS1DataBar = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.GS1DataBar = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -743,7 +604,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyGS1DataBarExpanded = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.GS1DataBarExpanded = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -753,7 +614,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyGS1DataBarLimited = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.GS1DataBarLimited = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -763,7 +624,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyI2of5 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.I2of5 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -773,7 +634,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyI2of5Checksum = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.I2of5Checksum = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -783,7 +644,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyITF14 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.ITF14 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -793,7 +654,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyMSIPlessey = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.MSIPlessey = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -803,7 +664,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyMicroPDF417 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.MicroPDF417 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -813,7 +674,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyMicroQR = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.MicroQR = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -823,7 +684,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyPDF417 = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.PDF417 = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -833,7 +694,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyQR = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.QR = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -843,7 +704,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNBarcodeSymbologyUPCE = VNBarcodeSymbology(objc.GoString(cstr))
+				VNBarcodeSymbologys.UPCE = VNBarcodeSymbology(objc.GoString(cstr))
 			}
 		}
 	}
@@ -856,7 +717,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNComputeStageMain = VNComputeStage(objc.GoString(cstr))
+				VNComputeStages.Main = VNComputeStage(objc.GoString(cstr))
 			}
 		}
 	}
@@ -866,7 +727,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNComputeStagePostProcessing = VNComputeStage(objc.GoString(cstr))
+				VNComputeStages.PostProcessing = VNComputeStage(objc.GoString(cstr))
 			}
 		}
 	}
@@ -918,311 +779,311 @@ func init() {
 
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameCenterHead"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameCenterHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.CenterHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameCenterShoulder"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameCenterShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.CenterShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftAnkle"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameLeftAnkle = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftAnkle = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftElbow"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameLeftElbow = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftElbow = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftHip"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameLeftHip = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftHip = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftKnee"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameLeftKnee = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftKnee = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftShoulder"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameLeftShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftWrist"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameLeftWrist = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftWrist = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightAnkle"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRightAnkle = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightAnkle = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightElbow"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRightElbow = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightElbow = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightHip"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRightHip = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightHip = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightKnee"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRightKnee = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightKnee = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightShoulder"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRightShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightWrist"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRightWrist = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightWrist = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRoot"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameRoot = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.Root = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameSpine"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameSpine = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.Spine = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameTopHead"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointNameTopHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.TopHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameAll = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.All = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameHead"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameHead = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.Head = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameLeftArm"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameLeftArm = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.LeftArm = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameLeftLeg"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameLeftLeg = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.LeftLeg = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameRightArm"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameRightArm = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.RightArm = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameRightLeg"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameRightLeg = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.RightLeg = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameTorso"); err == nil && ptr != 0 {
-		vNHumanBodyPose3DObservationJointsGroupNameTorso = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.Torso = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftAnkle"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftAnkle = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftAnkle = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftEar"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftEar = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftEar = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftElbow"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftElbow = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftElbow = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftEye"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftEye = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftEye = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftHip"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftHip = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftHip = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftKnee"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftKnee = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftKnee = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftShoulder"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftShoulder = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftShoulder = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftWrist"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameLeftWrist = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftWrist = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameNeck"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameNeck = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.Neck = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameNose"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameNose = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.Nose = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightAnkle"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightAnkle = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightAnkle = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightEar"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightEar = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightEar = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightElbow"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightElbow = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightElbow = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightEye"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightEye = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightEye = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightHip"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightHip = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightHip = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightKnee"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightKnee = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightKnee = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightShoulder"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightShoulder = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightShoulder = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightWrist"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRightWrist = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightWrist = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRoot"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointNameRoot = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.Root = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameAll = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.All = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameFace"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameFace = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.Face = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameLeftArm"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameLeftArm = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.LeftArm = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameLeftLeg"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameLeftLeg = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.LeftLeg = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameRightArm"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameRightArm = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.RightArm = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameRightLeg"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameRightLeg = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.RightLeg = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameTorso"); err == nil && ptr != 0 {
-		vNHumanBodyPoseObservationJointsGroupNameTorso = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.Torso = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexDIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameIndexDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexMCP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameIndexMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexPIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameIndexPIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexPIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexTip"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameIndexTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittleDIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameLittleDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittleDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittleMCP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameLittleMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittleMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittlePIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameLittlePIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittlePIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittleTip"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameLittleTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittleTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddleDIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameMiddleDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddleDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddleMCP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameMiddleMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddleMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddlePIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameMiddlePIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddlePIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddleTip"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameMiddleTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddleTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingDIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameRingDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingMCP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameRingMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingPIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameRingPIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingPIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingTip"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameRingTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbCMC"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameThumbCMC = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbCMC = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbIP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameThumbIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbMP"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameThumbMP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbMP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbTip"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameThumbTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameWrist"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointNameWrist = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.Wrist = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointsGroupNameAll = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.All = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameIndexFinger"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointsGroupNameIndexFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.IndexFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameLittleFinger"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointsGroupNameLittleFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.LittleFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameMiddleFinger"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointsGroupNameMiddleFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.MiddleFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameRingFinger"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointsGroupNameRingFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.RingFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameThumb"); err == nil && ptr != 0 {
-		vNHumanHandPoseObservationJointsGroupNameThumb = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.Thumb = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNImageOptionCIContext"); err == nil && ptr != 0 {
@@ -1230,7 +1091,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNImageOptionCIContext = VNImageOption(objc.GoString(cstr))
+				VNImageOptions.CIContext = VNImageOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -1240,7 +1101,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNImageOptionCameraIntrinsics = VNImageOption(objc.GoString(cstr))
+				VNImageOptions.CameraIntrinsics = VNImageOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -1250,7 +1111,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				vNImageOptionProperties = VNImageOption(objc.GoString(cstr))
+				VNImageOptions.Properties = VNImageOption(objc.GoString(cstr))
 			}
 		}
 	}
@@ -1298,492 +1159,329 @@ func init() {
 
 }
 
-type VNAnimalBodyPoseObservationJointNameValues struct{}
-
 // VNAnimalBodyPoseObservationJointNames provides typed accessors for [VNAnimalBodyPoseObservationJointName] constants.
-var VNAnimalBodyPoseObservationJointNames VNAnimalBodyPoseObservationJointNameValues
-
-// LeftBackElbow returns A joint name that represents the back of the left elbow.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftBackElbow() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftBackElbow }
-
-// LeftBackKnee returns A joint name that represents the back of the left knee.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftBackKnee() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftBackKnee }
-
-// LeftBackPaw returns A joint name that represents the back of the left paw.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftBackPaw() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftBackPaw }
-
-// LeftEarBottom returns A joint name that represents the bottom of the left ear.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftEarBottom() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftEarBottom }
-
-// LeftEarMiddle returns A joint name that represents the middle of the left ear.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftEarMiddle() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftEarMiddle }
-
-// LeftEarTop returns A joint name that represents the top of the left ear.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftEarTop() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftEarTop }
-
-// LeftEye returns A joint name that represents the left eye.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftEye() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftEye }
-
-// LeftFrontElbow returns A joint name that represents the front of the left elbow.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftFrontElbow() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftFrontElbow }
-
-// LeftFrontKnee returns A joint name that represents the front of the left knee.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftFrontKnee() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftFrontKnee }
-
-// LeftFrontPaw returns A joint name that represents the front of the left paw.
-func (VNAnimalBodyPoseObservationJointNameValues) LeftFrontPaw() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameLeftFrontPaw }
-
-// Neck returns A joint name that represents the neck.
-func (VNAnimalBodyPoseObservationJointNameValues) Neck() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameNeck }
-
-// Nose returns A joint name that represents the nose.
-func (VNAnimalBodyPoseObservationJointNameValues) Nose() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameNose }
-
-// RightBackElbow returns A joint name that represents the back of the right elbow.
-func (VNAnimalBodyPoseObservationJointNameValues) RightBackElbow() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightBackElbow }
-
-// RightBackKnee returns A joint name that represents the back of the right knee.
-func (VNAnimalBodyPoseObservationJointNameValues) RightBackKnee() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightBackKnee }
-
-// RightBackPaw returns A joint name that represents the back of the right paw.
-func (VNAnimalBodyPoseObservationJointNameValues) RightBackPaw() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightBackPaw }
-
-// RightEarBottom returns A joint name that represents the bottom of the right ear.
-func (VNAnimalBodyPoseObservationJointNameValues) RightEarBottom() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightEarBottom }
-
-// RightEarMiddle returns A joint name that represents the middle of the right ear.
-func (VNAnimalBodyPoseObservationJointNameValues) RightEarMiddle() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightEarMiddle }
-
-// RightEarTop returns A joint name that represents the top of the right ear.
-func (VNAnimalBodyPoseObservationJointNameValues) RightEarTop() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightEarTop }
-
-// RightEye returns A joint name that represents the right eye.
-func (VNAnimalBodyPoseObservationJointNameValues) RightEye() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightEye }
-
-// RightFrontElbow returns A joint name that represents the front of the right elbow.
-func (VNAnimalBodyPoseObservationJointNameValues) RightFrontElbow() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightFrontElbow }
-
-// RightFrontKnee returns A joint name that represents the front of the right knee.
-func (VNAnimalBodyPoseObservationJointNameValues) RightFrontKnee() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightFrontKnee }
-
-// RightFrontPaw returns A joint name that represents the front of the right paw.
-func (VNAnimalBodyPoseObservationJointNameValues) RightFrontPaw() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameRightFrontPaw }
-
-// TailBottom returns A joint name that represents the bottom of the tail.
-func (VNAnimalBodyPoseObservationJointNameValues) TailBottom() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameTailBottom }
-
-// TailMiddle returns A joint name that represents the middle of the tail.
-func (VNAnimalBodyPoseObservationJointNameValues) TailMiddle() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameTailMiddle }
-
-// TailTop returns A joint name that represents the top of the tail.
-func (VNAnimalBodyPoseObservationJointNameValues) TailTop() VNAnimalBodyPoseObservationJointName { return vNAnimalBodyPoseObservationJointNameTailTop }
-
-
-type VNAnimalBodyPoseObservationJointsGroupNameValues struct{}
+var VNAnimalBodyPoseObservationJointNames struct {
+	// LeftBackElbow: A joint name that represents the back of the left elbow.
+	LeftBackElbow VNAnimalBodyPoseObservationJointName
+	// LeftBackKnee: A joint name that represents the back of the left knee.
+	LeftBackKnee VNAnimalBodyPoseObservationJointName
+	// LeftBackPaw: A joint name that represents the back of the left paw.
+	LeftBackPaw VNAnimalBodyPoseObservationJointName
+	// LeftEarBottom: A joint name that represents the bottom of the left ear.
+	LeftEarBottom VNAnimalBodyPoseObservationJointName
+	// LeftEarMiddle: A joint name that represents the middle of the left ear.
+	LeftEarMiddle VNAnimalBodyPoseObservationJointName
+	// LeftEarTop: A joint name that represents the top of the left ear.
+	LeftEarTop VNAnimalBodyPoseObservationJointName
+	// LeftEye: A joint name that represents the left eye.
+	LeftEye VNAnimalBodyPoseObservationJointName
+	// LeftFrontElbow: A joint name that represents the front of the left elbow.
+	LeftFrontElbow VNAnimalBodyPoseObservationJointName
+	// LeftFrontKnee: A joint name that represents the front of the left knee.
+	LeftFrontKnee VNAnimalBodyPoseObservationJointName
+	// LeftFrontPaw: A joint name that represents the front of the left paw.
+	LeftFrontPaw VNAnimalBodyPoseObservationJointName
+	// Neck: A joint name that represents the neck.
+	Neck VNAnimalBodyPoseObservationJointName
+	// Nose: A joint name that represents the nose.
+	Nose VNAnimalBodyPoseObservationJointName
+	// RightBackElbow: A joint name that represents the back of the right elbow.
+	RightBackElbow VNAnimalBodyPoseObservationJointName
+	// RightBackKnee: A joint name that represents the back of the right knee.
+	RightBackKnee VNAnimalBodyPoseObservationJointName
+	// RightBackPaw: A joint name that represents the back of the right paw.
+	RightBackPaw VNAnimalBodyPoseObservationJointName
+	// RightEarBottom: A joint name that represents the bottom of the right ear.
+	RightEarBottom VNAnimalBodyPoseObservationJointName
+	// RightEarMiddle: A joint name that represents the middle of the right ear.
+	RightEarMiddle VNAnimalBodyPoseObservationJointName
+	// RightEarTop: A joint name that represents the top of the right ear.
+	RightEarTop VNAnimalBodyPoseObservationJointName
+	// RightEye: A joint name that represents the right eye.
+	RightEye VNAnimalBodyPoseObservationJointName
+	// RightFrontElbow: A joint name that represents the front of the right elbow.
+	RightFrontElbow VNAnimalBodyPoseObservationJointName
+	// RightFrontKnee: A joint name that represents the front of the right knee.
+	RightFrontKnee VNAnimalBodyPoseObservationJointName
+	// RightFrontPaw: A joint name that represents the front of the right paw.
+	RightFrontPaw VNAnimalBodyPoseObservationJointName
+	// TailBottom: A joint name that represents the bottom of the tail.
+	TailBottom VNAnimalBodyPoseObservationJointName
+	// TailMiddle: A joint name that represents the middle of the tail.
+	TailMiddle VNAnimalBodyPoseObservationJointName
+	// TailTop: A joint name that represents the top of the tail.
+	TailTop VNAnimalBodyPoseObservationJointName
+}
 
 // VNAnimalBodyPoseObservationJointsGroupNames provides typed accessors for [VNAnimalBodyPoseObservationJointsGroupName] constants.
-var VNAnimalBodyPoseObservationJointsGroupNames VNAnimalBodyPoseObservationJointsGroupNameValues
-
-// All returns A group name that represents all joints.
-func (VNAnimalBodyPoseObservationJointsGroupNameValues) All() VNAnimalBodyPoseObservationJointsGroupName { return vNAnimalBodyPoseObservationJointsGroupNameAll }
-
-// Forelegs returns A group name that represents the forelegs.
-func (VNAnimalBodyPoseObservationJointsGroupNameValues) Forelegs() VNAnimalBodyPoseObservationJointsGroupName { return vNAnimalBodyPoseObservationJointsGroupNameForelegs }
-
-// Head returns A group name that represents the head.
-func (VNAnimalBodyPoseObservationJointsGroupNameValues) Head() VNAnimalBodyPoseObservationJointsGroupName { return vNAnimalBodyPoseObservationJointsGroupNameHead }
-
-// Hindlegs returns A group name that represents the hindlegs.
-func (VNAnimalBodyPoseObservationJointsGroupNameValues) Hindlegs() VNAnimalBodyPoseObservationJointsGroupName { return vNAnimalBodyPoseObservationJointsGroupNameHindlegs }
-
-// Tail returns A group name that represents the tail.
-func (VNAnimalBodyPoseObservationJointsGroupNameValues) Tail() VNAnimalBodyPoseObservationJointsGroupName { return vNAnimalBodyPoseObservationJointsGroupNameTail }
-
-// Trunk returns A group name that represents the trunk.
-func (VNAnimalBodyPoseObservationJointsGroupNameValues) Trunk() VNAnimalBodyPoseObservationJointsGroupName { return vNAnimalBodyPoseObservationJointsGroupNameTrunk }
-
-
-type VNAnimalIdentifierValues struct{}
+var VNAnimalBodyPoseObservationJointsGroupNames struct {
+	// All: A group name that represents all joints.
+	All VNAnimalBodyPoseObservationJointsGroupName
+	// Forelegs: A group name that represents the forelegs.
+	Forelegs VNAnimalBodyPoseObservationJointsGroupName
+	// Head: A group name that represents the head.
+	Head VNAnimalBodyPoseObservationJointsGroupName
+	// Hindlegs: A group name that represents the hindlegs.
+	Hindlegs VNAnimalBodyPoseObservationJointsGroupName
+	// Tail: A group name that represents the tail.
+	Tail VNAnimalBodyPoseObservationJointsGroupName
+	// Trunk: A group name that represents the trunk.
+	Trunk VNAnimalBodyPoseObservationJointsGroupName
+}
 
 // VNAnimalIdentifiers provides typed accessors for [VNAnimalIdentifier] constants.
-var VNAnimalIdentifiers VNAnimalIdentifierValues
-
-// Cat returns An animal identifier for cats.
-func (VNAnimalIdentifierValues) Cat() VNAnimalIdentifier { return vNAnimalIdentifierCat }
-
-// Dog returns An animal identifier for dogs.
-func (VNAnimalIdentifierValues) Dog() VNAnimalIdentifier { return vNAnimalIdentifierDog }
-
-
-type VNBarcodeSymbologyValues struct{}
+var VNAnimalIdentifiers struct {
+	// Cat: An animal identifier for cats.
+	Cat VNAnimalIdentifier
+	// Dog: An animal identifier for dogs.
+	Dog VNAnimalIdentifier
+}
 
 // VNBarcodeSymbologys provides typed accessors for [VNBarcodeSymbology] constants.
-var VNBarcodeSymbologys VNBarcodeSymbologyValues
-
-// Aztec returns A constant that indicates Aztec symbology.
-func (VNBarcodeSymbologyValues) Aztec() VNBarcodeSymbology { return vNBarcodeSymbologyAztec }
-
-// Codabar returns A constant that indicates Codabar symbology.
-func (VNBarcodeSymbologyValues) Codabar() VNBarcodeSymbology { return vNBarcodeSymbologyCodabar }
-
-// Code128 returns A constant that indicates Code 128 symbology.
-func (VNBarcodeSymbologyValues) Code128() VNBarcodeSymbology { return vNBarcodeSymbologyCode128 }
-
-// Code39 returns A constant that indicates Code 39 symbology.
-func (VNBarcodeSymbologyValues) Code39() VNBarcodeSymbology { return vNBarcodeSymbologyCode39 }
-
-// Code39Checksum returns A constant that indicates Code 39 symbology with a checksum.
-func (VNBarcodeSymbologyValues) Code39Checksum() VNBarcodeSymbology { return vNBarcodeSymbologyCode39Checksum }
-
-// Code39FullASCII returns A constant that indicates Code 39 Full ASCII symbology.
-func (VNBarcodeSymbologyValues) Code39FullASCII() VNBarcodeSymbology { return vNBarcodeSymbologyCode39FullASCII }
-
-// Code39FullASCIIChecksum returns A constant that indicates Code 39 Full ASCII symbology with a checksum.
-func (VNBarcodeSymbologyValues) Code39FullASCIIChecksum() VNBarcodeSymbology { return vNBarcodeSymbologyCode39FullASCIIChecksum }
-
-// Code93 returns A constant that indicates Code 93 symbology.
-func (VNBarcodeSymbologyValues) Code93() VNBarcodeSymbology { return vNBarcodeSymbologyCode93 }
-
-// Code93i returns A constant that indicates Code 93i symbology.
-func (VNBarcodeSymbologyValues) Code93i() VNBarcodeSymbology { return vNBarcodeSymbologyCode93i }
-
-// DataMatrix returns A constant that indicates Data Matrix symbology.
-func (VNBarcodeSymbologyValues) DataMatrix() VNBarcodeSymbology { return vNBarcodeSymbologyDataMatrix }
-
-// EAN13 returns A constant that indicates EAN-13 symbology.
-func (VNBarcodeSymbologyValues) EAN13() VNBarcodeSymbology { return vNBarcodeSymbologyEAN13 }
-
-// EAN8 returns A constant that indicates EAN-8 symbology.
-func (VNBarcodeSymbologyValues) EAN8() VNBarcodeSymbology { return vNBarcodeSymbologyEAN8 }
-
-// GS1DataBar returns A constant that indicates GS1 DataBar symbology.
-func (VNBarcodeSymbologyValues) GS1DataBar() VNBarcodeSymbology { return vNBarcodeSymbologyGS1DataBar }
-
-// GS1DataBarExpanded returns A constant that indicates GS1 DataBar Expanded symbology.
-func (VNBarcodeSymbologyValues) GS1DataBarExpanded() VNBarcodeSymbology { return vNBarcodeSymbologyGS1DataBarExpanded }
-
-// GS1DataBarLimited returns A constant that indicates GS1 DataBar Limited symbology.
-func (VNBarcodeSymbologyValues) GS1DataBarLimited() VNBarcodeSymbology { return vNBarcodeSymbologyGS1DataBarLimited }
-
-// I2of5 returns A constant that indicates Interleaved 2 of 5 (ITF) symbology.
-func (VNBarcodeSymbologyValues) I2of5() VNBarcodeSymbology { return vNBarcodeSymbologyI2of5 }
-
-// I2of5Checksum returns A constant that indicates Interleaved 2 of 5 (ITF) symbology with a checksum.
-func (VNBarcodeSymbologyValues) I2of5Checksum() VNBarcodeSymbology { return vNBarcodeSymbologyI2of5Checksum }
-
-// ITF14 returns A constant that indicates ITF-14 symbology.
-func (VNBarcodeSymbologyValues) ITF14() VNBarcodeSymbology { return vNBarcodeSymbologyITF14 }
-
-// MSIPlessey returns A constant that indicates Modified Plessey symbology.
-func (VNBarcodeSymbologyValues) MSIPlessey() VNBarcodeSymbology { return vNBarcodeSymbologyMSIPlessey }
-
-// MicroPDF417 returns A constant that indicates MicroPDF417 symbology.
-func (VNBarcodeSymbologyValues) MicroPDF417() VNBarcodeSymbology { return vNBarcodeSymbologyMicroPDF417 }
-
-// MicroQR returns A constant that indicates MicroQR symbology.
-func (VNBarcodeSymbologyValues) MicroQR() VNBarcodeSymbology { return vNBarcodeSymbologyMicroQR }
-
-// PDF417 returns A constant that indicates PDF417 symbology.
-func (VNBarcodeSymbologyValues) PDF417() VNBarcodeSymbology { return vNBarcodeSymbologyPDF417 }
-
-// QR returns A constant that indicates Quick Response (QR) symbology.
-func (VNBarcodeSymbologyValues) QR() VNBarcodeSymbology { return vNBarcodeSymbologyQR }
-
-// UPCE returns A constant that indicates UPC-E symbology.
-func (VNBarcodeSymbologyValues) UPCE() VNBarcodeSymbology { return vNBarcodeSymbologyUPCE }
-
-
-type VNComputeStageValues struct{}
+var VNBarcodeSymbologys struct {
+	// Aztec: A constant that indicates Aztec symbology.
+	Aztec VNBarcodeSymbology
+	// Codabar: A constant that indicates Codabar symbology.
+	Codabar VNBarcodeSymbology
+	// Code128: A constant that indicates Code 128 symbology.
+	Code128 VNBarcodeSymbology
+	// Code39: A constant that indicates Code 39 symbology.
+	Code39 VNBarcodeSymbology
+	// Code39Checksum: A constant that indicates Code 39 symbology with a checksum.
+	Code39Checksum VNBarcodeSymbology
+	// Code39FullASCII: A constant that indicates Code 39 Full ASCII symbology.
+	Code39FullASCII VNBarcodeSymbology
+	// Code39FullASCIIChecksum: A constant that indicates Code 39 Full ASCII symbology with a checksum.
+	Code39FullASCIIChecksum VNBarcodeSymbology
+	// Code93: A constant that indicates Code 93 symbology.
+	Code93 VNBarcodeSymbology
+	// Code93i: A constant that indicates Code 93i symbology.
+	Code93i VNBarcodeSymbology
+	// DataMatrix: A constant that indicates Data Matrix symbology.
+	DataMatrix VNBarcodeSymbology
+	// EAN13: A constant that indicates EAN-13 symbology.
+	EAN13 VNBarcodeSymbology
+	// EAN8: A constant that indicates EAN-8 symbology.
+	EAN8 VNBarcodeSymbology
+	// GS1DataBar: A constant that indicates GS1 DataBar symbology.
+	GS1DataBar VNBarcodeSymbology
+	// GS1DataBarExpanded: A constant that indicates GS1 DataBar Expanded symbology.
+	GS1DataBarExpanded VNBarcodeSymbology
+	// GS1DataBarLimited: A constant that indicates GS1 DataBar Limited symbology.
+	GS1DataBarLimited VNBarcodeSymbology
+	// I2of5: A constant that indicates Interleaved 2 of 5 (ITF) symbology.
+	I2of5 VNBarcodeSymbology
+	// I2of5Checksum: A constant that indicates Interleaved 2 of 5 (ITF) symbology with a checksum.
+	I2of5Checksum VNBarcodeSymbology
+	// ITF14: A constant that indicates ITF-14 symbology.
+	ITF14 VNBarcodeSymbology
+	// MSIPlessey: A constant that indicates Modified Plessey symbology.
+	MSIPlessey VNBarcodeSymbology
+	// MicroPDF417: A constant that indicates MicroPDF417 symbology.
+	MicroPDF417 VNBarcodeSymbology
+	// MicroQR: A constant that indicates MicroQR symbology.
+	MicroQR VNBarcodeSymbology
+	// PDF417: A constant that indicates PDF417 symbology.
+	PDF417 VNBarcodeSymbology
+	// QR: A constant that indicates Quick Response (QR) symbology.
+	QR VNBarcodeSymbology
+	// UPCE: A constant that indicates UPC-E symbology.
+	UPCE VNBarcodeSymbology
+}
 
 // VNComputeStages provides typed accessors for [VNComputeStage] constants.
-var VNComputeStages VNComputeStageValues
-
-// Main returns A stage that represents where the system performs the main functionality.
-func (VNComputeStageValues) Main() VNComputeStage { return vNComputeStageMain }
-
-// PostProcessing returns A stage that represents where the system performs additional analysis from the main compute stage.
-func (VNComputeStageValues) PostProcessing() VNComputeStage { return vNComputeStagePostProcessing }
-
-
-type VNHumanBodyPose3DObservationJointNameValues struct{}
+var VNComputeStages struct {
+	// Main: A stage that represents where the system performs the main functionality.
+	Main VNComputeStage
+	// PostProcessing: A stage that represents where the system performs additional analysis from the main compute stage.
+	PostProcessing VNComputeStage
+}
 
 // VNHumanBodyPose3DObservationJointNames provides typed accessors for [VNHumanBodyPose3DObservationJointName] constants.
-var VNHumanBodyPose3DObservationJointNames VNHumanBodyPose3DObservationJointNameValues
-
-// CenterHead returns A joint name that represents the center of the head.
-func (VNHumanBodyPose3DObservationJointNameValues) CenterHead() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameCenterHead }
-
-// CenterShoulder returns A joint name that represents the point between the shoulders.
-func (VNHumanBodyPose3DObservationJointNameValues) CenterShoulder() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameCenterShoulder }
-
-// LeftAnkle returns A joint name that represents the left ankle.
-func (VNHumanBodyPose3DObservationJointNameValues) LeftAnkle() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameLeftAnkle }
-
-// LeftElbow returns A joint name that represents the left elbow.
-func (VNHumanBodyPose3DObservationJointNameValues) LeftElbow() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameLeftElbow }
-
-// LeftHip returns A joint name that represents the left hip.
-func (VNHumanBodyPose3DObservationJointNameValues) LeftHip() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameLeftHip }
-
-// LeftKnee returns A joint name that represents the left knee.
-func (VNHumanBodyPose3DObservationJointNameValues) LeftKnee() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameLeftKnee }
-
-// LeftShoulder returns A joint name that represents the left shoulder.
-func (VNHumanBodyPose3DObservationJointNameValues) LeftShoulder() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameLeftShoulder }
-
-// LeftWrist returns A joint name that represents the left wrist.
-func (VNHumanBodyPose3DObservationJointNameValues) LeftWrist() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameLeftWrist }
-
-// RightAnkle returns A joint name that represents the right ankle.
-func (VNHumanBodyPose3DObservationJointNameValues) RightAnkle() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRightAnkle }
-
-// RightElbow returns A joint name that represents the right elbow.
-func (VNHumanBodyPose3DObservationJointNameValues) RightElbow() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRightElbow }
-
-// RightHip returns A joint name that represents the right hip.
-func (VNHumanBodyPose3DObservationJointNameValues) RightHip() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRightHip }
-
-// RightKnee returns A joint name that represents the right knee.
-func (VNHumanBodyPose3DObservationJointNameValues) RightKnee() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRightKnee }
-
-// RightShoulder returns A joint name that represents the right shoulder.
-func (VNHumanBodyPose3DObservationJointNameValues) RightShoulder() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRightShoulder }
-
-// RightWrist returns A joint name that represents the right wrist.
-func (VNHumanBodyPose3DObservationJointNameValues) RightWrist() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRightWrist }
-
-// Root returns A joint name that represents the point between the left hip and right hip.
-func (VNHumanBodyPose3DObservationJointNameValues) Root() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameRoot }
-
-// Spine returns A joint name that represents the spine.
-func (VNHumanBodyPose3DObservationJointNameValues) Spine() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameSpine }
-
-// TopHead returns A joint name that represents the top of the head.
-func (VNHumanBodyPose3DObservationJointNameValues) TopHead() VNHumanBodyPose3DObservationJointName { return vNHumanBodyPose3DObservationJointNameTopHead }
-
-
-type VNHumanBodyPose3DObservationJointsGroupNameValues struct{}
+var VNHumanBodyPose3DObservationJointNames struct {
+	// CenterHead: A joint name that represents the center of the head.
+	CenterHead VNHumanBodyPose3DObservationJointName
+	// CenterShoulder: A joint name that represents the point between the shoulders.
+	CenterShoulder VNHumanBodyPose3DObservationJointName
+	// LeftAnkle: A joint name that represents the left ankle.
+	LeftAnkle VNHumanBodyPose3DObservationJointName
+	// LeftElbow: A joint name that represents the left elbow.
+	LeftElbow VNHumanBodyPose3DObservationJointName
+	// LeftHip: A joint name that represents the left hip.
+	LeftHip VNHumanBodyPose3DObservationJointName
+	// LeftKnee: A joint name that represents the left knee.
+	LeftKnee VNHumanBodyPose3DObservationJointName
+	// LeftShoulder: A joint name that represents the left shoulder.
+	LeftShoulder VNHumanBodyPose3DObservationJointName
+	// LeftWrist: A joint name that represents the left wrist.
+	LeftWrist VNHumanBodyPose3DObservationJointName
+	// RightAnkle: A joint name that represents the right ankle.
+	RightAnkle VNHumanBodyPose3DObservationJointName
+	// RightElbow: A joint name that represents the right elbow.
+	RightElbow VNHumanBodyPose3DObservationJointName
+	// RightHip: A joint name that represents the right hip.
+	RightHip VNHumanBodyPose3DObservationJointName
+	// RightKnee: A joint name that represents the right knee.
+	RightKnee VNHumanBodyPose3DObservationJointName
+	// RightShoulder: A joint name that represents the right shoulder.
+	RightShoulder VNHumanBodyPose3DObservationJointName
+	// RightWrist: A joint name that represents the right wrist.
+	RightWrist VNHumanBodyPose3DObservationJointName
+	// Root: A joint name that represents the point between the left hip and right hip.
+	Root VNHumanBodyPose3DObservationJointName
+	// Spine: A joint name that represents the spine.
+	Spine VNHumanBodyPose3DObservationJointName
+	// TopHead: A joint name that represents the top of the head.
+	TopHead VNHumanBodyPose3DObservationJointName
+}
 
 // VNHumanBodyPose3DObservationJointsGroupNames provides typed accessors for [VNHumanBodyPose3DObservationJointsGroupName] constants.
-var VNHumanBodyPose3DObservationJointsGroupNames VNHumanBodyPose3DObservationJointsGroupNameValues
-
-// All returns A group name that represents all joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) All() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameAll }
-
-// Head returns A group name that represents the head joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) Head() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameHead }
-
-// LeftArm returns A group name that represents the left arm joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) LeftArm() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameLeftArm }
-
-// LeftLeg returns A group name that represents the left leg joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) LeftLeg() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameLeftLeg }
-
-// RightArm returns A group name that represents the right arm joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) RightArm() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameRightArm }
-
-// RightLeg returns A group name that represents the right leg joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) RightLeg() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameRightLeg }
-
-// Torso returns A group name that represents the torso joints.
-func (VNHumanBodyPose3DObservationJointsGroupNameValues) Torso() VNHumanBodyPose3DObservationJointsGroupName { return vNHumanBodyPose3DObservationJointsGroupNameTorso }
-
-
-type VNHumanBodyPoseObservationJointNameValues struct{}
+var VNHumanBodyPose3DObservationJointsGroupNames struct {
+	// All: A group name that represents all joints.
+	All VNHumanBodyPose3DObservationJointsGroupName
+	// Head: A group name that represents the head joints.
+	Head VNHumanBodyPose3DObservationJointsGroupName
+	// LeftArm: A group name that represents the left arm joints.
+	LeftArm VNHumanBodyPose3DObservationJointsGroupName
+	// LeftLeg: A group name that represents the left leg joints.
+	LeftLeg VNHumanBodyPose3DObservationJointsGroupName
+	// RightArm: A group name that represents the right arm joints.
+	RightArm VNHumanBodyPose3DObservationJointsGroupName
+	// RightLeg: A group name that represents the right leg joints.
+	RightLeg VNHumanBodyPose3DObservationJointsGroupName
+	// Torso: A group name that represents the torso joints.
+	Torso VNHumanBodyPose3DObservationJointsGroupName
+}
 
 // VNHumanBodyPoseObservationJointNames provides typed accessors for [VNHumanBodyPoseObservationJointName] constants.
-var VNHumanBodyPoseObservationJointNames VNHumanBodyPoseObservationJointNameValues
-
-// LeftAnkle returns The left ankle.
-func (VNHumanBodyPoseObservationJointNameValues) LeftAnkle() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftAnkle }
-
-// LeftEar returns The left ear.
-func (VNHumanBodyPoseObservationJointNameValues) LeftEar() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftEar }
-
-// LeftElbow returns The left elbow.
-func (VNHumanBodyPoseObservationJointNameValues) LeftElbow() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftElbow }
-
-// LeftEye returns The left eye.
-func (VNHumanBodyPoseObservationJointNameValues) LeftEye() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftEye }
-
-// LeftHip returns The left hip.
-func (VNHumanBodyPoseObservationJointNameValues) LeftHip() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftHip }
-
-// LeftKnee returns The left knee.
-func (VNHumanBodyPoseObservationJointNameValues) LeftKnee() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftKnee }
-
-// LeftShoulder returns The left shoulder.
-func (VNHumanBodyPoseObservationJointNameValues) LeftShoulder() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftShoulder }
-
-// LeftWrist returns The left wrist.
-func (VNHumanBodyPoseObservationJointNameValues) LeftWrist() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameLeftWrist }
-
-// Neck returns The neck.
-func (VNHumanBodyPoseObservationJointNameValues) Neck() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameNeck }
-
-// Nose returns The nose.
-func (VNHumanBodyPoseObservationJointNameValues) Nose() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameNose }
-
-// RightAnkle returns The right ankle.
-func (VNHumanBodyPoseObservationJointNameValues) RightAnkle() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightAnkle }
-
-// RightEar returns The right ear.
-func (VNHumanBodyPoseObservationJointNameValues) RightEar() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightEar }
-
-// RightElbow returns The right elbow.
-func (VNHumanBodyPoseObservationJointNameValues) RightElbow() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightElbow }
-
-// RightEye returns The right eye.
-func (VNHumanBodyPoseObservationJointNameValues) RightEye() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightEye }
-
-// RightHip returns The right hip.
-func (VNHumanBodyPoseObservationJointNameValues) RightHip() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightHip }
-
-// RightKnee returns The right knee.
-func (VNHumanBodyPoseObservationJointNameValues) RightKnee() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightKnee }
-
-// RightShoulder returns The right shoulder.
-func (VNHumanBodyPoseObservationJointNameValues) RightShoulder() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightShoulder }
-
-// RightWrist returns The right wrist.
-func (VNHumanBodyPoseObservationJointNameValues) RightWrist() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRightWrist }
-
-// Root returns The root (waist).
-func (VNHumanBodyPoseObservationJointNameValues) Root() VNHumanBodyPoseObservationJointName { return vNHumanBodyPoseObservationJointNameRoot }
-
-
-type VNHumanBodyPoseObservationJointsGroupNameValues struct{}
+var VNHumanBodyPoseObservationJointNames struct {
+	// LeftAnkle: The left ankle.
+	LeftAnkle VNHumanBodyPoseObservationJointName
+	// LeftEar: The left ear.
+	LeftEar VNHumanBodyPoseObservationJointName
+	// LeftElbow: The left elbow.
+	LeftElbow VNHumanBodyPoseObservationJointName
+	// LeftEye: The left eye.
+	LeftEye VNHumanBodyPoseObservationJointName
+	// LeftHip: The left hip.
+	LeftHip VNHumanBodyPoseObservationJointName
+	// LeftKnee: The left knee.
+	LeftKnee VNHumanBodyPoseObservationJointName
+	// LeftShoulder: The left shoulder.
+	LeftShoulder VNHumanBodyPoseObservationJointName
+	// LeftWrist: The left wrist.
+	LeftWrist VNHumanBodyPoseObservationJointName
+	// Neck: The neck.
+	Neck VNHumanBodyPoseObservationJointName
+	// Nose: The nose.
+	Nose VNHumanBodyPoseObservationJointName
+	// RightAnkle: The right ankle.
+	RightAnkle VNHumanBodyPoseObservationJointName
+	// RightEar: The right ear.
+	RightEar VNHumanBodyPoseObservationJointName
+	// RightElbow: The right elbow.
+	RightElbow VNHumanBodyPoseObservationJointName
+	// RightEye: The right eye.
+	RightEye VNHumanBodyPoseObservationJointName
+	// RightHip: The right hip.
+	RightHip VNHumanBodyPoseObservationJointName
+	// RightKnee: The right knee.
+	RightKnee VNHumanBodyPoseObservationJointName
+	// RightShoulder: The right shoulder.
+	RightShoulder VNHumanBodyPoseObservationJointName
+	// RightWrist: The right wrist.
+	RightWrist VNHumanBodyPoseObservationJointName
+	// Root: The root (waist).
+	Root VNHumanBodyPoseObservationJointName
+}
 
 // VNHumanBodyPoseObservationJointsGroupNames provides typed accessors for [VNHumanBodyPoseObservationJointsGroupName] constants.
-var VNHumanBodyPoseObservationJointsGroupNames VNHumanBodyPoseObservationJointsGroupNameValues
-
-// All returns All body point groups.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) All() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameAll }
-
-// Face returns The face.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) Face() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameFace }
-
-// LeftArm returns The left arm.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) LeftArm() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameLeftArm }
-
-// LeftLeg returns The left leg.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) LeftLeg() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameLeftLeg }
-
-// RightArm returns The right arm.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) RightArm() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameRightArm }
-
-// RightLeg returns The right leg.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) RightLeg() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameRightLeg }
-
-// Torso returns The torso.
-func (VNHumanBodyPoseObservationJointsGroupNameValues) Torso() VNHumanBodyPoseObservationJointsGroupName { return vNHumanBodyPoseObservationJointsGroupNameTorso }
-
-
-type VNHumanHandPoseObservationJointNameValues struct{}
+var VNHumanBodyPoseObservationJointsGroupNames struct {
+	// All: All body point groups.
+	All VNHumanBodyPoseObservationJointsGroupName
+	// Face: The face.
+	Face VNHumanBodyPoseObservationJointsGroupName
+	// LeftArm: The left arm.
+	LeftArm VNHumanBodyPoseObservationJointsGroupName
+	// LeftLeg: The left leg.
+	LeftLeg VNHumanBodyPoseObservationJointsGroupName
+	// RightArm: The right arm.
+	RightArm VNHumanBodyPoseObservationJointsGroupName
+	// RightLeg: The right leg.
+	RightLeg VNHumanBodyPoseObservationJointsGroupName
+	// Torso: The torso.
+	Torso VNHumanBodyPoseObservationJointsGroupName
+}
 
 // VNHumanHandPoseObservationJointNames provides typed accessors for [VNHumanHandPoseObservationJointName] constants.
-var VNHumanHandPoseObservationJointNames VNHumanHandPoseObservationJointNameValues
-
-// IndexDIP returns The index finger’s distal interphalangeal (DIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) IndexDIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameIndexDIP }
-
-// IndexMCP returns The index finger’s metacarpophalangeal (MCP) joint.
-func (VNHumanHandPoseObservationJointNameValues) IndexMCP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameIndexMCP }
-
-// IndexPIP returns The index finger’s proximal interphalangeal (PIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) IndexPIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameIndexPIP }
-
-// IndexTip returns The tip of the index finger.
-func (VNHumanHandPoseObservationJointNameValues) IndexTip() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameIndexTip }
-
-// LittleDIP returns The little finger’s distal interphalangeal (DIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) LittleDIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameLittleDIP }
-
-// LittleMCP returns The little finger’s metacarpophalangeal (MCP) joint.
-func (VNHumanHandPoseObservationJointNameValues) LittleMCP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameLittleMCP }
-
-// LittlePIP returns The little finger’s proximal interphalangeal (PIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) LittlePIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameLittlePIP }
-
-// LittleTip returns The tip of the little finger.
-func (VNHumanHandPoseObservationJointNameValues) LittleTip() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameLittleTip }
-
-// MiddleDIP returns The middle finger’s distal interphalangeal (DIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) MiddleDIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameMiddleDIP }
-
-// MiddleMCP returns The middle finger’s metacarpophalangeal (MCP) joint.
-func (VNHumanHandPoseObservationJointNameValues) MiddleMCP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameMiddleMCP }
-
-// MiddlePIP returns The middle finger’s proximal interphalangeal (PIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) MiddlePIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameMiddlePIP }
-
-// MiddleTip returns The tip of the middle finger.
-func (VNHumanHandPoseObservationJointNameValues) MiddleTip() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameMiddleTip }
-
-// RingDIP returns The ring finger’s distal interphalangeal (DIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) RingDIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameRingDIP }
-
-// RingMCP returns The ring finger’s metacarpophalangeal (MCP) joint.
-func (VNHumanHandPoseObservationJointNameValues) RingMCP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameRingMCP }
-
-// RingPIP returns The ring finger’s proximal interphalangeal (PIP) joint.
-func (VNHumanHandPoseObservationJointNameValues) RingPIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameRingPIP }
-
-// RingTip returns The tip of the ring finger.
-func (VNHumanHandPoseObservationJointNameValues) RingTip() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameRingTip }
-
-// ThumbCMC returns The thumb’s carpometacarpal (CMC) joint.
-func (VNHumanHandPoseObservationJointNameValues) ThumbCMC() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameThumbCMC }
-
-// ThumbIP returns The thumb’s interphalangeal (IP) joint.
-func (VNHumanHandPoseObservationJointNameValues) ThumbIP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameThumbIP }
-
-// ThumbMP returns The thumb’s metacarpophalangeal (MP) joint.
-func (VNHumanHandPoseObservationJointNameValues) ThumbMP() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameThumbMP }
-
-// ThumbTip returns The tip of the thumb.
-func (VNHumanHandPoseObservationJointNameValues) ThumbTip() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameThumbTip }
-
-// Wrist returns The wrist.
-func (VNHumanHandPoseObservationJointNameValues) Wrist() VNHumanHandPoseObservationJointName { return vNHumanHandPoseObservationJointNameWrist }
-
-
-type VNHumanHandPoseObservationJointsGroupNameValues struct{}
+var VNHumanHandPoseObservationJointNames struct {
+	// IndexDIP: The index finger’s distal interphalangeal (DIP) joint.
+	IndexDIP VNHumanHandPoseObservationJointName
+	// IndexMCP: The index finger’s metacarpophalangeal (MCP) joint.
+	IndexMCP VNHumanHandPoseObservationJointName
+	// IndexPIP: The index finger’s proximal interphalangeal (PIP) joint.
+	IndexPIP VNHumanHandPoseObservationJointName
+	// IndexTip: The tip of the index finger.
+	IndexTip VNHumanHandPoseObservationJointName
+	// LittleDIP: The little finger’s distal interphalangeal (DIP) joint.
+	LittleDIP VNHumanHandPoseObservationJointName
+	// LittleMCP: The little finger’s metacarpophalangeal (MCP) joint.
+	LittleMCP VNHumanHandPoseObservationJointName
+	// LittlePIP: The little finger’s proximal interphalangeal (PIP) joint.
+	LittlePIP VNHumanHandPoseObservationJointName
+	// LittleTip: The tip of the little finger.
+	LittleTip VNHumanHandPoseObservationJointName
+	// MiddleDIP: The middle finger’s distal interphalangeal (DIP) joint.
+	MiddleDIP VNHumanHandPoseObservationJointName
+	// MiddleMCP: The middle finger’s metacarpophalangeal (MCP) joint.
+	MiddleMCP VNHumanHandPoseObservationJointName
+	// MiddlePIP: The middle finger’s proximal interphalangeal (PIP) joint.
+	MiddlePIP VNHumanHandPoseObservationJointName
+	// MiddleTip: The tip of the middle finger.
+	MiddleTip VNHumanHandPoseObservationJointName
+	// RingDIP: The ring finger’s distal interphalangeal (DIP) joint.
+	RingDIP VNHumanHandPoseObservationJointName
+	// RingMCP: The ring finger’s metacarpophalangeal (MCP) joint.
+	RingMCP VNHumanHandPoseObservationJointName
+	// RingPIP: The ring finger’s proximal interphalangeal (PIP) joint.
+	RingPIP VNHumanHandPoseObservationJointName
+	// RingTip: The tip of the ring finger.
+	RingTip VNHumanHandPoseObservationJointName
+	// ThumbCMC: The thumb’s carpometacarpal (CMC) joint.
+	ThumbCMC VNHumanHandPoseObservationJointName
+	// ThumbIP: The thumb’s interphalangeal (IP) joint.
+	ThumbIP VNHumanHandPoseObservationJointName
+	// ThumbMP: The thumb’s metacarpophalangeal (MP) joint.
+	ThumbMP VNHumanHandPoseObservationJointName
+	// ThumbTip: The tip of the thumb.
+	ThumbTip VNHumanHandPoseObservationJointName
+	// Wrist: The wrist.
+	Wrist VNHumanHandPoseObservationJointName
+}
 
 // VNHumanHandPoseObservationJointsGroupNames provides typed accessors for [VNHumanHandPoseObservationJointsGroupName] constants.
-var VNHumanHandPoseObservationJointsGroupNames VNHumanHandPoseObservationJointsGroupNameValues
-
-// All returns All hand group names.
-func (VNHumanHandPoseObservationJointsGroupNameValues) All() VNHumanHandPoseObservationJointsGroupName { return vNHumanHandPoseObservationJointsGroupNameAll }
-
-// IndexFinger returns The index finger.
-func (VNHumanHandPoseObservationJointsGroupNameValues) IndexFinger() VNHumanHandPoseObservationJointsGroupName { return vNHumanHandPoseObservationJointsGroupNameIndexFinger }
-
-// LittleFinger returns The little finger.
-func (VNHumanHandPoseObservationJointsGroupNameValues) LittleFinger() VNHumanHandPoseObservationJointsGroupName { return vNHumanHandPoseObservationJointsGroupNameLittleFinger }
-
-// MiddleFinger returns The middle finger.
-func (VNHumanHandPoseObservationJointsGroupNameValues) MiddleFinger() VNHumanHandPoseObservationJointsGroupName { return vNHumanHandPoseObservationJointsGroupNameMiddleFinger }
-
-// RingFinger returns The ring finger.
-func (VNHumanHandPoseObservationJointsGroupNameValues) RingFinger() VNHumanHandPoseObservationJointsGroupName { return vNHumanHandPoseObservationJointsGroupNameRingFinger }
-
-// Thumb returns The thumb.
-func (VNHumanHandPoseObservationJointsGroupNameValues) Thumb() VNHumanHandPoseObservationJointsGroupName { return vNHumanHandPoseObservationJointsGroupNameThumb }
-
-
-type VNImageOptionValues struct{}
+var VNHumanHandPoseObservationJointsGroupNames struct {
+	// All: All hand group names.
+	All VNHumanHandPoseObservationJointsGroupName
+	// IndexFinger: The index finger.
+	IndexFinger VNHumanHandPoseObservationJointsGroupName
+	// LittleFinger: The little finger.
+	LittleFinger VNHumanHandPoseObservationJointsGroupName
+	// MiddleFinger: The middle finger.
+	MiddleFinger VNHumanHandPoseObservationJointsGroupName
+	// RingFinger: The ring finger.
+	RingFinger VNHumanHandPoseObservationJointsGroupName
+	// Thumb: The thumb.
+	Thumb VNHumanHandPoseObservationJointsGroupName
+}
 
 // VNImageOptions provides typed accessors for [VNImageOption] constants.
-var VNImageOptions VNImageOptionValues
-
-// CIContext returns An option key to specify the context to use in the handler’s Core Image operations.
-func (VNImageOptionValues) CIContext() VNImageOption { return vNImageOptionCIContext }
-
-// CameraIntrinsics returns An option to specify the camera intrinstics.
-func (VNImageOptionValues) CameraIntrinsics() VNImageOption { return vNImageOptionCameraIntrinsics }
-
-// Properties returns The dictionary from the image source that contains the metadata for algorithms like horizon detection.
-func (VNImageOptionValues) Properties() VNImageOption { return vNImageOptionProperties }
-
+var VNImageOptions struct {
+	// CIContext: An option key to specify the context to use in the handler’s Core Image operations.
+	CIContext VNImageOption
+	// CameraIntrinsics: An option to specify the camera intrinstics.
+	CameraIntrinsics VNImageOption
+	// Properties: The dictionary from the image source that contains the metadata for algorithms like horizon detection.
+	Properties VNImageOption
+}
 

@@ -421,12 +421,12 @@ type IProgress interface {
 	// A value that indicates the estimated amount of time remaining to complete the progress.
 	EstimatedTimeRemaining() INSNumber
 	SetEstimatedTimeRemaining(value INSNumber)
-	// The total number of files for a file progress object.
-	FileTotalCount() INSNumber
-	SetFileTotalCount(value INSNumber)
 	// The number of completed files for a file progress object.
 	FileCompletedCount() INSNumber
 	SetFileCompletedCount(value INSNumber)
+	// The total number of files for a file progress object.
+	FileTotalCount() INSNumber
+	SetFileTotalCount(value INSNumber)
 	// A value that represents the speed of data processing, in bytes per second.
 	Throughput() INSNumber
 	SetThroughput(value INSNumber)
@@ -1406,27 +1406,6 @@ func (p Progress) SetEstimatedTimeRemaining(value INSNumber) {
 
 
 
-// The total number of files for a file progress object.
-//
-// # Discussion
-// 
-// If the current progress is operating on a set of files, set this property
-// to the total number of files in the operation.
-// 
-// If present, [NSProgress] presents additional information in its localized
-// description by setting a value in the `userInfo` dictionary.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSProgress/fileTotalCount
-func (p Progress) FileTotalCount() INSNumber {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("fileTotalCount"))
-	return NSNumberFromID(objc.ID(rv))
-}
-func (p Progress) SetFileTotalCount(value INSNumber) {
-	objc.Send[struct{}](p.ID, objc.Sel("setFileTotalCount:"), value)
-}
-
-
-
 // The number of completed files for a file progress object.
 //
 // # Discussion
@@ -1444,6 +1423,27 @@ func (p Progress) FileCompletedCount() INSNumber {
 }
 func (p Progress) SetFileCompletedCount(value INSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileCompletedCount:"), value)
+}
+
+
+
+// The total number of files for a file progress object.
+//
+// # Discussion
+// 
+// If the current progress is operating on a set of files, set this property
+// to the total number of files in the operation.
+// 
+// If present, [NSProgress] presents additional information in its localized
+// description by setting a value in the `userInfo` dictionary.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSProgress/fileTotalCount
+func (p Progress) FileTotalCount() INSNumber {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("fileTotalCount"))
+	return NSNumberFromID(objc.ID(rv))
+}
+func (p Progress) SetFileTotalCount(value INSNumber) {
+	objc.Send[struct{}](p.ID, objc.Sel("setFileTotalCount:"), value)
 }
 
 

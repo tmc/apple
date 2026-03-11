@@ -308,33 +308,6 @@ func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(sn
 	objc.Send[objc.ID](c.ID, objc.Sel("applySnapshot:animatingDifferences:"), snapshot, animatingDifferences)
 }
 
-// Asks your data source object to provide the number of items in the
-// specified section.
-//
-// collectionView: The collection view requesting the information.
-//
-// section: The index number of the section. Section indexes are zero based.
-//
-// # Return Value
-// 
-// The number of items in the specified section.
-//
-// # Discussion
-// 
-// All data source objects must implement this method. Your implementation
-// should quickly return the number of items in the specified section.
-// 
-// Make sure the number of items you return is accurate. The
-// [CollectionViewItemForRepresentedObjectAtIndexPath] method of your data
-// source object must be able to provide a visual representation for each item
-// in the section.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:numberOfItemsInSection:)
-func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection(collectionView INSCollectionView, section int) int {
-	rv := objc.Send[int](c.ID, objc.Sel("collectionView:numberOfItemsInSection:"), collectionView, section)
-	return rv
-}
-
 // Asks your data source object to provide the item at the specified location
 // in the collection view.
 //
@@ -367,23 +340,30 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewItemForRepresentedObje
 	return NSCollectionViewItemFromID(rv)
 }
 
-// Asks your data source object to provide the total number of sections.
+// Asks your data source object to provide the number of items in the
+// specified section.
 //
 // collectionView: The collection view requesting the information.
 //
+// section: The index number of the section. Section indexes are zero based.
+//
 // # Return Value
 // 
-// The number of sections in the specified collection view.
+// The number of items in the specified section.
 //
 // # Discussion
 // 
-// Implement this method when the organization of your data requires more than
-// one section. If you do not implement this method, the collection view
-// creates only one section.
+// All data source objects must implement this method. Your implementation
+// should quickly return the number of items in the specified section.
+// 
+// Make sure the number of items you return is accurate. The
+// [CollectionViewItemForRepresentedObjectAtIndexPath] method of your data
+// source object must be able to provide a visual representation for each item
+// in the section.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/numberOfSections(in:)
-func (c NSCollectionViewDiffableDataSource) NumberOfSectionsInCollectionView(collectionView INSCollectionView) int {
-	rv := objc.Send[int](c.ID, objc.Sel("numberOfSectionsInCollectionView:"), collectionView)
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:numberOfItemsInSection:)
+func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection(collectionView INSCollectionView, section int) int {
+	rv := objc.Send[int](c.ID, objc.Sel("collectionView:numberOfItemsInSection:"), collectionView, section)
 	return rv
 }
 
@@ -423,6 +403,26 @@ func (c NSCollectionViewDiffableDataSource) NumberOfSectionsInCollectionView(col
 func (c NSCollectionViewDiffableDataSource) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
+}
+
+// Asks your data source object to provide the total number of sections.
+//
+// collectionView: The collection view requesting the information.
+//
+// # Return Value
+// 
+// The number of sections in the specified collection view.
+//
+// # Discussion
+// 
+// Implement this method when the organization of your data requires more than
+// one section. If you do not implement this method, the collection view
+// creates only one section.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/numberOfSections(in:)
+func (c NSCollectionViewDiffableDataSource) NumberOfSectionsInCollectionView(collectionView INSCollectionView) int {
+	rv := objc.Send[int](c.ID, objc.Sel("numberOfSectionsInCollectionView:"), collectionView)
+	return rv
 }
 
 

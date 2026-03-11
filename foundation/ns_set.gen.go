@@ -311,14 +311,14 @@ type INSSet interface {
 
 	EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
 
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSSet
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
-	// Sends a message specified by a given selector to each object in the set.
 	MakeObjectsPerformSelector(aSelector objc.SEL)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
+	// Sends a message specified by a given selector to each object in the set.
+	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
 
 
@@ -1006,6 +1006,42 @@ func (s NSSet) EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOption
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateIndexPathsWithOptions:usingBlock:"), opts, block)
 }
 
+// Returns by reference a C array of objects over which the sender should
+// iterate, and as the return value the number of objects in the array.
+//
+// state: Context information that is used in the enumeration to, in addition to
+// other possibilities, ensure that the collection has not been mutated.
+//
+// buffer: A C array of objects over which the sender is to iterate.
+//
+// len: The maximum number of objects to return in `stackbuf`.
+//
+// # Return Value
+// 
+// The number of objects returned in `stackbuf`. Returns `0` when the
+// iteration is finished.
+//
+// # Discussion
+// 
+// The state structure is assumed to be of stack local memory, so you can
+// recast the passed in state structure to one more suitable for your
+// iteration.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
+func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
+	rv := objc.Send[uint](s.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
+	return rv
+}
+
+// Encodes the receiver using a given archiver.
+//
+// coder: An archiver object.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
+func (s NSSet) EncodeWithCoder(coder INSCoder) {
+	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
 //
@@ -1034,25 +1070,6 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 
 // Sends a message specified by a given selector to each object in the set.
 //
-// aSelector: A selector that specifies the message to send to the set’s members. The
-// method must take a single argument of type `id`. The method should not, as
-// a side effect, modify the set. The value must not be [NULL].
-//
-// argument: The object to pass as an argument to the method specified by `aSelector`.
-//
-// # Discussion
-// 
-// The message specified by `aSelector` is sent, with `argument` as the
-// argument, once to each member of the set. This method raises an
-// [NSInvalidArgumentException] if `aSelector` is [NULL].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:withObject:
-func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
-	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
-}
-
-// Sends a message specified by a given selector to each object in the set.
-//
 // aSelector: A selector that specifies the message to send to the members of the set.
 // The method must not take any arguments. It should not have the side effect
 // of modifying the set. This value must not be [NULL].
@@ -1068,40 +1085,23 @@ func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
-// Encodes the receiver using a given archiver.
+// Sends a message specified by a given selector to each object in the set.
 //
-// coder: An archiver object.
+// aSelector: A selector that specifies the message to send to the set’s members. The
+// method must take a single argument of type `id`. The method should not, as
+// a side effect, modify the set. The value must not be [NULL].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (s NSSet) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-// 
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
+// argument: The object to pass as an argument to the method specified by `aSelector`.
 //
 // # Discussion
 // 
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
+// The message specified by `aSelector` is sent, with `argument` as the
+// argument, once to each member of the set. This method raises an
+// [NSInvalidArgumentException] if `aSelector` is [NULL].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](s.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
+// See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:withObject:
+func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
+	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 
 
@@ -1130,6 +1130,23 @@ func (_NSSetClass NSSetClass) SetWithObjectsCount(objects []objectivec.IObject, 
 	return NSSetFromID(rv)
 }
 
+// Creates and returns an empty set.
+//
+// # Return Value
+// 
+// A new empty set.
+//
+// # Discussion
+// 
+// This method is declared primarily for the use of mutable subclasses of
+// [NSSet].
+//
+// See: https://developer.apple.com/documentation/Foundation/NSSet/set
+func (_NSSetClass NSSetClass) Set() NSSet {
+	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("set"))
+	return NSSetFromID(rv)
+}
+
 // Creates and returns a set containing a uniqued collection of the objects
 // contained in a given array.
 //
@@ -1147,23 +1164,6 @@ func (_NSSetClass NSSetClass) SetWithObjectsCount(objects []objectivec.IObject, 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/setWithArray:
 func (_NSSetClass NSSetClass) SetWithArray(array []objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithArray:"), objectivec.IObjectSliceToNSArray(array))
-	return NSSetFromID(rv)
-}
-
-// Creates and returns an empty set.
-//
-// # Return Value
-// 
-// A new empty set.
-//
-// # Discussion
-// 
-// This method is declared primarily for the use of mutable subclasses of
-// [NSSet].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSSet/set
-func (_NSSetClass NSSetClass) Set() NSSet {
-	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("set"))
 	return NSSetFromID(rv)
 }
 

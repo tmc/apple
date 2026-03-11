@@ -338,7 +338,7 @@ type INSEvent interface {
 	// An opaque Carbon type associated with this event.
 	EventRef() unsafe.Pointer
 	// The Core Graphics event object corresponding to this event.
-	CGEvent() coregraphics.CGEventRef
+	CGEvent() coregraphics.CGEvent
 
 	// Topic: Getting modifier flags
 
@@ -536,7 +536,7 @@ func NewNSEvent() NSEvent {
 // method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/init(cgEvent:)
-func NewEventWithCGEvent(cgEvent coregraphics.CGEventRef) NSEvent {
+func NewEventWithCGEvent(cgEvent coregraphics.CGEvent) NSEvent {
 	rv := objc.Send[objc.ID](objc.ID(getNSEventClass().class), objc.Sel("eventWithCGEvent:"), cgEvent)
 	return NSEventFromID(rv)
 }
@@ -1277,9 +1277,9 @@ func (e NSEvent) EventRef() unsafe.Pointer {
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/cgEvent
-func (e NSEvent) CGEvent() coregraphics.CGEventRef {
-	rv := objc.Send[coregraphics.CGEventRef](e.ID, objc.Sel("CGEvent"))
-	return coregraphics.CGEventRef(rv)
+func (e NSEvent) CGEvent() coregraphics.CGEvent {
+	rv := objc.Send[coregraphics.CGEvent](e.ID, objc.Sel("CGEvent"))
+	return coregraphics.CGEvent(rv)
 }
 
 

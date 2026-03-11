@@ -248,9 +248,9 @@ const (
 	NSWorkspaceAuthorizationInvalidError NS = 67328
 	NSWorkspaceErrorMaximum NS = 67455
 	NSWorkspaceErrorMinimum NS = 67328
-	// Deprecated: use NSIllegalTextMovement.
+	// Deprecated: use NSNullGlyph.
 	NSAnyType NS = 0
-	// Deprecated: use NSIllegalTextMovement.
+	// Deprecated: use NSNullGlyph.
 	NSCancelButton NS = 0
 	// Deprecated.
 	NSDoubleType NS = 6
@@ -262,11 +262,11 @@ const (
 	NSMacintoshInterfaceStyle NS = 3
 	// Deprecated: use NSShowControlGlyphs.
 	NSNextStepInterfaceStyle NS = 1
-	// Deprecated: use NSIllegalTextMovement.
+	// Deprecated: use NSNullGlyph.
 	NSNoInterfaceStyle NS = 0
-	// Deprecated: use NSIllegalTextMovement.
+	// Deprecated: use NSNullGlyph.
 	NSNoUnderlineStyle NS = 0
-	// Deprecated: use NSIllegalTextMovement.
+	// Deprecated: use NSNullGlyph.
 	NSOKButton NS = 0
 	// Deprecated.
 	NSPositiveDoubleType NS = 7

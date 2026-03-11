@@ -384,11 +384,11 @@ type INSCollectionViewFlowLayout interface {
 	ExpandSectionAtIndex(sectionIndex uint)
 	SectionAtIndexIsCollapsed(sectionIndex uint) bool
 
+	// An `NSSize` structure set to `0` in both dimensions.
+	NSZeroSize() corefoundation.CGSize
 	// The collection view’s delegate object.
 	Delegate() NSCollectionViewDelegate
 	SetDelegate(value NSCollectionViewDelegate)
-	// An `NSSize` structure set to `0` in both dimensions.
-	NSZeroSize() corefoundation.CGSize
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -717,6 +717,16 @@ func (c NSCollectionViewFlowLayout) SetSectionHeadersPinToVisibleBounds(value bo
 
 
 
+// An `NSSize` structure set to `0` in both dimensions.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSZeroSize
+func (c NSCollectionViewFlowLayout) NSZeroSize() corefoundation.CGSize {
+	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("NSZeroSize"))
+	return corefoundation.CGSize(rv)
+}
+
+
+
 // The collection view’s delegate object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/delegate
@@ -726,16 +736,6 @@ func (c NSCollectionViewFlowLayout) Delegate() NSCollectionViewDelegate {
 }
 func (c NSCollectionViewFlowLayout) SetDelegate(value NSCollectionViewDelegate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
-}
-
-
-
-// An `NSSize` structure set to `0` in both dimensions.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSZeroSize
-func (c NSCollectionViewFlowLayout) NSZeroSize() corefoundation.CGSize {
-	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("NSZeroSize"))
-	return corefoundation.CGSize(rv)
 }
 
 

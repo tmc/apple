@@ -320,9 +320,9 @@ type INSDateComponents interface {
 	// Specifies a date component without a value.
 	NSDateComponentUndefined() int
 	SetNSDateComponentUndefined(value int)
-	InitWithCoder(coder INSCoder) NSDateComponents
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSDateComponents
 }
 
 
@@ -438,13 +438,6 @@ func (d NSDateComponents) SetValueForComponent(value int, unit NSCalendarUnit) {
 	objc.Send[objc.ID](d.ID, objc.Sel("setValue:forComponent:"), value, unit)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
-	rv := objc.Send[NSDateComponents](d.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -452,6 +445,13 @@ func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (d NSDateComponents) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
+	rv := objc.Send[NSDateComponents](d.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

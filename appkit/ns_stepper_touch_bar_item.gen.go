@@ -185,7 +185,7 @@ func NewStepperTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) N
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:formatter:)
-func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIdentifier, formatter *foundation.NSFormatter) NSStepperTouchBarItem {
+func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIdentifier, formatter foundation.NSFormatter) NSStepperTouchBarItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSStepperTouchBarItemClass().class), objc.Sel("stepperTouchBarItemWithIdentifier:formatter:"), objc.String(string(identifier)), formatter)
 	return NSStepperTouchBarItemFromID(rv)
 }

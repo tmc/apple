@@ -78,12 +78,12 @@ func MTLCreateSystemDefaultDevice() unsafe.Pointer {
 }
 
 
-var _mTLIOCompressionContextAppendData func(context MTLIOCompressionContext, data unsafe.Pointer, size uintptr) 
+var _mTLIOCompressionContextAppendData func(context MTLIOCompressionContext, data unsafe.Pointer, size uintptr)
 
 // MTLIOCompressionContextAppendData adds data to a compression context.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCompressionContextAppendData(_:_:_:)
-func MTLIOCompressionContextAppendData(context MTLIOCompressionContext, data unsafe.Pointer, size uintptr)  {
+func MTLIOCompressionContextAppendData(context MTLIOCompressionContext, data unsafe.Pointer, size uintptr) {
 	if _mTLIOCompressionContextAppendData == nil {
 		panic("Metal: symbol MTLIOCompressionContextAppendData not loaded")
 	}
@@ -137,12 +137,12 @@ func MTLIOFlushAndDestroyCompressionContext(context MTLIOCompressionContext) MTL
 
 
 
-var _mTLRemoveDeviceObserver func(observer unsafe.Pointer) 
+var _mTLRemoveDeviceObserver func(observer unsafe.Pointer)
 
 // MTLRemoveDeviceObserver removes a registered observer of device notifications.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRemoveDeviceObserver(_:)
-func MTLRemoveDeviceObserver(observer unsafe.Pointer)  {
+func MTLRemoveDeviceObserver(observer unsafe.Pointer) {
 	if _mTLRemoveDeviceObserver == nil {
 		panic("Metal: symbol MTLRemoveDeviceObserver not loaded")
 	}

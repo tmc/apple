@@ -16,113 +16,14 @@ const (
 	AlertSecondButtonReturn NSModalResponse = 1001
 
 	AlertThirdButtonReturn NSModalResponse = 1002
-	appKitVersionNumber10_0 NSAppKitVersion = 577
-	appKitVersionNumber10_1 NSAppKitVersion = 620
-	appKitVersionNumber10_10 NSAppKitVersion = 1343
-	appKitVersionNumber10_10_2 NSAppKitVersion = 1344
-	appKitVersionNumber10_10_3 NSAppKitVersion = 1347
-	appKitVersionNumber10_10_4 NSAppKitVersion = 1348
-	appKitVersionNumber10_10_5 NSAppKitVersion = 1348
-	appKitVersionNumber10_10_Max NSAppKitVersion = 1349
-	appKitVersionNumber10_11 NSAppKitVersion = 1404
-	appKitVersionNumber10_11_1 NSAppKitVersion = 1404.13
-	appKitVersionNumber10_11_2 NSAppKitVersion = 1404.34
-	appKitVersionNumber10_11_3 NSAppKitVersion = 1404.34
-	appKitVersionNumber10_12 NSAppKitVersion = 1504
-	appKitVersionNumber10_12_1 NSAppKitVersion = 1504.6
-	appKitVersionNumber10_12_2 NSAppKitVersion = 1504.76
-	appKitVersionNumber10_13 NSAppKitVersion = 1561
-	appKitVersionNumber10_13_1 NSAppKitVersion = 1561.1
-	appKitVersionNumber10_13_2 NSAppKitVersion = 1561.2
-	appKitVersionNumber10_13_4 NSAppKitVersion = 1561.4
-	appKitVersionNumber10_14 NSAppKitVersion = 1671
-	appKitVersionNumber10_14_1 NSAppKitVersion = 1671.1
-	appKitVersionNumber10_14_2 NSAppKitVersion = 1671.2
-	appKitVersionNumber10_14_3 NSAppKitVersion = 1671.3
-	appKitVersionNumber10_14_4 NSAppKitVersion = 1671.4
-	appKitVersionNumber10_14_5 NSAppKitVersion = 1671.5
-	appKitVersionNumber10_15 NSAppKitVersion = 1894
-	appKitVersionNumber10_15_1 NSAppKitVersion = 1894.1
-	appKitVersionNumber10_15_2 NSAppKitVersion = 1894.2
-	appKitVersionNumber10_15_3 NSAppKitVersion = 1894.3
-	appKitVersionNumber10_15_4 NSAppKitVersion = 1894.4
-	appKitVersionNumber10_15_5 NSAppKitVersion = 1894.5
-	appKitVersionNumber10_15_6 NSAppKitVersion = 1894.6
-	appKitVersionNumber10_2 NSAppKitVersion = 663
-	appKitVersionNumber10_2_3 NSAppKitVersion = 663.6
-	appKitVersionNumber10_3 NSAppKitVersion = 743
-	appKitVersionNumber10_3_2 NSAppKitVersion = 743.14
-	appKitVersionNumber10_3_3 NSAppKitVersion = 743.2
-	appKitVersionNumber10_3_5 NSAppKitVersion = 743.24
-	appKitVersionNumber10_3_7 NSAppKitVersion = 743.33
-	appKitVersionNumber10_3_9 NSAppKitVersion = 743.36
-	appKitVersionNumber10_4 NSAppKitVersion = 824
-	appKitVersionNumber10_4_1 NSAppKitVersion = 824.1
-	appKitVersionNumber10_4_3 NSAppKitVersion = 824.23
-	appKitVersionNumber10_4_4 NSAppKitVersion = 824.33
-	appKitVersionNumber10_4_7 NSAppKitVersion = 824.41
-	appKitVersionNumber10_5 NSAppKitVersion = 949
-	appKitVersionNumber10_5_2 NSAppKitVersion = 949.27
-	appKitVersionNumber10_5_3 NSAppKitVersion = 949.33
-	appKitVersionNumber10_6 NSAppKitVersion = 1038
-	appKitVersionNumber10_7 NSAppKitVersion = 1138
-	appKitVersionNumber10_7_2 NSAppKitVersion = 1138.23
-	appKitVersionNumber10_7_3 NSAppKitVersion = 1138.32
-	appKitVersionNumber10_7_4 NSAppKitVersion = 1138.47
-	appKitVersionNumber10_8 NSAppKitVersion = 1187
-	appKitVersionNumber10_9 NSAppKitVersion = 1265
-	appKitVersionNumber11_0 NSAppKitVersion = 2022
-	appKitVersionNumber11_1 NSAppKitVersion = 2022.2
-	appKitVersionNumber11_2 NSAppKitVersion = 2022.3
-	appKitVersionNumber11_3 NSAppKitVersion = 2022.4
-	appKitVersionNumber11_4 NSAppKitVersion = 2022.5
-	appKitVersionNumber11_5 NSAppKitVersion = 2022.6
-	appKitVersionNumber12_0 NSAppKitVersion = 2113
-	appKitVersionNumber12_1 NSAppKitVersion = 2113.2
-	appKitVersionNumber12_2 NSAppKitVersion = 2113.3
-	appKitVersionNumber12_3 NSAppKitVersion = 2113.4
-	appKitVersionNumber12_4 NSAppKitVersion = 2113.5
-	appKitVersionNumber12_5 NSAppKitVersion = 2113.6
-	appKitVersionNumber13_0 NSAppKitVersion = 2299
-	appKitVersionNumber13_1 NSAppKitVersion = 2299.3
-	appKitVersionNumber13_2 NSAppKitVersion = 2299.3
-	appKitVersionNumber13_3 NSAppKitVersion = 2299.4
-	appKitVersionNumber13_4 NSAppKitVersion = 2299.5
-	appKitVersionNumber13_5 NSAppKitVersion = 2299.6
-	appKitVersionNumber13_6 NSAppKitVersion = 2299.7
-	appKitVersionNumber14_0 NSAppKitVersion = 2487
-	appKitVersionNumber14_1 NSAppKitVersion = 2487.2
-	appKitVersionNumberWithColumnResizingBrowser NSAppKitVersion = 685.0
-	appKitVersionNumberWithContinuousScrollingBrowser NSAppKitVersion = 680.0
-	appKitVersionNumberWithCursorSizeSupport NSAppKitVersion = 682.0
-	appKitVersionNumberWithCustomSheetPosition NSAppKitVersion = 686.0
-	appKitVersionNumberWithDeferredWindowDisplaySupport NSAppKitVersion = 1019.0
-	appKitVersionNumberWithDirectionalTabs NSAppKitVersion = 631.0
-	appKitVersionNumberWithDockTilePlugInSupport NSAppKitVersion = 1001.0
-	appKitVersionNumberWithPatternColorLeakFix NSAppKitVersion = 641.0
-	controlStateValueMixed NSControlStateValue = -1
-	controlStateValueOff NSControlStateValue = 0
-	controlStateValueOn NSControlStateValue = 1
 
 	EventDurationForever float64 = 1.7976931348623157
 
 	FloatingWindowLevel NSWindowLevel = 3
-	layoutPriorityDefaultHigh NSLayoutPriority = 750
-	layoutPriorityDefaultLow NSLayoutPriority = 250
-	layoutPriorityDragThatCanResizeWindow NSLayoutPriority = 510
-	layoutPriorityDragThatCannotResizeWindow NSLayoutPriority = 490
-	layoutPriorityFittingSizeCompression NSLayoutPriority = 50
-	layoutPriorityRequired NSLayoutPriority = 1000
-	layoutPriorityWindowSizeStayPut NSLayoutPriority = 500
 
 	MainMenuWindowLevel NSWindowLevel = 24
 
 	ModalPanelWindowLevel NSWindowLevel = 8
-	modalResponseAbort NSModalResponse = -1001
-	modalResponseCancel NSModalResponse = 0
-	modalResponseContinue NSModalResponse = -1002
-	modalResponseOK NSModalResponse = 1
-	modalResponseStop NSModalResponse = -1000
 
 	NormalWindowLevel NSWindowLevel = 0
 
@@ -141,22 +42,12 @@ const (
 	SquareStatusItemLength float64 = -2.0
 
 	StackViewSpacingUseDefault float64 = 3.40282347
-	stackViewVisibilityPriorityDetachOnlyIfNecessary NSStackViewVisibilityPriority = 900
-	stackViewVisibilityPriorityMustHold NSStackViewVisibilityPriority = 1000
-	stackViewVisibilityPriorityNotVisible NSStackViewVisibilityPriority = 0
 
 	StatusWindowLevel NSWindowLevel = 25
 
 	SubmenuWindowLevel NSWindowLevel = 3
-	toolbarItemVisibilityPriorityHigh NSToolbarItemVisibilityPriority = 1000
-	toolbarItemVisibilityPriorityLow NSToolbarItemVisibilityPriority = -1000
-	toolbarItemVisibilityPriorityStandard NSToolbarItemVisibilityPriority = 0
-	toolbarItemVisibilityPriorityUser NSToolbarItemVisibilityPriority = 2000
 
 	TornOffMenuWindowLevel NSWindowLevel = 3
-	touchBarItemPriorityHigh NSTouchBarItemPriority = 1000
-	touchBarItemPriorityLow NSTouchBarItemPriority = -1000
-	touchBarItemPriorityNormal NSTouchBarItemPriority = 0
 
 	VariableStatusItemLength float64 = -1.0
 )
@@ -958,7 +849,6 @@ var App NSApplication
 
 var AppKitIgnoredException foundation.NSExceptionName
 
-var appKitVersionNumber NSAppKitVersion
 
 
 
@@ -1048,21 +938,13 @@ var AppKitVirtualMemoryException foundation.NSExceptionName
 
 var AppearanceDocumentAttribute NSAttributedStringDocumentAttributeKey
 
-var appearanceNameAccessibilityHighContrastAqua NSAppearanceName
 
-var appearanceNameAccessibilityHighContrastDarkAqua NSAppearanceName
 
-var appearanceNameAccessibilityHighContrastVibrantDark NSAppearanceName
 
-var appearanceNameAccessibilityHighContrastVibrantLight NSAppearanceName
 
-var appearanceNameAqua NSAppearanceName
 
-var appearanceNameDarkAqua NSAppearanceName
 
-var appearanceNameVibrantDark NSAppearanceName
 
-var appearanceNameVibrantLight NSAppearanceName
 
 var ApplicationDidBecomeActiveNotification foundation.NSNotificationName
 
@@ -1365,13 +1247,9 @@ var FontCollectionWasRenamed NSFontCollectionActionTypeKey
 
 var FontCollectionWasShown NSFontCollectionActionTypeKey
 
-var fontDescriptorSystemDesignDefault NSFontDescriptorSystemDesign
 
-var fontDescriptorSystemDesignMonospaced NSFontDescriptorSystemDesign
 
-var fontDescriptorSystemDesignRounded NSFontDescriptorSystemDesign
 
-var fontDescriptorSystemDesignSerif NSFontDescriptorSystemDesign
 
 var FontFaceAttribute NSFontDescriptorAttributeName
 
@@ -1407,27 +1285,16 @@ var FontSlantTrait NSFontDescriptorTraitKey
 
 var FontSymbolicTrait NSFontDescriptorTraitKey
 
-var fontTextStyleBody NSFontTextStyle
 
-var fontTextStyleCallout NSFontTextStyle
 
-var fontTextStyleCaption1 NSFontTextStyle
 
-var fontTextStyleCaption2 NSFontTextStyle
 
-var fontTextStyleFootnote NSFontTextStyle
 
-var fontTextStyleHeadline NSFontTextStyle
 
-var fontTextStyleLargeTitle NSFontTextStyle
 
-var fontTextStyleSubheadline NSFontTextStyle
 
-var fontTextStyleTitle1 NSFontTextStyle
 
-var fontTextStyleTitle2 NSFontTextStyle
 
-var fontTextStyleTitle3 NSFontTextStyle
 
 var FontTraitsAttribute NSFontDescriptorAttributeName
 
@@ -1447,33 +1314,20 @@ var FontVariationAxisNameKey NSFontDescriptorVariationKey
 
 var FontVisibleNameAttribute NSFontDescriptorAttributeName
 
-var fontWeightBlack NSFontWeight
 
-var fontWeightBold NSFontWeight
 
-var fontWeightHeavy NSFontWeight
 
-var fontWeightLight NSFontWeight
 
-var fontWeightMedium NSFontWeight
 
-var fontWeightRegular NSFontWeight
 
-var fontWeightSemibold NSFontWeight
 
-var fontWeightThin NSFontWeight
 
 var FontWeightTrait NSFontDescriptorTraitKey
 
-var fontWeightUltraLight NSFontWeight
 
-var fontWidthCompressed NSFontWidth
 
-var fontWidthCondensed NSFontWidth
 
-var fontWidthExpanded NSFontWidth
 
-var fontWidthStandard NSFontWidth
 
 var FontWidthTrait NSFontDescriptorTraitKey
 
@@ -1541,157 +1395,81 @@ var ImageInterlaced NSBitmapImageRepPropertyKey
 
 var ImageLoopCount NSBitmapImageRepPropertyKey
 
-var imageNameTouchBarAddDetailTemplate NSImageName
 
-var imageNameTouchBarAddTemplate NSImageName
 
-var imageNameTouchBarAlarmTemplate NSImageName
 
-var imageNameTouchBarAudioInputMuteTemplate NSImageName
 
-var imageNameTouchBarAudioInputTemplate NSImageName
 
-var imageNameTouchBarAudioOutputMuteTemplate NSImageName
 
-var imageNameTouchBarAudioOutputVolumeHighTemplate NSImageName
 
-var imageNameTouchBarAudioOutputVolumeLowTemplate NSImageName
 
-var imageNameTouchBarAudioOutputVolumeMediumTemplate NSImageName
 
-var imageNameTouchBarAudioOutputVolumeOffTemplate NSImageName
 
-var imageNameTouchBarBookmarksTemplate NSImageName
 
-var imageNameTouchBarColorPickerFill NSImageName
 
-var imageNameTouchBarColorPickerFont NSImageName
 
-var imageNameTouchBarColorPickerStroke NSImageName
 
-var imageNameTouchBarCommunicationAudioTemplate NSImageName
 
-var imageNameTouchBarCommunicationVideoTemplate NSImageName
 
-var imageNameTouchBarComposeTemplate NSImageName
 
-var imageNameTouchBarDeleteTemplate NSImageName
 
-var imageNameTouchBarDownloadTemplate NSImageName
 
-var imageNameTouchBarEnterFullScreenTemplate NSImageName
 
-var imageNameTouchBarExitFullScreenTemplate NSImageName
 
-var imageNameTouchBarFastForwardTemplate NSImageName
 
-var imageNameTouchBarFolderCopyToTemplate NSImageName
 
-var imageNameTouchBarFolderMoveToTemplate NSImageName
 
-var imageNameTouchBarFolderTemplate NSImageName
 
-var imageNameTouchBarGetInfoTemplate NSImageName
 
-var imageNameTouchBarGoBackTemplate NSImageName
 
-var imageNameTouchBarGoDownTemplate NSImageName
 
-var imageNameTouchBarGoForwardTemplate NSImageName
 
-var imageNameTouchBarGoUpTemplate NSImageName
 
-var imageNameTouchBarHistoryTemplate NSImageName
 
-var imageNameTouchBarIconViewTemplate NSImageName
 
-var imageNameTouchBarListViewTemplate NSImageName
 
-var imageNameTouchBarMailTemplate NSImageName
 
-var imageNameTouchBarNewFolderTemplate NSImageName
 
-var imageNameTouchBarNewMessageTemplate NSImageName
 
-var imageNameTouchBarOpenInBrowserTemplate NSImageName
 
-var imageNameTouchBarPauseTemplate NSImageName
 
-var imageNameTouchBarPlayPauseTemplate NSImageName
 
-var imageNameTouchBarPlayTemplate NSImageName
 
-var imageNameTouchBarPlayheadTemplate NSImageName
 
-var imageNameTouchBarQuickLookTemplate NSImageName
 
-var imageNameTouchBarRecordStartTemplate NSImageName
 
-var imageNameTouchBarRecordStopTemplate NSImageName
 
-var imageNameTouchBarRefreshTemplate NSImageName
 
-var imageNameTouchBarRewindTemplate NSImageName
 
-var imageNameTouchBarRotateLeftTemplate NSImageName
 
-var imageNameTouchBarRotateRightTemplate NSImageName
 
-var imageNameTouchBarSearchTemplate NSImageName
 
-var imageNameTouchBarShareTemplate NSImageName
 
-var imageNameTouchBarSidebarTemplate NSImageName
 
-var imageNameTouchBarSkipAhead15SecondsTemplate NSImageName
 
-var imageNameTouchBarSkipAhead30SecondsTemplate NSImageName
 
-var imageNameTouchBarSkipAheadTemplate NSImageName
 
-var imageNameTouchBarSkipBack15SecondsTemplate NSImageName
 
-var imageNameTouchBarSkipBack30SecondsTemplate NSImageName
 
-var imageNameTouchBarSkipBackTemplate NSImageName
 
-var imageNameTouchBarSkipToEndTemplate NSImageName
 
-var imageNameTouchBarSkipToStartTemplate NSImageName
 
-var imageNameTouchBarSlideshowTemplate NSImageName
 
-var imageNameTouchBarTagIconTemplate NSImageName
 
-var imageNameTouchBarTextBoldTemplate NSImageName
 
-var imageNameTouchBarTextBoxTemplate NSImageName
 
-var imageNameTouchBarTextCenterAlignTemplate NSImageName
 
-var imageNameTouchBarTextItalicTemplate NSImageName
 
-var imageNameTouchBarTextJustifiedAlignTemplate NSImageName
 
-var imageNameTouchBarTextLeftAlignTemplate NSImageName
 
-var imageNameTouchBarTextListTemplate NSImageName
 
-var imageNameTouchBarTextRightAlignTemplate NSImageName
 
-var imageNameTouchBarTextStrikethroughTemplate NSImageName
 
-var imageNameTouchBarTextUnderlineTemplate NSImageName
 
-var imageNameTouchBarUserAddTemplate NSImageName
 
-var imageNameTouchBarUserGroupTemplate NSImageName
 
-var imageNameTouchBarUserTemplate NSImageName
 
-var imageNameTouchBarVolumeDownTemplate NSImageName
 
-var imageNameTouchBarVolumeUpTemplate NSImageName
 
 var ImageProgressive NSBitmapImageRepPropertyKey
 
@@ -1838,73 +1616,41 @@ var ParagraphStyleAttributeName foundation.NSAttributedStringKey
 
 var PasteboardCommunicationException foundation.NSExceptionName
 
-var pasteboardDetectionPatternCalendarEvent NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternEmailAddress NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternFlightNumber NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternLink NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternMoneyAmount NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternNumber NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternPhoneNumber NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternPostalAddress NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternProbableWebSearch NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternProbableWebURL NSPasteboardDetectionPattern
 
-var pasteboardDetectionPatternShipmentTrackingNumber NSPasteboardDetectionPattern
 
 var PasteboardMetadataTypeContentType NSPasteboardMetadataType
 
-var pasteboardNameDrag NSPasteboardName
 
-var pasteboardNameFind NSPasteboardName
 
-var pasteboardNameFont NSPasteboardName
 
-var pasteboardNameGeneral NSPasteboardName
 
-var pasteboardNameRuler NSPasteboardName
 
 var PasteboardTypeCollaborationMetadata NSPasteboard
 
-var pasteboardTypeColor NSPasteboardType
 
-var pasteboardTypeFileURL NSPasteboardType
 
-var pasteboardTypeFont NSPasteboardType
 
-var pasteboardTypeHTML NSPasteboardType
 
-var pasteboardTypeMultipleTextSelection NSPasteboardType
 
-var pasteboardTypePDF NSPasteboardType
 
-var pasteboardTypePNG NSPasteboardType
 
-var pasteboardTypeRTF NSPasteboardType
 
-var pasteboardTypeRTFD NSPasteboardType
 
-var pasteboardTypeRuler NSPasteboardType
 
-var pasteboardTypeSound NSPasteboardType
 
-var pasteboardTypeString NSPasteboardType
 
-var pasteboardTypeTIFF NSPasteboardType
 
-var pasteboardTypeTabularText NSPasteboardType
 
-var pasteboardTypeTextFinderOptions NSPasteboardType
 
-var pasteboardTypeURL NSPasteboardType
 
 var PasteboardURLReadingContentsConformToTypesKey NSPasteboardReadingOptionKey
 
@@ -2112,25 +1858,15 @@ var SelectsAllWhenSettingContentBindingOption NSBindingOption
 
 var ShadowAttributeName foundation.NSAttributedStringKey
 
-var sharingServiceNameAddToAperture NSSharingServiceName
 
-var sharingServiceNameAddToIPhoto NSSharingServiceName
 
-var sharingServiceNameAddToSafariReadingList NSSharingServiceName
 
-var sharingServiceNameCloudSharing NSSharingServiceName
 
-var sharingServiceNameComposeEmail NSSharingServiceName
 
-var sharingServiceNameComposeMessage NSSharingServiceName
 
-var sharingServiceNameSendViaAirDrop NSSharingServiceName
 
-var sharingServiceNameUseAsDesktopPicture NSSharingServiceName
 
-var sliderAccessoryWidthDefault NSSliderAccessoryWidth
 
-var sliderAccessoryWidthWide NSSliderAccessoryWidth
 
 var SortDescriptorsBinding string
 
@@ -2176,13 +1912,9 @@ var SpeechErrorsProperty NSSpeechPropertyKey
 
 var SpeechInputModeProperty NSSpeechPropertyKey
 
-var speechModeLiteral NSSpeechMode
 
-var speechModeNormal NSSpeechMode
 
-var speechModePhoneme NSSpeechMode
 
-var speechModeText NSSpeechMode
 
 var SpeechNumberModeProperty NSSpeechPropertyKey
 
@@ -2323,91 +2055,48 @@ var TextColorBinding string
 
 var TextContentStorageUnsupportedAttributeAddedNotification foundation.NSNotificationName
 
-var textContentTypeAddressCity NSTextContentType
 
-var textContentTypeAddressCityAndState NSTextContentType
 
-var textContentTypeAddressState NSTextContentType
 
-var textContentTypeBirthdate NSTextContentType
 
-var textContentTypeBirthdateDay NSTextContentType
 
-var textContentTypeBirthdateMonth NSTextContentType
 
-var textContentTypeBirthdateYear NSTextContentType
 
-var textContentTypeCountryName NSTextContentType
 
-var textContentTypeCreditCardExpiration NSTextContentType
 
-var textContentTypeCreditCardExpirationMonth NSTextContentType
 
-var textContentTypeCreditCardExpirationYear NSTextContentType
 
-var textContentTypeCreditCardFamilyName NSTextContentType
 
-var textContentTypeCreditCardGivenName NSTextContentType
 
-var textContentTypeCreditCardMiddleName NSTextContentType
 
-var textContentTypeCreditCardName NSTextContentType
 
-var textContentTypeCreditCardNumber NSTextContentType
 
-var textContentTypeCreditCardSecurityCode NSTextContentType
 
-var textContentTypeCreditCardType NSTextContentType
 
-var textContentTypeDateTime NSTextContentType
 
-var textContentTypeEmailAddress NSTextContentType
 
-var textContentTypeFamilyName NSTextContentType
 
-var textContentTypeFlightNumber NSTextContentType
 
-var textContentTypeFullStreetAddress NSTextContentType
 
-var textContentTypeGivenName NSTextContentType
 
-var textContentTypeJobTitle NSTextContentType
 
-var textContentTypeLocation NSTextContentType
 
-var textContentTypeMiddleName NSTextContentType
 
-var textContentTypeName NSTextContentType
 
-var textContentTypeNamePrefix NSTextContentType
 
-var textContentTypeNameSuffix NSTextContentType
 
-var textContentTypeNewPassword NSTextContentType
 
-var textContentTypeNickname NSTextContentType
 
-var textContentTypeOneTimeCode NSTextContentType
 
-var textContentTypeOrganizationName NSTextContentType
 
-var textContentTypePassword NSTextContentType
 
-var textContentTypePostalCode NSTextContentType
 
-var textContentTypeShipmentTrackingNumber NSTextContentType
 
-var textContentTypeStreetAddressLine1 NSTextContentType
 
-var textContentTypeStreetAddressLine2 NSTextContentType
 
-var textContentTypeSublocality NSTextContentType
 
-var textContentTypeTelephoneNumber NSTextContentType
 
-var textContentTypeURL NSTextContentType
 
-var textContentTypeUsername NSTextContentType
 
 var TextDidBeginEditingNotification foundation.NSNotificationName
 
@@ -2429,17 +2118,11 @@ var TextFinderMatchingTypeKey NSPasteboardTypeTextFinderOptionKey
 
 var TextHighlightColorSchemeAttributeName foundation.NSAttributedStringKey
 
-var textHighlightColorSchemeBlue NSTextHighlightColorScheme
 
-var textHighlightColorSchemeDefault NSTextHighlightColorScheme
 
-var textHighlightColorSchemeMint NSTextHighlightColorScheme
 
-var textHighlightColorSchemeOrange NSTextHighlightColorScheme
 
-var textHighlightColorSchemePink NSTextHighlightColorScheme
 
-var textHighlightColorSchemePurple NSTextHighlightColorScheme
 
 var TextHighlightStyleAttributeName foundation.NSAttributedStringKey
 
@@ -2562,27 +2245,16 @@ var ToolbarWillAddItemNotification foundation.NSNotificationName
 var TopMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
 
 
-var touchBarItemIdentifierCandidateList NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierCharacterPicker NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierFixedSpaceLarge NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierFixedSpaceSmall NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierFlexibleSpace NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierOtherItemsProxy NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierTextAlignment NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierTextColorPicker NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierTextFormat NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierTextList NSTouchBarItemIdentifier
 
-var touchBarItemIdentifierTextStyle NSTouchBarItemIdentifier
 
 
 
@@ -6810,7 +6482,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVersionNumber"); err == nil && ptr != 0 {
-		appKitVersionNumber = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
+		NSAppKitVersions.Number = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
 	}
 
 
@@ -6922,7 +6594,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameAccessibilityHighContrastAqua = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.AccessibilityHighContrastAqua = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6932,7 +6604,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameAccessibilityHighContrastDarkAqua = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.AccessibilityHighContrastDarkAqua = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6942,7 +6614,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameAccessibilityHighContrastVibrantDark = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.AccessibilityHighContrastVibrantDark = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6952,7 +6624,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameAccessibilityHighContrastVibrantLight = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.AccessibilityHighContrastVibrantLight = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6962,7 +6634,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameAqua = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.Aqua = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6972,7 +6644,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameDarkAqua = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.DarkAqua = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6982,7 +6654,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameVibrantDark = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.VibrantDark = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6992,7 +6664,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				appearanceNameVibrantLight = NSAppearanceName(objc.GoString(cstr))
+				NSAppearanceNames.VibrantLight = NSAppearanceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8469,7 +8141,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontDescriptorSystemDesignDefault = NSFontDescriptorSystemDesign(objc.GoString(cstr))
+				NSFontDescriptorSystemDesigns.Default = NSFontDescriptorSystemDesign(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8479,7 +8151,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontDescriptorSystemDesignMonospaced = NSFontDescriptorSystemDesign(objc.GoString(cstr))
+				NSFontDescriptorSystemDesigns.Monospaced = NSFontDescriptorSystemDesign(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8489,7 +8161,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontDescriptorSystemDesignRounded = NSFontDescriptorSystemDesign(objc.GoString(cstr))
+				NSFontDescriptorSystemDesigns.Rounded = NSFontDescriptorSystemDesign(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8499,7 +8171,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontDescriptorSystemDesignSerif = NSFontDescriptorSystemDesign(objc.GoString(cstr))
+				NSFontDescriptorSystemDesigns.Serif = NSFontDescriptorSystemDesign(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8673,7 +8345,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleBody = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Body = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8683,7 +8355,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleCallout = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Callout = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8693,7 +8365,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleCaption1 = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Caption1 = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8703,7 +8375,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleCaption2 = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Caption2 = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8713,7 +8385,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleFootnote = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Footnote = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8723,7 +8395,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleHeadline = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Headline = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8733,7 +8405,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleLargeTitle = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.LargeTitle = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8743,7 +8415,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleSubheadline = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Subheadline = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8753,7 +8425,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleTitle1 = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Title1 = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8763,7 +8435,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleTitle2 = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Title2 = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8773,7 +8445,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				fontTextStyleTitle3 = NSFontTextStyle(objc.GoString(cstr))
+				NSFontTextStyles.Title3 = NSFontTextStyle(objc.GoString(cstr))
 			}
 		}
 	}
@@ -8869,35 +8541,35 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightBlack"); err == nil && ptr != 0 {
-		fontWeightBlack = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Black = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightBold"); err == nil && ptr != 0 {
-		fontWeightBold = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Bold = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightHeavy"); err == nil && ptr != 0 {
-		fontWeightHeavy = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Heavy = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightLight"); err == nil && ptr != 0 {
-		fontWeightLight = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Light = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightMedium"); err == nil && ptr != 0 {
-		fontWeightMedium = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Medium = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightRegular"); err == nil && ptr != 0 {
-		fontWeightRegular = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Regular = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightSemibold"); err == nil && ptr != 0 {
-		fontWeightSemibold = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Semibold = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightThin"); err == nil && ptr != 0 {
-		fontWeightThin = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Thin = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightTrait"); err == nil && ptr != 0 {
@@ -8911,23 +8583,23 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightUltraLight"); err == nil && ptr != 0 {
-		fontWeightUltraLight = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.UltraLight = *(*NSFontWeight)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthCompressed"); err == nil && ptr != 0 {
-		fontWidthCompressed = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Compressed = *(*NSFontWidth)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthCondensed"); err == nil && ptr != 0 {
-		fontWidthCondensed = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Condensed = *(*NSFontWidth)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthExpanded"); err == nil && ptr != 0 {
-		fontWidthExpanded = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Expanded = *(*NSFontWidth)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthStandard"); err == nil && ptr != 0 {
-		fontWidthStandard = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Standard = *(*NSFontWidth)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthTrait"); err == nil && ptr != 0 {
@@ -9253,7 +8925,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAddDetailTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAddDetailTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9263,7 +8935,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAddTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAddTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9273,7 +8945,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAlarmTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAlarmTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9283,7 +8955,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioInputMuteTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioInputMuteTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9293,7 +8965,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioInputTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioInputTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9303,7 +8975,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioOutputMuteTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioOutputMuteTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9313,7 +8985,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioOutputVolumeHighTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioOutputVolumeHighTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9323,7 +8995,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioOutputVolumeLowTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioOutputVolumeLowTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9333,7 +9005,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioOutputVolumeMediumTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioOutputVolumeMediumTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9343,7 +9015,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarAudioOutputVolumeOffTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarAudioOutputVolumeOffTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9353,7 +9025,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarBookmarksTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarBookmarksTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9363,7 +9035,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarColorPickerFill = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarColorPickerFill = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9373,7 +9045,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarColorPickerFont = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarColorPickerFont = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9383,7 +9055,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarColorPickerStroke = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarColorPickerStroke = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9393,7 +9065,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarCommunicationAudioTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarCommunicationAudioTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9403,7 +9075,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarCommunicationVideoTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarCommunicationVideoTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9413,7 +9085,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarComposeTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarComposeTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9423,7 +9095,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarDeleteTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarDeleteTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9433,7 +9105,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarDownloadTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarDownloadTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9443,7 +9115,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarEnterFullScreenTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarEnterFullScreenTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9453,7 +9125,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarExitFullScreenTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarExitFullScreenTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9463,7 +9135,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarFastForwardTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarFastForwardTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9473,7 +9145,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarFolderCopyToTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarFolderCopyToTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9483,7 +9155,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarFolderMoveToTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarFolderMoveToTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9493,7 +9165,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarFolderTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarFolderTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9503,7 +9175,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarGetInfoTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarGetInfoTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9513,7 +9185,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarGoBackTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarGoBackTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9523,7 +9195,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarGoDownTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarGoDownTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9533,7 +9205,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarGoForwardTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarGoForwardTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9543,7 +9215,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarGoUpTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarGoUpTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9553,7 +9225,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarHistoryTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarHistoryTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9563,7 +9235,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarIconViewTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarIconViewTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9573,7 +9245,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarListViewTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarListViewTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9583,7 +9255,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarMailTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarMailTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9593,7 +9265,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarNewFolderTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarNewFolderTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9603,7 +9275,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarNewMessageTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarNewMessageTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9613,7 +9285,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarOpenInBrowserTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarOpenInBrowserTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9623,7 +9295,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarPauseTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarPauseTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9633,7 +9305,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarPlayPauseTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarPlayPauseTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9643,7 +9315,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarPlayTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarPlayTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9653,7 +9325,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarPlayheadTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarPlayheadTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9663,7 +9335,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarQuickLookTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarQuickLookTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9673,7 +9345,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarRecordStartTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarRecordStartTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9683,7 +9355,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarRecordStopTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarRecordStopTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9693,7 +9365,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarRefreshTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarRefreshTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9703,7 +9375,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarRewindTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarRewindTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9713,7 +9385,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarRotateLeftTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarRotateLeftTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9723,7 +9395,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarRotateRightTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarRotateRightTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9733,7 +9405,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSearchTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSearchTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9743,7 +9415,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarShareTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarShareTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9753,7 +9425,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSidebarTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSidebarTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9763,7 +9435,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipAhead15SecondsTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipAhead15SecondsTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9773,7 +9445,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipAhead30SecondsTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipAhead30SecondsTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9783,7 +9455,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipAheadTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipAheadTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9793,7 +9465,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipBack15SecondsTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipBack15SecondsTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9803,7 +9475,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipBack30SecondsTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipBack30SecondsTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9813,7 +9485,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipBackTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipBackTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9823,7 +9495,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipToEndTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipToEndTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9833,7 +9505,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSkipToStartTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSkipToStartTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9843,7 +9515,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarSlideshowTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarSlideshowTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9853,7 +9525,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTagIconTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTagIconTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9863,7 +9535,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextBoldTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextBoldTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9873,7 +9545,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextBoxTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextBoxTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9883,7 +9555,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextCenterAlignTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextCenterAlignTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9893,7 +9565,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextItalicTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextItalicTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9903,7 +9575,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextJustifiedAlignTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextJustifiedAlignTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9913,7 +9585,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextLeftAlignTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextLeftAlignTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9923,7 +9595,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextListTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextListTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9933,7 +9605,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextRightAlignTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextRightAlignTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9943,7 +9615,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextStrikethroughTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextStrikethroughTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9953,7 +9625,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarTextUnderlineTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarTextUnderlineTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9963,7 +9635,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarUserAddTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarUserAddTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9973,7 +9645,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarUserGroupTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarUserGroupTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9983,7 +9655,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarUserTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarUserTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -9993,7 +9665,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarVolumeDownTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarVolumeDownTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10003,7 +9675,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				imageNameTouchBarVolumeUpTemplate = NSImageName(objc.GoString(cstr))
+				NSImageNames.TouchBarVolumeUpTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10672,7 +10344,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternCalendarEvent = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.CalendarEvent = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10682,7 +10354,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternEmailAddress = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.EmailAddress = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10692,7 +10364,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternFlightNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.FlightNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10702,7 +10374,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternLink = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.Link = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10712,7 +10384,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternMoneyAmount = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.MoneyAmount = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10722,7 +10394,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.Number = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10732,7 +10404,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternPhoneNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.PhoneNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10742,7 +10414,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternPostalAddress = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.PostalAddress = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10752,7 +10424,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternProbableWebSearch = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.ProbableWebSearch = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10762,7 +10434,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternProbableWebURL = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.ProbableWebURL = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10772,7 +10444,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardDetectionPatternShipmentTrackingNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
+				NSPasteboardDetectionPatterns.ShipmentTrackingNumber = NSPasteboardDetectionPattern(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10792,7 +10464,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardNameDrag = NSPasteboardName(objc.GoString(cstr))
+				NSPasteboardNames.Drag = NSPasteboardName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10802,7 +10474,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardNameFind = NSPasteboardName(objc.GoString(cstr))
+				NSPasteboardNames.Find = NSPasteboardName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10812,7 +10484,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardNameFont = NSPasteboardName(objc.GoString(cstr))
+				NSPasteboardNames.Font = NSPasteboardName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10822,7 +10494,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardNameGeneral = NSPasteboardName(objc.GoString(cstr))
+				NSPasteboardNames.General = NSPasteboardName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10832,7 +10504,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardNameRuler = NSPasteboardName(objc.GoString(cstr))
+				NSPasteboardNames.Ruler = NSPasteboardName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10846,7 +10518,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeColor = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.Color = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10856,7 +10528,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeFileURL = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.FileURL = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10866,7 +10538,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeFont = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.Font = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10876,7 +10548,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeHTML = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.HTML = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10886,7 +10558,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeMultipleTextSelection = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.MultipleTextSelection = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10896,7 +10568,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypePDF = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.PDF = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10906,7 +10578,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypePNG = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.PNG = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10916,7 +10588,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeRTF = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.RTF = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10926,7 +10598,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeRTFD = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.RTFD = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10936,7 +10608,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeRuler = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.Ruler = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10946,7 +10618,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeSound = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.Sound = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10956,7 +10628,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeString = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.String = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10966,7 +10638,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeTIFF = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.TIFF = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10976,7 +10648,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeTabularText = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.TabularText = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10986,7 +10658,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeTextFinderOptions = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.TextFinderOptions = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -10996,7 +10668,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				pasteboardTypeURL = NSPasteboardType(objc.GoString(cstr))
+				NSPasteboardTypes.URL = NSPasteboardType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12012,7 +11684,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameAddToAperture = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.AddToAperture = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12022,7 +11694,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameAddToIPhoto = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.AddToIPhoto = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12032,7 +11704,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameAddToSafariReadingList = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.AddToSafariReadingList = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12042,7 +11714,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameCloudSharing = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.CloudSharing = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12052,7 +11724,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameComposeEmail = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.ComposeEmail = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12062,7 +11734,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameComposeMessage = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.ComposeMessage = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12072,7 +11744,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameSendViaAirDrop = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.SendViaAirDrop = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12082,17 +11754,17 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				sharingServiceNameUseAsDesktopPicture = NSSharingServiceName(objc.GoString(cstr))
+				NSSharingServiceNames.UseAsDesktopPicture = NSSharingServiceName(objc.GoString(cstr))
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSliderAccessoryWidthDefault"); err == nil && ptr != 0 {
-		sliderAccessoryWidthDefault = *(*NSSliderAccessoryWidth)(unsafe.Pointer(ptr))
+		NSSliderAccessoryWidths.Default = *(*NSSliderAccessoryWidth)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSliderAccessoryWidthWide"); err == nil && ptr != 0 {
-		sliderAccessoryWidthWide = *(*NSSliderAccessoryWidth)(unsafe.Pointer(ptr))
+		NSSliderAccessoryWidths.Wide = *(*NSSliderAccessoryWidth)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSortDescriptorsBinding"); err == nil && ptr != 0 {
@@ -12320,7 +11992,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				speechModeLiteral = NSSpeechMode(objc.GoString(cstr))
+				NSSpeechModes.Literal = NSSpeechMode(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12330,7 +12002,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				speechModeNormal = NSSpeechMode(objc.GoString(cstr))
+				NSSpeechModes.Normal = NSSpeechMode(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12340,7 +12012,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				speechModePhoneme = NSSpeechMode(objc.GoString(cstr))
+				NSSpeechModes.Phoneme = NSSpeechMode(objc.GoString(cstr))
 			}
 		}
 	}
@@ -12350,7 +12022,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				speechModeText = NSSpeechMode(objc.GoString(cstr))
+				NSSpeechModes.Text = NSSpeechMode(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13015,7 +12687,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeAddressCity = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.AddressCity = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13025,7 +12697,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeAddressCityAndState = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.AddressCityAndState = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13035,7 +12707,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeAddressState = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.AddressState = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13045,7 +12717,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeBirthdate = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Birthdate = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13055,7 +12727,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeBirthdateDay = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.BirthdateDay = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13065,7 +12737,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeBirthdateMonth = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.BirthdateMonth = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13075,7 +12747,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeBirthdateYear = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.BirthdateYear = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13085,7 +12757,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCountryName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CountryName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13095,7 +12767,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardExpiration = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardExpiration = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13105,7 +12777,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardExpirationMonth = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardExpirationMonth = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13115,7 +12787,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardExpirationYear = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardExpirationYear = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13125,7 +12797,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardFamilyName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardFamilyName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13135,7 +12807,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardGivenName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardGivenName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13145,7 +12817,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardMiddleName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardMiddleName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13155,7 +12827,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13165,7 +12837,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardNumber = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardNumber = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13175,7 +12847,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardSecurityCode = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardSecurityCode = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13185,7 +12857,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeCreditCardType = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.CreditCardType = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13195,7 +12867,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeDateTime = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.DateTime = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13205,7 +12877,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeEmailAddress = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.EmailAddress = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13215,7 +12887,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeFamilyName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.FamilyName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13225,7 +12897,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeFlightNumber = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.FlightNumber = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13235,7 +12907,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeFullStreetAddress = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.FullStreetAddress = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13245,7 +12917,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeGivenName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.GivenName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13255,7 +12927,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeJobTitle = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.JobTitle = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13265,7 +12937,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeLocation = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Location = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13275,7 +12947,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeMiddleName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.MiddleName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13285,7 +12957,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Name = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13295,7 +12967,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeNamePrefix = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.NamePrefix = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13305,7 +12977,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeNameSuffix = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.NameSuffix = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13315,7 +12987,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeNewPassword = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.NewPassword = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13325,7 +12997,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeNickname = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Nickname = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13335,7 +13007,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeOneTimeCode = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.OneTimeCode = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13345,7 +13017,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeOrganizationName = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.OrganizationName = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13355,7 +13027,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypePassword = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Password = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13365,7 +13037,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypePostalCode = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.PostalCode = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13375,7 +13047,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeShipmentTrackingNumber = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.ShipmentTrackingNumber = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13385,7 +13057,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeStreetAddressLine1 = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.StreetAddressLine1 = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13395,7 +13067,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeStreetAddressLine2 = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.StreetAddressLine2 = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13405,7 +13077,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeSublocality = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Sublocality = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13415,7 +13087,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeTelephoneNumber = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.TelephoneNumber = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13425,7 +13097,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeURL = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.URL = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13435,7 +13107,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textContentTypeUsername = NSTextContentType(objc.GoString(cstr))
+				NSTextContentTypes.Username = NSTextContentType(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13545,7 +13217,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textHighlightColorSchemeBlue = NSTextHighlightColorScheme(objc.GoString(cstr))
+				NSTextHighlightColorSchemes.Blue = NSTextHighlightColorScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13555,7 +13227,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textHighlightColorSchemeDefault = NSTextHighlightColorScheme(objc.GoString(cstr))
+				NSTextHighlightColorSchemes.Default = NSTextHighlightColorScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13565,7 +13237,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textHighlightColorSchemeMint = NSTextHighlightColorScheme(objc.GoString(cstr))
+				NSTextHighlightColorSchemes.Mint = NSTextHighlightColorScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13575,7 +13247,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textHighlightColorSchemeOrange = NSTextHighlightColorScheme(objc.GoString(cstr))
+				NSTextHighlightColorSchemes.Orange = NSTextHighlightColorScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13585,7 +13257,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textHighlightColorSchemePink = NSTextHighlightColorScheme(objc.GoString(cstr))
+				NSTextHighlightColorSchemes.Pink = NSTextHighlightColorScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -13595,7 +13267,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				textHighlightColorSchemePurple = NSTextHighlightColorScheme(objc.GoString(cstr))
+				NSTextHighlightColorSchemes.Purple = NSTextHighlightColorScheme(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14190,7 +13862,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierCandidateList = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.CandidateList = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14200,7 +13872,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierCharacterPicker = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.CharacterPicker = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14210,7 +13882,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierFixedSpaceLarge = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.FixedSpaceLarge = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14220,7 +13892,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierFixedSpaceSmall = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.FixedSpaceSmall = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14230,7 +13902,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierFlexibleSpace = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.FlexibleSpace = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14240,7 +13912,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierOtherItemsProxy = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.OtherItemsProxy = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14250,7 +13922,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierTextAlignment = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.TextAlignment = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14260,7 +13932,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierTextColorPicker = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.TextColorPicker = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14270,7 +13942,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierTextFormat = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.TextFormat = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14280,7 +13952,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierTextList = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.TextList = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14290,7 +13962,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				touchBarItemIdentifierTextStyle = NSTouchBarItemIdentifier(objc.GoString(cstr))
+				NSTouchBarItemIdentifiers.TextStyle = NSTouchBarItemIdentifier(objc.GoString(cstr))
 			}
 		}
 	}
@@ -15437,1061 +15109,689 @@ func init() {
 
 }
 
-type NSAppKitVersionValues struct{}
-
 // NSAppKitVersions provides typed accessors for [NSAppKitVersion] constants.
-var NSAppKitVersions NSAppKitVersionValues
-
-// Number returns The most recent version of AppKit.
-func (NSAppKitVersionValues) Number() NSAppKitVersion { return appKitVersionNumber }
-
-// Number10_0 returns The AppKit framework included in OS X v10.0.
-func (NSAppKitVersionValues) Number10_0() NSAppKitVersion { return appKitVersionNumber10_0 }
-
-// Number10_1 returns The AppKit framework included in OS X v10.1.
-func (NSAppKitVersionValues) Number10_1() NSAppKitVersion { return appKitVersionNumber10_1 }
-
-func (NSAppKitVersionValues) Number10_10() NSAppKitVersion { return appKitVersionNumber10_10 }
-
-func (NSAppKitVersionValues) Number10_10_2() NSAppKitVersion { return appKitVersionNumber10_10_2 }
-
-func (NSAppKitVersionValues) Number10_10_3() NSAppKitVersion { return appKitVersionNumber10_10_3 }
-
-func (NSAppKitVersionValues) Number10_10_4() NSAppKitVersion { return appKitVersionNumber10_10_4 }
-
-func (NSAppKitVersionValues) Number10_10_5() NSAppKitVersion { return appKitVersionNumber10_10_5 }
-
-func (NSAppKitVersionValues) Number10_10_Max() NSAppKitVersion { return appKitVersionNumber10_10_Max }
-
-func (NSAppKitVersionValues) Number10_11() NSAppKitVersion { return appKitVersionNumber10_11 }
-
-func (NSAppKitVersionValues) Number10_11_1() NSAppKitVersion { return appKitVersionNumber10_11_1 }
-
-func (NSAppKitVersionValues) Number10_11_2() NSAppKitVersion { return appKitVersionNumber10_11_2 }
-
-func (NSAppKitVersionValues) Number10_11_3() NSAppKitVersion { return appKitVersionNumber10_11_3 }
-
-func (NSAppKitVersionValues) Number10_12() NSAppKitVersion { return appKitVersionNumber10_12 }
-
-func (NSAppKitVersionValues) Number10_12_1() NSAppKitVersion { return appKitVersionNumber10_12_1 }
-
-func (NSAppKitVersionValues) Number10_12_2() NSAppKitVersion { return appKitVersionNumber10_12_2 }
-
-func (NSAppKitVersionValues) Number10_13() NSAppKitVersion { return appKitVersionNumber10_13 }
-
-func (NSAppKitVersionValues) Number10_13_1() NSAppKitVersion { return appKitVersionNumber10_13_1 }
-
-func (NSAppKitVersionValues) Number10_13_2() NSAppKitVersion { return appKitVersionNumber10_13_2 }
-
-func (NSAppKitVersionValues) Number10_13_4() NSAppKitVersion { return appKitVersionNumber10_13_4 }
-
-func (NSAppKitVersionValues) Number10_14() NSAppKitVersion { return appKitVersionNumber10_14 }
-
-func (NSAppKitVersionValues) Number10_14_1() NSAppKitVersion { return appKitVersionNumber10_14_1 }
-
-func (NSAppKitVersionValues) Number10_14_2() NSAppKitVersion { return appKitVersionNumber10_14_2 }
-
-func (NSAppKitVersionValues) Number10_14_3() NSAppKitVersion { return appKitVersionNumber10_14_3 }
-
-func (NSAppKitVersionValues) Number10_14_4() NSAppKitVersion { return appKitVersionNumber10_14_4 }
-
-func (NSAppKitVersionValues) Number10_14_5() NSAppKitVersion { return appKitVersionNumber10_14_5 }
-
-func (NSAppKitVersionValues) Number10_15() NSAppKitVersion { return appKitVersionNumber10_15 }
-
-func (NSAppKitVersionValues) Number10_15_1() NSAppKitVersion { return appKitVersionNumber10_15_1 }
-
-func (NSAppKitVersionValues) Number10_15_2() NSAppKitVersion { return appKitVersionNumber10_15_2 }
-
-func (NSAppKitVersionValues) Number10_15_3() NSAppKitVersion { return appKitVersionNumber10_15_3 }
-
-func (NSAppKitVersionValues) Number10_15_4() NSAppKitVersion { return appKitVersionNumber10_15_4 }
-
-func (NSAppKitVersionValues) Number10_15_5() NSAppKitVersion { return appKitVersionNumber10_15_5 }
-
-func (NSAppKitVersionValues) Number10_15_6() NSAppKitVersion { return appKitVersionNumber10_15_6 }
-
-// Number10_2 returns The AppKit framework included in OS X v10.2.
-func (NSAppKitVersionValues) Number10_2() NSAppKitVersion { return appKitVersionNumber10_2 }
-
-// Number10_2_3 returns The AppKit framework included in OS X v10.2.3.
-func (NSAppKitVersionValues) Number10_2_3() NSAppKitVersion { return appKitVersionNumber10_2_3 }
-
-// Number10_3 returns The AppKit framework included in OS X v10.3.
-func (NSAppKitVersionValues) Number10_3() NSAppKitVersion { return appKitVersionNumber10_3 }
-
-// Number10_3_2 returns The AppKit framework included in OS X v10.3.2.
-func (NSAppKitVersionValues) Number10_3_2() NSAppKitVersion { return appKitVersionNumber10_3_2 }
-
-// Number10_3_3 returns The AppKit framework included in OS X v10.3.3.
-func (NSAppKitVersionValues) Number10_3_3() NSAppKitVersion { return appKitVersionNumber10_3_3 }
-
-// Number10_3_5 returns The AppKit framework included in OS X v10.3.5.
-func (NSAppKitVersionValues) Number10_3_5() NSAppKitVersion { return appKitVersionNumber10_3_5 }
-
-// Number10_3_7 returns The AppKit framework included in OS X v10.3.7.
-func (NSAppKitVersionValues) Number10_3_7() NSAppKitVersion { return appKitVersionNumber10_3_7 }
-
-// Number10_3_9 returns The AppKit framework included in OS X v10.3.9.
-func (NSAppKitVersionValues) Number10_3_9() NSAppKitVersion { return appKitVersionNumber10_3_9 }
-
-// Number10_4 returns The AppKit framework included in OS X v10.4.
-func (NSAppKitVersionValues) Number10_4() NSAppKitVersion { return appKitVersionNumber10_4 }
-
-// Number10_4_1 returns The AppKit framework included in OS X v10.4.1.
-func (NSAppKitVersionValues) Number10_4_1() NSAppKitVersion { return appKitVersionNumber10_4_1 }
-
-// Number10_4_3 returns The AppKit framework included in OS X v10.4.3.
-func (NSAppKitVersionValues) Number10_4_3() NSAppKitVersion { return appKitVersionNumber10_4_3 }
-
-// Number10_4_4 returns The AppKit framework included in OS X v10.4.4.
-func (NSAppKitVersionValues) Number10_4_4() NSAppKitVersion { return appKitVersionNumber10_4_4 }
-
-// Number10_4_7 returns The AppKit framework included in OS X v10.4.7.
-func (NSAppKitVersionValues) Number10_4_7() NSAppKitVersion { return appKitVersionNumber10_4_7 }
-
-// Number10_5 returns The AppKit framework included in OS X v10.5.
-func (NSAppKitVersionValues) Number10_5() NSAppKitVersion { return appKitVersionNumber10_5 }
-
-// Number10_5_2 returns The AppKit framework included in OS X v10.5.2.
-func (NSAppKitVersionValues) Number10_5_2() NSAppKitVersion { return appKitVersionNumber10_5_2 }
-
-// Number10_5_3 returns The AppKit framework included in OS X v10.5.3.
-func (NSAppKitVersionValues) Number10_5_3() NSAppKitVersion { return appKitVersionNumber10_5_3 }
-
-// Number10_6 returns The AppKit framework included in OS X v10.6.
-func (NSAppKitVersionValues) Number10_6() NSAppKitVersion { return appKitVersionNumber10_6 }
-
-// Number10_7 returns The AppKit framework included in OS X v10.7.
-func (NSAppKitVersionValues) Number10_7() NSAppKitVersion { return appKitVersionNumber10_7 }
-
-// Number10_7_2 returns The AppKit framework included in OS X v10.7.2.
-func (NSAppKitVersionValues) Number10_7_2() NSAppKitVersion { return appKitVersionNumber10_7_2 }
-
-// Number10_7_3 returns The AppKit framework included in OS X v10.7.3.
-func (NSAppKitVersionValues) Number10_7_3() NSAppKitVersion { return appKitVersionNumber10_7_3 }
-
-// Number10_7_4 returns The AppKit framework included in OS X v10.7.4.
-func (NSAppKitVersionValues) Number10_7_4() NSAppKitVersion { return appKitVersionNumber10_7_4 }
-
-// Number10_8 returns The AppKit framework included in OS X v10.8.
-func (NSAppKitVersionValues) Number10_8() NSAppKitVersion { return appKitVersionNumber10_8 }
-
-func (NSAppKitVersionValues) Number10_9() NSAppKitVersion { return appKitVersionNumber10_9 }
-
-func (NSAppKitVersionValues) Number11_0() NSAppKitVersion { return appKitVersionNumber11_0 }
-
-func (NSAppKitVersionValues) Number11_1() NSAppKitVersion { return appKitVersionNumber11_1 }
-
-func (NSAppKitVersionValues) Number11_2() NSAppKitVersion { return appKitVersionNumber11_2 }
-
-func (NSAppKitVersionValues) Number11_3() NSAppKitVersion { return appKitVersionNumber11_3 }
-
-func (NSAppKitVersionValues) Number11_4() NSAppKitVersion { return appKitVersionNumber11_4 }
-
-func (NSAppKitVersionValues) Number11_5() NSAppKitVersion { return appKitVersionNumber11_5 }
-
-func (NSAppKitVersionValues) Number12_0() NSAppKitVersion { return appKitVersionNumber12_0 }
-
-func (NSAppKitVersionValues) Number12_1() NSAppKitVersion { return appKitVersionNumber12_1 }
-
-func (NSAppKitVersionValues) Number12_2() NSAppKitVersion { return appKitVersionNumber12_2 }
-
-func (NSAppKitVersionValues) Number12_3() NSAppKitVersion { return appKitVersionNumber12_3 }
-
-func (NSAppKitVersionValues) Number12_4() NSAppKitVersion { return appKitVersionNumber12_4 }
-
-func (NSAppKitVersionValues) Number12_5() NSAppKitVersion { return appKitVersionNumber12_5 }
-
-func (NSAppKitVersionValues) Number13_0() NSAppKitVersion { return appKitVersionNumber13_0 }
-
-func (NSAppKitVersionValues) Number13_1() NSAppKitVersion { return appKitVersionNumber13_1 }
-
-func (NSAppKitVersionValues) Number13_2() NSAppKitVersion { return appKitVersionNumber13_2 }
-
-func (NSAppKitVersionValues) Number13_3() NSAppKitVersion { return appKitVersionNumber13_3 }
-
-func (NSAppKitVersionValues) Number13_4() NSAppKitVersion { return appKitVersionNumber13_4 }
-
-func (NSAppKitVersionValues) Number13_5() NSAppKitVersion { return appKitVersionNumber13_5 }
-
-func (NSAppKitVersionValues) Number13_6() NSAppKitVersion { return appKitVersionNumber13_6 }
-
-func (NSAppKitVersionValues) Number14_0() NSAppKitVersion { return appKitVersionNumber14_0 }
-
-func (NSAppKitVersionValues) Number14_1() NSAppKitVersion { return appKitVersionNumber14_1 }
-
-// NumberWithColumnResizingBrowser returns The specific version of the AppKit framework that introduced support for resizing individual browser columns.
-func (NSAppKitVersionValues) NumberWithColumnResizingBrowser() NSAppKitVersion { return appKitVersionNumberWithColumnResizingBrowser }
-
-// NumberWithContinuousScrollingBrowser returns The specific version of the AppKit framework that introduced support the continuous scrolling in a browser view.
-func (NSAppKitVersionValues) NumberWithContinuousScrollingBrowser() NSAppKitVersion { return appKitVersionNumberWithContinuousScrollingBrowser }
-
-// NumberWithCursorSizeSupport returns The specific version of the AppKit framework that introduced support for cursors larger than 16 x 16 pixels in size.
-func (NSAppKitVersionValues) NumberWithCursorSizeSupport() NSAppKitVersion { return appKitVersionNumberWithCursorSizeSupport }
-
-// NumberWithCustomSheetPosition returns The specific version of the AppKit framework that introduced custom sheet positioning.
-func (NSAppKitVersionValues) NumberWithCustomSheetPosition() NSAppKitVersion { return appKitVersionNumberWithCustomSheetPosition }
-
-// NumberWithDeferredWindowDisplaySupport returns The specific version of the AppKit framework that introduced support for deferred window display.
-func (NSAppKitVersionValues) NumberWithDeferredWindowDisplaySupport() NSAppKitVersion { return appKitVersionNumberWithDeferredWindowDisplaySupport }
-
-// NumberWithDirectionalTabs returns The specific version of the AppKit framework that introduced support for directional tab items.
-func (NSAppKitVersionValues) NumberWithDirectionalTabs() NSAppKitVersion { return appKitVersionNumberWithDirectionalTabs }
-
-// NumberWithDockTilePlugInSupport returns The specific version of the AppKit framework that introduced support for dock tile plug-ins.
-func (NSAppKitVersionValues) NumberWithDockTilePlugInSupport() NSAppKitVersion { return appKitVersionNumberWithDockTilePlugInSupport }
-
-// NumberWithPatternColorLeakFix returns The specific version of the AppKit framework from OS X 10.1 that correctly autoreleases color objects.
-func (NSAppKitVersionValues) NumberWithPatternColorLeakFix() NSAppKitVersion { return appKitVersionNumberWithPatternColorLeakFix }
-
-
-type NSAppearanceNameValues struct{}
+var NSAppKitVersions struct {
+	// Number: The most recent version of AppKit.
+	Number NSAppKitVersion
+	// Number10_0: The AppKit framework included in OS X v10.0.
+	Number10_0 NSAppKitVersion
+	// Number10_1: The AppKit framework included in OS X v10.1.
+	Number10_1 NSAppKitVersion
+	Number10_10 NSAppKitVersion
+	Number10_10_2 NSAppKitVersion
+	Number10_10_3 NSAppKitVersion
+	Number10_10_4 NSAppKitVersion
+	Number10_10_5 NSAppKitVersion
+	Number10_10_Max NSAppKitVersion
+	Number10_11 NSAppKitVersion
+	Number10_11_1 NSAppKitVersion
+	Number10_11_2 NSAppKitVersion
+	Number10_11_3 NSAppKitVersion
+	Number10_12 NSAppKitVersion
+	Number10_12_1 NSAppKitVersion
+	Number10_12_2 NSAppKitVersion
+	Number10_13 NSAppKitVersion
+	Number10_13_1 NSAppKitVersion
+	Number10_13_2 NSAppKitVersion
+	Number10_13_4 NSAppKitVersion
+	Number10_14 NSAppKitVersion
+	Number10_14_1 NSAppKitVersion
+	Number10_14_2 NSAppKitVersion
+	Number10_14_3 NSAppKitVersion
+	Number10_14_4 NSAppKitVersion
+	Number10_14_5 NSAppKitVersion
+	Number10_15 NSAppKitVersion
+	Number10_15_1 NSAppKitVersion
+	Number10_15_2 NSAppKitVersion
+	Number10_15_3 NSAppKitVersion
+	Number10_15_4 NSAppKitVersion
+	Number10_15_5 NSAppKitVersion
+	Number10_15_6 NSAppKitVersion
+	// Number10_2: The AppKit framework included in OS X v10.2.
+	Number10_2 NSAppKitVersion
+	// Number10_2_3: The AppKit framework included in OS X v10.2.3.
+	Number10_2_3 NSAppKitVersion
+	// Number10_3: The AppKit framework included in OS X v10.3.
+	Number10_3 NSAppKitVersion
+	// Number10_3_2: The AppKit framework included in OS X v10.3.2.
+	Number10_3_2 NSAppKitVersion
+	// Number10_3_3: The AppKit framework included in OS X v10.3.3.
+	Number10_3_3 NSAppKitVersion
+	// Number10_3_5: The AppKit framework included in OS X v10.3.5.
+	Number10_3_5 NSAppKitVersion
+	// Number10_3_7: The AppKit framework included in OS X v10.3.7.
+	Number10_3_7 NSAppKitVersion
+	// Number10_3_9: The AppKit framework included in OS X v10.3.9.
+	Number10_3_9 NSAppKitVersion
+	// Number10_4: The AppKit framework included in OS X v10.4.
+	Number10_4 NSAppKitVersion
+	// Number10_4_1: The AppKit framework included in OS X v10.4.1.
+	Number10_4_1 NSAppKitVersion
+	// Number10_4_3: The AppKit framework included in OS X v10.4.3.
+	Number10_4_3 NSAppKitVersion
+	// Number10_4_4: The AppKit framework included in OS X v10.4.4.
+	Number10_4_4 NSAppKitVersion
+	// Number10_4_7: The AppKit framework included in OS X v10.4.7.
+	Number10_4_7 NSAppKitVersion
+	// Number10_5: The AppKit framework included in OS X v10.5.
+	Number10_5 NSAppKitVersion
+	// Number10_5_2: The AppKit framework included in OS X v10.5.2.
+	Number10_5_2 NSAppKitVersion
+	// Number10_5_3: The AppKit framework included in OS X v10.5.3.
+	Number10_5_3 NSAppKitVersion
+	// Number10_6: The AppKit framework included in OS X v10.6.
+	Number10_6 NSAppKitVersion
+	// Number10_7: The AppKit framework included in OS X v10.7.
+	Number10_7 NSAppKitVersion
+	// Number10_7_2: The AppKit framework included in OS X v10.7.2.
+	Number10_7_2 NSAppKitVersion
+	// Number10_7_3: The AppKit framework included in OS X v10.7.3.
+	Number10_7_3 NSAppKitVersion
+	// Number10_7_4: The AppKit framework included in OS X v10.7.4.
+	Number10_7_4 NSAppKitVersion
+	// Number10_8: The AppKit framework included in OS X v10.8.
+	Number10_8 NSAppKitVersion
+	Number10_9 NSAppKitVersion
+	Number11_0 NSAppKitVersion
+	Number11_1 NSAppKitVersion
+	Number11_2 NSAppKitVersion
+	Number11_3 NSAppKitVersion
+	Number11_4 NSAppKitVersion
+	Number11_5 NSAppKitVersion
+	Number12_0 NSAppKitVersion
+	Number12_1 NSAppKitVersion
+	Number12_2 NSAppKitVersion
+	Number12_3 NSAppKitVersion
+	Number12_4 NSAppKitVersion
+	Number12_5 NSAppKitVersion
+	Number13_0 NSAppKitVersion
+	Number13_1 NSAppKitVersion
+	Number13_2 NSAppKitVersion
+	Number13_3 NSAppKitVersion
+	Number13_4 NSAppKitVersion
+	Number13_5 NSAppKitVersion
+	Number13_6 NSAppKitVersion
+	Number14_0 NSAppKitVersion
+	Number14_1 NSAppKitVersion
+	// NumberWithColumnResizingBrowser: The specific version of the AppKit framework that introduced support for resizing individual browser columns.
+	NumberWithColumnResizingBrowser NSAppKitVersion
+	// NumberWithContinuousScrollingBrowser: The specific version of the AppKit framework that introduced support the continuous scrolling in a browser view.
+	NumberWithContinuousScrollingBrowser NSAppKitVersion
+	// NumberWithCursorSizeSupport: The specific version of the AppKit framework that introduced support for cursors larger than 16 x 16 pixels in size.
+	NumberWithCursorSizeSupport NSAppKitVersion
+	// NumberWithCustomSheetPosition: The specific version of the AppKit framework that introduced custom sheet positioning.
+	NumberWithCustomSheetPosition NSAppKitVersion
+	// NumberWithDeferredWindowDisplaySupport: The specific version of the AppKit framework that introduced support for deferred window display.
+	NumberWithDeferredWindowDisplaySupport NSAppKitVersion
+	// NumberWithDirectionalTabs: The specific version of the AppKit framework that introduced support for directional tab items.
+	NumberWithDirectionalTabs NSAppKitVersion
+	// NumberWithDockTilePlugInSupport: The specific version of the AppKit framework that introduced support for dock tile plug-ins.
+	NumberWithDockTilePlugInSupport NSAppKitVersion
+	// NumberWithPatternColorLeakFix: The specific version of the AppKit framework from OS X 10.1 that correctly autoreleases color objects.
+	NumberWithPatternColorLeakFix NSAppKitVersion
+}
 
 // NSAppearanceNames provides typed accessors for [NSAppearanceName] constants.
-var NSAppearanceNames NSAppearanceNameValues
-
-// AccessibilityHighContrastAqua returns A high-contrast version of the standard light system appearance.
-func (NSAppearanceNameValues) AccessibilityHighContrastAqua() NSAppearanceName { return appearanceNameAccessibilityHighContrastAqua }
-
-// AccessibilityHighContrastDarkAqua returns A high-contrast version of the standard dark system appearance.
-func (NSAppearanceNameValues) AccessibilityHighContrastDarkAqua() NSAppearanceName { return appearanceNameAccessibilityHighContrastDarkAqua }
-
-// AccessibilityHighContrastVibrantDark returns A high-contrast version of the dark vibrant appearance.
-func (NSAppearanceNameValues) AccessibilityHighContrastVibrantDark() NSAppearanceName { return appearanceNameAccessibilityHighContrastVibrantDark }
-
-// AccessibilityHighContrastVibrantLight returns A high-contrast version of the light vibrant appearance.
-func (NSAppearanceNameValues) AccessibilityHighContrastVibrantLight() NSAppearanceName { return appearanceNameAccessibilityHighContrastVibrantLight }
-
-// Aqua returns The standard light system appearance.
-func (NSAppearanceNameValues) Aqua() NSAppearanceName { return appearanceNameAqua }
-
-// DarkAqua returns The standard dark system appearance.
-func (NSAppearanceNameValues) DarkAqua() NSAppearanceName { return appearanceNameDarkAqua }
-
-// VibrantDark returns A dark vibrant appearance, available only in visual effect views.
-func (NSAppearanceNameValues) VibrantDark() NSAppearanceName { return appearanceNameVibrantDark }
-
-// VibrantLight returns The light vibrant appearance, available only in visual effect views.
-func (NSAppearanceNameValues) VibrantLight() NSAppearanceName { return appearanceNameVibrantLight }
-
-
-type NSControlStateValueValues struct{}
+var NSAppearanceNames struct {
+	// AccessibilityHighContrastAqua: A high-contrast version of the standard light system appearance.
+	AccessibilityHighContrastAqua NSAppearanceName
+	// AccessibilityHighContrastDarkAqua: A high-contrast version of the standard dark system appearance.
+	AccessibilityHighContrastDarkAqua NSAppearanceName
+	// AccessibilityHighContrastVibrantDark: A high-contrast version of the dark vibrant appearance.
+	AccessibilityHighContrastVibrantDark NSAppearanceName
+	// AccessibilityHighContrastVibrantLight: A high-contrast version of the light vibrant appearance.
+	AccessibilityHighContrastVibrantLight NSAppearanceName
+	// Aqua: The standard light system appearance.
+	Aqua NSAppearanceName
+	// DarkAqua: The standard dark system appearance.
+	DarkAqua NSAppearanceName
+	// VibrantDark: A dark vibrant appearance, available only in visual effect views.
+	VibrantDark NSAppearanceName
+	// VibrantLight: The light vibrant appearance, available only in visual effect views.
+	VibrantLight NSAppearanceName
+}
 
 // NSControlStateValues provides typed accessors for [NSControlStateValue] constants.
-var NSControlStateValues NSControlStateValueValues
-
-// Mixed returns A constant value that indicates a control is in a mixed state, neither on nor off.
-func (NSControlStateValueValues) Mixed() NSControlStateValue { return controlStateValueMixed }
-
-// Off returns A constant value that indicates a control is off or unselected.
-func (NSControlStateValueValues) Off() NSControlStateValue { return controlStateValueOff }
-
-// On returns A constant value that indicates a control is on or selected.
-func (NSControlStateValueValues) On() NSControlStateValue { return controlStateValueOn }
-
-
-type NSFontDescriptorSystemDesignValues struct{}
+var NSControlStateValues struct {
+	// Mixed: A constant value that indicates a control is in a mixed state, neither on nor off.
+	Mixed NSControlStateValue
+	// Off: A constant value that indicates a control is off or unselected.
+	Off NSControlStateValue
+	// On: A constant value that indicates a control is on or selected.
+	On NSControlStateValue
+}
 
 // NSFontDescriptorSystemDesigns provides typed accessors for [NSFontDescriptorSystemDesign] constants.
-var NSFontDescriptorSystemDesigns NSFontDescriptorSystemDesignValues
-
-// Default returns The default font design.
-func (NSFontDescriptorSystemDesignValues) Default() NSFontDescriptorSystemDesign { return fontDescriptorSystemDesignDefault }
-
-// Monospaced returns A font with a monospace appearance.
-func (NSFontDescriptorSystemDesignValues) Monospaced() NSFontDescriptorSystemDesign { return fontDescriptorSystemDesignMonospaced }
-
-// Rounded returns A font with a rounded appearance.
-func (NSFontDescriptorSystemDesignValues) Rounded() NSFontDescriptorSystemDesign { return fontDescriptorSystemDesignRounded }
-
-// Serif returns A font with a serif design.
-func (NSFontDescriptorSystemDesignValues) Serif() NSFontDescriptorSystemDesign { return fontDescriptorSystemDesignSerif }
-
-
-type NSFontTextStyleValues struct{}
+var NSFontDescriptorSystemDesigns struct {
+	// Default: The default font design.
+	Default NSFontDescriptorSystemDesign
+	// Monospaced: A font with a monospace appearance.
+	Monospaced NSFontDescriptorSystemDesign
+	// Rounded: A font with a rounded appearance.
+	Rounded NSFontDescriptorSystemDesign
+	// Serif: A font with a serif design.
+	Serif NSFontDescriptorSystemDesign
+}
 
 // NSFontTextStyles provides typed accessors for [NSFontTextStyle] constants.
-var NSFontTextStyles NSFontTextStyleValues
-
-// Body returns The font you use for body text.
-func (NSFontTextStyleValues) Body() NSFontTextStyle { return fontTextStyleBody }
-
-// Callout returns The font you use for callouts.
-func (NSFontTextStyleValues) Callout() NSFontTextStyle { return fontTextStyleCallout }
-
-// Caption1 returns The font you use for standard captions.
-func (NSFontTextStyleValues) Caption1() NSFontTextStyle { return fontTextStyleCaption1 }
-
-// Caption2 returns The font you use for alternate captions.
-func (NSFontTextStyleValues) Caption2() NSFontTextStyle { return fontTextStyleCaption2 }
-
-// Footnote returns The font you use in footnotes.
-func (NSFontTextStyleValues) Footnote() NSFontTextStyle { return fontTextStyleFootnote }
-
-// Headline returns The font you use for headings.
-func (NSFontTextStyleValues) Headline() NSFontTextStyle { return fontTextStyleHeadline }
-
-// LargeTitle returns The font you use for large titles.
-func (NSFontTextStyleValues) LargeTitle() NSFontTextStyle { return fontTextStyleLargeTitle }
-
-// Subheadline returns The font you use for subheadings.
-func (NSFontTextStyleValues) Subheadline() NSFontTextStyle { return fontTextStyleSubheadline }
-
-// Title1 returns The font you use for first-level hierarchical headings.
-func (NSFontTextStyleValues) Title1() NSFontTextStyle { return fontTextStyleTitle1 }
-
-// Title2 returns The font you use for second-level hierarchical headings.
-func (NSFontTextStyleValues) Title2() NSFontTextStyle { return fontTextStyleTitle2 }
-
-// Title3 returns The font you use for third-level hierarchical headings.
-func (NSFontTextStyleValues) Title3() NSFontTextStyle { return fontTextStyleTitle3 }
-
-
-type NSFontWeightValues struct{}
+var NSFontTextStyles struct {
+	// Body: The font you use for body text.
+	Body NSFontTextStyle
+	// Callout: The font you use for callouts.
+	Callout NSFontTextStyle
+	// Caption1: The font you use for standard captions.
+	Caption1 NSFontTextStyle
+	// Caption2: The font you use for alternate captions.
+	Caption2 NSFontTextStyle
+	// Footnote: The font you use in footnotes.
+	Footnote NSFontTextStyle
+	// Headline: The font you use for headings.
+	Headline NSFontTextStyle
+	// LargeTitle: The font you use for large titles.
+	LargeTitle NSFontTextStyle
+	// Subheadline: The font you use for subheadings.
+	Subheadline NSFontTextStyle
+	// Title1: The font you use for first-level hierarchical headings.
+	Title1 NSFontTextStyle
+	// Title2: The font you use for second-level hierarchical headings.
+	Title2 NSFontTextStyle
+	// Title3: The font you use for third-level hierarchical headings.
+	Title3 NSFontTextStyle
+}
 
 // NSFontWeights provides typed accessors for [NSFontWeight] constants.
-var NSFontWeights NSFontWeightValues
-
-// Black returns The font weight for system black font.
-func (NSFontWeightValues) Black() NSFontWeight { return fontWeightBlack }
-
-// Bold returns The font weight for system bold font.
-func (NSFontWeightValues) Bold() NSFontWeight { return fontWeightBold }
-
-// Heavy returns The font weight for system heavy font.
-func (NSFontWeightValues) Heavy() NSFontWeight { return fontWeightHeavy }
-
-// Light returns The font weight for system light font.
-func (NSFontWeightValues) Light() NSFontWeight { return fontWeightLight }
-
-// Medium returns The font weight for system medium font.
-func (NSFontWeightValues) Medium() NSFontWeight { return fontWeightMedium }
-
-// Regular returns The font weight for system regular font.
-func (NSFontWeightValues) Regular() NSFontWeight { return fontWeightRegular }
-
-// Semibold returns The font weight for system semibold font.
-func (NSFontWeightValues) Semibold() NSFontWeight { return fontWeightSemibold }
-
-// Thin returns The font weight for system thin font.
-func (NSFontWeightValues) Thin() NSFontWeight { return fontWeightThin }
-
-// UltraLight returns The font weight for system ultra light font.
-func (NSFontWeightValues) UltraLight() NSFontWeight { return fontWeightUltraLight }
-
-
-type NSFontWidthValues struct{}
+var NSFontWeights struct {
+	// Black: The font weight for system black font.
+	Black NSFontWeight
+	// Bold: The font weight for system bold font.
+	Bold NSFontWeight
+	// Heavy: The font weight for system heavy font.
+	Heavy NSFontWeight
+	// Light: The font weight for system light font.
+	Light NSFontWeight
+	// Medium: The font weight for system medium font.
+	Medium NSFontWeight
+	// Regular: The font weight for system regular font.
+	Regular NSFontWeight
+	// Semibold: The font weight for system semibold font.
+	Semibold NSFontWeight
+	// Thin: The font weight for system thin font.
+	Thin NSFontWeight
+	// UltraLight: The font weight for system ultra light font.
+	UltraLight NSFontWeight
+}
 
 // NSFontWidths provides typed accessors for [NSFontWidth] constants.
-var NSFontWidths NSFontWidthValues
-
-func (NSFontWidthValues) Compressed() NSFontWidth { return fontWidthCompressed }
-
-func (NSFontWidthValues) Condensed() NSFontWidth { return fontWidthCondensed }
-
-func (NSFontWidthValues) Expanded() NSFontWidth { return fontWidthExpanded }
-
-func (NSFontWidthValues) Standard() NSFontWidth { return fontWidthStandard }
-
-
-type NSImageNameValues struct{}
+var NSFontWidths struct {
+	Compressed NSFontWidth
+	Condensed NSFontWidth
+	Expanded NSFontWidth
+	Standard NSFontWidth
+}
 
 // NSImageNames provides typed accessors for [NSImageName] constants.
-var NSImageNames NSImageNameValues
-
-// TouchBarAddDetailTemplate returns A template image for showing additional detail for an item.
-func (NSImageNameValues) TouchBarAddDetailTemplate() NSImageName { return imageNameTouchBarAddDetailTemplate }
-
-// TouchBarAddTemplate returns A template image for creating a new item.
-func (NSImageNameValues) TouchBarAddTemplate() NSImageName { return imageNameTouchBarAddTemplate }
-
-// TouchBarAlarmTemplate returns A template image for setting or showing an alarm.
-func (NSImageNameValues) TouchBarAlarmTemplate() NSImageName { return imageNameTouchBarAlarmTemplate }
-
-// TouchBarAudioInputMuteTemplate returns A template image for muting audio input or denoting that audio input is muted.
-func (NSImageNameValues) TouchBarAudioInputMuteTemplate() NSImageName { return imageNameTouchBarAudioInputMuteTemplate }
-
-// TouchBarAudioInputTemplate returns A template image for denoting audio input.
-func (NSImageNameValues) TouchBarAudioInputTemplate() NSImageName { return imageNameTouchBarAudioInputTemplate }
-
-// TouchBarAudioOutputMuteTemplate returns A template image for muting audio output or for denoting that audio output is muted.
-func (NSImageNameValues) TouchBarAudioOutputMuteTemplate() NSImageName { return imageNameTouchBarAudioOutputMuteTemplate }
-
-// TouchBarAudioOutputVolumeHighTemplate returns A template image for setting the audio output volume to a high level, or for denoting that the audio is at the peak volume.
-func (NSImageNameValues) TouchBarAudioOutputVolumeHighTemplate() NSImageName { return imageNameTouchBarAudioOutputVolumeHighTemplate }
-
-// TouchBarAudioOutputVolumeLowTemplate returns A template image for setting the audio output volume to a low level, or for denoting that it is set to a low level.
-func (NSImageNameValues) TouchBarAudioOutputVolumeLowTemplate() NSImageName { return imageNameTouchBarAudioOutputVolumeLowTemplate }
-
-// TouchBarAudioOutputVolumeMediumTemplate returns A template image for setting the audio output volume to a medium level, or for denoting that it is set to a medium level.
-func (NSImageNameValues) TouchBarAudioOutputVolumeMediumTemplate() NSImageName { return imageNameTouchBarAudioOutputVolumeMediumTemplate }
-
-// TouchBarAudioOutputVolumeOffTemplate returns A template image for setting the audio output volume to silent, or for denoting that it is set to silent.
-func (NSImageNameValues) TouchBarAudioOutputVolumeOffTemplate() NSImageName { return imageNameTouchBarAudioOutputVolumeOffTemplate }
-
-// TouchBarBookmarksTemplate returns A template image for showing app-specific bookmarks.
-func (NSImageNameValues) TouchBarBookmarksTemplate() NSImageName { return imageNameTouchBarBookmarksTemplate }
-
-// TouchBarColorPickerFill returns A template image for showing a color picker so the user can select a fill color.
-func (NSImageNameValues) TouchBarColorPickerFill() NSImageName { return imageNameTouchBarColorPickerFill }
-
-// TouchBarColorPickerFont returns A template image for showing a color picker so the user can select a text color.
-func (NSImageNameValues) TouchBarColorPickerFont() NSImageName { return imageNameTouchBarColorPickerFont }
-
-// TouchBarColorPickerStroke returns A template image for showing a color picker so the user can select a stroke color.
-func (NSImageNameValues) TouchBarColorPickerStroke() NSImageName { return imageNameTouchBarColorPickerStroke }
-
-// TouchBarCommunicationAudioTemplate returns A template image for initiating or denoting audio communication.
-func (NSImageNameValues) TouchBarCommunicationAudioTemplate() NSImageName { return imageNameTouchBarCommunicationAudioTemplate }
-
-// TouchBarCommunicationVideoTemplate returns A template image for initiating or denoting video communication.
-func (NSImageNameValues) TouchBarCommunicationVideoTemplate() NSImageName { return imageNameTouchBarCommunicationVideoTemplate }
-
-// TouchBarComposeTemplate returns A template image for opening a new document or view in edit mode.
-func (NSImageNameValues) TouchBarComposeTemplate() NSImageName { return imageNameTouchBarComposeTemplate }
-
-// TouchBarDeleteTemplate returns A template image for deleting the current or selected item.
-func (NSImageNameValues) TouchBarDeleteTemplate() NSImageName { return imageNameTouchBarDeleteTemplate }
-
-// TouchBarDownloadTemplate returns A template image for downloading an item.
-func (NSImageNameValues) TouchBarDownloadTemplate() NSImageName { return imageNameTouchBarDownloadTemplate }
-
-// TouchBarEnterFullScreenTemplate returns A template image for entering full screen mode.
-func (NSImageNameValues) TouchBarEnterFullScreenTemplate() NSImageName { return imageNameTouchBarEnterFullScreenTemplate }
-
-// TouchBarExitFullScreenTemplate returns A template image for exiting full screen mode.
-func (NSImageNameValues) TouchBarExitFullScreenTemplate() NSImageName { return imageNameTouchBarExitFullScreenTemplate }
-
-// TouchBarFastForwardTemplate returns A template image for moving forward through media playback or slides.
-func (NSImageNameValues) TouchBarFastForwardTemplate() NSImageName { return imageNameTouchBarFastForwardTemplate }
-
-// TouchBarFolderCopyToTemplate returns A template image for copying an item to a destination.
-func (NSImageNameValues) TouchBarFolderCopyToTemplate() NSImageName { return imageNameTouchBarFolderCopyToTemplate }
-
-// TouchBarFolderMoveToTemplate returns A template image for moving an item to a destination.
-func (NSImageNameValues) TouchBarFolderMoveToTemplate() NSImageName { return imageNameTouchBarFolderMoveToTemplate }
-
-// TouchBarFolderTemplate returns A template image for opening or representing a folder.
-func (NSImageNameValues) TouchBarFolderTemplate() NSImageName { return imageNameTouchBarFolderTemplate }
-
-// TouchBarGetInfoTemplate returns A template image for showing information about an item.
-func (NSImageNameValues) TouchBarGetInfoTemplate() NSImageName { return imageNameTouchBarGetInfoTemplate }
-
-// TouchBarGoBackTemplate returns A template image for returning to the previous screen or location.
-func (NSImageNameValues) TouchBarGoBackTemplate() NSImageName { return imageNameTouchBarGoBackTemplate }
-
-// TouchBarGoDownTemplate returns A template image for moving to the next item in a list.
-func (NSImageNameValues) TouchBarGoDownTemplate() NSImageName { return imageNameTouchBarGoDownTemplate }
-
-// TouchBarGoForwardTemplate returns A template image for moving to the next screen or location.
-func (NSImageNameValues) TouchBarGoForwardTemplate() NSImageName { return imageNameTouchBarGoForwardTemplate }
-
-// TouchBarGoUpTemplate returns A template image for moving to the previous item in a list.
-func (NSImageNameValues) TouchBarGoUpTemplate() NSImageName { return imageNameTouchBarGoUpTemplate }
-
-// TouchBarHistoryTemplate returns A template image for showing history information, such as recent downloads.
-func (NSImageNameValues) TouchBarHistoryTemplate() NSImageName { return imageNameTouchBarHistoryTemplate }
-
-// TouchBarIconViewTemplate returns A template image for showing items in an icon view.
-func (NSImageNameValues) TouchBarIconViewTemplate() NSImageName { return imageNameTouchBarIconViewTemplate }
-
-// TouchBarListViewTemplate returns A template image for showing items in a list view.
-func (NSImageNameValues) TouchBarListViewTemplate() NSImageName { return imageNameTouchBarListViewTemplate }
-
-// TouchBarMailTemplate returns A template image for creating an email message.
-func (NSImageNameValues) TouchBarMailTemplate() NSImageName { return imageNameTouchBarMailTemplate }
-
-// TouchBarNewFolderTemplate returns A template image for creating a new folder.
-func (NSImageNameValues) TouchBarNewFolderTemplate() NSImageName { return imageNameTouchBarNewFolderTemplate }
-
-// TouchBarNewMessageTemplate returns A template image for creating a new message, or for denoting the use of messaging.
-func (NSImageNameValues) TouchBarNewMessageTemplate() NSImageName { return imageNameTouchBarNewMessageTemplate }
-
-// TouchBarOpenInBrowserTemplate returns A template image for opening an item in the user’s browser.
-func (NSImageNameValues) TouchBarOpenInBrowserTemplate() NSImageName { return imageNameTouchBarOpenInBrowserTemplate }
-
-// TouchBarPauseTemplate returns A template image for pausing media playback or slides.
-func (NSImageNameValues) TouchBarPauseTemplate() NSImageName { return imageNameTouchBarPauseTemplate }
-
-// TouchBarPlayPauseTemplate returns A template image for toggling between playing and pausing media or slides.
-func (NSImageNameValues) TouchBarPlayPauseTemplate() NSImageName { return imageNameTouchBarPlayPauseTemplate }
-
-// TouchBarPlayTemplate returns A template image for starting or resuming playback of media or slides.
-func (NSImageNameValues) TouchBarPlayTemplate() NSImageName { return imageNameTouchBarPlayTemplate }
-
-// TouchBarPlayheadTemplate returns A template image for denoting the current playback position within a timeline track.
-func (NSImageNameValues) TouchBarPlayheadTemplate() NSImageName { return imageNameTouchBarPlayheadTemplate }
-
-// TouchBarQuickLookTemplate returns A template image for opening an item in Quick Look.
-func (NSImageNameValues) TouchBarQuickLookTemplate() NSImageName { return imageNameTouchBarQuickLookTemplate }
-
-// TouchBarRecordStartTemplate returns A template image for starting recording.
-func (NSImageNameValues) TouchBarRecordStartTemplate() NSImageName { return imageNameTouchBarRecordStartTemplate }
-
-// TouchBarRecordStopTemplate returns A template image for stopping recording or stopping playback of media or slides.
-func (NSImageNameValues) TouchBarRecordStopTemplate() NSImageName { return imageNameTouchBarRecordStopTemplate }
-
-// TouchBarRefreshTemplate returns A template image for refreshing displayed data.
-func (NSImageNameValues) TouchBarRefreshTemplate() NSImageName { return imageNameTouchBarRefreshTemplate }
-
-// TouchBarRewindTemplate returns A template image for moving backwards through media or slides.
-func (NSImageNameValues) TouchBarRewindTemplate() NSImageName { return imageNameTouchBarRewindTemplate }
-
-// TouchBarRotateLeftTemplate returns A template image for rotating an item counterclockwise.
-func (NSImageNameValues) TouchBarRotateLeftTemplate() NSImageName { return imageNameTouchBarRotateLeftTemplate }
-
-// TouchBarRotateRightTemplate returns A template image for rotating an item clockwise.
-func (NSImageNameValues) TouchBarRotateRightTemplate() NSImageName { return imageNameTouchBarRotateRightTemplate }
-
-// TouchBarSearchTemplate returns A template image for showing a search field or for initiating a search.
-func (NSImageNameValues) TouchBarSearchTemplate() NSImageName { return imageNameTouchBarSearchTemplate }
-
-// TouchBarShareTemplate returns A template image for sharing content with others directly or via social media.
-func (NSImageNameValues) TouchBarShareTemplate() NSImageName { return imageNameTouchBarShareTemplate }
-
-// TouchBarSidebarTemplate returns A template image for showing a sidebar in the current view.
-func (NSImageNameValues) TouchBarSidebarTemplate() NSImageName { return imageNameTouchBarSidebarTemplate }
-
-// TouchBarSkipAhead15SecondsTemplate returns A template image for skipping ahead 15 seconds during media playback.
-func (NSImageNameValues) TouchBarSkipAhead15SecondsTemplate() NSImageName { return imageNameTouchBarSkipAhead15SecondsTemplate }
-
-// TouchBarSkipAhead30SecondsTemplate returns A template image for skipping ahead 30 seconds during media playback.
-func (NSImageNameValues) TouchBarSkipAhead30SecondsTemplate() NSImageName { return imageNameTouchBarSkipAhead30SecondsTemplate }
-
-// TouchBarSkipAheadTemplate returns A template image for skipping to the next chapter or location during media playback.
-func (NSImageNameValues) TouchBarSkipAheadTemplate() NSImageName { return imageNameTouchBarSkipAheadTemplate }
-
-// TouchBarSkipBack15SecondsTemplate returns A template image for skipping back 15 seconds during media playback.
-func (NSImageNameValues) TouchBarSkipBack15SecondsTemplate() NSImageName { return imageNameTouchBarSkipBack15SecondsTemplate }
-
-// TouchBarSkipBack30SecondsTemplate returns A template image for skipping back 30 seconds during media playback.
-func (NSImageNameValues) TouchBarSkipBack30SecondsTemplate() NSImageName { return imageNameTouchBarSkipBack30SecondsTemplate }
-
-// TouchBarSkipBackTemplate returns A template image for skipping to the previous chapter or location during media playback.
-func (NSImageNameValues) TouchBarSkipBackTemplate() NSImageName { return imageNameTouchBarSkipBackTemplate }
-
-// TouchBarSkipToEndTemplate returns A template image for skipping to the end of media playback.
-func (NSImageNameValues) TouchBarSkipToEndTemplate() NSImageName { return imageNameTouchBarSkipToEndTemplate }
-
-// TouchBarSkipToStartTemplate returns A template image for skipping to the start of media playback.
-func (NSImageNameValues) TouchBarSkipToStartTemplate() NSImageName { return imageNameTouchBarSkipToStartTemplate }
-
-// TouchBarSlideshowTemplate returns A template image for starting a slideshow.
-func (NSImageNameValues) TouchBarSlideshowTemplate() NSImageName { return imageNameTouchBarSlideshowTemplate }
-
-// TouchBarTagIconTemplate returns A template image for applying a tag to an item.
-func (NSImageNameValues) TouchBarTagIconTemplate() NSImageName { return imageNameTouchBarTagIconTemplate }
-
-// TouchBarTextBoldTemplate returns A template image for making selected text bold.
-func (NSImageNameValues) TouchBarTextBoldTemplate() NSImageName { return imageNameTouchBarTextBoldTemplate }
-
-// TouchBarTextBoxTemplate returns A template image for inserting a text box.
-func (NSImageNameValues) TouchBarTextBoxTemplate() NSImageName { return imageNameTouchBarTextBoxTemplate }
-
-// TouchBarTextCenterAlignTemplate returns A template image for centering text.
-func (NSImageNameValues) TouchBarTextCenterAlignTemplate() NSImageName { return imageNameTouchBarTextCenterAlignTemplate }
-
-// TouchBarTextItalicTemplate returns A template image for italicizing the selected text.
-func (NSImageNameValues) TouchBarTextItalicTemplate() NSImageName { return imageNameTouchBarTextItalicTemplate }
-
-// TouchBarTextJustifiedAlignTemplate returns A template image for fully justifying text.
-func (NSImageNameValues) TouchBarTextJustifiedAlignTemplate() NSImageName { return imageNameTouchBarTextJustifiedAlignTemplate }
-
-// TouchBarTextLeftAlignTemplate returns A template image for aligning text to the left.
-func (NSImageNameValues) TouchBarTextLeftAlignTemplate() NSImageName { return imageNameTouchBarTextLeftAlignTemplate }
-
-// TouchBarTextListTemplate returns A template image for inserting a list or converting text to list form.
-func (NSImageNameValues) TouchBarTextListTemplate() NSImageName { return imageNameTouchBarTextListTemplate }
-
-// TouchBarTextRightAlignTemplate returns A template image for aligning text to the right.
-func (NSImageNameValues) TouchBarTextRightAlignTemplate() NSImageName { return imageNameTouchBarTextRightAlignTemplate }
-
-// TouchBarTextStrikethroughTemplate returns A template image for striking through text.
-func (NSImageNameValues) TouchBarTextStrikethroughTemplate() NSImageName { return imageNameTouchBarTextStrikethroughTemplate }
-
-// TouchBarTextUnderlineTemplate returns A template image for underlining text.
-func (NSImageNameValues) TouchBarTextUnderlineTemplate() NSImageName { return imageNameTouchBarTextUnderlineTemplate }
-
-// TouchBarUserAddTemplate returns A template image for creating a new user account.
-func (NSImageNameValues) TouchBarUserAddTemplate() NSImageName { return imageNameTouchBarUserAddTemplate }
-
-// TouchBarUserGroupTemplate returns A template image for showing or representing a group of users.
-func (NSImageNameValues) TouchBarUserGroupTemplate() NSImageName { return imageNameTouchBarUserGroupTemplate }
-
-// TouchBarUserTemplate returns A template image for showing or representing user information.
-func (NSImageNameValues) TouchBarUserTemplate() NSImageName { return imageNameTouchBarUserTemplate }
-
-// TouchBarVolumeDownTemplate returns A template image for reducing the audio output volume.
-func (NSImageNameValues) TouchBarVolumeDownTemplate() NSImageName { return imageNameTouchBarVolumeDownTemplate }
-
-// TouchBarVolumeUpTemplate returns A template image for increasing the audio output volume.
-func (NSImageNameValues) TouchBarVolumeUpTemplate() NSImageName { return imageNameTouchBarVolumeUpTemplate }
-
-
-type NSLayoutPriorityValues struct{}
+var NSImageNames struct {
+	// TouchBarAddDetailTemplate: A template image for showing additional detail for an item.
+	TouchBarAddDetailTemplate NSImageName
+	// TouchBarAddTemplate: A template image for creating a new item.
+	TouchBarAddTemplate NSImageName
+	// TouchBarAlarmTemplate: A template image for setting or showing an alarm.
+	TouchBarAlarmTemplate NSImageName
+	// TouchBarAudioInputMuteTemplate: A template image for muting audio input or denoting that audio input is muted.
+	TouchBarAudioInputMuteTemplate NSImageName
+	// TouchBarAudioInputTemplate: A template image for denoting audio input.
+	TouchBarAudioInputTemplate NSImageName
+	// TouchBarAudioOutputMuteTemplate: A template image for muting audio output or for denoting that audio output is muted.
+	TouchBarAudioOutputMuteTemplate NSImageName
+	// TouchBarAudioOutputVolumeHighTemplate: A template image for setting the audio output volume to a high level, or for denoting that the audio is at the peak volume.
+	TouchBarAudioOutputVolumeHighTemplate NSImageName
+	// TouchBarAudioOutputVolumeLowTemplate: A template image for setting the audio output volume to a low level, or for denoting that it is set to a low level.
+	TouchBarAudioOutputVolumeLowTemplate NSImageName
+	// TouchBarAudioOutputVolumeMediumTemplate: A template image for setting the audio output volume to a medium level, or for denoting that it is set to a medium level.
+	TouchBarAudioOutputVolumeMediumTemplate NSImageName
+	// TouchBarAudioOutputVolumeOffTemplate: A template image for setting the audio output volume to silent, or for denoting that it is set to silent.
+	TouchBarAudioOutputVolumeOffTemplate NSImageName
+	// TouchBarBookmarksTemplate: A template image for showing app-specific bookmarks.
+	TouchBarBookmarksTemplate NSImageName
+	// TouchBarColorPickerFill: A template image for showing a color picker so the user can select a fill color.
+	TouchBarColorPickerFill NSImageName
+	// TouchBarColorPickerFont: A template image for showing a color picker so the user can select a text color.
+	TouchBarColorPickerFont NSImageName
+	// TouchBarColorPickerStroke: A template image for showing a color picker so the user can select a stroke color.
+	TouchBarColorPickerStroke NSImageName
+	// TouchBarCommunicationAudioTemplate: A template image for initiating or denoting audio communication.
+	TouchBarCommunicationAudioTemplate NSImageName
+	// TouchBarCommunicationVideoTemplate: A template image for initiating or denoting video communication.
+	TouchBarCommunicationVideoTemplate NSImageName
+	// TouchBarComposeTemplate: A template image for opening a new document or view in edit mode.
+	TouchBarComposeTemplate NSImageName
+	// TouchBarDeleteTemplate: A template image for deleting the current or selected item.
+	TouchBarDeleteTemplate NSImageName
+	// TouchBarDownloadTemplate: A template image for downloading an item.
+	TouchBarDownloadTemplate NSImageName
+	// TouchBarEnterFullScreenTemplate: A template image for entering full screen mode.
+	TouchBarEnterFullScreenTemplate NSImageName
+	// TouchBarExitFullScreenTemplate: A template image for exiting full screen mode.
+	TouchBarExitFullScreenTemplate NSImageName
+	// TouchBarFastForwardTemplate: A template image for moving forward through media playback or slides.
+	TouchBarFastForwardTemplate NSImageName
+	// TouchBarFolderCopyToTemplate: A template image for copying an item to a destination.
+	TouchBarFolderCopyToTemplate NSImageName
+	// TouchBarFolderMoveToTemplate: A template image for moving an item to a destination.
+	TouchBarFolderMoveToTemplate NSImageName
+	// TouchBarFolderTemplate: A template image for opening or representing a folder.
+	TouchBarFolderTemplate NSImageName
+	// TouchBarGetInfoTemplate: A template image for showing information about an item.
+	TouchBarGetInfoTemplate NSImageName
+	// TouchBarGoBackTemplate: A template image for returning to the previous screen or location.
+	TouchBarGoBackTemplate NSImageName
+	// TouchBarGoDownTemplate: A template image for moving to the next item in a list.
+	TouchBarGoDownTemplate NSImageName
+	// TouchBarGoForwardTemplate: A template image for moving to the next screen or location.
+	TouchBarGoForwardTemplate NSImageName
+	// TouchBarGoUpTemplate: A template image for moving to the previous item in a list.
+	TouchBarGoUpTemplate NSImageName
+	// TouchBarHistoryTemplate: A template image for showing history information, such as recent downloads.
+	TouchBarHistoryTemplate NSImageName
+	// TouchBarIconViewTemplate: A template image for showing items in an icon view.
+	TouchBarIconViewTemplate NSImageName
+	// TouchBarListViewTemplate: A template image for showing items in a list view.
+	TouchBarListViewTemplate NSImageName
+	// TouchBarMailTemplate: A template image for creating an email message.
+	TouchBarMailTemplate NSImageName
+	// TouchBarNewFolderTemplate: A template image for creating a new folder.
+	TouchBarNewFolderTemplate NSImageName
+	// TouchBarNewMessageTemplate: A template image for creating a new message, or for denoting the use of messaging.
+	TouchBarNewMessageTemplate NSImageName
+	// TouchBarOpenInBrowserTemplate: A template image for opening an item in the user’s browser.
+	TouchBarOpenInBrowserTemplate NSImageName
+	// TouchBarPauseTemplate: A template image for pausing media playback or slides.
+	TouchBarPauseTemplate NSImageName
+	// TouchBarPlayPauseTemplate: A template image for toggling between playing and pausing media or slides.
+	TouchBarPlayPauseTemplate NSImageName
+	// TouchBarPlayTemplate: A template image for starting or resuming playback of media or slides.
+	TouchBarPlayTemplate NSImageName
+	// TouchBarPlayheadTemplate: A template image for denoting the current playback position within a timeline track.
+	TouchBarPlayheadTemplate NSImageName
+	// TouchBarQuickLookTemplate: A template image for opening an item in Quick Look.
+	TouchBarQuickLookTemplate NSImageName
+	// TouchBarRecordStartTemplate: A template image for starting recording.
+	TouchBarRecordStartTemplate NSImageName
+	// TouchBarRecordStopTemplate: A template image for stopping recording or stopping playback of media or slides.
+	TouchBarRecordStopTemplate NSImageName
+	// TouchBarRefreshTemplate: A template image for refreshing displayed data.
+	TouchBarRefreshTemplate NSImageName
+	// TouchBarRewindTemplate: A template image for moving backwards through media or slides.
+	TouchBarRewindTemplate NSImageName
+	// TouchBarRotateLeftTemplate: A template image for rotating an item counterclockwise.
+	TouchBarRotateLeftTemplate NSImageName
+	// TouchBarRotateRightTemplate: A template image for rotating an item clockwise.
+	TouchBarRotateRightTemplate NSImageName
+	// TouchBarSearchTemplate: A template image for showing a search field or for initiating a search.
+	TouchBarSearchTemplate NSImageName
+	// TouchBarShareTemplate: A template image for sharing content with others directly or via social media.
+	TouchBarShareTemplate NSImageName
+	// TouchBarSidebarTemplate: A template image for showing a sidebar in the current view.
+	TouchBarSidebarTemplate NSImageName
+	// TouchBarSkipAhead15SecondsTemplate: A template image for skipping ahead 15 seconds during media playback.
+	TouchBarSkipAhead15SecondsTemplate NSImageName
+	// TouchBarSkipAhead30SecondsTemplate: A template image for skipping ahead 30 seconds during media playback.
+	TouchBarSkipAhead30SecondsTemplate NSImageName
+	// TouchBarSkipAheadTemplate: A template image for skipping to the next chapter or location during media playback.
+	TouchBarSkipAheadTemplate NSImageName
+	// TouchBarSkipBack15SecondsTemplate: A template image for skipping back 15 seconds during media playback.
+	TouchBarSkipBack15SecondsTemplate NSImageName
+	// TouchBarSkipBack30SecondsTemplate: A template image for skipping back 30 seconds during media playback.
+	TouchBarSkipBack30SecondsTemplate NSImageName
+	// TouchBarSkipBackTemplate: A template image for skipping to the previous chapter or location during media playback.
+	TouchBarSkipBackTemplate NSImageName
+	// TouchBarSkipToEndTemplate: A template image for skipping to the end of media playback.
+	TouchBarSkipToEndTemplate NSImageName
+	// TouchBarSkipToStartTemplate: A template image for skipping to the start of media playback.
+	TouchBarSkipToStartTemplate NSImageName
+	// TouchBarSlideshowTemplate: A template image for starting a slideshow.
+	TouchBarSlideshowTemplate NSImageName
+	// TouchBarTagIconTemplate: A template image for applying a tag to an item.
+	TouchBarTagIconTemplate NSImageName
+	// TouchBarTextBoldTemplate: A template image for making selected text bold.
+	TouchBarTextBoldTemplate NSImageName
+	// TouchBarTextBoxTemplate: A template image for inserting a text box.
+	TouchBarTextBoxTemplate NSImageName
+	// TouchBarTextCenterAlignTemplate: A template image for centering text.
+	TouchBarTextCenterAlignTemplate NSImageName
+	// TouchBarTextItalicTemplate: A template image for italicizing the selected text.
+	TouchBarTextItalicTemplate NSImageName
+	// TouchBarTextJustifiedAlignTemplate: A template image for fully justifying text.
+	TouchBarTextJustifiedAlignTemplate NSImageName
+	// TouchBarTextLeftAlignTemplate: A template image for aligning text to the left.
+	TouchBarTextLeftAlignTemplate NSImageName
+	// TouchBarTextListTemplate: A template image for inserting a list or converting text to list form.
+	TouchBarTextListTemplate NSImageName
+	// TouchBarTextRightAlignTemplate: A template image for aligning text to the right.
+	TouchBarTextRightAlignTemplate NSImageName
+	// TouchBarTextStrikethroughTemplate: A template image for striking through text.
+	TouchBarTextStrikethroughTemplate NSImageName
+	// TouchBarTextUnderlineTemplate: A template image for underlining text.
+	TouchBarTextUnderlineTemplate NSImageName
+	// TouchBarUserAddTemplate: A template image for creating a new user account.
+	TouchBarUserAddTemplate NSImageName
+	// TouchBarUserGroupTemplate: A template image for showing or representing a group of users.
+	TouchBarUserGroupTemplate NSImageName
+	// TouchBarUserTemplate: A template image for showing or representing user information.
+	TouchBarUserTemplate NSImageName
+	// TouchBarVolumeDownTemplate: A template image for reducing the audio output volume.
+	TouchBarVolumeDownTemplate NSImageName
+	// TouchBarVolumeUpTemplate: A template image for increasing the audio output volume.
+	TouchBarVolumeUpTemplate NSImageName
+}
 
 // NSLayoutPrioritys provides typed accessors for [NSLayoutPriority] constants.
-var NSLayoutPrioritys NSLayoutPriorityValues
-
-// DefaultHigh returns Priority level with which a button resists compressing its content.
-func (NSLayoutPriorityValues) DefaultHigh() NSLayoutPriority { return layoutPriorityDefaultHigh }
-
-// DefaultLow returns Priority level at which a button hugs its contents horizontally.
-func (NSLayoutPriorityValues) DefaultLow() NSLayoutPriority { return layoutPriorityDefaultLow }
-
-// DragThatCanResizeWindow returns Appropriate priority level for a drag that may end up resizing the window.
-func (NSLayoutPriorityValues) DragThatCanResizeWindow() NSLayoutPriority { return layoutPriorityDragThatCanResizeWindow }
-
-// DragThatCannotResizeWindow returns Priority level at which a split view divider, say, is dragged.
-func (NSLayoutPriorityValues) DragThatCannotResizeWindow() NSLayoutPriority { return layoutPriorityDragThatCannotResizeWindow }
-
-// FittingSizeCompression returns When you send a [fittingSize](<doc://com.apple.appkit/documentation/AppKit/NSView/fittingSize>) message to a view, the smallest size that is large enough for the view’s contents is computed.
-func (NSLayoutPriorityValues) FittingSizeCompression() NSLayoutPriority { return layoutPriorityFittingSizeCompression }
-
-// Required returns A required constraint.
-func (NSLayoutPriorityValues) Required() NSLayoutPriority { return layoutPriorityRequired }
-
-// WindowSizeStayPut returns Priority level for the window’s current size.
-func (NSLayoutPriorityValues) WindowSizeStayPut() NSLayoutPriority { return layoutPriorityWindowSizeStayPut }
-
-
-type NSModalResponseValues struct{}
+var NSLayoutPrioritys struct {
+	// DefaultHigh: Priority level with which a button resists compressing its content.
+	DefaultHigh NSLayoutPriority
+	// DefaultLow: Priority level at which a button hugs its contents horizontally.
+	DefaultLow NSLayoutPriority
+	// DragThatCanResizeWindow: Appropriate priority level for a drag that may end up resizing the window.
+	DragThatCanResizeWindow NSLayoutPriority
+	// DragThatCannotResizeWindow: Priority level at which a split view divider, say, is dragged.
+	DragThatCannotResizeWindow NSLayoutPriority
+	// FittingSizeCompression: When you send a [fittingSize](<doc://com.apple.appkit/documentation/AppKit/NSView/fittingSize>) message to a view, the smallest size that is large enough for the view’s contents is computed.
+	FittingSizeCompression NSLayoutPriority
+	// Required: A required constraint.
+	Required NSLayoutPriority
+	// WindowSizeStayPut: Priority level for the window’s current size.
+	WindowSizeStayPut NSLayoutPriority
+}
 
 // NSModalResponses provides typed accessors for [NSModalResponse] constants.
-var NSModalResponses NSModalResponseValues
-
-// Abort returns Modal session was broken with [abortModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/abortModal()>).
-func (NSModalResponseValues) Abort() NSModalResponse { return modalResponseAbort }
-
-// Cancel returns The presentation or dismissal of the sheet has been canceled.
-func (NSModalResponseValues) Cancel() NSModalResponse { return modalResponseCancel }
-
-// Continue returns Modal session is continuing (returned by [runModalSession(_:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModalSession(_:)>) only).
-func (NSModalResponseValues) Continue() NSModalResponse { return modalResponseContinue }
-
-// OK returns The presentation or dismissal of the sheet has finished.
-func (NSModalResponseValues) OK() NSModalResponse { return modalResponseOK }
-
-// Stop returns Modal session was broken with [stopModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/stopModal()>).
-func (NSModalResponseValues) Stop() NSModalResponse { return modalResponseStop }
-
-
-type NSPasteboardDetectionPatternValues struct{}
+var NSModalResponses struct {
+	// Abort: Modal session was broken with [abortModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/abortModal()>).
+	Abort NSModalResponse
+	// Cancel: The presentation or dismissal of the sheet has been canceled.
+	Cancel NSModalResponse
+	// Continue: Modal session is continuing (returned by [runModalSession(_:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModalSession(_:)>) only).
+	Continue NSModalResponse
+	// OK: The presentation or dismissal of the sheet has finished.
+	OK NSModalResponse
+	// Stop: Modal session was broken with [stopModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/stopModal()>).
+	Stop NSModalResponse
+}
 
 // NSPasteboardDetectionPatterns provides typed accessors for [NSPasteboardDetectionPattern] constants.
-var NSPasteboardDetectionPatterns NSPasteboardDetectionPatternValues
-
-// CalendarEvent returns A pattern that indicates the pasteboard detects a string that contains a calendar event.
-func (NSPasteboardDetectionPatternValues) CalendarEvent() NSPasteboardDetectionPattern { return pasteboardDetectionPatternCalendarEvent }
-
-// EmailAddress returns A pattern that indicates the pasteboard detects a string that contains an email address.
-func (NSPasteboardDetectionPatternValues) EmailAddress() NSPasteboardDetectionPattern { return pasteboardDetectionPatternEmailAddress }
-
-// FlightNumber returns A pattern that indicates the pasteboard detects a string that contains a flight number.
-func (NSPasteboardDetectionPatternValues) FlightNumber() NSPasteboardDetectionPattern { return pasteboardDetectionPatternFlightNumber }
-
-// Link returns A pattern that indicates the pasteboard detects a string that contains a URL.
-func (NSPasteboardDetectionPatternValues) Link() NSPasteboardDetectionPattern { return pasteboardDetectionPatternLink }
-
-// MoneyAmount returns A pattern that indicates the pasteboard detects a string that contains an amount of money.
-func (NSPasteboardDetectionPatternValues) MoneyAmount() NSPasteboardDetectionPattern { return pasteboardDetectionPatternMoneyAmount }
-
-// Number returns A pattern that indicates the pasteboard detects a string that consists of a numeric value.
-func (NSPasteboardDetectionPatternValues) Number() NSPasteboardDetectionPattern { return pasteboardDetectionPatternNumber }
-
-// PhoneNumber returns A pattern that indicates the pasteboard detects a string that contains a phone number.
-func (NSPasteboardDetectionPatternValues) PhoneNumber() NSPasteboardDetectionPattern { return pasteboardDetectionPatternPhoneNumber }
-
-// PostalAddress returns A pattern that indicates the pasteboard detects a string that contains a postal address.
-func (NSPasteboardDetectionPatternValues) PostalAddress() NSPasteboardDetectionPattern { return pasteboardDetectionPatternPostalAddress }
-
-// ProbableWebSearch returns A pattern that indicates the pasteboard detects a string suitable for use as a web search term.
-func (NSPasteboardDetectionPatternValues) ProbableWebSearch() NSPasteboardDetectionPattern { return pasteboardDetectionPatternProbableWebSearch }
-
-// ProbableWebURL returns A pattern that indicates the pasteboard detects a string that consists of a web URL.
-func (NSPasteboardDetectionPatternValues) ProbableWebURL() NSPasteboardDetectionPattern { return pasteboardDetectionPatternProbableWebURL }
-
-// ShipmentTrackingNumber returns A pattern that indicates the pasteboard detects a string that contains a parcel tracking number and carrier.
-func (NSPasteboardDetectionPatternValues) ShipmentTrackingNumber() NSPasteboardDetectionPattern { return pasteboardDetectionPatternShipmentTrackingNumber }
-
-
-type NSPasteboardNameValues struct{}
+var NSPasteboardDetectionPatterns struct {
+	// CalendarEvent: A pattern that indicates the pasteboard detects a string that contains a calendar event.
+	CalendarEvent NSPasteboardDetectionPattern
+	// EmailAddress: A pattern that indicates the pasteboard detects a string that contains an email address.
+	EmailAddress NSPasteboardDetectionPattern
+	// FlightNumber: A pattern that indicates the pasteboard detects a string that contains a flight number.
+	FlightNumber NSPasteboardDetectionPattern
+	// Link: A pattern that indicates the pasteboard detects a string that contains a URL.
+	Link NSPasteboardDetectionPattern
+	// MoneyAmount: A pattern that indicates the pasteboard detects a string that contains an amount of money.
+	MoneyAmount NSPasteboardDetectionPattern
+	// Number: A pattern that indicates the pasteboard detects a string that consists of a numeric value.
+	Number NSPasteboardDetectionPattern
+	// PhoneNumber: A pattern that indicates the pasteboard detects a string that contains a phone number.
+	PhoneNumber NSPasteboardDetectionPattern
+	// PostalAddress: A pattern that indicates the pasteboard detects a string that contains a postal address.
+	PostalAddress NSPasteboardDetectionPattern
+	// ProbableWebSearch: A pattern that indicates the pasteboard detects a string suitable for use as a web search term.
+	ProbableWebSearch NSPasteboardDetectionPattern
+	// ProbableWebURL: A pattern that indicates the pasteboard detects a string that consists of a web URL.
+	ProbableWebURL NSPasteboardDetectionPattern
+	// ShipmentTrackingNumber: A pattern that indicates the pasteboard detects a string that contains a parcel tracking number and carrier.
+	ShipmentTrackingNumber NSPasteboardDetectionPattern
+}
 
 // NSPasteboardNames provides typed accessors for [NSPasteboardName] constants.
-var NSPasteboardNames NSPasteboardNameValues
-
-// Drag returns The pasteboard that stores data to move as the result of a drag operation.
-func (NSPasteboardNameValues) Drag() NSPasteboardName { return pasteboardNameDrag }
-
-// Find returns The pasteboard that holds information about the current state of the active application’s find panel.
-func (NSPasteboardNameValues) Find() NSPasteboardName { return pasteboardNameFind }
-
-// Font returns The pasteboard that holds font and character information and supports Copy Font and Paste Font commands that the text editor may implement.
-func (NSPasteboardNameValues) Font() NSPasteboardName { return pasteboardNameFont }
-
-// General returns The pasteboard you use to perform ordinary cut, copy, and paste operations.
-func (NSPasteboardNameValues) General() NSPasteboardName { return pasteboardNameGeneral }
-
-// Ruler returns The pasteboard that holds information about paragraph formats and supports the Copy Ruler and Paste Ruler commands that the text editor may implement.
-func (NSPasteboardNameValues) Ruler() NSPasteboardName { return pasteboardNameRuler }
-
-
-type NSPasteboardTypeValues struct{}
+var NSPasteboardNames struct {
+	// Drag: The pasteboard that stores data to move as the result of a drag operation.
+	Drag NSPasteboardName
+	// Find: The pasteboard that holds information about the current state of the active application’s find panel.
+	Find NSPasteboardName
+	// Font: The pasteboard that holds font and character information and supports Copy Font and Paste Font commands that the text editor may implement.
+	Font NSPasteboardName
+	// General: The pasteboard you use to perform ordinary cut, copy, and paste operations.
+	General NSPasteboardName
+	// Ruler: The pasteboard that holds information about paragraph formats and supports the Copy Ruler and Paste Ruler commands that the text editor may implement.
+	Ruler NSPasteboardName
+}
 
 // NSPasteboardTypes provides typed accessors for [NSPasteboardType] constants.
-var NSPasteboardTypes NSPasteboardTypeValues
-
-// Color returns Color data.
-func (NSPasteboardTypeValues) Color() NSPasteboardType { return pasteboardTypeColor }
-
-// FileURL returns A file URL.
-func (NSPasteboardTypeValues) FileURL() NSPasteboardType { return pasteboardTypeFileURL }
-
-// Font returns Font and character information.
-func (NSPasteboardTypeValues) Font() NSPasteboardType { return pasteboardTypeFont }
-
-// HTML returns Type for HTML content.
-func (NSPasteboardTypeValues) HTML() NSPasteboardType { return pasteboardTypeHTML }
-
-// MultipleTextSelection returns Multiple text selection.
-func (NSPasteboardTypeValues) MultipleTextSelection() NSPasteboardType { return pasteboardTypeMultipleTextSelection }
-
-// PDF returns PDF data.
-func (NSPasteboardTypeValues) PDF() NSPasteboardType { return pasteboardTypePDF }
-
-// PNG returns PNG image data.
-func (NSPasteboardTypeValues) PNG() NSPasteboardType { return pasteboardTypePNG }
-
-// RTF returns Rich Text Format (RTF) data.
-func (NSPasteboardTypeValues) RTF() NSPasteboardType { return pasteboardTypeRTF }
-
-// RTFD returns RTFD formatted file contents.
-func (NSPasteboardTypeValues) RTFD() NSPasteboardType { return pasteboardTypeRTFD }
-
-// Ruler returns Paragraph formatting information.
-func (NSPasteboardTypeValues) Ruler() NSPasteboardType { return pasteboardTypeRuler }
-
-// Sound returns Sound data.
-func (NSPasteboardTypeValues) Sound() NSPasteboardType { return pasteboardTypeSound }
-
-// String returns String data.
-func (NSPasteboardTypeValues) String() NSPasteboardType { return pasteboardTypeString }
-
-// TIFF returns Tag Image File Format (TIFF) data.
-func (NSPasteboardTypeValues) TIFF() NSPasteboardType { return pasteboardTypeTIFF }
-
-// TabularText returns Tab-separated fields of text.
-func (NSPasteboardTypeValues) TabularText() NSPasteboardType { return pasteboardTypeTabularText }
-
-// TextFinderOptions returns Type for the Find panel metadata property list.
-func (NSPasteboardTypeValues) TextFinderOptions() NSPasteboardType { return pasteboardTypeTextFinderOptions }
-
-// URL returns URL data for one file or resource.
-func (NSPasteboardTypeValues) URL() NSPasteboardType { return pasteboardTypeURL }
-
-
-type NSSharingServiceNameValues struct{}
+var NSPasteboardTypes struct {
+	// Color: Color data.
+	Color NSPasteboardType
+	// FileURL: A file URL.
+	FileURL NSPasteboardType
+	// Font: Font and character information.
+	Font NSPasteboardType
+	// HTML: Type for HTML content.
+	HTML NSPasteboardType
+	// MultipleTextSelection: Multiple text selection.
+	MultipleTextSelection NSPasteboardType
+	// PDF: PDF data.
+	PDF NSPasteboardType
+	// PNG: PNG image data.
+	PNG NSPasteboardType
+	// RTF: Rich Text Format (RTF) data.
+	RTF NSPasteboardType
+	// RTFD: RTFD formatted file contents.
+	RTFD NSPasteboardType
+	// Ruler: Paragraph formatting information.
+	Ruler NSPasteboardType
+	// Sound: Sound data.
+	Sound NSPasteboardType
+	// String: String data.
+	String NSPasteboardType
+	// TIFF: Tag Image File Format (TIFF) data.
+	TIFF NSPasteboardType
+	// TabularText: Tab-separated fields of text.
+	TabularText NSPasteboardType
+	// TextFinderOptions: Type for the Find panel metadata property list.
+	TextFinderOptions NSPasteboardType
+	// URL: URL data for one file or resource.
+	URL NSPasteboardType
+}
 
 // NSSharingServiceNames provides typed accessors for [NSSharingServiceName] constants.
-var NSSharingServiceNames NSSharingServiceNameValues
-
-// AddToAperture returns A service that shares an item provider’s contents with Aperture.
-func (NSSharingServiceNameValues) AddToAperture() NSSharingServiceName { return sharingServiceNameAddToAperture }
-
-// AddToIPhoto returns A service that shares an item provider’s contents with iPhoto.
-func (NSSharingServiceNameValues) AddToIPhoto() NSSharingServiceName { return sharingServiceNameAddToIPhoto }
-
-// AddToSafariReadingList returns A service that shares an item provider’s contents with Safari’s Reading List.
-func (NSSharingServiceNameValues) AddToSafariReadingList() NSSharingServiceName { return sharingServiceNameAddToSafariReadingList }
-
-// CloudSharing returns A service that shares an item provider’s contents with other iCloud users.
-func (NSSharingServiceNameValues) CloudSharing() NSSharingServiceName { return sharingServiceNameCloudSharing }
-
-// ComposeEmail returns A service that uses an item provider’s contents to compose an email.
-func (NSSharingServiceNameValues) ComposeEmail() NSSharingServiceName { return sharingServiceNameComposeEmail }
-
-// ComposeMessage returns A service that uses an item provider’s contents to compose a message.
-func (NSSharingServiceNameValues) ComposeMessage() NSSharingServiceName { return sharingServiceNameComposeMessage }
-
-// SendViaAirDrop returns A service that sends an item provider’s contents to another device using AirDrop.
-func (NSSharingServiceNameValues) SendViaAirDrop() NSSharingServiceName { return sharingServiceNameSendViaAirDrop }
-
-// UseAsDesktopPicture returns A service that sets the item provider’s contents as the current user’s desktop picture.
-func (NSSharingServiceNameValues) UseAsDesktopPicture() NSSharingServiceName { return sharingServiceNameUseAsDesktopPicture }
-
-
-type NSSliderAccessoryWidthValues struct{}
+var NSSharingServiceNames struct {
+	// AddToAperture: A service that shares an item provider’s contents with Aperture.
+	AddToAperture NSSharingServiceName
+	// AddToIPhoto: A service that shares an item provider’s contents with iPhoto.
+	AddToIPhoto NSSharingServiceName
+	// AddToSafariReadingList: A service that shares an item provider’s contents with Safari’s Reading List.
+	AddToSafariReadingList NSSharingServiceName
+	// CloudSharing: A service that shares an item provider’s contents with other iCloud users.
+	CloudSharing NSSharingServiceName
+	// ComposeEmail: A service that uses an item provider’s contents to compose an email.
+	ComposeEmail NSSharingServiceName
+	// ComposeMessage: A service that uses an item provider’s contents to compose a message.
+	ComposeMessage NSSharingServiceName
+	// SendViaAirDrop: A service that sends an item provider’s contents to another device using AirDrop.
+	SendViaAirDrop NSSharingServiceName
+	// UseAsDesktopPicture: A service that sets the item provider’s contents as the current user’s desktop picture.
+	UseAsDesktopPicture NSSharingServiceName
+}
 
 // NSSliderAccessoryWidths provides typed accessors for [NSSliderAccessoryWidth] constants.
-var NSSliderAccessoryWidths NSSliderAccessoryWidthValues
-
-func (NSSliderAccessoryWidthValues) Default() NSSliderAccessoryWidth { return sliderAccessoryWidthDefault }
-
-func (NSSliderAccessoryWidthValues) Wide() NSSliderAccessoryWidth { return sliderAccessoryWidthWide }
-
-
-type NSSpeechModeValues struct{}
+var NSSliderAccessoryWidths struct {
+	Default NSSliderAccessoryWidth
+	Wide NSSliderAccessoryWidth
+}
 
 // NSSpeechModes provides typed accessors for [NSSpeechMode] constants.
-var NSSpeechModes NSSpeechModeValues
-
-// Literal returns Indicates that each digit or character is spoken literally (so that 12 is spoken as “one, two”, or the word “cat” is spoken as “C A T”).
-func (NSSpeechModeValues) Literal() NSSpeechMode { return speechModeLiteral }
-
-// Normal returns Indicates that the synthesizer assembles digits into numbers (so that 12 is spoken as “twelve”) and text into words.
-func (NSSpeechModeValues) Normal() NSSpeechMode { return speechModeNormal }
-
-// Phoneme returns Indicates that the synthesizer is in phoneme-processing mode. When in phoneme-processing mode, a text buffer is interpreted to be a series of characters representing various phonemes and prosodic controls.
-func (NSSpeechModeValues) Phoneme() NSSpeechMode { return speechModePhoneme }
-
-// Text returns Indicates that the synthesizer is in text-processing mode.
-func (NSSpeechModeValues) Text() NSSpeechMode { return speechModeText }
-
-
-type NSStackViewVisibilityPriorityValues struct{}
+var NSSpeechModes struct {
+	// Literal: Indicates that each digit or character is spoken literally (so that 12 is spoken as “one, two”, or the word “cat” is spoken as “C A T”).
+	Literal NSSpeechMode
+	// Normal: Indicates that the synthesizer assembles digits into numbers (so that 12 is spoken as “twelve”) and text into words.
+	Normal NSSpeechMode
+	// Phoneme: Indicates that the synthesizer is in phoneme-processing mode. When in phoneme-processing mode, a text buffer is interpreted to be a series of characters representing various phonemes and prosodic controls.
+	Phoneme NSSpeechMode
+	// Text: Indicates that the synthesizer is in text-processing mode.
+	Text NSSpeechMode
+}
 
 // NSStackViewVisibilityPrioritys provides typed accessors for [NSStackViewVisibilityPriority] constants.
-var NSStackViewVisibilityPrioritys NSStackViewVisibilityPriorityValues
-
-// DetachOnlyIfNecessary returns The Auto Layout priority that results in detachment of a view when there is insufficient space in the stack view to display it fully.
-func (NSStackViewVisibilityPriorityValues) DetachOnlyIfNecessary() NSStackViewVisibilityPriority { return stackViewVisibilityPriorityDetachOnlyIfNecessary }
-
-// MustHold returns The default value, and maximum Auto Layout priority, that results in a view never detaching from the stack view.
-func (NSStackViewVisibilityPriorityValues) MustHold() NSStackViewVisibilityPriority { return stackViewVisibilityPriorityMustHold }
-
-// NotVisible returns The minimum Auto Layout priority that forces a view to detach from the stack view.
-func (NSStackViewVisibilityPriorityValues) NotVisible() NSStackViewVisibilityPriority { return stackViewVisibilityPriorityNotVisible }
-
-
-type NSTextContentTypeValues struct{}
+var NSStackViewVisibilityPrioritys struct {
+	// DetachOnlyIfNecessary: The Auto Layout priority that results in detachment of a view when there is insufficient space in the stack view to display it fully.
+	DetachOnlyIfNecessary NSStackViewVisibilityPriority
+	// MustHold: The default value, and maximum Auto Layout priority, that results in a view never detaching from the stack view.
+	MustHold NSStackViewVisibilityPriority
+	// NotVisible: The minimum Auto Layout priority that forces a view to detach from the stack view.
+	NotVisible NSStackViewVisibilityPriority
+}
 
 // NSTextContentTypes provides typed accessors for [NSTextContentType] constants.
-var NSTextContentTypes NSTextContentTypeValues
-
-// AddressCity returns A property that defines the content in a text input area as a city name.
-func (NSTextContentTypeValues) AddressCity() NSTextContentType { return textContentTypeAddressCity }
-
-// AddressCityAndState returns A property that defines the content in a text input area as a city name with a state name.
-func (NSTextContentTypeValues) AddressCityAndState() NSTextContentType { return textContentTypeAddressCityAndState }
-
-// AddressState returns A property that defines the content in a text input area as a state name.
-func (NSTextContentTypeValues) AddressState() NSTextContentType { return textContentTypeAddressState }
-
-// Birthdate returns A property that defines the content in a text input area as a date of birth.
-func (NSTextContentTypeValues) Birthdate() NSTextContentType { return textContentTypeBirthdate }
-
-// BirthdateDay returns A property that defines the content in a text input area as the day component of a birthdate.
-func (NSTextContentTypeValues) BirthdateDay() NSTextContentType { return textContentTypeBirthdateDay }
-
-// BirthdateMonth returns A property that defines the content in a text input area as the month component of a birthdate.
-func (NSTextContentTypeValues) BirthdateMonth() NSTextContentType { return textContentTypeBirthdateMonth }
-
-// BirthdateYear returns A property that defines the content in a text input area as the year component of a birthdate.
-func (NSTextContentTypeValues) BirthdateYear() NSTextContentType { return textContentTypeBirthdateYear }
-
-// CountryName returns A property that defines the content in a text input area as a country or region name.
-func (NSTextContentTypeValues) CountryName() NSTextContentType { return textContentTypeCountryName }
-
-// CreditCardExpiration returns A property that defines the content in a text input area as an expiration date on a credit card.
-func (NSTextContentTypeValues) CreditCardExpiration() NSTextContentType { return textContentTypeCreditCardExpiration }
-
-// CreditCardExpirationMonth returns A property that defines the content in a text input area as the month component of an expiration date on a credit card.
-func (NSTextContentTypeValues) CreditCardExpirationMonth() NSTextContentType { return textContentTypeCreditCardExpirationMonth }
-
-// CreditCardExpirationYear returns A property that defines the content in a text input area as the year component of an expiration date on a credit card.
-func (NSTextContentTypeValues) CreditCardExpirationYear() NSTextContentType { return textContentTypeCreditCardExpirationYear }
-
-// CreditCardFamilyName returns A property that defines the content in a text input area as a family name, or last name, on a credit card.
-func (NSTextContentTypeValues) CreditCardFamilyName() NSTextContentType { return textContentTypeCreditCardFamilyName }
-
-// CreditCardGivenName returns A property that defines the content in a text input area as a first name on a credit card.
-func (NSTextContentTypeValues) CreditCardGivenName() NSTextContentType { return textContentTypeCreditCardGivenName }
-
-// CreditCardMiddleName returns A property that defines the content in a text input area as a middle name on a credit card.
-func (NSTextContentTypeValues) CreditCardMiddleName() NSTextContentType { return textContentTypeCreditCardMiddleName }
-
-// CreditCardName returns A property that defines the content in a text input area as a name on a credit card.
-func (NSTextContentTypeValues) CreditCardName() NSTextContentType { return textContentTypeCreditCardName }
-
-// CreditCardNumber returns A property that defines the content in a text input area as a credit card number.
-func (NSTextContentTypeValues) CreditCardNumber() NSTextContentType { return textContentTypeCreditCardNumber }
-
-// CreditCardSecurityCode returns A property that defines the content in a text input area as a credit card security code.
-func (NSTextContentTypeValues) CreditCardSecurityCode() NSTextContentType { return textContentTypeCreditCardSecurityCode }
-
-// CreditCardType returns A property that defines the content in a text input area as a credit card type.
-func (NSTextContentTypeValues) CreditCardType() NSTextContentType { return textContentTypeCreditCardType }
-
-// DateTime returns A property that defines the content in a text input area as a date, time, or duration.
-func (NSTextContentTypeValues) DateTime() NSTextContentType { return textContentTypeDateTime }
-
-// EmailAddress returns A property that defines the content in a text input area as an email address.
-func (NSTextContentTypeValues) EmailAddress() NSTextContentType { return textContentTypeEmailAddress }
-
-// FamilyName returns A property that defines the content in a text input area as a family name, or last name.
-func (NSTextContentTypeValues) FamilyName() NSTextContentType { return textContentTypeFamilyName }
-
-// FlightNumber returns A property that defines the content in a text input area as an airline flight number.
-func (NSTextContentTypeValues) FlightNumber() NSTextContentType { return textContentTypeFlightNumber }
-
-// FullStreetAddress returns A property that defines the content in a text input area as a street address that fully identifies a location.
-func (NSTextContentTypeValues) FullStreetAddress() NSTextContentType { return textContentTypeFullStreetAddress }
-
-// GivenName returns A property that defines the content in a text input area as a first name.
-func (NSTextContentTypeValues) GivenName() NSTextContentType { return textContentTypeGivenName }
-
-// JobTitle returns A property that defines the content in a text input area as a job title.
-func (NSTextContentTypeValues) JobTitle() NSTextContentType { return textContentTypeJobTitle }
-
-// Location returns A property that defines the content in a text input area as a location, such as a point of interest, an address, or another identifier for a location.
-func (NSTextContentTypeValues) Location() NSTextContentType { return textContentTypeLocation }
-
-// MiddleName returns A property that defines the content in a text input area as a middle name.
-func (NSTextContentTypeValues) MiddleName() NSTextContentType { return textContentTypeMiddleName }
-
-// Name returns A property that defines the content in a text input area as a name.
-func (NSTextContentTypeValues) Name() NSTextContentType { return textContentTypeName }
-
-// NamePrefix returns A property that defines the content in a text input area as a prefix or title, such as .
-func (NSTextContentTypeValues) NamePrefix() NSTextContentType { return textContentTypeNamePrefix }
-
-// NameSuffix returns A property that defines the content in a text input area as a suffix, such as .
-func (NSTextContentTypeValues) NameSuffix() NSTextContentType { return textContentTypeNameSuffix }
-
-// NewPassword returns A property that defines the content in a text input area as a new password.
-func (NSTextContentTypeValues) NewPassword() NSTextContentType { return textContentTypeNewPassword }
-
-// Nickname returns A property that defines the content in a text input area as a nickname.
-func (NSTextContentTypeValues) Nickname() NSTextContentType { return textContentTypeNickname }
-
-// OneTimeCode returns A property that defines the content in a text input area as a one-time code.
-func (NSTextContentTypeValues) OneTimeCode() NSTextContentType { return textContentTypeOneTimeCode }
-
-// OrganizationName returns A property that defines the content in a text input area as an organization name.
-func (NSTextContentTypeValues) OrganizationName() NSTextContentType { return textContentTypeOrganizationName }
-
-// Password returns A property that defines the content in a text input area as a password.
-func (NSTextContentTypeValues) Password() NSTextContentType { return textContentTypePassword }
-
-// PostalCode returns A property that defines the content in a text input area as a postal code.
-func (NSTextContentTypeValues) PostalCode() NSTextContentType { return textContentTypePostalCode }
-
-// ShipmentTrackingNumber returns A property that defines the content in a text input area as a parcel tracking number.
-func (NSTextContentTypeValues) ShipmentTrackingNumber() NSTextContentType { return textContentTypeShipmentTrackingNumber }
-
-// StreetAddressLine1 returns A property that defines the content in a text input area as the first line of a street address.
-func (NSTextContentTypeValues) StreetAddressLine1() NSTextContentType { return textContentTypeStreetAddressLine1 }
-
-// StreetAddressLine2 returns A property that defines the content in a text input area as the second line of a street address.
-func (NSTextContentTypeValues) StreetAddressLine2() NSTextContentType { return textContentTypeStreetAddressLine2 }
-
-// Sublocality returns A property that defines the content in a text input area as a sublocality.
-func (NSTextContentTypeValues) Sublocality() NSTextContentType { return textContentTypeSublocality }
-
-// TelephoneNumber returns A property that defines the content in a text input area as a telephone number.
-func (NSTextContentTypeValues) TelephoneNumber() NSTextContentType { return textContentTypeTelephoneNumber }
-
-// URL returns A property that defines the content in a text input area as a URL.
-func (NSTextContentTypeValues) URL() NSTextContentType { return textContentTypeURL }
-
-// Username returns A property that defines the content in a text input area as an account or login name.
-func (NSTextContentTypeValues) Username() NSTextContentType { return textContentTypeUsername }
-
-
-type NSTextHighlightColorSchemeValues struct{}
+var NSTextContentTypes struct {
+	// AddressCity: A property that defines the content in a text input area as a city name.
+	AddressCity NSTextContentType
+	// AddressCityAndState: A property that defines the content in a text input area as a city name with a state name.
+	AddressCityAndState NSTextContentType
+	// AddressState: A property that defines the content in a text input area as a state name.
+	AddressState NSTextContentType
+	// Birthdate: A property that defines the content in a text input area as a date of birth.
+	Birthdate NSTextContentType
+	// BirthdateDay: A property that defines the content in a text input area as the day component of a birthdate.
+	BirthdateDay NSTextContentType
+	// BirthdateMonth: A property that defines the content in a text input area as the month component of a birthdate.
+	BirthdateMonth NSTextContentType
+	// BirthdateYear: A property that defines the content in a text input area as the year component of a birthdate.
+	BirthdateYear NSTextContentType
+	// CountryName: A property that defines the content in a text input area as a country or region name.
+	CountryName NSTextContentType
+	// CreditCardExpiration: A property that defines the content in a text input area as an expiration date on a credit card.
+	CreditCardExpiration NSTextContentType
+	// CreditCardExpirationMonth: A property that defines the content in a text input area as the month component of an expiration date on a credit card.
+	CreditCardExpirationMonth NSTextContentType
+	// CreditCardExpirationYear: A property that defines the content in a text input area as the year component of an expiration date on a credit card.
+	CreditCardExpirationYear NSTextContentType
+	// CreditCardFamilyName: A property that defines the content in a text input area as a family name, or last name, on a credit card.
+	CreditCardFamilyName NSTextContentType
+	// CreditCardGivenName: A property that defines the content in a text input area as a first name on a credit card.
+	CreditCardGivenName NSTextContentType
+	// CreditCardMiddleName: A property that defines the content in a text input area as a middle name on a credit card.
+	CreditCardMiddleName NSTextContentType
+	// CreditCardName: A property that defines the content in a text input area as a name on a credit card.
+	CreditCardName NSTextContentType
+	// CreditCardNumber: A property that defines the content in a text input area as a credit card number.
+	CreditCardNumber NSTextContentType
+	// CreditCardSecurityCode: A property that defines the content in a text input area as a credit card security code.
+	CreditCardSecurityCode NSTextContentType
+	// CreditCardType: A property that defines the content in a text input area as a credit card type.
+	CreditCardType NSTextContentType
+	// DateTime: A property that defines the content in a text input area as a date, time, or duration.
+	DateTime NSTextContentType
+	// EmailAddress: A property that defines the content in a text input area as an email address.
+	EmailAddress NSTextContentType
+	// FamilyName: A property that defines the content in a text input area as a family name, or last name.
+	FamilyName NSTextContentType
+	// FlightNumber: A property that defines the content in a text input area as an airline flight number.
+	FlightNumber NSTextContentType
+	// FullStreetAddress: A property that defines the content in a text input area as a street address that fully identifies a location.
+	FullStreetAddress NSTextContentType
+	// GivenName: A property that defines the content in a text input area as a first name.
+	GivenName NSTextContentType
+	// JobTitle: A property that defines the content in a text input area as a job title.
+	JobTitle NSTextContentType
+	// Location: A property that defines the content in a text input area as a location, such as a point of interest, an address, or another identifier for a location.
+	Location NSTextContentType
+	// MiddleName: A property that defines the content in a text input area as a middle name.
+	MiddleName NSTextContentType
+	// Name: A property that defines the content in a text input area as a name.
+	Name NSTextContentType
+	// NamePrefix: A property that defines the content in a text input area as a prefix or title, such as .
+	NamePrefix NSTextContentType
+	// NameSuffix: A property that defines the content in a text input area as a suffix, such as .
+	NameSuffix NSTextContentType
+	// NewPassword: A property that defines the content in a text input area as a new password.
+	NewPassword NSTextContentType
+	// Nickname: A property that defines the content in a text input area as a nickname.
+	Nickname NSTextContentType
+	// OneTimeCode: A property that defines the content in a text input area as a one-time code.
+	OneTimeCode NSTextContentType
+	// OrganizationName: A property that defines the content in a text input area as an organization name.
+	OrganizationName NSTextContentType
+	// Password: A property that defines the content in a text input area as a password.
+	Password NSTextContentType
+	// PostalCode: A property that defines the content in a text input area as a postal code.
+	PostalCode NSTextContentType
+	// ShipmentTrackingNumber: A property that defines the content in a text input area as a parcel tracking number.
+	ShipmentTrackingNumber NSTextContentType
+	// StreetAddressLine1: A property that defines the content in a text input area as the first line of a street address.
+	StreetAddressLine1 NSTextContentType
+	// StreetAddressLine2: A property that defines the content in a text input area as the second line of a street address.
+	StreetAddressLine2 NSTextContentType
+	// Sublocality: A property that defines the content in a text input area as a sublocality.
+	Sublocality NSTextContentType
+	// TelephoneNumber: A property that defines the content in a text input area as a telephone number.
+	TelephoneNumber NSTextContentType
+	// URL: A property that defines the content in a text input area as a URL.
+	URL NSTextContentType
+	// Username: A property that defines the content in a text input area as an account or login name.
+	Username NSTextContentType
+}
 
 // NSTextHighlightColorSchemes provides typed accessors for [NSTextHighlightColorScheme] constants.
-var NSTextHighlightColorSchemes NSTextHighlightColorSchemeValues
-
-// Blue returns A blue highlight color.
-func (NSTextHighlightColorSchemeValues) Blue() NSTextHighlightColorScheme { return textHighlightColorSchemeBlue }
-
-// Default returns The default system highlight color.
-func (NSTextHighlightColorSchemeValues) Default() NSTextHighlightColorScheme { return textHighlightColorSchemeDefault }
-
-// Mint returns A mint green highlight color.
-func (NSTextHighlightColorSchemeValues) Mint() NSTextHighlightColorScheme { return textHighlightColorSchemeMint }
-
-// Orange returns An orange highlight color.
-func (NSTextHighlightColorSchemeValues) Orange() NSTextHighlightColorScheme { return textHighlightColorSchemeOrange }
-
-// Pink returns A pink highlight color.
-func (NSTextHighlightColorSchemeValues) Pink() NSTextHighlightColorScheme { return textHighlightColorSchemePink }
-
-// Purple returns A purple highlight color.
-func (NSTextHighlightColorSchemeValues) Purple() NSTextHighlightColorScheme { return textHighlightColorSchemePurple }
-
-
-type NSToolbarItemVisibilityPriorityValues struct{}
+var NSTextHighlightColorSchemes struct {
+	// Blue: A blue highlight color.
+	Blue NSTextHighlightColorScheme
+	// Default: The default system highlight color.
+	Default NSTextHighlightColorScheme
+	// Mint: A mint green highlight color.
+	Mint NSTextHighlightColorScheme
+	// Orange: An orange highlight color.
+	Orange NSTextHighlightColorScheme
+	// Pink: A pink highlight color.
+	Pink NSTextHighlightColorScheme
+	// Purple: A purple highlight color.
+	Purple NSTextHighlightColorScheme
+}
 
 // NSToolbarItemVisibilityPrioritys provides typed accessors for [NSToolbarItemVisibilityPriority] constants.
-var NSToolbarItemVisibilityPrioritys NSToolbarItemVisibilityPriorityValues
-
-// High returns A high priority that makes it less likely for the toolbar item to move to the overflow item.
-func (NSToolbarItemVisibilityPriorityValues) High() NSToolbarItemVisibilityPriority { return toolbarItemVisibilityPriorityHigh }
-
-// Low returns The lowest-priority for a toolbar item.
-func (NSToolbarItemVisibilityPriorityValues) Low() NSToolbarItemVisibilityPriority { return toolbarItemVisibilityPriorityLow }
-
-// Standard returns The default visibility priority.
-func (NSToolbarItemVisibilityPriorityValues) Standard() NSToolbarItemVisibilityPriority { return toolbarItemVisibilityPriorityStandard }
-
-// User returns The highest priority for items in the toolbar.
-func (NSToolbarItemVisibilityPriorityValues) User() NSToolbarItemVisibilityPriority { return toolbarItemVisibilityPriorityUser }
-
-
-type NSTouchBarItemIdentifierValues struct{}
+var NSToolbarItemVisibilityPrioritys struct {
+	// High: A high priority that makes it less likely for the toolbar item to move to the overflow item.
+	High NSToolbarItemVisibilityPriority
+	// Low: The lowest-priority for a toolbar item.
+	Low NSToolbarItemVisibilityPriority
+	// Standard: The default visibility priority.
+	Standard NSToolbarItemVisibilityPriority
+	// User: The highest priority for items in the toolbar.
+	User NSToolbarItemVisibilityPriority
+}
 
 // NSTouchBarItemIdentifiers provides typed accessors for [NSTouchBarItemIdentifier] constants.
-var NSTouchBarItemIdentifiers NSTouchBarItemIdentifierValues
-
-// CandidateList returns The standard identifier for a candidate list bar item.
-func (NSTouchBarItemIdentifierValues) CandidateList() NSTouchBarItemIdentifier { return touchBarItemIdentifierCandidateList }
-
-// CharacterPicker returns The standard identifier for selecting special characters such as Emoji.
-func (NSTouchBarItemIdentifierValues) CharacterPicker() NSTouchBarItemIdentifier { return touchBarItemIdentifierCharacterPicker }
-
-// FixedSpaceLarge returns The identifier of an item appropriate for use as a large space in a Touch Bar.
-func (NSTouchBarItemIdentifierValues) FixedSpaceLarge() NSTouchBarItemIdentifier { return touchBarItemIdentifierFixedSpaceLarge }
-
-// FixedSpaceSmall returns The identifier of an item appropriate for use as a small space in a Touch Bar.
-func (NSTouchBarItemIdentifierValues) FixedSpaceSmall() NSTouchBarItemIdentifier { return touchBarItemIdentifierFixedSpaceSmall }
-
-// FlexibleSpace returns The identifier of an item appropriate for use as a flexible space in a Touch Bar.
-func (NSTouchBarItemIdentifierValues) FlexibleSpace() NSTouchBarItemIdentifier { return touchBarItemIdentifierFlexibleSpace }
-
-// OtherItemsProxy returns The identifier of the special “other items proxy”, which is used to nest bars up the responder chain.
-func (NSTouchBarItemIdentifierValues) OtherItemsProxy() NSTouchBarItemIdentifier { return touchBarItemIdentifierOtherItemsProxy }
-
-// TextAlignment returns The identifier for a Touch Bar item used to select the text alignment.
-func (NSTouchBarItemIdentifierValues) TextAlignment() NSTouchBarItemIdentifier { return touchBarItemIdentifierTextAlignment }
-
-// TextColorPicker returns The identifier for a Touch Bar item used to select the text color.
-func (NSTouchBarItemIdentifierValues) TextColorPicker() NSTouchBarItemIdentifier { return touchBarItemIdentifierTextColorPicker }
-
-// TextFormat returns The identifier for a group of text format controls.
-func (NSTouchBarItemIdentifierValues) TextFormat() NSTouchBarItemIdentifier { return touchBarItemIdentifierTextFormat }
-
-// TextList returns The identifier for a Touch Bar item used to control the text list style.
-func (NSTouchBarItemIdentifierValues) TextList() NSTouchBarItemIdentifier { return touchBarItemIdentifierTextList }
-
-// TextStyle returns The identifier for a Touch Bar item used to control the text style.
-func (NSTouchBarItemIdentifierValues) TextStyle() NSTouchBarItemIdentifier { return touchBarItemIdentifierTextStyle }
-
-
-type NSTouchBarItemPriorityValues struct{}
+var NSTouchBarItemIdentifiers struct {
+	// CandidateList: The standard identifier for a candidate list bar item.
+	CandidateList NSTouchBarItemIdentifier
+	// CharacterPicker: The standard identifier for selecting special characters such as Emoji.
+	CharacterPicker NSTouchBarItemIdentifier
+	// FixedSpaceLarge: The identifier of an item appropriate for use as a large space in a Touch Bar.
+	FixedSpaceLarge NSTouchBarItemIdentifier
+	// FixedSpaceSmall: The identifier of an item appropriate for use as a small space in a Touch Bar.
+	FixedSpaceSmall NSTouchBarItemIdentifier
+	// FlexibleSpace: The identifier of an item appropriate for use as a flexible space in a Touch Bar.
+	FlexibleSpace NSTouchBarItemIdentifier
+	// OtherItemsProxy: The identifier of the special “other items proxy”, which is used to nest bars up the responder chain.
+	OtherItemsProxy NSTouchBarItemIdentifier
+	// TextAlignment: The identifier for a Touch Bar item used to select the text alignment.
+	TextAlignment NSTouchBarItemIdentifier
+	// TextColorPicker: The identifier for a Touch Bar item used to select the text color.
+	TextColorPicker NSTouchBarItemIdentifier
+	// TextFormat: The identifier for a group of text format controls.
+	TextFormat NSTouchBarItemIdentifier
+	// TextList: The identifier for a Touch Bar item used to control the text list style.
+	TextList NSTouchBarItemIdentifier
+	// TextStyle: The identifier for a Touch Bar item used to control the text style.
+	TextStyle NSTouchBarItemIdentifier
+}
 
 // NSTouchBarItemPrioritys provides typed accessors for [NSTouchBarItemPriority] constants.
-var NSTouchBarItemPrioritys NSTouchBarItemPriorityValues
-
-// High returns A constant indicating a high visibility priority.
-func (NSTouchBarItemPriorityValues) High() NSTouchBarItemPriority { return touchBarItemPriorityHigh }
-
-// Low returns A constant indicating a low visibility priority.
-func (NSTouchBarItemPriorityValues) Low() NSTouchBarItemPriority { return touchBarItemPriorityLow }
-
-// Normal returns A constant indicating a normal visibility priority.
-func (NSTouchBarItemPriorityValues) Normal() NSTouchBarItemPriority { return touchBarItemPriorityNormal }
-
+var NSTouchBarItemPrioritys struct {
+	// High: A constant indicating a high visibility priority.
+	High NSTouchBarItemPriority
+	// Low: A constant indicating a low visibility priority.
+	Low NSTouchBarItemPriority
+	// Normal: A constant indicating a normal visibility priority.
+	Normal NSTouchBarItemPriority
+}
 

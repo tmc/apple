@@ -724,6 +724,31 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithDecimal(dcm N
 	return NSDecimalNumberFromID(rv)
 }
 
+// Creates and returns a decimal number equivalent to the number specified by
+// the arguments.
+//
+// mantissa: The mantissa for the new decimal number object.
+//
+// exponent: The exponent for the new decimal number object.
+//
+// flag: A Boolean value that specifies whether the sign of the number is negative.
+//
+// # Discussion
+// 
+// The arguments express a number in a kind of scientific notation that
+// requires the mantissa to be an integer. So, for example, if the number to
+// be represented is `–12.345`, it is expressed as
+// `12345x10^–3`—`mantissa` is `12345`; `exponent` is `–3`; and `flag`
+// is [true], as illustrated by the following example.
+//
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/decimalNumberWithMantissa:exponent:isNegative:
+func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithMantissaExponentIsNegative(mantissa uint64, exponent int16, flag bool) NSDecimalNumber {
+	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("decimalNumberWithMantissa:exponent:isNegative:"), mantissa, exponent, flag)
+	return NSDecimalNumberFromID(rv)
+}
+
 // Creates a decimal number whose value is equivalent to that in a given
 // numeric string.
 //
@@ -791,31 +816,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithString(number
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/decimalNumberWithString:locale:
 func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithStringLocale(numberValue string, locale objectivec.IObject) NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("decimalNumberWithString:locale:"), objc.String(numberValue), locale)
-	return NSDecimalNumberFromID(rv)
-}
-
-// Creates and returns a decimal number equivalent to the number specified by
-// the arguments.
-//
-// mantissa: The mantissa for the new decimal number object.
-//
-// exponent: The exponent for the new decimal number object.
-//
-// flag: A Boolean value that specifies whether the sign of the number is negative.
-//
-// # Discussion
-// 
-// The arguments express a number in a kind of scientific notation that
-// requires the mantissa to be an integer. So, for example, if the number to
-// be represented is `–12.345`, it is expressed as
-// `12345x10^–3`—`mantissa` is `12345`; `exponent` is `–3`; and `flag`
-// is [true], as illustrated by the following example.
-//
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/decimalNumberWithMantissa:exponent:isNegative:
-func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithMantissaExponentIsNegative(mantissa uint64, exponent int16, flag bool) NSDecimalNumber {
-	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("decimalNumberWithMantissa:exponent:isNegative:"), mantissa, exponent, flag)
 	return NSDecimalNumberFromID(rv)
 }
 

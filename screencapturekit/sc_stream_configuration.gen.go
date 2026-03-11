@@ -952,5 +952,3 @@ func (s SCStreamConfiguration) SetShowMouseClicks(value bool) {
 
 
 
-
-

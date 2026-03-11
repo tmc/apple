@@ -137,9 +137,9 @@ type IUnitConverterLinear interface {
 	// Creates a unit converter with the coefficient and constant you specify.
 	InitWithCoefficientConstant(coefficient float64, constant float64) UnitConverterLinear
 
-	InitWithCoder(coder INSCoder) UnitConverterLinear
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) UnitConverterLinear
 }
 
 
@@ -250,13 +250,6 @@ func (u UnitConverterLinear) InitWithCoefficientConstant(coefficient float64, co
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u UnitConverterLinear) InitWithCoder(coder INSCoder) UnitConverterLinear {
-	rv := objc.Send[UnitConverterLinear](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -264,6 +257,13 @@ func (u UnitConverterLinear) InitWithCoder(coder INSCoder) UnitConverterLinear {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u UnitConverterLinear) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u UnitConverterLinear) InitWithCoder(coder INSCoder) UnitConverterLinear {
+	rv := objc.Send[UnitConverterLinear](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 
@@ -301,19 +301,6 @@ func (u UnitConverterLinear) Constant() float64 {
 
 
 
-// The kilometers unit of length.
-//
-// See: https://developer.apple.com/documentation/foundation/unitlength/kilometers
-func (_UnitConverterLinearClass UnitConverterLinearClass) Kilometers() UnitLength {
-	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("kilometers"))
-	return NSUnitLengthFromID(objc.ID(rv))
-}
-func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value UnitLength) {
-	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKilometers:"), value)
-}
-
-
-
 // The degree Fahrenheit unit of temperature.
 //
 // See: https://developer.apple.com/documentation/foundation/unittemperature/fahrenheit
@@ -336,6 +323,19 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() UnitTemperatu
 }
 func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value UnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKelvin:"), value)
+}
+
+
+
+// The kilometers unit of length.
+//
+// See: https://developer.apple.com/documentation/foundation/unitlength/kilometers
+func (_UnitConverterLinearClass UnitConverterLinearClass) Kilometers() UnitLength {
+	rv := objc.Send[objc.ID](objc.ID(_UnitConverterLinearClass.class), objc.Sel("kilometers"))
+	return NSUnitLengthFromID(objc.ID(rv))
+}
+func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value UnitLength) {
+	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKilometers:"), value)
 }
 
 

@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
+	"github.com/tmc/apple/objectivec"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -340,12 +341,12 @@ func BNNSDataLayoutGetRank(layout unsafe.Pointer) uintptr {
 }
 
 
-var _bNNSDestroyNearestNeighbors func(knn BNNSNearestNeighbors) 
+var _bNNSDestroyNearestNeighbors func(knn BNNSNearestNeighbors)
 
 // BNNSDestroyNearestNeighbors destroys a k-nearest neighbors object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSDestroyNearestNeighbors(_:)
-func BNNSDestroyNearestNeighbors(knn BNNSNearestNeighbors)  {
+func BNNSDestroyNearestNeighbors(knn BNNSNearestNeighbors) {
 	if _bNNSDestroyNearestNeighbors == nil {
 		panic("Accelerate: symbol BNNSDestroyNearestNeighbors not loaded")
 	}
@@ -353,12 +354,12 @@ func BNNSDestroyNearestNeighbors(knn BNNSNearestNeighbors)  {
 }
 
 
-var _bNNSDestroyRandomGenerator func(generator BNNSRandomGenerator) 
+var _bNNSDestroyRandomGenerator func(generator BNNSRandomGenerator)
 
 // BNNSDestroyRandomGenerator destroys a random number generator.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSDestroyRandomGenerator(_:)
-func BNNSDestroyRandomGenerator(generator BNNSRandomGenerator)  {
+func BNNSDestroyRandomGenerator(generator BNNSRandomGenerator) {
 	if _bNNSDestroyRandomGenerator == nil {
 		panic("Accelerate: symbol BNNSDestroyRandomGenerator not loaded")
 	}
@@ -840,14 +841,14 @@ func BNNSFilterCreateLayerTransposedConvolution(layer_params *BNNSLayerParameter
 }
 
 
-var _bNNSFilterDestroy func(filter BNNSFilter) 
+var _bNNSFilterDestroy func(filter BNNSFilter)
 
 // BNNSFilterDestroy destroys the specified filter, releasing all resources allocated for it.
 //
 // Deprecated: Deprecated since macOS 15.0. Use BNNSGraph* APIs
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSFilterDestroy(_:)
-func BNNSFilterDestroy(filter BNNSFilter)  {
+func BNNSFilterDestroy(filter BNNSFilter) {
 	if _bNNSFilterDestroy == nil {
 		panic("Accelerate: symbol BNNSFilterDestroy not loaded")
 	}
@@ -973,12 +974,12 @@ func BNNSGraphCompileFromFile(filename *byte, function *byte, options Bnns_graph
 }
 
 
-var _bNNSGraphCompileOptionsDestroy func(options Bnns_graph_compile_options_t) 
+var _bNNSGraphCompileOptionsDestroy func(options Bnns_graph_compile_options_t)
 
 // BNNSGraphCompileOptionsDestroy destroys the specified compilation options object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsDestroy(_:)
-func BNNSGraphCompileOptionsDestroy(options Bnns_graph_compile_options_t)  {
+func BNNSGraphCompileOptionsDestroy(options Bnns_graph_compile_options_t) {
 	if _bNNSGraphCompileOptionsDestroy == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsDestroy not loaded")
 	}
@@ -1064,12 +1065,12 @@ func BNNSGraphCompileOptionsMakeDefault() Bnns_graph_compile_options_t {
 }
 
 
-var _bNNSGraphCompileOptionsSetGenerateDebugInfo func(options Bnns_graph_compile_options_t, value bool) 
+var _bNNSGraphCompileOptionsSetGenerateDebugInfo func(options Bnns_graph_compile_options_t, value bool)
 
 // BNNSGraphCompileOptionsSetGenerateDebugInfo sets the option for the compiled graph to include debugging information.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetGenerateDebugInfo(_:_:)
-func BNNSGraphCompileOptionsSetGenerateDebugInfo(options Bnns_graph_compile_options_t, value bool)  {
+func BNNSGraphCompileOptionsSetGenerateDebugInfo(options Bnns_graph_compile_options_t, value bool) {
 	if _bNNSGraphCompileOptionsSetGenerateDebugInfo == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetGenerateDebugInfo not loaded")
 	}
@@ -1078,12 +1079,12 @@ func BNNSGraphCompileOptionsSetGenerateDebugInfo(options Bnns_graph_compile_opti
 
 
 
-var _bNNSGraphCompileOptionsSetMessageLogMask func(options Bnns_graph_compile_options_t, log_level_mask uint32) 
+var _bNNSGraphCompileOptionsSetMessageLogMask func(options Bnns_graph_compile_options_t, log_level_mask uint32)
 
 // BNNSGraphCompileOptionsSetMessageLogMask sets the mask for compile-time messages.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetMessageLogMask(_:_:)
-func BNNSGraphCompileOptionsSetMessageLogMask(options Bnns_graph_compile_options_t, log_level_mask uint32)  {
+func BNNSGraphCompileOptionsSetMessageLogMask(options Bnns_graph_compile_options_t, log_level_mask uint32) {
 	if _bNNSGraphCompileOptionsSetMessageLogMask == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetMessageLogMask not loaded")
 	}
@@ -1091,12 +1092,12 @@ func BNNSGraphCompileOptionsSetMessageLogMask(options Bnns_graph_compile_options
 }
 
 
-var _bNNSGraphCompileOptionsSetOptimizationPreference func(options Bnns_graph_compile_options_t, preference unsafe.Pointer) 
+var _bNNSGraphCompileOptionsSetOptimizationPreference func(options Bnns_graph_compile_options_t, preference unsafe.Pointer)
 
 // BNNSGraphCompileOptionsSetOptimizationPreference sets the option for the compiled graph to optimize for either size or performance.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetOptimizationPreference(_:_:)
-func BNNSGraphCompileOptionsSetOptimizationPreference(options Bnns_graph_compile_options_t, preference unsafe.Pointer)  {
+func BNNSGraphCompileOptionsSetOptimizationPreference(options Bnns_graph_compile_options_t, preference unsafe.Pointer) {
 	if _bNNSGraphCompileOptionsSetOptimizationPreference == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetOptimizationPreference not loaded")
 	}
@@ -1104,12 +1105,12 @@ func BNNSGraphCompileOptionsSetOptimizationPreference(options Bnns_graph_compile
 }
 
 
-var _bNNSGraphCompileOptionsSetOutputFD func(options Bnns_graph_compile_options_t, fd int) 
+var _bNNSGraphCompileOptionsSetOutputFD func(options Bnns_graph_compile_options_t, fd int)
 
 // BNNSGraphCompileOptionsSetOutputFD sets the option for graph compilation to generate the graph object directly to the specified file descriptor.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetOutputFD(_:_:)
-func BNNSGraphCompileOptionsSetOutputFD(options Bnns_graph_compile_options_t, fd int)  {
+func BNNSGraphCompileOptionsSetOutputFD(options Bnns_graph_compile_options_t, fd int) {
 	if _bNNSGraphCompileOptionsSetOutputFD == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetOutputFD not loaded")
 	}
@@ -1117,12 +1118,12 @@ func BNNSGraphCompileOptionsSetOutputFD(options Bnns_graph_compile_options_t, fd
 }
 
 
-var _bNNSGraphCompileOptionsSetOutputPath func(options Bnns_graph_compile_options_t, path *byte) 
+var _bNNSGraphCompileOptionsSetOutputPath func(options Bnns_graph_compile_options_t, path *byte)
 
 // BNNSGraphCompileOptionsSetOutputPath sets the option for graph compilation to generate the graph object directly to the specified file.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetOutputPath(_:_:)
-func BNNSGraphCompileOptionsSetOutputPath(options Bnns_graph_compile_options_t, path *byte)  {
+func BNNSGraphCompileOptionsSetOutputPath(options Bnns_graph_compile_options_t, path *byte) {
 	if _bNNSGraphCompileOptionsSetOutputPath == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetOutputPath not loaded")
 	}
@@ -1130,12 +1131,12 @@ func BNNSGraphCompileOptionsSetOutputPath(options Bnns_graph_compile_options_t, 
 }
 
 
-var _bNNSGraphCompileOptionsSetTargetSingleThread func(options Bnns_graph_compile_options_t, value bool) 
+var _bNNSGraphCompileOptionsSetTargetSingleThread func(options Bnns_graph_compile_options_t, value bool)
 
 // BNNSGraphCompileOptionsSetTargetSingleThread sets the option for the compiled graph to execute on a single thread.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetTargetSingleThread(_:_:)
-func BNNSGraphCompileOptionsSetTargetSingleThread(options Bnns_graph_compile_options_t, value bool)  {
+func BNNSGraphCompileOptionsSetTargetSingleThread(options Bnns_graph_compile_options_t, value bool) {
 	if _bNNSGraphCompileOptionsSetTargetSingleThread == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetTargetSingleThread not loaded")
 	}
@@ -1143,12 +1144,12 @@ func BNNSGraphCompileOptionsSetTargetSingleThread(options Bnns_graph_compile_opt
 }
 
 
-var _bNNSGraphContextDestroy func(context Bnns_graph_context_t) 
+var _bNNSGraphContextDestroy func(context Bnns_graph_context_t)
 
 // BNNSGraphContextDestroy destroys the specified graph context.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextDestroy(_:)
-func BNNSGraphContextDestroy(context Bnns_graph_context_t)  {
+func BNNSGraphContextDestroy(context Bnns_graph_context_t) {
 	if _bNNSGraphContextDestroy == nil {
 		panic("Accelerate: symbol BNNSGraphContextDestroy not loaded")
 	}
@@ -1156,12 +1157,12 @@ func BNNSGraphContextDestroy(context Bnns_graph_context_t)  {
 }
 
 
-var _bNNSGraphContextEnableNanAndInfChecks func(context Bnns_graph_context_t, enable_check_for_nans_inf bool) 
+var _bNNSGraphContextEnableNanAndInfChecks func(context Bnns_graph_context_t, enable_check_for_nans_inf bool)
 
 // BNNSGraphContextEnableNanAndInfChecks specifies that the context checks intermediate tensors for NaNs and infinities.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextEnableNanAndInfChecks(_:_:)
-func BNNSGraphContextEnableNanAndInfChecks(context Bnns_graph_context_t, enable_check_for_nans_inf bool)  {
+func BNNSGraphContextEnableNanAndInfChecks(context Bnns_graph_context_t, enable_check_for_nans_inf bool) {
 	if _bNNSGraphContextEnableNanAndInfChecks == nil {
 		panic("Accelerate: symbol BNNSGraphContextEnableNanAndInfChecks not loaded")
 	}
@@ -1899,12 +1900,12 @@ func BNNSTranspose(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, axis
 }
 
 
-var _setBLASParamErrorProc func(__ErrorProc BLASParamErrorProc) 
+var _setBLASParamErrorProc func(__ErrorProc BLASParamErrorProc)
 
 // SetBLASParamErrorProc sets an error handler function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/SetBLASParamErrorProc
-func SetBLASParamErrorProc(__ErrorProc BLASParamErrorProc)  {
+func SetBLASParamErrorProc(__ErrorProc BLASParamErrorProc) {
 	if _setBLASParamErrorProc == nil {
 		panic("Accelerate: symbol SetBLASParamErrorProc not loaded")
 	}
@@ -1921,12 +1922,12 @@ func SetBLASParamErrorProc(__ErrorProc BLASParamErrorProc)  {
 
 
 
-var _sparseGetInertia func(Factored SparseOpaqueFactorization_Complex_Float, num_positive *int, num_zero *int, num_negative *int) int
+var _sparseGetInertia func(Factored SparseOpaqueFactorization_Complex_Double, num_positive *int, num_zero *int, num_negative *int) int
 
-// SparseGetInertia returns the inertia of an LDLT factorization in complex float.
+// SparseGetInertia returns the inertia of an LDLT factorization in complex double.
 //
-// See: https://developer.apple.com/documentation/Accelerate/SparseGetInertia(_:_:_:_:)-6ca5h
-func SparseGetInertia(Factored SparseOpaqueFactorization_Complex_Float, num_positive []int, num_zero []int, num_negative []int) int {
+// See: https://developer.apple.com/documentation/Accelerate/SparseGetInertia(_:_:_:_:)-2gc7f
+func SparseGetInertia(Factored SparseOpaqueFactorization_Complex_Double, num_positive []int, num_zero []int, num_negative []int) int {
 	if _sparseGetInertia == nil {
 		panic("Accelerate: symbol SparseGetInertia not loaded")
 	}
@@ -1947,12 +1948,12 @@ func SparseGetInertia(Factored SparseOpaqueFactorization_Complex_Float, num_posi
 
 
 
-var _appleblas_dgeadd func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A *float64, LDA int, BETA float64, B *float64, LDB int, C *float64, LDC int) 
+var _appleblas_dgeadd func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A *float64, LDA int, BETA float64, B *float64, LDB int, C *float64, LDC int)
 
 // Appleblas_dgeadd.
 //
 // See: https://developer.apple.com/documentation/Accelerate/appleblas_dgeadd(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Appleblas_dgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A []float64, LDA int, BETA float64, B []float64, LDB int, C []float64, LDC int)  {
+func Appleblas_dgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A []float64, LDA int, BETA float64, B []float64, LDB int, C []float64, LDC int) {
 	if _appleblas_dgeadd == nil {
 		panic("Accelerate: symbol appleblas_dgeadd not loaded")
 	}
@@ -1960,12 +1961,12 @@ func Appleblas_dgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TR
 }
 
 
-var _appleblas_sgeadd func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A *float32, LDA int, BETA float32, B *float32, LDB int, C *float32, LDC int) 
+var _appleblas_sgeadd func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A *float32, LDA int, BETA float32, B *float32, LDB int, C *float32, LDC int)
 
 // Appleblas_sgeadd.
 //
 // See: https://developer.apple.com/documentation/Accelerate/appleblas_sgeadd(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Appleblas_sgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A []float32, LDA int, BETA float32, B []float32, LDB int, C []float32, LDC int)  {
+func Appleblas_sgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A []float32, LDA int, BETA float32, B []float32, LDB int, C []float32, LDC int) {
 	if _appleblas_sgeadd == nil {
 		panic("Accelerate: symbol appleblas_sgeadd not loaded")
 	}
@@ -1973,14 +1974,38 @@ func Appleblas_sgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TR
 }
 
 
+var _catlas_caxpby func(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Catlas_caxpby computes the product of two vectors, scaling each one separately (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/catlas_caxpby(_:_:_:_:_:_:_:)
+func Catlas_caxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _catlas_caxpby == nil {
+		panic("Accelerate: symbol catlas_caxpby not loaded")
+	}
+	_catlas_caxpby(N, ALPHA, X, INCX, BETA, Y, INCY)
+}
 
 
-var _catlas_daxpby func(N int, ALPHA float64, X *float64, INCX int, BETA float64, Y *float64, INCY int) 
+var _catlas_cset func(N int, ALPHA uintptr, X uintptr, INCX int)
+
+// Catlas_cset modifies a vector (single-precision complex) in place, setting each element to a given value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/catlas_cset(_:_:_:_:)
+func Catlas_cset(N int, ALPHA uintptr, X uintptr, INCX int) {
+	if _catlas_cset == nil {
+		panic("Accelerate: symbol catlas_cset not loaded")
+	}
+	_catlas_cset(N, ALPHA, X, INCX)
+}
+
+
+var _catlas_daxpby func(N int, ALPHA float64, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Catlas_daxpby computes the sum of two vectors, scaling each one separately (double-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_daxpby(_:_:_:_:_:_:_:)
-func Catlas_daxpby(N int, ALPHA float64, X []float64, INCX int, BETA float64, Y []float64, INCY int)  {
+func Catlas_daxpby(N int, ALPHA float64, X []float64, INCX int, BETA float64, Y []float64, INCY int) {
 	if _catlas_daxpby == nil {
 		panic("Accelerate: symbol catlas_daxpby not loaded")
 	}
@@ -1988,12 +2013,12 @@ func Catlas_daxpby(N int, ALPHA float64, X []float64, INCX int, BETA float64, Y 
 }
 
 
-var _catlas_dset func(N int, ALPHA float64, X *float64, INCX int) 
+var _catlas_dset func(N int, ALPHA float64, X *float64, INCX int)
 
 // Catlas_dset modifies a vector (double-precision) in place, setting each element to a given value.
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_dset(_:_:_:_:)
-func Catlas_dset(N int, ALPHA float64, X []float64, INCX int)  {
+func Catlas_dset(N int, ALPHA float64, X []float64, INCX int) {
 	if _catlas_dset == nil {
 		panic("Accelerate: symbol catlas_dset not loaded")
 	}
@@ -2001,12 +2026,12 @@ func Catlas_dset(N int, ALPHA float64, X []float64, INCX int)  {
 }
 
 
-var _catlas_saxpby func(N int, ALPHA float32, X *float32, INCX int, BETA float32, Y *float32, INCY int) 
+var _catlas_saxpby func(N int, ALPHA float32, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Catlas_saxpby computes the sum of two vectors, scaling each one separately (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_saxpby(_:_:_:_:_:_:_:)
-func Catlas_saxpby(N int, ALPHA float32, X []float32, INCX int, BETA float32, Y []float32, INCY int)  {
+func Catlas_saxpby(N int, ALPHA float32, X []float32, INCX int, BETA float32, Y []float32, INCY int) {
 	if _catlas_saxpby == nil {
 		panic("Accelerate: symbol catlas_saxpby not loaded")
 	}
@@ -2014,12 +2039,12 @@ func Catlas_saxpby(N int, ALPHA float32, X []float32, INCX int, BETA float32, Y 
 }
 
 
-var _catlas_sset func(N int, ALPHA float32, X *float32, INCX int) 
+var _catlas_sset func(N int, ALPHA float32, X *float32, INCX int)
 
 // Catlas_sset modifies a vector (single-precision) in place, setting each element to a given value.
 //
 // See: https://developer.apple.com/documentation/Accelerate/catlas_sset(_:_:_:_:)
-func Catlas_sset(N int, ALPHA float32, X []float32, INCX int)  {
+func Catlas_sset(N int, ALPHA float32, X []float32, INCX int) {
 	if _catlas_sset == nil {
 		panic("Accelerate: symbol catlas_sset not loaded")
 	}
@@ -2027,45 +2052,489 @@ func Catlas_sset(N int, ALPHA float32, X []float32, INCX int)  {
 }
 
 
+var _catlas_zaxpby func(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Catlas_zaxpby computes the sum of two vectors, scaling each one separately (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/catlas_zaxpby(_:_:_:_:_:_:_:)
+func Catlas_zaxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _catlas_zaxpby == nil {
+		panic("Accelerate: symbol catlas_zaxpby not loaded")
+	}
+	_catlas_zaxpby(N, ALPHA, X, INCX, BETA, Y, INCY)
+}
+
+
+var _catlas_zset func(N int, ALPHA uintptr, X uintptr, INCX int)
+
+// Catlas_zset modifies a vector (double-precision complex) in place, setting each element to a given value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/catlas_zset(_:_:_:_:)
+func Catlas_zset(N int, ALPHA uintptr, X uintptr, INCX int) {
+	if _catlas_zset == nil {
+		panic("Accelerate: symbol catlas_zset not loaded")
+	}
+	_catlas_zset(N, ALPHA, X, INCX)
+}
 
 
 
 
 
 
+var _cblas_caxpy func(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
+
+// Cblas_caxpy computes a constant times a vector plus a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_caxpy(_:_:_:_:_:_:)
+func Cblas_caxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int) {
+	if _cblas_caxpy == nil {
+		panic("Accelerate: symbol cblas_caxpy not loaded")
+	}
+	_cblas_caxpy(N, ALPHA, X, INCX, Y, INCY)
+}
 
 
+var _cblas_ccopy func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+
+// Cblas_ccopy copies a vector to another vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ccopy(_:_:_:_:_:)
+func Cblas_ccopy(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+	if _cblas_ccopy == nil {
+		panic("Accelerate: symbol cblas_ccopy not loaded")
+	}
+	_cblas_ccopy(N, X, INCX, Y, INCY)
+}
 
 
+var _cblas_cdotc_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr)
+
+// Cblas_cdotc_sub calculates the dot product of the complex conjugate of a single-precision complex vector with a second single-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cdotc_sub(_:_:_:_:_:_:)
+func Cblas_cdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr) {
+	if _cblas_cdotc_sub == nil {
+		panic("Accelerate: symbol cblas_cdotc_sub not loaded")
+	}
+	_cblas_cdotc_sub(N, X, INCX, Y, INCY, DOTC)
+}
 
 
+var _cblas_cdotu_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr)
+
+// Cblas_cdotu_sub computes the dot product of two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cdotu_sub(_:_:_:_:_:_:)
+func Cblas_cdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr) {
+	if _cblas_cdotu_sub == nil {
+		panic("Accelerate: symbol cblas_cdotu_sub not loaded")
+	}
+	_cblas_cdotu_sub(N, X, INCX, Y, INCY, DOTU)
+}
 
 
+var _cblas_cgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_cgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cgbmv(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_cgbmv == nil {
+		panic("Accelerate: symbol cblas_cgbmv not loaded")
+	}
+	_cblas_cgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
 
 
+var _cblas_cgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_cgemm multiplies two matrices (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cgemm(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_cgemm == nil {
+		panic("Accelerate: symbol cblas_cgemm not loaded")
+	}
+	_cblas_cgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
 
 
+var _cblas_cgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_cgemv multiplies a matrix by a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cgemv(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_cgemv == nil {
+		panic("Accelerate: symbol cblas_cgemv not loaded")
+	}
+	_cblas_cgemv(ORDER, TRANSA, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
 
 
+var _cblas_cgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+
+// Cblas_cgerc multiplies vector X by the conjugate transpose of vector Y, then adds matrix A (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cgerc(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+	if _cblas_cgerc == nil {
+		panic("Accelerate: symbol cblas_cgerc not loaded")
+	}
+	_cblas_cgerc(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
+}
 
 
+var _cblas_cgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+
+// Cblas_cgeru multiplies vector X by the transpose of vector Y, then adds matrix A (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cgeru(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+	if _cblas_cgeru == nil {
+		panic("Accelerate: symbol cblas_cgeru not loaded")
+	}
+	_cblas_cgeru(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
+}
 
 
+var _cblas_chbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_chbmv scales a Hermitian band matrix, then multiplies by a vector, then adds a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_chbmv(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_chbmv == nil {
+		panic("Accelerate: symbol cblas_chbmv not loaded")
+	}
+	_cblas_chbmv(ORDER, UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
 
 
+var _cblas_chemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_chemm multiplies two Hermitian matrices (single-precision complex), then adds a third (with scaling).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_chemm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_chemm == nil {
+		panic("Accelerate: symbol cblas_chemm not loaded")
+	}
+	_cblas_chemm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
 
 
+var _cblas_chemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_chemv scales and multiplies a Hermitian matrix by a vector, then adds a second (scaled) vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_chemv(_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_chemv == nil {
+		panic("Accelerate: symbol cblas_chemv not loaded")
+	}
+	_cblas_chemv(ORDER, UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
 
 
+var _cblas_cher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr, LDA int)
+
+// Cblas_cher hermitian rank 1 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of [X] to matrix [A].
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cher(_:_:_:_:_:_:_:_:)
+func Cblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr, LDA int) {
+	if _cblas_cher == nil {
+		panic("Accelerate: symbol cblas_cher not loaded")
+	}
+	_cblas_cher(ORDER, UPLO, N, ALPHA, X, INCX, A, LDA)
+}
 
 
+var _cblas_cher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+
+// Cblas_cher2 hermitian rank 2 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of vector [Y] to the product of the conjugate of the scaling factor, vector [Y], and the conjugate transpose of vector [X], and adds the result to matrix [A].
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cher2(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+	if _cblas_cher2 == nil {
+		panic("Accelerate: symbol cblas_cher2 not loaded")
+	}
+	_cblas_cher2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, A, LDA)
+}
 
 
+var _cblas_cher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float32, C uintptr, LDC int)
+
+// Cblas_cher2k performs a rank-2k update of a complex Hermitian matrix (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cher2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float32, C uintptr, LDC int) {
+	if _cblas_cher2k == nil {
+		panic("Accelerate: symbol cblas_cher2k not loaded")
+	}
+	_cblas_cher2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
 
 
+var _cblas_cherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A uintptr, LDA int, BETA float32, C uintptr, LDC int)
+
+// Cblas_cherk rank-k update—multiplies a Hermitian matrix by its transpose and adds a second matrix (single precision).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cherk(_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A uintptr, LDA int, BETA float32, C uintptr, LDC int) {
+	if _cblas_cherk == nil {
+		panic("Accelerate: symbol cblas_cherk not loaded")
+	}
+	_cblas_cherk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
+}
 
 
+var _cblas_chpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
+// Cblas_chpmv scales a packed hermitian matrix, multiplies it by a vector, and adds a scaled vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_chpmv(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_chpmv == nil {
+		panic("Accelerate: symbol cblas_chpmv not loaded")
+	}
+	_cblas_chpmv(ORDER, UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY)
+}
+
+
+var _cblas_chpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr)
+
+// Cblas_chpr scales and multiplies a vector times its conjugate transpose, then adds a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_chpr(_:_:_:_:_:_:_:)
+func Cblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr) {
+	if _cblas_chpr == nil {
+		panic("Accelerate: symbol cblas_chpr not loaded")
+	}
+	_cblas_chpr(ORDER, UPLO, N, ALPHA, X, INCX, A)
+}
+
+
+var _cblas_chpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr)
+
+// Cblas_chpr2 multiplies a vector times the conjugate transpose of a second vector and vice-versa, sums the results, and adds a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_chpr2(_:_:_:_:_:_:_:_:_:)
+func Cblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr) {
+	if _cblas_chpr2 == nil {
+		panic("Accelerate: symbol cblas_chpr2 not loaded")
+	}
+	_cblas_chpr2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, AP)
+}
+
+
+var _cblas_crotg func(A uintptr, B uintptr, C *float32, S uintptr)
+
+// Cblas_crotg constructs a complex Givens rotation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_crotg(_:_:_:_:)
+func Cblas_crotg(A uintptr, B uintptr, C []float32, S uintptr) {
+	if _cblas_crotg == nil {
+		panic("Accelerate: symbol cblas_crotg not loaded")
+	}
+	_cblas_crotg(A, B, unsafe.SliceData(C), S)
+}
+
+
+var _cblas_cscal func(N int, ALPHA uintptr, X uintptr, INCX int)
+
+// Cblas_cscal multiplies each element of a vector by a constant (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cscal(_:_:_:_:)
+func Cblas_cscal(N int, ALPHA uintptr, X uintptr, INCX int) {
+	if _cblas_cscal == nil {
+		panic("Accelerate: symbol cblas_cscal not loaded")
+	}
+	_cblas_cscal(N, ALPHA, X, INCX)
+}
+
+
+var _cblas_csrot func(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S float32)
+
+// Cblas_csrot applies a Givens rotation matrix to a pair of complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_csrot(_:_:_:_:_:_:_:)
+func Cblas_csrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S float32) {
+	if _cblas_csrot == nil {
+		panic("Accelerate: symbol cblas_csrot not loaded")
+	}
+	_cblas_csrot(N, X, INCX, Y, INCY, C, S)
+}
+
+
+var _cblas_csscal func(N int, ALPHA float32, X uintptr, INCX int)
+
+// Cblas_csscal multiplies each element of a vector by a constant (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_csscal(_:_:_:_:)
+func Cblas_csscal(N int, ALPHA float32, X uintptr, INCX int) {
+	if _cblas_csscal == nil {
+		panic("Accelerate: symbol cblas_csscal not loaded")
+	}
+	_cblas_csscal(N, ALPHA, X, INCX)
+}
+
+
+var _cblas_cswap func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+
+// Cblas_cswap exchanges the elements of two vectors (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_cswap(_:_:_:_:_:)
+func Cblas_cswap(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+	if _cblas_cswap == nil {
+		panic("Accelerate: symbol cblas_cswap not loaded")
+	}
+	_cblas_cswap(N, X, INCX, Y, INCY)
+}
+
+
+var _cblas_csymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_csymm multiplies a matrix by a symmetric matrix (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_csymm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_csymm == nil {
+		panic("Accelerate: symbol cblas_csymm not loaded")
+	}
+	_cblas_csymm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_csyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_csyr2k performs a rank-2k update of a symmetric matrix (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_csyr2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_csyr2k == nil {
+		panic("Accelerate: symbol cblas_csyr2k not loaded")
+	}
+	_cblas_csyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_csyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_csyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_csyrk(_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_csyrk == nil {
+		panic("Accelerate: symbol cblas_csyrk not loaded")
+	}
+	_cblas_csyrk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
+}
+
+
+var _cblas_ctbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ctbmv scales a triangular band matrix, then multiplies by a vector (single-precision compex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctbmv(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ctbmv == nil {
+		panic("Accelerate: symbol cblas_ctbmv not loaded")
+	}
+	_cblas_ctbmv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
+}
+
+
+var _cblas_ctbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ctbsv solves a triangular banded system of equations.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctbsv(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ctbsv == nil {
+		panic("Accelerate: symbol cblas_ctbsv not loaded")
+	}
+	_cblas_ctbsv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
+}
+
+
+var _cblas_ctpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+
+// Cblas_ctpmv multiplies a triangular matrix by a vector, then adds a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctpmv(_:_:_:_:_:_:_:_:)
+func Cblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+	if _cblas_ctpmv == nil {
+		panic("Accelerate: symbol cblas_ctpmv not loaded")
+	}
+	_cblas_ctpmv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
+}
+
+
+var _cblas_ctpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+
+// Cblas_ctpsv solves a packed triangular system of equations.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctpsv(_:_:_:_:_:_:_:_:)
+func Cblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+	if _cblas_ctpsv == nil {
+		panic("Accelerate: symbol cblas_ctpsv not loaded")
+	}
+	_cblas_ctpsv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
+}
+
+
+var _cblas_ctrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+
+// Cblas_ctrmm scales a triangular matrix and multiplies it by a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctrmm(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+	if _cblas_ctrmm == nil {
+		panic("Accelerate: symbol cblas_ctrmm not loaded")
+	}
+	_cblas_ctrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
+}
+
+
+var _cblas_ctrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ctrmv multiplies a triangular matrix by a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctrmv(_:_:_:_:_:_:_:_:_:)
+func Cblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ctrmv == nil {
+		panic("Accelerate: symbol cblas_ctrmv not loaded")
+	}
+	_cblas_ctrmv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
+}
+
+
+var _cblas_ctrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+
+// Cblas_ctrsm solves a triangular system of equations with multiple values for the right side.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctrsm(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+	if _cblas_ctrsm == nil {
+		panic("Accelerate: symbol cblas_ctrsm not loaded")
+	}
+	_cblas_ctrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
+}
+
+
+var _cblas_ctrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ctrsv solves a triangular system of equations with a single value for the right side.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ctrsv(_:_:_:_:_:_:_:_:_:)
+func Cblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ctrsv == nil {
+		panic("Accelerate: symbol cblas_ctrsv not loaded")
+	}
+	_cblas_ctrsv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
+}
 
 
 var _cblas_dasum func(N int, X *float64, INCX int) float64
@@ -2081,12 +2550,12 @@ func Cblas_dasum(N int, X []float64, INCX int) float64 {
 }
 
 
-var _cblas_daxpy func(N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int) 
+var _cblas_daxpy func(N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int)
 
 // Cblas_daxpy computes a constant times a vector plus a vector (double-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_daxpy(_:_:_:_:_:_:)
-func Cblas_daxpy(N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int)  {
+func Cblas_daxpy(N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int) {
 	if _cblas_daxpy == nil {
 		panic("Accelerate: symbol cblas_daxpy not loaded")
 	}
@@ -2094,12 +2563,12 @@ func Cblas_daxpy(N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY 
 }
 
 
-var _cblas_dcopy func(N int, X *float64, INCX int, Y *float64, INCY int) 
+var _cblas_dcopy func(N int, X *float64, INCX int, Y *float64, INCY int)
 
 // Cblas_dcopy copies a vector to another vector (double-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dcopy(_:_:_:_:_:)
-func Cblas_dcopy(N int, X []float64, INCX int, Y []float64, INCY int)  {
+func Cblas_dcopy(N int, X []float64, INCX int, Y []float64, INCY int) {
 	if _cblas_dcopy == nil {
 		panic("Accelerate: symbol cblas_dcopy not loaded")
 	}
@@ -2120,12 +2589,12 @@ func Cblas_ddot(N int, X []float64, INCX int, Y []float64, INCY int) float64 {
 }
 
 
-var _cblas_dgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int) 
+var _cblas_dgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dgbmv(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int)  {
+func Cblas_dgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int) {
 	if _cblas_dgbmv == nil {
 		panic("Accelerate: symbol cblas_dgbmv not loaded")
 	}
@@ -2133,12 +2602,12 @@ func Cblas_dgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int
 }
 
 
-var _cblas_dgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int) 
+var _cblas_dgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int)
 
 // Cblas_dgemm multiplies two matrices (double-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dgemm(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float64, A []float64, LDA int, B []float64, LDB int, BETA float64, C []float64, LDC int)  {
+func Cblas_dgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float64, A []float64, LDA int, B []float64, LDB int, BETA float64, C []float64, LDC int) {
 	if _cblas_dgemm == nil {
 		panic("Accelerate: symbol cblas_dgemm not loaded")
 	}
@@ -2146,12 +2615,12 @@ func Cblas_dgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPO
 }
 
 
-var _cblas_dgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int) 
+var _cblas_dgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dgemv multiplies a matrix by a vector (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dgemv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int)  {
+func Cblas_dgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int) {
 	if _cblas_dgemv == nil {
 		panic("Accelerate: symbol cblas_dgemv not loaded")
 	}
@@ -2159,12 +2628,12 @@ func Cblas_dgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA 
 }
 
 
-var _cblas_dger func(ORDER CBLAS_ORDER, M int, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64, LDA int) 
+var _cblas_dger func(ORDER CBLAS_ORDER, M int, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64, LDA int)
 
 // Cblas_dger multiplies vector X by the transpose of vector Y, then adds matrix A (double precison).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dger(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dger(ORDER CBLAS_ORDER, M int, N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int, A []float64, LDA int)  {
+func Cblas_dger(ORDER CBLAS_ORDER, M int, N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int, A []float64, LDA int) {
 	if _cblas_dger == nil {
 		panic("Accelerate: symbol cblas_dger not loaded")
 	}
@@ -2185,12 +2654,12 @@ func Cblas_dnrm2(N int, X []float64, INCX int) float64 {
 }
 
 
-var _cblas_drot func(N int, X *float64, INCX int, Y *float64, INCY int, C float64, S float64) 
+var _cblas_drot func(N int, X *float64, INCX int, Y *float64, INCY int, C float64, S float64)
 
 // Cblas_drot applies a Givens rotation matrix to a pair of vectors.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_drot(_:_:_:_:_:_:_:)
-func Cblas_drot(N int, X []float64, INCX int, Y []float64, INCY int, C float64, S float64)  {
+func Cblas_drot(N int, X []float64, INCX int, Y []float64, INCY int, C float64, S float64) {
 	if _cblas_drot == nil {
 		panic("Accelerate: symbol cblas_drot not loaded")
 	}
@@ -2198,12 +2667,12 @@ func Cblas_drot(N int, X []float64, INCX int, Y []float64, INCY int, C float64, 
 }
 
 
-var _cblas_drotg func(A *float64, B *float64, C *float64, S *float64) 
+var _cblas_drotg func(A *float64, B *float64, C *float64, S *float64)
 
 // Cblas_drotg constructs a Givens rotation matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_drotg(_:_:_:_:)
-func Cblas_drotg(A []float64, B []float64, C []float64, S []float64)  {
+func Cblas_drotg(A []float64, B []float64, C []float64, S []float64) {
 	if _cblas_drotg == nil {
 		panic("Accelerate: symbol cblas_drotg not loaded")
 	}
@@ -2211,12 +2680,12 @@ func Cblas_drotg(A []float64, B []float64, C []float64, S []float64)  {
 }
 
 
-var _cblas_drotm func(N int, X *float64, INCX int, Y *float64, INCY int, P *float64) 
+var _cblas_drotm func(N int, X *float64, INCX int, Y *float64, INCY int, P *float64)
 
 // Cblas_drotm applies a modified Givens transformation (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_drotm(_:_:_:_:_:_:)
-func Cblas_drotm(N int, X []float64, INCX int, Y []float64, INCY int, P []float64)  {
+func Cblas_drotm(N int, X []float64, INCX int, Y []float64, INCY int, P []float64) {
 	if _cblas_drotm == nil {
 		panic("Accelerate: symbol cblas_drotm not loaded")
 	}
@@ -2224,12 +2693,12 @@ func Cblas_drotm(N int, X []float64, INCX int, Y []float64, INCY int, P []float6
 }
 
 
-var _cblas_drotmg func(D1 *float64, D2 *float64, B1 *float64, B2 float64, P *float64) 
+var _cblas_drotmg func(D1 *float64, D2 *float64, B1 *float64, B2 float64, P *float64)
 
 // Cblas_drotmg generates a modified Givens rotation matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_drotmg(_:_:_:_:_:)
-func Cblas_drotmg(D1 []float64, D2 []float64, B1 []float64, B2 float64, P []float64)  {
+func Cblas_drotmg(D1 []float64, D2 []float64, B1 []float64, B2 float64, P []float64) {
 	if _cblas_drotmg == nil {
 		panic("Accelerate: symbol cblas_drotmg not loaded")
 	}
@@ -2237,12 +2706,12 @@ func Cblas_drotmg(D1 []float64, D2 []float64, B1 []float64, B2 float64, P []floa
 }
 
 
-var _cblas_dsbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int) 
+var _cblas_dsbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dsbmv scales a symmetric band matrix, then multiplies by a vector, then adds a vector (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsbmv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dsbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int)  {
+func Cblas_dsbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int) {
 	if _cblas_dsbmv == nil {
 		panic("Accelerate: symbol cblas_dsbmv not loaded")
 	}
@@ -2250,12 +2719,12 @@ func Cblas_dsbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64
 }
 
 
-var _cblas_dscal func(N int, ALPHA float64, X *float64, INCX int) 
+var _cblas_dscal func(N int, ALPHA float64, X *float64, INCX int)
 
 // Cblas_dscal multiplies each element of a vector by a constant (double-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dscal(_:_:_:_:)
-func Cblas_dscal(N int, ALPHA float64, X []float64, INCX int)  {
+func Cblas_dscal(N int, ALPHA float64, X []float64, INCX int) {
 	if _cblas_dscal == nil {
 		panic("Accelerate: symbol cblas_dscal not loaded")
 	}
@@ -2276,12 +2745,12 @@ func Cblas_dsdot(N int, X []float32, INCX int, Y []float32, INCY int) float64 {
 }
 
 
-var _cblas_dspmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP *float64, X *float64, INCX int, BETA float64, Y *float64, INCY int) 
+var _cblas_dspmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP *float64, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dspmv scales a packed symmetric matrix, then multiplies by a vector, then scales and adds another vector (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dspmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP []float64, X []float64, INCX int, BETA float64, Y []float64, INCY int)  {
+func Cblas_dspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP []float64, X []float64, INCX int, BETA float64, Y []float64, INCY int) {
 	if _cblas_dspmv == nil {
 		panic("Accelerate: symbol cblas_dspmv not loaded")
 	}
@@ -2289,12 +2758,12 @@ func Cblas_dspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP []
 }
 
 
-var _cblas_dspr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, AP *float64) 
+var _cblas_dspr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, AP *float64)
 
 // Cblas_dspr rank one update: adds a packed symmetric matrix to the product of a scaling factor, a vector, and its transpose (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dspr(_:_:_:_:_:_:_:)
-func Cblas_dspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, AP []float64)  {
+func Cblas_dspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, AP []float64) {
 	if _cblas_dspr == nil {
 		panic("Accelerate: symbol cblas_dspr not loaded")
 	}
@@ -2302,12 +2771,12 @@ func Cblas_dspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []fl
 }
 
 
-var _cblas_dspr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64) 
+var _cblas_dspr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64)
 
 // Cblas_dspr2 rank two update of a packed symmetric matrix using two vectors (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dspr2(_:_:_:_:_:_:_:_:_:)
-func Cblas_dspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int, A []float64)  {
+func Cblas_dspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int, A []float64) {
 	if _cblas_dspr2 == nil {
 		panic("Accelerate: symbol cblas_dspr2 not loaded")
 	}
@@ -2315,12 +2784,12 @@ func Cblas_dspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []f
 }
 
 
-var _cblas_dswap func(N int, X *float64, INCX int, Y *float64, INCY int) 
+var _cblas_dswap func(N int, X *float64, INCX int, Y *float64, INCY int)
 
 // Cblas_dswap exchanges the elements of two vectors (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dswap(_:_:_:_:_:)
-func Cblas_dswap(N int, X []float64, INCX int, Y []float64, INCY int)  {
+func Cblas_dswap(N int, X []float64, INCX int, Y []float64, INCY int) {
 	if _cblas_dswap == nil {
 		panic("Accelerate: symbol cblas_dswap not loaded")
 	}
@@ -2328,12 +2797,12 @@ func Cblas_dswap(N int, X []float64, INCX int, Y []float64, INCY int)  {
 }
 
 
-var _cblas_dsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int) 
+var _cblas_dsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int)
 
 // Cblas_dsymm multiplies a matrix by a symmetric matrix (double-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsymm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float64, A []float64, LDA int, B []float64, LDB int, BETA float64, C []float64, LDC int)  {
+func Cblas_dsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float64, A []float64, LDA int, B []float64, LDB int, BETA float64, C []float64, LDC int) {
 	if _cblas_dsymm == nil {
 		panic("Accelerate: symbol cblas_dsymm not loaded")
 	}
@@ -2341,12 +2810,12 @@ func Cblas_dsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 }
 
 
-var _cblas_dsymv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int) 
+var _cblas_dsymv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dsymv scales a symmetric matrix, multiplies by a vector, then scales and adds another vector (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsymv(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dsymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int)  {
+func Cblas_dsymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A []float64, LDA int, X []float64, INCX int, BETA float64, Y []float64, INCY int) {
 	if _cblas_dsymv == nil {
 		panic("Accelerate: symbol cblas_dsymv not loaded")
 	}
@@ -2354,12 +2823,12 @@ func Cblas_dsymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A []f
 }
 
 
-var _cblas_dsyr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, A *float64, LDA int) 
+var _cblas_dsyr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, A *float64, LDA int)
 
 // Cblas_dsyr rank one update: adds a symmetric matrix to the product of a scaling factor, a vector, and its transpose (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsyr(_:_:_:_:_:_:_:_:)
-func Cblas_dsyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, A []float64, LDA int)  {
+func Cblas_dsyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, A []float64, LDA int) {
 	if _cblas_dsyr == nil {
 		panic("Accelerate: symbol cblas_dsyr not loaded")
 	}
@@ -2367,12 +2836,12 @@ func Cblas_dsyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []fl
 }
 
 
-var _cblas_dsyr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64, LDA int) 
+var _cblas_dsyr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64, LDA int)
 
 // Cblas_dsyr2 rank two update of a symmetric matrix using two vectors (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsyr2(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dsyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int, A []float64, LDA int)  {
+func Cblas_dsyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY int, A []float64, LDA int) {
 	if _cblas_dsyr2 == nil {
 		panic("Accelerate: symbol cblas_dsyr2 not loaded")
 	}
@@ -2380,12 +2849,12 @@ func Cblas_dsyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []f
 }
 
 
-var _cblas_dsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int) 
+var _cblas_dsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int)
 
 // Cblas_dsyr2k performs a rank-2k update of a symmetric matrix (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsyr2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A []float64, LDA int, B []float64, LDB int, BETA float64, C []float64, LDC int)  {
+func Cblas_dsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A []float64, LDA int, B []float64, LDB int, BETA float64, C []float64, LDC int) {
 	if _cblas_dsyr2k == nil {
 		panic("Accelerate: symbol cblas_dsyr2k not loaded")
 	}
@@ -2393,12 +2862,12 @@ func Cblas_dsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 }
 
 
-var _cblas_dsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A *float64, LDA int, BETA float64, C *float64, LDC int) 
+var _cblas_dsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A *float64, LDA int, BETA float64, C *float64, LDC int)
 
 // Cblas_dsyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dsyrk(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A []float64, LDA int, BETA float64, C []float64, LDC int)  {
+func Cblas_dsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A []float64, LDA int, BETA float64, C []float64, LDC int) {
 	if _cblas_dsyrk == nil {
 		panic("Accelerate: symbol cblas_dsyrk not loaded")
 	}
@@ -2406,12 +2875,12 @@ func Cblas_dsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 }
 
 
-var _cblas_dtbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float64, LDA int, X *float64, INCX int) 
+var _cblas_dtbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtbmv scales a triangular band matrix, then multiplies by a vector (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtbmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dtbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float64, LDA int, X []float64, INCX int)  {
+func Cblas_dtbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float64, LDA int, X []float64, INCX int) {
 	if _cblas_dtbmv == nil {
 		panic("Accelerate: symbol cblas_dtbmv not loaded")
 	}
@@ -2419,12 +2888,12 @@ func Cblas_dtbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_dtbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float64, LDA int, X *float64, INCX int) 
+var _cblas_dtbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtbsv solves a triangular banded system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtbsv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dtbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float64, LDA int, X []float64, INCX int)  {
+func Cblas_dtbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float64, LDA int, X []float64, INCX int) {
 	if _cblas_dtbsv == nil {
 		panic("Accelerate: symbol cblas_dtbsv not loaded")
 	}
@@ -2432,12 +2901,12 @@ func Cblas_dtbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_dtpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float64, X *float64, INCX int) 
+var _cblas_dtpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float64, X *float64, INCX int)
 
 // Cblas_dtpmv multiplies a triangular matrix by a vector, then adds a vector (double precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtpmv(_:_:_:_:_:_:_:_:)
-func Cblas_dtpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float64, X []float64, INCX int)  {
+func Cblas_dtpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float64, X []float64, INCX int) {
 	if _cblas_dtpmv == nil {
 		panic("Accelerate: symbol cblas_dtpmv not loaded")
 	}
@@ -2445,12 +2914,12 @@ func Cblas_dtpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_dtpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float64, X *float64, INCX int) 
+var _cblas_dtpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float64, X *float64, INCX int)
 
 // Cblas_dtpsv solves a packed triangular system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtpsv(_:_:_:_:_:_:_:_:)
-func Cblas_dtpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float64, X []float64, INCX int)  {
+func Cblas_dtpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float64, X []float64, INCX int) {
 	if _cblas_dtpsv == nil {
 		panic("Accelerate: symbol cblas_dtpsv not loaded")
 	}
@@ -2458,12 +2927,12 @@ func Cblas_dtpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_dtrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int) 
+var _cblas_dtrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int)
 
 // Cblas_dtrmm scales a triangular matrix and multiplies it by a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtrmm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dtrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A []float64, LDA int, B []float64, LDB int)  {
+func Cblas_dtrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A []float64, LDA int, B []float64, LDB int) {
 	if _cblas_dtrmm == nil {
 		panic("Accelerate: symbol cblas_dtrmm not loaded")
 	}
@@ -2471,12 +2940,12 @@ func Cblas_dtrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 }
 
 
-var _cblas_dtrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float64, LDA int, X *float64, INCX int) 
+var _cblas_dtrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtrmv multiplies a triangular matrix by a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtrmv(_:_:_:_:_:_:_:_:_:)
-func Cblas_dtrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float64, LDA int, X []float64, INCX int)  {
+func Cblas_dtrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float64, LDA int, X []float64, INCX int) {
 	if _cblas_dtrmv == nil {
 		panic("Accelerate: symbol cblas_dtrmv not loaded")
 	}
@@ -2484,12 +2953,12 @@ func Cblas_dtrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_dtrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int) 
+var _cblas_dtrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int)
 
 // Cblas_dtrsm solves a triangular system of equations with multiple values for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtrsm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_dtrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A []float64, LDA int, B []float64, LDB int)  {
+func Cblas_dtrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A []float64, LDA int, B []float64, LDB int) {
 	if _cblas_dtrsm == nil {
 		panic("Accelerate: symbol cblas_dtrsm not loaded")
 	}
@@ -2497,12 +2966,12 @@ func Cblas_dtrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 }
 
 
-var _cblas_dtrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float64, LDA int, X *float64, INCX int) 
+var _cblas_dtrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtrsv solves a triangular system of equations with a single value for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_dtrsv(_:_:_:_:_:_:_:_:_:)
-func Cblas_dtrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float64, LDA int, X []float64, INCX int)  {
+func Cblas_dtrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float64, LDA int, X []float64, INCX int) {
 	if _cblas_dtrsv == nil {
 		panic("Accelerate: symbol cblas_dtrsv not loaded")
 	}
@@ -2510,6 +2979,30 @@ func Cblas_dtrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
+var _cblas_dzasum func(N int, X uintptr, INCX int) float64
+
+// Cblas_dzasum computes the sum of the absolute values of real and imaginary parts of elements in a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_dzasum(_:_:_:)
+func Cblas_dzasum(N int, X uintptr, INCX int) float64 {
+	if _cblas_dzasum == nil {
+		panic("Accelerate: symbol cblas_dzasum not loaded")
+	}
+	return _cblas_dzasum(N, X, INCX)
+}
+
+
+var _cblas_dznrm2 func(N int, X uintptr, INCX int) float64
+
+// Cblas_dznrm2 computes the unitary norm of a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_dznrm2(_:_:_:)
+func Cblas_dznrm2(N int, X uintptr, INCX int) float64 {
+	if _cblas_dznrm2 == nil {
+		panic("Accelerate: symbol cblas_dznrm2 not loaded")
+	}
+	return _cblas_dznrm2(N, X, INCX)
+}
 
 
 var _cblas_errprn func(ierr int, info int, form *byte) int
@@ -2524,6 +3017,18 @@ func Cblas_errprn(ierr int, info int, form *byte) int {
 	return _cblas_errprn(ierr, info, form)
 }
 
+
+var _cblas_icamax func(N int, X uintptr, INCX int) int
+
+// Cblas_icamax returns the index of the element with the largest absolute value in a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_icamax(_:_:_:)
+func Cblas_icamax(N int, X uintptr, INCX int) int {
+	if _cblas_icamax == nil {
+		panic("Accelerate: symbol cblas_icamax not loaded")
+	}
+	return _cblas_icamax(N, X, INCX)
+}
 
 
 var _cblas_idamax func(N int, X *float64, INCX int) int
@@ -2552,6 +3057,18 @@ func Cblas_isamax(N int, X []float32, INCX int) int {
 }
 
 
+var _cblas_izamax func(N int, X uintptr, INCX int) int
+
+// Cblas_izamax returns the index of the element with the largest absolute value in a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_izamax(_:_:_:)
+func Cblas_izamax(N int, X uintptr, INCX int) int {
+	if _cblas_izamax == nil {
+		panic("Accelerate: symbol cblas_izamax not loaded")
+	}
+	return _cblas_izamax(N, X, INCX)
+}
+
 
 var _cblas_sasum func(N int, X *float32, INCX int) float32
 
@@ -2566,12 +3083,12 @@ func Cblas_sasum(N int, X []float32, INCX int) float32 {
 }
 
 
-var _cblas_saxpy func(N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int) 
+var _cblas_saxpy func(N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int)
 
 // Cblas_saxpy computes a constant times a vector plus a vector (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_saxpy(_:_:_:_:_:_:)
-func Cblas_saxpy(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int)  {
+func Cblas_saxpy(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int) {
 	if _cblas_saxpy == nil {
 		panic("Accelerate: symbol cblas_saxpy not loaded")
 	}
@@ -2579,14 +3096,38 @@ func Cblas_saxpy(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY 
 }
 
 
+var _cblas_scasum func(N int, X uintptr, INCX int) float32
+
+// Cblas_scasum computes the sum of the absolute values of real and imaginary parts of elements in a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_scasum(_:_:_:)
+func Cblas_scasum(N int, X uintptr, INCX int) float32 {
+	if _cblas_scasum == nil {
+		panic("Accelerate: symbol cblas_scasum not loaded")
+	}
+	return _cblas_scasum(N, X, INCX)
+}
 
 
-var _cblas_scopy func(N int, X *float32, INCX int, Y *float32, INCY int) 
+var _cblas_scnrm2 func(N int, X uintptr, INCX int) float32
+
+// Cblas_scnrm2 computes the unitary norm of a vector (single-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_scnrm2(_:_:_:)
+func Cblas_scnrm2(N int, X uintptr, INCX int) float32 {
+	if _cblas_scnrm2 == nil {
+		panic("Accelerate: symbol cblas_scnrm2 not loaded")
+	}
+	return _cblas_scnrm2(N, X, INCX)
+}
+
+
+var _cblas_scopy func(N int, X *float32, INCX int, Y *float32, INCY int)
 
 // Cblas_scopy copies a vector to another vector (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_scopy(_:_:_:_:_:)
-func Cblas_scopy(N int, X []float32, INCX int, Y []float32, INCY int)  {
+func Cblas_scopy(N int, X []float32, INCX int, Y []float32, INCY int) {
 	if _cblas_scopy == nil {
 		panic("Accelerate: symbol cblas_scopy not loaded")
 	}
@@ -2620,12 +3161,12 @@ func Cblas_sdsdot(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY
 }
 
 
-var _cblas_sgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int) 
+var _cblas_sgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_sgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sgbmv(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_sgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int)  {
+func Cblas_sgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int) {
 	if _cblas_sgbmv == nil {
 		panic("Accelerate: symbol cblas_sgbmv not loaded")
 	}
@@ -2633,12 +3174,12 @@ func Cblas_sgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int
 }
 
 
-var _cblas_sgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int) 
+var _cblas_sgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int)
 
 // Cblas_sgemm multiplies two matrices (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sgemm(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_sgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float32, A []float32, LDA int, B []float32, LDB int, BETA float32, C []float32, LDC int)  {
+func Cblas_sgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float32, A []float32, LDA int, B []float32, LDB int, BETA float32, C []float32, LDC int) {
 	if _cblas_sgemm == nil {
 		panic("Accelerate: symbol cblas_sgemm not loaded")
 	}
@@ -2646,12 +3187,12 @@ func Cblas_sgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPO
 }
 
 
-var _cblas_sgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int) 
+var _cblas_sgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_sgemv multiplies a single-precision matrix by a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sgemv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_sgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int)  {
+func Cblas_sgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int) {
 	if _cblas_sgemv == nil {
 		panic("Accelerate: symbol cblas_sgemv not loaded")
 	}
@@ -2659,12 +3200,12 @@ func Cblas_sgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA 
 }
 
 
-var _cblas_sger func(ORDER CBLAS_ORDER, M int, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32, LDA int) 
+var _cblas_sger func(ORDER CBLAS_ORDER, M int, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32, LDA int)
 
 // Cblas_sger multiplies vector X by the transpose of vector Y, then adds matrix A (single precison).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sger(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_sger(ORDER CBLAS_ORDER, M int, N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int, A []float32, LDA int)  {
+func Cblas_sger(ORDER CBLAS_ORDER, M int, N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int, A []float32, LDA int) {
 	if _cblas_sger == nil {
 		panic("Accelerate: symbol cblas_sger not loaded")
 	}
@@ -2685,12 +3226,12 @@ func Cblas_snrm2(N int, X []float32, INCX int) float32 {
 }
 
 
-var _cblas_srot func(N int, X *float32, INCX int, Y *float32, INCY int, C float32, S float32) 
+var _cblas_srot func(N int, X *float32, INCX int, Y *float32, INCY int, C float32, S float32)
 
 // Cblas_srot applies a Givens rotation matrix to a pair of vectors.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_srot(_:_:_:_:_:_:_:)
-func Cblas_srot(N int, X []float32, INCX int, Y []float32, INCY int, C float32, S float32)  {
+func Cblas_srot(N int, X []float32, INCX int, Y []float32, INCY int, C float32, S float32) {
 	if _cblas_srot == nil {
 		panic("Accelerate: symbol cblas_srot not loaded")
 	}
@@ -2698,12 +3239,12 @@ func Cblas_srot(N int, X []float32, INCX int, Y []float32, INCY int, C float32, 
 }
 
 
-var _cblas_srotg func(A *float32, B *float32, C *float32, S *float32) 
+var _cblas_srotg func(A *float32, B *float32, C *float32, S *float32)
 
 // Cblas_srotg constructs a Givens rotation matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_srotg(_:_:_:_:)
-func Cblas_srotg(A []float32, B []float32, C []float32, S []float32)  {
+func Cblas_srotg(A []float32, B []float32, C []float32, S []float32) {
 	if _cblas_srotg == nil {
 		panic("Accelerate: symbol cblas_srotg not loaded")
 	}
@@ -2711,12 +3252,12 @@ func Cblas_srotg(A []float32, B []float32, C []float32, S []float32)  {
 }
 
 
-var _cblas_srotm func(N int, X *float32, INCX int, Y *float32, INCY int, P *float32) 
+var _cblas_srotm func(N int, X *float32, INCX int, Y *float32, INCY int, P *float32)
 
 // Cblas_srotm applies a modified Givens transformation (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_srotm(_:_:_:_:_:_:)
-func Cblas_srotm(N int, X []float32, INCX int, Y []float32, INCY int, P []float32)  {
+func Cblas_srotm(N int, X []float32, INCX int, Y []float32, INCY int, P []float32) {
 	if _cblas_srotm == nil {
 		panic("Accelerate: symbol cblas_srotm not loaded")
 	}
@@ -2724,12 +3265,12 @@ func Cblas_srotm(N int, X []float32, INCX int, Y []float32, INCY int, P []float3
 }
 
 
-var _cblas_srotmg func(D1 *float32, D2 *float32, B1 *float32, B2 float32, P *float32) 
+var _cblas_srotmg func(D1 *float32, D2 *float32, B1 *float32, B2 float32, P *float32)
 
 // Cblas_srotmg generates a modified Givens rotation matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_srotmg(_:_:_:_:_:)
-func Cblas_srotmg(D1 []float32, D2 []float32, B1 []float32, B2 float32, P []float32)  {
+func Cblas_srotmg(D1 []float32, D2 []float32, B1 []float32, B2 float32, P []float32) {
 	if _cblas_srotmg == nil {
 		panic("Accelerate: symbol cblas_srotmg not loaded")
 	}
@@ -2737,12 +3278,12 @@ func Cblas_srotmg(D1 []float32, D2 []float32, B1 []float32, B2 float32, P []floa
 }
 
 
-var _cblas_ssbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int) 
+var _cblas_ssbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_ssbmv scales a symmetric band matrix, then multiplies by a vector, then adds a vector (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssbmv(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ssbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int)  {
+func Cblas_ssbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int) {
 	if _cblas_ssbmv == nil {
 		panic("Accelerate: symbol cblas_ssbmv not loaded")
 	}
@@ -2750,12 +3291,12 @@ func Cblas_ssbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32
 }
 
 
-var _cblas_sscal func(N int, ALPHA float32, X *float32, INCX int) 
+var _cblas_sscal func(N int, ALPHA float32, X *float32, INCX int)
 
 // Cblas_sscal multiplies each element of a vector by a constant (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sscal(_:_:_:_:)
-func Cblas_sscal(N int, ALPHA float32, X []float32, INCX int)  {
+func Cblas_sscal(N int, ALPHA float32, X []float32, INCX int) {
 	if _cblas_sscal == nil {
 		panic("Accelerate: symbol cblas_sscal not loaded")
 	}
@@ -2763,12 +3304,12 @@ func Cblas_sscal(N int, ALPHA float32, X []float32, INCX int)  {
 }
 
 
-var _cblas_sspmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP *float32, X *float32, INCX int, BETA float32, Y *float32, INCY int) 
+var _cblas_sspmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP *float32, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_sspmv scales a packed symmetric matrix, then multiplies by a vector, then scales and adds another vector (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sspmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_sspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP []float32, X []float32, INCX int, BETA float32, Y []float32, INCY int)  {
+func Cblas_sspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP []float32, X []float32, INCX int, BETA float32, Y []float32, INCY int) {
 	if _cblas_sspmv == nil {
 		panic("Accelerate: symbol cblas_sspmv not loaded")
 	}
@@ -2776,12 +3317,12 @@ func Cblas_sspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP []
 }
 
 
-var _cblas_sspr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, AP *float32) 
+var _cblas_sspr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, AP *float32)
 
 // Cblas_sspr rank one update: adds a packed symmetric matrix to the product of a scaling factor, a vector, and its transpose (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sspr(_:_:_:_:_:_:_:)
-func Cblas_sspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, AP []float32)  {
+func Cblas_sspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, AP []float32) {
 	if _cblas_sspr == nil {
 		panic("Accelerate: symbol cblas_sspr not loaded")
 	}
@@ -2789,12 +3330,12 @@ func Cblas_sspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []fl
 }
 
 
-var _cblas_sspr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32) 
+var _cblas_sspr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32)
 
 // Cblas_sspr2 rank two update of a packed symmetric matrix using two vectors (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sspr2(_:_:_:_:_:_:_:_:_:)
-func Cblas_sspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int, A []float32)  {
+func Cblas_sspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int, A []float32) {
 	if _cblas_sspr2 == nil {
 		panic("Accelerate: symbol cblas_sspr2 not loaded")
 	}
@@ -2802,12 +3343,12 @@ func Cblas_sspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []f
 }
 
 
-var _cblas_sswap func(N int, X *float32, INCX int, Y *float32, INCY int) 
+var _cblas_sswap func(N int, X *float32, INCX int, Y *float32, INCY int)
 
 // Cblas_sswap exchanges the elements of two vectors (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_sswap(_:_:_:_:_:)
-func Cblas_sswap(N int, X []float32, INCX int, Y []float32, INCY int)  {
+func Cblas_sswap(N int, X []float32, INCX int, Y []float32, INCY int) {
 	if _cblas_sswap == nil {
 		panic("Accelerate: symbol cblas_sswap not loaded")
 	}
@@ -2815,12 +3356,12 @@ func Cblas_sswap(N int, X []float32, INCX int, Y []float32, INCY int)  {
 }
 
 
-var _cblas_ssymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int) 
+var _cblas_ssymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int)
 
 // Cblas_ssymm multiplies a matrix by a symmetric matrix (single-precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssymm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ssymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float32, A []float32, LDA int, B []float32, LDB int, BETA float32, C []float32, LDC int)  {
+func Cblas_ssymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float32, A []float32, LDA int, B []float32, LDB int, BETA float32, C []float32, LDC int) {
 	if _cblas_ssymm == nil {
 		panic("Accelerate: symbol cblas_ssymm not loaded")
 	}
@@ -2828,12 +3369,12 @@ func Cblas_ssymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 }
 
 
-var _cblas_ssymv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int) 
+var _cblas_ssymv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_ssymv scales a symmetric matrix, multiplies by a vector, then scales and adds another vector (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssymv(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ssymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int)  {
+func Cblas_ssymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A []float32, LDA int, X []float32, INCX int, BETA float32, Y []float32, INCY int) {
 	if _cblas_ssymv == nil {
 		panic("Accelerate: symbol cblas_ssymv not loaded")
 	}
@@ -2841,12 +3382,12 @@ func Cblas_ssymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A []f
 }
 
 
-var _cblas_ssyr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, A *float32, LDA int) 
+var _cblas_ssyr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, A *float32, LDA int)
 
 // Cblas_ssyr rank one update: adds a symmetric matrix to the product of a scaling factor, a vector, and its transpose (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssyr(_:_:_:_:_:_:_:_:)
-func Cblas_ssyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, A []float32, LDA int)  {
+func Cblas_ssyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, A []float32, LDA int) {
 	if _cblas_ssyr == nil {
 		panic("Accelerate: symbol cblas_ssyr not loaded")
 	}
@@ -2854,12 +3395,12 @@ func Cblas_ssyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []fl
 }
 
 
-var _cblas_ssyr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32, LDA int) 
+var _cblas_ssyr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32, LDA int)
 
 // Cblas_ssyr2 rank two update of a symmetric matrix using two vectors (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssyr2(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ssyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int, A []float32, LDA int)  {
+func Cblas_ssyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY int, A []float32, LDA int) {
 	if _cblas_ssyr2 == nil {
 		panic("Accelerate: symbol cblas_ssyr2 not loaded")
 	}
@@ -2867,12 +3408,12 @@ func Cblas_ssyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []f
 }
 
 
-var _cblas_ssyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int) 
+var _cblas_ssyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int)
 
 // Cblas_ssyr2k performs a rank-2k update of a symmetric matrix (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssyr2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ssyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A []float32, LDA int, B []float32, LDB int, BETA float32, C []float32, LDC int)  {
+func Cblas_ssyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A []float32, LDA int, B []float32, LDB int, BETA float32, C []float32, LDC int) {
 	if _cblas_ssyr2k == nil {
 		panic("Accelerate: symbol cblas_ssyr2k not loaded")
 	}
@@ -2880,12 +3421,12 @@ func Cblas_ssyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 }
 
 
-var _cblas_ssyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A *float32, LDA int, BETA float32, C *float32, LDC int) 
+var _cblas_ssyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A *float32, LDA int, BETA float32, C *float32, LDC int)
 
 // Cblas_ssyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_ssyrk(_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_ssyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A []float32, LDA int, BETA float32, C []float32, LDC int)  {
+func Cblas_ssyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A []float32, LDA int, BETA float32, C []float32, LDC int) {
 	if _cblas_ssyrk == nil {
 		panic("Accelerate: symbol cblas_ssyrk not loaded")
 	}
@@ -2893,12 +3434,12 @@ func Cblas_ssyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 }
 
 
-var _cblas_stbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float32, LDA int, X *float32, INCX int) 
+var _cblas_stbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float32, LDA int, X *float32, INCX int)
 
 // Cblas_stbmv scales a triangular band matrix, then multiplies by a vector (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_stbmv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_stbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float32, LDA int, X []float32, INCX int)  {
+func Cblas_stbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float32, LDA int, X []float32, INCX int) {
 	if _cblas_stbmv == nil {
 		panic("Accelerate: symbol cblas_stbmv not loaded")
 	}
@@ -2906,12 +3447,12 @@ func Cblas_stbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_stbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float32, LDA int, X *float32, INCX int) 
+var _cblas_stbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float32, LDA int, X *float32, INCX int)
 
 // Cblas_stbsv solves a triangular banded system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_stbsv(_:_:_:_:_:_:_:_:_:_:)
-func Cblas_stbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float32, LDA int, X []float32, INCX int)  {
+func Cblas_stbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A []float32, LDA int, X []float32, INCX int) {
 	if _cblas_stbsv == nil {
 		panic("Accelerate: symbol cblas_stbsv not loaded")
 	}
@@ -2919,12 +3460,12 @@ func Cblas_stbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_stpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float32, X *float32, INCX int) 
+var _cblas_stpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float32, X *float32, INCX int)
 
 // Cblas_stpmv multiplies a triangular matrix by a vector, then adds a vector (single precision).
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_stpmv(_:_:_:_:_:_:_:_:)
-func Cblas_stpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float32, X []float32, INCX int)  {
+func Cblas_stpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float32, X []float32, INCX int) {
 	if _cblas_stpmv == nil {
 		panic("Accelerate: symbol cblas_stpmv not loaded")
 	}
@@ -2932,12 +3473,12 @@ func Cblas_stpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_stpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float32, X *float32, INCX int) 
+var _cblas_stpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float32, X *float32, INCX int)
 
 // Cblas_stpsv solves a packed triangular system of equations.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_stpsv(_:_:_:_:_:_:_:_:)
-func Cblas_stpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float32, X []float32, INCX int)  {
+func Cblas_stpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP []float32, X []float32, INCX int) {
 	if _cblas_stpsv == nil {
 		panic("Accelerate: symbol cblas_stpsv not loaded")
 	}
@@ -2945,12 +3486,12 @@ func Cblas_stpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_strmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int) 
+var _cblas_strmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int)
 
 // Cblas_strmm scales a triangular matrix and multiplies it by a matrix.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_strmm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_strmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A []float32, LDA int, B []float32, LDB int)  {
+func Cblas_strmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A []float32, LDA int, B []float32, LDB int) {
 	if _cblas_strmm == nil {
 		panic("Accelerate: symbol cblas_strmm not loaded")
 	}
@@ -2958,12 +3499,12 @@ func Cblas_strmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 }
 
 
-var _cblas_strmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float32, LDA int, X *float32, INCX int) 
+var _cblas_strmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float32, LDA int, X *float32, INCX int)
 
 // Cblas_strmv multiplies a triangular matrix by a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_strmv(_:_:_:_:_:_:_:_:_:)
-func Cblas_strmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float32, LDA int, X []float32, INCX int)  {
+func Cblas_strmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float32, LDA int, X []float32, INCX int) {
 	if _cblas_strmv == nil {
 		panic("Accelerate: symbol cblas_strmv not loaded")
 	}
@@ -2971,12 +3512,12 @@ func Cblas_strmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_strsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int) 
+var _cblas_strsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int)
 
 // Cblas_strsm solves a triangular system of equations with multiple values for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_strsm(_:_:_:_:_:_:_:_:_:_:_:_:)
-func Cblas_strsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A []float32, LDA int, B []float32, LDB int)  {
+func Cblas_strsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A []float32, LDA int, B []float32, LDB int) {
 	if _cblas_strsm == nil {
 		panic("Accelerate: symbol cblas_strsm not loaded")
 	}
@@ -2984,12 +3525,12 @@ func Cblas_strsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 }
 
 
-var _cblas_strsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float32, LDA int, X *float32, INCX int) 
+var _cblas_strsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float32, LDA int, X *float32, INCX int)
 
 // Cblas_strsv solves a triangular system of equations with a single value for the right side.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_strsv(_:_:_:_:_:_:_:_:_:)
-func Cblas_strsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float32, LDA int, X []float32, INCX int)  {
+func Cblas_strsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A []float32, LDA int, X []float32, INCX int) {
 	if _cblas_strsv == nil {
 		panic("Accelerate: symbol cblas_strsv not loaded")
 	}
@@ -2997,16 +3538,471 @@ func Cblas_strsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 }
 
 
-var _cblas_xerbla func(p int, rout *byte, form *byte) 
+var _cblas_xerbla func(p int, rout *byte, form *byte)
 
 // Cblas_xerbla the default error handler for BLAS routines.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_xerbla
-func Cblas_xerbla(p int, rout *byte, form *byte)  {
+func Cblas_xerbla(p int, rout *byte, form *byte) {
 	if _cblas_xerbla == nil {
 		panic("Accelerate: symbol cblas_xerbla not loaded")
 	}
 	_cblas_xerbla(p, rout, form)
+}
+
+
+var _cblas_zaxpy func(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
+
+// Cblas_zaxpy computes a constant times a vector plus a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zaxpy(_:_:_:_:_:_:)
+func Cblas_zaxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int) {
+	if _cblas_zaxpy == nil {
+		panic("Accelerate: symbol cblas_zaxpy not loaded")
+	}
+	_cblas_zaxpy(N, ALPHA, X, INCX, Y, INCY)
+}
+
+
+var _cblas_zcopy func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+
+// Cblas_zcopy copies a vector to another vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zcopy(_:_:_:_:_:)
+func Cblas_zcopy(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+	if _cblas_zcopy == nil {
+		panic("Accelerate: symbol cblas_zcopy not loaded")
+	}
+	_cblas_zcopy(N, X, INCX, Y, INCY)
+}
+
+
+var _cblas_zdotc_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr)
+
+// Cblas_zdotc_sub calculates the dot product of the complex conjugate of a double-precision complex vector with a second double-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zdotc_sub(_:_:_:_:_:_:)
+func Cblas_zdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr) {
+	if _cblas_zdotc_sub == nil {
+		panic("Accelerate: symbol cblas_zdotc_sub not loaded")
+	}
+	_cblas_zdotc_sub(N, X, INCX, Y, INCY, DOTC)
+}
+
+
+var _cblas_zdotu_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr)
+
+// Cblas_zdotu_sub computes the dot product of two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zdotu_sub(_:_:_:_:_:_:)
+func Cblas_zdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr) {
+	if _cblas_zdotu_sub == nil {
+		panic("Accelerate: symbol cblas_zdotu_sub not loaded")
+	}
+	_cblas_zdotu_sub(N, X, INCX, Y, INCY, DOTU)
+}
+
+
+var _cblas_zdrot func(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S float64)
+
+// Cblas_zdrot applies a Givens rotation matrix to a pair of complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zdrot(_:_:_:_:_:_:_:)
+func Cblas_zdrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S float64) {
+	if _cblas_zdrot == nil {
+		panic("Accelerate: symbol cblas_zdrot not loaded")
+	}
+	_cblas_zdrot(N, X, INCX, Y, INCY, C, S)
+}
+
+
+var _cblas_zdscal func(N int, ALPHA float64, X uintptr, INCX int)
+
+// Cblas_zdscal multiplies each element of a vector by a constant (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zdscal(_:_:_:_:)
+func Cblas_zdscal(N int, ALPHA float64, X uintptr, INCX int) {
+	if _cblas_zdscal == nil {
+		panic("Accelerate: symbol cblas_zdscal not loaded")
+	}
+	_cblas_zdscal(N, ALPHA, X, INCX)
+}
+
+
+var _cblas_zgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_zgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zgbmv(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_zgbmv == nil {
+		panic("Accelerate: symbol cblas_zgbmv not loaded")
+	}
+	_cblas_zgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
+
+
+var _cblas_zgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_zgemm multiplies two matrices (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zgemm(_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_zgemm == nil {
+		panic("Accelerate: symbol cblas_zgemm not loaded")
+	}
+	_cblas_zgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_zgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_zgemv multiplies a matrix by a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zgemv(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_zgemv == nil {
+		panic("Accelerate: symbol cblas_zgemv not loaded")
+	}
+	_cblas_zgemv(ORDER, TRANSA, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
+
+
+var _cblas_zgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+
+// Cblas_zgerc multiplies vector X by the conjugate transpose of vector Y, then adds matrix A (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zgerc(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+	if _cblas_zgerc == nil {
+		panic("Accelerate: symbol cblas_zgerc not loaded")
+	}
+	_cblas_zgerc(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
+}
+
+
+var _cblas_zgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+
+// Cblas_zgeru multiplies vector X by the transpose of vector Y, then adds matrix A (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zgeru(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+	if _cblas_zgeru == nil {
+		panic("Accelerate: symbol cblas_zgeru not loaded")
+	}
+	_cblas_zgeru(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
+}
+
+
+var _cblas_zhbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_zhbmv scales a Hermitian band matrix, then multiplies by a vector, then adds a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zhbmv(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_zhbmv == nil {
+		panic("Accelerate: symbol cblas_zhbmv not loaded")
+	}
+	_cblas_zhbmv(ORDER, UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
+
+
+var _cblas_zhemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_zhemm multiplies two Hermitian matrices (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zhemm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_zhemm == nil {
+		panic("Accelerate: symbol cblas_zhemm not loaded")
+	}
+	_cblas_zhemm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_zhemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_zhemv scales and multiplies a Hermitian matrix by a vector, then adds a second (scaled) vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zhemv(_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_zhemv == nil {
+		panic("Accelerate: symbol cblas_zhemv not loaded")
+	}
+	_cblas_zhemv(ORDER, UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
+}
+
+
+var _cblas_zher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr, LDA int)
+
+// Cblas_zher adds the product of a scaling factor, vector [X], and the conjugate transpose of [X] to matrix [A].
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zher(_:_:_:_:_:_:_:_:)
+func Cblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr, LDA int) {
+	if _cblas_zher == nil {
+		panic("Accelerate: symbol cblas_zher not loaded")
+	}
+	_cblas_zher(ORDER, UPLO, N, ALPHA, X, INCX, A, LDA)
+}
+
+
+var _cblas_zher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
+
+// Cblas_zher2 hermitian rank 2 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of vector [Y] to the product of the conjugate of the scaling factor, vector [Y], and the conjugate transpose of vector [X], and adds the result to matrix [A].
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zher2(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int) {
+	if _cblas_zher2 == nil {
+		panic("Accelerate: symbol cblas_zher2 not loaded")
+	}
+	_cblas_zher2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, A, LDA)
+}
+
+
+var _cblas_zher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float64, C uintptr, LDC int)
+
+// Cblas_zher2k performs a rank-2k update of a complex Hermitian matrix (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zher2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float64, C uintptr, LDC int) {
+	if _cblas_zher2k == nil {
+		panic("Accelerate: symbol cblas_zher2k not loaded")
+	}
+	_cblas_zher2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_zherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A uintptr, LDA int, BETA float64, C uintptr, LDC int)
+
+// Cblas_zherk rank-k update—multiplies a Hermitian matrix by its transpose and adds a second matrix (single precision).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zherk(_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A uintptr, LDA int, BETA float64, C uintptr, LDC int) {
+	if _cblas_zherk == nil {
+		panic("Accelerate: symbol cblas_zherk not loaded")
+	}
+	_cblas_zherk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
+}
+
+
+var _cblas_zhpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
+
+// Cblas_zhpmv scales a packed hermitian matrix, multiplies it by a vector, and adds a scaled vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zhpmv(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int) {
+	if _cblas_zhpmv == nil {
+		panic("Accelerate: symbol cblas_zhpmv not loaded")
+	}
+	_cblas_zhpmv(ORDER, UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY)
+}
+
+
+var _cblas_zhpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr)
+
+// Cblas_zhpr scales and multiplies a vector times its conjugate transpose, then adds a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zhpr(_:_:_:_:_:_:_:)
+func Cblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr) {
+	if _cblas_zhpr == nil {
+		panic("Accelerate: symbol cblas_zhpr not loaded")
+	}
+	_cblas_zhpr(ORDER, UPLO, N, ALPHA, X, INCX, A)
+}
+
+
+var _cblas_zhpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr)
+
+// Cblas_zhpr2 multiplies a vector times the conjugate transpose of a second vector and vice-versa, sums the results, and adds a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zhpr2(_:_:_:_:_:_:_:_:_:)
+func Cblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr) {
+	if _cblas_zhpr2 == nil {
+		panic("Accelerate: symbol cblas_zhpr2 not loaded")
+	}
+	_cblas_zhpr2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, AP)
+}
+
+
+var _cblas_zrotg func(A uintptr, B uintptr, C *float64, S uintptr)
+
+// Cblas_zrotg constructs a complex Givens rotation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zrotg(_:_:_:_:)
+func Cblas_zrotg(A uintptr, B uintptr, C []float64, S uintptr) {
+	if _cblas_zrotg == nil {
+		panic("Accelerate: symbol cblas_zrotg not loaded")
+	}
+	_cblas_zrotg(A, B, unsafe.SliceData(C), S)
+}
+
+
+var _cblas_zscal func(N int, ALPHA uintptr, X uintptr, INCX int)
+
+// Cblas_zscal multiplies each element of a vector by a constant (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zscal(_:_:_:_:)
+func Cblas_zscal(N int, ALPHA uintptr, X uintptr, INCX int) {
+	if _cblas_zscal == nil {
+		panic("Accelerate: symbol cblas_zscal not loaded")
+	}
+	_cblas_zscal(N, ALPHA, X, INCX)
+}
+
+
+var _cblas_zswap func(N int, X uintptr, INCX int, Y uintptr, INCY int)
+
+// Cblas_zswap exchanges the elements of two vectors (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zswap(_:_:_:_:_:)
+func Cblas_zswap(N int, X uintptr, INCX int, Y uintptr, INCY int) {
+	if _cblas_zswap == nil {
+		panic("Accelerate: symbol cblas_zswap not loaded")
+	}
+	_cblas_zswap(N, X, INCX, Y, INCY)
+}
+
+
+var _cblas_zsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_zsymm multiplies a matrix by a symmetric matrix (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zsymm(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_zsymm == nil {
+		panic("Accelerate: symbol cblas_zsymm not loaded")
+	}
+	_cblas_zsymm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_zsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_zsyr2k performs a rank-2k update of a symmetric matrix (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zsyr2k(_:_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_zsyr2k == nil {
+		panic("Accelerate: symbol cblas_zsyr2k not loaded")
+	}
+	_cblas_zsyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
+}
+
+
+var _cblas_zsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int)
+
+// Cblas_zsyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_zsyrk(_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int) {
+	if _cblas_zsyrk == nil {
+		panic("Accelerate: symbol cblas_zsyrk not loaded")
+	}
+	_cblas_zsyrk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
+}
+
+
+var _cblas_ztbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ztbmv scales a triangular band matrix, then multiplies by a vector (double-precision complex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztbmv(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ztbmv == nil {
+		panic("Accelerate: symbol cblas_ztbmv not loaded")
+	}
+	_cblas_ztbmv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
+}
+
+
+var _cblas_ztbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ztbsv solves a triangular banded system of equations.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztbsv(_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ztbsv == nil {
+		panic("Accelerate: symbol cblas_ztbsv not loaded")
+	}
+	_cblas_ztbsv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
+}
+
+
+var _cblas_ztpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+
+// Cblas_ztpmv multiplies a triangular matrix by a vector, then adds a vector (double-precision compex).
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztpmv(_:_:_:_:_:_:_:_:)
+func Cblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+	if _cblas_ztpmv == nil {
+		panic("Accelerate: symbol cblas_ztpmv not loaded")
+	}
+	_cblas_ztpmv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
+}
+
+
+var _cblas_ztpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
+
+// Cblas_ztpsv solves a packed triangular system of equations.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztpsv(_:_:_:_:_:_:_:_:)
+func Cblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int) {
+	if _cblas_ztpsv == nil {
+		panic("Accelerate: symbol cblas_ztpsv not loaded")
+	}
+	_cblas_ztpsv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
+}
+
+
+var _cblas_ztrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+
+// Cblas_ztrmm scales a triangular matrix and multiplies it by a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztrmm(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+	if _cblas_ztrmm == nil {
+		panic("Accelerate: symbol cblas_ztrmm not loaded")
+	}
+	_cblas_ztrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
+}
+
+
+var _cblas_ztrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ztrmv multiplies a triangular matrix by a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztrmv(_:_:_:_:_:_:_:_:_:)
+func Cblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ztrmv == nil {
+		panic("Accelerate: symbol cblas_ztrmv not loaded")
+	}
+	_cblas_ztrmv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
+}
+
+
+var _cblas_ztrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
+
+// Cblas_ztrsm solves a triangular system of equations with multiple values for the right side.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztrsm(_:_:_:_:_:_:_:_:_:_:_:_:)
+func Cblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int) {
+	if _cblas_ztrsm == nil {
+		panic("Accelerate: symbol cblas_ztrsm not loaded")
+	}
+	_cblas_ztrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
+}
+
+
+var _cblas_ztrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
+
+// Cblas_ztrsv solves a triangular system of equations with a single value for the right side.
+//
+// See: https://developer.apple.com/documentation/Accelerate/cblas_ztrsv(_:_:_:_:_:_:_:_:_:)
+func Cblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int) {
+	if _cblas_ztrsv == nil {
+		panic("Accelerate: symbol cblas_ztrsv not loaded")
+	}
+	_cblas_ztrsv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
 }
 
 
@@ -4121,40 +5117,17 @@ func Cblas_xerbla(p int, rout *byte, form *byte)  {
 
 
 
+var _quadrature_integrate func(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status uintptr, abs_error *float64, workspace_size uintptr, workspace uintptr) float64
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Quadrature_integrate computes an approximation to the definite integral of a function on a specified interval.
+//
+// See: https://developer.apple.com/documentation/Accelerate/quadrature_integrate
+func Quadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status uintptr, abs_error []float64, workspace_size uintptr, workspace uintptr) float64 {
+	if _quadrature_integrate == nil {
+		panic("Accelerate: symbol quadrature_integrate not loaded")
+	}
+	return _quadrature_integrate(__f, __a, __b, options, status, unsafe.SliceData(abs_error), workspace_size, workspace)
+}
 
 
 
@@ -4889,6 +5862,89 @@ func Sparse_set_matrix_property(A unsafe.Pointer, pname unsafe.Pointer) unsafe.P
 
 
 
+var _vA1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
+
+// VA1024Shift 1024-bit arithmetic shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vA1024Shift(_:_:_:)
+func VA1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vA1024Shift == nil {
+		panic("Accelerate: symbol vA1024Shift not loaded")
+	}
+	_vA1024Shift(a, shiftAmount, result)
+}
+
+
+
+var _vA256Shift func(a uintptr, shiftAmount uint32, result uintptr)
+
+// VA256Shift 256-bit arithmetic shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vA256Shift(_:_:_:)
+func VA256Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vA256Shift == nil {
+		panic("Accelerate: symbol vA256Shift not loaded")
+	}
+	_vA256Shift(a, shiftAmount, result)
+}
+
+
+var _vA512Shift func(a uintptr, shiftAmount uint32, result uintptr)
+
+// VA512Shift 512-bit arithmetic shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vA512Shift(_:_:_:)
+func VA512Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vA512Shift == nil {
+		panic("Accelerate: symbol vA512Shift not loaded")
+	}
+	_vA512Shift(a, shiftAmount, result)
+}
+
+
+
+
+
+var _vDSP_DCT_Execute func(__Setup uintptr, __Input *float32, __Output *float32)
+
+// VDSP_DCT_Execute calculates the discrete cosine transform for a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DCT_Execute
+func VDSP_DCT_Execute(__Setup uintptr, __Input []float32, __Output []float32) {
+	if _vDSP_DCT_Execute == nil {
+		panic("Accelerate: symbol vDSP_DCT_Execute not loaded")
+	}
+	_vDSP_DCT_Execute(__Setup, unsafe.SliceData(__Input), unsafe.SliceData(__Output))
+}
+
+
+
+
+
+var _vDSP_DFT_Execute func(__Setup uintptr, __Ir *float32, __Ii *float32, __Or *float32, __Oi *float32)
+
+// VDSP_DFT_Execute calculates the discrete single-precision Fourier transform for a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Execute
+func VDSP_DFT_Execute(__Setup uintptr, __Ir []float32, __Ii []float32, __Or []float32, __Oi []float32) {
+	if _vDSP_DFT_Execute == nil {
+		panic("Accelerate: symbol vDSP_DFT_Execute not loaded")
+	}
+	_vDSP_DFT_Execute(__Setup, unsafe.SliceData(__Ir), unsafe.SliceData(__Ii), unsafe.SliceData(__Or), unsafe.SliceData(__Oi))
+}
+
+
+var _vDSP_DFT_ExecuteD func(__Setup uintptr, __Ir *float64, __Ii *float64, __Or *float64, __Oi *float64)
+
+// VDSP_DFT_ExecuteD calculates the discrete double-precision Fourier transform for a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_ExecuteD
+func VDSP_DFT_ExecuteD(__Setup uintptr, __Ir []float64, __Ii []float64, __Or []float64, __Oi []float64) {
+	if _vDSP_DFT_ExecuteD == nil {
+		panic("Accelerate: symbol vDSP_DFT_ExecuteD not loaded")
+	}
+	_vDSP_DFT_ExecuteD(__Setup, unsafe.SliceData(__Ir), unsafe.SliceData(__Ii), unsafe.SliceData(__Or), unsafe.SliceData(__Oi))
+}
 
 
 
@@ -4902,23 +5958,12 @@ func Sparse_set_matrix_property(A unsafe.Pointer, pname unsafe.Pointer) unsafe.P
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-var _vDSP_FFT16_copv func(__Output *float32, __Input *float32, __Direction FFTDirection) 
+var _vDSP_FFT16_copv func(__Output *float32, __Input *float32, __Direction FFTDirection)
 
 // VDSP_FFT16_copv performs a 16-element FFT on interleaved-complex data.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_FFT16_copv
-func VDSP_FFT16_copv(__Output []float32, __Input []float32, __Direction FFTDirection)  {
+func VDSP_FFT16_copv(__Output []float32, __Input []float32, __Direction FFTDirection) {
 	if _vDSP_FFT16_copv == nil {
 		panic("Accelerate: symbol vDSP_FFT16_copv not loaded")
 	}
@@ -4926,12 +5971,12 @@ func VDSP_FFT16_copv(__Output []float32, __Input []float32, __Direction FFTDirec
 }
 
 
-var _vDSP_FFT16_zopv func(__Or *float32, __Oi *float32, __Ir *float32, __Ii *float32, __Direction FFTDirection) 
+var _vDSP_FFT16_zopv func(__Or *float32, __Oi *float32, __Ir *float32, __Ii *float32, __Direction FFTDirection)
 
 // VDSP_FFT16_zopv performs a 16-element FFT on split-complex data.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_FFT16_zopv
-func VDSP_FFT16_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []float32, __Direction FFTDirection)  {
+func VDSP_FFT16_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []float32, __Direction FFTDirection) {
 	if _vDSP_FFT16_zopv == nil {
 		panic("Accelerate: symbol vDSP_FFT16_zopv not loaded")
 	}
@@ -4939,12 +5984,12 @@ func VDSP_FFT16_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []floa
 }
 
 
-var _vDSP_FFT32_copv func(__Output *float32, __Input *float32, __Direction FFTDirection) 
+var _vDSP_FFT32_copv func(__Output *float32, __Input *float32, __Direction FFTDirection)
 
 // VDSP_FFT32_copv performs a 32-element FFT on interleaved-complex data.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_FFT32_copv
-func VDSP_FFT32_copv(__Output []float32, __Input []float32, __Direction FFTDirection)  {
+func VDSP_FFT32_copv(__Output []float32, __Input []float32, __Direction FFTDirection) {
 	if _vDSP_FFT32_copv == nil {
 		panic("Accelerate: symbol vDSP_FFT32_copv not loaded")
 	}
@@ -4952,12 +5997,12 @@ func VDSP_FFT32_copv(__Output []float32, __Input []float32, __Direction FFTDirec
 }
 
 
-var _vDSP_FFT32_zopv func(__Or *float32, __Oi *float32, __Ir *float32, __Ii *float32, __Direction FFTDirection) 
+var _vDSP_FFT32_zopv func(__Or *float32, __Oi *float32, __Ir *float32, __Ii *float32, __Direction FFTDirection)
 
 // VDSP_FFT32_zopv performs a 32-element FFT on split-complex data.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_FFT32_zopv
-func VDSP_FFT32_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []float32, __Direction FFTDirection)  {
+func VDSP_FFT32_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []float32, __Direction FFTDirection) {
 	if _vDSP_FFT32_zopv == nil {
 		panic("Accelerate: symbol vDSP_FFT32_zopv not loaded")
 	}
@@ -5005,12 +6050,12 @@ func VDSP_FFT32_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []floa
 
 
 
-var _vDSP_destroy_fftsetup func(__setup FFTSetup) 
+var _vDSP_destroy_fftsetup func(__setup FFTSetup)
 
 // VDSP_destroy_fftsetup deallocates an existing single-precision FFT setup structure.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_destroy_fftsetup
-func VDSP_destroy_fftsetup(__setup FFTSetup)  {
+func VDSP_destroy_fftsetup(__setup FFTSetup) {
 	if _vDSP_destroy_fftsetup == nil {
 		panic("Accelerate: symbol vDSP_destroy_fftsetup not loaded")
 	}
@@ -5018,12 +6063,12 @@ func VDSP_destroy_fftsetup(__setup FFTSetup)  {
 }
 
 
-var _vDSP_destroy_fftsetupD func(__setup FFTSetupD) 
+var _vDSP_destroy_fftsetupD func(__setup FFTSetupD)
 
 // VDSP_destroy_fftsetupD deallocates an existing double-precision FFT setup structure.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_destroy_fftsetupD
-func VDSP_destroy_fftsetupD(__setup FFTSetupD)  {
+func VDSP_destroy_fftsetupD(__setup FFTSetupD) {
 	if _vDSP_destroy_fftsetupD == nil {
 		panic("Accelerate: symbol vDSP_destroy_fftsetupD not loaded")
 	}
@@ -5910,6 +6955,18 @@ func VImageBufferFill_CbCr8(dest unsafe.Pointer, color Pixel_88, flags uint32) i
 }
 
 
+var _vImageBuffer_CopyToCVPixelBuffer func(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int
+
+// VImageBuffer_CopyToCVPixelBuffer copies the contents of a vImage buffer to a Core Video pixel buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageBuffer_CopyToCVPixelBuffer(_:_:_:_:_:_:)
+func VImageBuffer_CopyToCVPixelBuffer(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int {
+	if _vImageBuffer_CopyToCVPixelBuffer == nil {
+		panic("Accelerate: symbol vImageBuffer_CopyToCVPixelBuffer not loaded")
+	}
+	return _vImageBuffer_CopyToCVPixelBuffer(buffer, bufferFormat, cvPixelBuffer, cvImageFormat, backgroundColor, flags)
+}
+
 
 var _vImageBuffer_GetSize func(buf unsafe.Pointer) corefoundation.CGSize
 
@@ -5976,6 +7033,18 @@ func VImageBuffer_InitWithCGImage(buf unsafe.Pointer, format *VImage_CGImageForm
 }
 
 
+var _vImageBuffer_InitWithCVPixelBuffer func(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int
+
+// VImageBuffer_InitWithCVPixelBuffer initializes a vImage buffer with a copy of the contents of a Core Video pixel buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageBuffer_InitWithCVPixelBuffer(_:_:_:_:_:_:)
+func VImageBuffer_InitWithCVPixelBuffer(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int {
+	if _vImageBuffer_InitWithCVPixelBuffer == nil {
+		panic("Accelerate: symbol vImageBuffer_InitWithCVPixelBuffer not loaded")
+	}
+	return _vImageBuffer_InitWithCVPixelBuffer(buffer, desiredFormat, cvPixelBuffer, cvImageFormat, backgroundColor, flags)
+}
+
 
 var _vImageByteSwap_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -6016,9 +7085,45 @@ func VImageCGImageFormat_IsEqual(f1 *VImage_CGImageFormat, f2 *VImage_CGImageFor
 }
 
 
+var _vImageCVImageFormat_Copy func(format unsafe.Pointer) objectivec.IObject
+
+// VImageCVImageFormat_Copy returns a mutable copy of an immutable Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Copy(_:)
+func VImageCVImageFormat_Copy(format unsafe.Pointer) objectivec.IObject {
+	if _vImageCVImageFormat_Copy == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_Copy not loaded")
+	}
+	return _vImageCVImageFormat_Copy(format)
+}
 
 
 
+
+var _vImageCVImageFormat_Create func(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) objectivec.IObject
+
+// VImageCVImageFormat_Create creates the description of image encoding in a Core Video pixel buffer from the specified properties.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Create(_:_:_:_:_:)
+func VImageCVImageFormat_Create(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) objectivec.IObject {
+	if _vImageCVImageFormat_Create == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_Create not loaded")
+	}
+	return _vImageCVImageFormat_Create(imageFormatType, matrix, cvImageBufferChromaLocation, baseColorspace, alphaIsOneHint)
+}
+
+
+var _vImageCVImageFormat_CreateWithCVPixelBuffer func(buffer corevideo.CVPixelBufferRef) objectivec.IObject
+
+// VImageCVImageFormat_CreateWithCVPixelBuffer creates the description of the image encoding in an existing Core Video pixel buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_CreateWithCVPixelBuffer(_:)
+func VImageCVImageFormat_CreateWithCVPixelBuffer(buffer corevideo.CVPixelBufferRef) objectivec.IObject {
+	if _vImageCVImageFormat_CreateWithCVPixelBuffer == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_CreateWithCVPixelBuffer not loaded")
+	}
+	return _vImageCVImageFormat_CreateWithCVPixelBuffer(buffer)
+}
 
 
 var _vImageCVImageFormat_GetAlphaHint func(format unsafe.Pointer) int
@@ -6102,10 +7207,82 @@ func VImageCVImageFormat_GetUserData(format unsafe.Pointer) unsafe.Pointer {
 }
 
 
+var _vImageCVImageFormat_Release func(fmt uintptr)
+
+// VImageCVImageFormat_Release releases a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Release
+func VImageCVImageFormat_Release(fmt uintptr) {
+	if _vImageCVImageFormat_Release == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_Release not loaded")
+	}
+	_vImageCVImageFormat_Release(fmt)
+}
 
 
+var _vImageCVImageFormat_Retain func(fmt uintptr)
+
+// VImageCVImageFormat_Retain retains a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Retain
+func VImageCVImageFormat_Retain(fmt uintptr) {
+	if _vImageCVImageFormat_Retain == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_Retain not loaded")
+	}
+	_vImageCVImageFormat_Retain(fmt)
+}
 
 
+var _vImageCVImageFormat_SetAlphaHint func(format uintptr, alphaIsOne int) int
+
+// VImageCVImageFormat_SetAlphaHint sets the alpha hint of a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetAlphaHint(_:_:)
+func VImageCVImageFormat_SetAlphaHint(format uintptr, alphaIsOne int) int {
+	if _vImageCVImageFormat_SetAlphaHint == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_SetAlphaHint not loaded")
+	}
+	return _vImageCVImageFormat_SetAlphaHint(format, alphaIsOne)
+}
+
+
+var _vImageCVImageFormat_SetChromaSiting func(format uintptr, siting corefoundation.CFStringRef) int
+
+// VImageCVImageFormat_SetChromaSiting sets the chrominance siting of a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetChromaSiting(_:_:)
+func VImageCVImageFormat_SetChromaSiting(format uintptr, siting corefoundation.CFStringRef) int {
+	if _vImageCVImageFormat_SetChromaSiting == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_SetChromaSiting not loaded")
+	}
+	return _vImageCVImageFormat_SetChromaSiting(format, siting)
+}
+
+
+var _vImageCVImageFormat_SetColorSpace func(format uintptr, colorspace coregraphics.CGColorSpaceRef) int
+
+// VImageCVImageFormat_SetColorSpace sets the color space of a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetColorSpace(_:_:)
+func VImageCVImageFormat_SetColorSpace(format uintptr, colorspace coregraphics.CGColorSpaceRef) int {
+	if _vImageCVImageFormat_SetColorSpace == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_SetColorSpace not loaded")
+	}
+	return _vImageCVImageFormat_SetColorSpace(format, colorspace)
+}
+
+
+var _vImageCVImageFormat_SetUserData func(format uintptr, userData unsafe.Pointer) int
+
+// VImageCVImageFormat_SetUserData sets the user data of a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetUserData(_:_:_:)
+func VImageCVImageFormat_SetUserData(format uintptr, userData unsafe.Pointer) int {
+	if _vImageCVImageFormat_SetUserData == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_SetUserData not loaded")
+	}
+	return _vImageCVImageFormat_SetUserData(format, userData)
+}
 
 
 var _vImageClipToAlpha_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
@@ -8669,6 +9846,30 @@ func VImageConvert_YpCbCrToARGB_GenerateConversion(matrix *VImage_YpCbCrToARGBMa
 }
 
 
+var _vImageConverter_CreateForCGToCVImageFormat func(srcFormat *VImage_CGImageFormat, destFormat uintptr, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+
+// VImageConverter_CreateForCGToCVImageFormat creates a vImage converter that converts a Core Graphics-formatted image to a Core Video-formatted image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateForCGToCVImageFormat(_:_:_:_:_:)
+func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat uintptr, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+	if _vImageConverter_CreateForCGToCVImageFormat == nil {
+		panic("Accelerate: symbol vImageConverter_CreateForCGToCVImageFormat not loaded")
+	}
+	return _vImageConverter_CreateForCGToCVImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
+}
+
+
+var _vImageConverter_CreateForCVToCGImageFormat func(srcFormat uintptr, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+
+// VImageConverter_CreateForCVToCGImageFormat creates a vImage converter that converts a Core Video-formatted image to a Core Graphics-formatted image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateForCVToCGImageFormat(_:_:_:_:_:)
+func VImageConverter_CreateForCVToCGImageFormat(srcFormat uintptr, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+	if _vImageConverter_CreateForCVToCGImageFormat == nil {
+		panic("Accelerate: symbol vImageConverter_CreateForCVToCGImageFormat not loaded")
+	}
+	return _vImageConverter_CreateForCVToCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
+}
 
 
 var _vImageConverter_CreateWithCGColorConversionInfo func(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) unsafe.Pointer
@@ -8751,12 +9952,12 @@ func VImageConverter_MustOperateOutOfPlace(converter unsafe.Pointer, srcs unsafe
 }
 
 
-var _vImageConverter_Release func(converter unsafe.Pointer) 
+var _vImageConverter_Release func(converter unsafe.Pointer)
 
 // VImageConverter_Release releases a vImage converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_Release
-func VImageConverter_Release(converter unsafe.Pointer)  {
+func VImageConverter_Release(converter unsafe.Pointer) {
 	if _vImageConverter_Release == nil {
 		panic("Accelerate: symbol vImageConverter_Release not loaded")
 	}
@@ -8764,12 +9965,12 @@ func VImageConverter_Release(converter unsafe.Pointer)  {
 }
 
 
-var _vImageConverter_Retain func(converter unsafe.Pointer) 
+var _vImageConverter_Retain func(converter unsafe.Pointer)
 
 // VImageConverter_Retain retains a vImage converter.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_Retain
-func VImageConverter_Retain(converter unsafe.Pointer)  {
+func VImageConverter_Retain(converter unsafe.Pointer) {
 	if _vImageConverter_Retain == nil {
 		panic("Accelerate: symbol vImageConverter_Retain not loaded")
 	}
@@ -8802,6 +10003,18 @@ func VImageConvolveMultiKernel_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvolveMultiKernel_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernels, kernel_height, kernel_width, divisors, biases, backgroundColor, flags)
 }
 
+
+var _vImageConvolveMultiKernel_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels uintptr, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int
+
+// VImageConvolveMultiKernel_ARGBFFFF convolves each channel of a floating-point 32-bit-per-channel, 4-channel interleaved image by one of the four 2D kernels.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageConvolveMultiKernel_ARGBFFFF(_:_:_:_:_:_:_:_:_:_:_:)
+func VImageConvolveMultiKernel_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels uintptr, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int {
+	if _vImageConvolveMultiKernel_ARGBFFFF == nil {
+		panic("Accelerate: symbol vImageConvolveMultiKernel_ARGBFFFF not loaded")
+	}
+	return _vImageConvolveMultiKernel_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernels, kernel_height, kernel_width, biases, backgroundColor, flags)
+}
 
 
 var _vImageConvolveWithBias_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, bias float32, backgroundColor Pixel_ARGB_16F, flags uint32) int
@@ -9025,12 +10238,12 @@ func VImageCreateRGBColorSpaceWithPrimariesAndTransferFunction(primaries *VImage
 }
 
 
-var _vImageDestroyGammaFunction func(f GammaFunction) 
+var _vImageDestroyGammaFunction func(f GammaFunction)
 
 // VImageDestroyGammaFunction destroys a gamma function object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageDestroyGammaFunction(_:)
-func VImageDestroyGammaFunction(f GammaFunction)  {
+func VImageDestroyGammaFunction(f GammaFunction) {
 	if _vImageDestroyGammaFunction == nil {
 		panic("Accelerate: symbol vImageDestroyGammaFunction not loaded")
 	}
@@ -9038,12 +10251,12 @@ func VImageDestroyGammaFunction(f GammaFunction)  {
 }
 
 
-var _vImageDestroyResamplingFilter func(filter ResamplingFilter) 
+var _vImageDestroyResamplingFilter func(filter ResamplingFilter)
 
 // VImageDestroyResamplingFilter disposes of a resampling filter object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageDestroyResamplingFilter(_:)
-func VImageDestroyResamplingFilter(filter ResamplingFilter)  {
+func VImageDestroyResamplingFilter(filter ResamplingFilter) {
 	if _vImageDestroyResamplingFilter == nil {
 		panic("Accelerate: symbol vImageDestroyResamplingFilter not loaded")
 	}
@@ -12598,76 +13811,292 @@ func VImageVerticalShear_XRGB2101010W(src unsafe.Pointer, dest unsafe.Pointer, s
 }
 
 
+var _vL1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
+// VL1024Rotate 1024-bit left rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vL1024Rotate(_:_:_:)
+func VL1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+	if _vL1024Rotate == nil {
+		panic("Accelerate: symbol vL1024Rotate not loaded")
+	}
+	_vL1024Rotate(a, rotateAmount, result)
+}
 
 
 
+var _vL256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
+// VL256Rotate 256-bit left rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vL256Rotate(_:_:_:)
+func VL256Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+	if _vL256Rotate == nil {
+		panic("Accelerate: symbol vL256Rotate not loaded")
+	}
+	_vL256Rotate(a, rotateAmount, result)
+}
 
 
+var _vL512Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
+// VL512Rotate 512-bit left rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vL512Rotate(_:_:_:)
+func VL512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+	if _vL512Rotate == nil {
+		panic("Accelerate: symbol vL512Rotate not loaded")
+	}
+	_vL512Rotate(a, rotateAmount, result)
+}
 
 
 
 
+var _vLL1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
+// VLL1024Shift 1024-bit logical left shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLL1024Shift(_:_:_:)
+func VLL1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vLL1024Shift == nil {
+		panic("Accelerate: symbol vLL1024Shift not loaded")
+	}
+	_vLL1024Shift(a, shiftAmount, result)
+}
 
 
 
+var _vLL256Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
+// VLL256Shift 256-bit logical left shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLL256Shift(_:_:_:)
+func VLL256Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vLL256Shift == nil {
+		panic("Accelerate: symbol vLL256Shift not loaded")
+	}
+	_vLL256Shift(a, shiftAmount, result)
+}
 
 
+var _vLL512Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
+// VLL512Shift 512-bit logical left shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLL512Shift(_:_:_:)
+func VLL512Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vLL512Shift == nil {
+		panic("Accelerate: symbol vLL512Shift not loaded")
+	}
+	_vLL512Shift(a, shiftAmount, result)
+}
 
 
 
 
+var _vLR1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
+// VLR1024Shift 1024-bit logical right shift .
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLR1024Shift(_:_:_:)
+func VLR1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vLR1024Shift == nil {
+		panic("Accelerate: symbol vLR1024Shift not loaded")
+	}
+	_vLR1024Shift(a, shiftAmount, result)
+}
 
 
 
+var _vLR256Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
+// VLR256Shift 256-bit logical right shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLR256Shift(_:_:_:)
+func VLR256Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vLR256Shift == nil {
+		panic("Accelerate: symbol vLR256Shift not loaded")
+	}
+	_vLR256Shift(a, shiftAmount, result)
+}
 
 
+var _vLR512Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
+// VLR512Shift 512-bit logical right shift .
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLR512Shift(_:_:_:)
+func VLR512Shift(a uintptr, shiftAmount uint32, result uintptr) {
+	if _vLR512Shift == nil {
+		panic("Accelerate: symbol vLR512Shift not loaded")
+	}
+	_vLR512Shift(a, shiftAmount, result)
+}
 
 
 
 
+var _vR1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
+// VR1024Rotate 1024-bit right rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vR1024Rotate(_:_:_:)
+func VR1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+	if _vR1024Rotate == nil {
+		panic("Accelerate: symbol vR1024Rotate not loaded")
+	}
+	_vR1024Rotate(a, rotateAmount, result)
+}
 
 
 
+var _vR256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+
+// VR256Rotate 256-bit right rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vR256Rotate(_:_:_:)
+func VR256Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+	if _vR256Rotate == nil {
+		panic("Accelerate: symbol vR256Rotate not loaded")
+	}
+	_vR256Rotate(a, rotateAmount, result)
+}
 
 
+var _vR512Rotate func(a uintptr, rotateAmount uint32, result uintptr)
+
+// VR512Rotate 512-bit right rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vR512Rotate(_:_:_:)
+func VR512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
+	if _vR512Rotate == nil {
+		panic("Accelerate: symbol vR512Rotate not loaded")
+	}
+	_vR512Rotate(a, rotateAmount, result)
+}
 
+
+
+
+var _vS1024Add func(a uintptr, b uintptr, result uintptr)
+
+// VS1024Add signed 1024-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024Add(_:_:_:)
+func VS1024Add(a uintptr, b uintptr, result uintptr) {
+	if _vS1024Add == nil {
+		panic("Accelerate: symbol vS1024Add not loaded")
+	}
+	_vS1024Add(a, b, result)
+}
 
 
+var _vS1024AddS func(a uintptr, b uintptr, result uintptr)
 
+// VS1024AddS signed 1024-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024AddS(_:_:_:)
+func VS1024AddS(a uintptr, b uintptr, result uintptr) {
+	if _vS1024AddS == nil {
+		panic("Accelerate: symbol vS1024AddS not loaded")
+	}
+	_vS1024AddS(a, b, result)
+}
 
 
+var _vS1024Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
+// VS1024Divide signed 1024-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024Divide(_:_:_:_:)
+func VS1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+	if _vS1024Divide == nil {
+		panic("Accelerate: symbol vS1024Divide not loaded")
+	}
+	_vS1024Divide(numerator, divisor, result, remainder)
+}
 
 
+var _vS1024HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VS1024HalfMultiply signed 1024-bit multiplication; result is the same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024HalfMultiply(_:_:_:)
+func VS1024HalfMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vS1024HalfMultiply == nil {
+		panic("Accelerate: symbol vS1024HalfMultiply not loaded")
+	}
+	_vS1024HalfMultiply(a, b, result)
+}
 
 
+var _vS1024Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
+// VS1024Mod signed 256-bit Mod.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024Mod(_:_:_:)
+func VS1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+	if _vS1024Mod == nil {
+		panic("Accelerate: symbol vS1024Mod not loaded")
+	}
+	_vS1024Mod(numerator, divisor, remainder)
+}
 
 
+var _vS1024Neg func(a uintptr, result uintptr)
 
+// VS1024Neg signed 1024-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024Neg(_:_:)
+func VS1024Neg(a uintptr, result uintptr) {
+	if _vS1024Neg == nil {
+		panic("Accelerate: symbol vS1024Neg not loaded")
+	}
+	_vS1024Neg(a, result)
+}
 
 
+var _vS1024Sub func(a uintptr, b uintptr, result uintptr)
 
+// VS1024Sub signed 1024-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024Sub(_:_:_:)
+func VS1024Sub(a uintptr, b uintptr, result uintptr) {
+	if _vS1024Sub == nil {
+		panic("Accelerate: symbol vS1024Sub not loaded")
+	}
+	_vS1024Sub(a, b, result)
+}
 
 
+var _vS1024SubS func(a uintptr, b uintptr, result uintptr)
 
+// VS1024SubS signed 1024-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS1024SubS(_:_:_:)
+func VS1024SubS(a uintptr, b uintptr, result uintptr) {
+	if _vS1024SubS == nil {
+		panic("Accelerate: symbol vS1024SubS not loaded")
+	}
+	_vS1024SubS(a, b, result)
+}
 
 
 
 
 
+var _vS128FullMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VS128FullMultiply signed 128-bit multiplication; result is twice as wide as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128FullMultiply(_:_:_:)
+func VS128FullMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vS128FullMultiply == nil {
+		panic("Accelerate: symbol vS128FullMultiply not loaded")
+	}
+	_vS128FullMultiply(a, b, result)
+}
 
 
 
@@ -12676,62 +14105,242 @@ func VImageVerticalShear_XRGB2101010W(src unsafe.Pointer, dest unsafe.Pointer, s
 
 
 
+var _vS256Add func(a uintptr, b uintptr, result uintptr)
 
+// VS256Add signed 256-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256Add(_:_:_:)
+func VS256Add(a uintptr, b uintptr, result uintptr) {
+	if _vS256Add == nil {
+		panic("Accelerate: symbol vS256Add not loaded")
+	}
+	_vS256Add(a, b, result)
+}
 
 
+var _vS256AddS func(a uintptr, b uintptr, result uintptr)
 
+// VS256AddS signed 256-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256AddS(_:_:_:)
+func VS256AddS(a uintptr, b uintptr, result uintptr) {
+	if _vS256AddS == nil {
+		panic("Accelerate: symbol vS256AddS not loaded")
+	}
+	_vS256AddS(a, b, result)
+}
 
 
+var _vS256Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
+// VS256Divide computes the signed 256-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256Divide(_:_:_:_:)
+func VS256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+	if _vS256Divide == nil {
+		panic("Accelerate: symbol vS256Divide not loaded")
+	}
+	_vS256Divide(numerator, divisor, result, remainder)
+}
 
 
+var _vS256FullMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VS256FullMultiply signed 256-bit multiplication; result is twice as wide as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256FullMultiply(_:_:_:)
+func VS256FullMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vS256FullMultiply == nil {
+		panic("Accelerate: symbol vS256FullMultiply not loaded")
+	}
+	_vS256FullMultiply(a, b, result)
+}
 
 
+var _vS256HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VS256HalfMultiply signed 256-bit multiplication; result is the same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256HalfMultiply(_:_:_:)
+func VS256HalfMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vS256HalfMultiply == nil {
+		panic("Accelerate: symbol vS256HalfMultiply not loaded")
+	}
+	_vS256HalfMultiply(a, b, result)
+}
 
 
+var _vS256Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
+// VS256Mod signed 256-bit mod.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256Mod(_:_:_:)
+func VS256Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+	if _vS256Mod == nil {
+		panic("Accelerate: symbol vS256Mod not loaded")
+	}
+	_vS256Mod(numerator, divisor, remainder)
+}
 
 
+var _vS256Neg func(a uintptr, result uintptr)
 
+// VS256Neg signed 256-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256Neg(_:_:)
+func VS256Neg(a uintptr, result uintptr) {
+	if _vS256Neg == nil {
+		panic("Accelerate: symbol vS256Neg not loaded")
+	}
+	_vS256Neg(a, result)
+}
 
 
+var _vS256Sub func(a uintptr, b uintptr, result uintptr)
 
+// VS256Sub signed 256-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256Sub(_:_:_:)
+func VS256Sub(a uintptr, b uintptr, result uintptr) {
+	if _vS256Sub == nil {
+		panic("Accelerate: symbol vS256Sub not loaded")
+	}
+	_vS256Sub(a, b, result)
+}
 
 
+var _vS256SubS func(a uintptr, b uintptr, result uintptr)
 
+// VS256SubS signed 256-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS256SubS(_:_:_:)
+func VS256SubS(a uintptr, b uintptr, result uintptr) {
+	if _vS256SubS == nil {
+		panic("Accelerate: symbol vS256SubS not loaded")
+	}
+	_vS256SubS(a, b, result)
+}
 
 
 
 
 
 
+var _vS512Add func(a uintptr, b uintptr, result uintptr)
 
+// VS512Add signed 512-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512Add(_:_:_:)
+func VS512Add(a uintptr, b uintptr, result uintptr) {
+	if _vS512Add == nil {
+		panic("Accelerate: symbol vS512Add not loaded")
+	}
+	_vS512Add(a, b, result)
+}
 
 
+var _vS512AddS func(a uintptr, b uintptr, result uintptr)
 
+// VS512AddS signed 512-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512AddS(_:_:_:)
+func VS512AddS(a uintptr, b uintptr, result uintptr) {
+	if _vS512AddS == nil {
+		panic("Accelerate: symbol vS512AddS not loaded")
+	}
+	_vS512AddS(a, b, result)
+}
 
 
+var _vS512Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
+// VS512Divide signed 512-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512Divide(_:_:_:_:)
+func VS512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+	if _vS512Divide == nil {
+		panic("Accelerate: symbol vS512Divide not loaded")
+	}
+	_vS512Divide(numerator, divisor, result, remainder)
+}
 
 
+var _vS512FullMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VS512FullMultiply signed 512-bit multiplication; result is twice as wide as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512FullMultiply(_:_:_:)
+func VS512FullMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vS512FullMultiply == nil {
+		panic("Accelerate: symbol vS512FullMultiply not loaded")
+	}
+	_vS512FullMultiply(a, b, result)
+}
 
 
+var _vS512HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VS512HalfMultiply signed 512-bit multiplication; result is the same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512HalfMultiply(_:_:_:)
+func VS512HalfMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vS512HalfMultiply == nil {
+		panic("Accelerate: symbol vS512HalfMultiply not loaded")
+	}
+	_vS512HalfMultiply(a, b, result)
+}
 
 
+var _vS512Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
+// VS512Mod signed 512-bit mod.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512Mod(_:_:_:)
+func VS512Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+	if _vS512Mod == nil {
+		panic("Accelerate: symbol vS512Mod not loaded")
+	}
+	_vS512Mod(numerator, divisor, remainder)
+}
 
 
+var _vS512Neg func(a uintptr, result uintptr)
 
+// VS512Neg signed 512-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512Neg(_:_:)
+func VS512Neg(a uintptr, result uintptr) {
+	if _vS512Neg == nil {
+		panic("Accelerate: symbol vS512Neg not loaded")
+	}
+	_vS512Neg(a, result)
+}
 
 
+var _vS512Sub func(a uintptr, b uintptr, result uintptr)
 
+// VS512Sub signed 512-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512Sub(_:_:_:)
+func VS512Sub(a uintptr, b uintptr, result uintptr) {
+	if _vS512Sub == nil {
+		panic("Accelerate: symbol vS512Sub not loaded")
+	}
+	_vS512Sub(a, b, result)
+}
 
 
+var _vS512SubS func(a uintptr, b uintptr, result uintptr)
 
+// VS512SubS signed 512-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS512SubS(_:_:_:)
+func VS512SubS(a uintptr, b uintptr, result uintptr) {
+	if _vS512SubS == nil {
+		panic("Accelerate: symbol vS512SubS not loaded")
+	}
+	_vS512SubS(a, b, result)
+}
 
 
 
@@ -12745,38 +14354,434 @@ func VImageVerticalShear_XRGB2101010W(src unsafe.Pointer, dest unsafe.Pointer, s
 
 
 
+var _vU1024Add func(a uintptr, b uintptr, result uintptr)
 
+// VU1024Add unsigned 1024-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024Add(_:_:_:)
+func VU1024Add(a uintptr, b uintptr, result uintptr) {
+	if _vU1024Add == nil {
+		panic("Accelerate: symbol vU1024Add not loaded")
+	}
+	_vU1024Add(a, b, result)
+}
 
 
+var _vU1024AddS func(a uintptr, b uintptr, result uintptr)
 
+// VU1024AddS unsigned 1024-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024AddS(_:_:_:)
+func VU1024AddS(a uintptr, b uintptr, result uintptr) {
+	if _vU1024AddS == nil {
+		panic("Accelerate: symbol vU1024AddS not loaded")
+	}
+	_vU1024AddS(a, b, result)
+}
 
 
+var _vU1024Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
+// VU1024Divide unsigned 1024-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024Divide(_:_:_:_:)
+func VU1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+	if _vU1024Divide == nil {
+		panic("Accelerate: symbol vU1024Divide not loaded")
+	}
+	_vU1024Divide(numerator, divisor, result, remainder)
+}
 
 
+var _vU1024HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
+// VU1024HalfMultiply unsigned 1024-bit multiplication; result is the same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024HalfMultiply(_:_:_:)
+func VU1024HalfMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vU1024HalfMultiply == nil {
+		panic("Accelerate: symbol vU1024HalfMultiply not loaded")
+	}
+	_vU1024HalfMultiply(a, b, result)
+}
 
 
+var _vU1024Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
+// VU1024Mod unsigned 1024-bit mod.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024Mod(_:_:_:)
+func VU1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+	if _vU1024Mod == nil {
+		panic("Accelerate: symbol vU1024Mod not loaded")
+	}
+	_vU1024Mod(numerator, divisor, remainder)
+}
 
 
+var _vU1024Neg func(a uintptr, result uintptr)
 
+// VU1024Neg unsigned 1024-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024Neg(_:_:)
+func VU1024Neg(a uintptr, result uintptr) {
+	if _vU1024Neg == nil {
+		panic("Accelerate: symbol vU1024Neg not loaded")
+	}
+	_vU1024Neg(a, result)
+}
 
 
+var _vU1024Sub func(a uintptr, b uintptr, result uintptr)
 
+// VU1024Sub unsigned 1024-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024Sub(_:_:_:)
+func VU1024Sub(a uintptr, b uintptr, result uintptr) {
+	if _vU1024Sub == nil {
+		panic("Accelerate: symbol vU1024Sub not loaded")
+	}
+	_vU1024Sub(a, b, result)
+}
 
 
+var _vU1024SubS func(a uintptr, b uintptr, result uintptr)
 
+// VU1024SubS unsigned 1024-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU1024SubS(_:_:_:)
+func VU1024SubS(a uintptr, b uintptr, result uintptr) {
+	if _vU1024SubS == nil {
+		panic("Accelerate: symbol vU1024SubS not loaded")
+	}
+	_vU1024SubS(a, b, result)
+}
 
 
 
 
-var _vvacos func(arg0 *float64, arg1 *float64, arg2 *int) 
+
+var _vU128FullMultiply func(a uintptr, b uintptr, result uintptr)
+
+// VU128FullMultiply unsigned 128-bit multiplication; result is twice as wide as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128FullMultiply(_:_:_:)
+func VU128FullMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vU128FullMultiply == nil {
+		panic("Accelerate: symbol vU128FullMultiply not loaded")
+	}
+	_vU128FullMultiply(a, b, result)
+}
+
+
+
+
+
+
+
+
+var _vU256Add func(a uintptr, b uintptr, result uintptr)
+
+// VU256Add unsigned 256-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256Add(_:_:_:)
+func VU256Add(a uintptr, b uintptr, result uintptr) {
+	if _vU256Add == nil {
+		panic("Accelerate: symbol vU256Add not loaded")
+	}
+	_vU256Add(a, b, result)
+}
+
+
+var _vU256AddS func(a uintptr, b uintptr, result uintptr)
+
+// VU256AddS unsigned 256-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256AddS(_:_:_:)
+func VU256AddS(a uintptr, b uintptr, result uintptr) {
+	if _vU256AddS == nil {
+		panic("Accelerate: symbol vU256AddS not loaded")
+	}
+	_vU256AddS(a, b, result)
+}
+
+
+var _vU256Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+
+// VU256Divide unsigned 256-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256Divide(_:_:_:_:)
+func VU256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+	if _vU256Divide == nil {
+		panic("Accelerate: symbol vU256Divide not loaded")
+	}
+	_vU256Divide(numerator, divisor, result, remainder)
+}
+
+
+var _vU256FullMultiply func(a uintptr, b uintptr, result uintptr)
+
+// VU256FullMultiply unsigned 256-bit multiplication; result is twice as wide as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256FullMultiply(_:_:_:)
+func VU256FullMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vU256FullMultiply == nil {
+		panic("Accelerate: symbol vU256FullMultiply not loaded")
+	}
+	_vU256FullMultiply(a, b, result)
+}
+
+
+var _vU256HalfMultiply func(a uintptr, b uintptr, result uintptr)
+
+// VU256HalfMultiply unsigned 256-bit multiplication; result is the same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256HalfMultiply(_:_:_:)
+func VU256HalfMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vU256HalfMultiply == nil {
+		panic("Accelerate: symbol vU256HalfMultiply not loaded")
+	}
+	_vU256HalfMultiply(a, b, result)
+}
+
+
+var _vU256Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+
+// VU256Mod unsigned 256-bit mod.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256Mod(_:_:_:)
+func VU256Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+	if _vU256Mod == nil {
+		panic("Accelerate: symbol vU256Mod not loaded")
+	}
+	_vU256Mod(numerator, divisor, remainder)
+}
+
+
+var _vU256Neg func(a uintptr, result uintptr)
+
+// VU256Neg unsigned 256-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256Neg(_:_:)
+func VU256Neg(a uintptr, result uintptr) {
+	if _vU256Neg == nil {
+		panic("Accelerate: symbol vU256Neg not loaded")
+	}
+	_vU256Neg(a, result)
+}
+
+
+var _vU256Sub func(a uintptr, b uintptr, result uintptr)
+
+// VU256Sub unsigned 256-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256Sub(_:_:_:)
+func VU256Sub(a uintptr, b uintptr, result uintptr) {
+	if _vU256Sub == nil {
+		panic("Accelerate: symbol vU256Sub not loaded")
+	}
+	_vU256Sub(a, b, result)
+}
+
+
+var _vU256SubS func(a uintptr, b uintptr, result uintptr)
+
+// VU256SubS unsigned 256-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU256SubS(_:_:_:)
+func VU256SubS(a uintptr, b uintptr, result uintptr) {
+	if _vU256SubS == nil {
+		panic("Accelerate: symbol vU256SubS not loaded")
+	}
+	_vU256SubS(a, b, result)
+}
+
+
+
+
+
+
+var _vU512Add func(a uintptr, b uintptr, result uintptr)
+
+// VU512Add unsigned 512-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512Add(_:_:_:)
+func VU512Add(a uintptr, b uintptr, result uintptr) {
+	if _vU512Add == nil {
+		panic("Accelerate: symbol vU512Add not loaded")
+	}
+	_vU512Add(a, b, result)
+}
+
+
+var _vU512AddS func(a uintptr, b uintptr, result uintptr)
+
+// VU512AddS unsigned 512-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512AddS(_:_:_:)
+func VU512AddS(a uintptr, b uintptr, result uintptr) {
+	if _vU512AddS == nil {
+		panic("Accelerate: symbol vU512AddS not loaded")
+	}
+	_vU512AddS(a, b, result)
+}
+
+
+var _vU512Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
+
+// VU512Divide computes the unsigned 512-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512Divide(_:_:_:_:)
+func VU512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr) {
+	if _vU512Divide == nil {
+		panic("Accelerate: symbol vU512Divide not loaded")
+	}
+	_vU512Divide(numerator, divisor, result, remainder)
+}
+
+
+var _vU512FullMultiply func(a uintptr, b uintptr, result uintptr)
+
+// VU512FullMultiply unsigned 512-bit multiplication; result is twice as wide as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512FullMultiply(_:_:_:)
+func VU512FullMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vU512FullMultiply == nil {
+		panic("Accelerate: symbol vU512FullMultiply not loaded")
+	}
+	_vU512FullMultiply(a, b, result)
+}
+
+
+var _vU512HalfMultiply func(a uintptr, b uintptr, result uintptr)
+
+// VU512HalfMultiply unsigned 512-bit multiplication; result is the same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512HalfMultiply(_:_:_:)
+func VU512HalfMultiply(a uintptr, b uintptr, result uintptr) {
+	if _vU512HalfMultiply == nil {
+		panic("Accelerate: symbol vU512HalfMultiply not loaded")
+	}
+	_vU512HalfMultiply(a, b, result)
+}
+
+
+var _vU512Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
+
+// VU512Mod unsigned 512-bit mod.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512Mod(_:_:_:)
+func VU512Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
+	if _vU512Mod == nil {
+		panic("Accelerate: symbol vU512Mod not loaded")
+	}
+	_vU512Mod(numerator, divisor, remainder)
+}
+
+
+var _vU512Neg func(a uintptr, result uintptr)
+
+// VU512Neg unsigned 512-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512Neg(_:_:)
+func VU512Neg(a uintptr, result uintptr) {
+	if _vU512Neg == nil {
+		panic("Accelerate: symbol vU512Neg not loaded")
+	}
+	_vU512Neg(a, result)
+}
+
+
+var _vU512Sub func(a uintptr, b uintptr, result uintptr)
+
+// VU512Sub unsigned 512-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512Sub(_:_:_:)
+func VU512Sub(a uintptr, b uintptr, result uintptr) {
+	if _vU512Sub == nil {
+		panic("Accelerate: symbol vU512Sub not loaded")
+	}
+	_vU512Sub(a, b, result)
+}
+
+
+var _vU512SubS func(a uintptr, b uintptr, result uintptr)
+
+// VU512SubS unsigned 512-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU512SubS(_:_:_:)
+func VU512SubS(a uintptr, b uintptr, result uintptr) {
+	if _vU512SubS == nil {
+		panic("Accelerate: symbol vU512SubS not loaded")
+	}
+	_vU512SubS(a, b, result)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vvacos func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvacos calculates the arccosine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvacos(_:_:_:)
-func Vvacos(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvacos(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvacos == nil {
 		panic("Accelerate: symbol vvacos not loaded")
 	}
@@ -12784,12 +14789,12 @@ func Vvacos(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvacosf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvacosf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvacosf calculates the arccosine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvacosf(_:_:_:)
-func Vvacosf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvacosf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvacosf == nil {
 		panic("Accelerate: symbol vvacosf not loaded")
 	}
@@ -12797,12 +14802,12 @@ func Vvacosf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvacosh func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvacosh func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvacosh calculates the inverse hyperbolic cosine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvacosh(_:_:_:)
-func Vvacosh(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvacosh(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvacosh == nil {
 		panic("Accelerate: symbol vvacosh not loaded")
 	}
@@ -12810,12 +14815,12 @@ func Vvacosh(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvacoshf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvacoshf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvacoshf calculates the inverse hyperbolic cosine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvacoshf(_:_:_:)
-func Vvacoshf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvacoshf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvacoshf == nil {
 		panic("Accelerate: symbol vvacoshf not loaded")
 	}
@@ -12823,12 +14828,12 @@ func Vvacoshf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvasin func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvasin func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvasin calculates the arcsine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvasin(_:_:_:)
-func Vvasin(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvasin(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvasin == nil {
 		panic("Accelerate: symbol vvasin not loaded")
 	}
@@ -12836,12 +14841,12 @@ func Vvasin(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvasinf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvasinf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvasinf calculates the arcsine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvasinf(_:_:_:)
-func Vvasinf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvasinf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvasinf == nil {
 		panic("Accelerate: symbol vvasinf not loaded")
 	}
@@ -12849,12 +14854,12 @@ func Vvasinf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvasinh func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvasinh func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvasinh calculates the inverse hyperbolic sine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvasinh(_:_:_:)
-func Vvasinh(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvasinh(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvasinh == nil {
 		panic("Accelerate: symbol vvasinh not loaded")
 	}
@@ -12862,12 +14867,12 @@ func Vvasinh(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvasinhf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvasinhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvasinhf calculates the inverse hyperbolic sine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvasinhf(_:_:_:)
-func Vvasinhf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvasinhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvasinhf == nil {
 		panic("Accelerate: symbol vvasinhf not loaded")
 	}
@@ -12875,12 +14880,12 @@ func Vvasinhf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvatan func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvatan func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvatan calculates the arctangent of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvatan(_:_:_:)
-func Vvatan(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvatan(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvatan == nil {
 		panic("Accelerate: symbol vvatan not loaded")
 	}
@@ -12888,12 +14893,12 @@ func Vvatan(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvatan2 func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvatan2 func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvatan2 calculates the arctangent of each pair of elements in two arrays of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvatan2(_:_:_:_:)
-func Vvatan2(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvatan2(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvatan2 == nil {
 		panic("Accelerate: symbol vvatan2 not loaded")
 	}
@@ -12901,12 +14906,12 @@ func Vvatan2(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvatan2f func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvatan2f func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvatan2f calculates the arctangent of each pair of elements in two arrays of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvatan2f(_:_:_:_:)
-func Vvatan2f(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvatan2f(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvatan2f == nil {
 		panic("Accelerate: symbol vvatan2f not loaded")
 	}
@@ -12914,12 +14919,12 @@ func Vvatan2f(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvatanf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvatanf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvatanf calculates the arctangent of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvatanf(_:_:_:)
-func Vvatanf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvatanf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvatanf == nil {
 		panic("Accelerate: symbol vvatanf not loaded")
 	}
@@ -12927,12 +14932,12 @@ func Vvatanf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvatanh func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvatanh func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvatanh calculates the inverse hyperbolic tangent of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvatanh(_:_:_:)
-func Vvatanh(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvatanh(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvatanh == nil {
 		panic("Accelerate: symbol vvatanh not loaded")
 	}
@@ -12940,12 +14945,12 @@ func Vvatanh(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvatanhf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvatanhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvatanhf calculates the inverse hyperbolic tangent of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvatanhf(_:_:_:)
-func Vvatanhf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvatanhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvatanhf == nil {
 		panic("Accelerate: symbol vvatanhf not loaded")
 	}
@@ -12953,12 +14958,12 @@ func Vvatanhf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvcbrt func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvcbrt func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvcbrt calculates the cube root for each element of a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcbrt(_:_:_:)
-func Vvcbrt(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvcbrt(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvcbrt == nil {
 		panic("Accelerate: symbol vvcbrt not loaded")
 	}
@@ -12966,12 +14971,12 @@ func Vvcbrt(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvcbrtf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvcbrtf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcbrtf calculates the cube root for each element of a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcbrtf(_:_:_:)
-func Vvcbrtf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvcbrtf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvcbrtf == nil {
 		panic("Accelerate: symbol vvcbrtf not loaded")
 	}
@@ -12979,12 +14984,12 @@ func Vvcbrtf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvceil func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvceil func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvceil calculates the ceiling of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvceil(_:_:_:)
-func Vvceil(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvceil(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvceil == nil {
 		panic("Accelerate: symbol vvceil not loaded")
 	}
@@ -12992,12 +14997,12 @@ func Vvceil(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvceilf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvceilf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvceilf calculates the ceiling of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvceilf(_:_:_:)
-func Vvceilf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvceilf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvceilf == nil {
 		panic("Accelerate: symbol vvceilf not loaded")
 	}
@@ -13005,12 +15010,12 @@ func Vvceilf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvcopysign func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvcopysign func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvcopysign copies an array, setting the sign of each element based on a second array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcopysign(_:_:_:_:)
-func Vvcopysign(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvcopysign(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvcopysign == nil {
 		panic("Accelerate: symbol vvcopysign not loaded")
 	}
@@ -13018,12 +15023,12 @@ func Vvcopysign(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvcopysignf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvcopysignf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvcopysignf copies an array, setting the sign of each element based on a second array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcopysignf(_:_:_:_:)
-func Vvcopysignf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvcopysignf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvcopysignf == nil {
 		panic("Accelerate: symbol vvcopysignf not loaded")
 	}
@@ -13031,12 +15036,12 @@ func Vvcopysignf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvcos func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvcos func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvcos calculates the cosine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcos(_:_:_:)
-func Vvcos(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvcos(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvcos == nil {
 		panic("Accelerate: symbol vvcos not loaded")
 	}
@@ -13044,12 +15049,12 @@ func Vvcos(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvcosf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvcosf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcosf calculates the cosine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcosf(_:_:_:)
-func Vvcosf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvcosf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvcosf == nil {
 		panic("Accelerate: symbol vvcosf not loaded")
 	}
@@ -13057,12 +15062,12 @@ func Vvcosf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvcosh func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvcosh func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvcosh calculates the hyperbolic cosine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcosh(_:_:_:)
-func Vvcosh(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvcosh(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvcosh == nil {
 		panic("Accelerate: symbol vvcosh not loaded")
 	}
@@ -13070,12 +15075,12 @@ func Vvcosh(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvcoshf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvcoshf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcoshf calculates the hyperbolic cosine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcoshf(_:_:_:)
-func Vvcoshf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvcoshf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvcoshf == nil {
 		panic("Accelerate: symbol vvcoshf not loaded")
 	}
@@ -13083,14 +15088,38 @@ func Vvcoshf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
+var _vvcosisin func(arg0 uintptr, arg1 *float64, arg2 *int)
+
+// Vvcosisin calculates the cosine and sine of each element in an array of double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vvcosisin(_:_:_:)
+func Vvcosisin(arg0 uintptr, arg1 []float64, arg2 []int) {
+	if _vvcosisin == nil {
+		panic("Accelerate: symbol vvcosisin not loaded")
+	}
+	_vvcosisin(arg0, unsafe.SliceData(arg1), unsafe.SliceData(arg2))
+}
 
 
-var _vvcospi func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvcosisinf func(arg0 uintptr, arg1 *float32, arg2 *int)
+
+// Vvcosisinf calculates the cosine and sine of each element in an array of single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vvcosisinf(_:_:_:)
+func Vvcosisinf(arg0 uintptr, arg1 []float32, arg2 []int) {
+	if _vvcosisinf == nil {
+		panic("Accelerate: symbol vvcosisinf not loaded")
+	}
+	_vvcosisinf(arg0, unsafe.SliceData(arg1), unsafe.SliceData(arg2))
+}
+
+
+var _vvcospi func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvcospi calculates the cosine of pi multiplied by each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcospi(_:_:_:)
-func Vvcospi(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvcospi(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvcospi == nil {
 		panic("Accelerate: symbol vvcospi not loaded")
 	}
@@ -13098,12 +15127,12 @@ func Vvcospi(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvcospif func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvcospif func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcospif calculates the cosine of pi multiplied by each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvcospif(_:_:_:)
-func Vvcospif(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvcospif(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvcospif == nil {
 		panic("Accelerate: symbol vvcospif not loaded")
 	}
@@ -13111,12 +15140,12 @@ func Vvcospif(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvdiv func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvdiv func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvdiv divides each element in an array by the corresponding value in a second array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvdiv(_:_:_:_:)
-func Vvdiv(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvdiv(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvdiv == nil {
 		panic("Accelerate: symbol vvdiv not loaded")
 	}
@@ -13124,12 +15153,12 @@ func Vvdiv(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvdivf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvdivf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvdivf divides each element in an array by the corresponding value in a second array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvdivf(_:_:_:_:)
-func Vvdivf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvdivf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvdivf == nil {
 		panic("Accelerate: symbol vvdivf not loaded")
 	}
@@ -13137,12 +15166,12 @@ func Vvdivf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvexp func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvexp func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvexp calculates raised to the power of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvexp(_:_:_:)
-func Vvexp(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvexp(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvexp == nil {
 		panic("Accelerate: symbol vvexp not loaded")
 	}
@@ -13150,12 +15179,12 @@ func Vvexp(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvexp2 func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvexp2 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvexp2 calculates 2 raised to the power of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvexp2(_:_:_:)
-func Vvexp2(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvexp2(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvexp2 == nil {
 		panic("Accelerate: symbol vvexp2 not loaded")
 	}
@@ -13163,12 +15192,12 @@ func Vvexp2(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvexp2f func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvexp2f func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvexp2f calculates 2 raised to the power of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvexp2f(_:_:_:)
-func Vvexp2f(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvexp2f(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvexp2f == nil {
 		panic("Accelerate: symbol vvexp2f not loaded")
 	}
@@ -13176,12 +15205,12 @@ func Vvexp2f(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvexpf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvexpf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvexpf calculates raised to the power of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvexpf(_:_:_:)
-func Vvexpf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvexpf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvexpf == nil {
 		panic("Accelerate: symbol vvexpf not loaded")
 	}
@@ -13189,12 +15218,12 @@ func Vvexpf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvexpm1 func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvexpm1 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvexpm1 calculates for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvexpm1(_:_:_:)
-func Vvexpm1(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvexpm1(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvexpm1 == nil {
 		panic("Accelerate: symbol vvexpm1 not loaded")
 	}
@@ -13202,12 +15231,12 @@ func Vvexpm1(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvexpm1f func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvexpm1f func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvexpm1f calculates for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvexpm1f(_:_:_:)
-func Vvexpm1f(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvexpm1f(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvexpm1f == nil {
 		panic("Accelerate: symbol vvexpm1f not loaded")
 	}
@@ -13215,12 +15244,12 @@ func Vvexpm1f(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvfabs func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvfabs func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvfabs calculates the absolute value for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvfabs(_:_:_:)
-func Vvfabs(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvfabs(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvfabs == nil {
 		panic("Accelerate: symbol vvfabs not loaded")
 	}
@@ -13228,12 +15257,12 @@ func Vvfabs(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvfabsf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvfabsf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvfabsf calculates the absolute value for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvfabsf(_:_:_:)
-func Vvfabsf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvfabsf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvfabsf == nil {
 		panic("Accelerate: symbol vvfabsf not loaded")
 	}
@@ -13241,12 +15270,12 @@ func Vvfabsf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvfloor func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvfloor func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvfloor calculates the floor of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvfloor(_:_:_:)
-func Vvfloor(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvfloor(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvfloor == nil {
 		panic("Accelerate: symbol vvfloor not loaded")
 	}
@@ -13254,12 +15283,12 @@ func Vvfloor(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvfloorf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvfloorf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvfloorf calculates the floor of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvfloorf(_:_:_:)
-func Vvfloorf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvfloorf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvfloorf == nil {
 		panic("Accelerate: symbol vvfloorf not loaded")
 	}
@@ -13267,12 +15296,12 @@ func Vvfloorf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvfmod func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvfmod func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvfmod calculates the modulus after dividing each element in an array by the corresponding element in a second array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvfmod(_:_:_:_:)
-func Vvfmod(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvfmod(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvfmod == nil {
 		panic("Accelerate: symbol vvfmod not loaded")
 	}
@@ -13280,12 +15309,12 @@ func Vvfmod(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvfmodf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvfmodf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvfmodf calculates the modulus after dividing each element in an array by the corresponding element in a second array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvfmodf(_:_:_:_:)
-func Vvfmodf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvfmodf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvfmodf == nil {
 		panic("Accelerate: symbol vvfmodf not loaded")
 	}
@@ -13293,12 +15322,12 @@ func Vvfmodf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvint func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvint func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvint calculates the integer truncation for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvint(_:_:_:)
-func Vvint(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvint(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvint == nil {
 		panic("Accelerate: symbol vvint not loaded")
 	}
@@ -13306,12 +15335,12 @@ func Vvint(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvintf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvintf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvintf calculates the integer truncation for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvintf(_:_:_:)
-func Vvintf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvintf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvintf == nil {
 		panic("Accelerate: symbol vvintf not loaded")
 	}
@@ -13319,12 +15348,12 @@ func Vvintf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvlog func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvlog func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog calculates the natural logarithm for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog(_:_:_:)
-func Vvlog(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvlog(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvlog == nil {
 		panic("Accelerate: symbol vvlog not loaded")
 	}
@@ -13332,12 +15361,12 @@ func Vvlog(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvlog10 func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvlog10 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog10 calculates the base 10 logarithm of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog10(_:_:_:)
-func Vvlog10(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvlog10(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvlog10 == nil {
 		panic("Accelerate: symbol vvlog10 not loaded")
 	}
@@ -13345,12 +15374,12 @@ func Vvlog10(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvlog10f func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvlog10f func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvlog10f calculates the base 10 logarithm of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog10f(_:_:_:)
-func Vvlog10f(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvlog10f(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvlog10f == nil {
 		panic("Accelerate: symbol vvlog10f not loaded")
 	}
@@ -13358,12 +15387,12 @@ func Vvlog10f(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvlog1p func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvlog1p func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog1p calculates for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog1p(_:_:_:)
-func Vvlog1p(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvlog1p(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvlog1p == nil {
 		panic("Accelerate: symbol vvlog1p not loaded")
 	}
@@ -13371,12 +15400,12 @@ func Vvlog1p(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvlog1pf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvlog1pf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvlog1pf calculates for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog1pf(_:_:_:)
-func Vvlog1pf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvlog1pf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvlog1pf == nil {
 		panic("Accelerate: symbol vvlog1pf not loaded")
 	}
@@ -13384,12 +15413,12 @@ func Vvlog1pf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvlog2 func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvlog2 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog2 calculates the base 2 logarithm of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog2(_:_:_:)
-func Vvlog2(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvlog2(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvlog2 == nil {
 		panic("Accelerate: symbol vvlog2 not loaded")
 	}
@@ -13397,12 +15426,12 @@ func Vvlog2(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvlog2f func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvlog2f func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvlog2f calculates the base 2 logarithm of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlog2f(_:_:_:)
-func Vvlog2f(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvlog2f(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvlog2f == nil {
 		panic("Accelerate: symbol vvlog2f not loaded")
 	}
@@ -13410,12 +15439,12 @@ func Vvlog2f(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvlogb func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvlogb func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlogb calculates the unbiased exponent of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlogb(_:_:_:)
-func Vvlogb(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvlogb(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvlogb == nil {
 		panic("Accelerate: symbol vvlogb not loaded")
 	}
@@ -13423,12 +15452,12 @@ func Vvlogb(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvlogbf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvlogbf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvlogbf calculates the unbiased exponent of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlogbf(_:_:_:)
-func Vvlogbf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvlogbf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvlogbf == nil {
 		panic("Accelerate: symbol vvlogbf not loaded")
 	}
@@ -13436,12 +15465,12 @@ func Vvlogbf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvlogf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvlogf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvlogf calculates the natural logarithm for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvlogf(_:_:_:)
-func Vvlogf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvlogf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvlogf == nil {
 		panic("Accelerate: symbol vvlogf not loaded")
 	}
@@ -13449,12 +15478,12 @@ func Vvlogf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvnextafter func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvnextafter func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvnextafter calculates the next machine-representable value for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvnextafter(_:_:_:_:)
-func Vvnextafter(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvnextafter(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvnextafter == nil {
 		panic("Accelerate: symbol vvnextafter not loaded")
 	}
@@ -13462,12 +15491,12 @@ func Vvnextafter(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvnextafterf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvnextafterf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvnextafterf calculates the next machine-representable value for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvnextafterf(_:_:_:_:)
-func Vvnextafterf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvnextafterf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvnextafterf == nil {
 		panic("Accelerate: symbol vvnextafterf not loaded")
 	}
@@ -13475,12 +15504,12 @@ func Vvnextafterf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvnint func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvnint func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvnint calculates the nearest integer for each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvnint(_:_:_:)
-func Vvnint(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvnint(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvnint == nil {
 		panic("Accelerate: symbol vvnint not loaded")
 	}
@@ -13488,12 +15517,12 @@ func Vvnint(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvnintf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvnintf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvnintf calculates the nearest integer for each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvnintf(_:_:_:)
-func Vvnintf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvnintf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvnintf == nil {
 		panic("Accelerate: symbol vvnintf not loaded")
 	}
@@ -13501,12 +15530,12 @@ func Vvnintf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvpow func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvpow func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvpow raises each element in an array to the power of the corresponding element in a second array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvpow(_:_:_:_:)
-func Vvpow(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvpow(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvpow == nil {
 		panic("Accelerate: symbol vvpow not loaded")
 	}
@@ -13514,12 +15543,12 @@ func Vvpow(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvpowf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvpowf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvpowf raises each element in an array to the power of the corresponding element in a second array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvpowf(_:_:_:_:)
-func Vvpowf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvpowf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvpowf == nil {
 		panic("Accelerate: symbol vvpowf not loaded")
 	}
@@ -13527,12 +15556,12 @@ func Vvpowf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvpows func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvpows func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvpows calculates the cube root for each element of a vector.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvpows(_:_:_:_:)
-func Vvpows(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvpows(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvpows == nil {
 		panic("Accelerate: symbol vvpows not loaded")
 	}
@@ -13540,12 +15569,12 @@ func Vvpows(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvpowsf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvpowsf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvpowsf calculates, elementwise, x**y for a vector x and a scalar y.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvpowsf(_:_:_:_:)
-func Vvpowsf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvpowsf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvpowsf == nil {
 		panic("Accelerate: symbol vvpowsf not loaded")
 	}
@@ -13553,12 +15582,12 @@ func Vvpowsf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvrec func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvrec func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvrec calculates the reciprocal of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvrec(_:_:_:)
-func Vvrec(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvrec(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvrec == nil {
 		panic("Accelerate: symbol vvrec not loaded")
 	}
@@ -13566,12 +15595,12 @@ func Vvrec(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvrecf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvrecf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvrecf calculates the reciprocal of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvrecf(_:_:_:)
-func Vvrecf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvrecf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvrecf == nil {
 		panic("Accelerate: symbol vvrecf not loaded")
 	}
@@ -13579,12 +15608,12 @@ func Vvrecf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvremainder func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvremainder func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvremainder calculates the remainder after dividing each element in an array by the corresponding element in a second array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvremainder(_:_:_:_:)
-func Vvremainder(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvremainder(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvremainder == nil {
 		panic("Accelerate: symbol vvremainder not loaded")
 	}
@@ -13592,12 +15621,12 @@ func Vvremainder(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvremainderf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvremainderf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvremainderf calculates the remainder after dividing each element in an array by the corresponding element in a second array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvremainderf(_:_:_:_:)
-func Vvremainderf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvremainderf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvremainderf == nil {
 		panic("Accelerate: symbol vvremainderf not loaded")
 	}
@@ -13605,12 +15634,12 @@ func Vvremainderf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvrsqrt func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvrsqrt func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvrsqrt calculates the reciprocal square root of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvrsqrt(_:_:_:)
-func Vvrsqrt(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvrsqrt(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvrsqrt == nil {
 		panic("Accelerate: symbol vvrsqrt not loaded")
 	}
@@ -13618,12 +15647,12 @@ func Vvrsqrt(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvrsqrtf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvrsqrtf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvrsqrtf calculates the reciprocal square root of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvrsqrtf(_:_:_:)
-func Vvrsqrtf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvrsqrtf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvrsqrtf == nil {
 		panic("Accelerate: symbol vvrsqrtf not loaded")
 	}
@@ -13631,12 +15660,12 @@ func Vvrsqrtf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvsin func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvsin func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvsin calculates the sine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsin(_:_:_:)
-func Vvsin(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvsin(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvsin == nil {
 		panic("Accelerate: symbol vvsin not loaded")
 	}
@@ -13644,12 +15673,12 @@ func Vvsin(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvsincos func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int) 
+var _vvsincos func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvsincos calculates the cosine and sine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsincos(_:_:_:_:)
-func Vvsincos(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
+func Vvsincos(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	if _vvsincos == nil {
 		panic("Accelerate: symbol vvsincos not loaded")
 	}
@@ -13657,12 +15686,12 @@ func Vvsincos(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int)  {
 }
 
 
-var _vvsincosf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int) 
+var _vvsincosf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvsincosf calculates the cosine and sine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsincosf(_:_:_:_:)
-func Vvsincosf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
+func Vvsincosf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	if _vvsincosf == nil {
 		panic("Accelerate: symbol vvsincosf not loaded")
 	}
@@ -13670,12 +15699,12 @@ func Vvsincosf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int)  {
 }
 
 
-var _vvsinf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvsinf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsinf calculates the sine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsinf(_:_:_:)
-func Vvsinf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvsinf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvsinf == nil {
 		panic("Accelerate: symbol vvsinf not loaded")
 	}
@@ -13683,12 +15712,12 @@ func Vvsinf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvsinh func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvsinh func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvsinh calculates the hyperbolic sine of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsinh(_:_:_:)
-func Vvsinh(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvsinh(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvsinh == nil {
 		panic("Accelerate: symbol vvsinh not loaded")
 	}
@@ -13696,12 +15725,12 @@ func Vvsinh(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvsinhf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvsinhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsinhf calculates the hyperbolic sine of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsinhf(_:_:_:)
-func Vvsinhf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvsinhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvsinhf == nil {
 		panic("Accelerate: symbol vvsinhf not loaded")
 	}
@@ -13709,12 +15738,12 @@ func Vvsinhf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvsinpi func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvsinpi func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvsinpi calculates the sine of pi multiplied by each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsinpi(_:_:_:)
-func Vvsinpi(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvsinpi(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvsinpi == nil {
 		panic("Accelerate: symbol vvsinpi not loaded")
 	}
@@ -13722,12 +15751,12 @@ func Vvsinpi(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvsinpif func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvsinpif func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsinpif calculates the sine of pi multiplied by each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsinpif(_:_:_:)
-func Vvsinpif(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvsinpif(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvsinpif == nil {
 		panic("Accelerate: symbol vvsinpif not loaded")
 	}
@@ -13735,12 +15764,12 @@ func Vvsinpif(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvsqrt func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvsqrt func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvsqrt calculates the square root of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsqrt(_:_:_:)
-func Vvsqrt(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvsqrt(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvsqrt == nil {
 		panic("Accelerate: symbol vvsqrt not loaded")
 	}
@@ -13748,12 +15777,12 @@ func Vvsqrt(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvsqrtf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvsqrtf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsqrtf calculates the square root of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvsqrtf(_:_:_:)
-func Vvsqrtf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvsqrtf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvsqrtf == nil {
 		panic("Accelerate: symbol vvsqrtf not loaded")
 	}
@@ -13761,12 +15790,12 @@ func Vvsqrtf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvtan func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvtan func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvtan calculates the tangent of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvtan(_:_:_:)
-func Vvtan(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvtan(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvtan == nil {
 		panic("Accelerate: symbol vvtan not loaded")
 	}
@@ -13774,12 +15803,12 @@ func Vvtan(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvtanf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvtanf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvtanf calculates the tangent of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvtanf(_:_:_:)
-func Vvtanf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvtanf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvtanf == nil {
 		panic("Accelerate: symbol vvtanf not loaded")
 	}
@@ -13787,12 +15816,12 @@ func Vvtanf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvtanh func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvtanh func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvtanh calculates the hyperbolic tangent of each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvtanh(_:_:_:)
-func Vvtanh(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvtanh(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvtanh == nil {
 		panic("Accelerate: symbol vvtanh not loaded")
 	}
@@ -13800,12 +15829,12 @@ func Vvtanh(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvtanhf func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvtanhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvtanhf calculates the hyperbolic tangent of each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvtanhf(_:_:_:)
-func Vvtanhf(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvtanhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvtanhf == nil {
 		panic("Accelerate: symbol vvtanhf not loaded")
 	}
@@ -13813,12 +15842,12 @@ func Vvtanhf(arg0 []float32, arg1 []float32, arg2 []int)  {
 }
 
 
-var _vvtanpi func(arg0 *float64, arg1 *float64, arg2 *int) 
+var _vvtanpi func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvtanpi calculates the tangent of pi multiplied by each element in an array of double-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvtanpi(_:_:_:)
-func Vvtanpi(arg0 []float64, arg1 []float64, arg2 []int)  {
+func Vvtanpi(arg0 []float64, arg1 []float64, arg2 []int) {
 	if _vvtanpi == nil {
 		panic("Accelerate: symbol vvtanpi not loaded")
 	}
@@ -13826,12 +15855,12 @@ func Vvtanpi(arg0 []float64, arg1 []float64, arg2 []int)  {
 }
 
 
-var _vvtanpif func(arg0 *float32, arg1 *float32, arg2 *int) 
+var _vvtanpif func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvtanpif calculates the tangent of pi multiplied by each element in an array of single-precision values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vvtanpif(_:_:_:)
-func Vvtanpif(arg0 []float32, arg1 []float32, arg2 []int)  {
+func Vvtanpif(arg0 []float32, arg1 []float32, arg2 []int) {
 	if _vvtanpif == nil {
 		panic("Accelerate: symbol vvtanpif not loaded")
 	}
@@ -14521,10 +16550,49 @@ func init() {
 		registerFunc(&_sparseGetInertia, frameworkHandle, "SparseGetInertia")
 		registerFunc(&_appleblas_dgeadd, frameworkHandle, "appleblas_dgeadd")
 		registerFunc(&_appleblas_sgeadd, frameworkHandle, "appleblas_sgeadd")
+		registerFunc(&_catlas_caxpby, frameworkHandle, "catlas_caxpby")
+		registerFunc(&_catlas_cset, frameworkHandle, "catlas_cset")
 		registerFunc(&_catlas_daxpby, frameworkHandle, "catlas_daxpby")
 		registerFunc(&_catlas_dset, frameworkHandle, "catlas_dset")
 		registerFunc(&_catlas_saxpby, frameworkHandle, "catlas_saxpby")
 		registerFunc(&_catlas_sset, frameworkHandle, "catlas_sset")
+		registerFunc(&_catlas_zaxpby, frameworkHandle, "catlas_zaxpby")
+		registerFunc(&_catlas_zset, frameworkHandle, "catlas_zset")
+		registerFunc(&_cblas_caxpy, frameworkHandle, "cblas_caxpy")
+		registerFunc(&_cblas_ccopy, frameworkHandle, "cblas_ccopy")
+		registerFunc(&_cblas_cdotc_sub, frameworkHandle, "cblas_cdotc_sub")
+		registerFunc(&_cblas_cdotu_sub, frameworkHandle, "cblas_cdotu_sub")
+		registerFunc(&_cblas_cgbmv, frameworkHandle, "cblas_cgbmv")
+		registerFunc(&_cblas_cgemm, frameworkHandle, "cblas_cgemm")
+		registerFunc(&_cblas_cgemv, frameworkHandle, "cblas_cgemv")
+		registerFunc(&_cblas_cgerc, frameworkHandle, "cblas_cgerc")
+		registerFunc(&_cblas_cgeru, frameworkHandle, "cblas_cgeru")
+		registerFunc(&_cblas_chbmv, frameworkHandle, "cblas_chbmv")
+		registerFunc(&_cblas_chemm, frameworkHandle, "cblas_chemm")
+		registerFunc(&_cblas_chemv, frameworkHandle, "cblas_chemv")
+		registerFunc(&_cblas_cher, frameworkHandle, "cblas_cher")
+		registerFunc(&_cblas_cher2, frameworkHandle, "cblas_cher2")
+		registerFunc(&_cblas_cher2k, frameworkHandle, "cblas_cher2k")
+		registerFunc(&_cblas_cherk, frameworkHandle, "cblas_cherk")
+		registerFunc(&_cblas_chpmv, frameworkHandle, "cblas_chpmv")
+		registerFunc(&_cblas_chpr, frameworkHandle, "cblas_chpr")
+		registerFunc(&_cblas_chpr2, frameworkHandle, "cblas_chpr2")
+		registerFunc(&_cblas_crotg, frameworkHandle, "cblas_crotg")
+		registerFunc(&_cblas_cscal, frameworkHandle, "cblas_cscal")
+		registerFunc(&_cblas_csrot, frameworkHandle, "cblas_csrot")
+		registerFunc(&_cblas_csscal, frameworkHandle, "cblas_csscal")
+		registerFunc(&_cblas_cswap, frameworkHandle, "cblas_cswap")
+		registerFunc(&_cblas_csymm, frameworkHandle, "cblas_csymm")
+		registerFunc(&_cblas_csyr2k, frameworkHandle, "cblas_csyr2k")
+		registerFunc(&_cblas_csyrk, frameworkHandle, "cblas_csyrk")
+		registerFunc(&_cblas_ctbmv, frameworkHandle, "cblas_ctbmv")
+		registerFunc(&_cblas_ctbsv, frameworkHandle, "cblas_ctbsv")
+		registerFunc(&_cblas_ctpmv, frameworkHandle, "cblas_ctpmv")
+		registerFunc(&_cblas_ctpsv, frameworkHandle, "cblas_ctpsv")
+		registerFunc(&_cblas_ctrmm, frameworkHandle, "cblas_ctrmm")
+		registerFunc(&_cblas_ctrmv, frameworkHandle, "cblas_ctrmv")
+		registerFunc(&_cblas_ctrsm, frameworkHandle, "cblas_ctrsm")
+		registerFunc(&_cblas_ctrsv, frameworkHandle, "cblas_ctrsv")
 		registerFunc(&_cblas_dasum, frameworkHandle, "cblas_dasum")
 		registerFunc(&_cblas_daxpy, frameworkHandle, "cblas_daxpy")
 		registerFunc(&_cblas_dcopy, frameworkHandle, "cblas_dcopy")
@@ -14559,11 +16627,17 @@ func init() {
 		registerFunc(&_cblas_dtrmv, frameworkHandle, "cblas_dtrmv")
 		registerFunc(&_cblas_dtrsm, frameworkHandle, "cblas_dtrsm")
 		registerFunc(&_cblas_dtrsv, frameworkHandle, "cblas_dtrsv")
+		registerFunc(&_cblas_dzasum, frameworkHandle, "cblas_dzasum")
+		registerFunc(&_cblas_dznrm2, frameworkHandle, "cblas_dznrm2")
 		registerFunc(&_cblas_errprn, frameworkHandle, "cblas_errprn")
+		registerFunc(&_cblas_icamax, frameworkHandle, "cblas_icamax")
 		registerFunc(&_cblas_idamax, frameworkHandle, "cblas_idamax")
 		registerFunc(&_cblas_isamax, frameworkHandle, "cblas_isamax")
+		registerFunc(&_cblas_izamax, frameworkHandle, "cblas_izamax")
 		registerFunc(&_cblas_sasum, frameworkHandle, "cblas_sasum")
 		registerFunc(&_cblas_saxpy, frameworkHandle, "cblas_saxpy")
+		registerFunc(&_cblas_scasum, frameworkHandle, "cblas_scasum")
+		registerFunc(&_cblas_scnrm2, frameworkHandle, "cblas_scnrm2")
 		registerFunc(&_cblas_scopy, frameworkHandle, "cblas_scopy")
 		registerFunc(&_cblas_sdot, frameworkHandle, "cblas_sdot")
 		registerFunc(&_cblas_sdsdot, frameworkHandle, "cblas_sdsdot")
@@ -14597,11 +16671,53 @@ func init() {
 		registerFunc(&_cblas_strsm, frameworkHandle, "cblas_strsm")
 		registerFunc(&_cblas_strsv, frameworkHandle, "cblas_strsv")
 		registerFunc(&_cblas_xerbla, frameworkHandle, "cblas_xerbla")
+		registerFunc(&_cblas_zaxpy, frameworkHandle, "cblas_zaxpy")
+		registerFunc(&_cblas_zcopy, frameworkHandle, "cblas_zcopy")
+		registerFunc(&_cblas_zdotc_sub, frameworkHandle, "cblas_zdotc_sub")
+		registerFunc(&_cblas_zdotu_sub, frameworkHandle, "cblas_zdotu_sub")
+		registerFunc(&_cblas_zdrot, frameworkHandle, "cblas_zdrot")
+		registerFunc(&_cblas_zdscal, frameworkHandle, "cblas_zdscal")
+		registerFunc(&_cblas_zgbmv, frameworkHandle, "cblas_zgbmv")
+		registerFunc(&_cblas_zgemm, frameworkHandle, "cblas_zgemm")
+		registerFunc(&_cblas_zgemv, frameworkHandle, "cblas_zgemv")
+		registerFunc(&_cblas_zgerc, frameworkHandle, "cblas_zgerc")
+		registerFunc(&_cblas_zgeru, frameworkHandle, "cblas_zgeru")
+		registerFunc(&_cblas_zhbmv, frameworkHandle, "cblas_zhbmv")
+		registerFunc(&_cblas_zhemm, frameworkHandle, "cblas_zhemm")
+		registerFunc(&_cblas_zhemv, frameworkHandle, "cblas_zhemv")
+		registerFunc(&_cblas_zher, frameworkHandle, "cblas_zher")
+		registerFunc(&_cblas_zher2, frameworkHandle, "cblas_zher2")
+		registerFunc(&_cblas_zher2k, frameworkHandle, "cblas_zher2k")
+		registerFunc(&_cblas_zherk, frameworkHandle, "cblas_zherk")
+		registerFunc(&_cblas_zhpmv, frameworkHandle, "cblas_zhpmv")
+		registerFunc(&_cblas_zhpr, frameworkHandle, "cblas_zhpr")
+		registerFunc(&_cblas_zhpr2, frameworkHandle, "cblas_zhpr2")
+		registerFunc(&_cblas_zrotg, frameworkHandle, "cblas_zrotg")
+		registerFunc(&_cblas_zscal, frameworkHandle, "cblas_zscal")
+		registerFunc(&_cblas_zswap, frameworkHandle, "cblas_zswap")
+		registerFunc(&_cblas_zsymm, frameworkHandle, "cblas_zsymm")
+		registerFunc(&_cblas_zsyr2k, frameworkHandle, "cblas_zsyr2k")
+		registerFunc(&_cblas_zsyrk, frameworkHandle, "cblas_zsyrk")
+		registerFunc(&_cblas_ztbmv, frameworkHandle, "cblas_ztbmv")
+		registerFunc(&_cblas_ztbsv, frameworkHandle, "cblas_ztbsv")
+		registerFunc(&_cblas_ztpmv, frameworkHandle, "cblas_ztpmv")
+		registerFunc(&_cblas_ztpsv, frameworkHandle, "cblas_ztpsv")
+		registerFunc(&_cblas_ztrmm, frameworkHandle, "cblas_ztrmm")
+		registerFunc(&_cblas_ztrmv, frameworkHandle, "cblas_ztrmv")
+		registerFunc(&_cblas_ztrsm, frameworkHandle, "cblas_ztrsm")
+		registerFunc(&_cblas_ztrsv, frameworkHandle, "cblas_ztrsv")
+		registerFunc(&_quadrature_integrate, frameworkHandle, "quadrature_integrate")
 		registerFunc(&_sparse_commit, frameworkHandle, "sparse_commit")
 		registerFunc(&_sparse_get_matrix_nonzero_count, frameworkHandle, "sparse_get_matrix_nonzero_count")
 		registerFunc(&_sparse_get_matrix_property, frameworkHandle, "sparse_get_matrix_property")
 		registerFunc(&_sparse_matrix_destroy, frameworkHandle, "sparse_matrix_destroy")
 		registerFunc(&_sparse_set_matrix_property, frameworkHandle, "sparse_set_matrix_property")
+		registerFunc(&_vA1024Shift, frameworkHandle, "vA1024Shift")
+		registerFunc(&_vA256Shift, frameworkHandle, "vA256Shift")
+		registerFunc(&_vA512Shift, frameworkHandle, "vA512Shift")
+		registerFunc(&_vDSP_DCT_Execute, frameworkHandle, "vDSP_DCT_Execute")
+		registerFunc(&_vDSP_DFT_Execute, frameworkHandle, "vDSP_DFT_Execute")
+		registerFunc(&_vDSP_DFT_ExecuteD, frameworkHandle, "vDSP_DFT_ExecuteD")
 		registerFunc(&_vDSP_FFT16_copv, frameworkHandle, "vDSP_FFT16_copv")
 		registerFunc(&_vDSP_FFT16_zopv, frameworkHandle, "vDSP_FFT16_zopv")
 		registerFunc(&_vDSP_FFT32_copv, frameworkHandle, "vDSP_FFT32_copv")
@@ -14644,20 +16760,31 @@ func init() {
 		registerFunc(&_vImageBufferFill_CbCr16S, frameworkHandle, "vImageBufferFill_CbCr16S")
 		registerFunc(&_vImageBufferFill_CbCr16U, frameworkHandle, "vImageBufferFill_CbCr16U")
 		registerFunc(&_vImageBufferFill_CbCr8, frameworkHandle, "vImageBufferFill_CbCr8")
+		registerFunc(&_vImageBuffer_CopyToCVPixelBuffer, frameworkHandle, "vImageBuffer_CopyToCVPixelBuffer")
 		registerFunc(&_vImageBuffer_GetSize, frameworkHandle, "vImageBuffer_GetSize")
 		registerFunc(&_vImageBuffer_Init, frameworkHandle, "vImageBuffer_Init")
 		registerFunc(&_vImageBuffer_InitForCopyFromCVPixelBuffer, frameworkHandle, "vImageBuffer_InitForCopyFromCVPixelBuffer")
 		registerFunc(&_vImageBuffer_InitForCopyToCVPixelBuffer, frameworkHandle, "vImageBuffer_InitForCopyToCVPixelBuffer")
 		registerFunc(&_vImageBuffer_InitWithCGImage, frameworkHandle, "vImageBuffer_InitWithCGImage")
+		registerFunc(&_vImageBuffer_InitWithCVPixelBuffer, frameworkHandle, "vImageBuffer_InitWithCVPixelBuffer")
 		registerFunc(&_vImageByteSwap_Planar16U, frameworkHandle, "vImageByteSwap_Planar16U")
 		registerFunc(&_vImageCGImageFormat_GetComponentCount, frameworkHandle, "vImageCGImageFormat_GetComponentCount")
 		registerFunc(&_vImageCGImageFormat_IsEqual, frameworkHandle, "vImageCGImageFormat_IsEqual")
+		registerFunc(&_vImageCVImageFormat_Copy, frameworkHandle, "vImageCVImageFormat_Copy")
+		registerFunc(&_vImageCVImageFormat_Create, frameworkHandle, "vImageCVImageFormat_Create")
+		registerFunc(&_vImageCVImageFormat_CreateWithCVPixelBuffer, frameworkHandle, "vImageCVImageFormat_CreateWithCVPixelBuffer")
 		registerFunc(&_vImageCVImageFormat_GetAlphaHint, frameworkHandle, "vImageCVImageFormat_GetAlphaHint")
 		registerFunc(&_vImageCVImageFormat_GetChannelCount, frameworkHandle, "vImageCVImageFormat_GetChannelCount")
 		registerFunc(&_vImageCVImageFormat_GetChromaSiting, frameworkHandle, "vImageCVImageFormat_GetChromaSiting")
 		registerFunc(&_vImageCVImageFormat_GetColorSpace, frameworkHandle, "vImageCVImageFormat_GetColorSpace")
 		registerFunc(&_vImageCVImageFormat_GetFormatCode, frameworkHandle, "vImageCVImageFormat_GetFormatCode")
 		registerFunc(&_vImageCVImageFormat_GetUserData, frameworkHandle, "vImageCVImageFormat_GetUserData")
+		registerFunc(&_vImageCVImageFormat_Release, frameworkHandle, "vImageCVImageFormat_Release")
+		registerFunc(&_vImageCVImageFormat_Retain, frameworkHandle, "vImageCVImageFormat_Retain")
+		registerFunc(&_vImageCVImageFormat_SetAlphaHint, frameworkHandle, "vImageCVImageFormat_SetAlphaHint")
+		registerFunc(&_vImageCVImageFormat_SetChromaSiting, frameworkHandle, "vImageCVImageFormat_SetChromaSiting")
+		registerFunc(&_vImageCVImageFormat_SetColorSpace, frameworkHandle, "vImageCVImageFormat_SetColorSpace")
+		registerFunc(&_vImageCVImageFormat_SetUserData, frameworkHandle, "vImageCVImageFormat_SetUserData")
 		registerFunc(&_vImageClipToAlpha_ARGB8888, frameworkHandle, "vImageClipToAlpha_ARGB8888")
 		registerFunc(&_vImageClipToAlpha_ARGBFFFF, frameworkHandle, "vImageClipToAlpha_ARGBFFFF")
 		registerFunc(&_vImageClipToAlpha_Planar8, frameworkHandle, "vImageClipToAlpha_Planar8")
@@ -14855,6 +16982,8 @@ func init() {
 		registerFunc(&_vImageConvert_XRGB8888ToPlanar8, frameworkHandle, "vImageConvert_XRGB8888ToPlanar8")
 		registerFunc(&_vImageConvert_XRGBFFFFToPlanarF, frameworkHandle, "vImageConvert_XRGBFFFFToPlanarF")
 		registerFunc(&_vImageConvert_YpCbCrToARGB_GenerateConversion, frameworkHandle, "vImageConvert_YpCbCrToARGB_GenerateConversion")
+		registerFunc(&_vImageConverter_CreateForCGToCVImageFormat, frameworkHandle, "vImageConverter_CreateForCGToCVImageFormat")
+		registerFunc(&_vImageConverter_CreateForCVToCGImageFormat, frameworkHandle, "vImageConverter_CreateForCVToCGImageFormat")
 		registerFunc(&_vImageConverter_CreateWithCGColorConversionInfo, frameworkHandle, "vImageConverter_CreateWithCGColorConversionInfo")
 		registerFunc(&_vImageConverter_CreateWithCGImageFormat, frameworkHandle, "vImageConverter_CreateWithCGImageFormat")
 		registerFunc(&_vImageConverter_CreateWithColorSyncCodeFragment, frameworkHandle, "vImageConverter_CreateWithColorSyncCodeFragment")
@@ -14865,6 +16994,7 @@ func init() {
 		registerFunc(&_vImageConverter_Retain, frameworkHandle, "vImageConverter_Retain")
 		registerFunc(&_vImageConvolveFloatKernel_ARGB8888, frameworkHandle, "vImageConvolveFloatKernel_ARGB8888")
 		registerFunc(&_vImageConvolveMultiKernel_ARGB8888, frameworkHandle, "vImageConvolveMultiKernel_ARGB8888")
+		registerFunc(&_vImageConvolveMultiKernel_ARGBFFFF, frameworkHandle, "vImageConvolveMultiKernel_ARGBFFFF")
 		registerFunc(&_vImageConvolveWithBias_ARGB16F, frameworkHandle, "vImageConvolveWithBias_ARGB16F")
 		registerFunc(&_vImageConvolveWithBias_ARGB8888, frameworkHandle, "vImageConvolveWithBias_ARGB8888")
 		registerFunc(&_vImageConvolveWithBias_ARGBFFFF, frameworkHandle, "vImageConvolveWithBias_ARGBFFFF")
@@ -15156,6 +17286,72 @@ func init() {
 		registerFunc(&_vImageVerticalShear_Planar8, frameworkHandle, "vImageVerticalShear_Planar8")
 		registerFunc(&_vImageVerticalShear_PlanarF, frameworkHandle, "vImageVerticalShear_PlanarF")
 		registerFunc(&_vImageVerticalShear_XRGB2101010W, frameworkHandle, "vImageVerticalShear_XRGB2101010W")
+		registerFunc(&_vL1024Rotate, frameworkHandle, "vL1024Rotate")
+		registerFunc(&_vL256Rotate, frameworkHandle, "vL256Rotate")
+		registerFunc(&_vL512Rotate, frameworkHandle, "vL512Rotate")
+		registerFunc(&_vLL1024Shift, frameworkHandle, "vLL1024Shift")
+		registerFunc(&_vLL256Shift, frameworkHandle, "vLL256Shift")
+		registerFunc(&_vLL512Shift, frameworkHandle, "vLL512Shift")
+		registerFunc(&_vLR1024Shift, frameworkHandle, "vLR1024Shift")
+		registerFunc(&_vLR256Shift, frameworkHandle, "vLR256Shift")
+		registerFunc(&_vLR512Shift, frameworkHandle, "vLR512Shift")
+		registerFunc(&_vR1024Rotate, frameworkHandle, "vR1024Rotate")
+		registerFunc(&_vR256Rotate, frameworkHandle, "vR256Rotate")
+		registerFunc(&_vR512Rotate, frameworkHandle, "vR512Rotate")
+		registerFunc(&_vS1024Add, frameworkHandle, "vS1024Add")
+		registerFunc(&_vS1024AddS, frameworkHandle, "vS1024AddS")
+		registerFunc(&_vS1024Divide, frameworkHandle, "vS1024Divide")
+		registerFunc(&_vS1024HalfMultiply, frameworkHandle, "vS1024HalfMultiply")
+		registerFunc(&_vS1024Mod, frameworkHandle, "vS1024Mod")
+		registerFunc(&_vS1024Neg, frameworkHandle, "vS1024Neg")
+		registerFunc(&_vS1024Sub, frameworkHandle, "vS1024Sub")
+		registerFunc(&_vS1024SubS, frameworkHandle, "vS1024SubS")
+		registerFunc(&_vS128FullMultiply, frameworkHandle, "vS128FullMultiply")
+		registerFunc(&_vS256Add, frameworkHandle, "vS256Add")
+		registerFunc(&_vS256AddS, frameworkHandle, "vS256AddS")
+		registerFunc(&_vS256Divide, frameworkHandle, "vS256Divide")
+		registerFunc(&_vS256FullMultiply, frameworkHandle, "vS256FullMultiply")
+		registerFunc(&_vS256HalfMultiply, frameworkHandle, "vS256HalfMultiply")
+		registerFunc(&_vS256Mod, frameworkHandle, "vS256Mod")
+		registerFunc(&_vS256Neg, frameworkHandle, "vS256Neg")
+		registerFunc(&_vS256Sub, frameworkHandle, "vS256Sub")
+		registerFunc(&_vS256SubS, frameworkHandle, "vS256SubS")
+		registerFunc(&_vS512Add, frameworkHandle, "vS512Add")
+		registerFunc(&_vS512AddS, frameworkHandle, "vS512AddS")
+		registerFunc(&_vS512Divide, frameworkHandle, "vS512Divide")
+		registerFunc(&_vS512FullMultiply, frameworkHandle, "vS512FullMultiply")
+		registerFunc(&_vS512HalfMultiply, frameworkHandle, "vS512HalfMultiply")
+		registerFunc(&_vS512Mod, frameworkHandle, "vS512Mod")
+		registerFunc(&_vS512Neg, frameworkHandle, "vS512Neg")
+		registerFunc(&_vS512Sub, frameworkHandle, "vS512Sub")
+		registerFunc(&_vS512SubS, frameworkHandle, "vS512SubS")
+		registerFunc(&_vU1024Add, frameworkHandle, "vU1024Add")
+		registerFunc(&_vU1024AddS, frameworkHandle, "vU1024AddS")
+		registerFunc(&_vU1024Divide, frameworkHandle, "vU1024Divide")
+		registerFunc(&_vU1024HalfMultiply, frameworkHandle, "vU1024HalfMultiply")
+		registerFunc(&_vU1024Mod, frameworkHandle, "vU1024Mod")
+		registerFunc(&_vU1024Neg, frameworkHandle, "vU1024Neg")
+		registerFunc(&_vU1024Sub, frameworkHandle, "vU1024Sub")
+		registerFunc(&_vU1024SubS, frameworkHandle, "vU1024SubS")
+		registerFunc(&_vU128FullMultiply, frameworkHandle, "vU128FullMultiply")
+		registerFunc(&_vU256Add, frameworkHandle, "vU256Add")
+		registerFunc(&_vU256AddS, frameworkHandle, "vU256AddS")
+		registerFunc(&_vU256Divide, frameworkHandle, "vU256Divide")
+		registerFunc(&_vU256FullMultiply, frameworkHandle, "vU256FullMultiply")
+		registerFunc(&_vU256HalfMultiply, frameworkHandle, "vU256HalfMultiply")
+		registerFunc(&_vU256Mod, frameworkHandle, "vU256Mod")
+		registerFunc(&_vU256Neg, frameworkHandle, "vU256Neg")
+		registerFunc(&_vU256Sub, frameworkHandle, "vU256Sub")
+		registerFunc(&_vU256SubS, frameworkHandle, "vU256SubS")
+		registerFunc(&_vU512Add, frameworkHandle, "vU512Add")
+		registerFunc(&_vU512AddS, frameworkHandle, "vU512AddS")
+		registerFunc(&_vU512Divide, frameworkHandle, "vU512Divide")
+		registerFunc(&_vU512FullMultiply, frameworkHandle, "vU512FullMultiply")
+		registerFunc(&_vU512HalfMultiply, frameworkHandle, "vU512HalfMultiply")
+		registerFunc(&_vU512Mod, frameworkHandle, "vU512Mod")
+		registerFunc(&_vU512Neg, frameworkHandle, "vU512Neg")
+		registerFunc(&_vU512Sub, frameworkHandle, "vU512Sub")
+		registerFunc(&_vU512SubS, frameworkHandle, "vU512SubS")
 		registerFunc(&_vvacos, frameworkHandle, "vvacos")
 		registerFunc(&_vvacosf, frameworkHandle, "vvacosf")
 		registerFunc(&_vvacosh, frameworkHandle, "vvacosh")
@@ -15180,6 +17376,8 @@ func init() {
 		registerFunc(&_vvcosf, frameworkHandle, "vvcosf")
 		registerFunc(&_vvcosh, frameworkHandle, "vvcosh")
 		registerFunc(&_vvcoshf, frameworkHandle, "vvcoshf")
+		registerFunc(&_vvcosisin, frameworkHandle, "vvcosisin")
+		registerFunc(&_vvcosisinf, frameworkHandle, "vvcosisinf")
 		registerFunc(&_vvcospi, frameworkHandle, "vvcospi")
 		registerFunc(&_vvcospif, frameworkHandle, "vvcospif")
 		registerFunc(&_vvdiv, frameworkHandle, "vvdiv")

@@ -14,6 +14,7 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityGroup
 type NSAccessibilityGroup interface {
 	objectivec.IObject
+	NSAccessibilityElementProtocol
 }
 
 

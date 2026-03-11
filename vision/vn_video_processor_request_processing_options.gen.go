@@ -167,5 +167,3 @@ func (v VNVideoProcessorRequestProcessingOptions) SetCadence(value IVNVideoProce
 
 
 
-
-

@@ -396,146 +396,6 @@ func (t NSTableViewDiffableDataSource) NumberOfRowsInTableView(tableView INSTabl
 	return rv
 }
 
-// Called by the table view to return the data object associated with the
-// specified row and column.
-//
-// tableView: The table view that sent the message.
-//
-// tableColumn: A column in `aTableView`.
-//
-// row: The row of the item in `aTableColumn`.
-//
-// # Return Value
-// 
-// An item in the data source in the specified table column of the view.
-//
-// # Discussion
-// 
-// [TableViewObjectValueForTableColumnRow] is called each time the table cell
-// needs to be redisplayed, so it must be efficient.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:objectValueFor:row:)
-func (t NSTableViewDiffableDataSource) TableViewObjectValueForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableView:objectValueForTableColumn:row:"), tableView, tableColumn, row)
-	return objectivec.Object{ID: rv}
-}
-
-// Sets the data object for an item in the specified row and column.
-//
-// tableView: The table view that sent the message.
-//
-// object: The new value for the item.
-//
-// tableColumn: A column in `aTableView`.
-//
-// row: The row of the item in `aTableColumn`.
-//
-// # Discussion
-// 
-// This method is intended for use with cell-based table views, it must not be
-// used with view-based table views. In view-based tables, use target/action
-// to set each item in the view cell.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:setObjectValue:for:row:)
-func (t NSTableViewDiffableDataSource) TableViewSetObjectValueForTableColumnRow(tableView INSTableView, object objectivec.IObject, tableColumn INSTableColumn, row int) {
-	objc.Send[objc.ID](t.ID, objc.Sel("tableView:setObjectValue:forTableColumn:row:"), tableView, object, tableColumn, row)
-}
-
-// Called to allow the table to support multiple item dragging.
-//
-// tableView: The table view.
-//
-// row: The row.
-//
-// # Return Value
-// 
-// Returns an instance of [NSPasteboardItem] or a custom object that
-// implements the [NSPasteboardWriting] protocol. Returning `nil` excludes the
-// row from being dragged.
-//
-// # Discussion
-// 
-// This method is required for multi-image dragging.
-// 
-// If this method is implemented, then [tableView(_:writeRowsWith:to:)] will
-// not be called.
-//
-// [tableView(_:writeRowsWith:to:)]: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:writeRowsWith:to:)
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:pasteboardWriterForRow:)
-func (t NSTableViewDiffableDataSource) TableViewPasteboardWriterForRow(tableView INSTableView, row int) NSPasteboardWriting {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableView:pasteboardWriterForRow:"), tableView, row)
-	return NSPasteboardWritingObjectFromID(rv)
-}
-
-// Implement this method to determine when a dragging session has ended.
-//
-// tableView: The table view.
-//
-// session: The dragging session.
-//
-// screenPoint: The ending drag location in screen coordinates.
-//
-// operation: The drag operation. See [NSDragOperation] for supported values.
-// //
-// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
-//
-// # Discussion
-// 
-// This delegate method can be used to determine when the dragging source
-// operation ended at a specific location, such as the trash, by checking for
-// an operation of [DragOperationDelete].
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:endedAt:operation:)
-func (t NSTableViewDiffableDataSource) TableViewDraggingSessionEndedAtPointOperation(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
-	objc.Send[objc.ID](t.ID, objc.Sel("tableView:draggingSession:endedAtPoint:operation:"), tableView, session, screenPoint, operation)
-}
-
-// Called by `aTableView` to indicate that sorting may need to be done.
-//
-// tableView: The table view that sent the message.
-//
-// oldDescriptors: An array that contains the previous descriptors.
-//
-// # Discussion
-// 
-// The data source typically sorts and reloads the data, and adjusts the
-// selections accordingly. If you need to know the current sort descriptors
-// and the data source doesn’t manage them itself, you can get the current
-// sort descriptors by sending `aTableView` a [SortDescriptors] message.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:sortDescriptorsDidChange:)
-func (t NSTableViewDiffableDataSource) TableViewSortDescriptorsDidChange(tableView INSTableView, oldDescriptors []foundation.NSSortDescriptor) {
-	objc.Send[objc.ID](t.ID, objc.Sel("tableView:sortDescriptorsDidChange:"), tableView, objectivec.IObjectSliceToNSArray(oldDescriptors))
-}
-
-// Implement this method to determine when a dragging session will begin.
-//
-// tableView: The table view.
-//
-// session: The dragging session.
-//
-// screenPoint: The initial drag location in screen coordinates.
-//
-// rowIndexes: The indexes of the rows to be dragged, excluding rows that were not dragged
-// due to [TableViewPasteboardWriterForRow] returning `nil`.
-//
-// # Discussion
-// 
-// Implement this method to know when the dragging session is about to begin
-// and to potentially modify the dragging session.
-// 
-// The dragged item order will directly match the pasteboard writer array used
-// to begin the dragging session with the [NSView] method
-// [BeginDraggingSessionWithItemsEventSource]. Hence, the order is
-// deterministic, and can be used in [TableViewAcceptDropRowDropOperation]
-// when enumerating the [NSDraggingInfo] pasteboard classes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:willBeginAt:forRowIndexes:)
-func (t NSTableViewDiffableDataSource) TableViewDraggingSessionWillBeginAtPointForRowIndexes(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, rowIndexes foundation.NSIndexSet) {
-	objc.Send[objc.ID](t.ID, objc.Sel("tableView:draggingSession:willBeginAtPoint:forRowIndexes:"), tableView, session, screenPoint, rowIndexes)
-}
-
 // Called by `aTableView` when the mouse button is released over a table view
 // that previously decided to allow a drop.
 //
@@ -569,6 +429,146 @@ func (t NSTableViewDiffableDataSource) TableViewDraggingSessionWillBeginAtPointF
 func (t NSTableViewDiffableDataSource) TableViewAcceptDropRowDropOperation(tableView INSTableView, info NSDraggingInfo, row int, dropOperation NSTableViewDropOperation) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("tableView:acceptDrop:row:dropOperation:"), tableView, info, row, dropOperation)
 	return rv
+}
+
+// Implement this method to determine when a dragging session has ended.
+//
+// tableView: The table view.
+//
+// session: The dragging session.
+//
+// screenPoint: The ending drag location in screen coordinates.
+//
+// operation: The drag operation. See [NSDragOperation] for supported values.
+// //
+// [NSDragOperation]: https://developer.apple.com/documentation/AppKit/NSDragOperation
+//
+// # Discussion
+// 
+// This delegate method can be used to determine when the dragging source
+// operation ended at a specific location, such as the trash, by checking for
+// an operation of [DragOperationDelete].
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:endedAt:operation:)
+func (t NSTableViewDiffableDataSource) TableViewDraggingSessionEndedAtPointOperation(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
+	objc.Send[objc.ID](t.ID, objc.Sel("tableView:draggingSession:endedAtPoint:operation:"), tableView, session, screenPoint, operation)
+}
+
+// Implement this method to determine when a dragging session will begin.
+//
+// tableView: The table view.
+//
+// session: The dragging session.
+//
+// screenPoint: The initial drag location in screen coordinates.
+//
+// rowIndexes: The indexes of the rows to be dragged, excluding rows that were not dragged
+// due to [TableViewPasteboardWriterForRow] returning `nil`.
+//
+// # Discussion
+// 
+// Implement this method to know when the dragging session is about to begin
+// and to potentially modify the dragging session.
+// 
+// The dragged item order will directly match the pasteboard writer array used
+// to begin the dragging session with the [NSView] method
+// [BeginDraggingSessionWithItemsEventSource]. Hence, the order is
+// deterministic, and can be used in [TableViewAcceptDropRowDropOperation]
+// when enumerating the [NSDraggingInfo] pasteboard classes.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:willBeginAt:forRowIndexes:)
+func (t NSTableViewDiffableDataSource) TableViewDraggingSessionWillBeginAtPointForRowIndexes(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, rowIndexes foundation.NSIndexSet) {
+	objc.Send[objc.ID](t.ID, objc.Sel("tableView:draggingSession:willBeginAtPoint:forRowIndexes:"), tableView, session, screenPoint, rowIndexes)
+}
+
+// Called by the table view to return the data object associated with the
+// specified row and column.
+//
+// tableView: The table view that sent the message.
+//
+// tableColumn: A column in `aTableView`.
+//
+// row: The row of the item in `aTableColumn`.
+//
+// # Return Value
+// 
+// An item in the data source in the specified table column of the view.
+//
+// # Discussion
+// 
+// [TableViewObjectValueForTableColumnRow] is called each time the table cell
+// needs to be redisplayed, so it must be efficient.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:objectValueFor:row:)
+func (t NSTableViewDiffableDataSource) TableViewObjectValueForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) objectivec.IObject {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableView:objectValueForTableColumn:row:"), tableView, tableColumn, row)
+	return objectivec.Object{ID: rv}
+}
+
+// Called to allow the table to support multiple item dragging.
+//
+// tableView: The table view.
+//
+// row: The row.
+//
+// # Return Value
+// 
+// Returns an instance of [NSPasteboardItem] or a custom object that
+// implements the [NSPasteboardWriting] protocol. Returning `nil` excludes the
+// row from being dragged.
+//
+// # Discussion
+// 
+// This method is required for multi-image dragging.
+// 
+// If this method is implemented, then [tableView(_:writeRowsWith:to:)] will
+// not be called.
+//
+// [tableView(_:writeRowsWith:to:)]: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:writeRowsWith:to:)
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:pasteboardWriterForRow:)
+func (t NSTableViewDiffableDataSource) TableViewPasteboardWriterForRow(tableView INSTableView, row int) NSPasteboardWriting {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableView:pasteboardWriterForRow:"), tableView, row)
+	return NSPasteboardWritingObjectFromID(rv)
+}
+
+// Sets the data object for an item in the specified row and column.
+//
+// tableView: The table view that sent the message.
+//
+// object: The new value for the item.
+//
+// tableColumn: A column in `aTableView`.
+//
+// row: The row of the item in `aTableColumn`.
+//
+// # Discussion
+// 
+// This method is intended for use with cell-based table views, it must not be
+// used with view-based table views. In view-based tables, use target/action
+// to set each item in the view cell.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:setObjectValue:for:row:)
+func (t NSTableViewDiffableDataSource) TableViewSetObjectValueForTableColumnRow(tableView INSTableView, object objectivec.IObject, tableColumn INSTableColumn, row int) {
+	objc.Send[objc.ID](t.ID, objc.Sel("tableView:setObjectValue:forTableColumn:row:"), tableView, object, tableColumn, row)
+}
+
+// Called by `aTableView` to indicate that sorting may need to be done.
+//
+// tableView: The table view that sent the message.
+//
+// oldDescriptors: An array that contains the previous descriptors.
+//
+// # Discussion
+// 
+// The data source typically sorts and reloads the data, and adjusts the
+// selections accordingly. If you need to know the current sort descriptors
+// and the data source doesn’t manage them itself, you can get the current
+// sort descriptors by sending `aTableView` a [SortDescriptors] message.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:sortDescriptorsDidChange:)
+func (t NSTableViewDiffableDataSource) TableViewSortDescriptorsDidChange(tableView INSTableView, oldDescriptors []foundation.NSSortDescriptor) {
+	objc.Send[objc.ID](t.ID, objc.Sel("tableView:sortDescriptorsDidChange:"), tableView, objectivec.IObjectSliceToNSArray(oldDescriptors))
 }
 
 // Implement this method to allow the table to update dragging items as they

@@ -8,6 +8,7 @@ import (
 	"unsafe"
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/objectivec"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -218,6 +219,18 @@ func CGAffineTransformTranslate(t corefoundation.CGAffineTransform, tx float64, 
 	return _cGAffineTransformTranslate(t, tx, ty)
 }
 
+
+var _cGAssociateMouseAndMouseCursorPosition func(connected uintptr) CGError
+
+// CGAssociateMouseAndMouseCursorPosition connects or disconnects the mouse and cursor while an application is in the foreground.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGAssociateMouseAndMouseCursorPosition(_:)
+func CGAssociateMouseAndMouseCursorPosition(connected uintptr) CGError {
+	if _cGAssociateMouseAndMouseCursorPosition == nil {
+		panic("CoreGraphics: symbol CGAssociateMouseAndMouseCursorPosition not loaded")
+	}
+	return _cGAssociateMouseAndMouseCursorPosition(connected)
+}
 
 
 var _cGBeginDisplayConfiguration func(config *CGDisplayConfigRef) CGError
@@ -495,6 +508,18 @@ func CGColorConversionInfoCreateFromList(options corefoundation.CFDictionaryRef,
 	return _cGColorConversionInfoCreateFromList(options, arg1, arg2, arg3)
 }
 
+
+var _cGColorConversionInfoCreateFromListWithArguments func(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 uintptr) CGColorConversionInfoRef
+
+// CGColorConversionInfoCreateFromListWithArguments.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGColorConversionInfoCreateFromListWithArguments
+func CGColorConversionInfoCreateFromListWithArguments(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 uintptr) CGColorConversionInfoRef {
+	if _cGColorConversionInfoCreateFromListWithArguments == nil {
+		panic("CoreGraphics: symbol CGColorConversionInfoCreateFromListWithArguments not loaded")
+	}
+	return _cGColorConversionInfoCreateFromListWithArguments(options, arg1, arg2, arg3, arg4)
+}
 
 
 var _cGColorConversionInfoCreateWithOptions func(src CGColorSpaceRef, dst CGColorSpaceRef, options corefoundation.CFDictionaryRef) CGColorConversionInfoRef
@@ -783,12 +808,12 @@ func CGColorGetTypeID() uint {
 }
 
 
-var _cGColorRelease func(color CGColorRef) 
+var _cGColorRelease func(color CGColorRef)
 
 // CGColorRelease decrements the retain count of a color.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorRelease
-func CGColorRelease(color CGColorRef)  {
+func CGColorRelease(color CGColorRef) {
 	if _cGColorRelease == nil {
 		panic("CoreGraphics: symbol CGColorRelease not loaded")
 	}
@@ -1095,12 +1120,12 @@ func CGColorSpaceGetBaseColorSpace(space CGColorSpaceRef) CGColorSpaceRef {
 }
 
 
-var _cGColorSpaceGetColorTable func(space CGColorSpaceRef, table *uint8) 
+var _cGColorSpaceGetColorTable func(space CGColorSpaceRef, table *uint8)
 
 // CGColorSpaceGetColorTable copies the entries in the color table of an indexed color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceGetColorTable
-func CGColorSpaceGetColorTable(space CGColorSpaceRef, table *uint8)  {
+func CGColorSpaceGetColorTable(space CGColorSpaceRef, table *uint8) {
 	if _cGColorSpaceGetColorTable == nil {
 		panic("CoreGraphics: symbol CGColorSpaceGetColorTable not loaded")
 	}
@@ -1225,12 +1250,12 @@ func CGColorSpaceIsWideGamutRGB(arg0 CGColorSpaceRef) bool {
 }
 
 
-var _cGColorSpaceRelease func(space CGColorSpaceRef) 
+var _cGColorSpaceRelease func(space CGColorSpaceRef)
 
 // CGColorSpaceRelease decrements the retain count of a color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceRelease
-func CGColorSpaceRelease(space CGColorSpaceRef)  {
+func CGColorSpaceRelease(space CGColorSpaceRef) {
 	if _cGColorSpaceRelease == nil {
 		panic("CoreGraphics: symbol CGColorSpaceRelease not loaded")
 	}
@@ -1342,6 +1367,18 @@ func CGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x int32
 }
 
 
+var _cGConfigureDisplayStereoOperation func(config CGDisplayConfigRef, display uint32, stereo uintptr, forceBlueLine uintptr) CGError
+
+// CGConfigureDisplayStereoOperation enables or disables stereo operation for a display, as part of a display configuration.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayStereoOperation(_:_:_:_:)
+func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32, stereo uintptr, forceBlueLine uintptr) CGError {
+	if _cGConfigureDisplayStereoOperation == nil {
+		panic("CoreGraphics: symbol CGConfigureDisplayStereoOperation not loaded")
+	}
+	return _cGConfigureDisplayStereoOperation(config, display, stereo, forceBlueLine)
+}
+
 
 var _cGConfigureDisplayWithDisplayMode func(config CGDisplayConfigRef, display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
 
@@ -1356,12 +1393,12 @@ func CGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display uint32
 }
 
 
-var _cGContextAddArc func(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int) 
+var _cGContextAddArc func(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int)
 
 // CGContextAddArc adds an arc of a circle to the current path, possibly preceded by a straight line segment
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddArc
-func CGContextAddArc(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int)  {
+func CGContextAddArc(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int) {
 	if _cGContextAddArc == nil {
 		panic("CoreGraphics: symbol CGContextAddArc not loaded")
 	}
@@ -1369,12 +1406,12 @@ func CGContextAddArc(c CGContextRef, x float64, y float64, radius float64, start
 }
 
 
-var _cGContextAddArcToPoint func(c CGContextRef, x1 float64, y1 float64, x2 float64, y2 float64, radius float64) 
+var _cGContextAddArcToPoint func(c CGContextRef, x1 float64, y1 float64, x2 float64, y2 float64, radius float64)
 
 // CGContextAddArcToPoint adds an arc of a circle to the current path, using a radius and tangent points.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddArcToPoint
-func CGContextAddArcToPoint(c CGContextRef, x1 float64, y1 float64, x2 float64, y2 float64, radius float64)  {
+func CGContextAddArcToPoint(c CGContextRef, x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
 	if _cGContextAddArcToPoint == nil {
 		panic("CoreGraphics: symbol CGContextAddArcToPoint not loaded")
 	}
@@ -1382,12 +1419,12 @@ func CGContextAddArcToPoint(c CGContextRef, x1 float64, y1 float64, x2 float64, 
 }
 
 
-var _cGContextAddCurveToPoint func(c CGContextRef, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) 
+var _cGContextAddCurveToPoint func(c CGContextRef, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64)
 
 // CGContextAddCurveToPoint appends a cubic Bézier curve from the current point, using the provided control points and end point .
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddCurveToPoint
-func CGContextAddCurveToPoint(c CGContextRef, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64)  {
+func CGContextAddCurveToPoint(c CGContextRef, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
 	if _cGContextAddCurveToPoint == nil {
 		panic("CoreGraphics: symbol CGContextAddCurveToPoint not loaded")
 	}
@@ -1395,12 +1432,12 @@ func CGContextAddCurveToPoint(c CGContextRef, cp1x float64, cp1y float64, cp2x f
 }
 
 
-var _cGContextAddEllipseInRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextAddEllipseInRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextAddEllipseInRect adds an ellipse that fits inside the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/addEllipse(in:)
-func CGContextAddEllipseInRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextAddEllipseInRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextAddEllipseInRect == nil {
 		panic("CoreGraphics: symbol CGContextAddEllipseInRect not loaded")
 	}
@@ -1408,12 +1445,12 @@ func CGContextAddEllipseInRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextAddLineToPoint func(c CGContextRef, x float64, y float64) 
+var _cGContextAddLineToPoint func(c CGContextRef, x float64, y float64)
 
 // CGContextAddLineToPoint appends a straight line segment from the current point to the provided point .
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddLineToPoint
-func CGContextAddLineToPoint(c CGContextRef, x float64, y float64)  {
+func CGContextAddLineToPoint(c CGContextRef, x float64, y float64) {
 	if _cGContextAddLineToPoint == nil {
 		panic("CoreGraphics: symbol CGContextAddLineToPoint not loaded")
 	}
@@ -1421,12 +1458,12 @@ func CGContextAddLineToPoint(c CGContextRef, x float64, y float64)  {
 }
 
 
-var _cGContextAddLines func(c CGContextRef, points *corefoundation.CGPoint, count uintptr) 
+var _cGContextAddLines func(c CGContextRef, points *corefoundation.CGPoint, count uintptr)
 
 // CGContextAddLines adds a sequence of connected straight-line segments to the current path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddLines
-func CGContextAddLines(c CGContextRef, points *corefoundation.CGPoint, count uintptr)  {
+func CGContextAddLines(c CGContextRef, points *corefoundation.CGPoint, count uintptr) {
 	if _cGContextAddLines == nil {
 		panic("CoreGraphics: symbol CGContextAddLines not loaded")
 	}
@@ -1434,12 +1471,12 @@ func CGContextAddLines(c CGContextRef, points *corefoundation.CGPoint, count uin
 }
 
 
-var _cGContextAddPath func(c CGContextRef, path CGPathRef) 
+var _cGContextAddPath func(c CGContextRef, path CGPathRef)
 
 // CGContextAddPath adds a previously created path object to the current path in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/addPath(_:)
-func CGContextAddPath(c CGContextRef, path CGPathRef)  {
+func CGContextAddPath(c CGContextRef, path CGPathRef) {
 	if _cGContextAddPath == nil {
 		panic("CoreGraphics: symbol CGContextAddPath not loaded")
 	}
@@ -1447,12 +1484,12 @@ func CGContextAddPath(c CGContextRef, path CGPathRef)  {
 }
 
 
-var _cGContextAddQuadCurveToPoint func(c CGContextRef, cpx float64, cpy float64, x float64, y float64) 
+var _cGContextAddQuadCurveToPoint func(c CGContextRef, cpx float64, cpy float64, x float64, y float64)
 
 // CGContextAddQuadCurveToPoint appends a quadratic Bézier curve from the current point, using a control point and an end point you specify.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddQuadCurveToPoint
-func CGContextAddQuadCurveToPoint(c CGContextRef, cpx float64, cpy float64, x float64, y float64)  {
+func CGContextAddQuadCurveToPoint(c CGContextRef, cpx float64, cpy float64, x float64, y float64) {
 	if _cGContextAddQuadCurveToPoint == nil {
 		panic("CoreGraphics: symbol CGContextAddQuadCurveToPoint not loaded")
 	}
@@ -1460,12 +1497,12 @@ func CGContextAddQuadCurveToPoint(c CGContextRef, cpx float64, cpy float64, x fl
 }
 
 
-var _cGContextAddRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextAddRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextAddRect adds a rectangular path to the current path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/addRect(_:)
-func CGContextAddRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextAddRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextAddRect == nil {
 		panic("CoreGraphics: symbol CGContextAddRect not loaded")
 	}
@@ -1473,12 +1510,12 @@ func CGContextAddRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextAddRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr) 
+var _cGContextAddRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr)
 
 // CGContextAddRects adds a set of rectangular paths to the current path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddRects
-func CGContextAddRects(c CGContextRef, rects *corefoundation.CGRect, count uintptr)  {
+func CGContextAddRects(c CGContextRef, rects *corefoundation.CGRect, count uintptr) {
 	if _cGContextAddRects == nil {
 		panic("CoreGraphics: symbol CGContextAddRects not loaded")
 	}
@@ -1486,12 +1523,12 @@ func CGContextAddRects(c CGContextRef, rects *corefoundation.CGRect, count uintp
 }
 
 
-var _cGContextBeginPage func(c CGContextRef, mediaBox *corefoundation.CGRect) 
+var _cGContextBeginPage func(c CGContextRef, mediaBox *corefoundation.CGRect)
 
 // CGContextBeginPage starts a new page in a page-based graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/beginPage(mediaBox:)
-func CGContextBeginPage(c CGContextRef, mediaBox *corefoundation.CGRect)  {
+func CGContextBeginPage(c CGContextRef, mediaBox *corefoundation.CGRect) {
 	if _cGContextBeginPage == nil {
 		panic("CoreGraphics: symbol CGContextBeginPage not loaded")
 	}
@@ -1499,12 +1536,12 @@ func CGContextBeginPage(c CGContextRef, mediaBox *corefoundation.CGRect)  {
 }
 
 
-var _cGContextBeginPath func(c CGContextRef) 
+var _cGContextBeginPath func(c CGContextRef)
 
 // CGContextBeginPath creates a new empty path in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/beginPath()
-func CGContextBeginPath(c CGContextRef)  {
+func CGContextBeginPath(c CGContextRef) {
 	if _cGContextBeginPath == nil {
 		panic("CoreGraphics: symbol CGContextBeginPath not loaded")
 	}
@@ -1512,12 +1549,12 @@ func CGContextBeginPath(c CGContextRef)  {
 }
 
 
-var _cGContextBeginTransparencyLayer func(c CGContextRef, auxiliaryInfo corefoundation.CFDictionaryRef) 
+var _cGContextBeginTransparencyLayer func(c CGContextRef, auxiliaryInfo corefoundation.CFDictionaryRef)
 
 // CGContextBeginTransparencyLayer begins a transparency layer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/beginTransparencyLayer(auxiliaryInfo:)
-func CGContextBeginTransparencyLayer(c CGContextRef, auxiliaryInfo corefoundation.CFDictionaryRef)  {
+func CGContextBeginTransparencyLayer(c CGContextRef, auxiliaryInfo corefoundation.CFDictionaryRef) {
 	if _cGContextBeginTransparencyLayer == nil {
 		panic("CoreGraphics: symbol CGContextBeginTransparencyLayer not loaded")
 	}
@@ -1525,12 +1562,12 @@ func CGContextBeginTransparencyLayer(c CGContextRef, auxiliaryInfo corefoundatio
 }
 
 
-var _cGContextBeginTransparencyLayerWithRect func(c CGContextRef, rect corefoundation.CGRect, auxInfo corefoundation.CFDictionaryRef) 
+var _cGContextBeginTransparencyLayerWithRect func(c CGContextRef, rect corefoundation.CGRect, auxInfo corefoundation.CFDictionaryRef)
 
 // CGContextBeginTransparencyLayerWithRect begins a transparency layer whose contents are bounded by the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/beginTransparencyLayer(in:auxiliaryInfo:)
-func CGContextBeginTransparencyLayerWithRect(c CGContextRef, rect corefoundation.CGRect, auxInfo corefoundation.CFDictionaryRef)  {
+func CGContextBeginTransparencyLayerWithRect(c CGContextRef, rect corefoundation.CGRect, auxInfo corefoundation.CFDictionaryRef) {
 	if _cGContextBeginTransparencyLayerWithRect == nil {
 		panic("CoreGraphics: symbol CGContextBeginTransparencyLayerWithRect not loaded")
 	}
@@ -1538,12 +1575,12 @@ func CGContextBeginTransparencyLayerWithRect(c CGContextRef, rect corefoundation
 }
 
 
-var _cGContextClearRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextClearRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextClearRect paints a transparent rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/clear(_:)
-func CGContextClearRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextClearRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextClearRect == nil {
 		panic("CoreGraphics: symbol CGContextClearRect not loaded")
 	}
@@ -1551,12 +1588,12 @@ func CGContextClearRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextClip func(c CGContextRef) 
+var _cGContextClip func(c CGContextRef)
 
 // CGContextClip modifies the current clipping path, using the nonzero winding number rule.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextClip
-func CGContextClip(c CGContextRef)  {
+func CGContextClip(c CGContextRef) {
 	if _cGContextClip == nil {
 		panic("CoreGraphics: symbol CGContextClip not loaded")
 	}
@@ -1564,12 +1601,12 @@ func CGContextClip(c CGContextRef)  {
 }
 
 
-var _cGContextClipToMask func(c CGContextRef, rect corefoundation.CGRect, mask CGImageRef) 
+var _cGContextClipToMask func(c CGContextRef, rect corefoundation.CGRect, mask CGImageRef)
 
 // CGContextClipToMask maps a mask into the specified rectangle and intersects it with the current clipping area of the graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/clip(to:mask:)
-func CGContextClipToMask(c CGContextRef, rect corefoundation.CGRect, mask CGImageRef)  {
+func CGContextClipToMask(c CGContextRef, rect corefoundation.CGRect, mask CGImageRef) {
 	if _cGContextClipToMask == nil {
 		panic("CoreGraphics: symbol CGContextClipToMask not loaded")
 	}
@@ -1577,12 +1614,12 @@ func CGContextClipToMask(c CGContextRef, rect corefoundation.CGRect, mask CGImag
 }
 
 
-var _cGContextClipToRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextClipToRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextClipToRect sets the clipping path to the intersection of the current clipping path with the area defined by the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/clip(to:)-7cbwq
-func CGContextClipToRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextClipToRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextClipToRect == nil {
 		panic("CoreGraphics: symbol CGContextClipToRect not loaded")
 	}
@@ -1590,12 +1627,12 @@ func CGContextClipToRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextClipToRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr) 
+var _cGContextClipToRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr)
 
 // CGContextClipToRects sets the clipping path to the intersection of the current clipping path with the region defined by an array of rectangles.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextClipToRects
-func CGContextClipToRects(c CGContextRef, rects *corefoundation.CGRect, count uintptr)  {
+func CGContextClipToRects(c CGContextRef, rects *corefoundation.CGRect, count uintptr) {
 	if _cGContextClipToRects == nil {
 		panic("CoreGraphics: symbol CGContextClipToRects not loaded")
 	}
@@ -1603,12 +1640,12 @@ func CGContextClipToRects(c CGContextRef, rects *corefoundation.CGRect, count ui
 }
 
 
-var _cGContextClosePath func(c CGContextRef) 
+var _cGContextClosePath func(c CGContextRef)
 
 // CGContextClosePath closes and terminates the current path’s subpath.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/closePath()
-func CGContextClosePath(c CGContextRef)  {
+func CGContextClosePath(c CGContextRef) {
 	if _cGContextClosePath == nil {
 		panic("CoreGraphics: symbol CGContextClosePath not loaded")
 	}
@@ -1616,12 +1653,12 @@ func CGContextClosePath(c CGContextRef)  {
 }
 
 
-var _cGContextConcatCTM func(c CGContextRef, transform corefoundation.CGAffineTransform) 
+var _cGContextConcatCTM func(c CGContextRef, transform corefoundation.CGAffineTransform)
 
 // CGContextConcatCTM transforms the user coordinate system in a context using a specified matrix.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/concatenate(_:)
-func CGContextConcatCTM(c CGContextRef, transform corefoundation.CGAffineTransform)  {
+func CGContextConcatCTM(c CGContextRef, transform corefoundation.CGAffineTransform) {
 	if _cGContextConcatCTM == nil {
 		panic("CoreGraphics: symbol CGContextConcatCTM not loaded")
 	}
@@ -1720,12 +1757,12 @@ func CGContextCopyPath(c CGContextRef) CGPathRef {
 }
 
 
-var _cGContextDrawConicGradient func(c CGContextRef, gradient CGGradientRef, center corefoundation.CGPoint, angle float64) 
+var _cGContextDrawConicGradient func(c CGContextRef, gradient CGGradientRef, center corefoundation.CGPoint, angle float64)
 
 // CGContextDrawConicGradient.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawConicGradient(_:_:_:_:)
-func CGContextDrawConicGradient(c CGContextRef, gradient CGGradientRef, center corefoundation.CGPoint, angle float64)  {
+func CGContextDrawConicGradient(c CGContextRef, gradient CGGradientRef, center corefoundation.CGPoint, angle float64) {
 	if _cGContextDrawConicGradient == nil {
 		panic("CoreGraphics: symbol CGContextDrawConicGradient not loaded")
 	}
@@ -1733,12 +1770,12 @@ func CGContextDrawConicGradient(c CGContextRef, gradient CGGradientRef, center c
 }
 
 
-var _cGContextDrawImage func(c CGContextRef, rect corefoundation.CGRect, image CGImageRef) 
+var _cGContextDrawImage func(c CGContextRef, rect corefoundation.CGRect, image CGImageRef)
 
 // CGContextDrawImage draws an image into a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawImage
-func CGContextDrawImage(c CGContextRef, rect corefoundation.CGRect, image CGImageRef)  {
+func CGContextDrawImage(c CGContextRef, rect corefoundation.CGRect, image CGImageRef) {
 	if _cGContextDrawImage == nil {
 		panic("CoreGraphics: symbol CGContextDrawImage not loaded")
 	}
@@ -1759,14 +1796,38 @@ func CGContextDrawImageApplyingToneMapping(c CGContextRef, r corefoundation.CGRe
 }
 
 
+var _cGContextDrawLayerAtPoint func(context CGContextRef, point corefoundation.CGPoint, layer uintptr)
+
+// CGContextDrawLayerAtPoint draws the contents of a CGLayer object at the specified point.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawLayerAtPoint
+func CGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer uintptr) {
+	if _cGContextDrawLayerAtPoint == nil {
+		panic("CoreGraphics: symbol CGContextDrawLayerAtPoint not loaded")
+	}
+	_cGContextDrawLayerAtPoint(context, point, layer)
+}
 
 
-var _cGContextDrawLinearGradient func(c CGContextRef, gradient CGGradientRef, startPoint corefoundation.CGPoint, endPoint corefoundation.CGPoint, options CGGradientDrawingOptions) 
+var _cGContextDrawLayerInRect func(context CGContextRef, rect corefoundation.CGRect, layer uintptr)
+
+// CGContextDrawLayerInRect draws the contents of a layer object into the specified rectangle.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawLayerInRect
+func CGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer uintptr) {
+	if _cGContextDrawLayerInRect == nil {
+		panic("CoreGraphics: symbol CGContextDrawLayerInRect not loaded")
+	}
+	_cGContextDrawLayerInRect(context, rect, layer)
+}
+
+
+var _cGContextDrawLinearGradient func(c CGContextRef, gradient CGGradientRef, startPoint corefoundation.CGPoint, endPoint corefoundation.CGPoint, options CGGradientDrawingOptions)
 
 // CGContextDrawLinearGradient paints a gradient fill that varies along the line defined by the provided starting and ending points.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/drawLinearGradient(_:start:end:options:)
-func CGContextDrawLinearGradient(c CGContextRef, gradient CGGradientRef, startPoint corefoundation.CGPoint, endPoint corefoundation.CGPoint, options CGGradientDrawingOptions)  {
+func CGContextDrawLinearGradient(c CGContextRef, gradient CGGradientRef, startPoint corefoundation.CGPoint, endPoint corefoundation.CGPoint, options CGGradientDrawingOptions) {
 	if _cGContextDrawLinearGradient == nil {
 		panic("CoreGraphics: symbol CGContextDrawLinearGradient not loaded")
 	}
@@ -1774,12 +1835,12 @@ func CGContextDrawLinearGradient(c CGContextRef, gradient CGGradientRef, startPo
 }
 
 
-var _cGContextDrawPDFDocument func(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int) 
+var _cGContextDrawPDFDocument func(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int)
 
 // CGContextDrawPDFDocument.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawPDFDocument
-func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int)  {
+func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int) {
 	if _cGContextDrawPDFDocument == nil {
 		panic("CoreGraphics: symbol CGContextDrawPDFDocument not loaded")
 	}
@@ -1787,12 +1848,12 @@ func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, docume
 }
 
 
-var _cGContextDrawPDFPage func(c CGContextRef, page CGPDFPageRef) 
+var _cGContextDrawPDFPage func(c CGContextRef, page CGPDFPageRef)
 
 // CGContextDrawPDFPage draws the content of a PDF page into the current graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/drawPDFPage(_:)
-func CGContextDrawPDFPage(c CGContextRef, page CGPDFPageRef)  {
+func CGContextDrawPDFPage(c CGContextRef, page CGPDFPageRef) {
 	if _cGContextDrawPDFPage == nil {
 		panic("CoreGraphics: symbol CGContextDrawPDFPage not loaded")
 	}
@@ -1800,12 +1861,12 @@ func CGContextDrawPDFPage(c CGContextRef, page CGPDFPageRef)  {
 }
 
 
-var _cGContextDrawPath func(c CGContextRef, mode CGPathDrawingMode) 
+var _cGContextDrawPath func(c CGContextRef, mode CGPathDrawingMode)
 
 // CGContextDrawPath draws the current path using the provided drawing mode.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/drawPath(using:)
-func CGContextDrawPath(c CGContextRef, mode CGPathDrawingMode)  {
+func CGContextDrawPath(c CGContextRef, mode CGPathDrawingMode) {
 	if _cGContextDrawPath == nil {
 		panic("CoreGraphics: symbol CGContextDrawPath not loaded")
 	}
@@ -1813,12 +1874,12 @@ func CGContextDrawPath(c CGContextRef, mode CGPathDrawingMode)  {
 }
 
 
-var _cGContextDrawRadialGradient func(c CGContextRef, gradient CGGradientRef, startCenter corefoundation.CGPoint, startRadius float64, endCenter corefoundation.CGPoint, endRadius float64, options CGGradientDrawingOptions) 
+var _cGContextDrawRadialGradient func(c CGContextRef, gradient CGGradientRef, startCenter corefoundation.CGPoint, startRadius float64, endCenter corefoundation.CGPoint, endRadius float64, options CGGradientDrawingOptions)
 
 // CGContextDrawRadialGradient paints a gradient fill that varies along the area defined by the provided starting and ending circles.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/drawRadialGradient(_:startCenter:startRadius:endCenter:endRadius:options:)
-func CGContextDrawRadialGradient(c CGContextRef, gradient CGGradientRef, startCenter corefoundation.CGPoint, startRadius float64, endCenter corefoundation.CGPoint, endRadius float64, options CGGradientDrawingOptions)  {
+func CGContextDrawRadialGradient(c CGContextRef, gradient CGGradientRef, startCenter corefoundation.CGPoint, startRadius float64, endCenter corefoundation.CGPoint, endRadius float64, options CGGradientDrawingOptions) {
 	if _cGContextDrawRadialGradient == nil {
 		panic("CoreGraphics: symbol CGContextDrawRadialGradient not loaded")
 	}
@@ -1826,12 +1887,12 @@ func CGContextDrawRadialGradient(c CGContextRef, gradient CGGradientRef, startCe
 }
 
 
-var _cGContextDrawShading func(c CGContextRef, shading CGShadingRef) 
+var _cGContextDrawShading func(c CGContextRef, shading CGShadingRef)
 
 // CGContextDrawShading fills the clipping path of a context with the specified shading.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/drawShading(_:)
-func CGContextDrawShading(c CGContextRef, shading CGShadingRef)  {
+func CGContextDrawShading(c CGContextRef, shading CGShadingRef) {
 	if _cGContextDrawShading == nil {
 		panic("CoreGraphics: symbol CGContextDrawShading not loaded")
 	}
@@ -1839,12 +1900,12 @@ func CGContextDrawShading(c CGContextRef, shading CGShadingRef)  {
 }
 
 
-var _cGContextDrawTiledImage func(c CGContextRef, rect corefoundation.CGRect, image CGImageRef) 
+var _cGContextDrawTiledImage func(c CGContextRef, rect corefoundation.CGRect, image CGImageRef)
 
 // CGContextDrawTiledImage repeatedly draws an image, scaled to the provided rectangle, to fill the current clip region.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawTiledImage
-func CGContextDrawTiledImage(c CGContextRef, rect corefoundation.CGRect, image CGImageRef)  {
+func CGContextDrawTiledImage(c CGContextRef, rect corefoundation.CGRect, image CGImageRef) {
 	if _cGContextDrawTiledImage == nil {
 		panic("CoreGraphics: symbol CGContextDrawTiledImage not loaded")
 	}
@@ -1852,12 +1913,12 @@ func CGContextDrawTiledImage(c CGContextRef, rect corefoundation.CGRect, image C
 }
 
 
-var _cGContextEOClip func(c CGContextRef) 
+var _cGContextEOClip func(c CGContextRef)
 
 // CGContextEOClip modifies the current clipping path, using the even-odd rule.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextEOClip
-func CGContextEOClip(c CGContextRef)  {
+func CGContextEOClip(c CGContextRef) {
 	if _cGContextEOClip == nil {
 		panic("CoreGraphics: symbol CGContextEOClip not loaded")
 	}
@@ -1865,12 +1926,12 @@ func CGContextEOClip(c CGContextRef)  {
 }
 
 
-var _cGContextEOFillPath func(c CGContextRef) 
+var _cGContextEOFillPath func(c CGContextRef)
 
 // CGContextEOFillPath paints the area within the current path, using the even-odd fill rule.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextEOFillPath
-func CGContextEOFillPath(c CGContextRef)  {
+func CGContextEOFillPath(c CGContextRef) {
 	if _cGContextEOFillPath == nil {
 		panic("CoreGraphics: symbol CGContextEOFillPath not loaded")
 	}
@@ -1878,12 +1939,12 @@ func CGContextEOFillPath(c CGContextRef)  {
 }
 
 
-var _cGContextEndPage func(c CGContextRef) 
+var _cGContextEndPage func(c CGContextRef)
 
 // CGContextEndPage ends the current page in a page-based graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/endPage()
-func CGContextEndPage(c CGContextRef)  {
+func CGContextEndPage(c CGContextRef) {
 	if _cGContextEndPage == nil {
 		panic("CoreGraphics: symbol CGContextEndPage not loaded")
 	}
@@ -1891,12 +1952,12 @@ func CGContextEndPage(c CGContextRef)  {
 }
 
 
-var _cGContextEndTransparencyLayer func(c CGContextRef) 
+var _cGContextEndTransparencyLayer func(c CGContextRef)
 
 // CGContextEndTransparencyLayer ends a transparency layer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/endTransparencyLayer()
-func CGContextEndTransparencyLayer(c CGContextRef)  {
+func CGContextEndTransparencyLayer(c CGContextRef) {
 	if _cGContextEndTransparencyLayer == nil {
 		panic("CoreGraphics: symbol CGContextEndTransparencyLayer not loaded")
 	}
@@ -1904,12 +1965,12 @@ func CGContextEndTransparencyLayer(c CGContextRef)  {
 }
 
 
-var _cGContextFillEllipseInRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextFillEllipseInRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextFillEllipseInRect paints the area of the ellipse that fits inside the provided rectangle, using the fill color in the current graphics state.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/fillEllipse(in:)
-func CGContextFillEllipseInRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextFillEllipseInRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextFillEllipseInRect == nil {
 		panic("CoreGraphics: symbol CGContextFillEllipseInRect not loaded")
 	}
@@ -1917,12 +1978,12 @@ func CGContextFillEllipseInRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextFillPath func(c CGContextRef) 
+var _cGContextFillPath func(c CGContextRef)
 
 // CGContextFillPath paints the area within the current path, using the nonzero winding number rule.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextFillPath
-func CGContextFillPath(c CGContextRef)  {
+func CGContextFillPath(c CGContextRef) {
 	if _cGContextFillPath == nil {
 		panic("CoreGraphics: symbol CGContextFillPath not loaded")
 	}
@@ -1930,12 +1991,12 @@ func CGContextFillPath(c CGContextRef)  {
 }
 
 
-var _cGContextFillRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextFillRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextFillRect paints the area contained within the provided rectangle, using the fill color in the current graphics state.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/fill(_:)-7a0rk
-func CGContextFillRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextFillRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextFillRect == nil {
 		panic("CoreGraphics: symbol CGContextFillRect not loaded")
 	}
@@ -1943,12 +2004,12 @@ func CGContextFillRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextFillRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr) 
+var _cGContextFillRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr)
 
 // CGContextFillRects paints the areas contained within the provided rectangles, using the fill color in the current graphics state.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextFillRects
-func CGContextFillRects(c CGContextRef, rects *corefoundation.CGRect, count uintptr)  {
+func CGContextFillRects(c CGContextRef, rects *corefoundation.CGRect, count uintptr) {
 	if _cGContextFillRects == nil {
 		panic("CoreGraphics: symbol CGContextFillRects not loaded")
 	}
@@ -1956,12 +2017,12 @@ func CGContextFillRects(c CGContextRef, rects *corefoundation.CGRect, count uint
 }
 
 
-var _cGContextFlush func(c CGContextRef) 
+var _cGContextFlush func(c CGContextRef)
 
 // CGContextFlush forces all pending drawing operations in a window context to be rendered immediately to the destination device.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/flush()
-func CGContextFlush(c CGContextRef)  {
+func CGContextFlush(c CGContextRef) {
 	if _cGContextFlush == nil {
 		panic("CoreGraphics: symbol CGContextFlush not loaded")
 	}
@@ -2125,12 +2186,12 @@ func CGContextIsPathEmpty(c CGContextRef) bool {
 }
 
 
-var _cGContextMoveToPoint func(c CGContextRef, x float64, y float64) 
+var _cGContextMoveToPoint func(c CGContextRef, x float64, y float64)
 
 // CGContextMoveToPoint begins a new subpath at the point you specify.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextMoveToPoint
-func CGContextMoveToPoint(c CGContextRef, x float64, y float64)  {
+func CGContextMoveToPoint(c CGContextRef, x float64, y float64) {
 	if _cGContextMoveToPoint == nil {
 		panic("CoreGraphics: symbol CGContextMoveToPoint not loaded")
 	}
@@ -2151,12 +2212,12 @@ func CGContextPathContainsPoint(c CGContextRef, point corefoundation.CGPoint, mo
 }
 
 
-var _cGContextRelease func(c CGContextRef) 
+var _cGContextRelease func(c CGContextRef)
 
 // CGContextRelease decrements the retain count of a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextRelease
-func CGContextRelease(c CGContextRef)  {
+func CGContextRelease(c CGContextRef) {
 	if _cGContextRelease == nil {
 		panic("CoreGraphics: symbol CGContextRelease not loaded")
 	}
@@ -2164,12 +2225,12 @@ func CGContextRelease(c CGContextRef)  {
 }
 
 
-var _cGContextReplacePathWithStrokedPath func(c CGContextRef) 
+var _cGContextReplacePathWithStrokedPath func(c CGContextRef)
 
 // CGContextReplacePathWithStrokedPath replaces the path in the graphics context with the stroked version of the path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/replacePathWithStrokedPath()
-func CGContextReplacePathWithStrokedPath(c CGContextRef)  {
+func CGContextReplacePathWithStrokedPath(c CGContextRef) {
 	if _cGContextReplacePathWithStrokedPath == nil {
 		panic("CoreGraphics: symbol CGContextReplacePathWithStrokedPath not loaded")
 	}
@@ -2177,12 +2238,12 @@ func CGContextReplacePathWithStrokedPath(c CGContextRef)  {
 }
 
 
-var _cGContextResetClip func(c CGContextRef) 
+var _cGContextResetClip func(c CGContextRef)
 
 // CGContextResetClip.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/resetClip()
-func CGContextResetClip(c CGContextRef)  {
+func CGContextResetClip(c CGContextRef) {
 	if _cGContextResetClip == nil {
 		panic("CoreGraphics: symbol CGContextResetClip not loaded")
 	}
@@ -2190,12 +2251,12 @@ func CGContextResetClip(c CGContextRef)  {
 }
 
 
-var _cGContextRestoreGState func(c CGContextRef) 
+var _cGContextRestoreGState func(c CGContextRef)
 
 // CGContextRestoreGState sets the current graphics state to the state most recently saved.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/restoreGState()
-func CGContextRestoreGState(c CGContextRef)  {
+func CGContextRestoreGState(c CGContextRef) {
 	if _cGContextRestoreGState == nil {
 		panic("CoreGraphics: symbol CGContextRestoreGState not loaded")
 	}
@@ -2216,12 +2277,12 @@ func CGContextRetain(c CGContextRef) CGContextRef {
 }
 
 
-var _cGContextRotateCTM func(c CGContextRef, angle float64) 
+var _cGContextRotateCTM func(c CGContextRef, angle float64)
 
 // CGContextRotateCTM rotates the user coordinate system in a context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/rotate(by:)
-func CGContextRotateCTM(c CGContextRef, angle float64)  {
+func CGContextRotateCTM(c CGContextRef, angle float64) {
 	if _cGContextRotateCTM == nil {
 		panic("CoreGraphics: symbol CGContextRotateCTM not loaded")
 	}
@@ -2229,12 +2290,12 @@ func CGContextRotateCTM(c CGContextRef, angle float64)  {
 }
 
 
-var _cGContextSaveGState func(c CGContextRef) 
+var _cGContextSaveGState func(c CGContextRef)
 
 // CGContextSaveGState pushes a copy of the current graphics state onto the graphics state stack for the context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/saveGState()
-func CGContextSaveGState(c CGContextRef)  {
+func CGContextSaveGState(c CGContextRef) {
 	if _cGContextSaveGState == nil {
 		panic("CoreGraphics: symbol CGContextSaveGState not loaded")
 	}
@@ -2242,12 +2303,12 @@ func CGContextSaveGState(c CGContextRef)  {
 }
 
 
-var _cGContextScaleCTM func(c CGContextRef, sx float64, sy float64) 
+var _cGContextScaleCTM func(c CGContextRef, sx float64, sy float64)
 
 // CGContextScaleCTM changes the scale of the user coordinate system in a context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/scaleBy(x:y:)
-func CGContextScaleCTM(c CGContextRef, sx float64, sy float64)  {
+func CGContextScaleCTM(c CGContextRef, sx float64, sy float64) {
 	if _cGContextScaleCTM == nil {
 		panic("CoreGraphics: symbol CGContextScaleCTM not loaded")
 	}
@@ -2255,12 +2316,12 @@ func CGContextScaleCTM(c CGContextRef, sx float64, sy float64)  {
 }
 
 
-var _cGContextSetAllowsAntialiasing func(c CGContextRef, allowsAntialiasing bool) 
+var _cGContextSetAllowsAntialiasing func(c CGContextRef, allowsAntialiasing bool)
 
 // CGContextSetAllowsAntialiasing sets whether or not to allow antialiasing for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setAllowsAntialiasing(_:)
-func CGContextSetAllowsAntialiasing(c CGContextRef, allowsAntialiasing bool)  {
+func CGContextSetAllowsAntialiasing(c CGContextRef, allowsAntialiasing bool) {
 	if _cGContextSetAllowsAntialiasing == nil {
 		panic("CoreGraphics: symbol CGContextSetAllowsAntialiasing not loaded")
 	}
@@ -2268,12 +2329,12 @@ func CGContextSetAllowsAntialiasing(c CGContextRef, allowsAntialiasing bool)  {
 }
 
 
-var _cGContextSetAllowsFontSmoothing func(c CGContextRef, allowsFontSmoothing bool) 
+var _cGContextSetAllowsFontSmoothing func(c CGContextRef, allowsFontSmoothing bool)
 
 // CGContextSetAllowsFontSmoothing sets whether or not to allow font smoothing for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setAllowsFontSmoothing(_:)
-func CGContextSetAllowsFontSmoothing(c CGContextRef, allowsFontSmoothing bool)  {
+func CGContextSetAllowsFontSmoothing(c CGContextRef, allowsFontSmoothing bool) {
 	if _cGContextSetAllowsFontSmoothing == nil {
 		panic("CoreGraphics: symbol CGContextSetAllowsFontSmoothing not loaded")
 	}
@@ -2281,12 +2342,12 @@ func CGContextSetAllowsFontSmoothing(c CGContextRef, allowsFontSmoothing bool)  
 }
 
 
-var _cGContextSetAllowsFontSubpixelPositioning func(c CGContextRef, allowsFontSubpixelPositioning bool) 
+var _cGContextSetAllowsFontSubpixelPositioning func(c CGContextRef, allowsFontSubpixelPositioning bool)
 
 // CGContextSetAllowsFontSubpixelPositioning sets whether or not to allow subpixel positioning for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setAllowsFontSubpixelPositioning(_:)
-func CGContextSetAllowsFontSubpixelPositioning(c CGContextRef, allowsFontSubpixelPositioning bool)  {
+func CGContextSetAllowsFontSubpixelPositioning(c CGContextRef, allowsFontSubpixelPositioning bool) {
 	if _cGContextSetAllowsFontSubpixelPositioning == nil {
 		panic("CoreGraphics: symbol CGContextSetAllowsFontSubpixelPositioning not loaded")
 	}
@@ -2294,12 +2355,12 @@ func CGContextSetAllowsFontSubpixelPositioning(c CGContextRef, allowsFontSubpixe
 }
 
 
-var _cGContextSetAllowsFontSubpixelQuantization func(c CGContextRef, allowsFontSubpixelQuantization bool) 
+var _cGContextSetAllowsFontSubpixelQuantization func(c CGContextRef, allowsFontSubpixelQuantization bool)
 
 // CGContextSetAllowsFontSubpixelQuantization sets whether or not to allow subpixel quantization for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setAllowsFontSubpixelQuantization(_:)
-func CGContextSetAllowsFontSubpixelQuantization(c CGContextRef, allowsFontSubpixelQuantization bool)  {
+func CGContextSetAllowsFontSubpixelQuantization(c CGContextRef, allowsFontSubpixelQuantization bool) {
 	if _cGContextSetAllowsFontSubpixelQuantization == nil {
 		panic("CoreGraphics: symbol CGContextSetAllowsFontSubpixelQuantization not loaded")
 	}
@@ -2307,12 +2368,12 @@ func CGContextSetAllowsFontSubpixelQuantization(c CGContextRef, allowsFontSubpix
 }
 
 
-var _cGContextSetAlpha func(c CGContextRef, alpha float64) 
+var _cGContextSetAlpha func(c CGContextRef, alpha float64)
 
 // CGContextSetAlpha sets the opacity level for objects drawn in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setAlpha(_:)
-func CGContextSetAlpha(c CGContextRef, alpha float64)  {
+func CGContextSetAlpha(c CGContextRef, alpha float64) {
 	if _cGContextSetAlpha == nil {
 		panic("CoreGraphics: symbol CGContextSetAlpha not loaded")
 	}
@@ -2320,13 +2381,25 @@ func CGContextSetAlpha(c CGContextRef, alpha float64)  {
 }
 
 
+var _cGContextSetBlendMode func(c CGContextRef, mode uintptr)
 
-var _cGContextSetCMYKFillColor func(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64) 
+// CGContextSetBlendMode sets how sample values are composited by a graphics context.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setBlendMode(_:)
+func CGContextSetBlendMode(c CGContextRef, mode uintptr) {
+	if _cGContextSetBlendMode == nil {
+		panic("CoreGraphics: symbol CGContextSetBlendMode not loaded")
+	}
+	_cGContextSetBlendMode(c, mode)
+}
+
+
+var _cGContextSetCMYKFillColor func(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64)
 
 // CGContextSetCMYKFillColor sets the current fill color to a value in the DeviceCMYK color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillColor(cyan:magenta:yellow:black:alpha:)
-func CGContextSetCMYKFillColor(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64)  {
+func CGContextSetCMYKFillColor(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64) {
 	if _cGContextSetCMYKFillColor == nil {
 		panic("CoreGraphics: symbol CGContextSetCMYKFillColor not loaded")
 	}
@@ -2334,12 +2407,12 @@ func CGContextSetCMYKFillColor(c CGContextRef, cyan float64, magenta float64, ye
 }
 
 
-var _cGContextSetCMYKStrokeColor func(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64) 
+var _cGContextSetCMYKStrokeColor func(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64)
 
 // CGContextSetCMYKStrokeColor sets the current stroke color to a value in the DeviceCMYK color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokeColor(cyan:magenta:yellow:black:alpha:)
-func CGContextSetCMYKStrokeColor(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64)  {
+func CGContextSetCMYKStrokeColor(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64) {
 	if _cGContextSetCMYKStrokeColor == nil {
 		panic("CoreGraphics: symbol CGContextSetCMYKStrokeColor not loaded")
 	}
@@ -2347,12 +2420,12 @@ func CGContextSetCMYKStrokeColor(c CGContextRef, cyan float64, magenta float64, 
 }
 
 
-var _cGContextSetCharacterSpacing func(c CGContextRef, spacing float64) 
+var _cGContextSetCharacterSpacing func(c CGContextRef, spacing float64)
 
 // CGContextSetCharacterSpacing sets the current character spacing.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setCharacterSpacing(_:)
-func CGContextSetCharacterSpacing(c CGContextRef, spacing float64)  {
+func CGContextSetCharacterSpacing(c CGContextRef, spacing float64) {
 	if _cGContextSetCharacterSpacing == nil {
 		panic("CoreGraphics: symbol CGContextSetCharacterSpacing not loaded")
 	}
@@ -2360,12 +2433,12 @@ func CGContextSetCharacterSpacing(c CGContextRef, spacing float64)  {
 }
 
 
-var _cGContextSetContentToneMappingInfo func(c CGContextRef, info CGContentToneMappingInfo) 
+var _cGContextSetContentToneMappingInfo func(c CGContextRef, info CGContentToneMappingInfo)
 
 // CGContextSetContentToneMappingInfo.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextSetContentToneMappingInfo
-func CGContextSetContentToneMappingInfo(c CGContextRef, info CGContentToneMappingInfo)  {
+func CGContextSetContentToneMappingInfo(c CGContextRef, info CGContentToneMappingInfo) {
 	if _cGContextSetContentToneMappingInfo == nil {
 		panic("CoreGraphics: symbol CGContextSetContentToneMappingInfo not loaded")
 	}
@@ -2386,12 +2459,12 @@ func CGContextSetEDRTargetHeadroom(c CGContextRef, headroom float32) bool {
 }
 
 
-var _cGContextSetFillColor func(c CGContextRef, components *float64) 
+var _cGContextSetFillColor func(c CGContextRef, components *float64)
 
 // CGContextSetFillColor sets the current fill color.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillColor(_:)-756dy
-func CGContextSetFillColor(c CGContextRef, components *float64)  {
+func CGContextSetFillColor(c CGContextRef, components *float64) {
 	if _cGContextSetFillColor == nil {
 		panic("CoreGraphics: symbol CGContextSetFillColor not loaded")
 	}
@@ -2399,12 +2472,12 @@ func CGContextSetFillColor(c CGContextRef, components *float64)  {
 }
 
 
-var _cGContextSetFillColorSpace func(c CGContextRef, space CGColorSpaceRef) 
+var _cGContextSetFillColorSpace func(c CGContextRef, space CGColorSpaceRef)
 
 // CGContextSetFillColorSpace sets the fill color space in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillColorSpace(_:)
-func CGContextSetFillColorSpace(c CGContextRef, space CGColorSpaceRef)  {
+func CGContextSetFillColorSpace(c CGContextRef, space CGColorSpaceRef) {
 	if _cGContextSetFillColorSpace == nil {
 		panic("CoreGraphics: symbol CGContextSetFillColorSpace not loaded")
 	}
@@ -2412,12 +2485,12 @@ func CGContextSetFillColorSpace(c CGContextRef, space CGColorSpaceRef)  {
 }
 
 
-var _cGContextSetFillColorWithColor func(c CGContextRef, color CGColorRef) 
+var _cGContextSetFillColorWithColor func(c CGContextRef, color CGColorRef)
 
 // CGContextSetFillColorWithColor sets the current fill color in a graphics context, using a CGColor.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillColor(_:)-8lhn8
-func CGContextSetFillColorWithColor(c CGContextRef, color CGColorRef)  {
+func CGContextSetFillColorWithColor(c CGContextRef, color CGColorRef) {
 	if _cGContextSetFillColorWithColor == nil {
 		panic("CoreGraphics: symbol CGContextSetFillColorWithColor not loaded")
 	}
@@ -2425,12 +2498,12 @@ func CGContextSetFillColorWithColor(c CGContextRef, color CGColorRef)  {
 }
 
 
-var _cGContextSetFillPattern func(c CGContextRef, pattern CGPatternRef, components *float64) 
+var _cGContextSetFillPattern func(c CGContextRef, pattern CGPatternRef, components *float64)
 
 // CGContextSetFillPattern sets the fill pattern in the specified graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillPattern(_:colorComponents:)
-func CGContextSetFillPattern(c CGContextRef, pattern CGPatternRef, components *float64)  {
+func CGContextSetFillPattern(c CGContextRef, pattern CGPatternRef, components *float64) {
 	if _cGContextSetFillPattern == nil {
 		panic("CoreGraphics: symbol CGContextSetFillPattern not loaded")
 	}
@@ -2438,12 +2511,12 @@ func CGContextSetFillPattern(c CGContextRef, pattern CGPatternRef, components *f
 }
 
 
-var _cGContextSetFlatness func(c CGContextRef, flatness float64) 
+var _cGContextSetFlatness func(c CGContextRef, flatness float64)
 
 // CGContextSetFlatness sets the accuracy of curved paths in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFlatness(_:)
-func CGContextSetFlatness(c CGContextRef, flatness float64)  {
+func CGContextSetFlatness(c CGContextRef, flatness float64) {
 	if _cGContextSetFlatness == nil {
 		panic("CoreGraphics: symbol CGContextSetFlatness not loaded")
 	}
@@ -2451,12 +2524,12 @@ func CGContextSetFlatness(c CGContextRef, flatness float64)  {
 }
 
 
-var _cGContextSetFont func(c CGContextRef, font CGFontRef) 
+var _cGContextSetFont func(c CGContextRef, font CGFontRef)
 
 // CGContextSetFont sets the platform font in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFont(_:)
-func CGContextSetFont(c CGContextRef, font CGFontRef)  {
+func CGContextSetFont(c CGContextRef, font CGFontRef) {
 	if _cGContextSetFont == nil {
 		panic("CoreGraphics: symbol CGContextSetFont not loaded")
 	}
@@ -2464,12 +2537,12 @@ func CGContextSetFont(c CGContextRef, font CGFontRef)  {
 }
 
 
-var _cGContextSetFontSize func(c CGContextRef, size float64) 
+var _cGContextSetFontSize func(c CGContextRef, size float64)
 
 // CGContextSetFontSize sets the current font size.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFontSize(_:)
-func CGContextSetFontSize(c CGContextRef, size float64)  {
+func CGContextSetFontSize(c CGContextRef, size float64) {
 	if _cGContextSetFontSize == nil {
 		panic("CoreGraphics: symbol CGContextSetFontSize not loaded")
 	}
@@ -2477,12 +2550,12 @@ func CGContextSetFontSize(c CGContextRef, size float64)  {
 }
 
 
-var _cGContextSetGrayFillColor func(c CGContextRef, gray float64, alpha float64) 
+var _cGContextSetGrayFillColor func(c CGContextRef, gray float64, alpha float64)
 
 // CGContextSetGrayFillColor sets the current fill color to a value in the DeviceGray color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillColor(gray:alpha:)
-func CGContextSetGrayFillColor(c CGContextRef, gray float64, alpha float64)  {
+func CGContextSetGrayFillColor(c CGContextRef, gray float64, alpha float64) {
 	if _cGContextSetGrayFillColor == nil {
 		panic("CoreGraphics: symbol CGContextSetGrayFillColor not loaded")
 	}
@@ -2490,12 +2563,12 @@ func CGContextSetGrayFillColor(c CGContextRef, gray float64, alpha float64)  {
 }
 
 
-var _cGContextSetGrayStrokeColor func(c CGContextRef, gray float64, alpha float64) 
+var _cGContextSetGrayStrokeColor func(c CGContextRef, gray float64, alpha float64)
 
 // CGContextSetGrayStrokeColor sets the current stroke color to a value in the DeviceGray color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokeColor(gray:alpha:)
-func CGContextSetGrayStrokeColor(c CGContextRef, gray float64, alpha float64)  {
+func CGContextSetGrayStrokeColor(c CGContextRef, gray float64, alpha float64) {
 	if _cGContextSetGrayStrokeColor == nil {
 		panic("CoreGraphics: symbol CGContextSetGrayStrokeColor not loaded")
 	}
@@ -2503,12 +2576,12 @@ func CGContextSetGrayStrokeColor(c CGContextRef, gray float64, alpha float64)  {
 }
 
 
-var _cGContextSetInterpolationQuality func(c CGContextRef, quality CGInterpolationQuality) 
+var _cGContextSetInterpolationQuality func(c CGContextRef, quality CGInterpolationQuality)
 
 // CGContextSetInterpolationQuality sets the level of interpolation quality for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextSetInterpolationQuality
-func CGContextSetInterpolationQuality(c CGContextRef, quality CGInterpolationQuality)  {
+func CGContextSetInterpolationQuality(c CGContextRef, quality CGInterpolationQuality) {
 	if _cGContextSetInterpolationQuality == nil {
 		panic("CoreGraphics: symbol CGContextSetInterpolationQuality not loaded")
 	}
@@ -2516,13 +2589,25 @@ func CGContextSetInterpolationQuality(c CGContextRef, quality CGInterpolationQua
 }
 
 
+var _cGContextSetLineCap func(c CGContextRef, cap_ uintptr)
 
-var _cGContextSetLineDash func(c CGContextRef, phase float64, lengths *float64, count uintptr) 
+// CGContextSetLineCap sets the style for the endpoints of lines drawn in a graphics context.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setLineCap(_:)
+func CGContextSetLineCap(c CGContextRef, cap_ uintptr) {
+	if _cGContextSetLineCap == nil {
+		panic("CoreGraphics: symbol CGContextSetLineCap not loaded")
+	}
+	_cGContextSetLineCap(c, cap_)
+}
+
+
+var _cGContextSetLineDash func(c CGContextRef, phase float64, lengths *float64, count uintptr)
 
 // CGContextSetLineDash sets the pattern for dashed lines in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextSetLineDash
-func CGContextSetLineDash(c CGContextRef, phase float64, lengths *float64, count uintptr)  {
+func CGContextSetLineDash(c CGContextRef, phase float64, lengths *float64, count uintptr) {
 	if _cGContextSetLineDash == nil {
 		panic("CoreGraphics: symbol CGContextSetLineDash not loaded")
 	}
@@ -2530,13 +2615,25 @@ func CGContextSetLineDash(c CGContextRef, phase float64, lengths *float64, count
 }
 
 
+var _cGContextSetLineJoin func(c CGContextRef, join uintptr)
 
-var _cGContextSetLineWidth func(c CGContextRef, width float64) 
+// CGContextSetLineJoin sets the style for the joins of connected lines in a graphics context.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setLineJoin(_:)
+func CGContextSetLineJoin(c CGContextRef, join uintptr) {
+	if _cGContextSetLineJoin == nil {
+		panic("CoreGraphics: symbol CGContextSetLineJoin not loaded")
+	}
+	_cGContextSetLineJoin(c, join)
+}
+
+
+var _cGContextSetLineWidth func(c CGContextRef, width float64)
 
 // CGContextSetLineWidth sets the line width for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setLineWidth(_:)
-func CGContextSetLineWidth(c CGContextRef, width float64)  {
+func CGContextSetLineWidth(c CGContextRef, width float64) {
 	if _cGContextSetLineWidth == nil {
 		panic("CoreGraphics: symbol CGContextSetLineWidth not loaded")
 	}
@@ -2544,12 +2641,12 @@ func CGContextSetLineWidth(c CGContextRef, width float64)  {
 }
 
 
-var _cGContextSetMiterLimit func(c CGContextRef, limit float64) 
+var _cGContextSetMiterLimit func(c CGContextRef, limit float64)
 
 // CGContextSetMiterLimit sets the miter limit for the joins of connected lines in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setMiterLimit(_:)
-func CGContextSetMiterLimit(c CGContextRef, limit float64)  {
+func CGContextSetMiterLimit(c CGContextRef, limit float64) {
 	if _cGContextSetMiterLimit == nil {
 		panic("CoreGraphics: symbol CGContextSetMiterLimit not loaded")
 	}
@@ -2557,12 +2654,12 @@ func CGContextSetMiterLimit(c CGContextRef, limit float64)  {
 }
 
 
-var _cGContextSetPatternPhase func(c CGContextRef, phase corefoundation.CGSize) 
+var _cGContextSetPatternPhase func(c CGContextRef, phase corefoundation.CGSize)
 
 // CGContextSetPatternPhase sets the pattern phase of a context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setPatternPhase(_:)
-func CGContextSetPatternPhase(c CGContextRef, phase corefoundation.CGSize)  {
+func CGContextSetPatternPhase(c CGContextRef, phase corefoundation.CGSize) {
 	if _cGContextSetPatternPhase == nil {
 		panic("CoreGraphics: symbol CGContextSetPatternPhase not loaded")
 	}
@@ -2570,12 +2667,12 @@ func CGContextSetPatternPhase(c CGContextRef, phase corefoundation.CGSize)  {
 }
 
 
-var _cGContextSetRGBFillColor func(c CGContextRef, red float64, green float64, blue float64, alpha float64) 
+var _cGContextSetRGBFillColor func(c CGContextRef, red float64, green float64, blue float64, alpha float64)
 
 // CGContextSetRGBFillColor sets the current fill color to a value in the DeviceRGB color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setFillColor(red:green:blue:alpha:)
-func CGContextSetRGBFillColor(c CGContextRef, red float64, green float64, blue float64, alpha float64)  {
+func CGContextSetRGBFillColor(c CGContextRef, red float64, green float64, blue float64, alpha float64) {
 	if _cGContextSetRGBFillColor == nil {
 		panic("CoreGraphics: symbol CGContextSetRGBFillColor not loaded")
 	}
@@ -2583,12 +2680,12 @@ func CGContextSetRGBFillColor(c CGContextRef, red float64, green float64, blue f
 }
 
 
-var _cGContextSetRGBStrokeColor func(c CGContextRef, red float64, green float64, blue float64, alpha float64) 
+var _cGContextSetRGBStrokeColor func(c CGContextRef, red float64, green float64, blue float64, alpha float64)
 
 // CGContextSetRGBStrokeColor sets the current stroke color to a value in the DeviceRGB color space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokeColor(red:green:blue:alpha:)
-func CGContextSetRGBStrokeColor(c CGContextRef, red float64, green float64, blue float64, alpha float64)  {
+func CGContextSetRGBStrokeColor(c CGContextRef, red float64, green float64, blue float64, alpha float64) {
 	if _cGContextSetRGBStrokeColor == nil {
 		panic("CoreGraphics: symbol CGContextSetRGBStrokeColor not loaded")
 	}
@@ -2596,12 +2693,12 @@ func CGContextSetRGBStrokeColor(c CGContextRef, red float64, green float64, blue
 }
 
 
-var _cGContextSetRenderingIntent func(c CGContextRef, intent CGColorRenderingIntent) 
+var _cGContextSetRenderingIntent func(c CGContextRef, intent CGColorRenderingIntent)
 
 // CGContextSetRenderingIntent sets the rendering intent in the current graphics state.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setRenderingIntent(_:)
-func CGContextSetRenderingIntent(c CGContextRef, intent CGColorRenderingIntent)  {
+func CGContextSetRenderingIntent(c CGContextRef, intent CGColorRenderingIntent) {
 	if _cGContextSetRenderingIntent == nil {
 		panic("CoreGraphics: symbol CGContextSetRenderingIntent not loaded")
 	}
@@ -2609,12 +2706,12 @@ func CGContextSetRenderingIntent(c CGContextRef, intent CGColorRenderingIntent) 
 }
 
 
-var _cGContextSetShadow func(c CGContextRef, offset corefoundation.CGSize, blur float64) 
+var _cGContextSetShadow func(c CGContextRef, offset corefoundation.CGSize, blur float64)
 
 // CGContextSetShadow enables shadowing in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setShadow(offset:blur:)
-func CGContextSetShadow(c CGContextRef, offset corefoundation.CGSize, blur float64)  {
+func CGContextSetShadow(c CGContextRef, offset corefoundation.CGSize, blur float64) {
 	if _cGContextSetShadow == nil {
 		panic("CoreGraphics: symbol CGContextSetShadow not loaded")
 	}
@@ -2622,12 +2719,12 @@ func CGContextSetShadow(c CGContextRef, offset corefoundation.CGSize, blur float
 }
 
 
-var _cGContextSetShadowWithColor func(c CGContextRef, offset corefoundation.CGSize, blur float64, color CGColorRef) 
+var _cGContextSetShadowWithColor func(c CGContextRef, offset corefoundation.CGSize, blur float64, color CGColorRef)
 
 // CGContextSetShadowWithColor enables shadowing with color a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setShadow(offset:blur:color:)
-func CGContextSetShadowWithColor(c CGContextRef, offset corefoundation.CGSize, blur float64, color CGColorRef)  {
+func CGContextSetShadowWithColor(c CGContextRef, offset corefoundation.CGSize, blur float64, color CGColorRef) {
 	if _cGContextSetShadowWithColor == nil {
 		panic("CoreGraphics: symbol CGContextSetShadowWithColor not loaded")
 	}
@@ -2635,12 +2732,12 @@ func CGContextSetShadowWithColor(c CGContextRef, offset corefoundation.CGSize, b
 }
 
 
-var _cGContextSetShouldAntialias func(c CGContextRef, shouldAntialias bool) 
+var _cGContextSetShouldAntialias func(c CGContextRef, shouldAntialias bool)
 
 // CGContextSetShouldAntialias sets antialiasing on or off for a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setShouldAntialias(_:)
-func CGContextSetShouldAntialias(c CGContextRef, shouldAntialias bool)  {
+func CGContextSetShouldAntialias(c CGContextRef, shouldAntialias bool) {
 	if _cGContextSetShouldAntialias == nil {
 		panic("CoreGraphics: symbol CGContextSetShouldAntialias not loaded")
 	}
@@ -2648,12 +2745,12 @@ func CGContextSetShouldAntialias(c CGContextRef, shouldAntialias bool)  {
 }
 
 
-var _cGContextSetShouldSmoothFonts func(c CGContextRef, shouldSmoothFonts bool) 
+var _cGContextSetShouldSmoothFonts func(c CGContextRef, shouldSmoothFonts bool)
 
 // CGContextSetShouldSmoothFonts enables or disables font smoothing in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setShouldSmoothFonts(_:)
-func CGContextSetShouldSmoothFonts(c CGContextRef, shouldSmoothFonts bool)  {
+func CGContextSetShouldSmoothFonts(c CGContextRef, shouldSmoothFonts bool) {
 	if _cGContextSetShouldSmoothFonts == nil {
 		panic("CoreGraphics: symbol CGContextSetShouldSmoothFonts not loaded")
 	}
@@ -2661,12 +2758,12 @@ func CGContextSetShouldSmoothFonts(c CGContextRef, shouldSmoothFonts bool)  {
 }
 
 
-var _cGContextSetShouldSubpixelPositionFonts func(c CGContextRef, shouldSubpixelPositionFonts bool) 
+var _cGContextSetShouldSubpixelPositionFonts func(c CGContextRef, shouldSubpixelPositionFonts bool)
 
 // CGContextSetShouldSubpixelPositionFonts enables or disables subpixel positioning in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setShouldSubpixelPositionFonts(_:)
-func CGContextSetShouldSubpixelPositionFonts(c CGContextRef, shouldSubpixelPositionFonts bool)  {
+func CGContextSetShouldSubpixelPositionFonts(c CGContextRef, shouldSubpixelPositionFonts bool) {
 	if _cGContextSetShouldSubpixelPositionFonts == nil {
 		panic("CoreGraphics: symbol CGContextSetShouldSubpixelPositionFonts not loaded")
 	}
@@ -2674,12 +2771,12 @@ func CGContextSetShouldSubpixelPositionFonts(c CGContextRef, shouldSubpixelPosit
 }
 
 
-var _cGContextSetShouldSubpixelQuantizeFonts func(c CGContextRef, shouldSubpixelQuantizeFonts bool) 
+var _cGContextSetShouldSubpixelQuantizeFonts func(c CGContextRef, shouldSubpixelQuantizeFonts bool)
 
 // CGContextSetShouldSubpixelQuantizeFonts enables or disables subpixel quantization in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setShouldSubpixelQuantizeFonts(_:)
-func CGContextSetShouldSubpixelQuantizeFonts(c CGContextRef, shouldSubpixelQuantizeFonts bool)  {
+func CGContextSetShouldSubpixelQuantizeFonts(c CGContextRef, shouldSubpixelQuantizeFonts bool) {
 	if _cGContextSetShouldSubpixelQuantizeFonts == nil {
 		panic("CoreGraphics: symbol CGContextSetShouldSubpixelQuantizeFonts not loaded")
 	}
@@ -2687,12 +2784,12 @@ func CGContextSetShouldSubpixelQuantizeFonts(c CGContextRef, shouldSubpixelQuant
 }
 
 
-var _cGContextSetStrokeColor func(c CGContextRef, components *float64) 
+var _cGContextSetStrokeColor func(c CGContextRef, components *float64)
 
 // CGContextSetStrokeColor sets the current stroke color.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokeColor(_:)-4pd8p
-func CGContextSetStrokeColor(c CGContextRef, components *float64)  {
+func CGContextSetStrokeColor(c CGContextRef, components *float64) {
 	if _cGContextSetStrokeColor == nil {
 		panic("CoreGraphics: symbol CGContextSetStrokeColor not loaded")
 	}
@@ -2700,12 +2797,12 @@ func CGContextSetStrokeColor(c CGContextRef, components *float64)  {
 }
 
 
-var _cGContextSetStrokeColorSpace func(c CGContextRef, space CGColorSpaceRef) 
+var _cGContextSetStrokeColorSpace func(c CGContextRef, space CGColorSpaceRef)
 
 // CGContextSetStrokeColorSpace sets the stroke color space in a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokeColorSpace(_:)
-func CGContextSetStrokeColorSpace(c CGContextRef, space CGColorSpaceRef)  {
+func CGContextSetStrokeColorSpace(c CGContextRef, space CGColorSpaceRef) {
 	if _cGContextSetStrokeColorSpace == nil {
 		panic("CoreGraphics: symbol CGContextSetStrokeColorSpace not loaded")
 	}
@@ -2713,12 +2810,12 @@ func CGContextSetStrokeColorSpace(c CGContextRef, space CGColorSpaceRef)  {
 }
 
 
-var _cGContextSetStrokeColorWithColor func(c CGContextRef, color CGColorRef) 
+var _cGContextSetStrokeColorWithColor func(c CGContextRef, color CGColorRef)
 
 // CGContextSetStrokeColorWithColor sets the current stroke color in a context, using a CGColor.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokeColor(_:)-1sskg
-func CGContextSetStrokeColorWithColor(c CGContextRef, color CGColorRef)  {
+func CGContextSetStrokeColorWithColor(c CGContextRef, color CGColorRef) {
 	if _cGContextSetStrokeColorWithColor == nil {
 		panic("CoreGraphics: symbol CGContextSetStrokeColorWithColor not loaded")
 	}
@@ -2726,12 +2823,12 @@ func CGContextSetStrokeColorWithColor(c CGContextRef, color CGColorRef)  {
 }
 
 
-var _cGContextSetStrokePattern func(c CGContextRef, pattern CGPatternRef, components *float64) 
+var _cGContextSetStrokePattern func(c CGContextRef, pattern CGPatternRef, components *float64)
 
 // CGContextSetStrokePattern sets the stroke pattern in the specified graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setStrokePattern(_:colorComponents:)
-func CGContextSetStrokePattern(c CGContextRef, pattern CGPatternRef, components *float64)  {
+func CGContextSetStrokePattern(c CGContextRef, pattern CGPatternRef, components *float64) {
 	if _cGContextSetStrokePattern == nil {
 		panic("CoreGraphics: symbol CGContextSetStrokePattern not loaded")
 	}
@@ -2739,12 +2836,12 @@ func CGContextSetStrokePattern(c CGContextRef, pattern CGPatternRef, components 
 }
 
 
-var _cGContextSetTextDrawingMode func(c CGContextRef, mode CGTextDrawingMode) 
+var _cGContextSetTextDrawingMode func(c CGContextRef, mode CGTextDrawingMode)
 
 // CGContextSetTextDrawingMode sets the current text drawing mode.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setTextDrawingMode(_:)
-func CGContextSetTextDrawingMode(c CGContextRef, mode CGTextDrawingMode)  {
+func CGContextSetTextDrawingMode(c CGContextRef, mode CGTextDrawingMode) {
 	if _cGContextSetTextDrawingMode == nil {
 		panic("CoreGraphics: symbol CGContextSetTextDrawingMode not loaded")
 	}
@@ -2752,12 +2849,12 @@ func CGContextSetTextDrawingMode(c CGContextRef, mode CGTextDrawingMode)  {
 }
 
 
-var _cGContextSetTextMatrix func(c CGContextRef, t corefoundation.CGAffineTransform) 
+var _cGContextSetTextMatrix func(c CGContextRef, t corefoundation.CGAffineTransform)
 
 // CGContextSetTextMatrix sets the current text matrix.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextSetTextMatrix
-func CGContextSetTextMatrix(c CGContextRef, t corefoundation.CGAffineTransform)  {
+func CGContextSetTextMatrix(c CGContextRef, t corefoundation.CGAffineTransform) {
 	if _cGContextSetTextMatrix == nil {
 		panic("CoreGraphics: symbol CGContextSetTextMatrix not loaded")
 	}
@@ -2765,12 +2862,12 @@ func CGContextSetTextMatrix(c CGContextRef, t corefoundation.CGAffineTransform) 
 }
 
 
-var _cGContextSetTextPosition func(c CGContextRef, x float64, y float64) 
+var _cGContextSetTextPosition func(c CGContextRef, x float64, y float64)
 
 // CGContextSetTextPosition sets the location at which text is drawn.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextSetTextPosition
-func CGContextSetTextPosition(c CGContextRef, x float64, y float64)  {
+func CGContextSetTextPosition(c CGContextRef, x float64, y float64) {
 	if _cGContextSetTextPosition == nil {
 		panic("CoreGraphics: symbol CGContextSetTextPosition not loaded")
 	}
@@ -2778,13 +2875,25 @@ func CGContextSetTextPosition(c CGContextRef, x float64, y float64)  {
 }
 
 
+var _cGContextShowGlyphsAtPositions func(c CGContextRef, glyphs uintptr, Lpositions *corefoundation.CGPoint, count uintptr)
 
-var _cGContextStrokeEllipseInRect func(c CGContextRef, rect corefoundation.CGRect) 
+// CGContextShowGlyphsAtPositions draws glyphs at the provided position.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGContextShowGlyphsAtPositions
+func CGContextShowGlyphsAtPositions(c CGContextRef, glyphs uintptr, Lpositions *corefoundation.CGPoint, count uintptr) {
+	if _cGContextShowGlyphsAtPositions == nil {
+		panic("CoreGraphics: symbol CGContextShowGlyphsAtPositions not loaded")
+	}
+	_cGContextShowGlyphsAtPositions(c, glyphs, Lpositions, count)
+}
+
+
+var _cGContextStrokeEllipseInRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextStrokeEllipseInRect strokes an ellipse that fits inside the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/strokeEllipse(in:)
-func CGContextStrokeEllipseInRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextStrokeEllipseInRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextStrokeEllipseInRect == nil {
 		panic("CoreGraphics: symbol CGContextStrokeEllipseInRect not loaded")
 	}
@@ -2792,12 +2901,12 @@ func CGContextStrokeEllipseInRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextStrokeLineSegments func(c CGContextRef, points *corefoundation.CGPoint, count uintptr) 
+var _cGContextStrokeLineSegments func(c CGContextRef, points *corefoundation.CGPoint, count uintptr)
 
 // CGContextStrokeLineSegments strokes a sequence of line segments.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextStrokeLineSegments
-func CGContextStrokeLineSegments(c CGContextRef, points *corefoundation.CGPoint, count uintptr)  {
+func CGContextStrokeLineSegments(c CGContextRef, points *corefoundation.CGPoint, count uintptr) {
 	if _cGContextStrokeLineSegments == nil {
 		panic("CoreGraphics: symbol CGContextStrokeLineSegments not loaded")
 	}
@@ -2805,12 +2914,12 @@ func CGContextStrokeLineSegments(c CGContextRef, points *corefoundation.CGPoint,
 }
 
 
-var _cGContextStrokePath func(c CGContextRef) 
+var _cGContextStrokePath func(c CGContextRef)
 
 // CGContextStrokePath paints a line along the current path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/strokePath()
-func CGContextStrokePath(c CGContextRef)  {
+func CGContextStrokePath(c CGContextRef) {
 	if _cGContextStrokePath == nil {
 		panic("CoreGraphics: symbol CGContextStrokePath not loaded")
 	}
@@ -2818,12 +2927,12 @@ func CGContextStrokePath(c CGContextRef)  {
 }
 
 
-var _cGContextStrokeRect func(c CGContextRef, rect corefoundation.CGRect) 
+var _cGContextStrokeRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextStrokeRect paints a rectangular path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/stroke(_:)
-func CGContextStrokeRect(c CGContextRef, rect corefoundation.CGRect)  {
+func CGContextStrokeRect(c CGContextRef, rect corefoundation.CGRect) {
 	if _cGContextStrokeRect == nil {
 		panic("CoreGraphics: symbol CGContextStrokeRect not loaded")
 	}
@@ -2831,12 +2940,12 @@ func CGContextStrokeRect(c CGContextRef, rect corefoundation.CGRect)  {
 }
 
 
-var _cGContextStrokeRectWithWidth func(c CGContextRef, rect corefoundation.CGRect, width float64) 
+var _cGContextStrokeRectWithWidth func(c CGContextRef, rect corefoundation.CGRect, width float64)
 
 // CGContextStrokeRectWithWidth paints a rectangular path, using the specified line width.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/stroke(_:width:)
-func CGContextStrokeRectWithWidth(c CGContextRef, rect corefoundation.CGRect, width float64)  {
+func CGContextStrokeRectWithWidth(c CGContextRef, rect corefoundation.CGRect, width float64) {
 	if _cGContextStrokeRectWithWidth == nil {
 		panic("CoreGraphics: symbol CGContextStrokeRectWithWidth not loaded")
 	}
@@ -2844,12 +2953,12 @@ func CGContextStrokeRectWithWidth(c CGContextRef, rect corefoundation.CGRect, wi
 }
 
 
-var _cGContextSynchronize func(c CGContextRef) 
+var _cGContextSynchronize func(c CGContextRef)
 
 // CGContextSynchronize marks a window context for update.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/synchronize()
-func CGContextSynchronize(c CGContextRef)  {
+func CGContextSynchronize(c CGContextRef) {
 	if _cGContextSynchronize == nil {
 		panic("CoreGraphics: symbol CGContextSynchronize not loaded")
 	}
@@ -2857,12 +2966,12 @@ func CGContextSynchronize(c CGContextRef)  {
 }
 
 
-var _cGContextSynchronizeAttributes func(c CGContextRef) 
+var _cGContextSynchronizeAttributes func(c CGContextRef)
 
 // CGContextSynchronizeAttributes.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/synchronizeAttributes()
-func CGContextSynchronizeAttributes(c CGContextRef)  {
+func CGContextSynchronizeAttributes(c CGContextRef) {
 	if _cGContextSynchronizeAttributes == nil {
 		panic("CoreGraphics: symbol CGContextSynchronizeAttributes not loaded")
 	}
@@ -2870,12 +2979,12 @@ func CGContextSynchronizeAttributes(c CGContextRef)  {
 }
 
 
-var _cGContextTranslateCTM func(c CGContextRef, tx float64, ty float64) 
+var _cGContextTranslateCTM func(c CGContextRef, tx float64, ty float64)
 
 // CGContextTranslateCTM changes the origin of the user coordinate system in a context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/translateBy(x:y:)
-func CGContextTranslateCTM(c CGContextRef, tx float64, ty float64)  {
+func CGContextTranslateCTM(c CGContextRef, tx float64, ty float64) {
 	if _cGContextTranslateCTM == nil {
 		panic("CoreGraphics: symbol CGContextTranslateCTM not loaded")
 	}
@@ -2948,12 +3057,12 @@ func CGDataConsumerGetTypeID() uint {
 }
 
 
-var _cGDataConsumerRelease func(consumer CGDataConsumerRef) 
+var _cGDataConsumerRelease func(consumer CGDataConsumerRef)
 
 // CGDataConsumerRelease decrements the retain count of a data consumer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataConsumerRelease
-func CGDataConsumerRelease(consumer CGDataConsumerRef)  {
+func CGDataConsumerRelease(consumer CGDataConsumerRef) {
 	if _cGDataConsumerRelease == nil {
 		panic("CoreGraphics: symbol CGDataConsumerRelease not loaded")
 	}
@@ -3091,12 +3200,12 @@ func CGDataProviderGetTypeID() uint {
 }
 
 
-var _cGDataProviderRelease func(provider CGDataProviderRef) 
+var _cGDataProviderRelease func(provider CGDataProviderRef)
 
 // CGDataProviderRelease decrements the retain count of a data provider.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProviderRelease
-func CGDataProviderRelease(provider CGDataProviderRef)  {
+func CGDataProviderRelease(provider CGDataProviderRef) {
 	if _cGDataProviderRelease == nil {
 		panic("CoreGraphics: symbol CGDataProviderRelease not loaded")
 	}
@@ -3238,6 +3347,18 @@ func CGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) CGI
 }
 
 
+var _cGDisplayFade func(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous uintptr) CGError
+
+// CGDisplayFade performs a single fade operation.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayFade(_:_:_:_:_:_:_:_:)
+func CGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous uintptr) CGError {
+	if _cGDisplayFade == nil {
+		panic("CoreGraphics: symbol CGDisplayFade not loaded")
+	}
+	return _cGDisplayFade(token, duration, startBlend, endBlend, redBlend, greenBlend, blueBlend, synchronous)
+}
+
 
 var _cGDisplayGammaTableCapacity func(display uint32) uint32
 
@@ -3291,13 +3412,121 @@ func CGDisplayIDToOpenGLDisplayMask(display uint32) CGOpenGLDisplayMask {
 }
 
 
+var _cGDisplayIsActive func(display uint32) objectivec.IObject
+
+// CGDisplayIsActive returns a Boolean value indicating whether a display is active.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsActive(_:)
+func CGDisplayIsActive(display uint32) objectivec.IObject {
+	if _cGDisplayIsActive == nil {
+		panic("CoreGraphics: symbol CGDisplayIsActive not loaded")
+	}
+	return _cGDisplayIsActive(display)
+}
 
 
+var _cGDisplayIsAlwaysInMirrorSet func(display uint32) objectivec.IObject
+
+// CGDisplayIsAlwaysInMirrorSet returns a Boolean value indicating whether a display is always in a mirroring set.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsAlwaysInMirrorSet(_:)
+func CGDisplayIsAlwaysInMirrorSet(display uint32) objectivec.IObject {
+	if _cGDisplayIsAlwaysInMirrorSet == nil {
+		panic("CoreGraphics: symbol CGDisplayIsAlwaysInMirrorSet not loaded")
+	}
+	return _cGDisplayIsAlwaysInMirrorSet(display)
+}
 
 
+var _cGDisplayIsAsleep func(display uint32) objectivec.IObject
+
+// CGDisplayIsAsleep returns a Boolean value indicating whether a display is sleeping (and is therefore not drawable).
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsAsleep(_:)
+func CGDisplayIsAsleep(display uint32) objectivec.IObject {
+	if _cGDisplayIsAsleep == nil {
+		panic("CoreGraphics: symbol CGDisplayIsAsleep not loaded")
+	}
+	return _cGDisplayIsAsleep(display)
+}
 
 
+var _cGDisplayIsBuiltin func(display uint32) objectivec.IObject
 
+// CGDisplayIsBuiltin returns a Boolean value indicating whether a display is built-in, such as the internal display in portable systems.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsBuiltin(_:)
+func CGDisplayIsBuiltin(display uint32) objectivec.IObject {
+	if _cGDisplayIsBuiltin == nil {
+		panic("CoreGraphics: symbol CGDisplayIsBuiltin not loaded")
+	}
+	return _cGDisplayIsBuiltin(display)
+}
+
+
+var _cGDisplayIsInHWMirrorSet func(display uint32) objectivec.IObject
+
+// CGDisplayIsInHWMirrorSet returns a Boolean value indicating whether a display is in a hardware mirroring set.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsInHWMirrorSet(_:)
+func CGDisplayIsInHWMirrorSet(display uint32) objectivec.IObject {
+	if _cGDisplayIsInHWMirrorSet == nil {
+		panic("CoreGraphics: symbol CGDisplayIsInHWMirrorSet not loaded")
+	}
+	return _cGDisplayIsInHWMirrorSet(display)
+}
+
+
+var _cGDisplayIsInMirrorSet func(display uint32) objectivec.IObject
+
+// CGDisplayIsInMirrorSet returns a Boolean value indicating whether a display is in a mirroring set.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsInMirrorSet(_:)
+func CGDisplayIsInMirrorSet(display uint32) objectivec.IObject {
+	if _cGDisplayIsInMirrorSet == nil {
+		panic("CoreGraphics: symbol CGDisplayIsInMirrorSet not loaded")
+	}
+	return _cGDisplayIsInMirrorSet(display)
+}
+
+
+var _cGDisplayIsMain func(display uint32) objectivec.IObject
+
+// CGDisplayIsMain returns a Boolean value indicating whether a display is the main display.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsMain(_:)
+func CGDisplayIsMain(display uint32) objectivec.IObject {
+	if _cGDisplayIsMain == nil {
+		panic("CoreGraphics: symbol CGDisplayIsMain not loaded")
+	}
+	return _cGDisplayIsMain(display)
+}
+
+
+var _cGDisplayIsOnline func(display uint32) objectivec.IObject
+
+// CGDisplayIsOnline returns a Boolean value indicating whether a display is connected or online.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsOnline(_:)
+func CGDisplayIsOnline(display uint32) objectivec.IObject {
+	if _cGDisplayIsOnline == nil {
+		panic("CoreGraphics: symbol CGDisplayIsOnline not loaded")
+	}
+	return _cGDisplayIsOnline(display)
+}
+
+
+var _cGDisplayIsStereo func(display uint32) objectivec.IObject
+
+// CGDisplayIsStereo returns a Boolean value indicating whether a display is running in a stereo graphics mode.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsStereo(_:)
+func CGDisplayIsStereo(display uint32) objectivec.IObject {
+	if _cGDisplayIsStereo == nil {
+		panic("CoreGraphics: symbol CGDisplayIsStereo not loaded")
+	}
+	return _cGDisplayIsStereo(display)
+}
 
 
 var _cGDisplayMirrorsDisplay func(display uint32) uint32
@@ -3430,12 +3659,12 @@ func CGDisplayModeIsUsableForDesktopGUI(mode CGDisplayModeRef) bool {
 }
 
 
-var _cGDisplayModeRelease func(mode CGDisplayModeRef) 
+var _cGDisplayModeRelease func(mode CGDisplayModeRef)
 
 // CGDisplayModeRelease releases a Core Graphics display mode.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayModeRelease
-func CGDisplayModeRelease(mode CGDisplayModeRef)  {
+func CGDisplayModeRelease(mode CGDisplayModeRef) {
 	if _cGDisplayModeRelease == nil {
 		panic("CoreGraphics: symbol CGDisplayModeRelease not loaded")
 	}
@@ -3560,12 +3789,12 @@ func CGDisplayRemoveReconfigurationCallback(callback CGDisplayReconfigurationCal
 }
 
 
-var _cGDisplayRestoreColorSyncSettings func() 
+var _cGDisplayRestoreColorSyncSettings func()
 
 // CGDisplayRestoreColorSyncSettings restores the gamma tables to the values in the user’s ColorSync display profile.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayRestoreColorSyncSettings()
-func CGDisplayRestoreColorSyncSettings()  {
+func CGDisplayRestoreColorSyncSettings() {
 	if _cGDisplayRestoreColorSyncSettings == nil {
 		panic("CoreGraphics: symbol CGDisplayRestoreColorSyncSettings not loaded")
 	}
@@ -3625,6 +3854,18 @@ func CGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options core
 }
 
 
+var _cGDisplaySetStereoOperation func(display uint32, stereo uintptr, forceBlueLine uintptr, option CGConfigureOption) CGError
+
+// CGDisplaySetStereoOperation immediately enables or disables stereo operation for a display.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplaySetStereoOperation(_:_:_:_:)
+func CGDisplaySetStereoOperation(display uint32, stereo uintptr, forceBlueLine uintptr, option CGConfigureOption) CGError {
+	if _cGDisplaySetStereoOperation == nil {
+		panic("CoreGraphics: symbol CGDisplaySetStereoOperation not loaded")
+	}
+	return _cGDisplaySetStereoOperation(display, stereo, forceBlueLine, option)
+}
+
 
 var _cGDisplayShowCursor func(display uint32) CGError
 
@@ -3651,6 +3892,18 @@ func CGDisplayUnitNumber(display uint32) uint32 {
 	return _cGDisplayUnitNumber(display)
 }
 
+
+var _cGDisplayUsesOpenGLAcceleration func(display uint32) objectivec.IObject
+
+// CGDisplayUsesOpenGLAcceleration returns a Boolean value indicating whether Quartz is using OpenGL-based window acceleration (Quartz Extreme) to render in a display.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayUsesOpenGLAcceleration(_:)
+func CGDisplayUsesOpenGLAcceleration(display uint32) objectivec.IObject {
+	if _cGDisplayUsesOpenGLAcceleration == nil {
+		panic("CoreGraphics: symbol CGDisplayUsesOpenGLAcceleration not loaded")
+	}
+	return _cGDisplayUsesOpenGLAcceleration(display)
+}
 
 
 var _cGDisplayVendorNumber func(display uint32) uint32
@@ -3679,12 +3932,12 @@ func CGEXRToneMappingGammaGetDefaultOptions() corefoundation.CFDictionaryRef {
 }
 
 
-var _cGErrorSetCallback func(callback CGErrorCallback) 
+var _cGErrorSetCallback func(callback CGErrorCallback)
 
 // CGErrorSetCallback.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGErrorSetCallback(_:)
-func CGErrorSetCallback(callback CGErrorCallback)  {
+func CGErrorSetCallback(callback CGErrorCallback) {
 	if _cGErrorSetCallback == nil {
 		panic("CoreGraphics: symbol CGErrorSetCallback not loaded")
 	}
@@ -3913,12 +4166,12 @@ func CGEventGetUnflippedLocation(event CGEventRef) corefoundation.CGPoint {
 }
 
 
-var _cGEventKeyboardGetUnicodeString func(event CGEventRef, maxStringLength uint, actualStringLength *uint, unicodeString *uint16) 
+var _cGEventKeyboardGetUnicodeString func(event CGEventRef, maxStringLength uint, actualStringLength *uint, unicodeString *uint16)
 
 // CGEventKeyboardGetUnicodeString returns the Unicode string associated with a Quartz keyboard event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/keyboardGetUnicodeString(maxStringLength:actualStringLength:unicodeString:)
-func CGEventKeyboardGetUnicodeString(event CGEventRef, maxStringLength uint, actualStringLength *uint, unicodeString *uint16)  {
+func CGEventKeyboardGetUnicodeString(event CGEventRef, maxStringLength uint, actualStringLength *uint, unicodeString *uint16) {
 	if _cGEventKeyboardGetUnicodeString == nil {
 		panic("CoreGraphics: symbol CGEventKeyboardGetUnicodeString not loaded")
 	}
@@ -3926,12 +4179,12 @@ func CGEventKeyboardGetUnicodeString(event CGEventRef, maxStringLength uint, act
 }
 
 
-var _cGEventKeyboardSetUnicodeString func(event CGEventRef, stringLength uint, unicodeString *uint16) 
+var _cGEventKeyboardSetUnicodeString func(event CGEventRef, stringLength uint, unicodeString *uint16)
 
 // CGEventKeyboardSetUnicodeString sets the Unicode string associated with a Quartz keyboard event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/keyboardSetUnicodeString(stringLength:unicodeString:)
-func CGEventKeyboardSetUnicodeString(event CGEventRef, stringLength uint, unicodeString *uint16)  {
+func CGEventKeyboardSetUnicodeString(event CGEventRef, stringLength uint, unicodeString *uint16) {
 	if _cGEventKeyboardSetUnicodeString == nil {
 		panic("CoreGraphics: symbol CGEventKeyboardSetUnicodeString not loaded")
 	}
@@ -3939,12 +4192,12 @@ func CGEventKeyboardSetUnicodeString(event CGEventRef, stringLength uint, unicod
 }
 
 
-var _cGEventPost func(tap CGEventTapLocation, event CGEventRef) 
+var _cGEventPost func(tap CGEventTapLocation, event CGEventRef)
 
 // CGEventPost posts a Quartz event into the event stream at a specified location.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/post(tap:)
-func CGEventPost(tap CGEventTapLocation, event CGEventRef)  {
+func CGEventPost(tap CGEventTapLocation, event CGEventRef) {
 	if _cGEventPost == nil {
 		panic("CoreGraphics: symbol CGEventPost not loaded")
 	}
@@ -3952,12 +4205,12 @@ func CGEventPost(tap CGEventTapLocation, event CGEventRef)  {
 }
 
 
-var _cGEventPostToPSN func(processSerialNumber unsafe.Pointer, event CGEventRef) 
+var _cGEventPostToPSN func(processSerialNumber unsafe.Pointer, event CGEventRef)
 
 // CGEventPostToPSN posts a Quartz event into the event stream for a specific application.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/postToPSN(processSerialNumber:)
-func CGEventPostToPSN(processSerialNumber unsafe.Pointer, event CGEventRef)  {
+func CGEventPostToPSN(processSerialNumber unsafe.Pointer, event CGEventRef) {
 	if _cGEventPostToPSN == nil {
 		panic("CoreGraphics: symbol CGEventPostToPSN not loaded")
 	}
@@ -3965,12 +4218,12 @@ func CGEventPostToPSN(processSerialNumber unsafe.Pointer, event CGEventRef)  {
 }
 
 
-var _cGEventPostToPid func(pid int32, event CGEventRef) 
+var _cGEventPostToPid func(pid int32, event CGEventRef)
 
 // CGEventPostToPid.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/postToPid(_:)
-func CGEventPostToPid(pid int32, event CGEventRef)  {
+func CGEventPostToPid(pid int32, event CGEventRef) {
 	if _cGEventPostToPid == nil {
 		panic("CoreGraphics: symbol CGEventPostToPid not loaded")
 	}
@@ -3978,12 +4231,12 @@ func CGEventPostToPid(pid int32, event CGEventRef)  {
 }
 
 
-var _cGEventSetDoubleValueField func(event CGEventRef, field CGEventField, value float64) 
+var _cGEventSetDoubleValueField func(event CGEventRef, field CGEventField, value float64)
 
 // CGEventSetDoubleValueField sets the floating-point value of a field in a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/setDoubleValueField(_:value:)
-func CGEventSetDoubleValueField(event CGEventRef, field CGEventField, value float64)  {
+func CGEventSetDoubleValueField(event CGEventRef, field CGEventField, value float64) {
 	if _cGEventSetDoubleValueField == nil {
 		panic("CoreGraphics: symbol CGEventSetDoubleValueField not loaded")
 	}
@@ -3991,12 +4244,12 @@ func CGEventSetDoubleValueField(event CGEventRef, field CGEventField, value floa
 }
 
 
-var _cGEventSetFlags func(event CGEventRef, flags CGEventFlags) 
+var _cGEventSetFlags func(event CGEventRef, flags CGEventFlags)
 
 // CGEventSetFlags sets the event flags of a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSetFlags
-func CGEventSetFlags(event CGEventRef, flags CGEventFlags)  {
+func CGEventSetFlags(event CGEventRef, flags CGEventFlags) {
 	if _cGEventSetFlags == nil {
 		panic("CoreGraphics: symbol CGEventSetFlags not loaded")
 	}
@@ -4004,12 +4257,12 @@ func CGEventSetFlags(event CGEventRef, flags CGEventFlags)  {
 }
 
 
-var _cGEventSetIntegerValueField func(event CGEventRef, field CGEventField, value int64) 
+var _cGEventSetIntegerValueField func(event CGEventRef, field CGEventField, value int64)
 
 // CGEventSetIntegerValueField sets the integer value of a field in a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/setIntegerValueField(_:value:)
-func CGEventSetIntegerValueField(event CGEventRef, field CGEventField, value int64)  {
+func CGEventSetIntegerValueField(event CGEventRef, field CGEventField, value int64) {
 	if _cGEventSetIntegerValueField == nil {
 		panic("CoreGraphics: symbol CGEventSetIntegerValueField not loaded")
 	}
@@ -4017,12 +4270,12 @@ func CGEventSetIntegerValueField(event CGEventRef, field CGEventField, value int
 }
 
 
-var _cGEventSetLocation func(event CGEventRef, location corefoundation.CGPoint) 
+var _cGEventSetLocation func(event CGEventRef, location corefoundation.CGPoint)
 
 // CGEventSetLocation sets the location of a Quartz mouse event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSetLocation
-func CGEventSetLocation(event CGEventRef, location corefoundation.CGPoint)  {
+func CGEventSetLocation(event CGEventRef, location corefoundation.CGPoint) {
 	if _cGEventSetLocation == nil {
 		panic("CoreGraphics: symbol CGEventSetLocation not loaded")
 	}
@@ -4030,12 +4283,12 @@ func CGEventSetLocation(event CGEventRef, location corefoundation.CGPoint)  {
 }
 
 
-var _cGEventSetSource func(event CGEventRef, source CGEventSourceRef) 
+var _cGEventSetSource func(event CGEventRef, source CGEventSourceRef)
 
 // CGEventSetSource sets the event source of a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/setSource(_:)
-func CGEventSetSource(event CGEventRef, source CGEventSourceRef)  {
+func CGEventSetSource(event CGEventRef, source CGEventSourceRef) {
 	if _cGEventSetSource == nil {
 		panic("CoreGraphics: symbol CGEventSetSource not loaded")
 	}
@@ -4043,12 +4296,12 @@ func CGEventSetSource(event CGEventRef, source CGEventSourceRef)  {
 }
 
 
-var _cGEventSetTimestamp func(event CGEventRef, timestamp CGEventTimestamp) 
+var _cGEventSetTimestamp func(event CGEventRef, timestamp CGEventTimestamp)
 
 // CGEventSetTimestamp sets the timestamp of a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSetTimestamp
-func CGEventSetTimestamp(event CGEventRef, timestamp CGEventTimestamp)  {
+func CGEventSetTimestamp(event CGEventRef, timestamp CGEventTimestamp) {
 	if _cGEventSetTimestamp == nil {
 		panic("CoreGraphics: symbol CGEventSetTimestamp not loaded")
 	}
@@ -4056,12 +4309,12 @@ func CGEventSetTimestamp(event CGEventRef, timestamp CGEventTimestamp)  {
 }
 
 
-var _cGEventSetType func(event CGEventRef, type_ CGEventType) 
+var _cGEventSetType func(event CGEventRef, type_ CGEventType)
 
 // CGEventSetType sets the event type of a Quartz event (left mouse down, for example).
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSetType
-func CGEventSetType(event CGEventRef, type_ CGEventType)  {
+func CGEventSetType(event CGEventRef, type_ CGEventType) {
 	if _cGEventSetType == nil {
 		panic("CoreGraphics: symbol CGEventSetType not loaded")
 	}
@@ -4238,12 +4491,12 @@ func CGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eventT
 }
 
 
-var _cGEventSourceSetKeyboardType func(source CGEventSourceRef, keyboardType CGEventSourceKeyboardType) 
+var _cGEventSourceSetKeyboardType func(source CGEventSourceRef, keyboardType CGEventSourceKeyboardType)
 
 // CGEventSourceSetKeyboardType sets the keyboard type to be used with a Quartz event source.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSourceSetKeyboardType
-func CGEventSourceSetKeyboardType(source CGEventSourceRef, keyboardType CGEventSourceKeyboardType)  {
+func CGEventSourceSetKeyboardType(source CGEventSourceRef, keyboardType CGEventSourceKeyboardType) {
 	if _cGEventSourceSetKeyboardType == nil {
 		panic("CoreGraphics: symbol CGEventSourceSetKeyboardType not loaded")
 	}
@@ -4251,12 +4504,12 @@ func CGEventSourceSetKeyboardType(source CGEventSourceRef, keyboardType CGEventS
 }
 
 
-var _cGEventSourceSetLocalEventsFilterDuringSuppressionState func(source CGEventSourceRef, filter CGEventFilterMask, state CGEventSuppressionState) 
+var _cGEventSourceSetLocalEventsFilterDuringSuppressionState func(source CGEventSourceRef, filter CGEventFilterMask, state CGEventSuppressionState)
 
 // CGEventSourceSetLocalEventsFilterDuringSuppressionState sets the mask that indicates which classes of local hardware events are enabled during event suppression.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSource/setLocalEventsFilterDuringSuppressionState(_:state:)
-func CGEventSourceSetLocalEventsFilterDuringSuppressionState(source CGEventSourceRef, filter CGEventFilterMask, state CGEventSuppressionState)  {
+func CGEventSourceSetLocalEventsFilterDuringSuppressionState(source CGEventSourceRef, filter CGEventFilterMask, state CGEventSuppressionState) {
 	if _cGEventSourceSetLocalEventsFilterDuringSuppressionState == nil {
 		panic("CoreGraphics: symbol CGEventSourceSetLocalEventsFilterDuringSuppressionState not loaded")
 	}
@@ -4264,12 +4517,12 @@ func CGEventSourceSetLocalEventsFilterDuringSuppressionState(source CGEventSourc
 }
 
 
-var _cGEventSourceSetLocalEventsSuppressionInterval func(source CGEventSourceRef, seconds float64) 
+var _cGEventSourceSetLocalEventsSuppressionInterval func(source CGEventSourceRef, seconds float64)
 
 // CGEventSourceSetLocalEventsSuppressionInterval sets the interval that local hardware events may be suppressed following the posting of a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSourceSetLocalEventsSuppressionInterval
-func CGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, seconds float64)  {
+func CGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, seconds float64) {
 	if _cGEventSourceSetLocalEventsSuppressionInterval == nil {
 		panic("CoreGraphics: symbol CGEventSourceSetLocalEventsSuppressionInterval not loaded")
 	}
@@ -4277,12 +4530,12 @@ func CGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, sec
 }
 
 
-var _cGEventSourceSetPixelsPerLine func(source CGEventSourceRef, pixelsPerLine float64) 
+var _cGEventSourceSetPixelsPerLine func(source CGEventSourceRef, pixelsPerLine float64)
 
 // CGEventSourceSetPixelsPerLine sets the scale of pixels per line in a scrolling event source.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSourceSetPixelsPerLine
-func CGEventSourceSetPixelsPerLine(source CGEventSourceRef, pixelsPerLine float64)  {
+func CGEventSourceSetPixelsPerLine(source CGEventSourceRef, pixelsPerLine float64) {
 	if _cGEventSourceSetPixelsPerLine == nil {
 		panic("CoreGraphics: symbol CGEventSourceSetPixelsPerLine not loaded")
 	}
@@ -4290,12 +4543,12 @@ func CGEventSourceSetPixelsPerLine(source CGEventSourceRef, pixelsPerLine float6
 }
 
 
-var _cGEventSourceSetUserData func(source CGEventSourceRef, userData int64) 
+var _cGEventSourceSetUserData func(source CGEventSourceRef, userData int64)
 
 // CGEventSourceSetUserData sets the 64-bit user-specified data for a Quartz event source.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSourceSetUserData
-func CGEventSourceSetUserData(source CGEventSourceRef, userData int64)  {
+func CGEventSourceSetUserData(source CGEventSourceRef, userData int64) {
 	if _cGEventSourceSetUserData == nil {
 		panic("CoreGraphics: symbol CGEventSourceSetUserData not loaded")
 	}
@@ -4342,12 +4595,12 @@ func CGEventTapCreateForPid(pid int32, place CGEventTapPlacement, options CGEven
 }
 
 
-var _cGEventTapEnable func(tap corefoundation.CFMachPort, enable bool) 
+var _cGEventTapEnable func(tap corefoundation.CFMachPort, enable bool)
 
 // CGEventTapEnable enables or disables an event tap.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/tapEnable(tap:enable:)
-func CGEventTapEnable(tap corefoundation.CFMachPort, enable bool)  {
+func CGEventTapEnable(tap corefoundation.CFMachPort, enable bool) {
 	if _cGEventTapEnable == nil {
 		panic("CoreGraphics: symbol CGEventTapEnable not loaded")
 	}
@@ -4368,12 +4621,12 @@ func CGEventTapIsEnabled(tap corefoundation.CFMachPort) bool {
 }
 
 
-var _cGEventTapPostEvent func(proxy CGEventTapProxy, event CGEventRef) 
+var _cGEventTapPostEvent func(proxy CGEventTapProxy, event CGEventRef)
 
 // CGEventTapPostEvent posts a Quartz event from an event tap into the event stream.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/tapPostEvent(_:)
-func CGEventTapPostEvent(proxy CGEventTapProxy, event CGEventRef)  {
+func CGEventTapPostEvent(proxy CGEventTapProxy, event CGEventRef) {
 	if _cGEventTapPostEvent == nil {
 		panic("CoreGraphics: symbol CGEventTapPostEvent not loaded")
 	}
@@ -4406,6 +4659,18 @@ func CGFontCopyFullName(font CGFontRef) corefoundation.CFStringRef {
 	return _cGFontCopyFullName(font)
 }
 
+
+var _cGFontCopyGlyphNameForGlyph func(font CGFontRef, glyph uintptr) corefoundation.CFStringRef
+
+// CGFontCopyGlyphNameForGlyph returns the glyph name of the specified glyph in the specified font.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/name(for:)
+func CGFontCopyGlyphNameForGlyph(font CGFontRef, glyph uintptr) corefoundation.CFStringRef {
+	if _cGFontCopyGlyphNameForGlyph == nil {
+		panic("CoreGraphics: symbol CGFontCopyGlyphNameForGlyph not loaded")
+	}
+	return _cGFontCopyGlyphNameForGlyph(font, glyph)
+}
 
 
 var _cGFontCopyPostScriptName func(font CGFontRef) corefoundation.CFStringRef
@@ -4486,6 +4751,30 @@ func CGFontCreateCopyWithVariations(font CGFontRef, variations corefoundation.CF
 }
 
 
+var _cGFontCreatePostScriptEncoding func(font CGFontRef, encoding uintptr) corefoundation.CFDataRef
+
+// CGFontCreatePostScriptEncoding creates a PostScript encoding of a font.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/createPostScriptEncoding(encoding:)
+func CGFontCreatePostScriptEncoding(font CGFontRef, encoding uintptr) corefoundation.CFDataRef {
+	if _cGFontCreatePostScriptEncoding == nil {
+		panic("CoreGraphics: symbol CGFontCreatePostScriptEncoding not loaded")
+	}
+	return _cGFontCreatePostScriptEncoding(font, encoding)
+}
+
+
+var _cGFontCreatePostScriptSubset func(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs uintptr, count uintptr, encoding uintptr) corefoundation.CFDataRef
+
+// CGFontCreatePostScriptSubset creates a subset of the font in the specified PostScript format.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/createPostScriptSubset(subsetName:format:glyphs:count:encoding:)
+func CGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs uintptr, count uintptr, encoding uintptr) corefoundation.CFDataRef {
+	if _cGFontCreatePostScriptSubset == nil {
+		panic("CoreGraphics: symbol CGFontCreatePostScriptSubset not loaded")
+	}
+	return _cGFontCreatePostScriptSubset(font, subsetName, format, glyphs, count, encoding)
+}
 
 
 var _cGFontCreateWithDataProvider func(provider CGDataProviderRef) CGFontRef
@@ -4566,7 +4855,43 @@ func CGFontGetFontBBox(font CGFontRef) corefoundation.CGRect {
 }
 
 
+var _cGFontGetGlyphAdvances func(font CGFontRef, glyphs uintptr, count uintptr, advances *int) bool
 
+// CGFontGetGlyphAdvances gets the advance width of each glyph in the provided array.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphAdvances(glyphs:count:advances:)
+func CGFontGetGlyphAdvances(font CGFontRef, glyphs uintptr, count uintptr, advances []int) bool {
+	if _cGFontGetGlyphAdvances == nil {
+		panic("CoreGraphics: symbol CGFontGetGlyphAdvances not loaded")
+	}
+	return _cGFontGetGlyphAdvances(font, glyphs, count, unsafe.SliceData(advances))
+}
+
+
+var _cGFontGetGlyphBBoxes func(font CGFontRef, glyphs uintptr, count uintptr, bboxes *corefoundation.CGRect) bool
+
+// CGFontGetGlyphBBoxes get the bounding box of each glyph in an array.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphBBoxes(glyphs:count:bboxes:)
+func CGFontGetGlyphBBoxes(font CGFontRef, glyphs uintptr, count uintptr, bboxes *corefoundation.CGRect) bool {
+	if _cGFontGetGlyphBBoxes == nil {
+		panic("CoreGraphics: symbol CGFontGetGlyphBBoxes not loaded")
+	}
+	return _cGFontGetGlyphBBoxes(font, glyphs, count, bboxes)
+}
+
+
+var _cGFontGetGlyphWithGlyphName func(font CGFontRef, name corefoundation.CFStringRef) objectivec.IObject
+
+// CGFontGetGlyphWithGlyphName returns the glyph for the glyph name associated with the specified font object.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphWithGlyphName(name:)
+func CGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFStringRef) objectivec.IObject {
+	if _cGFontGetGlyphWithGlyphName == nil {
+		panic("CoreGraphics: symbol CGFontGetGlyphWithGlyphName not loaded")
+	}
+	return _cGFontGetGlyphWithGlyphName(font, name)
+}
 
 
 var _cGFontGetItalicAngle func(font CGFontRef) float64
@@ -4660,12 +4985,12 @@ func CGFontGetXHeight(font CGFontRef) int {
 }
 
 
-var _cGFontRelease func(font CGFontRef) 
+var _cGFontRelease func(font CGFontRef)
 
 // CGFontRelease decrements the retain count of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFontRelease
-func CGFontRelease(font CGFontRef)  {
+func CGFontRelease(font CGFontRef) {
 	if _cGFontRelease == nil {
 		panic("CoreGraphics: symbol CGFontRelease not loaded")
 	}
@@ -4712,12 +5037,12 @@ func CGFunctionGetTypeID() uint {
 }
 
 
-var _cGFunctionRelease func(function CGFunctionRef) 
+var _cGFunctionRelease func(function CGFunctionRef)
 
 // CGFunctionRelease decrements the retain count of a function object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFunctionRelease
-func CGFunctionRelease(function CGFunctionRef)  {
+func CGFunctionRelease(function CGFunctionRef) {
 	if _cGFunctionRelease == nil {
 		panic("CoreGraphics: symbol CGFunctionRelease not loaded")
 	}
@@ -4829,12 +5154,12 @@ func CGGetEventTapList(maxNumberOfTaps uint32, tapList *CGEventTapInformation, e
 }
 
 
-var _cGGetLastMouseDelta func(deltaX *int32, deltaY *int32) 
+var _cGGetLastMouseDelta func(deltaX *int32, deltaY *int32)
 
 // CGGetLastMouseDelta reports the change in mouse position since the last mouse movement event received by the application.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetLastMouseDelta
-func CGGetLastMouseDelta(deltaX *int32, deltaY *int32)  {
+func CGGetLastMouseDelta(deltaX *int32, deltaY *int32) {
 	if _cGGetLastMouseDelta == nil {
 		panic("CoreGraphics: symbol CGGetLastMouseDelta not loaded")
 	}
@@ -4920,12 +5245,12 @@ func CGGradientGetTypeID() uint {
 }
 
 
-var _cGGradientRelease func(gradient CGGradientRef) 
+var _cGGradientRelease func(gradient CGGradientRef)
 
 // CGGradientRelease decrements the retain count of a CGGradient object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGradientRelease
-func CGGradientRelease(gradient CGGradientRef)  {
+func CGGradientRelease(gradient CGGradientRef) {
 	if _cGGradientRelease == nil {
 		panic("CoreGraphics: symbol CGGradientRelease not loaded")
 	}
@@ -5401,12 +5726,12 @@ func CGImageMaskCreate(width uintptr, height uintptr, bitsPerComponent uintptr, 
 }
 
 
-var _cGImageRelease func(image CGImageRef) 
+var _cGImageRelease func(image CGImageRef)
 
 // CGImageRelease decrements the retain count of a bitmap image.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImageRelease
-func CGImageRelease(image CGImageRef)  {
+func CGImageRelease(image CGImageRef) {
 	if _cGImageRelease == nil {
 		panic("CoreGraphics: symbol CGImageRelease not loaded")
 	}
@@ -5440,7 +5765,43 @@ func CGImageShouldToneMap(image CGImageRef) bool {
 }
 
 
+var _cGLayerCreateWithContext func(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) objectivec.IObject
 
+// CGLayerCreateWithContext creates a layer object that is associated with a graphics context.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/init(_:size:auxiliaryInfo:)
+func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) objectivec.IObject {
+	if _cGLayerCreateWithContext == nil {
+		panic("CoreGraphics: symbol CGLayerCreateWithContext not loaded")
+	}
+	return _cGLayerCreateWithContext(context, size, auxiliaryInfo)
+}
+
+
+var _cGLayerGetContext func(layer uintptr) CGContextRef
+
+// CGLayerGetContext returns the graphics context associated with a layer object.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/context
+func CGLayerGetContext(layer uintptr) CGContextRef {
+	if _cGLayerGetContext == nil {
+		panic("CoreGraphics: symbol CGLayerGetContext not loaded")
+	}
+	return _cGLayerGetContext(layer)
+}
+
+
+var _cGLayerGetSize func(layer uintptr) corefoundation.CGSize
+
+// CGLayerGetSize returns the width and height of a layer object.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/size
+func CGLayerGetSize(layer uintptr) corefoundation.CGSize {
+	if _cGLayerGetSize == nil {
+		panic("CoreGraphics: symbol CGLayerGetSize not loaded")
+	}
+	return _cGLayerGetSize(layer)
+}
 
 
 var _cGLayerGetTypeID func() uint
@@ -5456,6 +5817,30 @@ func CGLayerGetTypeID() uint {
 }
 
 
+var _cGLayerRelease func(layer uintptr)
+
+// CGLayerRelease decrements the retain count of a layer object.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGLayerRelease
+func CGLayerRelease(layer uintptr) {
+	if _cGLayerRelease == nil {
+		panic("CoreGraphics: symbol CGLayerRelease not loaded")
+	}
+	_cGLayerRelease(layer)
+}
+
+
+var _cGLayerRetain func(layer uintptr) objectivec.IObject
+
+// CGLayerRetain increments the retain count of a layer object.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGLayerRetain
+func CGLayerRetain(layer uintptr) objectivec.IObject {
+	if _cGLayerRetain == nil {
+		panic("CoreGraphics: symbol CGLayerRetain not loaded")
+	}
+	return _cGLayerRetain(layer)
+}
 
 
 var _cGMainDisplayID func() uint32
@@ -5484,12 +5869,12 @@ func CGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) uint32 {
 }
 
 
-var _cGPDFArrayApplyBlock func(array CGPDFArrayRef, block CGPDFArrayApplierBlock, info unsafe.Pointer) 
+var _cGPDFArrayApplyBlock func(array CGPDFArrayRef, block CGPDFArrayApplierBlock, info unsafe.Pointer)
 
 // CGPDFArrayApplyBlock.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFArrayApplyBlock(_:_:_:)
-func CGPDFArrayApplyBlock(array CGPDFArrayRef, block CGPDFArrayApplierBlock, info unsafe.Pointer)  {
+func CGPDFArrayApplyBlock(array CGPDFArrayRef, block CGPDFArrayApplierBlock, info unsafe.Pointer) {
 	if _cGPDFArrayApplyBlock == nil {
 		panic("CoreGraphics: symbol CGPDFArrayApplyBlock not loaded")
 	}
@@ -5692,12 +6077,12 @@ func CGPDFContentStreamGetStreams(cs CGPDFContentStreamRef) corefoundation.CFArr
 }
 
 
-var _cGPDFContentStreamRelease func(cs CGPDFContentStreamRef) 
+var _cGPDFContentStreamRelease func(cs CGPDFContentStreamRef)
 
 // CGPDFContentStreamRelease decrements the retain count of a PDF content stream object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContentStreamRelease(_:)
-func CGPDFContentStreamRelease(cs CGPDFContentStreamRef)  {
+func CGPDFContentStreamRelease(cs CGPDFContentStreamRef) {
 	if _cGPDFContentStreamRelease == nil {
 		panic("CoreGraphics: symbol CGPDFContentStreamRelease not loaded")
 	}
@@ -5718,12 +6103,12 @@ func CGPDFContentStreamRetain(cs CGPDFContentStreamRef) CGPDFContentStreamRef {
 }
 
 
-var _cGPDFContextAddDestinationAtPoint func(context CGContextRef, name corefoundation.CFStringRef, point corefoundation.CGPoint) 
+var _cGPDFContextAddDestinationAtPoint func(context CGContextRef, name corefoundation.CFStringRef, point corefoundation.CGPoint)
 
 // CGPDFContextAddDestinationAtPoint sets a destination to jump to when a point in the current page of a PDF graphics context is clicked.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/addDestination(_:at:)
-func CGPDFContextAddDestinationAtPoint(context CGContextRef, name corefoundation.CFStringRef, point corefoundation.CGPoint)  {
+func CGPDFContextAddDestinationAtPoint(context CGContextRef, name corefoundation.CFStringRef, point corefoundation.CGPoint) {
 	if _cGPDFContextAddDestinationAtPoint == nil {
 		panic("CoreGraphics: symbol CGPDFContextAddDestinationAtPoint not loaded")
 	}
@@ -5731,12 +6116,12 @@ func CGPDFContextAddDestinationAtPoint(context CGContextRef, name corefoundation
 }
 
 
-var _cGPDFContextAddDocumentMetadata func(context CGContextRef, metadata corefoundation.CFDataRef) 
+var _cGPDFContextAddDocumentMetadata func(context CGContextRef, metadata corefoundation.CFDataRef)
 
 // CGPDFContextAddDocumentMetadata associates custom metadata with the PDF document.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/addDocumentMetadata(_:)
-func CGPDFContextAddDocumentMetadata(context CGContextRef, metadata corefoundation.CFDataRef)  {
+func CGPDFContextAddDocumentMetadata(context CGContextRef, metadata corefoundation.CFDataRef) {
 	if _cGPDFContextAddDocumentMetadata == nil {
 		panic("CoreGraphics: symbol CGPDFContextAddDocumentMetadata not loaded")
 	}
@@ -5744,12 +6129,12 @@ func CGPDFContextAddDocumentMetadata(context CGContextRef, metadata corefoundati
 }
 
 
-var _cGPDFContextBeginPage func(context CGContextRef, pageInfo corefoundation.CFDictionaryRef) 
+var _cGPDFContextBeginPage func(context CGContextRef, pageInfo corefoundation.CFDictionaryRef)
 
 // CGPDFContextBeginPage begins a new page in a PDF graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/beginPDFPage(_:)
-func CGPDFContextBeginPage(context CGContextRef, pageInfo corefoundation.CFDictionaryRef)  {
+func CGPDFContextBeginPage(context CGContextRef, pageInfo corefoundation.CFDictionaryRef) {
 	if _cGPDFContextBeginPage == nil {
 		panic("CoreGraphics: symbol CGPDFContextBeginPage not loaded")
 	}
@@ -5757,12 +6142,12 @@ func CGPDFContextBeginPage(context CGContextRef, pageInfo corefoundation.CFDicti
 }
 
 
-var _cGPDFContextBeginTag func(context CGContextRef, tagType CGPDFTagType, tagProperties corefoundation.CFDictionaryRef) 
+var _cGPDFContextBeginTag func(context CGContextRef, tagType CGPDFTagType, tagProperties corefoundation.CFDictionaryRef)
 
 // CGPDFContextBeginTag.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContextBeginTag(_:_:_:)
-func CGPDFContextBeginTag(context CGContextRef, tagType CGPDFTagType, tagProperties corefoundation.CFDictionaryRef)  {
+func CGPDFContextBeginTag(context CGContextRef, tagType CGPDFTagType, tagProperties corefoundation.CFDictionaryRef) {
 	if _cGPDFContextBeginTag == nil {
 		panic("CoreGraphics: symbol CGPDFContextBeginTag not loaded")
 	}
@@ -5770,12 +6155,12 @@ func CGPDFContextBeginTag(context CGContextRef, tagType CGPDFTagType, tagPropert
 }
 
 
-var _cGPDFContextClose func(context CGContextRef) 
+var _cGPDFContextClose func(context CGContextRef)
 
 // CGPDFContextClose closes a PDF document.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/closePDF()
-func CGPDFContextClose(context CGContextRef)  {
+func CGPDFContextClose(context CGContextRef) {
 	if _cGPDFContextClose == nil {
 		panic("CoreGraphics: symbol CGPDFContextClose not loaded")
 	}
@@ -5809,12 +6194,12 @@ func CGPDFContextCreateWithURL(url corefoundation.CFURLRef, mediaBox *corefounda
 }
 
 
-var _cGPDFContextEndPage func(context CGContextRef) 
+var _cGPDFContextEndPage func(context CGContextRef)
 
 // CGPDFContextEndPage ends the current page in the PDF graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/endPDFPage()
-func CGPDFContextEndPage(context CGContextRef)  {
+func CGPDFContextEndPage(context CGContextRef) {
 	if _cGPDFContextEndPage == nil {
 		panic("CoreGraphics: symbol CGPDFContextEndPage not loaded")
 	}
@@ -5822,12 +6207,12 @@ func CGPDFContextEndPage(context CGContextRef)  {
 }
 
 
-var _cGPDFContextEndTag func(context CGContextRef) 
+var _cGPDFContextEndTag func(context CGContextRef)
 
 // CGPDFContextEndTag.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContextEndTag(_:)
-func CGPDFContextEndTag(context CGContextRef)  {
+func CGPDFContextEndTag(context CGContextRef) {
 	if _cGPDFContextEndTag == nil {
 		panic("CoreGraphics: symbol CGPDFContextEndTag not loaded")
 	}
@@ -5835,12 +6220,12 @@ func CGPDFContextEndTag(context CGContextRef)  {
 }
 
 
-var _cGPDFContextSetDestinationForRect func(context CGContextRef, name corefoundation.CFStringRef, rect corefoundation.CGRect) 
+var _cGPDFContextSetDestinationForRect func(context CGContextRef, name corefoundation.CFStringRef, rect corefoundation.CGRect)
 
 // CGPDFContextSetDestinationForRect sets a destination to jump to when a rectangle in the current PDF page is clicked.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setDestination(_:for:)
-func CGPDFContextSetDestinationForRect(context CGContextRef, name corefoundation.CFStringRef, rect corefoundation.CGRect)  {
+func CGPDFContextSetDestinationForRect(context CGContextRef, name corefoundation.CFStringRef, rect corefoundation.CGRect) {
 	if _cGPDFContextSetDestinationForRect == nil {
 		panic("CoreGraphics: symbol CGPDFContextSetDestinationForRect not loaded")
 	}
@@ -5848,12 +6233,12 @@ func CGPDFContextSetDestinationForRect(context CGContextRef, name corefoundation
 }
 
 
-var _cGPDFContextSetIDTree func(context CGContextRef, IDTreeDictionary CGPDFDictionaryRef) 
+var _cGPDFContextSetIDTree func(context CGContextRef, IDTreeDictionary CGPDFDictionaryRef)
 
 // CGPDFContextSetIDTree.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContextSetIDTree(_:_:)
-func CGPDFContextSetIDTree(context CGContextRef, IDTreeDictionary CGPDFDictionaryRef)  {
+func CGPDFContextSetIDTree(context CGContextRef, IDTreeDictionary CGPDFDictionaryRef) {
 	if _cGPDFContextSetIDTree == nil {
 		panic("CoreGraphics: symbol CGPDFContextSetIDTree not loaded")
 	}
@@ -5861,12 +6246,12 @@ func CGPDFContextSetIDTree(context CGContextRef, IDTreeDictionary CGPDFDictionar
 }
 
 
-var _cGPDFContextSetOutline func(context CGContextRef, outline corefoundation.CFDictionaryRef) 
+var _cGPDFContextSetOutline func(context CGContextRef, outline corefoundation.CFDictionaryRef)
 
 // CGPDFContextSetOutline.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContextSetOutline(_:_:)
-func CGPDFContextSetOutline(context CGContextRef, outline corefoundation.CFDictionaryRef)  {
+func CGPDFContextSetOutline(context CGContextRef, outline corefoundation.CFDictionaryRef) {
 	if _cGPDFContextSetOutline == nil {
 		panic("CoreGraphics: symbol CGPDFContextSetOutline not loaded")
 	}
@@ -5874,12 +6259,12 @@ func CGPDFContextSetOutline(context CGContextRef, outline corefoundation.CFDicti
 }
 
 
-var _cGPDFContextSetPageTagStructureTree func(context CGContextRef, pageTagStructureTreeDictionary corefoundation.CFDictionaryRef) 
+var _cGPDFContextSetPageTagStructureTree func(context CGContextRef, pageTagStructureTreeDictionary corefoundation.CFDictionaryRef)
 
 // CGPDFContextSetPageTagStructureTree.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContextSetPageTagStructureTree(_:_:)
-func CGPDFContextSetPageTagStructureTree(context CGContextRef, pageTagStructureTreeDictionary corefoundation.CFDictionaryRef)  {
+func CGPDFContextSetPageTagStructureTree(context CGContextRef, pageTagStructureTreeDictionary corefoundation.CFDictionaryRef) {
 	if _cGPDFContextSetPageTagStructureTree == nil {
 		panic("CoreGraphics: symbol CGPDFContextSetPageTagStructureTree not loaded")
 	}
@@ -5887,12 +6272,12 @@ func CGPDFContextSetPageTagStructureTree(context CGContextRef, pageTagStructureT
 }
 
 
-var _cGPDFContextSetParentTree func(context CGContextRef, parentTreeDictionary CGPDFDictionaryRef) 
+var _cGPDFContextSetParentTree func(context CGContextRef, parentTreeDictionary CGPDFDictionaryRef)
 
 // CGPDFContextSetParentTree.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContextSetParentTree(_:_:)
-func CGPDFContextSetParentTree(context CGContextRef, parentTreeDictionary CGPDFDictionaryRef)  {
+func CGPDFContextSetParentTree(context CGContextRef, parentTreeDictionary CGPDFDictionaryRef) {
 	if _cGPDFContextSetParentTree == nil {
 		panic("CoreGraphics: symbol CGPDFContextSetParentTree not loaded")
 	}
@@ -5900,12 +6285,12 @@ func CGPDFContextSetParentTree(context CGContextRef, parentTreeDictionary CGPDFD
 }
 
 
-var _cGPDFContextSetURLForRect func(context CGContextRef, url corefoundation.CFURLRef, rect corefoundation.CGRect) 
+var _cGPDFContextSetURLForRect func(context CGContextRef, url corefoundation.CFURLRef, rect corefoundation.CGRect)
 
 // CGPDFContextSetURLForRect sets the URL associated with a rectangle in a PDF graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContext/setURL(_:for:)
-func CGPDFContextSetURLForRect(context CGContextRef, url corefoundation.CFURLRef, rect corefoundation.CGRect)  {
+func CGPDFContextSetURLForRect(context CGContextRef, url corefoundation.CFURLRef, rect corefoundation.CGRect) {
 	if _cGPDFContextSetURLForRect == nil {
 		panic("CoreGraphics: symbol CGPDFContextSetURLForRect not loaded")
 	}
@@ -5913,12 +6298,12 @@ func CGPDFContextSetURLForRect(context CGContextRef, url corefoundation.CFURLRef
 }
 
 
-var _cGPDFDictionaryApplyBlock func(dict CGPDFDictionaryRef, block CGPDFDictionaryApplierBlock, info unsafe.Pointer) 
+var _cGPDFDictionaryApplyBlock func(dict CGPDFDictionaryRef, block CGPDFDictionaryApplierBlock, info unsafe.Pointer)
 
 // CGPDFDictionaryApplyBlock.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryApplyBlock(_:_:_:)
-func CGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionaryApplierBlock, info unsafe.Pointer)  {
+func CGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionaryApplierBlock, info unsafe.Pointer) {
 	if _cGPDFDictionaryApplyBlock == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryApplyBlock not loaded")
 	}
@@ -5926,12 +6311,12 @@ func CGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionaryApp
 }
 
 
-var _cGPDFDictionaryApplyFunction func(dict CGPDFDictionaryRef, function CGPDFDictionaryApplierFunction, info unsafe.Pointer) 
+var _cGPDFDictionaryApplyFunction func(dict CGPDFDictionaryRef, function CGPDFDictionaryApplierFunction, info unsafe.Pointer)
 
 // CGPDFDictionaryApplyFunction applies a function to each entry in a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryApplyFunction(_:_:_:)
-func CGPDFDictionaryApplyFunction(dict CGPDFDictionaryRef, function CGPDFDictionaryApplierFunction, info unsafe.Pointer)  {
+func CGPDFDictionaryApplyFunction(dict CGPDFDictionaryRef, function CGPDFDictionaryApplierFunction, info unsafe.Pointer) {
 	if _cGPDFDictionaryApplyFunction == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryApplyFunction not loaded")
 	}
@@ -6303,12 +6688,12 @@ func CGPDFDocumentGetTypeID() uint {
 }
 
 
-var _cGPDFDocumentGetVersion func(document CGPDFDocumentRef, majorVersion *int, minorVersion *int) 
+var _cGPDFDocumentGetVersion func(document CGPDFDocumentRef, majorVersion *int, minorVersion *int)
 
 // CGPDFDocumentGetVersion returns the major and minor version numbers of a Core Graphics PDF document.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocument/getVersion(majorVersion:minorVersion:)
-func CGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion []int, minorVersion []int)  {
+func CGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion []int, minorVersion []int) {
 	if _cGPDFDocumentGetVersion == nil {
 		panic("CoreGraphics: symbol CGPDFDocumentGetVersion not loaded")
 	}
@@ -6342,12 +6727,12 @@ func CGPDFDocumentIsUnlocked(document CGPDFDocumentRef) bool {
 }
 
 
-var _cGPDFDocumentRelease func(document CGPDFDocumentRef) 
+var _cGPDFDocumentRelease func(document CGPDFDocumentRef)
 
 // CGPDFDocumentRelease decrements the retain count of a PDF document.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentRelease
-func CGPDFDocumentRelease(document CGPDFDocumentRef)  {
+func CGPDFDocumentRelease(document CGPDFDocumentRef) {
 	if _cGPDFDocumentRelease == nil {
 		panic("CoreGraphics: symbol CGPDFDocumentRelease not loaded")
 	}
@@ -6420,12 +6805,12 @@ func CGPDFOperatorTableCreate() CGPDFOperatorTableRef {
 }
 
 
-var _cGPDFOperatorTableRelease func(table CGPDFOperatorTableRef) 
+var _cGPDFOperatorTableRelease func(table CGPDFOperatorTableRef)
 
 // CGPDFOperatorTableRelease decrements the retain count of a CGPDFOperatorTable object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFOperatorTableRelease(_:)
-func CGPDFOperatorTableRelease(table CGPDFOperatorTableRef)  {
+func CGPDFOperatorTableRelease(table CGPDFOperatorTableRef) {
 	if _cGPDFOperatorTableRelease == nil {
 		panic("CoreGraphics: symbol CGPDFOperatorTableRelease not loaded")
 	}
@@ -6446,12 +6831,12 @@ func CGPDFOperatorTableRetain(table CGPDFOperatorTableRef) CGPDFOperatorTableRef
 }
 
 
-var _cGPDFOperatorTableSetCallback func(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback) 
+var _cGPDFOperatorTableSetCallback func(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback)
 
 // CGPDFOperatorTableSetCallback sets a callback function for a PDF operator.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFOperatorTableSetCallback(_:_:_:)
-func CGPDFOperatorTableSetCallback(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback)  {
+func CGPDFOperatorTableSetCallback(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback) {
 	if _cGPDFOperatorTableSetCallback == nil {
 		panic("CoreGraphics: symbol CGPDFOperatorTableSetCallback not loaded")
 	}
@@ -6550,12 +6935,12 @@ func CGPDFPageGetTypeID() uint {
 }
 
 
-var _cGPDFPageRelease func(page CGPDFPageRef) 
+var _cGPDFPageRelease func(page CGPDFPageRef)
 
 // CGPDFPageRelease decrements the retain count of a PDF page.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFPageRelease
-func CGPDFPageRelease(page CGPDFPageRef)  {
+func CGPDFPageRelease(page CGPDFPageRef) {
 	if _cGPDFPageRelease == nil {
 		panic("CoreGraphics: symbol CGPDFPageRelease not loaded")
 	}
@@ -6719,12 +7104,12 @@ func CGPDFScannerPopString(scanner CGPDFScannerRef, value *CGPDFStringRef) bool 
 }
 
 
-var _cGPDFScannerRelease func(scanner CGPDFScannerRef) 
+var _cGPDFScannerRelease func(scanner CGPDFScannerRef)
 
 // CGPDFScannerRelease decrements the retain count of a scanner object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFScannerRelease(_:)
-func CGPDFScannerRelease(scanner CGPDFScannerRef)  {
+func CGPDFScannerRelease(scanner CGPDFScannerRef) {
 	if _cGPDFScannerRelease == nil {
 		panic("CoreGraphics: symbol CGPDFScannerRelease not loaded")
 	}
@@ -6758,12 +7143,12 @@ func CGPDFScannerScan(scanner CGPDFScannerRef) bool {
 }
 
 
-var _cGPDFScannerStop func(s CGPDFScannerRef) 
+var _cGPDFScannerStop func(s CGPDFScannerRef)
 
 // CGPDFScannerStop.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFScannerStop(_:)
-func CGPDFScannerStop(s CGPDFScannerRef)  {
+func CGPDFScannerStop(s CGPDFScannerRef) {
 	if _cGPDFScannerStop == nil {
 		panic("CoreGraphics: symbol CGPDFScannerStop not loaded")
 	}
@@ -6914,12 +7299,12 @@ func CGPSConverterIsConverting(converter CGPSConverterRef) bool {
 }
 
 
-var _cGPathApply func(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunction) 
+var _cGPathApply func(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunction)
 
 // CGPathApply for each element in a graphics path, calls a custom applier function.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPath/apply(info:function:)
-func CGPathApply(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunction)  {
+func CGPathApply(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunction) {
 	if _cGPathApply == nil {
 		panic("CoreGraphics: symbol CGPathApply not loaded")
 	}
@@ -6927,12 +7312,12 @@ func CGPathApply(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunc
 }
 
 
-var _cGPathApplyWithBlock func(path CGPathRef, block CGPathApplyBlock) 
+var _cGPathApplyWithBlock func(path CGPathRef, block CGPathApplyBlock)
 
 // CGPathApplyWithBlock.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPath/applyWithBlock(_:)
-func CGPathApplyWithBlock(path CGPathRef, block CGPathApplyBlock)  {
+func CGPathApplyWithBlock(path CGPathRef, block CGPathApplyBlock) {
 	if _cGPathApplyWithBlock == nil {
 		panic("CoreGraphics: symbol CGPathApplyWithBlock not loaded")
 	}
@@ -6940,12 +7325,12 @@ func CGPathApplyWithBlock(path CGPathRef, block CGPathApplyBlock)  {
 }
 
 
-var _cGPathCloseSubpath func(path CGMutablePathRef) 
+var _cGPathCloseSubpath func(path CGMutablePathRef)
 
 // CGPathCloseSubpath closes and completes a subpath in a mutable graphics path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGMutablePath/closeSubpath()
-func CGPathCloseSubpath(path CGMutablePathRef)  {
+func CGPathCloseSubpath(path CGMutablePathRef) {
 	if _cGPathCloseSubpath == nil {
 		panic("CoreGraphics: symbol CGPathCloseSubpath not loaded")
 	}
@@ -7030,6 +7415,18 @@ func CGPathCreateCopyByNormalizing(path CGPathRef, evenOddFillRule bool) CGPathR
 	return _cGPathCreateCopyByNormalizing(path, evenOddFillRule)
 }
 
+
+var _cGPathCreateCopyByStrokingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap uintptr, lineJoin uintptr, miterLimit float64) CGPathRef
+
+// CGPathCreateCopyByStrokingPath creates a stroked copy of another path.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPathCreateCopyByStrokingPath
+func CGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap uintptr, lineJoin uintptr, miterLimit float64) CGPathRef {
+	if _cGPathCreateCopyByStrokingPath == nil {
+		panic("CoreGraphics: symbol CGPathCreateCopyByStrokingPath not loaded")
+	}
+	return _cGPathCreateCopyByStrokingPath(path, transform, lineWidth, lineCap, lineJoin, miterLimit)
+}
 
 
 var _cGPathCreateCopyBySubtractingPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
@@ -7305,12 +7702,12 @@ func CGPathIsRect(path CGPathRef, rect *corefoundation.CGRect) bool {
 }
 
 
-var _cGPathRelease func(path CGPathRef) 
+var _cGPathRelease func(path CGPathRef)
 
 // CGPathRelease decrements the retain count of a graphics path.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathRelease
-func CGPathRelease(path CGPathRef)  {
+func CGPathRelease(path CGPathRef) {
 	if _cGPathRelease == nil {
 		panic("CoreGraphics: symbol CGPathRelease not loaded")
 	}
@@ -7357,12 +7754,12 @@ func CGPatternGetTypeID() uint {
 }
 
 
-var _cGPatternRelease func(pattern CGPatternRef) 
+var _cGPatternRelease func(pattern CGPatternRef)
 
 // CGPatternRelease decrements the retain count of a Core Graphics pattern.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPatternRelease
-func CGPatternRelease(pattern CGPatternRef)  {
+func CGPatternRelease(pattern CGPatternRef) {
 	if _cGPatternRelease == nil {
 		panic("CoreGraphics: symbol CGPatternRelease not loaded")
 	}
@@ -7437,6 +7834,18 @@ func CGPointMakeWithDictionaryRepresentation(dict corefoundation.CFDictionaryRef
 	return _cGPointMakeWithDictionaryRepresentation(dict, point)
 }
 
+
+var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition uintptr, buttonCount CGButtonCount, mouseButtonDown uintptr) CGError
+
+// CGPostMouseEvent synthesizes a low-level mouse-button event on the local machine.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGPostMouseEvent
+func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition uintptr, buttonCount CGButtonCount, mouseButtonDown uintptr) CGError {
+	if _cGPostMouseEvent == nil {
+		panic("CoreGraphics: symbol CGPostMouseEvent not loaded")
+	}
+	return _cGPostMouseEvent(mouseCursorPosition, updateMouseCursorPosition, buttonCount, mouseButtonDown)
+}
 
 
 var _cGPostScrollWheelEvent func(wheelCount CGWheelCount, wheel1 int32) CGError
@@ -7543,12 +7952,12 @@ func CGRectCreateDictionaryRepresentation(arg0 corefoundation.CGRect) corefounda
 }
 
 
-var _cGRectDivide func(rect corefoundation.CGRect, slice *corefoundation.CGRect, remainder *corefoundation.CGRect, amount float64, edge CGRectEdge) 
+var _cGRectDivide func(rect corefoundation.CGRect, slice *corefoundation.CGRect, remainder *corefoundation.CGRect, amount float64, edge CGRectEdge)
 
 // CGRectDivide divides a source rectangle into two component rectangles.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGRectDivide
-func CGRectDivide(rect corefoundation.CGRect, slice *corefoundation.CGRect, remainder *corefoundation.CGRect, amount float64, edge CGRectEdge)  {
+func CGRectDivide(rect corefoundation.CGRect, slice *corefoundation.CGRect, remainder *corefoundation.CGRect, amount float64, edge CGRectEdge) {
 	if _cGRectDivide == nil {
 		panic("CoreGraphics: symbol CGRectDivide not loaded")
 	}
@@ -7910,12 +8319,12 @@ func CGRenderingBufferProviderGetTypeID() uint {
 }
 
 
-var _cGRenderingBufferUnlockBytePtr func(provider CGRenderingBufferProviderRef) 
+var _cGRenderingBufferUnlockBytePtr func(provider CGRenderingBufferProviderRef)
 
 // CGRenderingBufferUnlockBytePtr.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGRenderingBufferUnlockBytePtr
-func CGRenderingBufferUnlockBytePtr(provider CGRenderingBufferProviderRef)  {
+func CGRenderingBufferUnlockBytePtr(provider CGRenderingBufferProviderRef) {
 	if _cGRenderingBufferUnlockBytePtr == nil {
 		panic("CoreGraphics: symbol CGRenderingBufferUnlockBytePtr not loaded")
 	}
@@ -7962,12 +8371,12 @@ func CGRequestScreenCaptureAccess() bool {
 }
 
 
-var _cGRestorePermanentDisplayConfiguration func() 
+var _cGRestorePermanentDisplayConfiguration func()
 
 // CGRestorePermanentDisplayConfiguration restores the permanent display configuration settings for the current user.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGRestorePermanentDisplayConfiguration()
-func CGRestorePermanentDisplayConfiguration()  {
+func CGRestorePermanentDisplayConfiguration() {
 	if _cGRestorePermanentDisplayConfiguration == nil {
 		panic("CoreGraphics: symbol CGRestorePermanentDisplayConfiguration not loaded")
 	}
@@ -8105,12 +8514,12 @@ func CGShadingGetTypeID() uint {
 }
 
 
-var _cGShadingRelease func(shading CGShadingRef) 
+var _cGShadingRelease func(shading CGShadingRef)
 
 // CGShadingRelease decrements the retain count of a shading object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGShadingRelease
-func CGShadingRelease(shading CGShadingRef)  {
+func CGShadingRelease(shading CGShadingRef) {
 	if _cGShadingRelease == nil {
 		panic("CoreGraphics: symbol CGShadingRelease not loaded")
 	}
@@ -8325,6 +8734,7 @@ func init() {
 		registerFunc(&_cGAffineTransformRotate, frameworkHandle, "CGAffineTransformRotate")
 		registerFunc(&_cGAffineTransformScale, frameworkHandle, "CGAffineTransformScale")
 		registerFunc(&_cGAffineTransformTranslate, frameworkHandle, "CGAffineTransformTranslate")
+		registerFunc(&_cGAssociateMouseAndMouseCursorPosition, frameworkHandle, "CGAssociateMouseAndMouseCursorPosition")
 		registerFunc(&_cGBeginDisplayConfiguration, frameworkHandle, "CGBeginDisplayConfiguration")
 		registerFunc(&_cGBitmapContextCreate, frameworkHandle, "CGBitmapContextCreate")
 		registerFunc(&_cGBitmapContextCreateAdaptive, frameworkHandle, "CGBitmapContextCreateAdaptive")
@@ -8346,6 +8756,7 @@ func init() {
 		registerFunc(&_cGColorConversionInfoCreate, frameworkHandle, "CGColorConversionInfoCreate")
 		registerFunc(&_cGColorConversionInfoCreateForToneMapping, frameworkHandle, "CGColorConversionInfoCreateForToneMapping")
 		registerFunc(&_cGColorConversionInfoCreateFromList, frameworkHandle, "CGColorConversionInfoCreateFromList")
+		registerFunc(&_cGColorConversionInfoCreateFromListWithArguments, frameworkHandle, "CGColorConversionInfoCreateFromListWithArguments")
 		registerFunc(&_cGColorConversionInfoCreateWithOptions, frameworkHandle, "CGColorConversionInfoCreateWithOptions")
 		registerFunc(&_cGColorConversionInfoGetTypeID, frameworkHandle, "CGColorConversionInfoGetTypeID")
 		registerFunc(&_cGColorCreate, frameworkHandle, "CGColorCreate")
@@ -8411,6 +8822,7 @@ func init() {
 		registerFunc(&_cGConfigureDisplayFadeEffect, frameworkHandle, "CGConfigureDisplayFadeEffect")
 		registerFunc(&_cGConfigureDisplayMirrorOfDisplay, frameworkHandle, "CGConfigureDisplayMirrorOfDisplay")
 		registerFunc(&_cGConfigureDisplayOrigin, frameworkHandle, "CGConfigureDisplayOrigin")
+		registerFunc(&_cGConfigureDisplayStereoOperation, frameworkHandle, "CGConfigureDisplayStereoOperation")
 		registerFunc(&_cGConfigureDisplayWithDisplayMode, frameworkHandle, "CGConfigureDisplayWithDisplayMode")
 		registerFunc(&_cGContextAddArc, frameworkHandle, "CGContextAddArc")
 		registerFunc(&_cGContextAddArcToPoint, frameworkHandle, "CGContextAddArcToPoint")
@@ -8443,6 +8855,8 @@ func init() {
 		registerFunc(&_cGContextDrawConicGradient, frameworkHandle, "CGContextDrawConicGradient")
 		registerFunc(&_cGContextDrawImage, frameworkHandle, "CGContextDrawImage")
 		registerFunc(&_cGContextDrawImageApplyingToneMapping, frameworkHandle, "CGContextDrawImageApplyingToneMapping")
+		registerFunc(&_cGContextDrawLayerAtPoint, frameworkHandle, "CGContextDrawLayerAtPoint")
+		registerFunc(&_cGContextDrawLayerInRect, frameworkHandle, "CGContextDrawLayerInRect")
 		registerFunc(&_cGContextDrawLinearGradient, frameworkHandle, "CGContextDrawLinearGradient")
 		registerFunc(&_cGContextDrawPDFDocument, frameworkHandle, "CGContextDrawPDFDocument")
 		registerFunc(&_cGContextDrawPDFPage, frameworkHandle, "CGContextDrawPDFPage")
@@ -8486,6 +8900,7 @@ func init() {
 		registerFunc(&_cGContextSetAllowsFontSubpixelPositioning, frameworkHandle, "CGContextSetAllowsFontSubpixelPositioning")
 		registerFunc(&_cGContextSetAllowsFontSubpixelQuantization, frameworkHandle, "CGContextSetAllowsFontSubpixelQuantization")
 		registerFunc(&_cGContextSetAlpha, frameworkHandle, "CGContextSetAlpha")
+		registerFunc(&_cGContextSetBlendMode, frameworkHandle, "CGContextSetBlendMode")
 		registerFunc(&_cGContextSetCMYKFillColor, frameworkHandle, "CGContextSetCMYKFillColor")
 		registerFunc(&_cGContextSetCMYKStrokeColor, frameworkHandle, "CGContextSetCMYKStrokeColor")
 		registerFunc(&_cGContextSetCharacterSpacing, frameworkHandle, "CGContextSetCharacterSpacing")
@@ -8501,7 +8916,9 @@ func init() {
 		registerFunc(&_cGContextSetGrayFillColor, frameworkHandle, "CGContextSetGrayFillColor")
 		registerFunc(&_cGContextSetGrayStrokeColor, frameworkHandle, "CGContextSetGrayStrokeColor")
 		registerFunc(&_cGContextSetInterpolationQuality, frameworkHandle, "CGContextSetInterpolationQuality")
+		registerFunc(&_cGContextSetLineCap, frameworkHandle, "CGContextSetLineCap")
 		registerFunc(&_cGContextSetLineDash, frameworkHandle, "CGContextSetLineDash")
+		registerFunc(&_cGContextSetLineJoin, frameworkHandle, "CGContextSetLineJoin")
 		registerFunc(&_cGContextSetLineWidth, frameworkHandle, "CGContextSetLineWidth")
 		registerFunc(&_cGContextSetMiterLimit, frameworkHandle, "CGContextSetMiterLimit")
 		registerFunc(&_cGContextSetPatternPhase, frameworkHandle, "CGContextSetPatternPhase")
@@ -8521,6 +8938,7 @@ func init() {
 		registerFunc(&_cGContextSetTextDrawingMode, frameworkHandle, "CGContextSetTextDrawingMode")
 		registerFunc(&_cGContextSetTextMatrix, frameworkHandle, "CGContextSetTextMatrix")
 		registerFunc(&_cGContextSetTextPosition, frameworkHandle, "CGContextSetTextPosition")
+		registerFunc(&_cGContextShowGlyphsAtPositions, frameworkHandle, "CGContextShowGlyphsAtPositions")
 		registerFunc(&_cGContextStrokeEllipseInRect, frameworkHandle, "CGContextStrokeEllipseInRect")
 		registerFunc(&_cGContextStrokeLineSegments, frameworkHandle, "CGContextStrokeLineSegments")
 		registerFunc(&_cGContextStrokePath, frameworkHandle, "CGContextStrokePath")
@@ -8556,10 +8974,20 @@ func init() {
 		registerFunc(&_cGDisplayCopyDisplayMode, frameworkHandle, "CGDisplayCopyDisplayMode")
 		registerFunc(&_cGDisplayCreateImage, frameworkHandle, "CGDisplayCreateImage")
 		registerFunc(&_cGDisplayCreateImageForRect, frameworkHandle, "CGDisplayCreateImageForRect")
+		registerFunc(&_cGDisplayFade, frameworkHandle, "CGDisplayFade")
 		registerFunc(&_cGDisplayGammaTableCapacity, frameworkHandle, "CGDisplayGammaTableCapacity")
 		registerFunc(&_cGDisplayGetDrawingContext, frameworkHandle, "CGDisplayGetDrawingContext")
 		registerFunc(&_cGDisplayHideCursor, frameworkHandle, "CGDisplayHideCursor")
 		registerFunc(&_cGDisplayIDToOpenGLDisplayMask, frameworkHandle, "CGDisplayIDToOpenGLDisplayMask")
+		registerFunc(&_cGDisplayIsActive, frameworkHandle, "CGDisplayIsActive")
+		registerFunc(&_cGDisplayIsAlwaysInMirrorSet, frameworkHandle, "CGDisplayIsAlwaysInMirrorSet")
+		registerFunc(&_cGDisplayIsAsleep, frameworkHandle, "CGDisplayIsAsleep")
+		registerFunc(&_cGDisplayIsBuiltin, frameworkHandle, "CGDisplayIsBuiltin")
+		registerFunc(&_cGDisplayIsInHWMirrorSet, frameworkHandle, "CGDisplayIsInHWMirrorSet")
+		registerFunc(&_cGDisplayIsInMirrorSet, frameworkHandle, "CGDisplayIsInMirrorSet")
+		registerFunc(&_cGDisplayIsMain, frameworkHandle, "CGDisplayIsMain")
+		registerFunc(&_cGDisplayIsOnline, frameworkHandle, "CGDisplayIsOnline")
+		registerFunc(&_cGDisplayIsStereo, frameworkHandle, "CGDisplayIsStereo")
 		registerFunc(&_cGDisplayMirrorsDisplay, frameworkHandle, "CGDisplayMirrorsDisplay")
 		registerFunc(&_cGDisplayModeGetHeight, frameworkHandle, "CGDisplayModeGetHeight")
 		registerFunc(&_cGDisplayModeGetIODisplayModeID, frameworkHandle, "CGDisplayModeGetIODisplayModeID")
@@ -8585,8 +9013,10 @@ func init() {
 		registerFunc(&_cGDisplayScreenSize, frameworkHandle, "CGDisplayScreenSize")
 		registerFunc(&_cGDisplaySerialNumber, frameworkHandle, "CGDisplaySerialNumber")
 		registerFunc(&_cGDisplaySetDisplayMode, frameworkHandle, "CGDisplaySetDisplayMode")
+		registerFunc(&_cGDisplaySetStereoOperation, frameworkHandle, "CGDisplaySetStereoOperation")
 		registerFunc(&_cGDisplayShowCursor, frameworkHandle, "CGDisplayShowCursor")
 		registerFunc(&_cGDisplayUnitNumber, frameworkHandle, "CGDisplayUnitNumber")
+		registerFunc(&_cGDisplayUsesOpenGLAcceleration, frameworkHandle, "CGDisplayUsesOpenGLAcceleration")
 		registerFunc(&_cGDisplayVendorNumber, frameworkHandle, "CGDisplayVendorNumber")
 		registerFunc(&_cGEXRToneMappingGammaGetDefaultOptions, frameworkHandle, "CGEXRToneMappingGammaGetDefaultOptions")
 		registerFunc(&_cGErrorSetCallback, frameworkHandle, "CGErrorSetCallback")
@@ -8645,18 +9075,24 @@ func init() {
 		registerFunc(&_cGEventTapPostEvent, frameworkHandle, "CGEventTapPostEvent")
 		registerFunc(&_cGFontCanCreatePostScriptSubset, frameworkHandle, "CGFontCanCreatePostScriptSubset")
 		registerFunc(&_cGFontCopyFullName, frameworkHandle, "CGFontCopyFullName")
+		registerFunc(&_cGFontCopyGlyphNameForGlyph, frameworkHandle, "CGFontCopyGlyphNameForGlyph")
 		registerFunc(&_cGFontCopyPostScriptName, frameworkHandle, "CGFontCopyPostScriptName")
 		registerFunc(&_cGFontCopyTableForTag, frameworkHandle, "CGFontCopyTableForTag")
 		registerFunc(&_cGFontCopyTableTags, frameworkHandle, "CGFontCopyTableTags")
 		registerFunc(&_cGFontCopyVariationAxes, frameworkHandle, "CGFontCopyVariationAxes")
 		registerFunc(&_cGFontCopyVariations, frameworkHandle, "CGFontCopyVariations")
 		registerFunc(&_cGFontCreateCopyWithVariations, frameworkHandle, "CGFontCreateCopyWithVariations")
+		registerFunc(&_cGFontCreatePostScriptEncoding, frameworkHandle, "CGFontCreatePostScriptEncoding")
+		registerFunc(&_cGFontCreatePostScriptSubset, frameworkHandle, "CGFontCreatePostScriptSubset")
 		registerFunc(&_cGFontCreateWithDataProvider, frameworkHandle, "CGFontCreateWithDataProvider")
 		registerFunc(&_cGFontCreateWithFontName, frameworkHandle, "CGFontCreateWithFontName")
 		registerFunc(&_cGFontGetAscent, frameworkHandle, "CGFontGetAscent")
 		registerFunc(&_cGFontGetCapHeight, frameworkHandle, "CGFontGetCapHeight")
 		registerFunc(&_cGFontGetDescent, frameworkHandle, "CGFontGetDescent")
 		registerFunc(&_cGFontGetFontBBox, frameworkHandle, "CGFontGetFontBBox")
+		registerFunc(&_cGFontGetGlyphAdvances, frameworkHandle, "CGFontGetGlyphAdvances")
+		registerFunc(&_cGFontGetGlyphBBoxes, frameworkHandle, "CGFontGetGlyphBBoxes")
+		registerFunc(&_cGFontGetGlyphWithGlyphName, frameworkHandle, "CGFontGetGlyphWithGlyphName")
 		registerFunc(&_cGFontGetItalicAngle, frameworkHandle, "CGFontGetItalicAngle")
 		registerFunc(&_cGFontGetLeading, frameworkHandle, "CGFontGetLeading")
 		registerFunc(&_cGFontGetNumberOfGlyphs, frameworkHandle, "CGFontGetNumberOfGlyphs")
@@ -8724,7 +9160,12 @@ func init() {
 		registerFunc(&_cGImageRelease, frameworkHandle, "CGImageRelease")
 		registerFunc(&_cGImageRetain, frameworkHandle, "CGImageRetain")
 		registerFunc(&_cGImageShouldToneMap, frameworkHandle, "CGImageShouldToneMap")
+		registerFunc(&_cGLayerCreateWithContext, frameworkHandle, "CGLayerCreateWithContext")
+		registerFunc(&_cGLayerGetContext, frameworkHandle, "CGLayerGetContext")
+		registerFunc(&_cGLayerGetSize, frameworkHandle, "CGLayerGetSize")
 		registerFunc(&_cGLayerGetTypeID, frameworkHandle, "CGLayerGetTypeID")
+		registerFunc(&_cGLayerRelease, frameworkHandle, "CGLayerRelease")
+		registerFunc(&_cGLayerRetain, frameworkHandle, "CGLayerRetain")
 		registerFunc(&_cGMainDisplayID, frameworkHandle, "CGMainDisplayID")
 		registerFunc(&_cGOpenGLDisplayMaskToDisplayID, frameworkHandle, "CGOpenGLDisplayMaskToDisplayID")
 		registerFunc(&_cGPDFArrayApplyBlock, frameworkHandle, "CGPDFArrayApplyBlock")
@@ -8846,6 +9287,7 @@ func init() {
 		registerFunc(&_cGPathCreateCopyByFlattening, frameworkHandle, "CGPathCreateCopyByFlattening")
 		registerFunc(&_cGPathCreateCopyByIntersectingPath, frameworkHandle, "CGPathCreateCopyByIntersectingPath")
 		registerFunc(&_cGPathCreateCopyByNormalizing, frameworkHandle, "CGPathCreateCopyByNormalizing")
+		registerFunc(&_cGPathCreateCopyByStrokingPath, frameworkHandle, "CGPathCreateCopyByStrokingPath")
 		registerFunc(&_cGPathCreateCopyBySubtractingPath, frameworkHandle, "CGPathCreateCopyBySubtractingPath")
 		registerFunc(&_cGPathCreateCopyBySymmetricDifferenceOfPath, frameworkHandle, "CGPathCreateCopyBySymmetricDifferenceOfPath")
 		registerFunc(&_cGPathCreateCopyByTransformingPath, frameworkHandle, "CGPathCreateCopyByTransformingPath")
@@ -8877,6 +9319,7 @@ func init() {
 		registerFunc(&_cGPointCreateDictionaryRepresentation, frameworkHandle, "CGPointCreateDictionaryRepresentation")
 		registerFunc(&_cGPointEqualToPoint, frameworkHandle, "CGPointEqualToPoint")
 		registerFunc(&_cGPointMakeWithDictionaryRepresentation, frameworkHandle, "CGPointMakeWithDictionaryRepresentation")
+		registerFunc(&_cGPostMouseEvent, frameworkHandle, "CGPostMouseEvent")
 		registerFunc(&_cGPostScrollWheelEvent, frameworkHandle, "CGPostScrollWheelEvent")
 		registerFunc(&_cGPreflightListenEventAccess, frameworkHandle, "CGPreflightListenEventAccess")
 		registerFunc(&_cGPreflightPostEventAccess, frameworkHandle, "CGPreflightPostEventAccess")

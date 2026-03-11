@@ -46,7 +46,7 @@ type Vmnet_interface_get_port_forwarding_rules_handler_t = func(objectivec.Objec
 
 
 
-type Vmnet_mode_t = objectivec.IObject
+type Vmnet_mode_t = Operating_modes_t
 
 
 

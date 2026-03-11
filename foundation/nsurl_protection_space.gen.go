@@ -147,9 +147,9 @@ type IURLProtectionSpace interface {
 
 	// A Boolean value that indicates whether the receiver represents a proxy server.
 	IsProxy() bool
-	InitWithCoder(coder INSCoder) URLProtectionSpace
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLProtectionSpace
 }
 
 
@@ -338,13 +338,6 @@ func (u URLProtectionSpace) InitWithProxyHostPortTypeRealmAuthenticationMethod(h
 	return rv
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
-	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -352,6 +345,13 @@ func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (u URLProtectionSpace) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+
+//
+// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
+func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
+	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 

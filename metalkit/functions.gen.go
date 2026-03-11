@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
+	"github.com/tmc/apple/objectivec"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -64,6 +65,18 @@ func MTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor uintptr, err
 }
 
 
+var _mTKMetalVertexFormatFromModelIO func(vertexFormat uintptr) metal.MTLVertexFormat
+
+// MTKMetalVertexFormatFromModelIO returns a converted Metal vertex format.
+//
+// See: https://developer.apple.com/documentation/MetalKit/MTKMetalVertexFormatFromModelIO(_:)
+func MTKMetalVertexFormatFromModelIO(vertexFormat uintptr) metal.MTLVertexFormat {
+	if _mTKMetalVertexFormatFromModelIO == nil {
+		panic("MetalKit: symbol MTKMetalVertexFormatFromModelIO not loaded")
+	}
+	return _mTKMetalVertexFormatFromModelIO(vertexFormat)
+}
+
 
 var _mTKModelIOVertexDescriptorFromMetal func(metalDescriptor *metal.MTLVertexDescriptor) *objc.ID
 
@@ -91,6 +104,18 @@ func MTKModelIOVertexDescriptorFromMetalWithError(metalDescriptor *metal.MTLVert
 }
 
 
+var _mTKModelIOVertexFormatFromMetal func(vertexFormat metal.MTLVertexFormat) objectivec.IObject
+
+// MTKModelIOVertexFormatFromMetal returns a converted Model I/O vertex format.
+//
+// See: https://developer.apple.com/documentation/MetalKit/MTKModelIOVertexFormatFromMetal(_:)
+func MTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) objectivec.IObject {
+	if _mTKModelIOVertexFormatFromMetal == nil {
+		panic("MetalKit: symbol MTKModelIOVertexFormatFromMetal not loaded")
+	}
+	return _mTKModelIOVertexFormatFromMetal(vertexFormat)
+}
+
 
 
 func init() {
@@ -99,8 +124,10 @@ func init() {
 	}
 		registerFunc(&_mTKMetalVertexDescriptorFromModelIO, frameworkHandle, "MTKMetalVertexDescriptorFromModelIO")
 		registerFunc(&_mTKMetalVertexDescriptorFromModelIOWithError, frameworkHandle, "MTKMetalVertexDescriptorFromModelIOWithError")
+		registerFunc(&_mTKMetalVertexFormatFromModelIO, frameworkHandle, "MTKMetalVertexFormatFromModelIO")
 		registerFunc(&_mTKModelIOVertexDescriptorFromMetal, frameworkHandle, "MTKModelIOVertexDescriptorFromMetal")
 		registerFunc(&_mTKModelIOVertexDescriptorFromMetalWithError, frameworkHandle, "MTKModelIOVertexDescriptorFromMetalWithError")
+		registerFunc(&_mTKModelIOVertexFormatFromMetal, frameworkHandle, "MTKModelIOVertexFormatFromMetal")
 	}
 
 

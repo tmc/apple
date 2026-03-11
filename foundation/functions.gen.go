@@ -198,12 +198,12 @@ func NSCopyMapTableWithZone(table *NSMapTable, zone *NSZone) *NSMapTable {
 }
 
 
-var _nSCopyMemoryPages func(source unsafe.Pointer, dest unsafe.Pointer, bytes uint) 
+var _nSCopyMemoryPages func(source unsafe.Pointer, dest unsafe.Pointer, bytes uint)
 
 // NSCopyMemoryPages copies a block of memory.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCopyMemoryPages(_:_:_:)
-func NSCopyMemoryPages(source unsafe.Pointer, dest unsafe.Pointer, bytes uint)  {
+func NSCopyMemoryPages(source unsafe.Pointer, dest unsafe.Pointer, bytes uint) {
 	if _nSCopyMemoryPages == nil {
 		panic("Foundation: symbol NSCopyMemoryPages not loaded")
 	}
@@ -330,12 +330,12 @@ func NSCreateZone(startSize uint, granularity uint, canFree bool) *NSZone {
 }
 
 
-var _nSDeallocateMemoryPages func(ptr unsafe.Pointer, bytes uint) 
+var _nSDeallocateMemoryPages func(ptr unsafe.Pointer, bytes uint)
 
 // NSDeallocateMemoryPages deallocates the specified block of memory.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDeallocateMemoryPages(_:_:)
-func NSDeallocateMemoryPages(ptr unsafe.Pointer, bytes uint)  {
+func NSDeallocateMemoryPages(ptr unsafe.Pointer, bytes uint) {
 	if _nSDeallocateMemoryPages == nil {
 		panic("Foundation: symbol NSDeallocateMemoryPages not loaded")
 	}
@@ -343,12 +343,12 @@ func NSDeallocateMemoryPages(ptr unsafe.Pointer, bytes uint)  {
 }
 
 
-var _nSDeallocateObject func(object objectivec.Object) 
+var _nSDeallocateObject func(object objectivec.Object)
 
 // NSDeallocateObject destroys an existing object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDeallocateObject
-func NSDeallocateObject(object objectivec.Object)  {
+func NSDeallocateObject(object objectivec.Object) {
 	if _nSDeallocateObject == nil {
 		panic("Foundation: symbol NSDeallocateObject not loaded")
 	}
@@ -369,12 +369,12 @@ func NSDecimalAdd(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NSDec
 }
 
 
-var _nSDecimalCompact func(number *NSDecimal) 
+var _nSDecimalCompact func(number *NSDecimal)
 
 // NSDecimalCompact compacts the decimal structure for efficiency.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalCompact(_:)
-func NSDecimalCompact(number *NSDecimal)  {
+func NSDecimalCompact(number *NSDecimal) {
 	if _nSDecimalCompact == nil {
 		panic("Foundation: symbol NSDecimalCompact not loaded")
 	}
@@ -395,12 +395,12 @@ func NSDecimalCompare(leftOperand *NSDecimal, rightOperand *NSDecimal) NSCompari
 }
 
 
-var _nSDecimalCopy func(destination *NSDecimal, source *NSDecimal) 
+var _nSDecimalCopy func(destination *NSDecimal, source *NSDecimal)
 
 // NSDecimalCopy copies the value of a decimal number.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalCopy(_:_:)
-func NSDecimalCopy(destination *NSDecimal, source *NSDecimal)  {
+func NSDecimalCopy(destination *NSDecimal, source *NSDecimal) {
 	if _nSDecimalCopy == nil {
 		panic("Foundation: symbol NSDecimalCopy not loaded")
 	}
@@ -474,12 +474,12 @@ func NSDecimalPower(result *NSDecimal, number *NSDecimal, power uint, roundingMo
 }
 
 
-var _nSDecimalRound func(result *NSDecimal, number *NSDecimal, scale int, roundingMode NSRoundingMode) 
+var _nSDecimalRound func(result *NSDecimal, number *NSDecimal, scale int, roundingMode NSRoundingMode)
 
 // NSDecimalRound rounds off the decimal value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalRound(_:_:_:_:)
-func NSDecimalRound(result *NSDecimal, number *NSDecimal, scale int, roundingMode NSRoundingMode)  {
+func NSDecimalRound(result *NSDecimal, number *NSDecimal, scale int, roundingMode NSRoundingMode) {
 	if _nSDecimalRound == nil {
 		panic("Foundation: symbol NSDecimalRound not loaded")
 	}
@@ -544,7 +544,7 @@ func NSDefaultMallocZone() *NSZone {
 // NSDivideRect divides a rectangle into two new rectangles.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDivideRect(_:_:_:_:_:)
-func NSDivideRect(inRect corefoundation.CGRect, slice *corefoundation.CGRect, rem *corefoundation.CGRect, amount float64, edge NSRectEdge)  {
+func NSDivideRect(inRect corefoundation.CGRect, slice *corefoundation.CGRect, rem *corefoundation.CGRect, amount float64, edge NSRectEdge) {
 	nsDivideRect(inRect, slice, rem, amount, edge)
 }
 
@@ -558,12 +558,12 @@ func NSEdgeInsetsEqual(aInsets NSEdgeInsets, bInsets NSEdgeInsets) bool {
 
 
 
-var _nSEndHashTableEnumeration func(enumerator *NSHashEnumerator) 
+var _nSEndHashTableEnumeration func(enumerator *NSHashEnumerator)
 
 // NSEndHashTableEnumeration used when finished with an enumerator.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEndHashTableEnumeration(_:)
-func NSEndHashTableEnumeration(enumerator *NSHashEnumerator)  {
+func NSEndHashTableEnumeration(enumerator *NSHashEnumerator) {
 	if _nSEndHashTableEnumeration == nil {
 		panic("Foundation: symbol NSEndHashTableEnumeration not loaded")
 	}
@@ -571,12 +571,12 @@ func NSEndHashTableEnumeration(enumerator *NSHashEnumerator)  {
 }
 
 
-var _nSEndMapTableEnumeration func(enumerator *NSMapEnumerator) 
+var _nSEndMapTableEnumeration func(enumerator *NSMapEnumerator)
 
 // NSEndMapTableEnumeration used when finished with an enumerator.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEndMapTableEnumeration(_:)
-func NSEndMapTableEnumeration(enumerator *NSMapEnumerator)  {
+func NSEndMapTableEnumeration(enumerator *NSMapEnumerator) {
 	if _nSEndMapTableEnumeration == nil {
 		panic("Foundation: symbol NSEndMapTableEnumeration not loaded")
 	}
@@ -674,12 +674,12 @@ func NSFrameAddress(frame uint) unsafe.Pointer {
 }
 
 
-var _nSFreeHashTable func(table *NSHashTable) 
+var _nSFreeHashTable func(table *NSHashTable)
 
 // NSFreeHashTable deletes the specified hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFreeHashTable(_:)
-func NSFreeHashTable(table *NSHashTable)  {
+func NSFreeHashTable(table *NSHashTable) {
 	if _nSFreeHashTable == nil {
 		panic("Foundation: symbol NSFreeHashTable not loaded")
 	}
@@ -687,12 +687,12 @@ func NSFreeHashTable(table *NSHashTable)  {
 }
 
 
-var _nSFreeMapTable func(table *NSMapTable) 
+var _nSFreeMapTable func(table *NSMapTable)
 
 // NSFreeMapTable deletes the specified map table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFreeMapTable(_:)
-func NSFreeMapTable(table *NSMapTable)  {
+func NSFreeMapTable(table *NSMapTable) {
 	if _nSFreeMapTable == nil {
 		panic("Foundation: symbol NSFreeMapTable not loaded")
 	}
@@ -778,12 +778,12 @@ func NSHashGet(table *NSHashTable, pointer unsafe.Pointer) unsafe.Pointer {
 }
 
 
-var _nSHashInsert func(table *NSHashTable, pointer unsafe.Pointer) 
+var _nSHashInsert func(table *NSHashTable, pointer unsafe.Pointer)
 
 // NSHashInsert adds an element to the specified hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashInsert(_:_:)
-func NSHashInsert(table *NSHashTable, pointer unsafe.Pointer)  {
+func NSHashInsert(table *NSHashTable, pointer unsafe.Pointer) {
 	if _nSHashInsert == nil {
 		panic("Foundation: symbol NSHashInsert not loaded")
 	}
@@ -804,12 +804,12 @@ func NSHashInsertIfAbsent(table *NSHashTable, pointer unsafe.Pointer) unsafe.Poi
 }
 
 
-var _nSHashInsertKnownAbsent func(table *NSHashTable, pointer unsafe.Pointer) 
+var _nSHashInsertKnownAbsent func(table *NSHashTable, pointer unsafe.Pointer)
 
 // NSHashInsertKnownAbsent adds an element to the specified hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashInsertKnownAbsent(_:_:)
-func NSHashInsertKnownAbsent(table *NSHashTable, pointer unsafe.Pointer)  {
+func NSHashInsertKnownAbsent(table *NSHashTable, pointer unsafe.Pointer) {
 	if _nSHashInsertKnownAbsent == nil {
 		panic("Foundation: symbol NSHashInsertKnownAbsent not loaded")
 	}
@@ -817,12 +817,12 @@ func NSHashInsertKnownAbsent(table *NSHashTable, pointer unsafe.Pointer)  {
 }
 
 
-var _nSHashRemove func(table *NSHashTable, pointer unsafe.Pointer) 
+var _nSHashRemove func(table *NSHashTable, pointer unsafe.Pointer)
 
 // NSHashRemove removes an element from the specified hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashRemove(_:_:)
-func NSHashRemove(table *NSHashTable, pointer unsafe.Pointer)  {
+func NSHashRemove(table *NSHashTable, pointer unsafe.Pointer) {
 	if _nSHashRemove == nil {
 		panic("Foundation: symbol NSHashRemove not loaded")
 	}
@@ -858,12 +858,12 @@ func NSHomeDirectoryForUser(userName NSString) NSString {
 
 
 
-var _nSIncrementExtraRefCount func(object objectivec.Object) 
+var _nSIncrementExtraRefCount func(object objectivec.Object)
 
 // NSIncrementExtraRefCount increments the specified object’s reference count.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIncrementExtraRefCount
-func NSIncrementExtraRefCount(object objectivec.Object)  {
+func NSIncrementExtraRefCount(object objectivec.Object) {
 	if _nSIncrementExtraRefCount == nil {
 		panic("Foundation: symbol NSIncrementExtraRefCount not loaded")
 	}
@@ -941,12 +941,12 @@ func NSIsFreedObject(anObject objectivec.Object) bool {
 
 
 
-var _nSLog func(format NSString) 
+var _nSLog func(format NSString)
 
 // NSLog logs an error message to the Apple System Log facility.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLog
-func NSLog(format NSString)  {
+func NSLog(format NSString) {
 	if _nSLog == nil {
 		panic("Foundation: symbol NSLog not loaded")
 	}
@@ -967,6 +967,18 @@ func NSLogPageSize() uint {
 }
 
 
+var _nSLogv func(format NSString, args uintptr)
+
+// NSLogv logs an error message to the Apple System Log facility.
+//
+// See: https://developer.apple.com/documentation/Foundation/NSLogv(_:_:)
+func NSLogv(format NSString, args uintptr) {
+	if _nSLogv == nil {
+		panic("Foundation: symbol NSLogv not loaded")
+	}
+	_nSLogv(format, args)
+}
+
 
 
 
@@ -986,12 +998,12 @@ func NSMapGet(table *NSMapTable, key unsafe.Pointer) unsafe.Pointer {
 }
 
 
-var _nSMapInsert func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer) 
+var _nSMapInsert func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer)
 
 // NSMapInsert inserts a key-value pair into the specified table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapInsert(_:_:_:)
-func NSMapInsert(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer)  {
+func NSMapInsert(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer) {
 	if _nSMapInsert == nil {
 		panic("Foundation: symbol NSMapInsert not loaded")
 	}
@@ -1012,12 +1024,12 @@ func NSMapInsertIfAbsent(table *NSMapTable, key unsafe.Pointer, value unsafe.Poi
 }
 
 
-var _nSMapInsertKnownAbsent func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer) 
+var _nSMapInsertKnownAbsent func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer)
 
 // NSMapInsertKnownAbsent inserts a key-value pair into the specified table if the pair had not been previously added.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapInsertKnownAbsent(_:_:_:)
-func NSMapInsertKnownAbsent(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer)  {
+func NSMapInsertKnownAbsent(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer) {
 	if _nSMapInsertKnownAbsent == nil {
 		panic("Foundation: symbol NSMapInsertKnownAbsent not loaded")
 	}
@@ -1038,12 +1050,12 @@ func NSMapMember(table *NSMapTable, key unsafe.Pointer, originalKey unsafe.Point
 }
 
 
-var _nSMapRemove func(table *NSMapTable, key unsafe.Pointer) 
+var _nSMapRemove func(table *NSMapTable, key unsafe.Pointer)
 
 // NSMapRemove removes a key and corresponding value from the specified table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapRemove(_:_:)
-func NSMapRemove(table *NSMapTable, key unsafe.Pointer)  {
+func NSMapRemove(table *NSMapTable, key unsafe.Pointer) {
 	if _nSMapRemove == nil {
 		panic("Foundation: symbol NSMapRemove not loaded")
 	}
@@ -1190,12 +1202,12 @@ func NSReallocateCollectable(ptr unsafe.Pointer, size uint, options uint) unsafe
 }
 
 
-var _nSRecordAllocationEvent func(eventType int, object objectivec.Object) 
+var _nSRecordAllocationEvent func(eventType int, object objectivec.Object)
 
 // NSRecordAllocationEvent notes an object or zone allocation event and various other statistics, such as the time and current thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRecordAllocationEvent
-func NSRecordAllocationEvent(eventType int, object objectivec.Object)  {
+func NSRecordAllocationEvent(eventType int, object objectivec.Object) {
 	if _nSRecordAllocationEvent == nil {
 		panic("Foundation: symbol NSRecordAllocationEvent not loaded")
 	}
@@ -1218,14 +1230,14 @@ func NSRectFromString(aString NSString) corefoundation.CGRect {
 
 
 
-var _nSRecycleZone func(zone *NSZone) 
+var _nSRecycleZone func(zone *NSZone)
 
 // NSRecycleZone frees memory in a zone.
 //
 // Deprecated: Zones are ignored on iOS and 64-bit runtime in macOS. You should not use zones in current development.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRecycleZone
-func NSRecycleZone(zone *NSZone)  {
+func NSRecycleZone(zone *NSZone) {
 	if _nSRecycleZone == nil {
 		panic("Foundation: symbol NSRecycleZone not loaded")
 	}
@@ -1233,12 +1245,12 @@ func NSRecycleZone(zone *NSZone)  {
 }
 
 
-var _nSResetHashTable func(table *NSHashTable) 
+var _nSResetHashTable func(table *NSHashTable)
 
 // NSResetHashTable deletes the elements of the specified hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSResetHashTable(_:)
-func NSResetHashTable(table *NSHashTable)  {
+func NSResetHashTable(table *NSHashTable) {
 	if _nSResetHashTable == nil {
 		panic("Foundation: symbol NSResetHashTable not loaded")
 	}
@@ -1246,12 +1258,12 @@ func NSResetHashTable(table *NSHashTable)  {
 }
 
 
-var _nSResetMapTable func(table *NSMapTable) 
+var _nSResetMapTable func(table *NSMapTable)
 
 // NSResetMapTable deletes the elements of the specified map table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSResetMapTable(_:)
-func NSResetMapTable(table *NSMapTable)  {
+func NSResetMapTable(table *NSMapTable) {
 	if _nSResetMapTable == nil {
 		panic("Foundation: symbol NSResetMapTable not loaded")
 	}
@@ -1324,12 +1336,12 @@ func NSSelectorFromString(aSelectorName NSString) objectivec.SEL {
 }
 
 
-var _nSSetUncaughtExceptionHandler func(arg0 func(*NSException)) 
+var _nSSetUncaughtExceptionHandler func(arg0 func(*NSException))
 
 // NSSetUncaughtExceptionHandler changes the top-level error handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSetUncaughtExceptionHandler(_:)
-func NSSetUncaughtExceptionHandler(arg0 func(*NSException))  {
+func NSSetUncaughtExceptionHandler(arg0 func(*NSException)) {
 	if _nSSetUncaughtExceptionHandler == nil {
 		panic("Foundation: symbol NSSetUncaughtExceptionHandler not loaded")
 	}
@@ -1337,14 +1349,14 @@ func NSSetUncaughtExceptionHandler(arg0 func(*NSException))  {
 }
 
 
-var _nSSetZoneName func(zone *NSZone, name NSString) 
+var _nSSetZoneName func(zone *NSZone, name NSString)
 
 // NSSetZoneName sets the name of the specified zone.
 //
 // Deprecated: Zones are ignored on iOS and 64-bit runtime in macOS. You should not use zones in current development.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSetZoneName
-func NSSetZoneName(zone *NSZone, name NSString)  {
+func NSSetZoneName(zone *NSZone, name NSString) {
 	if _nSSetZoneName == nil {
 		panic("Foundation: symbol NSSetZoneName not loaded")
 	}
@@ -1585,14 +1597,14 @@ func NSZoneCalloc(zone *NSZone, numElems uint, byteSize uint) unsafe.Pointer {
 }
 
 
-var _nSZoneFree func(zone *NSZone, ptr unsafe.Pointer) 
+var _nSZoneFree func(zone *NSZone, ptr unsafe.Pointer)
 
 // NSZoneFree deallocates a block of memory in the specified zone.
 //
 // Deprecated: Zones are ignored on iOS and 64-bit runtime in macOS. You should not use zones in current development.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSZoneFree
-func NSZoneFree(zone *NSZone, ptr unsafe.Pointer)  {
+func NSZoneFree(zone *NSZone, ptr unsafe.Pointer) {
 	if _nSZoneFree == nil {
 		panic("Foundation: symbol NSZoneFree not loaded")
 	}
@@ -1740,6 +1752,7 @@ func init() {
 		registerFunc(&_nSIsFreedObject, frameworkHandle, "NSIsFreedObject")
 		registerFunc(&_nSLog, frameworkHandle, "NSLog")
 		registerFunc(&_nSLogPageSize, frameworkHandle, "NSLogPageSize")
+		registerFunc(&_nSLogv, frameworkHandle, "NSLogv")
 		registerFunc(&_nSMapGet, frameworkHandle, "NSMapGet")
 		registerFunc(&_nSMapInsert, frameworkHandle, "NSMapInsert")
 		registerFunc(&_nSMapInsertIfAbsent, frameworkHandle, "NSMapInsertIfAbsent")

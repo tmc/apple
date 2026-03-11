@@ -1450,6 +1450,46 @@ func (o MTL4RenderCommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MT
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:beforeEncoderStages:"), fence, beforeEncoderStages)
 	}
 
+// Encodes an intra-pass barrier.
+//
+// afterEncoderStages: [MTLStages] mask that represents the stages of work to wait for. This
+// argument only applies to subsequent work you encode in the current command
+// encoder.
+// //
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+//
+// beforeEncoderStages: [MTLStages] mask that represents the stages of work that wait. This
+// argument only applies to work you encode in the current command encoder
+// prior to this barrier.
+// //
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+//
+// visibilityOptions: [MTL4VisibilityOptions] of the barrier, controlling cache flush behavior.
+// //
+// [MTL4VisibilityOptions]: https://developer.apple.com/documentation/Metal/MTL4VisibilityOptions
+//
+// # Discussion
+// 
+// Encode a barrier that guarantees that any subsequent work you encode in the
+// , corresponding to `beforeEncoderStages`, doesn’t begin until all prior
+// commands in this command encoder, corresponding to `afterEncoderStages`,
+// completes.
+// 
+// When calling this method, it’s your responsibility to ensure parameters
+// `afterEncoderStages` and `beforeEncoderStages` contain a combination of
+// [MTLStages] for which this encoder can encode commands. For example, for a
+// [MTL4ComputeCommandEncoder] instance, you can provide any combination of
+// [StageDispatch], [StageBlit] and [StageAccelerationStructure].
+//
+// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:
+
+func (o MTL4RenderCommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderStagesVisibilityOptions(afterEncoderStages MTLStages, beforeEncoderStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
+	
+	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:"), afterEncoderStages, beforeEncoderStages, visibilityOptions)
+	}
+
 // Encodes a consumer barrier on work you commit to the same command queue.
 //
 // afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
@@ -1531,46 +1571,6 @@ func (o MTL4RenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisib
 func (o MTL4RenderCommandEncoderObject) BarrierAfterStagesBeforeQueueStagesVisibilityOptions(afterStages MTLStages, beforeQueueStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
-	}
-
-// Encodes an intra-pass barrier.
-//
-// afterEncoderStages: [MTLStages] mask that represents the stages of work to wait for. This
-// argument only applies to subsequent work you encode in the current command
-// encoder.
-// //
-// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
-//
-// beforeEncoderStages: [MTLStages] mask that represents the stages of work that wait. This
-// argument only applies to work you encode in the current command encoder
-// prior to this barrier.
-// //
-// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
-//
-// visibilityOptions: [MTL4VisibilityOptions] of the barrier, controlling cache flush behavior.
-// //
-// [MTL4VisibilityOptions]: https://developer.apple.com/documentation/Metal/MTL4VisibilityOptions
-//
-// # Discussion
-// 
-// Encode a barrier that guarantees that any subsequent work you encode in the
-// , corresponding to `beforeEncoderStages`, doesn’t begin until all prior
-// commands in this command encoder, corresponding to `afterEncoderStages`,
-// completes.
-// 
-// When calling this method, it’s your responsibility to ensure parameters
-// `afterEncoderStages` and `beforeEncoderStages` contain a combination of
-// [MTLStages] for which this encoder can encode commands. For example, for a
-// [MTL4ComputeCommandEncoder] instance, you can provide any combination of
-// [StageDispatch], [StageBlit] and [StageAccelerationStructure].
-//
-// [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
-//
-// See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:
-
-func (o MTL4RenderCommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderStagesVisibilityOptions(afterEncoderStages MTLStages, beforeEncoderStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
-	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:"), afterEncoderStages, beforeEncoderStages, visibilityOptions)
 	}
 
 

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/appkit"
+	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VZVirtualMachineView] class.
@@ -138,6 +139,9 @@ func NewVZVirtualMachineView() VZVirtualMachineView {
 
 
 
+func (v VZVirtualMachineView) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
+}
 
 
 
