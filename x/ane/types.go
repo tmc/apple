@@ -83,8 +83,15 @@ type CompileOptions struct {
 	PackagePath string // path to .mlmodelc directory
 	ModelKey    string // key for model dictionary (default: "s")
 
-	QoS           uint32 // quality-of-service class (0 = default 21)
-	PerfStatsMask uint32 // perf stats bitmask (0 = disabled)
+	// QoS selects the ANE quality-of-service scheduling class.
+	// Zero uses the default value of 21. Higher values may receive
+	// priority on shared hardware.
+	QoS uint32
+
+	// PerfStatsMask enables hardware performance counters during evaluation.
+	// Zero disables stats collection. When non-zero, EvalWithStats returns
+	// timing data in EvalStats. Bit meanings are hardware-specific.
+	PerfStatsMask uint32
 }
 
 // WeightFile describes a named MIL BLOBFILE entry.

@@ -63,6 +63,7 @@ func (k *Kernel) NumInputs() int { return len(k.inputs) }
 func (k *Kernel) NumOutputs() int { return len(k.outputs) }
 
 // InputChannels returns the channel count for the i-th input tensor.
+// Returns 0 if i is out of range.
 func (k *Kernel) InputChannels(i int) int {
 	if i < len(k.inputLayouts) {
 		return k.inputLayouts[i].Channels
@@ -71,6 +72,7 @@ func (k *Kernel) InputChannels(i int) int {
 }
 
 // OutputChannels returns the channel count for the i-th output tensor.
+// Returns 0 if i is out of range.
 func (k *Kernel) OutputChannels(i int) int {
 	if i < len(k.outputLayouts) {
 		return k.outputLayouts[i].Channels
@@ -79,6 +81,7 @@ func (k *Kernel) OutputChannels(i int) int {
 }
 
 // Spatial returns the spatial (width) dimension for the i-th input tensor.
+// Returns 0 if i is out of range.
 func (k *Kernel) Spatial(i int) int {
 	if i < len(k.inputLayouts) {
 		return k.inputLayouts[i].Width
@@ -87,6 +90,7 @@ func (k *Kernel) Spatial(i int) int {
 }
 
 // InputLayout returns the tensor layout for the i-th input.
+// Returns a zero TensorLayout if i is out of range.
 func (k *Kernel) InputLayout(i int) TensorLayout {
 	if i < len(k.inputLayouts) {
 		return k.inputLayouts[i]
@@ -95,6 +99,7 @@ func (k *Kernel) InputLayout(i int) TensorLayout {
 }
 
 // OutputLayout returns the tensor layout for the i-th output.
+// Returns a zero TensorLayout if i is out of range.
 func (k *Kernel) OutputLayout(i int) TensorLayout {
 	if i < len(k.outputLayouts) {
 		return k.outputLayouts[i]
