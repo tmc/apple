@@ -26,7 +26,7 @@ func CompileMILText(milText string, specVersion int32, desc ModelDescription, we
 	model := &Model{
 		SpecVersion:    specVersion,
 		Description:    desc,
-		MLProgram:      &Program{},
+		MLProgram:      &program{},
 		descriptionRaw: encodeModelDescription(desc),
 	}
 	return compileMILTextModel(model, milText, weightRoot, outputPath)

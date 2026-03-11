@@ -97,11 +97,11 @@ func CompileToTemp(inputPath string) (string, error) {
 	// Use a hash of the absolute path + modification time for cache key.
 	info, err := os.Stat(inputPath)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("coremlcompiler: stat input: %w", err)
 	}
 	absPath, err := filepath.Abs(inputPath)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("coremlcompiler: resolve path: %w", err)
 	}
 	key := fmt.Sprintf("%s:%d", absPath, info.ModTime().UnixNano())
 	h := fnv32a(key)
@@ -206,7 +206,7 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 
 // copyWeights copies weight files referenced by the MIL program.
 // Weight references in BLOBFILE use paths like "@model_path/weights/weight.bin".
-func copyWeights(srcDir, dstDir string, prog *Program) error {
+func copyWeights(srcDir, dstDir string, prog *program) error {
 	// Collect all referenced blob files.
 	refs := collectBlobRefs(prog)
 	if len(refs) == 0 {
@@ -240,7 +240,7 @@ func copyWeights(srcDir, dstDir string, prog *Program) error {
 }
 
 // collectBlobRefs walks the program and collects unique blob file names.
-func collectBlobRefs(prog *Program) []string {
+func collectBlobRefs(prog *program) []string {
 	seen := make(map[string]bool)
 	for _, fn := range prog.Functions {
 		for _, block := range fn.BlockSpecializations {
@@ -254,7 +254,7 @@ func collectBlobRefs(prog *Program) []string {
 	return refs
 }
 
-func collectBlockBlobRefs(block *Block, seen map[string]bool) {
+func collectBlockBlobRefs(block *block, seen map[string]bool) {
 	for _, op := range block.Operations {
 		// Check operation inputs for blob references.
 		for _, arg := range op.Inputs {

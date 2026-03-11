@@ -119,10 +119,10 @@ func decodeFeatureDescription(data []byte) (*FeatureDescription, error) {
 	return fd, nil
 }
 
-func decodeProgram(data []byte) (*Program, error) {
-	p := &Program{
-		Functions:  make(map[string]*Function),
-		Attributes: make(map[string]*Value),
+func decodeProgram(data []byte) (*program, error) {
+	p := &program{
+		Functions:  make(map[string]*function),
+		Attributes: make(map[string]*value),
 	}
 	r := newProtoReader(data)
 	for !r.done() {
@@ -166,10 +166,10 @@ func decodeProgram(data []byte) (*Program, error) {
 	return p, nil
 }
 
-func decodeFunction(data []byte) (*Function, error) {
-	f := &Function{
-		BlockSpecializations: make(map[string]*Block),
-		Attributes:           make(map[string]*Value),
+func decodeFunction(data []byte) (*function, error) {
+	f := &function{
+		BlockSpecializations: make(map[string]*block),
+		Attributes:           make(map[string]*value),
 	}
 	r := newProtoReader(data)
 	for !r.done() {
@@ -222,8 +222,8 @@ func decodeFunction(data []byte) (*Function, error) {
 	return f, nil
 }
 
-func decodeBlock(data []byte) (*Block, error) {
-	b := &Block{}
+func decodeBlock(data []byte) (*block, error) {
+	b := &block{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -266,10 +266,10 @@ func decodeBlock(data []byte) (*Block, error) {
 	return b, nil
 }
 
-func decodeOperation(data []byte) (*Operation, error) {
-	op := &Operation{
-		Inputs:     make(map[string]*Argument),
-		Attributes: make(map[string]*Value),
+func decodeOperation(data []byte) (*operation, error) {
+	op := &operation{
+		Inputs:     make(map[string]*argument),
+		Attributes: make(map[string]*value),
 	}
 	r := newProtoReader(data)
 	for !r.done() {
@@ -332,8 +332,8 @@ func decodeOperation(data []byte) (*Operation, error) {
 	return op, nil
 }
 
-func decodeNamedValueType(data []byte) (*NamedValueType, error) {
-	nvt := &NamedValueType{}
+func decodeNamedValueType(data []byte) (*namedValueType, error) {
+	nvt := &namedValueType{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -365,8 +365,8 @@ func decodeNamedValueType(data []byte) (*NamedValueType, error) {
 	return nvt, nil
 }
 
-func decodeValueType(data []byte) (*ValueType, error) {
-	vt := &ValueType{}
+func decodeValueType(data []byte) (*valueType, error) {
+	vt := &valueType{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -403,8 +403,8 @@ func decodeValueType(data []byte) (*ValueType, error) {
 	return vt, nil
 }
 
-func decodeTensorType(data []byte) (*TensorType, error) {
-	tt := &TensorType{}
+func decodeTensorType(data []byte) (*tensorType, error) {
+	tt := &tensorType{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -443,8 +443,8 @@ func decodeTensorType(data []byte) (*TensorType, error) {
 	return tt, nil
 }
 
-func decodeStateType(data []byte) (*StateType, error) {
-	st := &StateType{}
+func decodeStateType(data []byte) (*stateType, error) {
+	st := &stateType{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -471,8 +471,8 @@ func decodeStateType(data []byte) (*StateType, error) {
 	return st, nil
 }
 
-func decodeDimension(data []byte) (*Dimension, error) {
-	d := &Dimension{}
+func decodeDimension(data []byte) (*dimension, error) {
+	d := &dimension{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -523,8 +523,8 @@ func decodeDimension(data []byte) (*Dimension, error) {
 	return d, nil
 }
 
-func decodeValue(data []byte) (*Value, error) {
-	v := &Value{}
+func decodeValue(data []byte) (*value, error) {
+	v := &value{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -571,8 +571,8 @@ func decodeValue(data []byte) (*Value, error) {
 	return v, nil
 }
 
-func decodeImmediateValue(data []byte) (*ImmediateValue, error) {
-	iv := &ImmediateValue{}
+func decodeImmediateValue(data []byte) (*immediateValue, error) {
+	iv := &immediateValue{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -599,8 +599,8 @@ func decodeImmediateValue(data []byte) (*ImmediateValue, error) {
 	return iv, nil
 }
 
-func decodeTensorValue(data []byte) (*TensorValue, error) {
-	tv := &TensorValue{}
+func decodeTensorValue(data []byte) (*tensorValue, error) {
+	tv := &tensorValue{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -829,8 +829,8 @@ func decodeRepeatedStrings(data []byte) ([]string, error) {
 	return out, nil
 }
 
-func decodeBlobFileValue(data []byte) (*BlobFileValue, error) {
-	bf := &BlobFileValue{}
+func decodeBlobFileValue(data []byte) (*blobFileValue, error) {
+	bf := &blobFileValue{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -857,8 +857,8 @@ func decodeBlobFileValue(data []byte) (*BlobFileValue, error) {
 	return bf, nil
 }
 
-func decodeArgument(data []byte) (*Argument, error) {
-	arg := &Argument{}
+func decodeArgument(data []byte) (*argument, error) {
+	arg := &argument{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()
@@ -885,8 +885,8 @@ func decodeArgument(data []byte) (*Argument, error) {
 	return arg, nil
 }
 
-func decodeBinding(data []byte) (*Binding, error) {
-	b := &Binding{}
+func decodeBinding(data []byte) (*binding, error) {
+	b := &binding{}
 	r := newProtoReader(data)
 	for !r.done() {
 		field, wire, err := r.readTag()

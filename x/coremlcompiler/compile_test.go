@@ -66,50 +66,50 @@ func TestProtoRoundTrip(t *testing.T) {
 
 // TestMILTextEmit verifies MIL text generation from a parsed program.
 func TestMILTextEmit(t *testing.T) {
-	prog := &Program{
+	prog := &program{
 		Version: 1,
-		Functions: map[string]*Function{
+		Functions: map[string]*function{
 			"main": {
 				OpSet: "ios18",
-				Inputs: []NamedValueType{
+				Inputs: []namedValueType{
 					{
 						Name: "x",
-						Type: &ValueType{
-							TensorType: &TensorType{
+						Type: &valueType{
+							TensorType: &tensorType{
 								DataType:   DataTypeFloat16,
-								Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
+								Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
 							},
 						},
 					},
 				},
-				BlockSpecializations: map[string]*Block{
+				BlockSpecializations: map[string]*block{
 					"CoreML8": {
-						Operations: []*Operation{
+						Operations: []*operation{
 							{
 								Type: "const",
-								Outputs: []NamedValueType{
+								Outputs: []namedValueType{
 									{
 										Name: "y",
-										Type: &ValueType{
-											TensorType: &TensorType{
+										Type: &valueType{
+											TensorType: &tensorType{
 												DataType:   DataTypeFloat16,
-												Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
+												Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
 											},
 										},
 									},
 								},
-								Inputs: map[string]*Argument{
+								Inputs: map[string]*argument{
 									"val": {
-										Bindings: []Binding{
+										Bindings: []binding{
 											{
-												Value: &Value{
-													Type: &ValueType{
-														TensorType: &TensorType{
+												Value: &value{
+													Type: &valueType{
+														TensorType: &tensorType{
 															DataType:   DataTypeFloat16,
-															Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
+															Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
 														},
 													},
-													BlobFile: &BlobFileValue{
+													BlobFile: &blobFileValue{
 														FileName: "@model_path/weights/weight.bin",
 														Offset:   64,
 													},
@@ -118,13 +118,13 @@ func TestMILTextEmit(t *testing.T) {
 										},
 									},
 								},
-								Attributes: map[string]*Value{
+								Attributes: map[string]*value{
 									"name": {
-										Type: &ValueType{
-											TensorType: &TensorType{DataType: DataTypeString},
+										Type: &valueType{
+											TensorType: &tensorType{DataType: DataTypeString},
 										},
-										Immediate: &ImmediateValue{
-											Tensor: &TensorValue{
+										Immediate: &immediateValue{
+											Tensor: &tensorValue{
 												Strings: []string{"const_y"},
 											},
 										},
@@ -474,57 +474,57 @@ func buildTestModelProto() []byte {
 
 // TestMILTextWithState verifies state type formatting for iOS 18+ stateful inference.
 func TestMILTextWithState(t *testing.T) {
-	prog := &Program{
+	prog := &program{
 		Version: 1,
-		Functions: map[string]*Function{
+		Functions: map[string]*function{
 			"main": {
 				OpSet: "ios18",
-				Inputs: []NamedValueType{
+				Inputs: []namedValueType{
 					{
 						Name: "x",
-						Type: &ValueType{
-							TensorType: &TensorType{
+						Type: &valueType{
+							TensorType: &tensorType{
 								DataType:   DataTypeFloat16,
-								Dimensions: []Dimension{{Constant: 1}, {Constant: 8}},
+								Dimensions: []dimension{{Constant: 1}, {Constant: 8}},
 							},
 						},
 					},
 					{
 						Name: "state_k",
-						Type: &ValueType{
-							StateType: &StateType{
-								WrappedType: &ValueType{
-									TensorType: &TensorType{
+						Type: &valueType{
+							StateType: &stateType{
+								WrappedType: &valueType{
+									TensorType: &tensorType{
 										DataType:   DataTypeFloat16,
-										Dimensions: []Dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
+										Dimensions: []dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
 									},
 								},
 							},
 						},
 					},
 				},
-				BlockSpecializations: map[string]*Block{
+				BlockSpecializations: map[string]*block{
 					"CoreML8": {
-						Operations: []*Operation{
+						Operations: []*operation{
 							{
 								Type: "read_state",
-								Outputs: []NamedValueType{
+								Outputs: []namedValueType{
 									{
 										Name: "cached",
-										Type: &ValueType{
-											TensorType: &TensorType{
+										Type: &valueType{
+											TensorType: &tensorType{
 												DataType:   DataTypeFloat16,
-												Dimensions: []Dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
+												Dimensions: []dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
 											},
 										},
 									},
 								},
-								Inputs: map[string]*Argument{
+								Inputs: map[string]*argument{
 									"state": {
-										Bindings: []Binding{{Name: "state_k"}},
+										Bindings: []binding{{Name: "state_k"}},
 									},
 								},
-								Attributes: map[string]*Value{
+								Attributes: map[string]*value{
 									"name": stringVal("read_k"),
 								},
 							},
@@ -551,13 +551,13 @@ func TestMILTextWithState(t *testing.T) {
 	}
 }
 
-func stringVal(s string) *Value {
-	return &Value{
-		Type: &ValueType{
-			TensorType: &TensorType{DataType: DataTypeString},
+func stringVal(s string) *value {
+	return &value{
+		Type: &valueType{
+			TensorType: &tensorType{DataType: DataTypeString},
 		},
-		Immediate: &ImmediateValue{
-			Tensor: &TensorValue{Strings: []string{s}},
+		Immediate: &immediateValue{
+			Tensor: &tensorValue{Strings: []string{s}},
 		},
 	}
 }
@@ -586,27 +586,27 @@ func TestDataTypeString(t *testing.T) {
 func TestFormatTensorType(t *testing.T) {
 	tests := []struct {
 		name string
-		tt   *TensorType
+		tt   *tensorType
 		want string
 	}{
 		{
 			name: "scalar fp32",
-			tt:   &TensorType{DataType: DataTypeFloat32},
+			tt:   &tensorType{DataType: DataTypeFloat32},
 			want: "fp32",
 		},
 		{
 			name: "2D fp16",
-			tt: &TensorType{
+			tt: &tensorType{
 				DataType:   DataTypeFloat16,
-				Dimensions: []Dimension{{Constant: 1}, {Constant: 128}},
+				Dimensions: []dimension{{Constant: 1}, {Constant: 128}},
 			},
 			want: "tensor<fp16, [1, 128]>",
 		},
 		{
 			name: "4D int32",
-			tt: &TensorType{
+			tt: &tensorType{
 				DataType:   DataTypeInt32,
-				Dimensions: []Dimension{{Constant: 1}, {Constant: 3}, {Constant: 224}, {Constant: 224}},
+				Dimensions: []dimension{{Constant: 1}, {Constant: 3}, {Constant: 224}, {Constant: 224}},
 			},
 			want: "tensor<int32, [1, 3, 224, 224]>",
 		},

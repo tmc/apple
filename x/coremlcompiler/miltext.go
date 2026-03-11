@@ -15,11 +15,11 @@ import (
 //   - Variable references use bare names in op outputs: tensor<fp16, ...> y = ...
 //   - Block specializations are flattened into the function body
 //   - Const ops put value in attributes: const()[name = ..., val = ...]
-func emitMILText(prog *Program) string {
+func emitMILText(prog *program) string {
 	return emitMILTextWithSpec(prog, 8)
 }
 
-func emitFunction(b *strings.Builder, name string, fn *Function) {
+func emitFunction(b *strings.Builder, name string, fn *function) {
 	opsetSuffix := ""
 	if fn.OpSet != "" {
 		opsetSuffix = "<" + fn.OpSet + ">"
@@ -51,7 +51,7 @@ func emitFunction(b *strings.Builder, name string, fn *Function) {
 }
 
 // emitBlockBody emits the operations and return statement of a block.
-func emitBlockBody(b *strings.Builder, block *Block, indent int) {
+func emitBlockBody(b *strings.Builder, block *block, indent int) {
 	for _, op := range block.Operations {
 		emitOperation(b, op, indent)
 	}
@@ -61,7 +61,7 @@ func emitBlockBody(b *strings.Builder, block *Block, indent int) {
 	fmt.Fprintf(b, "%s} -> (%s);\n", prefix, strings.Join(block.Outputs, ", "))
 }
 
-func emitOperation(b *strings.Builder, op *Operation, indent int) {
+func emitOperation(b *strings.Builder, op *operation, indent int) {
 	prefix := strings.Repeat("    ", indent)
 
 	// Output declarations: type %name = op(...)
@@ -126,7 +126,7 @@ func emitOperation(b *strings.Builder, op *Operation, indent int) {
 }
 
 // formatType converts a ValueType to MIL text representation.
-func formatType(vt *ValueType) string {
+func formatType(vt *valueType) string {
 	if vt == nil {
 		return "<<unknown>>"
 	}
@@ -140,7 +140,7 @@ func formatType(vt *ValueType) string {
 }
 
 // formatTensorType formats a tensor type like "tensor<fp16, [1, 128, 1, 64]>".
-func formatTensorType(tt *TensorType) string {
+func formatTensorType(tt *tensorType) string {
 	dtype := tt.DataType.String()
 
 	// Scalar (rank 0 or no dimensions).
@@ -160,7 +160,7 @@ func formatTensorType(tt *TensorType) string {
 }
 
 // formatBinding formats an argument binding (name ref or inline value).
-func formatBinding(b *Binding) string {
+func formatBinding(b *binding) string {
 	if b.Name != "" {
 		return b.Name
 	}
@@ -171,7 +171,7 @@ func formatBinding(b *Binding) string {
 }
 
 // formatValue formats a Value for MIL text output.
-func formatValue(v *Value) string {
+func formatValue(v *value) string {
 	if v.BlobFile != nil {
 		return formatBlobFileRef(v)
 	}
@@ -183,7 +183,7 @@ func formatValue(v *Value) string {
 
 // formatBlobFileRef formats a BLOBFILE reference.
 // Real Apple format: tensor<fp16, [...]>(BLOBFILE(path = tensor<string, []>("@model_path/..."), offset = tensor<uint64, []>(64)))
-func formatBlobFileRef(v *Value) string {
+func formatBlobFileRef(v *value) string {
 	bf := v.BlobFile
 	typStr := formatType(v.Type)
 	return fmt.Sprintf("%s(BLOBFILE(path = tensor<string, []>(\"%s\"), offset = tensor<uint64, []>(%d)))",
@@ -191,7 +191,7 @@ func formatBlobFileRef(v *Value) string {
 }
 
 // formatImmediateTensor formats an inline tensor value.
-func formatImmediateTensor(v *Value) string {
+func formatImmediateTensor(v *value) string {
 	tv := v.Immediate.Tensor
 	typeStr := formatType(v.Type)
 
@@ -303,7 +303,7 @@ func milVersionForSpec(specVersion int32) string {
 
 // emitMILTextWithSpec is the primary entry point, using spec version for
 // correct MIL dialect selection.
-func emitMILTextWithSpec(prog *Program, specVersion int32) string {
+func emitMILTextWithSpec(prog *program, specVersion int32) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "program(%s)\n", milVersionForSpec(specVersion))
 
