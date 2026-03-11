@@ -30,6 +30,21 @@
 //	defer observer.Close()
 //	err = observer.WaitForEnabled(replayBtn, 5*time.Minute)
 //
+// # Thread Safety
+//
+// The macOS Accessibility API must be called from the main thread. Callers
+// should use runtime.LockOSThread in their main goroutine before calling
+// any functions in this package. Observer-based waiting methods spin the
+// CFRunLoop internally, which also requires the main thread.
+//
+// # Memory Ownership
+//
+// Elements returned from query methods (First, AllElements, Element) are
+// caller-owned and must be released by calling Release when no longer needed.
+// Application.Close releases the root element; callers must still release
+// any elements obtained from queries. Failing to release elements leaks
+// the underlying AXUIElementRef.
+//
 // # Accessibility Permissions
 //
 // This package requires accessibility permissions. Use IsProcessTrusted() to

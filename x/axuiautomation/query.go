@@ -17,7 +17,11 @@ const (
 // ElementPredicate is a function that tests if an element matches criteria.
 type ElementPredicate func(*Element) bool
 
-// ElementQuery provides a fluent API for finding UI elements.
+// ElementQuery provides a fluent builder for finding UI elements by chaining
+// predicates such as ByRole, ByTitle, and Matching. Each filter method returns
+// a new query, leaving the original unmodified. Terminal methods (First,
+// AllElements, Element) execute the search and return caller-owned elements
+// that must be released.
 type ElementQuery struct {
 	root       *Element
 	app        *Application
@@ -158,12 +162,14 @@ func (q *ElementQuery) Element(index int) *Element {
 	return nil
 }
 
-// First returns the first matching element.
+// First returns the first matching element, or nil if none match.
+// The returned element is caller-owned and must be released.
 func (q *ElementQuery) First() *Element {
 	return q.Element(0)
 }
 
 // AllElements returns all matching elements.
+// The returned elements are caller-owned and each must be released.
 func (q *ElementQuery) AllElements() []*Element {
 	return q.allElementsInternal(-1)
 }

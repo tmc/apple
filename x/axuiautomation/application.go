@@ -11,7 +11,10 @@ import (
 	"github.com/tmc/apple/corefoundation"
 )
 
-// Application represents a running application for accessibility automation.
+// Application represents a running macOS application for accessibility
+// automation. It holds the root AXUIElementRef for the process and serves
+// as the entry point for element queries and observers. Call Close when
+// done to release the root element and cached resources.
 type Application struct {
 	bundleID string
 	pid      int32

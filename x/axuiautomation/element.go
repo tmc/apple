@@ -13,7 +13,10 @@ import (
 	"github.com/tmc/apple/corefoundation"
 )
 
-// Element represents an accessibility UI element.
+// Element wraps an AXUIElementRef with Go ownership semantics.
+// Elements obtained from query methods (First, AllElements, Element) are
+// caller-owned and must be released by calling Release. The zero value
+// is not usable; use NewApplication or query methods to obtain elements.
 type Element struct {
 	ref AXUIElementRef
 	app *Application
@@ -48,7 +51,10 @@ func (e *Element) Ref() AXUIElementRef {
 }
 
 // Release releases the underlying AXUIElementRef.
-// After calling Release, the Element should not be used.
+// Callers must call Release on elements returned from query methods
+// (First, AllElements, Element, Parent, Children, FocusedElement, etc.)
+// when the element is no longer needed. After calling Release, the
+// Element must not be used.
 func (e *Element) Release() {
 	if e != nil && e.ref != 0 {
 		corefoundation.CFRelease(corefoundation.CFTypeRef(e.ref))

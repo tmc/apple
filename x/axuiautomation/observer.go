@@ -38,7 +38,10 @@ type ObserverEvent struct {
 // ObserverHandler is a callback function for handling observer events.
 type ObserverHandler func(event ObserverEvent)
 
-// Observer provides event-based waiting for UI state changes.
+// Observer provides event-based waiting for UI state changes using the
+// AXObserver API. Observer methods spin the CFRunLoop to receive
+// notifications, which requires the caller to be on the main thread
+// (see runtime.LockOSThread). Call Close to release all resources.
 type Observer struct {
 	ref      AXObserverRef
 	app      *Application
