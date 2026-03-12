@@ -50,12 +50,16 @@ func wrapErr(op string, err error) error {
 
 // DeviceInfo describes the ANE hardware present on the system.
 type DeviceInfo struct {
-	HasANE       bool
-	NumCores     uint32
-	Architecture string
-	Product      string
-	BuildVersion string
-	IsVM         bool
+	HasANE        bool
+	NumCores      uint32
+	Architecture  string
+	Product       string
+	BuildVersion  string
+	IsVM          bool
+	NumANEs       uint32
+	SubType       string
+	BoardType     int64
+	InternalBuild bool
 }
 
 // ModelType selects the compilation path.
@@ -89,8 +93,9 @@ type CompileOptions struct {
 	QoS uint32
 
 	// PerfStatsMask enables hardware performance counters during evaluation.
-	// Zero disables stats collection. When non-zero, EvalWithStats returns
-	// timing data in EvalStats. Bit meanings are hardware-specific.
+	// Zero disables stats collection. When non-zero, telemetry.EvalWithStats
+	// returns counter names and timing data. Valid masks are 4 bits wide
+	// (0x1–0xF); higher values are silently converted to zero by the driver.
 	PerfStatsMask uint32
 }
 
@@ -100,21 +105,36 @@ type WeightFile struct {
 	Blob []byte
 }
 
-// EvalStats contains hardware performance statistics from an evaluation.
-type EvalStats struct {
-	HWExecutionNS uint64 // hardware execution time in nanoseconds
-}
-
-// Diagnostics contains best-effort runtime diagnostic information about a kernel.
-type Diagnostics struct {
-	ModelQueueDepth      int
-	ModelQueueDepthKnown bool
-	ProgramClass         string
-	ProgramClassKnown    bool
-}
-
 // SharedEventEvalOptions configures shared event evaluation behavior.
 type SharedEventEvalOptions struct {
 	DisableIOFencesUseSharedEvents bool // set kANEFDisableIOFencesUseSharedEventsKey
 	EnableFWToFWSignal             bool // set kANEFEnableFWToFWSignal (keep false for ANE→Metal on physical hosts)
+}
+
+// CompileStats contains timing measurements from model compilation.
+type CompileStats struct {
+	CompileNS int64 // wall-clock compile phase
+	LoadNS    int64 // wall-clock load phase
+	TotalNS   int64 // wall-clock total
+}
+
+// Available reports whether any timing data was collected.
+func (s CompileStats) Available() bool { return s.TotalNS > 0 }
+
+// ReportMetrics reports compilation timing to a testing.B-compatible reporter.
+func (s CompileStats) ReportMetrics(b interface{ ReportMetric(float64, string) }) {
+	if !s.Available() {
+		return
+	}
+	b.ReportMetric(float64(s.CompileNS), "compile-ns/op")
+	b.ReportMetric(float64(s.LoadNS), "load-ns/op")
+	b.ReportMetric(float64(s.TotalNS), "compile-total-ns/op")
+}
+
+// String returns a compact human-readable summary of compile timing.
+func (s CompileStats) String() string {
+	if !s.Available() {
+		return "CompileStats{}"
+	}
+	return fmt.Sprintf("CompileStats{compile=%dns load=%dns total=%dns}", s.CompileNS, s.LoadNS, s.TotalNS)
 }

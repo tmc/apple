@@ -76,6 +76,10 @@ func compileMIL(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 	}
 	model := appleneuralengine.ANEInMemoryModelFromID(modelObj.GetID())
 
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
 	// Pre-populate the temp directory that the Espresso IR translator expects.
 	if err := prepopulateTempDir(model, opts.MILText, weightFiles); err != nil {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("pre-populate temp dir: %w", err)}
@@ -89,13 +93,29 @@ func compileMIL(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("compile failed: %w", err)}
 	}
 
+	// Re-set mask before load; compile preserves it but load clears it.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
 	// Load (with one retry after 100ms).
 	ok, err = model.LoadWithQoSOptionsError(opts.QoS, emptyOpts)
 	if err != nil || !ok {
 		time.Sleep(100 * time.Millisecond)
+		if opts.PerfStatsMask != 0 {
+			model.SetPerfStatsMask(opts.PerfStatsMask)
+		}
 		ok, err = model.LoadWithQoSOptionsError(opts.QoS, emptyOpts)
 		if err != nil || !ok {
 			return nil, &ANEError{Op: "load", Err: fmt.Errorf("load failed: %w", err)}
+		}
+	}
+
+	// Re-set mask after load on both the wrapper and inner model.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+		if inner := model.Model(); inner != nil {
+			inner.SetPerfStatsMask(opts.PerfStatsMask)
 		}
 	}
 
@@ -134,6 +154,7 @@ func compileMIL(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		request:       request,
 		inputs:        inputs,
 		outputs:       outputs,
+		perfStatsMask: opts.PerfStatsMask,
 		inputLayouts:  inputLayouts,
 		outputLayouts: outputLayouts,
 		mapped:        true,
@@ -188,22 +209,36 @@ func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		model.SetPerfStatsMask(opts.PerfStatsMask)
 	}
 
-	client := rt.client
+	client := packageClient(rt.client)
+	emptyOpts := foundation.NewNSMutableDictionary()
 
 	// Compile.
-	ok, err := client.CompileModelOptionsQosError(model, nil, opts.QoS)
+	ok, err := client.CompileModelOptionsQosError(model, emptyOpts, opts.QoS)
 	if err != nil || !ok {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("compile failed: %w", err)}
 	}
 
+	// Re-set mask before load.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
 	// Load (with one retry after 100ms).
-	ok, err = client.LoadModelOptionsQosError(model, nil, opts.QoS)
+	ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
 	if err != nil || !ok {
 		time.Sleep(100 * time.Millisecond)
-		ok, err = client.LoadModelOptionsQosError(model, nil, opts.QoS)
+		if opts.PerfStatsMask != 0 {
+			model.SetPerfStatsMask(opts.PerfStatsMask)
+		}
+		ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
 		if err != nil || !ok {
 			return nil, &ANEError{Op: "load", Err: fmt.Errorf("load failed: %w", err)}
 		}
+	}
+
+	// Re-set mask after load.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
 	}
 
 	// Parse model attributes to get the compiled tensor layouts.
@@ -238,6 +273,7 @@ func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		request:       request,
 		inputs:        inputs,
 		outputs:       outputs,
+		perfStatsMask: opts.PerfStatsMask,
 		inputLayouts:  inputLayouts,
 		outputLayouts: outputLayouts,
 		mapped:        true,
@@ -348,6 +384,13 @@ func dictGetString(dict objectivec.IObject, key string) string {
 	return foundation.NSStringFromID(id).UTF8String()
 }
 
+// newPerfStats creates a valid ANEPerformanceStats via the class factory.
+func newPerfStats() appleneuralengine.ANEPerformanceStats {
+	cls := appleneuralengine.GetANEPerformanceStatsClass()
+	obj := cls.StatsWithHardwareExecutionNS(0)
+	return appleneuralengine.ANEPerformanceStatsFromID(obj.GetID())
+}
+
 // createRequestAndSurfaces creates IOSurfaces from model-driven layouts
 // and wraps them in an ANERequest.
 func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (appleneuralengine.ANERequest, []coregraphics.IOSurfaceRef, []coregraphics.IOSurfaceRef, error) {
@@ -388,22 +431,39 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)
+	txnHandle := foundation.GetNSNumberClass().NumberWithUnsignedLongLong(1)
 
 	// Build the request.
 	reqClass := appleneuralengine.GetANERequestClass()
-	reqObj := reqClass.RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndex(
+	reqObj := reqClass.RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle(
 		inputArr,
 		inputIdxArr,
 		outputArr,
 		outputIdxArr,
 		nil, // weightsBuffer
-		nil, // perfStats
+		nil, // perfStats — attached per-eval via SetPerfStats
 		procIdx,
+		nil, // sharedEvents — attached per-eval
+		txnHandle,
 	)
+	if reqObj == nil || reqObj.GetID() == 0 {
+		reqObj = reqClass.RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndex(
+			inputArr,
+			inputIdxArr,
+			outputArr,
+			outputIdxArr,
+			nil, // weightsBuffer
+			nil, // perfStats — attached per-eval via SetPerfStats
+			procIdx,
+		)
+	}
 	if reqObj == nil || reqObj.GetID() == 0 {
 		return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: fmt.Errorf("failed to create request")}
 	}
 	request := appleneuralengine.ANERequestFromID(reqObj.GetID())
+	if request.TransactionHandle().GetID() == 0 {
+		request.SetTransactionHandle(txnHandle)
+	}
 
 	return request, inputs, outputs, nil
 }
@@ -466,6 +526,253 @@ func validateLayout(l TensorLayout) error {
 		return fmt.Errorf("PlaneStride %d < Height*RowStride (%d*%d = %d)", l.PlaneStride, l.Height, l.RowStride, expectedPlane)
 	}
 	return nil
+}
+
+// CompileWithStats compiles a model and returns a Kernel along with compilation timing.
+func (rt *Runtime) CompileWithStats(opts CompileOptions) (*Kernel, CompileStats, error) {
+	rt.mu.Lock()
+	if rt.closed {
+		rt.mu.Unlock()
+		return nil, CompileStats{}, fmt.Errorf("ane: runtime closed")
+	}
+	rt.mu.Unlock()
+
+	if opts.QoS == 0 {
+		opts.QoS = 21
+	}
+
+	totalStart := time.Now()
+	var cs CompileStats
+
+	switch opts.ModelType {
+	case ModelTypeMIL:
+		k, err := compileMILWithStats(rt, opts, &cs)
+		if err != nil {
+			return nil, CompileStats{}, err
+		}
+		cs.TotalNS = time.Since(totalStart).Nanoseconds()
+		rt.compiles.Add(1)
+		return k, cs, nil
+	case ModelTypePackage:
+		k, err := compilePackageWithStats(rt, opts, &cs)
+		if err != nil {
+			return nil, CompileStats{}, err
+		}
+		cs.TotalNS = time.Since(totalStart).Nanoseconds()
+		rt.compiles.Add(1)
+		return k, cs, nil
+	default:
+		return nil, CompileStats{}, fmt.Errorf("ane: unknown model type %d", opts.ModelType)
+	}
+}
+
+func compileMILWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats) (*Kernel, error) {
+	networkText := foundation.NewDataFromBytes(opts.MILText)
+
+	weightFiles, err := compileWeightFiles(opts)
+	if err != nil {
+		return nil, &ANEError{Op: "compile", Err: err}
+	}
+	weightsDict := buildWeightsDict(weightFiles)
+
+	descClass := appleneuralengine.GetANEInMemoryModelDescriptorClass()
+	descObj := descClass.ModelWithMILTextWeightsOptionsPlist(networkText, weightsDict, nil)
+	if descObj == nil || descObj.GetID() == 0 {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("failed to create model descriptor")}
+	}
+
+	modelClass := appleneuralengine.GetANEInMemoryModelClass()
+	modelObj := modelClass.InMemoryModelWithDescriptor(descObj)
+	if modelObj == nil || modelObj.GetID() == 0 {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("failed to create in-memory model")}
+	}
+	model := appleneuralengine.ANEInMemoryModelFromID(modelObj.GetID())
+
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
+	if err := prepopulateTempDir(model, opts.MILText, weightFiles); err != nil {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("pre-populate temp dir: %w", err)}
+	}
+
+	emptyOpts := foundation.NewNSMutableDictionary()
+
+	// Compile with timing.
+	compileStart := time.Now()
+	ok, err := model.CompileWithQoSOptionsError(opts.QoS, emptyOpts)
+	if err != nil || !ok {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("compile failed: %w", err)}
+	}
+	cs.CompileNS = time.Since(compileStart).Nanoseconds()
+
+	// Re-set mask before load; load clears it.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
+	// Load with timing (with one retry after 100ms).
+	loadStart := time.Now()
+	ok, err = model.LoadWithQoSOptionsError(opts.QoS, emptyOpts)
+	if err != nil || !ok {
+		time.Sleep(100 * time.Millisecond)
+		if opts.PerfStatsMask != 0 {
+			model.SetPerfStatsMask(opts.PerfStatsMask)
+		}
+		ok, err = model.LoadWithQoSOptionsError(opts.QoS, emptyOpts)
+		if err != nil || !ok {
+			return nil, &ANEError{Op: "load", Err: fmt.Errorf("load failed: %w", err)}
+		}
+	}
+	cs.LoadNS = time.Since(loadStart).Nanoseconds()
+
+	// Re-set mask after load on both wrapper and inner model.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+		if inner := model.Model(); inner != nil {
+			inner.SetPerfStatsMask(opts.PerfStatsMask)
+		}
+	}
+
+	aneModel := model.Model()
+	if aneModel == nil {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("in-memory model has no underlying ANEModel after compile")}
+	}
+	inputLayouts, outputLayouts, err := parseModelLayouts(aneModel.ModelAttributes())
+	if err != nil {
+		model.UnloadWithQoSError(opts.QoS)
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("parse model layouts: %w", err)}
+	}
+
+	request, inputs, outputs, err := createRequestAndSurfaces(inputLayouts, outputLayouts)
+	if err != nil {
+		model.UnloadWithQoSError(opts.QoS)
+		return nil, err
+	}
+
+	ok, err = model.MapIOSurfacesWithRequestCacheInferenceError(request, true)
+	if err != nil || !ok {
+		ok, err = model.MapIOSurfacesWithRequestCacheInferenceError(request, false)
+		if err != nil || !ok {
+			model.UnloadWithQoSError(opts.QoS)
+			return nil, &ANEError{Op: "map", Err: fmt.Errorf("map IOSurfaces failed: %w", err)}
+		}
+	}
+
+	return &Kernel{
+		rt:            rt,
+		modelType:     ModelTypeMIL,
+		inMemModel:    model,
+		request:       request,
+		inputs:        inputs,
+		outputs:       outputs,
+		perfStatsMask: opts.PerfStatsMask,
+		inputLayouts:  inputLayouts,
+		outputLayouts: outputLayouts,
+		mapped:        true,
+	}, nil
+}
+
+func compilePackageWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats) (*Kernel, error) {
+	if opts.PackagePath == "" {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("PackagePath is required for ModelTypePackage")}
+	}
+
+	modelKey := opts.ModelKey
+	if modelKey == "" {
+		modelKey = "s"
+	}
+
+	modelURL := foundation.NewURLFileURLWithPath(opts.PackagePath)
+	modelClass := appleneuralengine.GetANEModelClass()
+	keyObj := foundation.NewStringWithString(modelKey)
+	modelObj := modelClass.ModelAtURLKey(modelURL, keyObj)
+	if modelObj == nil || modelObj.GetID() == 0 {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("failed to create model from %s", opts.PackagePath)}
+	}
+	model := appleneuralengine.ANEModelFromID(modelObj.GetID())
+
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
+	client := packageClient(rt.client)
+	emptyOpts := foundation.NewNSMutableDictionary()
+
+	// Compile with timing.
+	compileStart := time.Now()
+	ok, err := client.CompileModelOptionsQosError(model, emptyOpts, opts.QoS)
+	if err != nil || !ok {
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("compile failed: %w", err)}
+	}
+	cs.CompileNS = time.Since(compileStart).Nanoseconds()
+
+	// Re-set mask before load.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
+	// Load with timing (with one retry after 100ms).
+	loadStart := time.Now()
+	ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
+	if err != nil || !ok {
+		time.Sleep(100 * time.Millisecond)
+		if opts.PerfStatsMask != 0 {
+			model.SetPerfStatsMask(opts.PerfStatsMask)
+		}
+		ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
+		if err != nil || !ok {
+			return nil, &ANEError{Op: "load", Err: fmt.Errorf("load failed: %w", err)}
+		}
+	}
+	cs.LoadNS = time.Since(loadStart).Nanoseconds()
+
+	// Re-set mask after load.
+	if opts.PerfStatsMask != 0 {
+		model.SetPerfStatsMask(opts.PerfStatsMask)
+	}
+
+	inputLayouts, outputLayouts, err := parseModelLayouts(model.ModelAttributes())
+	if err != nil {
+		client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("parse model layouts: %w", err)}
+	}
+
+	request, inputs, outputs, err := createRequestAndSurfaces(inputLayouts, outputLayouts)
+	if err != nil {
+		client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+		return nil, err
+	}
+
+	ok, err = client.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, true)
+	if err != nil || !ok {
+		ok, err = client.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, false)
+		if err != nil || !ok {
+			client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+			return nil, &ANEError{Op: "map", Err: fmt.Errorf("map IOSurfaces failed: %w", err)}
+		}
+	}
+
+	return &Kernel{
+		rt:            rt,
+		modelType:     ModelTypePackage,
+		model:         model,
+		client:        client,
+		request:       request,
+		inputs:        inputs,
+		outputs:       outputs,
+		perfStatsMask: opts.PerfStatsMask,
+		inputLayouts:  inputLayouts,
+		outputLayouts: outputLayouts,
+		mapped:        true,
+	}, nil
+}
+
+func packageClient(fallback appleneuralengine.ANEClient) appleneuralengine.ANEClient {
+	if c := appleneuralengine.GetANEClientClass().SharedConnection(); c != nil && c.GetID() != 0 {
+		return *c
+	}
+	return fallback
 }
 
 // buildWeightsDict creates an NSDictionary

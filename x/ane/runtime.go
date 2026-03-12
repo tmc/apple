@@ -80,3 +80,6 @@ func (rt *Runtime) Info() DeviceInfo { return rt.info }
 
 // CompileCount returns the number of compilations performed.
 func (rt *Runtime) CompileCount() int64 { return rt.compiles.Load() }
+
+// ClientObjcID returns the ObjC object pointer for the underlying ANEClient.
+func (rt *Runtime) ClientObjcID() uintptr { return uintptr(rt.client.ID) }

@@ -31,6 +31,26 @@ func Probe() (DeviceInfo, error) {
 		info.BuildVersion = descriptionString(obj.GetID())
 	}
 
+	// Extended device info (best-effort).
+	func() {
+		defer func() { recover() }()
+		info.NumANEs = cls.NumANEs()
+	}()
+	func() {
+		defer func() { recover() }()
+		if obj := cls.AneSubType(); obj != nil {
+			info.SubType = descriptionString(obj.GetID())
+		}
+	}()
+	func() {
+		defer func() { recover() }()
+		info.BoardType = cls.AneBoardType()
+	}()
+	func() {
+		defer func() { recover() }()
+		info.InternalBuild = cls.IsInternalBuild()
+	}()
+
 	if !info.HasANE {
 		return info, fmt.Errorf("%w", ErrNoANE)
 	}

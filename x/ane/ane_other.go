@@ -27,6 +27,11 @@ func (rt *Runtime) CompileCount() int64 { return 0 }
 // Compile compiles a model and returns a ready-to-evaluate Kernel.
 func (rt *Runtime) Compile(opts CompileOptions) (*Kernel, error) { return nil, ErrNoANE }
 
+// CompileWithStats compiles a model and returns a Kernel along with compilation timing.
+func (rt *Runtime) CompileWithStats(opts CompileOptions) (*Kernel, CompileStats, error) {
+	return nil, CompileStats{}, ErrNoANE
+}
+
 // TensorLayout describes the compiled model's memory layout for a single tensor.
 type TensorLayout struct {
 	Channels    int
@@ -78,10 +83,16 @@ func (k *Kernel) ReadOutputFP16Channels(i, channel int, data []float32) error {
 	return ErrNoANE
 }
 
-func (k *Kernel) Eval() error                       { return ErrNoANE }
-func (k *Kernel) EvalWithStats() (EvalStats, error) { return EvalStats{}, ErrNoANE }
-func (k *Kernel) Close() error                      { return nil }
-func (k *Kernel) Diagnostics() Diagnostics          { return Diagnostics{} }
+func (k *Kernel) Eval() error { return ErrNoANE }
+
+func (k *Kernel) ModelObjcID() uintptr        { return 0 }
+func (k *Kernel) InMemModelObjcID() uintptr   { return 0 }
+func (k *Kernel) CompileModelType() ModelType { return 0 }
+func (k *Kernel) RawRequest() uintptr         { return 0 }
+func (k *Kernel) RawPerfStatsMask() uint32    { return 0 }
+
+func (rt *Runtime) ClientObjcID() uintptr { return 0 }
+func (k *Kernel) Close() error            { return nil }
 
 func (k *Kernel) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
 	return ErrNoANE
@@ -98,8 +109,9 @@ func SharedEventFromPort(port uint32) (*SharedEvent, error)          { return ni
 func (e *SharedEvent) Port() uint32                                  { return 0 }
 func (e *SharedEvent) SignaledValue() uint64                         { return 0 }
 func (e *SharedEvent) Signal(value uint64)                           {}
-func (e *SharedEvent) Wait(value uint64, timeout time.Duration) bool { return false }
-func (e *SharedEvent) Close() error                                  { return nil }
+func (e *SharedEvent) Wait(value uint64, timeout time.Duration) bool             { return false }
+func (e *SharedEvent) TimeWait(value uint64, timeout time.Duration) (bool, time.Duration) { return false, 0 }
+func (e *SharedEvent) Close() error                                              { return nil }
 
 // Float32ToFP16 converts a float32 to IEEE 754 half-precision.
 func Float32ToFP16(f float32) uint16 { return 0 }

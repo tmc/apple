@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
@@ -79,6 +80,11 @@ func NewRequestPool(k *Kernel, depth int) (*RequestPool, error) {
 
 // createRequestFromSurfaces builds an ANERequest referencing existing IOSurfaces.
 func createRequestFromSurfaces(inputs, outputs []coregraphics.IOSurfaceRef) (appleneuralengine.ANERequest, error) {
+	req, _, err := createRequestFromSurfacesWithSharedEvents(inputs, outputs, nil)
+	return req, err
+}
+
+func createRequestFromSurfacesWithSharedEvents(inputs, outputs []coregraphics.IOSurfaceRef, sharedEvents objectivec.IObject) (appleneuralengine.ANERequest, []objectivec.IObject, error) {
 	ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
 
 	inputArr := foundation.NewNSMutableArray()
@@ -98,15 +104,29 @@ func createRequestFromSurfaces(inputs, outputs []coregraphics.IOSurfaceRef) (app
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)
+	txnHandle := foundation.GetNSNumberClass().NumberWithUnsignedLongLong(1)
 
 	reqClass := appleneuralengine.GetANERequestClass()
-	reqObj := reqClass.RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndex(
-		inputArr, inputIdxArr, outputArr, outputIdxArr, nil, nil, procIdx,
+	reqObj := reqClass.RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndexSharedEventsTransactionHandle(
+		inputArr, inputIdxArr, outputArr, outputIdxArr, nil, nil, procIdx, sharedEvents, txnHandle,
 	)
 	if reqObj == nil || reqObj.GetID() == 0 {
-		return appleneuralengine.ANERequest{}, &ANEError{Op: "pool", Err: fmt.Errorf("failed to create request")}
+		if sharedEvents != nil {
+			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("failed to create request with shared events")}
+		}
+		reqObj = reqClass.RequestWithInputsInputIndicesOutputsOutputIndicesWeightsBufferPerfStatsProcedureIndex(
+			inputArr, inputIdxArr, outputArr, outputIdxArr, nil, nil, procIdx,
+		)
 	}
-	return appleneuralengine.ANERequestFromID(reqObj.GetID()), nil
+	if reqObj == nil || reqObj.GetID() == 0 {
+		return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("failed to create request")}
+	}
+	req := appleneuralengine.ANERequestFromID(reqObj.GetID())
+	if req.TransactionHandle().GetID() == 0 {
+		req.SetTransactionHandle(txnHandle)
+	}
+	keepAlive := []objectivec.IObject{inputArr, inputIdxArr, outputArr, outputIdxArr}
+	return req, keepAlive, nil
 }
 
 // PooledRequest is a request checked out from a pool.

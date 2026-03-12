@@ -31,8 +31,9 @@ func TestProbe(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Logf("HasANE=%v NumCores=%d Arch=%s Product=%s Build=%s IsVM=%v",
-		info.HasANE, info.NumCores, info.Architecture, info.Product, info.BuildVersion, info.IsVM)
+	t.Logf("HasANE=%v NumCores=%d Arch=%s Product=%s Build=%s IsVM=%v NumANEs=%d SubType=%s BoardType=%d InternalBuild=%v",
+		info.HasANE, info.NumCores, info.Architecture, info.Product, info.BuildVersion, info.IsVM,
+		info.NumANEs, info.SubType, info.BoardType, info.InternalBuild)
 
 	if !info.HasANE {
 		t.Error("HasANE should be true when Probe succeeds without ErrNoANE")
@@ -355,48 +356,6 @@ func TestEvalRepeated(t *testing.T) {
 	}
 }
 
-func TestEvalWithStats(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
-
-	const channels = 1
-	milText := mil.GenIdentity(channels, 1)
-	blob, err := mil.BuildIdentityWeightBlob(channels)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	k, err := rt.Compile(CompileOptions{
-		ModelType:  ModelTypeMIL,
-		MILText:    []byte(milText),
-		WeightBlob: blob,
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer k.Close()
-
-	input := []float32{7}
-	if err := k.WriteInputF32(0, input); err != nil {
-		t.Fatal(err)
-	}
-
-	stats, err := k.EvalWithStats()
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("HWExecutionNS=%d", stats.HWExecutionNS)
-
-	output := make([]float32, channels)
-	if err := k.ReadOutputF32(0, output); err != nil {
-		t.Fatal(err)
-	}
-	diff := input[0] - output[0]
-	if diff < -0.1 || diff > 0.1 {
-		t.Errorf("output = %v, want %v", output[0], input[0])
-	}
-}
-
 func TestCompileCount(t *testing.T) {
 	rt := openOrSkip(t)
 	defer rt.Close()
@@ -424,6 +383,58 @@ func TestCompileCount(t *testing.T) {
 
 	if rt.CompileCount() != 1 {
 		t.Errorf("compile count = %d, want 1", rt.CompileCount())
+	}
+}
+
+func TestCompileWithStats(t *testing.T) {
+	rt := openOrSkip(t)
+	defer rt.Close()
+
+	const channels = 1
+	milText := mil.GenIdentity(channels, 1)
+	blob, err := mil.BuildIdentityWeightBlob(channels)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	k, cs, err := rt.CompileWithStats(CompileOptions{
+		ModelType:  ModelTypeMIL,
+		MILText:    []byte(milText),
+		WeightBlob: blob,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer k.Close()
+
+	t.Logf("CompileNS=%d LoadNS=%d TotalNS=%d", cs.CompileNS, cs.LoadNS, cs.TotalNS)
+	if cs.TotalNS <= 0 {
+		t.Error("expected TotalNS > 0")
+	}
+	if cs.CompileNS <= 0 {
+		t.Error("expected CompileNS > 0")
+	}
+	if cs.LoadNS <= 0 {
+		t.Error("expected LoadNS > 0")
+	}
+	if cs.CompileNS+cs.LoadNS > cs.TotalNS {
+		t.Error("expected CompileNS + LoadNS <= TotalNS")
+	}
+}
+
+func TestCompileStatsAvailableAndString(t *testing.T) {
+	cs := CompileStats{CompileNS: 10000, LoadNS: 5000, TotalNS: 16000}
+	if !cs.Available() {
+		t.Error("CompileStats with TotalNS should be available")
+	}
+	if (CompileStats{}).Available() {
+		t.Error("zero CompileStats should not be available")
+	}
+	if s := cs.String(); s != "CompileStats{compile=10000ns load=5000ns total=16000ns}" {
+		t.Errorf("CompileStats.String() = %q", s)
+	}
+	if s := (CompileStats{}).String(); s != "CompileStats{}" {
+		t.Errorf("zero CompileStats.String() = %q", s)
 	}
 }
 

@@ -23,17 +23,19 @@ type Kernel struct {
 	model  appleneuralengine.ANEModel
 	client appleneuralengine.ANEClient
 
-	request appleneuralengine.ANERequest
-	inputs  []coregraphics.IOSurfaceRef
-	outputs []coregraphics.IOSurfaceRef
+	request       appleneuralengine.ANERequest
+	inputs        []coregraphics.IOSurfaceRef
+	outputs       []coregraphics.IOSurfaceRef
+	perfStatsMask uint32 // driver-converted mask, non-zero when stats are enabled
 
 	// Model-driven tensor layouts parsed from compiled model attributes.
 	// The source of truth for strides and channel offsets.
 	inputLayouts  []TensorLayout
 	outputLayouts []TensorLayout
 
-	mapped bool // IOSurfaces are mapped
-	closed bool
+	mapped          bool // IOSurfaces are mapped
+	closed          bool
+	sharedEventUsed bool
 }
 
 // InputSurface returns the i-th input IOSurfaceRef.
@@ -249,26 +251,6 @@ func (k *Kernel) Eval() error {
 	}
 }
 
-// EvalWithStats executes the kernel and returns hardware performance stats.
-// If perf stats were not enabled at compile time (PerfStatsMask=0), the
-// returned stats will be zero-valued.
-func (k *Kernel) EvalWithStats() (EvalStats, error) {
-	perfStats := appleneuralengine.NewANEPerformanceStats()
-	k.request.SetPerfStats(&perfStats)
-
-	if err := k.Eval(); err != nil {
-		return EvalStats{}, err
-	}
-
-	var hwNS uint64
-	func() {
-		defer func() { recover() }()
-		hwNS = perfStats.HwExecutionTime()
-	}()
-
-	return EvalStats{HWExecutionNS: hwNS}, nil
-}
-
 func (k *Kernel) evalMIL() error {
 	const qos = 21
 
@@ -310,14 +292,48 @@ func (k *Kernel) Close() error {
 		}
 		k.inMemModel.UnloadWithQoSError(qos)
 	case ModelTypePackage:
-		if k.mapped {
+		if k.mapped && !k.sharedEventUsed {
 			k.client.UnmapIOSurfacesWithModelRequest(k.model, k.request)
+		}
+		if k.sharedEventUsed {
+			// Package-model unload after a shared-event eval still crashes inside
+			// AppleNeuralEngine on this host. Keep Close non-crashing and let the
+			// process reclaim the model until the driver-side teardown is understood.
+			return nil
 		}
 		k.client.UnloadModelOptionsQosError(k.model, nil, qos)
 	}
 
 	return nil
 }
+
+// ModelObjcID returns the ObjC object pointer for the underlying ANEModel.
+// For MIL models this returns the inner model; for package models the direct model.
+func (k *Kernel) ModelObjcID() uintptr {
+	switch k.modelType {
+	case ModelTypeMIL:
+		if m := k.inMemModel.Model(); m != nil {
+			return uintptr(m.GetID())
+		}
+		return uintptr(k.inMemModel.ID)
+	case ModelTypePackage:
+		return uintptr(k.model.ID)
+	}
+	return 0
+}
+
+// InMemModelObjcID returns the ObjC object pointer for the ANEInMemoryModel wrapper.
+// Returns 0 for non-MIL models.
+func (k *Kernel) InMemModelObjcID() uintptr { return uintptr(k.inMemModel.ID) }
+
+// CompileModelType returns the model type used during compilation.
+func (k *Kernel) CompileModelType() ModelType { return k.modelType }
+
+// RawRequest returns the ObjC object pointer for the underlying ANERequest.
+func (k *Kernel) RawRequest() uintptr { return uintptr(k.request.ID) }
+
+// RawPerfStatsMask returns the driver-converted performance stats mask.
+func (k *Kernel) RawPerfStatsMask() uint32 { return k.perfStatsMask }
 
 // Float32ToFP16 converts a float32 to IEEE 754 half-precision.
 func Float32ToFP16(f float32) uint16 {
