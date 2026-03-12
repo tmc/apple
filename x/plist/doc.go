@@ -40,4 +40,15 @@
 //	plist.WriteJSON(os.Stdout, v)
 //	plist.WriteBinary(os.Stdout, v)
 //	plist.WriteToFile("output.plist", v, plist.FormatXML)
+//
+// # NSKeyedArchiver and UID
+//
+// Binary plists produced by NSKeyedArchiver use UID values to reference
+// objects in the $objects array. The [UID] type preserves these references
+// when parsing and writing binary plists:
+//
+//	v, _ := plist.ParseBytes(data)
+//	m := v.(map[string]any)
+//	top := m["$top"].(map[string]any)
+//	ref := top["root"].(plist.UID) // UID referencing an entry in $objects
 package plist

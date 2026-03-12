@@ -53,6 +53,11 @@ func marshalValue(v reflect.Value) (any, error) {
 		v = v.Elem()
 	}
 
+	// Preserve UID values as-is.
+	if v.Type() == reflect.TypeOf(UID(0)) {
+		return v.Interface().(UID), nil
+	}
+
 	switch v.Kind() {
 	case reflect.Struct:
 		if v.Type() == reflect.TypeOf(time.Time{}) {
@@ -94,31 +99,53 @@ func marshalValue(v reflect.Value) (any, error) {
 }
 
 func marshalStruct(v reflect.Value) (map[string]any, error) {
-	t := v.Type()
 	m := make(map[string]any)
+	if err := marshalStructFields(v, m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func marshalStructFields(v reflect.Value, m map[string]any) error {
+	t := v.Type()
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
 		if !f.IsExported() {
 			continue
 		}
+		fv := v.Field(i)
+		// Flatten anonymous (embedded) struct fields.
+		if f.Anonymous {
+			for fv.Kind() == reflect.Ptr {
+				if fv.IsNil() {
+					break
+				}
+				fv = fv.Elem()
+			}
+			if fv.Kind() == reflect.Struct {
+				if err := marshalStructFields(fv, m); err != nil {
+					return err
+				}
+				continue
+			}
+		}
 		name, opts := parseTag(f)
 		if name == "-" {
 			continue
 		}
-		fv := v.Field(i)
 		if opts.omitempty && isZero(fv) {
 			continue
 		}
 		val, err := marshalValue(fv)
 		if err != nil {
-			return nil, fmt.Errorf("field %s: %w", f.Name, err)
+			return fmt.Errorf("field %s: %w", f.Name, err)
 		}
-		if val == nil && opts.omitempty {
+		if val == nil {
 			continue
 		}
 		m[name] = val
 	}
-	return m, nil
+	return nil
 }
 
 func marshalMap(v reflect.Value) (map[string]any, error) {
@@ -131,6 +158,9 @@ func marshalMap(v reflect.Value) (map[string]any, error) {
 		val, err := marshalValue(v.MapIndex(key))
 		if err != nil {
 			return nil, fmt.Errorf("map key %s: %w", k, err)
+		}
+		if val == nil {
+			continue
 		}
 		m[k] = val
 	}
@@ -236,6 +266,15 @@ func unmarshalValue(src any, dst reflect.Value) error {
 		dst = dst.Elem()
 	}
 
+	// Handle UID destination type.
+	if dst.Type() == reflect.TypeOf(UID(0)) {
+		if u, ok := src.(UID); ok {
+			dst.Set(reflect.ValueOf(u))
+			return nil
+		}
+		return fmt.Errorf("expected UID, got %T", src)
+	}
+
 	switch dst.Kind() {
 	case reflect.Struct:
 		if dst.Type() == reflect.TypeOf(time.Time{}) {
@@ -314,31 +353,72 @@ func unmarshalValue(src any, dst reflect.Value) error {
 }
 
 func unmarshalStruct(m map[string]any, dst reflect.Value) error {
-	t := dst.Type()
-	// Build field index by plist tag name.
-	fields := make(map[string]int, t.NumField())
+	fields := collectStructFields(dst.Type())
+	for key, val := range m {
+		fi, ok := fields[key]
+		if !ok {
+			continue
+		}
+		fv := fieldByIndex(dst, fi.index)
+		if err := unmarshalValue(val, fv); err != nil {
+			return fmt.Errorf("field %s: %w", key, err)
+		}
+	}
+	return nil
+}
+
+type fieldInfo struct {
+	index []int // path of field indices for nested embedded structs
+}
+
+// collectStructFields builds a map from plist tag name to field index path,
+// flattening anonymous (embedded) struct fields.
+func collectStructFields(t reflect.Type) map[string]fieldInfo {
+	fields := make(map[string]fieldInfo)
+	collectFields(t, nil, fields)
+	return fields
+}
+
+func collectFields(t reflect.Type, path []int, fields map[string]fieldInfo) {
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
 		if !f.IsExported() {
 			continue
 		}
+		idx := append(append([]int(nil), path...), i)
+		if f.Anonymous {
+			ft := f.Type
+			for ft.Kind() == reflect.Ptr {
+				ft = ft.Elem()
+			}
+			if ft.Kind() == reflect.Struct {
+				collectFields(ft, idx, fields)
+				continue
+			}
+		}
 		name, _ := parseTag(f)
 		if name == "-" {
 			continue
 		}
-		fields[name] = i
+		if _, exists := fields[name]; !exists {
+			fields[name] = fieldInfo{index: idx}
+		}
 	}
+}
 
-	for key, val := range m {
-		idx, ok := fields[key]
-		if !ok {
-			continue
+// fieldByIndex traverses the index path, allocating embedded pointer
+// structs as needed.
+func fieldByIndex(v reflect.Value, index []int) reflect.Value {
+	for _, i := range index {
+		if v.Kind() == reflect.Ptr {
+			if v.IsNil() {
+				v.Set(reflect.New(v.Type().Elem()))
+			}
+			v = v.Elem()
 		}
-		if err := unmarshalValue(val, dst.Field(idx)); err != nil {
-			return fmt.Errorf("field %s: %w", key, err)
-		}
+		v = v.Field(i)
 	}
-	return nil
+	return v
 }
 
 func unmarshalMap(m map[string]any, dst reflect.Value) error {

@@ -16,6 +16,47 @@ import (
 	"time"
 )
 
+// UID represents a unique identifier used in NSKeyedArchiver binary plists.
+// In keyed archives, UID values reference objects in the $objects array.
+// UID implements [fmt.Stringer], [encoding.TextMarshaler],
+// [encoding.TextUnmarshaler], and the json marshal/unmarshal interfaces.
+type UID uint64
+
+// String returns a human-readable representation like "UID(42)".
+func (u UID) String() string {
+	return fmt.Sprintf("UID(%d)", uint64(u))
+}
+
+// MarshalText encodes the UID as a decimal string.
+func (u UID) MarshalText() ([]byte, error) {
+	return strconv.AppendUint(nil, uint64(u), 10), nil
+}
+
+// UnmarshalText decodes a decimal string into a UID.
+func (u *UID) UnmarshalText(b []byte) error {
+	val, err := strconv.ParseUint(string(b), 10, 64)
+	if err != nil {
+		return fmt.Errorf("unmarshal uid: %w", err)
+	}
+	*u = UID(val)
+	return nil
+}
+
+// MarshalJSON encodes the UID as a JSON number.
+func (u UID) MarshalJSON() ([]byte, error) {
+	return strconv.AppendUint(nil, uint64(u), 10), nil
+}
+
+// UnmarshalJSON decodes a JSON number into a UID.
+func (u *UID) UnmarshalJSON(b []byte) error {
+	val, err := strconv.ParseUint(string(b), 10, 64)
+	if err != nil {
+		return fmt.Errorf("unmarshal uid: %w", err)
+	}
+	*u = UID(val)
+	return nil
+}
+
 // Format represents a plist format.
 type Format int
 
@@ -340,6 +381,13 @@ func (bp *binaryParser) parseObject(index int) (any, error) {
 	case 0x6: // unicode string
 		length, dataOffset := bp.parseLength(offset, objInfo)
 		return bp.parseUTF16(dataOffset, length)
+	case 0x8: // uid
+		size := objInfo + 1
+		val, err := bp.parseInt(offset+1, size)
+		if err != nil {
+			return nil, err
+		}
+		return UID(val), nil
 	case 0xA: // array
 		length, dataOffset := bp.parseLength(offset, objInfo)
 		return bp.parseArray(dataOffset, length)
@@ -365,6 +413,12 @@ func (bp *binaryParser) parseLength(offset, objInfo int) (int, int) {
 func (bp *binaryParser) parseInt(offset, size int) (int64, error) {
 	if offset+size > len(bp.data) {
 		return 0, fmt.Errorf("int out of bounds")
+	}
+	// CoreFoundation sometimes writes large 64-bit values as 128-bit
+	// integers with an empty high half. Drop the high 64 bits.
+	if size == 16 {
+		offset += 8
+		size = 8
 	}
 	var val int64
 	for i := 0; i < size; i++ {
@@ -513,6 +567,9 @@ func writeXMLValue(w io.Writer, v any, indent int) error {
 	case int:
 		fmt.Fprintf(w, "%s<integer>%d</integer>", prefix, val)
 
+	case UID:
+		fmt.Fprintf(w, "%s<integer>%d</integer>", prefix, val)
+
 	case float64:
 		fmt.Fprintf(w, "%s<real>%g</real>", prefix, val)
 
@@ -575,6 +632,8 @@ func convertForJSON(v any) any {
 		return val.UTC().Format(time.RFC3339)
 	case int64:
 		return val
+	case UID:
+		return uint64(val)
 	default:
 		return v
 	}
@@ -624,6 +683,8 @@ func TypeOf(v any) string {
 		return "array"
 	case map[string]any:
 		return "dictionary"
+	case UID:
+		return "uid"
 	default:
 		return "unknown"
 	}

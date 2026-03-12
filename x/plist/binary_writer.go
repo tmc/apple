@@ -175,6 +175,8 @@ func writeScalar(buf *bytes.Buffer, v any) error {
 		var b [8]byte
 		binary.BigEndian.PutUint64(b[:], math.Float64bits(secs))
 		buf.Write(b[:])
+	case UID:
+		writeUID(buf, uint64(val))
 	default:
 		buf.WriteByte(0x00) // unknown → null
 	}
@@ -239,6 +241,30 @@ func writeInt(buf *bytes.Buffer, val int64) {
 		buf.WriteByte(0x13)
 		var b [8]byte
 		binary.BigEndian.PutUint64(b[:], uint64(val))
+		buf.Write(b[:])
+	}
+}
+
+// writeUID writes a UID object (type 0x8). The low nibble is byte count minus 1.
+func writeUID(buf *bytes.Buffer, val uint64) {
+	switch {
+	case val <= 0xFF:
+		buf.WriteByte(0x80)
+		buf.WriteByte(byte(val))
+	case val <= 0xFFFF:
+		buf.WriteByte(0x81)
+		var b [2]byte
+		binary.BigEndian.PutUint16(b[:], uint16(val))
+		buf.Write(b[:])
+	case val <= 0xFFFFFFFF:
+		buf.WriteByte(0x83)
+		var b [4]byte
+		binary.BigEndian.PutUint32(b[:], uint32(val))
+		buf.Write(b[:])
+	default:
+		buf.WriteByte(0x87)
+		var b [8]byte
+		binary.BigEndian.PutUint64(b[:], val)
 		buf.Write(b[:])
 	}
 }
