@@ -70,21 +70,21 @@ func Engine(cfg Config) (*script.Engine, *axuiautomation.Application, error) {
 //	    os.Exit(m.Run())
 //	}
 func EnsureTrusted() error {
-	if axuiautomation.IsProcessTrusted() {
-		return nil
-	}
 	cfg := macgo.NewConfig().
 		WithAppName("axscripttest").
 		WithPermissions(macgo.Accessibility).
 		WithAdHocSign()
 	cfg.BundleID = "dev.tmc.axscripttest"
-	// Use default LaunchServices path — this re-execs through `open`,
-	// giving the process proper TCC lineage so the accessibility
-	// permission dialog attributes to axscripttest, not the terminal.
+	// Always call Start — when running as a macgo child (re-launched
+	// via LaunchServices), Start restores the working directory and
+	// sets up pipe redirection. Without this the child exits before
+	// the parent reads the PID from the control FIFO.
 	if err := macgo.Start(cfg); err != nil {
 		return fmt.Errorf("macgo start: %w", err)
 	}
-	axuiautomation.PromptForAccessibility()
+	if !axuiautomation.IsProcessTrusted() {
+		axuiautomation.PromptForAccessibility()
+	}
 	return nil
 }
 
