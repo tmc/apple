@@ -1,0 +1,6 @@
+[!trusted] skip 'no accessibility permission'
+
+app-activate
+window-wait Finder 5s
+exists role=AXWindow
+screenshot finder.png
