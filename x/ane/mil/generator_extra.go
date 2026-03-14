@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+// buildInfoHeader is the MIL program header expected by the ANE compiler.
+// Version strings match coremltools 9.0 output format.
 const buildInfoHeader = "program(1.3)\n" +
 	"[buildInfo = dict<string, string>({{\"coremlc-component-MIL\", \"3510.2.1\"}, {\"coremlc-version\", \"3505.4.1\"}, {\"coremltools-component-milinternal\", \"\"}, {\"coremltools-version\", \"9.0\"}})]\n"
 

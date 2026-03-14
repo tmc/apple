@@ -6,8 +6,8 @@ import (
 	"github.com/tmc/apple/x/ane/model"
 )
 
-// ConvEval mirrors training/forward.h ane_conv_eval:
-// input row-major [S, inDim] -> transpose to channel-first [inDim, S], eval, transpose back.
+// ConvEval transposes row-major [S, inDim] to channel-first [inDim, S],
+// evaluates the kernel, and transposes the output back to row-major.
 func ConvEval(k *model.Kernel, x []float32, s, inDim, outDim int) ([]float32, error) {
 	out, _, err := ConvEvalWithStats(k, x, s, inDim, outDim)
 	return out, err

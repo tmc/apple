@@ -511,10 +511,6 @@ func (e *Executor) outputLen() int {
 	return e.batch * e.outDim
 }
 
-func packInput(dst, x, w []float32, batch, inDim, outDim int) {
-	packInputTile(dst, x, w, batch, inDim, outDim, 0, outDim)
-}
-
 func packInputTile(dst, x, w []float32, batch, inDim, fullOutDim, outOffset, tileOutDim int) {
 	rowWidth := batch + tileOutDim
 	for d := 0; d < inDim; d++ {
@@ -544,10 +540,6 @@ func stageOneHotActivations(dst []float32, prev, cur []int, batch, tileOutDim in
 	for t, idx := range cur {
 		dst[idx*rowWidth+t] = 1
 	}
-}
-
-func unpackOutput(dst, src []float32, batch, outDim int) {
-	unpackOutputTile(dst, src, batch, outDim, 0, outDim)
 }
 
 func unpackOutputTile(dst, src []float32, batch, fullOutDim, outOffset, tileOutDim int) {

@@ -4,6 +4,8 @@ package mil
 
 import "fmt"
 
+// dynamicMatmulBuildInfo is the MIL build info dict expected by the ANE compiler.
+// Version strings match coremltools 9.0 output format.
 const dynamicMatmulBuildInfo = `[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3510.2.1"}, {"coremlc-version", "3505.4.1"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]`
 
 // GenDynamicMatmul generates a weightless MIL graph for y = x*w.
