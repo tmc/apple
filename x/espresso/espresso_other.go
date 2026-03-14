@@ -7,14 +7,15 @@ import (
 	"time"
 )
 
-var errUnsupported = errors.New("espresso: unsupported platform")
+// ErrUnsupported is returned on platforms that do not support Espresso.
+var ErrUnsupported = errors.New("espresso: unsupported platform")
 
 // Context manages execution state for Espresso networks.
 type Context struct{}
 
 // Open creates a new Espresso execution context.
 func Open(_ ...ContextOption) (*Context, error) {
-	return nil, errUnsupported
+	return nil, ErrUnsupported
 }
 
 // Close releases context resources.
@@ -32,12 +33,12 @@ type Network struct {
 
 // LoadNetwork loads a network from Espresso IR.
 func (c *Context) LoadNetwork(_ []byte, _ ...NetworkOption) (*Network, error) {
-	return nil, errUnsupported
+	return nil, ErrUnsupported
 }
 
 // LoadNetworkFromFile loads a network from an Espresso net.json file.
 func (c *Context) LoadNetworkFromFile(_ string, _ ...NetworkOption) (*Network, error) {
-	return nil, errUnsupported
+	return nil, ErrUnsupported
 }
 
 // LayerCount returns the number of layers.
@@ -53,25 +54,25 @@ func (n *Network) HasLayer(_ string) bool { return false }
 func (n *Network) Close() error { return nil }
 
 // Eval executes the network on the given frame.
-func (n *Network) Eval(_ *Frame) error { return errUnsupported }
+func (n *Network) Eval(_ *Frame) error { return ErrUnsupported }
 
 // EvalAsync executes the network asynchronously.
 func (n *Network) EvalAsync(_ *Frame) <-chan error {
 	ch := make(chan error, 1)
-	ch <- errUnsupported
+	ch <- ErrUnsupported
 	return ch
 }
 
 // EvalAsyncWithCallback executes the network asynchronously with a callback.
 func (n *Network) EvalAsyncWithCallback(_ *Frame, fn func(error)) {
-	fn(errUnsupported)
+	fn(ErrUnsupported)
 }
 
 // EvalWithOptions executes with custom options.
-func (n *Network) EvalWithOptions(_ *Frame, _ EvalOptions) error { return errUnsupported }
+func (n *Network) EvalWithOptions(_ *Frame, _ EvalOptions) error { return ErrUnsupported }
 
 // EvalWithStorage executes the network using pre-allocated storage.
-func (n *Network) EvalWithStorage(_ *FrameStorage, _ EvalOptions) error { return errUnsupported }
+func (n *Network) EvalWithStorage(_ *FrameStorage, _ EvalOptions) error { return ErrUnsupported }
 
 // FrameStorage holds reusable multi-frame storage.
 type FrameStorage struct{}
@@ -86,34 +87,34 @@ type Frame struct{}
 func NewFrame() *Frame { return &Frame{} }
 
 // SetInput attaches a named float32 input tensor.
-func (f *Frame) SetInput(_ string, _ []float32, _ Shape) error { return errUnsupported }
+func (f *Frame) SetInput(_ string, _ []float32, _ Shape) error { return ErrUnsupported }
 
 // SetInputBytes attaches a named raw byte input.
-func (f *Frame) SetInputBytes(_ string, _ []byte) error { return errUnsupported }
+func (f *Frame) SetInputBytes(_ string, _ []byte) error { return ErrUnsupported }
 
 // SetInputIOSurface attaches a named input backed by an IOSurface.
-func (f *Frame) SetInputIOSurface(_ string, _ uintptr) error { return errUnsupported }
+func (f *Frame) SetInputIOSurface(_ string, _ uintptr) error { return ErrUnsupported }
 
 // SetInputCVPixelBuffer attaches a named input from a CVPixelBuffer.
-func (f *Frame) SetInputCVPixelBuffer(_ string, _ uintptr) error { return errUnsupported }
+func (f *Frame) SetInputCVPixelBuffer(_ string, _ uintptr) error { return ErrUnsupported }
 
 // SetInputImage attaches a named image input with raw pixel data and channel count.
-func (f *Frame) SetInputImage(_ string, _ []byte, _ int) error { return errUnsupported }
+func (f *Frame) SetInputImage(_ string, _ []byte, _ int) error { return ErrUnsupported }
 
 // SetGroundTruth attaches a named ground truth tensor.
-func (f *Frame) SetGroundTruth(_ string, _ []float32, _ Shape) error { return errUnsupported }
+func (f *Frame) SetGroundTruth(_ string, _ []float32, _ Shape) error { return ErrUnsupported }
 
 // Output returns the named output tensor data.
-func (f *Frame) Output(_ string) ([]float32, error) { return nil, errUnsupported }
+func (f *Frame) Output(_ string) ([]float32, error) { return nil, ErrUnsupported }
 
 // OutputInto copies the named output tensor data into the caller's buffer.
-func (f *Frame) OutputInto(_ string, _ []float32) error { return errUnsupported }
+func (f *Frame) OutputInto(_ string, _ []float32) error { return ErrUnsupported }
 
 // OutputFloat64 returns the named output as float64 values.
-func (f *Frame) OutputFloat64(_ string) ([]float64, error) { return nil, errUnsupported }
+func (f *Frame) OutputFloat64(_ string) ([]float64, error) { return nil, ErrUnsupported }
 
 // OutputRaw returns the raw bytes of a named output.
-func (f *Frame) OutputRaw(_ string) ([]byte, error) { return nil, errUnsupported }
+func (f *Frame) OutputRaw(_ string) ([]byte, error) { return nil, ErrUnsupported }
 
 // InputNames returns the names of all input attachments.
 func (f *Frame) InputNames() []string { return nil }
@@ -128,10 +129,10 @@ func (f *Frame) FunctionName() string { return "" }
 func (f *Frame) SetFunctionName(_ string) {}
 
 // Optimize applies a standard set of optimization passes.
-func Optimize(_ *Network) error { return errUnsupported }
+func Optimize(_ *Network) error { return ErrUnsupported }
 
 // OptimizeWith applies the given passes in order.
-func OptimizeWith(_ *Network, _ ...Pass) error { return errUnsupported }
+func OptimizeWith(_ *Network, _ ...Pass) error { return ErrUnsupported }
 
 type contextConfig struct{}
 
@@ -168,7 +169,7 @@ type EvalOptions struct {
 type MetalDevice struct{}
 
 // OpenMetal opens the system default Metal device.
-func OpenMetal() (*MetalDevice, error) { return nil, errUnsupported }
+func OpenMetal() (*MetalDevice, error) { return nil, ErrUnsupported }
 
 // Close releases the Metal device.
 func (d *MetalDevice) Close() error { return nil }
@@ -208,7 +209,7 @@ func (a *ANESurface) ResizeForAsync(_ uint64) {}
 func (a *ANESurface) PixelFormat() uint32 { return 0 }
 
 // IOSurfaceForFrame returns the IOSurface backing the given multi-buffer frame.
-func (a *ANESurface) IOSurfaceForFrame(_ uint64) (uintptr, error) { return 0, errUnsupported }
+func (a *ANESurface) IOSurfaceForFrame(_ uint64) (uintptr, error) { return 0, ErrUnsupported }
 
 // SetExternalStorage replaces the IOSurface backing a storage slot.
 func (a *ANESurface) SetExternalStorage(_ uint64, _ uintptr) {}
@@ -241,16 +242,16 @@ func (a *ANESurface) AliasingMem() any { return nil }
 func (a *ANESurface) SetAliasingMem(_ any) {}
 
 // WriteFrame writes raw bytes to the IOSurface backing the given frame.
-func (a *ANESurface) WriteFrame(_ uint64, _ []byte) error { return errUnsupported }
+func (a *ANESurface) WriteFrame(_ uint64, _ []byte) error { return ErrUnsupported }
 
 // ReadFrame reads raw bytes from the IOSurface backing the given frame.
-func (a *ANESurface) ReadFrame(_ uint64, _ []byte) error { return errUnsupported }
+func (a *ANESurface) ReadFrame(_ uint64, _ []byte) error { return ErrUnsupported }
 
 // WriteFrameF32 writes float32 data to the IOSurface backing the given frame.
-func (a *ANESurface) WriteFrameF32(_ uint64, _ []float32) error { return errUnsupported }
+func (a *ANESurface) WriteFrameF32(_ uint64, _ []float32) error { return ErrUnsupported }
 
 // ReadFrameF32 reads float32 data from the IOSurface backing the given frame.
-func (a *ANESurface) ReadFrameF32(_ uint64, _ []float32) error { return errUnsupported }
+func (a *ANESurface) ReadFrameF32(_ uint64, _ []float32) error { return ErrUnsupported }
 
 // Cleanup releases surface resources.
 func (a *ANESurface) Cleanup() {}
@@ -303,4 +304,4 @@ func (p *Profile) IsFullyANEResident() bool { return false }
 func (p *Profile) CPUFallbackLayers() []LayerProfile { return nil }
 
 // ProfileNetwork extracts profiling data from a loaded network.
-func ProfileNetwork(_ *Network) (*Profile, error) { return nil, errUnsupported }
+func ProfileNetwork(_ *Network) (*Profile, error) { return nil, ErrUnsupported }
