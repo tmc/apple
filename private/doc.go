@@ -5,6 +5,7 @@
 //go:generate applegen-bootstrap --private -f "espresso"
 //go:generate applegen-bootstrap --private -f "mlruntime"
 //go:generate applegen-bootstrap --private -f "remotecoreml"
+//go:generate applegen-bootstrap --private -f "virtualization"
 
 // Package private contains the generated code for the private frameworks of Apple MacOS. These frameworks are not intended for public use and may change without notice. Use at your own risk.
 package private
