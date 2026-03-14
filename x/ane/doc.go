@@ -25,11 +25,37 @@
 //	}
 //	k.ReadOutputF32(0, output)
 //
-// # Compilation Timing
+// # Compilation
+//
+// There are two compilation paths. [ModelTypeMIL] compiles MIL text and
+// weights in memory:
+//
+//	MIL text + weights → ANEInMemoryModel → compile → load → Kernel
+//
+// [ModelTypePackage] loads a pre-compiled .mlmodelc package from disk:
+//
+//	.mlmodelc path → ANEModel → compile → load → Kernel
+//
+// After compilation the ANE reports its expected memory layout via model
+// attributes. IOSurfaces are created to match these layouts exactly.
+// Surface sizes, channels, and spatial dimensions are never specified
+// manually — they are parsed from the compiled model.
 //
 // [Runtime.CompileWithStats] returns a [CompileStats] with wall-clock
-// compile and load phase durations. CompileStats has a ReportMetrics
-// method compatible with [testing.B].
+// compile and load phase durations.
+//
+// # Tensor Layout
+//
+// Data is in channel-first (NCHW) order: data[c*width + x].
+// The byte offset in the IOSurface is c*PlaneStride + x*ElemSize.
+// The minimum row stride is 64 bytes (the ANE's alignment granularity).
+//
+// [TensorLayout] describes the memory layout for each input and output.
+// AllocSize (Channels * PlaneStride) includes stride padding and is
+// always >= the logical data size. Typed I/O methods ([Kernel.WriteInputF32],
+// [Kernel.ReadOutputF32], etc.) accept logical element counts and handle
+// stride padding internally. Raw I/O ([Kernel.WriteInput],
+// [Kernel.ReadOutput]) requires exactly AllocSize bytes.
 //
 // # Shared Events
 //
