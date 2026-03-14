@@ -1,10 +1,8 @@
-//go:build darwin
-
-// Package linear provides a cached linear (matrix multiply) operator backed
-// by the Apple Neural Engine.
+// Package linear provides reusable ANE-backed linear forward execution.
 //
-//	exec := linear.New(rt)
-//	defer exec.Close()
+// It compiles and caches in-memory kernels keyed by shape and weights, then
+// executes row-major x*w^T using ANE runtime plumbing from this repository.
 //
-//	y, err := exec.Linear(x, w, batch, inDim, outDim)
+// DynamicExecutor provides a compile-once variant for workloads whose weights
+// change across evaluations.
 package linear
