@@ -10,21 +10,21 @@ import (
 	"github.com/tmc/apple/x/ane/mil"
 )
 
-func openOrSkip(t *testing.T) *ane.Runtime {
+func openOrSkip(t *testing.T) *ane.Client {
 	t.Helper()
-	rt, err := ane.Open()
+	c, err := ane.Open()
 	if errors.Is(err, ane.ErrNoANE) {
 		t.Skip("no ANE available")
 	}
 	if err != nil {
 		t.Fatal(err)
 	}
-	return rt
+	return c
 }
 
 func TestCompileGenerators(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	tests := []struct {
 		name string
@@ -111,13 +111,13 @@ func TestCompileGenerators(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			k, err := rt.Compile(tt.opts)
+			m, err := c.Compile(tt.opts)
 			if err != nil {
 				t.Fatal(err)
 			}
-			defer k.Close()
+			defer m.Close()
 
-			if err := k.Eval(); err != nil {
+			if err := m.Eval(); err != nil {
 				t.Fatal(err)
 			}
 		})

@@ -19,49 +19,49 @@ const maxPoolDepth = 127
 // All requests share the same IOSurface mappings, enabling up to depth
 // requests in flight simultaneously.
 type RequestPool struct {
-	kernel   *Kernel
+	model    *Model
 	requests []appleneuralengine.ANERequest
 	depth    int
 	next     atomic.Uint64
 }
 
-// NewRequestPool creates a pool of depth pre-validated requests for the kernel.
-// All requests share the kernel's IOSurfaces. Maximum depth is 127.
-func NewRequestPool(k *Kernel, depth int) (*RequestPool, error) {
+// NewRequestPool creates a pool of depth pre-validated requests for the model.
+// All requests share the model's IOSurfaces. Maximum depth is 127.
+func NewRequestPool(m *Model, depth int) (*RequestPool, error) {
 	if depth < 1 {
 		return nil, fmt.Errorf("ane: pool depth must be >= 1")
 	}
 	if depth > maxPoolDepth {
 		return nil, fmt.Errorf("ane: pool depth %d exceeds maximum %d", depth, maxPoolDepth)
 	}
-	if !k.mapped {
+	if !m.mapped {
 		return nil, &ANEError{Op: "pool", Err: fmt.Errorf("kernel not mapped")}
 	}
 
 	requests := make([]appleneuralengine.ANERequest, depth)
 
-	// First slot reuses the kernel's existing request.
-	requests[0] = k.request
+	// First slot reuses the model's existing request.
+	requests[0] = m.request
 
 	// Create additional requests referencing the same IOSurfaces.
 	for i := 1; i < depth; i++ {
-		req, err := createRequestFromSurfaces(k.inputs, k.outputs)
+		req, err := createRequestFromSurfaces(m.inputs, m.outputs)
 		if err != nil {
 			return nil, fmt.Errorf("ane: pool request[%d]: %w", i, err)
 		}
 
 		// Map the new request's surfaces.
 		var ok bool
-		switch k.modelType {
+		switch m.modelType {
 		case ModelTypeMIL:
-			ok, err = k.inMemModel.MapIOSurfacesWithRequestCacheInferenceError(req, true)
+			ok, err = m.inMemModel.MapIOSurfacesWithRequestCacheInferenceError(req, true)
 			if err != nil || !ok {
-				ok, err = k.inMemModel.MapIOSurfacesWithRequestCacheInferenceError(req, false)
+				ok, err = m.inMemModel.MapIOSurfacesWithRequestCacheInferenceError(req, false)
 			}
 		case ModelTypePackage:
-			ok, err = k.client.MapIOSurfacesWithModelRequestCacheInferenceError(k.model, req, true)
+			ok, err = m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, true)
 			if err != nil || !ok {
-				ok, err = k.client.MapIOSurfacesWithModelRequestCacheInferenceError(k.model, req, false)
+				ok, err = m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, false)
 			}
 		}
 		if err != nil || !ok {
@@ -72,7 +72,7 @@ func NewRequestPool(k *Kernel, depth int) (*RequestPool, error) {
 	}
 
 	return &RequestPool{
-		kernel:   k,
+		model:    m,
 		requests: requests,
 		depth:    depth,
 	}, nil
@@ -148,47 +148,47 @@ func (p *RequestPool) Acquire() *PooledRequest {
 
 // Eval evaluates this request on the ANE.
 func (pr *PooledRequest) Eval() error {
-	k := pr.pool.kernel
+	mdl := pr.pool.model
 	if !pr.Request.Validate() {
 		return &ANEError{Op: "eval", Err: fmt.Errorf("pooled request validation failed")}
 	}
 
-	switch k.modelType {
+	switch mdl.modelType {
 	case ModelTypeMIL:
 		const qos = 21
-		ok, err := k.inMemModel.EvaluateWithQoSOptionsRequestError(qos, nil, pr.Request)
+		ok, err := mdl.inMemModel.EvaluateWithQoSOptionsRequestError(qos, nil, pr.Request)
 		if err == nil && ok {
 			return nil
 		}
 		return wrapErr("eval", err)
 	case ModelTypePackage:
 		const qos = 21
-		ok, err := k.client.DoEvaluateDirectWithModelOptionsRequestQosError(k.model, nil, pr.Request, qos)
+		ok, err := mdl.aneClient.DoEvaluateDirectWithModelOptionsRequestQosError(mdl.aneModel, nil, pr.Request, qos)
 		if err == nil && ok {
 			return nil
 		}
-		ok, err = k.client.EvaluateWithModelOptionsRequestQosError(k.model, nil, pr.Request, qos)
+		ok, err = mdl.aneClient.EvaluateWithModelOptionsRequestQosError(mdl.aneModel, nil, pr.Request, qos)
 		if err == nil && ok {
 			return nil
 		}
 		return wrapErr("eval", err)
 	default:
-		return &ANEError{Op: "eval", Err: fmt.Errorf("unknown model type %d", k.modelType)}
+		return &ANEError{Op: "eval", Err: fmt.Errorf("unknown model type %d", mdl.modelType)}
 	}
 }
 
 // Release returns this request to the pool.
 func (pr *PooledRequest) Release() {}
 
-// Close unmaps all pooled requests except the kernel's original request.
+// Close unmaps all pooled requests except the model's original request.
 func (p *RequestPool) Close() error {
-	k := p.kernel
+	mdl := p.model
 	for i := 1; i < p.depth; i++ {
-		switch k.modelType {
+		switch mdl.modelType {
 		case ModelTypeMIL:
-			k.inMemModel.UnmapIOSurfacesWithRequest(p.requests[i])
+			mdl.inMemModel.UnmapIOSurfacesWithRequest(p.requests[i])
 		case ModelTypePackage:
-			k.client.UnmapIOSurfacesWithModelRequest(k.model, p.requests[i])
+			mdl.aneClient.UnmapIOSurfacesWithModelRequest(mdl.aneModel, p.requests[i])
 		}
 	}
 	return nil

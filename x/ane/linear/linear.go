@@ -13,11 +13,11 @@ import (
 	"github.com/tmc/apple/x/ane/mil"
 )
 
-// Executor manages a cache of ANE kernels for linear operations.
+// Executor manages a cache of ANE models for linear operations.
 type Executor struct {
-	rt    *ane.Runtime
-	mu    sync.Mutex
-	cache map[cacheKey]*ane.Kernel
+	client *ane.Client
+	mu     sync.Mutex
+	cache  map[cacheKey]*ane.Model
 }
 
 type cacheKey struct {
@@ -27,14 +27,14 @@ type cacheKey struct {
 
 // Stats reports cache statistics.
 type Stats struct {
-	CachedKernels int
+	CachedModels int
 }
 
 // New creates a new linear executor.
-func New(rt *ane.Runtime) *Executor {
+func New(c *ane.Client) *Executor {
 	return &Executor{
-		rt:    rt,
-		cache: make(map[cacheKey]*ane.Kernel),
+		client: c,
+		cache:  make(map[cacheKey]*ane.Model),
 	}
 }
 
@@ -50,24 +50,24 @@ func (e *Executor) Linear(x, w []float32, batch, inDim, outDim int) ([]float32, 
 		return nil, fmt.Errorf("linear: w length %d != outDim*inDim (%d)", len(w), outDim*inDim)
 	}
 
-	k, err := e.getOrCompile(w, batch, inDim, outDim)
+	m, err := e.getOrCompile(w, batch, inDim, outDim)
 	if err != nil {
 		return nil, err
 	}
 
 	// Convert input to channel-first layout for the ANE: [1, inDim, batch, 1].
 	chFirst := toChannelFirst(x, batch, inDim)
-	if err := k.WriteInputF32(0, chFirst); err != nil {
+	if err := m.WriteInputF32(0, chFirst); err != nil {
 		return nil, fmt.Errorf("linear: write input: %w", err)
 	}
 
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		return nil, fmt.Errorf("linear: eval: %w", err)
 	}
 
 	// Read output in channel-first layout: [1, outDim, batch, 1].
 	outBuf := make([]float32, batch*outDim)
-	if err := k.ReadOutputF32(0, outBuf); err != nil {
+	if err := m.ReadOutputF32(0, outBuf); err != nil {
 		return nil, fmt.Errorf("linear: read output: %w", err)
 	}
 
@@ -85,21 +85,21 @@ func (e *Executor) Prepare(w []float32, batch, inDim, outDim int) error {
 func (e *Executor) Stats() Stats {
 	e.mu.Lock()
 	defer e.mu.Unlock()
-	return Stats{CachedKernels: len(e.cache)}
+	return Stats{CachedModels: len(e.cache)}
 }
 
-// Close releases all cached kernels.
+// Close releases all cached models.
 func (e *Executor) Close() error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
-	for _, k := range e.cache {
-		k.Close()
+	for _, m := range e.cache {
+		m.Close()
 	}
 	e.cache = nil
 	return nil
 }
 
-func (e *Executor) getOrCompile(w []float32, batch, inDim, outDim int) (*ane.Kernel, error) {
+func (e *Executor) getOrCompile(w []float32, batch, inDim, outDim int) (*ane.Model, error) {
 	key := cacheKey{
 		batch:      batch,
 		inDim:      inDim,
@@ -110,8 +110,8 @@ func (e *Executor) getOrCompile(w []float32, batch, inDim, outDim int) (*ane.Ker
 	e.mu.Lock()
 	defer e.mu.Unlock()
 
-	if k, ok := e.cache[key]; ok {
-		return k, nil
+	if m, ok := e.cache[key]; ok {
+		return m, nil
 	}
 
 	milText := mil.GenConv(inDim, outDim, batch)
@@ -120,7 +120,7 @@ func (e *Executor) getOrCompile(w []float32, batch, inDim, outDim int) (*ane.Ker
 		return nil, fmt.Errorf("linear: build weights: %w", err)
 	}
 
-	k, err := e.rt.Compile(ane.CompileOptions{
+	m, err := e.client.Compile(ane.CompileOptions{
 		ModelType:  ane.ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -129,8 +129,8 @@ func (e *Executor) getOrCompile(w []float32, batch, inDim, outDim int) (*ane.Ker
 		return nil, fmt.Errorf("linear: compile: %w", err)
 	}
 
-	e.cache[key] = k
-	return k, nil
+	e.cache[key] = m
+	return m, nil
 }
 
 func hashWeights(w []float32) uint64 {

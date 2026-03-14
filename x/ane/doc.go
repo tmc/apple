@@ -1,15 +1,15 @@
 // Package ane provides high-level access to the Apple Neural Engine.
 //
-// Open a [Runtime], compile MIL programs into [Kernel] values, and evaluate
+// Open a [Client], compile MIL programs into [Model] values, and evaluate
 // them on the ANE hardware. IOSurface buffers are managed automatically.
 //
-//	rt, err := ane.Open()
+//	c, err := ane.Open()
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-//	defer rt.Close()
+//	defer c.Close()
 //
-//	k, err := rt.Compile(ane.CompileOptions{
+//	m, err := c.Compile(ane.CompileOptions{
 //		MILText:    milText,
 //		WeightBlob: blob,
 //		ModelType:  ane.ModelTypeMIL,
@@ -17,31 +17,31 @@
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-//	defer k.Close()
+//	defer m.Close()
 //
-//	k.WriteInputF32(0, input)
-//	if err := k.Eval(); err != nil {
+//	m.WriteInputF32(0, input)
+//	if err := m.Eval(); err != nil {
 //		log.Fatal(err)
 //	}
-//	k.ReadOutputF32(0, output)
+//	m.ReadOutputF32(0, output)
 //
 // # Compilation
 //
 // There are two compilation paths. [ModelTypeMIL] compiles MIL text and
 // weights in memory:
 //
-//	MIL text + weights → ANEInMemoryModel → compile → load → Kernel
+//	MIL text + weights → ANEInMemoryModel → compile → load → Model
 //
 // [ModelTypePackage] loads a pre-compiled .mlmodelc package from disk:
 //
-//	.mlmodelc path → ANEModel → compile → load → Kernel
+//	.mlmodelc path → ANEModel → compile → load → Model
 //
 // After compilation the ANE reports its expected memory layout via model
 // attributes. IOSurfaces are created to match these layouts exactly.
 // Surface sizes, channels, and spatial dimensions are never specified
 // manually — they are parsed from the compiled model.
 //
-// [Runtime.CompileWithStats] returns a [CompileStats] with wall-clock
+// [Client.CompileWithStats] returns a [CompileStats] with wall-clock
 // compile and load phase durations.
 //
 // # Tensor Layout
@@ -52,16 +52,16 @@
 //
 // [TensorLayout] describes the memory layout for each input and output.
 // AllocSize (Channels * PlaneStride) includes stride padding and is
-// always >= the logical data size. Typed I/O methods ([Kernel.WriteInputF32],
-// [Kernel.ReadOutputF32], etc.) accept logical element counts and handle
-// stride padding internally. Raw I/O ([Kernel.WriteInput],
-// [Kernel.ReadOutput]) requires exactly AllocSize bytes.
+// always >= the logical data size. Typed I/O methods ([Model.WriteInputF32],
+// [Model.ReadOutputF32], etc.) accept logical element counts and handle
+// stride padding internally. Raw I/O ([Model.WriteInput],
+// [Model.ReadOutput]) requires exactly AllocSize bytes.
 //
 // # Shared Events
 //
 // [SharedEvent] enables ANE↔GPU/CPU synchronization via IOSurface
-// shared events. Use [Kernel.EvalWithSignalEvent],
-// [Kernel.EvalBidirectional], and related methods for pipelined
+// shared events. Use [Model.EvalWithSignalEvent],
+// [Model.EvalBidirectional], and related methods for pipelined
 // evaluation across compute domains.
 //
 // # Telemetry

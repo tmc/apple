@@ -12,12 +12,12 @@ import (
 // EvalWithStats executes the kernel and returns hardware performance stats.
 // If perf stats were not enabled at compile time (PerfStatsMask=0), the
 // returned stats will be zero-valued.
-func EvalWithStats(k *ane.Kernel) (EvalStats, error) {
+func EvalWithStats(m *ane.Model) (EvalStats, error) {
 	perfStats := newPerfStats()
-	req := appleneuralengine.ANERequestFromID(objc.ID(k.RawRequest()))
+	req := appleneuralengine.ANERequestFromID(objc.ID(m.RawRequest()))
 	req.SetPerfStats(&perfStats)
 
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		return EvalStats{}, err
 	}
 

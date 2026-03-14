@@ -11,7 +11,7 @@ import (
 	"github.com/tmc/apple/x/ane/mil"
 )
 
-func openOrSkip(t *testing.T) *Runtime {
+func openOrSkip(t *testing.T) *Client {
 	t.Helper()
 	rt, err := Open()
 	if errors.Is(err, ErrNoANE) {
@@ -44,21 +44,21 @@ func TestProbe(t *testing.T) {
 }
 
 func TestOpenClose(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
-	info := rt.Info()
+	info := c.Info()
 	if !info.HasANE {
-		t.Error("runtime info should report HasANE=true")
+		t.Error("client info should report HasANE=true")
 	}
-	if rt.CompileCount() != 0 {
+	if c.CompileCount() != 0 {
 		t.Error("compile count should be 0 after open")
 	}
 }
 
 func TestCompileMIL1Channel(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 1
 	milText := mil.GenIdentity(channels, 1)
@@ -67,7 +67,7 @@ func TestCompileMIL1Channel(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType:  ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -75,18 +75,18 @@ func TestCompileMIL1Channel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := []float32{42}
-	if err := k.WriteInputF32(0, input); err != nil {
+	if err := m.WriteInputF32(0, input); err != nil {
 		t.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		t.Fatal(err)
 	}
 
 	output := make([]float32, channels)
-	if err := k.ReadOutputF32(0, output); err != nil {
+	if err := m.ReadOutputF32(0, output); err != nil {
 		t.Fatal(err)
 	}
 	t.Logf("input=%v output=%v", input, output)
@@ -97,8 +97,8 @@ func TestCompileMIL1Channel(t *testing.T) {
 }
 
 func TestCompileMILIdentity(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 4
 	milText := mil.GenIdentity(channels, 1)
@@ -107,7 +107,7 @@ func TestCompileMILIdentity(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType:  ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -115,23 +115,23 @@ func TestCompileMILIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
-	if k.NumInputs() == 0 || k.NumOutputs() == 0 {
-		t.Fatal("kernel has no inputs or outputs")
+	if m.NumInputs() == 0 || m.NumOutputs() == 0 {
+		t.Fatal("model has no inputs or outputs")
 	}
 
 	input := []float32{1, 2, 3, 4}
-	if err := k.WriteInputF32(0, input); err != nil {
+	if err := m.WriteInputF32(0, input); err != nil {
 		t.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		t.Fatal(err)
 	}
 
 	// Try fp32 first, fall back to fp16.
 	output := make([]float32, channels)
-	if err := k.ReadOutputF32(0, output); err != nil {
+	if err := m.ReadOutputF32(0, output); err != nil {
 		t.Fatal(err)
 	}
 
@@ -146,7 +146,7 @@ func TestCompileMILIdentity(t *testing.T) {
 
 	if !allMatch {
 		// ANE outputs fp16 internally; try fp16 readback.
-		if err := k.ReadOutputFP16(0, output); err != nil {
+		if err := m.ReadOutputFP16(0, output); err != nil {
 			t.Fatal(err)
 		}
 		t.Logf("fp32 mismatch, using fp16 readback: %v", output)
@@ -161,8 +161,8 @@ func TestCompileMILIdentity(t *testing.T) {
 }
 
 func TestCompileMILSpatial(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const spatial = 4
 	milText := mil.GenScaleFP16IO(spatial)
@@ -172,7 +172,7 @@ func TestCompileMILSpatial(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType:  ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -180,18 +180,18 @@ func TestCompileMILSpatial(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := []float32{1, 2, 3, 4}
-	if err := k.WriteInputFP16(0, input); err != nil {
+	if err := m.WriteInputFP16(0, input); err != nil {
 		t.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		t.Fatal(err)
 	}
 
 	output := make([]float32, spatial)
-	if err := k.ReadOutputFP16(0, output); err != nil {
+	if err := m.ReadOutputFP16(0, output); err != nil {
 		t.Fatal(err)
 	}
 	t.Logf("output=%v (want [2 4 6 8])", output)
@@ -206,31 +206,31 @@ func TestCompileMILSpatial(t *testing.T) {
 }
 
 func TestCompileMILSoftmaxWeightless(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 4
 	milText := softmaxMIL(channels, 1)
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType: ModelTypeMIL,
 		MILText:   []byte(milText),
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := []float32{1, 2, 3, 4}
-	if err := k.WriteInputFP16(0, input); err != nil {
+	if err := m.WriteInputFP16(0, input); err != nil {
 		t.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		t.Fatal(err)
 	}
 
 	output := make([]float32, channels)
-	if err := k.ReadOutputFP16(0, output); err != nil {
+	if err := m.ReadOutputFP16(0, output); err != nil {
 		t.Fatal(err)
 	}
 
@@ -251,8 +251,8 @@ func TestCompileMILSoftmaxWeightless(t *testing.T) {
 }
 
 func TestCompileMILMultiWeightFFN(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const (
 		dim    = 4
@@ -276,7 +276,7 @@ func TestCompileMILMultiWeightFFN(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType: ModelTypeMIL,
 		MILText:   []byte(ffnForwardTapsMIL(dim, hidden, seq)),
 		WeightFiles: []WeightFile{
@@ -288,18 +288,18 @@ func TestCompileMILMultiWeightFFN(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := repeatedWeights(dim*seq, 1)
-	if err := k.WriteInputFP16(0, input); err != nil {
+	if err := m.WriteInputFP16(0, input); err != nil {
 		t.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		t.Fatal(err)
 	}
 
 	output := make([]float32, (dim+3*hidden)*seq)
-	if err := k.ReadOutputFP16(0, output); err != nil {
+	if err := m.ReadOutputFP16(0, output); err != nil {
 		t.Fatal(err)
 	}
 	nonZero := false
@@ -317,8 +317,8 @@ func TestCompileMILMultiWeightFFN(t *testing.T) {
 }
 
 func TestEvalRepeated(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 1
 	milText := mil.GenIdentity(channels, 1)
@@ -327,7 +327,7 @@ func TestEvalRepeated(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType:  ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -335,18 +335,18 @@ func TestEvalRepeated(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	for iter := 0; iter < 10; iter++ {
 		input := []float32{float32(iter + 1)}
-		if err := k.WriteInputF32(0, input); err != nil {
+		if err := m.WriteInputF32(0, input); err != nil {
 			t.Fatal(err)
 		}
-		if err := k.Eval(); err != nil {
+		if err := m.Eval(); err != nil {
 			t.Fatal(err)
 		}
 		output := make([]float32, channels)
-		if err := k.ReadOutputF32(0, output); err != nil {
+		if err := m.ReadOutputF32(0, output); err != nil {
 			t.Fatal(err)
 		}
 		diff := input[0] - output[0]
@@ -357,10 +357,10 @@ func TestEvalRepeated(t *testing.T) {
 }
 
 func TestCompileCount(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
-	if rt.CompileCount() != 0 {
+	if c.CompileCount() != 0 {
 		t.Fatal("compile count should start at 0")
 	}
 
@@ -371,7 +371,7 @@ func TestCompileCount(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(CompileOptions{
+	m, err := c.Compile(CompileOptions{
 		ModelType:  ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -379,16 +379,16 @@ func TestCompileCount(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
-	if rt.CompileCount() != 1 {
-		t.Errorf("compile count = %d, want 1", rt.CompileCount())
+	if c.CompileCount() != 1 {
+		t.Errorf("compile count = %d, want 1", c.CompileCount())
 	}
 }
 
 func TestCompileWithStats(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 1
 	milText := mil.GenIdentity(channels, 1)
@@ -397,7 +397,7 @@ func TestCompileWithStats(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, cs, err := rt.CompileWithStats(CompileOptions{
+	m, cs, err := c.CompileWithStats(CompileOptions{
 		ModelType:  ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -405,7 +405,7 @@ func TestCompileWithStats(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	t.Logf("CompileNS=%d LoadNS=%d TotalNS=%d", cs.CompileNS, cs.LoadNS, cs.TotalNS)
 	if cs.TotalNS <= 0 {

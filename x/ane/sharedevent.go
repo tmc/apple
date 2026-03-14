@@ -59,28 +59,28 @@ func (e *SharedEvent) Close() error {
 
 // EvalWithSignalEvent evaluates the kernel and signals the given event on completion.
 // The ANE hardware signals the event; no CPU wait is performed.
-func (k *Kernel) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
+func (m *Model) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
 	signal, err := SharedEventFromPort(signalPort)
 	if err != nil {
 		return err
 	}
-	return k.EvalWithSignal(signal, signalValue, cfg)
+	return m.EvalWithSignal(signal, signalValue, cfg)
 }
 
 // EvalWithWaitEvent evaluates the kernel after waiting for the given event.
 // The ANE waits for waitValue on waitPort before executing.
-func (k *Kernel) EvalWithWaitEvent(waitPort uint32, waitValue uint64, cfg SharedEventEvalOptions) error {
+func (m *Model) EvalWithWaitEvent(waitPort uint32, waitValue uint64, cfg SharedEventEvalOptions) error {
 	wait, err := SharedEventFromPort(waitPort)
 	if err != nil {
 		return err
 	}
-	return k.EvalWithWait(wait, waitValue, cfg)
+	return m.EvalWithWait(wait, waitValue, cfg)
 }
 
 // EvalBidirectional evaluates the kernel with both wait and signal events.
 // The ANE waits for waitValue on waitPort before executing, then signals
 // signalValue on signalPort after completion.
-func (k *Kernel) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
+func (m *Model) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
 	wait, err := SharedEventFromPort(waitPort)
 	if err != nil {
 		return err
@@ -89,31 +89,31 @@ func (k *Kernel) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort
 	if err != nil {
 		return err
 	}
-	return k.EvalBidirectionalEvents(wait, waitValue, signal, signalValue, cfg)
+	return m.EvalBidirectionalEvents(wait, waitValue, signal, signalValue, cfg)
 }
 
 const eventTypeSignal = int64(5)
 
 // EvalWithSignal evaluates the kernel and signals the given shared event.
-func (k *Kernel) EvalWithSignal(signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
-	return k.evalWithSharedEvents(nil, 0, signal, signalValue, cfg)
+func (m *Model) EvalWithSignal(signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
+	return m.evalWithSharedEvents(nil, 0, signal, signalValue, cfg)
 }
 
 // EvalWithWait evaluates the kernel after waiting on the given shared event.
-func (k *Kernel) EvalWithWait(wait *SharedEvent, waitValue uint64, cfg SharedEventEvalOptions) error {
-	return k.evalWithSharedEvents(wait, waitValue, nil, 0, cfg)
+func (m *Model) EvalWithWait(wait *SharedEvent, waitValue uint64, cfg SharedEventEvalOptions) error {
+	return m.evalWithSharedEvents(wait, waitValue, nil, 0, cfg)
 }
 
 // EvalBidirectionalEvents evaluates the kernel with wait and signal shared events.
-func (k *Kernel) EvalBidirectionalEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
-	return k.evalWithSharedEvents(wait, waitValue, signal, signalValue, cfg)
+func (m *Model) EvalBidirectionalEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
+	return m.evalWithSharedEvents(wait, waitValue, signal, signalValue, cfg)
 }
 
-func (k *Kernel) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
-	if k.modelType != ModelTypePackage {
+func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
+	if m.modelType != ModelTypePackage {
 		return &ANEError{Op: "eval", Err: fmt.Errorf("shared events require package-backed models")}
 	}
-	k.sharedEventUsed = true
+	m.sharedEventUsed = true
 
 	signalArr := foundation.NewNSMutableArray()
 	if signal != nil {
@@ -144,7 +144,7 @@ func (k *Kernel) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signa
 	if sharedEventsObj == nil || sharedEventsObj.GetID() == 0 {
 		return &ANEError{Op: "eval", Err: fmt.Errorf("failed to create ANESharedEvents")}
 	}
-	req, reqObjects, err := createRequestFromSurfacesWithSharedEvents(k.inputs, k.outputs, sharedEventsObj)
+	req, reqObjects, err := createRequestFromSurfacesWithSharedEvents(m.inputs, m.outputs, sharedEventsObj)
 	if err != nil {
 		return err
 	}
@@ -156,14 +156,14 @@ func (k *Kernel) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signa
 	if wait != nil {
 		keepAlive = append(keepAlive, wait.ev)
 	}
-	ok, err := k.client.MapIOSurfacesWithModelRequestCacheInferenceError(k.model, req, true)
+	ok, err := m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, true)
 	if err != nil || !ok {
-		ok, err = k.client.MapIOSurfacesWithModelRequestCacheInferenceError(k.model, req, false)
+		ok, err = m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, false)
 		if err != nil || !ok {
 			return &ANEError{Op: "map", Err: fmt.Errorf("map shared-event request failed: %w", err)}
 		}
 	}
-	defer k.client.UnmapIOSurfacesWithModelRequest(k.model, req)
+	defer m.aneClient.UnmapIOSurfacesWithModelRequest(m.aneModel, req)
 	if wait != nil {
 		keepAlive = append(keepAlive, waitEvtObj, waitArr)
 	}
@@ -193,12 +193,12 @@ func (k *Kernel) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signa
 	}
 
 	const qos = 21
-	ok, err = k.client.EvaluateWithModelOptionsRequestQosError(k.model, opts, req, qos)
+	ok, err = m.aneClient.EvaluateWithModelOptionsRequestQosError(m.aneModel, opts, req, qos)
 	if err == nil && ok {
 		return nil
 	}
 	if os.Getenv("ANE_SHARED_USE_DIRECT") != "" {
-		ok, err = k.client.DoEvaluateDirectWithModelOptionsRequestQosError(k.model, opts, req, qos)
+		ok, err = m.aneClient.DoEvaluateDirectWithModelOptionsRequestQosError(m.aneModel, opts, req, qos)
 		if err == nil && ok {
 			return nil
 		}

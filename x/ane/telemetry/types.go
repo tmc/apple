@@ -203,20 +203,20 @@ func (t EventTiming) String() string {
 	return fmt.Sprintf("EventTiming{enqueue=%dns total=%dns}", t.EnqueueNS, t.TotalNS)
 }
 
-// RuntimeSnapshot captures the host and ANE environment at a point in time.
-type RuntimeSnapshot struct {
+// ClientSnapshot captures the host and ANE environment at a point in time.
+type ClientSnapshot struct {
 	Device ane.DeviceInfo
 	Client ClientInfo
 	Cache  CacheInfo
 }
 
 // Available reports whether any component snapshot has data.
-func (s RuntimeSnapshot) Available() bool {
+func (s ClientSnapshot) Available() bool {
 	return s.Device.HasANE || s.Client.Available() || s.Cache.Available()
 }
 
 // ReportMetrics reports the runtime environment to a testing.B-compatible reporter.
-func (s RuntimeSnapshot) ReportMetrics(b interface{ ReportMetric(float64, string) }) {
+func (s ClientSnapshot) ReportMetrics(b interface{ ReportMetric(float64, string) }) {
 	if s.Device.HasANE {
 		b.ReportMetric(float64(s.Device.NumCores), "ane-cores")
 		b.ReportMetric(float64(s.Device.NumANEs), "ane-count")
@@ -246,9 +246,9 @@ func (s RuntimeSnapshot) ReportMetrics(b interface{ ReportMetric(float64, string
 }
 
 // String returns a compact human-readable summary of the runtime snapshot.
-func (s RuntimeSnapshot) String() string {
+func (s ClientSnapshot) String() string {
 	if !s.Available() {
-		return "RuntimeSnapshot{}"
+		return "ClientSnapshot{}"
 	}
 	var parts []string
 	if s.Device.HasANE {
@@ -271,7 +271,7 @@ func (s RuntimeSnapshot) String() string {
 	if s.Cache.CacheDirKnown {
 		parts = append(parts, fmt.Sprintf("cache=%s", s.Cache.CacheDir))
 	}
-	return "RuntimeSnapshot{" + strings.Join(parts, " ") + "}"
+	return "ClientSnapshot{" + strings.Join(parts, " ") + "}"
 }
 
 // EvalTelemetry bundles post-evaluation telemetry from a kernel.

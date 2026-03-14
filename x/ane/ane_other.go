@@ -4,31 +4,31 @@ package ane
 
 import "time"
 
-// Runtime manages a connection to the ANE hardware.
-type Runtime struct{}
+// Client manages a connection to the ANE hardware.
+type Client struct{}
 
 // Probe returns device information about the ANE.
 // On non-Darwin platforms, it always reports no ANE.
 func Probe() (DeviceInfo, error) { return DeviceInfo{}, ErrNoANE }
 
-// Open creates a new Runtime for ANE inference.
+// Open creates a new Client for ANE inference.
 // On non-Darwin platforms, it always returns ErrNoANE.
-func Open() (*Runtime, error) { return nil, ErrNoANE }
+func Open() (*Client, error) { return nil, ErrNoANE }
 
-// Close releases the runtime resources.
-func (rt *Runtime) Close() error { return nil }
+// Close releases the client resources.
+func (c *Client) Close() error { return nil }
 
-// Info returns the device information for this runtime.
-func (rt *Runtime) Info() DeviceInfo { return DeviceInfo{} }
+// Info returns the device information for this client.
+func (c *Client) Info() DeviceInfo { return DeviceInfo{} }
 
 // CompileCount returns the number of compilations performed.
-func (rt *Runtime) CompileCount() int64 { return 0 }
+func (c *Client) CompileCount() int64 { return 0 }
 
-// Compile compiles a model and returns a ready-to-evaluate Kernel.
-func (rt *Runtime) Compile(opts CompileOptions) (*Kernel, error) { return nil, ErrNoANE }
+// Compile compiles a model and returns a ready-to-evaluate Model.
+func (c *Client) Compile(opts CompileOptions) (*Model, error) { return nil, ErrNoANE }
 
-// CompileWithStats compiles a model and returns a Kernel along with compilation timing.
-func (rt *Runtime) CompileWithStats(opts CompileOptions) (*Kernel, CompileStats, error) {
+// CompileWithStats compiles a model and returns a Model along with compilation timing.
+func (c *Client) CompileWithStats(opts CompileOptions) (*Model, CompileStats, error) {
 	return nil, CompileStats{}, ErrNoANE
 }
 
@@ -53,51 +53,51 @@ func RowStrideFor(width, elemSize int) int {
 	return (raw + align - 1) &^ (align - 1)
 }
 
-// Kernel represents a compiled and loaded model ready for evaluation.
-type Kernel struct{}
+// Model represents a compiled and loaded model ready for evaluation.
+type Model struct{}
 
-func (k *Kernel) InputSurface(i int) uintptr      { return 0 }
-func (k *Kernel) OutputSurface(i int) uintptr     { return 0 }
-func (k *Kernel) InputSurfaces() []uintptr        { return nil }
-func (k *Kernel) OutputSurfaces() []uintptr       { return nil }
-func (k *Kernel) InputAllocSize(i int) int        { return 0 }
-func (k *Kernel) OutputAllocSize(i int) int       { return 0 }
-func (k *Kernel) NumInputs() int                  { return 0 }
-func (k *Kernel) NumOutputs() int                 { return 0 }
-func (k *Kernel) InputChannels(i int) int         { return 0 }
-func (k *Kernel) OutputChannels(i int) int        { return 0 }
-func (k *Kernel) Spatial(i int) int               { return 0 }
-func (k *Kernel) InputLayout(i int) TensorLayout  { return TensorLayout{} }
-func (k *Kernel) OutputLayout(i int) TensorLayout { return TensorLayout{} }
+func (m *Model) InputSurface(i int) uintptr      { return 0 }
+func (m *Model) OutputSurface(i int) uintptr     { return 0 }
+func (m *Model) InputSurfaces() []uintptr        { return nil }
+func (m *Model) OutputSurfaces() []uintptr       { return nil }
+func (m *Model) InputAllocSize(i int) int        { return 0 }
+func (m *Model) OutputAllocSize(i int) int       { return 0 }
+func (m *Model) NumInputs() int                  { return 0 }
+func (m *Model) NumOutputs() int                 { return 0 }
+func (m *Model) InputChannels(i int) int         { return 0 }
+func (m *Model) OutputChannels(i int) int        { return 0 }
+func (m *Model) Spatial(i int) int               { return 0 }
+func (m *Model) InputLayout(i int) TensorLayout  { return TensorLayout{} }
+func (m *Model) OutputLayout(i int) TensorLayout { return TensorLayout{} }
 
-func (k *Kernel) WriteInput(i int, data []byte) error        { return ErrNoANE }
-func (k *Kernel) ReadOutput(i int, data []byte) error        { return ErrNoANE }
-func (k *Kernel) WriteInputF32(i int, data []float32) error  { return ErrNoANE }
-func (k *Kernel) ReadOutputF32(i int, data []float32) error  { return ErrNoANE }
-func (k *Kernel) WriteInputFP16(i int, data []float32) error { return ErrNoANE }
-func (k *Kernel) WriteInputFP16Channels(i, channel int, data []float32) error {
+func (m *Model) WriteInput(i int, data []byte) error        { return ErrNoANE }
+func (m *Model) ReadOutput(i int, data []byte) error        { return ErrNoANE }
+func (m *Model) WriteInputF32(i int, data []float32) error  { return ErrNoANE }
+func (m *Model) ReadOutputF32(i int, data []float32) error  { return ErrNoANE }
+func (m *Model) WriteInputFP16(i int, data []float32) error { return ErrNoANE }
+func (m *Model) WriteInputFP16Channels(i, channel int, data []float32) error {
 	return ErrNoANE
 }
-func (k *Kernel) ReadOutputFP16(i int, data []float32) error { return ErrNoANE }
-func (k *Kernel) ReadOutputFP16Channels(i, channel int, data []float32) error {
+func (m *Model) ReadOutputFP16(i int, data []float32) error { return ErrNoANE }
+func (m *Model) ReadOutputFP16Channels(i, channel int, data []float32) error {
 	return ErrNoANE
 }
 
-func (k *Kernel) Eval() error { return ErrNoANE }
+func (m *Model) Eval() error { return ErrNoANE }
 
-func (k *Kernel) ModelObjcID() uintptr        { return 0 }
-func (k *Kernel) InMemModelObjcID() uintptr   { return 0 }
-func (k *Kernel) CompileModelType() ModelType { return 0 }
-func (k *Kernel) RawRequest() uintptr         { return 0 }
-func (k *Kernel) RawPerfStatsMask() uint32    { return 0 }
+func (m *Model) ModelObjcID() uintptr        { return 0 }
+func (m *Model) InMemModelObjcID() uintptr   { return 0 }
+func (m *Model) CompileModelType() ModelType { return 0 }
+func (m *Model) RawRequest() uintptr         { return 0 }
+func (m *Model) RawPerfStatsMask() uint32    { return 0 }
 
-func (rt *Runtime) ClientObjcID() uintptr { return 0 }
-func (k *Kernel) Close() error            { return nil }
+func (c *Client) ClientObjcID() uintptr { return 0 }
+func (m *Model) Close() error           { return nil }
 
-func (k *Kernel) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
+func (m *Model) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
 	return ErrNoANE
 }
-func (k *Kernel) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
+func (m *Model) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
 	return ErrNoANE
 }
 
@@ -125,20 +125,20 @@ type MetalDevice struct{}
 func OpenMetal() (*MetalDevice, error) { return nil, ErrNoANE }
 func (d *MetalDevice) Close() error    { return nil }
 
-func (k *Kernel) MetalInputBuffer(d *MetalDevice, i int) (any, error)  { return nil, ErrNoANE }
-func (k *Kernel) MetalOutputBuffer(d *MetalDevice, i int) (any, error) { return nil, ErrNoANE }
+func (m *Model) MetalInputBuffer(d *MetalDevice, i int) (any, error)  { return nil, ErrNoANE }
+func (m *Model) MetalOutputBuffer(d *MetalDevice, i int) (any, error) { return nil, ErrNoANE }
 
 func (d *MetalDevice) MetalSharedEvent(ev *SharedEvent) (any, error) { return nil, ErrNoANE }
 func (d *MetalDevice) NewMetalSharedEvent() (any, *SharedEvent, error) {
 	return nil, nil, ErrNoANE
 }
 
-func (k *Kernel) EvalAsync() <-chan error {
+func (m *Model) EvalAsync() <-chan error {
 	ch := make(chan error, 1)
 	ch <- ErrNoANE
 	return ch
 }
-func (k *Kernel) EvalAsyncWithCallback(fn func(error)) { fn(ErrNoANE) }
+func (m *Model) EvalAsyncWithCallback(fn func(error)) { fn(ErrNoANE) }
 
 // RequestPool pre-allocates a ring of ANE requests for pipelined evaluation.
 type RequestPool struct{}
@@ -146,7 +146,7 @@ type RequestPool struct{}
 // PooledRequest is a request checked out from a pool.
 type PooledRequest struct{}
 
-func NewRequestPool(k *Kernel, depth int) (*RequestPool, error) { return nil, ErrNoANE }
+func NewRequestPool(m *Model, depth int) (*RequestPool, error) { return nil, ErrNoANE }
 func (p *RequestPool) Acquire() *PooledRequest                  { return nil }
 func (p *RequestPool) Close() error                             { return nil }
 func (pr *PooledRequest) Eval() error                           { return ErrNoANE }
@@ -155,8 +155,8 @@ func (pr *PooledRequest) Release()                              {}
 // StateHandle manages KV cache state for stateful MIL models.
 type StateHandle struct{}
 
-func NewStateHandle(_ *Kernel, _ int) *StateHandle { return &StateHandle{} }
-func (s *StateHandle) Kernel() *Kernel             { return nil }
+func NewStateHandle(_ *Model, _ int) *StateHandle { return &StateHandle{} }
+func (s *StateHandle) Model() *Model              { return nil }
 func (s *StateHandle) Position() int               { return 0 }
 func (s *StateHandle) MaxSeq() int                 { return 0 }
 func (s *StateHandle) Reset()                      {}
@@ -169,9 +169,9 @@ type Pipeline struct{}
 
 func NewPipeline(_ *MetalDevice) (*Pipeline, error) { return nil, ErrNoANE }
 func (p *Pipeline) Counter() uint64                 { return 0 }
-func (p *Pipeline) ANEToMetal(_ *Kernel) error      { return ErrNoANE }
-func (p *Pipeline) WaitOnANE(_ *Kernel) error       { return ErrNoANE }
-func (p *Pipeline) Bidirectional(_ *Kernel) error   { return ErrNoANE }
+func (p *Pipeline) ANEToMetal(_ *Model) error       { return ErrNoANE }
+func (p *Pipeline) WaitOnANE(_ *Model) error        { return ErrNoANE }
+func (p *Pipeline) Bidirectional(_ *Model) error    { return ErrNoANE }
 func (p *Pipeline) Metal() *MetalDevice             { return nil }
 func (p *Pipeline) MetalEvent() any                 { return nil }
 func (p *Pipeline) ANEEvent() *SharedEvent          { return nil }

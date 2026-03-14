@@ -40,21 +40,21 @@ func (p *Pipeline) Counter() uint64 {
 	return p.counter.Load()
 }
 
-// ANEToMetal evaluates the kernel on ANE and signals Metal on completion.
+// ANEToMetal evaluates the model on ANE and signals Metal on completion.
 // The event counter is incremented and used as the signal value.
-func (p *Pipeline) ANEToMetal(k *Kernel) error {
+func (p *Pipeline) ANEToMetal(m *Model) error {
 	val := p.counter.Add(1)
-	return k.EvalWithSignalEvent(p.aneEvent.Port(), val, SharedEventEvalOptions{
+	return m.EvalWithSignalEvent(p.aneEvent.Port(), val, SharedEventEvalOptions{
 		DisableIOFencesUseSharedEvents: true,
 	})
 }
 
-// WaitOnANE evaluates the kernel on ANE after waiting for Metal to signal.
+// WaitOnANE evaluates the model on ANE after waiting for Metal to signal.
 // Uses the current counter as the wait value, then increments and signals.
-func (p *Pipeline) WaitOnANE(k *Kernel) error {
+func (p *Pipeline) WaitOnANE(m *Model) error {
 	waitVal := p.counter.Load()
 	signalVal := p.counter.Add(1)
-	return k.EvalBidirectional(
+	return m.EvalBidirectional(
 		p.aneEvent.Port(), waitVal,
 		p.aneEvent.Port(), signalVal,
 		SharedEventEvalOptions{
@@ -63,12 +63,12 @@ func (p *Pipeline) WaitOnANE(k *Kernel) error {
 	)
 }
 
-// Bidirectional evaluates the kernel with both wait and signal events.
+// Bidirectional evaluates the model with both wait and signal events.
 // Waits for the current counter value, then signals the next.
-func (p *Pipeline) Bidirectional(k *Kernel) error {
+func (p *Pipeline) Bidirectional(m *Model) error {
 	waitVal := p.counter.Load()
 	signalVal := p.counter.Add(1)
-	return k.EvalBidirectional(
+	return m.EvalBidirectional(
 		p.aneEvent.Port(), waitVal,
 		p.aneEvent.Port(), signalVal,
 		SharedEventEvalOptions{

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/tmc/apple/coregraphics"
@@ -15,14 +16,14 @@ import (
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
-// Compile compiles a model and returns a ready-to-evaluate Kernel.
-func (rt *Runtime) Compile(opts CompileOptions) (*Kernel, error) {
-	rt.mu.Lock()
-	if rt.closed {
-		rt.mu.Unlock()
-		return nil, fmt.Errorf("ane: runtime closed")
+// Compile compiles a model and returns a ready-to-evaluate Model.
+func (c *Client) Compile(opts CompileOptions) (*Model, error) {
+	c.mu.Lock()
+	if c.closed {
+		c.mu.Unlock()
+		return nil, fmt.Errorf("ane: client closed")
 	}
-	rt.mu.Unlock()
+	c.mu.Unlock()
 
 	if opts.QoS == 0 {
 		opts.QoS = 21
@@ -30,25 +31,25 @@ func (rt *Runtime) Compile(opts CompileOptions) (*Kernel, error) {
 
 	switch opts.ModelType {
 	case ModelTypeMIL:
-		k, err := compileMIL(rt, opts)
+		k, err := compileMIL(c, opts)
 		if err != nil {
 			return nil, err
 		}
-		rt.compiles.Add(1)
+		c.compiles.Add(1)
 		return k, nil
 	case ModelTypePackage:
-		k, err := compilePackage(rt, opts)
+		k, err := compilePackage(c, opts)
 		if err != nil {
 			return nil, err
 		}
-		rt.compiles.Add(1)
+		c.compiles.Add(1)
 		return k, nil
 	default:
 		return nil, fmt.Errorf("ane: unknown model type %d", opts.ModelType)
 	}
 }
 
-func compileMIL(rt *Runtime, opts CompileOptions) (*Kernel, error) {
+func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 	// Build the network text as NSData.
 	networkText := foundation.NewDataFromBytes(opts.MILText)
 
@@ -147,8 +148,8 @@ func compileMIL(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		}
 	}
 
-	return &Kernel{
-		rt:            rt,
+	m := &Model{
+		client:        c,
 		modelType:     ModelTypeMIL,
 		inMemModel:    model,
 		request:       request,
@@ -158,7 +159,9 @@ func compileMIL(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		inputLayouts:  inputLayouts,
 		outputLayouts: outputLayouts,
 		mapped:        true,
-	}, nil
+	}
+	runtime.SetFinalizer(m, (*Model).Close)
+	return m, nil
 }
 
 func compileWeightFiles(opts CompileOptions) ([]WeightFile, error) {
@@ -185,7 +188,7 @@ func compileWeightFiles(opts CompileOptions) ([]WeightFile, error) {
 	return files, nil
 }
 
-func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
+func compilePackage(c *Client, opts CompileOptions) (*Model, error) {
 	if opts.PackagePath == "" {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("PackagePath is required for ModelTypePackage")}
 	}
@@ -209,11 +212,11 @@ func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		model.SetPerfStatsMask(opts.PerfStatsMask)
 	}
 
-	client := packageClient(rt.client)
+	aneClient := packageClient(c.aneClient)
 	emptyOpts := foundation.NewNSMutableDictionary()
 
 	// Compile.
-	ok, err := client.CompileModelOptionsQosError(model, emptyOpts, opts.QoS)
+	ok, err := aneClient.CompileModelOptionsQosError(model, emptyOpts, opts.QoS)
 	if err != nil || !ok {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("compile failed: %w", err)}
 	}
@@ -224,13 +227,13 @@ func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 	}
 
 	// Load (with one retry after 100ms).
-	ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
+	ok, err = aneClient.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
 	if err != nil || !ok {
 		time.Sleep(100 * time.Millisecond)
 		if opts.PerfStatsMask != 0 {
 			model.SetPerfStatsMask(opts.PerfStatsMask)
 		}
-		ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
+		ok, err = aneClient.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
 		if err != nil || !ok {
 			return nil, &ANEError{Op: "load", Err: fmt.Errorf("load failed: %w", err)}
 		}
@@ -244,32 +247,32 @@ func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 	// Parse model attributes to get the compiled tensor layouts.
 	inputLayouts, outputLayouts, err := parseModelLayouts(model.ModelAttributes())
 	if err != nil {
-		client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+		aneClient.UnloadModelOptionsQosError(model, nil, opts.QoS)
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("parse model layouts: %w", err)}
 	}
 
 	// Create surfaces and request.
 	request, inputs, outputs, err := createRequestAndSurfaces(inputLayouts, outputLayouts)
 	if err != nil {
-		client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+		aneClient.UnloadModelOptionsQosError(model, nil, opts.QoS)
 		return nil, err
 	}
 
 	// Map IOSurfaces.
-	ok, err = client.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, true)
+	ok, err = aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, true)
 	if err != nil || !ok {
-		ok, err = client.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, false)
+		ok, err = aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, false)
 		if err != nil || !ok {
-			client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+			aneClient.UnloadModelOptionsQosError(model, nil, opts.QoS)
 			return nil, &ANEError{Op: "map", Err: fmt.Errorf("map IOSurfaces failed: %w", err)}
 		}
 	}
 
-	return &Kernel{
-		rt:            rt,
+	m := &Model{
+		client:        c,
 		modelType:     ModelTypePackage,
-		model:         model,
-		client:        client,
+		aneModel:      model,
+		aneClient:     aneClient,
 		request:       request,
 		inputs:        inputs,
 		outputs:       outputs,
@@ -277,7 +280,9 @@ func compilePackage(rt *Runtime, opts CompileOptions) (*Kernel, error) {
 		inputLayouts:  inputLayouts,
 		outputLayouts: outputLayouts,
 		mapped:        true,
-	}, nil
+	}
+	runtime.SetFinalizer(m, (*Model).Close)
+	return m, nil
 }
 
 // parseModelLayouts extracts tensor layouts from the compiled model's attributes.
@@ -528,14 +533,14 @@ func validateLayout(l TensorLayout) error {
 	return nil
 }
 
-// CompileWithStats compiles a model and returns a Kernel along with compilation timing.
-func (rt *Runtime) CompileWithStats(opts CompileOptions) (*Kernel, CompileStats, error) {
-	rt.mu.Lock()
-	if rt.closed {
-		rt.mu.Unlock()
-		return nil, CompileStats{}, fmt.Errorf("ane: runtime closed")
+// CompileWithStats compiles a model and returns a Model along with compilation timing.
+func (c *Client) CompileWithStats(opts CompileOptions) (*Model, CompileStats, error) {
+	c.mu.Lock()
+	if c.closed {
+		c.mu.Unlock()
+		return nil, CompileStats{}, fmt.Errorf("ane: client closed")
 	}
-	rt.mu.Unlock()
+	c.mu.Unlock()
 
 	if opts.QoS == 0 {
 		opts.QoS = 21
@@ -546,27 +551,27 @@ func (rt *Runtime) CompileWithStats(opts CompileOptions) (*Kernel, CompileStats,
 
 	switch opts.ModelType {
 	case ModelTypeMIL:
-		k, err := compileMILWithStats(rt, opts, &cs)
+		k, err := compileMILWithStats(c, opts, &cs)
 		if err != nil {
 			return nil, CompileStats{}, err
 		}
 		cs.TotalNS = time.Since(totalStart).Nanoseconds()
-		rt.compiles.Add(1)
+		c.compiles.Add(1)
 		return k, cs, nil
 	case ModelTypePackage:
-		k, err := compilePackageWithStats(rt, opts, &cs)
+		k, err := compilePackageWithStats(c, opts, &cs)
 		if err != nil {
 			return nil, CompileStats{}, err
 		}
 		cs.TotalNS = time.Since(totalStart).Nanoseconds()
-		rt.compiles.Add(1)
+		c.compiles.Add(1)
 		return k, cs, nil
 	default:
 		return nil, CompileStats{}, fmt.Errorf("ane: unknown model type %d", opts.ModelType)
 	}
 }
 
-func compileMILWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats) (*Kernel, error) {
+func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Model, error) {
 	networkText := foundation.NewDataFromBytes(opts.MILText)
 
 	weightFiles, err := compileWeightFiles(opts)
@@ -659,8 +664,8 @@ func compileMILWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats) (*K
 		}
 	}
 
-	return &Kernel{
-		rt:            rt,
+	m := &Model{
+		client:        c,
 		modelType:     ModelTypeMIL,
 		inMemModel:    model,
 		request:       request,
@@ -670,10 +675,12 @@ func compileMILWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats) (*K
 		inputLayouts:  inputLayouts,
 		outputLayouts: outputLayouts,
 		mapped:        true,
-	}, nil
+	}
+	runtime.SetFinalizer(m, (*Model).Close)
+	return m, nil
 }
 
-func compilePackageWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats) (*Kernel, error) {
+func compilePackageWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Model, error) {
 	if opts.PackagePath == "" {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("PackagePath is required for ModelTypePackage")}
 	}
@@ -696,12 +703,12 @@ func compilePackageWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats)
 		model.SetPerfStatsMask(opts.PerfStatsMask)
 	}
 
-	client := packageClient(rt.client)
+	aneClient := packageClient(c.aneClient)
 	emptyOpts := foundation.NewNSMutableDictionary()
 
 	// Compile with timing.
 	compileStart := time.Now()
-	ok, err := client.CompileModelOptionsQosError(model, emptyOpts, opts.QoS)
+	ok, err := aneClient.CompileModelOptionsQosError(model, emptyOpts, opts.QoS)
 	if err != nil || !ok {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("compile failed: %w", err)}
 	}
@@ -714,13 +721,13 @@ func compilePackageWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats)
 
 	// Load with timing (with one retry after 100ms).
 	loadStart := time.Now()
-	ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
+	ok, err = aneClient.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
 	if err != nil || !ok {
 		time.Sleep(100 * time.Millisecond)
 		if opts.PerfStatsMask != 0 {
 			model.SetPerfStatsMask(opts.PerfStatsMask)
 		}
-		ok, err = client.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
+		ok, err = aneClient.LoadModelOptionsQosError(model, emptyOpts, opts.QoS)
 		if err != nil || !ok {
 			return nil, &ANEError{Op: "load", Err: fmt.Errorf("load failed: %w", err)}
 		}
@@ -734,30 +741,30 @@ func compilePackageWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats)
 
 	inputLayouts, outputLayouts, err := parseModelLayouts(model.ModelAttributes())
 	if err != nil {
-		client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+		aneClient.UnloadModelOptionsQosError(model, nil, opts.QoS)
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("parse model layouts: %w", err)}
 	}
 
 	request, inputs, outputs, err := createRequestAndSurfaces(inputLayouts, outputLayouts)
 	if err != nil {
-		client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+		aneClient.UnloadModelOptionsQosError(model, nil, opts.QoS)
 		return nil, err
 	}
 
-	ok, err = client.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, true)
+	ok, err = aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, true)
 	if err != nil || !ok {
-		ok, err = client.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, false)
+		ok, err = aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(model, request, false)
 		if err != nil || !ok {
-			client.UnloadModelOptionsQosError(model, nil, opts.QoS)
+			aneClient.UnloadModelOptionsQosError(model, nil, opts.QoS)
 			return nil, &ANEError{Op: "map", Err: fmt.Errorf("map IOSurfaces failed: %w", err)}
 		}
 	}
 
-	return &Kernel{
-		rt:            rt,
+	m := &Model{
+		client:        c,
 		modelType:     ModelTypePackage,
-		model:         model,
-		client:        client,
+		aneModel:      model,
+		aneClient:     aneClient,
 		request:       request,
 		inputs:        inputs,
 		outputs:       outputs,
@@ -765,7 +772,9 @@ func compilePackageWithStats(rt *Runtime, opts CompileOptions, cs *CompileStats)
 		inputLayouts:  inputLayouts,
 		outputLayouts: outputLayouts,
 		mapped:        true,
-	}, nil
+	}
+	runtime.SetFinalizer(m, (*Model).Close)
+	return m, nil
 }
 
 func packageClient(fallback appleneuralengine.ANEClient) appleneuralengine.ANEClient {

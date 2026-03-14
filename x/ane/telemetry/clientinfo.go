@@ -10,9 +10,9 @@ import (
 )
 
 // ProbeClientInfo returns capability information about the ANE connection.
-func ProbeClientInfo(rt *ane.Runtime) ClientInfo {
+func ProbeClientInfo(c *ane.Client) ClientInfo {
 	var ci ClientInfo
-	client := appleneuralengine.ANEClientFromID(objc.ID(rt.ClientObjcID()))
+	client := appleneuralengine.ANEClientFromID(objc.ID(c.ClientObjcID()))
 	vc := client.VirtualClient()
 	if vc != nil {
 		probeVirtualClientInfo(vc, &ci)
@@ -89,7 +89,7 @@ func probeDeviceInfoFallback(ci *ClientInfo) {
 }
 
 // ProbeCacheInfo returns ANE model cache information.
-func ProbeCacheInfo(rt *ane.Runtime) CacheInfo {
+func ProbeCacheInfo(c *ane.Client) CacheInfo {
 	var ci CacheInfo
 	func() {
 		defer func() { recover() }()
@@ -109,10 +109,10 @@ func ProbeCacheInfo(rt *ane.Runtime) CacheInfo {
 }
 
 // Snapshot captures a point-in-time snapshot of the host and ANE environment.
-func Snapshot(rt *ane.Runtime) RuntimeSnapshot {
-	return RuntimeSnapshot{
-		Device: rt.Info(),
-		Client: ProbeClientInfo(rt),
-		Cache:  ProbeCacheInfo(rt),
+func Snapshot(c *ane.Client) ClientSnapshot {
+	return ClientSnapshot{
+		Device: c.Info(),
+		Client: ProbeClientInfo(c),
+		Cache:  ProbeCacheInfo(c),
 	}
 }

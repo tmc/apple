@@ -11,21 +11,21 @@ import (
 	"github.com/tmc/apple/x/ane/telemetry"
 )
 
-func openOrSkip(t *testing.T) *ane.Runtime {
+func openOrSkip(t *testing.T) *ane.Client {
 	t.Helper()
-	rt, err := ane.Open()
+	c, err := ane.Open()
 	if errors.Is(err, ane.ErrNoANE) {
 		t.Skip("no ANE available")
 	}
 	if err != nil {
 		t.Fatal(err)
 	}
-	return rt
+	return c
 }
 
 func TestEvalWithStats(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 1
 	milText := mil.GenIdentity(channels, 1)
@@ -34,7 +34,7 @@ func TestEvalWithStats(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(ane.CompileOptions{
+	m, err := c.Compile(ane.CompileOptions{
 		ModelType:     ane.ModelTypeMIL,
 		MILText:       []byte(milText),
 		WeightBlob:    blob,
@@ -43,14 +43,14 @@ func TestEvalWithStats(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := []float32{7}
-	if err := k.WriteInputF32(0, input); err != nil {
+	if err := m.WriteInputF32(0, input); err != nil {
 		t.Fatal(err)
 	}
 
-	stats, err := telemetry.EvalWithStats(k)
+	stats, err := telemetry.EvalWithStats(m)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -61,7 +61,7 @@ func TestEvalWithStats(t *testing.T) {
 	}
 
 	output := make([]float32, channels)
-	if err := k.ReadOutputF32(0, output); err != nil {
+	if err := m.ReadOutputF32(0, output); err != nil {
 		t.Fatal(err)
 	}
 	diff := input[0] - output[0]
@@ -71,8 +71,8 @@ func TestEvalWithStats(t *testing.T) {
 }
 
 func TestDiagnosticsExtended(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 1
 	milText := mil.GenIdentity(channels, 1)
@@ -81,7 +81,7 @@ func TestDiagnosticsExtended(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(ane.CompileOptions{
+	m, err := c.Compile(ane.CompileOptions{
 		ModelType:  ane.ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -89,9 +89,9 @@ func TestDiagnosticsExtended(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
-	d := telemetry.ProbeDiagnostics(k)
+	d := telemetry.ProbeDiagnostics(m)
 	t.Logf("ProgramClass=%s (known=%v)", d.ProgramClass, d.ProgramClassKnown)
 	t.Logf("ModelQueueDepth=%d (known=%v)", d.ModelQueueDepth, d.ModelQueueDepthKnown)
 	t.Logf("AsyncRequestsInFlight=%d (known=%v)", d.AsyncRequestsInFlight, d.AsyncRequestsInFlightKnown)
@@ -105,10 +105,10 @@ func TestDiagnosticsExtended(t *testing.T) {
 }
 
 func TestClientInfo(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
-	ci := telemetry.ProbeClientInfo(rt)
+	ci := telemetry.ProbeClientInfo(c)
 	t.Logf("NumANEs=%d (known=%v) NumCores=%d (known=%v) Arch=%s (known=%v) BoardType=%d (known=%v) CapabilityMask=0x%x (known=%v) DataInterfaceVersion=%d (known=%v) PrecompiledBinarySupported=%v (known=%v)",
 		ci.NumANEs, ci.NumANEsKnown,
 		ci.NumCores, ci.NumCoresKnown,
@@ -124,18 +124,18 @@ func TestClientInfo(t *testing.T) {
 }
 
 func TestCacheInfo(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
-	ci := telemetry.ProbeCacheInfo(rt)
+	ci := telemetry.ProbeCacheInfo(c)
 	t.Logf("CacheDir=%s (known=%v)", ci.CacheDir, ci.CacheDirKnown)
 }
 
 func TestSnapshot(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
-	snap := telemetry.Snapshot(rt)
+	snap := telemetry.Snapshot(c)
 	if !snap.Device.HasANE {
 		t.Error("snapshot device should report HasANE=true")
 	}
@@ -145,8 +145,8 @@ func TestSnapshot(t *testing.T) {
 }
 
 func TestTelemetry(t *testing.T) {
-	rt := openOrSkip(t)
-	defer rt.Close()
+	c := openOrSkip(t)
+	defer c.Close()
 
 	const channels = 1
 	milText := mil.GenIdentity(channels, 1)
@@ -155,7 +155,7 @@ func TestTelemetry(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	k, err := rt.Compile(ane.CompileOptions{
+	m, err := c.Compile(ane.CompileOptions{
 		ModelType:     ane.ModelTypeMIL,
 		MILText:       []byte(milText),
 		WeightBlob:    blob,
@@ -164,17 +164,17 @@ func TestTelemetry(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
-	if err := k.WriteInputF32(0, []float32{7}); err != nil {
+	if err := m.WriteInputF32(0, []float32{7}); err != nil {
 		t.Fatal(err)
 	}
 
-	stats, err := telemetry.EvalWithStats(k)
+	stats, err := telemetry.EvalWithStats(m)
 	if err != nil {
 		t.Fatal(err)
 	}
-	tel := telemetry.KernelTelemetry(k, stats)
+	tel := telemetry.ModelTelemetry(m, stats)
 	t.Logf("Stats.Available=%v Diagnostics.Available=%v Timing.Available=%v",
 		tel.Stats.Available(), tel.Diagnostics.Available(), tel.Timing.Available())
 	t.Logf("HWExecutionNS=%d ProgramClass=%s", tel.Stats.HWExecutionNS, tel.Diagnostics.ProgramClass)
@@ -206,8 +206,8 @@ func TestAvailableMethods(t *testing.T) {
 	if (telemetry.Diagnostics{}).Available() {
 		t.Error("zero Diagnostics should not be available")
 	}
-	if (telemetry.RuntimeSnapshot{}).Available() {
-		t.Error("zero RuntimeSnapshot should not be available")
+	if (telemetry.ClientSnapshot{}).Available() {
+		t.Error("zero ClientSnapshot should not be available")
 	}
 	if (telemetry.EvalTelemetry{}).Available() {
 		t.Error("zero EvalTelemetry should not be available")
@@ -228,8 +228,8 @@ func TestAvailableMethods(t *testing.T) {
 	if !(telemetry.Diagnostics{ProgramClassKnown: true}).Available() {
 		t.Error("Diagnostics with ProgramClassKnown should be available")
 	}
-	if !(telemetry.RuntimeSnapshot{Device: ane.DeviceInfo{HasANE: true}}).Available() {
-		t.Error("RuntimeSnapshot with HasANE should be available")
+	if !(telemetry.ClientSnapshot{Device: ane.DeviceInfo{HasANE: true}}).Available() {
+		t.Error("ClientSnapshot with HasANE should be available")
 	}
 	if !(telemetry.EvalTelemetry{Diagnostics: telemetry.Diagnostics{ProgramClassKnown: true}}).Available() {
 		t.Error("EvalTelemetry with Diagnostics should be available")
@@ -357,9 +357,9 @@ func TestReportMetricsEventTiming(t *testing.T) {
 	}
 }
 
-func TestReportMetricsRuntimeSnapshot(t *testing.T) {
+func TestReportMetricsClientSnapshot(t *testing.T) {
 	var sink metricSink
-	snap := telemetry.RuntimeSnapshot{
+	snap := telemetry.ClientSnapshot{
 		Device: ane.DeviceInfo{HasANE: true, NumCores: 16, NumANEs: 1, BoardType: 272, IsVM: false},
 		Client: telemetry.ClientInfo{NumCores: 16, NumCoresKnown: true, CapabilityMask: 0xff, CapabilityMaskKnown: true},
 	}
@@ -409,8 +409,8 @@ func TestStringMethods(t *testing.T) {
 	if s := (telemetry.EventTiming{}).String(); s != "EventTiming{}" {
 		t.Errorf("zero EventTiming.String() = %q", s)
 	}
-	if s := (telemetry.RuntimeSnapshot{}).String(); s != "RuntimeSnapshot{}" {
-		t.Errorf("zero RuntimeSnapshot.String() = %q", s)
+	if s := (telemetry.ClientSnapshot{}).String(); s != "ClientSnapshot{}" {
+		t.Errorf("zero ClientSnapshot.String() = %q", s)
 	}
 	if s := (telemetry.EvalTelemetry{}).String(); s != "EvalTelemetry{}" {
 		t.Errorf("zero EvalTelemetry.String() = %q", s)
@@ -495,9 +495,9 @@ func TestPerfStatsEntries(t *testing.T) {
 	}
 }
 
-func TestRuntimeSnapshotReportMetricsBroadened(t *testing.T) {
+func TestClientSnapshotReportMetricsBroadened(t *testing.T) {
 	var sink metricSink
-	snap := telemetry.RuntimeSnapshot{
+	snap := telemetry.ClientSnapshot{
 		Device: ane.DeviceInfo{HasANE: true, NumCores: 16, NumANEs: 1, BoardType: 272, IsVM: true, InternalBuild: true},
 		Client: telemetry.ClientInfo{
 			NumCores: 16, NumCoresKnown: true,
@@ -521,7 +521,7 @@ func TestRuntimeSnapshotReportMetricsBroadened(t *testing.T) {
 	}
 
 	var sink2 metricSink
-	snap2 := telemetry.RuntimeSnapshot{
+	snap2 := telemetry.ClientSnapshot{
 		Device: ane.DeviceInfo{HasANE: true, NumCores: 8},
 	}
 	snap2.ReportMetrics(&sink2)

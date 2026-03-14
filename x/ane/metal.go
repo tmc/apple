@@ -36,26 +36,26 @@ func (d *MetalDevice) Device() metal.MTLDeviceObject { return d.device }
 
 // MetalInputBuffer returns the i-th input IOSurface as a zero-copy MTLBuffer.
 // The returned buffer shares physical pages with the ANE surface.
-func (k *Kernel) MetalInputBuffer(d *MetalDevice, i int) (metal.MTLBufferObject, error) {
-	if !k.mapped {
+func (m *Model) MetalInputBuffer(d *MetalDevice, i int) (metal.MTLBufferObject, error) {
+	if !m.mapped {
 		return metal.MTLBufferObject{}, &ANEError{Op: "metal", Err: fmt.Errorf("kernel not mapped")}
 	}
-	if i < 0 || i >= len(k.inputs) {
-		return metal.MTLBufferObject{}, fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(k.inputs))
+	if i < 0 || i >= len(m.inputs) {
+		return metal.MTLBufferObject{}, fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(m.inputs))
 	}
-	return metalBufferFromSurface(d, k.inputs[i])
+	return metalBufferFromSurface(d, m.inputs[i])
 }
 
 // MetalOutputBuffer returns the i-th output IOSurface as a zero-copy MTLBuffer.
 // The returned buffer shares physical pages with the ANE surface.
-func (k *Kernel) MetalOutputBuffer(d *MetalDevice, i int) (metal.MTLBufferObject, error) {
-	if !k.mapped {
+func (m *Model) MetalOutputBuffer(d *MetalDevice, i int) (metal.MTLBufferObject, error) {
+	if !m.mapped {
 		return metal.MTLBufferObject{}, &ANEError{Op: "metal", Err: fmt.Errorf("kernel not mapped")}
 	}
-	if i < 0 || i >= len(k.outputs) {
-		return metal.MTLBufferObject{}, fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(k.outputs))
+	if i < 0 || i >= len(m.outputs) {
+		return metal.MTLBufferObject{}, fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(m.outputs))
 	}
-	return metalBufferFromSurface(d, k.outputs[i])
+	return metalBufferFromSurface(d, m.outputs[i])
 }
 
 // metalBufferFromSurface wraps an IOSurface's memory as a zero-copy MTLBuffer.

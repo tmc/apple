@@ -5,23 +5,25 @@ package ane
 import (
 	"fmt"
 	"math"
+	"runtime"
+	"sync"
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
-// Kernel represents a compiled and loaded model ready for evaluation.
-type Kernel struct {
-	rt        *Runtime
+// Model represents a compiled and loaded model ready for evaluation.
+type Model struct {
+	client    *Client
 	modelType ModelType
 
 	// For MIL models.
 	inMemModel appleneuralengine.ANEInMemoryModel
 
 	// For package models.
-	model  appleneuralengine.ANEModel
-	client appleneuralengine.ANEClient
+	aneModel  appleneuralengine.ANEModel
+	aneClient appleneuralengine.ANEClient
 
 	request       appleneuralengine.ANERequest
 	inputs        []coregraphics.IOSurfaceRef
@@ -33,78 +35,79 @@ type Kernel struct {
 	inputLayouts  []TensorLayout
 	outputLayouts []TensorLayout
 
+	mu              sync.Mutex
 	mapped          bool // IOSurfaces are mapped
 	closed          bool
 	sharedEventUsed bool
 }
 
 // InputSurface returns the i-th input IOSurfaceRef.
-func (k *Kernel) InputSurface(i int) coregraphics.IOSurfaceRef { return k.inputs[i] }
+func (m *Model) InputSurface(i int) coregraphics.IOSurfaceRef { return m.inputs[i] }
 
 // OutputSurface returns the i-th output IOSurfaceRef.
-func (k *Kernel) OutputSurface(i int) coregraphics.IOSurfaceRef { return k.outputs[i] }
+func (m *Model) OutputSurface(i int) coregraphics.IOSurfaceRef { return m.outputs[i] }
 
 // InputSurfaces returns all input IOSurfaceRefs.
-func (k *Kernel) InputSurfaces() []coregraphics.IOSurfaceRef { return k.inputs }
+func (m *Model) InputSurfaces() []coregraphics.IOSurfaceRef { return m.inputs }
 
 // OutputSurfaces returns all output IOSurfaceRefs.
-func (k *Kernel) OutputSurfaces() []coregraphics.IOSurfaceRef { return k.outputs }
+func (m *Model) OutputSurfaces() []coregraphics.IOSurfaceRef { return m.outputs }
 
 // InputAllocSize returns the IOSurface allocation size in bytes for the i-th input.
 // This includes stride padding and is larger than the logical data size.
-func (k *Kernel) InputAllocSize(i int) int { return surfaceSize(k.inputs[i]) }
+func (m *Model) InputAllocSize(i int) int { return surfaceSize(m.inputs[i]) }
 
 // OutputAllocSize returns the IOSurface allocation size in bytes for the i-th output.
 // This includes stride padding and is larger than the logical data size.
-func (k *Kernel) OutputAllocSize(i int) int { return surfaceSize(k.outputs[i]) }
+func (m *Model) OutputAllocSize(i int) int { return surfaceSize(m.outputs[i]) }
 
 // NumInputs returns the number of input surfaces.
-func (k *Kernel) NumInputs() int { return len(k.inputs) }
+func (m *Model) NumInputs() int { return len(m.inputs) }
 
 // NumOutputs returns the number of output surfaces.
-func (k *Kernel) NumOutputs() int { return len(k.outputs) }
+func (m *Model) NumOutputs() int { return len(m.outputs) }
 
 // InputChannels returns the channel count for the i-th input tensor.
 // Returns 0 if i is out of range.
-func (k *Kernel) InputChannels(i int) int {
-	if i < len(k.inputLayouts) {
-		return k.inputLayouts[i].Channels
+func (m *Model) InputChannels(i int) int {
+	if i < len(m.inputLayouts) {
+		return m.inputLayouts[i].Channels
 	}
 	return 0
 }
 
 // OutputChannels returns the channel count for the i-th output tensor.
 // Returns 0 if i is out of range.
-func (k *Kernel) OutputChannels(i int) int {
-	if i < len(k.outputLayouts) {
-		return k.outputLayouts[i].Channels
+func (m *Model) OutputChannels(i int) int {
+	if i < len(m.outputLayouts) {
+		return m.outputLayouts[i].Channels
 	}
 	return 0
 }
 
 // Spatial returns the spatial (width) dimension for the i-th input tensor.
 // Returns 0 if i is out of range.
-func (k *Kernel) Spatial(i int) int {
-	if i < len(k.inputLayouts) {
-		return k.inputLayouts[i].Width
+func (m *Model) Spatial(i int) int {
+	if i < len(m.inputLayouts) {
+		return m.inputLayouts[i].Width
 	}
 	return 0
 }
 
 // InputLayout returns the tensor layout for the i-th input.
 // Returns a zero TensorLayout if i is out of range.
-func (k *Kernel) InputLayout(i int) TensorLayout {
-	if i < len(k.inputLayouts) {
-		return k.inputLayouts[i]
+func (m *Model) InputLayout(i int) TensorLayout {
+	if i < len(m.inputLayouts) {
+		return m.inputLayouts[i]
 	}
 	return TensorLayout{}
 }
 
 // OutputLayout returns the tensor layout for the i-th output.
 // Returns a zero TensorLayout if i is out of range.
-func (k *Kernel) OutputLayout(i int) TensorLayout {
-	if i < len(k.outputLayouts) {
-		return k.outputLayouts[i]
+func (m *Model) OutputLayout(i int) TensorLayout {
+	if i < len(m.outputLayouts) {
+		return m.outputLayouts[i]
 	}
 	return TensorLayout{}
 }
@@ -112,80 +115,80 @@ func (k *Kernel) OutputLayout(i int) TensorLayout {
 // WriteInput copies raw bytes into the i-th input IOSurface.
 // len(data) must equal the surface allocation size (InputAllocSize).
 // For logical (non-padded) I/O, use WriteInputF32 or WriteInputFP16 instead.
-func (k *Kernel) WriteInput(i int, data []byte) error {
-	if i >= len(k.inputs) {
-		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(k.inputs))
+func (m *Model) WriteInput(i int, data []byte) error {
+	if i >= len(m.inputs) {
+		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(m.inputs))
 	}
-	alloc := surfaceSize(k.inputs[i])
+	alloc := surfaceSize(m.inputs[i])
 	if len(data) != alloc {
 		return fmt.Errorf("ane: input[%d] raw data length %d, want alloc size %d", i, len(data), alloc)
 	}
-	return writeSurface(k.inputs[i], data)
+	return writeSurface(m.inputs[i], data)
 }
 
 // ReadOutput copies raw bytes from the i-th output IOSurface.
 // len(data) must equal the surface allocation size (OutputAllocSize).
 // For logical (non-padded) I/O, use ReadOutputF32 or ReadOutputFP16 instead.
-func (k *Kernel) ReadOutput(i int, data []byte) error {
-	if i >= len(k.outputs) {
-		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(k.outputs))
+func (m *Model) ReadOutput(i int, data []byte) error {
+	if i >= len(m.outputs) {
+		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(m.outputs))
 	}
-	alloc := surfaceSize(k.outputs[i])
+	alloc := surfaceSize(m.outputs[i])
 	if len(data) != alloc {
 		return fmt.Errorf("ane: output[%d] raw data length %d, want alloc size %d", i, len(data), alloc)
 	}
-	return readSurface(k.outputs[i], data)
+	return readSurface(m.outputs[i], data)
 }
 
 // WriteInputF32 writes float32 data into the i-th input IOSurface.
 // Data should be in channel-first (NCHW) order: [channels * width] elements.
-func (k *Kernel) WriteInputF32(i int, data []float32) error {
-	if i >= len(k.inputs) {
-		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(k.inputs))
+func (m *Model) WriteInputF32(i int, data []float32) error {
+	if i >= len(m.inputs) {
+		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(m.inputs))
 	}
-	l := k.inputLayouts[i]
+	l := m.inputLayouts[i]
 	want := l.Channels * l.Width
 	if len(data) != want {
 		return fmt.Errorf("ane: input[%d] f32 data length %d, want %d (%d channels x %d width)", i, len(data), want, l.Channels, l.Width)
 	}
-	return writeStridedF32WithLayout(k.inputs[i], data, l)
+	return writeStridedF32WithLayout(m.inputs[i], data, l)
 }
 
 // ReadOutputF32 reads float32 data from the i-th output IOSurface.
 // Data is returned in channel-first (NCHW) order: [channels * width] elements.
-func (k *Kernel) ReadOutputF32(i int, data []float32) error {
-	if i >= len(k.outputs) {
-		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(k.outputs))
+func (m *Model) ReadOutputF32(i int, data []float32) error {
+	if i >= len(m.outputs) {
+		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(m.outputs))
 	}
-	l := k.outputLayouts[i]
+	l := m.outputLayouts[i]
 	want := l.Channels * l.Width
 	if len(data) != want {
 		return fmt.Errorf("ane: output[%d] f32 data length %d, want %d (%d channels x %d width)", i, len(data), want, l.Channels, l.Width)
 	}
-	return readStridedF32WithLayout(k.outputs[i], data, l)
+	return readStridedF32WithLayout(m.outputs[i], data, l)
 }
 
 // WriteInputFP16 writes float32 data as float16 into the i-th input IOSurface.
 // Data should be in channel-first (NCHW) order: [channels * width] elements.
-func (k *Kernel) WriteInputFP16(i int, data []float32) error {
-	if i >= len(k.inputs) {
-		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(k.inputs))
+func (m *Model) WriteInputFP16(i int, data []float32) error {
+	if i >= len(m.inputs) {
+		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(m.inputs))
 	}
-	l := k.inputLayouts[i]
+	l := m.inputLayouts[i]
 	want := l.Channels * l.Width
 	if len(data) != want {
 		return fmt.Errorf("ane: input[%d] fp16 data length %d, want %d (%d channels x %d width)", i, len(data), want, l.Channels, l.Width)
 	}
-	return writeStridedFP16WithLayout(k.inputs[i], data, l)
+	return writeStridedFP16WithLayout(m.inputs[i], data, l)
 }
 
 // WriteInputFP16Channels writes float32 data as float16 into a subset of the
 // i-th input IOSurface starting at the given channel offset.
-func (k *Kernel) WriteInputFP16Channels(i, channel int, data []float32) error {
-	if i >= len(k.inputs) {
-		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(k.inputs))
+func (m *Model) WriteInputFP16Channels(i, channel int, data []float32) error {
+	if i >= len(m.inputs) {
+		return fmt.Errorf("ane: input index %d out of range [0,%d)", i, len(m.inputs))
 	}
-	l := k.inputLayouts[i]
+	l := m.inputLayouts[i]
 	channelElems := l.Height * l.Width
 	if channelElems <= 0 {
 		return fmt.Errorf("ane: input[%d] has invalid channel size %d", i, channelElems)
@@ -197,30 +200,30 @@ func (k *Kernel) WriteInputFP16Channels(i, channel int, data []float32) error {
 	if channel < 0 || channel+channels > l.Channels {
 		return fmt.Errorf("ane: input[%d] channel range [%d,%d) out of range [0,%d)", i, channel, channel+channels, l.Channels)
 	}
-	return writeStridedFP16ChannelsWithLayout(k.inputs[i], data, l, channel)
+	return writeStridedFP16ChannelsWithLayout(m.inputs[i], data, l, channel)
 }
 
 // ReadOutputFP16 reads float16 data from the i-th output IOSurface into float32s.
 // Data is returned in channel-first (NCHW) order: [channels * width] elements.
-func (k *Kernel) ReadOutputFP16(i int, data []float32) error {
-	if i >= len(k.outputs) {
-		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(k.outputs))
+func (m *Model) ReadOutputFP16(i int, data []float32) error {
+	if i >= len(m.outputs) {
+		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(m.outputs))
 	}
-	l := k.outputLayouts[i]
+	l := m.outputLayouts[i]
 	want := l.Channels * l.Width
 	if len(data) != want {
 		return fmt.Errorf("ane: output[%d] fp16 data length %d, want %d (%d channels x %d width)", i, len(data), want, l.Channels, l.Width)
 	}
-	return readStridedFP16WithLayout(k.outputs[i], data, l)
+	return readStridedFP16WithLayout(m.outputs[i], data, l)
 }
 
 // ReadOutputFP16Channels reads float16 data from a subset of the i-th output
 // IOSurface starting at the given channel offset into float32s.
-func (k *Kernel) ReadOutputFP16Channels(i, channel int, data []float32) error {
-	if i >= len(k.outputs) {
-		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(k.outputs))
+func (m *Model) ReadOutputFP16Channels(i, channel int, data []float32) error {
+	if i >= len(m.outputs) {
+		return fmt.Errorf("ane: output index %d out of range [0,%d)", i, len(m.outputs))
 	}
-	l := k.outputLayouts[i]
+	l := m.outputLayouts[i]
 	channelElems := l.Height * l.Width
 	if channelElems <= 0 {
 		return fmt.Errorf("ane: output[%d] has invalid channel size %d", i, channelElems)
@@ -232,76 +235,79 @@ func (k *Kernel) ReadOutputFP16Channels(i, channel int, data []float32) error {
 	if channel < 0 || channel+channels > l.Channels {
 		return fmt.Errorf("ane: output[%d] channel range [%d,%d) out of range [0,%d)", i, channel, channel+channels, l.Channels)
 	}
-	return readStridedFP16ChannelsWithLayout(k.outputs[i], data, l, channel)
+	return readStridedFP16ChannelsWithLayout(m.outputs[i], data, l, channel)
 }
 
-// Eval executes the kernel on the ANE hardware.
-func (k *Kernel) Eval() error {
-	if !k.request.Validate() {
+// Eval executes the model on the ANE hardware.
+func (m *Model) Eval() error {
+	if !m.request.Validate() {
 		return &ANEError{Op: "eval", Err: fmt.Errorf("request validation failed")}
 	}
 
-	switch k.modelType {
+	switch m.modelType {
 	case ModelTypeMIL:
-		return k.evalMIL()
+		return m.evalMIL()
 	case ModelTypePackage:
-		return k.evalPackage()
+		return m.evalPackage()
 	default:
-		return &ANEError{Op: "eval", Err: fmt.Errorf("unknown model type %d", k.modelType)}
+		return &ANEError{Op: "eval", Err: fmt.Errorf("unknown model type %d", m.modelType)}
 	}
 }
 
-func (k *Kernel) evalMIL() error {
+func (m *Model) evalMIL() error {
 	const qos = 21
 
 	emptyOpts := foundation.NewNSMutableDictionary()
-	ok, err := k.inMemModel.EvaluateWithQoSOptionsRequestError(qos, emptyOpts, k.request)
+	ok, err := m.inMemModel.EvaluateWithQoSOptionsRequestError(qos, emptyOpts, m.request)
 	if err == nil && ok {
 		return nil
 	}
 	return wrapErr("eval", err)
 }
 
-func (k *Kernel) evalPackage() error {
+func (m *Model) evalPackage() error {
 	const qos = 21
 
-	ok, err := k.client.DoEvaluateDirectWithModelOptionsRequestQosError(k.model, nil, k.request, qos)
+	ok, err := m.aneClient.DoEvaluateDirectWithModelOptionsRequestQosError(m.aneModel, nil, m.request, qos)
 	if err == nil && ok {
 		return nil
 	}
 
-	ok, err = k.client.EvaluateWithModelOptionsRequestQosError(k.model, nil, k.request, qos)
+	ok, err = m.aneClient.EvaluateWithModelOptionsRequestQosError(m.aneModel, nil, m.request, qos)
 	if err == nil && ok {
 		return nil
 	}
 	return wrapErr("eval", err)
 }
 
-// Close releases the kernel's resources.
-func (k *Kernel) Close() error {
-	if k.closed {
+// Close releases the model's resources.
+func (m *Model) Close() error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	if m.closed {
 		return nil
 	}
-	k.closed = true
+	m.closed = true
+	runtime.SetFinalizer(m, nil)
 
 	const qos = 21
-	switch k.modelType {
+	switch m.modelType {
 	case ModelTypeMIL:
-		if k.mapped {
-			k.inMemModel.UnmapIOSurfacesWithRequest(k.request)
+		if m.mapped {
+			m.inMemModel.UnmapIOSurfacesWithRequest(m.request)
 		}
-		k.inMemModel.UnloadWithQoSError(qos)
+		m.inMemModel.UnloadWithQoSError(qos)
 	case ModelTypePackage:
-		if k.mapped && !k.sharedEventUsed {
-			k.client.UnmapIOSurfacesWithModelRequest(k.model, k.request)
+		if m.mapped && !m.sharedEventUsed {
+			m.aneClient.UnmapIOSurfacesWithModelRequest(m.aneModel, m.request)
 		}
-		if k.sharedEventUsed {
+		if m.sharedEventUsed {
 			// Package-model unload after a shared-event eval still crashes inside
 			// AppleNeuralEngine on this host. Keep Close non-crashing and let the
 			// process reclaim the model until the driver-side teardown is understood.
 			return nil
 		}
-		k.client.UnloadModelOptionsQosError(k.model, nil, qos)
+		m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, qos)
 	}
 
 	return nil
@@ -309,31 +315,31 @@ func (k *Kernel) Close() error {
 
 // ModelObjcID returns the ObjC object pointer for the underlying ANEModel.
 // For MIL models this returns the inner model; for package models the direct model.
-func (k *Kernel) ModelObjcID() uintptr {
-	switch k.modelType {
+func (m *Model) ModelObjcID() uintptr {
+	switch m.modelType {
 	case ModelTypeMIL:
-		if m := k.inMemModel.Model(); m != nil {
-			return uintptr(m.GetID())
+		if inner := m.inMemModel.Model(); inner != nil {
+			return uintptr(inner.GetID())
 		}
-		return uintptr(k.inMemModel.ID)
+		return uintptr(m.inMemModel.ID)
 	case ModelTypePackage:
-		return uintptr(k.model.ID)
+		return uintptr(m.aneModel.ID)
 	}
 	return 0
 }
 
 // InMemModelObjcID returns the ObjC object pointer for the ANEInMemoryModel wrapper.
 // Returns 0 for non-MIL models.
-func (k *Kernel) InMemModelObjcID() uintptr { return uintptr(k.inMemModel.ID) }
+func (m *Model) InMemModelObjcID() uintptr { return uintptr(m.inMemModel.ID) }
 
 // CompileModelType returns the model type used during compilation.
-func (k *Kernel) CompileModelType() ModelType { return k.modelType }
+func (m *Model) CompileModelType() ModelType { return m.modelType }
 
 // RawRequest returns the ObjC object pointer for the underlying ANERequest.
-func (k *Kernel) RawRequest() uintptr { return uintptr(k.request.ID) }
+func (m *Model) RawRequest() uintptr { return uintptr(m.request.ID) }
 
 // RawPerfStatsMask returns the driver-converted performance stats mask.
-func (k *Kernel) RawPerfStatsMask() uint32 { return k.perfStatsMask }
+func (m *Model) RawPerfStatsMask() uint32 { return m.perfStatsMask }
 
 // Float32ToFP16 converts a float32 to IEEE 754 half-precision.
 func Float32ToFP16(f float32) uint16 {

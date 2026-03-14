@@ -12,11 +12,11 @@ import (
 
 // Compile and evaluate an identity model on the ANE.
 func Example() {
-	rt, err := ane.Open()
+	c, err := ane.Open()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer rt.Close()
+	defer c.Close()
 
 	const channels = 4
 	milText := mil.GenIdentity(channels, 1)
@@ -25,7 +25,7 @@ func Example() {
 		log.Fatal(err)
 	}
 
-	k, err := rt.Compile(ane.CompileOptions{
+	m, err := c.Compile(ane.CompileOptions{
 		ModelType:  ane.ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -33,42 +33,42 @@ func Example() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := []float32{1, 2, 3, 4}
-	if err := k.WriteInputF32(0, input); err != nil {
+	if err := m.WriteInputF32(0, input); err != nil {
 		log.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		log.Fatal(err)
 	}
 
 	output := make([]float32, channels)
-	if err := k.ReadOutputF32(0, output); err != nil {
+	if err := m.ReadOutputF32(0, output); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(output)
 }
 
-// Open and close a Runtime, checking device information.
-func ExampleRuntime() {
-	rt, err := ane.Open()
+// Open and close a Client, checking device information.
+func ExampleClient() {
+	c, err := ane.Open()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer rt.Close()
+	defer c.Close()
 
-	info := rt.Info()
+	info := c.Info()
 	fmt.Printf("HasANE=%v Cores=%d Arch=%s\n", info.HasANE, info.NumCores, info.Architecture)
 }
 
 // Write float32 input data and read float32 output data.
-func ExampleKernel_WriteInputF32() {
-	rt, err := ane.Open()
+func ExampleModel_WriteInputF32() {
+	c, err := ane.Open()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer rt.Close()
+	defer c.Close()
 
 	const channels = 2
 	milText := mil.GenIdentity(channels, 1)
@@ -77,7 +77,7 @@ func ExampleKernel_WriteInputF32() {
 		log.Fatal(err)
 	}
 
-	k, err := rt.Compile(ane.CompileOptions{
+	m, err := c.Compile(ane.CompileOptions{
 		ModelType:  ane.ModelTypeMIL,
 		MILText:    []byte(milText),
 		WeightBlob: blob,
@@ -85,18 +85,18 @@ func ExampleKernel_WriteInputF32() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer k.Close()
+	defer m.Close()
 
 	input := []float32{3.14, 2.72}
-	if err := k.WriteInputF32(0, input); err != nil {
+	if err := m.WriteInputF32(0, input); err != nil {
 		log.Fatal(err)
 	}
-	if err := k.Eval(); err != nil {
+	if err := m.Eval(); err != nil {
 		log.Fatal(err)
 	}
 
 	output := make([]float32, channels)
-	if err := k.ReadOutputF32(0, output); err != nil {
+	if err := m.ReadOutputF32(0, output); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(output)

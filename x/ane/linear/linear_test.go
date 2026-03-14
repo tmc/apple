@@ -34,13 +34,13 @@ func TestLinearCPU(t *testing.T) {
 }
 
 func TestLinearIdentity(t *testing.T) {
-	rt, err := ane.Open()
+	c, err := ane.Open()
 	if err != nil {
 		t.Skip("no ANE:", err)
 	}
-	defer rt.Close()
+	defer c.Close()
 
-	exec := New(rt)
+	exec := New(c)
 	defer exec.Close()
 
 	// Identity matrix: W = I_4
@@ -64,13 +64,13 @@ func TestLinearIdentity(t *testing.T) {
 }
 
 func TestLinearCaching(t *testing.T) {
-	rt, err := ane.Open()
+	c, err := ane.Open()
 	if err != nil {
 		t.Skip("no ANE:", err)
 	}
-	defer rt.Close()
+	defer c.Close()
 
-	exec := New(rt)
+	exec := New(c)
 	defer exec.Close()
 
 	w := []float32{1, 0, 0, 1}
@@ -83,8 +83,8 @@ func TestLinearCaching(t *testing.T) {
 	}
 
 	s1 := exec.Stats()
-	if s1.CachedKernels != 1 {
-		t.Errorf("cached kernels after first call = %d, want 1", s1.CachedKernels)
+	if s1.CachedModels != 1 {
+		t.Errorf("cached kernels after first call = %d, want 1", s1.CachedModels)
 	}
 
 	// Second call with same weights should hit cache.
@@ -94,7 +94,7 @@ func TestLinearCaching(t *testing.T) {
 	}
 
 	s2 := exec.Stats()
-	if s2.CachedKernels != 1 {
-		t.Errorf("cached kernels after second call = %d, want 1", s2.CachedKernels)
+	if s2.CachedModels != 1 {
+		t.Errorf("cached kernels after second call = %d, want 1", s2.CachedModels)
 	}
 }

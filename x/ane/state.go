@@ -4,26 +4,26 @@ package ane
 
 // StateHandle manages KV cache state for stateful MIL models.
 //
-// It wraps a Kernel compiled from MIL programs containing read_state
+// It wraps a Model compiled from MIL programs containing read_state
 // and coreml_update_state ops, tracking the current sequence position
 // for incremental decode.
 type StateHandle struct {
-	kernel   *Kernel
+	model    *Model
 	maxSeq   int
 	position int
 }
 
-// NewStateHandle creates a StateHandle wrapping a stateful Kernel.
+// NewStateHandle creates a StateHandle wrapping a stateful Model.
 // maxSeq is the maximum sequence length the KV cache supports.
-func NewStateHandle(k *Kernel, maxSeq int) *StateHandle {
+func NewStateHandle(m *Model, maxSeq int) *StateHandle {
 	return &StateHandle{
-		kernel: k,
+		model:  m,
 		maxSeq: maxSeq,
 	}
 }
 
-// Kernel returns the underlying Kernel.
-func (s *StateHandle) Kernel() *Kernel { return s.kernel }
+// Model returns the underlying Model.
+func (s *StateHandle) Model() *Model { return s.model }
 
 // Position returns the current sequence position in the KV cache.
 func (s *StateHandle) Position() int { return s.position }
@@ -50,7 +50,7 @@ func (s *StateHandle) Remaining() int {
 	return s.maxSeq - s.position
 }
 
-// Close releases the underlying kernel.
+// Close releases the underlying model.
 func (s *StateHandle) Close() error {
-	return s.kernel.Close()
+	return s.model.Close()
 }

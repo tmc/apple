@@ -9,20 +9,20 @@ import (
 
 // ProbeDiagnostics returns best-effort diagnostic information about the kernel.
 // Fields marked "Known" are true only if the corresponding selector was available.
-func ProbeDiagnostics(k *ane.Kernel) Diagnostics {
+func ProbeDiagnostics(m *ane.Model) Diagnostics {
 	var d Diagnostics
 
-	switch k.CompileModelType() {
+	switch m.CompileModelType() {
 	case ane.ModelTypeMIL:
 		d.ProgramClass = "ANEInMemoryModel"
 		d.ProgramClassKnown = true
-		modelID := objc.ID(k.InMemModelObjcID())
+		modelID := objc.ID(m.InMemModelObjcID())
 		probeModelDiags(modelID, &d)
 
 	case ane.ModelTypePackage:
 		d.ProgramClass = "ANEModel"
 		d.ProgramClassKnown = true
-		modelID := objc.ID(k.ModelObjcID())
+		modelID := objc.ID(m.ModelObjcID())
 		probeModelDiags(modelID, &d)
 	}
 

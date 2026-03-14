@@ -4,38 +4,41 @@ package ane
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 	"sync/atomic"
 
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
-// Runtime manages a connection to the ANE hardware.
-type Runtime struct {
-	client  appleneuralengine.ANEClient
-	info    DeviceInfo
-	mu      sync.Mutex
-	closed  bool
-	compiles atomic.Int64
+// Client manages a connection to the ANE hardware.
+type Client struct {
+	aneClient appleneuralengine.ANEClient
+	info      DeviceInfo
+	mu        sync.Mutex
+	closed    bool
+	compiles  atomic.Int64
 }
 
 // Open establishes a connection to the ANE hardware.
 // Returns ErrNoANE if no ANE is available.
-func Open() (*Runtime, error) {
+func Open() (*Client, error) {
 	info, err := Probe()
 	if err != nil {
 		return nil, err
 	}
 
-	client, err := acquireClient()
+	ac, err := acquireClient()
 	if err != nil {
 		return nil, fmt.Errorf("ane open: %w", err)
 	}
 
-	return &Runtime{
-		client: client,
-		info:   info,
-	}, nil
+	c := &Client{
+		aneClient: ac,
+		info:      info,
+	}
+	runtime.SetFinalizer(c, (*Client).Close)
+	return c, nil
 }
 
 // acquireClient tries multiple strategies to obtain an ANE client connection.
@@ -67,19 +70,23 @@ func acquireClient() (appleneuralengine.ANEClient, error) {
 	return appleneuralengine.ANEClient{}, fmt.Errorf("ane: could not acquire client connection")
 }
 
-// Close releases the runtime resources.
-func (rt *Runtime) Close() error {
-	rt.mu.Lock()
-	defer rt.mu.Unlock()
-	rt.closed = true
+// Close releases the client resources.
+func (c *Client) Close() error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.closed {
+		return nil
+	}
+	c.closed = true
+	runtime.SetFinalizer(c, nil)
 	return nil
 }
 
-// Info returns the device information for this runtime.
-func (rt *Runtime) Info() DeviceInfo { return rt.info }
+// Info returns the device information for this client.
+func (c *Client) Info() DeviceInfo { return c.info }
 
 // CompileCount returns the number of compilations performed.
-func (rt *Runtime) CompileCount() int64 { return rt.compiles.Load() }
+func (c *Client) CompileCount() int64 { return c.compiles.Load() }
 
 // ClientObjcID returns the ObjC object pointer for the underlying ANEClient.
-func (rt *Runtime) ClientObjcID() uintptr { return uintptr(rt.client.ID) }
+func (c *Client) ClientObjcID() uintptr { return uintptr(c.aneClient.ID) }
