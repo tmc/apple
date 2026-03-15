@@ -232,6 +232,15 @@ func (k *Kernel) OutputLayout(i int) xane.TensorLayout {
 	return k.outputLayout[i]
 }
 
+// Model returns the underlying ANE model for use with advanced APIs
+// such as RequestPool.
+func (k *Kernel) Model() *xane.Model {
+	if k == nil {
+		return nil
+	}
+	return k.k
+}
+
 func (k *Kernel) WriteInput(i int, b []byte) error {
 	if k == nil || k.closed() {
 		return fmt.Errorf("write input: kernel is closed")
