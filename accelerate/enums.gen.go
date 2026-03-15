@@ -638,6 +638,10 @@ type VDSP_DCT_Type int
 const (
 	// VDSP_DCT_II: A constant that specifies a type II discrete cosine transform.
 	VDSP_DCT_II VDSP_DCT_Type = 2
+	// VDSP_DCT_III: A constant that specifies a type III discrete cosine transform.
+	VDSP_DCT_III VDSP_DCT_Type = 3
+	// VDSP_DCT_IV: A constant that specifies a type IV discrete cosine transform.
+	VDSP_DCT_IV VDSP_DCT_Type = 4
 )
 
 
@@ -645,6 +649,10 @@ func (e VDSP_DCT_Type) String() string {
 	switch e {
 	case VDSP_DCT_II:
 		return "VDSP_DCT_II"
+	case VDSP_DCT_III:
+		return "VDSP_DCT_III"
+	case VDSP_DCT_IV:
+		return "VDSP_DCT_IV"
 	default:
 		return fmt.Sprintf("VDSP_DCT_Type(%d)", e)
 	}
@@ -681,6 +689,7 @@ type VDSP_DFT_RealtoComplex int
 
 const (
 	VDSP_DFT_Interleaved_ComplextoComplex VDSP_DFT_RealtoComplex = 0
+	VDSP_DFT_Interleaved_RealtoComplex VDSP_DFT_RealtoComplex = 1
 )
 
 
@@ -688,6 +697,8 @@ func (e VDSP_DFT_RealtoComplex) String() string {
 	switch e {
 	case VDSP_DFT_Interleaved_ComplextoComplex:
 		return "VDSP_DFT_Interleaved_ComplextoComplex"
+	case VDSP_DFT_Interleaved_RealtoComplex:
+		return "VDSP_DFT_Interleaved_RealtoComplex"
 	default:
 		return fmt.Sprintf("VDSP_DFT_RealtoComplex(%d)", e)
 	}

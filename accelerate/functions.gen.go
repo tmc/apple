@@ -10,7 +10,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
-	"github.com/tmc/apple/objectivec"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -1078,6 +1077,18 @@ func BNNSGraphCompileOptionsSetGenerateDebugInfo(options Bnns_graph_compile_opti
 }
 
 
+var _bNNSGraphCompileOptionsSetMessageLogCallback func(options Bnns_graph_compile_options_t, log_callback Bnns_graph_compile_message_fn_t, additional_logging_arguments *Bnns_user_message_data_t)
+
+// BNNSGraphCompileOptionsSetMessageLogCallback specifies a customized callback function that reports compile-time messages.
+//
+// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetMessageLogCallback(_:_:_:)
+func BNNSGraphCompileOptionsSetMessageLogCallback(options Bnns_graph_compile_options_t, log_callback Bnns_graph_compile_message_fn_t, additional_logging_arguments *Bnns_user_message_data_t) {
+	if _bNNSGraphCompileOptionsSetMessageLogCallback == nil {
+		panic("Accelerate: symbol BNNSGraphCompileOptionsSetMessageLogCallback not loaded")
+	}
+	_bNNSGraphCompileOptionsSetMessageLogCallback(options, log_callback, additional_logging_arguments)
+}
+
 
 var _bNNSGraphCompileOptionsSetMessageLogMask func(options Bnns_graph_compile_options_t, log_level_mask uint32)
 
@@ -1248,19 +1259,6 @@ func BNNSGraphContextSetArgumentType(context Bnns_graph_context_t, argument_type
 }
 
 
-var _bNNSGraphContextSetBatchSize func(context Bnns_graph_context_t, function *byte, batch_size uint64) int
-
-// BNNSGraphContextSetBatchSize sets the batch size for a graph.
-//
-// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextSetBatchSize(_:_:_:)
-func BNNSGraphContextSetBatchSize(context Bnns_graph_context_t, function *byte, batch_size uint64) int {
-	if _bNNSGraphContextSetBatchSize == nil {
-		panic("Accelerate: symbol BNNSGraphContextSetBatchSize not loaded")
-	}
-	return _bNNSGraphContextSetBatchSize(context, function, batch_size)
-}
-
-
 var _bNNSGraphContextSetDynamicShapes func(context Bnns_graph_context_t, function *byte, shapes_count uintptr, shapes *Bnns_graph_shape_t) int
 
 // BNNSGraphContextSetDynamicShapes specifies the dynamic shapes for a graph and, if possible, infers, the output shapes.
@@ -1273,6 +1271,18 @@ func BNNSGraphContextSetDynamicShapes(context Bnns_graph_context_t, function *by
 	return _bNNSGraphContextSetDynamicShapes(context, function, shapes_count, shapes)
 }
 
+
+var _bNNSGraphContextSetMessageLogCallback func(context Bnns_graph_context_t, log_callback_fn Bnns_graph_execute_message_fn_t, additional_logging_arguments *Bnns_user_message_data_t) int
+
+// BNNSGraphContextSetMessageLogCallback specifies a customized callback function that reports execution-time messages.
+//
+// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextSetMessageLogCallback(_:_:_:)
+func BNNSGraphContextSetMessageLogCallback(context Bnns_graph_context_t, log_callback_fn Bnns_graph_execute_message_fn_t, additional_logging_arguments *Bnns_user_message_data_t) int {
+	if _bNNSGraphContextSetMessageLogCallback == nil {
+		panic("Accelerate: symbol BNNSGraphContextSetMessageLogCallback not loaded")
+	}
+	return _bNNSGraphContextSetMessageLogCallback(context, log_callback_fn, additional_logging_arguments)
+}
 
 
 var _bNNSGraphContextSetMessageLogMask func(context Bnns_graph_context_t, log_level_mask uint32) int
@@ -1288,7 +1298,6 @@ func BNNSGraphContextSetMessageLogMask(context Bnns_graph_context_t, log_level_m
 }
 
 
-
 var _bNNSGraphContextSetStreamingAdvanceCount func(context Bnns_graph_context_t, advance_count uintptr) int
 
 // BNNSGraphContextSetStreamingAdvanceCount sets the streaming advancement amount for cases with dynamically shaped inputs.
@@ -1300,7 +1309,6 @@ func BNNSGraphContextSetStreamingAdvanceCount(context Bnns_graph_context_t, adva
 	}
 	return _bNNSGraphContextSetStreamingAdvanceCount(context, advance_count)
 }
-
 
 
 var _bNNSGraphGetArgumentCount func(graph Bnns_graph_t, function *byte) uintptr
@@ -1922,19 +1930,6 @@ func SetBLASParamErrorProc(__ErrorProc BLASParamErrorProc) {
 
 
 
-var _sparseGetInertia func(Factored SparseOpaqueFactorization_Complex_Double, num_positive *int, num_zero *int, num_negative *int) int
-
-// SparseGetInertia returns the inertia of an LDLT factorization in complex double.
-//
-// See: https://developer.apple.com/documentation/Accelerate/SparseGetInertia(_:_:_:_:)-2gc7f
-func SparseGetInertia(Factored SparseOpaqueFactorization_Complex_Double, num_positive []int, num_zero []int, num_negative []int) int {
-	if _sparseGetInertia == nil {
-		panic("Accelerate: symbol SparseGetInertia not loaded")
-	}
-	return _sparseGetInertia(Factored, unsafe.SliceData(num_positive), unsafe.SliceData(num_zero), unsafe.SliceData(num_negative))
-}
-
-
 
 
 
@@ -2076,8 +2071,6 @@ func Catlas_zset(N int, ALPHA uintptr, X uintptr, INCX int) {
 	}
 	_catlas_zset(N, ALPHA, X, INCX)
 }
-
-
 
 
 
@@ -4823,300 +4816,6 @@ func Cblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _quadrature_integrate func(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status uintptr, abs_error *float64, workspace_size uintptr, workspace uintptr) float64
 
 // Quadrature_integrate computes an approximation to the definite integral of a function on a specified interval.
@@ -5128,89 +4827,6 @@ func Quadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b f
 	}
 	return _quadrature_integrate(__f, __a, __b, options, status, unsafe.SliceData(abs_error), workspace_size, workspace)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -5489,22 +5105,238 @@ func Sparse_commit(A unsafe.Pointer) unsafe.Pointer {
 }
 
 
+var _sparse_elementwise_norm_double func(A Sparse_matrix_double, norm unsafe.Pointer) float64
+
+// Sparse_elementwise_norm_double computes the specified element-wise norm of the double-precision sparse matrix .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_elementwise_norm_double(_:_:)
+func Sparse_elementwise_norm_double(A Sparse_matrix_double, norm unsafe.Pointer) float64 {
+	if _sparse_elementwise_norm_double == nil {
+		panic("Accelerate: symbol sparse_elementwise_norm_double not loaded")
+	}
+	return _sparse_elementwise_norm_double(A, norm)
+}
 
 
+var _sparse_elementwise_norm_double_complex func(A Sparse_matrix_double_complex, norm unsafe.Pointer) float64
+
+// Sparse_elementwise_norm_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_elementwise_norm_double_complex(_:_:)
+func Sparse_elementwise_norm_double_complex(A Sparse_matrix_double_complex, norm unsafe.Pointer) float64 {
+	if _sparse_elementwise_norm_double_complex == nil {
+		panic("Accelerate: symbol sparse_elementwise_norm_double_complex not loaded")
+	}
+	return _sparse_elementwise_norm_double_complex(A, norm)
+}
 
 
+var _sparse_elementwise_norm_float func(A Sparse_matrix_float, norm unsafe.Pointer) float32
+
+// Sparse_elementwise_norm_float computes the specified element-wise norm of the single-precision sparse matrix .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_elementwise_norm_float(_:_:)
+func Sparse_elementwise_norm_float(A Sparse_matrix_float, norm unsafe.Pointer) float32 {
+	if _sparse_elementwise_norm_float == nil {
+		panic("Accelerate: symbol sparse_elementwise_norm_float not loaded")
+	}
+	return _sparse_elementwise_norm_float(A, norm)
+}
 
 
+var _sparse_elementwise_norm_float_complex func(A Sparse_matrix_float_complex, norm unsafe.Pointer) float32
+
+// Sparse_elementwise_norm_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_elementwise_norm_float_complex(_:_:)
+func Sparse_elementwise_norm_float_complex(A Sparse_matrix_float_complex, norm unsafe.Pointer) float32 {
+	if _sparse_elementwise_norm_float_complex == nil {
+		panic("Accelerate: symbol sparse_elementwise_norm_float_complex not loaded")
+	}
+	return _sparse_elementwise_norm_float_complex(A, norm)
+}
 
 
+var _sparse_extract_block_double func(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) unsafe.Pointer
+
+// Sparse_extract_block_double extracts values from a specified block of a double-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_double(_:_:_:_:_:_:)
+func Sparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) unsafe.Pointer {
+	if _sparse_extract_block_double == nil {
+		panic("Accelerate: symbol sparse_extract_block_double not loaded")
+	}
+	return _sparse_extract_block_double(A, bi, bj, row_stride, col_stride, val)
+}
 
 
+var _sparse_extract_block_double_complex func(A Sparse_matrix_double_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer
+
+// Sparse_extract_block_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_double_complex(_:_:_:_:_:_:)
+func Sparse_extract_block_double_complex(A Sparse_matrix_double_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer {
+	if _sparse_extract_block_double_complex == nil {
+		panic("Accelerate: symbol sparse_extract_block_double_complex not loaded")
+	}
+	return _sparse_extract_block_double_complex(A, bi, bj, row_stride, col_stride, val)
+}
 
 
+var _sparse_extract_block_float func(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) unsafe.Pointer
+
+// Sparse_extract_block_float extracts values from a specified block of a single-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_float(_:_:_:_:_:_:)
+func Sparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) unsafe.Pointer {
+	if _sparse_extract_block_float == nil {
+		panic("Accelerate: symbol sparse_extract_block_float not loaded")
+	}
+	return _sparse_extract_block_float(A, bi, bj, row_stride, col_stride, val)
+}
 
 
+var _sparse_extract_block_float_complex func(A Sparse_matrix_float_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer
+
+// Sparse_extract_block_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_float_complex(_:_:_:_:_:_:)
+func Sparse_extract_block_float_complex(A Sparse_matrix_float_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer {
+	if _sparse_extract_block_float_complex == nil {
+		panic("Accelerate: symbol sparse_extract_block_float_complex not loaded")
+	}
+	return _sparse_extract_block_float_complex(A, bi, bj, row_stride, col_stride, val)
+}
 
 
+var _sparse_extract_sparse_column_double func(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_column_double extracts values from a specified column of a double-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_double(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_column_double(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_column_double == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_column_double not loaded")
+	}
+	return _sparse_extract_sparse_column_double(A, column, row_start, row_end, nz, val, indx)
+}
+
+
+var _sparse_extract_sparse_column_double_complex func(A Sparse_matrix_double_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_column_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_double_complex(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_column_double_complex(A Sparse_matrix_double_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_column_double_complex == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_column_double_complex not loaded")
+	}
+	return _sparse_extract_sparse_column_double_complex(A, column, row_start, row_end, nz, val, indx)
+}
+
+
+var _sparse_extract_sparse_column_float func(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_column_float extracts values from a specified column of a single-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_float(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_column_float == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_column_float not loaded")
+	}
+	return _sparse_extract_sparse_column_float(A, column, row_start, row_end, nz, val, indx)
+}
+
+
+var _sparse_extract_sparse_column_float_complex func(A Sparse_matrix_float_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_column_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_float_complex(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_column_float_complex(A Sparse_matrix_float_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_column_float_complex == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_column_float_complex not loaded")
+	}
+	return _sparse_extract_sparse_column_float_complex(A, column, row_start, row_end, nz, val, indx)
+}
+
+
+var _sparse_extract_sparse_row_double func(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_row_double extracts values from a specified row of a double-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_double(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_row_double == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_row_double not loaded")
+	}
+	return _sparse_extract_sparse_row_double(A, row, column_start, column_end, nz, val, jndx)
+}
+
+
+var _sparse_extract_sparse_row_double_complex func(A Sparse_matrix_double_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_row_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_double_complex(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_row_double_complex(A Sparse_matrix_double_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_row_double_complex == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_row_double_complex not loaded")
+	}
+	return _sparse_extract_sparse_row_double_complex(A, row, column_start, column_end, nz, val, jndx)
+}
+
+
+var _sparse_extract_sparse_row_float func(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_row_float extracts values from a specified row of a single-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_float(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_row_float == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_row_float not loaded")
+	}
+	return _sparse_extract_sparse_row_float(A, row, column_start, column_end, nz, val, jndx)
+}
+
+
+var _sparse_extract_sparse_row_float_complex func(A Sparse_matrix_float_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_extract_sparse_row_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_float_complex(_:_:_:_:_:_:_:)
+func Sparse_extract_sparse_row_float_complex(A Sparse_matrix_float_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_extract_sparse_row_float_complex == nil {
+		panic("Accelerate: symbol sparse_extract_sparse_row_float_complex not loaded")
+	}
+	return _sparse_extract_sparse_row_float_complex(A, row, column_start, column_end, nz, val, jndx)
+}
+
+
+var _sparse_get_block_dimension_for_col func(A unsafe.Pointer, j Sparse_index) int
+
+// Sparse_get_block_dimension_for_col returns the dimension of the block for a specified column of a single-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_block_dimension_for_col(_:_:)
+func Sparse_get_block_dimension_for_col(A unsafe.Pointer, j Sparse_index) int {
+	if _sparse_get_block_dimension_for_col == nil {
+		panic("Accelerate: symbol sparse_get_block_dimension_for_col not loaded")
+	}
+	return _sparse_get_block_dimension_for_col(A, j)
+}
+
+
+var _sparse_get_block_dimension_for_row func(A unsafe.Pointer, i Sparse_index) int
+
+// Sparse_get_block_dimension_for_row returns the dimension of the block for a specified row of a double-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_block_dimension_for_row(_:_:)
+func Sparse_get_block_dimension_for_row(A unsafe.Pointer, i Sparse_index) int {
+	if _sparse_get_block_dimension_for_row == nil {
+		panic("Accelerate: symbol sparse_get_block_dimension_for_row not loaded")
+	}
+	return _sparse_get_block_dimension_for_row(A, i)
+}
 
 
 var _sparse_get_matrix_nonzero_count func(A unsafe.Pointer) int
@@ -5520,8 +5352,56 @@ func Sparse_get_matrix_nonzero_count(A unsafe.Pointer) int {
 }
 
 
+var _sparse_get_matrix_nonzero_count_for_column func(A unsafe.Pointer, j Sparse_index) int
+
+// Sparse_get_matrix_nonzero_count_for_column returns the number of nonzero values in a column of a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_matrix_nonzero_count_for_column(_:_:)
+func Sparse_get_matrix_nonzero_count_for_column(A unsafe.Pointer, j Sparse_index) int {
+	if _sparse_get_matrix_nonzero_count_for_column == nil {
+		panic("Accelerate: symbol sparse_get_matrix_nonzero_count_for_column not loaded")
+	}
+	return _sparse_get_matrix_nonzero_count_for_column(A, j)
+}
 
 
+var _sparse_get_matrix_nonzero_count_for_row func(A unsafe.Pointer, i Sparse_index) int
+
+// Sparse_get_matrix_nonzero_count_for_row returns the number of nonzero values in a row of a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_matrix_nonzero_count_for_row(_:_:)
+func Sparse_get_matrix_nonzero_count_for_row(A unsafe.Pointer, i Sparse_index) int {
+	if _sparse_get_matrix_nonzero_count_for_row == nil {
+		panic("Accelerate: symbol sparse_get_matrix_nonzero_count_for_row not loaded")
+	}
+	return _sparse_get_matrix_nonzero_count_for_row(A, i)
+}
+
+
+var _sparse_get_matrix_number_of_columns func(A unsafe.Pointer) Sparse_dimension
+
+// Sparse_get_matrix_number_of_columns returns the number of columns of a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_matrix_number_of_columns(_:)
+func Sparse_get_matrix_number_of_columns(A unsafe.Pointer) Sparse_dimension {
+	if _sparse_get_matrix_number_of_columns == nil {
+		panic("Accelerate: symbol sparse_get_matrix_number_of_columns not loaded")
+	}
+	return _sparse_get_matrix_number_of_columns(A)
+}
+
+
+var _sparse_get_matrix_number_of_rows func(A unsafe.Pointer) Sparse_dimension
+
+// Sparse_get_matrix_number_of_rows returns the number of rows of a matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_matrix_number_of_rows(_:)
+func Sparse_get_matrix_number_of_rows(A unsafe.Pointer) Sparse_dimension {
+	if _sparse_get_matrix_number_of_rows == nil {
+		panic("Accelerate: symbol sparse_get_matrix_number_of_rows not loaded")
+	}
+	return _sparse_get_matrix_number_of_rows(A)
+}
 
 
 var _sparse_get_matrix_property func(A unsafe.Pointer, pname unsafe.Pointer) int
@@ -5537,44 +5417,524 @@ func Sparse_get_matrix_property(A unsafe.Pointer, pname unsafe.Pointer) int {
 }
 
 
+var _sparse_get_vector_nonzero_count_double func(N Sparse_dimension, x uintptr, incx Sparse_stride) int
+
+// Sparse_get_vector_nonzero_count_double returns the number of nonzero values in the double-precision dense vector .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_double(_:_:_:)
+func Sparse_get_vector_nonzero_count_double(N Sparse_dimension, x uintptr, incx Sparse_stride) int {
+	if _sparse_get_vector_nonzero_count_double == nil {
+		panic("Accelerate: symbol sparse_get_vector_nonzero_count_double not loaded")
+	}
+	return _sparse_get_vector_nonzero_count_double(N, x, incx)
+}
 
 
+var _sparse_get_vector_nonzero_count_double_complex func(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int
+
+// Sparse_get_vector_nonzero_count_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_double_complex(_:_:_:)
+func Sparse_get_vector_nonzero_count_double_complex(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int {
+	if _sparse_get_vector_nonzero_count_double_complex == nil {
+		panic("Accelerate: symbol sparse_get_vector_nonzero_count_double_complex not loaded")
+	}
+	return _sparse_get_vector_nonzero_count_double_complex(N, x, incx)
+}
 
 
+var _sparse_get_vector_nonzero_count_float func(N Sparse_dimension, x uintptr, incx Sparse_stride) int
+
+// Sparse_get_vector_nonzero_count_float returns the number of nonzero values in the single-precision dense vector .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_float(_:_:_:)
+func Sparse_get_vector_nonzero_count_float(N Sparse_dimension, x uintptr, incx Sparse_stride) int {
+	if _sparse_get_vector_nonzero_count_float == nil {
+		panic("Accelerate: symbol sparse_get_vector_nonzero_count_float not loaded")
+	}
+	return _sparse_get_vector_nonzero_count_float(N, x, incx)
+}
 
 
+var _sparse_get_vector_nonzero_count_float_complex func(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int
+
+// Sparse_get_vector_nonzero_count_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_float_complex(_:_:_:)
+func Sparse_get_vector_nonzero_count_float_complex(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int {
+	if _sparse_get_vector_nonzero_count_float_complex == nil {
+		panic("Accelerate: symbol sparse_get_vector_nonzero_count_float_complex not loaded")
+	}
+	return _sparse_get_vector_nonzero_count_float_complex(N, x, incx)
+}
 
 
+var _sparse_inner_product_dense_double func(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float64
+
+// Sparse_inner_product_dense_double computes the inner product of sparse vector with double-precision , with both vectors containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_double(_:_:_:_:_:)
+func Sparse_inner_product_dense_double(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float64 {
+	if _sparse_inner_product_dense_double == nil {
+		panic("Accelerate: symbol sparse_inner_product_dense_double not loaded")
+	}
+	return _sparse_inner_product_dense_double(nz, x, indx, y, incy)
+}
 
 
+var _sparse_inner_product_dense_double_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+
+// Sparse_inner_product_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_double_complex
+func Sparse_inner_product_dense_double_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+	if _sparse_inner_product_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_inner_product_dense_double_complex not loaded")
+	}
+	return _sparse_inner_product_dense_double_complex(nz, x, indx, y, incy)
+}
 
 
+var _sparse_inner_product_dense_float func(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float32
+
+// Sparse_inner_product_dense_float computes the inner product of sparse vector with dense vector with both vectors containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_float(_:_:_:_:_:)
+func Sparse_inner_product_dense_float(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float32 {
+	if _sparse_inner_product_dense_float == nil {
+		panic("Accelerate: symbol sparse_inner_product_dense_float not loaded")
+	}
+	return _sparse_inner_product_dense_float(nz, x, indx, y, incy)
+}
 
 
+var _sparse_inner_product_dense_float_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+
+// Sparse_inner_product_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_float_complex
+func Sparse_inner_product_dense_float_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+	if _sparse_inner_product_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_inner_product_dense_float_complex not loaded")
+	}
+	return _sparse_inner_product_dense_float_complex(nz, x, indx, y, incy)
+}
 
 
+var _sparse_inner_product_sparse_double func(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float64
+
+// Sparse_inner_product_sparse_double computes the inner product of sparse vector with sparse vector with both vectors containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_double(_:_:_:_:_:_:)
+func Sparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float64 {
+	if _sparse_inner_product_sparse_double == nil {
+		panic("Accelerate: symbol sparse_inner_product_sparse_double not loaded")
+	}
+	return _sparse_inner_product_sparse_double(nzx, nzy, x, indx, y, indy)
+}
 
 
+var _sparse_inner_product_sparse_double_complex func(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer
+
+// Sparse_inner_product_sparse_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_double_complex
+func Sparse_inner_product_sparse_double_complex(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer {
+	if _sparse_inner_product_sparse_double_complex == nil {
+		panic("Accelerate: symbol sparse_inner_product_sparse_double_complex not loaded")
+	}
+	return _sparse_inner_product_sparse_double_complex(nzx, nzy, x, indx, y, indy)
+}
 
 
+var _sparse_inner_product_sparse_float func(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float32
+
+// Sparse_inner_product_sparse_float computes the inner product of sparse vector with sparse vector with both vectors containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_float(_:_:_:_:_:_:)
+func Sparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float32 {
+	if _sparse_inner_product_sparse_float == nil {
+		panic("Accelerate: symbol sparse_inner_product_sparse_float not loaded")
+	}
+	return _sparse_inner_product_sparse_float(nzx, nzy, x, indx, y, indy)
+}
 
 
+var _sparse_inner_product_sparse_float_complex func(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer
+
+// Sparse_inner_product_sparse_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_float_complex
+func Sparse_inner_product_sparse_float_complex(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer {
+	if _sparse_inner_product_sparse_float_complex == nil {
+		panic("Accelerate: symbol sparse_inner_product_sparse_float_complex not loaded")
+	}
+	return _sparse_inner_product_sparse_float_complex(nzx, nzy, x, indx, y, indy)
+}
 
 
+var _sparse_insert_block_double func(A Sparse_matrix_double, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
+
+// Sparse_insert_block_double inserts a dense block of entries into a double-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_double(_:_:_:_:_:_:)
+func Sparse_insert_block_double(A Sparse_matrix_double, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
+	if _sparse_insert_block_double == nil {
+		panic("Accelerate: symbol sparse_insert_block_double not loaded")
+	}
+	return _sparse_insert_block_double(A, val, row_stride, col_stride, bi, bj)
+}
 
 
+var _sparse_insert_block_double_complex func(A Sparse_matrix_double_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
+
+// Sparse_insert_block_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_double_complex(_:_:_:_:_:_:)
+func Sparse_insert_block_double_complex(A Sparse_matrix_double_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
+	if _sparse_insert_block_double_complex == nil {
+		panic("Accelerate: symbol sparse_insert_block_double_complex not loaded")
+	}
+	return _sparse_insert_block_double_complex(A, val, row_stride, col_stride, bi, bj)
+}
 
 
+var _sparse_insert_block_float func(A Sparse_matrix_float, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
+
+// Sparse_insert_block_float inserts a dense block of entries into a single-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_float(_:_:_:_:_:_:)
+func Sparse_insert_block_float(A Sparse_matrix_float, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
+	if _sparse_insert_block_float == nil {
+		panic("Accelerate: symbol sparse_insert_block_float not loaded")
+	}
+	return _sparse_insert_block_float(A, val, row_stride, col_stride, bi, bj)
+}
 
 
+var _sparse_insert_block_float_complex func(A Sparse_matrix_float_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
+
+// Sparse_insert_block_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_float_complex(_:_:_:_:_:_:)
+func Sparse_insert_block_float_complex(A Sparse_matrix_float_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
+	if _sparse_insert_block_float_complex == nil {
+		panic("Accelerate: symbol sparse_insert_block_float_complex not loaded")
+	}
+	return _sparse_insert_block_float_complex(A, val, row_stride, col_stride, bi, bj)
+}
 
 
+var _sparse_insert_col_double func(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_col_double inserts a list of scalar entries into a single column of a double-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_double(_:_:_:_:_:)
+func Sparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_col_double == nil {
+		panic("Accelerate: symbol sparse_insert_col_double not loaded")
+	}
+	return _sparse_insert_col_double(A, j, nz, val, indx)
+}
 
 
+var _sparse_insert_col_double_complex func(A Sparse_matrix_double_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_col_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_double_complex(_:_:_:_:_:)
+func Sparse_insert_col_double_complex(A Sparse_matrix_double_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_col_double_complex == nil {
+		panic("Accelerate: symbol sparse_insert_col_double_complex not loaded")
+	}
+	return _sparse_insert_col_double_complex(A, j, nz, val, indx)
+}
 
 
+var _sparse_insert_col_float func(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_col_float inserts a list of scalar entries into a single column of a single-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_float(_:_:_:_:_:)
+func Sparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_col_float == nil {
+		panic("Accelerate: symbol sparse_insert_col_float not loaded")
+	}
+	return _sparse_insert_col_float(A, j, nz, val, indx)
+}
 
 
+var _sparse_insert_col_float_complex func(A Sparse_matrix_float_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_col_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_float_complex(_:_:_:_:_:)
+func Sparse_insert_col_float_complex(A Sparse_matrix_float_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_col_float_complex == nil {
+		panic("Accelerate: symbol sparse_insert_col_float_complex not loaded")
+	}
+	return _sparse_insert_col_float_complex(A, j, nz, val, indx)
+}
+
+
+var _sparse_insert_entries_double func(A Sparse_matrix_double, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entries_double inserts a list of scalar entries into a double-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_double(_:_:_:_:_:)
+func Sparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entries_double == nil {
+		panic("Accelerate: symbol sparse_insert_entries_double not loaded")
+	}
+	return _sparse_insert_entries_double(A, N, val, indx, jndx)
+}
+
+
+var _sparse_insert_entries_double_complex func(A Sparse_matrix_double_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entries_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_double_complex(_:_:_:_:_:)
+func Sparse_insert_entries_double_complex(A Sparse_matrix_double_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entries_double_complex == nil {
+		panic("Accelerate: symbol sparse_insert_entries_double_complex not loaded")
+	}
+	return _sparse_insert_entries_double_complex(A, N, val, indx, jndx)
+}
+
+
+var _sparse_insert_entries_float func(A Sparse_matrix_float, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entries_float inserts a list of scalar entries into a single-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_float(_:_:_:_:_:)
+func Sparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entries_float == nil {
+		panic("Accelerate: symbol sparse_insert_entries_float not loaded")
+	}
+	return _sparse_insert_entries_float(A, N, val, indx, jndx)
+}
+
+
+var _sparse_insert_entries_float_complex func(A Sparse_matrix_float_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entries_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_float_complex(_:_:_:_:_:)
+func Sparse_insert_entries_float_complex(A Sparse_matrix_float_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entries_float_complex == nil {
+		panic("Accelerate: symbol sparse_insert_entries_float_complex not loaded")
+	}
+	return _sparse_insert_entries_float_complex(A, N, val, indx, jndx)
+}
+
+
+var _sparse_insert_entry_double func(A Sparse_matrix_double, val float64, i Sparse_index, j Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entry_double inserts a single scalar entry into a double-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entry_double(_:_:_:_:)
+func Sparse_insert_entry_double(A Sparse_matrix_double, val float64, i Sparse_index, j Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entry_double == nil {
+		panic("Accelerate: symbol sparse_insert_entry_double not loaded")
+	}
+	return _sparse_insert_entry_double(A, val, i, j)
+}
+
+
+var _sparse_insert_entry_double_complex func(A Sparse_matrix_double_complex, val unsafe.Pointer, i Sparse_index, j Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entry_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entry_double_complex
+func Sparse_insert_entry_double_complex(A Sparse_matrix_double_complex, val unsafe.Pointer, i Sparse_index, j Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entry_double_complex == nil {
+		panic("Accelerate: symbol sparse_insert_entry_double_complex not loaded")
+	}
+	return _sparse_insert_entry_double_complex(A, val, i, j)
+}
+
+
+var _sparse_insert_entry_float func(A Sparse_matrix_float, val float32, i Sparse_index, j Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entry_float inserts a single scalar entry into a single-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entry_float(_:_:_:_:)
+func Sparse_insert_entry_float(A Sparse_matrix_float, val float32, i Sparse_index, j Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entry_float == nil {
+		panic("Accelerate: symbol sparse_insert_entry_float not loaded")
+	}
+	return _sparse_insert_entry_float(A, val, i, j)
+}
+
+
+var _sparse_insert_entry_float_complex func(A Sparse_matrix_float_complex, val unsafe.Pointer, i Sparse_index, j Sparse_index) unsafe.Pointer
+
+// Sparse_insert_entry_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entry_float_complex
+func Sparse_insert_entry_float_complex(A Sparse_matrix_float_complex, val unsafe.Pointer, i Sparse_index, j Sparse_index) unsafe.Pointer {
+	if _sparse_insert_entry_float_complex == nil {
+		panic("Accelerate: symbol sparse_insert_entry_float_complex not loaded")
+	}
+	return _sparse_insert_entry_float_complex(A, val, i, j)
+}
+
+
+var _sparse_insert_row_double func(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_row_double inserts a list of scalar entries into a single row of a double-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_double(_:_:_:_:_:)
+func Sparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_row_double == nil {
+		panic("Accelerate: symbol sparse_insert_row_double not loaded")
+	}
+	return _sparse_insert_row_double(A, i, nz, val, jndx)
+}
+
+
+var _sparse_insert_row_double_complex func(A Sparse_matrix_double_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_row_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_double_complex(_:_:_:_:_:)
+func Sparse_insert_row_double_complex(A Sparse_matrix_double_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_row_double_complex == nil {
+		panic("Accelerate: symbol sparse_insert_row_double_complex not loaded")
+	}
+	return _sparse_insert_row_double_complex(A, i, nz, val, jndx)
+}
+
+
+var _sparse_insert_row_float func(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_row_float inserts a list of scalar entries into a single row of a single-precision sparse matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_float(_:_:_:_:_:)
+func Sparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_row_float == nil {
+		panic("Accelerate: symbol sparse_insert_row_float not loaded")
+	}
+	return _sparse_insert_row_float(A, i, nz, val, jndx)
+}
+
+
+var _sparse_insert_row_float_complex func(A Sparse_matrix_float_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+
+// Sparse_insert_row_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_float_complex(_:_:_:_:_:)
+func Sparse_insert_row_float_complex(A Sparse_matrix_float_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+	if _sparse_insert_row_float_complex == nil {
+		panic("Accelerate: symbol sparse_insert_row_float_complex not loaded")
+	}
+	return _sparse_insert_row_float_complex(A, i, nz, val, jndx)
+}
+
+
+var _sparse_matrix_block_create_double func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_double
+
+// Sparse_matrix_block_create_double returns a double-precision sparse matrix object that is stored in block-entry format with a fixed block size.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_block_create_double(_:_:_:_:)
+func Sparse_matrix_block_create_double(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_double {
+	if _sparse_matrix_block_create_double == nil {
+		panic("Accelerate: symbol sparse_matrix_block_create_double not loaded")
+	}
+	return _sparse_matrix_block_create_double(Mb, Nb, k, l)
+}
+
+
+var _sparse_matrix_block_create_double_complex func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_double_complex
+
+// Sparse_matrix_block_create_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_block_create_double_complex(_:_:_:_:)
+func Sparse_matrix_block_create_double_complex(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_double_complex {
+	if _sparse_matrix_block_create_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_block_create_double_complex not loaded")
+	}
+	return _sparse_matrix_block_create_double_complex(Mb, Nb, k, l)
+}
+
+
+var _sparse_matrix_block_create_float func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_float
+
+// Sparse_matrix_block_create_float returns a single-precision sparse matrix object that is stored in block-entry format with a fixed block size.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_block_create_float(_:_:_:_:)
+func Sparse_matrix_block_create_float(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_float {
+	if _sparse_matrix_block_create_float == nil {
+		panic("Accelerate: symbol sparse_matrix_block_create_float not loaded")
+	}
+	return _sparse_matrix_block_create_float(Mb, Nb, k, l)
+}
+
+
+var _sparse_matrix_block_create_float_complex func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_float_complex
+
+// Sparse_matrix_block_create_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_block_create_float_complex(_:_:_:_:)
+func Sparse_matrix_block_create_float_complex(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_float_complex {
+	if _sparse_matrix_block_create_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_block_create_float_complex not loaded")
+	}
+	return _sparse_matrix_block_create_float_complex(Mb, Nb, k, l)
+}
+
+
+var _sparse_matrix_create_double func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_double
+
+// Sparse_matrix_create_double returns a double-precision sparse matrix object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_create_double(_:_:)
+func Sparse_matrix_create_double(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_double {
+	if _sparse_matrix_create_double == nil {
+		panic("Accelerate: symbol sparse_matrix_create_double not loaded")
+	}
+	return _sparse_matrix_create_double(M, N)
+}
+
+
+var _sparse_matrix_create_double_complex func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_double_complex
+
+// Sparse_matrix_create_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_create_double_complex(_:_:)
+func Sparse_matrix_create_double_complex(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_double_complex {
+	if _sparse_matrix_create_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_create_double_complex not loaded")
+	}
+	return _sparse_matrix_create_double_complex(M, N)
+}
+
+
+var _sparse_matrix_create_float func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_float
+
+// Sparse_matrix_create_float returns a single-precision sparse matrix object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_create_float(_:_:)
+func Sparse_matrix_create_float(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_float {
+	if _sparse_matrix_create_float == nil {
+		panic("Accelerate: symbol sparse_matrix_create_float not loaded")
+	}
+	return _sparse_matrix_create_float(M, N)
+}
+
+
+var _sparse_matrix_create_float_complex func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_float_complex
+
+// Sparse_matrix_create_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_create_float_complex(_:_:)
+func Sparse_matrix_create_float_complex(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_float_complex {
+	if _sparse_matrix_create_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_create_float_complex not loaded")
+	}
+	return _sparse_matrix_create_float_complex(M, N)
+}
 
 
 var _sparse_matrix_destroy func(A unsafe.Pointer) unsafe.Pointer
@@ -5590,44 +5950,524 @@ func Sparse_matrix_destroy(A unsafe.Pointer) unsafe.Pointer {
 }
 
 
+var _sparse_matrix_product_dense_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_dense_double multiplies the dense matrix by the sparse matrix and adds the result to the dense matrix , all with double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_double(_:_:_:_:_:_:_:_:_:)
+func Sparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_dense_double == nil {
+		panic("Accelerate: symbol sparse_matrix_product_dense_double not loaded")
+	}
+	return _sparse_matrix_product_dense_double(order, transa, n, alpha, A, B, ldb, C, ldc)
+}
 
 
+var _sparse_matrix_product_dense_double_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_double_complex
+func Sparse_matrix_product_dense_double_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_product_dense_double_complex not loaded")
+	}
+	return _sparse_matrix_product_dense_double_complex(order, transa, n, alpha, A, B, ldb, C, ldc)
+}
 
 
+var _sparse_matrix_product_dense_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_dense_float multiplies the dense matrix by the sparse matrix and adds the result to the dense matrix , all with single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_float(_:_:_:_:_:_:_:_:_:)
+func Sparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_dense_float == nil {
+		panic("Accelerate: symbol sparse_matrix_product_dense_float not loaded")
+	}
+	return _sparse_matrix_product_dense_float(order, transa, n, alpha, A, B, ldb, C, ldc)
+}
 
 
+var _sparse_matrix_product_dense_float_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_float_complex
+func Sparse_matrix_product_dense_float_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_product_dense_float_complex not loaded")
+	}
+	return _sparse_matrix_product_dense_float_complex(order, transa, n, alpha, A, B, ldb, C, ldc)
+}
 
 
+var _sparse_matrix_product_sparse_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C uintptr, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_sparse_double multiplies the sparse matrix by the sparse matrix and adds the result to the dense matrix , all with double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_double(_:_:_:_:_:_:_:)
+func Sparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C uintptr, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_sparse_double == nil {
+		panic("Accelerate: symbol sparse_matrix_product_sparse_double not loaded")
+	}
+	return _sparse_matrix_product_sparse_double(order, transa, alpha, A, B, C, ldc)
+}
 
 
+var _sparse_matrix_product_sparse_double_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B Sparse_matrix_double_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_sparse_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_double_complex
+func Sparse_matrix_product_sparse_double_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B Sparse_matrix_double_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_sparse_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_product_sparse_double_complex not loaded")
+	}
+	return _sparse_matrix_product_sparse_double_complex(order, transa, alpha, A, B, C, ldc)
+}
 
 
+var _sparse_matrix_product_sparse_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C uintptr, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_sparse_float multiplies the sparse matrix by the sparse matrix and adds the result to the dense matrix , all with single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_float(_:_:_:_:_:_:_:)
+func Sparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C uintptr, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_sparse_float == nil {
+		panic("Accelerate: symbol sparse_matrix_product_sparse_float not loaded")
+	}
+	return _sparse_matrix_product_sparse_float(order, transa, alpha, A, B, C, ldc)
+}
 
 
+var _sparse_matrix_product_sparse_float_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B Sparse_matrix_float_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_product_sparse_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_float_complex
+func Sparse_matrix_product_sparse_float_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B Sparse_matrix_float_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_product_sparse_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_product_sparse_float_complex not loaded")
+	}
+	return _sparse_matrix_product_sparse_float_complex(order, transa, alpha, A, B, C, ldc)
+}
 
 
+var _sparse_matrix_trace_double func(A Sparse_matrix_double, offset Sparse_index) float64
+
+// Sparse_matrix_trace_double computes the sum along the specified diagonal of the double-precision sparse matrix .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_trace_double(_:_:)
+func Sparse_matrix_trace_double(A Sparse_matrix_double, offset Sparse_index) float64 {
+	if _sparse_matrix_trace_double == nil {
+		panic("Accelerate: symbol sparse_matrix_trace_double not loaded")
+	}
+	return _sparse_matrix_trace_double(A, offset)
+}
 
 
+var _sparse_matrix_trace_double_complex func(A Sparse_matrix_double_complex, offset Sparse_index) unsafe.Pointer
+
+// Sparse_matrix_trace_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_trace_double_complex
+func Sparse_matrix_trace_double_complex(A Sparse_matrix_double_complex, offset Sparse_index) unsafe.Pointer {
+	if _sparse_matrix_trace_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_trace_double_complex not loaded")
+	}
+	return _sparse_matrix_trace_double_complex(A, offset)
+}
 
 
+var _sparse_matrix_trace_float func(A Sparse_matrix_float, offset Sparse_index) float32
+
+// Sparse_matrix_trace_float computes the sum along the specified diagonal of the single-precision sparse matrix .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_trace_float(_:_:)
+func Sparse_matrix_trace_float(A Sparse_matrix_float, offset Sparse_index) float32 {
+	if _sparse_matrix_trace_float == nil {
+		panic("Accelerate: symbol sparse_matrix_trace_float not loaded")
+	}
+	return _sparse_matrix_trace_float(A, offset)
+}
 
 
+var _sparse_matrix_trace_float_complex func(A Sparse_matrix_float_complex, offset Sparse_index) unsafe.Pointer
+
+// Sparse_matrix_trace_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_trace_float_complex
+func Sparse_matrix_trace_float_complex(A Sparse_matrix_float_complex, offset Sparse_index) unsafe.Pointer {
+	if _sparse_matrix_trace_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_trace_float_complex not loaded")
+	}
+	return _sparse_matrix_trace_float_complex(A, offset)
+}
 
 
+var _sparse_matrix_triangular_solve_dense_double func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B uintptr, ldb Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_triangular_solve_dense_double solves the system of equations for where is a dense matrix and is a triangular sparse matrix, both with double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_double(_:_:_:_:_:_:_:)
+func Sparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B uintptr, ldb Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_triangular_solve_dense_double == nil {
+		panic("Accelerate: symbol sparse_matrix_triangular_solve_dense_double not loaded")
+	}
+	return _sparse_matrix_triangular_solve_dense_double(order, transt, nrhs, alpha, T, B, ldb)
+}
 
 
+var _sparse_matrix_triangular_solve_dense_double_complex func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_triangular_solve_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_double_complex
+func Sparse_matrix_triangular_solve_dense_double_complex(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_triangular_solve_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_triangular_solve_dense_double_complex not loaded")
+	}
+	return _sparse_matrix_triangular_solve_dense_double_complex(order, transt, nrhs, alpha, T, B, ldb)
+}
 
 
+var _sparse_matrix_triangular_solve_dense_float func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B uintptr, ldb Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_triangular_solve_dense_float solves the system of equations for where is a dense matrix and is a triangular sparse matrix, both with double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_float(_:_:_:_:_:_:_:)
+func Sparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B uintptr, ldb Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_triangular_solve_dense_float == nil {
+		panic("Accelerate: symbol sparse_matrix_triangular_solve_dense_float not loaded")
+	}
+	return _sparse_matrix_triangular_solve_dense_float(order, transt, nrhs, alpha, T, B, ldb)
+}
 
 
+var _sparse_matrix_triangular_solve_dense_float_complex func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer
+
+// Sparse_matrix_triangular_solve_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_float_complex
+func Sparse_matrix_triangular_solve_dense_float_complex(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer {
+	if _sparse_matrix_triangular_solve_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_triangular_solve_dense_float_complex not loaded")
+	}
+	return _sparse_matrix_triangular_solve_dense_float_complex(order, transt, nrhs, alpha, T, B, ldb)
+}
 
 
+var _sparse_matrix_variable_block_create_double func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_double
+
+// Sparse_matrix_variable_block_create_double returns a double-precision sparse matrix object that is stored in block-entry format with a variable block size.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_variable_block_create_double(_:_:_:_:)
+func Sparse_matrix_variable_block_create_double(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_double {
+	if _sparse_matrix_variable_block_create_double == nil {
+		panic("Accelerate: symbol sparse_matrix_variable_block_create_double not loaded")
+	}
+	return _sparse_matrix_variable_block_create_double(Mb, Nb, K, L)
+}
 
 
+var _sparse_matrix_variable_block_create_double_complex func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_double_complex
+
+// Sparse_matrix_variable_block_create_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_variable_block_create_double_complex(_:_:_:_:)
+func Sparse_matrix_variable_block_create_double_complex(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_double_complex {
+	if _sparse_matrix_variable_block_create_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_variable_block_create_double_complex not loaded")
+	}
+	return _sparse_matrix_variable_block_create_double_complex(Mb, Nb, K, L)
+}
 
 
+var _sparse_matrix_variable_block_create_float func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_float
+
+// Sparse_matrix_variable_block_create_float returns a single-precision sparse matrix object that is stored in block-entry format with a variable block size.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_variable_block_create_float(_:_:_:_:)
+func Sparse_matrix_variable_block_create_float(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_float {
+	if _sparse_matrix_variable_block_create_float == nil {
+		panic("Accelerate: symbol sparse_matrix_variable_block_create_float not loaded")
+	}
+	return _sparse_matrix_variable_block_create_float(Mb, Nb, K, L)
+}
 
 
+var _sparse_matrix_variable_block_create_float_complex func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_float_complex
+
+// Sparse_matrix_variable_block_create_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_variable_block_create_float_complex(_:_:_:_:)
+func Sparse_matrix_variable_block_create_float_complex(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_float_complex {
+	if _sparse_matrix_variable_block_create_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_variable_block_create_float_complex not loaded")
+	}
+	return _sparse_matrix_variable_block_create_float_complex(Mb, Nb, K, L)
+}
+
+
+var _sparse_matrix_vector_product_dense_double func(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) unsafe.Pointer
+
+// Sparse_matrix_vector_product_dense_double multiplies the dense vector by the sparse matrix and adds the result to the dense vector , with all operands containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_double(_:_:_:_:_:_:_:)
+func Sparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) unsafe.Pointer {
+	if _sparse_matrix_vector_product_dense_double == nil {
+		panic("Accelerate: symbol sparse_matrix_vector_product_dense_double not loaded")
+	}
+	return _sparse_matrix_vector_product_dense_double(transa, alpha, A, x, incx, y, incy)
+}
+
+
+var _sparse_matrix_vector_product_dense_double_complex func(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+
+// Sparse_matrix_vector_product_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_double_complex
+func Sparse_matrix_vector_product_dense_double_complex(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+	if _sparse_matrix_vector_product_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_vector_product_dense_double_complex not loaded")
+	}
+	return _sparse_matrix_vector_product_dense_double_complex(transa, alpha, A, x, incx, y, incy)
+}
+
+
+var _sparse_matrix_vector_product_dense_float func(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) unsafe.Pointer
+
+// Sparse_matrix_vector_product_dense_float multiplies the dense vector by the sparse matrix and adds the result to the dense vector , with all operands containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_float(_:_:_:_:_:_:_:)
+func Sparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) unsafe.Pointer {
+	if _sparse_matrix_vector_product_dense_float == nil {
+		panic("Accelerate: symbol sparse_matrix_vector_product_dense_float not loaded")
+	}
+	return _sparse_matrix_vector_product_dense_float(transa, alpha, A, x, incx, y, incy)
+}
+
+
+var _sparse_matrix_vector_product_dense_float_complex func(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+
+// Sparse_matrix_vector_product_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_float_complex
+func Sparse_matrix_vector_product_dense_float_complex(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+	if _sparse_matrix_vector_product_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_matrix_vector_product_dense_float_complex not loaded")
+	}
+	return _sparse_matrix_vector_product_dense_float_complex(transa, alpha, A, x, incx, y, incy)
+}
+
+
+var _sparse_outer_product_dense_double func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_double) unsafe.Pointer
+
+// Sparse_outer_product_dense_double computes the outer product of the dense vector and the sparse vector , with both operands containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_double(_:_:_:_:_:_:_:_:_:)
+func Sparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_double) unsafe.Pointer {
+	if _sparse_outer_product_dense_double == nil {
+		panic("Accelerate: symbol sparse_outer_product_dense_double not loaded")
+	}
+	return _sparse_outer_product_dense_double(M, N, nz, alpha, x, incx, y, indy, C)
+}
+
+
+var _sparse_outer_product_dense_double_complex func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double_complex) unsafe.Pointer
+
+// Sparse_outer_product_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_double_complex
+func Sparse_outer_product_dense_double_complex(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double_complex) unsafe.Pointer {
+	if _sparse_outer_product_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_outer_product_dense_double_complex not loaded")
+	}
+	return _sparse_outer_product_dense_double_complex(M, N, nz, alpha, x, incx, y, indy, C)
+}
+
+
+var _sparse_outer_product_dense_float func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_float) unsafe.Pointer
+
+// Sparse_outer_product_dense_float computes the outer product of the dense vector and the sparse vector , with both operands containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_float(_:_:_:_:_:_:_:_:_:)
+func Sparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_float) unsafe.Pointer {
+	if _sparse_outer_product_dense_float == nil {
+		panic("Accelerate: symbol sparse_outer_product_dense_float not loaded")
+	}
+	return _sparse_outer_product_dense_float(M, N, nz, alpha, x, incx, y, indy, C)
+}
+
+
+var _sparse_outer_product_dense_float_complex func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float_complex) unsafe.Pointer
+
+// Sparse_outer_product_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_float_complex
+func Sparse_outer_product_dense_float_complex(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float_complex) unsafe.Pointer {
+	if _sparse_outer_product_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_outer_product_dense_float_complex not loaded")
+	}
+	return _sparse_outer_product_dense_float_complex(M, N, nz, alpha, x, incx, y, indy, C)
+}
+
+
+var _sparse_pack_vector_double func(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int
+
+// Sparse_pack_vector_double packs nonzero values from a double-precision dense vector to a destination array.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_double(_:_:_:_:_:_:)
+func Sparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int {
+	if _sparse_pack_vector_double == nil {
+		panic("Accelerate: symbol sparse_pack_vector_double not loaded")
+	}
+	return _sparse_pack_vector_double(N, nz, x, incx, y, indy)
+}
+
+
+var _sparse_pack_vector_double_complex func(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int
+
+// Sparse_pack_vector_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_double_complex(_:_:_:_:_:_:)
+func Sparse_pack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int {
+	if _sparse_pack_vector_double_complex == nil {
+		panic("Accelerate: symbol sparse_pack_vector_double_complex not loaded")
+	}
+	return _sparse_pack_vector_double_complex(N, nz, x, incx, y, indy)
+}
+
+
+var _sparse_pack_vector_float func(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int
+
+// Sparse_pack_vector_float packs nonzero values from a single-precision dense vector to a destination array.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_float(_:_:_:_:_:_:)
+func Sparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int {
+	if _sparse_pack_vector_float == nil {
+		panic("Accelerate: symbol sparse_pack_vector_float not loaded")
+	}
+	return _sparse_pack_vector_float(N, nz, x, incx, y, indy)
+}
+
+
+var _sparse_pack_vector_float_complex func(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int
+
+// Sparse_pack_vector_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_float_complex(_:_:_:_:_:_:)
+func Sparse_pack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int {
+	if _sparse_pack_vector_float_complex == nil {
+		panic("Accelerate: symbol sparse_pack_vector_float_complex not loaded")
+	}
+	return _sparse_pack_vector_float_complex(N, nz, x, incx, y, indy)
+}
+
+
+var _sparse_permute_cols_double func(A Sparse_matrix_double, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_cols_double permutes the columns of the double-precision sparse matrix based on the provided permutation array.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_cols_double(_:_:)
+func Sparse_permute_cols_double(A Sparse_matrix_double, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_cols_double == nil {
+		panic("Accelerate: symbol sparse_permute_cols_double not loaded")
+	}
+	return _sparse_permute_cols_double(A, perm)
+}
+
+
+var _sparse_permute_cols_double_complex func(A Sparse_matrix_double_complex, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_cols_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_cols_double_complex(_:_:)
+func Sparse_permute_cols_double_complex(A Sparse_matrix_double_complex, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_cols_double_complex == nil {
+		panic("Accelerate: symbol sparse_permute_cols_double_complex not loaded")
+	}
+	return _sparse_permute_cols_double_complex(A, perm)
+}
+
+
+var _sparse_permute_cols_float func(A Sparse_matrix_float, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_cols_float permutes the columns of the single-precision sparse matrix based on the provided permutation array.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_cols_float(_:_:)
+func Sparse_permute_cols_float(A Sparse_matrix_float, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_cols_float == nil {
+		panic("Accelerate: symbol sparse_permute_cols_float not loaded")
+	}
+	return _sparse_permute_cols_float(A, perm)
+}
+
+
+var _sparse_permute_cols_float_complex func(A Sparse_matrix_float_complex, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_cols_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_cols_float_complex(_:_:)
+func Sparse_permute_cols_float_complex(A Sparse_matrix_float_complex, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_cols_float_complex == nil {
+		panic("Accelerate: symbol sparse_permute_cols_float_complex not loaded")
+	}
+	return _sparse_permute_cols_float_complex(A, perm)
+}
+
+
+var _sparse_permute_rows_double func(A Sparse_matrix_double, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_rows_double permutes the rows of the double-precision sparse matrix based on the provided permutation array.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_rows_double(_:_:)
+func Sparse_permute_rows_double(A Sparse_matrix_double, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_rows_double == nil {
+		panic("Accelerate: symbol sparse_permute_rows_double not loaded")
+	}
+	return _sparse_permute_rows_double(A, perm)
+}
+
+
+var _sparse_permute_rows_double_complex func(A Sparse_matrix_double_complex, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_rows_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_rows_double_complex(_:_:)
+func Sparse_permute_rows_double_complex(A Sparse_matrix_double_complex, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_rows_double_complex == nil {
+		panic("Accelerate: symbol sparse_permute_rows_double_complex not loaded")
+	}
+	return _sparse_permute_rows_double_complex(A, perm)
+}
+
+
+var _sparse_permute_rows_float func(A Sparse_matrix_float, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_rows_float permutes the rows of the single-precision sparse matrix based on the provided permutation array.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_rows_float(_:_:)
+func Sparse_permute_rows_float(A Sparse_matrix_float, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_rows_float == nil {
+		panic("Accelerate: symbol sparse_permute_rows_float not loaded")
+	}
+	return _sparse_permute_rows_float(A, perm)
+}
+
+
+var _sparse_permute_rows_float_complex func(A Sparse_matrix_float_complex, perm *Sparse_index) unsafe.Pointer
+
+// Sparse_permute_rows_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_permute_rows_float_complex(_:_:)
+func Sparse_permute_rows_float_complex(A Sparse_matrix_float_complex, perm *Sparse_index) unsafe.Pointer {
+	if _sparse_permute_rows_float_complex == nil {
+		panic("Accelerate: symbol sparse_permute_rows_float_complex not loaded")
+	}
+	return _sparse_permute_rows_float_complex(A, perm)
+}
 
 
 var _sparse_set_matrix_property func(A unsafe.Pointer, pname unsafe.Pointer) unsafe.Pointer
@@ -5643,68 +6483,212 @@ func Sparse_set_matrix_property(A unsafe.Pointer, pname unsafe.Pointer) unsafe.P
 }
 
 
+var _sparse_unpack_vector_double func(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+
+// Sparse_unpack_vector_double extracts elements from the sparse vector into the corresponding location in the dense vector , with both vectors containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_double(_:_:_:_:_:_:_:)
+func Sparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+	if _sparse_unpack_vector_double == nil {
+		panic("Accelerate: symbol sparse_unpack_vector_double not loaded")
+	}
+	_sparse_unpack_vector_double(N, nz, zero, x, indx, y, incy)
+}
 
 
+var _sparse_unpack_vector_double_complex func(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+
+// Sparse_unpack_vector_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_double_complex(_:_:_:_:_:_:_:)
+func Sparse_unpack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+	if _sparse_unpack_vector_double_complex == nil {
+		panic("Accelerate: symbol sparse_unpack_vector_double_complex not loaded")
+	}
+	_sparse_unpack_vector_double_complex(N, nz, zero, x, indx, y, incy)
+}
 
 
+var _sparse_unpack_vector_float func(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+
+// Sparse_unpack_vector_float extracts elements from the sparse vector into the corresponding location in the dense vector , with both vectors containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_float(_:_:_:_:_:_:_:)
+func Sparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+	if _sparse_unpack_vector_float == nil {
+		panic("Accelerate: symbol sparse_unpack_vector_float not loaded")
+	}
+	_sparse_unpack_vector_float(N, nz, zero, x, indx, y, incy)
+}
 
 
+var _sparse_unpack_vector_float_complex func(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+
+// Sparse_unpack_vector_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_float_complex(_:_:_:_:_:_:_:)
+func Sparse_unpack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+	if _sparse_unpack_vector_float_complex == nil {
+		panic("Accelerate: symbol sparse_unpack_vector_float_complex not loaded")
+	}
+	_sparse_unpack_vector_float_complex(N, nz, zero, x, indx, y, incy)
+}
 
 
+var _sparse_vector_add_with_scale_dense_double func(nz Sparse_dimension, alpha float64, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+
+// Sparse_vector_add_with_scale_dense_double scales the sparse vector by and adds the result to the dense vector with both vectors containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_double(_:_:_:_:_:_:)
+func Sparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha float64, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+	if _sparse_vector_add_with_scale_dense_double == nil {
+		panic("Accelerate: symbol sparse_vector_add_with_scale_dense_double not loaded")
+	}
+	_sparse_vector_add_with_scale_dense_double(nz, alpha, x, indx, y, incy)
+}
 
 
+var _sparse_vector_add_with_scale_dense_double_complex func(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+
+// Sparse_vector_add_with_scale_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_double_complex
+func Sparse_vector_add_with_scale_dense_double_complex(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+	if _sparse_vector_add_with_scale_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_vector_add_with_scale_dense_double_complex not loaded")
+	}
+	_sparse_vector_add_with_scale_dense_double_complex(nz, alpha, x, indx, y, incy)
+}
 
 
+var _sparse_vector_add_with_scale_dense_float func(nz Sparse_dimension, alpha float32, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
+
+// Sparse_vector_add_with_scale_dense_float scales the sparse vector by and adds the result to the dense vector with both vectors containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_float(_:_:_:_:_:_:)
+func Sparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha float32, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) {
+	if _sparse_vector_add_with_scale_dense_float == nil {
+		panic("Accelerate: symbol sparse_vector_add_with_scale_dense_float not loaded")
+	}
+	_sparse_vector_add_with_scale_dense_float(nz, alpha, x, indx, y, incy)
+}
 
 
+var _sparse_vector_add_with_scale_dense_float_complex func(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+
+// Sparse_vector_add_with_scale_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_float_complex
+func Sparse_vector_add_with_scale_dense_float_complex(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+	if _sparse_vector_add_with_scale_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_vector_add_with_scale_dense_float_complex not loaded")
+	}
+	_sparse_vector_add_with_scale_dense_float_complex(nz, alpha, x, indx, y, incy)
+}
 
 
+var _sparse_vector_norm_double func(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm unsafe.Pointer) float64
+
+// Sparse_vector_norm_double computes the specified norm of the double-precision sparse vector .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_double(_:_:_:_:)
+func Sparse_vector_norm_double(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm unsafe.Pointer) float64 {
+	if _sparse_vector_norm_double == nil {
+		panic("Accelerate: symbol sparse_vector_norm_double not loaded")
+	}
+	return _sparse_vector_norm_double(nz, x, indx, norm)
+}
 
 
+var _sparse_vector_norm_double_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float64
+
+// Sparse_vector_norm_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_double_complex(_:_:_:_:)
+func Sparse_vector_norm_double_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float64 {
+	if _sparse_vector_norm_double_complex == nil {
+		panic("Accelerate: symbol sparse_vector_norm_double_complex not loaded")
+	}
+	return _sparse_vector_norm_double_complex(nz, x, indx, norm)
+}
 
 
+var _sparse_vector_norm_float func(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm unsafe.Pointer) float32
+
+// Sparse_vector_norm_float computes the specified norm of the single-precision sparse vector .
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_float(_:_:_:_:)
+func Sparse_vector_norm_float(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm unsafe.Pointer) float32 {
+	if _sparse_vector_norm_float == nil {
+		panic("Accelerate: symbol sparse_vector_norm_float not loaded")
+	}
+	return _sparse_vector_norm_float(nz, x, indx, norm)
+}
 
 
+var _sparse_vector_norm_float_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float32
+
+// Sparse_vector_norm_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_float_complex(_:_:_:_:)
+func Sparse_vector_norm_float_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float32 {
+	if _sparse_vector_norm_float_complex == nil {
+		panic("Accelerate: symbol sparse_vector_norm_float_complex not loaded")
+	}
+	return _sparse_vector_norm_float_complex(nz, x, indx, norm)
+}
 
 
+var _sparse_vector_triangular_solve_dense_double func(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x uintptr, incx Sparse_stride) unsafe.Pointer
+
+// Sparse_vector_triangular_solve_dense_double solves the system of equations for x where is a dense vector and is a triangular sparse matrix, with all operands containing double-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_double(_:_:_:_:_:)
+func Sparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x uintptr, incx Sparse_stride) unsafe.Pointer {
+	if _sparse_vector_triangular_solve_dense_double == nil {
+		panic("Accelerate: symbol sparse_vector_triangular_solve_dense_double not loaded")
+	}
+	return _sparse_vector_triangular_solve_dense_double(transt, alpha, T, x, incx)
+}
 
 
+var _sparse_vector_triangular_solve_dense_double_complex func(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer
+
+// Sparse_vector_triangular_solve_dense_double_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_double_complex
+func Sparse_vector_triangular_solve_dense_double_complex(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer {
+	if _sparse_vector_triangular_solve_dense_double_complex == nil {
+		panic("Accelerate: symbol sparse_vector_triangular_solve_dense_double_complex not loaded")
+	}
+	return _sparse_vector_triangular_solve_dense_double_complex(transt, alpha, T, x, incx)
+}
 
 
+var _sparse_vector_triangular_solve_dense_float func(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x uintptr, incx Sparse_stride) unsafe.Pointer
+
+// Sparse_vector_triangular_solve_dense_float solves the system of equations for x where is a dense vector and is a triangular sparse matrix, with all operands containing single-precision values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_float(_:_:_:_:_:)
+func Sparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x uintptr, incx Sparse_stride) unsafe.Pointer {
+	if _sparse_vector_triangular_solve_dense_float == nil {
+		panic("Accelerate: symbol sparse_vector_triangular_solve_dense_float not loaded")
+	}
+	return _sparse_vector_triangular_solve_dense_float(transt, alpha, T, x, incx)
+}
 
 
+var _sparse_vector_triangular_solve_dense_float_complex func(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Sparse_vector_triangular_solve_dense_float_complex.
+//
+// See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_float_complex
+func Sparse_vector_triangular_solve_dense_float_complex(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer {
+	if _sparse_vector_triangular_solve_dense_float_complex == nil {
+		panic("Accelerate: symbol sparse_vector_triangular_solve_dense_float_complex not loaded")
+	}
+	return _sparse_vector_triangular_solve_dense_float_complex(transt, alpha, T, x, incx)
+}
 
 
 
@@ -5875,6 +6859,18 @@ func VA1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
 }
 
 
+var _vA128Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VA128Shift 128-bit arithmetic (signed) shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vA128Shift(_:_:)
+func VA128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vA128Shift == nil {
+		panic("Accelerate: symbol vA128Shift not loaded")
+	}
+	return _vA128Shift(vA, vShiftFactor)
+}
+
 
 var _vA256Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
@@ -5902,6 +6898,30 @@ func VA512Shift(a uintptr, shiftAmount uint32, result uintptr) {
 }
 
 
+var _vA64Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VA64Shift 64-bit arithmetic (signed) shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vA64Shift(_:_:)
+func VA64Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vA64Shift == nil {
+		panic("Accelerate: symbol vA64Shift not loaded")
+	}
+	return _vA64Shift(vA, vShiftFactor)
+}
+
+
+var _vA64Shift2 func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VA64Shift2 64-bit arithmetic (signed) shift with two shift factors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vA64Shift2(_:_:)
+func VA64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vA64Shift2 == nil {
+		panic("Accelerate: symbol vA64Shift2 not loaded")
+	}
+	return _vA64Shift2(vA, vShiftFactor)
+}
 
 
 
@@ -5918,7 +6938,43 @@ func VDSP_DCT_Execute(__Setup uintptr, __Input []float32, __Output []float32) {
 }
 
 
+var _vDSP_DFT_CreateSetup func(__Previous VDSP_DFT_Setup, __Length VDSP_Length) VDSP_DFT_Setup
 
+// VDSP_DFT_CreateSetup.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_CreateSetup
+func VDSP_DFT_CreateSetup(__Previous VDSP_DFT_Setup, __Length VDSP_Length) VDSP_DFT_Setup {
+	if _vDSP_DFT_CreateSetup == nil {
+		panic("Accelerate: symbol vDSP_DFT_CreateSetup not loaded")
+	}
+	return _vDSP_DFT_CreateSetup(__Previous, __Length)
+}
+
+
+var _vDSP_DFT_DestroySetup func(__Setup VDSP_DFT_Setup)
+
+// VDSP_DFT_DestroySetup releases a single-precision setup structure.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_DestroySetup
+func VDSP_DFT_DestroySetup(__Setup VDSP_DFT_Setup) {
+	if _vDSP_DFT_DestroySetup == nil {
+		panic("Accelerate: symbol vDSP_DFT_DestroySetup not loaded")
+	}
+	_vDSP_DFT_DestroySetup(__Setup)
+}
+
+
+var _vDSP_DFT_DestroySetupD func(__Setup VDSP_DFT_SetupD)
+
+// VDSP_DFT_DestroySetupD releases a double-precision setup structure.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_DestroySetupD
+func VDSP_DFT_DestroySetupD(__Setup VDSP_DFT_SetupD) {
+	if _vDSP_DFT_DestroySetupD == nil {
+		panic("Accelerate: symbol vDSP_DFT_DestroySetupD not loaded")
+	}
+	_vDSP_DFT_DestroySetupD(__Setup)
+}
 
 
 var _vDSP_DFT_Execute func(__Setup uintptr, __Ir *float32, __Ii *float32, __Or *float32, __Oi *float32)
@@ -5949,8 +7005,56 @@ func VDSP_DFT_ExecuteD(__Setup uintptr, __Ir []float64, __Ii []float64, __Or []f
 
 
 
+var _vDSP_DFT_Interleaved_DestroySetup func(Setup VDSP_DFT_Interleaved_Setup)
+
+// VDSP_DFT_Interleaved_DestroySetup releases a single-precision discrete Fourier transform (DFT) setup structure.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Interleaved_DestroySetup(_:)
+func VDSP_DFT_Interleaved_DestroySetup(Setup VDSP_DFT_Interleaved_Setup) {
+	if _vDSP_DFT_Interleaved_DestroySetup == nil {
+		panic("Accelerate: symbol vDSP_DFT_Interleaved_DestroySetup not loaded")
+	}
+	_vDSP_DFT_Interleaved_DestroySetup(Setup)
+}
 
 
+var _vDSP_DFT_Interleaved_DestroySetupD func(Setup VDSP_DFT_Interleaved_SetupD)
+
+// VDSP_DFT_Interleaved_DestroySetupD releases a double-precision discrete Fourier transform (DFT) setup structure.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Interleaved_DestroySetupD(_:)
+func VDSP_DFT_Interleaved_DestroySetupD(Setup VDSP_DFT_Interleaved_SetupD) {
+	if _vDSP_DFT_Interleaved_DestroySetupD == nil {
+		panic("Accelerate: symbol vDSP_DFT_Interleaved_DestroySetupD not loaded")
+	}
+	_vDSP_DFT_Interleaved_DestroySetupD(Setup)
+}
+
+
+var _vDSP_DFT_Interleaved_Execute func(Setup VDSP_DFT_Interleaved_Setup, Iri *DSPComplex, Ori *DSPComplex)
+
+// VDSP_DFT_Interleaved_Execute calculates the single-precision discrete Fourier transform (DFT) for a vector of interleaved complex values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Interleaved_Execute(_:_:_:)
+func VDSP_DFT_Interleaved_Execute(Setup VDSP_DFT_Interleaved_Setup, Iri *DSPComplex, Ori *DSPComplex) {
+	if _vDSP_DFT_Interleaved_Execute == nil {
+		panic("Accelerate: symbol vDSP_DFT_Interleaved_Execute not loaded")
+	}
+	_vDSP_DFT_Interleaved_Execute(Setup, Iri, Ori)
+}
+
+
+var _vDSP_DFT_Interleaved_ExecuteD func(Setup VDSP_DFT_Interleaved_SetupD, Iri *DSPDoubleComplex, Ori *DSPDoubleComplex)
+
+// VDSP_DFT_Interleaved_ExecuteD calculates the double-precision discrete Fourier transform (DFT) for a vector of interleaved complex values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Interleaved_ExecuteD(_:_:_:)
+func VDSP_DFT_Interleaved_ExecuteD(Setup VDSP_DFT_Interleaved_SetupD, Iri *DSPDoubleComplex, Ori *DSPDoubleComplex) {
+	if _vDSP_DFT_Interleaved_ExecuteD == nil {
+		panic("Accelerate: symbol vDSP_DFT_Interleaved_ExecuteD not loaded")
+	}
+	_vDSP_DFT_Interleaved_ExecuteD(Setup, Iri, Ori)
+}
 
 
 
@@ -6010,44 +7114,524 @@ func VDSP_FFT32_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []floa
 }
 
 
+var _vDSP_biquad func(__Setup uintptr, __Delay *float32, __X *float32, __IX VDSP_Stride, __Y *float32, __IY VDSP_Stride, __N VDSP_Length)
+
+// VDSP_biquad applies a single-precision single-channel biquadratic IIR filter.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad
+func VDSP_biquad(__Setup uintptr, __Delay []float32, __X []float32, __IX VDSP_Stride, __Y []float32, __IY VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_biquad == nil {
+		panic("Accelerate: symbol vDSP_biquad not loaded")
+	}
+	_vDSP_biquad(__Setup, unsafe.SliceData(__Delay), unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
+}
 
 
+var _vDSP_biquadD func(__Setup uintptr, __Delay *float64, __X *float64, __IX VDSP_Stride, __Y *float64, __IY VDSP_Stride, __N VDSP_Length)
+
+// VDSP_biquadD applies a double-precision single-channel biquadratic IIR filter.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadD
+func VDSP_biquadD(__Setup uintptr, __Delay []float64, __X []float64, __IX VDSP_Stride, __Y []float64, __IY VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_biquadD == nil {
+		panic("Accelerate: symbol vDSP_biquadD not loaded")
+	}
+	_vDSP_biquadD(__Setup, unsafe.SliceData(__Delay), unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
+}
 
 
+var _vDSP_biquad_CreateSetup func(__Coefficients *float64, __M VDSP_Length) VDSP_biquad_Setup
+
+// VDSP_biquad_CreateSetup builds a data structure that contains precalculated data for use by a single-precision cascaded biquadratic filter function.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad_CreateSetup
+func VDSP_biquad_CreateSetup(__Coefficients []float64, __M VDSP_Length) VDSP_biquad_Setup {
+	if _vDSP_biquad_CreateSetup == nil {
+		panic("Accelerate: symbol vDSP_biquad_CreateSetup not loaded")
+	}
+	return _vDSP_biquad_CreateSetup(unsafe.SliceData(__Coefficients), __M)
+}
 
 
+var _vDSP_biquad_CreateSetupD func(__Coefficients *float64, __M VDSP_Length) VDSP_biquad_SetupD
+
+// VDSP_biquad_CreateSetupD builds a data structure that contains precalculated data for use by a double-precision cascaded biquadratic filter function.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad_CreateSetupD
+func VDSP_biquad_CreateSetupD(__Coefficients []float64, __M VDSP_Length) VDSP_biquad_SetupD {
+	if _vDSP_biquad_CreateSetupD == nil {
+		panic("Accelerate: symbol vDSP_biquad_CreateSetupD not loaded")
+	}
+	return _vDSP_biquad_CreateSetupD(unsafe.SliceData(__Coefficients), __M)
+}
 
 
+var _vDSP_biquad_DestroySetup func(__setup VDSP_biquad_Setup)
+
+// VDSP_biquad_DestroySetup destroys a single-precision biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad_DestroySetup
+func VDSP_biquad_DestroySetup(__setup VDSP_biquad_Setup) {
+	if _vDSP_biquad_DestroySetup == nil {
+		panic("Accelerate: symbol vDSP_biquad_DestroySetup not loaded")
+	}
+	_vDSP_biquad_DestroySetup(__setup)
+}
 
 
+var _vDSP_biquad_DestroySetupD func(__setup VDSP_biquad_SetupD)
+
+// VDSP_biquad_DestroySetupD destroys a double-precision biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad_DestroySetupD
+func VDSP_biquad_DestroySetupD(__setup VDSP_biquad_SetupD) {
+	if _vDSP_biquad_DestroySetupD == nil {
+		panic("Accelerate: symbol vDSP_biquad_DestroySetupD not loaded")
+	}
+	_vDSP_biquad_DestroySetupD(__setup)
+}
 
 
+var _vDSP_biquad_SetCoefficientsDouble func(__setup VDSP_biquad_Setup, __coeffs *float64, __start_sec VDSP_Length, __nsec VDSP_Length)
+
+// VDSP_biquad_SetCoefficientsDouble sets double-precision coefficients of the specified single-channel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad_SetCoefficientsDouble
+func VDSP_biquad_SetCoefficientsDouble(__setup VDSP_biquad_Setup, __coeffs []float64, __start_sec VDSP_Length, __nsec VDSP_Length) {
+	if _vDSP_biquad_SetCoefficientsDouble == nil {
+		panic("Accelerate: symbol vDSP_biquad_SetCoefficientsDouble not loaded")
+	}
+	_vDSP_biquad_SetCoefficientsDouble(__setup, unsafe.SliceData(__coeffs), __start_sec, __nsec)
+}
 
 
+var _vDSP_biquad_SetCoefficientsSingle func(__setup VDSP_biquad_Setup, __coeffs *float32, __start_sec VDSP_Length, __nsec VDSP_Length)
+
+// VDSP_biquad_SetCoefficientsSingle sets single-precision coefficients of the specified single-channel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquad_SetCoefficientsSingle
+func VDSP_biquad_SetCoefficientsSingle(__setup VDSP_biquad_Setup, __coeffs []float32, __start_sec VDSP_Length, __nsec VDSP_Length) {
+	if _vDSP_biquad_SetCoefficientsSingle == nil {
+		panic("Accelerate: symbol vDSP_biquad_SetCoefficientsSingle not loaded")
+	}
+	_vDSP_biquad_SetCoefficientsSingle(__setup, unsafe.SliceData(__coeffs), __start_sec, __nsec)
+}
 
 
+var _vDSP_biquadm func(__Setup VDSP_biquadm_Setup, __X *float32, __IX VDSP_Stride, __Y *float32, __IY VDSP_Stride, __N VDSP_Length)
+
+// VDSP_biquadm applies a single-precision multichannel biquadratic IIR filter.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm
+func VDSP_biquadm(__Setup VDSP_biquadm_Setup, __X []float32, __IX VDSP_Stride, __Y []float32, __IY VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_biquadm == nil {
+		panic("Accelerate: symbol vDSP_biquadm not loaded")
+	}
+	_vDSP_biquadm(__Setup, unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
+}
 
 
+var _vDSP_biquadmD func(__Setup VDSP_biquadm_SetupD, __X *float64, __IX VDSP_Stride, __Y *float64, __IY VDSP_Stride, __N VDSP_Length)
+
+// VDSP_biquadmD applies a double-precision multichannel biquadratic IIR filter.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadmD
+func VDSP_biquadmD(__Setup VDSP_biquadm_SetupD, __X []float64, __IX VDSP_Stride, __Y []float64, __IY VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_biquadmD == nil {
+		panic("Accelerate: symbol vDSP_biquadmD not loaded")
+	}
+	_vDSP_biquadmD(__Setup, unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
+}
 
 
+var _vDSP_biquadm_CopyState func(__dest VDSP_biquadm_Setup, __src uintptr)
+
+// VDSP_biquadm_CopyState copies the filter state from one single-precision multichannel biquadratic IIR filter object to another.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_CopyState
+func VDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src uintptr) {
+	if _vDSP_biquadm_CopyState == nil {
+		panic("Accelerate: symbol vDSP_biquadm_CopyState not loaded")
+	}
+	_vDSP_biquadm_CopyState(__dest, __src)
+}
 
 
+var _vDSP_biquadm_CopyStateD func(__dest VDSP_biquadm_SetupD, __src uintptr)
+
+// VDSP_biquadm_CopyStateD copies the filter state from one double-precision multichannel biquadratic IIR filter object to another.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_CopyStateD
+func VDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src uintptr) {
+	if _vDSP_biquadm_CopyStateD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_CopyStateD not loaded")
+	}
+	_vDSP_biquadm_CopyStateD(__dest, __src)
+}
 
 
+var _vDSP_biquadm_CreateSetup func(__coeffs *float64, __M VDSP_Length, __N VDSP_Length) VDSP_biquadm_Setup
+
+// VDSP_biquadm_CreateSetup builds a data structure that contains precalculated data for use by a single-precision, multichannel cascaded biquadratic filter function.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_CreateSetup
+func VDSP_biquadm_CreateSetup(__coeffs []float64, __M VDSP_Length, __N VDSP_Length) VDSP_biquadm_Setup {
+	if _vDSP_biquadm_CreateSetup == nil {
+		panic("Accelerate: symbol vDSP_biquadm_CreateSetup not loaded")
+	}
+	return _vDSP_biquadm_CreateSetup(unsafe.SliceData(__coeffs), __M, __N)
+}
 
 
+var _vDSP_biquadm_CreateSetupD func(__coeffs *float64, __M VDSP_Length, __N VDSP_Length) VDSP_biquadm_SetupD
+
+// VDSP_biquadm_CreateSetupD builds a data structure that contains precalculated data for use by a double-precision, multichannel cascaded biquadratic filter function.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_CreateSetupD
+func VDSP_biquadm_CreateSetupD(__coeffs []float64, __M VDSP_Length, __N VDSP_Length) VDSP_biquadm_SetupD {
+	if _vDSP_biquadm_CreateSetupD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_CreateSetupD not loaded")
+	}
+	return _vDSP_biquadm_CreateSetupD(unsafe.SliceData(__coeffs), __M, __N)
+}
 
 
+var _vDSP_biquadm_DestroySetup func(__setup VDSP_biquadm_Setup)
+
+// VDSP_biquadm_DestroySetup destroys a single-precision multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_DestroySetup
+func VDSP_biquadm_DestroySetup(__setup VDSP_biquadm_Setup) {
+	if _vDSP_biquadm_DestroySetup == nil {
+		panic("Accelerate: symbol vDSP_biquadm_DestroySetup not loaded")
+	}
+	_vDSP_biquadm_DestroySetup(__setup)
+}
 
 
+var _vDSP_biquadm_DestroySetupD func(__setup VDSP_biquadm_SetupD)
+
+// VDSP_biquadm_DestroySetupD destroys a double-precision multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_DestroySetupD
+func VDSP_biquadm_DestroySetupD(__setup VDSP_biquadm_SetupD) {
+	if _vDSP_biquadm_DestroySetupD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_DestroySetupD not loaded")
+	}
+	_vDSP_biquadm_DestroySetupD(__setup)
+}
 
 
+var _vDSP_biquadm_ResetState func(__setup VDSP_biquadm_Setup)
+
+// VDSP_biquadm_ResetState resets the filter state of a single-precision multichannel biquadratic IIR filter object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_ResetState
+func VDSP_biquadm_ResetState(__setup VDSP_biquadm_Setup) {
+	if _vDSP_biquadm_ResetState == nil {
+		panic("Accelerate: symbol vDSP_biquadm_ResetState not loaded")
+	}
+	_vDSP_biquadm_ResetState(__setup)
+}
 
 
+var _vDSP_biquadm_ResetStateD func(__setup VDSP_biquadm_SetupD)
+
+// VDSP_biquadm_ResetStateD resets the filter state of a double-precision multichannel biquadratic IIR filter object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_ResetStateD
+func VDSP_biquadm_ResetStateD(__setup VDSP_biquadm_SetupD) {
+	if _vDSP_biquadm_ResetStateD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_ResetStateD not loaded")
+	}
+	_vDSP_biquadm_ResetStateD(__setup)
+}
 
 
+var _vDSP_biquadm_SetActiveFilters func(__setup VDSP_biquadm_Setup, __filter_states bool)
+
+// VDSP_biquadm_SetActiveFilters activates or deactivates individual sections in a single-precision, multichannel biquadratic filter.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetActiveFilters
+func VDSP_biquadm_SetActiveFilters(__setup VDSP_biquadm_Setup, __filter_states bool) {
+	if _vDSP_biquadm_SetActiveFilters == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetActiveFilters not loaded")
+	}
+	_vDSP_biquadm_SetActiveFilters(__setup, __filter_states)
+}
 
 
+var _vDSP_biquadm_SetActiveFiltersD func(__setup VDSP_biquadm_SetupD, __filter_states bool)
+
+// VDSP_biquadm_SetActiveFiltersD activates or deactivates individual sections in a double-precision, multichannel biquadratic filter.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetActiveFiltersD
+func VDSP_biquadm_SetActiveFiltersD(__setup VDSP_biquadm_SetupD, __filter_states bool) {
+	if _vDSP_biquadm_SetActiveFiltersD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetActiveFiltersD not loaded")
+	}
+	_vDSP_biquadm_SetActiveFiltersD(__setup, __filter_states)
+}
+
+
+var _vDSP_biquadm_SetCoefficientsDouble func(__setup VDSP_biquadm_Setup, __coeffs *float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetCoefficientsDouble sets the double-precision coefficients of the specified single-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetCoefficientsDouble
+func VDSP_biquadm_SetCoefficientsDouble(__setup VDSP_biquadm_Setup, __coeffs []float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetCoefficientsDouble == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetCoefficientsDouble not loaded")
+	}
+	_vDSP_biquadm_SetCoefficientsDouble(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetCoefficientsDoubleD func(__setup VDSP_biquadm_SetupD, __coeffs *float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetCoefficientsDoubleD sets the double-precision coefficients of the specified double-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetCoefficientsDoubleD
+func VDSP_biquadm_SetCoefficientsDoubleD(__setup VDSP_biquadm_SetupD, __coeffs []float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetCoefficientsDoubleD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetCoefficientsDoubleD not loaded")
+	}
+	_vDSP_biquadm_SetCoefficientsDoubleD(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetCoefficientsSingle func(__setup VDSP_biquadm_Setup, __coeffs *float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetCoefficientsSingle sets the single-precision coefficients of the specified single-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetCoefficientsSingle
+func VDSP_biquadm_SetCoefficientsSingle(__setup VDSP_biquadm_Setup, __coeffs []float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetCoefficientsSingle == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetCoefficientsSingle not loaded")
+	}
+	_vDSP_biquadm_SetCoefficientsSingle(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetCoefficientsSingleD func(__setup VDSP_biquadm_SetupD, __coeffs *float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetCoefficientsSingleD sets the single-precision coefficients of the specified double-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetCoefficientsSingleD
+func VDSP_biquadm_SetCoefficientsSingleD(__setup VDSP_biquadm_SetupD, __coeffs []float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetCoefficientsSingleD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetCoefficientsSingleD not loaded")
+	}
+	_vDSP_biquadm_SetCoefficientsSingleD(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetTargetsDouble func(__setup VDSP_biquadm_Setup, __targets *float64, __interp_rate float32, __interp_threshold float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetTargetsDouble sets the double-precision coefficient target values of the specified single-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetTargetsDouble
+func VDSP_biquadm_SetTargetsDouble(__setup VDSP_biquadm_Setup, __targets []float64, __interp_rate float32, __interp_threshold float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetTargetsDouble == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetTargetsDouble not loaded")
+	}
+	_vDSP_biquadm_SetTargetsDouble(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetTargetsDoubleD func(__setup VDSP_biquadm_SetupD, __targets *float64, __interp_rate float64, __interp_threshold float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetTargetsDoubleD sets the double-precision coefficient target values of the specified double-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetTargetsDoubleD
+func VDSP_biquadm_SetTargetsDoubleD(__setup VDSP_biquadm_SetupD, __targets []float64, __interp_rate float64, __interp_threshold float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetTargetsDoubleD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetTargetsDoubleD not loaded")
+	}
+	_vDSP_biquadm_SetTargetsDoubleD(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetTargetsSingle func(__setup VDSP_biquadm_Setup, __targets *float32, __interp_rate float32, __interp_threshold float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetTargetsSingle sets the single-precision coefficient target values of the specified single-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetTargetsSingle
+func VDSP_biquadm_SetTargetsSingle(__setup VDSP_biquadm_Setup, __targets []float32, __interp_rate float32, __interp_threshold float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetTargetsSingle == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetTargetsSingle not loaded")
+	}
+	_vDSP_biquadm_SetTargetsSingle(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_biquadm_SetTargetsSingleD func(__setup VDSP_biquadm_SetupD, __targets *float32, __interp_rate float64, __interp_threshold float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
+
+// VDSP_biquadm_SetTargetsSingleD sets the single-precision coefficient target values of the specified double-precision, multichannel biquadratic filter setup object.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_biquadm_SetTargetsSingleD
+func VDSP_biquadm_SetTargetsSingleD(__setup VDSP_biquadm_SetupD, __targets []float32, __interp_rate float64, __interp_threshold float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length) {
+	if _vDSP_biquadm_SetTargetsSingleD == nil {
+		panic("Accelerate: symbol vDSP_biquadm_SetTargetsSingleD not loaded")
+	}
+	_vDSP_biquadm_SetTargetsSingleD(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
+}
+
+
+var _vDSP_blkman_window func(__C *float32, __N VDSP_Length, __Flag int)
+
+// VDSP_blkman_window creates a single-precision Blackman window.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_blkman_window
+func VDSP_blkman_window(__C []float32, __N VDSP_Length, __Flag int) {
+	if _vDSP_blkman_window == nil {
+		panic("Accelerate: symbol vDSP_blkman_window not loaded")
+	}
+	_vDSP_blkman_window(unsafe.SliceData(__C), __N, __Flag)
+}
+
+
+var _vDSP_blkman_windowD func(__C *float64, __N VDSP_Length, __Flag int)
+
+// VDSP_blkman_windowD creates a double-precision Blackman window.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_blkman_windowD
+func VDSP_blkman_windowD(__C []float64, __N VDSP_Length, __Flag int) {
+	if _vDSP_blkman_windowD == nil {
+		panic("Accelerate: symbol vDSP_blkman_windowD not loaded")
+	}
+	_vDSP_blkman_windowD(unsafe.SliceData(__C), __N, __Flag)
+}
+
+
+var _vDSP_conv func(__A *float32, __IA VDSP_Stride, __F *float32, __IF VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_conv performs either correlation or convolution on two real single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_conv
+func VDSP_conv(__A []float32, __IA VDSP_Stride, __F []float32, __IF VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_conv == nil {
+		panic("Accelerate: symbol vDSP_conv not loaded")
+	}
+	_vDSP_conv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__F), __IF, unsafe.SliceData(__C), __IC, __N, __P)
+}
+
+
+var _vDSP_convD func(__A *float64, __IA VDSP_Stride, __F *float64, __IF VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_convD performs either correlation or convolution on two real double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_convD
+func VDSP_convD(__A []float64, __IA VDSP_Stride, __F []float64, __IF VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_convD == nil {
+		panic("Accelerate: symbol vDSP_convD not loaded")
+	}
+	_vDSP_convD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__F), __IF, unsafe.SliceData(__C), __IC, __N, __P)
+}
+
+
+var _vDSP_create_fftsetup func(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetup
+
+// VDSP_create_fftsetup returns a setup structure that contains precalculated data for single-precision FFT functions.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_create_fftsetup
+func VDSP_create_fftsetup(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetup {
+	if _vDSP_create_fftsetup == nil {
+		panic("Accelerate: symbol vDSP_create_fftsetup not loaded")
+	}
+	return _vDSP_create_fftsetup(__Log2n, __Radix)
+}
+
+
+var _vDSP_create_fftsetupD func(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetupD
+
+// VDSP_create_fftsetupD returns a setup structure that contains precalculated data for double-precision FFT functions.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_create_fftsetupD
+func VDSP_create_fftsetupD(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetupD {
+	if _vDSP_create_fftsetupD == nil {
+		panic("Accelerate: symbol vDSP_create_fftsetupD not loaded")
+	}
+	return _vDSP_create_fftsetupD(__Log2n, __Radix)
+}
+
+
+var _vDSP_ctoz func(__C *DSPComplex, __IC VDSP_Stride, __Z *DSPSplitComplex, __IZ VDSP_Stride, __N VDSP_Length)
+
+// VDSP_ctoz copies the contents of an interleaved single-precision complex vector to a split complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_ctoz
+func VDSP_ctoz(__C *DSPComplex, __IC VDSP_Stride, __Z *DSPSplitComplex, __IZ VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_ctoz == nil {
+		panic("Accelerate: symbol vDSP_ctoz not loaded")
+	}
+	_vDSP_ctoz(__C, __IC, __Z, __IZ, __N)
+}
+
+
+var _vDSP_ctozD func(__C *DSPDoubleComplex, __IC VDSP_Stride, __Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __N VDSP_Length)
+
+// VDSP_ctozD copies the contents of an interleaved double-precision complex vector to a split complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_ctozD
+func VDSP_ctozD(__C *DSPDoubleComplex, __IC VDSP_Stride, __Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_ctozD == nil {
+		panic("Accelerate: symbol vDSP_ctozD not loaded")
+	}
+	_vDSP_ctozD(__C, __IC, __Z, __IZ, __N)
+}
+
+
+var _vDSP_deq22 func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_deq22 performs two-pole two-zero recursive filtering on a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_deq22
+func VDSP_deq22(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_deq22 == nil {
+		panic("Accelerate: symbol vDSP_deq22 not loaded")
+	}
+	_vDSP_deq22(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_deq22D func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_deq22D performs two-pole two-zero recursive filtering on a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_deq22D
+func VDSP_deq22D(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_deq22D == nil {
+		panic("Accelerate: symbol vDSP_deq22D not loaded")
+	}
+	_vDSP_deq22D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_desamp func(__A *float32, __DF VDSP_Stride, __F *float32, __C *float32, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_desamp performs single-precision FIR filtering with decimation and antialiasing.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_desamp
+func VDSP_desamp(__A []float32, __DF VDSP_Stride, __F []float32, __C []float32, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_desamp == nil {
+		panic("Accelerate: symbol vDSP_desamp not loaded")
+	}
+	_vDSP_desamp(unsafe.SliceData(__A), __DF, unsafe.SliceData(__F), unsafe.SliceData(__C), __N, __P)
+}
+
+
+var _vDSP_desampD func(__A *float64, __DF VDSP_Stride, __F *float64, __C *float64, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_desampD performs double-precision FIR filtering with decimation and antialiasing.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_desampD
+func VDSP_desampD(__A []float64, __DF VDSP_Stride, __F []float64, __C []float64, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_desampD == nil {
+		panic("Accelerate: symbol vDSP_desampD not loaded")
+	}
+	_vDSP_desampD(unsafe.SliceData(__A), __DF, unsafe.SliceData(__F), unsafe.SliceData(__C), __N, __P)
+}
 
 
 var _vDSP_destroy_fftsetup func(__setup FFTSetup)
@@ -6076,415 +7660,5347 @@ func VDSP_destroy_fftsetupD(__setup FFTSetupD) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var _vDSP_distancesq func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_distancesq calculates the single-precision distance squared between two points in n-dimensional space.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_distancesq
+func VDSP_distancesq(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_distancesq == nil {
+		panic("Accelerate: symbol vDSP_distancesq not loaded")
+	}
+	_vDSP_distancesq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_distancesqD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_distancesqD calculates the double-precision distance squared between two points in n-dimensional space.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_distancesqD
+func VDSP_distancesqD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_distancesqD == nil {
+		panic("Accelerate: symbol vDSP_distancesqD not loaded")
+	}
+	_vDSP_distancesqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_dotpr func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_dotpr calculates the dot product of two single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr
+func VDSP_dotpr(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_dotpr == nil {
+		panic("Accelerate: symbol vDSP_dotpr not loaded")
+	}
+	_vDSP_dotpr(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_dotpr2 func(__A0 *float32, __IA0 VDSP_Stride, __A1 *float32, __IA1 VDSP_Stride, __B *float32, __IB VDSP_Stride, __C0 *float32, __C1 *float32, __N VDSP_Length)
+
+// VDSP_dotpr2 calculates the stereo dot product of two single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr2
+func VDSP_dotpr2(__A0 []float32, __IA0 VDSP_Stride, __A1 []float32, __IA1 VDSP_Stride, __B []float32, __IB VDSP_Stride, __C0 []float32, __C1 []float32, __N VDSP_Length) {
+	if _vDSP_dotpr2 == nil {
+		panic("Accelerate: symbol vDSP_dotpr2 not loaded")
+	}
+	_vDSP_dotpr2(unsafe.SliceData(__A0), __IA0, unsafe.SliceData(__A1), __IA1, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C0), unsafe.SliceData(__C1), __N)
+}
+
+
+var _vDSP_dotpr2D func(__A0 *float64, __IA0 VDSP_Stride, __A1 *float64, __IA1 VDSP_Stride, __B *float64, __IB VDSP_Stride, __C0 *float64, __C1 *float64, __N VDSP_Length)
+
+// VDSP_dotpr2D calculates the stereo dot product of two double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr2D
+func VDSP_dotpr2D(__A0 []float64, __IA0 VDSP_Stride, __A1 []float64, __IA1 VDSP_Stride, __B []float64, __IB VDSP_Stride, __C0 []float64, __C1 []float64, __N VDSP_Length) {
+	if _vDSP_dotpr2D == nil {
+		panic("Accelerate: symbol vDSP_dotpr2D not loaded")
+	}
+	_vDSP_dotpr2D(unsafe.SliceData(__A0), __IA0, unsafe.SliceData(__A1), __IA1, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C0), unsafe.SliceData(__C1), __N)
+}
+
+
+var _vDSP_dotpr2_s1_15 func(__A0 *int16, __IA0 VDSP_Stride, __A1 *int16, __IA1 VDSP_Stride, __B *int16, __IB VDSP_Stride, __C0 *int16, __C1 *int16, __N VDSP_Length)
+
+// VDSP_dotpr2_s1_15 calculates the stereo dot product of two fixed-point 1.15 format vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr2_s1_15
+func VDSP_dotpr2_s1_15(__A0 *int16, __IA0 VDSP_Stride, __A1 *int16, __IA1 VDSP_Stride, __B *int16, __IB VDSP_Stride, __C0 *int16, __C1 *int16, __N VDSP_Length) {
+	if _vDSP_dotpr2_s1_15 == nil {
+		panic("Accelerate: symbol vDSP_dotpr2_s1_15 not loaded")
+	}
+	_vDSP_dotpr2_s1_15(__A0, __IA0, __A1, __IA1, __B, __IB, __C0, __C1, __N)
+}
+
+
+var _vDSP_dotpr2_s8_24 func(__A0 *int, __IA0 VDSP_Stride, __A1 *int, __IA1 VDSP_Stride, __B *int, __IB VDSP_Stride, __C0 *int, __C1 *int, __N VDSP_Length)
+
+// VDSP_dotpr2_s8_24 calculates the stereo dot product of two fixed-point 8.24 format vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr2_s8_24
+func VDSP_dotpr2_s8_24(__A0 []int, __IA0 VDSP_Stride, __A1 []int, __IA1 VDSP_Stride, __B []int, __IB VDSP_Stride, __C0 []int, __C1 []int, __N VDSP_Length) {
+	if _vDSP_dotpr2_s8_24 == nil {
+		panic("Accelerate: symbol vDSP_dotpr2_s8_24 not loaded")
+	}
+	_vDSP_dotpr2_s8_24(unsafe.SliceData(__A0), __IA0, unsafe.SliceData(__A1), __IA1, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C0), unsafe.SliceData(__C1), __N)
+}
+
+
+var _vDSP_dotprD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_dotprD calculates the dot product of two double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotprD
+func VDSP_dotprD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_dotprD == nil {
+		panic("Accelerate: symbol vDSP_dotprD not loaded")
+	}
+	_vDSP_dotprD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_dotpr_s1_15 func(__A *int16, __IA VDSP_Stride, __B *int16, __IB VDSP_Stride, __C *int16, __N VDSP_Length)
+
+// VDSP_dotpr_s1_15 calculates the dot product of two fixed-point 1.15 format vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr_s1_15
+func VDSP_dotpr_s1_15(__A *int16, __IA VDSP_Stride, __B *int16, __IB VDSP_Stride, __C *int16, __N VDSP_Length) {
+	if _vDSP_dotpr_s1_15 == nil {
+		panic("Accelerate: symbol vDSP_dotpr_s1_15 not loaded")
+	}
+	_vDSP_dotpr_s1_15(__A, __IA, __B, __IB, __C, __N)
+}
+
+
+var _vDSP_dotpr_s8_24 func(__A *int, __IA VDSP_Stride, __B *int, __IB VDSP_Stride, __C *int, __N VDSP_Length)
+
+// VDSP_dotpr_s8_24 calculates the dot product of two fixed-point 8.24 format vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_dotpr_s8_24
+func VDSP_dotpr_s8_24(__A []int, __IA VDSP_Stride, __B []int, __IB VDSP_Stride, __C []int, __N VDSP_Length) {
+	if _vDSP_dotpr_s8_24 == nil {
+		panic("Accelerate: symbol vDSP_dotpr_s8_24 not loaded")
+	}
+	_vDSP_dotpr_s8_24(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_f3x3 func(__A *float32, __NR VDSP_Length, __NC VDSP_Length, __F *float32, __C *float32)
+
+// VDSP_f3x3 filters a single-precision image by performing a 2D convolution with a 3 x 3 kernel.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_f3x3
+func VDSP_f3x3(__A []float32, __NR VDSP_Length, __NC VDSP_Length, __F []float32, __C []float32) {
+	if _vDSP_f3x3 == nil {
+		panic("Accelerate: symbol vDSP_f3x3 not loaded")
+	}
+	_vDSP_f3x3(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
+}
+
+
+var _vDSP_f3x3D func(__A *float64, __NR VDSP_Length, __NC VDSP_Length, __F *float64, __C *float64)
+
+// VDSP_f3x3D filters a double-precision image by performing a 2D convolution with a 3 x 3 kernel.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_f3x3D
+func VDSP_f3x3D(__A []float64, __NR VDSP_Length, __NC VDSP_Length, __F []float64, __C []float64) {
+	if _vDSP_f3x3D == nil {
+		panic("Accelerate: symbol vDSP_f3x3D not loaded")
+	}
+	_vDSP_f3x3D(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
+}
+
+
+var _vDSP_f5x5 func(__A *float32, __NR VDSP_Length, __NC VDSP_Length, __F *float32, __C *float32)
+
+// VDSP_f5x5 filters a single-precision image by performing a 2D convolution with a 5 x 5 kernel.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_f5x5
+func VDSP_f5x5(__A []float32, __NR VDSP_Length, __NC VDSP_Length, __F []float32, __C []float32) {
+	if _vDSP_f5x5 == nil {
+		panic("Accelerate: symbol vDSP_f5x5 not loaded")
+	}
+	_vDSP_f5x5(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
+}
+
+
+var _vDSP_f5x5D func(__A *float64, __NR VDSP_Length, __NC VDSP_Length, __F *float64, __C *float64)
+
+// VDSP_f5x5D filters a double-precision image by performing a 2D convolution with a 5 x 5 kernel.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_f5x5D
+func VDSP_f5x5D(__A []float64, __NR VDSP_Length, __NC VDSP_Length, __F []float64, __C []float64) {
+	if _vDSP_f5x5D == nil {
+		panic("Accelerate: symbol vDSP_f5x5D not loaded")
+	}
+	_vDSP_f5x5D(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
+}
+
+
+var _vDSP_fft2d_zip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zip computes a 2D forward or inverse in-place, single-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zip
+func VDSP_fft2d_zip(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zip == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zip not loaded")
+	}
+	_vDSP_fft2d_zip(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zipD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zipD computes a 2D forward or inverse in-place, double-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zipD
+func VDSP_fft2d_zipD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zipD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zipD not loaded")
+	}
+	_vDSP_fft2d_zipD(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zipt func(__Setup FFTSetup, __C *DSPSplitComplex, __IC1 VDSP_Stride, __IC0 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zipt computes a 2D forward or inverse in-place, single-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zipt
+func VDSP_fft2d_zipt(__Setup FFTSetup, __C *DSPSplitComplex, __IC1 VDSP_Stride, __IC0 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zipt == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zipt not loaded")
+	}
+	_vDSP_fft2d_zipt(__Setup, __C, __IC1, __IC0, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_ziptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_ziptD computes a 2D forward or inverse in-place, double-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_ziptD
+func VDSP_fft2d_ziptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_ziptD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_ziptD not loaded")
+	}
+	_vDSP_fft2d_ziptD(__Setup, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zop computes a 2D forward or inverse out-of-place, single-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zop
+func VDSP_fft2d_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zop == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zop not loaded")
+	}
+	_vDSP_fft2d_zop(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zopD computes a 2D forward or inverse out-of-place, double-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zopD
+func VDSP_fft2d_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zopD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zopD not loaded")
+	}
+	_vDSP_fft2d_zopD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zopt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zopt computes a 2D forward or inverse out-of-place, single-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zopt
+func VDSP_fft2d_zopt(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zopt == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zopt not loaded")
+	}
+	_vDSP_fft2d_zopt(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zoptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zoptD computes a 2D forward or inverse out-of-place, double-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zoptD
+func VDSP_fft2d_zoptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zoptD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zoptD not loaded")
+	}
+	_vDSP_fft2d_zoptD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zrip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zrip computes a 2D forward or inverse in-place, single-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zrip
+func VDSP_fft2d_zrip(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zrip == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zrip not loaded")
+	}
+	_vDSP_fft2d_zrip(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zripD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __flag FFTDirection)
+
+// VDSP_fft2d_zripD computes a 2D forward or inverse in-place, double-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zripD
+func VDSP_fft2d_zripD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __flag FFTDirection) {
+	if _vDSP_fft2d_zripD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zripD not loaded")
+	}
+	_vDSP_fft2d_zripD(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __flag)
+}
+
+
+var _vDSP_fft2d_zript func(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zript computes a 2D forward or inverse in-place, single-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zript
+func VDSP_fft2d_zript(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zript == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zript not loaded")
+	}
+	_vDSP_fft2d_zript(__Setup, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zriptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __flag FFTDirection)
+
+// VDSP_fft2d_zriptD computes a 2D forward or inverse in-place, double-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zriptD
+func VDSP_fft2d_zriptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __flag FFTDirection) {
+	if _vDSP_fft2d_zriptD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zriptD not loaded")
+	}
+	_vDSP_fft2d_zriptD(__Setup, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __flag)
+}
+
+
+var _vDSP_fft2d_zrop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zrop computes a 2D forward or inverse out-of-place, single-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zrop
+func VDSP_fft2d_zrop(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zrop == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zrop not loaded")
+	}
+	_vDSP_fft2d_zrop(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zropD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zropD computes a 2D forward or inverse out-of-place, double-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zropD
+func VDSP_fft2d_zropD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zropD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zropD not loaded")
+	}
+	_vDSP_fft2d_zropD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zropt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zropt computes a 2D forward or inverse out-of-place, single-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zropt
+func VDSP_fft2d_zropt(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zropt == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zropt not loaded")
+	}
+	_vDSP_fft2d_zropt(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft2d_zroptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft2d_zroptD computes a 2D forward or inverse out-of-place, double-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft2d_zroptD
+func VDSP_fft2d_zroptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft2d_zroptD == nil {
+		panic("Accelerate: symbol vDSP_fft2d_zroptD not loaded")
+	}
+	_vDSP_fft2d_zroptD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
+}
+
+
+var _vDSP_fft3_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft3_zop computes a single-precision out-of-place radix-3 complex FFT, either forward or inverse.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft3_zop
+func VDSP_fft3_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft3_zop == nil {
+		panic("Accelerate: symbol vDSP_fft3_zop not loaded")
+	}
+	_vDSP_fft3_zop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft3_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft3_zopD computes a double-precision out-of-place radix-3 complex FFT, either forward or inverse.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft3_zopD
+func VDSP_fft3_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft3_zopD == nil {
+		panic("Accelerate: symbol vDSP_fft3_zopD not loaded")
+	}
+	_vDSP_fft3_zopD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft5_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft5_zop computes a single-precision out-of-place radix-5 complex FFT, either forward or inverse.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft5_zop
+func VDSP_fft5_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft5_zop == nil {
+		panic("Accelerate: symbol vDSP_fft5_zop not loaded")
+	}
+	_vDSP_fft5_zop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft5_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft5_zopD computes a double-precision out-of-place radix-5 complex FFT, either forward or inverse.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft5_zopD
+func VDSP_fft5_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft5_zopD == nil {
+		panic("Accelerate: symbol vDSP_fft5_zopD not loaded")
+	}
+	_vDSP_fft5_zopD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zip computes a forward or inverse in-place, single-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zip
+func VDSP_fft_zip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zip == nil {
+		panic("Accelerate: symbol vDSP_fft_zip not loaded")
+	}
+	_vDSP_fft_zip(__Setup, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zipD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zipD computes a forward or inverse in-place, double-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zipD
+func VDSP_fft_zipD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zipD == nil {
+		panic("Accelerate: symbol vDSP_fft_zipD not loaded")
+	}
+	_vDSP_fft_zipD(__Setup, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zipt func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zipt computes a forward or inverse in-place, single-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zipt
+func VDSP_fft_zipt(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zipt == nil {
+		panic("Accelerate: symbol vDSP_fft_zipt not loaded")
+	}
+	_vDSP_fft_zipt(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_ziptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_ziptD computes a forward or inverse in-place, double-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_ziptD
+func VDSP_fft_ziptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_ziptD == nil {
+		panic("Accelerate: symbol vDSP_fft_ziptD not loaded")
+	}
+	_vDSP_fft_ziptD(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zop computes a forward or inverse out-of-place, single-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zop
+func VDSP_fft_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zop == nil {
+		panic("Accelerate: symbol vDSP_fft_zop not loaded")
+	}
+	_vDSP_fft_zop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zopD computes a forward or inverse out-of-place, double-precision complex FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zopD
+func VDSP_fft_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zopD == nil {
+		panic("Accelerate: symbol vDSP_fft_zopD not loaded")
+	}
+	_vDSP_fft_zopD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zopt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zopt computes a forward or inverse out-of-place, single-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zopt
+func VDSP_fft_zopt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zopt == nil {
+		panic("Accelerate: symbol vDSP_fft_zopt not loaded")
+	}
+	_vDSP_fft_zopt(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zoptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zoptD computes a forward or inverse out-of-place, double-precision complex FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zoptD
+func VDSP_fft_zoptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zoptD == nil {
+		panic("Accelerate: symbol vDSP_fft_zoptD not loaded")
+	}
+	_vDSP_fft_zoptD(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zrip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zrip computes a forward or inverse in-place, single-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zrip
+func VDSP_fft_zrip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zrip == nil {
+		panic("Accelerate: symbol vDSP_fft_zrip not loaded")
+	}
+	_vDSP_fft_zrip(__Setup, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zripD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zripD computes a forward or inverse in-place, double-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zripD
+func VDSP_fft_zripD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zripD == nil {
+		panic("Accelerate: symbol vDSP_fft_zripD not loaded")
+	}
+	_vDSP_fft_zripD(__Setup, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zript func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zript computes a forward or inverse in-place, single-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zript
+func VDSP_fft_zript(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zript == nil {
+		panic("Accelerate: symbol vDSP_fft_zript not loaded")
+	}
+	_vDSP_fft_zript(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zriptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zriptD computes a forward or inverse in-place, double-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zriptD
+func VDSP_fft_zriptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zriptD == nil {
+		panic("Accelerate: symbol vDSP_fft_zriptD not loaded")
+	}
+	_vDSP_fft_zriptD(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zrop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zrop computes a forward or inverse out-of-place, single-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zrop
+func VDSP_fft_zrop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zrop == nil {
+		panic("Accelerate: symbol vDSP_fft_zrop not loaded")
+	}
+	_vDSP_fft_zrop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zropD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zropD computes a forward or inverse out-of-place, double-precision real FFT.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zropD
+func VDSP_fft_zropD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zropD == nil {
+		panic("Accelerate: symbol vDSP_fft_zropD not loaded")
+	}
+	_vDSP_fft_zropD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zropt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zropt computes a forward or inverse out-of-place, single-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zropt
+func VDSP_fft_zropt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zropt == nil {
+		panic("Accelerate: symbol vDSP_fft_zropt not loaded")
+	}
+	_vDSP_fft_zropt(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fft_zroptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fft_zroptD computes a forward or inverse out-of-place, double-precision real FFT using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fft_zroptD
+func VDSP_fft_zroptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fft_zroptD == nil {
+		panic("Accelerate: symbol vDSP_fft_zroptD not loaded")
+	}
+	_vDSP_fft_zroptD(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
+}
+
+
+var _vDSP_fftm_zip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zip computes a forward or inverse in-place, single-precision complex FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zip
+func VDSP_fftm_zip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zip == nil {
+		panic("Accelerate: symbol vDSP_fftm_zip not loaded")
+	}
+	_vDSP_fftm_zip(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zipD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zipD computes a forward or inverse in-place, double-precision complex FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zipD
+func VDSP_fftm_zipD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zipD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zipD not loaded")
+	}
+	_vDSP_fftm_zipD(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zipt func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zipt computes a forward or inverse in-place, single-precision complex FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zipt
+func VDSP_fftm_zipt(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zipt == nil {
+		panic("Accelerate: symbol vDSP_fftm_zipt not loaded")
+	}
+	_vDSP_fftm_zipt(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_ziptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_ziptD computes a forward or inverse in-place, double-precision complex FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_ziptD
+func VDSP_fftm_ziptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_ziptD == nil {
+		panic("Accelerate: symbol vDSP_fftm_ziptD not loaded")
+	}
+	_vDSP_fftm_ziptD(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zop computes a forward or inverse out-of-place, single-precision complex FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zop
+func VDSP_fftm_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zop == nil {
+		panic("Accelerate: symbol vDSP_fftm_zop not loaded")
+	}
+	_vDSP_fftm_zop(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zopD computes a forward or inverse out-of-place, double-precision complex FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zopD
+func VDSP_fftm_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zopD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zopD not loaded")
+	}
+	_vDSP_fftm_zopD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zopt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zopt computes a forward or inverse out-of-place, single-precision complex FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zopt
+func VDSP_fftm_zopt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zopt == nil {
+		panic("Accelerate: symbol vDSP_fftm_zopt not loaded")
+	}
+	_vDSP_fftm_zopt(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zoptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zoptD computes a forward or inverse out-of-place, double-precision complex FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zoptD
+func VDSP_fftm_zoptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zoptD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zoptD not loaded")
+	}
+	_vDSP_fftm_zoptD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zrip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zrip computes a forward or inverse in-place, single-precision real FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zrip
+func VDSP_fftm_zrip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zrip == nil {
+		panic("Accelerate: symbol vDSP_fftm_zrip not loaded")
+	}
+	_vDSP_fftm_zrip(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zripD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zripD computes a forward or inverse in-place, double-precision real FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zripD
+func VDSP_fftm_zripD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zripD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zripD not loaded")
+	}
+	_vDSP_fftm_zripD(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zript func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zript computes a forward or inverse in-place, single-precision real FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zript
+func VDSP_fftm_zript(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zript == nil {
+		panic("Accelerate: symbol vDSP_fftm_zript not loaded")
+	}
+	_vDSP_fftm_zript(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zriptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zriptD computes a forward or inverse in-place, double-precision real FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zriptD
+func VDSP_fftm_zriptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zriptD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zriptD not loaded")
+	}
+	_vDSP_fftm_zriptD(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zrop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zrop computes a forward or inverse out-of-place, single-precision real FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zrop
+func VDSP_fftm_zrop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zrop == nil {
+		panic("Accelerate: symbol vDSP_fftm_zrop not loaded")
+	}
+	_vDSP_fftm_zrop(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zropD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zropD computes a forward or inverse out-of-place, double-precision real FFT on multiple signals.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zropD
+func VDSP_fftm_zropD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zropD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zropD not loaded")
+	}
+	_vDSP_fftm_zropD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zropt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zropt computes a forward or inverse out-of-place, single-precision real FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zropt
+func VDSP_fftm_zropt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zropt == nil {
+		panic("Accelerate: symbol vDSP_fftm_zropt not loaded")
+	}
+	_vDSP_fftm_zropt(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_fftm_zroptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
+
+// VDSP_fftm_zroptD computes a forward or inverse out-of-place, double-precision real FFT on multiple signals using a temporary buffer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_fftm_zroptD
+func VDSP_fftm_zroptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection) {
+	if _vDSP_fftm_zroptD == nil {
+		panic("Accelerate: symbol vDSP_fftm_zroptD not loaded")
+	}
+	_vDSP_fftm_zroptD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
+}
+
+
+var _vDSP_hamm_window func(__C *float32, __N VDSP_Length, __Flag int)
+
+// VDSP_hamm_window creates a single-precision Hamming window.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_hamm_window
+func VDSP_hamm_window(__C []float32, __N VDSP_Length, __Flag int) {
+	if _vDSP_hamm_window == nil {
+		panic("Accelerate: symbol vDSP_hamm_window not loaded")
+	}
+	_vDSP_hamm_window(unsafe.SliceData(__C), __N, __Flag)
+}
+
+
+var _vDSP_hamm_windowD func(__C *float64, __N VDSP_Length, __Flag int)
+
+// VDSP_hamm_windowD creates a double-precision Hamming window.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_hamm_windowD
+func VDSP_hamm_windowD(__C []float64, __N VDSP_Length, __Flag int) {
+	if _vDSP_hamm_windowD == nil {
+		panic("Accelerate: symbol vDSP_hamm_windowD not loaded")
+	}
+	_vDSP_hamm_windowD(unsafe.SliceData(__C), __N, __Flag)
+}
+
+
+var _vDSP_hann_window func(__C *float32, __N VDSP_Length, __Flag int)
+
+// VDSP_hann_window creates a single-precision Hann window.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_hann_window
+func VDSP_hann_window(__C []float32, __N VDSP_Length, __Flag int) {
+	if _vDSP_hann_window == nil {
+		panic("Accelerate: symbol vDSP_hann_window not loaded")
+	}
+	_vDSP_hann_window(unsafe.SliceData(__C), __N, __Flag)
+}
+
+
+var _vDSP_hann_windowD func(__C *float64, __N VDSP_Length, __Flag int)
+
+// VDSP_hann_windowD creates a double-precision Hann window.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_hann_windowD
+func VDSP_hann_windowD(__C []float64, __N VDSP_Length, __Flag int) {
+	if _vDSP_hann_windowD == nil {
+		panic("Accelerate: symbol vDSP_hann_windowD not loaded")
+	}
+	_vDSP_hann_windowD(unsafe.SliceData(__C), __N, __Flag)
+}
+
+
+var _vDSP_imgfir func(__A *float32, __NR VDSP_Length, __NC VDSP_Length, __F *float32, __C *float32, __P VDSP_Length, __Q VDSP_Length)
+
+// VDSP_imgfir filters a single-precision image by performing a 2D convolution with an arbitrarily sized kernel.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_imgfir
+func VDSP_imgfir(__A []float32, __NR VDSP_Length, __NC VDSP_Length, __F []float32, __C []float32, __P VDSP_Length, __Q VDSP_Length) {
+	if _vDSP_imgfir == nil {
+		panic("Accelerate: symbol vDSP_imgfir not loaded")
+	}
+	_vDSP_imgfir(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C), __P, __Q)
+}
+
+
+var _vDSP_imgfirD func(__A *float64, __NR VDSP_Length, __NC VDSP_Length, __F *float64, __C *float64, __P VDSP_Length, __Q VDSP_Length)
+
+// VDSP_imgfirD filters a double-precision image by performing a 2D convolution with an arbitrarily sized kernel.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_imgfirD
+func VDSP_imgfirD(__A []float64, __NR VDSP_Length, __NC VDSP_Length, __F []float64, __C []float64, __P VDSP_Length, __Q VDSP_Length) {
+	if _vDSP_imgfirD == nil {
+		panic("Accelerate: symbol vDSP_imgfirD not loaded")
+	}
+	_vDSP_imgfirD(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C), __P, __Q)
+}
+
+
+var _vDSP_maxmgv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_maxmgv calculates the single-precision maximum magnitude of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxmgv
+func VDSP_maxmgv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_maxmgv == nil {
+		panic("Accelerate: symbol vDSP_maxmgv not loaded")
+	}
+	_vDSP_maxmgv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_maxmgvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_maxmgvD calculates the double-precision maximum magnitude of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxmgvD
+func VDSP_maxmgvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_maxmgvD == nil {
+		panic("Accelerate: symbol vDSP_maxmgvD not loaded")
+	}
+	_vDSP_maxmgvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_maxmgvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_maxmgvi calculates the maximum magnitude and corresponding index in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxmgvi
+func VDSP_maxmgvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_maxmgvi == nil {
+		panic("Accelerate: symbol vDSP_maxmgvi not loaded")
+	}
+	_vDSP_maxmgvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_maxmgviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_maxmgviD calculates the maximum magnitude and corresponding index in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxmgviD
+func VDSP_maxmgviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_maxmgviD == nil {
+		panic("Accelerate: symbol vDSP_maxmgviD not loaded")
+	}
+	_vDSP_maxmgviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_maxv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_maxv calculates the single-precision maximum value of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxv
+func VDSP_maxv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_maxv == nil {
+		panic("Accelerate: symbol vDSP_maxv not loaded")
+	}
+	_vDSP_maxv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_maxvD func(__A *float64, __I VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_maxvD calculates the double-precision maximum value of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxvD
+func VDSP_maxvD(__A []float64, __I VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_maxvD == nil {
+		panic("Accelerate: symbol vDSP_maxvD not loaded")
+	}
+	_vDSP_maxvD(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_maxvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_maxvi calculates the maximum value and corresponding index in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxvi
+func VDSP_maxvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_maxvi == nil {
+		panic("Accelerate: symbol vDSP_maxvi not loaded")
+	}
+	_vDSP_maxvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_maxviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_maxviD calculates the maximum value and corresponding index in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_maxviD
+func VDSP_maxviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_maxviD == nil {
+		panic("Accelerate: symbol vDSP_maxviD not loaded")
+	}
+	_vDSP_maxviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_meamgv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_meamgv calculates the mean of magnitudes of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_meamgv
+func VDSP_meamgv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_meamgv == nil {
+		panic("Accelerate: symbol vDSP_meamgv not loaded")
+	}
+	_vDSP_meamgv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_meamgvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_meamgvD calculates the mean of magnitudes of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_meamgvD
+func VDSP_meamgvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_meamgvD == nil {
+		panic("Accelerate: symbol vDSP_meamgvD not loaded")
+	}
+	_vDSP_meamgvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_meanv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_meanv calculates the mean value of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_meanv
+func VDSP_meanv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_meanv == nil {
+		panic("Accelerate: symbol vDSP_meanv not loaded")
+	}
+	_vDSP_meanv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_meanvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_meanvD calculates the mean value of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_meanvD
+func VDSP_meanvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_meanvD == nil {
+		panic("Accelerate: symbol vDSP_meanvD not loaded")
+	}
+	_vDSP_meanvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_measqv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_measqv calculates the mean of squares of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_measqv
+func VDSP_measqv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_measqv == nil {
+		panic("Accelerate: symbol vDSP_measqv not loaded")
+	}
+	_vDSP_measqv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_measqvD func(__A *float64, __I VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_measqvD calculates the mean of squares of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_measqvD
+func VDSP_measqvD(__A []float64, __I VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_measqvD == nil {
+		panic("Accelerate: symbol vDSP_measqvD not loaded")
+	}
+	_vDSP_measqvD(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_minmgv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_minmgv calculates the single-precision minimum magnitude of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minmgv
+func VDSP_minmgv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_minmgv == nil {
+		panic("Accelerate: symbol vDSP_minmgv not loaded")
+	}
+	_vDSP_minmgv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_minmgvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_minmgvD calculates the double-precision minimum magnitude of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minmgvD
+func VDSP_minmgvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_minmgvD == nil {
+		panic("Accelerate: symbol vDSP_minmgvD not loaded")
+	}
+	_vDSP_minmgvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_minmgvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_minmgvi calculates the minimum magnitude and corresponding index in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minmgvi
+func VDSP_minmgvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_minmgvi == nil {
+		panic("Accelerate: symbol vDSP_minmgvi not loaded")
+	}
+	_vDSP_minmgvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_minmgviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_minmgviD calculates the minimum magnitude and corresponding index in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minmgviD
+func VDSP_minmgviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_minmgviD == nil {
+		panic("Accelerate: symbol vDSP_minmgviD not loaded")
+	}
+	_vDSP_minmgviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_minv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_minv calculates the single-precision minimum value of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minv
+func VDSP_minv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_minv == nil {
+		panic("Accelerate: symbol vDSP_minv not loaded")
+	}
+	_vDSP_minv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_minvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_minvD calculates the double-precision minimum value of a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minvD
+func VDSP_minvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_minvD == nil {
+		panic("Accelerate: symbol vDSP_minvD not loaded")
+	}
+	_vDSP_minvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_minvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_minvi calculates the minimum value and corresponding index in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minvi
+func VDSP_minvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_minvi == nil {
+		panic("Accelerate: symbol vDSP_minvi not loaded")
+	}
+	_vDSP_minvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_minviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
+
+// VDSP_minviD calculates the minimum value and corresponding index in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_minviD
+func VDSP_minviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_minviD == nil {
+		panic("Accelerate: symbol vDSP_minviD not loaded")
+	}
+	_vDSP_minviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
+}
+
+
+var _vDSP_mmov func(__A *float32, __C *float32, __M VDSP_Length, __N VDSP_Length, __TA VDSP_Length, __TC VDSP_Length)
+
+// VDSP_mmov copies the contents of a single-precision submatrix to another single-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mmov
+func VDSP_mmov(__A []float32, __C []float32, __M VDSP_Length, __N VDSP_Length, __TA VDSP_Length, __TC VDSP_Length) {
+	if _vDSP_mmov == nil {
+		panic("Accelerate: symbol vDSP_mmov not loaded")
+	}
+	_vDSP_mmov(unsafe.SliceData(__A), unsafe.SliceData(__C), __M, __N, __TA, __TC)
+}
+
+
+var _vDSP_mmovD func(__A *float64, __C *float64, __M VDSP_Length, __N VDSP_Length, __TA VDSP_Length, __TC VDSP_Length)
+
+// VDSP_mmovD copies the contents of a double-precision submatrix to another double-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mmovD
+func VDSP_mmovD(__A []float64, __C []float64, __M VDSP_Length, __N VDSP_Length, __TA VDSP_Length, __TC VDSP_Length) {
+	if _vDSP_mmovD == nil {
+		panic("Accelerate: symbol vDSP_mmovD not loaded")
+	}
+	_vDSP_mmovD(unsafe.SliceData(__A), unsafe.SliceData(__C), __M, __N, __TA, __TC)
+}
+
+
+var _vDSP_mmul func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_mmul performs an out-of-place multiplication of two single-precision real matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mmul
+func VDSP_mmul(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_mmul == nil {
+		panic("Accelerate: symbol vDSP_mmul not loaded")
+	}
+	_vDSP_mmul(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __M, __N, __P)
+}
+
+
+var _vDSP_mmulD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_mmulD performs an out-of-place multiplication of two double-precision real matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mmulD
+func VDSP_mmulD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_mmulD == nil {
+		panic("Accelerate: symbol vDSP_mmulD not loaded")
+	}
+	_vDSP_mmulD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __M, __N, __P)
+}
+
+
+var _vDSP_mtrans func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length)
+
+// VDSP_mtrans transposes a single-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mtrans
+func VDSP_mtrans(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length) {
+	if _vDSP_mtrans == nil {
+		panic("Accelerate: symbol vDSP_mtrans not loaded")
+	}
+	_vDSP_mtrans(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __M, __N)
+}
+
+
+var _vDSP_mtransD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length)
+
+// VDSP_mtransD transposes a double-precision matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mtransD
+func VDSP_mtransD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length) {
+	if _vDSP_mtransD == nil {
+		panic("Accelerate: symbol vDSP_mtransD not loaded")
+	}
+	_vDSP_mtransD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __M, __N)
+}
+
+
+var _vDSP_mvessq func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_mvessq calculates the mean of signed squares of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mvessq
+func VDSP_mvessq(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_mvessq == nil {
+		panic("Accelerate: symbol vDSP_mvessq not loaded")
+	}
+	_vDSP_mvessq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_mvessqD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_mvessqD calculates the mean of signed squares of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_mvessqD
+func VDSP_mvessqD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_mvessqD == nil {
+		panic("Accelerate: symbol vDSP_mvessqD not loaded")
+	}
+	_vDSP_mvessqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_normalize func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __Mean *float32, __StandardDeviation *float32, __N VDSP_Length)
+
+// VDSP_normalize computes single-precision mean and standard deviation, and then calculates new elements to have a zero mean and a unit standard deviation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_normalize
+func VDSP_normalize(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __Mean []float32, __StandardDeviation []float32, __N VDSP_Length) {
+	if _vDSP_normalize == nil {
+		panic("Accelerate: symbol vDSP_normalize not loaded")
+	}
+	_vDSP_normalize(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, unsafe.SliceData(__Mean), unsafe.SliceData(__StandardDeviation), __N)
+}
+
+
+var _vDSP_normalizeD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __Mean *float64, __StandardDeviation *float64, __N VDSP_Length)
+
+// VDSP_normalizeD computes double-precision mean and standard deviation, and then calculates new elements to have a zero mean and a unit standard deviation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_normalizeD
+func VDSP_normalizeD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __Mean []float64, __StandardDeviation []float64, __N VDSP_Length) {
+	if _vDSP_normalizeD == nil {
+		panic("Accelerate: symbol vDSP_normalizeD not loaded")
+	}
+	_vDSP_normalizeD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, unsafe.SliceData(__Mean), unsafe.SliceData(__StandardDeviation), __N)
+}
+
+
+var _vDSP_nzcros func(__A *float32, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Length, __D *VDSP_Length, __N VDSP_Length)
+
+// VDSP_nzcros counts and finds the zero crossings in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_nzcros
+func VDSP_nzcros(__A []float32, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Length, __D *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_nzcros == nil {
+		panic("Accelerate: symbol vDSP_nzcros not loaded")
+	}
+	_vDSP_nzcros(unsafe.SliceData(__A), __IA, __B, __C, __D, __N)
+}
+
+
+var _vDSP_nzcrosD func(__A *float64, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Length, __D *VDSP_Length, __N VDSP_Length)
+
+// VDSP_nzcrosD counts and finds the zero crossings in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_nzcrosD
+func VDSP_nzcrosD(__A []float64, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Length, __D *VDSP_Length, __N VDSP_Length) {
+	if _vDSP_nzcrosD == nil {
+		panic("Accelerate: symbol vDSP_nzcrosD not loaded")
+	}
+	_vDSP_nzcrosD(unsafe.SliceData(__A), __IA, __B, __C, __D, __N)
+}
+
+
+var _vDSP_polar func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_polar converts single-precision rectangular coordinates to polar coordinates, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_polar
+func VDSP_polar(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_polar == nil {
+		panic("Accelerate: symbol vDSP_polar not loaded")
+	}
+	_vDSP_polar(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_polarD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_polarD converts double-precision rectangular coordinates to polar coordinates, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_polarD
+func VDSP_polarD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_polarD == nil {
+		panic("Accelerate: symbol vDSP_polarD not loaded")
+	}
+	_vDSP_polarD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_rect func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_rect converts single-precision polar coordinates to rectangular coordinates, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_rect
+func VDSP_rect(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_rect == nil {
+		panic("Accelerate: symbol vDSP_rect not loaded")
+	}
+	_vDSP_rect(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_rectD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_rectD converts double-precision polar coordinates to rectangular coordinates, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_rectD
+func VDSP_rectD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_rectD == nil {
+		panic("Accelerate: symbol vDSP_rectD not loaded")
+	}
+	_vDSP_rectD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_rmsqv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_rmsqv calculates the root mean square of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_rmsqv
+func VDSP_rmsqv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_rmsqv == nil {
+		panic("Accelerate: symbol vDSP_rmsqv not loaded")
+	}
+	_vDSP_rmsqv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_rmsqvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_rmsqvD calculates the root mean square of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_rmsqvD
+func VDSP_rmsqvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_rmsqvD == nil {
+		panic("Accelerate: symbol vDSP_rmsqvD not loaded")
+	}
+	_vDSP_rmsqvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_svdiv func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_svdiv calculates the single-precision element-wise division of a scalar value and a vector, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svdiv
+func VDSP_svdiv(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_svdiv == nil {
+		panic("Accelerate: symbol vDSP_svdiv not loaded")
+	}
+	_vDSP_svdiv(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_svdivD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_svdivD calculates the double-precision element-wise division of a scalar value and a vector, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svdivD
+func VDSP_svdivD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_svdivD == nil {
+		panic("Accelerate: symbol vDSP_svdivD not loaded")
+	}
+	_vDSP_svdivD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_sve func(__A *float32, __I VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_sve calculates the sum of values in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_sve
+func VDSP_sve(__A []float32, __I VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_sve == nil {
+		panic("Accelerate: symbol vDSP_sve not loaded")
+	}
+	_vDSP_sve(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_sveD func(__A *float64, __I VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_sveD calculates the sum of values in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_sveD
+func VDSP_sveD(__A []float64, __I VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_sveD == nil {
+		panic("Accelerate: symbol vDSP_sveD not loaded")
+	}
+	_vDSP_sveD(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_sve_svesq func(__A *float32, __IA VDSP_Stride, __Sum *float32, __SumOfSquares *float32, __N VDSP_Length)
+
+// VDSP_sve_svesq calculates the sum of values and the sum of squares in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_sve_svesq
+func VDSP_sve_svesq(__A []float32, __IA VDSP_Stride, __Sum []float32, __SumOfSquares []float32, __N VDSP_Length) {
+	if _vDSP_sve_svesq == nil {
+		panic("Accelerate: symbol vDSP_sve_svesq not loaded")
+	}
+	_vDSP_sve_svesq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__Sum), unsafe.SliceData(__SumOfSquares), __N)
+}
+
+
+var _vDSP_sve_svesqD func(__A *float64, __IA VDSP_Stride, __Sum *float64, __SumOfSquares *float64, __N VDSP_Length)
+
+// VDSP_sve_svesqD calculates the sum of values and the sum of squares in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_sve_svesqD
+func VDSP_sve_svesqD(__A []float64, __IA VDSP_Stride, __Sum []float64, __SumOfSquares []float64, __N VDSP_Length) {
+	if _vDSP_sve_svesqD == nil {
+		panic("Accelerate: symbol vDSP_sve_svesqD not loaded")
+	}
+	_vDSP_sve_svesqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__Sum), unsafe.SliceData(__SumOfSquares), __N)
+}
+
+
+var _vDSP_svemg func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_svemg calculates the sum of magnitudes in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svemg
+func VDSP_svemg(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_svemg == nil {
+		panic("Accelerate: symbol vDSP_svemg not loaded")
+	}
+	_vDSP_svemg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_svemgD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_svemgD calculates the sum of magnitudes in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svemgD
+func VDSP_svemgD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_svemgD == nil {
+		panic("Accelerate: symbol vDSP_svemgD not loaded")
+	}
+	_vDSP_svemgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_svesq func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_svesq calculates the sum of squares in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svesq
+func VDSP_svesq(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_svesq == nil {
+		panic("Accelerate: symbol vDSP_svesq not loaded")
+	}
+	_vDSP_svesq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_svesqD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_svesqD calculates the sum of squares in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svesqD
+func VDSP_svesqD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_svesqD == nil {
+		panic("Accelerate: symbol vDSP_svesqD not loaded")
+	}
+	_vDSP_svesqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_svs func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
+
+// VDSP_svs calculates the sum of signed squares in a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svs
+func VDSP_svs(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
+	if _vDSP_svs == nil {
+		panic("Accelerate: symbol vDSP_svs not loaded")
+	}
+	_vDSP_svs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_svsD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
+
+// VDSP_svsD calculates the sum of signed squares in a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_svsD
+func VDSP_svsD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) {
+	if _vDSP_svsD == nil {
+		panic("Accelerate: symbol vDSP_svsD not loaded")
+	}
+	_vDSP_svsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_vaam func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vaam calculates the single-precision element-wise product of the sums of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vaam
+func VDSP_vaam(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vaam == nil {
+		panic("Accelerate: symbol vDSP_vaam not loaded")
+	}
+	_vDSP_vaam(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vaamD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vaamD calculates the double-precision element-wise product of the sums of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vaamD
+func VDSP_vaamD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vaamD == nil {
+		panic("Accelerate: symbol vDSP_vaamD not loaded")
+	}
+	_vDSP_vaamD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vabs func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vabs calculates the absolute value of each element in the supplied single-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vabs
+func VDSP_vabs(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vabs == nil {
+		panic("Accelerate: symbol vDSP_vabs not loaded")
+	}
+	_vDSP_vabs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vabsD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vabsD calculates the absolute value of each element in the supplied double-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vabsD
+func VDSP_vabsD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vabsD == nil {
+		panic("Accelerate: symbol vDSP_vabsD not loaded")
+	}
+	_vDSP_vabsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vabsi func(__A *int, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vabsi calculates the absolute value of each element in the supplied integer vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vabsi
+func VDSP_vabsi(__A []int, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vabsi == nil {
+		panic("Accelerate: symbol vDSP_vabsi not loaded")
+	}
+	_vDSP_vabsi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vadd func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vadd calculates the single-precision element-wise sum of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vadd
+func VDSP_vadd(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vadd == nil {
+		panic("Accelerate: symbol vDSP_vadd not loaded")
+	}
+	_vDSP_vadd(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vaddD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vaddD calculates the double-precision element-wise sum of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vaddD
+func VDSP_vaddD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vaddD == nil {
+		panic("Accelerate: symbol vDSP_vaddD not loaded")
+	}
+	_vDSP_vaddD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vaddi func(__A *int, __IA VDSP_Stride, __B *int, __IB VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vaddi adds two integer vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vaddi
+func VDSP_vaddi(__A []int, __IA VDSP_Stride, __B []int, __IB VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vaddi == nil {
+		panic("Accelerate: symbol vDSP_vaddi not loaded")
+	}
+	_vDSP_vaddi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vaddsub func(__I0 *float32, __I0S VDSP_Stride, __I1 *float32, __I1S VDSP_Stride, __O0 *float32, __O0S VDSP_Stride, __O1 *float32, __O1S VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vaddsub calculates the single-precision element-wise sum and subtraction of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vaddsub
+func VDSP_vaddsub(__I0 []float32, __I0S VDSP_Stride, __I1 []float32, __I1S VDSP_Stride, __O0 []float32, __O0S VDSP_Stride, __O1 []float32, __O1S VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vaddsub == nil {
+		panic("Accelerate: symbol vDSP_vaddsub not loaded")
+	}
+	_vDSP_vaddsub(unsafe.SliceData(__I0), __I0S, unsafe.SliceData(__I1), __I1S, unsafe.SliceData(__O0), __O0S, unsafe.SliceData(__O1), __O1S, __N)
+}
+
+
+var _vDSP_vaddsubD func(__I0 *float64, __I0S VDSP_Stride, __I1 *float64, __I1S VDSP_Stride, __O0 *float64, __O0S VDSP_Stride, __O1 *float64, __O1S VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vaddsubD calculates the double-precision element-wise sum and subtraction of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vaddsubD
+func VDSP_vaddsubD(__I0 []float64, __I0S VDSP_Stride, __I1 []float64, __I1S VDSP_Stride, __O0 []float64, __O0S VDSP_Stride, __O1 []float64, __O1S VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vaddsubD == nil {
+		panic("Accelerate: symbol vDSP_vaddsubD not loaded")
+	}
+	_vDSP_vaddsubD(unsafe.SliceData(__I0), __I0S, unsafe.SliceData(__I1), __I1S, unsafe.SliceData(__O0), __O0S, unsafe.SliceData(__O1), __O1S, __N)
+}
+
+
+var _vDSP_vam func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vam calculates the single-precision element-wise product of a vector and the sum of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vam
+func VDSP_vam(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vam == nil {
+		panic("Accelerate: symbol vDSP_vam not loaded")
+	}
+	_vDSP_vam(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vamD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __IDD VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vamD calculates the double-precision element-wise product of a vector and the sum of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vamD
+func VDSP_vamD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __IDD VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vamD == nil {
+		panic("Accelerate: symbol vDSP_vamD not loaded")
+	}
+	_vDSP_vamD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __IDD, __N)
+}
+
+
+var _vDSP_vasbm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vasbm calculates the double-precision element-wise product of the sum of two vectors and the difference of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vasbm
+func VDSP_vasbm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vasbm == nil {
+		panic("Accelerate: symbol vDSP_vasbm not loaded")
+	}
+	_vDSP_vasbm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vasbmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vasbmD calculates the double-precision element-wise product of the sum of two vectors and the difference of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vasbmD
+func VDSP_vasbmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vasbmD == nil {
+		panic("Accelerate: symbol vDSP_vasbmD not loaded")
+	}
+	_vDSP_vasbmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vasm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vasm calculates the single-precision element-wise product of the sum of two vectors and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vasm
+func VDSP_vasm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vasm == nil {
+		panic("Accelerate: symbol vDSP_vasm not loaded")
+	}
+	_vDSP_vasm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vasmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vasmD calculates the double-precision element-wise product of the sum of two vectors and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vasmD
+func VDSP_vasmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vasmD == nil {
+		panic("Accelerate: symbol vDSP_vasmD not loaded")
+	}
+	_vDSP_vasmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vavlin func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vavlin recalculates the element-wise single-precision linear average of an existing vector to include a second vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vavlin
+func VDSP_vavlin(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vavlin == nil {
+		panic("Accelerate: symbol vDSP_vavlin not loaded")
+	}
+	_vDSP_vavlin(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vavlinD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vavlinD recalculates the element-wise double-precision linear average of an existing vector to include a second vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vavlinD
+func VDSP_vavlinD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vavlinD == nil {
+		panic("Accelerate: symbol vDSP_vavlinD not loaded")
+	}
+	_vDSP_vavlinD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vclip func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vclip calculates the elements of a single-precision vector clipped to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vclip
+func VDSP_vclip(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vclip == nil {
+		panic("Accelerate: symbol vDSP_vclip not loaded")
+	}
+	_vDSP_vclip(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vclipD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vclipD calculates the elements of a double-precision vector clipped to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vclipD
+func VDSP_vclipD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vclipD == nil {
+		panic("Accelerate: symbol vDSP_vclipD not loaded")
+	}
+	_vDSP_vclipD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vclipc func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length, __NLow *VDSP_Length, __NHigh *VDSP_Length)
+
+// VDSP_vclipc calculates and counts the elements of a single-precision vector clipped to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vclipc
+func VDSP_vclipc(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length, __NLow *VDSP_Length, __NHigh *VDSP_Length) {
+	if _vDSP_vclipc == nil {
+		panic("Accelerate: symbol vDSP_vclipc not loaded")
+	}
+	_vDSP_vclipc(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N, __NLow, __NHigh)
+}
+
+
+var _vDSP_vclipcD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length, __NLow *VDSP_Length, __NHigh *VDSP_Length)
+
+// VDSP_vclipcD calculates and counts the elements of a double-precision vector clipped to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vclipcD
+func VDSP_vclipcD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length, __NLow *VDSP_Length, __NHigh *VDSP_Length) {
+	if _vDSP_vclipcD == nil {
+		panic("Accelerate: symbol vDSP_vclipcD not loaded")
+	}
+	_vDSP_vclipcD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N, __NLow, __NHigh)
+}
+
+
+var _vDSP_vclr func(__C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vclr populates a single-precision vector with zeros.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vclr
+func VDSP_vclr(__C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vclr == nil {
+		panic("Accelerate: symbol vDSP_vclr not loaded")
+	}
+	_vDSP_vclr(unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vclrD func(__C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vclrD populates a double-precision vector with zeros.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vclrD
+func VDSP_vclrD(__C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vclrD == nil {
+		panic("Accelerate: symbol vDSP_vclrD not loaded")
+	}
+	_vDSP_vclrD(unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vcmprs func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vcmprs generates a compressed copy of the specified single-precision vector using the nonzero values in a gating vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vcmprs
+func VDSP_vcmprs(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vcmprs == nil {
+		panic("Accelerate: symbol vDSP_vcmprs not loaded")
+	}
+	_vDSP_vcmprs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vcmprsD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vcmprsD generates a compressed copy of the specified double-precision vector using the nonzero values in a gating vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vcmprsD
+func VDSP_vcmprsD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vcmprsD == nil {
+		panic("Accelerate: symbol vDSP_vcmprsD not loaded")
+	}
+	_vDSP_vcmprsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vdbcon func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __F uint)
+
+// VDSP_vdbcon converts single-precision power or amplitude values to decibel values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdbcon
+func VDSP_vdbcon(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __F uint) {
+	if _vDSP_vdbcon == nil {
+		panic("Accelerate: symbol vDSP_vdbcon not loaded")
+	}
+	_vDSP_vdbcon(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N, __F)
+}
+
+
+var _vDSP_vdbconD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __F uint)
+
+// VDSP_vdbconD converts single-precision power or amplitude values to decibel values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdbconD
+func VDSP_vdbconD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __F uint) {
+	if _vDSP_vdbconD == nil {
+		panic("Accelerate: symbol vDSP_vdbconD not loaded")
+	}
+	_vDSP_vdbconD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N, __F)
+}
+
+
+var _vDSP_vdist func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vdist calculates the single-precision hypotenuses of right triangles with legs that are the lengths of corresponding elements of two pairs of vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdist
+func VDSP_vdist(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vdist == nil {
+		panic("Accelerate: symbol vDSP_vdist not loaded")
+	}
+	_vDSP_vdist(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vdistD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vdistD calculates the double-precision hypotenuses of right triangles with legs that are the lengths of corresponding elements of two pairs of vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdistD
+func VDSP_vdistD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vdistD == nil {
+		panic("Accelerate: symbol vDSP_vdistD not loaded")
+	}
+	_vDSP_vdistD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vdiv func(__B *float32, __IB VDSP_Stride, __A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vdiv calculates the single-precision element-wise division of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdiv
+func VDSP_vdiv(__B []float32, __IB VDSP_Stride, __A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vdiv == nil {
+		panic("Accelerate: symbol vDSP_vdiv not loaded")
+	}
+	_vDSP_vdiv(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vdivD func(__B *float64, __IB VDSP_Stride, __A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vdivD calculates the double-precision element-wise division of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdivD
+func VDSP_vdivD(__B []float64, __IB VDSP_Stride, __A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vdivD == nil {
+		panic("Accelerate: symbol vDSP_vdivD not loaded")
+	}
+	_vDSP_vdivD(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vdivi func(__B *int, __IB VDSP_Stride, __A *int, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vdivi divides two integer vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdivi
+func VDSP_vdivi(__B []int, __IB VDSP_Stride, __A []int, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vdivi == nil {
+		panic("Accelerate: symbol vDSP_vdivi not loaded")
+	}
+	_vDSP_vdivi(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vdpsp func(__A *float64, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vdpsp converts a double-precision vector to a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vdpsp
+func VDSP_vdpsp(__A []float64, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vdpsp == nil {
+		panic("Accelerate: symbol vDSP_vdpsp not loaded")
+	}
+	_vDSP_vdpsp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_venvlp func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_venvlp calculates whether each element in a single-precision vector falls within a specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_venvlp
+func VDSP_venvlp(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_venvlp == nil {
+		panic("Accelerate: symbol vDSP_venvlp not loaded")
+	}
+	_vDSP_venvlp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_venvlpD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_venvlpD calculates whether each element in a double-precision vector falls within a specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_venvlpD
+func VDSP_venvlpD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_venvlpD == nil {
+		panic("Accelerate: symbol vDSP_venvlpD not loaded")
+	}
+	_vDSP_venvlpD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_veqvi func(__A *int, __IA VDSP_Stride, __B *int, __IB VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_veqvi calculates bitwise logical equivalence of two integer vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_veqvi
+func VDSP_veqvi(__A []int, __IA VDSP_Stride, __B []int, __IB VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_veqvi == nil {
+		panic("Accelerate: symbol vDSP_veqvi not loaded")
+	}
+	_vDSP_veqvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfill func(__A *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfill populates a single-precision vector with a specified scalar value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfill
+func VDSP_vfill(__A []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfill == nil {
+		panic("Accelerate: symbol vDSP_vfill not loaded")
+	}
+	_vDSP_vfill(unsafe.SliceData(__A), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfillD func(__A *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfillD populates a double-precision vector with a specified scalar value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfillD
+func VDSP_vfillD(__A []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfillD == nil {
+		panic("Accelerate: symbol vDSP_vfillD not loaded")
+	}
+	_vDSP_vfillD(unsafe.SliceData(__A), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfilli func(__A *int, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfilli populates an integer vector with a specified scalar value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfilli
+func VDSP_vfilli(__A []int, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfilli == nil {
+		panic("Accelerate: symbol vDSP_vfilli not loaded")
+	}
+	_vDSP_vfilli(unsafe.SliceData(__A), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfix16 func(__A *float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfix16 converts a vector of single-precision floating-point values to signed 16-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix16
+func VDSP_vfix16(__A []float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfix16 == nil {
+		panic("Accelerate: symbol vDSP_vfix16 not loaded")
+	}
+	_vDSP_vfix16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfix16D func(__A *float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfix16D converts a vector of double-precision floating-point values to signed 16-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix16D
+func VDSP_vfix16D(__A []float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfix16D == nil {
+		panic("Accelerate: symbol vDSP_vfix16D not loaded")
+	}
+	_vDSP_vfix16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfix32 func(__A *float32, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfix32 converts a vector of single-precision floating-point values to signed 32-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix32
+func VDSP_vfix32(__A []float32, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfix32 == nil {
+		panic("Accelerate: symbol vDSP_vfix32 not loaded")
+	}
+	_vDSP_vfix32(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfix32D func(__A *float64, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfix32D converts a vector of double-precision floating-point values to signed 32-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix32D
+func VDSP_vfix32D(__A []float64, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfix32D == nil {
+		panic("Accelerate: symbol vDSP_vfix32D not loaded")
+	}
+	_vDSP_vfix32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfix8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfix8 converts a vector of single-precision floating-point values to signed 8-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix8
+func VDSP_vfix8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfix8 == nil {
+		panic("Accelerate: symbol vDSP_vfix8 not loaded")
+	}
+	_vDSP_vfix8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfix8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfix8D converts a vector of double-precision floating-point values to signed 8-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix8D
+func VDSP_vfix8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfix8D == nil {
+		panic("Accelerate: symbol vDSP_vfix8D not loaded")
+	}
+	_vDSP_vfix8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixr16 func(__A *float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixr16 converts a vector of single-precision floating-point values to signed 16-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr16
+func VDSP_vfixr16(__A []float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixr16 == nil {
+		panic("Accelerate: symbol vDSP_vfixr16 not loaded")
+	}
+	_vDSP_vfixr16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixr16D func(__A *float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixr16D converts a vector of double-precision floating-point values to signed 16-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr16D
+func VDSP_vfixr16D(__A []float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixr16D == nil {
+		panic("Accelerate: symbol vDSP_vfixr16D not loaded")
+	}
+	_vDSP_vfixr16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixr32 func(__A *float32, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixr32 converts a vector of single-precision floating-point values to signed 32-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr32
+func VDSP_vfixr32(__A []float32, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixr32 == nil {
+		panic("Accelerate: symbol vDSP_vfixr32 not loaded")
+	}
+	_vDSP_vfixr32(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfixr32D func(__A *float64, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixr32D converts a vector of double-precision floating-point values to signed 32-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr32D
+func VDSP_vfixr32D(__A []float64, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixr32D == nil {
+		panic("Accelerate: symbol vDSP_vfixr32D not loaded")
+	}
+	_vDSP_vfixr32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfixr8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixr8 converts a vector of single-precision floating-point values to signed 8-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr8
+func VDSP_vfixr8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixr8 == nil {
+		panic("Accelerate: symbol vDSP_vfixr8 not loaded")
+	}
+	_vDSP_vfixr8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixr8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixr8D converts a vector of double-precision floating-point values to signed 8-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr8D
+func VDSP_vfixr8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixr8D == nil {
+		panic("Accelerate: symbol vDSP_vfixr8D not loaded")
+	}
+	_vDSP_vfixr8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixru16 func(__A *float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixru16 converts a vector of single-precision floating-point values to unsigned 16-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru16
+func VDSP_vfixru16(__A []float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixru16 == nil {
+		panic("Accelerate: symbol vDSP_vfixru16 not loaded")
+	}
+	_vDSP_vfixru16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixru16D func(__A *float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixru16D converts a vector of double-precision floating-point values to unsigned 16-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru16D
+func VDSP_vfixru16D(__A []float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixru16D == nil {
+		panic("Accelerate: symbol vDSP_vfixru16D not loaded")
+	}
+	_vDSP_vfixru16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixru32 func(__A *float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixru32 converts a vector of single-precision floating-point values to unsigned 32-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru32
+func VDSP_vfixru32(__A []float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixru32 == nil {
+		panic("Accelerate: symbol vDSP_vfixru32 not loaded")
+	}
+	_vDSP_vfixru32(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixru32D func(__A *float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixru32D converts a vector of double-precision floating-point values to unsigned 32-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru32D
+func VDSP_vfixru32D(__A []float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixru32D == nil {
+		panic("Accelerate: symbol vDSP_vfixru32D not loaded")
+	}
+	_vDSP_vfixru32D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixru8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixru8 converts a vector of single-precision floating-point values to unsigned 8-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru8
+func VDSP_vfixru8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixru8 == nil {
+		panic("Accelerate: symbol vDSP_vfixru8 not loaded")
+	}
+	_vDSP_vfixru8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixru8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixru8D converts a vector of double-precision floating-point values to unsigned 8-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru8D
+func VDSP_vfixru8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixru8D == nil {
+		panic("Accelerate: symbol vDSP_vfixru8D not loaded")
+	}
+	_vDSP_vfixru8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixu16 func(__A *float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixu16 converts a vector of single-precision floating-point values to unsigned 16-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu16
+func VDSP_vfixu16(__A []float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixu16 == nil {
+		panic("Accelerate: symbol vDSP_vfixu16 not loaded")
+	}
+	_vDSP_vfixu16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixu16D func(__A *float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixu16D converts a vector of double-precision floating-point values to unsigned 16-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu16D
+func VDSP_vfixu16D(__A []float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixu16D == nil {
+		panic("Accelerate: symbol vDSP_vfixu16D not loaded")
+	}
+	_vDSP_vfixu16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixu32 func(__A *float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixu32 converts a vector of single-precision floating-point values to unsigned 32-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu32
+func VDSP_vfixu32(__A []float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixu32 == nil {
+		panic("Accelerate: symbol vDSP_vfixu32 not loaded")
+	}
+	_vDSP_vfixu32(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixu32D func(__A *float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixu32D converts a vector of double-precision floating-point values to unsigned 32-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu32D
+func VDSP_vfixu32D(__A []float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixu32D == nil {
+		panic("Accelerate: symbol vDSP_vfixu32D not loaded")
+	}
+	_vDSP_vfixu32D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixu8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixu8 converts a vector of single-precision floating-point values to unsigned 8-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu8
+func VDSP_vfixu8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixu8 == nil {
+		panic("Accelerate: symbol vDSP_vfixu8 not loaded")
+	}
+	_vDSP_vfixu8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vfixu8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfixu8D converts a vector of double-precision floating-point values to unsigned 8-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu8D
+func VDSP_vfixu8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfixu8D == nil {
+		panic("Accelerate: symbol vDSP_vfixu8D not loaded")
+	}
+	_vDSP_vfixu8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_vflt16 func(__A *int16, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt16 converts a vector of signed 16-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt16
+func VDSP_vflt16(__A *int16, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt16 == nil {
+		panic("Accelerate: symbol vDSP_vflt16 not loaded")
+	}
+	_vDSP_vflt16(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vflt16D func(__A *int16, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt16D converts a vector of signed 16-bit integers to double-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt16D
+func VDSP_vflt16D(__A *int16, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt16D == nil {
+		panic("Accelerate: symbol vDSP_vflt16D not loaded")
+	}
+	_vDSP_vflt16D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vflt24 func(__A *VDSP_int24, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt24 converts a vector of signed 24-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt24
+func VDSP_vflt24(__A *VDSP_int24, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt24 == nil {
+		panic("Accelerate: symbol vDSP_vflt24 not loaded")
+	}
+	_vDSP_vflt24(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vflt32 func(__A *int, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt32 converts a vector of signed 32-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt32
+func VDSP_vflt32(__A []int, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt32 == nil {
+		panic("Accelerate: symbol vDSP_vflt32 not loaded")
+	}
+	_vDSP_vflt32(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vflt32D func(__A *int, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt32D converts a vector of signed 32-bit integers to double-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt32D
+func VDSP_vflt32D(__A []int, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt32D == nil {
+		panic("Accelerate: symbol vDSP_vflt32D not loaded")
+	}
+	_vDSP_vflt32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vflt8 func(__A *byte, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt8 converts a vector of signed 8-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt8
+func VDSP_vflt8(__A *byte, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt8 == nil {
+		panic("Accelerate: symbol vDSP_vflt8 not loaded")
+	}
+	_vDSP_vflt8(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vflt8D func(__A *byte, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vflt8D converts a vector of signed 8-bit integers to double-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt8D
+func VDSP_vflt8D(__A *byte, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vflt8D == nil {
+		panic("Accelerate: symbol vDSP_vflt8D not loaded")
+	}
+	_vDSP_vflt8D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltsm24 func(__A *VDSP_int24, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltsm24 converts and scales a vector of signed 24-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltsm24
+func VDSP_vfltsm24(__A *VDSP_int24, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltsm24 == nil {
+		panic("Accelerate: symbol vDSP_vfltsm24 not loaded")
+	}
+	_vDSP_vfltsm24(__A, __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltsmu24 func(__A *VDSP_uint24, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltsmu24 converts and scales a vector of unsigned 24-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltsmu24
+func VDSP_vfltsmu24(__A *VDSP_uint24, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltsmu24 == nil {
+		panic("Accelerate: symbol vDSP_vfltsmu24 not loaded")
+	}
+	_vDSP_vfltsmu24(__A, __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu16 func(__A *uint16, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu16 converts an array of unsigned 16-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu16
+func VDSP_vfltu16(__A *uint16, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu16 == nil {
+		panic("Accelerate: symbol vDSP_vfltu16 not loaded")
+	}
+	_vDSP_vfltu16(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu16D func(__A *uint16, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu16D converts an array of unsigned 16-bit integers to double-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu16D
+func VDSP_vfltu16D(__A *uint16, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu16D == nil {
+		panic("Accelerate: symbol vDSP_vfltu16D not loaded")
+	}
+	_vDSP_vfltu16D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu24 func(__A *VDSP_uint24, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu24 converts a vector of unsigned 24-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu24
+func VDSP_vfltu24(__A *VDSP_uint24, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu24 == nil {
+		panic("Accelerate: symbol vDSP_vfltu24 not loaded")
+	}
+	_vDSP_vfltu24(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu32 func(__A *uint, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu32 converts an array of unsigned 16-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu32
+func VDSP_vfltu32(__A *uint, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu32 == nil {
+		panic("Accelerate: symbol vDSP_vfltu32 not loaded")
+	}
+	_vDSP_vfltu32(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu32D func(__A *uint, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu32D converts an array of unsigned 32-bit integers to double-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu32D
+func VDSP_vfltu32D(__A *uint, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu32D == nil {
+		panic("Accelerate: symbol vDSP_vfltu32D not loaded")
+	}
+	_vDSP_vfltu32D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu8 func(__A *byte, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu8 converts an array of unsigned 8-bit integers to single-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu8
+func VDSP_vfltu8(__A *byte, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu8 == nil {
+		panic("Accelerate: symbol vDSP_vfltu8 not loaded")
+	}
+	_vDSP_vfltu8(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfltu8D func(__A *byte, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfltu8D converts an array of unsigned 8-bit integers to double-precision floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu8D
+func VDSP_vfltu8D(__A *byte, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfltu8D == nil {
+		panic("Accelerate: symbol vDSP_vfltu8D not loaded")
+	}
+	_vDSP_vfltu8D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfrac func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfrac truncates the elements of a single-precision vector to fractions.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfrac
+func VDSP_vfrac(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfrac == nil {
+		panic("Accelerate: symbol vDSP_vfrac not loaded")
+	}
+	_vDSP_vfrac(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vfracD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vfracD truncates the elements of a double-precision vector to fractions.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vfracD
+func VDSP_vfracD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vfracD == nil {
+		panic("Accelerate: symbol vDSP_vfracD not loaded")
+	}
+	_vDSP_vfracD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgathr func(__A *float32, __B *VDSP_Length, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vgathr generates a gathered copy of the specified single-precision vector using a vector that defines the one-based indices to keep.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgathr
+func VDSP_vgathr(__A []float32, __B *VDSP_Length, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vgathr == nil {
+		panic("Accelerate: symbol vDSP_vgathr not loaded")
+	}
+	_vDSP_vgathr(unsafe.SliceData(__A), __B, __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgathrD func(__A *float64, __B *VDSP_Length, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vgathrD generates a gathered copy of the specified double-precision vector using a vector that defines the one-based indices to keep.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgathrD
+func VDSP_vgathrD(__A []float64, __B *VDSP_Length, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vgathrD == nil {
+		panic("Accelerate: symbol vDSP_vgathrD not loaded")
+	}
+	_vDSP_vgathrD(unsafe.SliceData(__A), __B, __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgathra func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vgathra generates a gathered copy of the specified single-precision vector using a vector that defines the pointers to the values to keep.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgathra
+func VDSP_vgathra(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vgathra == nil {
+		panic("Accelerate: symbol vDSP_vgathra not loaded")
+	}
+	_vDSP_vgathra(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgathraD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vgathraD generates a gathered copy of the specified double-precision vector using a vector that defines the pointers to the values to keep.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgathraD
+func VDSP_vgathraD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vgathraD == nil {
+		panic("Accelerate: symbol vDSP_vgathraD not loaded")
+	}
+	_vDSP_vgathraD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgen func(__A *float32, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vgen generates a single-precision vector that contains monotonically incrementing or decrementing values within a range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgen
+func VDSP_vgen(__A []float32, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vgen == nil {
+		panic("Accelerate: symbol vDSP_vgen not loaded")
+	}
+	_vDSP_vgen(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgenD func(__A *float64, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vgenD generates a double-precision vector that contains monotonically incrementing or decrementing values within a range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgenD
+func VDSP_vgenD(__A []float64, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vgenD == nil {
+		panic("Accelerate: symbol vDSP_vgenD not loaded")
+	}
+	_vDSP_vgenD(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vgenp func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
+
+// VDSP_vgenp generates the single-precision linearly interpolated values of a vector at the specified indices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgenp
+func VDSP_vgenp(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length) {
+	if _vDSP_vgenp == nil {
+		panic("Accelerate: symbol vDSP_vgenp not loaded")
+	}
+	_vDSP_vgenp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
+}
+
+
+var _vDSP_vgenpD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
+
+// VDSP_vgenpD generates the double-precision linearly interpolated values of a vector at the specified indices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vgenpD
+func VDSP_vgenpD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length) {
+	if _vDSP_vgenpD == nil {
+		panic("Accelerate: symbol vDSP_vgenpD not loaded")
+	}
+	_vDSP_vgenpD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
+}
+
+
+var _vDSP_viclip func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_viclip calculates the elements of a single-precision vector inverted-clipped to the specified range using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_viclip
+func VDSP_viclip(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_viclip == nil {
+		panic("Accelerate: symbol vDSP_viclip not loaded")
+	}
+	_vDSP_viclip(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_viclipD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_viclipD calculates the elements of a double-precision vector inverted-clipped to the specified range using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_viclipD
+func VDSP_viclipD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_viclipD == nil {
+		panic("Accelerate: symbol vDSP_viclipD not loaded")
+	}
+	_vDSP_viclipD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vindex func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vindex generates a gathered copy of the specified single-precision vector using a vector that defines the zero-based indices to keep.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vindex
+func VDSP_vindex(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vindex == nil {
+		panic("Accelerate: symbol vDSP_vindex not loaded")
+	}
+	_vDSP_vindex(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vindexD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vindexD generates a gathered copy of the specified double-precision vector using a vector that defines the zero-based indices to keep.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vindexD
+func VDSP_vindexD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vindexD == nil {
+		panic("Accelerate: symbol vDSP_vindexD not loaded")
+	}
+	_vDSP_vindexD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vintb func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vintb calculates the linear interpolation between the supplied single-precision vectors using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vintb
+func VDSP_vintb(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vintb == nil {
+		panic("Accelerate: symbol vDSP_vintb not loaded")
+	}
+	_vDSP_vintb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vintbD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vintbD calculates the linear interpolation between the supplied double-precision vectors using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vintbD
+func VDSP_vintbD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vintbD == nil {
+		panic("Accelerate: symbol vDSP_vintbD not loaded")
+	}
+	_vDSP_vintbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vlim func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vlim calculates the single-precision vector test limit using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vlim
+func VDSP_vlim(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vlim == nil {
+		panic("Accelerate: symbol vDSP_vlim not loaded")
+	}
+	_vDSP_vlim(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vlimD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vlimD calculates the double-precision vector test limit using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vlimD
+func VDSP_vlimD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vlimD == nil {
+		panic("Accelerate: symbol vDSP_vlimD not loaded")
+	}
+	_vDSP_vlimD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vlint func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
+
+// VDSP_vlint calculates the interpolation between the neighboring elements of a single-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vlint
+func VDSP_vlint(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length) {
+	if _vDSP_vlint == nil {
+		panic("Accelerate: symbol vDSP_vlint not loaded")
+	}
+	_vDSP_vlint(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
+}
+
+
+var _vDSP_vlintD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
+
+// VDSP_vlintD calculates the interpolation between the neighboring elements of a double-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vlintD
+func VDSP_vlintD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length) {
+	if _vDSP_vlintD == nil {
+		panic("Accelerate: symbol vDSP_vlintD not loaded")
+	}
+	_vDSP_vlintD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
+}
+
+
+var _vDSP_vma func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vma calculates the single-precision element-wise sum of a vector and the product of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vma
+func VDSP_vma(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vma == nil {
+		panic("Accelerate: symbol vDSP_vma not loaded")
+	}
+	_vDSP_vma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmaD calculates the double-precision element-wise sum of a vector and the product of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmaD
+func VDSP_vmaD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmaD == nil {
+		panic("Accelerate: symbol vDSP_vmaD not loaded")
+	}
+	_vDSP_vmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vmax func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmax calculates the single-precision maximum of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmax
+func VDSP_vmax(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmax == nil {
+		panic("Accelerate: symbol vDSP_vmax not loaded")
+	}
+	_vDSP_vmax(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vmaxD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmaxD calculates the double-precision maximum of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmaxD
+func VDSP_vmaxD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmaxD == nil {
+		panic("Accelerate: symbol vDSP_vmaxD not loaded")
+	}
+	_vDSP_vmaxD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vmaxmg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmaxmg calculates the single-precision maximum magnitude of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmaxmg
+func VDSP_vmaxmg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmaxmg == nil {
+		panic("Accelerate: symbol vDSP_vmaxmg not loaded")
+	}
+	_vDSP_vmaxmg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vmaxmgD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmaxmgD calculates the double-precision maximum magnitude of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmaxmgD
+func VDSP_vmaxmgD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmaxmgD == nil {
+		panic("Accelerate: symbol vDSP_vmaxmgD not loaded")
+	}
+	_vDSP_vmaxmgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vmin func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmin calculates the single-precision minimum of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmin
+func VDSP_vmin(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmin == nil {
+		panic("Accelerate: symbol vDSP_vmin not loaded")
+	}
+	_vDSP_vmin(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vminD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vminD calculates the double-precision minimum of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vminD
+func VDSP_vminD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vminD == nil {
+		panic("Accelerate: symbol vDSP_vminD not loaded")
+	}
+	_vDSP_vminD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vminmg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vminmg calculates the single-precision minimum magnitude of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vminmg
+func VDSP_vminmg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vminmg == nil {
+		panic("Accelerate: symbol vDSP_vminmg not loaded")
+	}
+	_vDSP_vminmg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vminmgD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vminmgD calculates the double-precision minimum magnitude of the corresponding values of two vectors using specified strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vminmgD
+func VDSP_vminmgD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vminmgD == nil {
+		panic("Accelerate: symbol vDSP_vminmgD not loaded")
+	}
+	_vDSP_vminmgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vmma func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmma calculates the single-precision element-wise sum of the products of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmma
+func VDSP_vmma(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmma == nil {
+		panic("Accelerate: symbol vDSP_vmma not loaded")
+	}
+	_vDSP_vmma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vmmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmmaD calculates the double-precision element-wise sum of the products of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmmaD
+func VDSP_vmmaD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmmaD == nil {
+		panic("Accelerate: symbol vDSP_vmmaD not loaded")
+	}
+	_vDSP_vmmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vmmsb func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmmsb calculates the single-precision element-wise difference of the products of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmmsb
+func VDSP_vmmsb(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmmsb == nil {
+		panic("Accelerate: symbol vDSP_vmmsb not loaded")
+	}
+	_vDSP_vmmsb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vmmsbD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmmsbD calculates the double-precision element-wise difference of the products of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmmsbD
+func VDSP_vmmsbD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmmsbD == nil {
+		panic("Accelerate: symbol vDSP_vmmsbD not loaded")
+	}
+	_vDSP_vmmsbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vmsa func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmsa calculates the single-precision element-wise sum of the product of two vectors, and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmsa
+func VDSP_vmsa(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmsa == nil {
+		panic("Accelerate: symbol vDSP_vmsa not loaded")
+	}
+	_vDSP_vmsa(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vmsaD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmsaD calculates the double-precision element-wise sum of the product of two vectors, and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmsaD
+func VDSP_vmsaD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmsaD == nil {
+		panic("Accelerate: symbol vDSP_vmsaD not loaded")
+	}
+	_vDSP_vmsaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vmsb func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmsb calculates the single-precision element-wise difference of a vector and the product of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmsb
+func VDSP_vmsb(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmsb == nil {
+		panic("Accelerate: symbol vDSP_vmsb not loaded")
+	}
+	_vDSP_vmsb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vmsbD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmsbD calculates the double-precision element-wise difference of a vector and the product of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmsbD
+func VDSP_vmsbD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmsbD == nil {
+		panic("Accelerate: symbol vDSP_vmsbD not loaded")
+	}
+	_vDSP_vmsbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vmul func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmul calculates the single-precision element-wise product of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmul
+func VDSP_vmul(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmul == nil {
+		panic("Accelerate: symbol vDSP_vmul not loaded")
+	}
+	_vDSP_vmul(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vmulD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vmulD calculates the double-precision element-wise product of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vmulD
+func VDSP_vmulD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vmulD == nil {
+		panic("Accelerate: symbol vDSP_vmulD not loaded")
+	}
+	_vDSP_vmulD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vnabs func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vnabs calculates the negative absolute value of each element in the supplied single-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vnabs
+func VDSP_vnabs(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vnabs == nil {
+		panic("Accelerate: symbol vDSP_vnabs not loaded")
+	}
+	_vDSP_vnabs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vnabsD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vnabsD calculates the negative absolute value of each element in the supplied double-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vnabsD
+func VDSP_vnabsD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vnabsD == nil {
+		panic("Accelerate: symbol vDSP_vnabsD not loaded")
+	}
+	_vDSP_vnabsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vneg func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vneg calculates the negative value of each element in the supplied single-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vneg
+func VDSP_vneg(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vneg == nil {
+		panic("Accelerate: symbol vDSP_vneg not loaded")
+	}
+	_vDSP_vneg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vnegD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vnegD calculates the negative value of each element in the supplied double-precision vector using specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vnegD
+func VDSP_vnegD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vnegD == nil {
+		panic("Accelerate: symbol vDSP_vnegD not loaded")
+	}
+	_vDSP_vnegD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vpoly func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_vpoly evaluates a single-precision polynomial using specified coefficients, variables, and strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vpoly
+func VDSP_vpoly(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_vpoly == nil {
+		panic("Accelerate: symbol vDSP_vpoly not loaded")
+	}
+	_vDSP_vpoly(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __P)
+}
+
+
+var _vDSP_vpolyD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_vpolyD evaluates a double-precision polynomial using specified coefficients, variables, and strides.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vpolyD
+func VDSP_vpolyD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_vpolyD == nil {
+		panic("Accelerate: symbol vDSP_vpolyD not loaded")
+	}
+	_vDSP_vpolyD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __P)
+}
+
+
+var _vDSP_vpythg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vpythg calculates the single-precision hypotenuses of right triangles with legs that are the differences of corresponding elements of two pairs of vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vpythg
+func VDSP_vpythg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vpythg == nil {
+		panic("Accelerate: symbol vDSP_vpythg not loaded")
+	}
+	_vDSP_vpythg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vpythgD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vpythgD calculates the double-precision hypotenuses of right triangles with legs that are the differences of corresponding elements of two pairs of vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vpythgD
+func VDSP_vpythgD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vpythgD == nil {
+		panic("Accelerate: symbol vDSP_vpythgD not loaded")
+	}
+	_vDSP_vpythgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vqint func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
+
+// VDSP_vqint calculates single-precision vector quadratic interpolation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vqint
+func VDSP_vqint(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length) {
+	if _vDSP_vqint == nil {
+		panic("Accelerate: symbol vDSP_vqint not loaded")
+	}
+	_vDSP_vqint(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
+}
+
+
+var _vDSP_vqintD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
+
+// VDSP_vqintD calculates double-precision vector quadratic interpolation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vqintD
+func VDSP_vqintD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length) {
+	if _vDSP_vqintD == nil {
+		panic("Accelerate: symbol vDSP_vqintD not loaded")
+	}
+	_vDSP_vqintD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
+}
+
+
+var _vDSP_vramp func(__A *float32, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vramp generates a single-precision vector with monotonically incrementing or decrementing values using an initial value and increment.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vramp
+func VDSP_vramp(__A []float32, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vramp == nil {
+		panic("Accelerate: symbol vDSP_vramp not loaded")
+	}
+	_vDSP_vramp(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vrampD func(__A *float64, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampD generates a double-precision vector with monotonically incrementing or decrementing values using an initial value and increment.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampD
+func VDSP_vrampD(__A []float64, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampD == nil {
+		panic("Accelerate: symbol vDSP_vrampD not loaded")
+	}
+	_vDSP_vrampD(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vrampmul func(__I *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O *float32, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul generates a single-precision vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul
+func VDSP_vrampmul(__I []float32, __IS VDSP_Stride, __Start []float32, __Step []float32, __O []float32, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul == nil {
+		panic("Accelerate: symbol vDSP_vrampmul not loaded")
+	}
+	_vDSP_vrampmul(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
+}
+
+
+var _vDSP_vrampmul2 func(__I0 *float32, __I1 *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O0 *float32, __O1 *float32, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul2 generates a single-precision, stereo ramped vector and multiplies that vector by an input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul2
+func VDSP_vrampmul2(__I0 []float32, __I1 []float32, __IS VDSP_Stride, __Start []float32, __Step []float32, __O0 []float32, __O1 []float32, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul2 == nil {
+		panic("Accelerate: symbol vDSP_vrampmul2 not loaded")
+	}
+	_vDSP_vrampmul2(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
+}
+
+
+var _vDSP_vrampmul2D func(__I0 *float64, __I1 *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O0 *float64, __O1 *float64, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul2D generates a double-precision, stereo ramped vector and multiplies that vector by an input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul2D
+func VDSP_vrampmul2D(__I0 []float64, __I1 []float64, __IS VDSP_Stride, __Start []float64, __Step []float64, __O0 []float64, __O1 []float64, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul2D == nil {
+		panic("Accelerate: symbol vDSP_vrampmul2D not loaded")
+	}
+	_vDSP_vrampmul2D(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
+}
+
+
+var _vDSP_vrampmul2_s1_15 func(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O0 *int16, __O1 *int16, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul2_s1_15 generates a fixed-point, 1.15 format, stereo ramped vector and multiplies that vector by an input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul2_s1_15
+func VDSP_vrampmul2_s1_15(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O0 *int16, __O1 *int16, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul2_s1_15 == nil {
+		panic("Accelerate: symbol vDSP_vrampmul2_s1_15 not loaded")
+	}
+	_vDSP_vrampmul2_s1_15(__I0, __I1, __IS, __Start, __Step, __O0, __O1, __OS, __N)
+}
+
+
+var _vDSP_vrampmul2_s8_24 func(__I0 *int, __I1 *int, __IS VDSP_Stride, __Start *int, __Step *int, __O0 *int, __O1 *int, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul2_s8_24 generates a fixed-point, 8.24 format, stereo ramped vector and multiplies that vector by an input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul2_s8_24
+func VDSP_vrampmul2_s8_24(__I0 []int, __I1 []int, __IS VDSP_Stride, __Start []int, __Step []int, __O0 []int, __O1 []int, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul2_s8_24 == nil {
+		panic("Accelerate: symbol vDSP_vrampmul2_s8_24 not loaded")
+	}
+	_vDSP_vrampmul2_s8_24(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
+}
+
+
+var _vDSP_vrampmulD func(__I *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O *float64, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmulD generates a double-precision vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmulD
+func VDSP_vrampmulD(__I []float64, __IS VDSP_Stride, __Start []float64, __Step []float64, __O []float64, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmulD == nil {
+		panic("Accelerate: symbol vDSP_vrampmulD not loaded")
+	}
+	_vDSP_vrampmulD(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
+}
+
+
+var _vDSP_vrampmul_s1_15 func(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O *int16, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul_s1_15 generates a fixed-point 1.15 format vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul_s1_15
+func VDSP_vrampmul_s1_15(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O *int16, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul_s1_15 == nil {
+		panic("Accelerate: symbol vDSP_vrampmul_s1_15 not loaded")
+	}
+	_vDSP_vrampmul_s1_15(__I, __IS, __Start, __Step, __O, __OS, __N)
+}
+
+
+var _vDSP_vrampmul_s8_24 func(__I *int, __IS VDSP_Stride, __Start *int, __Step *int, __O *int, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmul_s8_24 generates a fixed-point 8.24 format vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmul_s8_24
+func VDSP_vrampmul_s8_24(__I []int, __IS VDSP_Stride, __Start []int, __Step []int, __O []int, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmul_s8_24 == nil {
+		panic("Accelerate: symbol vDSP_vrampmul_s8_24 not loaded")
+	}
+	_vDSP_vrampmul_s8_24(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd func(__I *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O *float32, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd adds a single-precision vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd
+func VDSP_vrampmuladd(__I []float32, __IS VDSP_Stride, __Start []float32, __Step []float32, __O []float32, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd not loaded")
+	}
+	_vDSP_vrampmuladd(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd2 func(__I0 *float32, __I1 *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O0 *float32, __O1 *float32, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd2 multiplies a single-precision, stereo input vector by a value that ramps up on successive calls, and cumulatively adds the result to the output vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd2
+func VDSP_vrampmuladd2(__I0 []float32, __I1 []float32, __IS VDSP_Stride, __Start []float32, __Step []float32, __O0 []float32, __O1 []float32, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd2 == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd2 not loaded")
+	}
+	_vDSP_vrampmuladd2(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd2D func(__I0 *float64, __I1 *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O0 *float64, __O1 *float64, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd2D multiplies a double-precision, stereo input vector by a value that ramps up on successive calls, and cumulatively adds the result to the output vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd2D
+func VDSP_vrampmuladd2D(__I0 []float64, __I1 []float64, __IS VDSP_Stride, __Start []float64, __Step []float64, __O0 []float64, __O1 []float64, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd2D == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd2D not loaded")
+	}
+	_vDSP_vrampmuladd2D(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd2_s1_15 func(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O0 *int16, __O1 *int16, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd2_s1_15 multiplies a fixed-point, 1.15 format, stereo input vector by a value that ramps on successive calls, and adds the result to the output vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd2_s1_15
+func VDSP_vrampmuladd2_s1_15(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O0 *int16, __O1 *int16, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd2_s1_15 == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd2_s1_15 not loaded")
+	}
+	_vDSP_vrampmuladd2_s1_15(__I0, __I1, __IS, __Start, __Step, __O0, __O1, __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd2_s8_24 func(__I0 *int, __I1 *int, __IS VDSP_Stride, __Start *int, __Step *int, __O0 *int, __O1 *int, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd2_s8_24 multiplies a fixed-point, 8.24 format, stereo input vector by a value that ramps on successive calls, and adds the result to the output vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd2_s8_24
+func VDSP_vrampmuladd2_s8_24(__I0 []int, __I1 []int, __IS VDSP_Stride, __Start []int, __Step []int, __O0 []int, __O1 []int, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd2_s8_24 == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd2_s8_24 not loaded")
+	}
+	_vDSP_vrampmuladd2_s8_24(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
+}
+
+
+var _vDSP_vrampmuladdD func(__I *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O *float64, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladdD adds a double-precision vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladdD
+func VDSP_vrampmuladdD(__I []float64, __IS VDSP_Stride, __Start []float64, __Step []float64, __O []float64, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladdD == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladdD not loaded")
+	}
+	_vDSP_vrampmuladdD(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd_s1_15 func(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O *int16, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd_s1_15 adds a fixed-point 1.15 format vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd_s1_15
+func VDSP_vrampmuladd_s1_15(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O *int16, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd_s1_15 == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd_s1_15 not loaded")
+	}
+	_vDSP_vrampmuladd_s1_15(__I, __IS, __Start, __Step, __O, __OS, __N)
+}
+
+
+var _vDSP_vrampmuladd_s8_24 func(__I *int, __IS VDSP_Stride, __Start *int, __Step *int, __O *int, __OS VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrampmuladd_s8_24 adds a fixed-point 8.24 format vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrampmuladd_s8_24
+func VDSP_vrampmuladd_s8_24(__I []int, __IS VDSP_Stride, __Start []int, __Step []int, __O []int, __OS VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrampmuladd_s8_24 == nil {
+		panic("Accelerate: symbol vDSP_vrampmuladd_s8_24 not loaded")
+	}
+	_vDSP_vrampmuladd_s8_24(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
+}
+
+
+var _vDSP_vrsum func(__A *float32, __IA VDSP_Stride, __S *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrsum performs running sum integration over a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrsum
+func VDSP_vrsum(__A []float32, __IA VDSP_Stride, __S []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrsum == nil {
+		panic("Accelerate: symbol vDSP_vrsum not loaded")
+	}
+	_vDSP_vrsum(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vrsumD func(__A *float64, __IA VDSP_Stride, __S *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrsumD performs running sum integration over a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrsumD
+func VDSP_vrsumD(__A []float64, __IA VDSP_Stride, __S []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrsumD == nil {
+		panic("Accelerate: symbol vDSP_vrsumD not loaded")
+	}
+	_vDSP_vrsumD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vrvrs func(__C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrvrs performs an in-place reversal of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrvrs
+func VDSP_vrvrs(__C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrvrs == nil {
+		panic("Accelerate: symbol vDSP_vrvrs not loaded")
+	}
+	_vDSP_vrvrs(unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vrvrsD func(__C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vrvrsD performs an in-place reversal of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vrvrsD
+func VDSP_vrvrsD(__C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vrvrsD == nil {
+		panic("Accelerate: symbol vDSP_vrvrsD not loaded")
+	}
+	_vDSP_vrvrsD(unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsadd func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsadd calculates the single-precision element-wise sum of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsadd
+func VDSP_vsadd(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsadd == nil {
+		panic("Accelerate: symbol vDSP_vsadd not loaded")
+	}
+	_vDSP_vsadd(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsaddD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsaddD calculates the double-precision element-wise sum of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsaddD
+func VDSP_vsaddD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsaddD == nil {
+		panic("Accelerate: symbol vDSP_vsaddD not loaded")
+	}
+	_vDSP_vsaddD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsaddi func(__A *int, __IA VDSP_Stride, __B *int, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsaddi calculates the integer element-wise sum of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsaddi
+func VDSP_vsaddi(__A []int, __IA VDSP_Stride, __B []int, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsaddi == nil {
+		panic("Accelerate: symbol vDSP_vsaddi not loaded")
+	}
+	_vDSP_vsaddi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsbm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsbm calculates the single-precision element-wise product of a vector and the differences of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsbm
+func VDSP_vsbm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsbm == nil {
+		panic("Accelerate: symbol vDSP_vsbm not loaded")
+	}
+	_vDSP_vsbm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsbmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsbmD calculates the double-precision element-wise product of a vector and the differences of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsbmD
+func VDSP_vsbmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsbmD == nil {
+		panic("Accelerate: symbol vDSP_vsbmD not loaded")
+	}
+	_vDSP_vsbmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsbsbm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsbsbm calculates the single-precision element-wise product of the differences of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsbsbm
+func VDSP_vsbsbm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsbsbm == nil {
+		panic("Accelerate: symbol vDSP_vsbsbm not loaded")
+	}
+	_vDSP_vsbsbm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vsbsbmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsbsbmD calculates the double-precision element-wise product of the differences of two pairs of vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsbsbmD
+func VDSP_vsbsbmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsbsbmD == nil {
+		panic("Accelerate: symbol vDSP_vsbsbmD not loaded")
+	}
+	_vDSP_vsbsbmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vsbsm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsbsm calculates the single-precision element-wise product of the difference of two vectors and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsbsm
+func VDSP_vsbsm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsbsm == nil {
+		panic("Accelerate: symbol vDSP_vsbsm not loaded")
+	}
+	_vDSP_vsbsm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsbsmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsbsmD calculates the double-precision element-wise product of the difference of two vectors and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsbsmD
+func VDSP_vsbsmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsbsmD == nil {
+		panic("Accelerate: symbol vDSP_vsbsmD not loaded")
+	}
+	_vDSP_vsbsmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsdiv func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsdiv calculates the single-precision element-wise division of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsdiv
+func VDSP_vsdiv(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsdiv == nil {
+		panic("Accelerate: symbol vDSP_vsdiv not loaded")
+	}
+	_vDSP_vsdiv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsdivD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsdivD calculates the double-precision element-wise division of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsdivD
+func VDSP_vsdivD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsdivD == nil {
+		panic("Accelerate: symbol vDSP_vsdivD not loaded")
+	}
+	_vDSP_vsdivD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsdivi func(__A *int, __IA VDSP_Stride, __B *int, __C *int, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsdivi calculates the integer element-wise division of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsdivi
+func VDSP_vsdivi(__A []int, __IA VDSP_Stride, __B []int, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsdivi == nil {
+		panic("Accelerate: symbol vDSP_vsdivi not loaded")
+	}
+	_vDSP_vsdivi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsimps func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsimps performs Simpson integration over a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsimps
+func VDSP_vsimps(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsimps == nil {
+		panic("Accelerate: symbol vDSP_vsimps not loaded")
+	}
+	_vDSP_vsimps(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsimpsD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsimpsD performs Simpson integration over a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsimpsD
+func VDSP_vsimpsD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsimpsD == nil {
+		panic("Accelerate: symbol vDSP_vsimpsD not loaded")
+	}
+	_vDSP_vsimpsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsma func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsma calculates the single-precision element-wise addition of the product of a vector and a scalar value, and a vector, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsma
+func VDSP_vsma(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsma == nil {
+		panic("Accelerate: symbol vDSP_vsma not loaded")
+	}
+	_vDSP_vsma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmaD calculates the double-precision element-wise addition of the product of a vector and a scalar value, and a vector, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmaD
+func VDSP_vsmaD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmaD == nil {
+		panic("Accelerate: symbol vDSP_vsmaD not loaded")
+	}
+	_vDSP_vsmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsmfix24 func(__A *float32, __IA VDSP_Stride, __B *float32, __C *VDSP_int24, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmfix24 converts a vector of single-precision floating-point values to signed 24-bit integer values, and rounds towards zero.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmfix24
+func VDSP_vsmfix24(__A []float32, __IA VDSP_Stride, __B []float32, __C *VDSP_int24, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmfix24 == nil {
+		panic("Accelerate: symbol vDSP_vsmfix24 not loaded")
+	}
+	_vDSP_vsmfix24(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __C, __IC, __N)
+}
+
+
+var _vDSP_vsmfixu24 func(__A *float32, __IA VDSP_Stride, __B *float32, __C *VDSP_uint24, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmfixu24 converts a vector of single-precision floating-point values to signed 24-bit integer values, and rounds towards the nearest integer.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmfixu24
+func VDSP_vsmfixu24(__A []float32, __IA VDSP_Stride, __B []float32, __C *VDSP_uint24, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmfixu24 == nil {
+		panic("Accelerate: symbol vDSP_vsmfixu24 not loaded")
+	}
+	_vDSP_vsmfixu24(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __C, __IC, __N)
+}
+
+
+var _vDSP_vsmsa func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmsa calculates the single-precision element-wise addition of the product of a vector and a scalar value, and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmsa
+func VDSP_vsmsa(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmsa == nil {
+		panic("Accelerate: symbol vDSP_vsmsa not loaded")
+	}
+	_vDSP_vsmsa(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsmsaD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmsaD calculates the double-precision element-wise addition of the product of a vector and a scalar value, and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmsaD
+func VDSP_vsmsaD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmsaD == nil {
+		panic("Accelerate: symbol vDSP_vsmsaD not loaded")
+	}
+	_vDSP_vsmsaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsmsb func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmsb calculates the single-precision element-wise difference of the product of a vector and a scalar value, and a vector, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmsb
+func VDSP_vsmsb(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmsb == nil {
+		panic("Accelerate: symbol vDSP_vsmsb not loaded")
+	}
+	_vDSP_vsmsb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsmsbD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmsbD calculates the double-precision element-wise difference of the product of a vector and a scalar value, and a vector, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmsbD
+func VDSP_vsmsbD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmsbD == nil {
+		panic("Accelerate: symbol vDSP_vsmsbD not loaded")
+	}
+	_vDSP_vsmsbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vsmsma func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __D *float32, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmsma calculates the single-precision element-wise addition of two vector-scalar products, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmsma
+func VDSP_vsmsma(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __D []float32, __E []float32, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmsma == nil {
+		panic("Accelerate: symbol vDSP_vsmsma not loaded")
+	}
+	_vDSP_vsmsma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vsmsmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __D *float64, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmsmaD calculates the double-precision element-wise addition of two vector-scalar products, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmsmaD
+func VDSP_vsmsmaD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __D []float64, __E []float64, __IE VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmsmaD == nil {
+		panic("Accelerate: symbol vDSP_vsmsmaD not loaded")
+	}
+	_vDSP_vsmsmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), unsafe.SliceData(__E), __IE, __N)
+}
+
+
+var _vDSP_vsmul func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmul calculates the single-precision element-wise product of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmul
+func VDSP_vsmul(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmul == nil {
+		panic("Accelerate: symbol vDSP_vsmul not loaded")
+	}
+	_vDSP_vsmul(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsmulD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsmulD calculates the double-precision element-wise product of a vector and a scalar value, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsmulD
+func VDSP_vsmulD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsmulD == nil {
+		panic("Accelerate: symbol vDSP_vsmulD not loaded")
+	}
+	_vDSP_vsmulD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsort func(__C *float32, __N VDSP_Length, __Order int)
+
+// VDSP_vsort performs an in-place sort of a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsort
+func VDSP_vsort(__C []float32, __N VDSP_Length, __Order int) {
+	if _vDSP_vsort == nil {
+		panic("Accelerate: symbol vDSP_vsort not loaded")
+	}
+	_vDSP_vsort(unsafe.SliceData(__C), __N, __Order)
+}
+
+
+var _vDSP_vsortD func(__C *float64, __N VDSP_Length, __Order int)
+
+// VDSP_vsortD performs an in-place sort of a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsortD
+func VDSP_vsortD(__C []float64, __N VDSP_Length, __Order int) {
+	if _vDSP_vsortD == nil {
+		panic("Accelerate: symbol vDSP_vsortD not loaded")
+	}
+	_vDSP_vsortD(unsafe.SliceData(__C), __N, __Order)
+}
+
+
+var _vDSP_vsorti func(__C *float32, __I *VDSP_Length, __Temporary *VDSP_Length, __N VDSP_Length, __Order int)
+
+// VDSP_vsorti performs an in-place sort of the indices into a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsorti
+func VDSP_vsorti(__C []float32, __I *VDSP_Length, __Temporary *VDSP_Length, __N VDSP_Length, __Order int) {
+	if _vDSP_vsorti == nil {
+		panic("Accelerate: symbol vDSP_vsorti not loaded")
+	}
+	_vDSP_vsorti(unsafe.SliceData(__C), __I, __Temporary, __N, __Order)
+}
+
+
+var _vDSP_vsortiD func(__C *float64, __I *VDSP_Length, __Temporary *VDSP_Length, __N VDSP_Length, __Order int)
+
+// VDSP_vsortiD performs an in-place sort of the indices into a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsortiD
+func VDSP_vsortiD(__C []float64, __I *VDSP_Length, __Temporary *VDSP_Length, __N VDSP_Length, __Order int) {
+	if _vDSP_vsortiD == nil {
+		panic("Accelerate: symbol vDSP_vsortiD not loaded")
+	}
+	_vDSP_vsortiD(unsafe.SliceData(__C), __I, __Temporary, __N, __Order)
+}
+
+
+var _vDSP_vspdp func(__A *float32, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vspdp converts a single-precision vector to a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vspdp
+func VDSP_vspdp(__A []float32, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vspdp == nil {
+		panic("Accelerate: symbol vDSP_vspdp not loaded")
+	}
+	_vDSP_vspdp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsq func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsq computes the squared value of each element in the supplied single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsq
+func VDSP_vsq(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsq == nil {
+		panic("Accelerate: symbol vDSP_vsq not loaded")
+	}
+	_vDSP_vsq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsqD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsqD computes the squared value of each element in the supplied double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsqD
+func VDSP_vsqD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsqD == nil {
+		panic("Accelerate: symbol vDSP_vsqD not loaded")
+	}
+	_vDSP_vsqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vssq func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vssq computes the signed squared value of each element in the supplied single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vssq
+func VDSP_vssq(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vssq == nil {
+		panic("Accelerate: symbol vDSP_vssq not loaded")
+	}
+	_vDSP_vssq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vssqD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vssqD computes the signed squared value of each element in the supplied double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vssqD
+func VDSP_vssqD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vssqD == nil {
+		panic("Accelerate: symbol vDSP_vssqD not loaded")
+	}
+	_vDSP_vssqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsub func(__B *float32, __IB VDSP_Stride, __A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsub calculates the single-precision element-wise subtraction of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsub
+func VDSP_vsub(__B []float32, __IB VDSP_Stride, __A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsub == nil {
+		panic("Accelerate: symbol vDSP_vsub not loaded")
+	}
+	_vDSP_vsub(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vsubD func(__B *float64, __IB VDSP_Stride, __A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vsubD calculates the double-precision element-wise subtraction of two vectors, using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vsubD
+func VDSP_vsubD(__B []float64, __IB VDSP_Stride, __A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vsubD == nil {
+		panic("Accelerate: symbol vDSP_vsubD not loaded")
+	}
+	_vDSP_vsubD(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vswap func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vswap swaps the elements of two single-precision vectors using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vswap
+func VDSP_vswap(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vswap == nil {
+		panic("Accelerate: symbol vDSP_vswap not loaded")
+	}
+	_vDSP_vswap(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, __N)
+}
+
+
+var _vDSP_vswapD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vswapD swaps the elements of two double-precision vectors using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vswapD
+func VDSP_vswapD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vswapD == nil {
+		panic("Accelerate: symbol vDSP_vswapD not loaded")
+	}
+	_vDSP_vswapD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, __N)
+}
+
+
+var _vDSP_vswmax func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __WindowLength VDSP_Length)
+
+// VDSP_vswmax finds the maximum value in a sliding window at each possible position in a single-precision input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vswmax
+func VDSP_vswmax(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __WindowLength VDSP_Length) {
+	if _vDSP_vswmax == nil {
+		panic("Accelerate: symbol vDSP_vswmax not loaded")
+	}
+	_vDSP_vswmax(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __WindowLength)
+}
+
+
+var _vDSP_vswmaxD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __WindowLength VDSP_Length)
+
+// VDSP_vswmaxD finds the maximum value in a sliding window at each possible position in a double-precision input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vswmaxD
+func VDSP_vswmaxD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __WindowLength VDSP_Length) {
+	if _vDSP_vswmaxD == nil {
+		panic("Accelerate: symbol vDSP_vswmaxD not loaded")
+	}
+	_vDSP_vswmaxD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __WindowLength)
+}
+
+
+var _vDSP_vswsum func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_vswsum finds the sum of values in a sliding window at each possible position in a single-precision input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vswsum
+func VDSP_vswsum(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_vswsum == nil {
+		panic("Accelerate: symbol vDSP_vswsum not loaded")
+	}
+	_vDSP_vswsum(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __P)
+}
+
+
+var _vDSP_vswsumD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_vswsumD finds the sum of values in a sliding window at each possible position in a double-precision input vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vswsumD
+func VDSP_vswsumD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_vswsumD == nil {
+		panic("Accelerate: symbol vDSP_vswsumD not loaded")
+	}
+	_vDSP_vswsumD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __P)
+}
+
+
+var _vDSP_vtabi func(__A *float32, __IA VDSP_Stride, __S1 *float32, __S2 *float32, __C *float32, __M VDSP_Length, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vtabi generates a single-precision vector by interpolating values from a lookup table.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vtabi
+func VDSP_vtabi(__A []float32, __IA VDSP_Stride, __S1 []float32, __S2 []float32, __C []float32, __M VDSP_Length, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vtabi == nil {
+		panic("Accelerate: symbol vDSP_vtabi not loaded")
+	}
+	_vDSP_vtabi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S1), unsafe.SliceData(__S2), unsafe.SliceData(__C), __M, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vtabiD func(__A *float64, __IA VDSP_Stride, __S1 *float64, __S2 *float64, __C *float64, __M VDSP_Length, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vtabiD generates a double-precision vector by interpolating values from a lookup table.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vtabiD
+func VDSP_vtabiD(__A []float64, __IA VDSP_Stride, __S1 []float64, __S2 []float64, __C []float64, __M VDSP_Length, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vtabiD == nil {
+		panic("Accelerate: symbol vDSP_vtabiD not loaded")
+	}
+	_vDSP_vtabiD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S1), unsafe.SliceData(__S2), unsafe.SliceData(__C), __M, unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vthr func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vthr calculates single-precision vector threshold to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vthr
+func VDSP_vthr(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vthr == nil {
+		panic("Accelerate: symbol vDSP_vthr not loaded")
+	}
+	_vDSP_vthr(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vthrD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vthrD calculates double-precision vector threshold to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vthrD
+func VDSP_vthrD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vthrD == nil {
+		panic("Accelerate: symbol vDSP_vthrD not loaded")
+	}
+	_vDSP_vthrD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vthres func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vthres calculates single-precision vector threshold with zero fill to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vthres
+func VDSP_vthres(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vthres == nil {
+		panic("Accelerate: symbol vDSP_vthres not loaded")
+	}
+	_vDSP_vthres(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vthresD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vthresD calculates double-precision vector threshold with zero fill to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vthresD
+func VDSP_vthresD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vthresD == nil {
+		panic("Accelerate: symbol vDSP_vthresD not loaded")
+	}
+	_vDSP_vthresD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vthrsc func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vthrsc calculates single-precision vector threshold with signed constant to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vthrsc
+func VDSP_vthrsc(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __D []float32, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vthrsc == nil {
+		panic("Accelerate: symbol vDSP_vthrsc not loaded")
+	}
+	_vDSP_vthrsc(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vthrscD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vthrscD calculates double-precision vector threshold with signed constant to the specified range.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vthrscD
+func VDSP_vthrscD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __D []float64, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vthrscD == nil {
+		panic("Accelerate: symbol vDSP_vthrscD not loaded")
+	}
+	_vDSP_vthrscD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
+}
+
+
+var _vDSP_vtmerg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vtmerg performs a tapered merge between two single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vtmerg
+func VDSP_vtmerg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vtmerg == nil {
+		panic("Accelerate: symbol vDSP_vtmerg not loaded")
+	}
+	_vDSP_vtmerg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vtmergD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vtmergD performs a tapered merge between two double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vtmergD
+func VDSP_vtmergD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vtmergD == nil {
+		panic("Accelerate: symbol vDSP_vtmergD not loaded")
+	}
+	_vDSP_vtmergD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vtrapz func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vtrapz performs trapezoidal integration over a single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vtrapz
+func VDSP_vtrapz(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vtrapz == nil {
+		panic("Accelerate: symbol vDSP_vtrapz not loaded")
+	}
+	_vDSP_vtrapz(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_vtrapzD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_vtrapzD performs trapezoidal integration over a double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_vtrapzD
+func VDSP_vtrapzD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_vtrapzD == nil {
+		panic("Accelerate: symbol vDSP_vtrapzD not loaded")
+	}
+	_vDSP_vtrapzD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_wiener func(__L VDSP_Length, __A *float32, __C *float32, __F *float32, __P *float32, __Flag int, __Error *int)
+
+// VDSP_wiener solves a system of linear equations for a single-precision symmetric Toeplitz coefficient matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_wiener
+func VDSP_wiener(__L VDSP_Length, __A []float32, __C []float32, __F []float32, __P []float32, __Flag int, __Error []int) {
+	if _vDSP_wiener == nil {
+		panic("Accelerate: symbol vDSP_wiener not loaded")
+	}
+	_vDSP_wiener(__L, unsafe.SliceData(__A), unsafe.SliceData(__C), unsafe.SliceData(__F), unsafe.SliceData(__P), __Flag, unsafe.SliceData(__Error))
+}
+
+
+var _vDSP_wienerD func(__L VDSP_Length, __A *float64, __C *float64, __F *float64, __P *float64, __Flag int, __Error *int)
+
+// VDSP_wienerD solves a system of linear equations for a double-precision symmetric Toeplitz coefficient matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_wienerD
+func VDSP_wienerD(__L VDSP_Length, __A []float64, __C []float64, __F []float64, __P []float64, __Flag int, __Error []int) {
+	if _vDSP_wienerD == nil {
+		panic("Accelerate: symbol vDSP_wienerD not loaded")
+	}
+	_vDSP_wienerD(__L, unsafe.SliceData(__A), unsafe.SliceData(__C), unsafe.SliceData(__F), unsafe.SliceData(__P), __Flag, unsafe.SliceData(__Error))
+}
+
+
+var _vDSP_zaspec func(__A *DSPSplitComplex, __C *float32, __N VDSP_Length)
+
+// VDSP_zaspec computes the autospectrum of a complex single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zaspec
+func VDSP_zaspec(__A *DSPSplitComplex, __C []float32, __N VDSP_Length) {
+	if _vDSP_zaspec == nil {
+		panic("Accelerate: symbol vDSP_zaspec not loaded")
+	}
+	_vDSP_zaspec(__A, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_zaspecD func(__A *DSPDoubleSplitComplex, __C *float64, __N VDSP_Length)
+
+// VDSP_zaspecD computes the autospectrum of a complex double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zaspecD
+func VDSP_zaspecD(__A *DSPDoubleSplitComplex, __C []float64, __N VDSP_Length) {
+	if _vDSP_zaspecD == nil {
+		panic("Accelerate: symbol vDSP_zaspecD not loaded")
+	}
+	_vDSP_zaspecD(__A, unsafe.SliceData(__C), __N)
+}
+
+
+var _vDSP_zcoher func(__A *float32, __B *float32, __C *DSPSplitComplex, __D *float32, __N VDSP_Length)
+
+// VDSP_zcoher computes the coherence function of two single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zcoher
+func VDSP_zcoher(__A []float32, __B []float32, __C *DSPSplitComplex, __D []float32, __N VDSP_Length) {
+	if _vDSP_zcoher == nil {
+		panic("Accelerate: symbol vDSP_zcoher not loaded")
+	}
+	_vDSP_zcoher(unsafe.SliceData(__A), unsafe.SliceData(__B), __C, unsafe.SliceData(__D), __N)
+}
+
+
+var _vDSP_zcoherD func(__A *float64, __B *float64, __C *DSPDoubleSplitComplex, __D *float64, __N VDSP_Length)
+
+// VDSP_zcoherD computes the coherence function of two double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zcoherD
+func VDSP_zcoherD(__A []float64, __B []float64, __C *DSPDoubleSplitComplex, __D []float64, __N VDSP_Length) {
+	if _vDSP_zcoherD == nil {
+		panic("Accelerate: symbol vDSP_zcoherD not loaded")
+	}
+	_vDSP_zcoherD(unsafe.SliceData(__A), unsafe.SliceData(__B), __C, unsafe.SliceData(__D), __N)
+}
+
+
+var _vDSP_zconv func(__A *DSPSplitComplex, __IA VDSP_Stride, __F *DSPSplitComplex, __IF VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zconv performs either correlation or convolution on two complex single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zconv
+func VDSP_zconv(__A *DSPSplitComplex, __IA VDSP_Stride, __F *DSPSplitComplex, __IF VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zconv == nil {
+		panic("Accelerate: symbol vDSP_zconv not loaded")
+	}
+	_vDSP_zconv(__A, __IA, __F, __IF, __C, __IC, __N, __P)
+}
+
+
+var _vDSP_zconvD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __F *DSPDoubleSplitComplex, __IF VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zconvD performs either correlation or convolution on two complex double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zconvD
+func VDSP_zconvD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __F *DSPDoubleSplitComplex, __IF VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zconvD == nil {
+		panic("Accelerate: symbol vDSP_zconvD not loaded")
+	}
+	_vDSP_zconvD(__A, __IA, __F, __IF, __C, __IC, __N, __P)
+}
+
+
+var _vDSP_zcspec func(__A *DSPSplitComplex, __B *DSPSplitComplex, __C *DSPSplitComplex, __N VDSP_Length)
+
+// VDSP_zcspec computes the cross-spectrum of two complex single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zcspec
+func VDSP_zcspec(__A *DSPSplitComplex, __B *DSPSplitComplex, __C *DSPSplitComplex, __N VDSP_Length) {
+	if _vDSP_zcspec == nil {
+		panic("Accelerate: symbol vDSP_zcspec not loaded")
+	}
+	_vDSP_zcspec(__A, __B, __C, __N)
+}
+
+
+var _vDSP_zcspecD func(__A *DSPDoubleSplitComplex, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __N VDSP_Length)
+
+// VDSP_zcspecD computes the cross-spectrum of two complex double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zcspecD
+func VDSP_zcspecD(__A *DSPDoubleSplitComplex, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __N VDSP_Length) {
+	if _vDSP_zcspecD == nil {
+		panic("Accelerate: symbol vDSP_zcspecD not loaded")
+	}
+	_vDSP_zcspecD(__A, __B, __C, __N)
+}
+
+
+var _vDSP_zdotpr func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length)
+
+// VDSP_zdotpr calculates the dot product of two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zdotpr
+func VDSP_zdotpr(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length) {
+	if _vDSP_zdotpr == nil {
+		panic("Accelerate: symbol vDSP_zdotpr not loaded")
+	}
+	_vDSP_zdotpr(__A, __IA, __B, __IB, __C, __N)
+}
+
+
+var _vDSP_zdotprD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length)
+
+// VDSP_zdotprD calculates the dot product of two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zdotprD
+func VDSP_zdotprD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length) {
+	if _vDSP_zdotprD == nil {
+		panic("Accelerate: symbol vDSP_zdotprD not loaded")
+	}
+	_vDSP_zdotprD(__A, __IA, __B, __IB, __C, __N)
+}
+
+
+var _vDSP_zidotpr func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length)
+
+// VDSP_zidotpr calculates the inner product of two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zidotpr
+func VDSP_zidotpr(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length) {
+	if _vDSP_zidotpr == nil {
+		panic("Accelerate: symbol vDSP_zidotpr not loaded")
+	}
+	_vDSP_zidotpr(__A, __IA, __B, __IB, __C, __N)
+}
+
+
+var _vDSP_zidotprD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length)
+
+// VDSP_zidotprD calculates the inner product of two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zidotprD
+func VDSP_zidotprD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length) {
+	if _vDSP_zidotprD == nil {
+		panic("Accelerate: symbol vDSP_zidotprD not loaded")
+	}
+	_vDSP_zidotprD(__A, __IA, __B, __IB, __C, __N)
+}
+
+
+var _vDSP_zmma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmma adds a single-precision complex matrix to the product of two single-precision complex matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmma
+func VDSP_zmma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmma == nil {
+		panic("Accelerate: symbol vDSP_zmma not loaded")
+	}
+	_vDSP_zmma(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
+}
+
+
+var _vDSP_zmmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmmaD adds a double-precision complex matrix to the product of two double-precision complex matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmmaD
+func VDSP_zmmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmmaD == nil {
+		panic("Accelerate: symbol vDSP_zmmaD not loaded")
+	}
+	_vDSP_zmmaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
+}
+
+
+var _vDSP_zmms func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmms subtracts a single-precision complex matrix from the product of two single-precision complex matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmms
+func VDSP_zmms(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmms == nil {
+		panic("Accelerate: symbol vDSP_zmms not loaded")
+	}
+	_vDSP_zmms(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
+}
+
+
+var _vDSP_zmmsD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmmsD subtracts a double-precision complex matrix from the product of two double-precision complex matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmmsD
+func VDSP_zmmsD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmmsD == nil {
+		panic("Accelerate: symbol vDSP_zmmsD not loaded")
+	}
+	_vDSP_zmmsD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
+}
+
+
+var _vDSP_zmmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmmul performs an out-of-place multiplication of two single-precision complex matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmmul
+func VDSP_zmmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmmul == nil {
+		panic("Accelerate: symbol vDSP_zmmul not loaded")
+	}
+	_vDSP_zmmul(__A, __IA, __B, __IB, __C, __IC, __M, __N, __P)
+}
+
+
+var _vDSP_zmmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmmulD performs an out-of-place multiplication of two double-precision complex matrices.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmmulD
+func VDSP_zmmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmmulD == nil {
+		panic("Accelerate: symbol vDSP_zmmulD not loaded")
+	}
+	_vDSP_zmmulD(__A, __IA, __B, __IB, __C, __IC, __M, __N, __P)
+}
+
+
+var _vDSP_zmsm func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmsm subtracts the product of two single-precision complex matrices from a single-precision complex matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmsm
+func VDSP_zmsm(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmsm == nil {
+		panic("Accelerate: symbol vDSP_zmsm not loaded")
+	}
+	_vDSP_zmsm(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
+}
+
+
+var _vDSP_zmsmD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zmsmD subtracts the product of two double-precision complex matrices from a double-precision complex matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zmsmD
+func VDSP_zmsmD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zmsmD == nil {
+		panic("Accelerate: symbol vDSP_zmsmD not loaded")
+	}
+	_vDSP_zmsmD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
+}
+
+
+var _vDSP_zrdesamp func(__A *DSPSplitComplex, __DF VDSP_Stride, __F *float32, __C *DSPSplitComplex, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zrdesamp performs complex-real single-precision FIR filtering with decimation and antialiasing.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrdesamp
+func VDSP_zrdesamp(__A *DSPSplitComplex, __DF VDSP_Stride, __F []float32, __C *DSPSplitComplex, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zrdesamp == nil {
+		panic("Accelerate: symbol vDSP_zrdesamp not loaded")
+	}
+	_vDSP_zrdesamp(__A, __DF, unsafe.SliceData(__F), __C, __N, __P)
+}
+
+
+var _vDSP_zrdesampD func(__A *DSPDoubleSplitComplex, __DF VDSP_Stride, __F *float64, __C *DSPDoubleSplitComplex, __N VDSP_Length, __P VDSP_Length)
+
+// VDSP_zrdesampD performs complex-real double-precision FIR filtering with decimation and antialiasing.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrdesampD
+func VDSP_zrdesampD(__A *DSPDoubleSplitComplex, __DF VDSP_Stride, __F []float64, __C *DSPDoubleSplitComplex, __N VDSP_Length, __P VDSP_Length) {
+	if _vDSP_zrdesampD == nil {
+		panic("Accelerate: symbol vDSP_zrdesampD not loaded")
+	}
+	_vDSP_zrdesampD(__A, __DF, unsafe.SliceData(__F), __C, __N, __P)
+}
+
+
+var _vDSP_zrdotpr func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length)
+
+// VDSP_zrdotpr calculates the single-precision dot product of a complex vector and a real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrdotpr
+func VDSP_zrdotpr(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length) {
+	if _vDSP_zrdotpr == nil {
+		panic("Accelerate: symbol vDSP_zrdotpr not loaded")
+	}
+	_vDSP_zrdotpr(__A, __IA, unsafe.SliceData(__B), __IB, __C, __N)
+}
+
+
+var _vDSP_zrdotprD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length)
+
+// VDSP_zrdotprD calculates the double-precision dot product of a complex vector and a real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrdotprD
+func VDSP_zrdotprD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length) {
+	if _vDSP_zrdotprD == nil {
+		panic("Accelerate: symbol vDSP_zrdotprD not loaded")
+	}
+	_vDSP_zrdotprD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __N)
+}
+
+
+var _vDSP_zrvadd func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvadd adds a single-precision complex vector to a single-precision real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvadd
+func VDSP_zrvadd(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvadd == nil {
+		panic("Accelerate: symbol vDSP_zrvadd not loaded")
+	}
+	_vDSP_zrvadd(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvaddD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvaddD adds a double-precision complex vector to a double-precision real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvaddD
+func VDSP_zrvaddD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvaddD == nil {
+		panic("Accelerate: symbol vDSP_zrvaddD not loaded")
+	}
+	_vDSP_zrvaddD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvdiv func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvdiv divides a single-precision complex vector by a single-precision real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvdiv
+func VDSP_zrvdiv(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvdiv == nil {
+		panic("Accelerate: symbol vDSP_zrvdiv not loaded")
+	}
+	_vDSP_zrvdiv(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvdivD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvdivD divides a double-precision complex vector by a double-precision real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvdivD
+func VDSP_zrvdivD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvdivD == nil {
+		panic("Accelerate: symbol vDSP_zrvdivD not loaded")
+	}
+	_vDSP_zrvdivD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvmul multiplies a single-precision complex vector by a single-precision real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvmul
+func VDSP_zrvmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvmul == nil {
+		panic("Accelerate: symbol vDSP_zrvmul not loaded")
+	}
+	_vDSP_zrvmul(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvmulD multiplies a double-precision complex vector by a double-precision real vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvmulD
+func VDSP_zrvmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvmulD == nil {
+		panic("Accelerate: symbol vDSP_zrvmulD not loaded")
+	}
+	_vDSP_zrvmulD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvsub func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvsub subtracts a single-precision real vector from a single-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvsub
+func VDSP_zrvsub(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvsub == nil {
+		panic("Accelerate: symbol vDSP_zrvsub not loaded")
+	}
+	_vDSP_zrvsub(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zrvsubD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zrvsubD subtracts a double-precision real vector from a double-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zrvsubD
+func VDSP_zrvsubD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zrvsubD == nil {
+		panic("Accelerate: symbol vDSP_zrvsubD not loaded")
+	}
+	_vDSP_zrvsubD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_ztoc func(__Z *DSPSplitComplex, __IZ VDSP_Stride, __C *DSPComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_ztoc copies the contents of a split single-precision complex vector to an interleaved vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_ztoc
+func VDSP_ztoc(__Z *DSPSplitComplex, __IZ VDSP_Stride, __C *DSPComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_ztoc == nil {
+		panic("Accelerate: symbol vDSP_ztoc not loaded")
+	}
+	_vDSP_ztoc(__Z, __IZ, __C, __IC, __N)
+}
+
+
+var _vDSP_ztocD func(__Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __C *DSPDoubleComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_ztocD copies the contents of a split double-precision complex vector to an interleaved vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_ztocD
+func VDSP_ztocD(__Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __C *DSPDoubleComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_ztocD == nil {
+		panic("Accelerate: symbol vDSP_ztocD not loaded")
+	}
+	_vDSP_ztocD(__Z, __IZ, __C, __IC, __N)
+}
+
+
+var _vDSP_ztrans func(__A *float32, __B *DSPSplitComplex, __C *DSPSplitComplex, __N VDSP_Length)
+
+// VDSP_ztrans divides a complex single-precision vector by a real single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_ztrans
+func VDSP_ztrans(__A []float32, __B *DSPSplitComplex, __C *DSPSplitComplex, __N VDSP_Length) {
+	if _vDSP_ztrans == nil {
+		panic("Accelerate: symbol vDSP_ztrans not loaded")
+	}
+	_vDSP_ztrans(unsafe.SliceData(__A), __B, __C, __N)
+}
+
+
+var _vDSP_ztransD func(__A *float64, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __N VDSP_Length)
+
+// VDSP_ztransD divides a complex double-precision vector by a real double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_ztransD
+func VDSP_ztransD(__A []float64, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __N VDSP_Length) {
+	if _vDSP_ztransD == nil {
+		panic("Accelerate: symbol vDSP_ztransD not loaded")
+	}
+	_vDSP_ztransD(unsafe.SliceData(__A), __B, __C, __N)
+}
+
+
+var _vDSP_zvabs func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvabs calculates the absolute value of each element in the supplied single-precision complex vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvabs
+func VDSP_zvabs(__A *DSPSplitComplex, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvabs == nil {
+		panic("Accelerate: symbol vDSP_zvabs not loaded")
+	}
+	_vDSP_zvabs(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvabsD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvabsD calculates the absolute value of each element in the supplied double-precision complex vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvabsD
+func VDSP_zvabsD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvabsD == nil {
+		panic("Accelerate: symbol vDSP_zvabsD not loaded")
+	}
+	_vDSP_zvabsD(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvadd func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvadd adds two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvadd
+func VDSP_zvadd(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvadd == nil {
+		panic("Accelerate: symbol vDSP_zvadd not loaded")
+	}
+	_vDSP_zvadd(__A, __IA, __B, __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zvaddD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvaddD adds two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvaddD
+func VDSP_zvaddD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvaddD == nil {
+		panic("Accelerate: symbol vDSP_zvaddD not loaded")
+	}
+	_vDSP_zvaddD(__A, __IA, __B, __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zvcma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvcma adds a single-precision complex vector to the product of a single-precision complex vector and the conjugate of another complex single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvcma
+func VDSP_zvcma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvcma == nil {
+		panic("Accelerate: symbol vDSP_zvcma not loaded")
+	}
+	_vDSP_zvcma(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
+}
+
+
+var _vDSP_zvcmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvcmaD adds a double-precision complex vector to the product of a double-precision complex vector and the conjugate of another complex double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvcmaD
+func VDSP_zvcmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvcmaD == nil {
+		panic("Accelerate: symbol vDSP_zvcmaD not loaded")
+	}
+	_vDSP_zvcmaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
+}
+
+
+var _vDSP_zvcmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvcmul multiplies a single-precision complex vector by the conjugate of another single-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvcmul
+func VDSP_zvcmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvcmul == nil {
+		panic("Accelerate: symbol vDSP_zvcmul not loaded")
+	}
+	_vDSP_zvcmul(__A, __IA, __B, __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zvcmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __iC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvcmulD multiplies a double-precision complex vector by the conjugate of another double-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvcmulD
+func VDSP_zvcmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __iC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvcmulD == nil {
+		panic("Accelerate: symbol vDSP_zvcmulD not loaded")
+	}
+	_vDSP_zvcmulD(__A, __IA, __B, __IB, __C, __iC, __N)
+}
+
+
+var _vDSP_zvconj func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvconj calculates the complex conjugate of the values in a single-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvconj
+func VDSP_zvconj(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvconj == nil {
+		panic("Accelerate: symbol vDSP_zvconj not loaded")
+	}
+	_vDSP_zvconj(__A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvconjD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvconjD calculates the complex conjugate of the values in a double-precision vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvconjD
+func VDSP_zvconjD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvconjD == nil {
+		panic("Accelerate: symbol vDSP_zvconjD not loaded")
+	}
+	_vDSP_zvconjD(__A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvdiv func(__B *DSPSplitComplex, __IB VDSP_Stride, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvdiv divides two complex single-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvdiv
+func VDSP_zvdiv(__B *DSPSplitComplex, __IB VDSP_Stride, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvdiv == nil {
+		panic("Accelerate: symbol vDSP_zvdiv not loaded")
+	}
+	_vDSP_zvdiv(__B, __IB, __A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvdivD func(__B *DSPDoubleSplitComplex, __IB VDSP_Stride, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvdivD divides two complex double-precision vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvdivD
+func VDSP_zvdivD(__B *DSPDoubleSplitComplex, __IB VDSP_Stride, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvdivD == nil {
+		panic("Accelerate: symbol vDSP_zvdivD not loaded")
+	}
+	_vDSP_zvdivD(__B, __IB, __A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvfill func(__A *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvfill populates a complex single-precision vector with a specified scalar value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvfill
+func VDSP_zvfill(__A *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvfill == nil {
+		panic("Accelerate: symbol vDSP_zvfill not loaded")
+	}
+	_vDSP_zvfill(__A, __C, __IC, __N)
+}
+
+
+var _vDSP_zvfillD func(__A *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvfillD populates a complex double-precision vector with a specified scalar value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvfillD
+func VDSP_zvfillD(__A *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvfillD == nil {
+		panic("Accelerate: symbol vDSP_zvfillD not loaded")
+	}
+	_vDSP_zvfillD(__A, __C, __IC, __N)
+}
+
+
+var _vDSP_zvma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvma adds a single-precision complex vector to the product of two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvma
+func VDSP_zvma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvma == nil {
+		panic("Accelerate: symbol vDSP_zvma not loaded")
+	}
+	_vDSP_zvma(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
+}
+
+
+var _vDSP_zvmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmaD adds a double-precision complex vector to the product of two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmaD
+func VDSP_zvmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmaD == nil {
+		panic("Accelerate: symbol vDSP_zvmaD not loaded")
+	}
+	_vDSP_zvmaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
+}
+
+
+var _vDSP_zvmags func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmags computes the squared magnitude value of each element in the supplied complex single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmags
+func VDSP_zvmags(__A *DSPSplitComplex, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmags == nil {
+		panic("Accelerate: symbol vDSP_zvmags not loaded")
+	}
+	_vDSP_zvmags(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvmagsD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmagsD computes the squared magnitude value of each element in the supplied complex double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmagsD
+func VDSP_zvmagsD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmagsD == nil {
+		panic("Accelerate: symbol vDSP_zvmagsD not loaded")
+	}
+	_vDSP_zvmagsD(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvmgsa func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmgsa complex vector magnitudes square and add; single precision.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmgsa
+func VDSP_zvmgsa(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmgsa == nil {
+		panic("Accelerate: symbol vDSP_zvmgsa not loaded")
+	}
+	_vDSP_zvmgsa(__A, __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvmgsaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmgsaD complex vector magnitudes square and add; double precision.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmgsaD
+func VDSP_zvmgsaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmgsaD == nil {
+		panic("Accelerate: symbol vDSP_zvmgsaD not loaded")
+	}
+	_vDSP_zvmgsaD(__A, __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvmmaa func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __E *DSPSplitComplex, __IE VDSP_Stride, __F *DSPSplitComplex, __IF VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmmaa adds a single-precision complex vector to the sum of the product of two single-precision complex vectors and a second product of two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmmaa
+func VDSP_zvmmaa(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __E *DSPSplitComplex, __IE VDSP_Stride, __F *DSPSplitComplex, __IF VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmmaa == nil {
+		panic("Accelerate: symbol vDSP_zvmmaa not loaded")
+	}
+	_vDSP_zvmmaa(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __E, __IE, __F, __IF, __N)
+}
+
+
+var _vDSP_zvmmaaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __E *DSPDoubleSplitComplex, __IE VDSP_Stride, __F *DSPDoubleSplitComplex, __IF VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmmaaD adds a double-precision complex vector to the sum of the product of two double-precision complex vectors and a second product of two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmmaaD
+func VDSP_zvmmaaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __E *DSPDoubleSplitComplex, __IE VDSP_Stride, __F *DSPDoubleSplitComplex, __IF VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmmaaD == nil {
+		panic("Accelerate: symbol vDSP_zvmmaaD not loaded")
+	}
+	_vDSP_zvmmaaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __E, __IE, __F, __IF, __N)
+}
+
+
+var _vDSP_zvmov func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmov moves a complex single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmov
+func VDSP_zvmov(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmov == nil {
+		panic("Accelerate: symbol vDSP_zvmov not loaded")
+	}
+	_vDSP_zvmov(__A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvmovD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvmovD moves a complex double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmovD
+func VDSP_zvmovD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvmovD == nil {
+		panic("Accelerate: symbol vDSP_zvmovD not loaded")
+	}
+	_vDSP_zvmovD(__A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __Conjugate int)
+
+// VDSP_zvmul multiplies a single-precision complex vector by the optionally conjugate of another single-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmul
+func VDSP_zvmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __Conjugate int) {
+	if _vDSP_zvmul == nil {
+		panic("Accelerate: symbol vDSP_zvmul not loaded")
+	}
+	_vDSP_zvmul(__A, __IA, __B, __IB, __C, __IC, __N, __Conjugate)
+}
+
+
+var _vDSP_zvmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __Conjugate int)
+
+// VDSP_zvmulD multiplies a double-precision complex vector by the optionally conjugate of another double-precision complex vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvmulD
+func VDSP_zvmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __Conjugate int) {
+	if _vDSP_zvmulD == nil {
+		panic("Accelerate: symbol vDSP_zvmulD not loaded")
+	}
+	_vDSP_zvmulD(__A, __IA, __B, __IB, __C, __IC, __N, __Conjugate)
+}
+
+
+var _vDSP_zvneg func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvneg calculates the negative value of each element in the supplied complex single-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvneg
+func VDSP_zvneg(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvneg == nil {
+		panic("Accelerate: symbol vDSP_zvneg not loaded")
+	}
+	_vDSP_zvneg(__A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvnegD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvnegD calculates the negative value of each element in the supplied complex double-precision vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvnegD
+func VDSP_zvnegD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvnegD == nil {
+		panic("Accelerate: symbol vDSP_zvnegD not loaded")
+	}
+	_vDSP_zvnegD(__A, __IA, __C, __IC, __N)
+}
+
+
+var _vDSP_zvphas func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvphas calculates the single-precision element-wise phase values, in radians, of the supplied complex vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvphas
+func VDSP_zvphas(__A *DSPSplitComplex, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvphas == nil {
+		panic("Accelerate: symbol vDSP_zvphas not loaded")
+	}
+	_vDSP_zvphas(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvphasD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvphasD calculates the double-precision element-wise phase values, in radians, of the supplied complex vector using the specified stride.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvphasD
+func VDSP_zvphasD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvphasD == nil {
+		panic("Accelerate: symbol vDSP_zvphasD not loaded")
+	}
+	_vDSP_zvphasD(__A, __IA, unsafe.SliceData(__C), __IC, __N)
+}
+
+
+var _vDSP_zvsma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvsma.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvsma
+func VDSP_zvsma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvsma == nil {
+		panic("Accelerate: symbol vDSP_zvsma not loaded")
+	}
+	_vDSP_zvsma(__A, __IA, __B, __C, __IC, __D, __ID, __N)
+}
+
+
+var _vDSP_zvsmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvsmaD.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvsmaD
+func VDSP_zvsmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvsmaD == nil {
+		panic("Accelerate: symbol vDSP_zvsmaD not loaded")
+	}
+	_vDSP_zvsmaD(__A, __IA, __B, __C, __IC, __D, __ID, __N)
+}
+
+
+var _vDSP_zvsub func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvsub subtracts two single-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvsub
+func VDSP_zvsub(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvsub == nil {
+		panic("Accelerate: symbol vDSP_zvsub not loaded")
+	}
+	_vDSP_zvsub(__A, __IA, __B, __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zvsubD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvsubD subtracts two double-precision complex vectors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvsubD
+func VDSP_zvsubD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvsubD == nil {
+		panic("Accelerate: symbol vDSP_zvsubD not loaded")
+	}
+	_vDSP_zvsubD(__A, __IA, __B, __IB, __C, __IC, __N)
+}
+
+
+var _vDSP_zvzsml func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvzsml.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvzsml
+func VDSP_zvzsml(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvzsml == nil {
+		panic("Accelerate: symbol vDSP_zvzsml not loaded")
+	}
+	_vDSP_zvzsml(__A, __IA, __B, __C, __IC, __N)
+}
+
+
+var _vDSP_zvzsmlD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
+
+// VDSP_zvzsmlD.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vDSP_zvzsmlD
+func VDSP_zvzsmlD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length) {
+	if _vDSP_zvzsmlD == nil {
+		panic("Accelerate: symbol vDSP_zvzsmlD not loaded")
+	}
+	_vDSP_zvzsmlD(__A, __IA, __B, __C, __IC, __N)
+}
+
+
+var _vImageAffineWarpCG_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_ARGB_16S, flags uint32) int
+
+// VImageAffineWarpCG_ARGB16S applies a Core Graphics affine transformation to an ARGB16S source image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageAffineWarpCG_ARGB16S(_:_:_:_:_:_:)
+func VImageAffineWarpCG_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_ARGB_16S, flags uint32) int {
+	if _vImageAffineWarpCG_ARGB16S == nil {
+		panic("Accelerate: symbol vImageAffineWarpCG_ARGB16S not loaded")
+	}
+	return _vImageAffineWarpCG_ARGB16S(src, dest, tempBuffer, transform, backColor, flags)
+}
+
+
+var _vImageAffineWarpCG_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_ARGB_16U, flags uint32) int
+
+// VImageAffineWarpCG_ARGB16U applies a Core Graphics affine transformation to an ARGB16U source image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageAffineWarpCG_ARGB16U(_:_:_:_:_:_:)
+func VImageAffineWarpCG_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_ARGB_16U, flags uint32) int {
+	if _vImageAffineWarpCG_ARGB16U == nil {
+		panic("Accelerate: symbol vImageAffineWarpCG_ARGB16U not loaded")
+	}
+	return _vImageAffineWarpCG_ARGB16U(src, dest, tempBuffer, transform, backColor, flags)
+}
+
+
+var _vImageAffineWarpCG_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_8888, flags uint32) int
+
+// VImageAffineWarpCG_ARGB8888 applies a Core Graphics affine transformation to an ARGB8888 source image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageAffineWarpCG_ARGB8888(_:_:_:_:_:_:)
+func VImageAffineWarpCG_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_8888, flags uint32) int {
+	if _vImageAffineWarpCG_ARGB8888 == nil {
+		panic("Accelerate: symbol vImageAffineWarpCG_ARGB8888 not loaded")
+	}
+	return _vImageAffineWarpCG_ARGB8888(src, dest, tempBuffer, transform, backColor, flags)
+}
+
+
+var _vImageAffineWarpCG_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_FFFF, flags uint32) int
+
+// VImageAffineWarpCG_ARGBFFFF applies a Core Graphics affine transformation to an ARGBFFFF source image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageAffineWarpCG_ARGBFFFF(_:_:_:_:_:_:)
+func VImageAffineWarpCG_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_FFFF, flags uint32) int {
+	if _vImageAffineWarpCG_ARGBFFFF == nil {
+		panic("Accelerate: symbol vImageAffineWarpCG_ARGBFFFF not loaded")
+	}
+	return _vImageAffineWarpCG_ARGBFFFF(src, dest, tempBuffer, transform, backColor, flags)
+}
+
+
+var _vImageAffineWarpCG_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_8, flags uint32) int
+
+// VImageAffineWarpCG_Planar8 applies a Core Graphics affine transformation to a Planar8 source image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageAffineWarpCG_Planar8(_:_:_:_:_:_:)
+func VImageAffineWarpCG_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_8, flags uint32) int {
+	if _vImageAffineWarpCG_Planar8 == nil {
+		panic("Accelerate: symbol vImageAffineWarpCG_Planar8 not loaded")
+	}
+	return _vImageAffineWarpCG_Planar8(src, dest, tempBuffer, transform, backColor, flags)
+}
+
+
+var _vImageAffineWarpCG_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_F, flags uint32) int
+
+// VImageAffineWarpCG_PlanarF applies a Core Graphics affine transformation to a PlanarF source image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageAffineWarpCG_PlanarF(_:_:_:_:_:_:)
+func VImageAffineWarpCG_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_F, flags uint32) int {
+	if _vImageAffineWarpCG_PlanarF == nil {
+		panic("Accelerate: symbol vImageAffineWarpCG_PlanarF not loaded")
+	}
+	return _vImageAffineWarpCG_PlanarF(src, dest, tempBuffer, transform, backColor, flags)
+}
 
 
 var _vImageAffineWarpD_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_ARGB_16F, flags uint32) int
@@ -6955,12 +13471,12 @@ func VImageBufferFill_CbCr8(dest unsafe.Pointer, color Pixel_88, flags uint32) i
 }
 
 
-var _vImageBuffer_CopyToCVPixelBuffer func(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int
+var _vImageBuffer_CopyToCVPixelBuffer func(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32) int
 
 // VImageBuffer_CopyToCVPixelBuffer copies the contents of a vImage buffer to a Core Video pixel buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageBuffer_CopyToCVPixelBuffer(_:_:_:_:_:_:)
-func VImageBuffer_CopyToCVPixelBuffer(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int {
+func VImageBuffer_CopyToCVPixelBuffer(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32) int {
 	if _vImageBuffer_CopyToCVPixelBuffer == nil {
 		panic("Accelerate: symbol vImageBuffer_CopyToCVPixelBuffer not loaded")
 	}
@@ -7033,12 +13549,12 @@ func VImageBuffer_InitWithCGImage(buf unsafe.Pointer, format *VImage_CGImageForm
 }
 
 
-var _vImageBuffer_InitWithCVPixelBuffer func(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int
+var _vImageBuffer_InitWithCVPixelBuffer func(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32) int
 
 // VImageBuffer_InitWithCVPixelBuffer initializes a vImage buffer with a copy of the contents of a Core Video pixel buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageBuffer_InitWithCVPixelBuffer(_:_:_:_:_:_:)
-func VImageBuffer_InitWithCVPixelBuffer(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat uintptr, backgroundColor *float64, flags uint32) int {
+func VImageBuffer_InitWithCVPixelBuffer(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32) int {
 	if _vImageBuffer_InitWithCVPixelBuffer == nil {
 		panic("Accelerate: symbol vImageBuffer_InitWithCVPixelBuffer not loaded")
 	}
@@ -7085,12 +13601,12 @@ func VImageCGImageFormat_IsEqual(f1 *VImage_CGImageFormat, f2 *VImage_CGImageFor
 }
 
 
-var _vImageCVImageFormat_Copy func(format unsafe.Pointer) objectivec.IObject
+var _vImageCVImageFormat_Copy func(format unsafe.Pointer) VImageCVImageFormatRef
 
 // VImageCVImageFormat_Copy returns a mutable copy of an immutable Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Copy(_:)
-func VImageCVImageFormat_Copy(format unsafe.Pointer) objectivec.IObject {
+func VImageCVImageFormat_Copy(format unsafe.Pointer) VImageCVImageFormatRef {
 	if _vImageCVImageFormat_Copy == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_Copy not loaded")
 	}
@@ -7098,14 +13614,38 @@ func VImageCVImageFormat_Copy(format unsafe.Pointer) objectivec.IObject {
 }
 
 
+var _vImageCVImageFormat_CopyChannelDescription func(format VImageCVImageFormatRef, desc *VImageChannelDescription, type_ VImageBufferTypeCode) int
+
+// VImageCVImageFormat_CopyChannelDescription copies the channel description for a particular channel type to an image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_CopyChannelDescription(_:_:_:)
+func VImageCVImageFormat_CopyChannelDescription(format VImageCVImageFormatRef, desc *VImageChannelDescription, type_ VImageBufferTypeCode) int {
+	if _vImageCVImageFormat_CopyChannelDescription == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_CopyChannelDescription not loaded")
+	}
+	return _vImageCVImageFormat_CopyChannelDescription(format, desc, type_)
+}
 
 
-var _vImageCVImageFormat_Create func(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) objectivec.IObject
+var _vImageCVImageFormat_CopyConversionMatrix func(format VImageCVImageFormatRef, matrix unsafe.Pointer, inType VImageMatrixType) int
+
+// VImageCVImageFormat_CopyConversionMatrix copies an RGB-to-YpCbCr conversion matrix to an image format’s internal matrix.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_CopyConversionMatrix(_:_:_:)
+func VImageCVImageFormat_CopyConversionMatrix(format VImageCVImageFormatRef, matrix unsafe.Pointer, inType VImageMatrixType) int {
+	if _vImageCVImageFormat_CopyConversionMatrix == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_CopyConversionMatrix not loaded")
+	}
+	return _vImageCVImageFormat_CopyConversionMatrix(format, matrix, inType)
+}
+
+
+var _vImageCVImageFormat_Create func(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) VImageCVImageFormatRef
 
 // VImageCVImageFormat_Create creates the description of image encoding in a Core Video pixel buffer from the specified properties.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Create(_:_:_:_:_:)
-func VImageCVImageFormat_Create(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) objectivec.IObject {
+func VImageCVImageFormat_Create(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) VImageCVImageFormatRef {
 	if _vImageCVImageFormat_Create == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_Create not loaded")
 	}
@@ -7113,12 +13653,12 @@ func VImageCVImageFormat_Create(imageFormatType uint32, matrix *VImage_ARGBToYpC
 }
 
 
-var _vImageCVImageFormat_CreateWithCVPixelBuffer func(buffer corevideo.CVPixelBufferRef) objectivec.IObject
+var _vImageCVImageFormat_CreateWithCVPixelBuffer func(buffer corevideo.CVPixelBufferRef) VImageCVImageFormatRef
 
 // VImageCVImageFormat_CreateWithCVPixelBuffer creates the description of the image encoding in an existing Core Video pixel buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_CreateWithCVPixelBuffer(_:)
-func VImageCVImageFormat_CreateWithCVPixelBuffer(buffer corevideo.CVPixelBufferRef) objectivec.IObject {
+func VImageCVImageFormat_CreateWithCVPixelBuffer(buffer corevideo.CVPixelBufferRef) VImageCVImageFormatRef {
 	if _vImageCVImageFormat_CreateWithCVPixelBuffer == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_CreateWithCVPixelBuffer not loaded")
 	}
@@ -7152,6 +13692,30 @@ func VImageCVImageFormat_GetChannelCount(format unsafe.Pointer) uint32 {
 }
 
 
+var _vImageCVImageFormat_GetChannelDescription func(format unsafe.Pointer, type_ VImageBufferTypeCode) *VImageChannelDescription
+
+// VImageCVImageFormat_GetChannelDescription returns the channel description for a particular channel type.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetChannelDescription(_:_:)
+func VImageCVImageFormat_GetChannelDescription(format unsafe.Pointer, type_ VImageBufferTypeCode) *VImageChannelDescription {
+	if _vImageCVImageFormat_GetChannelDescription == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_GetChannelDescription not loaded")
+	}
+	return _vImageCVImageFormat_GetChannelDescription(format, type_)
+}
+
+
+var _vImageCVImageFormat_GetChannelNames func(format unsafe.Pointer) *VImageBufferTypeCode
+
+// VImageCVImageFormat_GetChannelNames returns the names of the channels of a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetChannelNames(_:)
+func VImageCVImageFormat_GetChannelNames(format unsafe.Pointer) *VImageBufferTypeCode {
+	if _vImageCVImageFormat_GetChannelNames == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_GetChannelNames not loaded")
+	}
+	return _vImageCVImageFormat_GetChannelNames(format)
+}
 
 
 var _vImageCVImageFormat_GetChromaSiting func(format unsafe.Pointer) corefoundation.CFStringRef
@@ -7180,6 +13744,18 @@ func VImageCVImageFormat_GetColorSpace(format unsafe.Pointer) coregraphics.CGCol
 }
 
 
+var _vImageCVImageFormat_GetConversionMatrix func(format unsafe.Pointer, outType *VImageMatrixType) unsafe.Pointer
+
+// VImageCVImageFormat_GetConversionMatrix returns a pointer to the RGB-to-YpCbCr conversion matrix of a Core Video image format.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_GetConversionMatrix(_:_:)
+func VImageCVImageFormat_GetConversionMatrix(format unsafe.Pointer, outType *VImageMatrixType) unsafe.Pointer {
+	if _vImageCVImageFormat_GetConversionMatrix == nil {
+		panic("Accelerate: symbol vImageCVImageFormat_GetConversionMatrix not loaded")
+	}
+	return _vImageCVImageFormat_GetConversionMatrix(format, outType)
+}
+
 
 var _vImageCVImageFormat_GetFormatCode func(format unsafe.Pointer) uint32
 
@@ -7207,12 +13783,12 @@ func VImageCVImageFormat_GetUserData(format unsafe.Pointer) unsafe.Pointer {
 }
 
 
-var _vImageCVImageFormat_Release func(fmt uintptr)
+var _vImageCVImageFormat_Release func(fmt VImageCVImageFormatRef)
 
 // VImageCVImageFormat_Release releases a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Release
-func VImageCVImageFormat_Release(fmt uintptr) {
+func VImageCVImageFormat_Release(fmt VImageCVImageFormatRef) {
 	if _vImageCVImageFormat_Release == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_Release not loaded")
 	}
@@ -7220,12 +13796,12 @@ func VImageCVImageFormat_Release(fmt uintptr) {
 }
 
 
-var _vImageCVImageFormat_Retain func(fmt uintptr)
+var _vImageCVImageFormat_Retain func(fmt VImageCVImageFormatRef)
 
 // VImageCVImageFormat_Retain retains a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_Retain
-func VImageCVImageFormat_Retain(fmt uintptr) {
+func VImageCVImageFormat_Retain(fmt VImageCVImageFormatRef) {
 	if _vImageCVImageFormat_Retain == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_Retain not loaded")
 	}
@@ -7233,12 +13809,12 @@ func VImageCVImageFormat_Retain(fmt uintptr) {
 }
 
 
-var _vImageCVImageFormat_SetAlphaHint func(format uintptr, alphaIsOne int) int
+var _vImageCVImageFormat_SetAlphaHint func(format VImageCVImageFormatRef, alphaIsOne int) int
 
 // VImageCVImageFormat_SetAlphaHint sets the alpha hint of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetAlphaHint(_:_:)
-func VImageCVImageFormat_SetAlphaHint(format uintptr, alphaIsOne int) int {
+func VImageCVImageFormat_SetAlphaHint(format VImageCVImageFormatRef, alphaIsOne int) int {
 	if _vImageCVImageFormat_SetAlphaHint == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_SetAlphaHint not loaded")
 	}
@@ -7246,12 +13822,12 @@ func VImageCVImageFormat_SetAlphaHint(format uintptr, alphaIsOne int) int {
 }
 
 
-var _vImageCVImageFormat_SetChromaSiting func(format uintptr, siting corefoundation.CFStringRef) int
+var _vImageCVImageFormat_SetChromaSiting func(format VImageCVImageFormatRef, siting corefoundation.CFStringRef) int
 
 // VImageCVImageFormat_SetChromaSiting sets the chrominance siting of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetChromaSiting(_:_:)
-func VImageCVImageFormat_SetChromaSiting(format uintptr, siting corefoundation.CFStringRef) int {
+func VImageCVImageFormat_SetChromaSiting(format VImageCVImageFormatRef, siting corefoundation.CFStringRef) int {
 	if _vImageCVImageFormat_SetChromaSiting == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_SetChromaSiting not loaded")
 	}
@@ -7259,12 +13835,12 @@ func VImageCVImageFormat_SetChromaSiting(format uintptr, siting corefoundation.C
 }
 
 
-var _vImageCVImageFormat_SetColorSpace func(format uintptr, colorspace coregraphics.CGColorSpaceRef) int
+var _vImageCVImageFormat_SetColorSpace func(format VImageCVImageFormatRef, colorspace coregraphics.CGColorSpaceRef) int
 
 // VImageCVImageFormat_SetColorSpace sets the color space of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetColorSpace(_:_:)
-func VImageCVImageFormat_SetColorSpace(format uintptr, colorspace coregraphics.CGColorSpaceRef) int {
+func VImageCVImageFormat_SetColorSpace(format VImageCVImageFormatRef, colorspace coregraphics.CGColorSpaceRef) int {
 	if _vImageCVImageFormat_SetColorSpace == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_SetColorSpace not loaded")
 	}
@@ -7272,12 +13848,12 @@ func VImageCVImageFormat_SetColorSpace(format uintptr, colorspace coregraphics.C
 }
 
 
-var _vImageCVImageFormat_SetUserData func(format uintptr, userData unsafe.Pointer) int
+var _vImageCVImageFormat_SetUserData func(format VImageCVImageFormatRef, userData unsafe.Pointer) int
 
 // VImageCVImageFormat_SetUserData sets the user data of a Core Video image format.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormat_SetUserData(_:_:_:)
-func VImageCVImageFormat_SetUserData(format uintptr, userData unsafe.Pointer) int {
+func VImageCVImageFormat_SetUserData(format VImageCVImageFormatRef, userData unsafe.Pointer) int {
 	if _vImageCVImageFormat_SetUserData == nil {
 		panic("Accelerate: symbol vImageCVImageFormat_SetUserData not loaded")
 	}
@@ -9846,12 +16422,12 @@ func VImageConvert_YpCbCrToARGB_GenerateConversion(matrix *VImage_YpCbCrToARGBMa
 }
 
 
-var _vImageConverter_CreateForCGToCVImageFormat func(srcFormat *VImage_CGImageFormat, destFormat uintptr, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateForCGToCVImageFormat func(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
 
 // VImageConverter_CreateForCGToCVImageFormat creates a vImage converter that converts a Core Graphics-formatted image to a Core Video-formatted image.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateForCGToCVImageFormat(_:_:_:_:_:)
-func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat uintptr, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
 	if _vImageConverter_CreateForCGToCVImageFormat == nil {
 		panic("Accelerate: symbol vImageConverter_CreateForCGToCVImageFormat not loaded")
 	}
@@ -9859,12 +16435,12 @@ func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat,
 }
 
 
-var _vImageConverter_CreateForCVToCGImageFormat func(srcFormat uintptr, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
+var _vImageConverter_CreateForCVToCGImageFormat func(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
 
 // VImageConverter_CreateForCVToCGImageFormat creates a vImage converter that converts a Core Video-formatted image to a Core Graphics-formatted image.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter_CreateForCVToCGImageFormat(_:_:_:_:_:)
-func VImageConverter_CreateForCVToCGImageFormat(srcFormat uintptr, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
+func VImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer {
 	if _vImageConverter_CreateForCVToCGImageFormat == nil {
 		panic("Accelerate: symbol vImageConverter_CreateForCVToCGImageFormat not loaded")
 	}
@@ -9911,6 +16487,18 @@ func VImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation
 }
 
 
+var _vImageConverter_GetDestinationBufferOrder func(converter unsafe.Pointer) *VImageBufferTypeCode
+
+// VImageConverter_GetDestinationBufferOrder returns a list of vImage destination buffer channel names, specifying the order of planes.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageConverter_GetDestinationBufferOrder(_:)
+func VImageConverter_GetDestinationBufferOrder(converter unsafe.Pointer) *VImageBufferTypeCode {
+	if _vImageConverter_GetDestinationBufferOrder == nil {
+		panic("Accelerate: symbol vImageConverter_GetDestinationBufferOrder not loaded")
+	}
+	return _vImageConverter_GetDestinationBufferOrder(converter)
+}
+
 
 var _vImageConverter_GetNumberOfDestinationBuffers func(converter unsafe.Pointer) uint
 
@@ -9937,6 +16525,18 @@ func VImageConverter_GetNumberOfSourceBuffers(converter unsafe.Pointer) uint {
 	return _vImageConverter_GetNumberOfSourceBuffers(converter)
 }
 
+
+var _vImageConverter_GetSourceBufferOrder func(converter unsafe.Pointer) *VImageBufferTypeCode
+
+// VImageConverter_GetSourceBufferOrder returns a list of vImage source buffer channel names, specifying the order of planes.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageConverter_GetSourceBufferOrder(_:)
+func VImageConverter_GetSourceBufferOrder(converter unsafe.Pointer) *VImageBufferTypeCode {
+	if _vImageConverter_GetSourceBufferOrder == nil {
+		panic("Accelerate: symbol vImageConverter_GetSourceBufferOrder not loaded")
+	}
+	return _vImageConverter_GetSourceBufferOrder(converter)
+}
 
 
 var _vImageConverter_MustOperateOutOfPlace func(converter unsafe.Pointer, srcs unsafe.Pointer, dests unsafe.Pointer, flags uint32) int
@@ -11720,9 +18320,69 @@ func VImageMin_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsaf
 }
 
 
+var _vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12 func(srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, table VImage_MultidimensionalTable, method unsafe.Pointer, flags uint32) int
+
+// VImageMultiDimensionalInterpolatedLookupTable_Planar16Q12 uses a multidimensional lookup table to transform a 16Q12 planar image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12(_:_:_:_:_:_:)
+func VImageMultiDimensionalInterpolatedLookupTable_Planar16Q12(srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, table VImage_MultidimensionalTable, method unsafe.Pointer, flags uint32) int {
+	if _vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12 == nil {
+		panic("Accelerate: symbol vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12 not loaded")
+	}
+	return _vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12(srcs, dests, tempBuffer, table, method, flags)
+}
 
 
+var _vImageMultiDimensionalInterpolatedLookupTable_PlanarF func(srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, table VImage_MultidimensionalTable, method unsafe.Pointer, flags uint32) int
 
+// VImageMultiDimensionalInterpolatedLookupTable_PlanarF uses a multidimensional lookup table to transform a 32-bit planar image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageMultiDimensionalInterpolatedLookupTable_PlanarF(_:_:_:_:_:_:)
+func VImageMultiDimensionalInterpolatedLookupTable_PlanarF(srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, table VImage_MultidimensionalTable, method unsafe.Pointer, flags uint32) int {
+	if _vImageMultiDimensionalInterpolatedLookupTable_PlanarF == nil {
+		panic("Accelerate: symbol vImageMultiDimensionalInterpolatedLookupTable_PlanarF not loaded")
+	}
+	return _vImageMultiDimensionalInterpolatedLookupTable_PlanarF(srcs, dests, tempBuffer, table, method, flags)
+}
+
+
+var _vImageMultidimensionalTable_Create func(tableData *uint16, numSrcChannels uint32, numDestChannels uint32, table_entries_per_dimension uint8, hint unsafe.Pointer, flags uint32, err *int) VImage_MultidimensionalTable
+
+// VImageMultidimensionalTable_Create creates a multidimensional lookup table.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageMultidimensionalTable_Create(_:_:_:_:_:_:_:)
+func VImageMultidimensionalTable_Create(tableData *uint16, numSrcChannels uint32, numDestChannels uint32, table_entries_per_dimension uint8, hint unsafe.Pointer, flags uint32, err *int) VImage_MultidimensionalTable {
+	if _vImageMultidimensionalTable_Create == nil {
+		panic("Accelerate: symbol vImageMultidimensionalTable_Create not loaded")
+	}
+	return _vImageMultidimensionalTable_Create(tableData, numSrcChannels, numDestChannels, table_entries_per_dimension, hint, flags, err)
+}
+
+
+var _vImageMultidimensionalTable_Release func(table VImage_MultidimensionalTable) int
+
+// VImageMultidimensionalTable_Release releases a multidimensional table.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageMultidimensionalTable_Release(_:)
+func VImageMultidimensionalTable_Release(table VImage_MultidimensionalTable) int {
+	if _vImageMultidimensionalTable_Release == nil {
+		panic("Accelerate: symbol vImageMultidimensionalTable_Release not loaded")
+	}
+	return _vImageMultidimensionalTable_Release(table)
+}
+
+
+var _vImageMultidimensionalTable_Retain func(table VImage_MultidimensionalTable) int
+
+// VImageMultidimensionalTable_Retain retains a multidimensional table.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImageMultidimensionalTable_Retain(_:)
+func VImageMultidimensionalTable_Retain(table VImage_MultidimensionalTable) int {
+	if _vImageMultidimensionalTable_Retain == nil {
+		panic("Accelerate: symbol vImageMultidimensionalTable_Retain not loaded")
+	}
+	return _vImageMultidimensionalTable_Retain(table)
+}
 
 
 var _vImageNewResamplingFilter func(scale float32, flags uint32) ResamplingFilter
@@ -12024,10 +18684,82 @@ func VImagePermuteChannels_RGB888(src unsafe.Pointer, dest unsafe.Pointer, permu
 }
 
 
+var _vImagePerspectiveWarp_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_ARGB_16F, flags uint32) int
+
+// VImagePerspectiveWarp_ARGB16F applies a perspective warp to a floating-point 16-bit , four-channel interleaved image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImagePerspectiveWarp_ARGB16F(_:_:_:_:_:_:_:)
+func VImagePerspectiveWarp_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_ARGB_16F, flags uint32) int {
+	if _vImagePerspectiveWarp_ARGB16F == nil {
+		panic("Accelerate: symbol vImagePerspectiveWarp_ARGB16F not loaded")
+	}
+	return _vImagePerspectiveWarp_ARGB16F(src, dest, tempBuffer, transform, interpolation, backColor, flags)
+}
 
 
+var _vImagePerspectiveWarp_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_ARGB_16U, flags uint32) int
+
+// VImagePerspectiveWarp_ARGB16U applies a perspective warp to an unsigned 16-bit , four-channel interleaved image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImagePerspectiveWarp_ARGB16U(_:_:_:_:_:_:_:)
+func VImagePerspectiveWarp_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_ARGB_16U, flags uint32) int {
+	if _vImagePerspectiveWarp_ARGB16U == nil {
+		panic("Accelerate: symbol vImagePerspectiveWarp_ARGB16U not loaded")
+	}
+	return _vImagePerspectiveWarp_ARGB16U(src, dest, tempBuffer, transform, interpolation, backColor, flags)
+}
 
 
+var _vImagePerspectiveWarp_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_8888, flags uint32) int
+
+// VImagePerspectiveWarp_ARGB8888 applies a perspective warp to an 8-bit-per-channel, four-channel interleaved image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImagePerspectiveWarp_ARGB8888(_:_:_:_:_:_:_:)
+func VImagePerspectiveWarp_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_8888, flags uint32) int {
+	if _vImagePerspectiveWarp_ARGB8888 == nil {
+		panic("Accelerate: symbol vImagePerspectiveWarp_ARGB8888 not loaded")
+	}
+	return _vImagePerspectiveWarp_ARGB8888(src, dest, tempBuffer, transform, interpolation, backColor, flags)
+}
+
+
+var _vImagePerspectiveWarp_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_16F, flags uint32) int
+
+// VImagePerspectiveWarp_Planar16F applies a perspective warp to a floating-point 16-bit planar image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImagePerspectiveWarp_Planar16F(_:_:_:_:_:_:_:)
+func VImagePerspectiveWarp_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_16F, flags uint32) int {
+	if _vImagePerspectiveWarp_Planar16F == nil {
+		panic("Accelerate: symbol vImagePerspectiveWarp_Planar16F not loaded")
+	}
+	return _vImagePerspectiveWarp_Planar16F(src, dest, tempBuffer, transform, interpolation, backColor, flags)
+}
+
+
+var _vImagePerspectiveWarp_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_16U, flags uint32) int
+
+// VImagePerspectiveWarp_Planar16U applies a perspective warp to a unsigned 16-bit planar image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImagePerspectiveWarp_Planar16U(_:_:_:_:_:_:_:)
+func VImagePerspectiveWarp_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_16U, flags uint32) int {
+	if _vImagePerspectiveWarp_Planar16U == nil {
+		panic("Accelerate: symbol vImagePerspectiveWarp_Planar16U not loaded")
+	}
+	return _vImagePerspectiveWarp_Planar16U(src, dest, tempBuffer, transform, interpolation, backColor, flags)
+}
+
+
+var _vImagePerspectiveWarp_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_8, flags uint32) int
+
+// VImagePerspectiveWarp_Planar8 applies a perspective warp to an 8-bit planar image.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vImagePerspectiveWarp_Planar8(_:_:_:_:_:_:_:)
+func VImagePerspectiveWarp_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_8, flags uint32) int {
+	if _vImagePerspectiveWarp_Planar8 == nil {
+		panic("Accelerate: symbol vImagePerspectiveWarp_Planar8 not loaded")
+	}
+	return _vImagePerspectiveWarp_Planar8(src, dest, tempBuffer, transform, interpolation, backColor, flags)
+}
 
 
 var _vImagePiecewiseGamma_Planar16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_16S, flags uint32) int
@@ -13824,6 +20556,18 @@ func VL1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 }
 
 
+var _vL128Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
+
+// VL128Rotate 128-bit left rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vL128Rotate(_:_:)
+func VL128Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
+	if _vL128Rotate == nil {
+		panic("Accelerate: symbol vL128Rotate not loaded")
+	}
+	return _vL128Rotate(vA, vRotateFactor)
+}
+
 
 var _vL256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
@@ -13851,6 +20595,30 @@ func VL512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 }
 
 
+var _vL64Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
+
+// VL64Rotate 64-bit left rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vL64Rotate(_:_:)
+func VL64Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
+	if _vL64Rotate == nil {
+		panic("Accelerate: symbol vL64Rotate not loaded")
+	}
+	return _vL64Rotate(vA, vRotateFactor)
+}
+
+
+var _vL64Rotate2 func(vA VUInt32, vRotateFactor VUInt8) VUInt32
+
+// VL64Rotate2 64-bit left rotate with two rotation factors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vL64Rotate2(_:_:)
+func VL64Rotate2(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
+	if _vL64Rotate2 == nil {
+		panic("Accelerate: symbol vL64Rotate2 not loaded")
+	}
+	return _vL64Rotate2(vA, vRotateFactor)
+}
 
 
 var _vLL1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
@@ -13865,6 +20633,18 @@ func VLL1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	_vLL1024Shift(a, shiftAmount, result)
 }
 
+
+var _vLL128Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VLL128Shift 128-bit logical left shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLL128Shift(_:_:)
+func VLL128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vLL128Shift == nil {
+		panic("Accelerate: symbol vLL128Shift not loaded")
+	}
+	return _vLL128Shift(vA, vShiftFactor)
+}
 
 
 var _vLL256Shift func(a uintptr, shiftAmount uint32, result uintptr)
@@ -13893,6 +20673,30 @@ func VLL512Shift(a uintptr, shiftAmount uint32, result uintptr) {
 }
 
 
+var _vLL64Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VLL64Shift 64-bit logical left shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLL64Shift(_:_:)
+func VLL64Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vLL64Shift == nil {
+		panic("Accelerate: symbol vLL64Shift not loaded")
+	}
+	return _vLL64Shift(vA, vShiftFactor)
+}
+
+
+var _vLL64Shift2 func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VLL64Shift2 64-bit logical left shift with two shift factors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLL64Shift2(_:_:)
+func VLL64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vLL64Shift2 == nil {
+		panic("Accelerate: symbol vLL64Shift2 not loaded")
+	}
+	return _vLL64Shift2(vA, vShiftFactor)
+}
 
 
 var _vLR1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
@@ -13907,6 +20711,18 @@ func VLR1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	_vLR1024Shift(a, shiftAmount, result)
 }
 
+
+var _vLR128Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VLR128Shift 128-bit logical right shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLR128Shift(_:_:)
+func VLR128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vLR128Shift == nil {
+		panic("Accelerate: symbol vLR128Shift not loaded")
+	}
+	return _vLR128Shift(vA, vShiftFactor)
+}
 
 
 var _vLR256Shift func(a uintptr, shiftAmount uint32, result uintptr)
@@ -13935,6 +20751,30 @@ func VLR512Shift(a uintptr, shiftAmount uint32, result uintptr) {
 }
 
 
+var _vLR64Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VLR64Shift 64-bit logical right shift.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLR64Shift(_:_:)
+func VLR64Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vLR64Shift == nil {
+		panic("Accelerate: symbol vLR64Shift not loaded")
+	}
+	return _vLR64Shift(vA, vShiftFactor)
+}
+
+
+var _vLR64Shift2 func(vA VUInt32, vShiftFactor VUInt8) VUInt32
+
+// VLR64Shift2 64-bit logical right shift with two shift factors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vLR64Shift2(_:_:)
+func VLR64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
+	if _vLR64Shift2 == nil {
+		panic("Accelerate: symbol vLR64Shift2 not loaded")
+	}
+	return _vLR64Shift2(vA, vShiftFactor)
+}
 
 
 var _vR1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
@@ -13949,6 +20789,18 @@ func VR1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	_vR1024Rotate(a, rotateAmount, result)
 }
 
+
+var _vR128Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
+
+// VR128Rotate 128-bit right rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vR128Rotate(_:_:)
+func VR128Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
+	if _vR128Rotate == nil {
+		panic("Accelerate: symbol vR128Rotate not loaded")
+	}
+	return _vR128Rotate(vA, vRotateFactor)
+}
 
 
 var _vR256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
@@ -13977,6 +20829,30 @@ func VR512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 }
 
 
+var _vR64Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
+
+// VR64Rotate 64-bit right rotate.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vR64Rotate(_:_:)
+func VR64Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
+	if _vR64Rotate == nil {
+		panic("Accelerate: symbol vR64Rotate not loaded")
+	}
+	return _vR64Rotate(vA, vRotateFactor)
+}
+
+
+var _vR64Rotate2 func(vA VUInt32, vRotateFactor VUInt8) VUInt32
+
+// VR64Rotate2 64-bit right rotate with two rotation factors.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vR64Rotate2(_:_:)
+func VR64Rotate2(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
+	if _vR64Rotate2 == nil {
+		panic("Accelerate: symbol vR64Rotate2 not loaded")
+	}
+	return _vR64Rotate2(vA, vRotateFactor)
+}
 
 
 var _vS1024Add func(a uintptr, b uintptr, result uintptr)
@@ -14083,7 +20959,43 @@ func VS1024SubS(a uintptr, b uintptr, result uintptr) {
 }
 
 
+var _vS128Add func(vA VSInt32, vB VSInt32) VSInt32
 
+// VS128Add signed 128-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128Add(_:_:)
+func VS128Add(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS128Add == nil {
+		panic("Accelerate: symbol vS128Add not loaded")
+	}
+	return _vS128Add(vA, vB)
+}
+
+
+var _vS128AddS func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS128AddS signed 128-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128AddS(_:_:)
+func VS128AddS(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS128AddS == nil {
+		panic("Accelerate: symbol vS128AddS not loaded")
+	}
+	return _vS128AddS(vA, vB)
+}
+
+
+var _vS128Divide func(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32
+
+// VS128Divide signed 128-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128Divide(_:_:_:)
+func VS128Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
+	if _vS128Divide == nil {
+		panic("Accelerate: symbol vS128Divide not loaded")
+	}
+	return _vS128Divide(vN, vD, vRemainder)
+}
 
 
 var _vS128FullMultiply func(a uintptr, b uintptr, result uintptr)
@@ -14099,9 +21011,69 @@ func VS128FullMultiply(a uintptr, b uintptr, result uintptr) {
 }
 
 
+var _vS128HalfMultiply func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS128HalfMultiply signed 128-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128HalfMultiply(_:_:)
+func VS128HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS128HalfMultiply == nil {
+		panic("Accelerate: symbol vS128HalfMultiply not loaded")
+	}
+	return _vS128HalfMultiply(vA, vB)
+}
 
 
+var _vS128Neg func(vA VSInt32) VSInt32
 
+// VS128Neg signed 128-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128Neg(_:)
+func VS128Neg(vA VSInt32) VSInt32 {
+	if _vS128Neg == nil {
+		panic("Accelerate: symbol vS128Neg not loaded")
+	}
+	return _vS128Neg(vA)
+}
+
+
+var _vS128Sub func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS128Sub signed 128-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128Sub(_:_:)
+func VS128Sub(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS128Sub == nil {
+		panic("Accelerate: symbol vS128Sub not loaded")
+	}
+	return _vS128Sub(vA, vB)
+}
+
+
+var _vS128SubS func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS128SubS signed 128-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS128SubS(_:_:)
+func VS128SubS(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS128SubS == nil {
+		panic("Accelerate: symbol vS128SubS not loaded")
+	}
+	return _vS128SubS(vA, vB)
+}
+
+
+var _vS16Divide func(vN VSInt16, vD VSInt16, vRemainder *VSInt16) VSInt16
+
+// VS16Divide signed 16-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS16Divide(_:_:_:)
+func VS16Divide(vN VSInt16, vD VSInt16, vRemainder *VSInt16) VSInt16 {
+	if _vS16Divide == nil {
+		panic("Accelerate: symbol vS16Divide not loaded")
+	}
+	return _vS16Divide(vN, vD, vRemainder)
+}
 
 
 
@@ -14222,8 +21194,56 @@ func VS256SubS(a uintptr, b uintptr, result uintptr) {
 }
 
 
+var _vS32Divide func(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32
+
+// VS32Divide signed 32-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS32Divide(_:_:_:)
+func VS32Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
+	if _vS32Divide == nil {
+		panic("Accelerate: symbol vS32Divide not loaded")
+	}
+	return _vS32Divide(vN, vD, vRemainder)
+}
 
 
+var _vS32FullMulEven func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS32FullMulEven signed 32-bit multiplication; results are twice as wide as multiplicands, even-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS32FullMulEven(_:_:)
+func VS32FullMulEven(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS32FullMulEven == nil {
+		panic("Accelerate: symbol vS32FullMulEven not loaded")
+	}
+	return _vS32FullMulEven(vA, vB)
+}
+
+
+var _vS32FullMulOdd func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS32FullMulOdd signed 32-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS32FullMulOdd(_:_:)
+func VS32FullMulOdd(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS32FullMulOdd == nil {
+		panic("Accelerate: symbol vS32FullMulOdd not loaded")
+	}
+	return _vS32FullMulOdd(vA, vB)
+}
+
+
+var _vS32HalfMultiply func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS32HalfMultiply signed 32-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS32HalfMultiply(_:_:)
+func VS32HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS32HalfMultiply == nil {
+		panic("Accelerate: symbol vS32HalfMultiply not loaded")
+	}
+	return _vS32HalfMultiply(vA, vB)
+}
 
 
 var _vS512Add func(a uintptr, b uintptr, result uintptr)
@@ -14344,14 +21364,122 @@ func VS512SubS(a uintptr, b uintptr, result uintptr) {
 
 
 
+var _vS64AddS func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS64AddS signed 64-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64AddS(_:_:)
+func VS64AddS(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS64AddS == nil {
+		panic("Accelerate: symbol vS64AddS not loaded")
+	}
+	return _vS64AddS(vA, vB)
+}
+
+
+var _vS64Divide func(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32
+
+// VS64Divide signed 64-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64Divide(_:_:_:)
+func VS64Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
+	if _vS64Divide == nil {
+		panic("Accelerate: symbol vS64Divide not loaded")
+	}
+	return _vS64Divide(vN, vD, vRemainder)
+}
+
+
+var _vS64FullMulEven func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS64FullMulEven signed 64-bit multiplication; results are twice as wide as multiplicands, even-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64FullMulEven(_:_:)
+func VS64FullMulEven(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS64FullMulEven == nil {
+		panic("Accelerate: symbol vS64FullMulEven not loaded")
+	}
+	return _vS64FullMulEven(vA, vB)
+}
+
+
+var _vS64FullMulOdd func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS64FullMulOdd signed 64-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64FullMulOdd(_:_:)
+func VS64FullMulOdd(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS64FullMulOdd == nil {
+		panic("Accelerate: symbol vS64FullMulOdd not loaded")
+	}
+	return _vS64FullMulOdd(vA, vB)
+}
+
+
+var _vS64HalfMultiply func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS64HalfMultiply signed 64-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64HalfMultiply(_:_:)
+func VS64HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS64HalfMultiply == nil {
+		panic("Accelerate: symbol vS64HalfMultiply not loaded")
+	}
+	return _vS64HalfMultiply(vA, vB)
+}
+
+
+var _vS64Neg func(vA VSInt32) VSInt32
+
+// VS64Neg signed 64-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64Neg(_:)
+func VS64Neg(vA VSInt32) VSInt32 {
+	if _vS64Neg == nil {
+		panic("Accelerate: symbol vS64Neg not loaded")
+	}
+	return _vS64Neg(vA)
+}
 
 
 
+var _vS64SubS func(vA VSInt32, vB VSInt32) VSInt32
+
+// VS64SubS signed 64-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS64SubS(_:_:)
+func VS64SubS(vA VSInt32, vB VSInt32) VSInt32 {
+	if _vS64SubS == nil {
+		panic("Accelerate: symbol vS64SubS not loaded")
+	}
+	return _vS64SubS(vA, vB)
+}
 
 
+var _vS8Divide func(vN VSInt8, vD VSInt8, vRemainder *VSInt8) VSInt8
+
+// VS8Divide signed 8-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS8Divide(_:_:_:)
+func VS8Divide(vN VSInt8, vD VSInt8, vRemainder *VSInt8) VSInt8 {
+	if _vS8Divide == nil {
+		panic("Accelerate: symbol vS8Divide not loaded")
+	}
+	return _vS8Divide(vN, vD, vRemainder)
+}
 
 
+var _vS8HalfMultiply func(vA VSInt8, vB VSInt8) VSInt8
 
+// VS8HalfMultiply signed 8-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vS8HalfMultiply(_:_:)
+func VS8HalfMultiply(vA VSInt8, vB VSInt8) VSInt8 {
+	if _vS8HalfMultiply == nil {
+		panic("Accelerate: symbol vS8HalfMultiply not loaded")
+	}
+	return _vS8HalfMultiply(vA, vB)
+}
 
 
 var _vU1024Add func(a uintptr, b uintptr, result uintptr)
@@ -14458,7 +21586,43 @@ func VU1024SubS(a uintptr, b uintptr, result uintptr) {
 }
 
 
+var _vU128Add func(vA VUInt32, vB VUInt32) VUInt32
 
+// VU128Add unsigned 128-bit addition (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128Add(_:_:)
+func VU128Add(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU128Add == nil {
+		panic("Accelerate: symbol vU128Add not loaded")
+	}
+	return _vU128Add(vA, vB)
+}
+
+
+var _vU128AddS func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU128AddS unsigned 128-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128AddS(_:_:)
+func VU128AddS(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU128AddS == nil {
+		panic("Accelerate: symbol vU128AddS not loaded")
+	}
+	return _vU128AddS(vA, vB)
+}
+
+
+var _vU128Divide func(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32
+
+// VU128Divide unsigned 128-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128Divide(_:_:_:)
+func VU128Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
+	if _vU128Divide == nil {
+		panic("Accelerate: symbol vU128Divide not loaded")
+	}
+	return _vU128Divide(vN, vD, vRemainder)
+}
 
 
 var _vU128FullMultiply func(a uintptr, b uintptr, result uintptr)
@@ -14474,9 +21638,69 @@ func VU128FullMultiply(a uintptr, b uintptr, result uintptr) {
 }
 
 
+var _vU128HalfMultiply func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU128HalfMultiply unsigned 128-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128HalfMultiply(_:_:)
+func VU128HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU128HalfMultiply == nil {
+		panic("Accelerate: symbol vU128HalfMultiply not loaded")
+	}
+	return _vU128HalfMultiply(vA, vB)
+}
 
 
+var _vU128Neg func(vA VUInt32) VUInt32
 
+// VU128Neg unsigned 128-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128Neg(_:)
+func VU128Neg(vA VUInt32) VUInt32 {
+	if _vU128Neg == nil {
+		panic("Accelerate: symbol vU128Neg not loaded")
+	}
+	return _vU128Neg(vA)
+}
+
+
+var _vU128Sub func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU128Sub unsigned 128-bit subtraction (modular arithmetic).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128Sub(_:_:)
+func VU128Sub(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU128Sub == nil {
+		panic("Accelerate: symbol vU128Sub not loaded")
+	}
+	return _vU128Sub(vA, vB)
+}
+
+
+var _vU128SubS func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU128SubS unsigned 128-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU128SubS(_:_:)
+func VU128SubS(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU128SubS == nil {
+		panic("Accelerate: symbol vU128SubS not loaded")
+	}
+	return _vU128SubS(vA, vB)
+}
+
+
+var _vU16Divide func(vN VUInt16, vD VUInt16, vRemainder *VUInt16) VUInt16
+
+// VU16Divide unsigned 16-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU16Divide(_:_:_:)
+func VU16Divide(vN VUInt16, vD VUInt16, vRemainder *VUInt16) VUInt16 {
+	if _vU16Divide == nil {
+		panic("Accelerate: symbol vU16Divide not loaded")
+	}
+	return _vU16Divide(vN, vD, vRemainder)
+}
 
 
 
@@ -14597,8 +21821,56 @@ func VU256SubS(a uintptr, b uintptr, result uintptr) {
 }
 
 
+var _vU32Divide func(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32
+
+// VU32Divide unsigned 32-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU32Divide(_:_:_:)
+func VU32Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
+	if _vU32Divide == nil {
+		panic("Accelerate: symbol vU32Divide not loaded")
+	}
+	return _vU32Divide(vN, vD, vRemainder)
+}
 
 
+var _vU32FullMulEven func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU32FullMulEven unsigned 32-bit multiplication; results are twice as wide as multiplicands, even-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU32FullMulEven(_:_:)
+func VU32FullMulEven(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU32FullMulEven == nil {
+		panic("Accelerate: symbol vU32FullMulEven not loaded")
+	}
+	return _vU32FullMulEven(vA, vB)
+}
+
+
+var _vU32FullMulOdd func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU32FullMulOdd unsigned 32-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU32FullMulOdd(_:_:)
+func VU32FullMulOdd(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU32FullMulOdd == nil {
+		panic("Accelerate: symbol vU32FullMulOdd not loaded")
+	}
+	return _vU32FullMulOdd(vA, vB)
+}
+
+
+var _vU32HalfMultiply func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU32HalfMultiply unsigned 32-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU32HalfMultiply(_:_:)
+func VU32HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU32HalfMultiply == nil {
+		panic("Accelerate: symbol vU32HalfMultiply not loaded")
+	}
+	return _vU32HalfMultiply(vA, vB)
+}
 
 
 var _vU512Add func(a uintptr, b uintptr, result uintptr)
@@ -14719,61 +21991,733 @@ func VU512SubS(a uintptr, b uintptr, result uintptr) {
 
 
 
+var _vU64AddS func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU64AddS unsigned 64-bit addition with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64AddS(_:_:)
+func VU64AddS(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU64AddS == nil {
+		panic("Accelerate: symbol vU64AddS not loaded")
+	}
+	return _vU64AddS(vA, vB)
+}
+
+
+var _vU64Divide func(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32
+
+// VU64Divide unsigned 64-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64Divide(_:_:_:)
+func VU64Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
+	if _vU64Divide == nil {
+		panic("Accelerate: symbol vU64Divide not loaded")
+	}
+	return _vU64Divide(vN, vD, vRemainder)
+}
+
+
+var _vU64FullMulEven func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU64FullMulEven unsigned 64-bit multiplication; results are twice as wide as multiplicands, even-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64FullMulEven(_:_:)
+func VU64FullMulEven(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU64FullMulEven == nil {
+		panic("Accelerate: symbol vU64FullMulEven not loaded")
+	}
+	return _vU64FullMulEven(vA, vB)
+}
+
+
+var _vU64FullMulOdd func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU64FullMulOdd unsigned 64-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64FullMulOdd(_:_:)
+func VU64FullMulOdd(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU64FullMulOdd == nil {
+		panic("Accelerate: symbol vU64FullMulOdd not loaded")
+	}
+	return _vU64FullMulOdd(vA, vB)
+}
+
+
+var _vU64HalfMultiply func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU64HalfMultiply unsigned 64-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64HalfMultiply(_:_:)
+func VU64HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU64HalfMultiply == nil {
+		panic("Accelerate: symbol vU64HalfMultiply not loaded")
+	}
+	return _vU64HalfMultiply(vA, vB)
+}
+
+
+var _vU64Neg func(vA VUInt32) VUInt32
+
+// VU64Neg unsigned 64-bit negation.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64Neg(_:)
+func VU64Neg(vA VUInt32) VUInt32 {
+	if _vU64Neg == nil {
+		panic("Accelerate: symbol vU64Neg not loaded")
+	}
+	return _vU64Neg(vA)
+}
 
 
 
+var _vU64SubS func(vA VUInt32, vB VUInt32) VUInt32
+
+// VU64SubS unsigned 64-bit subtraction with saturation (clipping).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU64SubS(_:_:)
+func VU64SubS(vA VUInt32, vB VUInt32) VUInt32 {
+	if _vU64SubS == nil {
+		panic("Accelerate: symbol vU64SubS not loaded")
+	}
+	return _vU64SubS(vA, vB)
+}
 
 
+var _vU8Divide func(vN VUInt8, vD VUInt8, vRemainder *VUInt8) VUInt8
+
+// VU8Divide unsigned 8-bit division.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU8Divide(_:_:_:)
+func VU8Divide(vN VUInt8, vD VUInt8, vRemainder *VUInt8) VUInt8 {
+	if _vU8Divide == nil {
+		panic("Accelerate: symbol vU8Divide not loaded")
+	}
+	return _vU8Divide(vN, vD, vRemainder)
+}
 
 
+var _vU8HalfMultiply func(vA VUInt8, vB VUInt8) VUInt8
+
+// VU8HalfMultiply unsigned 8-bit multiplication; results are same width as multiplicands.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vU8HalfMultiply(_:_:)
+func VU8HalfMultiply(vA VUInt8, vB VUInt8) VUInt8 {
+	if _vU8HalfMultiply == nil {
+		panic("Accelerate: symbol vU8HalfMultiply not loaded")
+	}
+	return _vU8HalfMultiply(vA, vB)
+}
 
 
+var _vacosf func(arg0 VFloat) VFloat
+
+// Vacosf for each vector element, calculates the arccosine.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vacosf(_:)
+func Vacosf(arg0 VFloat) VFloat {
+	if _vacosf == nil {
+		panic("Accelerate: symbol vacosf not loaded")
+	}
+	return _vacosf(arg0)
+}
 
 
+var _vacoshf func(arg0 VFloat) VFloat
+
+// Vacoshf for each vector element, calculates the inverse hyperbolic cosine of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vacoshf(_:)
+func Vacoshf(arg0 VFloat) VFloat {
+	if _vacoshf == nil {
+		panic("Accelerate: symbol vacoshf not loaded")
+	}
+	return _vacoshf(arg0)
+}
 
 
+var _vasinf func(arg0 VFloat) VFloat
+
+// Vasinf for each vector element, calculates the arcsine.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vasinf(_:)
+func Vasinf(arg0 VFloat) VFloat {
+	if _vasinf == nil {
+		panic("Accelerate: symbol vasinf not loaded")
+	}
+	return _vasinf(arg0)
+}
 
 
+var _vasinhf func(arg0 VFloat) VFloat
+
+// Vasinhf for each vector element, calculates the inverse hyperbolic sine of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vasinhf(_:)
+func Vasinhf(arg0 VFloat) VFloat {
+	if _vasinhf == nil {
+		panic("Accelerate: symbol vasinhf not loaded")
+	}
+	return _vasinhf(arg0)
+}
 
 
+var _vatan2f func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vatan2f for each vector element, calculates the arctangent of `arg2`/`arg1` in the interval [-pi,pi] using the sign of both arguments to determine the quadrant of the computed value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vatan2f(_:_:)
+func Vatan2f(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vatan2f == nil {
+		panic("Accelerate: symbol vatan2f not loaded")
+	}
+	return _vatan2f(arg0, arg1)
+}
 
 
+var _vatanf func(arg0 VFloat) VFloat
+
+// Vatanf for each vector element, calculates the arctangent.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vatanf(_:)
+func Vatanf(arg0 VFloat) VFloat {
+	if _vatanf == nil {
+		panic("Accelerate: symbol vatanf not loaded")
+	}
+	return _vatanf(arg0)
+}
 
 
+var _vatanhf func(arg0 VFloat) VFloat
+
+// Vatanhf for each vector element, calculates the inverse hyperbolic tangent of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vatanhf(_:)
+func Vatanhf(arg0 VFloat) VFloat {
+	if _vatanhf == nil {
+		panic("Accelerate: symbol vatanhf not loaded")
+	}
+	return _vatanhf(arg0)
+}
 
 
+var _vceilf func(arg0 VFloat) VFloat
+
+// Vceilf computes the ceiling of values in a vector of floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vceilf(_:)
+func Vceilf(arg0 VFloat) VFloat {
+	if _vceilf == nil {
+		panic("Accelerate: symbol vceilf not loaded")
+	}
+	return _vceilf(arg0)
+}
 
 
+var _vclassifyf func(arg0 VFloat) VUInt32
+
+// Vclassifyf for each vector element, returns the class of the argument (one of the FP_ … constants defined in math.h).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vclassifyf(_:)
+func Vclassifyf(arg0 VFloat) VUInt32 {
+	if _vclassifyf == nil {
+		panic("Accelerate: symbol vclassifyf not loaded")
+	}
+	return _vclassifyf(arg0)
+}
 
 
+var _vcopysignf func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vcopysignf for each vector element, produces a value with the magnitude of `arg2` and sign `arg1`.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vcopysignf(_:_:)
+func Vcopysignf(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vcopysignf == nil {
+		panic("Accelerate: symbol vcopysignf not loaded")
+	}
+	return _vcopysignf(arg0, arg1)
+}
 
 
+var _vcosf func(arg0 VFloat) VFloat
+
+// Vcosf for each vector element, calculates the cosine.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vcosf(_:)
+func Vcosf(arg0 VFloat) VFloat {
+	if _vcosf == nil {
+		panic("Accelerate: symbol vcosf not loaded")
+	}
+	return _vcosf(arg0)
+}
 
 
+var _vcoshf func(arg0 VFloat) VFloat
+
+// Vcoshf for each vector element, calculates the hyperbolic cosine of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vcoshf(_:)
+func Vcoshf(arg0 VFloat) VFloat {
+	if _vcoshf == nil {
+		panic("Accelerate: symbol vcoshf not loaded")
+	}
+	return _vcoshf(arg0)
+}
 
 
+var _vcospif func(arg0 VFloat) VFloat
+
+// Vcospif.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vcospif(_:)
+func Vcospif(arg0 VFloat) VFloat {
+	if _vcospif == nil {
+		panic("Accelerate: symbol vcospif not loaded")
+	}
+	return _vcospif(arg0)
+}
 
 
+var _vdivf func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vdivf for each vector element, calculates [A]/[B].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vdivf(_:_:)
+func Vdivf(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vdivf == nil {
+		panic("Accelerate: symbol vdivf not loaded")
+	}
+	return _vdivf(arg0, arg1)
+}
 
 
+var _vexp2f func(arg0 VFloat) VFloat
+
+// Vexp2f.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vexp2f(_:)
+func Vexp2f(arg0 VFloat) VFloat {
+	if _vexp2f == nil {
+		panic("Accelerate: symbol vexp2f not loaded")
+	}
+	return _vexp2f(arg0)
+}
 
 
+var _vexpf func(arg0 VFloat) VFloat
+
+// Vexpf for each vector element, calculates the exponential of X.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vexpf(_:)
+func Vexpf(arg0 VFloat) VFloat {
+	if _vexpf == nil {
+		panic("Accelerate: symbol vexpf not loaded")
+	}
+	return _vexpf(arg0)
+}
 
 
+var _vexpm1f func(arg0 VFloat) VFloat
+
+// Vexpm1f for each vector element, calculates ExpM1(x) = Exp(x) - 1.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vexpm1f(_:)
+func Vexpm1f(arg0 VFloat) VFloat {
+	if _vexpm1f == nil {
+		panic("Accelerate: symbol vexpm1f not loaded")
+	}
+	return _vexpm1f(arg0)
+}
 
 
+var _vfabf func(arg0 VFloat) VFloat
+
+// Vfabf for each vector element, calculates the absolute value of `v`.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vfabf(_:)
+func Vfabf(arg0 VFloat) VFloat {
+	if _vfabf == nil {
+		panic("Accelerate: symbol vfabf not loaded")
+	}
+	return _vfabf(arg0)
+}
 
 
+var _vfabsf func(arg0 VFloat) VFloat
+
+// Vfabsf.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vfabsf(_:)
+func Vfabsf(arg0 VFloat) VFloat {
+	if _vfabsf == nil {
+		panic("Accelerate: symbol vfabsf not loaded")
+	}
+	return _vfabsf(arg0)
+}
 
 
+var _vfloorf func(arg0 VFloat) VFloat
+
+// Vfloorf computes the floor of values in a vector of floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vfloorf(_:)
+func Vfloorf(arg0 VFloat) VFloat {
+	if _vfloorf == nil {
+		panic("Accelerate: symbol vfloorf not loaded")
+	}
+	return _vfloorf(arg0)
+}
 
 
+var _vfmodf func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vfmodf for each vector element, calculates [X] modulo [Y].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vfmodf(_:_:)
+func Vfmodf(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vfmodf == nil {
+		panic("Accelerate: symbol vfmodf not loaded")
+	}
+	return _vfmodf(arg0, arg1)
+}
 
 
+var _vintf func(arg0 VFloat) VFloat
+
+// Vintf truncates the decimal portion of a vector of floating-point values.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vintf(_:)
+func Vintf(arg0 VFloat) VFloat {
+	if _vintf == nil {
+		panic("Accelerate: symbol vintf not loaded")
+	}
+	return _vintf(arg0)
+}
 
 
+var _vipowf func(arg0 VFloat, arg1 VSInt32) VFloat
+
+// Vipowf for each vector element, calculates [X] to the integer power of [Y].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vipowf(_:_:)
+func Vipowf(arg0 VFloat, arg1 VSInt32) VFloat {
+	if _vipowf == nil {
+		panic("Accelerate: symbol vipowf not loaded")
+	}
+	return _vipowf(arg0, arg1)
+}
 
 
+var _vlog10f func(arg0 VFloat) VFloat
+
+// Vlog10f computes the base-10 logarithm of values in a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vlog10f(_:)
+func Vlog10f(arg0 VFloat) VFloat {
+	if _vlog10f == nil {
+		panic("Accelerate: symbol vlog10f not loaded")
+	}
+	return _vlog10f(arg0)
+}
+
+
+var _vlog1pf func(arg0 VFloat) VFloat
+
+// Vlog1pf for each vector element, calculates Log1P = Log(1 + x).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vlog1pf(_:)
+func Vlog1pf(arg0 VFloat) VFloat {
+	if _vlog1pf == nil {
+		panic("Accelerate: symbol vlog1pf not loaded")
+	}
+	return _vlog1pf(arg0)
+}
+
+
+var _vlog2f func(arg0 VFloat) VFloat
+
+// Vlog2f.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vlog2f(_:)
+func Vlog2f(arg0 VFloat) VFloat {
+	if _vlog2f == nil {
+		panic("Accelerate: symbol vlog2f not loaded")
+	}
+	return _vlog2f(arg0)
+}
+
+
+var _vlogbf func(arg0 VFloat) VFloat
+
+// Vlogbf for each vector element, extracts the exponent of [X], as a signed integral value.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vlogbf(_:)
+func Vlogbf(arg0 VFloat) VFloat {
+	if _vlogbf == nil {
+		panic("Accelerate: symbol vlogbf not loaded")
+	}
+	return _vlogbf(arg0)
+}
+
+
+var _vlogf func(arg0 VFloat) VFloat
+
+// Vlogf for each vector element, calculates the natural logarithm of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vlogf(_:)
+func Vlogf(arg0 VFloat) VFloat {
+	if _vlogf == nil {
+		panic("Accelerate: symbol vlogf not loaded")
+	}
+	return _vlogf(arg0)
+}
+
+
+var _vnextafterf func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vnextafterf for each vector element, calculates the next representable value after `x` in the direction of `y`.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vnextafterf(_:_:)
+func Vnextafterf(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vnextafterf == nil {
+		panic("Accelerate: symbol vnextafterf not loaded")
+	}
+	return _vnextafterf(arg0, arg1)
+}
+
+
+var _vnintf func(arg0 VFloat) VFloat
+
+// Vnintf rounds to the nearest integer (nearest even for ties).
+//
+// See: https://developer.apple.com/documentation/Accelerate/vnintf(_:)
+func Vnintf(arg0 VFloat) VFloat {
+	if _vnintf == nil {
+		panic("Accelerate: symbol vnintf not loaded")
+	}
+	return _vnintf(arg0)
+}
+
+
+var _vpowf func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vpowf for each vector element, calculates [X] to the floating-point power of [Y].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vpowf(_:_:)
+func Vpowf(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vpowf == nil {
+		panic("Accelerate: symbol vpowf not loaded")
+	}
+	return _vpowf(arg0, arg1)
+}
+
+
+var _vrecf func(arg0 VFloat) VFloat
+
+// Vrecf computes the reciprocal of values in a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vrecf(_:)
+func Vrecf(arg0 VFloat) VFloat {
+	if _vrecf == nil {
+		panic("Accelerate: symbol vrecf not loaded")
+	}
+	return _vrecf(arg0)
+}
+
+
+var _vremainderf func(arg0 VFloat, arg1 VFloat) VFloat
+
+// Vremainderf for each vector element, calculates the remainder of [X]/[Y], according to the IEEE 754 floating-point standard.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vremainderf(_:_:)
+func Vremainderf(arg0 VFloat, arg1 VFloat) VFloat {
+	if _vremainderf == nil {
+		panic("Accelerate: symbol vremainderf not loaded")
+	}
+	return _vremainderf(arg0, arg1)
+}
+
+
+var _vremquof func(arg0 VFloat, arg1 VFloat, arg2 *VUInt32) VFloat
+
+// Vremquof for each vector element, calculates the remainder of [X]/[Y], according to the SANE standard.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vremquof(_:_:_:)
+func Vremquof(arg0 VFloat, arg1 VFloat, arg2 *VUInt32) VFloat {
+	if _vremquof == nil {
+		panic("Accelerate: symbol vremquof not loaded")
+	}
+	return _vremquof(arg0, arg1, arg2)
+}
+
+
+var _vrsqrtf func(arg0 VFloat) VFloat
+
+// Vrsqrtf for each vector element, calculates the inverse of the square root of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vrsqrtf(_:)
+func Vrsqrtf(arg0 VFloat) VFloat {
+	if _vrsqrtf == nil {
+		panic("Accelerate: symbol vrsqrtf not loaded")
+	}
+	return _vrsqrtf(arg0)
+}
+
+
+var _vscalbf func(arg0 VFloat, arg1 VSInt32) VFloat
+
+// Vscalbf for each vector element, calculates x * 2^n efficiently.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vscalbf(_:_:)
+func Vscalbf(arg0 VFloat, arg1 VSInt32) VFloat {
+	if _vscalbf == nil {
+		panic("Accelerate: symbol vscalbf not loaded")
+	}
+	return _vscalbf(arg0, arg1)
+}
+
+
+var _vsignbitf func(arg0 VFloat) VUInt32
+
+// Vsignbitf for each vector element, returns a non-zero value if and only if the sign of `arg` is negative.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vsignbitf(_:)
+func Vsignbitf(arg0 VFloat) VUInt32 {
+	if _vsignbitf == nil {
+		panic("Accelerate: symbol vsignbitf not loaded")
+	}
+	return _vsignbitf(arg0)
+}
+
+
+var _vsincosf func(arg0 VFloat, arg1 *VFloat) VFloat
+
+// Vsincosf simultaneously computes sine and cosine of values in a vector.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vsincosf(_:_:)
+func Vsincosf(arg0 VFloat, arg1 *VFloat) VFloat {
+	if _vsincosf == nil {
+		panic("Accelerate: symbol vsincosf not loaded")
+	}
+	return _vsincosf(arg0, arg1)
+}
+
+
+var _vsinf func(arg0 VFloat) VFloat
+
+// Vsinf for each vector element, calculates the sine.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vsinf(_:)
+func Vsinf(arg0 VFloat) VFloat {
+	if _vsinf == nil {
+		panic("Accelerate: symbol vsinf not loaded")
+	}
+	return _vsinf(arg0)
+}
+
+
+var _vsinhf func(arg0 VFloat) VFloat
+
+// Vsinhf for each vector element, calculates the hyperbolic sine of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vsinhf(_:)
+func Vsinhf(arg0 VFloat) VFloat {
+	if _vsinhf == nil {
+		panic("Accelerate: symbol vsinhf not loaded")
+	}
+	return _vsinhf(arg0)
+}
+
+
+var _vsinpif func(arg0 VFloat) VFloat
+
+// Vsinpif.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vsinpif(_:)
+func Vsinpif(arg0 VFloat) VFloat {
+	if _vsinpif == nil {
+		panic("Accelerate: symbol vsinpif not loaded")
+	}
+	return _vsinpif(arg0)
+}
+
+
+var _vsqrtf func(arg0 VFloat) VFloat
+
+// Vsqrtf for each vector element, calculates the square root of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vsqrtf(_:)
+func Vsqrtf(arg0 VFloat) VFloat {
+	if _vsqrtf == nil {
+		panic("Accelerate: symbol vsqrtf not loaded")
+	}
+	return _vsqrtf(arg0)
+}
+
+
+var _vtablelookup func(arg0 VSInt32, arg1 *uint32) VUInt32
+
+// Vtablelookup for each vector element of `Index_Vect`, returns the corresponding value from [Table].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vtablelookup(_:_:)
+func Vtablelookup(arg0 VSInt32, arg1 *uint32) VUInt32 {
+	if _vtablelookup == nil {
+		panic("Accelerate: symbol vtablelookup not loaded")
+	}
+	return _vtablelookup(arg0, arg1)
+}
+
+
+var _vtanf func(arg0 VFloat) VFloat
+
+// Vtanf for each vector element, calculates the tangent.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vtanf(_:)
+func Vtanf(arg0 VFloat) VFloat {
+	if _vtanf == nil {
+		panic("Accelerate: symbol vtanf not loaded")
+	}
+	return _vtanf(arg0)
+}
+
+
+var _vtanhf func(arg0 VFloat) VFloat
+
+// Vtanhf for each vector element, calculates the hyperbolic tangent of [X].
+//
+// See: https://developer.apple.com/documentation/Accelerate/vtanhf(_:)
+func Vtanhf(arg0 VFloat) VFloat {
+	if _vtanhf == nil {
+		panic("Accelerate: symbol vtanhf not loaded")
+	}
+	return _vtanhf(arg0)
+}
+
+
+var _vtanpif func(arg0 VFloat) VFloat
+
+// Vtanpif.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vtanpif(_:)
+func Vtanpif(arg0 VFloat) VFloat {
+	if _vtanpif == nil {
+		panic("Accelerate: symbol vtanpif not loaded")
+	}
+	return _vtanpif(arg0)
+}
+
+
+var _vtruncf func(arg0 VFloat) VFloat
+
+// Vtruncf.
+//
+// See: https://developer.apple.com/documentation/Accelerate/vtruncf(_:)
+func Vtruncf(arg0 VFloat) VFloat {
+	if _vtruncf == nil {
+		panic("Accelerate: symbol vtruncf not loaded")
+	}
+	return _vtruncf(arg0)
+}
 
 
 var _vvacos func(arg0 *float64, arg1 *float64, arg2 *int)
@@ -16248,168 +24192,6 @@ func Vvtanpif(arg0 []float32, arg1 []float32, arg2 []int) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -16486,6 +24268,7 @@ func init() {
 		registerFunc(&_bNNSGraphCompileOptionsGetTargetSingleThread, frameworkHandle, "BNNSGraphCompileOptionsGetTargetSingleThread")
 		registerFunc(&_bNNSGraphCompileOptionsMakeDefault, frameworkHandle, "BNNSGraphCompileOptionsMakeDefault")
 		registerFunc(&_bNNSGraphCompileOptionsSetGenerateDebugInfo, frameworkHandle, "BNNSGraphCompileOptionsSetGenerateDebugInfo")
+		registerFunc(&_bNNSGraphCompileOptionsSetMessageLogCallback, frameworkHandle, "BNNSGraphCompileOptionsSetMessageLogCallback")
 		registerFunc(&_bNNSGraphCompileOptionsSetMessageLogMask, frameworkHandle, "BNNSGraphCompileOptionsSetMessageLogMask")
 		registerFunc(&_bNNSGraphCompileOptionsSetOptimizationPreference, frameworkHandle, "BNNSGraphCompileOptionsSetOptimizationPreference")
 		registerFunc(&_bNNSGraphCompileOptionsSetOutputFD, frameworkHandle, "BNNSGraphCompileOptionsSetOutputFD")
@@ -16499,8 +24282,8 @@ func init() {
 		registerFunc(&_bNNSGraphContextMake, frameworkHandle, "BNNSGraphContextMake")
 		registerFunc(&_bNNSGraphContextMakeStreaming, frameworkHandle, "BNNSGraphContextMakeStreaming")
 		registerFunc(&_bNNSGraphContextSetArgumentType, frameworkHandle, "BNNSGraphContextSetArgumentType")
-		registerFunc(&_bNNSGraphContextSetBatchSize, frameworkHandle, "BNNSGraphContextSetBatchSize")
 		registerFunc(&_bNNSGraphContextSetDynamicShapes, frameworkHandle, "BNNSGraphContextSetDynamicShapes")
+		registerFunc(&_bNNSGraphContextSetMessageLogCallback, frameworkHandle, "BNNSGraphContextSetMessageLogCallback")
 		registerFunc(&_bNNSGraphContextSetMessageLogMask, frameworkHandle, "BNNSGraphContextSetMessageLogMask")
 		registerFunc(&_bNNSGraphContextSetStreamingAdvanceCount, frameworkHandle, "BNNSGraphContextSetStreamingAdvanceCount")
 		registerFunc(&_bNNSGraphGetArgumentCount, frameworkHandle, "BNNSGraphGetArgumentCount")
@@ -16547,7 +24330,6 @@ func init() {
 		registerFunc(&_bNNSTileBackward, frameworkHandle, "BNNSTileBackward")
 		registerFunc(&_bNNSTranspose, frameworkHandle, "BNNSTranspose")
 		registerFunc(&_setBLASParamErrorProc, frameworkHandle, "SetBLASParamErrorProc")
-		registerFunc(&_sparseGetInertia, frameworkHandle, "SparseGetInertia")
 		registerFunc(&_appleblas_dgeadd, frameworkHandle, "appleblas_dgeadd")
 		registerFunc(&_appleblas_sgeadd, frameworkHandle, "appleblas_sgeadd")
 		registerFunc(&_catlas_caxpby, frameworkHandle, "catlas_caxpby")
@@ -16708,22 +24490,601 @@ func init() {
 		registerFunc(&_cblas_ztrsv, frameworkHandle, "cblas_ztrsv")
 		registerFunc(&_quadrature_integrate, frameworkHandle, "quadrature_integrate")
 		registerFunc(&_sparse_commit, frameworkHandle, "sparse_commit")
+		registerFunc(&_sparse_elementwise_norm_double, frameworkHandle, "sparse_elementwise_norm_double")
+		registerFunc(&_sparse_elementwise_norm_double_complex, frameworkHandle, "sparse_elementwise_norm_double_complex")
+		registerFunc(&_sparse_elementwise_norm_float, frameworkHandle, "sparse_elementwise_norm_float")
+		registerFunc(&_sparse_elementwise_norm_float_complex, frameworkHandle, "sparse_elementwise_norm_float_complex")
+		registerFunc(&_sparse_extract_block_double, frameworkHandle, "sparse_extract_block_double")
+		registerFunc(&_sparse_extract_block_double_complex, frameworkHandle, "sparse_extract_block_double_complex")
+		registerFunc(&_sparse_extract_block_float, frameworkHandle, "sparse_extract_block_float")
+		registerFunc(&_sparse_extract_block_float_complex, frameworkHandle, "sparse_extract_block_float_complex")
+		registerFunc(&_sparse_extract_sparse_column_double, frameworkHandle, "sparse_extract_sparse_column_double")
+		registerFunc(&_sparse_extract_sparse_column_double_complex, frameworkHandle, "sparse_extract_sparse_column_double_complex")
+		registerFunc(&_sparse_extract_sparse_column_float, frameworkHandle, "sparse_extract_sparse_column_float")
+		registerFunc(&_sparse_extract_sparse_column_float_complex, frameworkHandle, "sparse_extract_sparse_column_float_complex")
+		registerFunc(&_sparse_extract_sparse_row_double, frameworkHandle, "sparse_extract_sparse_row_double")
+		registerFunc(&_sparse_extract_sparse_row_double_complex, frameworkHandle, "sparse_extract_sparse_row_double_complex")
+		registerFunc(&_sparse_extract_sparse_row_float, frameworkHandle, "sparse_extract_sparse_row_float")
+		registerFunc(&_sparse_extract_sparse_row_float_complex, frameworkHandle, "sparse_extract_sparse_row_float_complex")
+		registerFunc(&_sparse_get_block_dimension_for_col, frameworkHandle, "sparse_get_block_dimension_for_col")
+		registerFunc(&_sparse_get_block_dimension_for_row, frameworkHandle, "sparse_get_block_dimension_for_row")
 		registerFunc(&_sparse_get_matrix_nonzero_count, frameworkHandle, "sparse_get_matrix_nonzero_count")
+		registerFunc(&_sparse_get_matrix_nonzero_count_for_column, frameworkHandle, "sparse_get_matrix_nonzero_count_for_column")
+		registerFunc(&_sparse_get_matrix_nonzero_count_for_row, frameworkHandle, "sparse_get_matrix_nonzero_count_for_row")
+		registerFunc(&_sparse_get_matrix_number_of_columns, frameworkHandle, "sparse_get_matrix_number_of_columns")
+		registerFunc(&_sparse_get_matrix_number_of_rows, frameworkHandle, "sparse_get_matrix_number_of_rows")
 		registerFunc(&_sparse_get_matrix_property, frameworkHandle, "sparse_get_matrix_property")
+		registerFunc(&_sparse_get_vector_nonzero_count_double, frameworkHandle, "sparse_get_vector_nonzero_count_double")
+		registerFunc(&_sparse_get_vector_nonzero_count_double_complex, frameworkHandle, "sparse_get_vector_nonzero_count_double_complex")
+		registerFunc(&_sparse_get_vector_nonzero_count_float, frameworkHandle, "sparse_get_vector_nonzero_count_float")
+		registerFunc(&_sparse_get_vector_nonzero_count_float_complex, frameworkHandle, "sparse_get_vector_nonzero_count_float_complex")
+		registerFunc(&_sparse_inner_product_dense_double, frameworkHandle, "sparse_inner_product_dense_double")
+		registerFunc(&_sparse_inner_product_dense_double_complex, frameworkHandle, "sparse_inner_product_dense_double_complex")
+		registerFunc(&_sparse_inner_product_dense_float, frameworkHandle, "sparse_inner_product_dense_float")
+		registerFunc(&_sparse_inner_product_dense_float_complex, frameworkHandle, "sparse_inner_product_dense_float_complex")
+		registerFunc(&_sparse_inner_product_sparse_double, frameworkHandle, "sparse_inner_product_sparse_double")
+		registerFunc(&_sparse_inner_product_sparse_double_complex, frameworkHandle, "sparse_inner_product_sparse_double_complex")
+		registerFunc(&_sparse_inner_product_sparse_float, frameworkHandle, "sparse_inner_product_sparse_float")
+		registerFunc(&_sparse_inner_product_sparse_float_complex, frameworkHandle, "sparse_inner_product_sparse_float_complex")
+		registerFunc(&_sparse_insert_block_double, frameworkHandle, "sparse_insert_block_double")
+		registerFunc(&_sparse_insert_block_double_complex, frameworkHandle, "sparse_insert_block_double_complex")
+		registerFunc(&_sparse_insert_block_float, frameworkHandle, "sparse_insert_block_float")
+		registerFunc(&_sparse_insert_block_float_complex, frameworkHandle, "sparse_insert_block_float_complex")
+		registerFunc(&_sparse_insert_col_double, frameworkHandle, "sparse_insert_col_double")
+		registerFunc(&_sparse_insert_col_double_complex, frameworkHandle, "sparse_insert_col_double_complex")
+		registerFunc(&_sparse_insert_col_float, frameworkHandle, "sparse_insert_col_float")
+		registerFunc(&_sparse_insert_col_float_complex, frameworkHandle, "sparse_insert_col_float_complex")
+		registerFunc(&_sparse_insert_entries_double, frameworkHandle, "sparse_insert_entries_double")
+		registerFunc(&_sparse_insert_entries_double_complex, frameworkHandle, "sparse_insert_entries_double_complex")
+		registerFunc(&_sparse_insert_entries_float, frameworkHandle, "sparse_insert_entries_float")
+		registerFunc(&_sparse_insert_entries_float_complex, frameworkHandle, "sparse_insert_entries_float_complex")
+		registerFunc(&_sparse_insert_entry_double, frameworkHandle, "sparse_insert_entry_double")
+		registerFunc(&_sparse_insert_entry_double_complex, frameworkHandle, "sparse_insert_entry_double_complex")
+		registerFunc(&_sparse_insert_entry_float, frameworkHandle, "sparse_insert_entry_float")
+		registerFunc(&_sparse_insert_entry_float_complex, frameworkHandle, "sparse_insert_entry_float_complex")
+		registerFunc(&_sparse_insert_row_double, frameworkHandle, "sparse_insert_row_double")
+		registerFunc(&_sparse_insert_row_double_complex, frameworkHandle, "sparse_insert_row_double_complex")
+		registerFunc(&_sparse_insert_row_float, frameworkHandle, "sparse_insert_row_float")
+		registerFunc(&_sparse_insert_row_float_complex, frameworkHandle, "sparse_insert_row_float_complex")
+		registerFunc(&_sparse_matrix_block_create_double, frameworkHandle, "sparse_matrix_block_create_double")
+		registerFunc(&_sparse_matrix_block_create_double_complex, frameworkHandle, "sparse_matrix_block_create_double_complex")
+		registerFunc(&_sparse_matrix_block_create_float, frameworkHandle, "sparse_matrix_block_create_float")
+		registerFunc(&_sparse_matrix_block_create_float_complex, frameworkHandle, "sparse_matrix_block_create_float_complex")
+		registerFunc(&_sparse_matrix_create_double, frameworkHandle, "sparse_matrix_create_double")
+		registerFunc(&_sparse_matrix_create_double_complex, frameworkHandle, "sparse_matrix_create_double_complex")
+		registerFunc(&_sparse_matrix_create_float, frameworkHandle, "sparse_matrix_create_float")
+		registerFunc(&_sparse_matrix_create_float_complex, frameworkHandle, "sparse_matrix_create_float_complex")
 		registerFunc(&_sparse_matrix_destroy, frameworkHandle, "sparse_matrix_destroy")
+		registerFunc(&_sparse_matrix_product_dense_double, frameworkHandle, "sparse_matrix_product_dense_double")
+		registerFunc(&_sparse_matrix_product_dense_double_complex, frameworkHandle, "sparse_matrix_product_dense_double_complex")
+		registerFunc(&_sparse_matrix_product_dense_float, frameworkHandle, "sparse_matrix_product_dense_float")
+		registerFunc(&_sparse_matrix_product_dense_float_complex, frameworkHandle, "sparse_matrix_product_dense_float_complex")
+		registerFunc(&_sparse_matrix_product_sparse_double, frameworkHandle, "sparse_matrix_product_sparse_double")
+		registerFunc(&_sparse_matrix_product_sparse_double_complex, frameworkHandle, "sparse_matrix_product_sparse_double_complex")
+		registerFunc(&_sparse_matrix_product_sparse_float, frameworkHandle, "sparse_matrix_product_sparse_float")
+		registerFunc(&_sparse_matrix_product_sparse_float_complex, frameworkHandle, "sparse_matrix_product_sparse_float_complex")
+		registerFunc(&_sparse_matrix_trace_double, frameworkHandle, "sparse_matrix_trace_double")
+		registerFunc(&_sparse_matrix_trace_double_complex, frameworkHandle, "sparse_matrix_trace_double_complex")
+		registerFunc(&_sparse_matrix_trace_float, frameworkHandle, "sparse_matrix_trace_float")
+		registerFunc(&_sparse_matrix_trace_float_complex, frameworkHandle, "sparse_matrix_trace_float_complex")
+		registerFunc(&_sparse_matrix_triangular_solve_dense_double, frameworkHandle, "sparse_matrix_triangular_solve_dense_double")
+		registerFunc(&_sparse_matrix_triangular_solve_dense_double_complex, frameworkHandle, "sparse_matrix_triangular_solve_dense_double_complex")
+		registerFunc(&_sparse_matrix_triangular_solve_dense_float, frameworkHandle, "sparse_matrix_triangular_solve_dense_float")
+		registerFunc(&_sparse_matrix_triangular_solve_dense_float_complex, frameworkHandle, "sparse_matrix_triangular_solve_dense_float_complex")
+		registerFunc(&_sparse_matrix_variable_block_create_double, frameworkHandle, "sparse_matrix_variable_block_create_double")
+		registerFunc(&_sparse_matrix_variable_block_create_double_complex, frameworkHandle, "sparse_matrix_variable_block_create_double_complex")
+		registerFunc(&_sparse_matrix_variable_block_create_float, frameworkHandle, "sparse_matrix_variable_block_create_float")
+		registerFunc(&_sparse_matrix_variable_block_create_float_complex, frameworkHandle, "sparse_matrix_variable_block_create_float_complex")
+		registerFunc(&_sparse_matrix_vector_product_dense_double, frameworkHandle, "sparse_matrix_vector_product_dense_double")
+		registerFunc(&_sparse_matrix_vector_product_dense_double_complex, frameworkHandle, "sparse_matrix_vector_product_dense_double_complex")
+		registerFunc(&_sparse_matrix_vector_product_dense_float, frameworkHandle, "sparse_matrix_vector_product_dense_float")
+		registerFunc(&_sparse_matrix_vector_product_dense_float_complex, frameworkHandle, "sparse_matrix_vector_product_dense_float_complex")
+		registerFunc(&_sparse_outer_product_dense_double, frameworkHandle, "sparse_outer_product_dense_double")
+		registerFunc(&_sparse_outer_product_dense_double_complex, frameworkHandle, "sparse_outer_product_dense_double_complex")
+		registerFunc(&_sparse_outer_product_dense_float, frameworkHandle, "sparse_outer_product_dense_float")
+		registerFunc(&_sparse_outer_product_dense_float_complex, frameworkHandle, "sparse_outer_product_dense_float_complex")
+		registerFunc(&_sparse_pack_vector_double, frameworkHandle, "sparse_pack_vector_double")
+		registerFunc(&_sparse_pack_vector_double_complex, frameworkHandle, "sparse_pack_vector_double_complex")
+		registerFunc(&_sparse_pack_vector_float, frameworkHandle, "sparse_pack_vector_float")
+		registerFunc(&_sparse_pack_vector_float_complex, frameworkHandle, "sparse_pack_vector_float_complex")
+		registerFunc(&_sparse_permute_cols_double, frameworkHandle, "sparse_permute_cols_double")
+		registerFunc(&_sparse_permute_cols_double_complex, frameworkHandle, "sparse_permute_cols_double_complex")
+		registerFunc(&_sparse_permute_cols_float, frameworkHandle, "sparse_permute_cols_float")
+		registerFunc(&_sparse_permute_cols_float_complex, frameworkHandle, "sparse_permute_cols_float_complex")
+		registerFunc(&_sparse_permute_rows_double, frameworkHandle, "sparse_permute_rows_double")
+		registerFunc(&_sparse_permute_rows_double_complex, frameworkHandle, "sparse_permute_rows_double_complex")
+		registerFunc(&_sparse_permute_rows_float, frameworkHandle, "sparse_permute_rows_float")
+		registerFunc(&_sparse_permute_rows_float_complex, frameworkHandle, "sparse_permute_rows_float_complex")
 		registerFunc(&_sparse_set_matrix_property, frameworkHandle, "sparse_set_matrix_property")
+		registerFunc(&_sparse_unpack_vector_double, frameworkHandle, "sparse_unpack_vector_double")
+		registerFunc(&_sparse_unpack_vector_double_complex, frameworkHandle, "sparse_unpack_vector_double_complex")
+		registerFunc(&_sparse_unpack_vector_float, frameworkHandle, "sparse_unpack_vector_float")
+		registerFunc(&_sparse_unpack_vector_float_complex, frameworkHandle, "sparse_unpack_vector_float_complex")
+		registerFunc(&_sparse_vector_add_with_scale_dense_double, frameworkHandle, "sparse_vector_add_with_scale_dense_double")
+		registerFunc(&_sparse_vector_add_with_scale_dense_double_complex, frameworkHandle, "sparse_vector_add_with_scale_dense_double_complex")
+		registerFunc(&_sparse_vector_add_with_scale_dense_float, frameworkHandle, "sparse_vector_add_with_scale_dense_float")
+		registerFunc(&_sparse_vector_add_with_scale_dense_float_complex, frameworkHandle, "sparse_vector_add_with_scale_dense_float_complex")
+		registerFunc(&_sparse_vector_norm_double, frameworkHandle, "sparse_vector_norm_double")
+		registerFunc(&_sparse_vector_norm_double_complex, frameworkHandle, "sparse_vector_norm_double_complex")
+		registerFunc(&_sparse_vector_norm_float, frameworkHandle, "sparse_vector_norm_float")
+		registerFunc(&_sparse_vector_norm_float_complex, frameworkHandle, "sparse_vector_norm_float_complex")
+		registerFunc(&_sparse_vector_triangular_solve_dense_double, frameworkHandle, "sparse_vector_triangular_solve_dense_double")
+		registerFunc(&_sparse_vector_triangular_solve_dense_double_complex, frameworkHandle, "sparse_vector_triangular_solve_dense_double_complex")
+		registerFunc(&_sparse_vector_triangular_solve_dense_float, frameworkHandle, "sparse_vector_triangular_solve_dense_float")
+		registerFunc(&_sparse_vector_triangular_solve_dense_float_complex, frameworkHandle, "sparse_vector_triangular_solve_dense_float_complex")
 		registerFunc(&_vA1024Shift, frameworkHandle, "vA1024Shift")
+		registerFunc(&_vA128Shift, frameworkHandle, "vA128Shift")
 		registerFunc(&_vA256Shift, frameworkHandle, "vA256Shift")
 		registerFunc(&_vA512Shift, frameworkHandle, "vA512Shift")
+		registerFunc(&_vA64Shift, frameworkHandle, "vA64Shift")
+		registerFunc(&_vA64Shift2, frameworkHandle, "vA64Shift2")
 		registerFunc(&_vDSP_DCT_Execute, frameworkHandle, "vDSP_DCT_Execute")
+		registerFunc(&_vDSP_DFT_CreateSetup, frameworkHandle, "vDSP_DFT_CreateSetup")
+		registerFunc(&_vDSP_DFT_DestroySetup, frameworkHandle, "vDSP_DFT_DestroySetup")
+		registerFunc(&_vDSP_DFT_DestroySetupD, frameworkHandle, "vDSP_DFT_DestroySetupD")
 		registerFunc(&_vDSP_DFT_Execute, frameworkHandle, "vDSP_DFT_Execute")
 		registerFunc(&_vDSP_DFT_ExecuteD, frameworkHandle, "vDSP_DFT_ExecuteD")
+		registerFunc(&_vDSP_DFT_Interleaved_DestroySetup, frameworkHandle, "vDSP_DFT_Interleaved_DestroySetup")
+		registerFunc(&_vDSP_DFT_Interleaved_DestroySetupD, frameworkHandle, "vDSP_DFT_Interleaved_DestroySetupD")
+		registerFunc(&_vDSP_DFT_Interleaved_Execute, frameworkHandle, "vDSP_DFT_Interleaved_Execute")
+		registerFunc(&_vDSP_DFT_Interleaved_ExecuteD, frameworkHandle, "vDSP_DFT_Interleaved_ExecuteD")
 		registerFunc(&_vDSP_FFT16_copv, frameworkHandle, "vDSP_FFT16_copv")
 		registerFunc(&_vDSP_FFT16_zopv, frameworkHandle, "vDSP_FFT16_zopv")
 		registerFunc(&_vDSP_FFT32_copv, frameworkHandle, "vDSP_FFT32_copv")
 		registerFunc(&_vDSP_FFT32_zopv, frameworkHandle, "vDSP_FFT32_zopv")
+		registerFunc(&_vDSP_biquad, frameworkHandle, "vDSP_biquad")
+		registerFunc(&_vDSP_biquadD, frameworkHandle, "vDSP_biquadD")
+		registerFunc(&_vDSP_biquad_CreateSetup, frameworkHandle, "vDSP_biquad_CreateSetup")
+		registerFunc(&_vDSP_biquad_CreateSetupD, frameworkHandle, "vDSP_biquad_CreateSetupD")
+		registerFunc(&_vDSP_biquad_DestroySetup, frameworkHandle, "vDSP_biquad_DestroySetup")
+		registerFunc(&_vDSP_biquad_DestroySetupD, frameworkHandle, "vDSP_biquad_DestroySetupD")
+		registerFunc(&_vDSP_biquad_SetCoefficientsDouble, frameworkHandle, "vDSP_biquad_SetCoefficientsDouble")
+		registerFunc(&_vDSP_biquad_SetCoefficientsSingle, frameworkHandle, "vDSP_biquad_SetCoefficientsSingle")
+		registerFunc(&_vDSP_biquadm, frameworkHandle, "vDSP_biquadm")
+		registerFunc(&_vDSP_biquadmD, frameworkHandle, "vDSP_biquadmD")
+		registerFunc(&_vDSP_biquadm_CopyState, frameworkHandle, "vDSP_biquadm_CopyState")
+		registerFunc(&_vDSP_biquadm_CopyStateD, frameworkHandle, "vDSP_biquadm_CopyStateD")
+		registerFunc(&_vDSP_biquadm_CreateSetup, frameworkHandle, "vDSP_biquadm_CreateSetup")
+		registerFunc(&_vDSP_biquadm_CreateSetupD, frameworkHandle, "vDSP_biquadm_CreateSetupD")
+		registerFunc(&_vDSP_biquadm_DestroySetup, frameworkHandle, "vDSP_biquadm_DestroySetup")
+		registerFunc(&_vDSP_biquadm_DestroySetupD, frameworkHandle, "vDSP_biquadm_DestroySetupD")
+		registerFunc(&_vDSP_biquadm_ResetState, frameworkHandle, "vDSP_biquadm_ResetState")
+		registerFunc(&_vDSP_biquadm_ResetStateD, frameworkHandle, "vDSP_biquadm_ResetStateD")
+		registerFunc(&_vDSP_biquadm_SetActiveFilters, frameworkHandle, "vDSP_biquadm_SetActiveFilters")
+		registerFunc(&_vDSP_biquadm_SetActiveFiltersD, frameworkHandle, "vDSP_biquadm_SetActiveFiltersD")
+		registerFunc(&_vDSP_biquadm_SetCoefficientsDouble, frameworkHandle, "vDSP_biquadm_SetCoefficientsDouble")
+		registerFunc(&_vDSP_biquadm_SetCoefficientsDoubleD, frameworkHandle, "vDSP_biquadm_SetCoefficientsDoubleD")
+		registerFunc(&_vDSP_biquadm_SetCoefficientsSingle, frameworkHandle, "vDSP_biquadm_SetCoefficientsSingle")
+		registerFunc(&_vDSP_biquadm_SetCoefficientsSingleD, frameworkHandle, "vDSP_biquadm_SetCoefficientsSingleD")
+		registerFunc(&_vDSP_biquadm_SetTargetsDouble, frameworkHandle, "vDSP_biquadm_SetTargetsDouble")
+		registerFunc(&_vDSP_biquadm_SetTargetsDoubleD, frameworkHandle, "vDSP_biquadm_SetTargetsDoubleD")
+		registerFunc(&_vDSP_biquadm_SetTargetsSingle, frameworkHandle, "vDSP_biquadm_SetTargetsSingle")
+		registerFunc(&_vDSP_biquadm_SetTargetsSingleD, frameworkHandle, "vDSP_biquadm_SetTargetsSingleD")
+		registerFunc(&_vDSP_blkman_window, frameworkHandle, "vDSP_blkman_window")
+		registerFunc(&_vDSP_blkman_windowD, frameworkHandle, "vDSP_blkman_windowD")
+		registerFunc(&_vDSP_conv, frameworkHandle, "vDSP_conv")
+		registerFunc(&_vDSP_convD, frameworkHandle, "vDSP_convD")
+		registerFunc(&_vDSP_create_fftsetup, frameworkHandle, "vDSP_create_fftsetup")
+		registerFunc(&_vDSP_create_fftsetupD, frameworkHandle, "vDSP_create_fftsetupD")
+		registerFunc(&_vDSP_ctoz, frameworkHandle, "vDSP_ctoz")
+		registerFunc(&_vDSP_ctozD, frameworkHandle, "vDSP_ctozD")
+		registerFunc(&_vDSP_deq22, frameworkHandle, "vDSP_deq22")
+		registerFunc(&_vDSP_deq22D, frameworkHandle, "vDSP_deq22D")
+		registerFunc(&_vDSP_desamp, frameworkHandle, "vDSP_desamp")
+		registerFunc(&_vDSP_desampD, frameworkHandle, "vDSP_desampD")
 		registerFunc(&_vDSP_destroy_fftsetup, frameworkHandle, "vDSP_destroy_fftsetup")
 		registerFunc(&_vDSP_destroy_fftsetupD, frameworkHandle, "vDSP_destroy_fftsetupD")
+		registerFunc(&_vDSP_distancesq, frameworkHandle, "vDSP_distancesq")
+		registerFunc(&_vDSP_distancesqD, frameworkHandle, "vDSP_distancesqD")
+		registerFunc(&_vDSP_dotpr, frameworkHandle, "vDSP_dotpr")
+		registerFunc(&_vDSP_dotpr2, frameworkHandle, "vDSP_dotpr2")
+		registerFunc(&_vDSP_dotpr2D, frameworkHandle, "vDSP_dotpr2D")
+		registerFunc(&_vDSP_dotpr2_s1_15, frameworkHandle, "vDSP_dotpr2_s1_15")
+		registerFunc(&_vDSP_dotpr2_s8_24, frameworkHandle, "vDSP_dotpr2_s8_24")
+		registerFunc(&_vDSP_dotprD, frameworkHandle, "vDSP_dotprD")
+		registerFunc(&_vDSP_dotpr_s1_15, frameworkHandle, "vDSP_dotpr_s1_15")
+		registerFunc(&_vDSP_dotpr_s8_24, frameworkHandle, "vDSP_dotpr_s8_24")
+		registerFunc(&_vDSP_f3x3, frameworkHandle, "vDSP_f3x3")
+		registerFunc(&_vDSP_f3x3D, frameworkHandle, "vDSP_f3x3D")
+		registerFunc(&_vDSP_f5x5, frameworkHandle, "vDSP_f5x5")
+		registerFunc(&_vDSP_f5x5D, frameworkHandle, "vDSP_f5x5D")
+		registerFunc(&_vDSP_fft2d_zip, frameworkHandle, "vDSP_fft2d_zip")
+		registerFunc(&_vDSP_fft2d_zipD, frameworkHandle, "vDSP_fft2d_zipD")
+		registerFunc(&_vDSP_fft2d_zipt, frameworkHandle, "vDSP_fft2d_zipt")
+		registerFunc(&_vDSP_fft2d_ziptD, frameworkHandle, "vDSP_fft2d_ziptD")
+		registerFunc(&_vDSP_fft2d_zop, frameworkHandle, "vDSP_fft2d_zop")
+		registerFunc(&_vDSP_fft2d_zopD, frameworkHandle, "vDSP_fft2d_zopD")
+		registerFunc(&_vDSP_fft2d_zopt, frameworkHandle, "vDSP_fft2d_zopt")
+		registerFunc(&_vDSP_fft2d_zoptD, frameworkHandle, "vDSP_fft2d_zoptD")
+		registerFunc(&_vDSP_fft2d_zrip, frameworkHandle, "vDSP_fft2d_zrip")
+		registerFunc(&_vDSP_fft2d_zripD, frameworkHandle, "vDSP_fft2d_zripD")
+		registerFunc(&_vDSP_fft2d_zript, frameworkHandle, "vDSP_fft2d_zript")
+		registerFunc(&_vDSP_fft2d_zriptD, frameworkHandle, "vDSP_fft2d_zriptD")
+		registerFunc(&_vDSP_fft2d_zrop, frameworkHandle, "vDSP_fft2d_zrop")
+		registerFunc(&_vDSP_fft2d_zropD, frameworkHandle, "vDSP_fft2d_zropD")
+		registerFunc(&_vDSP_fft2d_zropt, frameworkHandle, "vDSP_fft2d_zropt")
+		registerFunc(&_vDSP_fft2d_zroptD, frameworkHandle, "vDSP_fft2d_zroptD")
+		registerFunc(&_vDSP_fft3_zop, frameworkHandle, "vDSP_fft3_zop")
+		registerFunc(&_vDSP_fft3_zopD, frameworkHandle, "vDSP_fft3_zopD")
+		registerFunc(&_vDSP_fft5_zop, frameworkHandle, "vDSP_fft5_zop")
+		registerFunc(&_vDSP_fft5_zopD, frameworkHandle, "vDSP_fft5_zopD")
+		registerFunc(&_vDSP_fft_zip, frameworkHandle, "vDSP_fft_zip")
+		registerFunc(&_vDSP_fft_zipD, frameworkHandle, "vDSP_fft_zipD")
+		registerFunc(&_vDSP_fft_zipt, frameworkHandle, "vDSP_fft_zipt")
+		registerFunc(&_vDSP_fft_ziptD, frameworkHandle, "vDSP_fft_ziptD")
+		registerFunc(&_vDSP_fft_zop, frameworkHandle, "vDSP_fft_zop")
+		registerFunc(&_vDSP_fft_zopD, frameworkHandle, "vDSP_fft_zopD")
+		registerFunc(&_vDSP_fft_zopt, frameworkHandle, "vDSP_fft_zopt")
+		registerFunc(&_vDSP_fft_zoptD, frameworkHandle, "vDSP_fft_zoptD")
+		registerFunc(&_vDSP_fft_zrip, frameworkHandle, "vDSP_fft_zrip")
+		registerFunc(&_vDSP_fft_zripD, frameworkHandle, "vDSP_fft_zripD")
+		registerFunc(&_vDSP_fft_zript, frameworkHandle, "vDSP_fft_zript")
+		registerFunc(&_vDSP_fft_zriptD, frameworkHandle, "vDSP_fft_zriptD")
+		registerFunc(&_vDSP_fft_zrop, frameworkHandle, "vDSP_fft_zrop")
+		registerFunc(&_vDSP_fft_zropD, frameworkHandle, "vDSP_fft_zropD")
+		registerFunc(&_vDSP_fft_zropt, frameworkHandle, "vDSP_fft_zropt")
+		registerFunc(&_vDSP_fft_zroptD, frameworkHandle, "vDSP_fft_zroptD")
+		registerFunc(&_vDSP_fftm_zip, frameworkHandle, "vDSP_fftm_zip")
+		registerFunc(&_vDSP_fftm_zipD, frameworkHandle, "vDSP_fftm_zipD")
+		registerFunc(&_vDSP_fftm_zipt, frameworkHandle, "vDSP_fftm_zipt")
+		registerFunc(&_vDSP_fftm_ziptD, frameworkHandle, "vDSP_fftm_ziptD")
+		registerFunc(&_vDSP_fftm_zop, frameworkHandle, "vDSP_fftm_zop")
+		registerFunc(&_vDSP_fftm_zopD, frameworkHandle, "vDSP_fftm_zopD")
+		registerFunc(&_vDSP_fftm_zopt, frameworkHandle, "vDSP_fftm_zopt")
+		registerFunc(&_vDSP_fftm_zoptD, frameworkHandle, "vDSP_fftm_zoptD")
+		registerFunc(&_vDSP_fftm_zrip, frameworkHandle, "vDSP_fftm_zrip")
+		registerFunc(&_vDSP_fftm_zripD, frameworkHandle, "vDSP_fftm_zripD")
+		registerFunc(&_vDSP_fftm_zript, frameworkHandle, "vDSP_fftm_zript")
+		registerFunc(&_vDSP_fftm_zriptD, frameworkHandle, "vDSP_fftm_zriptD")
+		registerFunc(&_vDSP_fftm_zrop, frameworkHandle, "vDSP_fftm_zrop")
+		registerFunc(&_vDSP_fftm_zropD, frameworkHandle, "vDSP_fftm_zropD")
+		registerFunc(&_vDSP_fftm_zropt, frameworkHandle, "vDSP_fftm_zropt")
+		registerFunc(&_vDSP_fftm_zroptD, frameworkHandle, "vDSP_fftm_zroptD")
+		registerFunc(&_vDSP_hamm_window, frameworkHandle, "vDSP_hamm_window")
+		registerFunc(&_vDSP_hamm_windowD, frameworkHandle, "vDSP_hamm_windowD")
+		registerFunc(&_vDSP_hann_window, frameworkHandle, "vDSP_hann_window")
+		registerFunc(&_vDSP_hann_windowD, frameworkHandle, "vDSP_hann_windowD")
+		registerFunc(&_vDSP_imgfir, frameworkHandle, "vDSP_imgfir")
+		registerFunc(&_vDSP_imgfirD, frameworkHandle, "vDSP_imgfirD")
+		registerFunc(&_vDSP_maxmgv, frameworkHandle, "vDSP_maxmgv")
+		registerFunc(&_vDSP_maxmgvD, frameworkHandle, "vDSP_maxmgvD")
+		registerFunc(&_vDSP_maxmgvi, frameworkHandle, "vDSP_maxmgvi")
+		registerFunc(&_vDSP_maxmgviD, frameworkHandle, "vDSP_maxmgviD")
+		registerFunc(&_vDSP_maxv, frameworkHandle, "vDSP_maxv")
+		registerFunc(&_vDSP_maxvD, frameworkHandle, "vDSP_maxvD")
+		registerFunc(&_vDSP_maxvi, frameworkHandle, "vDSP_maxvi")
+		registerFunc(&_vDSP_maxviD, frameworkHandle, "vDSP_maxviD")
+		registerFunc(&_vDSP_meamgv, frameworkHandle, "vDSP_meamgv")
+		registerFunc(&_vDSP_meamgvD, frameworkHandle, "vDSP_meamgvD")
+		registerFunc(&_vDSP_meanv, frameworkHandle, "vDSP_meanv")
+		registerFunc(&_vDSP_meanvD, frameworkHandle, "vDSP_meanvD")
+		registerFunc(&_vDSP_measqv, frameworkHandle, "vDSP_measqv")
+		registerFunc(&_vDSP_measqvD, frameworkHandle, "vDSP_measqvD")
+		registerFunc(&_vDSP_minmgv, frameworkHandle, "vDSP_minmgv")
+		registerFunc(&_vDSP_minmgvD, frameworkHandle, "vDSP_minmgvD")
+		registerFunc(&_vDSP_minmgvi, frameworkHandle, "vDSP_minmgvi")
+		registerFunc(&_vDSP_minmgviD, frameworkHandle, "vDSP_minmgviD")
+		registerFunc(&_vDSP_minv, frameworkHandle, "vDSP_minv")
+		registerFunc(&_vDSP_minvD, frameworkHandle, "vDSP_minvD")
+		registerFunc(&_vDSP_minvi, frameworkHandle, "vDSP_minvi")
+		registerFunc(&_vDSP_minviD, frameworkHandle, "vDSP_minviD")
+		registerFunc(&_vDSP_mmov, frameworkHandle, "vDSP_mmov")
+		registerFunc(&_vDSP_mmovD, frameworkHandle, "vDSP_mmovD")
+		registerFunc(&_vDSP_mmul, frameworkHandle, "vDSP_mmul")
+		registerFunc(&_vDSP_mmulD, frameworkHandle, "vDSP_mmulD")
+		registerFunc(&_vDSP_mtrans, frameworkHandle, "vDSP_mtrans")
+		registerFunc(&_vDSP_mtransD, frameworkHandle, "vDSP_mtransD")
+		registerFunc(&_vDSP_mvessq, frameworkHandle, "vDSP_mvessq")
+		registerFunc(&_vDSP_mvessqD, frameworkHandle, "vDSP_mvessqD")
+		registerFunc(&_vDSP_normalize, frameworkHandle, "vDSP_normalize")
+		registerFunc(&_vDSP_normalizeD, frameworkHandle, "vDSP_normalizeD")
+		registerFunc(&_vDSP_nzcros, frameworkHandle, "vDSP_nzcros")
+		registerFunc(&_vDSP_nzcrosD, frameworkHandle, "vDSP_nzcrosD")
+		registerFunc(&_vDSP_polar, frameworkHandle, "vDSP_polar")
+		registerFunc(&_vDSP_polarD, frameworkHandle, "vDSP_polarD")
+		registerFunc(&_vDSP_rect, frameworkHandle, "vDSP_rect")
+		registerFunc(&_vDSP_rectD, frameworkHandle, "vDSP_rectD")
+		registerFunc(&_vDSP_rmsqv, frameworkHandle, "vDSP_rmsqv")
+		registerFunc(&_vDSP_rmsqvD, frameworkHandle, "vDSP_rmsqvD")
+		registerFunc(&_vDSP_svdiv, frameworkHandle, "vDSP_svdiv")
+		registerFunc(&_vDSP_svdivD, frameworkHandle, "vDSP_svdivD")
+		registerFunc(&_vDSP_sve, frameworkHandle, "vDSP_sve")
+		registerFunc(&_vDSP_sveD, frameworkHandle, "vDSP_sveD")
+		registerFunc(&_vDSP_sve_svesq, frameworkHandle, "vDSP_sve_svesq")
+		registerFunc(&_vDSP_sve_svesqD, frameworkHandle, "vDSP_sve_svesqD")
+		registerFunc(&_vDSP_svemg, frameworkHandle, "vDSP_svemg")
+		registerFunc(&_vDSP_svemgD, frameworkHandle, "vDSP_svemgD")
+		registerFunc(&_vDSP_svesq, frameworkHandle, "vDSP_svesq")
+		registerFunc(&_vDSP_svesqD, frameworkHandle, "vDSP_svesqD")
+		registerFunc(&_vDSP_svs, frameworkHandle, "vDSP_svs")
+		registerFunc(&_vDSP_svsD, frameworkHandle, "vDSP_svsD")
+		registerFunc(&_vDSP_vaam, frameworkHandle, "vDSP_vaam")
+		registerFunc(&_vDSP_vaamD, frameworkHandle, "vDSP_vaamD")
+		registerFunc(&_vDSP_vabs, frameworkHandle, "vDSP_vabs")
+		registerFunc(&_vDSP_vabsD, frameworkHandle, "vDSP_vabsD")
+		registerFunc(&_vDSP_vabsi, frameworkHandle, "vDSP_vabsi")
+		registerFunc(&_vDSP_vadd, frameworkHandle, "vDSP_vadd")
+		registerFunc(&_vDSP_vaddD, frameworkHandle, "vDSP_vaddD")
+		registerFunc(&_vDSP_vaddi, frameworkHandle, "vDSP_vaddi")
+		registerFunc(&_vDSP_vaddsub, frameworkHandle, "vDSP_vaddsub")
+		registerFunc(&_vDSP_vaddsubD, frameworkHandle, "vDSP_vaddsubD")
+		registerFunc(&_vDSP_vam, frameworkHandle, "vDSP_vam")
+		registerFunc(&_vDSP_vamD, frameworkHandle, "vDSP_vamD")
+		registerFunc(&_vDSP_vasbm, frameworkHandle, "vDSP_vasbm")
+		registerFunc(&_vDSP_vasbmD, frameworkHandle, "vDSP_vasbmD")
+		registerFunc(&_vDSP_vasm, frameworkHandle, "vDSP_vasm")
+		registerFunc(&_vDSP_vasmD, frameworkHandle, "vDSP_vasmD")
+		registerFunc(&_vDSP_vavlin, frameworkHandle, "vDSP_vavlin")
+		registerFunc(&_vDSP_vavlinD, frameworkHandle, "vDSP_vavlinD")
+		registerFunc(&_vDSP_vclip, frameworkHandle, "vDSP_vclip")
+		registerFunc(&_vDSP_vclipD, frameworkHandle, "vDSP_vclipD")
+		registerFunc(&_vDSP_vclipc, frameworkHandle, "vDSP_vclipc")
+		registerFunc(&_vDSP_vclipcD, frameworkHandle, "vDSP_vclipcD")
+		registerFunc(&_vDSP_vclr, frameworkHandle, "vDSP_vclr")
+		registerFunc(&_vDSP_vclrD, frameworkHandle, "vDSP_vclrD")
+		registerFunc(&_vDSP_vcmprs, frameworkHandle, "vDSP_vcmprs")
+		registerFunc(&_vDSP_vcmprsD, frameworkHandle, "vDSP_vcmprsD")
+		registerFunc(&_vDSP_vdbcon, frameworkHandle, "vDSP_vdbcon")
+		registerFunc(&_vDSP_vdbconD, frameworkHandle, "vDSP_vdbconD")
+		registerFunc(&_vDSP_vdist, frameworkHandle, "vDSP_vdist")
+		registerFunc(&_vDSP_vdistD, frameworkHandle, "vDSP_vdistD")
+		registerFunc(&_vDSP_vdiv, frameworkHandle, "vDSP_vdiv")
+		registerFunc(&_vDSP_vdivD, frameworkHandle, "vDSP_vdivD")
+		registerFunc(&_vDSP_vdivi, frameworkHandle, "vDSP_vdivi")
+		registerFunc(&_vDSP_vdpsp, frameworkHandle, "vDSP_vdpsp")
+		registerFunc(&_vDSP_venvlp, frameworkHandle, "vDSP_venvlp")
+		registerFunc(&_vDSP_venvlpD, frameworkHandle, "vDSP_venvlpD")
+		registerFunc(&_vDSP_veqvi, frameworkHandle, "vDSP_veqvi")
+		registerFunc(&_vDSP_vfill, frameworkHandle, "vDSP_vfill")
+		registerFunc(&_vDSP_vfillD, frameworkHandle, "vDSP_vfillD")
+		registerFunc(&_vDSP_vfilli, frameworkHandle, "vDSP_vfilli")
+		registerFunc(&_vDSP_vfix16, frameworkHandle, "vDSP_vfix16")
+		registerFunc(&_vDSP_vfix16D, frameworkHandle, "vDSP_vfix16D")
+		registerFunc(&_vDSP_vfix32, frameworkHandle, "vDSP_vfix32")
+		registerFunc(&_vDSP_vfix32D, frameworkHandle, "vDSP_vfix32D")
+		registerFunc(&_vDSP_vfix8, frameworkHandle, "vDSP_vfix8")
+		registerFunc(&_vDSP_vfix8D, frameworkHandle, "vDSP_vfix8D")
+		registerFunc(&_vDSP_vfixr16, frameworkHandle, "vDSP_vfixr16")
+		registerFunc(&_vDSP_vfixr16D, frameworkHandle, "vDSP_vfixr16D")
+		registerFunc(&_vDSP_vfixr32, frameworkHandle, "vDSP_vfixr32")
+		registerFunc(&_vDSP_vfixr32D, frameworkHandle, "vDSP_vfixr32D")
+		registerFunc(&_vDSP_vfixr8, frameworkHandle, "vDSP_vfixr8")
+		registerFunc(&_vDSP_vfixr8D, frameworkHandle, "vDSP_vfixr8D")
+		registerFunc(&_vDSP_vfixru16, frameworkHandle, "vDSP_vfixru16")
+		registerFunc(&_vDSP_vfixru16D, frameworkHandle, "vDSP_vfixru16D")
+		registerFunc(&_vDSP_vfixru32, frameworkHandle, "vDSP_vfixru32")
+		registerFunc(&_vDSP_vfixru32D, frameworkHandle, "vDSP_vfixru32D")
+		registerFunc(&_vDSP_vfixru8, frameworkHandle, "vDSP_vfixru8")
+		registerFunc(&_vDSP_vfixru8D, frameworkHandle, "vDSP_vfixru8D")
+		registerFunc(&_vDSP_vfixu16, frameworkHandle, "vDSP_vfixu16")
+		registerFunc(&_vDSP_vfixu16D, frameworkHandle, "vDSP_vfixu16D")
+		registerFunc(&_vDSP_vfixu32, frameworkHandle, "vDSP_vfixu32")
+		registerFunc(&_vDSP_vfixu32D, frameworkHandle, "vDSP_vfixu32D")
+		registerFunc(&_vDSP_vfixu8, frameworkHandle, "vDSP_vfixu8")
+		registerFunc(&_vDSP_vfixu8D, frameworkHandle, "vDSP_vfixu8D")
+		registerFunc(&_vDSP_vflt16, frameworkHandle, "vDSP_vflt16")
+		registerFunc(&_vDSP_vflt16D, frameworkHandle, "vDSP_vflt16D")
+		registerFunc(&_vDSP_vflt24, frameworkHandle, "vDSP_vflt24")
+		registerFunc(&_vDSP_vflt32, frameworkHandle, "vDSP_vflt32")
+		registerFunc(&_vDSP_vflt32D, frameworkHandle, "vDSP_vflt32D")
+		registerFunc(&_vDSP_vflt8, frameworkHandle, "vDSP_vflt8")
+		registerFunc(&_vDSP_vflt8D, frameworkHandle, "vDSP_vflt8D")
+		registerFunc(&_vDSP_vfltsm24, frameworkHandle, "vDSP_vfltsm24")
+		registerFunc(&_vDSP_vfltsmu24, frameworkHandle, "vDSP_vfltsmu24")
+		registerFunc(&_vDSP_vfltu16, frameworkHandle, "vDSP_vfltu16")
+		registerFunc(&_vDSP_vfltu16D, frameworkHandle, "vDSP_vfltu16D")
+		registerFunc(&_vDSP_vfltu24, frameworkHandle, "vDSP_vfltu24")
+		registerFunc(&_vDSP_vfltu32, frameworkHandle, "vDSP_vfltu32")
+		registerFunc(&_vDSP_vfltu32D, frameworkHandle, "vDSP_vfltu32D")
+		registerFunc(&_vDSP_vfltu8, frameworkHandle, "vDSP_vfltu8")
+		registerFunc(&_vDSP_vfltu8D, frameworkHandle, "vDSP_vfltu8D")
+		registerFunc(&_vDSP_vfrac, frameworkHandle, "vDSP_vfrac")
+		registerFunc(&_vDSP_vfracD, frameworkHandle, "vDSP_vfracD")
+		registerFunc(&_vDSP_vgathr, frameworkHandle, "vDSP_vgathr")
+		registerFunc(&_vDSP_vgathrD, frameworkHandle, "vDSP_vgathrD")
+		registerFunc(&_vDSP_vgathra, frameworkHandle, "vDSP_vgathra")
+		registerFunc(&_vDSP_vgathraD, frameworkHandle, "vDSP_vgathraD")
+		registerFunc(&_vDSP_vgen, frameworkHandle, "vDSP_vgen")
+		registerFunc(&_vDSP_vgenD, frameworkHandle, "vDSP_vgenD")
+		registerFunc(&_vDSP_vgenp, frameworkHandle, "vDSP_vgenp")
+		registerFunc(&_vDSP_vgenpD, frameworkHandle, "vDSP_vgenpD")
+		registerFunc(&_vDSP_viclip, frameworkHandle, "vDSP_viclip")
+		registerFunc(&_vDSP_viclipD, frameworkHandle, "vDSP_viclipD")
+		registerFunc(&_vDSP_vindex, frameworkHandle, "vDSP_vindex")
+		registerFunc(&_vDSP_vindexD, frameworkHandle, "vDSP_vindexD")
+		registerFunc(&_vDSP_vintb, frameworkHandle, "vDSP_vintb")
+		registerFunc(&_vDSP_vintbD, frameworkHandle, "vDSP_vintbD")
+		registerFunc(&_vDSP_vlim, frameworkHandle, "vDSP_vlim")
+		registerFunc(&_vDSP_vlimD, frameworkHandle, "vDSP_vlimD")
+		registerFunc(&_vDSP_vlint, frameworkHandle, "vDSP_vlint")
+		registerFunc(&_vDSP_vlintD, frameworkHandle, "vDSP_vlintD")
+		registerFunc(&_vDSP_vma, frameworkHandle, "vDSP_vma")
+		registerFunc(&_vDSP_vmaD, frameworkHandle, "vDSP_vmaD")
+		registerFunc(&_vDSP_vmax, frameworkHandle, "vDSP_vmax")
+		registerFunc(&_vDSP_vmaxD, frameworkHandle, "vDSP_vmaxD")
+		registerFunc(&_vDSP_vmaxmg, frameworkHandle, "vDSP_vmaxmg")
+		registerFunc(&_vDSP_vmaxmgD, frameworkHandle, "vDSP_vmaxmgD")
+		registerFunc(&_vDSP_vmin, frameworkHandle, "vDSP_vmin")
+		registerFunc(&_vDSP_vminD, frameworkHandle, "vDSP_vminD")
+		registerFunc(&_vDSP_vminmg, frameworkHandle, "vDSP_vminmg")
+		registerFunc(&_vDSP_vminmgD, frameworkHandle, "vDSP_vminmgD")
+		registerFunc(&_vDSP_vmma, frameworkHandle, "vDSP_vmma")
+		registerFunc(&_vDSP_vmmaD, frameworkHandle, "vDSP_vmmaD")
+		registerFunc(&_vDSP_vmmsb, frameworkHandle, "vDSP_vmmsb")
+		registerFunc(&_vDSP_vmmsbD, frameworkHandle, "vDSP_vmmsbD")
+		registerFunc(&_vDSP_vmsa, frameworkHandle, "vDSP_vmsa")
+		registerFunc(&_vDSP_vmsaD, frameworkHandle, "vDSP_vmsaD")
+		registerFunc(&_vDSP_vmsb, frameworkHandle, "vDSP_vmsb")
+		registerFunc(&_vDSP_vmsbD, frameworkHandle, "vDSP_vmsbD")
+		registerFunc(&_vDSP_vmul, frameworkHandle, "vDSP_vmul")
+		registerFunc(&_vDSP_vmulD, frameworkHandle, "vDSP_vmulD")
+		registerFunc(&_vDSP_vnabs, frameworkHandle, "vDSP_vnabs")
+		registerFunc(&_vDSP_vnabsD, frameworkHandle, "vDSP_vnabsD")
+		registerFunc(&_vDSP_vneg, frameworkHandle, "vDSP_vneg")
+		registerFunc(&_vDSP_vnegD, frameworkHandle, "vDSP_vnegD")
+		registerFunc(&_vDSP_vpoly, frameworkHandle, "vDSP_vpoly")
+		registerFunc(&_vDSP_vpolyD, frameworkHandle, "vDSP_vpolyD")
+		registerFunc(&_vDSP_vpythg, frameworkHandle, "vDSP_vpythg")
+		registerFunc(&_vDSP_vpythgD, frameworkHandle, "vDSP_vpythgD")
+		registerFunc(&_vDSP_vqint, frameworkHandle, "vDSP_vqint")
+		registerFunc(&_vDSP_vqintD, frameworkHandle, "vDSP_vqintD")
+		registerFunc(&_vDSP_vramp, frameworkHandle, "vDSP_vramp")
+		registerFunc(&_vDSP_vrampD, frameworkHandle, "vDSP_vrampD")
+		registerFunc(&_vDSP_vrampmul, frameworkHandle, "vDSP_vrampmul")
+		registerFunc(&_vDSP_vrampmul2, frameworkHandle, "vDSP_vrampmul2")
+		registerFunc(&_vDSP_vrampmul2D, frameworkHandle, "vDSP_vrampmul2D")
+		registerFunc(&_vDSP_vrampmul2_s1_15, frameworkHandle, "vDSP_vrampmul2_s1_15")
+		registerFunc(&_vDSP_vrampmul2_s8_24, frameworkHandle, "vDSP_vrampmul2_s8_24")
+		registerFunc(&_vDSP_vrampmulD, frameworkHandle, "vDSP_vrampmulD")
+		registerFunc(&_vDSP_vrampmul_s1_15, frameworkHandle, "vDSP_vrampmul_s1_15")
+		registerFunc(&_vDSP_vrampmul_s8_24, frameworkHandle, "vDSP_vrampmul_s8_24")
+		registerFunc(&_vDSP_vrampmuladd, frameworkHandle, "vDSP_vrampmuladd")
+		registerFunc(&_vDSP_vrampmuladd2, frameworkHandle, "vDSP_vrampmuladd2")
+		registerFunc(&_vDSP_vrampmuladd2D, frameworkHandle, "vDSP_vrampmuladd2D")
+		registerFunc(&_vDSP_vrampmuladd2_s1_15, frameworkHandle, "vDSP_vrampmuladd2_s1_15")
+		registerFunc(&_vDSP_vrampmuladd2_s8_24, frameworkHandle, "vDSP_vrampmuladd2_s8_24")
+		registerFunc(&_vDSP_vrampmuladdD, frameworkHandle, "vDSP_vrampmuladdD")
+		registerFunc(&_vDSP_vrampmuladd_s1_15, frameworkHandle, "vDSP_vrampmuladd_s1_15")
+		registerFunc(&_vDSP_vrampmuladd_s8_24, frameworkHandle, "vDSP_vrampmuladd_s8_24")
+		registerFunc(&_vDSP_vrsum, frameworkHandle, "vDSP_vrsum")
+		registerFunc(&_vDSP_vrsumD, frameworkHandle, "vDSP_vrsumD")
+		registerFunc(&_vDSP_vrvrs, frameworkHandle, "vDSP_vrvrs")
+		registerFunc(&_vDSP_vrvrsD, frameworkHandle, "vDSP_vrvrsD")
+		registerFunc(&_vDSP_vsadd, frameworkHandle, "vDSP_vsadd")
+		registerFunc(&_vDSP_vsaddD, frameworkHandle, "vDSP_vsaddD")
+		registerFunc(&_vDSP_vsaddi, frameworkHandle, "vDSP_vsaddi")
+		registerFunc(&_vDSP_vsbm, frameworkHandle, "vDSP_vsbm")
+		registerFunc(&_vDSP_vsbmD, frameworkHandle, "vDSP_vsbmD")
+		registerFunc(&_vDSP_vsbsbm, frameworkHandle, "vDSP_vsbsbm")
+		registerFunc(&_vDSP_vsbsbmD, frameworkHandle, "vDSP_vsbsbmD")
+		registerFunc(&_vDSP_vsbsm, frameworkHandle, "vDSP_vsbsm")
+		registerFunc(&_vDSP_vsbsmD, frameworkHandle, "vDSP_vsbsmD")
+		registerFunc(&_vDSP_vsdiv, frameworkHandle, "vDSP_vsdiv")
+		registerFunc(&_vDSP_vsdivD, frameworkHandle, "vDSP_vsdivD")
+		registerFunc(&_vDSP_vsdivi, frameworkHandle, "vDSP_vsdivi")
+		registerFunc(&_vDSP_vsimps, frameworkHandle, "vDSP_vsimps")
+		registerFunc(&_vDSP_vsimpsD, frameworkHandle, "vDSP_vsimpsD")
+		registerFunc(&_vDSP_vsma, frameworkHandle, "vDSP_vsma")
+		registerFunc(&_vDSP_vsmaD, frameworkHandle, "vDSP_vsmaD")
+		registerFunc(&_vDSP_vsmfix24, frameworkHandle, "vDSP_vsmfix24")
+		registerFunc(&_vDSP_vsmfixu24, frameworkHandle, "vDSP_vsmfixu24")
+		registerFunc(&_vDSP_vsmsa, frameworkHandle, "vDSP_vsmsa")
+		registerFunc(&_vDSP_vsmsaD, frameworkHandle, "vDSP_vsmsaD")
+		registerFunc(&_vDSP_vsmsb, frameworkHandle, "vDSP_vsmsb")
+		registerFunc(&_vDSP_vsmsbD, frameworkHandle, "vDSP_vsmsbD")
+		registerFunc(&_vDSP_vsmsma, frameworkHandle, "vDSP_vsmsma")
+		registerFunc(&_vDSP_vsmsmaD, frameworkHandle, "vDSP_vsmsmaD")
+		registerFunc(&_vDSP_vsmul, frameworkHandle, "vDSP_vsmul")
+		registerFunc(&_vDSP_vsmulD, frameworkHandle, "vDSP_vsmulD")
+		registerFunc(&_vDSP_vsort, frameworkHandle, "vDSP_vsort")
+		registerFunc(&_vDSP_vsortD, frameworkHandle, "vDSP_vsortD")
+		registerFunc(&_vDSP_vsorti, frameworkHandle, "vDSP_vsorti")
+		registerFunc(&_vDSP_vsortiD, frameworkHandle, "vDSP_vsortiD")
+		registerFunc(&_vDSP_vspdp, frameworkHandle, "vDSP_vspdp")
+		registerFunc(&_vDSP_vsq, frameworkHandle, "vDSP_vsq")
+		registerFunc(&_vDSP_vsqD, frameworkHandle, "vDSP_vsqD")
+		registerFunc(&_vDSP_vssq, frameworkHandle, "vDSP_vssq")
+		registerFunc(&_vDSP_vssqD, frameworkHandle, "vDSP_vssqD")
+		registerFunc(&_vDSP_vsub, frameworkHandle, "vDSP_vsub")
+		registerFunc(&_vDSP_vsubD, frameworkHandle, "vDSP_vsubD")
+		registerFunc(&_vDSP_vswap, frameworkHandle, "vDSP_vswap")
+		registerFunc(&_vDSP_vswapD, frameworkHandle, "vDSP_vswapD")
+		registerFunc(&_vDSP_vswmax, frameworkHandle, "vDSP_vswmax")
+		registerFunc(&_vDSP_vswmaxD, frameworkHandle, "vDSP_vswmaxD")
+		registerFunc(&_vDSP_vswsum, frameworkHandle, "vDSP_vswsum")
+		registerFunc(&_vDSP_vswsumD, frameworkHandle, "vDSP_vswsumD")
+		registerFunc(&_vDSP_vtabi, frameworkHandle, "vDSP_vtabi")
+		registerFunc(&_vDSP_vtabiD, frameworkHandle, "vDSP_vtabiD")
+		registerFunc(&_vDSP_vthr, frameworkHandle, "vDSP_vthr")
+		registerFunc(&_vDSP_vthrD, frameworkHandle, "vDSP_vthrD")
+		registerFunc(&_vDSP_vthres, frameworkHandle, "vDSP_vthres")
+		registerFunc(&_vDSP_vthresD, frameworkHandle, "vDSP_vthresD")
+		registerFunc(&_vDSP_vthrsc, frameworkHandle, "vDSP_vthrsc")
+		registerFunc(&_vDSP_vthrscD, frameworkHandle, "vDSP_vthrscD")
+		registerFunc(&_vDSP_vtmerg, frameworkHandle, "vDSP_vtmerg")
+		registerFunc(&_vDSP_vtmergD, frameworkHandle, "vDSP_vtmergD")
+		registerFunc(&_vDSP_vtrapz, frameworkHandle, "vDSP_vtrapz")
+		registerFunc(&_vDSP_vtrapzD, frameworkHandle, "vDSP_vtrapzD")
+		registerFunc(&_vDSP_wiener, frameworkHandle, "vDSP_wiener")
+		registerFunc(&_vDSP_wienerD, frameworkHandle, "vDSP_wienerD")
+		registerFunc(&_vDSP_zaspec, frameworkHandle, "vDSP_zaspec")
+		registerFunc(&_vDSP_zaspecD, frameworkHandle, "vDSP_zaspecD")
+		registerFunc(&_vDSP_zcoher, frameworkHandle, "vDSP_zcoher")
+		registerFunc(&_vDSP_zcoherD, frameworkHandle, "vDSP_zcoherD")
+		registerFunc(&_vDSP_zconv, frameworkHandle, "vDSP_zconv")
+		registerFunc(&_vDSP_zconvD, frameworkHandle, "vDSP_zconvD")
+		registerFunc(&_vDSP_zcspec, frameworkHandle, "vDSP_zcspec")
+		registerFunc(&_vDSP_zcspecD, frameworkHandle, "vDSP_zcspecD")
+		registerFunc(&_vDSP_zdotpr, frameworkHandle, "vDSP_zdotpr")
+		registerFunc(&_vDSP_zdotprD, frameworkHandle, "vDSP_zdotprD")
+		registerFunc(&_vDSP_zidotpr, frameworkHandle, "vDSP_zidotpr")
+		registerFunc(&_vDSP_zidotprD, frameworkHandle, "vDSP_zidotprD")
+		registerFunc(&_vDSP_zmma, frameworkHandle, "vDSP_zmma")
+		registerFunc(&_vDSP_zmmaD, frameworkHandle, "vDSP_zmmaD")
+		registerFunc(&_vDSP_zmms, frameworkHandle, "vDSP_zmms")
+		registerFunc(&_vDSP_zmmsD, frameworkHandle, "vDSP_zmmsD")
+		registerFunc(&_vDSP_zmmul, frameworkHandle, "vDSP_zmmul")
+		registerFunc(&_vDSP_zmmulD, frameworkHandle, "vDSP_zmmulD")
+		registerFunc(&_vDSP_zmsm, frameworkHandle, "vDSP_zmsm")
+		registerFunc(&_vDSP_zmsmD, frameworkHandle, "vDSP_zmsmD")
+		registerFunc(&_vDSP_zrdesamp, frameworkHandle, "vDSP_zrdesamp")
+		registerFunc(&_vDSP_zrdesampD, frameworkHandle, "vDSP_zrdesampD")
+		registerFunc(&_vDSP_zrdotpr, frameworkHandle, "vDSP_zrdotpr")
+		registerFunc(&_vDSP_zrdotprD, frameworkHandle, "vDSP_zrdotprD")
+		registerFunc(&_vDSP_zrvadd, frameworkHandle, "vDSP_zrvadd")
+		registerFunc(&_vDSP_zrvaddD, frameworkHandle, "vDSP_zrvaddD")
+		registerFunc(&_vDSP_zrvdiv, frameworkHandle, "vDSP_zrvdiv")
+		registerFunc(&_vDSP_zrvdivD, frameworkHandle, "vDSP_zrvdivD")
+		registerFunc(&_vDSP_zrvmul, frameworkHandle, "vDSP_zrvmul")
+		registerFunc(&_vDSP_zrvmulD, frameworkHandle, "vDSP_zrvmulD")
+		registerFunc(&_vDSP_zrvsub, frameworkHandle, "vDSP_zrvsub")
+		registerFunc(&_vDSP_zrvsubD, frameworkHandle, "vDSP_zrvsubD")
+		registerFunc(&_vDSP_ztoc, frameworkHandle, "vDSP_ztoc")
+		registerFunc(&_vDSP_ztocD, frameworkHandle, "vDSP_ztocD")
+		registerFunc(&_vDSP_ztrans, frameworkHandle, "vDSP_ztrans")
+		registerFunc(&_vDSP_ztransD, frameworkHandle, "vDSP_ztransD")
+		registerFunc(&_vDSP_zvabs, frameworkHandle, "vDSP_zvabs")
+		registerFunc(&_vDSP_zvabsD, frameworkHandle, "vDSP_zvabsD")
+		registerFunc(&_vDSP_zvadd, frameworkHandle, "vDSP_zvadd")
+		registerFunc(&_vDSP_zvaddD, frameworkHandle, "vDSP_zvaddD")
+		registerFunc(&_vDSP_zvcma, frameworkHandle, "vDSP_zvcma")
+		registerFunc(&_vDSP_zvcmaD, frameworkHandle, "vDSP_zvcmaD")
+		registerFunc(&_vDSP_zvcmul, frameworkHandle, "vDSP_zvcmul")
+		registerFunc(&_vDSP_zvcmulD, frameworkHandle, "vDSP_zvcmulD")
+		registerFunc(&_vDSP_zvconj, frameworkHandle, "vDSP_zvconj")
+		registerFunc(&_vDSP_zvconjD, frameworkHandle, "vDSP_zvconjD")
+		registerFunc(&_vDSP_zvdiv, frameworkHandle, "vDSP_zvdiv")
+		registerFunc(&_vDSP_zvdivD, frameworkHandle, "vDSP_zvdivD")
+		registerFunc(&_vDSP_zvfill, frameworkHandle, "vDSP_zvfill")
+		registerFunc(&_vDSP_zvfillD, frameworkHandle, "vDSP_zvfillD")
+		registerFunc(&_vDSP_zvma, frameworkHandle, "vDSP_zvma")
+		registerFunc(&_vDSP_zvmaD, frameworkHandle, "vDSP_zvmaD")
+		registerFunc(&_vDSP_zvmags, frameworkHandle, "vDSP_zvmags")
+		registerFunc(&_vDSP_zvmagsD, frameworkHandle, "vDSP_zvmagsD")
+		registerFunc(&_vDSP_zvmgsa, frameworkHandle, "vDSP_zvmgsa")
+		registerFunc(&_vDSP_zvmgsaD, frameworkHandle, "vDSP_zvmgsaD")
+		registerFunc(&_vDSP_zvmmaa, frameworkHandle, "vDSP_zvmmaa")
+		registerFunc(&_vDSP_zvmmaaD, frameworkHandle, "vDSP_zvmmaaD")
+		registerFunc(&_vDSP_zvmov, frameworkHandle, "vDSP_zvmov")
+		registerFunc(&_vDSP_zvmovD, frameworkHandle, "vDSP_zvmovD")
+		registerFunc(&_vDSP_zvmul, frameworkHandle, "vDSP_zvmul")
+		registerFunc(&_vDSP_zvmulD, frameworkHandle, "vDSP_zvmulD")
+		registerFunc(&_vDSP_zvneg, frameworkHandle, "vDSP_zvneg")
+		registerFunc(&_vDSP_zvnegD, frameworkHandle, "vDSP_zvnegD")
+		registerFunc(&_vDSP_zvphas, frameworkHandle, "vDSP_zvphas")
+		registerFunc(&_vDSP_zvphasD, frameworkHandle, "vDSP_zvphasD")
+		registerFunc(&_vDSP_zvsma, frameworkHandle, "vDSP_zvsma")
+		registerFunc(&_vDSP_zvsmaD, frameworkHandle, "vDSP_zvsmaD")
+		registerFunc(&_vDSP_zvsub, frameworkHandle, "vDSP_zvsub")
+		registerFunc(&_vDSP_zvsubD, frameworkHandle, "vDSP_zvsubD")
+		registerFunc(&_vDSP_zvzsml, frameworkHandle, "vDSP_zvzsml")
+		registerFunc(&_vDSP_zvzsmlD, frameworkHandle, "vDSP_zvzsmlD")
+		registerFunc(&_vImageAffineWarpCG_ARGB16S, frameworkHandle, "vImageAffineWarpCG_ARGB16S")
+		registerFunc(&_vImageAffineWarpCG_ARGB16U, frameworkHandle, "vImageAffineWarpCG_ARGB16U")
+		registerFunc(&_vImageAffineWarpCG_ARGB8888, frameworkHandle, "vImageAffineWarpCG_ARGB8888")
+		registerFunc(&_vImageAffineWarpCG_ARGBFFFF, frameworkHandle, "vImageAffineWarpCG_ARGBFFFF")
+		registerFunc(&_vImageAffineWarpCG_Planar8, frameworkHandle, "vImageAffineWarpCG_Planar8")
+		registerFunc(&_vImageAffineWarpCG_PlanarF, frameworkHandle, "vImageAffineWarpCG_PlanarF")
 		registerFunc(&_vImageAffineWarpD_ARGB16F, frameworkHandle, "vImageAffineWarpD_ARGB16F")
 		registerFunc(&_vImageAffineWarpD_ARGB16S, frameworkHandle, "vImageAffineWarpD_ARGB16S")
 		registerFunc(&_vImageAffineWarpD_ARGB16U, frameworkHandle, "vImageAffineWarpD_ARGB16U")
@@ -16771,12 +25132,17 @@ func init() {
 		registerFunc(&_vImageCGImageFormat_GetComponentCount, frameworkHandle, "vImageCGImageFormat_GetComponentCount")
 		registerFunc(&_vImageCGImageFormat_IsEqual, frameworkHandle, "vImageCGImageFormat_IsEqual")
 		registerFunc(&_vImageCVImageFormat_Copy, frameworkHandle, "vImageCVImageFormat_Copy")
+		registerFunc(&_vImageCVImageFormat_CopyChannelDescription, frameworkHandle, "vImageCVImageFormat_CopyChannelDescription")
+		registerFunc(&_vImageCVImageFormat_CopyConversionMatrix, frameworkHandle, "vImageCVImageFormat_CopyConversionMatrix")
 		registerFunc(&_vImageCVImageFormat_Create, frameworkHandle, "vImageCVImageFormat_Create")
 		registerFunc(&_vImageCVImageFormat_CreateWithCVPixelBuffer, frameworkHandle, "vImageCVImageFormat_CreateWithCVPixelBuffer")
 		registerFunc(&_vImageCVImageFormat_GetAlphaHint, frameworkHandle, "vImageCVImageFormat_GetAlphaHint")
 		registerFunc(&_vImageCVImageFormat_GetChannelCount, frameworkHandle, "vImageCVImageFormat_GetChannelCount")
+		registerFunc(&_vImageCVImageFormat_GetChannelDescription, frameworkHandle, "vImageCVImageFormat_GetChannelDescription")
+		registerFunc(&_vImageCVImageFormat_GetChannelNames, frameworkHandle, "vImageCVImageFormat_GetChannelNames")
 		registerFunc(&_vImageCVImageFormat_GetChromaSiting, frameworkHandle, "vImageCVImageFormat_GetChromaSiting")
 		registerFunc(&_vImageCVImageFormat_GetColorSpace, frameworkHandle, "vImageCVImageFormat_GetColorSpace")
+		registerFunc(&_vImageCVImageFormat_GetConversionMatrix, frameworkHandle, "vImageCVImageFormat_GetConversionMatrix")
 		registerFunc(&_vImageCVImageFormat_GetFormatCode, frameworkHandle, "vImageCVImageFormat_GetFormatCode")
 		registerFunc(&_vImageCVImageFormat_GetUserData, frameworkHandle, "vImageCVImageFormat_GetUserData")
 		registerFunc(&_vImageCVImageFormat_Release, frameworkHandle, "vImageCVImageFormat_Release")
@@ -16987,8 +25353,10 @@ func init() {
 		registerFunc(&_vImageConverter_CreateWithCGColorConversionInfo, frameworkHandle, "vImageConverter_CreateWithCGColorConversionInfo")
 		registerFunc(&_vImageConverter_CreateWithCGImageFormat, frameworkHandle, "vImageConverter_CreateWithCGImageFormat")
 		registerFunc(&_vImageConverter_CreateWithColorSyncCodeFragment, frameworkHandle, "vImageConverter_CreateWithColorSyncCodeFragment")
+		registerFunc(&_vImageConverter_GetDestinationBufferOrder, frameworkHandle, "vImageConverter_GetDestinationBufferOrder")
 		registerFunc(&_vImageConverter_GetNumberOfDestinationBuffers, frameworkHandle, "vImageConverter_GetNumberOfDestinationBuffers")
 		registerFunc(&_vImageConverter_GetNumberOfSourceBuffers, frameworkHandle, "vImageConverter_GetNumberOfSourceBuffers")
+		registerFunc(&_vImageConverter_GetSourceBufferOrder, frameworkHandle, "vImageConverter_GetSourceBufferOrder")
 		registerFunc(&_vImageConverter_MustOperateOutOfPlace, frameworkHandle, "vImageConverter_MustOperateOutOfPlace")
 		registerFunc(&_vImageConverter_Release, frameworkHandle, "vImageConverter_Release")
 		registerFunc(&_vImageConverter_Retain, frameworkHandle, "vImageConverter_Retain")
@@ -17126,6 +25494,11 @@ func init() {
 		registerFunc(&_vImageMin_ARGBFFFF, frameworkHandle, "vImageMin_ARGBFFFF")
 		registerFunc(&_vImageMin_Planar8, frameworkHandle, "vImageMin_Planar8")
 		registerFunc(&_vImageMin_PlanarF, frameworkHandle, "vImageMin_PlanarF")
+		registerFunc(&_vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12, frameworkHandle, "vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12")
+		registerFunc(&_vImageMultiDimensionalInterpolatedLookupTable_PlanarF, frameworkHandle, "vImageMultiDimensionalInterpolatedLookupTable_PlanarF")
+		registerFunc(&_vImageMultidimensionalTable_Create, frameworkHandle, "vImageMultidimensionalTable_Create")
+		registerFunc(&_vImageMultidimensionalTable_Release, frameworkHandle, "vImageMultidimensionalTable_Release")
+		registerFunc(&_vImageMultidimensionalTable_Retain, frameworkHandle, "vImageMultidimensionalTable_Retain")
 		registerFunc(&_vImageNewResamplingFilter, frameworkHandle, "vImageNewResamplingFilter")
 		registerFunc(&_vImageNewResamplingFilterForFunctionUsingBuffer, frameworkHandle, "vImageNewResamplingFilterForFunctionUsingBuffer")
 		registerFunc(&_vImageOverwriteChannelsWithPixel_ARGB16U, frameworkHandle, "vImageOverwriteChannelsWithPixel_ARGB16U")
@@ -17149,6 +25522,12 @@ func init() {
 		registerFunc(&_vImagePermuteChannels_ARGB8888, frameworkHandle, "vImagePermuteChannels_ARGB8888")
 		registerFunc(&_vImagePermuteChannels_ARGBFFFF, frameworkHandle, "vImagePermuteChannels_ARGBFFFF")
 		registerFunc(&_vImagePermuteChannels_RGB888, frameworkHandle, "vImagePermuteChannels_RGB888")
+		registerFunc(&_vImagePerspectiveWarp_ARGB16F, frameworkHandle, "vImagePerspectiveWarp_ARGB16F")
+		registerFunc(&_vImagePerspectiveWarp_ARGB16U, frameworkHandle, "vImagePerspectiveWarp_ARGB16U")
+		registerFunc(&_vImagePerspectiveWarp_ARGB8888, frameworkHandle, "vImagePerspectiveWarp_ARGB8888")
+		registerFunc(&_vImagePerspectiveWarp_Planar16F, frameworkHandle, "vImagePerspectiveWarp_Planar16F")
+		registerFunc(&_vImagePerspectiveWarp_Planar16U, frameworkHandle, "vImagePerspectiveWarp_Planar16U")
+		registerFunc(&_vImagePerspectiveWarp_Planar8, frameworkHandle, "vImagePerspectiveWarp_Planar8")
 		registerFunc(&_vImagePiecewiseGamma_Planar16Q12, frameworkHandle, "vImagePiecewiseGamma_Planar16Q12")
 		registerFunc(&_vImagePiecewiseGamma_Planar16Q12toPlanar8, frameworkHandle, "vImagePiecewiseGamma_Planar16Q12toPlanar8")
 		registerFunc(&_vImagePiecewiseGamma_Planar8, frameworkHandle, "vImagePiecewiseGamma_Planar8")
@@ -17287,17 +25666,29 @@ func init() {
 		registerFunc(&_vImageVerticalShear_PlanarF, frameworkHandle, "vImageVerticalShear_PlanarF")
 		registerFunc(&_vImageVerticalShear_XRGB2101010W, frameworkHandle, "vImageVerticalShear_XRGB2101010W")
 		registerFunc(&_vL1024Rotate, frameworkHandle, "vL1024Rotate")
+		registerFunc(&_vL128Rotate, frameworkHandle, "vL128Rotate")
 		registerFunc(&_vL256Rotate, frameworkHandle, "vL256Rotate")
 		registerFunc(&_vL512Rotate, frameworkHandle, "vL512Rotate")
+		registerFunc(&_vL64Rotate, frameworkHandle, "vL64Rotate")
+		registerFunc(&_vL64Rotate2, frameworkHandle, "vL64Rotate2")
 		registerFunc(&_vLL1024Shift, frameworkHandle, "vLL1024Shift")
+		registerFunc(&_vLL128Shift, frameworkHandle, "vLL128Shift")
 		registerFunc(&_vLL256Shift, frameworkHandle, "vLL256Shift")
 		registerFunc(&_vLL512Shift, frameworkHandle, "vLL512Shift")
+		registerFunc(&_vLL64Shift, frameworkHandle, "vLL64Shift")
+		registerFunc(&_vLL64Shift2, frameworkHandle, "vLL64Shift2")
 		registerFunc(&_vLR1024Shift, frameworkHandle, "vLR1024Shift")
+		registerFunc(&_vLR128Shift, frameworkHandle, "vLR128Shift")
 		registerFunc(&_vLR256Shift, frameworkHandle, "vLR256Shift")
 		registerFunc(&_vLR512Shift, frameworkHandle, "vLR512Shift")
+		registerFunc(&_vLR64Shift, frameworkHandle, "vLR64Shift")
+		registerFunc(&_vLR64Shift2, frameworkHandle, "vLR64Shift2")
 		registerFunc(&_vR1024Rotate, frameworkHandle, "vR1024Rotate")
+		registerFunc(&_vR128Rotate, frameworkHandle, "vR128Rotate")
 		registerFunc(&_vR256Rotate, frameworkHandle, "vR256Rotate")
 		registerFunc(&_vR512Rotate, frameworkHandle, "vR512Rotate")
+		registerFunc(&_vR64Rotate, frameworkHandle, "vR64Rotate")
+		registerFunc(&_vR64Rotate2, frameworkHandle, "vR64Rotate2")
 		registerFunc(&_vS1024Add, frameworkHandle, "vS1024Add")
 		registerFunc(&_vS1024AddS, frameworkHandle, "vS1024AddS")
 		registerFunc(&_vS1024Divide, frameworkHandle, "vS1024Divide")
@@ -17306,7 +25697,15 @@ func init() {
 		registerFunc(&_vS1024Neg, frameworkHandle, "vS1024Neg")
 		registerFunc(&_vS1024Sub, frameworkHandle, "vS1024Sub")
 		registerFunc(&_vS1024SubS, frameworkHandle, "vS1024SubS")
+		registerFunc(&_vS128Add, frameworkHandle, "vS128Add")
+		registerFunc(&_vS128AddS, frameworkHandle, "vS128AddS")
+		registerFunc(&_vS128Divide, frameworkHandle, "vS128Divide")
 		registerFunc(&_vS128FullMultiply, frameworkHandle, "vS128FullMultiply")
+		registerFunc(&_vS128HalfMultiply, frameworkHandle, "vS128HalfMultiply")
+		registerFunc(&_vS128Neg, frameworkHandle, "vS128Neg")
+		registerFunc(&_vS128Sub, frameworkHandle, "vS128Sub")
+		registerFunc(&_vS128SubS, frameworkHandle, "vS128SubS")
+		registerFunc(&_vS16Divide, frameworkHandle, "vS16Divide")
 		registerFunc(&_vS256Add, frameworkHandle, "vS256Add")
 		registerFunc(&_vS256AddS, frameworkHandle, "vS256AddS")
 		registerFunc(&_vS256Divide, frameworkHandle, "vS256Divide")
@@ -17316,6 +25715,10 @@ func init() {
 		registerFunc(&_vS256Neg, frameworkHandle, "vS256Neg")
 		registerFunc(&_vS256Sub, frameworkHandle, "vS256Sub")
 		registerFunc(&_vS256SubS, frameworkHandle, "vS256SubS")
+		registerFunc(&_vS32Divide, frameworkHandle, "vS32Divide")
+		registerFunc(&_vS32FullMulEven, frameworkHandle, "vS32FullMulEven")
+		registerFunc(&_vS32FullMulOdd, frameworkHandle, "vS32FullMulOdd")
+		registerFunc(&_vS32HalfMultiply, frameworkHandle, "vS32HalfMultiply")
 		registerFunc(&_vS512Add, frameworkHandle, "vS512Add")
 		registerFunc(&_vS512AddS, frameworkHandle, "vS512AddS")
 		registerFunc(&_vS512Divide, frameworkHandle, "vS512Divide")
@@ -17325,6 +25728,15 @@ func init() {
 		registerFunc(&_vS512Neg, frameworkHandle, "vS512Neg")
 		registerFunc(&_vS512Sub, frameworkHandle, "vS512Sub")
 		registerFunc(&_vS512SubS, frameworkHandle, "vS512SubS")
+		registerFunc(&_vS64AddS, frameworkHandle, "vS64AddS")
+		registerFunc(&_vS64Divide, frameworkHandle, "vS64Divide")
+		registerFunc(&_vS64FullMulEven, frameworkHandle, "vS64FullMulEven")
+		registerFunc(&_vS64FullMulOdd, frameworkHandle, "vS64FullMulOdd")
+		registerFunc(&_vS64HalfMultiply, frameworkHandle, "vS64HalfMultiply")
+		registerFunc(&_vS64Neg, frameworkHandle, "vS64Neg")
+		registerFunc(&_vS64SubS, frameworkHandle, "vS64SubS")
+		registerFunc(&_vS8Divide, frameworkHandle, "vS8Divide")
+		registerFunc(&_vS8HalfMultiply, frameworkHandle, "vS8HalfMultiply")
 		registerFunc(&_vU1024Add, frameworkHandle, "vU1024Add")
 		registerFunc(&_vU1024AddS, frameworkHandle, "vU1024AddS")
 		registerFunc(&_vU1024Divide, frameworkHandle, "vU1024Divide")
@@ -17333,7 +25745,15 @@ func init() {
 		registerFunc(&_vU1024Neg, frameworkHandle, "vU1024Neg")
 		registerFunc(&_vU1024Sub, frameworkHandle, "vU1024Sub")
 		registerFunc(&_vU1024SubS, frameworkHandle, "vU1024SubS")
+		registerFunc(&_vU128Add, frameworkHandle, "vU128Add")
+		registerFunc(&_vU128AddS, frameworkHandle, "vU128AddS")
+		registerFunc(&_vU128Divide, frameworkHandle, "vU128Divide")
 		registerFunc(&_vU128FullMultiply, frameworkHandle, "vU128FullMultiply")
+		registerFunc(&_vU128HalfMultiply, frameworkHandle, "vU128HalfMultiply")
+		registerFunc(&_vU128Neg, frameworkHandle, "vU128Neg")
+		registerFunc(&_vU128Sub, frameworkHandle, "vU128Sub")
+		registerFunc(&_vU128SubS, frameworkHandle, "vU128SubS")
+		registerFunc(&_vU16Divide, frameworkHandle, "vU16Divide")
 		registerFunc(&_vU256Add, frameworkHandle, "vU256Add")
 		registerFunc(&_vU256AddS, frameworkHandle, "vU256AddS")
 		registerFunc(&_vU256Divide, frameworkHandle, "vU256Divide")
@@ -17343,6 +25763,10 @@ func init() {
 		registerFunc(&_vU256Neg, frameworkHandle, "vU256Neg")
 		registerFunc(&_vU256Sub, frameworkHandle, "vU256Sub")
 		registerFunc(&_vU256SubS, frameworkHandle, "vU256SubS")
+		registerFunc(&_vU32Divide, frameworkHandle, "vU32Divide")
+		registerFunc(&_vU32FullMulEven, frameworkHandle, "vU32FullMulEven")
+		registerFunc(&_vU32FullMulOdd, frameworkHandle, "vU32FullMulOdd")
+		registerFunc(&_vU32HalfMultiply, frameworkHandle, "vU32HalfMultiply")
 		registerFunc(&_vU512Add, frameworkHandle, "vU512Add")
 		registerFunc(&_vU512AddS, frameworkHandle, "vU512AddS")
 		registerFunc(&_vU512Divide, frameworkHandle, "vU512Divide")
@@ -17352,6 +25776,62 @@ func init() {
 		registerFunc(&_vU512Neg, frameworkHandle, "vU512Neg")
 		registerFunc(&_vU512Sub, frameworkHandle, "vU512Sub")
 		registerFunc(&_vU512SubS, frameworkHandle, "vU512SubS")
+		registerFunc(&_vU64AddS, frameworkHandle, "vU64AddS")
+		registerFunc(&_vU64Divide, frameworkHandle, "vU64Divide")
+		registerFunc(&_vU64FullMulEven, frameworkHandle, "vU64FullMulEven")
+		registerFunc(&_vU64FullMulOdd, frameworkHandle, "vU64FullMulOdd")
+		registerFunc(&_vU64HalfMultiply, frameworkHandle, "vU64HalfMultiply")
+		registerFunc(&_vU64Neg, frameworkHandle, "vU64Neg")
+		registerFunc(&_vU64SubS, frameworkHandle, "vU64SubS")
+		registerFunc(&_vU8Divide, frameworkHandle, "vU8Divide")
+		registerFunc(&_vU8HalfMultiply, frameworkHandle, "vU8HalfMultiply")
+		registerFunc(&_vacosf, frameworkHandle, "vacosf")
+		registerFunc(&_vacoshf, frameworkHandle, "vacoshf")
+		registerFunc(&_vasinf, frameworkHandle, "vasinf")
+		registerFunc(&_vasinhf, frameworkHandle, "vasinhf")
+		registerFunc(&_vatan2f, frameworkHandle, "vatan2f")
+		registerFunc(&_vatanf, frameworkHandle, "vatanf")
+		registerFunc(&_vatanhf, frameworkHandle, "vatanhf")
+		registerFunc(&_vceilf, frameworkHandle, "vceilf")
+		registerFunc(&_vclassifyf, frameworkHandle, "vclassifyf")
+		registerFunc(&_vcopysignf, frameworkHandle, "vcopysignf")
+		registerFunc(&_vcosf, frameworkHandle, "vcosf")
+		registerFunc(&_vcoshf, frameworkHandle, "vcoshf")
+		registerFunc(&_vcospif, frameworkHandle, "vcospif")
+		registerFunc(&_vdivf, frameworkHandle, "vdivf")
+		registerFunc(&_vexp2f, frameworkHandle, "vexp2f")
+		registerFunc(&_vexpf, frameworkHandle, "vexpf")
+		registerFunc(&_vexpm1f, frameworkHandle, "vexpm1f")
+		registerFunc(&_vfabf, frameworkHandle, "vfabf")
+		registerFunc(&_vfabsf, frameworkHandle, "vfabsf")
+		registerFunc(&_vfloorf, frameworkHandle, "vfloorf")
+		registerFunc(&_vfmodf, frameworkHandle, "vfmodf")
+		registerFunc(&_vintf, frameworkHandle, "vintf")
+		registerFunc(&_vipowf, frameworkHandle, "vipowf")
+		registerFunc(&_vlog10f, frameworkHandle, "vlog10f")
+		registerFunc(&_vlog1pf, frameworkHandle, "vlog1pf")
+		registerFunc(&_vlog2f, frameworkHandle, "vlog2f")
+		registerFunc(&_vlogbf, frameworkHandle, "vlogbf")
+		registerFunc(&_vlogf, frameworkHandle, "vlogf")
+		registerFunc(&_vnextafterf, frameworkHandle, "vnextafterf")
+		registerFunc(&_vnintf, frameworkHandle, "vnintf")
+		registerFunc(&_vpowf, frameworkHandle, "vpowf")
+		registerFunc(&_vrecf, frameworkHandle, "vrecf")
+		registerFunc(&_vremainderf, frameworkHandle, "vremainderf")
+		registerFunc(&_vremquof, frameworkHandle, "vremquof")
+		registerFunc(&_vrsqrtf, frameworkHandle, "vrsqrtf")
+		registerFunc(&_vscalbf, frameworkHandle, "vscalbf")
+		registerFunc(&_vsignbitf, frameworkHandle, "vsignbitf")
+		registerFunc(&_vsincosf, frameworkHandle, "vsincosf")
+		registerFunc(&_vsinf, frameworkHandle, "vsinf")
+		registerFunc(&_vsinhf, frameworkHandle, "vsinhf")
+		registerFunc(&_vsinpif, frameworkHandle, "vsinpif")
+		registerFunc(&_vsqrtf, frameworkHandle, "vsqrtf")
+		registerFunc(&_vtablelookup, frameworkHandle, "vtablelookup")
+		registerFunc(&_vtanf, frameworkHandle, "vtanf")
+		registerFunc(&_vtanhf, frameworkHandle, "vtanhf")
+		registerFunc(&_vtanpif, frameworkHandle, "vtanpif")
+		registerFunc(&_vtruncf, frameworkHandle, "vtruncf")
 		registerFunc(&_vvacos, frameworkHandle, "vvacos")
 		registerFunc(&_vvacosf, frameworkHandle, "vvacosf")
 		registerFunc(&_vvacosh, frameworkHandle, "vvacosh")
