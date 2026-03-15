@@ -117,35 +117,57 @@ func EvalWithStats(m *ane.Model) (EvalStats, error) {
 // EvalHWTimeOnly executes the kernel and returns only the hardware execution
 // time in nanoseconds. Unlike EvalWithStats, it skips metric-map
 // materialization, perf counter scanning, and raw data extraction.
+//
+// Deprecated: Use HWTimer for repeated evals to avoid per-call allocations.
 func EvalHWTimeOnly(m *ane.Model) (uint64, error) {
+	t := NewHWTimer(m)
+	return t.Eval()
+}
+
+// HWTimer provides zero-allocation hardware timing for repeated evals.
+// It caches the perf stats object and request wrapper so that each Eval
+// call only performs the ANE eval and a single ObjC property read.
+type HWTimer struct {
+	m         *ane.Model
+	req       appleneuralengine.ANERequest
+	perfStats appleneuralengine.ANEPerformanceStats
+}
+
+// NewHWTimer creates a HWTimer for the given model. The perf stats object
+// is allocated once and reused across all subsequent Eval calls.
+func NewHWTimer(m *ane.Model) *HWTimer {
 	perfStats := newPerfStats()
 	req := appleneuralengine.ANERequestFromID(objc.ID(m.RawRequest()))
 	req.SetPerfStats(&perfStats)
+	return &HWTimer{m: m, req: req, perfStats: perfStats}
+}
 
-	if err := m.Eval(); err != nil {
+// Eval executes the kernel and returns the hardware execution time in
+// nanoseconds. After the first call, this allocates nothing.
+func (t *HWTimer) Eval() (uint64, error) {
+	if err := t.m.Eval(); err != nil {
 		return 0, err
 	}
-
+	// Try PerfStatsArray first (some firmware versions populate this).
 	func() {
 		defer func() { recover() }()
-		arr := req.PerfStatsArray()
+		arr := t.req.PerfStatsArray()
 		if arr != nil && int(arr.Count()) > 0 {
-			perfStats = appleneuralengine.ANEPerformanceStatsFromID(arr.ObjectAtIndex(0).GetID())
+			t.perfStats = appleneuralengine.ANEPerformanceStatsFromID(arr.ObjectAtIndex(0).GetID())
 		}
 	}()
-	if perfStats.GetID() == 0 {
+	if t.perfStats.GetID() == 0 {
 		func() {
 			defer func() { recover() }()
-			if ps := req.PerfStats(); ps != nil {
-				perfStats = *ps
+			if ps := t.req.PerfStats(); ps != nil {
+				t.perfStats = *ps
 			}
 		}()
 	}
-
 	var hwNS uint64
 	func() {
 		defer func() { recover() }()
-		hwNS = perfStats.HwExecutionTime()
+		hwNS = t.perfStats.HwExecutionTime()
 	}()
 	return hwNS, nil
 }

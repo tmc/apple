@@ -64,6 +64,8 @@ type Kernel struct {
 	outputAlloc  [][]byte
 	inputLayout  []xane.TensorLayout
 	outputLayout []xane.TensorLayout
+
+	hwTimer *xanetelemetry.HWTimer // cached for zero-alloc EvalHWExecutionNS
 }
 
 // CopyOutputChannelsToInput copies a contiguous block of channels from src output
@@ -451,13 +453,13 @@ func (k *Kernel) evalFastShared() (uint64, error) {
 }
 
 // evalHWOnly extracts only the HW execution time from the perf stats,
-// skipping metric-map materialization.
+// skipping metric-map materialization. The HWTimer is lazily initialized
+// and reused across calls to avoid per-eval allocations.
 func (k *Kernel) evalHWOnly() (uint64, error) {
-	st, err := xanetelemetry.EvalHWTimeOnly(k.k)
-	if err != nil {
-		return 0, err
+	if k.hwTimer == nil {
+		k.hwTimer = xanetelemetry.NewHWTimer(k.k)
 	}
-	return st, nil
+	return k.hwTimer.Eval()
 }
 
 func evalStatsMetrics(st xanetelemetry.EvalStats) map[string]float64 {
