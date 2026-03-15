@@ -91,7 +91,24 @@ func (k *Kernel) EvalWithSignalEvent(uint32, uint64, xane.SharedEventEvalOptions
 func (k *Kernel) EvalBidirectional(uint32, uint64, uint32, uint64, xane.SharedEventEvalOptions) error {
 	return fmt.Errorf("ane model requires darwin")
 }
+func (k *Kernel) NewRequestPool(int) (*KernelRequestPool, error) {
+	return nil, fmt.Errorf("ane model requires darwin")
+}
+func (k *Kernel) WithLockedInput(int, func(xane.TensorLayout, []byte) error) error {
+	return fmt.Errorf("ane model requires darwin")
+}
+func (k *Kernel) WithLockedOutput(int, func(xane.TensorLayout, []byte) error) error {
+	return fmt.Errorf("ane model requires darwin")
+}
 func (k *Kernel) Close() {}
+
+type KernelRequestPool struct{}
+type KernelPooledRequest struct{}
+
+func (p *KernelRequestPool) Acquire() *KernelPooledRequest { return nil }
+func (p *KernelRequestPool) Close() error                  { return nil }
+func (r *KernelPooledRequest) Eval() error                 { return fmt.Errorf("ane model requires darwin") }
+func (r *KernelPooledRequest) Release()                    {}
 
 func CopyOutputChannelsToInput(*Kernel, int, int, *Kernel, int, int, int) error {
 	return fmt.Errorf("ane model requires darwin")

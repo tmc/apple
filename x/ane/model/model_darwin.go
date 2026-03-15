@@ -427,23 +427,37 @@ func (k *Kernel) EvalWithStats() (EvalStats, error) {
 }
 
 // EvalHWExecutionNS executes the kernel and returns only hardware execution
-// time. It skips metric-map materialization for the fast training path.
+// time in nanoseconds. For non-shared models, returns true ANE hardware
+// counters. For shared MIL models, returns wall-clock time (ANE hardware
+// counters are not available through the in-memory model path).
 func (k *Kernel) EvalHWExecutionNS() (uint64, error) {
 	if k == nil || k.closed() {
 		return 0, fmt.Errorf("eval hw execution ns: kernel is closed")
 	}
 	if k.shared != nil {
-		st, err := k.sharedEvalWithStats()
-		if err != nil {
-			return 0, err
-		}
-		return st.HWExecutionNS, nil
+		return k.evalFastShared()
 	}
-	st, err := xanetelemetry.EvalWithStats(k.k)
+	return k.evalHWOnly()
+}
+
+// evalFastShared runs the shared MIL eval with minimal overhead wall-clock
+// timing. Avoids the telemetry path entirely.
+func (k *Kernel) evalFastShared() (uint64, error) {
+	start := runtimeNanoNow()
+	if err := k.shared.eval(); err != nil {
+		return 0, err
+	}
+	return uint64(runtimeNanoNow() - start), nil
+}
+
+// evalHWOnly extracts only the HW execution time from the perf stats,
+// skipping metric-map materialization.
+func (k *Kernel) evalHWOnly() (uint64, error) {
+	st, err := xanetelemetry.EvalHWTimeOnly(k.k)
 	if err != nil {
 		return 0, err
 	}
-	return st.HWExecutionNS, nil
+	return st, nil
 }
 
 func evalStatsMetrics(st xanetelemetry.EvalStats) map[string]float64 {
@@ -562,6 +576,62 @@ func (k *Kernel) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort
 		return fmt.Errorf("eval bidirectional: no underlying model")
 	}
 	return k.k.EvalBidirectional(waitPort, waitValue, signalPort, signalValue, cfg)
+}
+
+// WithLockedInput locks an input IOSurface and calls fn with the tensor
+// layout and raw surface bytes. Multiple read/write operations within fn
+// share a single lock/unlock pair.
+func (k *Kernel) WithLockedInput(input int, fn func(layout xane.TensorLayout, data []byte) error) error {
+	if k == nil || k.closed() {
+		return fmt.Errorf("with locked input: kernel is closed")
+	}
+	if input < 0 || input >= len(k.inputLayout) {
+		return fmt.Errorf("with locked input: index %d out of range", input)
+	}
+	ref := k.InputSurface(input)
+	if ref == 0 {
+		return fmt.Errorf("with locked input: nil surface")
+	}
+	surfRef := appleiosurface.IOSurfaceRef(ref)
+	appleiosurface.IOSurfaceLock(surfRef, 0, nil)
+	base := appleiosurface.IOSurfaceGetBaseAddress(surfRef)
+	if base == nil {
+		appleiosurface.IOSurfaceUnlock(surfRef, 0, nil)
+		return fmt.Errorf("with locked input: nil base address")
+	}
+	layout := k.inputLayout[input]
+	data := unsafe.Slice((*byte)(base), layout.AllocSize())
+	err := fn(layout, data)
+	appleiosurface.IOSurfaceUnlock(surfRef, 0, nil)
+	return err
+}
+
+// WithLockedOutput locks an output IOSurface for reading and calls fn with
+// the tensor layout and raw surface bytes. Multiple read operations within
+// fn share a single lock/unlock pair.
+func (k *Kernel) WithLockedOutput(output int, fn func(layout xane.TensorLayout, data []byte) error) error {
+	if k == nil || k.closed() {
+		return fmt.Errorf("with locked output: kernel is closed")
+	}
+	if output < 0 || output >= len(k.outputLayout) {
+		return fmt.Errorf("with locked output: index %d out of range", output)
+	}
+	ref := k.OutputSurface(output)
+	if ref == 0 {
+		return fmt.Errorf("with locked output: nil surface")
+	}
+	surfRef := appleiosurface.IOSurfaceRef(ref)
+	appleiosurface.IOSurfaceLock(surfRef, appleiosurface.KIOSurfaceLockReadOnly, nil)
+	base := appleiosurface.IOSurfaceGetBaseAddress(surfRef)
+	if base == nil {
+		appleiosurface.IOSurfaceUnlock(surfRef, appleiosurface.KIOSurfaceLockReadOnly, nil)
+		return fmt.Errorf("with locked output: nil base address")
+	}
+	layout := k.outputLayout[output]
+	data := unsafe.Slice((*byte)(base), layout.AllocSize())
+	err := fn(layout, data)
+	appleiosurface.IOSurfaceUnlock(surfRef, appleiosurface.KIOSurfaceLockReadOnly, nil)
+	return err
 }
 
 func (k *Kernel) Close() {

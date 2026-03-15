@@ -114,6 +114,42 @@ func EvalWithStats(m *ane.Model) (EvalStats, error) {
 	return stats, nil
 }
 
+// EvalHWTimeOnly executes the kernel and returns only the hardware execution
+// time in nanoseconds. Unlike EvalWithStats, it skips metric-map
+// materialization, perf counter scanning, and raw data extraction.
+func EvalHWTimeOnly(m *ane.Model) (uint64, error) {
+	perfStats := newPerfStats()
+	req := appleneuralengine.ANERequestFromID(objc.ID(m.RawRequest()))
+	req.SetPerfStats(&perfStats)
+
+	if err := m.Eval(); err != nil {
+		return 0, err
+	}
+
+	func() {
+		defer func() { recover() }()
+		arr := req.PerfStatsArray()
+		if arr != nil && int(arr.Count()) > 0 {
+			perfStats = appleneuralengine.ANEPerformanceStatsFromID(arr.ObjectAtIndex(0).GetID())
+		}
+	}()
+	if perfStats.GetID() == 0 {
+		func() {
+			defer func() { recover() }()
+			if ps := req.PerfStats(); ps != nil {
+				perfStats = *ps
+			}
+		}()
+	}
+
+	var hwNS uint64
+	func() {
+		defer func() { recover() }()
+		hwNS = perfStats.HwExecutionTime()
+	}()
+	return hwNS, nil
+}
+
 // newPerfStats creates a valid ANEPerformanceStats via the class factory.
 func newPerfStats() appleneuralengine.ANEPerformanceStats {
 	cls := appleneuralengine.GetANEPerformanceStatsClass()
