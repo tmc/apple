@@ -110,6 +110,45 @@ func TestCompileGenerators(t *testing.T) {
 				MILText:   []byte(mil.GenGQAExpand(2, 8, 64, 1)),
 			},
 		},
+		{
+			// ANE compiler rejects small dims for fused FFN kernels.
+			name: "GenFFNForwardReLU2",
+			opts: func() ane.CompileOptions {
+				w := mil.NewBlobWriter()
+				w.AddFloat16(make([]float32, 8*4))
+				w.AddFloat16(make([]float32, 4*8))
+				blob, err := w.Build()
+				if err != nil {
+					t.Fatal(err)
+				}
+				return ane.CompileOptions{
+					ModelType:  ane.ModelTypeMIL,
+					MILText:    []byte(mil.GenFFNForwardReLU2(4, 8, 1)),
+					WeightBlob: blob,
+				}
+			}(),
+			skip: true,
+		},
+		{
+			// ANE compiler rejects small dims for fused FFN kernels.
+			name: "GenFFNForwardRMSReLU2",
+			opts: func() ane.CompileOptions {
+				w := mil.NewBlobWriter()
+				w.AddFloat16(make([]float32, 4))
+				w.AddFloat16(make([]float32, 8*4))
+				w.AddFloat16(make([]float32, 4*8))
+				blob, err := w.Build()
+				if err != nil {
+					t.Fatal(err)
+				}
+				return ane.CompileOptions{
+					ModelType:  ane.ModelTypeMIL,
+					MILText:    []byte(mil.GenFFNForwardRMSReLU2(4, 8, 1)),
+					WeightBlob: blob,
+				}
+			}(),
+			skip: true,
+		},
 	}
 
 	for _, tt := range tests {

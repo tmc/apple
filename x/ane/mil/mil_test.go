@@ -91,6 +91,74 @@ func TestBuildIdentityWeightBlob(t *testing.T) {
 	}
 }
 
+func TestBuildRoPECosSinBlobsWithTheta(t *testing.T) {
+	// theta=10000 should match the default BuildRoPECosSinBlobs output.
+	cos1, sin1, err := BuildRoPECosSinBlobs(4, 8)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cos2, sin2, err := BuildRoPECosSinBlobsWithTheta(4, 8, 10000)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(cos1) != string(cos2) {
+		t.Error("cos blobs differ for theta=10000 vs default")
+	}
+	if string(sin1) != string(sin2) {
+		t.Error("sin blobs differ for theta=10000 vs default")
+	}
+
+	// theta=100000 should produce different output.
+	cos3, sin3, err := BuildRoPECosSinBlobsWithTheta(4, 8, 100000)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(cos1) == string(cos3) {
+		t.Error("cos blobs should differ for theta=100000 vs 10000")
+	}
+	if string(sin1) == string(sin3) {
+		t.Error("sin blobs should differ for theta=100000 vs 10000")
+	}
+}
+
+func TestBuildRoPECosSinBlobsWithThetaErrors(t *testing.T) {
+	if _, _, err := BuildRoPECosSinBlobsWithTheta(0, 8, 10000); err == nil {
+		t.Error("expected error for seq=0")
+	}
+	if _, _, err := BuildRoPECosSinBlobsWithTheta(4, 3, 10000); err == nil {
+		t.Error("expected error for odd headDim")
+	}
+}
+
+func TestGenFFNForwardReLU2(t *testing.T) {
+	got := GenFFNForwardReLU2(64, 128, 4)
+	for _, want := range []string{"relu(", "mul(x=r1,y=r1)", "w1.bin", "w2.bin"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("GenFFNForwardReLU2 missing %q", want)
+		}
+	}
+	// Should NOT contain W3 or silu.
+	for _, bad := range []string{"w3.bin", "sigmoid(", "silu"} {
+		if strings.Contains(got, bad) {
+			t.Errorf("GenFFNForwardReLU2 should not contain %q", bad)
+		}
+	}
+}
+
+func TestGenFFNBackwardReLU2(t *testing.T) {
+	got := GenFFNBackwardReLU2(64, 128, 4)
+	for _, want := range []string{"relu(", "val=fp16(2.0)", "w1t.bin", "w2t.bin"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("GenFFNBackwardReLU2 missing %q", want)
+		}
+	}
+	for _, bad := range []string{"w3t.bin", "sigmoid("} {
+		if strings.Contains(got, bad) {
+			t.Errorf("GenFFNBackwardReLU2 should not contain %q", bad)
+		}
+	}
+}
+
 func TestFP16RoundTrip(t *testing.T) {
 	tests := []float32{0, 1, -1, 0.5, 3.14, 65504, -65504}
 	for _, v := range tests {

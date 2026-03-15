@@ -458,6 +458,197 @@ func GenFFNForwardTaps(dim, hidden, seq int) string {
 	)
 }
 
+// GenFFNForwardReLU2 generates a fused FFN block with ReLU² activation and
+// baked W1/W2 weights. It computes W2(relu(W1(x))²).
+// Unlike the gated SiLU variant, there is no W3 (only 2 weight matrices).
+func GenFFNForwardReLU2(dim, hidden, seq int) string {
+	return fmt.Sprintf(
+		buildInfoHeader+
+			"{\n"+
+			"    func main<ios18>(tensor<fp16, [1, %d, 1, %d]> x) {\n"+
+			"        string pt = const()[name=string(\"pt\"), val=string(\"valid\")];\n"+
+			"        tensor<int32, [2]> st = const()[name=string(\"st\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        tensor<int32, [4]> pd = const()[name=string(\"pd\"), val=tensor<int32, [4]>([0,0,0,0])];\n"+
+			"        tensor<int32, [2]> dl = const()[name=string(\"dl\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        int32 gr = const()[name=string(\"gr\"), val=int32(1)];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W1 = const()[name=string(\"W1\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w1.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W2 = const()[name=string(\"W2\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w2.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> h1 = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W1,x=x)[name=string(\"c1\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> r1 = relu(x=h1)[name=string(\"r1\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> gate = mul(x=r1,y=r1)[name=string(\"gt\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> out = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W2,x=gate)[name=string(\"c2\")];\n"+
+			"    } -> (out);\n"+
+			"}\n",
+		dim, seq,
+		hidden, dim, hidden, dim,
+		dim, hidden, dim, hidden,
+		hidden, seq,
+		hidden, seq,
+		hidden, seq,
+		dim, seq,
+	)
+}
+
+// GenFFNForwardRMSReLU2 generates the full FFN block with internal RMSNorm
+// and ReLU² activation. It computes W2(relu(W1(rms_norm(x)))²).
+func GenFFNForwardRMSReLU2(dim, hidden, seq int) string {
+	invd := 1.0 / float64(dim)
+	return fmt.Sprintf(
+		buildInfoHeader+
+			"{\n"+
+			"    func main<ios18>(tensor<fp16, [1, %d, 1, %d]> x) {\n"+
+			"        tensor<fp16, [1,%d,1,%d]> sq = mul(x=x,y=x)[name=string(\"sq\")];\n"+
+			"        tensor<int32, [1]> rax = const()[name=string(\"rax\"), val=tensor<int32, [1]>([1])];\n"+
+			"        bool kd = const()[name=string(\"kd\"), val=bool(true)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> ss = reduce_sum(x=sq,axes=rax,keep_dims=kd)[name=string(\"ss\")];\n"+
+			"        fp16 invd = const()[name=string(\"invd\"), val=fp16(%f)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> ss2 = mul(x=ss,y=invd)[name=string(\"ss2\")];\n"+
+			"        fp16 eps = const()[name=string(\"eps\"), val=fp16(0.00001)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> ss3 = add(x=ss2,y=eps)[name=string(\"ss3\")];\n"+
+			"        fp16 nhalf = const()[name=string(\"nhalf\"), val=fp16(-0.5)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> rrms = pow(x=ss3,y=nhalf)[name=string(\"rrms\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> xr = mul(x=x,y=rrms)[name=string(\"xr\")];\n"+
+			"        tensor<fp16, [1,%d,1,1]> rw = const()[name=string(\"rw\"), val=tensor<fp16, [1,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/rms2.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> xn = mul(x=xr,y=rw)[name=string(\"xn\")];\n"+
+			"        string pt = const()[name=string(\"pt\"), val=string(\"valid\")];\n"+
+			"        tensor<int32, [2]> st = const()[name=string(\"st\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        tensor<int32, [4]> pd = const()[name=string(\"pd\"), val=tensor<int32, [4]>([0,0,0,0])];\n"+
+			"        tensor<int32, [2]> dl = const()[name=string(\"dl\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        int32 gr = const()[name=string(\"gr\"), val=int32(1)];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W1 = const()[name=string(\"W1\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w1.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W2 = const()[name=string(\"W2\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w2.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> h1 = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W1,x=xn)[name=string(\"c1\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> r1 = relu(x=h1)[name=string(\"r1\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> gate = mul(x=r1,y=r1)[name=string(\"gt\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> out = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W2,x=gate)[name=string(\"c2\")];\n"+
+			"    } -> (out);\n"+
+			"}\n",
+		dim, seq,
+		dim, seq,
+		seq,
+		invd,
+		seq,
+		seq,
+		seq,
+		dim, seq,
+		dim, dim,
+		dim, seq,
+		hidden, dim, hidden, dim,
+		dim, hidden, dim, hidden,
+		hidden, seq,
+		hidden, seq,
+		hidden, seq,
+		dim, seq,
+	)
+}
+
+// GenFFNForwardTapsReLU2 generates a fused ReLU² FFN block that also returns
+// the h1 intermediate. Output layout is concat(out, h1) along the channel
+// dimension.
+func GenFFNForwardTapsReLU2(dim, hidden, seq int) string {
+	invd := 1.0 / float64(dim)
+	return fmt.Sprintf(
+		buildInfoHeader+
+			"{\n"+
+			"    func main<ios18>(tensor<fp16, [1, %d, 1, %d]> x) {\n"+
+			"        tensor<fp16, [1,%d,1,%d]> sq = mul(x=x,y=x)[name=string(\"sq\")];\n"+
+			"        tensor<int32, [1]> rax = const()[name=string(\"rax\"), val=tensor<int32, [1]>([1])];\n"+
+			"        bool kd = const()[name=string(\"kd\"), val=bool(true)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> ss = reduce_sum(x=sq,axes=rax,keep_dims=kd)[name=string(\"ss\")];\n"+
+			"        fp16 invd = const()[name=string(\"invd\"), val=fp16(%f)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> ss2 = mul(x=ss,y=invd)[name=string(\"ss2\")];\n"+
+			"        fp16 eps = const()[name=string(\"eps\"), val=fp16(0.00001)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> ss3 = add(x=ss2,y=eps)[name=string(\"ss3\")];\n"+
+			"        fp16 nhalf = const()[name=string(\"nhalf\"), val=fp16(-0.5)];\n"+
+			"        tensor<fp16, [1,1,1,%d]> rrms = pow(x=ss3,y=nhalf)[name=string(\"rrms\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> xr = mul(x=x,y=rrms)[name=string(\"xr\")];\n"+
+			"        tensor<fp16, [1,%d,1,1]> rw = const()[name=string(\"rw\"), val=tensor<fp16, [1,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/rms2.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> xn = mul(x=xr,y=rw)[name=string(\"xn\")];\n"+
+			"        string pt = const()[name=string(\"pt\"), val=string(\"valid\")];\n"+
+			"        tensor<int32, [2]> st = const()[name=string(\"st\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        tensor<int32, [4]> pd = const()[name=string(\"pd\"), val=tensor<int32, [4]>([0,0,0,0])];\n"+
+			"        tensor<int32, [2]> dl = const()[name=string(\"dl\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        int32 gr = const()[name=string(\"gr\"), val=int32(1)];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W1 = const()[name=string(\"W1\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w1.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W2 = const()[name=string(\"W2\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w2.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> h1 = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W1,x=xn)[name=string(\"c1\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> r1 = relu(x=h1)[name=string(\"r1\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> gate = mul(x=r1,y=r1)[name=string(\"gt\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> out = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W2,x=gate)[name=string(\"c2\")];\n"+
+			"        int32 cax = const()[name=string(\"cax\"), val=int32(1)];\n"+
+			"        bool cid = const()[name=string(\"cid\"), val=bool(false)];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> taps = concat(axis=cax,interleave=cid,values=(out,h1))[name=string(\"cat\")];\n"+
+			"    } -> (taps);\n"+
+			"}\n",
+		dim, seq,
+		dim, seq,
+		seq,
+		invd,
+		seq,
+		seq,
+		seq,
+		dim, seq,
+		dim, dim,
+		dim, seq,
+		hidden, dim, hidden, dim,
+		dim, hidden, dim, hidden,
+		hidden, seq,
+		hidden, seq,
+		hidden, seq,
+		dim, seq,
+		dim+hidden, seq,
+	)
+}
+
+// GenFFNBackwardReLU2 generates the backward half of the fused ReLU² FFN block.
+// Input layout is concat(dffn, h1); output is concat(dx, dh1).
+// The ReLU² derivative is 2*max(0, h1).
+func GenFFNBackwardReLU2(dim, hidden, seq int) string {
+	return fmt.Sprintf(
+		buildInfoHeader+
+			"{\n"+
+			"    func main<ios18>(tensor<fp16, [1, %d, 1, %d]> x) {\n"+
+			"        string pt = const()[name=string(\"pt\"), val=string(\"valid\")];\n"+
+			"        tensor<int32, [2]> st = const()[name=string(\"st\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        tensor<int32, [4]> pd = const()[name=string(\"pd\"), val=tensor<int32, [4]>([0,0,0,0])];\n"+
+			"        tensor<int32, [2]> dl = const()[name=string(\"dl\"), val=tensor<int32, [2]>([1,1])];\n"+
+			"        int32 gr = const()[name=string(\"gr\"), val=int32(1)];\n"+
+			"        tensor<int32, [4]> bd = const()[name=string(\"bd\"), val=tensor<int32, [4]>([0,0,0,0])];\n"+
+			"        tensor<int32, [4]> sd = const()[name=string(\"sd\"), val=tensor<int32, [4]>([1,%d,1,%d])];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> dffn = slice_by_size(x=x,begin=bd,size=sd)[name=string(\"s0\")];\n"+
+			"        tensor<int32, [4]> b1 = const()[name=string(\"b1\"), val=tensor<int32, [4]>([0,%d,0,0])];\n"+
+			"        tensor<int32, [4]> s1 = const()[name=string(\"s1\"), val=tensor<int32, [4]>([1,%d,1,%d])];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> h1 = slice_by_size(x=x,begin=b1,size=s1)[name=string(\"s1x\")];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W2t = const()[name=string(\"W2t\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w2t.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> dgate = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W2t,x=dffn)[name=string(\"cw2\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> r1 = relu(x=h1)[name=string(\"r1\")];\n"+
+			"        fp16 two = const()[name=string(\"two\"), val=fp16(2.0)];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> dr = mul(x=r1,y=two)[name=string(\"dr\")];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> dh1 = mul(x=dgate,y=dr)[name=string(\"dh1\")];\n"+
+			"        tensor<fp16, [%d,%d,1,1]> W1t = const()[name=string(\"W1t\"), val=tensor<fp16, [%d,%d,1,1]>(BLOBFILE(path=string(\"@model_path/weights/w1t.bin\"), offset=uint64(64)))];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> dx = conv(dilations=dl,groups=gr,pad=pd,pad_type=pt,strides=st,weight=W1t,x=dh1)[name=string(\"cw1\")];\n"+
+			"        int32 cax = const()[name=string(\"cax\"), val=int32(1)];\n"+
+			"        bool cid = const()[name=string(\"cid\"), val=bool(false)];\n"+
+			"        tensor<fp16, [1,%d,1,%d]> out = concat(axis=cax,interleave=cid,values=(dx,dh1))[name=string(\"cat\")];\n"+
+			"    } -> (out);\n"+
+			"}\n",
+		dim+hidden, seq,
+		dim, seq,
+		dim, seq,
+		dim,
+		hidden, seq,
+		hidden, seq,
+		hidden, dim, hidden, dim,
+		hidden, seq,
+		hidden, seq,
+		hidden, seq,
+		hidden, seq,
+		dim, hidden, dim, hidden,
+		dim, seq,
+		dim+hidden, seq,
+	)
+}
+
 // GenFFNBackward generates the backward half of the fused FFN block.
 // Input layout is concat(dffn, h1, h3); output layout is concat(dx, dh1, dh3).
 func GenFFNBackward(dim, hidden, seq int) string {
@@ -558,9 +749,18 @@ func BuildCausalMaskBlob(seq int) ([]byte, error) {
 	return BuildFP16Blob(mask)
 }
 
-// BuildRoPECosSinBlobs builds fp16 cosine/sine tables for RoPE.
+// BuildRoPECosSinBlobs builds fp16 cosine/sine tables for RoPE with the
+// standard base frequency theta=10000.
 // Each output has shape [1,1,seq,headDim], flattened row-major.
 func BuildRoPECosSinBlobs(seq, headDim int) ([]byte, []byte, error) {
+	return BuildRoPECosSinBlobsWithTheta(seq, headDim, 10000)
+}
+
+// BuildRoPECosSinBlobsWithTheta builds fp16 cosine/sine tables for RoPE
+// with a configurable base frequency theta.
+// Common values: 10000 (original), 100000 (nanochat), 500000 (Llama3).
+// Each output has shape [1,1,seq,headDim], flattened row-major.
+func BuildRoPECosSinBlobsWithTheta(seq, headDim int, theta float64) ([]byte, []byte, error) {
 	if seq <= 0 {
 		return nil, nil, fmt.Errorf("seq=%d must be > 0", seq)
 	}
@@ -573,7 +773,7 @@ func BuildRoPECosSinBlobs(seq, headDim int) ([]byte, []byte, error) {
 	for pos := 0; pos < seq; pos++ {
 		row := pos * headDim
 		for i := 0; i < half; i++ {
-			freq := float64(pos) / math.Pow(10000, float64(2*i)/float64(headDim))
+			freq := float64(pos) / math.Pow(theta, float64(2*i)/float64(headDim))
 			c := float32(math.Cos(freq))
 			s := float32(math.Sin(freq))
 			even := row + 2*i
