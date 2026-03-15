@@ -44,6 +44,7 @@ func Compile(CompileOptions) (*Kernel, error) { return nil, fmt.Errorf("ane mode
 func CompileWithStats(CompileOptions) (*Kernel, CompileStats, error) {
 	return nil, CompileStats{}, fmt.Errorf("ane model requires darwin")
 }
+func (k *Kernel) Model() *xane.Model  { return nil }
 func (k *Kernel) InputBytes(int) int  { return 0 }
 func (k *Kernel) NumInputs() int      { return 0 }
 func (k *Kernel) OutputBytes(int) int { return 0 }

@@ -233,10 +233,14 @@ func (k *Kernel) OutputLayout(i int) xane.TensorLayout {
 }
 
 // Model returns the underlying ANE model for use with advanced APIs
-// such as RequestPool.
+// such as RequestPool. For shared MIL kernels, returns the shared
+// program's owner model.
 func (k *Kernel) Model() *xane.Model {
 	if k == nil {
 		return nil
+	}
+	if k.shared != nil {
+		return k.shared.program.owner
 	}
 	return k.k
 }
@@ -535,15 +539,27 @@ func (k *Kernel) Diagnostics() xanetelemetry.Diagnostics {
 }
 
 func (k *Kernel) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg xane.SharedEventEvalOptions) error {
-	if k == nil || k.k == nil || k.shared != nil || k.closed() {
+	if k == nil || k.closed() {
 		return fmt.Errorf("eval with signal event: kernel is closed")
+	}
+	if k.shared != nil {
+		return fmt.Errorf("eval with signal event: shared MIL kernels do not support shared events (requires package-backed model)")
+	}
+	if k.k == nil {
+		return fmt.Errorf("eval with signal event: no underlying model")
 	}
 	return k.k.EvalWithSignalEvent(signalPort, signalValue, cfg)
 }
 
 func (k *Kernel) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort uint32, signalValue uint64, cfg xane.SharedEventEvalOptions) error {
-	if k == nil || k.k == nil || k.shared != nil || k.closed() {
+	if k == nil || k.closed() {
 		return fmt.Errorf("eval bidirectional: kernel is closed")
+	}
+	if k.shared != nil {
+		return fmt.Errorf("eval bidirectional: shared MIL kernels do not support shared events (requires package-backed model)")
+	}
+	if k.k == nil {
+		return fmt.Errorf("eval bidirectional: no underlying model")
 	}
 	return k.k.EvalBidirectional(waitPort, waitValue, signalPort, signalValue, cfg)
 }
