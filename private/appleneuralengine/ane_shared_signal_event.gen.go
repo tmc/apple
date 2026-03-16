@@ -36,12 +36,6 @@ func (ac ANESharedSignalEventClass) Alloc() ANESharedSignalEvent {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -67,10 +61,6 @@ func ANESharedSignalEventFromID(id objc.ID) ANESharedSignalEvent {
 }
 // Ensure ANESharedSignalEvent implements IANESharedSignalEvent.
 var _ IANESharedSignalEvent = ANESharedSignalEvent{}
-
-
-
-
 
 // An interface definition for the [ANESharedSignalEvent] class.
 //
@@ -107,10 +97,6 @@ type IANESharedSignalEvent interface {
 	InitWithValueSymbolIndexEventTypeSharedEventAgentMask(value uint64, index uint32, type_ int64, event objectivec.IObject, mask uint64) ANESharedSignalEvent
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANESharedSignalEvent) Init() ANESharedSignalEvent {
 	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("init"))
@@ -130,11 +116,6 @@ func NewANESharedSignalEvent() ANESharedSignalEvent {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/initWithCoder:
 func NewANESharedSignalEventWithCoder(coder objectivec.IObject) ANESharedSignalEvent {
@@ -143,7 +124,6 @@ func NewANESharedSignalEventWithCoder(coder objectivec.IObject) ANESharedSignalE
 	return ANESharedSignalEventFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/initWithValue:symbolIndex:eventType:sharedEvent:agentMask:
 func NewANESharedSignalEventWithValueSymbolIndexEventTypeSharedEventAgentMask(value uint64, index uint32, type_ int64, event objectivec.IObject, mask uint64) ANESharedSignalEvent {
@@ -151,12 +131,6 @@ func NewANESharedSignalEventWithValueSymbolIndexEventTypeSharedEventAgentMask(va
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValue:symbolIndex:eventType:sharedEvent:agentMask:"), value, index, type_, event, mask)
 	return ANESharedSignalEventFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/encodeWithCoder:
@@ -184,10 +158,6 @@ func (a ANESharedSignalEvent) InitWithValueSymbolIndexEventTypeSharedEventAgentM
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/signalEventWithValue:symbolIndex:eventType:sharedEvent:
 func (_ANESharedSignalEventClass ANESharedSignalEventClass) SignalEventWithValueSymbolIndexEventTypeSharedEvent(value uint64, index uint32, type_ int64, event objectivec.IObject) objectivec.IObject {
@@ -201,13 +171,6 @@ func (_ANESharedSignalEventClass ANESharedSignalEventClass) SupportsSecureCoding
 	return rv
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/agentMask
 func (a ANESharedSignalEvent) AgentMask() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("agentMask"))
@@ -217,15 +180,11 @@ func (a ANESharedSignalEvent) SetAgentMask(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAgentMask:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/eventType
 func (a ANESharedSignalEvent) EventType() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("eventType"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/sharedEvent
 func (a ANESharedSignalEvent) SharedEvent() objectivec.IObject {
@@ -233,15 +192,11 @@ func (a ANESharedSignalEvent) SharedEvent() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/symbolIndex
 func (a ANESharedSignalEvent) SymbolIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("symbolIndex"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/value
 func (a ANESharedSignalEvent) Value() uint64 {
@@ -251,20 +206,4 @@ func (a ANESharedSignalEvent) Value() uint64 {
 func (a ANESharedSignalEvent) SetValue(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setValue:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

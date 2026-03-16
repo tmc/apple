@@ -37,12 +37,6 @@ func (ec EspressoProfilingLayerInfoClass) Alloc() EspressoProfilingLayerInfo {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -71,10 +65,6 @@ func EspressoProfilingLayerInfoFromID(id objc.ID) EspressoProfilingLayerInfo {
 }
 // Ensure EspressoProfilingLayerInfo implements IEspressoProfilingLayerInfo.
 var _ IEspressoProfilingLayerInfo = EspressoProfilingLayerInfo{}
-
-
-
-
 
 // An interface definition for the [EspressoProfilingLayerInfo] class.
 //
@@ -117,10 +107,6 @@ type IEspressoProfilingLayerInfo interface {
 	SetSelected_runtime_engine(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoProfilingLayerInfo) Init() EspressoProfilingLayerInfo {
 	rv := objc.Send[EspressoProfilingLayerInfo](e.ID, objc.Sel("init"))
@@ -140,26 +126,6 @@ func NewEspressoProfilingLayerInfo() EspressoProfilingLayerInfo {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/average_runtime
 func (e EspressoProfilingLayerInfo) Average_runtime() float64 {
 	rv := objc.Send[float64](e.ID, objc.Sel("average_runtime"))
@@ -168,8 +134,6 @@ func (e EspressoProfilingLayerInfo) Average_runtime() float64 {
 func (e EspressoProfilingLayerInfo) SetAverage_runtime(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAverage_runtime:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/debug_name
 func (e EspressoProfilingLayerInfo) Debug_name() string {
@@ -180,8 +144,6 @@ func (e EspressoProfilingLayerInfo) SetDebug_name(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDebug_name:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/main_engine_support
 func (e EspressoProfilingLayerInfo) Main_engine_support() IEspressoProfilingLayerSupportInfo {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("main_engine_support"))
@@ -190,8 +152,6 @@ func (e EspressoProfilingLayerInfo) Main_engine_support() IEspressoProfilingLaye
 func (e EspressoProfilingLayerInfo) SetMain_engine_support(value IEspressoProfilingLayerSupportInfo) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMain_engine_support:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/name
 func (e EspressoProfilingLayerInfo) Name() string {
@@ -202,8 +162,6 @@ func (e EspressoProfilingLayerInfo) SetName(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setName:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/per_platform_support
 func (e EspressoProfilingLayerInfo) Per_platform_support() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("per_platform_support"))
@@ -212,8 +170,6 @@ func (e EspressoProfilingLayerInfo) Per_platform_support() foundation.INSDiction
 func (e EspressoProfilingLayerInfo) SetPer_platform_support(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setPer_platform_support:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/runtimes
 func (e EspressoProfilingLayerInfo) Runtimes() foundation.INSArray {
@@ -224,8 +180,6 @@ func (e EspressoProfilingLayerInfo) SetRuntimes(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRuntimes:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerInfo/selected_runtime_engine
 func (e EspressoProfilingLayerInfo) Selected_runtime_engine() int {
 	rv := objc.Send[int](e.ID, objc.Sel("selected_runtime_engine"))
@@ -234,20 +188,4 @@ func (e EspressoProfilingLayerInfo) Selected_runtime_engine() int {
 func (e EspressoProfilingLayerInfo) SetSelected_runtime_engine(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSelected_runtime_engine:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

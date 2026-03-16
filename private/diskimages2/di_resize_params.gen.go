@@ -38,12 +38,6 @@ func (dc DIResizeParamsClass) Alloc() DIResizeParams {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -64,10 +58,6 @@ func DIResizeParamsFromID(id objc.ID) DIResizeParams {
 }
 // Ensure DIResizeParams implements IDIResizeParams.
 var _ IDIResizeParams = DIResizeParams{}
-
-
-
-
 
 // An interface definition for the [DIResizeParams] class.
 //
@@ -94,10 +84,6 @@ type IDIResizeParams interface {
 	InitWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d DIResizeParams) Init() DIResizeParams {
 	rv := objc.Send[DIResizeParams](d.ID, objc.Sel("init"))
@@ -117,11 +103,6 @@ func NewDIResizeParams() DIResizeParams {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithExistingParams:size:error:
 func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {
@@ -134,7 +115,6 @@ func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size u
 	}
 	return DIResizeParamsFromID(rv), nil
 }
-
 
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithURL:size:error:
@@ -149,16 +129,10 @@ func NewDIResizeParamsWithURLSizeError(url foundation.INSURL, size uint64) (DIRe
 	return DIResizeParamsFromID(rv), nil
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/resizeWithError:
 func (d DIResizeParams) ResizeWithError() (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("resizeWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -174,7 +148,7 @@ func (d DIResizeParams) ResizeWithError() (bool, error) {
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/openExistingImageWithError:
 func (d DIResizeParams) OpenExistingImageWithError() (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("openExistingImageWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -190,7 +164,7 @@ func (d DIResizeParams) OpenExistingImageWithError() (bool, error) {
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithURL:size:error:
 func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:size:error:"), url, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -203,7 +177,7 @@ func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64)
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithExistingParams:size:error:
 func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithExistingParams:size:error:"), params, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -213,22 +187,11 @@ func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, 
 
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/supportsSecureCoding
 func (_DIResizeParamsClass DIResizeParamsClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_DIResizeParamsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/size
 func (d DIResizeParams) Size() uint64 {
@@ -238,23 +201,4 @@ func (d DIResizeParams) Size() uint64 {
 func (d DIResizeParams) SetSize(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSize:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

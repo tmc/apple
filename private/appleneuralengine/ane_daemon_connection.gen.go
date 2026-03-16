@@ -38,12 +38,6 @@ func (ac ANEDaemonConnectionClass) Alloc() ANEDaemonConnection {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -74,10 +68,6 @@ func ANEDaemonConnectionFromID(id objc.ID) ANEDaemonConnection {
 }
 // Ensure ANEDaemonConnection implements IANEDaemonConnection.
 var _ IANEDaemonConnection = ANEDaemonConnection{}
-
-
-
-
 
 // An interface definition for the [ANEDaemonConnection] class.
 //
@@ -124,10 +114,6 @@ type IANEDaemonConnection interface {
 	InitWithMachServiceNameRestricted(name objectivec.IObject, restricted bool) ANEDaemonConnection
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEDaemonConnection) Init() ANEDaemonConnection {
 	rv := objc.Send[ANEDaemonConnection](a.ID, objc.Sel("init"))
@@ -147,11 +133,6 @@ func NewANEDaemonConnection() ANEDaemonConnection {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/initWithMachServiceName:restricted:
 func NewANEDaemonConnectionWithMachServiceNameRestricted(name objectivec.IObject, restricted bool) ANEDaemonConnection {
@@ -160,98 +141,92 @@ func NewANEDaemonConnectionWithMachServiceNameRestricted(name objectivec.IObject
 	return ANEDaemonConnectionFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/beginRealTimeTaskWithReply:
 func (a ANEDaemonConnection) BeginRealTimeTaskWithReply(reply VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(reply)
+_block0, _cleanup0 := NewVoidBlock(reply)
 	defer _cleanup0()
-		objc.Send[objc.ID](a.ID, objc.Sel("beginRealTimeTaskWithReply:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("beginRealTimeTaskWithReply:"), _block0)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/compileModel:sandboxExtension:options:qos:withReply:
 func (a ANEDaemonConnection) CompileModelSandboxExtensionOptionsQosWithReply(model objectivec.IObject, extension objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler) {
-		_block4, _cleanup4 := NewVoidBlock(reply)
+_block4, _cleanup4 := NewVoidBlock(reply)
 	defer _cleanup4()
-		objc.Send[objc.ID](a.ID, objc.Sel("compileModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
+	objc.Send[objc.ID](a.ID, objc.Sel("compileModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/compiledModelExistsFor:withReply:
 func (a ANEDaemonConnection) CompiledModelExistsForWithReply(for_ objectivec.IObject, reply VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(reply)
+_block1, _cleanup1 := NewVoidBlock(reply)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("compiledModelExistsFor:withReply:"), for_, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("compiledModelExistsFor:withReply:"), for_, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/compiledModelExistsMatchingHash:withReply:
 func (a ANEDaemonConnection) CompiledModelExistsMatchingHashWithReply(hash objectivec.IObject, reply VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(reply)
+_block1, _cleanup1 := NewVoidBlock(reply)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("compiledModelExistsMatchingHash:withReply:"), hash, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("compiledModelExistsMatchingHash:withReply:"), hash, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/echo:withReply:
 func (a ANEDaemonConnection) EchoWithReply(echo objectivec.IObject, reply VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(reply)
+_block1, _cleanup1 := NewVoidBlock(reply)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("echo:withReply:"), echo, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("echo:withReply:"), echo, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/endRealTimeTaskWithReply:
 func (a ANEDaemonConnection) EndRealTimeTaskWithReply(reply VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(reply)
+_block0, _cleanup0 := NewVoidBlock(reply)
 	defer _cleanup0()
-		objc.Send[objc.ID](a.ID, objc.Sel("endRealTimeTaskWithReply:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("endRealTimeTaskWithReply:"), _block0)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/loadModel:sandboxExtension:options:qos:withReply:
 func (a ANEDaemonConnection) LoadModelSandboxExtensionOptionsQosWithReply(model objectivec.IObject, extension objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler) {
-		_block4, _cleanup4 := NewVoidBlock(reply)
+_block4, _cleanup4 := NewVoidBlock(reply)
 	defer _cleanup4()
-		objc.Send[objc.ID](a.ID, objc.Sel("loadModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadModel:sandboxExtension:options:qos:withReply:"), model, extension, options, qos, _block4)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/loadModelNewInstance:options:modelInstParams:qos:withReply:
 func (a ANEDaemonConnection) LoadModelNewInstanceOptionsModelInstParamsQosWithReply(instance objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32, reply VoidHandler) {
-		_block4, _cleanup4 := NewVoidBlock(reply)
+_block4, _cleanup4 := NewVoidBlock(reply)
 	defer _cleanup4()
-		objc.Send[objc.ID](a.ID, objc.Sel("loadModelNewInstance:options:modelInstParams:qos:withReply:"), instance, options, params, qos, _block4)
+	objc.Send[objc.ID](a.ID, objc.Sel("loadModelNewInstance:options:modelInstParams:qos:withReply:"), instance, options, params, qos, _block4)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/prepareChainingWithModel:options:chainingReq:qos:withReply:
 func (a ANEDaemonConnection) PrepareChainingWithModelOptionsChainingReqQosWithReply(model objectivec.IObject, options objectivec.IObject, req objectivec.IObject, qos uint32, reply VoidHandler) {
-		_block4, _cleanup4 := NewVoidBlock(reply)
+_block4, _cleanup4 := NewVoidBlock(reply)
 	defer _cleanup4()
-		objc.Send[objc.ID](a.ID, objc.Sel("prepareChainingWithModel:options:chainingReq:qos:withReply:"), model, options, req, qos, _block4)
+	objc.Send[objc.ID](a.ID, objc.Sel("prepareChainingWithModel:options:chainingReq:qos:withReply:"), model, options, req, qos, _block4)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/purgeCompiledModel:withReply:
 func (a ANEDaemonConnection) PurgeCompiledModelWithReply(model objectivec.IObject, reply VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(reply)
+_block1, _cleanup1 := NewVoidBlock(reply)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel:withReply:"), model, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel:withReply:"), model, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/purgeCompiledModelMatchingHash:withReply:
 func (a ANEDaemonConnection) PurgeCompiledModelMatchingHashWithReply(hash objectivec.IObject, reply VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(reply)
+_block1, _cleanup1 := NewVoidBlock(reply)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:withReply:"), hash, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:withReply:"), hash, _block1)
 }
 
 //
@@ -263,9 +238,9 @@ func (a ANEDaemonConnection) ReportTelemetryToPPSPlayload(pps objectivec.IObject
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/unloadModel:options:qos:withReply:
 func (a ANEDaemonConnection) UnloadModelOptionsQosWithReply(model objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler) {
-		_block3, _cleanup3 := NewVoidBlock(reply)
+_block3, _cleanup3 := NewVoidBlock(reply)
 	defer _cleanup3()
-		objc.Send[objc.ID](a.ID, objc.Sel("unloadModel:options:qos:withReply:"), model, options, qos, _block3)
+	objc.Send[objc.ID](a.ID, objc.Sel("unloadModel:options:qos:withReply:"), model, options, qos, _block3)
 }
 
 //
@@ -274,10 +249,6 @@ func (a ANEDaemonConnection) InitWithMachServiceNameRestricted(name objectivec.I
 	rv := objc.Send[ANEDaemonConnection](a.ID, objc.Sel("initWithMachServiceName:restricted:"), name, restricted)
 	return rv
 }
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/daemonConnectionRestricted
 func (_ANEDaemonConnectionClass ANEDaemonConnectionClass) DaemonConnectionRestricted() objectivec.IObject {
@@ -291,37 +262,17 @@ func (_ANEDaemonConnectionClass ANEDaemonConnectionClass) UserDaemonConnection()
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/daemonConnection
 func (a ANEDaemonConnection) DaemonConnection() foundation.NSXPCConnection {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("daemonConnection"))
 	return foundation.NSXPCConnectionFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDaemonConnection/restricted
 func (a ANEDaemonConnection) Restricted() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("restricted"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // BeginRealTimeTaskWithReplySync is a synchronous wrapper around [ANEDaemonConnection.BeginRealTimeTaskWithReply].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -502,9 +453,4 @@ func (a ANEDaemonConnection) UnloadModelOptionsQosWithReplySync(ctx context.Cont
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

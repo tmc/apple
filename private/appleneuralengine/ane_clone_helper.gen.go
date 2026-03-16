@@ -36,12 +36,6 @@ func (ac ANECloneHelperClass) Alloc() ANECloneHelper {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECloneHelper
 type ANECloneHelper struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANECloneHelperFromID(id objc.ID) ANECloneHelper {
 // Ensure ANECloneHelper implements IANECloneHelper.
 var _ IANECloneHelper = ANECloneHelper{}
 
-
-
-
-
 // An interface definition for the [ANECloneHelper] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECloneHelper
 type IANECloneHelper interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANECloneHelper) Init() ANECloneHelper {
@@ -88,19 +74,6 @@ func NewANECloneHelper() ANECloneHelper {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECloneHelper/cloneIfWritable:isEncryptedModel:cloneDirectory:
 func (_ANECloneHelperClass ANECloneHelperClass) CloneIfWritableIsEncryptedModelCloneDirectory(writable objectivec.IObject, model bool, directory objectivec.IObject) objectivec.IObject {
@@ -114,25 +87,4 @@ func (_ANECloneHelperClass ANECloneHelperClass) ShouldSkipCloneForIsEncryptedMod
 	rv := objc.Send[bool](objc.ID(_ANECloneHelperClass.class), objc.Sel("shouldSkipCloneFor:isEncryptedModel:"), for_, model)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

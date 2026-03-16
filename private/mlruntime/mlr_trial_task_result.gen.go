@@ -39,12 +39,6 @@ func (mc MLRTrialTaskResultClass) Alloc() MLRTrialTaskResult {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -62,10 +56,6 @@ func MLRTrialTaskResultFromID(id objc.ID) MLRTrialTaskResult {
 }
 // Ensure MLRTrialTaskResult implements IMLRTrialTaskResult.
 var _ IMLRTrialTaskResult = MLRTrialTaskResult{}
-
-
-
-
 
 // An interface definition for the [MLRTrialTaskResult] class.
 //
@@ -86,10 +76,6 @@ type IMLRTrialTaskResult interface {
 	InitWithJSONResult(jSONResult objectivec.IObject) MLRTrialTaskResult
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRTrialTaskResult) Init() MLRTrialTaskResult {
 	rv := objc.Send[MLRTrialTaskResult](r.ID, objc.Sel("init"))
@@ -109,11 +95,6 @@ func NewMLRTrialTaskResult() MLRTrialTaskResult {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTaskResult/initWithJSONResult:
 func NewRTrialTaskResultWithJSONResult(jSONResult objectivec.IObject) MLRTrialTaskResult {
@@ -122,16 +103,10 @@ func NewRTrialTaskResultWithJSONResult(jSONResult objectivec.IObject) MLRTrialTa
 	return MLRTrialTaskResultFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTaskResult/submitForTask:error:
 func (r MLRTrialTaskResult) SubmitForTaskError(task objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](r.ID, objc.Sel("submitForTask:error:"), task, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -151,39 +126,9 @@ func (r MLRTrialTaskResult) InitWithJSONResult(jSONResult objectivec.IObject) ML
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTaskResult/JSONResult
 func (r MLRTrialTaskResult) JSONResult() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("JSONResult"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

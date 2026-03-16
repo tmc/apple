@@ -37,12 +37,6 @@ func (ac ANECompilerAnalyticsClass) Alloc() ANECompilerAnalytics {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -73,10 +67,6 @@ func ANECompilerAnalyticsFromID(id objc.ID) ANECompilerAnalytics {
 }
 // Ensure ANECompilerAnalytics implements IANECompilerAnalytics.
 var _ IANECompilerAnalytics = ANECompilerAnalytics{}
-
-
-
-
 
 // An interface definition for the [ANECompilerAnalytics] class.
 //
@@ -123,10 +113,6 @@ type IANECompilerAnalytics interface {
 	InitWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANECompilerAnalytics) Init() ANECompilerAnalytics {
 	rv := objc.Send[ANECompilerAnalytics](a.ID, objc.Sel("init"))
@@ -146,11 +132,6 @@ func NewANECompilerAnalytics() ANECompilerAnalytics {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/initWithBuffer:
 func NewANECompilerAnalyticsWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics {
@@ -158,12 +139,6 @@ func NewANECompilerAnalyticsWithBuffer(buffer objectivec.IObject) ANECompilerAna
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBuffer:"), buffer)
 	return ANECompilerAnalyticsFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/dataInfoAt:
@@ -247,10 +222,6 @@ func (a ANECompilerAnalytics) InitWithBuffer(buffer objectivec.IObject) ANECompi
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/objectWithBuffer:
 func (_ANECompilerAnalyticsClass ANECompilerAnalyticsClass) ObjectWithBuffer(buffer objectivec.IObject) objectivec.IObject {
@@ -258,28 +229,17 @@ func (_ANECompilerAnalyticsClass ANECompilerAnalyticsClass) ObjectWithBuffer(buf
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/analyticsBuffer
 func (a ANECompilerAnalytics) AnalyticsBuffer() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("analyticsBuffer"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/bufferSizeInBytes
 func (a ANECompilerAnalytics) BufferSizeInBytes() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("bufferSizeInBytes"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/procedureAnalytics
 func (a ANECompilerAnalytics) ProcedureAnalytics() foundation.INSArray {
@@ -289,20 +249,4 @@ func (a ANECompilerAnalytics) ProcedureAnalytics() foundation.INSArray {
 func (a ANECompilerAnalytics) SetProcedureAnalytics(value foundation.INSArray) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProcedureAnalytics:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (ec EspressoPass_wavernn_aneClass) Alloc() EspressoPass_wavernn_ane {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_wavernn_ane
 type EspressoPass_wavernn_ane struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_wavernn_aneFromID(id objc.ID) EspressoPass_wavernn_ane {
 // Ensure EspressoPass_wavernn_ane implements IEspressoPass_wavernn_ane.
 var _ IEspressoPass_wavernn_ane = EspressoPass_wavernn_ane{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_wavernn_ane] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_wavernn_ane
 type IEspressoPass_wavernn_ane interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_wavernn_ane) Init() EspressoPass_wavernn_ane {
@@ -86,38 +72,4 @@ func NewEspressoPass_wavernn_ane() EspressoPass_wavernn_ane {
 	rv := objc.Send[EspressoPass_wavernn_ane](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

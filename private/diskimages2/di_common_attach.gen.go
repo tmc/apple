@@ -39,12 +39,6 @@ func (dc DICommonAttachClass) Alloc() DICommonAttach {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach
 type DICommonAttach struct {
 	objectivec.Object
@@ -57,20 +51,12 @@ func DICommonAttachFromID(id objc.ID) DICommonAttach {
 // Ensure DICommonAttach implements IDICommonAttach.
 var _ IDICommonAttach = DICommonAttach{}
 
-
-
-
-
 // An interface definition for the [DICommonAttach] class.
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach
 type IDICommonAttach interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d DICommonAttach) Init() DICommonAttach {
@@ -91,23 +77,10 @@ func NewDICommonAttach() DICommonAttach {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/diskImageAttach:readOnly:autoMount:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMountBSDNameError(url foundation.INSURL, readOnly bool, autoMount bool, bsdName string) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("diskImageAttach:readOnly:autoMount:BSDName:error:"), url, readOnly, autoMount, objc.String(bsdName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -123,7 +96,7 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMount
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/diskImageAttach:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url foundation.INSURL, bsdName string) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("diskImageAttach:BSDName:error:"), url, objc.String(bsdName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -139,7 +112,7 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url 
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/defaultDiskImageAttach:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameError(url foundation.INSURL, bsdName string) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("defaultDiskImageAttach:BSDName:error:"), url, objc.String(bsdName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -151,25 +124,4 @@ func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameErr
 	return rv, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (ec EspressoPass_squeeze_devopClass) Alloc() EspressoPass_squeeze_devop {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_squeeze_devop
 type EspressoPass_squeeze_devop struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_squeeze_devopFromID(id objc.ID) EspressoPass_squeeze_devop {
 // Ensure EspressoPass_squeeze_devop implements IEspressoPass_squeeze_devop.
 var _ IEspressoPass_squeeze_devop = EspressoPass_squeeze_devop{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_squeeze_devop] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_squeeze_devop
 type IEspressoPass_squeeze_devop interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_squeeze_devop) Init() EspressoPass_squeeze_devop {
@@ -86,38 +72,4 @@ func NewEspressoPass_squeeze_devop() EspressoPass_squeeze_devop {
 	rv := objc.Send[EspressoPass_squeeze_devop](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

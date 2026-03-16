@@ -35,12 +35,6 @@ func (ec EspressoPass_merge_tf_layernormClass) Alloc() EspressoPass_merge_tf_lay
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_layernorm
 type EspressoPass_merge_tf_layernorm struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_merge_tf_layernormFromID(id objc.ID) EspressoPass_merge_tf_lay
 // Ensure EspressoPass_merge_tf_layernorm implements IEspressoPass_merge_tf_layernorm.
 var _ IEspressoPass_merge_tf_layernorm = EspressoPass_merge_tf_layernorm{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_merge_tf_layernorm] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_layernorm
 type IEspressoPass_merge_tf_layernorm interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_merge_tf_layernorm) Init() EspressoPass_merge_tf_layernorm {
@@ -86,38 +72,4 @@ func NewEspressoPass_merge_tf_layernorm() EspressoPass_merge_tf_layernorm {
 	rv := objc.Send[EspressoPass_merge_tf_layernorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

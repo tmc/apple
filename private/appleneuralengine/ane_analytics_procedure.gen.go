@@ -37,12 +37,6 @@ func (ac ANEAnalyticsProcedureClass) Alloc() ANEAnalyticsProcedure {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -62,10 +56,6 @@ func ANEAnalyticsProcedureFromID(id objc.ID) ANEAnalyticsProcedure {
 }
 // Ensure ANEAnalyticsProcedure implements IANEAnalyticsProcedure.
 var _ IANEAnalyticsProcedure = ANEAnalyticsProcedure{}
-
-
-
-
 
 // An interface definition for the [ANEAnalyticsProcedure] class.
 //
@@ -90,10 +80,6 @@ type IANEAnalyticsProcedure interface {
 	InitWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEAnalyticsProcedure) Init() ANEAnalyticsProcedure {
 	rv := objc.Send[ANEAnalyticsProcedure](a.ID, objc.Sel("init"))
@@ -113,11 +99,6 @@ func NewANEAnalyticsProcedure() ANEAnalyticsProcedure {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/initWithGroups:procedureMetrics:indentifier:
 func NewANEAnalyticsProcedureWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure {
@@ -125,12 +106,6 @@ func NewANEAnalyticsProcedureWithGroupsProcedureMetricsIndentifier(groups object
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithGroups:procedureMetrics:indentifier:"), groups, metrics, indentifier)
 	return ANEAnalyticsProcedureFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/serialize
 func (a ANEAnalyticsProcedure) Serialize() objectivec.IObject {
@@ -145,10 +120,6 @@ func (a ANEAnalyticsProcedure) InitWithGroupsProcedureMetricsIndentifier(groups 
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/objectWithGroups:procedureMetrics:indentifier:
 func (_ANEAnalyticsProcedureClass ANEAnalyticsProcedureClass) ObjectWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) objectivec.IObject {
@@ -156,20 +127,11 @@ func (_ANEAnalyticsProcedureClass ANEAnalyticsProcedureClass) ObjectWithGroupsPr
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/groupInfo
 func (a ANEAnalyticsProcedure) GroupInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/identifier
 func (a ANEAnalyticsProcedure) Identifier() string {
@@ -177,27 +139,9 @@ func (a ANEAnalyticsProcedure) Identifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/procedureMetrics
 func (a ANEAnalyticsProcedure) ProcedureMetrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureMetrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

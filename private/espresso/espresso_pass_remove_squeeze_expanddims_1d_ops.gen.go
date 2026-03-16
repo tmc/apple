@@ -35,12 +35,6 @@ func (ec EspressoPass_remove_squeeze_expanddims_1d_opsClass) Alloc() EspressoPas
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze_expanddims_1d_ops
 type EspressoPass_remove_squeeze_expanddims_1d_ops struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_remove_squeeze_expanddims_1d_opsFromID(id objc.ID) EspressoPas
 // Ensure EspressoPass_remove_squeeze_expanddims_1d_ops implements IEspressoPass_remove_squeeze_expanddims_1d_ops.
 var _ IEspressoPass_remove_squeeze_expanddims_1d_ops = EspressoPass_remove_squeeze_expanddims_1d_ops{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_remove_squeeze_expanddims_1d_ops] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze_expanddims_1d_ops
 type IEspressoPass_remove_squeeze_expanddims_1d_ops interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_remove_squeeze_expanddims_1d_ops) Init() EspressoPass_remove_squeeze_expanddims_1d_ops {
@@ -86,38 +72,4 @@ func NewEspressoPass_remove_squeeze_expanddims_1d_ops() EspressoPass_remove_sque
 	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

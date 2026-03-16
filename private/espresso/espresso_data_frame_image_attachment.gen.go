@@ -37,12 +37,6 @@ func (ec EspressoDataFrameImageAttachmentClass) Alloc() EspressoDataFrameImageAt
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func EspressoDataFrameImageAttachmentFromID(id objc.ID) EspressoDataFrameImageAt
 }
 // Ensure EspressoDataFrameImageAttachment implements IEspressoDataFrameImageAttachment.
 var _ IEspressoDataFrameImageAttachment = EspressoDataFrameImageAttachment{}
-
-
-
-
 
 // An interface definition for the [EspressoDataFrameImageAttachment] class.
 //
@@ -84,10 +74,6 @@ type IEspressoDataFrameImageAttachment interface {
 	SetNChannels(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoDataFrameImageAttachment) Init() EspressoDataFrameImageAttachment {
 	rv := objc.Send[EspressoDataFrameImageAttachment](e.ID, objc.Sel("init"))
@@ -107,24 +93,11 @@ func NewEspressoDataFrameImageAttachment() EspressoDataFrameImageAttachment {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/copyAsImageGrayscaleOrBGRA
 func (e EspressoDataFrameImageAttachment) CopyAsImageGrayscaleOrBGRA() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("copyAsImageGrayscaleOrBGRA"))
 	return rv
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/createCVPixelBufferFromvImage:withPixelFormat:
@@ -132,13 +105,6 @@ func (_EspressoDataFrameImageAttachmentClass EspressoDataFrameImageAttachmentCla
 	rv := objc.Send[corevideo.CVImageBufferRef](objc.ID(_EspressoDataFrameImageAttachmentClass.class), objc.Sel("createCVPixelBufferFromvImage:withPixelFormat:"), image, format)
 	return corevideo.CVImageBufferRef(rv)
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameImageAttachment/nChannels
 func (e EspressoDataFrameImageAttachment) NChannels() int {
@@ -148,20 +114,4 @@ func (e EspressoDataFrameImageAttachment) NChannels() int {
 func (e EspressoDataFrameImageAttachment) SetNChannels(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNChannels:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

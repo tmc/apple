@@ -36,12 +36,6 @@ func (ac ANELogClass) Alloc() ANELog {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog
 type ANELog struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANELogFromID(id objc.ID) ANELog {
 // Ensure ANELog implements IANELog.
 var _ IANELog = ANELog{}
 
-
-
-
-
 // An interface definition for the [ANELog] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog
 type IANELog interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANELog) Init() ANELog {
@@ -87,19 +73,6 @@ func NewANELog() ANELog {
 	rv := objc.Send[ANELog](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/common
 func (_ANELogClass ANELogClass) Common() objectivec.IObject {
@@ -142,25 +115,4 @@ func (_ANELogClass ANELogClass) Tool() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("tool"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

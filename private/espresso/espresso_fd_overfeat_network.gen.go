@@ -38,12 +38,6 @@ func (ec EspressoFDOverfeatNetworkClass) Alloc() EspressoFDOverfeatNetwork {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -110,10 +104,6 @@ func EspressoFDOverfeatNetworkFromID(id objc.ID) EspressoFDOverfeatNetwork {
 }
 // Ensure EspressoFDOverfeatNetwork implements IEspressoFDOverfeatNetwork.
 var _ IEspressoFDOverfeatNetwork = EspressoFDOverfeatNetwork{}
-
-
-
-
 
 // An interface definition for the [EspressoFDOverfeatNetwork] class.
 //
@@ -232,10 +222,6 @@ type IEspressoFDOverfeatNetwork interface {
 	WipeLayersMemory()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoFDOverfeatNetwork) Init() EspressoFDOverfeatNetwork {
 	rv := objc.Send[EspressoFDOverfeatNetwork](e.ID, objc.Sel("init"))
@@ -254,15 +240,6 @@ func NewEspressoFDOverfeatNetwork() EspressoFDOverfeatNetwork {
 	rv := objc.Send[EspressoFDOverfeatNetwork](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/autoResizeForAspectRatio:useLowPriorityMode:gpuPriority:
@@ -448,17 +425,6 @@ func (e EspressoFDOverfeatNetwork) WipeLayersMemory() {
 	objc.Send[objc.ID](e.ID, objc.Sel("wipeLayersMemory"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/basename
 func (e EspressoFDOverfeatNetwork) Basename() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("basename"))
@@ -467,8 +433,6 @@ func (e EspressoFDOverfeatNetwork) Basename() string {
 func (e EspressoFDOverfeatNetwork) SetBasename(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBasename:"), objc.String(value))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/context_cpu
 func (e EspressoFDOverfeatNetwork) Context_cpu() objectivec.IObject {
@@ -479,8 +443,6 @@ func (e EspressoFDOverfeatNetwork) SetContext_cpu(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setContext_cpu:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/context_metal
 func (e EspressoFDOverfeatNetwork) Context_metal() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("context_metal"))
@@ -489,8 +451,6 @@ func (e EspressoFDOverfeatNetwork) Context_metal() objectivec.IObject {
 func (e EspressoFDOverfeatNetwork) SetContext_metal(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setContext_metal:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/cpin
 func (e EspressoFDOverfeatNetwork) Cpin() int {
@@ -501,8 +461,6 @@ func (e EspressoFDOverfeatNetwork) SetCpin(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCpin:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/forceMaxNScales
 func (e EspressoFDOverfeatNetwork) ForceMaxNScales() int {
 	rv := objc.Send[int](e.ID, objc.Sel("forceMaxNScales"))
@@ -511,8 +469,6 @@ func (e EspressoFDOverfeatNetwork) ForceMaxNScales() int {
 func (e EspressoFDOverfeatNetwork) SetForceMaxNScales(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setForceMaxNScales:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/maxScale
 func (e EspressoFDOverfeatNetwork) MaxScale() float32 {
@@ -523,8 +479,6 @@ func (e EspressoFDOverfeatNetwork) SetMaxScale(value float32) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMaxScale:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/mode
 func (e EspressoFDOverfeatNetwork) Mode() int {
 	rv := objc.Send[int](e.ID, objc.Sel("mode"))
@@ -533,8 +487,6 @@ func (e EspressoFDOverfeatNetwork) Mode() int {
 func (e EspressoFDOverfeatNetwork) SetMode(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMode:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/scaleConfig
 func (e EspressoFDOverfeatNetwork) ScaleConfig() int {
@@ -545,8 +497,6 @@ func (e EspressoFDOverfeatNetwork) SetScaleConfig(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setScaleConfig:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/scalingMode
 func (e EspressoFDOverfeatNetwork) ScalingMode() int {
 	rv := objc.Send[int](e.ID, objc.Sel("scalingMode"))
@@ -555,8 +505,6 @@ func (e EspressoFDOverfeatNetwork) ScalingMode() int {
 func (e EspressoFDOverfeatNetwork) SetScalingMode(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setScalingMode:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/useGPUScaler
 func (e EspressoFDOverfeatNetwork) UseGPUScaler() bool {
@@ -567,8 +515,6 @@ func (e EspressoFDOverfeatNetwork) SetUseGPUScaler(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUseGPUScaler:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoFDOverfeatNetwork/weights
 func (e EspressoFDOverfeatNetwork) Weights() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("weights"))
@@ -577,20 +523,4 @@ func (e EspressoFDOverfeatNetwork) Weights() string {
 func (e EspressoFDOverfeatNetwork) SetWeights(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWeights:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

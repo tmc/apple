@@ -36,12 +36,6 @@ func (dc DICreateParamsClass) Alloc() DICreateParams {
 	return rv
 }
 
-
-
-
-
-
-
 // A parent class referenced by other diskimages2 classes. [Full Topic]
 type DICreateParams struct {
 	objectivec.Object
@@ -56,18 +50,10 @@ func DICreateParamsFromID(id objc.ID) DICreateParams {
 // Ensure DICreateParams implements IDICreateParams.
 var _ IDICreateParams = DICreateParams{}
 
-
-
-
-
 // An interface definition for the [DICreateParams] class.
 type IDICreateParams interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d DICreateParams) Init() DICreateParams {
@@ -87,38 +73,4 @@ func NewDICreateParams() DICreateParams {
 	rv := objc.Send[DICreateParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

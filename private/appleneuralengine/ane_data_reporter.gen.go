@@ -36,12 +36,6 @@ func (ac ANEDataReporterClass) Alloc() ANEDataReporter {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter
 type ANEDataReporter struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANEDataReporterFromID(id objc.ID) ANEDataReporter {
 // Ensure ANEDataReporter implements IANEDataReporter.
 var _ IANEDataReporter = ANEDataReporter{}
 
-
-
-
-
 // An interface definition for the [ANEDataReporter] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter
 type IANEDataReporter interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEDataReporter) Init() ANEDataReporter {
@@ -87,19 +73,6 @@ func NewANEDataReporter() ANEDataReporter {
 	rv := objc.Send[ANEDataReporter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/addValue:forScalarKey:
@@ -132,25 +105,4 @@ func (_ANEDataReporterClass ANEDataReporterClass) ReportErrorMsgStatus(msg uint3
 func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToPPS:playload:"), pps, playload)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

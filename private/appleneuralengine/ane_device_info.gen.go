@@ -36,12 +36,6 @@ func (ac ANEDeviceInfoClass) Alloc() ANEDeviceInfo {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo
 type ANEDeviceInfo struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANEDeviceInfoFromID(id objc.ID) ANEDeviceInfo {
 // Ensure ANEDeviceInfo implements IANEDeviceInfo.
 var _ IANEDeviceInfo = ANEDeviceInfo{}
 
-
-
-
-
 // An interface definition for the [ANEDeviceInfo] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo
 type IANEDeviceInfo interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEDeviceInfo) Init() ANEDeviceInfo {
@@ -87,19 +73,6 @@ func NewANEDeviceInfo() ANEDeviceInfo {
 	rv := objc.Send[ANEDeviceInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/aneArchitectureType
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneArchitectureType() objectivec.IObject {
@@ -204,25 +177,4 @@ func (_ANEDeviceInfoClass ANEDeviceInfoClass) ProductName() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("productName"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

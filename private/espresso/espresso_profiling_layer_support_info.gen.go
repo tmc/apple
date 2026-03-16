@@ -37,12 +37,6 @@ func (ec EspressoProfilingLayerSupportInfoClass) Alloc() EspressoProfilingLayerS
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -71,10 +65,6 @@ func EspressoProfilingLayerSupportInfoFromID(id objc.ID) EspressoProfilingLayerS
 }
 // Ensure EspressoProfilingLayerSupportInfo implements IEspressoProfilingLayerSupportInfo.
 var _ IEspressoProfilingLayerSupportInfo = EspressoProfilingLayerSupportInfo{}
-
-
-
-
 
 // An interface definition for the [EspressoProfilingLayerSupportInfo] class.
 //
@@ -117,10 +107,6 @@ type IEspressoProfilingLayerSupportInfo interface {
 	SetType(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoProfilingLayerSupportInfo) Init() EspressoProfilingLayerSupportInfo {
 	rv := objc.Send[EspressoProfilingLayerSupportInfo](e.ID, objc.Sel("init"))
@@ -140,26 +126,6 @@ func NewEspressoProfilingLayerSupportInfo() EspressoProfilingLayerSupportInfo {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/error_private
 func (e EspressoProfilingLayerSupportInfo) Error_private() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("error_private"))
@@ -168,8 +134,6 @@ func (e EspressoProfilingLayerSupportInfo) Error_private() foundation.INSArray {
 func (e EspressoProfilingLayerSupportInfo) SetError_private(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setError_private:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/error_public
 func (e EspressoProfilingLayerSupportInfo) Error_public() foundation.INSArray {
@@ -180,8 +144,6 @@ func (e EspressoProfilingLayerSupportInfo) SetError_public(value foundation.INSA
 	objc.Send[struct{}](e.ID, objc.Sel("setError_public:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/exists
 func (e EspressoProfilingLayerSupportInfo) Exists() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("exists"))
@@ -190,8 +152,6 @@ func (e EspressoProfilingLayerSupportInfo) Exists() bool {
 func (e EspressoProfilingLayerSupportInfo) SetExists(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setExists:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/has_perf_warning
 func (e EspressoProfilingLayerSupportInfo) Has_perf_warning() bool {
@@ -202,8 +162,6 @@ func (e EspressoProfilingLayerSupportInfo) SetHas_perf_warning(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setHas_perf_warning:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/internal_layer
 func (e EspressoProfilingLayerSupportInfo) Internal_layer() bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("internal_layer"))
@@ -212,8 +170,6 @@ func (e EspressoProfilingLayerSupportInfo) Internal_layer() bool {
 func (e EspressoProfilingLayerSupportInfo) SetInternal_layer(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInternal_layer:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/supported
 func (e EspressoProfilingLayerSupportInfo) Supported() bool {
@@ -224,8 +180,6 @@ func (e EspressoProfilingLayerSupportInfo) SetSupported(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSupported:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerSupportInfo/type
 func (e EspressoProfilingLayerSupportInfo) Type() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("type"))
@@ -234,20 +188,4 @@ func (e EspressoProfilingLayerSupportInfo) Type() string {
 func (e EspressoProfilingLayerSupportInfo) SetType(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setType:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (ec EspressoPass_merge_channel_normClass) Alloc() EspressoPass_merge_channe
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_channel_norm
 type EspressoPass_merge_channel_norm struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_merge_channel_normFromID(id objc.ID) EspressoPass_merge_channe
 // Ensure EspressoPass_merge_channel_norm implements IEspressoPass_merge_channel_norm.
 var _ IEspressoPass_merge_channel_norm = EspressoPass_merge_channel_norm{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_merge_channel_norm] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_channel_norm
 type IEspressoPass_merge_channel_norm interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_merge_channel_norm) Init() EspressoPass_merge_channel_norm {
@@ -86,38 +72,4 @@ func NewEspressoPass_merge_channel_norm() EspressoPass_merge_channel_norm {
 	rv := objc.Send[EspressoPass_merge_channel_norm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

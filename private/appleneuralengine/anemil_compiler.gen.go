@@ -38,12 +38,6 @@ func (ac ANEMILCompilerClass) Alloc() ANEMILCompiler {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMILCompiler
 type ANEMILCompiler struct {
 	objectivec.Object
@@ -56,20 +50,12 @@ func ANEMILCompilerFromID(id objc.ID) ANEMILCompiler {
 // Ensure ANEMILCompiler implements IANEMILCompiler.
 var _ IANEMILCompiler = ANEMILCompiler{}
 
-
-
-
-
 // An interface definition for the [ANEMILCompiler] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMILCompiler
 type IANEMILCompiler interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEMILCompiler) Init() ANEMILCompiler {
@@ -90,23 +76,10 @@ func NewANEMILCompiler() ANEMILCompiler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMILCompiler/compileModelAt:modelName:csIdentity:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:ok:error:
 func (_ANEMILCompilerClass ANEMILCompilerClass) CompileModelAtModelNameCsIdentityOptionsFilenameOutputURLSaveSourceURLAotModelBinaryPathIsEncryptedModelOptionsOkError(at objectivec.IObject, name objectivec.IObject, identity objectivec.IObject, filename objectivec.IObject, url foundation.INSURL, url2 foundation.INSURL, path objectivec.IObject, model bool, options objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANEMILCompilerClass.class), objc.Sel("compileModelAt:modelName:csIdentity:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:ok:error:"), at, name, identity, filename, url, url2, path, model, options, ok, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -115,25 +88,4 @@ func (_ANEMILCompilerClass ANEMILCompilerClass) CompileModelAtModelNameCsIdentit
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

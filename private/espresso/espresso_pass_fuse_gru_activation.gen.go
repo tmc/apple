@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_gru_activationClass) Alloc() EspressoPass_fuse_gru_ac
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gru_activation
 type EspressoPass_fuse_gru_activation struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_gru_activationFromID(id objc.ID) EspressoPass_fuse_gru_ac
 // Ensure EspressoPass_fuse_gru_activation implements IEspressoPass_fuse_gru_activation.
 var _ IEspressoPass_fuse_gru_activation = EspressoPass_fuse_gru_activation{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_gru_activation] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gru_activation
 type IEspressoPass_fuse_gru_activation interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_gru_activation) Init() EspressoPass_fuse_gru_activation {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_gru_activation() EspressoPass_fuse_gru_activation {
 	rv := objc.Send[EspressoPass_fuse_gru_activation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

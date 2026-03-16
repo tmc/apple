@@ -36,12 +36,6 @@ func (ec EspressoBrickTensorMetalClass) Alloc() EspressoBrickTensorMetal {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func EspressoBrickTensorMetalFromID(id objc.ID) EspressoBrickTensorMetal {
 // Ensure EspressoBrickTensorMetal implements IEspressoBrickTensorMetal.
 var _ IEspressoBrickTensorMetal = EspressoBrickTensorMetal{}
 
-
-
-
-
 // An interface definition for the [EspressoBrickTensorMetal] class.
 //
 // # Methods
@@ -79,10 +69,6 @@ type IEspressoBrickTensorMetal interface {
 	Texture() unsafe.Pointer
 	SetTexture(value unsafe.Pointer)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoBrickTensorMetal) Init() EspressoBrickTensorMetal {
@@ -103,26 +89,6 @@ func NewEspressoBrickTensorMetal() EspressoBrickTensorMetal {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorMetal/texture
 func (e EspressoBrickTensorMetal) Texture() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("texture"))
@@ -131,20 +97,4 @@ func (e EspressoBrickTensorMetal) Texture() unsafe.Pointer {
 func (e EspressoBrickTensorMetal) SetTexture(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTexture:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

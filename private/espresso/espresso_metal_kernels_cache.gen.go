@@ -38,12 +38,6 @@ func (ec EspressoMetalKernelsCacheClass) Alloc() EspressoMetalKernelsCache {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -70,10 +64,6 @@ func EspressoMetalKernelsCacheFromID(id objc.ID) EspressoMetalKernelsCache {
 }
 // Ensure EspressoMetalKernelsCache implements IEspressoMetalKernelsCache.
 var _ IEspressoMetalKernelsCache = EspressoMetalKernelsCache{}
-
-
-
-
 
 // An interface definition for the [EspressoMetalKernelsCache] class.
 //
@@ -112,10 +102,6 @@ type IEspressoMetalKernelsCache interface {
 	InitWithDevice(device objectivec.IObject) EspressoMetalKernelsCache
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoMetalKernelsCache) Init() EspressoMetalKernelsCache {
 	rv := objc.Send[EspressoMetalKernelsCache](e.ID, objc.Sel("init"))
@@ -135,11 +121,6 @@ func NewEspressoMetalKernelsCache() EspressoMetalKernelsCache {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/initWithDevice:
 func NewEspressoMetalKernelsCacheWithDevice(device objectivec.IObject) EspressoMetalKernelsCache {
@@ -147,12 +128,6 @@ func NewEspressoMetalKernelsCacheWithDevice(device objectivec.IObject) EspressoM
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return EspressoMetalKernelsCacheFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/addLibraryAtPath:
@@ -204,17 +179,6 @@ func (e EspressoMetalKernelsCache) InitWithDevice(device objectivec.IObject) Esp
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/kernelPrefix
 func (e EspressoMetalKernelsCache) KernelPrefix() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelPrefix"))
@@ -224,8 +188,6 @@ func (e EspressoMetalKernelsCache) SetKernelPrefix(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setKernelPrefix:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/m_kernelCache
 func (e EspressoMetalKernelsCache) M_kernelCache() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("m_kernelCache"))
@@ -234,20 +196,4 @@ func (e EspressoMetalKernelsCache) M_kernelCache() foundation.INSDictionary {
 func (e EspressoMetalKernelsCache) SetM_kernelCache(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setM_kernelCache:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

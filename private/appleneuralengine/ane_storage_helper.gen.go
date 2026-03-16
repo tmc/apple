@@ -39,12 +39,6 @@ func (ac ANEStorageHelperClass) Alloc() ANEStorageHelper {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper
 type ANEStorageHelper struct {
 	objectivec.Object
@@ -57,20 +51,12 @@ func ANEStorageHelperFromID(id objc.ID) ANEStorageHelper {
 // Ensure ANEStorageHelper implements IANEStorageHelper.
 var _ IANEStorageHelper = ANEStorageHelper{}
 
-
-
-
-
 // An interface definition for the [ANEStorageHelper] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper
 type IANEStorageHelper interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEStorageHelper) Init() ANEStorageHelper {
@@ -90,19 +76,6 @@ func NewANEStorageHelper() ANEStorageHelper {
 	rv := objc.Send[ANEStorageHelper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/addSubdirectoryDetails:directoryPath:size:
@@ -139,7 +112,7 @@ func (_ANEStorageHelperClass ANEStorageHelperClass) GetAccessTimeForFilePath(pat
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/markPathAndDirectParentPurgeable:error:
 func (_ANEStorageHelperClass ANEStorageHelperClass) MarkPathAndDirectParentPurgeableError(purgeable objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("markPathAndDirectParentPurgeable:error:"), purgeable, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -234,25 +207,4 @@ func (_ANEStorageHelperClass ANEStorageHelperClass) UpdateAccessTimeForFilePath(
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("updateAccessTimeForFilePath:"), path)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

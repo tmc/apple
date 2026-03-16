@@ -37,12 +37,6 @@ func (mc MLRSandboxExtensionRequestClass) Alloc() MLRSandboxExtensionRequest {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func MLRSandboxExtensionRequestFromID(id objc.ID) MLRSandboxExtensionRequest {
 }
 // Ensure MLRSandboxExtensionRequest implements IMLRSandboxExtensionRequest.
 var _ IMLRSandboxExtensionRequest = MLRSandboxExtensionRequest{}
-
-
-
-
 
 // An interface definition for the [MLRSandboxExtensionRequest] class.
 //
@@ -84,10 +74,6 @@ type IMLRSandboxExtensionRequest interface {
 	InitWithURLsRequireWrite(uRLs objectivec.IObject, write bool) MLRSandboxExtensionRequest
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRSandboxExtensionRequest) Init() MLRSandboxExtensionRequest {
 	rv := objc.Send[MLRSandboxExtensionRequest](r.ID, objc.Sel("init"))
@@ -107,11 +93,6 @@ func NewMLRSandboxExtensionRequest() MLRSandboxExtensionRequest {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRSandboxExtensionRequest/initWithURLs:requireWrite:
 func NewRSandboxExtensionRequestWithURLsRequireWrite(uRLs objectivec.IObject, write bool) MLRSandboxExtensionRequest {
@@ -120,12 +101,6 @@ func NewRSandboxExtensionRequestWithURLsRequireWrite(uRLs objectivec.IObject, wr
 	return MLRSandboxExtensionRequestFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRSandboxExtensionRequest/initWithURLs:requireWrite:
 func (r MLRSandboxExtensionRequest) InitWithURLsRequireWrite(uRLs objectivec.IObject, write bool) MLRSandboxExtensionRequest {
@@ -133,44 +108,15 @@ func (r MLRSandboxExtensionRequest) InitWithURLsRequireWrite(uRLs objectivec.IOb
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRSandboxExtensionRequest/URLs
 func (r MLRSandboxExtensionRequest) URLs() foundation.INSArray {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("URLs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRSandboxExtensionRequest/requireWrite
 func (r MLRSandboxExtensionRequest) RequireWrite() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("requireWrite"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

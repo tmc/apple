@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_blizzard_final_1x1_convolutionsClass) Alloc() Espress
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_blizzard_final_1x1_convolutions
 type EspressoPass_fuse_blizzard_final_1x1_convolutions struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_blizzard_final_1x1_convolutionsFromID(id objc.ID) Espress
 // Ensure EspressoPass_fuse_blizzard_final_1x1_convolutions implements IEspressoPass_fuse_blizzard_final_1x1_convolutions.
 var _ IEspressoPass_fuse_blizzard_final_1x1_convolutions = EspressoPass_fuse_blizzard_final_1x1_convolutions{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_blizzard_final_1x1_convolutions] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_blizzard_final_1x1_convolutions
 type IEspressoPass_fuse_blizzard_final_1x1_convolutions interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_blizzard_final_1x1_convolutions) Init() EspressoPass_fuse_blizzard_final_1x1_convolutions {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_blizzard_final_1x1_convolutions() EspressoPass_fuse_bl
 	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

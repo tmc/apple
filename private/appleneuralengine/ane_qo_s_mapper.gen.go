@@ -36,12 +36,6 @@ func (ac ANEQoSMapperClass) Alloc() ANEQoSMapper {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEQoSMapper
 type ANEQoSMapper struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANEQoSMapperFromID(id objc.ID) ANEQoSMapper {
 // Ensure ANEQoSMapper implements IANEQoSMapper.
 var _ IANEQoSMapper = ANEQoSMapper{}
 
-
-
-
-
 // An interface definition for the [ANEQoSMapper] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEQoSMapper
 type IANEQoSMapper interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEQoSMapper) Init() ANEQoSMapper {
@@ -87,19 +73,6 @@ func NewANEQoSMapper() ANEQoSMapper {
 	rv := objc.Send[ANEQoSMapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEQoSMapper/aneBackgroundTaskQoS
 func (_ANEQoSMapperClass ANEQoSMapperClass) AneBackgroundTaskQoS() uint32 {
@@ -176,25 +149,4 @@ func (_ANEQoSMapperClass ANEQoSMapperClass) RealTimeQueueIndex() uint64 {
 	rv := objc.Send[uint64](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeQueueIndex"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

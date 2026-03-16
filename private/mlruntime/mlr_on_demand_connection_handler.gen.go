@@ -38,12 +38,6 @@ func (mc MLROnDemandConnectionHandlerClass) Alloc() MLROnDemandConnectionHandler
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -71,10 +65,6 @@ func MLROnDemandConnectionHandlerFromID(id objc.ID) MLROnDemandConnectionHandler
 }
 // Ensure MLROnDemandConnectionHandler implements IMLROnDemandConnectionHandler.
 var _ IMLROnDemandConnectionHandler = MLROnDemandConnectionHandler{}
-
-
-
-
 
 // An interface definition for the [MLROnDemandConnectionHandler] class.
 //
@@ -115,10 +105,6 @@ type IMLROnDemandConnectionHandler interface {
 	Superclass() objc.Class
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLROnDemandConnectionHandler) Init() MLROnDemandConnectionHandler {
 	rv := objc.Send[MLROnDemandConnectionHandler](r.ID, objc.Sel("init"))
@@ -138,11 +124,6 @@ func NewMLROnDemandConnectionHandler() MLROnDemandConnectionHandler {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/initWithPrincipalObject:
 func NewROnDemandConnectionHandlerWithPrincipalObject(object objectivec.IObject) MLROnDemandConnectionHandler {
@@ -151,26 +132,20 @@ func NewROnDemandConnectionHandlerWithPrincipalObject(object objectivec.IObject)
 	return MLROnDemandConnectionHandlerFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/performTask:completionHandler:
 func (r MLROnDemandConnectionHandler) PerformTaskCompletionHandler(task objectivec.IObject, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](r.ID, objc.Sel("performTask:completionHandler:"), task, _block1)
+	objc.Send[objc.ID](r.ID, objc.Sel("performTask:completionHandler:"), task, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/performTaskInternal:completionHandler:
 func (r MLROnDemandConnectionHandler) PerformTaskInternalCompletionHandler(internal objectivec.IObject, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](r.ID, objc.Sel("performTaskInternal:completionHandler:"), internal, _block1)
+	objc.Send[objc.ID](r.ID, objc.Sel("performTaskInternal:completionHandler:"), internal, _block1)
 }
 
 //
@@ -187,24 +162,11 @@ func (r MLROnDemandConnectionHandler) InitWithPrincipalObject(object objectivec.
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/debugDescription
 func (r MLROnDemandConnectionHandler) DebugDescription() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/description
 func (r MLROnDemandConnectionHandler) Description() string {
@@ -212,15 +174,11 @@ func (r MLROnDemandConnectionHandler) Description() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/hash
 func (r MLROnDemandConnectionHandler) Hash() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/pluginPrincipal
 func (r MLROnDemandConnectionHandler) PluginPrincipal() unsafe.Pointer {
@@ -231,23 +189,17 @@ func (r MLROnDemandConnectionHandler) SetPluginPrincipal(value unsafe.Pointer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setPluginPrincipal:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/principalObject
 func (r MLROnDemandConnectionHandler) PrincipalObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("principalObject"))
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/superclass
 func (r MLROnDemandConnectionHandler) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/xpcConnection
 func (r MLROnDemandConnectionHandler) XpcConnection() foundation.NSXPCConnection {
@@ -257,20 +209,4 @@ func (r MLROnDemandConnectionHandler) XpcConnection() foundation.NSXPCConnection
 func (r MLROnDemandConnectionHandler) SetXpcConnection(value foundation.NSXPCConnection) {
 	objc.Send[struct{}](r.ID, objc.Sel("setXpcConnection:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -99,12 +99,10 @@ func (a ANEVirtualClient) DoEvaluateWithModelLegacyOptionsRequestQosCompletionEv
 	return ok, blockCleanup, nil
 }
 
-
 // ModelWithMILTextWeightsOptionsPlistIsMILModel calls
 // modelWithMILText:weights:optionsPlist:isMILModel: when available.
 func (_ANEInMemoryModelDescriptorClass ANEInMemoryModelDescriptorClass) ModelWithMILTextWeightsOptionsPlistIsMILModel(mILText objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject, isMILModel bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEInMemoryModelDescriptorClass.class), objc.Sel("modelWithMILText:weights:optionsPlist:isMILModel:"), mILText, weights, plist, isMILModel)
 	return objectivec.Object{ID: rv}
 }
-
 

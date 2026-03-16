@@ -37,12 +37,6 @@ func (cc CoreMLVersionClass) Alloc() CoreMLVersion {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func CoreMLVersionFromID(id objc.ID) CoreMLVersion {
 // Ensure CoreMLVersion implements ICoreMLVersion.
 var _ ICoreMLVersion = CoreMLVersion{}
 
-
-
-
-
 // An interface definition for the [CoreMLVersion] class.
 //
 // # Methods
@@ -80,10 +70,6 @@ type ICoreMLVersion interface {
 	FrameworkVersionNumber() foundation.NSNumber
 	SetFrameworkVersionNumber(value foundation.NSNumber)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c CoreMLVersion) Init() CoreMLVersion {
@@ -104,31 +90,11 @@ func NewCoreMLVersion() CoreMLVersion {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLVersion/getInternalFrameworkVersion
 func (_CoreMLVersionClass CoreMLVersionClass) GetInternalFrameworkVersion() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_CoreMLVersionClass.class), objc.Sel("getInternalFrameworkVersion"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/RemoteCoreML/CoreMLVersion/frameworkVersionNumber
 func (c CoreMLVersion) FrameworkVersionNumber() foundation.NSNumber {
@@ -138,23 +104,4 @@ func (c CoreMLVersion) FrameworkVersionNumber() foundation.NSNumber {
 func (c CoreMLVersion) SetFrameworkVersionNumber(value foundation.NSNumber) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFrameworkVersionNumber:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (ec EspressoPass_transform_quantize_kernelClass) Alloc() EspressoPass_trans
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_transform_quantize_kernel
 type EspressoPass_transform_quantize_kernel struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_transform_quantize_kernelFromID(id objc.ID) EspressoPass_trans
 // Ensure EspressoPass_transform_quantize_kernel implements IEspressoPass_transform_quantize_kernel.
 var _ IEspressoPass_transform_quantize_kernel = EspressoPass_transform_quantize_kernel{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_transform_quantize_kernel] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_transform_quantize_kernel
 type IEspressoPass_transform_quantize_kernel interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_transform_quantize_kernel) Init() EspressoPass_transform_quantize_kernel {
@@ -86,38 +72,4 @@ func NewEspressoPass_transform_quantize_kernel() EspressoPass_transform_quantize
 	rv := objc.Send[EspressoPass_transform_quantize_kernel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

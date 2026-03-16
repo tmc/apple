@@ -38,12 +38,6 @@ func (ac ANECompilerServiceClass) Alloc() ANECompilerService {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func ANECompilerServiceFromID(id objc.ID) ANECompilerService {
 // Ensure ANECompilerService implements IANECompilerService.
 var _ IANECompilerService = ANECompilerService{}
 
-
-
-
-
 // An interface definition for the [ANECompilerService] class.
 //
 // # Methods
@@ -78,10 +68,6 @@ type IANECompilerService interface {
 
 	CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathWithReply(at objectivec.IObject, identity objectivec.IObject, extension objectivec.IObject, options objectivec.IObject, directory objectivec.IObject, directory2 objectivec.IObject, url foundation.INSURL, path objectivec.IObject, reply VoidHandler)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANECompilerService) Init() ANECompilerService {
@@ -102,42 +88,13 @@ func NewANECompilerService() ANECompilerService {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerService/compileModelAt:csIdentity:sandboxExtension:options:tempDirectory:cloneDirectory:outputURL:aotModelBinaryPath:withReply:
 func (a ANECompilerService) CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathWithReply(at objectivec.IObject, identity objectivec.IObject, extension objectivec.IObject, options objectivec.IObject, directory objectivec.IObject, directory2 objectivec.IObject, url foundation.INSURL, path objectivec.IObject, reply VoidHandler) {
-		_block8, _cleanup8 := NewVoidBlock(reply)
+_block8, _cleanup8 := NewVoidBlock(reply)
 	defer _cleanup8()
-		objc.Send[objc.ID](a.ID, objc.Sel("compileModelAt:csIdentity:sandboxExtension:options:tempDirectory:cloneDirectory:outputURL:aotModelBinaryPath:withReply:"), at, identity, extension, options, directory, directory2, url, path, _block8)
+	objc.Send[objc.ID](a.ID, objc.Sel("compileModelAt:csIdentity:sandboxExtension:options:tempDirectory:cloneDirectory:outputURL:aotModelBinaryPath:withReply:"), at, identity, extension, options, directory, directory2, url, path, _block8)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathWithReplySync is a synchronous wrapper around [ANECompilerService.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathWithReply].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -153,9 +110,4 @@ func (a ANECompilerService) CompileModelAtCsIdentitySandboxExtensionOptionsTempD
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

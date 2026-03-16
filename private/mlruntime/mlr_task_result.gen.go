@@ -37,12 +37,6 @@ func (mc MLRTaskResultClass) Alloc() MLRTaskResult {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -62,10 +56,6 @@ func MLRTaskResultFromID(id objc.ID) MLRTaskResult {
 }
 // Ensure MLRTaskResult implements IMLRTaskResult.
 var _ IMLRTaskResult = MLRTaskResult{}
-
-
-
-
 
 // An interface definition for the [MLRTaskResult] class.
 //
@@ -90,10 +80,6 @@ type IMLRTaskResult interface {
 	InitWithJSONResultUnprivatizedVector(jSONResult objectivec.IObject, vector objectivec.IObject) MLRTaskResult
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRTaskResult) Init() MLRTaskResult {
 	rv := objc.Send[MLRTaskResult](r.ID, objc.Sel("init"))
@@ -113,11 +99,6 @@ func NewMLRTaskResult() MLRTaskResult {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/initWithCoder:
 func NewRTaskResultWithCoder(coder objectivec.IObject) MLRTaskResult {
@@ -126,7 +107,6 @@ func NewRTaskResultWithCoder(coder objectivec.IObject) MLRTaskResult {
 	return MLRTaskResultFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/initWithJSONResult:unprivatizedVector:
 func NewRTaskResultWithJSONResultUnprivatizedVector(jSONResult objectivec.IObject, vector objectivec.IObject) MLRTaskResult {
@@ -134,12 +114,6 @@ func NewRTaskResultWithJSONResultUnprivatizedVector(jSONResult objectivec.IObjec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithJSONResult:unprivatizedVector:"), jSONResult, vector)
 	return MLRTaskResultFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/encodeWithCoder:
@@ -161,22 +135,11 @@ func (r MLRTaskResult) InitWithJSONResultUnprivatizedVector(jSONResult objective
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/supportsSecureCoding
 func (_MLRTaskResultClass MLRTaskResultClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLRTaskResultClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/JSONResult
 func (r MLRTaskResult) JSONResult() foundation.INSDictionary {
@@ -184,27 +147,9 @@ func (r MLRTaskResult) JSONResult() foundation.INSDictionary {
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/vector
 func (r MLRTaskResult) Vector() foundation.INSData {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("vector"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (ec EspressoDataFrameTensorAttachmentClass) Alloc() EspressoDataFrameTensor
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func EspressoDataFrameTensorAttachmentFromID(id objc.ID) EspressoDataFrameTensor
 // Ensure EspressoDataFrameTensorAttachment implements IEspressoDataFrameTensorAttachment.
 var _ IEspressoDataFrameTensorAttachment = EspressoDataFrameTensorAttachment{}
 
-
-
-
-
 // An interface definition for the [EspressoDataFrameTensorAttachment] class.
 //
 // # Methods
@@ -77,10 +67,6 @@ type IEspressoDataFrameTensorAttachment interface {
 
 	CopyAsEspressoBuffer() objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoDataFrameTensorAttachment) Init() EspressoDataFrameTensorAttachment {
@@ -101,24 +87,11 @@ func NewEspressoDataFrameTensorAttachment() EspressoDataFrameTensorAttachment {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment/copyAsEspressoBuffer
 func (e EspressoDataFrameTensorAttachment) CopyAsEspressoBuffer() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("copyAsEspressoBuffer"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameTensorAttachment/copyFromCVPixelBuffer:
@@ -126,25 +99,4 @@ func (_EspressoDataFrameTensorAttachmentClass EspressoDataFrameTensorAttachmentC
 	rv := objc.Send[objc.ID](objc.ID(_EspressoDataFrameTensorAttachmentClass.class), objc.Sel("copyFromCVPixelBuffer:"), buffer)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

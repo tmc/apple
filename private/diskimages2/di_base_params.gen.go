@@ -36,12 +36,6 @@ func (dc DIBaseParamsClass) Alloc() DIBaseParams {
 	return rv
 }
 
-
-
-
-
-
-
 // A parent class referenced by other diskimages2 classes. [Full Topic]
 type DIBaseParams struct {
 	objectivec.Object
@@ -56,18 +50,10 @@ func DIBaseParamsFromID(id objc.ID) DIBaseParams {
 // Ensure DIBaseParams implements IDIBaseParams.
 var _ IDIBaseParams = DIBaseParams{}
 
-
-
-
-
 // An interface definition for the [DIBaseParams] class.
 type IDIBaseParams interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d DIBaseParams) Init() DIBaseParams {
@@ -87,38 +73,4 @@ func NewDIBaseParams() DIBaseParams {
 	rv := objc.Send[DIBaseParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

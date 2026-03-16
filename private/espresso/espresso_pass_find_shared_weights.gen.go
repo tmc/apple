@@ -35,12 +35,6 @@ func (ec EspressoPass_find_shared_weightsClass) Alloc() EspressoPass_find_shared
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_find_shared_weights
 type EspressoPass_find_shared_weights struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_find_shared_weightsFromID(id objc.ID) EspressoPass_find_shared
 // Ensure EspressoPass_find_shared_weights implements IEspressoPass_find_shared_weights.
 var _ IEspressoPass_find_shared_weights = EspressoPass_find_shared_weights{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_find_shared_weights] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_find_shared_weights
 type IEspressoPass_find_shared_weights interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_find_shared_weights) Init() EspressoPass_find_shared_weights {
@@ -86,38 +72,4 @@ func NewEspressoPass_find_shared_weights() EspressoPass_find_shared_weights {
 	rv := objc.Send[EspressoPass_find_shared_weights](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

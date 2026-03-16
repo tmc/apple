@@ -35,12 +35,6 @@ func (ec EspressoPass_strength_reduction_gather_to_sliceClass) Alloc() EspressoP
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_slice
 type EspressoPass_strength_reduction_gather_to_slice struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_strength_reduction_gather_to_sliceFromID(id objc.ID) EspressoP
 // Ensure EspressoPass_strength_reduction_gather_to_slice implements IEspressoPass_strength_reduction_gather_to_slice.
 var _ IEspressoPass_strength_reduction_gather_to_slice = EspressoPass_strength_reduction_gather_to_slice{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_strength_reduction_gather_to_slice] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_gather_to_slice
 type IEspressoPass_strength_reduction_gather_to_slice interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_strength_reduction_gather_to_slice) Init() EspressoPass_strength_reduction_gather_to_slice {
@@ -86,38 +72,4 @@ func NewEspressoPass_strength_reduction_gather_to_slice() EspressoPass_strength_
 	rv := objc.Send[EspressoPass_strength_reduction_gather_to_slice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

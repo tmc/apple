@@ -34,7 +34,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _remoteCoreMLVersionNumberSymbol uintptr
 
 // RemoteCoreMLVersionNumber has an opaque C signature in discovered metadata.
@@ -48,11 +47,10 @@ func RemoteCoreMLVersionNumber() {
 // RemoteCoreMLVersionNumberSymbol returns the raw symbol address for RemoteCoreMLVersionNumber.
 func RemoteCoreMLVersionNumberSymbol() uintptr {
 	if _remoteCoreMLVersionNumberSymbol == 0 {
-		panic("remotecoreml: symbol RemoteCoreMLVersionNumber not loaded")
+		return 0
 	}
 	return _remoteCoreMLVersionNumberSymbol
 }
-
 
 var _remoteCoreMLVersionStringSymbol uintptr
 
@@ -67,11 +65,10 @@ func RemoteCoreMLVersionString() {
 // RemoteCoreMLVersionStringSymbol returns the raw symbol address for RemoteCoreMLVersionString.
 func RemoteCoreMLVersionStringSymbol() uintptr {
 	if _remoteCoreMLVersionStringSymbol == 0 {
-		panic("remotecoreml: symbol RemoteCoreMLVersionString not loaded")
+		return 0
 	}
 	return _remoteCoreMLVersionStringSymbol
 }
-
 
 var _g_inbound_connectionSymbol uintptr
 
@@ -86,11 +83,10 @@ func G_inbound_connection() {
 // G_inbound_connectionSymbol returns the raw symbol address for g_inbound_connection.
 func G_inbound_connectionSymbol() uintptr {
 	if _g_inbound_connectionSymbol == 0 {
-		panic("remotecoreml: symbol g_inbound_connection not loaded")
+		return 0
 	}
 	return _g_inbound_connectionSymbol
 }
-
 
 var _kMLAckFailNetworkHeaderEncodingSymbol uintptr
 
@@ -105,11 +101,10 @@ func KMLAckFailNetworkHeaderEncoding() {
 // KMLAckFailNetworkHeaderEncodingSymbol returns the raw symbol address for kMLAckFailNetworkHeaderEncoding.
 func KMLAckFailNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLAckFailNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLAckFailNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLAckFailNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLAckSuccessNetworkHeaderEncodingSymbol uintptr
 
@@ -124,11 +119,10 @@ func KMLAckSuccessNetworkHeaderEncoding() {
 // KMLAckSuccessNetworkHeaderEncodingSymbol returns the raw symbol address for kMLAckSuccessNetworkHeaderEncoding.
 func KMLAckSuccessNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLAckSuccessNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLAckSuccessNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLAckSuccessNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLCustomNetworkHeaderEncodingSymbol uintptr
 
@@ -143,11 +137,10 @@ func KMLCustomNetworkHeaderEncoding() {
 // KMLCustomNetworkHeaderEncodingSymbol returns the raw symbol address for kMLCustomNetworkHeaderEncoding.
 func KMLCustomNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLCustomNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLCustomNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLCustomNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLErrorNetworkHeaderEncodingSymbol uintptr
 
@@ -162,11 +155,10 @@ func KMLErrorNetworkHeaderEncoding() {
 // KMLErrorNetworkHeaderEncodingSymbol returns the raw symbol address for kMLErrorNetworkHeaderEncoding.
 func KMLErrorNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLErrorNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLErrorNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLErrorNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLIncomingDataNetworkHeaderEncodingSymbol uintptr
 
@@ -181,11 +173,10 @@ func KMLIncomingDataNetworkHeaderEncoding() {
 // KMLIncomingDataNetworkHeaderEncodingSymbol returns the raw symbol address for kMLIncomingDataNetworkHeaderEncoding.
 func KMLIncomingDataNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLIncomingDataNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLIncomingDataNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLIncomingDataNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLLoadNetworkHeaderEncodingSymbol uintptr
 
@@ -200,11 +191,10 @@ func KMLLoadNetworkHeaderEncoding() {
 // KMLLoadNetworkHeaderEncodingSymbol returns the raw symbol address for kMLLoadNetworkHeaderEncoding.
 func KMLLoadNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLLoadNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLLoadNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLLoadNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLNetworkFamilyKeySymbol uintptr
 
@@ -219,11 +209,10 @@ func KMLNetworkFamilyKey() {
 // KMLNetworkFamilyKeySymbol returns the raw symbol address for kMLNetworkFamilyKey.
 func KMLNetworkFamilyKeySymbol() uintptr {
 	if _kMLNetworkFamilyKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkFamilyKey not loaded")
+		return 0
 	}
 	return _kMLNetworkFamilyKeySymbol
 }
-
 
 var _kMLNetworkLocalAddrKeySymbol uintptr
 
@@ -238,11 +227,10 @@ func KMLNetworkLocalAddrKey() {
 // KMLNetworkLocalAddrKeySymbol returns the raw symbol address for kMLNetworkLocalAddrKey.
 func KMLNetworkLocalAddrKeySymbol() uintptr {
 	if _kMLNetworkLocalAddrKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkLocalAddrKey not loaded")
+		return 0
 	}
 	return _kMLNetworkLocalAddrKeySymbol
 }
-
 
 var _kMLNetworkLocalPortKeySymbol uintptr
 
@@ -257,11 +245,10 @@ func KMLNetworkLocalPortKey() {
 // KMLNetworkLocalPortKeySymbol returns the raw symbol address for kMLNetworkLocalPortKey.
 func KMLNetworkLocalPortKeySymbol() uintptr {
 	if _kMLNetworkLocalPortKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkLocalPortKey not loaded")
+		return 0
 	}
 	return _kMLNetworkLocalPortKeySymbol
 }
-
 
 var _kMLNetworkNameIdentifierKeySymbol uintptr
 
@@ -276,11 +263,10 @@ func KMLNetworkNameIdentifierKey() {
 // KMLNetworkNameIdentifierKeySymbol returns the raw symbol address for kMLNetworkNameIdentifierKey.
 func KMLNetworkNameIdentifierKeySymbol() uintptr {
 	if _kMLNetworkNameIdentifierKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkNameIdentifierKey not loaded")
+		return 0
 	}
 	return _kMLNetworkNameIdentifierKeySymbol
 }
-
 
 var _kMLNetworkPortNumberKeySymbol uintptr
 
@@ -295,11 +281,10 @@ func KMLNetworkPortNumberKey() {
 // KMLNetworkPortNumberKeySymbol returns the raw symbol address for kMLNetworkPortNumberKey.
 func KMLNetworkPortNumberKeySymbol() uintptr {
 	if _kMLNetworkPortNumberKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkPortNumberKey not loaded")
+		return 0
 	}
 	return _kMLNetworkPortNumberKeySymbol
 }
-
 
 var _kMLNetworkPskKeySymbol uintptr
 
@@ -314,11 +299,10 @@ func KMLNetworkPskKey() {
 // KMLNetworkPskKeySymbol returns the raw symbol address for kMLNetworkPskKey.
 func KMLNetworkPskKeySymbol() uintptr {
 	if _kMLNetworkPskKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkPskKey not loaded")
+		return 0
 	}
 	return _kMLNetworkPskKeySymbol
 }
-
 
 var _kMLNetworkUseAWDLKeySymbol uintptr
 
@@ -333,11 +317,10 @@ func KMLNetworkUseAWDLKey() {
 // KMLNetworkUseAWDLKeySymbol returns the raw symbol address for kMLNetworkUseAWDLKey.
 func KMLNetworkUseAWDLKeySymbol() uintptr {
 	if _kMLNetworkUseAWDLKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkUseAWDLKey not loaded")
+		return 0
 	}
 	return _kMLNetworkUseAWDLKeySymbol
 }
-
 
 var _kMLNetworkUseBonjourKeySymbol uintptr
 
@@ -352,11 +335,10 @@ func KMLNetworkUseBonjourKey() {
 // KMLNetworkUseBonjourKeySymbol returns the raw symbol address for kMLNetworkUseBonjourKey.
 func KMLNetworkUseBonjourKeySymbol() uintptr {
 	if _kMLNetworkUseBonjourKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkUseBonjourKey not loaded")
+		return 0
 	}
 	return _kMLNetworkUseBonjourKeySymbol
 }
-
 
 var _kMLNetworkUseTLSKeySymbol uintptr
 
@@ -371,11 +353,10 @@ func KMLNetworkUseTLSKey() {
 // KMLNetworkUseTLSKeySymbol returns the raw symbol address for kMLNetworkUseTLSKey.
 func KMLNetworkUseTLSKeySymbol() uintptr {
 	if _kMLNetworkUseTLSKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkUseTLSKey not loaded")
+		return 0
 	}
 	return _kMLNetworkUseTLSKeySymbol
 }
-
 
 var _kMLNetworkUseUDPKeySymbol uintptr
 
@@ -390,11 +371,10 @@ func KMLNetworkUseUDPKey() {
 // KMLNetworkUseUDPKeySymbol returns the raw symbol address for kMLNetworkUseUDPKey.
 func KMLNetworkUseUDPKeySymbol() uintptr {
 	if _kMLNetworkUseUDPKeySymbol == 0 {
-		panic("remotecoreml: symbol kMLNetworkUseUDPKey not loaded")
+		return 0
 	}
 	return _kMLNetworkUseUDPKeySymbol
 }
-
 
 var _kMLPredictNetworkHeaderEncodingSymbol uintptr
 
@@ -409,11 +389,10 @@ func KMLPredictNetworkHeaderEncoding() {
 // KMLPredictNetworkHeaderEncodingSymbol returns the raw symbol address for kMLPredictNetworkHeaderEncoding.
 func KMLPredictNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLPredictNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLPredictNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLPredictNetworkHeaderEncodingSymbol
 }
-
 
 var _kMLTextNetworkHeaderEncodingSymbol uintptr
 
@@ -428,12 +407,10 @@ func KMLTextNetworkHeaderEncoding() {
 // KMLTextNetworkHeaderEncodingSymbol returns the raw symbol address for kMLTextNetworkHeaderEncoding.
 func KMLTextNetworkHeaderEncodingSymbol() uintptr {
 	if _kMLTextNetworkHeaderEncodingSymbol == 0 {
-		panic("remotecoreml: symbol kMLTextNetworkHeaderEncoding not loaded")
+		return 0
 	}
 	return _kMLTextNetworkHeaderEncodingSymbol
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -461,6 +438,4 @@ func init() {
 		registerSymbol(&_kMLPredictNetworkHeaderEncodingSymbol, frameworkHandle, "kMLPredictNetworkHeaderEncoding")
 		registerSymbol(&_kMLTextNetworkHeaderEncodingSymbol, frameworkHandle, "kMLTextNetworkHeaderEncoding")
 	}
-
-
 

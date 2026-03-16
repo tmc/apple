@@ -35,12 +35,6 @@ func (ec EspressoPass_style_transfer_two_netsClass) Alloc() EspressoPass_style_t
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_two_nets
 type EspressoPass_style_transfer_two_nets struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_style_transfer_two_netsFromID(id objc.ID) EspressoPass_style_t
 // Ensure EspressoPass_style_transfer_two_nets implements IEspressoPass_style_transfer_two_nets.
 var _ IEspressoPass_style_transfer_two_nets = EspressoPass_style_transfer_two_nets{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_style_transfer_two_nets] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_two_nets
 type IEspressoPass_style_transfer_two_nets interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_style_transfer_two_nets) Init() EspressoPass_style_transfer_two_nets {
@@ -86,38 +72,4 @@ func NewEspressoPass_style_transfer_two_nets() EspressoPass_style_transfer_two_n
 	rv := objc.Send[EspressoPass_style_transfer_two_nets](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

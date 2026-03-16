@@ -36,12 +36,6 @@ func (ec EspressoProfilingNetworkANEInfoClass) Alloc() EspressoProfilingNetworkA
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func EspressoProfilingNetworkANEInfoFromID(id objc.ID) EspressoProfilingNetworkA
 }
 // Ensure EspressoProfilingNetworkANEInfo implements IEspressoProfilingNetworkANEInfo.
 var _ IEspressoProfilingNetworkANEInfo = EspressoProfilingNetworkANEInfo{}
-
-
-
-
 
 // An interface definition for the [EspressoProfilingNetworkANEInfo] class.
 //
@@ -86,10 +76,6 @@ type IEspressoProfilingNetworkANEInfo interface {
 	SetTotal_ane_time_ns(value uint64)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoProfilingNetworkANEInfo) Init() EspressoProfilingNetworkANEInfo {
 	rv := objc.Send[EspressoProfilingNetworkANEInfo](e.ID, objc.Sel("init"))
@@ -109,26 +95,6 @@ func NewEspressoProfilingNetworkANEInfo() EspressoProfilingNetworkANEInfo {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingNetworkANEInfo/ane_time_per_eval_ns
 func (e EspressoProfilingNetworkANEInfo) Ane_time_per_eval_ns() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("ane_time_per_eval_ns"))
@@ -138,8 +104,6 @@ func (e EspressoProfilingNetworkANEInfo) SetAne_time_per_eval_ns(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAne_time_per_eval_ns:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingNetworkANEInfo/total_ane_time_ns
 func (e EspressoProfilingNetworkANEInfo) Total_ane_time_ns() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("total_ane_time_ns"))
@@ -148,20 +112,4 @@ func (e EspressoProfilingNetworkANEInfo) Total_ane_time_ns() uint64 {
 func (e EspressoProfilingNetworkANEInfo) SetTotal_ane_time_ns(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTotal_ane_time_ns:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (ec EspressoSharedKernelCacheEntryClass) Alloc() EspressoSharedKernelCacheE
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func EspressoSharedKernelCacheEntryFromID(id objc.ID) EspressoSharedKernelCacheE
 // Ensure EspressoSharedKernelCacheEntry implements IEspressoSharedKernelCacheEntry.
 var _ IEspressoSharedKernelCacheEntry = EspressoSharedKernelCacheEntry{}
 
-
-
-
-
 // An interface definition for the [EspressoSharedKernelCacheEntry] class.
 //
 // # Methods
@@ -79,10 +69,6 @@ type IEspressoSharedKernelCacheEntry interface {
 	Cached() IEspressoMetalKernelsCache
 	SetCached(value IEspressoMetalKernelsCache)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoSharedKernelCacheEntry) Init() EspressoSharedKernelCacheEntry {
@@ -103,26 +89,6 @@ func NewEspressoSharedKernelCacheEntry() EspressoSharedKernelCacheEntry {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoSharedKernelCacheEntry/cached
 func (e EspressoSharedKernelCacheEntry) Cached() IEspressoMetalKernelsCache {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("cached"))
@@ -131,20 +97,4 @@ func (e EspressoSharedKernelCacheEntry) Cached() IEspressoMetalKernelsCache {
 func (e EspressoSharedKernelCacheEntry) SetCached(value IEspressoMetalKernelsCache) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCached:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

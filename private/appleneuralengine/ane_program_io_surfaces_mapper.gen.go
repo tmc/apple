@@ -39,12 +39,6 @@ func (ac ANEProgramIOSurfacesMapperClass) Alloc() ANEProgramIOSurfacesMapper {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -67,10 +61,6 @@ func ANEProgramIOSurfacesMapperFromID(id objc.ID) ANEProgramIOSurfacesMapper {
 }
 // Ensure ANEProgramIOSurfacesMapper implements IANEProgramIOSurfacesMapper.
 var _ IANEProgramIOSurfacesMapper = ANEProgramIOSurfacesMapper{}
-
-
-
-
 
 // An interface definition for the [ANEProgramIOSurfacesMapper] class.
 //
@@ -101,10 +91,6 @@ type IANEProgramIOSurfacesMapper interface {
 	InitWithController(controller objectivec.IObject) ANEProgramIOSurfacesMapper
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEProgramIOSurfacesMapper) Init() ANEProgramIOSurfacesMapper {
 	rv := objc.Send[ANEProgramIOSurfacesMapper](a.ID, objc.Sel("init"))
@@ -124,11 +110,6 @@ func NewANEProgramIOSurfacesMapper() ANEProgramIOSurfacesMapper {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/initWithController:
 func NewANEProgramIOSurfacesMapperWithController(controller objectivec.IObject) ANEProgramIOSurfacesMapper {
@@ -137,16 +118,10 @@ func NewANEProgramIOSurfacesMapperWithController(controller objectivec.IObject) 
 	return ANEProgramIOSurfacesMapperFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/mapIOSurfacesWithModel:request:cacheInference:error:
 func (a ANEProgramIOSurfacesMapper) MapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("mapIOSurfacesWithModel:request:cacheInference:error:"), model, request, inference, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -168,7 +143,7 @@ func (a ANEProgramIOSurfacesMapper) PrepareANEMemoryMappingParamsRequest(params 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/unmapIOSurfacesWithModel:request:error:
 func (a ANEProgramIOSurfacesMapper) UnmapIOSurfacesWithModelRequestError(model objectivec.IObject, request objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("unmapIOSurfacesWithModel:request:error:"), model, request, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -195,10 +170,6 @@ func (a ANEProgramIOSurfacesMapper) InitWithController(controller objectivec.IOb
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/mapperWithController:
 func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWithController(controller objectivec.IObject) objectivec.IObject {
@@ -213,13 +184,6 @@ func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWi
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/controller
 func (a ANEProgramIOSurfacesMapper) Controller() *ANEDeviceController {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("controller"))
@@ -229,8 +193,6 @@ func (a ANEProgramIOSurfacesMapper) Controller() *ANEDeviceController {
 	val := ANEDeviceControllerFromID(objc.ID(rv))
 	return &val
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/deviceController
 func (a ANEProgramIOSurfacesMapper) DeviceController() *ANEDeviceController {
@@ -242,27 +204,9 @@ func (a ANEProgramIOSurfacesMapper) DeviceController() *ANEDeviceController {
 	return &val
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/programHandle
 func (a ANEProgramIOSurfacesMapper) ProgramHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

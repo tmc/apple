@@ -40,12 +40,6 @@ func (ac ANEVirtualClientClass) Alloc() ANEVirtualClient {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -123,10 +117,6 @@ func ANEVirtualClientFromID(id objc.ID) ANEVirtualClient {
 }
 // Ensure ANEVirtualClient implements IANEVirtualClient.
 var _ IANEVirtualClient = ANEVirtualClient{}
-
-
-
-
 
 // An interface definition for the [ANEVirtualClient] class.
 //
@@ -267,10 +257,6 @@ type IANEVirtualClient interface {
 	InitWithSingletonAccess() ANEVirtualClient
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEVirtualClient) Init() ANEVirtualClient {
 	rv := objc.Send[ANEVirtualClient](a.ID, objc.Sel("init"))
@@ -290,23 +276,12 @@ func NewANEVirtualClient() ANEVirtualClient {
 	return rv
 }
 
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/initWithSingletonAccess
 func NewANEVirtualClientWithSingletonAccess() ANEVirtualClient {
 	instance := getANEVirtualClientClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSingletonAccess"))
 	return ANEVirtualClientFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/aneArchitectureTypeStr
 func (a ANEVirtualClient) AneArchitectureTypeStr() objectivec.IObject {
@@ -336,7 +311,7 @@ func (a ANEVirtualClient) CallIOUserClientInParamsOutParams(client uint32, param
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/callIOUserClientWithDictionary:inDictionary:error:
 func (a ANEVirtualClient) CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 objectivec.IObject) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("callIOUserClientWithDictionary:inDictionary:error:"), dictionary, dictionary2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -355,7 +330,7 @@ func (a ANEVirtualClient) CheckKernReturnValueSelectorOutParams(value int, selec
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/compileModel:options:qos:error:
 func (a ANEVirtualClient) CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("compileModel:options:qos:error:"), model, options, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -468,7 +443,7 @@ func (a ANEVirtualClient) CopyToIOSurfaceSizeIoSID(iOSurface []byte, size uint64
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/doEvaluateWithModel:options:request:qos:completionEvent:error:
 func (a ANEVirtualClient) DoEvaluateWithModelOptionsRequestQosCompletionEventError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32, event objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("doEvaluateWithModel:options:request:qos:completionEvent:error:"), model, options, request, qos, event, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -484,7 +459,7 @@ func (a ANEVirtualClient) DoEvaluateWithModelOptionsRequestQosCompletionEventErr
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:
 func (a ANEVirtualClient) DoEvaluateWithModelLegacyOptionsRequestQosCompletionEventError(legacy objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32, event objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:"), legacy, options, request, qos, event, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -507,7 +482,7 @@ func (a ANEVirtualClient) DoJsonParsingMatchWeightName(name objectivec.IObject) 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/doMapIOSurfacesWithModel:request:cacheInference:error:
 func (a ANEVirtualClient) DoMapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("doMapIOSurfacesWithModel:request:cacheInference:error:"), model, request, inference, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -536,7 +511,7 @@ func (a ANEVirtualClient) EndRealTimeTask() bool {
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/evaluateWithModel:options:request:qos:error:
 func (a ANEVirtualClient) EvaluateWithModelOptionsRequestQosError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("evaluateWithModel:options:request:qos:error:"), model, options, request, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -595,7 +570,7 @@ func (a ANEVirtualClient) IsInternalBuild() bool {
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/loadModel:options:qos:error:
 func (a ANEVirtualClient) LoadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadModel:options:qos:error:"), model, options, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -611,7 +586,7 @@ func (a ANEVirtualClient) LoadModelOptionsQosError(model objectivec.IObject, opt
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/loadModelNewInstance:options:modelInstParams:qos:error:
 func (a ANEVirtualClient) LoadModelNewInstanceOptionsModelInstParamsQosError(instance objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadModelNewInstance:options:modelInstParams:qos:error:"), instance, options, params, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -627,7 +602,7 @@ func (a ANEVirtualClient) LoadModelNewInstanceOptionsModelInstParamsQosError(ins
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/loadModelNewInstanceLegacy:options:modelInstParams:qos:error:
 func (a ANEVirtualClient) LoadModelNewInstanceLegacyOptionsModelInstParamsQosError(legacy objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("loadModelNewInstanceLegacy:options:modelInstParams:qos:error:"), legacy, options, params, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -643,7 +618,7 @@ func (a ANEVirtualClient) LoadModelNewInstanceLegacyOptionsModelInstParamsQosErr
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/mapIOSurfacesWithModel:request:cacheInference:error:
 func (a ANEVirtualClient) MapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("mapIOSurfacesWithModel:request:cacheInference:error:"), model, request, inference, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -732,7 +707,7 @@ func (a ANEVirtualClient) SendGuestBuildVersion() {
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/sessionHintWithModel:hint:options:report:error:
 func (a ANEVirtualClient) SessionHintWithModelHintOptionsReportError(model objectivec.IObject, hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("sessionHintWithModel:hint:options:report:error:"), model, hint, options, report, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -755,7 +730,7 @@ func (a ANEVirtualClient) TransferFileToHostWithPathWithChunkSizeWithUUIDWithMod
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/unloadModel:options:qos:error:
 func (a ANEVirtualClient) UnloadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("unloadModel:options:qos:error:"), model, options, qos, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -771,7 +746,7 @@ func (a ANEVirtualClient) UnloadModelOptionsQosError(model objectivec.IObject, o
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/updateError:error:
 func (a ANEVirtualClient) UpdateErrorError(error_ unsafe.Pointer) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("updateError:error:"), error_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -816,10 +791,6 @@ func (a ANEVirtualClient) InitWithSingletonAccess() ANEVirtualClient {
 	rv := objc.Send[ANEVirtualClient](a.ID, objc.Sel("initWithSingletonAccess"))
 	return rv
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyDictionaryDataToStruct:dictionary:
@@ -949,7 +920,7 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) ShouldUsePrecompiledPathOpti
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/updateError:errorLength:error:
 func (_ANEVirtualClientClass ANEVirtualClientClass) UpdateErrorErrorLengthError(error_ coregraphics.IOSurfaceRef, length uint64) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("updateError:errorLength:error:"), error_, length, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -965,7 +936,7 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) UpdateErrorErrorLengthError(
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/updateError:errorLength:errorCode:error:
 func (_ANEVirtualClientClass ANEVirtualClientClass) UpdateErrorErrorLengthErrorCodeError(error_ coregraphics.IOSurfaceRef, length uint64, code int64) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("updateError:errorLength:errorCode:error:"), error_, length, code, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -985,40 +956,15 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) UpdatePerformanceStatsPerfor
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/connect
 func (a ANEVirtualClient) Connect() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("connect"))
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/queue
 func (a ANEVirtualClient) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

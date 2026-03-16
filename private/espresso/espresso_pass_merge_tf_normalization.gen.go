@@ -35,12 +35,6 @@ func (ec EspressoPass_merge_tf_normalizationClass) Alloc() EspressoPass_merge_tf
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_normalization
 type EspressoPass_merge_tf_normalization struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_merge_tf_normalizationFromID(id objc.ID) EspressoPass_merge_tf
 // Ensure EspressoPass_merge_tf_normalization implements IEspressoPass_merge_tf_normalization.
 var _ IEspressoPass_merge_tf_normalization = EspressoPass_merge_tf_normalization{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_merge_tf_normalization] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_tf_normalization
 type IEspressoPass_merge_tf_normalization interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_merge_tf_normalization) Init() EspressoPass_merge_tf_normalization {
@@ -86,38 +72,4 @@ func NewEspressoPass_merge_tf_normalization() EspressoPass_merge_tf_normalizatio
 	rv := objc.Send[EspressoPass_merge_tf_normalization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

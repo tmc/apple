@@ -37,12 +37,6 @@ func (mc MLRExtensionPrincipalClassClass) Alloc() MLRExtensionPrincipalClass {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -62,10 +56,6 @@ func MLRExtensionPrincipalClassFromID(id objc.ID) MLRExtensionPrincipalClass {
 }
 // Ensure MLRExtensionPrincipalClass implements IMLRExtensionPrincipalClass.
 var _ IMLRExtensionPrincipalClass = MLRExtensionPrincipalClass{}
-
-
-
-
 
 // An interface definition for the [MLRExtensionPrincipalClass] class.
 //
@@ -90,10 +80,6 @@ type IMLRExtensionPrincipalClass interface {
 	Superclass() objc.Class
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRExtensionPrincipalClass) Init() MLRExtensionPrincipalClass {
 	rv := objc.Send[MLRExtensionPrincipalClass](r.ID, objc.Sel("init"))
@@ -113,31 +99,11 @@ func NewMLRExtensionPrincipalClass() MLRExtensionPrincipalClass {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/beginRequestWithExtensionContext:
 func (r MLRExtensionPrincipalClass) BeginRequestWithExtensionContext(context objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("beginRequestWithExtensionContext:"), context)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/debugDescription
 func (r MLRExtensionPrincipalClass) DebugDescription() string {
@@ -145,15 +111,11 @@ func (r MLRExtensionPrincipalClass) DebugDescription() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/description
 func (r MLRExtensionPrincipalClass) Description() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/hash
 func (r MLRExtensionPrincipalClass) Hash() uint64 {
@@ -161,27 +123,9 @@ func (r MLRExtensionPrincipalClass) Hash() uint64 {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/superclass
 func (r MLRExtensionPrincipalClass) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (ec EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeezeCla
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze
 type EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeezeFromID(
 // Ensure EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze implements IEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze.
 var _ IEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze = EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze
 type IEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze) Init() EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze {
@@ -86,38 +72,4 @@ func NewEspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze() E
 	rv := objc.Send[EspressoPass_strength_reduction_transpose_reshape_to_flatten_squeeze](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

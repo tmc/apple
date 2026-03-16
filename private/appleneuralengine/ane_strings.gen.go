@@ -36,12 +36,6 @@ func (ac ANEStringsClass) Alloc() ANEStrings {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStrings
 type ANEStrings struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANEStringsFromID(id objc.ID) ANEStrings {
 // Ensure ANEStrings implements IANEStrings.
 var _ IANEStrings = ANEStrings{}
 
-
-
-
-
 // An interface definition for the [ANEStrings] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStrings
 type IANEStrings interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEStrings) Init() ANEStrings {
@@ -87,19 +73,6 @@ func NewANEStrings() ANEStrings {
 	rv := objc.Send[ANEStrings](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStrings/adapterWeightsAccessEntitlement
 func (_ANEStringsClass ANEStringsClass) AdapterWeightsAccessEntitlement() objectivec.IObject {
@@ -626,25 +599,4 @@ func (_ANEStringsClass ANEStringsClass) Vm_tmpBaseDirectory() objectivec.IObject
 	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_tmpBaseDirectory"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

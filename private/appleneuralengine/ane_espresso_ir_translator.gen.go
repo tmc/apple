@@ -39,12 +39,6 @@ func (ac ANEEspressoIRTranslatorClass) Alloc() ANEEspressoIRTranslator {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEEspressoIRTranslator
 type ANEEspressoIRTranslator struct {
 	objectivec.Object
@@ -57,20 +51,12 @@ func ANEEspressoIRTranslatorFromID(id objc.ID) ANEEspressoIRTranslator {
 // Ensure ANEEspressoIRTranslator implements IANEEspressoIRTranslator.
 var _ IANEEspressoIRTranslator = ANEEspressoIRTranslator{}
 
-
-
-
-
 // An interface definition for the [ANEEspressoIRTranslator] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEEspressoIRTranslator
 type IANEEspressoIRTranslator interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEEspressoIRTranslator) Init() ANEEspressoIRTranslator {
@@ -91,19 +77,6 @@ func NewANEEspressoIRTranslator() ANEEspressoIRTranslator {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEEspressoIRTranslator/createErrorForPlan:status:
 func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) CreateErrorForPlanStatus(plan unsafe.Pointer, status int) objectivec.IObject {
@@ -120,7 +93,7 @@ func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) DestroyEspress
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEEspressoIRTranslator/translateModelAt:key:outputPath:isEncryptedModel:translationOptions:error:
 func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) TranslateModelAtKeyOutputPathIsEncryptedModelTranslationOptionsError(at objectivec.IObject, key objectivec.IObject, path objectivec.IObject, model bool, options objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_ANEEspressoIRTranslatorClass.class), objc.Sel("translateModelAt:key:outputPath:isEncryptedModel:translationOptions:error:"), at, key, path, model, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -132,25 +105,4 @@ func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) TranslateModel
 	return rv, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

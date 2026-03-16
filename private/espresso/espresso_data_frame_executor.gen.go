@@ -37,12 +37,6 @@ func (ec EspressoDataFrameExecutorClass) Alloc() EspressoDataFrameExecutor {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -70,10 +64,6 @@ func EspressoDataFrameExecutorFromID(id objc.ID) EspressoDataFrameExecutor {
 }
 // Ensure EspressoDataFrameExecutor implements IEspressoDataFrameExecutor.
 var _ IEspressoDataFrameExecutor = EspressoDataFrameExecutor{}
-
-
-
-
 
 // An interface definition for the [EspressoDataFrameExecutor] class.
 //
@@ -114,10 +104,6 @@ type IEspressoDataFrameExecutor interface {
 	SetUse_cvpixelbuffer(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoDataFrameExecutor) Init() EspressoDataFrameExecutor {
 	rv := objc.Send[EspressoDataFrameExecutor](e.ID, objc.Sel("init"))
@@ -136,15 +122,6 @@ func NewEspressoDataFrameExecutor() EspressoDataFrameExecutor {
 	rv := objc.Send[EspressoDataFrameExecutor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameExecutor/bindInput:fromImageAttachment:toNetwork:
@@ -206,17 +183,6 @@ func (e EspressoDataFrameExecutor) UseCVPixelBuffersForOutputs(outputs bool) boo
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameExecutor/outputMatchingBuffers
 func (e EspressoDataFrameExecutor) OutputMatchingBuffers() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputMatchingBuffers"))
@@ -226,8 +192,6 @@ func (e EspressoDataFrameExecutor) SetOutputMatchingBuffers(value foundation.INS
 	objc.Send[struct{}](e.ID, objc.Sel("setOutputMatchingBuffers:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameExecutor/use_cvpixelbuffer
 func (e EspressoDataFrameExecutor) Use_cvpixelbuffer() int {
 	rv := objc.Send[int](e.ID, objc.Sel("use_cvpixelbuffer"))
@@ -236,20 +200,4 @@ func (e EspressoDataFrameExecutor) Use_cvpixelbuffer() int {
 func (e EspressoDataFrameExecutor) SetUse_cvpixelbuffer(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUse_cvpixelbuffer:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

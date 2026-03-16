@@ -35,12 +35,6 @@ func (ec EspressoPass_concat_fuse_fixClass) Alloc() EspressoPass_concat_fuse_fix
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_concat_fuse_fix
 type EspressoPass_concat_fuse_fix struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_concat_fuse_fixFromID(id objc.ID) EspressoPass_concat_fuse_fix
 // Ensure EspressoPass_concat_fuse_fix implements IEspressoPass_concat_fuse_fix.
 var _ IEspressoPass_concat_fuse_fix = EspressoPass_concat_fuse_fix{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_concat_fuse_fix] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_concat_fuse_fix
 type IEspressoPass_concat_fuse_fix interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_concat_fuse_fix) Init() EspressoPass_concat_fuse_fix {
@@ -86,38 +72,4 @@ func NewEspressoPass_concat_fuse_fix() EspressoPass_concat_fuse_fix {
 	rv := objc.Send[EspressoPass_concat_fuse_fix](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

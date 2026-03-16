@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_fast_gelu_1Class) Alloc() EspressoPass_fuse_fast_gelu
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_fast_gelu_1
 type EspressoPass_fuse_fast_gelu_1 struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_fast_gelu_1FromID(id objc.ID) EspressoPass_fuse_fast_gelu
 // Ensure EspressoPass_fuse_fast_gelu_1 implements IEspressoPass_fuse_fast_gelu_1.
 var _ IEspressoPass_fuse_fast_gelu_1 = EspressoPass_fuse_fast_gelu_1{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_fast_gelu_1] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_fast_gelu_1
 type IEspressoPass_fuse_fast_gelu_1 interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_fast_gelu_1) Init() EspressoPass_fuse_fast_gelu_1 {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_fast_gelu_1() EspressoPass_fuse_fast_gelu_1 {
 	rv := objc.Send[EspressoPass_fuse_fast_gelu_1](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

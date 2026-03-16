@@ -38,12 +38,6 @@ func (ac ANECoreMLModelCompilerClass) Alloc() ANECoreMLModelCompiler {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECoreMLModelCompiler
 type ANECoreMLModelCompiler struct {
 	objectivec.Object
@@ -56,20 +50,12 @@ func ANECoreMLModelCompilerFromID(id objc.ID) ANECoreMLModelCompiler {
 // Ensure ANECoreMLModelCompiler implements IANECoreMLModelCompiler.
 var _ IANECoreMLModelCompiler = ANECoreMLModelCompiler{}
 
-
-
-
-
 // An interface definition for the [ANECoreMLModelCompiler] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECoreMLModelCompiler
 type IANECoreMLModelCompiler interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANECoreMLModelCompiler) Init() ANECoreMLModelCompiler {
@@ -90,23 +76,10 @@ func NewANECoreMLModelCompiler() ANECoreMLModelCompiler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECoreMLModelCompiler/compileModelAt:csIdentity:key:optionsFilename:tempDirectory:outputURL:saveSourceModelPath:aotModelBinaryPath:isEncryptedModel:options:ok:error:
 func (_ANECoreMLModelCompilerClass ANECoreMLModelCompilerClass) CompileModelAtCsIdentityKeyOptionsFilenameTempDirectoryOutputURLSaveSourceModelPathAotModelBinaryPathIsEncryptedModelOptionsOkError(at objectivec.IObject, identity objectivec.IObject, key objectivec.IObject, filename objectivec.IObject, directory objectivec.IObject, url foundation.INSURL, path objectivec.IObject, path2 objectivec.IObject, model bool, options objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANECoreMLModelCompilerClass.class), objc.Sel("compileModelAt:csIdentity:key:optionsFilename:tempDirectory:outputURL:saveSourceModelPath:aotModelBinaryPath:isEncryptedModel:options:ok:error:"), at, identity, key, filename, directory, url, path, path2, model, options, ok, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -129,25 +102,4 @@ func (_ANECoreMLModelCompilerClass ANECoreMLModelCompilerClass) PathsForModelURL
 	rv := objc.Send[objc.ID](objc.ID(_ANECoreMLModelCompilerClass.class), objc.Sel("pathsForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

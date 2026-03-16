@@ -36,12 +36,6 @@ func (bc BaseDiskImageCreatorClass) Alloc() BaseDiskImageCreator {
 	return rv
 }
 
-
-
-
-
-
-
 // A parent class referenced by other diskimages2 classes. [Full Topic]
 type BaseDiskImageCreator struct {
 	objectivec.Object
@@ -56,18 +50,10 @@ func BaseDiskImageCreatorFromID(id objc.ID) BaseDiskImageCreator {
 // Ensure BaseDiskImageCreator implements IBaseDiskImageCreator.
 var _ IBaseDiskImageCreator = BaseDiskImageCreator{}
 
-
-
-
-
 // An interface definition for the [BaseDiskImageCreator] class.
 type IBaseDiskImageCreator interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b BaseDiskImageCreator) Init() BaseDiskImageCreator {
@@ -87,38 +73,4 @@ func NewBaseDiskImageCreator() BaseDiskImageCreator {
 	rv := objc.Send[BaseDiskImageCreator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (ec EspressoCustomPassClass) Alloc() EspressoCustomPass {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func EspressoCustomPassFromID(id objc.ID) EspressoCustomPass {
 // Ensure EspressoCustomPass implements IEspressoCustomPass.
 var _ IEspressoCustomPass = EspressoCustomPass{}
 
-
-
-
-
 // An interface definition for the [EspressoCustomPass] class.
 //
 // # Methods
@@ -77,10 +67,6 @@ type IEspressoCustomPass interface {
 
 	RunOnNetwork(network unsafe.Pointer) bool
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoCustomPass) Init() EspressoCustomPass {
@@ -101,44 +87,10 @@ func NewEspressoCustomPass() EspressoCustomPass {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoCustomPass/runOnNetwork:
 func (e EspressoCustomPass) RunOnNetwork(network unsafe.Pointer) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("runOnNetwork:"), network)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

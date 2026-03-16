@@ -38,12 +38,6 @@ func (mc MLROnDemandPluginClass) Alloc() MLROnDemandPlugin {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin
 type MLROnDemandPlugin struct {
 	objectivec.Object
@@ -56,20 +50,12 @@ func MLROnDemandPluginFromID(id objc.ID) MLROnDemandPlugin {
 // Ensure MLROnDemandPlugin implements IMLROnDemandPlugin.
 var _ IMLROnDemandPlugin = MLROnDemandPlugin{}
 
-
-
-
-
 // An interface definition for the [MLROnDemandPlugin] class.
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin
 type IMLROnDemandPlugin interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r MLROnDemandPlugin) Init() MLROnDemandPlugin {
@@ -90,19 +76,6 @@ func NewMLROnDemandPlugin() MLROnDemandPlugin {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin/onDemandPluginIDs
 func (_MLROnDemandPluginClass MLROnDemandPluginClass) OnDemandPluginIDs() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLROnDemandPluginClass.class), objc.Sel("onDemandPluginIDs"))
@@ -112,15 +85,15 @@ func (_MLROnDemandPluginClass MLROnDemandPluginClass) OnDemandPluginIDs() object
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin/performTask:forPluginID:completionHandler:
 func (_MLROnDemandPluginClass MLROnDemandPluginClass) PerformTaskForPluginIDCompletionHandler(task objectivec.IObject, id objectivec.IObject, handler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(handler)
+_block2, _cleanup2 := NewErrorBlock(handler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_MLROnDemandPluginClass.class), objc.Sel("performTask:forPluginID:completionHandler:"), task, id, _block2)
+	objc.Send[objc.ID](objc.ID(_MLROnDemandPluginClass.class), objc.Sel("performTask:forPluginID:completionHandler:"), task, id, _block2)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin/synchronouslyPerformTask:forPluginID:error:
 func (_MLROnDemandPluginClass MLROnDemandPluginClass) SynchronouslyPerformTaskForPluginIDError(task objectivec.IObject, id objectivec.IObject) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLROnDemandPluginClass.class), objc.Sel("synchronouslyPerformTask:forPluginID:error:"), task, id, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -129,25 +102,4 @@ func (_MLROnDemandPluginClass MLROnDemandPluginClass) SynchronouslyPerformTaskFo
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

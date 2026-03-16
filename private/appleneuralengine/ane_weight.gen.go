@@ -37,12 +37,6 @@ func (ac ANEWeightClass) Alloc() ANEWeight {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -68,10 +62,6 @@ func ANEWeightFromID(id objc.ID) ANEWeight {
 }
 // Ensure ANEWeight implements IANEWeight.
 var _ IANEWeight = ANEWeight{}
-
-
-
-
 
 // An interface definition for the [ANEWeight] class.
 //
@@ -108,10 +98,6 @@ type IANEWeight interface {
 	InitWithWeightSymbolAndURLSHAWeightURLSHACodeSandboxExtension(urlsha objectivec.IObject, url foundation.INSURL, hACode objectivec.IObject, extension objectivec.IObject) ANEWeight
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEWeight) Init() ANEWeight {
 	rv := objc.Send[ANEWeight](a.ID, objc.Sel("init"))
@@ -131,11 +117,6 @@ func NewANEWeight() ANEWeight {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/initWithCoder:
 func NewANEWeightWithCoder(coder objectivec.IObject) ANEWeight {
@@ -143,7 +124,6 @@ func NewANEWeightWithCoder(coder objectivec.IObject) ANEWeight {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEWeightFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/initWithWeightSymbolAndURLSHA:weightURL:SHACode:sandboxExtension:
@@ -153,7 +133,6 @@ func NewANEWeightWithWeightSymbolAndURLSHAWeightURLSHACodeSandboxExtension(urlsh
 	return ANEWeightFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/initWithWeightSymbolAndURL:weightURL:
 func NewANEWeightWithWeightSymbolAndURLWeightURL(url foundation.INSURL, url2 foundation.INSURL) ANEWeight {
@@ -161,12 +140,6 @@ func NewANEWeightWithWeightSymbolAndURLWeightURL(url foundation.INSURL, url2 fou
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWeightSymbolAndURL:weightURL:"), url, url2)
 	return ANEWeightFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/encodeWithCoder:
@@ -201,10 +174,6 @@ func (a ANEWeight) InitWithWeightSymbolAndURLSHAWeightURLSHACodeSandboxExtension
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/supportsSecureCoding
 func (_ANEWeightClass ANEWeightClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEWeightClass.class), objc.Sel("supportsSecureCoding"))
@@ -225,20 +194,11 @@ func (_ANEWeightClass ANEWeightClass) WeightWithSymbolAndURLSHAWeightURLSHACode(
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/SHACode
 func (a ANEWeight) SHACode() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("SHACode"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/sandboxExtension
 func (a ANEWeight) SandboxExtension() string {
@@ -249,15 +209,11 @@ func (a ANEWeight) SetSandboxExtension(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSandboxExtension:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/weightSymbol
 func (a ANEWeight) WeightSymbol() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightSymbol"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/weightURL
 func (a ANEWeight) WeightURL() foundation.INSURL {
@@ -267,20 +223,4 @@ func (a ANEWeight) WeightURL() foundation.INSURL {
 func (a ANEWeight) SetWeightURL(value foundation.INSURL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setWeightURL:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

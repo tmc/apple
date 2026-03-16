@@ -36,12 +36,6 @@ func (ec EspressoOJBCClass) Alloc() EspressoOJBC {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoOJBC
 type EspressoOJBC struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func EspressoOJBCFromID(id objc.ID) EspressoOJBC {
 // Ensure EspressoOJBC implements IEspressoOJBC.
 var _ IEspressoOJBC = EspressoOJBC{}
 
-
-
-
-
 // An interface definition for the [EspressoOJBC] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoOJBC
 type IEspressoOJBC interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoOJBC) Init() EspressoOJBC {
@@ -87,38 +73,4 @@ func NewEspressoOJBC() EspressoOJBC {
 	rv := objc.Send[EspressoOJBC](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -39,12 +39,6 @@ func (ac ANEIOSurfaceObjectClass) Alloc() ANEIOSurfaceObject {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -65,10 +59,6 @@ func ANEIOSurfaceObjectFromID(id objc.ID) ANEIOSurfaceObject {
 }
 // Ensure ANEIOSurfaceObject implements IANEIOSurfaceObject.
 var _ IANEIOSurfaceObject = ANEIOSurfaceObject{}
-
-
-
-
 
 // An interface definition for the [ANEIOSurfaceObject] class.
 //
@@ -95,10 +85,6 @@ type IANEIOSurfaceObject interface {
 	InitWithIOSurfaceStartOffsetShouldRetain(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEIOSurfaceObject) Init() ANEIOSurfaceObject {
 	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("init"))
@@ -118,11 +104,6 @@ func NewANEIOSurfaceObject() ANEIOSurfaceObject {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/initWithCoder:
 func NewANEIOSurfaceObjectWithCoder(coder objectivec.IObject) ANEIOSurfaceObject {
@@ -131,7 +112,6 @@ func NewANEIOSurfaceObjectWithCoder(coder objectivec.IObject) ANEIOSurfaceObject
 	return ANEIOSurfaceObjectFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/initWithIOSurface:startOffset:shouldRetain:
 func NewANEIOSurfaceObjectWithIOSurfaceStartOffsetShouldRetain(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject {
@@ -139,12 +119,6 @@ func NewANEIOSurfaceObjectWithIOSurfaceStartOffsetShouldRetain(iOSurface coregra
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:startOffset:shouldRetain:"), iOSurface, offset, retain)
 	return ANEIOSurfaceObjectFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/encodeWithCoder:
@@ -172,10 +146,6 @@ func (a ANEIOSurfaceObject) InitWithIOSurfaceStartOffsetShouldRetain(iOSurface c
 	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("initWithIOSurface:startOffset:shouldRetain:"), iOSurface, offset, retain)
 	return rv
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/createIOSurfaceWithWidth:pixel_size:height:
@@ -218,40 +188,15 @@ func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) SupportsSecureCoding() b
 	return rv
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/ioSurface
 func (a ANEIOSurfaceObject) IoSurface() coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("ioSurface"))
 	return coregraphics.IOSurfaceRef(rv)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/startOffset
 func (a ANEIOSurfaceObject) StartOffset() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("startOffset"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

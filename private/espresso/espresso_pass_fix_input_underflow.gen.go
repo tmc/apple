@@ -35,12 +35,6 @@ func (ec EspressoPass_fix_input_underflowClass) Alloc() EspressoPass_fix_input_u
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fix_input_underflow
 type EspressoPass_fix_input_underflow struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fix_input_underflowFromID(id objc.ID) EspressoPass_fix_input_u
 // Ensure EspressoPass_fix_input_underflow implements IEspressoPass_fix_input_underflow.
 var _ IEspressoPass_fix_input_underflow = EspressoPass_fix_input_underflow{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fix_input_underflow] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fix_input_underflow
 type IEspressoPass_fix_input_underflow interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fix_input_underflow) Init() EspressoPass_fix_input_underflow {
@@ -86,38 +72,4 @@ func NewEspressoPass_fix_input_underflow() EspressoPass_fix_input_underflow {
 	rv := objc.Send[EspressoPass_fix_input_underflow](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

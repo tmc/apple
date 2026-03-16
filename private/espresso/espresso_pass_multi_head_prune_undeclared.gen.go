@@ -35,12 +35,6 @@ func (ec EspressoPass_multi_head_prune_undeclaredClass) Alloc() EspressoPass_mul
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_prune_undeclared
 type EspressoPass_multi_head_prune_undeclared struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_multi_head_prune_undeclaredFromID(id objc.ID) EspressoPass_mul
 // Ensure EspressoPass_multi_head_prune_undeclared implements IEspressoPass_multi_head_prune_undeclared.
 var _ IEspressoPass_multi_head_prune_undeclared = EspressoPass_multi_head_prune_undeclared{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_multi_head_prune_undeclared] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_prune_undeclared
 type IEspressoPass_multi_head_prune_undeclared interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_multi_head_prune_undeclared) Init() EspressoPass_multi_head_prune_undeclared {
@@ -86,38 +72,4 @@ func NewEspressoPass_multi_head_prune_undeclared() EspressoPass_multi_head_prune
 	rv := objc.Send[EspressoPass_multi_head_prune_undeclared](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

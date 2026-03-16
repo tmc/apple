@@ -36,12 +36,6 @@ func (ec EspressoContextClass) Alloc() EspressoContext {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -63,10 +57,6 @@ func EspressoContextFromID(id objc.ID) EspressoContext {
 }
 // Ensure EspressoContext implements IEspressoContext.
 var _ IEspressoContext = EspressoContext{}
-
-
-
-
 
 // An interface definition for the [EspressoContext] class.
 //
@@ -95,10 +85,6 @@ type IEspressoContext interface {
 	InitWithPlatform(platform int) EspressoContext
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoContext) Init() EspressoContext {
 	rv := objc.Send[EspressoContext](e.ID, objc.Sel("init"))
@@ -118,11 +104,6 @@ func NewEspressoContext() EspressoContext {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithContext:
 func NewEspressoContextWithContext(context objectivec.IObject) EspressoContext {
@@ -130,7 +111,6 @@ func NewEspressoContextWithContext(context objectivec.IObject) EspressoContext {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContext:"), context)
 	return EspressoContextFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithDevice:andWisdomParams:
@@ -140,7 +120,6 @@ func NewEspressoContextWithDeviceAndWisdomParams(device objectivec.IObject, para
 	return EspressoContextFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithNetworkContext:
 func NewEspressoContextWithNetworkContext(context objectivec.IObject) EspressoContext {
@@ -149,7 +128,6 @@ func NewEspressoContextWithNetworkContext(context objectivec.IObject) EspressoCo
 	return EspressoContextFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithPlatform:
 func NewEspressoContextWithPlatform(platform int) EspressoContext {
@@ -157,12 +135,6 @@ func NewEspressoContextWithPlatform(platform int) EspressoContext {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPlatform:"), platform)
 	return EspressoContextFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/set_priority:low_priority_max_ms_per_command_buffer:gpu_priority:
@@ -198,44 +170,15 @@ func (e EspressoContext) InitWithPlatform(platform int) EspressoContext {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/ctx
 func (e EspressoContext) Ctx() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ctx"))
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/platform
 func (e EspressoContext) Platform() int {
 	rv := objc.Send[int](e.ID, objc.Sel("platform"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

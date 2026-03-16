@@ -37,12 +37,6 @@ func (ac ANEErrorsClass) Alloc() ANEErrors {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEErrors
 type ANEErrors struct {
 	objectivec.Object
@@ -55,20 +49,12 @@ func ANEErrorsFromID(id objc.ID) ANEErrors {
 // Ensure ANEErrors implements IANEErrors.
 var _ IANEErrors = ANEErrors{}
 
-
-
-
-
 // An interface definition for the [ANEErrors] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEErrors
 type IANEErrors interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEErrors) Init() ANEErrors {
@@ -88,19 +74,6 @@ func NewANEErrors() ANEErrors {
 	rv := objc.Send[ANEErrors](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEErrors/badArgumentForMethod:
@@ -339,25 +312,4 @@ func (_ANEErrorsClass ANEErrorsClass) VirtualizationKernelErrorKernelErrorCode(e
 	rv := objc.Send[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationKernelError:kernelErrorCode:"), error_, code)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

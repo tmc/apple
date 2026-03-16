@@ -35,12 +35,6 @@ func (ec EspressoPass_debug_modeClass) Alloc() EspressoPass_debug_mode {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_debug_mode
 type EspressoPass_debug_mode struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_debug_modeFromID(id objc.ID) EspressoPass_debug_mode {
 // Ensure EspressoPass_debug_mode implements IEspressoPass_debug_mode.
 var _ IEspressoPass_debug_mode = EspressoPass_debug_mode{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_debug_mode] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_debug_mode
 type IEspressoPass_debug_mode interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_debug_mode) Init() EspressoPass_debug_mode {
@@ -86,38 +72,4 @@ func NewEspressoPass_debug_mode() EspressoPass_debug_mode {
 	rv := objc.Send[EspressoPass_debug_mode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

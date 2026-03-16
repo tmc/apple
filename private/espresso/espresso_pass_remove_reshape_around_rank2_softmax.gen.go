@@ -35,12 +35,6 @@ func (ec EspressoPass_remove_reshape_around_rank2_softmaxClass) Alloc() Espresso
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank2_softmax
 type EspressoPass_remove_reshape_around_rank2_softmax struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_remove_reshape_around_rank2_softmaxFromID(id objc.ID) Espresso
 // Ensure EspressoPass_remove_reshape_around_rank2_softmax implements IEspressoPass_remove_reshape_around_rank2_softmax.
 var _ IEspressoPass_remove_reshape_around_rank2_softmax = EspressoPass_remove_reshape_around_rank2_softmax{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_remove_reshape_around_rank2_softmax] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank2_softmax
 type IEspressoPass_remove_reshape_around_rank2_softmax interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_remove_reshape_around_rank2_softmax) Init() EspressoPass_remove_reshape_around_rank2_softmax {
@@ -86,38 +72,4 @@ func NewEspressoPass_remove_reshape_around_rank2_softmax() EspressoPass_remove_r
 	rv := objc.Send[EspressoPass_remove_reshape_around_rank2_softmax](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (mc MLRTaskAttachmentsClass) Alloc() MLRTaskAttachments {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -66,10 +60,6 @@ func MLRTaskAttachmentsFromID(id objc.ID) MLRTaskAttachments {
 }
 // Ensure MLRTaskAttachments implements IMLRTaskAttachments.
 var _ IMLRTaskAttachments = MLRTaskAttachments{}
-
-
-
-
 
 // An interface definition for the [MLRTaskAttachments] class.
 //
@@ -100,10 +90,6 @@ type IMLRTaskAttachments interface {
 	InitWithURLs(uRLs objectivec.IObject) MLRTaskAttachments
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRTaskAttachments) Init() MLRTaskAttachments {
 	rv := objc.Send[MLRTaskAttachments](r.ID, objc.Sel("init"))
@@ -123,11 +109,6 @@ func NewMLRTaskAttachments() MLRTaskAttachments {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithCoder:
 func NewRTaskAttachmentsWithCoder(coder objectivec.IObject) MLRTaskAttachments {
@@ -135,7 +116,6 @@ func NewRTaskAttachmentsWithCoder(coder objectivec.IObject) MLRTaskAttachments {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLRTaskAttachmentsFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithContentsOfURL:error:
@@ -150,7 +130,6 @@ func NewRTaskAttachmentsWithContentsOfURLError(url foundation.INSURL) (MLRTaskAt
 	return MLRTaskAttachmentsFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithDESRecipe:
 func NewRTaskAttachmentsWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskAttachments {
@@ -159,7 +138,6 @@ func NewRTaskAttachmentsWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskAttac
 	return MLRTaskAttachmentsFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithURLs:
 func NewRTaskAttachmentsWithURLs(uRLs objectivec.IObject) MLRTaskAttachments {
@@ -167,12 +145,6 @@ func NewRTaskAttachmentsWithURLs(uRLs objectivec.IObject) MLRTaskAttachments {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURLs:"), uRLs)
 	return MLRTaskAttachmentsFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/attachmentURLsForBasename:
@@ -197,7 +169,7 @@ func (r MLRTaskAttachments) InitWithCoder(coder objectivec.IObject) MLRTaskAttac
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithContentsOfURL:error:
 func (r MLRTaskAttachments) InitWithContentsOfURLError(url foundation.INSURL) (MLRTaskAttachments, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -221,22 +193,11 @@ func (r MLRTaskAttachments) InitWithURLs(uRLs objectivec.IObject) MLRTaskAttachm
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/supportsSecureCoding
 func (_MLRTaskAttachmentsClass MLRTaskAttachmentsClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLRTaskAttachmentsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/attachmentURLs
 func (r MLRTaskAttachments) AttachmentURLs() foundation.INSArray {
@@ -244,27 +205,9 @@ func (r MLRTaskAttachments) AttachmentURLs() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/count
 func (r MLRTaskAttachments) Count() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("count"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

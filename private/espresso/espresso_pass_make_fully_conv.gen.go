@@ -35,12 +35,6 @@ func (ec EspressoPass_make_fully_convClass) Alloc() EspressoPass_make_fully_conv
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_make_fully_conv
 type EspressoPass_make_fully_conv struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_make_fully_convFromID(id objc.ID) EspressoPass_make_fully_conv
 // Ensure EspressoPass_make_fully_conv implements IEspressoPass_make_fully_conv.
 var _ IEspressoPass_make_fully_conv = EspressoPass_make_fully_conv{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_make_fully_conv] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_make_fully_conv
 type IEspressoPass_make_fully_conv interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_make_fully_conv) Init() EspressoPass_make_fully_conv {
@@ -86,38 +72,4 @@ func NewEspressoPass_make_fully_conv() EspressoPass_make_fully_conv {
 	rv := objc.Send[EspressoPass_make_fully_conv](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

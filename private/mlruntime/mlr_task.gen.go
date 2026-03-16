@@ -36,12 +36,6 @@ func (mc MLRTaskClass) Alloc() MLRTask {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -62,10 +56,6 @@ func MLRTaskFromID(id objc.ID) MLRTask {
 }
 // Ensure MLRTask implements IMLRTask.
 var _ IMLRTask = MLRTask{}
-
-
-
-
 
 // An interface definition for the [MLRTask] class.
 //
@@ -92,10 +82,6 @@ type IMLRTask interface {
 	InitWithParametersDict(dict objectivec.IObject) MLRTask
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRTask) Init() MLRTask {
 	rv := objc.Send[MLRTask](r.ID, objc.Sel("init"))
@@ -115,11 +101,6 @@ func NewMLRTask() MLRTask {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithCoder:
 func NewRTaskWithCoder(coder objectivec.IObject) MLRTask {
@@ -127,7 +108,6 @@ func NewRTaskWithCoder(coder objectivec.IObject) MLRTask {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLRTaskFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithParameters:attachments:
@@ -137,7 +117,6 @@ func NewRTaskWithParametersAttachments(parameters objectivec.IObject, attachment
 	return MLRTaskFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithParametersDict:
 func NewRTaskWithParametersDict(dict objectivec.IObject) MLRTask {
@@ -145,12 +124,6 @@ func NewRTaskWithParametersDict(dict objectivec.IObject) MLRTask {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParametersDict:"), dict)
 	return MLRTaskFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/encodeWithCoder:
@@ -179,22 +152,11 @@ func (r MLRTask) InitWithParametersDict(dict objectivec.IObject) MLRTask {
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/supportsSecureCoding
 func (_MLRTaskClass MLRTaskClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLRTaskClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/attachments
 func (r MLRTask) Attachments() IMLRTaskAttachments {
@@ -202,27 +164,9 @@ func (r MLRTask) Attachments() IMLRTaskAttachments {
 	return MLRTaskAttachmentsFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/parameters
 func (r MLRTask) Parameters() IMLRTaskParameters {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("parameters"))
 	return MLRTaskParametersFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

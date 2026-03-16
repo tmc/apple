@@ -37,12 +37,6 @@ func (ac ANEHashEncodingClass) Alloc() ANEHashEncoding {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding
 type ANEHashEncoding struct {
 	objectivec.Object
@@ -55,20 +49,12 @@ func ANEHashEncodingFromID(id objc.ID) ANEHashEncoding {
 // Ensure ANEHashEncoding implements IANEHashEncoding.
 var _ IANEHashEncoding = ANEHashEncoding{}
 
-
-
-
-
 // An interface definition for the [ANEHashEncoding] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding
 type IANEHashEncoding interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEHashEncoding) Init() ANEHashEncoding {
@@ -88,19 +74,6 @@ func NewANEHashEncoding() ANEHashEncoding {
 	rv := objc.Send[ANEHashEncoding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/convertToHexString:length:
@@ -149,25 +122,4 @@ func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForString(string_ obj
 	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

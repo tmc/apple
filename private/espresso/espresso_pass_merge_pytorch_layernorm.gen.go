@@ -35,12 +35,6 @@ func (ec EspressoPass_merge_pytorch_layernormClass) Alloc() EspressoPass_merge_p
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_pytorch_layernorm
 type EspressoPass_merge_pytorch_layernorm struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_merge_pytorch_layernormFromID(id objc.ID) EspressoPass_merge_p
 // Ensure EspressoPass_merge_pytorch_layernorm implements IEspressoPass_merge_pytorch_layernorm.
 var _ IEspressoPass_merge_pytorch_layernorm = EspressoPass_merge_pytorch_layernorm{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_merge_pytorch_layernorm] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_merge_pytorch_layernorm
 type IEspressoPass_merge_pytorch_layernorm interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_merge_pytorch_layernorm) Init() EspressoPass_merge_pytorch_layernorm {
@@ -86,38 +72,4 @@ func NewEspressoPass_merge_pytorch_layernorm() EspressoPass_merge_pytorch_layern
 	rv := objc.Send[EspressoPass_merge_pytorch_layernorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

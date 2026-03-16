@@ -34,7 +34,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _mLRSanitizeErrorSymbol uintptr
 
 // MLRSanitizeError has an opaque C signature in discovered metadata.
@@ -48,12 +47,10 @@ func MLRSanitizeError() {
 // MLRSanitizeErrorSymbol returns the raw symbol address for MLRSanitizeError.
 func MLRSanitizeErrorSymbol() uintptr {
 	if _mLRSanitizeErrorSymbol == 0 {
-		panic("mlruntime: symbol MLRSanitizeError not loaded")
+		return 0
 	}
 	return _mLRSanitizeErrorSymbol
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -61,5 +58,4 @@ func init() {
 	}
 		registerSymbol(&_mLRSanitizeErrorSymbol, frameworkHandle, "MLRSanitizeError")
 	}
-
 

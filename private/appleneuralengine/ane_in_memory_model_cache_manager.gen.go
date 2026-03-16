@@ -37,12 +37,6 @@ func (ac ANEInMemoryModelCacheManagerClass) Alloc() ANEInMemoryModelCacheManager
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -69,10 +63,6 @@ func ANEInMemoryModelCacheManagerFromID(id objc.ID) ANEInMemoryModelCacheManager
 }
 // Ensure ANEInMemoryModelCacheManager implements IANEInMemoryModelCacheManager.
 var _ IANEInMemoryModelCacheManager = ANEInMemoryModelCacheManager{}
-
-
-
-
 
 // An interface definition for the [ANEInMemoryModelCacheManager] class.
 //
@@ -111,10 +101,6 @@ type IANEInMemoryModelCacheManager interface {
 	InitWithURLCreateDirectory(url foundation.INSURL, directory bool) ANEInMemoryModelCacheManager
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEInMemoryModelCacheManager) Init() ANEInMemoryModelCacheManager {
 	rv := objc.Send[ANEInMemoryModelCacheManager](a.ID, objc.Sel("init"))
@@ -134,11 +120,6 @@ func NewANEInMemoryModelCacheManager() ANEInMemoryModelCacheManager {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/initWithURL:
 func NewANEInMemoryModelCacheManagerWithURL(url foundation.INSURL) ANEInMemoryModelCacheManager {
@@ -147,7 +128,6 @@ func NewANEInMemoryModelCacheManagerWithURL(url foundation.INSURL) ANEInMemoryMo
 	return ANEInMemoryModelCacheManagerFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/initWithURL:createDirectory:
 func NewANEInMemoryModelCacheManagerWithURLCreateDirectory(url foundation.INSURL, directory bool) ANEInMemoryModelCacheManager {
@@ -155,12 +135,6 @@ func NewANEInMemoryModelCacheManagerWithURLCreateDirectory(url foundation.INSURL
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:createDirectory:"), url, directory)
 	return ANEInMemoryModelCacheManagerFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/URLForBundleID:
@@ -236,10 +210,6 @@ func (a ANEInMemoryModelCacheManager) InitWithURLCreateDirectory(url foundation.
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/notRecentlyUsedSecondsThreshold
 func (_ANEInMemoryModelCacheManagerClass ANEInMemoryModelCacheManagerClass) NotRecentlyUsedSecondsThreshold() uint64 {
 	rv := objc.Send[uint64](objc.ID(_ANEInMemoryModelCacheManagerClass.class), objc.Sel("notRecentlyUsedSecondsThreshold"))
@@ -260,32 +230,9 @@ func (_ANEInMemoryModelCacheManagerClass ANEInMemoryModelCacheManagerClass) Remo
 	return rv
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/cacheDir
 func (a ANEInMemoryModelCacheManager) CacheDir() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("cacheDir"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

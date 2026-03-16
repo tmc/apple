@@ -38,12 +38,6 @@ func (ec EspressoInnerProductWeightsForMPSClass) Alloc() EspressoInnerProductWei
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -72,10 +66,6 @@ func EspressoInnerProductWeightsForMPSFromID(id objc.ID) EspressoInnerProductWei
 }
 // Ensure EspressoInnerProductWeightsForMPS implements IEspressoInnerProductWeightsForMPS.
 var _ IEspressoInnerProductWeightsForMPS = EspressoInnerProductWeightsForMPS{}
-
-
-
-
 
 // An interface definition for the [EspressoInnerProductWeightsForMPS] class.
 //
@@ -118,10 +108,6 @@ type IEspressoInnerProductWeightsForMPS interface {
 	Superclass() objc.Class
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoInnerProductWeightsForMPS) Init() EspressoInnerProductWeightsForMPS {
 	rv := objc.Send[EspressoInnerProductWeightsForMPS](e.ID, objc.Sel("init"))
@@ -141,11 +127,6 @@ func NewEspressoInnerProductWeightsForMPS() EspressoInnerProductWeightsForMPS {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/initWithParams:
 func NewEspressoInnerProductWeightsForMPSWithParams(params objectivec.IObject) EspressoInnerProductWeightsForMPS {
@@ -153,12 +134,6 @@ func NewEspressoInnerProductWeightsForMPSWithParams(params objectivec.IObject) E
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoInnerProductWeightsForMPSFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/biasTerms
 func (e EspressoInnerProductWeightsForMPS) BiasTerms() unsafe.Pointer {
@@ -222,24 +197,11 @@ func (e EspressoInnerProductWeightsForMPS) InitWithParams(params objectivec.IObj
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/debugDescription
 func (e EspressoInnerProductWeightsForMPS) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/description
 func (e EspressoInnerProductWeightsForMPS) Description() string {
@@ -247,35 +209,15 @@ func (e EspressoInnerProductWeightsForMPS) Description() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/hash
 func (e EspressoInnerProductWeightsForMPS) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoInnerProductWeightsForMPS/superclass
 func (e EspressoInnerProductWeightsForMPS) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

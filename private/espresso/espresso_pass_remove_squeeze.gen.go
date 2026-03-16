@@ -35,12 +35,6 @@ func (ec EspressoPass_remove_squeezeClass) Alloc() EspressoPass_remove_squeeze {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze
 type EspressoPass_remove_squeeze struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_remove_squeezeFromID(id objc.ID) EspressoPass_remove_squeeze {
 // Ensure EspressoPass_remove_squeeze implements IEspressoPass_remove_squeeze.
 var _ IEspressoPass_remove_squeeze = EspressoPass_remove_squeeze{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_remove_squeeze] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_squeeze
 type IEspressoPass_remove_squeeze interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_remove_squeeze) Init() EspressoPass_remove_squeeze {
@@ -86,38 +72,4 @@ func NewEspressoPass_remove_squeeze() EspressoPass_remove_squeeze {
 	rv := objc.Send[EspressoPass_remove_squeeze](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

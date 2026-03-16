@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_broadcastable_transposesClass) Alloc() EspressoPass_f
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_broadcastable_transposes
 type EspressoPass_fuse_broadcastable_transposes struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_broadcastable_transposesFromID(id objc.ID) EspressoPass_f
 // Ensure EspressoPass_fuse_broadcastable_transposes implements IEspressoPass_fuse_broadcastable_transposes.
 var _ IEspressoPass_fuse_broadcastable_transposes = EspressoPass_fuse_broadcastable_transposes{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_broadcastable_transposes] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_broadcastable_transposes
 type IEspressoPass_fuse_broadcastable_transposes interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_broadcastable_transposes) Init() EspressoPass_fuse_broadcastable_transposes {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_broadcastable_transposes() EspressoPass_fuse_broadcast
 	rv := objc.Send[EspressoPass_fuse_broadcastable_transposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

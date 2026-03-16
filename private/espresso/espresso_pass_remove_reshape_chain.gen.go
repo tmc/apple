@@ -35,12 +35,6 @@ func (ec EspressoPass_remove_reshape_chainClass) Alloc() EspressoPass_remove_res
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_chain
 type EspressoPass_remove_reshape_chain struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_remove_reshape_chainFromID(id objc.ID) EspressoPass_remove_res
 // Ensure EspressoPass_remove_reshape_chain implements IEspressoPass_remove_reshape_chain.
 var _ IEspressoPass_remove_reshape_chain = EspressoPass_remove_reshape_chain{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_remove_reshape_chain] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_chain
 type IEspressoPass_remove_reshape_chain interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_remove_reshape_chain) Init() EspressoPass_remove_reshape_chain {
@@ -86,38 +72,4 @@ func NewEspressoPass_remove_reshape_chain() EspressoPass_remove_reshape_chain {
 	rv := objc.Send[EspressoPass_remove_reshape_chain](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

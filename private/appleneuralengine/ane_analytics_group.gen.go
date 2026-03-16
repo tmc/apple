@@ -37,12 +37,6 @@ func (ac ANEAnalyticsGroupClass) Alloc() ANEAnalyticsGroup {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -62,10 +56,6 @@ func ANEAnalyticsGroupFromID(id objc.ID) ANEAnalyticsGroup {
 }
 // Ensure ANEAnalyticsGroup implements IANEAnalyticsGroup.
 var _ IANEAnalyticsGroup = ANEAnalyticsGroup{}
-
-
-
-
 
 // An interface definition for the [ANEAnalyticsGroup] class.
 //
@@ -90,10 +80,6 @@ type IANEAnalyticsGroup interface {
 	InitWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEAnalyticsGroup) Init() ANEAnalyticsGroup {
 	rv := objc.Send[ANEAnalyticsGroup](a.ID, objc.Sel("init"))
@@ -113,11 +99,6 @@ func NewANEAnalyticsGroup() ANEAnalyticsGroup {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/initWithID:layers:tasks:
 func NewANEAnalyticsGroupWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup {
@@ -125,12 +106,6 @@ func NewANEAnalyticsGroupWithIDLayersTasks(id objectivec.IObject, layers objecti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithID:layers:tasks:"), id, layers, tasks)
 	return ANEAnalyticsGroupFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/serialize
 func (a ANEAnalyticsGroup) Serialize() objectivec.IObject {
@@ -145,10 +120,6 @@ func (a ANEAnalyticsGroup) InitWithIDLayersTasks(id objectivec.IObject, layers o
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/objectWithID:layers:tasks:
 func (_ANEAnalyticsGroupClass ANEAnalyticsGroupClass) ObjectWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) objectivec.IObject {
@@ -156,20 +127,11 @@ func (_ANEAnalyticsGroupClass ANEAnalyticsGroupClass) ObjectWithIDLayersTasks(id
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/groupID
 func (a ANEAnalyticsGroup) GroupID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/layerInfo
 func (a ANEAnalyticsGroup) LayerInfo() foundation.INSArray {
@@ -177,27 +139,9 @@ func (a ANEAnalyticsGroup) LayerInfo() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/taskInfo
 func (a ANEAnalyticsGroup) TaskInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

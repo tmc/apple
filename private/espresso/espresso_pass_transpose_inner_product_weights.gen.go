@@ -35,12 +35,6 @@ func (ec EspressoPass_transpose_inner_product_weightsClass) Alloc() EspressoPass
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_transpose_inner_product_weights
 type EspressoPass_transpose_inner_product_weights struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_transpose_inner_product_weightsFromID(id objc.ID) EspressoPass
 // Ensure EspressoPass_transpose_inner_product_weights implements IEspressoPass_transpose_inner_product_weights.
 var _ IEspressoPass_transpose_inner_product_weights = EspressoPass_transpose_inner_product_weights{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_transpose_inner_product_weights] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_transpose_inner_product_weights
 type IEspressoPass_transpose_inner_product_weights interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_transpose_inner_product_weights) Init() EspressoPass_transpose_inner_product_weights {
@@ -86,38 +72,4 @@ func NewEspressoPass_transpose_inner_product_weights() EspressoPass_transpose_in
 	rv := objc.Send[EspressoPass_transpose_inner_product_weights](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

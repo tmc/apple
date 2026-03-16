@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_conv_batchnormClass) Alloc() EspressoPass_fuse_conv_b
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_conv_batchnorm
 type EspressoPass_fuse_conv_batchnorm struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_conv_batchnormFromID(id objc.ID) EspressoPass_fuse_conv_b
 // Ensure EspressoPass_fuse_conv_batchnorm implements IEspressoPass_fuse_conv_batchnorm.
 var _ IEspressoPass_fuse_conv_batchnorm = EspressoPass_fuse_conv_batchnorm{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_conv_batchnorm] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_conv_batchnorm
 type IEspressoPass_fuse_conv_batchnorm interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_conv_batchnorm) Init() EspressoPass_fuse_conv_batchnorm {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_conv_batchnorm() EspressoPass_fuse_conv_batchnorm {
 	rv := objc.Send[EspressoPass_fuse_conv_batchnorm](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

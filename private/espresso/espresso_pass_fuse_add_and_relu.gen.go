@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_add_and_reluClass) Alloc() EspressoPass_fuse_add_and_
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_add_and_relu
 type EspressoPass_fuse_add_and_relu struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_add_and_reluFromID(id objc.ID) EspressoPass_fuse_add_and_
 // Ensure EspressoPass_fuse_add_and_relu implements IEspressoPass_fuse_add_and_relu.
 var _ IEspressoPass_fuse_add_and_relu = EspressoPass_fuse_add_and_relu{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_add_and_relu] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_add_and_relu
 type IEspressoPass_fuse_add_and_relu interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_add_and_relu) Init() EspressoPass_fuse_add_and_relu {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_add_and_relu() EspressoPass_fuse_add_and_relu {
 	rv := objc.Send[EspressoPass_fuse_add_and_relu](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

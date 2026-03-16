@@ -35,12 +35,6 @@ func (ec EspressoPass_rpn_tracker_merge_convsClass) Alloc() EspressoPass_rpn_tra
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_rpn_tracker_merge_convs
 type EspressoPass_rpn_tracker_merge_convs struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_rpn_tracker_merge_convsFromID(id objc.ID) EspressoPass_rpn_tra
 // Ensure EspressoPass_rpn_tracker_merge_convs implements IEspressoPass_rpn_tracker_merge_convs.
 var _ IEspressoPass_rpn_tracker_merge_convs = EspressoPass_rpn_tracker_merge_convs{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_rpn_tracker_merge_convs] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_rpn_tracker_merge_convs
 type IEspressoPass_rpn_tracker_merge_convs interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_rpn_tracker_merge_convs) Init() EspressoPass_rpn_tracker_merge_convs {
@@ -86,38 +72,4 @@ func NewEspressoPass_rpn_tracker_merge_convs() EspressoPass_rpn_tracker_merge_co
 	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

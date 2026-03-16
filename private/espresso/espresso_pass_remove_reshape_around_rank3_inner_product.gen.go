@@ -35,12 +35,6 @@ func (ec EspressoPass_remove_reshape_around_rank3_inner_productClass) Alloc() Es
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank3_inner_product
 type EspressoPass_remove_reshape_around_rank3_inner_product struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_remove_reshape_around_rank3_inner_productFromID(id objc.ID) Es
 // Ensure EspressoPass_remove_reshape_around_rank3_inner_product implements IEspressoPass_remove_reshape_around_rank3_inner_product.
 var _ IEspressoPass_remove_reshape_around_rank3_inner_product = EspressoPass_remove_reshape_around_rank3_inner_product{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_remove_reshape_around_rank3_inner_product] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_reshape_around_rank3_inner_product
 type IEspressoPass_remove_reshape_around_rank3_inner_product interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_remove_reshape_around_rank3_inner_product) Init() EspressoPass_remove_reshape_around_rank3_inner_product {
@@ -86,38 +72,4 @@ func NewEspressoPass_remove_reshape_around_rank3_inner_product() EspressoPass_re
 	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

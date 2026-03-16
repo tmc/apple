@@ -37,12 +37,6 @@ func (ac ANEModelClass) Alloc() ANEModel {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -102,10 +96,6 @@ func ANEModelFromID(id objc.ID) ANEModel {
 }
 // Ensure ANEModel implements IANEModel.
 var _ IANEModel = ANEModel{}
-
-
-
-
 
 // An interface definition for the [ANEModel] class.
 //
@@ -210,10 +200,6 @@ type IANEModel interface {
 	InitWithModelIdentifier(identifier objectivec.IObject) ANEModel
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEModel) Init() ANEModel {
 	rv := objc.Send[ANEModel](a.ID, objc.Sel("init"))
@@ -233,11 +219,6 @@ func NewANEModel() ANEModel {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/initWithCoder:
 func NewANEModelWithCoder(coder objectivec.IObject) ANEModel {
@@ -245,7 +226,6 @@ func NewANEModelWithCoder(coder objectivec.IObject) ANEModel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return ANEModelFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/initWithModelAtURL:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:
@@ -255,7 +235,6 @@ func NewANEModelWithModelAtURLKeyIdentifierSourceCacheURLIdentifierModelAttribut
 	return ANEModelFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:
 func NewANEModelWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringId(url foundation.INSURL, url2 foundation.INSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool) ANEModel {
@@ -263,7 +242,6 @@ func NewANEModelWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifier
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:"), url, url2, uid, key, source, uRLIdentifier, attributes, url3, string_id, id)
 	return ANEModelFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:
@@ -273,7 +251,6 @@ func NewANEModelWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifier
 	return ANEModelFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/initWithModelIdentifier:
 func NewANEModelWithModelIdentifier(identifier objectivec.IObject) ANEModel {
@@ -281,12 +258,6 @@ func NewANEModelWithModelIdentifier(identifier objectivec.IObject) ANEModel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModelIdentifier:"), identifier)
 	return ANEModelFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/encodeWithCoder:
@@ -399,10 +370,6 @@ func (a ANEModel) InitWithModelIdentifier(identifier objectivec.IObject) ANEMode
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/correctFileURLFormat:
 func (_ANEModelClass ANEModelClass) CorrectFileURLFormat(uRLFormat objectivec.IObject) objectivec.IObject {
@@ -479,20 +446,11 @@ func (_ANEModelClass ANEModelClass) SupportsSecureCoding() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/UUID
 func (a ANEModel) UUID() foundation.NSUUID {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("UUID"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/cacheURLIdentifier
 func (a ANEModel) CacheURLIdentifier() string {
@@ -503,15 +461,11 @@ func (a ANEModel) SetCacheURLIdentifier(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCacheURLIdentifier:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/identifierSource
 func (a ANEModel) IdentifierSource() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("identifierSource"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/intermediateBufferHandle
 func (a ANEModel) IntermediateBufferHandle() uint64 {
@@ -522,15 +476,11 @@ func (a ANEModel) SetIntermediateBufferHandle(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/key
 func (a ANEModel) Key() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("key"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/l
 func (a ANEModel) L() objectivec.IObject {
@@ -540,8 +490,6 @@ func (a ANEModel) L() objectivec.IObject {
 func (a ANEModel) SetL(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setL:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/mapper
 func (a ANEModel) Mapper() *ANEProgramIOSurfacesMapper {
@@ -553,10 +501,12 @@ func (a ANEModel) Mapper() *ANEProgramIOSurfacesMapper {
 	return &val
 }
 func (a ANEModel) SetMapper(value *ANEProgramIOSurfacesMapper) {
+	if value == nil {
+		objc.Send[struct{}](a.ID, objc.Sel("setMapper:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](a.ID, objc.Sel("setMapper:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/modelAttributes
 func (a ANEModel) ModelAttributes() foundation.INSDictionary {
@@ -567,23 +517,17 @@ func (a ANEModel) SetModelAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModelAttributes:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/modelURL
 func (a ANEModel) ModelURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("modelURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/mpsConstants
 func (a ANEModel) MpsConstants() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("mpsConstants"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/perfStatsMask
 func (a ANEModel) PerfStatsMask() uint32 {
@@ -593,8 +537,6 @@ func (a ANEModel) PerfStatsMask() uint32 {
 func (a ANEModel) SetPerfStatsMask(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPerfStatsMask:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/program
 func (a ANEModel) Program() *ANEProgramForEvaluation {
@@ -606,10 +548,12 @@ func (a ANEModel) Program() *ANEProgramForEvaluation {
 	return &val
 }
 func (a ANEModel) SetProgram(value *ANEProgramForEvaluation) {
+	if value == nil {
+		objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](a.ID, objc.Sel("setProgram:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/programHandle
 func (a ANEModel) ProgramHandle() uint64 {
@@ -620,8 +564,6 @@ func (a ANEModel) SetProgramHandle(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/queueDepth
 func (a ANEModel) QueueDepth() int8 {
 	rv := objc.Send[int8](a.ID, objc.Sel("queueDepth"))
@@ -631,15 +573,11 @@ func (a ANEModel) SetQueueDepth(value int8) {
 	objc.Send[struct{}](a.ID, objc.Sel("setQueueDepth:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/sourceURL
 func (a ANEModel) SourceURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sourceURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/state
 func (a ANEModel) State() uint64 {
@@ -650,8 +588,6 @@ func (a ANEModel) SetState(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setState:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/string_id
 func (a ANEModel) String_id() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("string_id"))
@@ -660,20 +596,4 @@ func (a ANEModel) String_id() uint64 {
 func (a ANEModel) SetString_id(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setString_id:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

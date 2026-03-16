@@ -35,12 +35,6 @@ func (ec EspressoPass_strength_reduction_loadc_eltwise__eltwisecClass) Alloc() E
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_loadc_eltwise__eltwisec
 type EspressoPass_strength_reduction_loadc_eltwise__eltwisec struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_strength_reduction_loadc_eltwise__eltwisecFromID(id objc.ID) E
 // Ensure EspressoPass_strength_reduction_loadc_eltwise__eltwisec implements IEspressoPass_strength_reduction_loadc_eltwise__eltwisec.
 var _ IEspressoPass_strength_reduction_loadc_eltwise__eltwisec = EspressoPass_strength_reduction_loadc_eltwise__eltwisec{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_strength_reduction_loadc_eltwise__eltwisec] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_loadc_eltwise__eltwisec
 type IEspressoPass_strength_reduction_loadc_eltwise__eltwisec interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_strength_reduction_loadc_eltwise__eltwisec) Init() EspressoPass_strength_reduction_loadc_eltwise__eltwisec {
@@ -86,38 +72,4 @@ func NewEspressoPass_strength_reduction_loadc_eltwise__eltwisec() EspressoPass_s
 	rv := objc.Send[EspressoPass_strength_reduction_loadc_eltwise__eltwisec](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

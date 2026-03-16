@@ -37,12 +37,6 @@ func (ec EspressoDataFrameStorageExecutorClass) Alloc() EspressoDataFrameStorage
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func EspressoDataFrameStorageExecutorFromID(id objc.ID) EspressoDataFrameStorage
 }
 // Ensure EspressoDataFrameStorageExecutor implements IEspressoDataFrameStorageExecutor.
 var _ IEspressoDataFrameStorageExecutor = EspressoDataFrameStorageExecutor{}
-
-
-
-
 
 // An interface definition for the [EspressoDataFrameStorageExecutor] class.
 //
@@ -84,10 +74,6 @@ type IEspressoDataFrameStorageExecutor interface {
 	ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoDataFrameStorageExecutor) Init() EspressoDataFrameStorageExecutor {
 	rv := objc.Send[EspressoDataFrameStorageExecutor](e.ID, objc.Sel("init"))
@@ -107,62 +93,33 @@ func NewEspressoDataFrameStorageExecutor() EspressoDataFrameStorageExecutor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network objectivec.IObject, block VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(block)
+_block2, _cleanup2 := NewVoidBlock(block)
 	defer _cleanup2()
-		objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
+	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
 }
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, block VoidHandler, index VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(block)
+_block2, _cleanup2 := NewVoidBlock(block)
 	defer _cleanup2()
 	_block3, _cleanup3 := NewVoidBlock(index)
 	defer _cleanup3()
-		objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
+	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
 }
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler) {
-		_block3, _cleanup3 := NewVoidBlock(block)
+_block3, _cleanup3 := NewVoidBlock(block)
 	defer _cleanup3()
 	_block4, _cleanup4 := NewVoidBlock(index)
 	defer _cleanup4()
-		objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
+	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ExecuteDataFrameStorageWithNetworkBlockSync is a synchronous wrapper around [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -208,9 +165,4 @@ func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkRefe
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

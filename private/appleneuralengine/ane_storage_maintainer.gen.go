@@ -37,12 +37,6 @@ func (ac ANEStorageMaintainerClass) Alloc() ANEStorageMaintainer {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func ANEStorageMaintainerFromID(id objc.ID) ANEStorageMaintainer {
 // Ensure ANEStorageMaintainer implements IANEStorageMaintainer.
 var _ IANEStorageMaintainer = ANEStorageMaintainer{}
 
-
-
-
-
 // An interface definition for the [ANEStorageMaintainer] class.
 //
 // # Methods
@@ -77,10 +67,6 @@ type IANEStorageMaintainer interface {
 
 	PurgeDanglingModelsAtWithReply(at objectivec.IObject, reply VoidHandler)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEStorageMaintainer) Init() ANEStorageMaintainer {
@@ -101,42 +87,13 @@ func NewANEStorageMaintainer() ANEStorageMaintainer {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageMaintainer/purgeDanglingModelsAt:withReply:
 func (a ANEStorageMaintainer) PurgeDanglingModelsAtWithReply(at objectivec.IObject, reply VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(reply)
+_block1, _cleanup1 := NewVoidBlock(reply)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("purgeDanglingModelsAt:withReply:"), at, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("purgeDanglingModelsAt:withReply:"), at, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // PurgeDanglingModelsAtWithReplySync is a synchronous wrapper around [ANEStorageMaintainer.PurgeDanglingModelsAtWithReply].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -152,9 +109,4 @@ func (a ANEStorageMaintainer) PurgeDanglingModelsAtWithReplySync(ctx context.Con
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

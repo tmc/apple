@@ -37,12 +37,6 @@ func (ec EspressoTrainingConvolutionWeightsForMPSClass) Alloc() EspressoTraining
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -63,10 +57,6 @@ func EspressoTrainingConvolutionWeightsForMPSFromID(id objc.ID) EspressoTraining
 }
 // Ensure EspressoTrainingConvolutionWeightsForMPS implements IEspressoTrainingConvolutionWeightsForMPS.
 var _ IEspressoTrainingConvolutionWeightsForMPS = EspressoTrainingConvolutionWeightsForMPS{}
-
-
-
-
 
 // An interface definition for the [EspressoTrainingConvolutionWeightsForMPS] class.
 //
@@ -93,10 +83,6 @@ type IEspressoTrainingConvolutionWeightsForMPS interface {
 	InitWithParamsForMode(params objectivec.IObject, mode bool) EspressoTrainingConvolutionWeightsForMPS
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoTrainingConvolutionWeightsForMPS) Init() EspressoTrainingConvolutionWeightsForMPS {
 	rv := objc.Send[EspressoTrainingConvolutionWeightsForMPS](e.ID, objc.Sel("init"))
@@ -116,11 +102,6 @@ func NewEspressoTrainingConvolutionWeightsForMPS() EspressoTrainingConvolutionWe
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
 func NewEspressoTrainingConvolutionWeightsForMPSWithParams(params objectivec.IObject) EspressoTrainingConvolutionWeightsForMPS {
@@ -129,7 +110,6 @@ func NewEspressoTrainingConvolutionWeightsForMPSWithParams(params objectivec.IOb
 	return EspressoTrainingConvolutionWeightsForMPSFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/initWithParams:forMode:
 func NewEspressoTrainingConvolutionWeightsForMPSWithParamsForMode(params objectivec.IObject, mode bool) EspressoTrainingConvolutionWeightsForMPS {
@@ -137,12 +117,6 @@ func NewEspressoTrainingConvolutionWeightsForMPSWithParamsForMode(params objecti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:forMode:"), params, mode)
 	return EspressoTrainingConvolutionWeightsForMPSFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/weightsLayout
 func (e EspressoTrainingConvolutionWeightsForMPS) WeightsLayout() uint32 {
@@ -157,17 +131,6 @@ func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params o
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/biasesBuffer
 func (e EspressoTrainingConvolutionWeightsForMPS) BiasesBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
@@ -177,8 +140,6 @@ func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value unsafe.P
 	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/weightsBuffer
 func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
@@ -187,20 +148,4 @@ func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() unsafe.Pointer
 func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

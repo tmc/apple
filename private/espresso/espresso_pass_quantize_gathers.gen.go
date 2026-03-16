@@ -35,12 +35,6 @@ func (ec EspressoPass_quantize_gathersClass) Alloc() EspressoPass_quantize_gathe
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_quantize_gathers
 type EspressoPass_quantize_gathers struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_quantize_gathersFromID(id objc.ID) EspressoPass_quantize_gathe
 // Ensure EspressoPass_quantize_gathers implements IEspressoPass_quantize_gathers.
 var _ IEspressoPass_quantize_gathers = EspressoPass_quantize_gathers{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_quantize_gathers] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_quantize_gathers
 type IEspressoPass_quantize_gathers interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_quantize_gathers) Init() EspressoPass_quantize_gathers {
@@ -86,38 +72,4 @@ func NewEspressoPass_quantize_gathers() EspressoPass_quantize_gathers {
 	rv := objc.Send[EspressoPass_quantize_gathers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

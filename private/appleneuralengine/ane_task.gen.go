@@ -38,12 +38,6 @@ func (ac ANETaskClass) Alloc() ANETask {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -64,10 +58,6 @@ func ANETaskFromID(id objc.ID) ANETask {
 }
 // Ensure ANETask implements IANETask.
 var _ IANETask = ANETask{}
-
-
-
-
 
 // An interface definition for the [ANETask] class.
 //
@@ -94,10 +84,6 @@ type IANETask interface {
 	InitWithNamePeriodHandler(name objectivec.IObject, period uint64, handler VoidHandler) ANETask
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANETask) Init() ANETask {
 	rv := objc.Send[ANETask](a.ID, objc.Sel("init"))
@@ -117,52 +103,29 @@ func NewANETask() ANETask {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/initWithName:period:handler:
 func (a ANETask) InitWithNamePeriodHandler(name objectivec.IObject, period uint64, handler VoidHandler) ANETask {
-		_block2, _cleanup2 := NewVoidBlock(handler)
+_block2, _cleanup2 := NewVoidBlock(handler)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:period:handler:"), name, period, _block2)
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:period:handler:"), name, period, _block2)
 	return ANETaskFromID(rv)
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/taskWithName:period:handler:
 func (_ANETaskClass ANETaskClass) TaskWithNamePeriodHandler(name objectivec.IObject, period uint64, handler VoidHandler) objectivec.IObject {
-		_block2, _cleanup2 := NewVoidBlock(handler)
+_block2, _cleanup2 := NewVoidBlock(handler)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](objc.ID(_ANETaskClass.class), objc.Sel("taskWithName:period:handler:"), name, period, _block2)
+	rv := objc.Send[objc.ID](objc.ID(_ANETaskClass.class), objc.Sel("taskWithName:period:handler:"), name, period, _block2)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/executionCriteria
 func (a ANETask) ExecutionCriteria() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("executionCriteria"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/handler
 func (a ANETask) Handler() VoidHandler {
@@ -171,15 +134,11 @@ func (a ANETask) Handler() VoidHandler {
 	return nil
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/name
 func (a ANETask) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/periodSeconds
 func (a ANETask) PeriodSeconds() uint64 {
@@ -187,24 +146,11 @@ func (a ANETask) PeriodSeconds() uint64 {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/queue
 func (a ANETask) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("queue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // InitWithNamePeriodHandlerSync is a synchronous wrapper around [ANETask.InitWithNamePeriodHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -235,9 +181,4 @@ func (ac ANETaskClass) TaskWithNamePeriodHandlerSync(ctx context.Context, name o
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

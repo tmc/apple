@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_affine_scaleClass) Alloc() EspressoPass_fuse_affine_s
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_affine_scale
 type EspressoPass_fuse_affine_scale struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_affine_scaleFromID(id objc.ID) EspressoPass_fuse_affine_s
 // Ensure EspressoPass_fuse_affine_scale implements IEspressoPass_fuse_affine_scale.
 var _ IEspressoPass_fuse_affine_scale = EspressoPass_fuse_affine_scale{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_affine_scale] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_affine_scale
 type IEspressoPass_fuse_affine_scale interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_affine_scale) Init() EspressoPass_fuse_affine_scale {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_affine_scale() EspressoPass_fuse_affine_scale {
 	rv := objc.Send[EspressoPass_fuse_affine_scale](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

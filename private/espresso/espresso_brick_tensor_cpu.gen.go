@@ -36,12 +36,6 @@ func (ec EspressoBrickTensorCPUClass) Alloc() EspressoBrickTensorCPU {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func EspressoBrickTensorCPUFromID(id objc.ID) EspressoBrickTensorCPU {
 // Ensure EspressoBrickTensorCPU implements IEspressoBrickTensorCPU.
 var _ IEspressoBrickTensorCPU = EspressoBrickTensorCPU{}
 
-
-
-
-
 // An interface definition for the [EspressoBrickTensorCPU] class.
 //
 // # Methods
@@ -79,10 +69,6 @@ type IEspressoBrickTensorCPU interface {
 	RawPointer() unsafe.Pointer
 	SetRawPointer(value unsafe.Pointer)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoBrickTensorCPU) Init() EspressoBrickTensorCPU {
@@ -103,26 +89,6 @@ func NewEspressoBrickTensorCPU() EspressoBrickTensorCPU {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorCPU/rawPointer
 func (e EspressoBrickTensorCPU) RawPointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
@@ -131,20 +97,4 @@ func (e EspressoBrickTensorCPU) RawPointer() unsafe.Pointer {
 func (e EspressoBrickTensorCPU) SetRawPointer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

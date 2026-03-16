@@ -117,7 +117,6 @@ func init() {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "kANEFAOTCacheUrlIdentifierKey"); err == nil && ptr != 0 {
 		KANEFAOTCacheUrlIdentifierKey = *(*objectivec.Object)(unsafe.Pointer(ptr))
 	}

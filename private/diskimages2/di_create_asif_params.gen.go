@@ -37,12 +37,6 @@ func (dc DICreateASIFParamsClass) Alloc() DICreateASIFParams {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -61,10 +55,6 @@ func DICreateASIFParamsFromID(id objc.ID) DICreateASIFParams {
 }
 // Ensure DICreateASIFParams implements IDICreateASIFParams.
 var _ IDICreateASIFParams = DICreateASIFParams{}
-
-
-
-
 
 // An interface definition for the [DICreateASIFParams] class.
 //
@@ -87,10 +77,6 @@ type IDICreateASIFParams interface {
 	SetBlockSize(value uint32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d DICreateASIFParams) Init() DICreateASIFParams {
 	rv := objc.Send[DICreateASIFParams](d.ID, objc.Sel("init"))
@@ -110,11 +96,6 @@ func NewDICreateASIFParams() DICreateASIFParams {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/initWithURL:numBlocks:error:
 func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.INSURL, numBlocks uint64) (DICreateASIFParams, error) {
@@ -128,12 +109,6 @@ func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.INSURL, numBlocks
 	return DICreateASIFParamsFromID(rv), nil
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/validateBlockSizeSupport
 func (d DICreateASIFParams) ValidateBlockSizeSupport() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("validateBlockSizeSupport"))
@@ -143,7 +118,7 @@ func (d DICreateASIFParams) ValidateBlockSizeSupport() bool {
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/initWithURL:numBlocks:error:
 func (d DICreateASIFParams) InitWithURLNumBlocksError(url foundation.INSURL, numBlocks uint64) (DICreateASIFParams, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:numBlocks:error:"), url, numBlocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -153,17 +128,6 @@ func (d DICreateASIFParams) InitWithURLNumBlocksError(url foundation.INSURL, num
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/blockSize
 func (d DICreateASIFParams) BlockSize() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("blockSize"))
@@ -172,20 +136,4 @@ func (d DICreateASIFParams) BlockSize() uint32 {
 func (d DICreateASIFParams) SetBlockSize(value uint32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

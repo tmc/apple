@@ -38,12 +38,6 @@ func (ac ANEMLIRCompilerClass) Alloc() ANEMLIRCompiler {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMLIRCompiler
 type ANEMLIRCompiler struct {
 	objectivec.Object
@@ -56,20 +50,12 @@ func ANEMLIRCompilerFromID(id objc.ID) ANEMLIRCompiler {
 // Ensure ANEMLIRCompiler implements IANEMLIRCompiler.
 var _ IANEMLIRCompiler = ANEMLIRCompiler{}
 
-
-
-
-
 // An interface definition for the [ANEMLIRCompiler] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMLIRCompiler
 type IANEMLIRCompiler interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEMLIRCompiler) Init() ANEMLIRCompiler {
@@ -90,23 +76,10 @@ func NewANEMLIRCompiler() ANEMLIRCompiler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEMLIRCompiler/compileModelAt:modelName:csIdentity:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:mpsConstants:ok:error:
 func (_ANEMLIRCompilerClass ANEMLIRCompilerClass) CompileModelAtModelNameCsIdentityOptionsFilenameOutputURLSaveSourceURLAotModelBinaryPathIsEncryptedModelOptionsMpsConstantsOkError(at objectivec.IObject, name objectivec.IObject, identity objectivec.IObject, filename objectivec.IObject, url foundation.INSURL, url2 foundation.INSURL, path objectivec.IObject, model bool, options objectivec.IObject, constants objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANEMLIRCompilerClass.class), objc.Sel("compileModelAt:modelName:csIdentity:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:mpsConstants:ok:error:"), at, name, identity, filename, url, url2, path, model, options, constants, ok, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -115,25 +88,4 @@ func (_ANEMLIRCompilerClass ANEMLIRCompilerClass) CompileModelAtModelNameCsIdent
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

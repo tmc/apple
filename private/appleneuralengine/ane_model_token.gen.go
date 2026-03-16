@@ -37,12 +37,6 @@ func (ac ANEModelTokenClass) Alloc() ANEModelToken {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -63,10 +57,6 @@ func ANEModelTokenFromID(id objc.ID) ANEModelToken {
 }
 // Ensure ANEModelToken implements IANEModelToken.
 var _ IANEModelToken = ANEModelToken{}
-
-
-
-
 
 // An interface definition for the [ANEModelToken] class.
 //
@@ -93,10 +83,6 @@ type IANEModelToken interface {
 	InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEModelToken) Init() ANEModelToken {
 	rv := objc.Send[ANEModelToken](a.ID, objc.Sel("init"))
@@ -116,11 +102,6 @@ func NewANEModelToken() ANEModelToken {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithAuditToken:modelIdentifier:processIdentifier:
 func NewANEModelTokenWithAuditTokenModelIdentifierProcessIdentifier(token objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
@@ -129,7 +110,6 @@ func NewANEModelTokenWithAuditTokenModelIdentifierProcessIdentifier(token object
 	return ANEModelTokenFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:
 func NewANEModelTokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
@@ -137,12 +117,6 @@ func NewANEModelTokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return ANEModelTokenFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/initWithAuditToken:modelIdentifier:processIdentifier:
@@ -157,10 +131,6 @@ func (a ANEModelToken) InitWithCsIdentityTeamIdentityModelIdentifierProcessIdent
 	rv := objc.Send[ANEModelToken](a.ID, objc.Sel("initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return rv
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/codeSigningIDFor:processIdentifier:
@@ -197,20 +167,11 @@ func (_ANEModelTokenClass ANEModelTokenClass) TokenWithCsIdentityTeamIdentityMod
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/csIdentity
 func (a ANEModelToken) CsIdentity() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("csIdentity"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/modelIdentifier
 func (a ANEModelToken) ModelIdentifier() string {
@@ -218,35 +179,15 @@ func (a ANEModelToken) ModelIdentifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/processIdentifier
 func (a ANEModelToken) ProcessIdentifier() int {
 	rv := objc.Send[int](a.ID, objc.Sel("processIdentifier"))
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelToken/teamIdentity
 func (a ANEModelToken) TeamIdentity() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("teamIdentity"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

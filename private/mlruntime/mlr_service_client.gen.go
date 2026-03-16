@@ -36,12 +36,6 @@ func (mc MLRServiceClientClass) Alloc() MLRServiceClient {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -61,10 +55,6 @@ func MLRServiceClientFromID(id objc.ID) MLRServiceClient {
 }
 // Ensure MLRServiceClient implements IMLRServiceClient.
 var _ IMLRServiceClient = MLRServiceClient{}
-
-
-
-
 
 // An interface definition for the [MLRServiceClient] class.
 //
@@ -89,10 +79,6 @@ type IMLRServiceClient interface {
 	InitWithConnection(connection objectivec.IObject) MLRServiceClient
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRServiceClient) Init() MLRServiceClient {
 	rv := objc.Send[MLRServiceClient](r.ID, objc.Sel("init"))
@@ -112,11 +98,6 @@ func NewMLRServiceClient() MLRServiceClient {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/initWithConnection:
 func NewRServiceClientWithConnection(connection objectivec.IObject) MLRServiceClient {
@@ -125,42 +106,36 @@ func NewRServiceClientWithConnection(connection objectivec.IObject) MLRServiceCl
 	return MLRServiceClientFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/donateJSONResult:identifier:completion:
 func (r MLRServiceClient) DonateJSONResultIdentifierCompletion(jSONResult objectivec.IObject, identifier objectivec.IObject, completion ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completion)
+_block2, _cleanup2 := NewErrorBlock(completion)
 	defer _cleanup2()
-		objc.Send[objc.ID](r.ID, objc.Sel("donateJSONResult:identifier:completion:"), jSONResult, identifier, _block2)
+	objc.Send[objc.ID](r.ID, objc.Sel("donateJSONResult:identifier:completion:"), jSONResult, identifier, _block2)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/performOnRemoteObjectWithBlock:errorHandler:
 func (r MLRServiceClient) PerformOnRemoteObjectWithBlockErrorHandler(block objectivec.IObject, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](r.ID, objc.Sel("performOnRemoteObjectWithBlock:errorHandler:"), block, _block1)
+	objc.Send[objc.ID](r.ID, objc.Sel("performOnRemoteObjectWithBlock:errorHandler:"), block, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/performOnRemoteObjectWithBlock:isSynchronous:errorHandler:
 func (r MLRServiceClient) PerformOnRemoteObjectWithBlockIsSynchronousErrorHandler(block objectivec.IObject, synchronous bool, handler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(handler)
+_block2, _cleanup2 := NewErrorBlock(handler)
 	defer _cleanup2()
-		objc.Send[objc.ID](r.ID, objc.Sel("performOnRemoteObjectWithBlock:isSynchronous:errorHandler:"), block, synchronous, _block2)
+	objc.Send[objc.ID](r.ID, objc.Sel("performOnRemoteObjectWithBlock:isSynchronous:errorHandler:"), block, synchronous, _block2)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/performSynchronouslyOnRemoteObjectWithBlock:errorHandler:
 func (r MLRServiceClient) PerformSynchronouslyOnRemoteObjectWithBlockErrorHandler(block objectivec.IObject, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](r.ID, objc.Sel("performSynchronouslyOnRemoteObjectWithBlock:errorHandler:"), block, _block1)
+	objc.Send[objc.ID](r.ID, objc.Sel("performSynchronouslyOnRemoteObjectWithBlock:errorHandler:"), block, _block1)
 }
 
 //
@@ -170,34 +145,9 @@ func (r MLRServiceClient) InitWithConnection(connection objectivec.IObject) MLRS
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/sharedConnection
 func (_MLRServiceClientClass MLRServiceClientClass) SharedConnection() MLRServiceClient {
 	rv := objc.Send[objc.ID](objc.ID(_MLRServiceClientClass.class), objc.Sel("sharedConnection"))
 	return MLRServiceClientFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

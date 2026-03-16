@@ -35,12 +35,6 @@ func (ec EspressoPass_multi_head_program_genClass) Alloc() EspressoPass_multi_he
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_program_gen
 type EspressoPass_multi_head_program_gen struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_multi_head_program_genFromID(id objc.ID) EspressoPass_multi_he
 // Ensure EspressoPass_multi_head_program_gen implements IEspressoPass_multi_head_program_gen.
 var _ IEspressoPass_multi_head_program_gen = EspressoPass_multi_head_program_gen{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_multi_head_program_gen] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_multi_head_program_gen
 type IEspressoPass_multi_head_program_gen interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_multi_head_program_gen) Init() EspressoPass_multi_head_program_gen {
@@ -86,38 +72,4 @@ func NewEspressoPass_multi_head_program_gen() EspressoPass_multi_head_program_ge
 	rv := objc.Send[EspressoPass_multi_head_program_gen](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

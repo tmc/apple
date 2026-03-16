@@ -36,12 +36,6 @@ func (ec EspressoBrickTensorClass) Alloc() EspressoBrickTensor {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -59,10 +53,6 @@ func EspressoBrickTensorFromID(id objc.ID) EspressoBrickTensor {
 // Ensure EspressoBrickTensor implements IEspressoBrickTensor.
 var _ IEspressoBrickTensor = EspressoBrickTensor{}
 
-
-
-
-
 // An interface definition for the [EspressoBrickTensor] class.
 //
 // # Methods
@@ -79,10 +69,6 @@ type IEspressoBrickTensor interface {
 	Shape() IEspressoBrickTensorShape
 	SetShape(value IEspressoBrickTensorShape)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoBrickTensor) Init() EspressoBrickTensor {
@@ -103,26 +89,6 @@ func NewEspressoBrickTensor() EspressoBrickTensor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensor/shape
 func (e EspressoBrickTensor) Shape() IEspressoBrickTensorShape {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("shape"))
@@ -131,20 +97,4 @@ func (e EspressoBrickTensor) Shape() IEspressoBrickTensorShape {
 func (e EspressoBrickTensor) SetShape(value IEspressoBrickTensorShape) {
 	objc.Send[struct{}](e.ID, objc.Sel("setShape:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

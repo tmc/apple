@@ -38,12 +38,6 @@ func (ac ANEIOSurfaceOutputSetsClass) Alloc() ANEIOSurfaceOutputSets {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -63,10 +57,6 @@ func ANEIOSurfaceOutputSetsFromID(id objc.ID) ANEIOSurfaceOutputSets {
 }
 // Ensure ANEIOSurfaceOutputSets implements IANEIOSurfaceOutputSets.
 var _ IANEIOSurfaceOutputSets = ANEIOSurfaceOutputSets{}
-
-
-
-
 
 // An interface definition for the [ANEIOSurfaceOutputSets] class.
 //
@@ -91,10 +81,6 @@ type IANEIOSurfaceOutputSets interface {
 	InitWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEIOSurfaceOutputSets) Init() ANEIOSurfaceOutputSets {
 	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("init"))
@@ -114,11 +100,6 @@ func NewANEIOSurfaceOutputSets() ANEIOSurfaceOutputSets {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithCoder:
 func NewANEIOSurfaceOutputSetsWithCoder(coder objectivec.IObject) ANEIOSurfaceOutputSets {
@@ -127,7 +108,6 @@ func NewANEIOSurfaceOutputSetsWithCoder(coder objectivec.IObject) ANEIOSurfaceOu
 	return ANEIOSurfaceOutputSetsFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithstatsSurRef:outputBuffer:
 func NewANEIOSurfaceOutputSetsWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets {
@@ -135,12 +115,6 @@ func NewANEIOSurfaceOutputSetsWithstatsSurRefOutputBuffer(ref coregraphics.IOSur
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithstatsSurRef:outputBuffer:"), ref, buffer)
 	return ANEIOSurfaceOutputSetsFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/encodeWithCoder:
@@ -162,10 +136,6 @@ func (a ANEIOSurfaceOutputSets) InitWithstatsSurRefOutputBuffer(ref coregraphics
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/objectWithstatsSurRef:outputBuffer:
 func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) ObjectWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) objectivec.IObject {
@@ -179,40 +149,15 @@ func (_ANEIOSurfaceOutputSetsClass ANEIOSurfaceOutputSetsClass) SupportsSecureCo
 	return rv
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/outputBuffer
 func (a ANEIOSurfaceOutputSets) OutputBuffer() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputBuffer"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/statsSurRef
 func (a ANEIOSurfaceOutputSets) StatsSurRef() coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("statsSurRef"))
 	return coregraphics.IOSurfaceRef(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

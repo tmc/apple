@@ -37,12 +37,6 @@ func (ac ANEInputBuffersReadyClass) Alloc() ANEInputBuffersReady {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -63,10 +57,6 @@ func ANEInputBuffersReadyFromID(id objc.ID) ANEInputBuffersReady {
 }
 // Ensure ANEInputBuffersReady implements IANEInputBuffersReady.
 var _ IANEInputBuffersReady = ANEInputBuffersReady{}
-
-
-
-
 
 // An interface definition for the [ANEInputBuffersReady] class.
 //
@@ -93,10 +83,6 @@ type IANEInputBuffersReady interface {
 	InitInputsProcedureIndexInputBufferInfoIndexInputFreeValueExecutionDelay(index uint32, index2 objectivec.IObject, value objectivec.IObject, delay uint64) ANEInputBuffersReady
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEInputBuffersReady) Init() ANEInputBuffersReady {
 	rv := objc.Send[ANEInputBuffersReady](a.ID, objc.Sel("init"))
@@ -116,11 +102,6 @@ func NewANEInputBuffersReady() ANEInputBuffersReady {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/initInputsProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:
 func NewANEInputBuffersReadyInputsProcedureIndexInputBufferInfoIndexInputFreeValueExecutionDelay(index uint32, index2 objectivec.IObject, value objectivec.IObject, delay uint64) ANEInputBuffersReady {
@@ -128,12 +109,6 @@ func NewANEInputBuffersReadyInputsProcedureIndexInputBufferInfoIndexInputFreeVal
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initInputsProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:"), index, index2, value, delay)
 	return ANEInputBuffersReadyFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/validate
 func (a ANEInputBuffersReady) Validate() bool {
@@ -148,10 +123,6 @@ func (a ANEInputBuffersReady) InitInputsProcedureIndexInputBufferInfoIndexInputF
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/inputBuffersWithProcedureIndex:inputBufferInfoIndex:inputFreeValue:executionDelay:
 func (_ANEInputBuffersReadyClass ANEInputBuffersReadyClass) InputBuffersWithProcedureIndexInputBufferInfoIndexInputFreeValueExecutionDelay(index uint32, index2 objectivec.IObject, value objectivec.IObject, delay uint64) objectivec.IObject {
@@ -159,20 +130,11 @@ func (_ANEInputBuffersReadyClass ANEInputBuffersReadyClass) InputBuffersWithProc
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/executionDelay
 func (a ANEInputBuffersReady) ExecutionDelay() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("executionDelay"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/inputBufferInfoIndex
 func (a ANEInputBuffersReady) InputBufferInfoIndex() foundation.INSArray {
@@ -180,35 +142,15 @@ func (a ANEInputBuffersReady) InputBufferInfoIndex() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/inputFreeValue
 func (a ANEInputBuffersReady) InputFreeValue() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputFreeValue"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInputBuffersReady/procedureIndex
 func (a ANEInputBuffersReady) ProcedureIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("procedureIndex"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

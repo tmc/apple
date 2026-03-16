@@ -38,12 +38,6 @@ func (ac ANECompilerClass) Alloc() ANECompiler {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler
 type ANECompiler struct {
 	objectivec.Object
@@ -56,20 +50,12 @@ func ANECompilerFromID(id objc.ID) ANECompiler {
 // Ensure ANECompiler implements IANECompiler.
 var _ IANECompiler = ANECompiler{}
 
-
-
-
-
 // An interface definition for the [ANECompiler] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler
 type IANECompiler interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANECompiler) Init() ANECompiler {
@@ -90,23 +76,10 @@ func NewANECompiler() ANECompiler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/compileModel:options:ok:error:
 func (_ANECompilerClass ANECompilerClass) CompileModelOptionsOkError(model objectivec.IObject, options objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerClass.class), objc.Sel("compileModel:options:ok:error:"), model, options, ok, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -119,7 +92,7 @@ func (_ANECompilerClass ANECompilerClass) CompileModelOptionsOkError(model objec
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/compileModelJIT:ok:error:
 func (_ANECompilerClass ANECompilerClass) CompileModelJITOkError(jit objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerClass.class), objc.Sel("compileModelJIT:ok:error:"), jit, ok, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -156,25 +129,4 @@ func (_ANECompilerClass ANECompilerClass) CreateNetworkFromModelAtPathModelFilen
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerClass.class), objc.Sel("createNetworkFromModelAtPath:modelFilename:"), path, filename)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

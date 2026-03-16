@@ -35,12 +35,6 @@ func (ec EspressoPass_style_transfer_parameterize_transplantClass) Alloc() Espre
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_parameterize_transplant
 type EspressoPass_style_transfer_parameterize_transplant struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_style_transfer_parameterize_transplantFromID(id objc.ID) Espre
 // Ensure EspressoPass_style_transfer_parameterize_transplant implements IEspressoPass_style_transfer_parameterize_transplant.
 var _ IEspressoPass_style_transfer_parameterize_transplant = EspressoPass_style_transfer_parameterize_transplant{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_style_transfer_parameterize_transplant] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_style_transfer_parameterize_transplant
 type IEspressoPass_style_transfer_parameterize_transplant interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_style_transfer_parameterize_transplant) Init() EspressoPass_style_transfer_parameterize_transplant {
@@ -86,38 +72,4 @@ func NewEspressoPass_style_transfer_parameterize_transplant() EspressoPass_style
 	rv := objc.Send[EspressoPass_style_transfer_parameterize_transplant](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

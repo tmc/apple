@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_padClass) Alloc() EspressoPass_fuse_pad {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_pad
 type EspressoPass_fuse_pad struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_padFromID(id objc.ID) EspressoPass_fuse_pad {
 // Ensure EspressoPass_fuse_pad implements IEspressoPass_fuse_pad.
 var _ IEspressoPass_fuse_pad = EspressoPass_fuse_pad{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_pad] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_pad
 type IEspressoPass_fuse_pad interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_pad) Init() EspressoPass_fuse_pad {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_pad() EspressoPass_fuse_pad {
 	rv := objc.Send[EspressoPass_fuse_pad](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

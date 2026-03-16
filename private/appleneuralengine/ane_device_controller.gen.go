@@ -37,12 +37,6 @@ func (ac ANEDeviceControllerClass) Alloc() ANEDeviceController {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -67,10 +61,6 @@ func ANEDeviceControllerFromID(id objc.ID) ANEDeviceController {
 }
 // Ensure ANEDeviceController implements IANEDeviceController.
 var _ IANEDeviceController = ANEDeviceController{}
-
-
-
-
 
 // An interface definition for the [ANEDeviceController] class.
 //
@@ -105,10 +95,6 @@ type IANEDeviceController interface {
 	InitWithProgramHandlePriviledged(handle uint64, priviledged bool) ANEDeviceController
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEDeviceController) Init() ANEDeviceController {
 	rv := objc.Send[ANEDeviceController](a.ID, objc.Sel("init"))
@@ -128,11 +114,6 @@ func NewANEDeviceController() ANEDeviceController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/initWithANEPrivilegedVM:
 func NewANEDeviceControllerWithANEPrivilegedVM(vm bool) ANEDeviceController {
@@ -141,7 +122,6 @@ func NewANEDeviceControllerWithANEPrivilegedVM(vm bool) ANEDeviceController {
 	return ANEDeviceControllerFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/initWithProgramHandle:priviledged:
 func NewANEDeviceControllerWithProgramHandlePriviledged(handle uint64, priviledged bool) ANEDeviceController {
@@ -149,12 +129,6 @@ func NewANEDeviceControllerWithProgramHandlePriviledged(handle uint64, priviledg
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProgramHandle:priviledged:"), handle, priviledged)
 	return ANEDeviceControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/start
 func (a ANEDeviceController) Start() {
@@ -180,10 +154,6 @@ func (a ANEDeviceController) InitWithProgramHandlePriviledged(handle uint64, pri
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/controllerWithPrivilegedVM:
 func (_ANEDeviceControllerClass ANEDeviceControllerClass) ControllerWithPrivilegedVM(vm bool) objectivec.IObject {
@@ -208,13 +178,6 @@ func (_ANEDeviceControllerClass ANEDeviceControllerClass) SharedPrivilegedConnec
 	return &val
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/device
 func (a ANEDeviceController) Device() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("device"))
@@ -224,23 +187,17 @@ func (a ANEDeviceController) SetDevice(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDevice:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/isPrivileged
 func (a ANEDeviceController) IsPrivileged() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPrivileged"))
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/programHandle
 func (a ANEDeviceController) ProgramHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/usecount
 func (a ANEDeviceController) Usecount() int64 {
@@ -250,20 +207,4 @@ func (a ANEDeviceController) Usecount() int64 {
 func (a ANEDeviceController) SetUsecount(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUsecount:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

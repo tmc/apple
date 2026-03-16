@@ -38,12 +38,6 @@ func (mc MLRTaskParametersClass) Alloc() MLRTaskParameters {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -73,10 +67,6 @@ func MLRTaskParametersFromID(id objc.ID) MLRTaskParameters {
 }
 // Ensure MLRTaskParameters implements IMLRTaskParameters.
 var _ IMLRTaskParameters = MLRTaskParameters{}
-
-
-
-
 
 // An interface definition for the [MLRTaskParameters] class.
 //
@@ -121,10 +111,6 @@ type IMLRTaskParameters interface {
 	InitWithURLError(url foundation.INSURL) (MLRTaskParameters, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRTaskParameters) Init() MLRTaskParameters {
 	rv := objc.Send[MLRTaskParameters](r.ID, objc.Sel("init"))
@@ -144,11 +130,6 @@ func NewMLRTaskParameters() MLRTaskParameters {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithCoder:
 func NewRTaskParametersWithCoder(coder objectivec.IObject) MLRTaskParameters {
@@ -156,7 +137,6 @@ func NewRTaskParametersWithCoder(coder objectivec.IObject) MLRTaskParameters {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLRTaskParametersFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithDESRecipe:
@@ -166,7 +146,6 @@ func NewRTaskParametersWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskParame
 	return MLRTaskParametersFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithParametersDict:
 func NewRTaskParametersWithParametersDict(dict objectivec.IObject) MLRTaskParameters {
@@ -174,7 +153,6 @@ func NewRTaskParametersWithParametersDict(dict objectivec.IObject) MLRTaskParame
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParametersDict:"), dict)
 	return MLRTaskParametersFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithURL:error:
@@ -188,12 +166,6 @@ func NewRTaskParametersWithURLError(url foundation.INSURL) (MLRTaskParameters, e
 	}
 	return MLRTaskParametersFromID(rv), nil
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/boolValueForKey:defaultValue:
@@ -274,7 +246,7 @@ func (r MLRTaskParameters) InitWithParametersDict(dict objectivec.IObject) MLRTa
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithURL:error:
 func (r MLRTaskParameters) InitWithURLError(url foundation.INSURL) (MLRTaskParameters, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -284,22 +256,11 @@ func (r MLRTaskParameters) InitWithURLError(url foundation.INSURL) (MLRTaskParam
 
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/supportsSecureCoding
 func (_MLRTaskParametersClass MLRTaskParametersClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_MLRTaskParametersClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/count
 func (r MLRTaskParameters) Count() uint64 {
@@ -307,35 +268,15 @@ func (r MLRTaskParameters) Count() uint64 {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/dictionaryRepresentation
 func (r MLRTaskParameters) DictionaryRepresentation() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/recipeUserInfo
 func (r MLRTaskParameters) RecipeUserInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recipeUserInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

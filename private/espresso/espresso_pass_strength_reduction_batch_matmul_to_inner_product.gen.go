@@ -35,12 +35,6 @@ func (ec EspressoPass_strength_reduction_batch_matmul_to_inner_productClass) All
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_batch_matmul_to_inner_product
 type EspressoPass_strength_reduction_batch_matmul_to_inner_product struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_strength_reduction_batch_matmul_to_inner_productFromID(id objc
 // Ensure EspressoPass_strength_reduction_batch_matmul_to_inner_product implements IEspressoPass_strength_reduction_batch_matmul_to_inner_product.
 var _ IEspressoPass_strength_reduction_batch_matmul_to_inner_product = EspressoPass_strength_reduction_batch_matmul_to_inner_product{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_strength_reduction_batch_matmul_to_inner_product] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_strength_reduction_batch_matmul_to_inner_product
 type IEspressoPass_strength_reduction_batch_matmul_to_inner_product interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_strength_reduction_batch_matmul_to_inner_product) Init() EspressoPass_strength_reduction_batch_matmul_to_inner_product {
@@ -86,38 +72,4 @@ func NewEspressoPass_strength_reduction_batch_matmul_to_inner_product() Espresso
 	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

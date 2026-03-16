@@ -38,12 +38,6 @@ func (ac ANEModelCacheManagerClass) Alloc() ANEModelCacheManager {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -85,10 +79,6 @@ func ANEModelCacheManagerFromID(id objc.ID) ANEModelCacheManager {
 }
 // Ensure ANEModelCacheManager implements IANEModelCacheManager.
 var _ IANEModelCacheManager = ANEModelCacheManager{}
-
-
-
-
 
 // An interface definition for the [ANEModelCacheManager] class.
 //
@@ -157,10 +147,6 @@ type IANEModelCacheManager interface {
 	InitWithURLCreateDirectory(url foundation.INSURL, directory bool) ANEModelCacheManager
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEModelCacheManager) Init() ANEModelCacheManager {
 	rv := objc.Send[ANEModelCacheManager](a.ID, objc.Sel("init"))
@@ -180,11 +166,6 @@ func NewANEModelCacheManager() ANEModelCacheManager {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelCacheManager/initWithURL:
 func NewANEModelCacheManagerWithURL(url foundation.INSURL) ANEModelCacheManager {
@@ -193,7 +174,6 @@ func NewANEModelCacheManagerWithURL(url foundation.INSURL) ANEModelCacheManager 
 	return ANEModelCacheManagerFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelCacheManager/initWithURL:createDirectory:
 func NewANEModelCacheManagerWithURLCreateDirectory(url foundation.INSURL, directory bool) ANEModelCacheManager {
@@ -201,12 +181,6 @@ func NewANEModelCacheManagerWithURLCreateDirectory(url foundation.INSURL, direct
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:createDirectory:"), url, directory)
 	return ANEModelCacheManagerFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelCacheManager/URLForBundleID:
@@ -267,9 +241,9 @@ func (a ANEModelCacheManager) URLForModelBundleIDUseSourceURLForAllSegmentsAotCa
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelCacheManager/cacheURLIdentifierForModel:useSourceURL:withReply:
 func (a ANEModelCacheManager) CacheURLIdentifierForModelUseSourceURLWithReply(model objectivec.IObject, url bool, reply VoidHandler) bool {
-		_block2, _cleanup2 := NewVoidBlock(reply)
+_block2, _cleanup2 := NewVoidBlock(reply)
 	defer _cleanup2()
-		rv := objc.Send[bool](a.ID, objc.Sel("cacheURLIdentifierForModel:useSourceURL:withReply:"), model, url, _block2)
+	rv := objc.Send[bool](a.ID, objc.Sel("cacheURLIdentifierForModel:useSourceURL:withReply:"), model, url, _block2)
 	return rv
 }
 
@@ -387,10 +361,6 @@ func (a ANEModelCacheManager) InitWithURLCreateDirectory(url foundation.INSURL, 
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelCacheManager/cachedModelRetainNameFor:
 func (_ANEModelCacheManagerClass ANEModelCacheManagerClass) CachedModelRetainNameFor(for_ objectivec.IObject) objectivec.IObject {
@@ -433,29 +403,11 @@ func (_ANEModelCacheManagerClass ANEModelCacheManagerClass) SaveSourceModelPathO
 	return rv
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelCacheManager/cacheDir
 func (a ANEModelCacheManager) CacheDir() foundation.INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("cacheDir"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // CacheURLIdentifierForModelUseSourceURLWithReplySync is a synchronous wrapper around [ANEModelCacheManager.CacheURLIdentifierForModelUseSourceURLWithReply].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -471,9 +423,4 @@ func (a ANEModelCacheManager) CacheURLIdentifierForModelUseSourceURLWithReplySyn
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (ec EspressoPass_complete_fixpoint_optimizationClass) Alloc() EspressoPass_
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_complete_fixpoint_optimization
 type EspressoPass_complete_fixpoint_optimization struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_complete_fixpoint_optimizationFromID(id objc.ID) EspressoPass_
 // Ensure EspressoPass_complete_fixpoint_optimization implements IEspressoPass_complete_fixpoint_optimization.
 var _ IEspressoPass_complete_fixpoint_optimization = EspressoPass_complete_fixpoint_optimization{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_complete_fixpoint_optimization] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_complete_fixpoint_optimization
 type IEspressoPass_complete_fixpoint_optimization interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_complete_fixpoint_optimization) Init() EspressoPass_complete_fixpoint_optimization {
@@ -86,38 +72,4 @@ func NewEspressoPass_complete_fixpoint_optimization() EspressoPass_complete_fixp
 	rv := objc.Send[EspressoPass_complete_fixpoint_optimization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

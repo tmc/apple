@@ -36,12 +36,6 @@ func (ac ANETaskManagerClass) Alloc() ANETaskManager {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETaskManager
 type ANETaskManager struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANETaskManagerFromID(id objc.ID) ANETaskManager {
 // Ensure ANETaskManager implements IANETaskManager.
 var _ IANETaskManager = ANETaskManager{}
 
-
-
-
-
 // An interface definition for the [ANETaskManager] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETaskManager
 type IANETaskManager interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANETaskManager) Init() ANETaskManager {
@@ -88,19 +74,6 @@ func NewANETaskManager() ANETaskManager {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETaskManager/registerTask:
 func (_ANETaskManagerClass ANETaskManagerClass) RegisterTask(task objectivec.IObject) {
@@ -112,25 +85,4 @@ func (_ANETaskManagerClass ANETaskManagerClass) RegisterTask(task objectivec.IOb
 func (_ANETaskManagerClass ANETaskManagerClass) UnregisterTask(task objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANETaskManagerClass.class), objc.Sel("unregisterTask:"), task)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

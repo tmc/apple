@@ -37,12 +37,6 @@ func (ec EspressoImage2ImageClass) Alloc() EspressoImage2Image {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -89,10 +83,6 @@ func EspressoImage2ImageFromID(id objc.ID) EspressoImage2Image {
 }
 // Ensure EspressoImage2Image implements IEspressoImage2Image.
 var _ IEspressoImage2Image = EspressoImage2Image{}
-
-
-
-
 
 // An interface definition for the [EspressoImage2Image] class.
 //
@@ -171,10 +161,6 @@ type IEspressoImage2Image interface {
 	InitWithQueue(queue objectivec.IObject) EspressoImage2Image
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoImage2Image) Init() EspressoImage2Image {
 	rv := objc.Send[EspressoImage2Image](e.ID, objc.Sel("init"))
@@ -194,11 +180,6 @@ func NewEspressoImage2Image() EspressoImage2Image {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/initWithQueue:
 func NewEspressoImage2ImageWithQueue(queue objectivec.IObject) EspressoImage2Image {
@@ -206,12 +187,6 @@ func NewEspressoImage2ImageWithQueue(queue objectivec.IObject) EspressoImage2Ima
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithQueue:"), queue)
 	return EspressoImage2ImageFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/addNoiseLayer
 func (e EspressoImage2Image) AddNoiseLayer() {
@@ -391,10 +366,6 @@ func (e EspressoImage2Image) InitWithQueue(queue objectivec.IObject) EspressoIma
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/featureVersion
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) FeatureVersion() int {
 	rv := objc.Send[int](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("featureVersion"))
@@ -445,13 +416,6 @@ func (_EspressoImage2ImageClass EspressoImage2ImageClass) TuneNetworksWGWindowSi
 	objc.Send[objc.ID](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("tuneNetworksWGWindowSize:"), size)
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/flip_y
 func (e EspressoImage2Image) Flip_y() int {
 	rv := objc.Send[int](e.ID, objc.Sel("flip_y"))
@@ -461,8 +425,6 @@ func (e EspressoImage2Image) SetFlip_y(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFlip_y:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/rotation_degrees
 func (e EspressoImage2Image) Rotation_degrees() int {
 	rv := objc.Send[int](e.ID, objc.Sel("rotation_degrees"))
@@ -471,20 +433,4 @@ func (e EspressoImage2Image) Rotation_degrees() int {
 func (e EspressoImage2Image) SetRotation_degrees(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRotation_degrees:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

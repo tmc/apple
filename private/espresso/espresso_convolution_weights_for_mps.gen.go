@@ -38,12 +38,6 @@ func (ec EspressoConvolutionWeightsForMPSClass) Alloc() EspressoConvolutionWeigh
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -72,10 +66,6 @@ func EspressoConvolutionWeightsForMPSFromID(id objc.ID) EspressoConvolutionWeigh
 }
 // Ensure EspressoConvolutionWeightsForMPS implements IEspressoConvolutionWeightsForMPS.
 var _ IEspressoConvolutionWeightsForMPS = EspressoConvolutionWeightsForMPS{}
-
-
-
-
 
 // An interface definition for the [EspressoConvolutionWeightsForMPS] class.
 //
@@ -118,10 +108,6 @@ type IEspressoConvolutionWeightsForMPS interface {
 	Superclass() objc.Class
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoConvolutionWeightsForMPS) Init() EspressoConvolutionWeightsForMPS {
 	rv := objc.Send[EspressoConvolutionWeightsForMPS](e.ID, objc.Sel("init"))
@@ -141,11 +127,6 @@ func NewEspressoConvolutionWeightsForMPS() EspressoConvolutionWeightsForMPS {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/initWithParams:
 func NewEspressoConvolutionWeightsForMPSWithParams(params objectivec.IObject) EspressoConvolutionWeightsForMPS {
@@ -153,12 +134,6 @@ func NewEspressoConvolutionWeightsForMPSWithParams(params objectivec.IObject) Es
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParams:"), params)
 	return EspressoConvolutionWeightsForMPSFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/biasTerms
 func (e EspressoConvolutionWeightsForMPS) BiasTerms() unsafe.Pointer {
@@ -222,24 +197,11 @@ func (e EspressoConvolutionWeightsForMPS) InitWithParams(params objectivec.IObje
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/debugDescription
 func (e EspressoConvolutionWeightsForMPS) DebugDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/description
 func (e EspressoConvolutionWeightsForMPS) Description() string {
@@ -247,35 +209,15 @@ func (e EspressoConvolutionWeightsForMPS) Description() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/hash
 func (e EspressoConvolutionWeightsForMPS) Hash() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("hash"))
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoConvolutionWeightsForMPS/superclass
 func (e EspressoConvolutionWeightsForMPS) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](e.ID, objc.Sel("superclass"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

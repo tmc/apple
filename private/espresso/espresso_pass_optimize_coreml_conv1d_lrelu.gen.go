@@ -35,12 +35,6 @@ func (ec EspressoPass_optimize_coreml_conv1d_lreluClass) Alloc() EspressoPass_op
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_optimize_coreml_conv1d_lrelu
 type EspressoPass_optimize_coreml_conv1d_lrelu struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_optimize_coreml_conv1d_lreluFromID(id objc.ID) EspressoPass_op
 // Ensure EspressoPass_optimize_coreml_conv1d_lrelu implements IEspressoPass_optimize_coreml_conv1d_lrelu.
 var _ IEspressoPass_optimize_coreml_conv1d_lrelu = EspressoPass_optimize_coreml_conv1d_lrelu{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_optimize_coreml_conv1d_lrelu] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_optimize_coreml_conv1d_lrelu
 type IEspressoPass_optimize_coreml_conv1d_lrelu interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_optimize_coreml_conv1d_lrelu) Init() EspressoPass_optimize_coreml_conv1d_lrelu {
@@ -86,38 +72,4 @@ func NewEspressoPass_optimize_coreml_conv1d_lrelu() EspressoPass_optimize_coreml
 	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

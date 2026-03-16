@@ -35,12 +35,6 @@ func (ec EspressoPass_lstm_atomizerClass) Alloc() EspressoPass_lstm_atomizer {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_lstm_atomizer
 type EspressoPass_lstm_atomizer struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_lstm_atomizerFromID(id objc.ID) EspressoPass_lstm_atomizer {
 // Ensure EspressoPass_lstm_atomizer implements IEspressoPass_lstm_atomizer.
 var _ IEspressoPass_lstm_atomizer = EspressoPass_lstm_atomizer{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_lstm_atomizer] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_lstm_atomizer
 type IEspressoPass_lstm_atomizer interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_lstm_atomizer) Init() EspressoPass_lstm_atomizer {
@@ -86,38 +72,4 @@ func NewEspressoPass_lstm_atomizer() EspressoPass_lstm_atomizer {
 	rv := objc.Send[EspressoPass_lstm_atomizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

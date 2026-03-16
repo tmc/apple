@@ -38,12 +38,6 @@ func (ac ANECVAIRCompilerClass) Alloc() ANECVAIRCompiler {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECVAIRCompiler
 type ANECVAIRCompiler struct {
 	objectivec.Object
@@ -56,20 +50,12 @@ func ANECVAIRCompilerFromID(id objc.ID) ANECVAIRCompiler {
 // Ensure ANECVAIRCompiler implements IANECVAIRCompiler.
 var _ IANECVAIRCompiler = ANECVAIRCompiler{}
 
-
-
-
-
 // An interface definition for the [ANECVAIRCompiler] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECVAIRCompiler
 type IANECVAIRCompiler interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANECVAIRCompiler) Init() ANECVAIRCompiler {
@@ -90,23 +76,10 @@ func NewANECVAIRCompiler() ANECVAIRCompiler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECVAIRCompiler/compileModelAt:csIdentity:plistFilename:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:ok:error:
 func (_ANECVAIRCompilerClass ANECVAIRCompilerClass) CompileModelAtCsIdentityPlistFilenameOptionsFilenameOutputURLSaveSourceURLAotModelBinaryPathIsEncryptedModelOptionsOkError(at objectivec.IObject, identity objectivec.IObject, filename objectivec.IObject, filename2 objectivec.IObject, url foundation.INSURL, url2 foundation.INSURL, path objectivec.IObject, model bool, options objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANECVAIRCompilerClass.class), objc.Sel("compileModelAt:csIdentity:plistFilename:optionsFilename:outputURL:saveSourceURL:aotModelBinaryPath:isEncryptedModel:options:ok:error:"), at, identity, filename, filename2, url, url2, path, model, options, ok, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -115,25 +88,4 @@ func (_ANECVAIRCompilerClass ANECVAIRCompilerClass) CompileModelAtCsIdentityPlis
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

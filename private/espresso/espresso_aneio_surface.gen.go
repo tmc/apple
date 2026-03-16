@@ -39,12 +39,6 @@ func (ec EspressoANEIOSurfaceClass) Alloc() EspressoANEIOSurface {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -78,10 +72,6 @@ func EspressoANEIOSurfaceFromID(id objc.ID) EspressoANEIOSurface {
 }
 // Ensure EspressoANEIOSurface implements IEspressoANEIOSurface.
 var _ IEspressoANEIOSurface = EspressoANEIOSurface{}
-
-
-
-
 
 // An interface definition for the [EspressoANEIOSurface] class.
 //
@@ -134,10 +124,6 @@ type IEspressoANEIOSurface interface {
 	InitWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoANEIOSurface) Init() EspressoANEIOSurface {
 	rv := objc.Send[EspressoANEIOSurface](e.ID, objc.Sel("init"))
@@ -157,11 +143,6 @@ func NewEspressoANEIOSurface() EspressoANEIOSurface {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/initWithIOSurfaceProperties:andPixelFormats:
 func NewEspressoANEIOSurfaceWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface {
@@ -169,12 +150,6 @@ func NewEspressoANEIOSurfaceWithIOSurfacePropertiesAndPixelFormats(properties ob
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurfaceProperties:andPixelFormats:"), properties, formats)
 	return EspressoANEIOSurfaceFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/ane_io_surfaceForMultiBufferFrame:
@@ -278,17 +253,6 @@ func (e EspressoANEIOSurface) InitWithIOSurfacePropertiesAndPixelFormats(propert
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/external_storage_blob_for_aliasing_mem
 func (e EspressoANEIOSurface) External_storage_blob_for_aliasing_mem() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("external_storage_blob_for_aliasing_mem"))
@@ -298,27 +262,9 @@ func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value ob
 	objc.Send[struct{}](e.ID, objc.Sel("setExternal_storage_blob_for_aliasing_mem:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoANEIOSurface/pixelFormat
 func (e EspressoANEIOSurface) PixelFormat() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("pixelFormat"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (mc MLRTrialTaskClass) Alloc() MLRTrialTask {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func MLRTrialTaskFromID(id objc.ID) MLRTrialTask {
 // Ensure MLRTrialTask implements IMLRTrialTask.
 var _ IMLRTrialTask = MLRTrialTask{}
 
-
-
-
-
 // An interface definition for the [MLRTrialTask] class.
 //
 // # Methods
@@ -80,10 +70,6 @@ type IMLRTrialTask interface {
 	TriClient() unsafe.Pointer
 	InitWithTriClient(client objectivec.IObject) MLRTrialTask
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r MLRTrialTask) Init() MLRTrialTask {
@@ -104,11 +90,6 @@ func NewMLRTrialTask() MLRTrialTask {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTask/initWithTriClient:
 func NewRTrialTaskWithTriClient(client objectivec.IObject) MLRTrialTask {
@@ -117,12 +98,6 @@ func NewRTrialTaskWithTriClient(client objectivec.IObject) MLRTrialTask {
 	return MLRTrialTaskFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTask/initWithTriClient:
 func (r MLRTrialTask) InitWithTriClient(client objectivec.IObject) MLRTrialTask {
@@ -130,36 +105,9 @@ func (r MLRTrialTask) InitWithTriClient(client objectivec.IObject) MLRTrialTask 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTask/triClient
 func (r MLRTrialTask) TriClient() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("triClient"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

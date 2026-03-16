@@ -35,12 +35,6 @@ func (ec EspressoPass_remove_seqw_wseq_transposesClass) Alloc() EspressoPass_rem
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_seqw_wseq_transposes
 type EspressoPass_remove_seqw_wseq_transposes struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_remove_seqw_wseq_transposesFromID(id objc.ID) EspressoPass_rem
 // Ensure EspressoPass_remove_seqw_wseq_transposes implements IEspressoPass_remove_seqw_wseq_transposes.
 var _ IEspressoPass_remove_seqw_wseq_transposes = EspressoPass_remove_seqw_wseq_transposes{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_remove_seqw_wseq_transposes] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_remove_seqw_wseq_transposes
 type IEspressoPass_remove_seqw_wseq_transposes interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_remove_seqw_wseq_transposes) Init() EspressoPass_remove_seqw_wseq_transposes {
@@ -86,38 +72,4 @@ func NewEspressoPass_remove_seqw_wseq_transposes() EspressoPass_remove_seqw_wseq
 	rv := objc.Send[EspressoPass_remove_seqw_wseq_transposes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

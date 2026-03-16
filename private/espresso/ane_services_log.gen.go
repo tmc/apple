@@ -36,12 +36,6 @@ func (ac ANEServicesLogClass) Alloc() ANEServicesLog {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/ANEServicesLog
 type ANEServicesLog struct {
 	objectivec.Object
@@ -54,20 +48,12 @@ func ANEServicesLogFromID(id objc.ID) ANEServicesLog {
 // Ensure ANEServicesLog implements IANEServicesLog.
 var _ IANEServicesLog = ANEServicesLog{}
 
-
-
-
-
 // An interface definition for the [ANEServicesLog] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/ANEServicesLog
 type IANEServicesLog interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANEServicesLog) Init() ANEServicesLog {
@@ -87,19 +73,6 @@ func NewANEServicesLog() ANEServicesLog {
 	rv := objc.Send[ANEServicesLog](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/ANEServicesLog/handle
 func (_ANEServicesLogClass ANEServicesLogClass) Handle() objectivec.IObject {
@@ -124,25 +97,4 @@ func (_ANEServicesLogClass ANEServicesLogClass) Verbose() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEServicesLogClass.class), objc.Sel("verbose"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

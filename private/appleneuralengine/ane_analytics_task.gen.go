@@ -37,12 +37,6 @@ func (ac ANEAnalyticsTaskClass) Alloc() ANEAnalyticsTask {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func ANEAnalyticsTaskFromID(id objc.ID) ANEAnalyticsTask {
 }
 // Ensure ANEAnalyticsTask implements IANEAnalyticsTask.
 var _ IANEAnalyticsTask = ANEAnalyticsTask{}
-
-
-
-
 
 // An interface definition for the [ANEAnalyticsTask] class.
 //
@@ -84,10 +74,6 @@ type IANEAnalyticsTask interface {
 	InitWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEAnalyticsTask) Init() ANEAnalyticsTask {
 	rv := objc.Send[ANEAnalyticsTask](a.ID, objc.Sel("init"))
@@ -107,11 +93,6 @@ func NewANEAnalyticsTask() ANEAnalyticsTask {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsTask/initWithMetrics:
 func NewANEAnalyticsTaskWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {
@@ -119,12 +100,6 @@ func NewANEAnalyticsTaskWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMetrics:"), metrics)
 	return ANEAnalyticsTaskFromID(rv)
 }
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsTask/serialize
 func (a ANEAnalyticsTask) Serialize() objectivec.IObject {
@@ -139,10 +114,6 @@ func (a ANEAnalyticsTask) InitWithMetrics(metrics objectivec.IObject) ANEAnalyti
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsTask/objectWithMetrics:
 func (_ANEAnalyticsTaskClass ANEAnalyticsTaskClass) ObjectWithMetrics(metrics objectivec.IObject) objectivec.IObject {
@@ -150,32 +121,9 @@ func (_ANEAnalyticsTaskClass ANEAnalyticsTaskClass) ObjectWithMetrics(metrics ob
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsTask/metrics
 func (a ANEAnalyticsTask) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

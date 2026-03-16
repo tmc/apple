@@ -38,12 +38,6 @@ func (ec EspressoDCNEspressoOverfeatDetectorClass) Alloc() EspressoDCNEspressoOv
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -73,10 +67,6 @@ func EspressoDCNEspressoOverfeatDetectorFromID(id objc.ID) EspressoDCNEspressoOv
 }
 // Ensure EspressoDCNEspressoOverfeatDetector implements IEspressoDCNEspressoOverfeatDetector.
 var _ IEspressoDCNEspressoOverfeatDetector = EspressoDCNEspressoOverfeatDetector{}
-
-
-
-
 
 // An interface definition for the [EspressoDCNEspressoOverfeatDetector] class.
 //
@@ -121,10 +111,6 @@ type IEspressoDCNEspressoOverfeatDetector interface {
 	InitWithOptions(options objectivec.IObject) EspressoDCNEspressoOverfeatDetector
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EspressoDCNEspressoOverfeatDetector) Init() EspressoDCNEspressoOverfeatDetector {
 	rv := objc.Send[EspressoDCNEspressoOverfeatDetector](e.ID, objc.Sel("init"))
@@ -144,11 +130,6 @@ func NewEspressoDCNEspressoOverfeatDetector() EspressoDCNEspressoOverfeatDetecto
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/initWithNetwork:
 func NewEspressoDCNEspressoOverfeatDetectorWithNetwork(network objectivec.IObject) EspressoDCNEspressoOverfeatDetector {
@@ -156,7 +137,6 @@ func NewEspressoDCNEspressoOverfeatDetectorWithNetwork(network objectivec.IObjec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNetwork:"), network)
 	return EspressoDCNEspressoOverfeatDetectorFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/initWithOptions:
@@ -166,12 +146,6 @@ func NewEspressoDCNEspressoOverfeatDetectorWithOptions(options objectivec.IObjec
 	return EspressoDCNEspressoOverfeatDetectorFromID(rv)
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/commonInit
 func (e EspressoDCNEspressoOverfeatDetector) CommonInit() {
 	objc.Send[objc.ID](e.ID, objc.Sel("commonInit"))
@@ -180,7 +154,7 @@ func (e EspressoDCNEspressoOverfeatDetector) CommonInit() {
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/compareObject:withObject:error:
 func (e EspressoDCNEspressoOverfeatDetector) CompareObjectWithObjectError(object objectivec.IObject, object2 objectivec.IObject) (float64, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[float64](e.ID, objc.Sel("compareObject:withObject:error:"), object, object2, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -233,17 +207,6 @@ func (e EspressoDCNEspressoOverfeatDetector) InitWithOptions(options objectivec.
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/confidenceThreshold
 func (e EspressoDCNEspressoOverfeatDetector) ConfidenceThreshold() float64 {
 	rv := objc.Send[float64](e.ID, objc.Sel("confidenceThreshold"))
@@ -252,8 +215,6 @@ func (e EspressoDCNEspressoOverfeatDetector) ConfidenceThreshold() float64 {
 func (e EspressoDCNEspressoOverfeatDetector) SetConfidenceThreshold(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setConfidenceThreshold:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/enet
 func (e EspressoDCNEspressoOverfeatDetector) Enet() IEspressoFDOverfeatNetwork {
@@ -264,8 +225,6 @@ func (e EspressoDCNEspressoOverfeatDetector) SetEnet(value IEspressoFDOverfeatNe
 	objc.Send[struct{}](e.ID, objc.Sel("setEnet:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDCNEspressoOverfeatDetector/minBoundingBoxThreshold
 func (e EspressoDCNEspressoOverfeatDetector) MinBoundingBoxThreshold() float64 {
 	rv := objc.Send[float64](e.ID, objc.Sel("minBoundingBoxThreshold"))
@@ -274,20 +233,4 @@ func (e EspressoDCNEspressoOverfeatDetector) MinBoundingBoxThreshold() float64 {
 func (e EspressoDCNEspressoOverfeatDetector) SetMinBoundingBoxThreshold(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMinBoundingBoxThreshold:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

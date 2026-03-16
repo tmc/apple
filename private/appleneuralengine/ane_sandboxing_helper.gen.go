@@ -39,12 +39,6 @@ func (ac ANESandboxingHelperClass) Alloc() ANESandboxingHelper {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper
 type ANESandboxingHelper struct {
 	objectivec.Object
@@ -57,20 +51,12 @@ func ANESandboxingHelperFromID(id objc.ID) ANESandboxingHelper {
 // Ensure ANESandboxingHelper implements IANESandboxingHelper.
 var _ IANESandboxingHelper = ANESandboxingHelper{}
 
-
-
-
-
 // An interface definition for the [ANESandboxingHelper] class.
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper
 type IANESandboxingHelper interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a ANESandboxingHelper) Init() ANESandboxingHelper {
@@ -91,23 +77,10 @@ func NewANESandboxingHelper() ANESandboxingHelper {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/canAccessPathAt:methodName:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) CanAccessPathAtMethodNameError(at objectivec.IObject, name objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("canAccessPathAt:methodName:error:"), at, name, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -123,7 +96,7 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) CanAccessPathAtMethodN
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/consumeSandboxExtension:forModel:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensionForModelError(extension objectivec.IObject, model objectivec.IObject) (int64, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[int64](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("consumeSandboxExtension:forModel:error:"), extension, model, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -136,7 +109,7 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensio
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/consumeSandboxExtension:forPath:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensionForPathError(extension objectivec.IObject, path objectivec.IObject) (int64, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[int64](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("consumeSandboxExtension:forPath:error:"), extension, path, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -149,7 +122,7 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensio
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/issueSandboxExtensionForModel:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionForModelError(model objectivec.IObject) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("issueSandboxExtensionForModel:error:"), model, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -162,7 +135,7 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionF
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/issueSandboxExtensionForPath:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionForPathError(path objectivec.IObject) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("issueSandboxExtensionForPath:error:"), path, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -185,25 +158,4 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) SandboxExtensionPathFo
 	rv := objc.Send[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("sandboxExtensionPathForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

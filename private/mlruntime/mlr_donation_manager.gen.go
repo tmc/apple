@@ -36,12 +36,6 @@ func (mc MLRDonationManagerClass) Alloc() MLRDonationManager {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -60,10 +54,6 @@ func MLRDonationManagerFromID(id objc.ID) MLRDonationManager {
 }
 // Ensure MLRDonationManager implements IMLRDonationManager.
 var _ IMLRDonationManager = MLRDonationManager{}
-
-
-
-
 
 // An interface definition for the [MLRDonationManager] class.
 //
@@ -86,10 +76,6 @@ type IMLRDonationManager interface {
 	RecordDataEncodingSchemaMetadataErrorOut(record objectivec.IObject, data objectivec.IObject, schema objectivec.IObject, metadata objectivec.IObject, out []objectivec.IObject) bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MLRDonationManager) Init() MLRDonationManager {
 	rv := objc.Send[MLRDonationManager](r.ID, objc.Sel("init"))
@@ -109,21 +95,12 @@ func NewMLRDonationManager() MLRDonationManager {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRDonationManager/encodeAndUploadToDediscoWithIdentifier:measurements:withEncodingSchemas:metadata:completion:
 func (r MLRDonationManager) EncodeAndUploadToDediscoWithIdentifierMeasurementsWithEncodingSchemasMetadataCompletion(identifier objectivec.IObject, measurements objectivec.IObject, schemas objectivec.IObject, metadata objectivec.IObject, completion ErrorHandler) {
-		_block4, _cleanup4 := NewErrorBlock(completion)
+_block4, _cleanup4 := NewErrorBlock(completion)
 	defer _cleanup4()
-		objc.Send[objc.ID](r.ID, objc.Sel("encodeAndUploadToDediscoWithIdentifier:measurements:withEncodingSchemas:metadata:completion:"), identifier, measurements, schemas, metadata, _block4)
+	objc.Send[objc.ID](r.ID, objc.Sel("encodeAndUploadToDediscoWithIdentifier:measurements:withEncodingSchemas:metadata:completion:"), identifier, measurements, schemas, metadata, _block4)
 }
 
 //
@@ -133,22 +110,11 @@ func (r MLRDonationManager) RecordDataEncodingSchemaMetadataErrorOut(record obje
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRDonationManager/defaultManager
 func (_MLRDonationManagerClass MLRDonationManagerClass) DefaultManager() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_MLRDonationManagerClass.class), objc.Sel("defaultManager"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLRDonationManager/queue
 func (r MLRDonationManager) Queue() objectivec.Object {
@@ -158,20 +124,4 @@ func (r MLRDonationManager) Queue() objectivec.Object {
 func (r MLRDonationManager) SetQueue(value objectivec.Object) {
 	objc.Send[struct{}](r.ID, objc.Sel("setQueue:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

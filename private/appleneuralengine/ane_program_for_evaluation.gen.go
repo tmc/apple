@@ -39,12 +39,6 @@ func (ac ANEProgramForEvaluationClass) Alloc() ANEProgramForEvaluation {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Methods
 //
@@ -74,10 +68,6 @@ func ANEProgramForEvaluationFromID(id objc.ID) ANEProgramForEvaluation {
 }
 // Ensure ANEProgramForEvaluation implements IANEProgramForEvaluation.
 var _ IANEProgramForEvaluation = ANEProgramForEvaluation{}
-
-
-
-
 
 // An interface definition for the [ANEProgramForEvaluation] class.
 //
@@ -122,10 +112,6 @@ type IANEProgramForEvaluation interface {
 	InitWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a ANEProgramForEvaluation) Init() ANEProgramForEvaluation {
 	rv := objc.Send[ANEProgramForEvaluation](a.ID, objc.Sel("init"))
@@ -145,11 +131,6 @@ func NewANEProgramForEvaluation() ANEProgramForEvaluation {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/initWithController:intermediateBufferHandle:queueDepth:
 func NewANEProgramForEvaluationWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation {
@@ -158,16 +139,10 @@ func NewANEProgramForEvaluationWithControllerIntermediateBufferHandleQueueDepth(
 	return ANEProgramForEvaluationFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/processInputBuffers:model:options:error:
 func (a ANEProgramForEvaluation) ProcessInputBuffersModelOptionsError(buffers objectivec.IObject, model objectivec.IObject, options objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("processInputBuffers:model:options:error:"), buffers, model, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -183,7 +158,7 @@ func (a ANEProgramForEvaluation) ProcessInputBuffersModelOptionsError(buffers ob
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/processOutputSet:model:options:error:
 func (a ANEProgramForEvaluation) ProcessOutputSetModelOptionsError(set objectivec.IObject, model objectivec.IObject, options objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("processOutputSet:model:options:error:"), set, model, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -199,7 +174,7 @@ func (a ANEProgramForEvaluation) ProcessOutputSetModelOptionsError(set objective
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:
 func (a ANEProgramForEvaluation) ProcessRequestModelQosQIndexModelStringIDOptionsReturnValueError(request objectivec.IObject, model objectivec.IObject, qos uint32, index uint64, id uint64, options objectivec.IObject, value unsafe.Pointer) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:"), request, model, qos, index, id, options, value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -215,7 +190,7 @@ func (a ANEProgramForEvaluation) ProcessRequestModelQosQIndexModelStringIDOption
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/processSessionHint:options:report:error:
 func (a ANEProgramForEvaluation) ProcessSessionHintOptionsReportError(hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("processSessionHint:options:report:error:"), hint, options, report, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -242,10 +217,6 @@ func (a ANEProgramForEvaluation) InitWithControllerIntermediateBufferHandleQueue
 	return rv
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/programWithController:intermediateBufferHandle:queueDepth:
 func (_ANEProgramForEvaluationClass ANEProgramForEvaluationClass) ProgramWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) objectivec.IObject {
@@ -260,13 +231,6 @@ func (_ANEProgramForEvaluationClass ANEProgramForEvaluationClass) ProgramWithHan
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/controller
 func (a ANEProgramForEvaluation) Controller() *ANEDeviceController {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("controller"))
@@ -277,8 +241,6 @@ func (a ANEProgramForEvaluation) Controller() *ANEDeviceController {
 	return &val
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/currentAsyncRequestsInFlight
 func (a ANEProgramForEvaluation) CurrentAsyncRequestsInFlight() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("currentAsyncRequestsInFlight"))
@@ -287,8 +249,6 @@ func (a ANEProgramForEvaluation) CurrentAsyncRequestsInFlight() int64 {
 func (a ANEProgramForEvaluation) SetCurrentAsyncRequestsInFlight(value int64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentAsyncRequestsInFlight:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/intermediateBufferHandle
 func (a ANEProgramForEvaluation) IntermediateBufferHandle() uint64 {
@@ -299,8 +259,6 @@ func (a ANEProgramForEvaluation) SetIntermediateBufferHandle(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIntermediateBufferHandle:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/programHandle
 func (a ANEProgramForEvaluation) ProgramHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
@@ -310,35 +268,15 @@ func (a ANEProgramForEvaluation) SetProgramHandle(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgramHandle:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/queueDepth
 func (a ANEProgramForEvaluation) QueueDepth() int8 {
 	rv := objc.Send[int8](a.ID, objc.Sel("queueDepth"))
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramForEvaluation/requestsInFlight
 func (a ANEProgramForEvaluation) RequestsInFlight() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("requestsInFlight"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

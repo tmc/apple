@@ -35,12 +35,6 @@ func (ec EspressoPass_fuse_gelu_with_erfClass) Alloc() EspressoPass_fuse_gelu_wi
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gelu_with_erf
 type EspressoPass_fuse_gelu_with_erf struct {
 	EspressoCustomPass
@@ -53,20 +47,12 @@ func EspressoPass_fuse_gelu_with_erfFromID(id objc.ID) EspressoPass_fuse_gelu_wi
 // Ensure EspressoPass_fuse_gelu_with_erf implements IEspressoPass_fuse_gelu_with_erf.
 var _ IEspressoPass_fuse_gelu_with_erf = EspressoPass_fuse_gelu_with_erf{}
 
-
-
-
-
 // An interface definition for the [EspressoPass_fuse_gelu_with_erf] class.
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoPass_fuse_gelu_with_erf
 type IEspressoPass_fuse_gelu_with_erf interface {
 	IEspressoCustomPass
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e EspressoPass_fuse_gelu_with_erf) Init() EspressoPass_fuse_gelu_with_erf {
@@ -86,38 +72,4 @@ func NewEspressoPass_fuse_gelu_with_erf() EspressoPass_fuse_gelu_with_erf {
 	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -30,8 +30,6 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -81,7 +79,4 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
-
 
