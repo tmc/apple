@@ -6,6 +6,7 @@
 //go:generate applegen-bootstrap --private -f "mlruntime"
 //go:generate applegen-bootstrap --private -f "remotecoreml"
 //go:generate applegen-bootstrap --private -f "virtualization"
+//go:generate applegen-bootstrap --private --extra-flags=--framework-path=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/HIServices HIServices
 
 // Package private contains the generated code for the private frameworks of Apple MacOS. These frameworks are not intended for public use and may change without notice. Use at your own risk.
 package private
