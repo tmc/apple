@@ -60,7 +60,7 @@ type ANEChainingRequest struct {
 
 // ANEChainingRequestFromID constructs a [ANEChainingRequest] from an objc.ID.
 func ANEChainingRequestFromID(id objc.ID) ANEChainingRequest {
-	return ANEChainingRequest{objectivec.Object{id}}
+	return ANEChainingRequest{objectivec.Object{ID: id}}
 }
 // Ensure ANEChainingRequest implements IANEChainingRequest.
 var _ IANEChainingRequest = ANEChainingRequest{}
@@ -89,7 +89,7 @@ type IANEChainingRequest interface {
 
 	// Topic: Methods
 
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	FwEnqueueDelay() foundation.NSNumber
 	InputBuffer() foundation.INSArray
 	LoopbackInputSymbolIndex() foundation.INSArray
@@ -100,7 +100,7 @@ type IANEChainingRequest interface {
 	SignalEvents() foundation.INSArray
 	TransactionHandle() foundation.NSNumber
 	Validate() bool
-	InitWithCoder(coder objectivec.IObject) ANEChainingRequest
+	InitWithCoder(coder foundation.INSCoder) ANEChainingRequest
 	InitWithInputsOutputsLbInputSymbolIdLbOutputSymbolIdProcedureIndexSignalEventsTransactionHandleFwEnqueueDelayMemoryPoolId(inputs objectivec.IObject, outputs objectivec.IObject, id objectivec.IObject, id2 objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject, delay objectivec.IObject, id3 objectivec.IObject) ANEChainingRequest
 }
 
@@ -141,7 +141,7 @@ func NewANEChainingRequestWithInputsOutputsLbInputSymbolIdLbOutputSymbolIdProced
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/encodeWithCoder:
-func (a ANEChainingRequest) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEChainingRequest) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
@@ -153,7 +153,7 @@ func (a ANEChainingRequest) Validate() bool {
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/initWithCoder:
-func (a ANEChainingRequest) InitWithCoder(coder objectivec.IObject) ANEChainingRequest {
+func (a ANEChainingRequest) InitWithCoder(coder foundation.INSCoder) ANEChainingRequest {
 	rv := objc.Send[ANEChainingRequest](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

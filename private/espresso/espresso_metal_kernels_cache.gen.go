@@ -60,7 +60,7 @@ type EspressoMetalKernelsCache struct {
 
 // EspressoMetalKernelsCacheFromID constructs a [EspressoMetalKernelsCache] from an objc.ID.
 func EspressoMetalKernelsCacheFromID(id objc.ID) EspressoMetalKernelsCache {
-	return EspressoMetalKernelsCache{objectivec.Object{id}}
+	return EspressoMetalKernelsCache{objectivec.Object{ID: id}}
 }
 // Ensure EspressoMetalKernelsCache implements IEspressoMetalKernelsCache.
 var _ IEspressoMetalKernelsCache = EspressoMetalKernelsCache{}

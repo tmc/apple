@@ -55,7 +55,7 @@ type CoreMLModelSecurityServiceToClient struct {
 
 // CoreMLModelSecurityServiceToClientFromID constructs a [CoreMLModelSecurityServiceToClient] from an objc.ID.
 func CoreMLModelSecurityServiceToClientFromID(id objc.ID) CoreMLModelSecurityServiceToClient {
-	return CoreMLModelSecurityServiceToClient{objectivec.Object{id}}
+	return CoreMLModelSecurityServiceToClient{objectivec.Object{ID: id}}
 }
 // Ensure CoreMLModelSecurityServiceToClient implements ICoreMLModelSecurityServiceToClient.
 var _ ICoreMLModelSecurityServiceToClient = CoreMLModelSecurityServiceToClient{}

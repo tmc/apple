@@ -64,7 +64,7 @@ type ANEProgramForEvaluation struct {
 
 // ANEProgramForEvaluationFromID constructs a [ANEProgramForEvaluation] from an objc.ID.
 func ANEProgramForEvaluationFromID(id objc.ID) ANEProgramForEvaluation {
-	return ANEProgramForEvaluation{objectivec.Object{id}}
+	return ANEProgramForEvaluation{objectivec.Object{ID: id}}
 }
 // Ensure ANEProgramForEvaluation implements IANEProgramForEvaluation.
 var _ IANEProgramForEvaluation = ANEProgramForEvaluation{}

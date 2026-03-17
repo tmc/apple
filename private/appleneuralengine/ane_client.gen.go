@@ -92,7 +92,7 @@ type ANEClient struct {
 
 // ANEClientFromID constructs a [ANEClient] from an objc.ID.
 func ANEClientFromID(id objc.ID) ANEClient {
-	return ANEClient{objectivec.Object{id}}
+	return ANEClient{objectivec.Object{ID: id}}
 }
 // Ensure ANEClient implements IANEClient.
 var _ IANEClient = ANEClient{}

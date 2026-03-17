@@ -54,7 +54,7 @@ type MLRTrialDediscoRecipe struct {
 
 // MLRTrialDediscoRecipeFromID constructs a [MLRTrialDediscoRecipe] from an objc.ID.
 func MLRTrialDediscoRecipeFromID(id objc.ID) MLRTrialDediscoRecipe {
-	return MLRTrialDediscoRecipe{objectivec.Object{id}}
+	return MLRTrialDediscoRecipe{objectivec.Object{ID: id}}
 }
 // Ensure MLRTrialDediscoRecipe implements IMLRTrialDediscoRecipe.
 var _ IMLRTrialDediscoRecipe = MLRTrialDediscoRecipe{}

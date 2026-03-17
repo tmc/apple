@@ -45,7 +45,7 @@ type ANEMLIRCompiler struct {
 
 // ANEMLIRCompilerFromID constructs a [ANEMLIRCompiler] from an objc.ID.
 func ANEMLIRCompilerFromID(id objc.ID) ANEMLIRCompiler {
-	return ANEMLIRCompiler{objectivec.Object{id}}
+	return ANEMLIRCompiler{objectivec.Object{ID: id}}
 }
 // Ensure ANEMLIRCompiler implements IANEMLIRCompiler.
 var _ IANEMLIRCompiler = ANEMLIRCompiler{}

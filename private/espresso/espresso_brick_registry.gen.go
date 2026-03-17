@@ -43,7 +43,7 @@ type EspressoBrickRegistry struct {
 
 // EspressoBrickRegistryFromID constructs a [EspressoBrickRegistry] from an objc.ID.
 func EspressoBrickRegistryFromID(id objc.ID) EspressoBrickRegistry {
-	return EspressoBrickRegistry{objectivec.Object{id}}
+	return EspressoBrickRegistry{objectivec.Object{ID: id}}
 }
 // Ensure EspressoBrickRegistry implements IEspressoBrickRegistry.
 var _ IEspressoBrickRegistry = EspressoBrickRegistry{}

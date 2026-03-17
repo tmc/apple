@@ -46,7 +46,7 @@ type ANEStorageHelper struct {
 
 // ANEStorageHelperFromID constructs a [ANEStorageHelper] from an objc.ID.
 func ANEStorageHelperFromID(id objc.ID) ANEStorageHelper {
-	return ANEStorageHelper{objectivec.Object{id}}
+	return ANEStorageHelper{objectivec.Object{ID: id}}
 }
 // Ensure ANEStorageHelper implements IANEStorageHelper.
 var _ IANEStorageHelper = ANEStorageHelper{}

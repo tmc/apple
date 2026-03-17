@@ -68,7 +68,7 @@ type EspressoANEIOSurface struct {
 
 // EspressoANEIOSurfaceFromID constructs a [EspressoANEIOSurface] from an objc.ID.
 func EspressoANEIOSurfaceFromID(id objc.ID) EspressoANEIOSurface {
-	return EspressoANEIOSurface{objectivec.Object{id}}
+	return EspressoANEIOSurface{objectivec.Object{ID: id}}
 }
 // Ensure EspressoANEIOSurface implements IEspressoANEIOSurface.
 var _ IEspressoANEIOSurface = EspressoANEIOSurface{}

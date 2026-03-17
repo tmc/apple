@@ -62,7 +62,7 @@ type EspressoInnerProductWeightsForMPS struct {
 
 // EspressoInnerProductWeightsForMPSFromID constructs a [EspressoInnerProductWeightsForMPS] from an objc.ID.
 func EspressoInnerProductWeightsForMPSFromID(id objc.ID) EspressoInnerProductWeightsForMPS {
-	return EspressoInnerProductWeightsForMPS{objectivec.Object{id}}
+	return EspressoInnerProductWeightsForMPS{objectivec.Object{ID: id}}
 }
 // Ensure EspressoInnerProductWeightsForMPS implements IEspressoInnerProductWeightsForMPS.
 var _ IEspressoInnerProductWeightsForMPS = EspressoInnerProductWeightsForMPS{}

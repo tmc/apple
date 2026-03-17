@@ -53,7 +53,7 @@ type ANEInputBuffersReady struct {
 
 // ANEInputBuffersReadyFromID constructs a [ANEInputBuffersReady] from an objc.ID.
 func ANEInputBuffersReadyFromID(id objc.ID) ANEInputBuffersReady {
-	return ANEInputBuffersReady{objectivec.Object{id}}
+	return ANEInputBuffersReady{objectivec.Object{ID: id}}
 }
 // Ensure ANEInputBuffersReady implements IANEInputBuffersReady.
 var _ IANEInputBuffersReady = ANEInputBuffersReady{}

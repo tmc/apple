@@ -50,7 +50,7 @@ type MLRDonationManager struct {
 
 // MLRDonationManagerFromID constructs a [MLRDonationManager] from an objc.ID.
 func MLRDonationManagerFromID(id objc.ID) MLRDonationManager {
-	return MLRDonationManager{objectivec.Object{id}}
+	return MLRDonationManager{objectivec.Object{ID: id}}
 }
 // Ensure MLRDonationManager implements IMLRDonationManager.
 var _ IMLRDonationManager = MLRDonationManager{}

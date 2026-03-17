@@ -46,7 +46,7 @@ type ANESandboxingHelper struct {
 
 // ANESandboxingHelperFromID constructs a [ANESandboxingHelper] from an objc.ID.
 func ANESandboxingHelperFromID(id objc.ID) ANESandboxingHelper {
-	return ANESandboxingHelper{objectivec.Object{id}}
+	return ANESandboxingHelper{objectivec.Object{ID: id}}
 }
 // Ensure ANESandboxingHelper implements IANESandboxingHelper.
 var _ IANESandboxingHelper = ANESandboxingHelper{}

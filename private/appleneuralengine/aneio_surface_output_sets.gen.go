@@ -53,7 +53,7 @@ type ANEIOSurfaceOutputSets struct {
 
 // ANEIOSurfaceOutputSetsFromID constructs a [ANEIOSurfaceOutputSets] from an objc.ID.
 func ANEIOSurfaceOutputSetsFromID(id objc.ID) ANEIOSurfaceOutputSets {
-	return ANEIOSurfaceOutputSets{objectivec.Object{id}}
+	return ANEIOSurfaceOutputSets{objectivec.Object{ID: id}}
 }
 // Ensure ANEIOSurfaceOutputSets implements IANEIOSurfaceOutputSets.
 var _ IANEIOSurfaceOutputSets = ANEIOSurfaceOutputSets{}
@@ -74,10 +74,10 @@ type IANEIOSurfaceOutputSets interface {
 
 	// Topic: Methods
 
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	OutputBuffer() foundation.INSArray
 	StatsSurRef() coregraphics.IOSurfaceRef
-	InitWithCoder(coder objectivec.IObject) ANEIOSurfaceOutputSets
+	InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceOutputSets
 	InitWithstatsSurRefOutputBuffer(ref coregraphics.IOSurfaceRef, buffer objectivec.IObject) ANEIOSurfaceOutputSets
 }
 
@@ -118,13 +118,13 @@ func NewANEIOSurfaceOutputSetsWithstatsSurRefOutputBuffer(ref coregraphics.IOSur
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/encodeWithCoder:
-func (a ANEIOSurfaceOutputSets) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEIOSurfaceOutputSets) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceOutputSets/initWithCoder:
-func (a ANEIOSurfaceOutputSets) InitWithCoder(coder objectivec.IObject) ANEIOSurfaceOutputSets {
+func (a ANEIOSurfaceOutputSets) InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceOutputSets {
 	rv := objc.Send[ANEIOSurfaceOutputSets](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

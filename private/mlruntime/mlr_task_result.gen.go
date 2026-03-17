@@ -52,7 +52,7 @@ type MLRTaskResult struct {
 
 // MLRTaskResultFromID constructs a [MLRTaskResult] from an objc.ID.
 func MLRTaskResultFromID(id objc.ID) MLRTaskResult {
-	return MLRTaskResult{objectivec.Object{id}}
+	return MLRTaskResult{objectivec.Object{ID: id}}
 }
 // Ensure MLRTaskResult implements IMLRTaskResult.
 var _ IMLRTaskResult = MLRTaskResult{}
@@ -74,9 +74,9 @@ type IMLRTaskResult interface {
 	// Topic: Methods
 
 	JSONResult() foundation.INSDictionary
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	Vector() foundation.INSData
-	InitWithCoder(coder objectivec.IObject) MLRTaskResult
+	InitWithCoder(coder foundation.INSCoder) MLRTaskResult
 	InitWithJSONResultUnprivatizedVector(jSONResult objectivec.IObject, vector objectivec.IObject) MLRTaskResult
 }
 
@@ -117,13 +117,13 @@ func NewRTaskResultWithJSONResultUnprivatizedVector(jSONResult objectivec.IObjec
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/encodeWithCoder:
-func (r MLRTaskResult) EncodeWithCoder(coder objectivec.IObject) {
+func (r MLRTaskResult) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/initWithCoder:
-func (r MLRTaskResult) InitWithCoder(coder objectivec.IObject) MLRTaskResult {
+func (r MLRTaskResult) InitWithCoder(coder foundation.INSCoder) MLRTaskResult {
 	rv := objc.Send[MLRTaskResult](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

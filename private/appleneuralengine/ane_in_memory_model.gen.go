@@ -87,7 +87,7 @@ type ANEInMemoryModel struct {
 
 // ANEInMemoryModelFromID constructs a [ANEInMemoryModel] from an objc.ID.
 func ANEInMemoryModelFromID(id objc.ID) ANEInMemoryModel {
-	return ANEInMemoryModel{objectivec.Object{id}}
+	return ANEInMemoryModel{objectivec.Object{ID: id}}
 }
 // Ensure ANEInMemoryModel implements IANEInMemoryModel.
 var _ IANEInMemoryModel = ANEInMemoryModel{}

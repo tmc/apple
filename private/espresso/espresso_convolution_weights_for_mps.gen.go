@@ -62,7 +62,7 @@ type EspressoConvolutionWeightsForMPS struct {
 
 // EspressoConvolutionWeightsForMPSFromID constructs a [EspressoConvolutionWeightsForMPS] from an objc.ID.
 func EspressoConvolutionWeightsForMPSFromID(id objc.ID) EspressoConvolutionWeightsForMPS {
-	return EspressoConvolutionWeightsForMPS{objectivec.Object{id}}
+	return EspressoConvolutionWeightsForMPS{objectivec.Object{ID: id}}
 }
 // Ensure EspressoConvolutionWeightsForMPS implements IEspressoConvolutionWeightsForMPS.
 var _ IEspressoConvolutionWeightsForMPS = EspressoConvolutionWeightsForMPS{}

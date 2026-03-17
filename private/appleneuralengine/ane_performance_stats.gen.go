@@ -57,7 +57,7 @@ type ANEPerformanceStats struct {
 
 // ANEPerformanceStatsFromID constructs a [ANEPerformanceStats] from an objc.ID.
 func ANEPerformanceStatsFromID(id objc.ID) ANEPerformanceStats {
-	return ANEPerformanceStats{objectivec.Object{id}}
+	return ANEPerformanceStats{objectivec.Object{ID: id}}
 }
 // Ensure ANEPerformanceStats implements IANEPerformanceStats.
 var _ IANEPerformanceStats = ANEPerformanceStats{}

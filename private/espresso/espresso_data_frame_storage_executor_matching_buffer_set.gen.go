@@ -59,7 +59,7 @@ type EspressoDataFrameStorageExecutorMatchingBufferSet struct {
 
 // EspressoDataFrameStorageExecutorMatchingBufferSetFromID constructs a [EspressoDataFrameStorageExecutorMatchingBufferSet] from an objc.ID.
 func EspressoDataFrameStorageExecutorMatchingBufferSetFromID(id objc.ID) EspressoDataFrameStorageExecutorMatchingBufferSet {
-	return EspressoDataFrameStorageExecutorMatchingBufferSet{objectivec.Object{id}}
+	return EspressoDataFrameStorageExecutorMatchingBufferSet{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrameStorageExecutorMatchingBufferSet implements IEspressoDataFrameStorageExecutorMatchingBufferSet.
 var _ IEspressoDataFrameStorageExecutorMatchingBufferSet = EspressoDataFrameStorageExecutorMatchingBufferSet{}

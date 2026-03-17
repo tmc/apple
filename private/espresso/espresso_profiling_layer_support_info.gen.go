@@ -61,7 +61,7 @@ type EspressoProfilingLayerSupportInfo struct {
 
 // EspressoProfilingLayerSupportInfoFromID constructs a [EspressoProfilingLayerSupportInfo] from an objc.ID.
 func EspressoProfilingLayerSupportInfoFromID(id objc.ID) EspressoProfilingLayerSupportInfo {
-	return EspressoProfilingLayerSupportInfo{objectivec.Object{id}}
+	return EspressoProfilingLayerSupportInfo{objectivec.Object{ID: id}}
 }
 // Ensure EspressoProfilingLayerSupportInfo implements IEspressoProfilingLayerSupportInfo.
 var _ IEspressoProfilingLayerSupportInfo = EspressoProfilingLayerSupportInfo{}

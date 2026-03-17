@@ -51,7 +51,7 @@ type MLRServiceClient struct {
 
 // MLRServiceClientFromID constructs a [MLRServiceClient] from an objc.ID.
 func MLRServiceClientFromID(id objc.ID) MLRServiceClient {
-	return MLRServiceClient{objectivec.Object{id}}
+	return MLRServiceClient{objectivec.Object{ID: id}}
 }
 // Ensure MLRServiceClient implements IMLRServiceClient.
 var _ IMLRServiceClient = MLRServiceClient{}

@@ -54,7 +54,7 @@ type ANETask struct {
 
 // ANETaskFromID constructs a [ANETask] from an objc.ID.
 func ANETaskFromID(id objc.ID) ANETask {
-	return ANETask{objectivec.Object{id}}
+	return ANETask{objectivec.Object{ID: id}}
 }
 // Ensure ANETask implements IANETask.
 var _ IANETask = ANETask{}

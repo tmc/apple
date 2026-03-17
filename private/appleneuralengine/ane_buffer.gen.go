@@ -53,7 +53,7 @@ type ANEBuffer struct {
 
 // ANEBufferFromID constructs a [ANEBuffer] from an objc.ID.
 func ANEBufferFromID(id objc.ID) ANEBuffer {
-	return ANEBuffer{objectivec.Object{id}}
+	return ANEBuffer{objectivec.Object{ID: id}}
 }
 // Ensure ANEBuffer implements IANEBuffer.
 var _ IANEBuffer = ANEBuffer{}
@@ -75,11 +75,11 @@ type IANEBuffer interface {
 
 	// Topic: Methods
 
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	IoSurfaceObject() *ANEIOSurfaceObject
 	Source() int64
 	SymbolIndex() foundation.NSNumber
-	InitWithCoder(coder objectivec.IObject) ANEBuffer
+	InitWithCoder(coder foundation.INSCoder) ANEBuffer
 	InitWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) ANEBuffer
 }
 
@@ -120,13 +120,13 @@ func NewANEBufferWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject,
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/encodeWithCoder:
-func (a ANEBuffer) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEBuffer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithCoder:
-func (a ANEBuffer) InitWithCoder(coder objectivec.IObject) ANEBuffer {
+func (a ANEBuffer) InitWithCoder(coder foundation.INSCoder) ANEBuffer {
 	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

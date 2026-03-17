@@ -45,7 +45,7 @@ type ANECoreMLModelCompiler struct {
 
 // ANECoreMLModelCompilerFromID constructs a [ANECoreMLModelCompiler] from an objc.ID.
 func ANECoreMLModelCompilerFromID(id objc.ID) ANECoreMLModelCompiler {
-	return ANECoreMLModelCompiler{objectivec.Object{id}}
+	return ANECoreMLModelCompiler{objectivec.Object{ID: id}}
 }
 // Ensure ANECoreMLModelCompiler implements IANECoreMLModelCompiler.
 var _ IANECoreMLModelCompiler = ANECoreMLModelCompiler{}

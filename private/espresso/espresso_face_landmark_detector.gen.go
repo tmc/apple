@@ -56,7 +56,7 @@ type EspressoFaceLandmarkDetector struct {
 
 // EspressoFaceLandmarkDetectorFromID constructs a [EspressoFaceLandmarkDetector] from an objc.ID.
 func EspressoFaceLandmarkDetectorFromID(id objc.ID) EspressoFaceLandmarkDetector {
-	return EspressoFaceLandmarkDetector{objectivec.Object{id}}
+	return EspressoFaceLandmarkDetector{objectivec.Object{ID: id}}
 }
 // Ensure EspressoFaceLandmarkDetector implements IEspressoFaceLandmarkDetector.
 var _ IEspressoFaceLandmarkDetector = EspressoFaceLandmarkDetector{}

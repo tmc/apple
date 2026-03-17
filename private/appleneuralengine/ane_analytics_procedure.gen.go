@@ -52,7 +52,7 @@ type ANEAnalyticsProcedure struct {
 
 // ANEAnalyticsProcedureFromID constructs a [ANEAnalyticsProcedure] from an objc.ID.
 func ANEAnalyticsProcedureFromID(id objc.ID) ANEAnalyticsProcedure {
-	return ANEAnalyticsProcedure{objectivec.Object{id}}
+	return ANEAnalyticsProcedure{objectivec.Object{ID: id}}
 }
 // Ensure ANEAnalyticsProcedure implements IANEAnalyticsProcedure.
 var _ IANEAnalyticsProcedure = ANEAnalyticsProcedure{}

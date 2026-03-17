@@ -45,7 +45,7 @@ type MLROnDemandPlugin struct {
 
 // MLROnDemandPluginFromID constructs a [MLROnDemandPlugin] from an objc.ID.
 func MLROnDemandPluginFromID(id objc.ID) MLROnDemandPlugin {
-	return MLROnDemandPlugin{objectivec.Object{id}}
+	return MLROnDemandPlugin{objectivec.Object{ID: id}}
 }
 // Ensure MLROnDemandPlugin implements IMLROnDemandPlugin.
 var _ IMLROnDemandPlugin = MLROnDemandPlugin{}

@@ -61,7 +61,7 @@ type EspressoFaceDetectedObject struct {
 
 // EspressoFaceDetectedObjectFromID constructs a [EspressoFaceDetectedObject] from an objc.ID.
 func EspressoFaceDetectedObjectFromID(id objc.ID) EspressoFaceDetectedObject {
-	return EspressoFaceDetectedObject{objectivec.Object{id}}
+	return EspressoFaceDetectedObject{objectivec.Object{ID: id}}
 }
 // Ensure EspressoFaceDetectedObject implements IEspressoFaceDetectedObject.
 var _ IEspressoFaceDetectedObject = EspressoFaceDetectedObject{}

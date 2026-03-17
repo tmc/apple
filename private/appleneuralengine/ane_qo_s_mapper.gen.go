@@ -43,7 +43,7 @@ type ANEQoSMapper struct {
 
 // ANEQoSMapperFromID constructs a [ANEQoSMapper] from an objc.ID.
 func ANEQoSMapperFromID(id objc.ID) ANEQoSMapper {
-	return ANEQoSMapper{objectivec.Object{id}}
+	return ANEQoSMapper{objectivec.Object{ID: id}}
 }
 // Ensure ANEQoSMapper implements IANEQoSMapper.
 var _ IANEQoSMapper = ANEQoSMapper{}

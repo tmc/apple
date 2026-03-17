@@ -49,7 +49,7 @@ type ANEPerformanceStatsIOSurface struct {
 
 // ANEPerformanceStatsIOSurfaceFromID constructs a [ANEPerformanceStatsIOSurface] from an objc.ID.
 func ANEPerformanceStatsIOSurfaceFromID(id objc.ID) ANEPerformanceStatsIOSurface {
-	return ANEPerformanceStatsIOSurface{objectivec.Object{id}}
+	return ANEPerformanceStatsIOSurface{objectivec.Object{ID: id}}
 }
 // Ensure ANEPerformanceStatsIOSurface implements IANEPerformanceStatsIOSurface.
 var _ IANEPerformanceStatsIOSurface = ANEPerformanceStatsIOSurface{}

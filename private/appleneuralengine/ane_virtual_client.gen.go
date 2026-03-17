@@ -113,7 +113,7 @@ type ANEVirtualClient struct {
 
 // ANEVirtualClientFromID constructs a [ANEVirtualClient] from an objc.ID.
 func ANEVirtualClientFromID(id objc.ID) ANEVirtualClient {
-	return ANEVirtualClient{objectivec.Object{id}}
+	return ANEVirtualClient{objectivec.Object{ID: id}}
 }
 // Ensure ANEVirtualClient implements IANEVirtualClient.
 var _ IANEVirtualClient = ANEVirtualClient{}

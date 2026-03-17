@@ -43,7 +43,7 @@ type ANEDataReporter struct {
 
 // ANEDataReporterFromID constructs a [ANEDataReporter] from an objc.ID.
 func ANEDataReporterFromID(id objc.ID) ANEDataReporter {
-	return ANEDataReporter{objectivec.Object{id}}
+	return ANEDataReporter{objectivec.Object{ID: id}}
 }
 // Ensure ANEDataReporter implements IANEDataReporter.
 var _ IANEDataReporter = ANEDataReporter{}

@@ -57,7 +57,7 @@ type ANEInMemoryModelDescriptor struct {
 
 // ANEInMemoryModelDescriptorFromID constructs a [ANEInMemoryModelDescriptor] from an objc.ID.
 func ANEInMemoryModelDescriptorFromID(id objc.ID) ANEInMemoryModelDescriptor {
-	return ANEInMemoryModelDescriptor{objectivec.Object{id}}
+	return ANEInMemoryModelDescriptor{objectivec.Object{ID: id}}
 }
 // Ensure ANEInMemoryModelDescriptor implements IANEInMemoryModelDescriptor.
 var _ IANEInMemoryModelDescriptor = ANEInMemoryModelDescriptor{}

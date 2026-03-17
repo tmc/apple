@@ -50,7 +50,7 @@ type EspressoDataFrameStorageExecutor struct {
 
 // EspressoDataFrameStorageExecutorFromID constructs a [EspressoDataFrameStorageExecutor] from an objc.ID.
 func EspressoDataFrameStorageExecutorFromID(id objc.ID) EspressoDataFrameStorageExecutor {
-	return EspressoDataFrameStorageExecutor{objectivec.Object{id}}
+	return EspressoDataFrameStorageExecutor{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrameStorageExecutor implements IEspressoDataFrameStorageExecutor.
 var _ IEspressoDataFrameStorageExecutor = EspressoDataFrameStorageExecutor{}

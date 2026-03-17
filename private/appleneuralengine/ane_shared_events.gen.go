@@ -52,7 +52,7 @@ type ANESharedEvents struct {
 
 // ANESharedEventsFromID constructs a [ANESharedEvents] from an objc.ID.
 func ANESharedEventsFromID(id objc.ID) ANESharedEvents {
-	return ANESharedEvents{objectivec.Object{id}}
+	return ANESharedEvents{objectivec.Object{ID: id}}
 }
 // Ensure ANESharedEvents implements IANESharedEvents.
 var _ IANESharedEvents = ANESharedEvents{}

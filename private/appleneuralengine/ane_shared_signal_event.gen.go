@@ -5,6 +5,7 @@ package appleneuralengine
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -57,7 +58,7 @@ type ANESharedSignalEvent struct {
 
 // ANESharedSignalEventFromID constructs a [ANESharedSignalEvent] from an objc.ID.
 func ANESharedSignalEventFromID(id objc.ID) ANESharedSignalEvent {
-	return ANESharedSignalEvent{objectivec.Object{id}}
+	return ANESharedSignalEvent{objectivec.Object{ID: id}}
 }
 // Ensure ANESharedSignalEvent implements IANESharedSignalEvent.
 var _ IANESharedSignalEvent = ANESharedSignalEvent{}
@@ -86,14 +87,14 @@ type IANESharedSignalEvent interface {
 
 	AgentMask() uint64
 	SetAgentMask(value uint64)
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	EventType() int64
 	SharedEvent() objectivec.IObject
 	SymbolIndex() uint32
 	Value() uint64
 	SetValue(value uint64)
 	WaitEvent() objectivec.IObject
-	InitWithCoder(coder objectivec.IObject) ANESharedSignalEvent
+	InitWithCoder(coder foundation.INSCoder) ANESharedSignalEvent
 	InitWithValueSymbolIndexEventTypeSharedEventAgentMask(value uint64, index uint32, type_ int64, event objectivec.IObject, mask uint64) ANESharedSignalEvent
 }
 
@@ -134,7 +135,7 @@ func NewANESharedSignalEventWithValueSymbolIndexEventTypeSharedEventAgentMask(va
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/encodeWithCoder:
-func (a ANESharedSignalEvent) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANESharedSignalEvent) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
@@ -146,7 +147,7 @@ func (a ANESharedSignalEvent) WaitEvent() objectivec.IObject {
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/initWithCoder:
-func (a ANESharedSignalEvent) InitWithCoder(coder objectivec.IObject) ANESharedSignalEvent {
+func (a ANESharedSignalEvent) InitWithCoder(coder foundation.INSCoder) ANESharedSignalEvent {
 	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

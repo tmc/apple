@@ -44,7 +44,7 @@ type ANEHashEncoding struct {
 
 // ANEHashEncodingFromID constructs a [ANEHashEncoding] from an objc.ID.
 func ANEHashEncodingFromID(id objc.ID) ANEHashEncoding {
-	return ANEHashEncoding{objectivec.Object{id}}
+	return ANEHashEncoding{objectivec.Object{ID: id}}
 }
 // Ensure ANEHashEncoding implements IANEHashEncoding.
 var _ IANEHashEncoding = ANEHashEncoding{}

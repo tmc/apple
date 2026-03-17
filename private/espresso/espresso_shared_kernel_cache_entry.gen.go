@@ -48,7 +48,7 @@ type EspressoSharedKernelCacheEntry struct {
 
 // EspressoSharedKernelCacheEntryFromID constructs a [EspressoSharedKernelCacheEntry] from an objc.ID.
 func EspressoSharedKernelCacheEntryFromID(id objc.ID) EspressoSharedKernelCacheEntry {
-	return EspressoSharedKernelCacheEntry{objectivec.Object{id}}
+	return EspressoSharedKernelCacheEntry{objectivec.Object{ID: id}}
 }
 // Ensure EspressoSharedKernelCacheEntry implements IEspressoSharedKernelCacheEntry.
 var _ IEspressoSharedKernelCacheEntry = EspressoSharedKernelCacheEntry{}

@@ -43,7 +43,7 @@ type ANEDeviceInfo struct {
 
 // ANEDeviceInfoFromID constructs a [ANEDeviceInfo] from an objc.ID.
 func ANEDeviceInfoFromID(id objc.ID) ANEDeviceInfo {
-	return ANEDeviceInfo{objectivec.Object{id}}
+	return ANEDeviceInfo{objectivec.Object{ID: id}}
 }
 // Ensure ANEDeviceInfo implements IANEDeviceInfo.
 var _ IANEDeviceInfo = ANEDeviceInfo{}

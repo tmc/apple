@@ -58,7 +58,7 @@ type EspressoBrickTensorShape struct {
 
 // EspressoBrickTensorShapeFromID constructs a [EspressoBrickTensorShape] from an objc.ID.
 func EspressoBrickTensorShapeFromID(id objc.ID) EspressoBrickTensorShape {
-	return EspressoBrickTensorShape{objectivec.Object{id}}
+	return EspressoBrickTensorShape{objectivec.Object{ID: id}}
 }
 // Ensure EspressoBrickTensorShape implements IEspressoBrickTensorShape.
 var _ IEspressoBrickTensorShape = EspressoBrickTensorShape{}

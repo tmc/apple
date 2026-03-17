@@ -57,7 +57,7 @@ type ANEProgramIOSurfacesMapper struct {
 
 // ANEProgramIOSurfacesMapperFromID constructs a [ANEProgramIOSurfacesMapper] from an objc.ID.
 func ANEProgramIOSurfacesMapperFromID(id objc.ID) ANEProgramIOSurfacesMapper {
-	return ANEProgramIOSurfacesMapper{objectivec.Object{id}}
+	return ANEProgramIOSurfacesMapper{objectivec.Object{ID: id}}
 }
 // Ensure ANEProgramIOSurfacesMapper implements IANEProgramIOSurfacesMapper.
 var _ IANEProgramIOSurfacesMapper = ANEProgramIOSurfacesMapper{}

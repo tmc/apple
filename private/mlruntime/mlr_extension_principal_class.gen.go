@@ -52,7 +52,7 @@ type MLRExtensionPrincipalClass struct {
 
 // MLRExtensionPrincipalClassFromID constructs a [MLRExtensionPrincipalClass] from an objc.ID.
 func MLRExtensionPrincipalClassFromID(id objc.ID) MLRExtensionPrincipalClass {
-	return MLRExtensionPrincipalClass{objectivec.Object{id}}
+	return MLRExtensionPrincipalClass{objectivec.Object{ID: id}}
 }
 // Ensure MLRExtensionPrincipalClass implements IMLRExtensionPrincipalClass.
 var _ IMLRExtensionPrincipalClass = MLRExtensionPrincipalClass{}

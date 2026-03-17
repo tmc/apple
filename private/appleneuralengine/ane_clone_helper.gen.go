@@ -43,7 +43,7 @@ type ANECloneHelper struct {
 
 // ANECloneHelperFromID constructs a [ANECloneHelper] from an objc.ID.
 func ANECloneHelperFromID(id objc.ID) ANECloneHelper {
-	return ANECloneHelper{objectivec.Object{id}}
+	return ANECloneHelper{objectivec.Object{ID: id}}
 }
 // Ensure ANECloneHelper implements IANECloneHelper.
 var _ IANECloneHelper = ANECloneHelper{}

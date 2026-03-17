@@ -63,7 +63,7 @@ type MLRTaskParameters struct {
 
 // MLRTaskParametersFromID constructs a [MLRTaskParameters] from an objc.ID.
 func MLRTaskParametersFromID(id objc.ID) MLRTaskParameters {
-	return MLRTaskParameters{objectivec.Object{id}}
+	return MLRTaskParameters{objectivec.Object{ID: id}}
 }
 // Ensure MLRTaskParameters implements IMLRTaskParameters.
 var _ IMLRTaskParameters = MLRTaskParameters{}
@@ -98,14 +98,14 @@ type IMLRTaskParameters interface {
 	Count() uint64
 	DictionaryRepresentation() foundation.INSDictionary
 	DoubleValueForKeyDefaultValue(key objectivec.IObject, value float64) float64
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	FloatValueForKeyDefaultValue(key objectivec.IObject, value float32) float32
 	IntegerValueForKeyDefaultValue(key objectivec.IObject, value int64) int64
 	ObjectForKeyedSubscript(subscript objectivec.IObject) objectivec.IObject
 	RecipeUserInfo() foundation.INSDictionary
 	StringValueForKeyDefaultValue(key objectivec.IObject, value objectivec.IObject) objectivec.IObject
 	UnsignedIntegerValueForKeyDefaultValue(key objectivec.IObject, value uint64) uint64
-	InitWithCoder(coder objectivec.IObject) MLRTaskParameters
+	InitWithCoder(coder foundation.INSCoder) MLRTaskParameters
 	InitWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskParameters
 	InitWithParametersDict(dict objectivec.IObject) MLRTaskParameters
 	InitWithURLError(url foundation.INSURL) (MLRTaskParameters, error)
@@ -183,7 +183,7 @@ func (r MLRTaskParameters) DoubleValueForKeyDefaultValue(key objectivec.IObject,
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/encodeWithCoder:
-func (r MLRTaskParameters) EncodeWithCoder(coder objectivec.IObject) {
+func (r MLRTaskParameters) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
@@ -224,7 +224,7 @@ func (r MLRTaskParameters) UnsignedIntegerValueForKeyDefaultValue(key objectivec
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithCoder:
-func (r MLRTaskParameters) InitWithCoder(coder objectivec.IObject) MLRTaskParameters {
+func (r MLRTaskParameters) InitWithCoder(coder foundation.INSCoder) MLRTaskParameters {
 	rv := objc.Send[MLRTaskParameters](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

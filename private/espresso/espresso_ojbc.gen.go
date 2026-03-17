@@ -43,7 +43,7 @@ type EspressoOJBC struct {
 
 // EspressoOJBCFromID constructs a [EspressoOJBC] from an objc.ID.
 func EspressoOJBCFromID(id objc.ID) EspressoOJBC {
-	return EspressoOJBC{objectivec.Object{id}}
+	return EspressoOJBC{objectivec.Object{ID: id}}
 }
 // Ensure EspressoOJBC implements IEspressoOJBC.
 var _ IEspressoOJBC = EspressoOJBC{}

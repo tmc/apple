@@ -63,7 +63,7 @@ type EspressoDataFrame struct {
 
 // EspressoDataFrameFromID constructs a [EspressoDataFrame] from an objc.ID.
 func EspressoDataFrameFromID(id objc.ID) EspressoDataFrame {
-	return EspressoDataFrame{objectivec.Object{id}}
+	return EspressoDataFrame{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrame implements IEspressoDataFrame.
 var _ IEspressoDataFrame = EspressoDataFrame{}

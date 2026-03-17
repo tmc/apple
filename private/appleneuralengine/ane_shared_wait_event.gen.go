@@ -51,7 +51,7 @@ type ANESharedWaitEvent struct {
 
 // ANESharedWaitEventFromID constructs a [ANESharedWaitEvent] from an objc.ID.
 func ANESharedWaitEventFromID(id objc.ID) ANESharedWaitEvent {
-	return ANESharedWaitEvent{objectivec.Object{id}}
+	return ANESharedWaitEvent{objectivec.Object{ID: id}}
 }
 // Ensure ANESharedWaitEvent implements IANESharedWaitEvent.
 var _ IANESharedWaitEvent = ANESharedWaitEvent{}

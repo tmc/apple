@@ -49,7 +49,7 @@ type EspressoProfilingANEcompilerAnalytics struct {
 
 // EspressoProfilingANEcompilerAnalyticsFromID constructs a [EspressoProfilingANEcompilerAnalytics] from an objc.ID.
 func EspressoProfilingANEcompilerAnalyticsFromID(id objc.ID) EspressoProfilingANEcompilerAnalytics {
-	return EspressoProfilingANEcompilerAnalytics{objectivec.Object{id}}
+	return EspressoProfilingANEcompilerAnalytics{objectivec.Object{ID: id}}
 }
 // Ensure EspressoProfilingANEcompilerAnalytics implements IEspressoProfilingANEcompilerAnalytics.
 var _ IEspressoProfilingANEcompilerAnalytics = EspressoProfilingANEcompilerAnalytics{}

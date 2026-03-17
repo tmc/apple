@@ -48,7 +48,7 @@ type EspressoMetalSingleton struct {
 
 // EspressoMetalSingletonFromID constructs a [EspressoMetalSingleton] from an objc.ID.
 func EspressoMetalSingletonFromID(id objc.ID) EspressoMetalSingleton {
-	return EspressoMetalSingleton{objectivec.Object{id}}
+	return EspressoMetalSingleton{objectivec.Object{ID: id}}
 }
 // Ensure EspressoMetalSingleton implements IEspressoMetalSingleton.
 var _ IEspressoMetalSingleton = EspressoMetalSingleton{}

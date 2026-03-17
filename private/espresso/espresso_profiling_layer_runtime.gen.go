@@ -50,7 +50,7 @@ type EspressoProfilingLayerRuntime struct {
 
 // EspressoProfilingLayerRuntimeFromID constructs a [EspressoProfilingLayerRuntime] from an objc.ID.
 func EspressoProfilingLayerRuntimeFromID(id objc.ID) EspressoProfilingLayerRuntime {
-	return EspressoProfilingLayerRuntime{objectivec.Object{id}}
+	return EspressoProfilingLayerRuntime{objectivec.Object{ID: id}}
 }
 // Ensure EspressoProfilingLayerRuntime implements IEspressoProfilingLayerRuntime.
 var _ IEspressoProfilingLayerRuntime = EspressoProfilingLayerRuntime{}

@@ -60,7 +60,7 @@ type EspressoDataFrameExecutor struct {
 
 // EspressoDataFrameExecutorFromID constructs a [EspressoDataFrameExecutor] from an objc.ID.
 func EspressoDataFrameExecutorFromID(id objc.ID) EspressoDataFrameExecutor {
-	return EspressoDataFrameExecutor{objectivec.Object{id}}
+	return EspressoDataFrameExecutor{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrameExecutor implements IEspressoDataFrameExecutor.
 var _ IEspressoDataFrameExecutor = EspressoDataFrameExecutor{}

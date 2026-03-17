@@ -56,7 +56,7 @@ type EspressoDataFrameStorage struct {
 
 // EspressoDataFrameStorageFromID constructs a [EspressoDataFrameStorage] from an objc.ID.
 func EspressoDataFrameStorageFromID(id objc.ID) EspressoDataFrameStorage {
-	return EspressoDataFrameStorage{objectivec.Object{id}}
+	return EspressoDataFrameStorage{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrameStorage implements IEspressoDataFrameStorage.
 var _ IEspressoDataFrameStorage = EspressoDataFrameStorage{}

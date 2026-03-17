@@ -92,7 +92,7 @@ type ANEModel struct {
 
 // ANEModelFromID constructs a [ANEModel] from an objc.ID.
 func ANEModelFromID(id objc.ID) ANEModel {
-	return ANEModel{objectivec.Object{id}}
+	return ANEModel{objectivec.Object{ID: id}}
 }
 // Ensure ANEModel implements IANEModel.
 var _ IANEModel = ANEModel{}
@@ -156,7 +156,7 @@ type IANEModel interface {
 	UUID() foundation.NSUUID
 	CacheURLIdentifier() string
 	SetCacheURLIdentifier(value string)
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	GetCacheURLIdentifier() objectivec.IObject
 	GetUUID() objectivec.IObject
 	IdentifierSource() int64
@@ -193,7 +193,7 @@ type IANEModel interface {
 	SymbolIndicesForProcedureIndexIndexArrayKey(index uint32, key objectivec.IObject) objectivec.IObject
 	UpdateModelAttributesState(attributes objectivec.IObject, state uint64)
 	UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepth(attributes objectivec.IObject, state uint64, handle uint64, handle2 uint64, depth int8)
-	InitWithCoder(coder objectivec.IObject) ANEModel
+	InitWithCoder(coder foundation.INSCoder) ANEModel
 	InitWithModelAtURLKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURL(url foundation.INSURL, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url2 bool) ANEModel
 	InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringId(url foundation.INSURL, url2 foundation.INSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool) ANEModel
 	InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstants(url foundation.INSURL, url2 foundation.INSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool, constants objectivec.IObject) ANEModel
@@ -261,7 +261,7 @@ func NewANEModelWithModelIdentifier(identifier objectivec.IObject) ANEModel {
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/encodeWithCoder:
-func (a ANEModel) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEModel) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
@@ -337,7 +337,7 @@ func (a ANEModel) UpdateModelAttributesStateProgramHandleIntermediateBufferHandl
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModel/initWithCoder:
-func (a ANEModel) InitWithCoder(coder objectivec.IObject) ANEModel {
+func (a ANEModel) InitWithCoder(coder foundation.INSCoder) ANEModel {
 	rv := objc.Send[ANEModel](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

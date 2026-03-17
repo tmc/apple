@@ -64,7 +64,7 @@ type ANEDaemonConnection struct {
 
 // ANEDaemonConnectionFromID constructs a [ANEDaemonConnection] from an objc.ID.
 func ANEDaemonConnectionFromID(id objc.ID) ANEDaemonConnection {
-	return ANEDaemonConnection{objectivec.Object{id}}
+	return ANEDaemonConnection{objectivec.Object{ID: id}}
 }
 // Ensure ANEDaemonConnection implements IANEDaemonConnection.
 var _ IANEDaemonConnection = ANEDaemonConnection{}

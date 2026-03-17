@@ -53,7 +53,7 @@ type ANEModelToken struct {
 
 // ANEModelTokenFromID constructs a [ANEModelToken] from an objc.ID.
 func ANEModelTokenFromID(id objc.ID) ANEModelToken {
-	return ANEModelToken{objectivec.Object{id}}
+	return ANEModelToken{objectivec.Object{ID: id}}
 }
 // Ensure ANEModelToken implements IANEModelToken.
 var _ IANEModelToken = ANEModelToken{}

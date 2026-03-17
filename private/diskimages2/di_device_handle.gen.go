@@ -62,7 +62,7 @@ type DIDeviceHandle struct {
 
 // DIDeviceHandleFromID constructs a [DIDeviceHandle] from an objc.ID.
 func DIDeviceHandleFromID(id objc.ID) DIDeviceHandle {
-	return DIDeviceHandle{objectivec.Object{id}}
+	return DIDeviceHandle{objectivec.Object{ID: id}}
 }
 // Ensure DIDeviceHandle implements IDIDeviceHandle.
 var _ IDIDeviceHandle = DIDeviceHandle{}

@@ -55,7 +55,7 @@ type EspressoProfilingNetworkInfo struct {
 
 // EspressoProfilingNetworkInfoFromID constructs a [EspressoProfilingNetworkInfo] from an objc.ID.
 func EspressoProfilingNetworkInfoFromID(id objc.ID) EspressoProfilingNetworkInfo {
-	return EspressoProfilingNetworkInfo{objectivec.Object{id}}
+	return EspressoProfilingNetworkInfo{objectivec.Object{ID: id}}
 }
 // Ensure EspressoProfilingNetworkInfo implements IEspressoProfilingNetworkInfo.
 var _ IEspressoProfilingNetworkInfo = EspressoProfilingNetworkInfo{}

@@ -45,7 +45,7 @@ type BaseDiskImageCreator struct {
 //
 // A parent class referenced by other diskimages2 classes.
 func BaseDiskImageCreatorFromID(id objc.ID) BaseDiskImageCreator {
-	return BaseDiskImageCreator{objectivec.Object{id}}
+	return BaseDiskImageCreator{objectivec.Object{ID: id}}
 }
 // Ensure BaseDiskImageCreator implements IBaseDiskImageCreator.
 var _ IBaseDiskImageCreator = BaseDiskImageCreator{}

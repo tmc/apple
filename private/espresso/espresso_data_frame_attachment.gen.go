@@ -59,7 +59,7 @@ type EspressoDataFrameAttachment struct {
 
 // EspressoDataFrameAttachmentFromID constructs a [EspressoDataFrameAttachment] from an objc.ID.
 func EspressoDataFrameAttachmentFromID(id objc.ID) EspressoDataFrameAttachment {
-	return EspressoDataFrameAttachment{objectivec.Object{id}}
+	return EspressoDataFrameAttachment{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrameAttachment implements IEspressoDataFrameAttachment.
 var _ IEspressoDataFrameAttachment = EspressoDataFrameAttachment{}

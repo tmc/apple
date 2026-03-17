@@ -79,7 +79,7 @@ type EspressoImage2Image struct {
 
 // EspressoImage2ImageFromID constructs a [EspressoImage2Image] from an objc.ID.
 func EspressoImage2ImageFromID(id objc.ID) EspressoImage2Image {
-	return EspressoImage2Image{objectivec.Object{id}}
+	return EspressoImage2Image{objectivec.Object{ID: id}}
 }
 // Ensure EspressoImage2Image implements IEspressoImage2Image.
 var _ IEspressoImage2Image = EspressoImage2Image{}

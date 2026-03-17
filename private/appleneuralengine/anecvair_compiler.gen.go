@@ -45,7 +45,7 @@ type ANECVAIRCompiler struct {
 
 // ANECVAIRCompilerFromID constructs a [ANECVAIRCompiler] from an objc.ID.
 func ANECVAIRCompilerFromID(id objc.ID) ANECVAIRCompiler {
-	return ANECVAIRCompiler{objectivec.Object{id}}
+	return ANECVAIRCompiler{objectivec.Object{ID: id}}
 }
 // Ensure ANECVAIRCompiler implements IANECVAIRCompiler.
 var _ IANECVAIRCompiler = ANECVAIRCompiler{}

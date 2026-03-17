@@ -46,7 +46,7 @@ type DICommonAttach struct {
 
 // DICommonAttachFromID constructs a [DICommonAttach] from an objc.ID.
 func DICommonAttachFromID(id objc.ID) DICommonAttach {
-	return DICommonAttach{objectivec.Object{id}}
+	return DICommonAttach{objectivec.Object{ID: id}}
 }
 // Ensure DICommonAttach implements IDICommonAttach.
 var _ IDICommonAttach = DICommonAttach{}

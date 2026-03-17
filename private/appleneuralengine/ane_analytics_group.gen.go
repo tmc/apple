@@ -52,7 +52,7 @@ type ANEAnalyticsGroup struct {
 
 // ANEAnalyticsGroupFromID constructs a [ANEAnalyticsGroup] from an objc.ID.
 func ANEAnalyticsGroupFromID(id objc.ID) ANEAnalyticsGroup {
-	return ANEAnalyticsGroup{objectivec.Object{id}}
+	return ANEAnalyticsGroup{objectivec.Object{ID: id}}
 }
 // Ensure ANEAnalyticsGroup implements IANEAnalyticsGroup.
 var _ IANEAnalyticsGroup = ANEAnalyticsGroup{}

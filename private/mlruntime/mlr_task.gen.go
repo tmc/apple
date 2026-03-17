@@ -5,6 +5,7 @@ package mlruntime
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -52,7 +53,7 @@ type MLRTask struct {
 
 // MLRTaskFromID constructs a [MLRTask] from an objc.ID.
 func MLRTaskFromID(id objc.ID) MLRTask {
-	return MLRTask{objectivec.Object{id}}
+	return MLRTask{objectivec.Object{ID: id}}
 }
 // Ensure MLRTask implements IMLRTask.
 var _ IMLRTask = MLRTask{}
@@ -75,9 +76,9 @@ type IMLRTask interface {
 	// Topic: Methods
 
 	Attachments() IMLRTaskAttachments
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	Parameters() IMLRTaskParameters
-	InitWithCoder(coder objectivec.IObject) MLRTask
+	InitWithCoder(coder foundation.INSCoder) MLRTask
 	InitWithParametersAttachments(parameters objectivec.IObject, attachments objectivec.IObject) MLRTask
 	InitWithParametersDict(dict objectivec.IObject) MLRTask
 }
@@ -127,13 +128,13 @@ func NewRTaskWithParametersDict(dict objectivec.IObject) MLRTask {
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/encodeWithCoder:
-func (r MLRTask) EncodeWithCoder(coder objectivec.IObject) {
+func (r MLRTask) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithCoder:
-func (r MLRTask) InitWithCoder(coder objectivec.IObject) MLRTask {
+func (r MLRTask) InitWithCoder(coder foundation.INSCoder) MLRTask {
 	rv := objc.Send[MLRTask](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

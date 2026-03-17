@@ -52,7 +52,7 @@ type ANEProcedureData struct {
 
 // ANEProcedureDataFromID constructs a [ANEProcedureData] from an objc.ID.
 func ANEProcedureDataFromID(id objc.ID) ANEProcedureData {
-	return ANEProcedureData{objectivec.Object{id}}
+	return ANEProcedureData{objectivec.Object{ID: id}}
 }
 // Ensure ANEProcedureData implements IANEProcedureData.
 var _ IANEProcedureData = ANEProcedureData{}
@@ -73,10 +73,10 @@ type IANEProcedureData interface {
 
 	// Topic: Methods
 
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	ProcedureSymbol() string
 	WeightArray() foundation.INSArray
-	InitWithCoder(coder objectivec.IObject) ANEProcedureData
+	InitWithCoder(coder foundation.INSCoder) ANEProcedureData
 	InitWithProcedureWeightArray(procedure objectivec.IObject, array objectivec.IObject) ANEProcedureData
 }
 
@@ -117,13 +117,13 @@ func NewANEProcedureDataWithProcedureWeightArray(procedure objectivec.IObject, a
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProcedureData/encodeWithCoder:
-func (a ANEProcedureData) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEProcedureData) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProcedureData/initWithCoder:
-func (a ANEProcedureData) InitWithCoder(coder objectivec.IObject) ANEProcedureData {
+func (a ANEProcedureData) InitWithCoder(coder foundation.INSCoder) ANEProcedureData {
 	rv := objc.Send[ANEProcedureData](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

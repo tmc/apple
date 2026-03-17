@@ -61,7 +61,7 @@ type MLROnDemandConnectionHandler struct {
 
 // MLROnDemandConnectionHandlerFromID constructs a [MLROnDemandConnectionHandler] from an objc.ID.
 func MLROnDemandConnectionHandlerFromID(id objc.ID) MLROnDemandConnectionHandler {
-	return MLROnDemandConnectionHandler{objectivec.Object{id}}
+	return MLROnDemandConnectionHandler{objectivec.Object{ID: id}}
 }
 // Ensure MLROnDemandConnectionHandler implements IMLROnDemandConnectionHandler.
 var _ IMLROnDemandConnectionHandler = MLROnDemandConnectionHandler{}

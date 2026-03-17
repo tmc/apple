@@ -52,7 +52,7 @@ type MLRTrialTaskResult struct {
 
 // MLRTrialTaskResultFromID constructs a [MLRTrialTaskResult] from an objc.ID.
 func MLRTrialTaskResultFromID(id objc.ID) MLRTrialTaskResult {
-	return MLRTrialTaskResult{objectivec.Object{id}}
+	return MLRTrialTaskResult{objectivec.Object{ID: id}}
 }
 // Ensure MLRTrialTaskResult implements IMLRTrialTaskResult.
 var _ IMLRTrialTaskResult = MLRTrialTaskResult{}

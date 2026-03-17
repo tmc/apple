@@ -50,7 +50,7 @@ type EspressoProfilingNetworkANEInfo struct {
 
 // EspressoProfilingNetworkANEInfoFromID constructs a [EspressoProfilingNetworkANEInfo] from an objc.ID.
 func EspressoProfilingNetworkANEInfoFromID(id objc.ID) EspressoProfilingNetworkANEInfo {
-	return EspressoProfilingNetworkANEInfo{objectivec.Object{id}}
+	return EspressoProfilingNetworkANEInfo{objectivec.Object{ID: id}}
 }
 // Ensure EspressoProfilingNetworkANEInfo implements IEspressoProfilingNetworkANEInfo.
 var _ IEspressoProfilingNetworkANEInfo = EspressoProfilingNetworkANEInfo{}

@@ -43,7 +43,7 @@ type ANEStrings struct {
 
 // ANEStringsFromID constructs a [ANEStrings] from an objc.ID.
 func ANEStringsFromID(id objc.ID) ANEStrings {
-	return ANEStrings{objectivec.Object{id}}
+	return ANEStrings{objectivec.Object{ID: id}}
 }
 // Ensure ANEStrings implements IANEStrings.
 var _ IANEStrings = ANEStrings{}

@@ -100,7 +100,7 @@ type EspressoFDOverfeatNetwork struct {
 
 // EspressoFDOverfeatNetworkFromID constructs a [EspressoFDOverfeatNetwork] from an objc.ID.
 func EspressoFDOverfeatNetworkFromID(id objc.ID) EspressoFDOverfeatNetwork {
-	return EspressoFDOverfeatNetwork{objectivec.Object{id}}
+	return EspressoFDOverfeatNetwork{objectivec.Object{ID: id}}
 }
 // Ensure EspressoFDOverfeatNetwork implements IEspressoFDOverfeatNetwork.
 var _ IEspressoFDOverfeatNetwork = EspressoFDOverfeatNetwork{}

@@ -48,7 +48,7 @@ type ANEStorageMaintainer struct {
 
 // ANEStorageMaintainerFromID constructs a [ANEStorageMaintainer] from an objc.ID.
 func ANEStorageMaintainerFromID(id objc.ID) ANEStorageMaintainer {
-	return ANEStorageMaintainer{objectivec.Object{id}}
+	return ANEStorageMaintainer{objectivec.Object{ID: id}}
 }
 // Ensure ANEStorageMaintainer implements IANEStorageMaintainer.
 var _ IANEStorageMaintainer = ANEStorageMaintainer{}

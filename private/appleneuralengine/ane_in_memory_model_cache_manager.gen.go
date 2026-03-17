@@ -59,7 +59,7 @@ type ANEInMemoryModelCacheManager struct {
 
 // ANEInMemoryModelCacheManagerFromID constructs a [ANEInMemoryModelCacheManager] from an objc.ID.
 func ANEInMemoryModelCacheManagerFromID(id objc.ID) ANEInMemoryModelCacheManager {
-	return ANEInMemoryModelCacheManager{objectivec.Object{id}}
+	return ANEInMemoryModelCacheManager{objectivec.Object{ID: id}}
 }
 // Ensure ANEInMemoryModelCacheManager implements IANEInMemoryModelCacheManager.
 var _ IANEInMemoryModelCacheManager = ANEInMemoryModelCacheManager{}

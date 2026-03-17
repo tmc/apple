@@ -63,7 +63,7 @@ type EspressoDCNEspressoOverfeatDetector struct {
 
 // EspressoDCNEspressoOverfeatDetectorFromID constructs a [EspressoDCNEspressoOverfeatDetector] from an objc.ID.
 func EspressoDCNEspressoOverfeatDetectorFromID(id objc.ID) EspressoDCNEspressoOverfeatDetector {
-	return EspressoDCNEspressoOverfeatDetector{objectivec.Object{id}}
+	return EspressoDCNEspressoOverfeatDetector{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDCNEspressoOverfeatDetector implements IEspressoDCNEspressoOverfeatDetector.
 var _ IEspressoDCNEspressoOverfeatDetector = EspressoDCNEspressoOverfeatDetector{}

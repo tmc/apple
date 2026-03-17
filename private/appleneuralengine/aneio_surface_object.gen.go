@@ -55,7 +55,7 @@ type ANEIOSurfaceObject struct {
 
 // ANEIOSurfaceObjectFromID constructs a [ANEIOSurfaceObject] from an objc.ID.
 func ANEIOSurfaceObjectFromID(id objc.ID) ANEIOSurfaceObject {
-	return ANEIOSurfaceObject{objectivec.Object{id}}
+	return ANEIOSurfaceObject{objectivec.Object{ID: id}}
 }
 // Ensure ANEIOSurfaceObject implements IANEIOSurfaceObject.
 var _ IANEIOSurfaceObject = ANEIOSurfaceObject{}
@@ -77,11 +77,11 @@ type IANEIOSurfaceObject interface {
 
 	// Topic: Methods
 
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	IoSurface() coregraphics.IOSurfaceRef
 	MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer
 	StartOffset() foundation.NSNumber
-	InitWithCoder(coder objectivec.IObject) ANEIOSurfaceObject
+	InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceObject
 	InitWithIOSurfaceStartOffsetShouldRetain(iOSurface coregraphics.IOSurfaceRef, offset objectivec.IObject, retain bool) ANEIOSurfaceObject
 }
 
@@ -122,7 +122,7 @@ func NewANEIOSurfaceObjectWithIOSurfaceStartOffsetShouldRetain(iOSurface coregra
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/encodeWithCoder:
-func (a ANEIOSurfaceObject) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEIOSurfaceObject) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
@@ -135,7 +135,7 @@ func (a ANEIOSurfaceObject) MetalBufferWithDeviceMultiBufferFrame(device objecti
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEIOSurfaceObject/initWithCoder:
-func (a ANEIOSurfaceObject) InitWithCoder(coder objectivec.IObject) ANEIOSurfaceObject {
+func (a ANEIOSurfaceObject) InitWithCoder(coder foundation.INSCoder) ANEIOSurfaceObject {
 	rv := objc.Send[ANEIOSurfaceObject](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

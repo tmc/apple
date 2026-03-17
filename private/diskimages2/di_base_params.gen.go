@@ -45,7 +45,7 @@ type DIBaseParams struct {
 //
 // A parent class referenced by other diskimages2 classes.
 func DIBaseParamsFromID(id objc.ID) DIBaseParams {
-	return DIBaseParams{objectivec.Object{id}}
+	return DIBaseParams{objectivec.Object{ID: id}}
 }
 // Ensure DIBaseParams implements IDIBaseParams.
 var _ IDIBaseParams = DIBaseParams{}

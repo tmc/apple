@@ -65,7 +65,7 @@ type Espresso_mxnetTools_ImageBinaryRecordReader struct {
 
 // Espresso_mxnetTools_ImageBinaryRecordReaderFromID constructs a [Espresso_mxnetTools_ImageBinaryRecordReader] from an objc.ID.
 func Espresso_mxnetTools_ImageBinaryRecordReaderFromID(id objc.ID) Espresso_mxnetTools_ImageBinaryRecordReader {
-	return Espresso_mxnetTools_ImageBinaryRecordReader{objectivec.Object{id}}
+	return Espresso_mxnetTools_ImageBinaryRecordReader{objectivec.Object{ID: id}}
 }
 // Ensure Espresso_mxnetTools_ImageBinaryRecordReader implements IEspresso_mxnetTools_ImageBinaryRecordReader.
 var _ IEspresso_mxnetTools_ImageBinaryRecordReader = Espresso_mxnetTools_ImageBinaryRecordReader{}

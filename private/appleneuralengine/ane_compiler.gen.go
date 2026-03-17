@@ -45,7 +45,7 @@ type ANECompiler struct {
 
 // ANECompilerFromID constructs a [ANECompiler] from an objc.ID.
 func ANECompilerFromID(id objc.ID) ANECompiler {
-	return ANECompiler{objectivec.Object{id}}
+	return ANECompiler{objectivec.Object{ID: id}}
 }
 // Ensure ANECompiler implements IANECompiler.
 var _ IANECompiler = ANECompiler{}

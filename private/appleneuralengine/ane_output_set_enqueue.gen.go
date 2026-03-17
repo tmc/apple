@@ -52,7 +52,7 @@ type ANEOutputSetEnqueue struct {
 
 // ANEOutputSetEnqueueFromID constructs a [ANEOutputSetEnqueue] from an objc.ID.
 func ANEOutputSetEnqueueFromID(id objc.ID) ANEOutputSetEnqueue {
-	return ANEOutputSetEnqueue{objectivec.Object{id}}
+	return ANEOutputSetEnqueue{objectivec.Object{ID: id}}
 }
 // Ensure ANEOutputSetEnqueue implements IANEOutputSetEnqueue.
 var _ IANEOutputSetEnqueue = ANEOutputSetEnqueue{}

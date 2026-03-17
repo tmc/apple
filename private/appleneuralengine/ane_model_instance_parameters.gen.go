@@ -52,7 +52,7 @@ type ANEModelInstanceParameters struct {
 
 // ANEModelInstanceParametersFromID constructs a [ANEModelInstanceParameters] from an objc.ID.
 func ANEModelInstanceParametersFromID(id objc.ID) ANEModelInstanceParameters {
-	return ANEModelInstanceParameters{objectivec.Object{id}}
+	return ANEModelInstanceParameters{objectivec.Object{ID: id}}
 }
 // Ensure ANEModelInstanceParameters implements IANEModelInstanceParameters.
 var _ IANEModelInstanceParameters = ANEModelInstanceParameters{}
@@ -73,10 +73,10 @@ type IANEModelInstanceParameters interface {
 
 	// Topic: Methods
 
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	InstanceName() string
 	ProcedureArray() foundation.INSArray
-	InitWithCoder(coder objectivec.IObject) ANEModelInstanceParameters
+	InitWithCoder(coder foundation.INSCoder) ANEModelInstanceParameters
 	InitWithProcedureDataProcedureArray(data objectivec.IObject, array objectivec.IObject) ANEModelInstanceParameters
 }
 
@@ -117,13 +117,13 @@ func NewANEModelInstanceParametersWithProcedureDataProcedureArray(data objective
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/encodeWithCoder:
-func (a ANEModelInstanceParameters) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEModelInstanceParameters) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEModelInstanceParameters/initWithCoder:
-func (a ANEModelInstanceParameters) InitWithCoder(coder objectivec.IObject) ANEModelInstanceParameters {
+func (a ANEModelInstanceParameters) InitWithCoder(coder foundation.INSCoder) ANEModelInstanceParameters {
 	rv := objc.Send[ANEModelInstanceParameters](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

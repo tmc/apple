@@ -48,7 +48,7 @@ type EspressoCustomPass struct {
 
 // EspressoCustomPassFromID constructs a [EspressoCustomPass] from an objc.ID.
 func EspressoCustomPassFromID(id objc.ID) EspressoCustomPass {
-	return EspressoCustomPass{objectivec.Object{id}}
+	return EspressoCustomPass{objectivec.Object{ID: id}}
 }
 // Ensure EspressoCustomPass implements IEspressoCustomPass.
 var _ IEspressoCustomPass = EspressoCustomPass{}

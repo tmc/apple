@@ -53,7 +53,7 @@ type EspressoNetwork struct {
 
 // EspressoNetworkFromID constructs a [EspressoNetwork] from an objc.ID.
 func EspressoNetworkFromID(id objc.ID) EspressoNetwork {
-	return EspressoNetwork{objectivec.Object{id}}
+	return EspressoNetwork{objectivec.Object{ID: id}}
 }
 // Ensure EspressoNetwork implements IEspressoNetwork.
 var _ IEspressoNetwork = EspressoNetwork{}

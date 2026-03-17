@@ -43,7 +43,7 @@ type ANELog struct {
 
 // ANELogFromID constructs a [ANELog] from an objc.ID.
 func ANELogFromID(id objc.ID) ANELog {
-	return ANELog{objectivec.Object{id}}
+	return ANELog{objectivec.Object{ID: id}}
 }
 // Ensure ANELog implements IANELog.
 var _ IANELog = ANELog{}

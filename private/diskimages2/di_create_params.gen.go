@@ -45,7 +45,7 @@ type DICreateParams struct {
 //
 // A parent class referenced by other diskimages2 classes.
 func DICreateParamsFromID(id objc.ID) DICreateParams {
-	return DICreateParams{objectivec.Object{id}}
+	return DICreateParams{objectivec.Object{ID: id}}
 }
 // Ensure DICreateParams implements IDICreateParams.
 var _ IDICreateParams = DICreateParams{}

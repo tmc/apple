@@ -67,7 +67,7 @@ type ANERequest struct {
 
 // ANERequestFromID constructs a [ANERequest] from an objc.ID.
 func ANERequestFromID(id objc.ID) ANERequest {
-	return ANERequest{objectivec.Object{id}}
+	return ANERequest{objectivec.Object{ID: id}}
 }
 // Ensure ANERequest implements IANERequest.
 var _ IANERequest = ANERequest{}

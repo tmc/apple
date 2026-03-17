@@ -43,7 +43,7 @@ type ANEServicesLog struct {
 
 // ANEServicesLogFromID constructs a [ANEServicesLog] from an objc.ID.
 func ANEServicesLogFromID(id objc.ID) ANEServicesLog {
-	return ANEServicesLog{objectivec.Object{id}}
+	return ANEServicesLog{objectivec.Object{ID: id}}
 }
 // Ensure ANEServicesLog implements IANEServicesLog.
 var _ IANEServicesLog = ANEServicesLog{}

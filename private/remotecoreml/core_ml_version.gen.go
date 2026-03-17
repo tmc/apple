@@ -49,7 +49,7 @@ type CoreMLVersion struct {
 
 // CoreMLVersionFromID constructs a [CoreMLVersion] from an objc.ID.
 func CoreMLVersionFromID(id objc.ID) CoreMLVersion {
-	return CoreMLVersion{objectivec.Object{id}}
+	return CoreMLVersion{objectivec.Object{ID: id}}
 }
 // Ensure CoreMLVersion implements ICoreMLVersion.
 var _ ICoreMLVersion = CoreMLVersion{}

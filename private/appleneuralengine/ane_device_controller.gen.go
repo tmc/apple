@@ -57,7 +57,7 @@ type ANEDeviceController struct {
 
 // ANEDeviceControllerFromID constructs a [ANEDeviceController] from an objc.ID.
 func ANEDeviceControllerFromID(id objc.ID) ANEDeviceController {
-	return ANEDeviceController{objectivec.Object{id}}
+	return ANEDeviceController{objectivec.Object{ID: id}}
 }
 // Ensure ANEDeviceController implements IANEDeviceController.
 var _ IANEDeviceController = ANEDeviceController{}

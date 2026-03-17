@@ -52,7 +52,7 @@ type EspressoDataFrameMappedFile struct {
 
 // EspressoDataFrameMappedFileFromID constructs a [EspressoDataFrameMappedFile] from an objc.ID.
 func EspressoDataFrameMappedFileFromID(id objc.ID) EspressoDataFrameMappedFile {
-	return EspressoDataFrameMappedFile{objectivec.Object{id}}
+	return EspressoDataFrameMappedFile{objectivec.Object{ID: id}}
 }
 // Ensure EspressoDataFrameMappedFile implements IEspressoDataFrameMappedFile.
 var _ IEspressoDataFrameMappedFile = EspressoDataFrameMappedFile{}

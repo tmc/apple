@@ -53,7 +53,7 @@ type EspressoContext struct {
 
 // EspressoContextFromID constructs a [EspressoContext] from an objc.ID.
 func EspressoContextFromID(id objc.ID) EspressoContext {
-	return EspressoContext{objectivec.Object{id}}
+	return EspressoContext{objectivec.Object{ID: id}}
 }
 // Ensure EspressoContext implements IEspressoContext.
 var _ IEspressoContext = EspressoContext{}

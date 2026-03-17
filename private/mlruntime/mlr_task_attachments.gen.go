@@ -56,7 +56,7 @@ type MLRTaskAttachments struct {
 
 // MLRTaskAttachmentsFromID constructs a [MLRTaskAttachments] from an objc.ID.
 func MLRTaskAttachmentsFromID(id objc.ID) MLRTaskAttachments {
-	return MLRTaskAttachments{objectivec.Object{id}}
+	return MLRTaskAttachments{objectivec.Object{ID: id}}
 }
 // Ensure MLRTaskAttachments implements IMLRTaskAttachments.
 var _ IMLRTaskAttachments = MLRTaskAttachments{}
@@ -83,8 +83,8 @@ type IMLRTaskAttachments interface {
 	AttachmentURLs() foundation.INSArray
 	AttachmentURLsForBasename(basename objectivec.IObject) objectivec.IObject
 	Count() uint64
-	EncodeWithCoder(coder objectivec.IObject)
-	InitWithCoder(coder objectivec.IObject) MLRTaskAttachments
+	EncodeWithCoder(coder foundation.INSCoder)
+	InitWithCoder(coder foundation.INSCoder) MLRTaskAttachments
 	InitWithContentsOfURLError(url foundation.INSURL) (MLRTaskAttachments, error)
 	InitWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskAttachments
 	InitWithURLs(uRLs objectivec.IObject) MLRTaskAttachments
@@ -155,13 +155,13 @@ func (r MLRTaskAttachments) AttachmentURLsForBasename(basename objectivec.IObjec
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/encodeWithCoder:
-func (r MLRTaskAttachments) EncodeWithCoder(coder objectivec.IObject) {
+func (r MLRTaskAttachments) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithCoder:
-func (r MLRTaskAttachments) InitWithCoder(coder objectivec.IObject) MLRTaskAttachments {
+func (r MLRTaskAttachments) InitWithCoder(coder foundation.INSCoder) MLRTaskAttachments {
 	rv := objc.Send[MLRTaskAttachments](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

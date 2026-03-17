@@ -50,7 +50,7 @@ type MLRSandboxExtensionRequest struct {
 
 // MLRSandboxExtensionRequestFromID constructs a [MLRSandboxExtensionRequest] from an objc.ID.
 func MLRSandboxExtensionRequestFromID(id objc.ID) MLRSandboxExtensionRequest {
-	return MLRSandboxExtensionRequest{objectivec.Object{id}}
+	return MLRSandboxExtensionRequest{objectivec.Object{ID: id}}
 }
 // Ensure MLRSandboxExtensionRequest implements IMLRSandboxExtensionRequest.
 var _ IMLRSandboxExtensionRequest = MLRSandboxExtensionRequest{}

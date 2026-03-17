@@ -44,7 +44,7 @@ type ANEErrors struct {
 
 // ANEErrorsFromID constructs a [ANEErrors] from an objc.ID.
 func ANEErrorsFromID(id objc.ID) ANEErrors {
-	return ANEErrors{objectivec.Object{id}}
+	return ANEErrors{objectivec.Object{ID: id}}
 }
 // Ensure ANEErrors implements IANEErrors.
 var _ IANEErrors = ANEErrors{}

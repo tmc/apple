@@ -58,7 +58,7 @@ type ANEWeight struct {
 
 // ANEWeightFromID constructs a [ANEWeight] from an objc.ID.
 func ANEWeightFromID(id objc.ID) ANEWeight {
-	return ANEWeight{objectivec.Object{id}}
+	return ANEWeight{objectivec.Object{ID: id}}
 }
 // Ensure ANEWeight implements IANEWeight.
 var _ IANEWeight = ANEWeight{}
@@ -86,14 +86,14 @@ type IANEWeight interface {
 	// Topic: Methods
 
 	SHACode() foundation.INSData
-	EncodeWithCoder(coder objectivec.IObject)
+	EncodeWithCoder(coder foundation.INSCoder)
 	SandboxExtension() string
 	SetSandboxExtension(value string)
 	UpdateWeightURL(url foundation.INSURL)
 	WeightSymbol() string
 	WeightURL() foundation.INSURL
 	SetWeightURL(value foundation.INSURL)
-	InitWithCoder(coder objectivec.IObject) ANEWeight
+	InitWithCoder(coder foundation.INSCoder) ANEWeight
 	InitWithWeightSymbolAndURLWeightURL(url foundation.INSURL, url2 foundation.INSURL) ANEWeight
 	InitWithWeightSymbolAndURLSHAWeightURLSHACodeSandboxExtension(urlsha objectivec.IObject, url foundation.INSURL, hACode objectivec.IObject, extension objectivec.IObject) ANEWeight
 }
@@ -143,7 +143,7 @@ func NewANEWeightWithWeightSymbolAndURLWeightURL(url foundation.INSURL, url2 fou
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/encodeWithCoder:
-func (a ANEWeight) EncodeWithCoder(coder objectivec.IObject) {
+func (a ANEWeight) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
@@ -155,7 +155,7 @@ func (a ANEWeight) UpdateWeightURL(url foundation.INSURL) {
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEWeight/initWithCoder:
-func (a ANEWeight) InitWithCoder(coder objectivec.IObject) ANEWeight {
+func (a ANEWeight) InitWithCoder(coder foundation.INSCoder) ANEWeight {
 	rv := objc.Send[ANEWeight](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }

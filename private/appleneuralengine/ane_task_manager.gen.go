@@ -43,7 +43,7 @@ type ANETaskManager struct {
 
 // ANETaskManagerFromID constructs a [ANETaskManager] from an objc.ID.
 func ANETaskManagerFromID(id objc.ID) ANETaskManager {
-	return ANETaskManager{objectivec.Object{id}}
+	return ANETaskManager{objectivec.Object{ID: id}}
 }
 // Ensure ANETaskManager implements IANETaskManager.
 var _ IANETaskManager = ANETaskManager{}

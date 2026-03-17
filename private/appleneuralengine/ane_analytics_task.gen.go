@@ -50,7 +50,7 @@ type ANEAnalyticsTask struct {
 
 // ANEAnalyticsTaskFromID constructs a [ANEAnalyticsTask] from an objc.ID.
 func ANEAnalyticsTaskFromID(id objc.ID) ANEAnalyticsTask {
-	return ANEAnalyticsTask{objectivec.Object{id}}
+	return ANEAnalyticsTask{objectivec.Object{ID: id}}
 }
 // Ensure ANEAnalyticsTask implements IANEAnalyticsTask.
 var _ IANEAnalyticsTask = ANEAnalyticsTask{}

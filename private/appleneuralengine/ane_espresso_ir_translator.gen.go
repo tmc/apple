@@ -46,7 +46,7 @@ type ANEEspressoIRTranslator struct {
 
 // ANEEspressoIRTranslatorFromID constructs a [ANEEspressoIRTranslator] from an objc.ID.
 func ANEEspressoIRTranslatorFromID(id objc.ID) ANEEspressoIRTranslator {
-	return ANEEspressoIRTranslator{objectivec.Object{id}}
+	return ANEEspressoIRTranslator{objectivec.Object{ID: id}}
 }
 // Ensure ANEEspressoIRTranslator implements IANEEspressoIRTranslator.
 var _ IANEEspressoIRTranslator = ANEEspressoIRTranslator{}

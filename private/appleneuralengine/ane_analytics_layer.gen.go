@@ -51,7 +51,7 @@ type ANEAnalyticsLayer struct {
 
 // ANEAnalyticsLayerFromID constructs a [ANEAnalyticsLayer] from an objc.ID.
 func ANEAnalyticsLayerFromID(id objc.ID) ANEAnalyticsLayer {
-	return ANEAnalyticsLayer{objectivec.Object{id}}
+	return ANEAnalyticsLayer{objectivec.Object{ID: id}}
 }
 // Ensure ANEAnalyticsLayer implements IANEAnalyticsLayer.
 var _ IANEAnalyticsLayer = ANEAnalyticsLayer{}

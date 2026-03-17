@@ -49,7 +49,7 @@ type ANECompilerService struct {
 
 // ANECompilerServiceFromID constructs a [ANECompilerService] from an objc.ID.
 func ANECompilerServiceFromID(id objc.ID) ANECompilerService {
-	return ANECompilerService{objectivec.Object{id}}
+	return ANECompilerService{objectivec.Object{ID: id}}
 }
 // Ensure ANECompilerService implements IANECompilerService.
 var _ IANECompilerService = ANECompilerService{}
