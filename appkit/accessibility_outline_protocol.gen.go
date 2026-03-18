@@ -19,8 +19,6 @@ type NSAccessibilityOutline interface {
 	NSAccessibilityTable
 }
 
-
-
 // NSAccessibilityOutlineObject wraps an existing Objective-C object that conforms to the NSAccessibilityOutline protocol.
 type NSAccessibilityOutlineObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSAccessibilityOutlineObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityOutlineObjectFromID constructs a [NSAccessibilityOutlineObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityOutlineObjectFromID(id objc.ID) NSAccessibilityOutlineObject {
@@ -38,9 +34,6 @@ func NSAccessibilityOutlineObjectFromID(id objc.ID) NSAccessibilityOutlineObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the accessibility element’s frame in screen coordinates.
 //
@@ -408,10 +401,4 @@ func (o NSAccessibilityOutlineObject) SetAccessibilitySelectedRows(selectedRows 
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
 	}
-
-
-
-
-
-
 

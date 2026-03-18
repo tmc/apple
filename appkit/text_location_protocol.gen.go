@@ -20,8 +20,6 @@ type NSTextLocation interface {
 	Compare(location NSTextLocation) foundation.NSComparisonResult
 }
 
-
-
 // NSTextLocationObject wraps an existing Objective-C object that conforms to the NSTextLocation protocol.
 type NSTextLocationObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o NSTextLocationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextLocationObjectFromID constructs a [NSTextLocationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextLocationObjectFromID(id objc.ID) NSTextLocationObject {
@@ -39,9 +35,6 @@ func NSTextLocationObjectFromID(id objc.ID) NSTextLocationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Compares and returns the logical ordering to location.
 //
@@ -60,10 +53,4 @@ func (o NSTextLocationObject) Compare(location NSTextLocation) foundation.NSComp
 	rv := objc.Send[foundation.NSComparisonResult](o.ID, objc.Sel("compare:"), location)
 	return rv
 	}
-
-
-
-
-
-
 

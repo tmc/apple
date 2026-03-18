@@ -14,8 +14,6 @@ type NSTextInput interface {
 	objectivec.IObject
 }
 
-
-
 // NSTextInputObject wraps an existing Objective-C object that conforms to the NSTextInput protocol.
 type NSTextInputObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSTextInputObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextInputObjectFromID constructs a [NSTextInputObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextInputObjectFromID(id objc.ID) NSTextInputObject {
@@ -33,13 +29,4 @@ func NSTextInputObjectFromID(id objc.ID) NSTextInputObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

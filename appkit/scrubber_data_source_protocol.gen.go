@@ -24,8 +24,6 @@ type NSScrubberDataSource interface {
 	ScrubberViewForItemAtIndex(scrubber INSScrubber, index int) INSScrubberItemView
 }
 
-
-
 // NSScrubberDataSourceObject wraps an existing Objective-C object that conforms to the NSScrubberDataSource protocol.
 type NSScrubberDataSourceObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSScrubberDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSScrubberDataSourceObjectFromID constructs a [NSScrubberDataSourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSScrubberDataSourceObjectFromID(id objc.ID) NSScrubberDataSourceObject {
@@ -43,9 +39,6 @@ func NSScrubberDataSourceObjectFromID(id objc.ID) NSScrubberDataSourceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the data source for the number of items in the scrubber.
 //
@@ -81,10 +74,4 @@ func (o NSScrubberDataSourceObject) ScrubberViewForItemAtIndex(scrubber INSScrub
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("scrubber:viewForItemAtIndex:"), scrubber, index)
 	return NSScrubberItemViewFromID(rv)
 	}
-
-
-
-
-
-
 

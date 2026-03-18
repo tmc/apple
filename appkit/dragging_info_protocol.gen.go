@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -73,7 +74,7 @@ type NSDraggingInfo interface {
 	// Enumerates through each dragging item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
-	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block bool)
+	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block unsafe.Pointer)
 
 	// A highlighting style for your app’s user interface to display during a spring-loading operation.
 	//
@@ -101,8 +102,6 @@ type NSDraggingInfo interface {
 	SetDraggingFormation(value NSDraggingFormation)
 }
 
-
-
 // NSDraggingInfoObject wraps an existing Objective-C object that conforms to the NSDraggingInfo protocol.
 type NSDraggingInfoObject struct {
 	objectivec.Object
@@ -111,8 +110,6 @@ func (o NSDraggingInfoObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDraggingInfoObjectFromID constructs a [NSDraggingInfoObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDraggingInfoObjectFromID(id objc.ID) NSDraggingInfoObject {
@@ -120,9 +117,6 @@ func NSDraggingInfoObjectFromID(id objc.ID) NSDraggingInfoObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The pasteboard object that holds the dragged data.
 //
@@ -331,7 +325,7 @@ func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
 
-func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block bool) {
+func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block unsafe.Pointer) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
 	}
@@ -375,40 +369,15 @@ func (o NSDraggingInfoObject) ResetSpringLoading() {
 	objc.Send[struct{}](o.ID, objc.Sel("resetSpringLoading"))
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func (o NSDraggingInfoObject) SetNumberOfValidItemsForDrop(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setNumberOfValidItemsForDrop:"), value)
 }
-
-
-
 
 func (o NSDraggingInfoObject) SetAnimatesToDestination(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAnimatesToDestination:"), value)
 }
 
-
 func (o NSDraggingInfoObject) SetDraggingFormation(value NSDraggingFormation) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDraggingFormation:"), value)
 }
-
-
-
-
-
-
 

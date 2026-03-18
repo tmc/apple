@@ -37,12 +37,6 @@ func (nc NSSliderCellClass) Alloc() NSSliderCell {
 	return rv
 }
 
-
-
-
-
-
-
 // The appearance and behavior of an [NSSlider] object.
 //
 // # Overview
@@ -112,10 +106,6 @@ func NSSliderCellFromID(id objc.ID) NSSliderCell {
 }
 // NOTE: NSSliderCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSliderCell] class.
 //
@@ -234,13 +224,7 @@ type INSSliderCell interface {
 	SetTickMarkPosition(value NSTickMarkPosition)
 	// Returns the receiver’s value represented by the tick mark at the specified index.
 	TickMarkValueAtIndex(index int) float64
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSliderCell) Init() NSSliderCell {
@@ -260,11 +244,6 @@ func NewNSSliderCell() NSSliderCell {
 	rv := objc.Send[NSSliderCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -287,7 +266,6 @@ func NewSliderCellImageCell(image INSImage) NSSliderCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSSliderCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -314,7 +292,6 @@ func NewSliderCellTextCell(string_ string) NSSliderCell {
 	return NSSliderCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewSliderCellWithCoder(coder foundation.INSCoder) NSSliderCell {
@@ -322,12 +299,6 @@ func NewSliderCellWithCoder(coder foundation.INSCoder) NSSliderCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSliderCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the rectangle in which the bar is drawn.
 //
@@ -528,20 +499,6 @@ func (s NSSliderCell) TickMarkValueAtIndex(index int) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("tickMarkValueAtIndex:"), index)
 	return rv
 }
-func (s NSSliderCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The amount by which the slider changes its value when the user Option-drags
 // the knob.
@@ -563,8 +520,6 @@ func (s NSSliderCell) SetAltIncrementValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAltIncrementValue:"), value)
 }
 
-
-
 // The rectangle within which the cell tracks the pointer while the mouse
 // button is down.
 //
@@ -577,8 +532,6 @@ func (s NSSliderCell) TrackRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("trackRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The slider type, either linear or circular.
 //
@@ -609,8 +562,6 @@ func (s NSSliderCell) SetSliderType(value NSSliderType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSliderType:"), value)
 }
 
-
-
 // The thickness of the slider knob, in pixels.
 //
 // # Discussion
@@ -624,8 +575,6 @@ func (s NSSliderCell) KnobThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("knobThickness"))
 	return rv
 }
-
-
 
 // An integer indicating the orientation (vertical or horizontal) of the
 // slider.
@@ -646,8 +595,6 @@ func (s NSSliderCell) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
 
-
-
 // The maximum value the slider can send to its target.
 //
 // # Discussion
@@ -667,8 +614,6 @@ func (s NSSliderCell) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
 
-
-
 // The minimum value the slider can send to its target.
 //
 // # Discussion
@@ -685,8 +630,6 @@ func (s NSSliderCell) MinValue() float64 {
 func (s NSSliderCell) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
-
-
 
 // A Boolean value indicating whether the receiver fixes its values to those
 // values represented by its tick marks.
@@ -713,8 +656,6 @@ func (s NSSliderCell) SetAllowsTickMarkValuesOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsTickMarkValuesOnly:"), value)
 }
 
-
-
 // The number of tick marks associated with the slider, including the tick
 // marks assigned to the minimum and maximum values.
 //
@@ -732,8 +673,6 @@ func (s NSSliderCell) NumberOfTickMarks() int {
 func (s NSSliderCell) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
-
-
 
 // The position of the tick marks relative to the receiver.
 //
@@ -755,33 +694,4 @@ func (s NSSliderCell) TickMarkPosition() NSTickMarkPosition {
 func (s NSSliderCell) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTickMarkPosition:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

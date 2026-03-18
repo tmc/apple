@@ -24,8 +24,6 @@ type MLBatchProvider interface {
 	Count() int
 }
 
-
-
 // MLBatchProviderObject wraps an existing Objective-C object that conforms to the MLBatchProvider protocol.
 type MLBatchProviderObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o MLBatchProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MLBatchProviderObjectFromID constructs a [MLBatchProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
@@ -43,9 +39,6 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the feature provider at the given index.
 //
@@ -72,12 +65,4 @@ func (o MLBatchProviderObject) Count() int {
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
 	}
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSTabViewControllerClass) Alloc() NSTabViewController {
 	return rv
 }
 
-
-
-
-
-
-
 // A container view controller that manages a tab view interface, which
 // organizes multiple pages of content but displays only one page at a time.
 //
@@ -120,10 +114,6 @@ func NSTabViewControllerFromID(id objc.ID) NSTabViewController {
 // NOTE: NSTabViewController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTabViewController] class.
 //
 // # Configuring the Tab View
@@ -189,12 +179,7 @@ type INSTabViewController interface {
 	// An array of view controllers that are hierarchical children of the view controller.
 	Children() INSViewController
 	SetChildren(value INSViewController)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTabViewController) Init() NSTabViewController {
@@ -215,11 +200,6 @@ func NewNSTabViewController() NSTabViewController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewTabViewControllerWithCoder(coder foundation.INSCoder) NSTabViewController {
@@ -227,7 +207,6 @@ func NewTabViewControllerWithCoder(coder foundation.INSCoder) NSTabViewControlle
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTabViewControllerFromID(rv)
 }
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -261,12 +240,6 @@ func NewTabViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSTabViewControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the tab view item for the specified child view controller.
 //
@@ -683,20 +656,6 @@ func (t NSTabViewController) ToolbarItemIdentifierCanBeInsertedAtIndex(toolbar I
 func (t NSTabViewController) ToolbarWillAddItem(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("toolbarWillAddItem:"), notification)
 }
-func (t NSTabViewController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The style used to display the tabs.
 //
@@ -716,8 +675,6 @@ func (t NSTabViewController) TabStyle() NSTabViewControllerTabStyle {
 func (t NSTabViewController) SetTabStyle(value NSTabViewControllerTabStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabStyle:"), value)
 }
-
-
 
 // The tab view that manages the views of the interface.
 //
@@ -750,8 +707,6 @@ func (t NSTabViewController) SetTabView(value INSTabView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabView:"), value)
 }
 
-
-
 // The animation options to use when switching between tabs.
 //
 // # Discussion
@@ -772,8 +727,6 @@ func (t NSTabViewController) TransitionOptions() NSViewControllerTransitionOptio
 func (t NSTabViewController) SetTransitionOptions(value NSViewControllerTransitionOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTransitionOptions:"), value)
 }
-
-
 
 // A Boolean value indicating whether the tab view controller gets its title
 // from the selected child view controller.
@@ -798,8 +751,6 @@ func (t NSTabViewController) SetCanPropagateSelectedChildViewControllerTitle(val
 	objc.Send[struct{}](t.ID, objc.Sel("setCanPropagateSelectedChildViewControllerTitle:"), value)
 }
 
-
-
 // The array of tab view items used to manage each of the child view
 // controllers.
 //
@@ -823,8 +774,6 @@ func (t NSTabViewController) SetTabViewItems(value []NSTabViewItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The index of the selected tab.
 //
 // # Discussion
@@ -841,8 +790,6 @@ func (t NSTabViewController) SetSelectedTabViewItemIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedTabViewItemIndex:"), value)
 }
 
-
-
 // An array of view controllers that are hierarchical children of the view
 // controller.
 //
@@ -855,47 +802,9 @@ func (t NSTabViewController) SetChildren(value INSViewController) {
 	objc.Send[struct{}](t.ID, objc.Sel("setChildViewControllers:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSTabViewDelegate
 			
 
-
-
-
 			// Protocol methods for NSToolbarDelegate
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

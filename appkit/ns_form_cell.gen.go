@@ -36,12 +36,6 @@ func (nc NSFormCellClass) Alloc() NSFormCell {
 	return rv
 }
 
-
-
-
-
-
-
 // The [NSFormCell] class is used to implement text entry fields in a form.
 // The left part of an [NSFormCell] object contains a title. The right part
 // contains an editable text entry field.
@@ -92,10 +86,6 @@ func NSFormCellFromID(id objc.ID) NSFormCell {
 }
 // NOTE: NSFormCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFormCell] class.
 //
@@ -160,13 +150,7 @@ type INSFormCell interface {
 	// The preferred text field width.
 	PreferredTextFieldWidth() float64
 	SetPreferredTextFieldWidth(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f NSFormCell) Init() NSFormCell {
@@ -186,11 +170,6 @@ func NewNSFormCell() NSFormCell {
 	rv := objc.Send[NSFormCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -214,7 +193,6 @@ func NewFormCellImageCell(image INSImage) NSFormCell {
 	return NSFormCellFromID(rv)
 }
 
-
 // Returns an [NSFormCell] object initialized with the specified title string.
 //
 // string: The title for the new form cell object.
@@ -237,7 +215,6 @@ func NewFormCellTextCell(string_ string) NSFormCell {
 	return NSFormCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/init(coder:)
 func NewFormCellWithCoder(coder foundation.INSCoder) NSFormCell {
@@ -245,26 +222,6 @@ func NewFormCellWithCoder(coder foundation.INSCoder) NSFormCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSFormCellFromID(rv)
 }
-
-
-
-
-
-
-func (f NSFormCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The title of the cell as an attributed string.
 //
@@ -276,8 +233,6 @@ func (f NSFormCell) AttributedTitle() foundation.NSAttributedString {
 func (f NSFormCell) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributedTitle:"), value)
 }
-
-
 
 // The alignment of the title.
 //
@@ -296,8 +251,6 @@ func (f NSFormCell) SetTitleAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleAlignment:"), value)
 }
 
-
-
 // The default writing direction used to render the form cell’s title.
 //
 // # Discussion
@@ -314,8 +267,6 @@ func (f NSFormCell) SetTitleBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleBaseWritingDirection:"), value)
 }
 
-
-
 // The font used to draw cell’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/titleFont
@@ -326,8 +277,6 @@ func (f NSFormCell) TitleFont() NSFont {
 func (f NSFormCell) SetTitleFont(value NSFont) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleFont:"), value)
 }
-
-
 
 // The width of the title field.
 //
@@ -353,8 +302,6 @@ func (f NSFormCell) SetTitleWidth(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleWidth:"), value)
 }
 
-
-
 // The cell’s attributed placeholder string.
 //
 // # Discussion
@@ -370,8 +317,6 @@ func (f NSFormCell) PlaceholderAttributedString() foundation.NSAttributedString 
 func (f NSFormCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
-
-
 
 // The cell’s plain text placeholder string.
 //
@@ -390,8 +335,6 @@ func (f NSFormCell) PlaceholderString() string {
 func (f NSFormCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
-
-
 
 // The preferred text field width.
 //
@@ -425,33 +368,4 @@ func (f NSFormCell) PreferredTextFieldWidth() float64 {
 func (f NSFormCell) SetPreferredTextFieldWidth(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPreferredTextFieldWidth:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

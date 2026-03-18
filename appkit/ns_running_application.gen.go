@@ -37,12 +37,6 @@ func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that can manipulate and provide information for a single instance
 // of an app.
 //
@@ -117,14 +111,10 @@ type NSRunningApplication struct {
 // An object that can manipulate and provide information for a single instance
 // of an app.
 func NSRunningApplicationFromID(id objc.ID) NSRunningApplication {
-	return NSRunningApplication{objectivec.Object{id}}
+	return NSRunningApplication{objectivec.Object{ID: id}}
 }
 // NOTE: NSRunningApplication adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSRunningApplication] class.
 //
@@ -221,10 +211,6 @@ type INSRunningApplication interface {
 	SetRunningApplications(value INSRunningApplication)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r NSRunningApplication) Init() NSRunningApplication {
 	rv := objc.Send[NSRunningApplication](r.ID, objc.Sel("init"))
@@ -243,11 +229,6 @@ func NewNSRunningApplication() NSRunningApplication {
 	rv := objc.Send[NSRunningApplication](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns the running application with the given process identifier, or nil
 // if no application has that pid.
@@ -268,12 +249,6 @@ func NewRunningApplicationWithProcessIdentifier(pid int32) NSRunningApplication 
 	rv := objc.Send[objc.ID](objc.ID(getNSRunningApplicationClass().class), objc.Sel("runningApplicationWithProcessIdentifier:"), pid)
 	return NSRunningApplicationFromID(rv)
 }
-
-
-
-
-
-
 
 // Attempts to activate the application using the specified options.
 //
@@ -431,10 +406,6 @@ func (r NSRunningApplication) Terminate() bool {
 	return rv
 }
 
-
-
-
-
 // Returns an array of currently running applications with the specified
 // bundle identifier.
 //
@@ -467,13 +438,6 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) TerminateAutomatical
 	objc.Send[objc.ID](objc.ID(_NSRunningApplicationClass.class), objc.Sel("terminateAutomaticallyTerminableApplications"))
 }
 
-
-
-
-
-
-
-
 // Indicates whether the application is currently frontmost.
 //
 // # Discussion
@@ -485,8 +449,6 @@ func (r NSRunningApplication) Active() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isActive"))
 	return rv
 }
-
-
 
 // Indicates the activation policy of the application.
 //
@@ -503,8 +465,6 @@ func (r NSRunningApplication) ActivationPolicy() NSApplicationActivationPolicy {
 	return NSApplicationActivationPolicy(rv)
 }
 
-
-
 // Indicates whether the application is currently hidden.
 //
 // # Discussion
@@ -516,8 +476,6 @@ func (r NSRunningApplication) Hidden() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHidden"))
 	return rv
 }
-
-
 
 // Indicates the localized name of the application.
 //
@@ -532,8 +490,6 @@ func (r NSRunningApplication) LocalizedName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // Returns the icon for the receiver’s application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/icon
@@ -541,8 +497,6 @@ func (r NSRunningApplication) Icon() INSImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("icon"))
 	return NSImageFromID(objc.ID(rv))
 }
-
-
 
 // Indicates the [CFBundleIdentifier] of the application.
 //
@@ -557,8 +511,6 @@ func (r NSRunningApplication) BundleIdentifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // Indicates the URL to the application’s bundle.
 //
 // # Discussion
@@ -571,8 +523,6 @@ func (r NSRunningApplication) BundleURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // Indicates the executing processor architecture for the application.
 //
@@ -589,8 +539,6 @@ func (r NSRunningApplication) ExecutableArchitecture() int {
 	return rv
 }
 
-
-
 // Indicates the URL to the application’s executable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/executableURL
@@ -598,8 +546,6 @@ func (r NSRunningApplication) ExecutableURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("executableURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // Indicates the date when the application was launched.
 //
@@ -613,8 +559,6 @@ func (r NSRunningApplication) LaunchDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("launchDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that determines whether the receiver’s process has
 // finished launching.
@@ -636,8 +580,6 @@ func (r NSRunningApplication) FinishedLaunching() bool {
 	return rv
 }
 
-
-
 // Indicates the process identifier (pid) of the application.
 //
 // # Discussion
@@ -656,8 +598,6 @@ func (r NSRunningApplication) ProcessIdentifier() int32 {
 	return rv
 }
 
-
-
 // Returns whether the application owns the current menu bar.
 //
 // # Discussion
@@ -669,8 +609,6 @@ func (r NSRunningApplication) OwnsMenuBar() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("ownsMenuBar"))
 	return rv
 }
-
-
 
 // Indicates that the receiver’s application has terminated.
 //
@@ -690,8 +628,6 @@ func (r NSRunningApplication) Terminated() bool {
 	return rv
 }
 
-
-
 // Returns an array of running apps.
 //
 // See: https://developer.apple.com/documentation/appkit/nsworkspace/runningapplications
@@ -702,12 +638,6 @@ func (r NSRunningApplication) RunningApplications() INSRunningApplication {
 func (r NSRunningApplication) SetRunningApplications(value INSRunningApplication) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRunningApplications:"), value)
 }
-
-
-
-
-
-
 
 // Returns an [NSRunningApplication] representing this application.
 //
@@ -720,24 +650,4 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) CurrentApplication()
 	rv := objc.Send[objc.ID](objc.ID(_NSRunningApplicationClass.class), objc.Sel("currentApplication"))
 	return NSRunningApplicationFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

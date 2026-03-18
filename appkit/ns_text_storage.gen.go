@@ -37,12 +37,6 @@ func (nc NSTextStorageClass) Alloc() NSTextStorage {
 	return rv
 }
 
-
-
-
-
-
-
 // The fundamental storage mechanism of TextKit that contains the text managed
 // by the system.
 //
@@ -159,10 +153,6 @@ func NSTextStorageFromID(id objc.ID) NSTextStorage {
 }
 // NOTE: NSTextStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextStorage] class.
 //
@@ -290,10 +280,6 @@ type INSTextStorage interface {
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSTextStorage
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextStorage) Init() NSTextStorage {
 	rv := objc.Send[NSTextStorage](t.ID, objc.Sel("init"))
@@ -312,11 +298,6 @@ func NewNSTextStorage() NSTextStorage {
 	rv := objc.Send[NSTextStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an instance with a property list object and a type string.
 //
@@ -349,12 +330,6 @@ func NewTextStorageWithPasteboardPropertyListOfType(propertyList objectivec.IObj
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return NSTextStorageFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds a layout manager to the text storage object’s set of layout
 // managers.
@@ -597,10 +572,6 @@ func (t NSTextStorage) WritingOptionsForTypePasteboard(type_ NSPasteboardType, p
 	return NSPasteboardWritingOptions(rv)
 }
 
-
-
-
-
 // Returns an array of uniform type identifier strings of data types the
 // receiver can read from the pasteboard and initialize from.
 //
@@ -658,13 +629,6 @@ func (_NSTextStorageClass NSTextStorageClass) ReadingOptionsForTypePasteboard(ty
 	return NSPasteboardReadingOptions(rv)
 }
 
-
-
-
-
-
-
-
 // The delegate for the text storage object.
 //
 // # Discussion
@@ -681,8 +645,6 @@ func (t NSTextStorage) SetDelegate(value NSTextStorageDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The layout managers for the text storage object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage/layoutManagers
@@ -692,8 +654,6 @@ func (t NSTextStorage) LayoutManagers() []NSLayoutManager {
 		return NSLayoutManagerFromID(id)
 	})
 }
-
-
 
 // A Boolean value that indicates whether the text storage object fixes
 // attributes lazily.
@@ -712,8 +672,6 @@ func (t NSTextStorage) FixesAttributesLazily() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("fixesAttributesLazily"))
 	return rv
 }
-
-
 
 // A mask that describes the kinds of edits pending for the text storage
 // object.
@@ -734,8 +692,6 @@ func (t NSTextStorage) EditedMask() NSTextStorageEditActions {
 	return NSTextStorageEditActions(rv)
 }
 
-
-
 // The range of text that contains changes.
 //
 // # Discussion
@@ -750,8 +706,6 @@ func (t NSTextStorage) EditedRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("editedRange"))
 	return foundation.NSRange(rv)
 }
-
-
 
 // The difference between the current length of the edited range and its
 // length before editing.
@@ -777,8 +731,6 @@ func (t NSTextStorage) ChangeInLength() int {
 	return rv
 }
 
-
-
 // The text storage contents as an array of attribute runs.
 //
 // # Discussion
@@ -796,8 +748,6 @@ func (t NSTextStorage) AttributeRuns() []NSTextStorage {
 func (t NSTextStorage) SetAttributeRuns(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAttributeRuns:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The text storage contents as an array of paragraphs.
 //
@@ -817,8 +767,6 @@ func (t NSTextStorage) SetParagraphs(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setParagraphs:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The text storage contents as an array of words.
 //
 // # Discussion
@@ -836,8 +784,6 @@ func (t NSTextStorage) Words() []NSTextStorage {
 func (t NSTextStorage) SetWords(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWords:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The text storage contents as an array of characters.
 //
@@ -862,8 +808,6 @@ func (t NSTextStorage) SetCharacters(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCharacters:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The font for the text storage.
 //
 // # Discussion
@@ -879,8 +823,6 @@ func (t NSTextStorage) Font() NSFont {
 func (t NSTextStorage) SetFont(value NSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
-
-
 
 // The color for the text.
 //
@@ -898,8 +840,6 @@ func (t NSTextStorage) SetForegroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setForegroundColor:"), value)
 }
 
-
-
 // The observer for the text storage object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage/textStorageObserver
@@ -911,38 +851,6 @@ func (t NSTextStorage) SetTextStorageObserver(value NSTextStorageObserving) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextStorageObserver:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSPasteboardWriting
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

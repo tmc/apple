@@ -14,8 +14,6 @@ type NSDraggingDestination interface {
 	objectivec.IObject
 }
 
-
-
 // NSDraggingDestinationObject wraps an existing Objective-C object that conforms to the NSDraggingDestination protocol.
 type NSDraggingDestinationObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSDraggingDestinationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDraggingDestinationObjectFromID constructs a [NSDraggingDestinationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDraggingDestinationObjectFromID(id objc.ID) NSDraggingDestinationObject {
@@ -33,9 +29,6 @@ func NSDraggingDestinationObjectFromID(id objc.ID) NSDraggingDestinationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked when the dragged image enters destination bounds or frame; delegate
 // returns dragging operation to perform.
@@ -325,10 +318,4 @@ func (o NSDraggingDestinationObject) UpdateDraggingItemsForDrag(sender NSDraggin
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateDraggingItemsForDrag:"), sender)
 	}
-
-
-
-
-
-
 

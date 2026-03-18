@@ -36,12 +36,6 @@ func (nc NSImageCellClass) Alloc() NSImageCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An [NSImageCell] object displays a single image (encapsulated in an
 // [NSImage] object) in a frame. This class provides methods for choosing the
 // frame and for aligning and scaling the image to fit the frame.
@@ -91,10 +85,6 @@ func NSImageCellFromID(id objc.ID) NSImageCell {
 // NOTE: NSImageCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSImageCell] class.
 //
 // # Aligning and Scaling the Image
@@ -127,13 +117,7 @@ type INSImageCell interface {
 	// The style of the frame that borders the image.
 	ImageFrameStyle() NSImageFrameStyle
 	SetImageFrameStyle(value NSImageFrameStyle)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i NSImageCell) Init() NSImageCell {
@@ -153,11 +137,6 @@ func NewNSImageCell() NSImageCell {
 	rv := objc.Send[NSImageCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -180,7 +159,6 @@ func NewImageCellImageCell(image INSImage) NSImageCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSImageCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -207,7 +185,6 @@ func NewImageCellTextCell(string_ string) NSImageCell {
 	return NSImageCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewImageCellWithCoder(coder foundation.INSCoder) NSImageCell {
@@ -215,26 +192,6 @@ func NewImageCellWithCoder(coder foundation.INSCoder) NSImageCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSImageCellFromID(rv)
 }
-
-
-
-
-
-
-func (i NSImageCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The alignment of the receiver’s image relative to its frame.
 //
@@ -253,8 +210,6 @@ func (i NSImageCell) ImageAlignment() NSImageAlignment {
 func (i NSImageCell) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageAlignment:"), value)
 }
-
-
 
 // The scaling mode used to fit the receiver’s image into the frame.
 //
@@ -275,8 +230,6 @@ func (i NSImageCell) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageScaling:"), value)
 }
 
-
-
 // The style of the frame that borders the image.
 //
 // # Discussion
@@ -294,33 +247,4 @@ func (i NSImageCell) ImageFrameStyle() NSImageFrameStyle {
 func (i NSImageCell) SetImageFrameStyle(value NSImageFrameStyle) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageFrameStyle:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

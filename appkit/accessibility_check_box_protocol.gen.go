@@ -23,8 +23,6 @@ type NSAccessibilityCheckBox interface {
 	AccessibilityValue() foundation.NSNumber
 }
 
-
-
 // NSAccessibilityCheckBoxObject wraps an existing Objective-C object that conforms to the NSAccessibilityCheckBox protocol.
 type NSAccessibilityCheckBoxObject struct {
 	objectivec.Object
@@ -33,8 +31,6 @@ func (o NSAccessibilityCheckBoxObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityCheckBoxObjectFromID constructs a [NSAccessibilityCheckBoxObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityCheckBoxObjectFromID(id objc.ID) NSAccessibilityCheckBoxObject {
@@ -42,9 +38,6 @@ func NSAccessibilityCheckBoxObjectFromID(id objc.ID) NSAccessibilityCheckBoxObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the checkbox’s value.
 //
@@ -205,10 +198,4 @@ func (o NSAccessibilityCheckBoxObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

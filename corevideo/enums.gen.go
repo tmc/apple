@@ -16,7 +16,6 @@ const (
 	KCVAttachmentMode_ShouldPropagate CVAttachmentMode = 1
 )
 
-
 func (e CVAttachmentMode) String() string {
 	switch e {
 	case KCVAttachmentMode_ShouldNotPropagate:
@@ -28,8 +27,6 @@ func (e CVAttachmentMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferLockFlags
 type CVPixelBufferLockFlags int
 
@@ -37,7 +34,6 @@ const (
 	// KCVPixelBufferLock_ReadOnly: A read-only buffer.
 	KCVPixelBufferLock_ReadOnly CVPixelBufferLockFlags = 1
 )
-
 
 func (e CVPixelBufferLockFlags) String() string {
 	switch e {
@@ -48,8 +44,6 @@ func (e CVPixelBufferLockFlags) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferPoolFlushFlags
 type CVPixelBufferPoolFlushFlags int
 
@@ -57,7 +51,6 @@ const (
 	// KCVPixelBufferPoolFlushExcessBuffers: The value to pass to flush all unused buffers regardless of age.
 	KCVPixelBufferPoolFlushExcessBuffers CVPixelBufferPoolFlushFlags = 1
 )
-
 
 func (e CVPixelBufferPoolFlushFlags) String() string {
 	switch e {
@@ -67,8 +60,6 @@ func (e CVPixelBufferPoolFlushFlags) String() string {
 		return fmt.Sprintf("CVPixelBufferPoolFlushFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVSMPTETimeFlags
 type CVSMPTETimeFlags int
@@ -80,7 +71,6 @@ const (
 	KCVSMPTETimeValid CVSMPTETimeFlags = 1
 )
 
-
 func (e CVSMPTETimeFlags) String() string {
 	switch e {
 	case KCVSMPTETimeRunning:
@@ -91,8 +81,6 @@ func (e CVSMPTETimeFlags) String() string {
 		return fmt.Sprintf("CVSMPTETimeFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVSMPTETimeType
 type CVSMPTETimeType int
@@ -115,7 +103,6 @@ const (
 	// KCVSMPTETimeType60: 60 frames per second.
 	KCVSMPTETimeType60 CVSMPTETimeType = 6
 )
-
 
 func (e CVSMPTETimeType) String() string {
 	switch e {
@@ -140,8 +127,6 @@ func (e CVSMPTETimeType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreVideo/CVTimeFlags
 type CVTimeFlags int
 
@@ -149,7 +134,6 @@ const (
 	// KCVTimeIsIndefinite: The time value is unknown.
 	KCVTimeIsIndefinite CVTimeFlags = 1
 )
-
 
 func (e CVTimeFlags) String() string {
 	switch e {
@@ -159,8 +143,6 @@ func (e CVTimeFlags) String() string {
 		return fmt.Sprintf("CVTimeFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVTimeStampFlags
 type CVTimeStampFlags int
@@ -186,7 +168,6 @@ const (
 	KCVTimeStampVideoTimeValid CVTimeStampFlags = 1
 )
 
-
 func (e CVTimeStampFlags) String() string {
 	switch e {
 	case KCVTimeStampBottomField:
@@ -209,9 +190,6 @@ func (e CVTimeStampFlags) String() string {
 		return fmt.Sprintf("CVTimeStampFlags(%d)", e)
 	}
 }
-
-
-
 
 type KCVPixelFormatType uint
 
@@ -351,7 +329,6 @@ const (
 	KCVPixelFormatType_TwoComponent8 KCVPixelFormatType = 0
 )
 
-
 func (e KCVPixelFormatType) String() string {
 	switch e {
 	case KCVPixelFormatType_128RGBAFloat:
@@ -360,9 +337,6 @@ func (e KCVPixelFormatType) String() string {
 		return fmt.Sprintf("KCVPixelFormatType(%d)", e)
 	}
 }
-
-
-
 
 type KCVReturn uint
 
@@ -408,7 +382,6 @@ const (
 	KCVReturnWouldExceedAllocationThreshold KCVReturn = 0
 )
 
-
 func (e KCVReturn) String() string {
 	switch e {
 	case KCVReturnAllocationFailed:
@@ -417,9 +390,6 @@ func (e KCVReturn) String() string {
 		return fmt.Sprintf("KCVReturn(%d)", e)
 	}
 }
-
-
-
 
 type KcvpixelformattypeLossless uint
 
@@ -435,7 +405,6 @@ const (
 	KCVPixelFormatType_Lossless_64RGBAHalf KcvpixelformattypeLossless = 0
 )
 
-
 func (e KcvpixelformattypeLossless) String() string {
 	switch e {
 	case KCVPixelFormatType_Lossless_30RGBLEPackedWideGamut:
@@ -444,9 +413,6 @@ func (e KcvpixelformattypeLossless) String() string {
 		return fmt.Sprintf("KcvpixelformattypeLossless(%d)", e)
 	}
 }
-
-
-
 
 type KcvpixelformattypeLossy uint
 
@@ -458,7 +424,6 @@ const (
 	KCVPixelFormatType_Lossy_422YpCbCr10PackedBiPlanarVideoRange KcvpixelformattypeLossy = 0
 )
 
-
 func (e KcvpixelformattypeLossy) String() string {
 	switch e {
 	case KCVPixelFormatType_Lossy_32BGRA:
@@ -468,9 +433,6 @@ func (e KcvpixelformattypeLossy) String() string {
 	}
 }
 
-
-
-
 type KcvversatilebayerBayerpattern uint
 
 const (
@@ -479,7 +441,6 @@ const (
 	KCVVersatileBayer_BayerPattern_GRBG KcvversatilebayerBayerpattern = 1
 	KCVVersatileBayer_BayerPattern_RGGB KcvversatilebayerBayerpattern = 0
 )
-
 
 func (e KcvversatilebayerBayerpattern) String() string {
 	switch e {
@@ -495,8 +456,4 @@ func (e KcvversatilebayerBayerpattern) String() string {
 		return fmt.Sprintf("KcvversatilebayerBayerpattern(%d)", e)
 	}
 }
-
-
-
-
 

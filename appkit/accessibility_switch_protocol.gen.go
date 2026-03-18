@@ -23,8 +23,6 @@ type NSAccessibilitySwitch interface {
 	AccessibilityValue() string
 }
 
-
-
 // NSAccessibilitySwitchObject wraps an existing Objective-C object that conforms to the NSAccessibilitySwitch protocol.
 type NSAccessibilitySwitchObject struct {
 	objectivec.Object
@@ -33,8 +31,6 @@ func (o NSAccessibilitySwitchObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilitySwitchObjectFromID constructs a [NSAccessibilitySwitchObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilitySwitchObjectFromID(id objc.ID) NSAccessibilitySwitchObject {
@@ -42,9 +38,6 @@ func NSAccessibilitySwitchObjectFromID(id objc.ID) NSAccessibilitySwitchObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the switch’s value.
 //
@@ -257,10 +250,4 @@ func (o NSAccessibilitySwitchObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

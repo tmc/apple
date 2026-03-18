@@ -28,8 +28,6 @@ type NSAccessibilityTable interface {
 	AccessibilityRows() []objectivec.IObject
 }
 
-
-
 // NSAccessibilityTableObject wraps an existing Objective-C object that conforms to the NSAccessibilityTable protocol.
 type NSAccessibilityTableObject struct {
 	objectivec.Object
@@ -38,8 +36,6 @@ func (o NSAccessibilityTableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityTableObjectFromID constructs a [NSAccessibilityTableObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityTableObjectFromID(id objc.ID) NSAccessibilityTableObject {
@@ -47,9 +43,6 @@ func NSAccessibilityTableObjectFromID(id objc.ID) NSAccessibilityTableObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a short description of the table.
 //
@@ -417,10 +410,4 @@ func (o NSAccessibilityTableObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

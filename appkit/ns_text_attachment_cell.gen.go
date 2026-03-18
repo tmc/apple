@@ -37,12 +37,6 @@ func (nc NSTextAttachmentCellClass) Alloc() NSTextAttachmentCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that implements the functionality of the text attachment cell
 // protocol.
 //
@@ -67,23 +61,13 @@ func NSTextAttachmentCellFromID(id objc.ID) NSTextAttachmentCell {
 // NOTE: NSTextAttachmentCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTextAttachmentCell] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCell-swift.class
 type INSTextAttachmentCell interface {
 	INSCell
 	NSTextAttachmentCellProtocol
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextAttachmentCell) Init() NSTextAttachmentCell {
@@ -103,11 +87,6 @@ func NewNSTextAttachmentCell() NSTextAttachmentCell {
 	rv := objc.Send[NSTextAttachmentCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -130,7 +109,6 @@ func NewTextAttachmentCellImageCell(image INSImage) NSTextAttachmentCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSTextAttachmentCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -157,7 +135,6 @@ func NewTextAttachmentCellTextCell(string_ string) NSTextAttachmentCell {
 	return NSTextAttachmentCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewTextAttachmentCellWithCoder(coder foundation.INSCoder) NSTextAttachmentCell {
@@ -165,41 +142,6 @@ func NewTextAttachmentCellWithCoder(coder foundation.INSCoder) NSTextAttachmentC
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextAttachmentCellFromID(rv)
 }
-
-
-
-
-
-
-func (t NSTextAttachmentCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSTextAttachmentCellProtocol
 			
@@ -468,23 +410,7 @@ func (o NSTextAttachmentCell) TrackMouseInRectOfViewAtCharacterIndexUntilMouseUp
 	return rv
 	}
 
-
-
-
 func (o NSTextAttachmentCell) SetAttachment(value INSTextAttachment) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAttachment:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

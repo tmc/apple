@@ -24,8 +24,6 @@ type NSSpringLoadingDestination interface {
 	SpringLoadingHighlightChanged(draggingInfo NSDraggingInfo)
 }
 
-
-
 // NSSpringLoadingDestinationObject wraps an existing Objective-C object that conforms to the NSSpringLoadingDestination protocol.
 type NSSpringLoadingDestinationObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSSpringLoadingDestinationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSpringLoadingDestinationObjectFromID constructs a [NSSpringLoadingDestinationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSpringLoadingDestinationObjectFromID(id objc.ID) NSSpringLoadingDestinationObject {
@@ -43,9 +39,6 @@ func NSSpringLoadingDestinationObjectFromID(id objc.ID) NSSpringLoadingDestinati
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Responds to the activation or deactivation of spring-loading on a
 // destination.
@@ -213,10 +206,4 @@ func (o NSSpringLoadingDestinationObject) DraggingEnded(draggingInfo NSDraggingI
 	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingEnded:"), draggingInfo)
 	}
-
-
-
-
-
-
 

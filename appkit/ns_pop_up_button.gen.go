@@ -38,12 +38,6 @@ func (nc NSPopUpButtonClass) Alloc() NSPopUpButton {
 	return rv
 }
 
-
-
-
-
-
-
 // A control for selecting an item from a list.
 //
 // # Overview
@@ -135,10 +129,6 @@ func NSPopUpButtonFromID(id objc.ID) NSPopUpButton {
 }
 // NOTE: NSPopUpButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPopUpButton] class.
 //
@@ -311,13 +301,7 @@ type INSPopUpButton interface {
 	// When `usesItemFromMenu` is [YES], a pull-down button uses the title of the first menu item and hides the first menu item. A pop-up button uses the title of the currently selected menu. The default value is [YES].
 	UsesItemFromMenu() bool
 	SetUsesItemFromMenu(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPopUpButton) Init() NSPopUpButton {
@@ -338,11 +322,6 @@ func NewNSPopUpButton() NSPopUpButton {
 	return rv
 }
 
-
-
-
-
-
 // Creates a standard checkbox with the title you specify.
 //
 // title: The localized title string to display on the button.
@@ -356,7 +335,6 @@ func NewPopUpButtonCheckboxWithTitleTargetAction(title string, target objectivec
 	rv := objc.Send[objc.ID](objc.ID(getNSPopUpButtonClass().class), objc.Sel("checkboxWithTitle:target:action:"), objc.String(title), target, action)
 	return NSPopUpButtonFromID(rv)
 }
-
 
 // Creates a standard radio button with the title you specify.
 //
@@ -372,7 +350,6 @@ func NewPopUpButtonRadioButtonWithTitleTargetAction(title string, target objecti
 	return NSPopUpButtonFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -381,7 +358,6 @@ func NewPopUpButtonWithCoder(coder foundation.INSCoder) NSPopUpButton {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPopUpButtonFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -409,7 +385,6 @@ func NewPopUpButtonWithFrame(frameRect corefoundation.CGRect) NSPopUpButton {
 	return NSPopUpButtonFromID(rv)
 }
 
-
 // Returns an [NSPopUpButton] object initialized to the specified dimensions.
 //
 // buttonFrame: The frame rectangle for the button, specified in the parent view’s
@@ -433,7 +408,6 @@ func NewPopUpButtonWithFramePullsDown(buttonFrame corefoundation.CGRect, flag bo
 	return NSPopUpButtonFromID(rv)
 }
 
-
 // Creates a standard push button with the image you specify.
 //
 // image: The image to display in the body of the button.
@@ -453,7 +427,6 @@ func NewPopUpButtonWithImageTargetAction(image INSImage, target objectivec.IObje
 	return NSPopUpButtonFromID(rv)
 }
 
-
 // Creates a standard push button with a title and image.
 //
 // title: The localized title string to display on the button.
@@ -470,7 +443,6 @@ func NewPopUpButtonWithTitleImageTargetAction(title string, image INSImage, targ
 	return NSPopUpButtonFromID(rv)
 }
 
-
 // Creates a standard push button with the title you specify.
 //
 // title: The localized title string to display on the button.
@@ -484,12 +456,6 @@ func NewPopUpButtonWithTitleTargetAction(title string, target objectivec.IObject
 	rv := objc.Send[objc.ID](objc.ID(getNSPopUpButtonClass().class), objc.Sel("buttonWithTitle:target:action:"), objc.String(title), target, action)
 	return NSPopUpButtonFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSPopUpButton] object initialized to the specified dimensions.
 //
@@ -839,20 +805,6 @@ func (p NSPopUpButton) IndexOfItemWithTargetAndAction(target objectivec.IObject,
 func (p NSPopUpButton) SynchronizeTitleAndSelectedItem() {
 	objc.Send[objc.ID](p.ID, objc.Sel("synchronizeTitleAndSelectedItem"))
 }
-func (p NSPopUpButton) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value indicating whether the button displays a pull-down or
 // pop-up menu.
@@ -879,8 +831,6 @@ func (p NSPopUpButton) SetPullsDown(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPullsDown:"), value)
 }
 
-
-
 // A Boolean value indicating whether the button enables and disables its
 // items every time a user event occurs.
 //
@@ -901,8 +851,6 @@ func (p NSPopUpButton) SetAutoenablesItems(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAutoenablesItems:"), value)
 }
 
-
-
 // The menu item that was last selected by the user.
 //
 // # Discussion
@@ -918,8 +866,6 @@ func (p NSPopUpButton) SelectedItem() INSMenuItem {
 	return NSMenuItemFromID(objc.ID(rv))
 }
 
-
-
 // The title of the item that was last selected by the user.
 //
 // # Discussion
@@ -931,8 +877,6 @@ func (p NSPopUpButton) TitleOfSelectedItem() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("titleOfSelectedItem"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The index of the item that was last selected by the user.
 //
@@ -946,8 +890,6 @@ func (p NSPopUpButton) IndexOfSelectedItem() int {
 	return rv
 }
 
-
-
 // The number of items in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/numberOfItems
@@ -955,8 +897,6 @@ func (p NSPopUpButton) NumberOfItems() int {
 	rv := objc.Send[int](p.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
-
 
 // The array of menu item objects associated with the button.
 //
@@ -973,8 +913,6 @@ func (p NSPopUpButton) ItemArray() []NSMenuItem {
 		return NSMenuItemFromID(id)
 	})
 }
-
-
 
 // An array of strings corresponding to the titles of the items in the menu.
 //
@@ -994,8 +932,6 @@ func (p NSPopUpButton) ItemTitles() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The last item in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/lastItem
@@ -1003,8 +939,6 @@ func (p NSPopUpButton) LastItem() INSMenuItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("lastItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
-
-
 
 // The edge of the button on which to display the menu when screen space is
 // constrained.
@@ -1032,8 +966,6 @@ func (p NSPopUpButton) SetPreferredEdge(value foundation.NSRectEdge) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPreferredEdge:"), value)
 }
 
-
-
 // When the value of this property is [YES], the selected menu item’s
 // `state` is set to [NSControlStateValueOn]. When the value of this property
 // is [NO], the menu item’s `state` is not changed. When this property
@@ -1049,8 +981,6 @@ func (p NSPopUpButton) SetAltersStateOfSelectedItem(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAltersStateOfSelectedItem:"), value)
 }
 
-
-
 // When `usesItemFromMenu` is [YES], a pull-down button uses the title of the
 // first menu item and hides the first menu item. A pop-up button uses the
 // title of the currently selected menu. The default value is [YES].
@@ -1063,41 +993,4 @@ func (p NSPopUpButton) UsesItemFromMenu() bool {
 func (p NSPopUpButton) SetUsesItemFromMenu(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesItemFromMenu:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

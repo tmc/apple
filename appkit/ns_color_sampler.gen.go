@@ -37,12 +37,6 @@ func (nc NSColorSamplerClass) Alloc() NSColorSampler {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that displays the system’s color-sampling interface and returns
 // the selected color to your app.
 //
@@ -68,14 +62,10 @@ type NSColorSampler struct {
 // An object that displays the system’s color-sampling interface and returns
 // the selected color to your app.
 func NSColorSamplerFromID(id objc.ID) NSColorSampler {
-	return NSColorSampler{objectivec.Object{id}}
+	return NSColorSampler{objectivec.Object{ID: id}}
 }
 // NOTE: NSColorSampler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSColorSampler] class.
 //
@@ -92,10 +82,6 @@ type INSColorSampler interface {
 	// Displays the system color-sampling interface asynchronously and reports the selected color back to your app.
 	ShowSamplerWithSelectionHandler(selectionHandler ColorHandler)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSColorSampler) Init() NSColorSampler {
@@ -116,15 +102,6 @@ func NewNSColorSampler() NSColorSampler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Displays the system color-sampling interface asynchronously and reports the
 // selected color back to your app.
 //
@@ -144,36 +121,10 @@ func NewNSColorSampler() NSColorSampler {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorSampler/show(selectionHandler:)
 func (c NSColorSampler) ShowSamplerWithSelectionHandler(selectionHandler ColorHandler) {
-		_block0, _cleanup0 := NewColorBlock(selectionHandler)
+_block0, _cleanup0 := NewColorBlock(selectionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](c.ID, objc.Sel("showSamplerWithSelectionHandler:"), _block0)
+	objc.Send[objc.ID](c.ID, objc.Sel("showSamplerWithSelectionHandler:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ShowSamplerWithSelectionHandlerSync is a synchronous wrapper around [NSColorSampler.ShowSamplerWithSelectionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -189,9 +140,4 @@ func (c NSColorSampler) ShowSamplerWithSelectionHandlerSync(ctx context.Context)
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

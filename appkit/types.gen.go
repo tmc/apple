@@ -2,7 +2,6 @@
 
 package appkit
 
-
 // C struct types
 // NSDirectionalEdgeInsets - The inset distances for views, taking the user interface layout direction into account.
 //
@@ -15,11 +14,4 @@ type NSDirectionalEdgeInsets struct {
 	Trailing float64 // The trailing edge inset value.
 
 }
-
-
-
-
-
-
-
 

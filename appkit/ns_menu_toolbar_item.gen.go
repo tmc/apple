@@ -35,12 +35,6 @@ func (nc NSMenuToolbarItemClass) Alloc() NSMenuToolbarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A control that presents a menu in a window’s toolbar.
 //
 // # Overview
@@ -77,10 +71,6 @@ func NSMenuToolbarItemFromID(id objc.ID) NSMenuToolbarItem {
 // NOTE: NSMenuToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMenuToolbarItem] class.
 //
 // # Configuring a menu toolbar item
@@ -104,10 +94,6 @@ type INSMenuToolbarItem interface {
 	SetMenu(value INSMenu)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMenuToolbarItem) Init() NSMenuToolbarItem {
 	rv := objc.Send[NSMenuToolbarItem](m.ID, objc.Sel("init"))
@@ -127,11 +113,6 @@ func NewNSMenuToolbarItem() NSMenuToolbarItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates a toolbar item with the specified identifier.
 //
 // itemIdentifier: The identifier for the toolbar item. You use this value to identify the
@@ -148,23 +129,6 @@ func NewMenuToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifier
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItemIdentifier:"), objc.String(string(itemIdentifier)))
 	return NSMenuToolbarItemFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that determines whether the toolbar item displays an
 // indicator of additional functionality.
@@ -185,8 +149,6 @@ func (m NSMenuToolbarItem) SetShowsIndicator(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShowsIndicator:"), value)
 }
 
-
-
 // The menu presented from the toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuToolbarItem/menu
@@ -197,30 +159,4 @@ func (m NSMenuToolbarItem) Menu() INSMenu {
 func (m NSMenuToolbarItem) SetMenu(value INSMenu) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMenu:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -22,8 +22,6 @@ type NSAccessibilityStaticText interface {
 	AccessibilityValue() string
 }
 
-
-
 // NSAccessibilityStaticTextObject wraps an existing Objective-C object that conforms to the NSAccessibilityStaticText protocol.
 type NSAccessibilityStaticTextObject struct {
 	objectivec.Object
@@ -32,8 +30,6 @@ func (o NSAccessibilityStaticTextObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityStaticTextObjectFromID constructs a [NSAccessibilityStaticTextObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityStaticTextObjectFromID(id objc.ID) NSAccessibilityStaticTextObject {
@@ -41,9 +37,6 @@ func NSAccessibilityStaticTextObjectFromID(id objc.ID) NSAccessibilityStaticText
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the text that the accessibility element displays.
 //
@@ -197,10 +190,4 @@ func (o NSAccessibilityStaticTextObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

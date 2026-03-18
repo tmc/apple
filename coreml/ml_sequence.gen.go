@@ -37,12 +37,6 @@ func (mc MLSequenceClass) Alloc() MLSequence {
 	return rv
 }
 
-
-
-
-
-
-
 // A machine learning collection type that stores a series of strings or
 // integers.
 //
@@ -74,14 +68,10 @@ type MLSequence struct {
 // A machine learning collection type that stores a series of strings or
 // integers.
 func MLSequenceFromID(id objc.ID) MLSequence {
-	return MLSequence{objectivec.Object{id}}
+	return MLSequence{objectivec.Object{ID: id}}
 }
 // NOTE: MLSequence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLSequence] class.
 //
@@ -113,10 +103,6 @@ type IMLSequence interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MLSequence) Init() MLSequence {
 	rv := objc.Send[MLSequence](s.ID, objc.Sel("init"))
@@ -136,11 +122,6 @@ func NewMLSequence() MLSequence {
 	return rv
 }
 
-
-
-
-
-
 // Creates an empty sequence of strings or integers.
 //
 // type: An [MLFeatureType] instance that determines the sequence’s element type,
@@ -156,7 +137,6 @@ func NewSequenceEmptySequenceWithType(type_ MLFeatureType) MLSequence {
 	return MLSequenceFromID(rv)
 }
 
-
 // Creates a sequence of integers from an array of numbers.
 //
 // int64Values: An array of integer values represented as [NSNumber] instances.
@@ -169,7 +149,6 @@ func NewSequenceWithInt64Array(int64Values []foundation.NSNumber) MLSequence {
 	return MLSequenceFromID(rv)
 }
 
-
 // Creates a sequence of strings from a string array.
 //
 // stringValues: The array of strings for the sequence.
@@ -180,25 +159,9 @@ func NewSequenceWithStringArray(stringValues []string) MLSequence {
 	return MLSequenceFromID(rv)
 }
 
-
-
-
-
-
 func (s MLSequence) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The underlying type of the sequence’s elements.
 //
@@ -217,8 +180,6 @@ func (s MLSequence) Type() MLFeatureType {
 	return MLFeatureType(rv)
 }
 
-
-
 // An array of strings in the sequence.
 //
 // # Discussion
@@ -233,8 +194,6 @@ func (s MLSequence) StringValues() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("stringValues"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // An array of 64-bit integers in the sequence.
 //
@@ -252,28 +211,4 @@ func (s MLSequence) Int64Values() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

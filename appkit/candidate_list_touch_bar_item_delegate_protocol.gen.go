@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that a candidate list item delegate uses to enable selection state and list visibility.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSCandidateListTouchBarItemDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSCandidateListTouchBarItemDelegateObject wraps an existing Objective-C object that conforms to the NSCandidateListTouchBarItemDelegate protocol.
 type NSCandidateListTouchBarItemDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSCandidateListTouchBarItemDelegateObject) BaseObject() objectivec.Objec
 	return o.Object
 }
 
-
-
 // NSCandidateListTouchBarItemDelegateObjectFromID constructs a [NSCandidateListTouchBarItemDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCandidateListTouchBarItemDelegateObjectFromID(id objc.ID) NSCandidateListTouchBarItemDelegateObject {
@@ -37,9 +31,6 @@ func NSCandidateListTouchBarItemDelegateObjectFromID(id objc.ID) NSCandidateList
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the user has started touching one of the candidates
 // in the candidate list item.
@@ -107,10 +98,6 @@ func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChan
 	
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:changedCandidateListVisibility:"), anItem, isVisible)
 	}
-
-
-
-
 
 // NSCandidateListTouchBarItemDelegateConfig holds optional typed callbacks for [NSCandidateListTouchBarItemDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -213,8 +200,4 @@ func NewNSCandidateListTouchBarItemDelegate(config NSCandidateListTouchBarItemDe
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSCandidateListTouchBarItemDelegateObjectFromID(instance)
 }
-
-
-
-
 

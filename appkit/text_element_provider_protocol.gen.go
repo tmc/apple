@@ -34,8 +34,6 @@ type NSTextElementProvider interface {
 	SynchronizeToBackingStore(completionHandler ErrorHandler)
 }
 
-
-
 // NSTextElementProviderObject wraps an existing Objective-C object that conforms to the NSTextElementProvider protocol.
 type NSTextElementProviderObject struct {
 	objectivec.Object
@@ -44,8 +42,6 @@ func (o NSTextElementProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextElementProviderObjectFromID constructs a [NSTextElementProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextElementProviderObjectFromID(id objc.ID) NSTextElementProviderObject {
@@ -53,9 +49,6 @@ func NSTextElementProviderObjectFromID(id objc.ID) NSTextElementProviderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Describes the starting and ending locations for the document.
 //
@@ -210,12 +203,4 @@ func (o NSTextElementProviderObject) OffsetFromLocationToLocation(from NSTextLoc
 	rv := objc.Send[int](o.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
 	return rv
 	}
-
-
-
-
-
-
-
-
 

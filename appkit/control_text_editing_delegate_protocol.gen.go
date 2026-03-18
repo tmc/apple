@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSControl](<doc://com.apple.appkit/documentation/AppKit/NSControl>) subclasses to respond to editing actions.
 //
@@ -18,8 +17,6 @@ var _ = fmt.Sprintf
 type NSControlTextEditingDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSControlTextEditingDelegateObject wraps an existing Objective-C object that conforms to the NSControlTextEditingDelegate protocol.
 type NSControlTextEditingDelegateObject struct {
@@ -29,8 +26,6 @@ func (o NSControlTextEditingDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSControlTextEditingDelegateObjectFromID constructs a [NSControlTextEditingDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSControlTextEditingDelegateObjectFromID(id objc.ID) NSControlTextEditingDelegateObject {
@@ -38,9 +33,6 @@ func NSControlTextEditingDelegateObjectFromID(id objc.ID) NSControlTextEditingDe
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked when the insertion point leaves a cell belonging to the specified
 // control, but before the value of the cell’s object is displayed.
@@ -231,7 +223,7 @@ func (o NSControlTextEditingDelegateObject) ControlTextShouldEndEditing(control 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSControlTextEditingDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSControlTextEditingDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -330,10 +322,6 @@ func (o NSControlTextEditingDelegateObject) ControlTextDidEndEditing(obj foundat
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
-
-
-
-
 
 // NSControlTextEditingDelegateConfig holds optional typed callbacks for [NSControlTextEditingDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -451,8 +439,4 @@ func NewNSControlTextEditingDelegate(config NSControlTextEditingDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSControlTextEditingDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -19,8 +19,6 @@ type NSTextLayoutOrientationProvider interface {
 	LayoutOrientation() NSTextLayoutOrientation
 }
 
-
-
 // NSTextLayoutOrientationProviderObject wraps an existing Objective-C object that conforms to the NSTextLayoutOrientationProvider protocol.
 type NSTextLayoutOrientationProviderObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSTextLayoutOrientationProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextLayoutOrientationProviderObjectFromID constructs a [NSTextLayoutOrientationProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextLayoutOrientationProviderObjectFromID(id objc.ID) NSTextLayoutOrientationProviderObject {
@@ -38,9 +34,6 @@ func NSTextLayoutOrientationProviderObjectFromID(id objc.ID) NSTextLayoutOrienta
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The default layout orientation.
 //
@@ -51,12 +44,4 @@ func (o NSTextLayoutOrientationProviderObject) LayoutOrientation() NSTextLayoutO
 	rv := objc.Send[NSTextLayoutOrientation](o.ID, objc.Sel("layoutOrientation"))
 	return rv
 	}
-
-
-
-
-
-
-
-
 

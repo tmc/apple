@@ -37,12 +37,6 @@ func (nc NSTextCheckingControllerClass) Alloc() NSTextCheckingController {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Initializers
 //
@@ -79,14 +73,10 @@ type NSTextCheckingController struct {
 
 // NSTextCheckingControllerFromID constructs a [NSTextCheckingController] from an objc.ID.
 func NSTextCheckingControllerFromID(id objc.ID) NSTextCheckingController {
-	return NSTextCheckingController{objectivec.Object{id}}
+	return NSTextCheckingController{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextCheckingController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextCheckingController] class.
 //
@@ -153,10 +143,6 @@ type INSTextCheckingController interface {
 	ValidAnnotations() []string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextCheckingController) Init() NSTextCheckingController {
 	rv := objc.Send[NSTextCheckingController](t.ID, objc.Sel("init"))
@@ -176,11 +162,6 @@ func NewNSTextCheckingController() NSTextCheckingController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/init(client:)
 func NewTextCheckingControllerWithClient(client NSTextCheckingClient) NSTextCheckingController {
@@ -188,12 +169,6 @@ func NewTextCheckingControllerWithClient(client NSTextCheckingClient) NSTextChec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithClient:"), client)
 	return NSTextCheckingControllerFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/init(client:)
@@ -296,24 +271,11 @@ func (t NSTextCheckingController) ValidAnnotations() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/client
 func (t NSTextCheckingController) Client() NSTextCheckingClient {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("client"))
 	return NSTextCheckingClientObjectFromID(rv)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/spellCheckerDocumentTag
 func (t NSTextCheckingController) SpellCheckerDocumentTag() int {
@@ -323,26 +285,4 @@ func (t NSTextCheckingController) SpellCheckerDocumentTag() int {
 func (t NSTextCheckingController) SetSpellCheckerDocumentTag(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSpellCheckerDocumentTag:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

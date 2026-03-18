@@ -36,12 +36,6 @@ func (nc NSDatePickerCellClass) Alloc() NSDatePickerCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that controls the behavior of a date picker, or of a single date
 // picker cell in a matrix.
 //
@@ -102,10 +96,6 @@ func NSDatePickerCellFromID(id objc.ID) NSDatePickerCell {
 }
 // NOTE: NSDatePickerCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDatePickerCell] class.
 //
@@ -212,13 +202,7 @@ type INSDatePickerCell interface {
 	// The delegate associated with the date picker.
 	Delegate() NSDatePickerCellDelegate
 	SetDelegate(value NSDatePickerCellDelegate)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDatePickerCell) Init() NSDatePickerCell {
@@ -238,11 +222,6 @@ func NewNSDatePickerCell() NSDatePickerCell {
 	rv := objc.Send[NSDatePickerCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -266,7 +245,6 @@ func NewDatePickerCellImageCell(image INSImage) NSDatePickerCell {
 	return NSDatePickerCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/init(textCell:)
 func NewDatePickerCellTextCell(string_ string) NSDatePickerCell {
@@ -275,7 +253,6 @@ func NewDatePickerCellTextCell(string_ string) NSDatePickerCell {
 	return NSDatePickerCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/init(coder:)
 func NewDatePickerCellWithCoder(coder foundation.INSCoder) NSDatePickerCell {
@@ -283,26 +260,6 @@ func NewDatePickerCellWithCoder(coder foundation.INSCoder) NSDatePickerCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDatePickerCellFromID(rv)
 }
-
-
-
-
-
-
-func (d NSDatePickerCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The cell’s background color.
 //
@@ -314,8 +271,6 @@ func (d NSDatePickerCell) BackgroundColor() INSColor {
 func (d NSDatePickerCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell draws its background.
 //
@@ -334,8 +289,6 @@ func (d NSDatePickerCell) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDrawsBackground:"), value)
 }
 
-
-
 // The cell’s text color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/textColor
@@ -346,8 +299,6 @@ func (d NSDatePickerCell) TextColor() INSColor {
 func (d NSDatePickerCell) SetTextColor(value INSColor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTextColor:"), value)
 }
-
-
 
 // The date picker style to use.
 //
@@ -365,8 +316,6 @@ func (d NSDatePickerCell) DatePickerStyle() NSDatePickerStyle {
 func (d NSDatePickerCell) SetDatePickerStyle(value NSDatePickerStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerStyle:"), value)
 }
-
-
 
 // A bitmask that indicates which visual elements are shown by the date
 // picker.
@@ -387,8 +336,6 @@ func (d NSDatePickerCell) SetDatePickerElements(value NSDatePickerElementFlags) 
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerElements:"), value)
 }
 
-
-
 // The mode in use by the date picker.
 //
 // # Discussion
@@ -406,8 +353,6 @@ func (d NSDatePickerCell) SetDatePickerMode(value NSDatePickerMode) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerMode:"), value)
 }
 
-
-
 // The date currently specified in the picker.
 //
 // # Discussion
@@ -424,8 +369,6 @@ func (d NSDatePickerCell) DateValue() foundation.INSDate {
 func (d NSDatePickerCell) SetDateValue(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateValue:"), value)
 }
-
-
 
 // The time interval that represents the date range.
 //
@@ -446,8 +389,6 @@ func (d NSDatePickerCell) SetTimeInterval(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeInterval:"), value)
 }
 
-
-
 // The calendar used by the date picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/calendar
@@ -458,8 +399,6 @@ func (d NSDatePickerCell) Calendar() foundation.NSCalendar {
 func (d NSDatePickerCell) SetCalendar(value foundation.NSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
-
 
 // The locale used to display dates.
 //
@@ -472,8 +411,6 @@ func (d NSDatePickerCell) SetLocale(value foundation.NSLocale) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocale:"), value)
 }
 
-
-
 // The time zone used to display time-related values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCell/timeZone
@@ -484,8 +421,6 @@ func (d NSDatePickerCell) TimeZone() foundation.NSTimeZone {
 func (d NSDatePickerCell) SetTimeZone(value foundation.NSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
-
-
 
 // The minimum date that the picker allows as input.
 //
@@ -503,8 +438,6 @@ func (d NSDatePickerCell) SetMinDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinDate:"), value)
 }
 
-
-
 // The maximum date that the picker allows as input.
 //
 // # Discussion
@@ -521,8 +454,6 @@ func (d NSDatePickerCell) SetMaxDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaxDate:"), value)
 }
 
-
-
 // The delegate associated with the date picker.
 //
 // # Discussion
@@ -537,33 +468,4 @@ func (d NSDatePickerCell) Delegate() NSDatePickerCellDelegate {
 func (d NSDatePickerCell) SetDelegate(value NSDatePickerCellDelegate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

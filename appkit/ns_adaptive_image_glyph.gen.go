@@ -38,12 +38,6 @@ func (nc NSAdaptiveImageGlyphClass) Alloc() NSAdaptiveImageGlyph {
 	return rv
 }
 
-
-
-
-
-
-
 // A data object for an emoji-like image that can appear in attributed text.
 //
 // # Overview
@@ -89,14 +83,10 @@ type NSAdaptiveImageGlyph struct {
 //
 // A data object for an emoji-like image that can appear in attributed text.
 func NSAdaptiveImageGlyphFromID(id objc.ID) NSAdaptiveImageGlyph {
-	return NSAdaptiveImageGlyph{objectivec.Object{id}}
+	return NSAdaptiveImageGlyph{objectivec.Object{ID: id}}
 }
 // NOTE: NSAdaptiveImageGlyph adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAdaptiveImageGlyph] class.
 //
@@ -141,10 +131,6 @@ type INSAdaptiveImageGlyph interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAdaptiveImageGlyph) Init() NSAdaptiveImageGlyph {
 	rv := objc.Send[NSAdaptiveImageGlyph](a.ID, objc.Sel("init"))
@@ -164,11 +150,6 @@ func NewNSAdaptiveImageGlyph() NSAdaptiveImageGlyph {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyph/init(coder:)
 func NewAdaptiveImageGlyphWithCoder(coder foundation.INSCoder) NSAdaptiveImageGlyph {
@@ -176,7 +157,6 @@ func NewAdaptiveImageGlyphWithCoder(coder foundation.INSCoder) NSAdaptiveImageGl
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSAdaptiveImageGlyphFromID(rv)
 }
-
 
 // Create an adaptive image glyph from the previously saved data.
 //
@@ -201,12 +181,6 @@ func NewAdaptiveImageGlyphWithImageContent(imageContent foundation.INSData) NSAd
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImageContent:"), imageContent)
 	return NSAdaptiveImageGlyphFromID(rv)
 }
-
-
-
-
-
-
 
 // Create an adaptive image glyph from the previously saved data.
 //
@@ -241,17 +215,6 @@ func (a NSAdaptiveImageGlyph) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The raw data for the image.
 //
 // # Discussion
@@ -268,8 +231,6 @@ func (a NSAdaptiveImageGlyph) ImageContent() foundation.INSData {
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 
-
-
 // A unique identifier for this image.
 //
 // # Discussion
@@ -283,8 +244,6 @@ func (a NSAdaptiveImageGlyph) ContentIdentifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("contentIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // An alternate textual description of the image contents.
 //
@@ -300,8 +259,6 @@ func (a NSAdaptiveImageGlyph) ContentDescription() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The adaptive image glyph for the text.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/adaptiveImageGlyph
@@ -309,12 +266,6 @@ func (a NSAdaptiveImageGlyph) AdaptiveImageGlyph() foundation.NSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("adaptiveImageGlyph"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
 
 // The image data format to use for this image type.
 //
@@ -329,28 +280,4 @@ func (_NSAdaptiveImageGlyphClass NSAdaptiveImageGlyphClass) ContentType() unifor
 	rv := objc.Send[objc.ID](objc.ID(_NSAdaptiveImageGlyphClass.class), objc.Sel("contentType"))
 	return uniformtypeidentifiers.UTTypeFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

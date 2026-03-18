@@ -36,12 +36,6 @@ func (nc NSSecureTextFieldCellClass) Alloc() NSSecureTextFieldCell {
 	return rv
 }
 
-
-
-
-
-
-
 // A text field whose value is hidden from the user.
 //
 // # Overview
@@ -69,10 +63,6 @@ func NSSecureTextFieldCellFromID(id objc.ID) NSSecureTextFieldCell {
 // NOTE: NSSecureTextFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSecureTextFieldCell] class.
 //
 // # Working with character echo
@@ -89,13 +79,7 @@ type INSSecureTextFieldCell interface {
 	// A Boolean that indicates whether the receiver echoes a bullet character rather than each character typed.
 	EchosBullets() bool
 	SetEchosBullets(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSecureTextFieldCell) Init() NSSecureTextFieldCell {
@@ -115,11 +99,6 @@ func NewNSSecureTextFieldCell() NSSecureTextFieldCell {
 	rv := objc.Send[NSSecureTextFieldCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -143,7 +122,6 @@ func NewSecureTextFieldCellImageCell(image INSImage) NSSecureTextFieldCell {
 	return NSSecureTextFieldCellFromID(rv)
 }
 
-
 // Initializes a text field cell that displays the specified string.
 //
 // string: The string that the text field cell displays.
@@ -159,7 +137,6 @@ func NewSecureTextFieldCellTextCell(string_ string) NSSecureTextFieldCell {
 	return NSSecureTextFieldCellFromID(rv)
 }
 
-
 // Initializes a text field cell from data in the provided unarchiver.
 //
 // coder: An unarchiver object.
@@ -174,26 +151,6 @@ func NewSecureTextFieldCellWithCoder(coder foundation.INSCoder) NSSecureTextFiel
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSecureTextFieldCellFromID(rv)
 }
-
-
-
-
-
-
-func (s NSSecureTextFieldCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean that indicates whether the receiver echoes a bullet character
 // rather than each character typed.
@@ -212,33 +169,4 @@ func (s NSSecureTextFieldCell) EchosBullets() bool {
 func (s NSSecureTextFieldCell) SetEchosBullets(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEchosBullets:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

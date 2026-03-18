@@ -39,12 +39,6 @@ func (nc NSButtonClass) Alloc() NSButton {
 	return rv
 }
 
-
-
-
-
-
-
 // A control that defines an area on the screen that a user clicks to trigger
 // an action.
 //
@@ -177,10 +171,6 @@ func NSButtonFromID(id objc.ID) NSButton {
 }
 // NOTE: NSButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSButton] class.
 //
@@ -358,13 +348,7 @@ type INSButton interface {
 	// The mask specifying the modifier keys for the button’s key equivalent.
 	KeyEquivalentModifierMask() NSEventModifierFlags
 	SetKeyEquivalentModifierMask(value NSEventModifierFlags)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b NSButton) Init() NSButton {
@@ -385,11 +369,6 @@ func NewNSButton() NSButton {
 	return rv
 }
 
-
-
-
-
-
 // Creates a standard checkbox with the title you specify.
 //
 // title: The localized title string to display on the button.
@@ -403,7 +382,6 @@ func NewButtonCheckboxWithTitleTargetAction(title string, target objectivec.IObj
 	rv := objc.Send[objc.ID](objc.ID(getNSButtonClass().class), objc.Sel("checkboxWithTitle:target:action:"), objc.String(title), target, action)
 	return NSButtonFromID(rv)
 }
-
 
 // Creates a standard radio button with the title you specify.
 //
@@ -419,7 +397,6 @@ func NewButtonRadioButtonWithTitleTargetAction(title string, target objectivec.I
 	return NSButtonFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -428,7 +405,6 @@ func NewButtonWithCoder(coder foundation.INSCoder) NSButton {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSButtonFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -456,7 +432,6 @@ func NewButtonWithFrame(frameRect corefoundation.CGRect) NSButton {
 	return NSButtonFromID(rv)
 }
 
-
 // Creates a standard push button with the image you specify.
 //
 // image: The image to display in the body of the button.
@@ -476,7 +451,6 @@ func NewButtonWithImageTargetAction(image INSImage, target objectivec.IObject, a
 	return NSButtonFromID(rv)
 }
 
-
 // Creates a standard push button with a title and image.
 //
 // title: The localized title string to display on the button.
@@ -493,7 +467,6 @@ func NewButtonWithTitleImageTargetAction(title string, image INSImage, target ob
 	return NSButtonFromID(rv)
 }
 
-
 // Creates a standard push button with the title you specify.
 //
 // title: The localized title string to display on the button.
@@ -507,12 +480,6 @@ func NewButtonWithTitleTargetAction(title string, target objectivec.IObject, act
 	rv := objc.Send[objc.ID](objc.ID(getNSButtonClass().class), objc.Sel("buttonWithTitle:target:action:"), objc.String(title), target, action)
 	return NSButtonFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets the button’s type, which affects its user interface and behavior
 // when clicked.
@@ -633,31 +600,6 @@ func (b NSButton) Highlight(flag bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("highlight:"), flag)
 }
 
-// Returns a short description of the button.
-//
-// # Return Value
-// 
-// The description of this button.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
-// 
-// Do not include the accessibility element’s type in the label (for
-// example, write [Play] not `Play button`.). If possible, use a single word.
-// To help ensure that accessibility clients like VoiceOver read the label
-// with the correct intonation, this label should start with a capital letter.
-// Do not put a period at the end. Always localize the label.
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
-func (b NSButton) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](b.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Simulates clicking the button.
 //
 // # Return Value
@@ -693,20 +635,6 @@ func (b NSButton) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) b
 	rv := objc.Send[bool](b.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-func (b NSButton) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A tint color to use for the template image and text content.
 //
@@ -723,8 +651,6 @@ func (b NSButton) ContentTintColor() INSColor {
 func (b NSButton) SetContentTintColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setContentTintColor:"), value)
 }
-
-
 
 // A Boolean value that defines whether a button’s action has a destructive
 // effect.
@@ -745,8 +671,6 @@ func (b NSButton) SetHasDestructiveAction(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setHasDestructiveAction:"), value)
 }
 
-
-
 // The title that the button displays when the button is in an on state.
 //
 // # Discussion
@@ -764,8 +688,6 @@ func (b NSButton) AlternateTitle() string {
 func (b NSButton) SetAlternateTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateTitle:"), objc.String(value))
 }
-
-
 
 // The title that the button displays in an off state, as an attributed
 // string.
@@ -790,8 +712,6 @@ func (b NSButton) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttributedTitle:"), value)
 }
 
-
-
 // The title that the button displays as an attributed string when the button
 // is in an on state.
 //
@@ -810,8 +730,6 @@ func (b NSButton) AttributedAlternateTitle() foundation.NSAttributedString {
 func (b NSButton) SetAttributedAlternateTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttributedAlternateTitle:"), value)
 }
-
-
 
 // The title displayed on the button when it’s in an off state.
 //
@@ -833,8 +751,6 @@ func (b NSButton) SetTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitle:"), objc.String(value))
 }
 
-
-
 // The combination of point size, weight, and scale to use when sizing and
 // displaying symbol images.
 //
@@ -854,8 +770,6 @@ func (b NSButton) SetSymbolConfiguration(value INSImageSymbolConfiguration) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSymbolConfiguration:"), value)
 }
 
-
-
 // The sound that plays when the user clicks the button.
 //
 // # Discussion
@@ -873,8 +787,6 @@ func (b NSButton) Sound() INSSound {
 func (b NSButton) SetSound(value INSSound) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSound:"), value)
 }
-
-
 
 // A Boolean value that indicates whether spring loading is enabled for the
 // button.
@@ -916,8 +828,6 @@ func (b NSButton) SetSpringLoaded(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSpringLoaded:"), value)
 }
 
-
-
 // An integer value indicating the maximum pressure level for a button of type
 // [NSMultiLevelAcceleratorButton].
 //
@@ -951,8 +861,6 @@ func (b NSButton) SetMaxAcceleratorLevel(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setMaxAcceleratorLevel:"), value)
 }
 
-
-
 // The tint prominence of the button. Use tint prominence to gently suggest a
 // hierarchy when multiple buttons perform similar actions. A button with
 // primary tint prominence suggests the most preferred option, while secondary
@@ -970,8 +878,6 @@ func (b NSButton) SetTintProminence(value NSTintProminence) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTintProminence:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSButton/borderShape
 func (b NSButton) BorderShape() NSControlBorderShape {
 	rv := objc.Send[NSControlBorderShape](b.ID, objc.Sel("borderShape"))
@@ -980,8 +886,6 @@ func (b NSButton) BorderShape() NSControlBorderShape {
 func (b NSButton) SetBorderShape(value NSControlBorderShape) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBorderShape:"), value)
 }
-
-
 
 // The image that appears on the button when it’s in an off state, or `nil`
 // if there is no such image.
@@ -1001,8 +905,6 @@ func (b NSButton) SetImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImage:"), value)
 }
 
-
-
 // An alternate image that appears on the button when the button is in an on
 // state.
 //
@@ -1021,8 +923,6 @@ func (b NSButton) AlternateImage() INSImage {
 func (b NSButton) SetAlternateImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateImage:"), value)
 }
-
-
 
 // The position of the button’s image relative to its title.
 //
@@ -1044,8 +944,6 @@ func (b NSButton) SetImagePosition(value NSCellImagePosition) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImagePosition:"), value)
 }
 
-
-
 // A Boolean value that determines whether the button has a border.
 //
 // # Discussion
@@ -1066,8 +964,6 @@ func (b NSButton) Bordered() bool {
 func (b NSButton) SetBordered(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBordered:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the button is transparent.
 //
@@ -1092,8 +988,6 @@ func (b NSButton) SetTransparent(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTransparent:"), value)
 }
 
-
-
 // The appearance of the button’s border.
 //
 // # Return Value
@@ -1116,8 +1010,6 @@ func (b NSButton) SetBezelStyle(value NSBezelStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBezelStyle:"), value)
 }
 
-
-
 // The color of the button’s bezel, in appearances that support it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButton/bezelColor
@@ -1128,8 +1020,6 @@ func (b NSButton) BezelColor() INSColor {
 func (b NSButton) SetBezelColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBezelColor:"), value)
 }
-
-
 
 // A Boolean value that determines whether the button displays its border only
 // when the pointer is over it.
@@ -1155,8 +1045,6 @@ func (b NSButton) ShowsBorderOnlyWhileMouseInside() bool {
 func (b NSButton) SetShowsBorderOnlyWhileMouseInside(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setShowsBorderOnlyWhileMouseInside:"), value)
 }
-
-
 
 // A Boolean value that determines how the button’s image and title are
 // positioned together within the button bezel.
@@ -1184,8 +1072,6 @@ func (b NSButton) SetImageHugsTitle(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageHugsTitle:"), value)
 }
 
-
-
 // The scaling mode applied to make the cell’s image fit the frame of the
 // image view.
 //
@@ -1205,8 +1091,6 @@ func (b NSButton) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageScaling:"), value)
 }
 
-
-
 // The compression options active for this button.
 //
 // # Discussion
@@ -1220,8 +1104,6 @@ func (b NSButton) ActiveCompressionOptions() INSUserInterfaceCompressionOptions 
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("activeCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the button allows a mixed state.
 //
@@ -1249,8 +1131,6 @@ func (b NSButton) AllowsMixedState() bool {
 func (b NSButton) SetAllowsMixedState(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsMixedState:"), value)
 }
-
-
 
 // The button’s state.
 //
@@ -1292,8 +1172,6 @@ func (b NSButton) SetState(value NSControlStateValue) {
 	objc.Send[struct{}](b.ID, objc.Sel("setState:"), value)
 }
 
-
-
 // The key-equivalent character of the button.
 //
 // # Discussion
@@ -1320,8 +1198,6 @@ func (b NSButton) SetKeyEquivalent(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setKeyEquivalent:"), objc.String(value))
 }
 
-
-
 // The mask specifying the modifier keys for the button’s key equivalent.
 //
 // # Discussion
@@ -1339,18 +1215,6 @@ func (b NSButton) KeyEquivalentModifierMask() NSEventModifierFlags {
 func (b NSButton) SetKeyEquivalentModifierMask(value NSEventModifierFlags) {
 	objc.Send[struct{}](b.ID, objc.Sel("setKeyEquivalentModifierMask:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityButton
 			
@@ -1448,40 +1312,9 @@ func (o NSButton) IsAccessibilityFocused() bool {
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceCompression
 			
 
-
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

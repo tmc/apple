@@ -38,12 +38,6 @@ func (mc MLDictionaryFeatureProviderClass) Alloc() MLDictionaryFeatureProvider {
 	return rv
 }
 
-
-
-
-
-
-
 // A convenience wrapper for the given dictionary of data.
 //
 // # Overview
@@ -71,14 +65,10 @@ type MLDictionaryFeatureProvider struct {
 //
 // A convenience wrapper for the given dictionary of data.
 func MLDictionaryFeatureProviderFromID(id objc.ID) MLDictionaryFeatureProvider {
-	return MLDictionaryFeatureProvider{objectivec.Object{id}}
+	return MLDictionaryFeatureProvider{objectivec.Object{ID: id}}
 }
 // NOTE: MLDictionaryFeatureProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLDictionaryFeatureProvider] class.
 //
@@ -111,10 +101,6 @@ type IMLDictionaryFeatureProvider interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d MLDictionaryFeatureProvider) Init() MLDictionaryFeatureProvider {
 	rv := objc.Send[MLDictionaryFeatureProvider](d.ID, objc.Sel("init"))
@@ -134,11 +120,6 @@ func NewMLDictionaryFeatureProvider() MLDictionaryFeatureProvider {
 	return rv
 }
 
-
-
-
-
-
 // Creates the feature provider based on a dictionary.
 //
 // dictionary: The dictionary of feature names and feature values.
@@ -155,19 +136,13 @@ func NewDictionaryFeatureProviderWithDictionaryError(dictionary foundation.INSDi
 	return MLDictionaryFeatureProviderFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Creates the feature provider based on a dictionary.
 //
 // dictionary: The dictionary of feature names and feature values.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/init(dictionary:)
 func (d MLDictionaryFeatureProvider) InitWithDictionaryError(dictionary foundation.INSDictionary) (MLDictionaryFeatureProvider, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -203,17 +178,6 @@ func (d MLDictionaryFeatureProvider) EncodeWithCoder(coder foundation.INSCoder) 
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The backing dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLDictionaryFeatureProvider/dictionary
@@ -221,8 +185,6 @@ func (d MLDictionaryFeatureProvider) Dictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The set of valid feature names.
 //
@@ -232,34 +194,6 @@ func (d MLDictionaryFeatureProvider) FeatureNames() foundation.INSSet {
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MLFeatureProvider
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

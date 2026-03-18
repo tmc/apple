@@ -4,14 +4,13 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods that text view delegates can use to manage selection, set text attributes, work with the spell checker, and more.
 //
@@ -21,8 +20,6 @@ type NSTextViewDelegate interface {
 	NSTextDelegate
 }
 
-
-
 // NSTextViewDelegateObject wraps an existing Objective-C object that conforms to the NSTextViewDelegate protocol.
 type NSTextViewDelegateObject struct {
 	objectivec.Object
@@ -31,8 +28,6 @@ func (o NSTextViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextViewDelegateObjectFromID constructs a [NSTextViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextViewDelegateObjectFromID(id objc.ID) NSTextViewDelegateObject {
@@ -40,9 +35,6 @@ func NSTextViewDelegateObjectFromID(id objc.ID) NSTextViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the undo manager for the specified text view.
 //
@@ -603,7 +595,7 @@ func (o NSTextViewDelegateObject) TextViewShouldSetSpellingStateRange(textView I
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:willCheckTextIn:options:types:)
 
-func (o NSTextViewDelegateObject) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes uint64) foundation.INSDictionary {
+func (o NSTextViewDelegateObject) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes unsafe.Pointer) foundation.INSDictionary {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, checkingTypes)
 	return foundation.NSDictionaryFromID(rv)
@@ -726,7 +718,7 @@ func (o NSTextViewDelegateObject) TextViewDraggedCellInRectEventAtIndex(view INS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSTextViewDelegateObject) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSTextViewDelegateObject) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textView:completions:forPartialWordRange:indexOfSelectedItem:"), textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -907,10 +899,6 @@ func (o NSTextViewDelegateObject) TextDidEndEditing(notification foundation.NSNo
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)
 	}
 
-
-
-
-
 // NSTextViewDelegateConfig holds optional typed callbacks for [NSTextViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -951,7 +939,7 @@ type NSTextViewDelegateConfig struct {
 	// ShouldSelectCandidateAtIndex — Returns a Boolean value that indicates whether to select the text object at the index.
 	ShouldSelectCandidateAtIndex func(textView NSTextView, index uint) bool
 	// WillCheckTextInRangeOptionsTypes — Invoked to allow the delegate to modify the text checking process before it occurs.
-	WillCheckTextInRangeOptionsTypes func(view NSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes uint64) foundation.INSDictionary
+	WillCheckTextInRangeOptionsTypes func(view NSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes *uint64) foundation.INSDictionary
 	// WillShowSharingServicePickerForItems — Returns a sharing service picker for the current selection.
 	WillShowSharingServicePickerForItems func(textView NSTextView, servicePicker NSSharingServicePicker, items foundation.INSArray) NSSharingServicePicker
 	// MenuForEventAtIndex — Allows delegate to control the context menu returned by the text view.
@@ -1082,9 +1070,10 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		fn := config.WillCheckTextInRangeOptionsTypes
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:willCheckTextInRange:options:types:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID, range_ foundation.NSRange, optionsID objc.ID, checkingTypes uint64) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID, range_ foundation.NSRange, optionsID objc.ID, checkingTypesID objc.ID) objc.ID {
 				view := NSTextViewFromID(viewID)
 				options := foundation.NSDictionaryFromID(optionsID)
+				checkingTypes := *uint64FromID(checkingTypesID)
 				return fn(view, range_, options, checkingTypes).GetID()
 			},
 		})
@@ -1154,8 +1143,4 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextViewDelegateObjectFromID(instance)
 }
-
-
-
-
 

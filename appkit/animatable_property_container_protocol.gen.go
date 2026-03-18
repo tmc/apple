@@ -30,8 +30,6 @@ type NSAnimatablePropertyContainer interface {
 	SetAnimations(value foundation.INSDictionary)
 }
 
-
-
 // NSAnimatablePropertyContainerObject wraps an existing Objective-C object that conforms to the NSAnimatablePropertyContainer protocol.
 type NSAnimatablePropertyContainerObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o NSAnimatablePropertyContainerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAnimatablePropertyContainerObjectFromID constructs a [NSAnimatablePropertyContainerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAnimatablePropertyContainerObjectFromID(id objc.ID) NSAnimatablePropertyContainerObject {
@@ -49,9 +45,6 @@ func NSAnimatablePropertyContainerObjectFromID(id objc.ID) NSAnimatablePropertyC
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
@@ -127,14 +120,7 @@ func (o NSAnimatablePropertyContainerObject) AnimationForKey(key NSAnimatablePro
 	return objectivec.Object{ID: rv}
 	}
 
-
-
-
 func (o NSAnimatablePropertyContainerObject) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAnimations:"), value)
 }
-
-
-
-
 

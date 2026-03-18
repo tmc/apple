@@ -19,8 +19,6 @@ type NSDockTilePlugIn interface {
 	SetDockTile(dockTile INSDockTile)
 }
 
-
-
 // NSDockTilePlugInObject wraps an existing Objective-C object that conforms to the NSDockTilePlugIn protocol.
 type NSDockTilePlugInObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSDockTilePlugInObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDockTilePlugInObjectFromID constructs a [NSDockTilePlugInObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDockTilePlugInObjectFromID(id objc.ID) NSDockTilePlugInObject {
@@ -38,9 +34,6 @@ func NSDockTilePlugInObjectFromID(id objc.ID) NSDockTilePlugInObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked when the plug-in is first loaded and when the application is
 // removed from the Dock.
@@ -76,10 +69,4 @@ func (o NSDockTilePlugInObject) DockMenu() INSMenu {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dockMenu"))
 	return NSMenuFromID(rv)
 	}
-
-
-
-
-
-
 

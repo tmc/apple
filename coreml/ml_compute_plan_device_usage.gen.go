@@ -36,12 +36,6 @@ func (mc MLComputePlanDeviceUsageClass) Alloc() MLComputePlanDeviceUsage {
 	return rv
 }
 
-
-
-
-
-
-
 // The anticipated compute devices to use for executing a layer or operation.
 //
 // # Getting the compute device
@@ -58,14 +52,10 @@ type MLComputePlanDeviceUsage struct {
 //
 // The anticipated compute devices to use for executing a layer or operation.
 func MLComputePlanDeviceUsageFromID(id objc.ID) MLComputePlanDeviceUsage {
-	return MLComputePlanDeviceUsage{objectivec.Object{id}}
+	return MLComputePlanDeviceUsage{objectivec.Object{ID: id}}
 }
 // Ensure MLComputePlanDeviceUsage implements IMLComputePlanDeviceUsage.
 var _ IMLComputePlanDeviceUsage = MLComputePlanDeviceUsage{}
-
-
-
-
 
 // An interface definition for the [MLComputePlanDeviceUsage] class.
 //
@@ -86,10 +76,6 @@ type IMLComputePlanDeviceUsage interface {
 	SupportedComputeDevices() []objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MLComputePlanDeviceUsage) Init() MLComputePlanDeviceUsage {
 	rv := objc.Send[MLComputePlanDeviceUsage](c.ID, objc.Sel("init"))
@@ -109,26 +95,6 @@ func NewMLComputePlanDeviceUsage() MLComputePlanDeviceUsage {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The compute device that the framework prefers to execute the
 // layer/operation.
 //
@@ -137,8 +103,6 @@ func (c MLComputePlanDeviceUsage) PreferredComputeDevice() MLComputeDeviceProtoc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredComputeDevice"))
 	return MLComputeDeviceProtocolObjectFromID(rv)
 }
-
-
 
 // The compute devices that can execute the layer/operation.
 //
@@ -149,20 +113,4 @@ func (c MLComputePlanDeviceUsage) SupportedComputeDevices() []objectivec.IObject
 		return objectivec.Object{ID: id}
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

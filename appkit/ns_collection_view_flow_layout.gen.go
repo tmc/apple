@@ -37,12 +37,6 @@ func (nc NSCollectionViewFlowLayoutClass) Alloc() NSCollectionViewFlowLayout {
 	return rv
 }
 
-
-
-
-
-
-
 // A layout that organizes items into a flexible and configurable arrangement.
 //
 // # Overview
@@ -290,10 +284,6 @@ func NSCollectionViewFlowLayoutFromID(id objc.ID) NSCollectionViewFlowLayout {
 // NOTE: NSCollectionViewFlowLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionViewFlowLayout] class.
 //
 // # Configuring the Scroll Direction
@@ -389,12 +379,7 @@ type INSCollectionViewFlowLayout interface {
 	// The collection view’s delegate object.
 	Delegate() NSCollectionViewDelegate
 	SetDelegate(value NSCollectionViewDelegate)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCollectionViewFlowLayout) Init() NSCollectionViewFlowLayout {
@@ -415,16 +400,6 @@ func NewNSCollectionViewFlowLayout() NSCollectionViewFlowLayout {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/collapseSection(at:)
 func (c NSCollectionViewFlowLayout) CollapseSectionAtIndex(sectionIndex uint) {
@@ -443,20 +418,6 @@ func (c NSCollectionViewFlowLayout) SectionAtIndexIsCollapsed(sectionIndex uint)
 	rv := objc.Send[bool](c.ID, objc.Sel("sectionAtIndexIsCollapsed:"), sectionIndex)
 	return rv
 }
-func (c NSCollectionViewFlowLayout) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The scroll direction of the layout.
 //
@@ -484,8 +445,6 @@ func (c NSCollectionViewFlowLayout) ScrollDirection() NSCollectionViewScrollDire
 func (c NSCollectionViewFlowLayout) SetScrollDirection(value NSCollectionViewScrollDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setScrollDirection:"), value)
 }
-
-
 
 // The minimum spacing (in points) to use between rows or columns.
 //
@@ -518,8 +477,6 @@ func (c NSCollectionViewFlowLayout) SetMinimumLineSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumLineSpacing:"), value)
 }
 
-
-
 // The minimum spacing (in points) to use between items in the same row or
 // column.
 //
@@ -550,8 +507,6 @@ func (c NSCollectionViewFlowLayout) SetMinimumInteritemSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumInteritemSpacing:"), value)
 }
 
-
-
 // The estimated size of items in the collection view.
 //
 // # Discussion
@@ -578,8 +533,6 @@ func (c NSCollectionViewFlowLayout) SetEstimatedItemSize(value corefoundation.CG
 	objc.Send[struct{}](c.ID, objc.Sel("setEstimatedItemSize:"), value)
 }
 
-
-
 // The default size to use for items.
 //
 // # Discussion
@@ -603,8 +556,6 @@ func (c NSCollectionViewFlowLayout) ItemSize() corefoundation.CGSize {
 func (c NSCollectionViewFlowLayout) SetItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setItemSize:"), value)
 }
-
-
 
 // The margins used to lay out content in a section.
 //
@@ -632,8 +583,6 @@ func (c NSCollectionViewFlowLayout) SectionInset() foundation.NSEdgeInsets {
 func (c NSCollectionViewFlowLayout) SetSectionInset(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionInset:"), value)
 }
-
-
 
 // The default size to use for section headers.
 //
@@ -663,8 +612,6 @@ func (c NSCollectionViewFlowLayout) SetHeaderReferenceSize(value corefoundation.
 	objc.Send[struct{}](c.ID, objc.Sel("setHeaderReferenceSize:"), value)
 }
 
-
-
 // The default size to use for section footers.
 //
 // # Discussion
@@ -693,8 +640,6 @@ func (c NSCollectionViewFlowLayout) SetFooterReferenceSize(value corefoundation.
 	objc.Send[struct{}](c.ID, objc.Sel("setFooterReferenceSize:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/sectionFootersPinToVisibleBounds
 func (c NSCollectionViewFlowLayout) SectionFootersPinToVisibleBounds() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("sectionFootersPinToVisibleBounds"))
@@ -703,8 +648,6 @@ func (c NSCollectionViewFlowLayout) SectionFootersPinToVisibleBounds() bool {
 func (c NSCollectionViewFlowLayout) SetSectionFootersPinToVisibleBounds(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionFootersPinToVisibleBounds:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/sectionHeadersPinToVisibleBounds
 func (c NSCollectionViewFlowLayout) SectionHeadersPinToVisibleBounds() bool {
@@ -715,8 +658,6 @@ func (c NSCollectionViewFlowLayout) SetSectionHeadersPinToVisibleBounds(value bo
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionHeadersPinToVisibleBounds:"), value)
 }
 
-
-
 // An `NSSize` structure set to `0` in both dimensions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSZeroSize
@@ -724,8 +665,6 @@ func (c NSCollectionViewFlowLayout) NSZeroSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("NSZeroSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // The collection view’s delegate object.
 //
@@ -738,12 +677,6 @@ func (c NSCollectionViewFlowLayout) SetDelegate(value NSCollectionViewDelegate) 
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
-
-
-
-
 // A supplementary view that acts as a footer for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
@@ -752,8 +685,6 @@ func (_NSCollectionViewFlowLayoutClass NSCollectionViewFlowLayoutClass) ElementK
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // A supplementary view that acts as a header for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
@@ -761,25 +692,4 @@ func (_NSCollectionViewFlowLayoutClass NSCollectionViewFlowLayoutClass) ElementK
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewFlowLayoutClass.class), objc.Sel("NSCollectionElementKindSectionHeader"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

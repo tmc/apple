@@ -19,8 +19,6 @@ type NSColorChanging interface {
 	ChangeColor(sender INSColorPanel)
 }
 
-
-
 // NSColorChangingObject wraps an existing Objective-C object that conforms to the NSColorChanging protocol.
 type NSColorChangingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSColorChangingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSColorChangingObjectFromID constructs a [NSColorChangingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSColorChangingObjectFromID(id objc.ID) NSColorChangingObject {
@@ -38,9 +34,6 @@ func NSColorChangingObjectFromID(id objc.ID) NSColorChangingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent to the first responder when the user selects a color in an
 // NSColorPanel object.
@@ -53,10 +46,4 @@ func (o NSColorChangingObject) ChangeColor(sender INSColorPanel) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("changeColor:"), sender)
 	}
-
-
-
-
-
-
 

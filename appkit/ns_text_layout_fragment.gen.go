@@ -39,12 +39,6 @@ func (nc NSTextLayoutFragmentClass) Alloc() NSTextLayoutFragment {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents the layout fragment typically corresponding to a
 // rendering surface, such as a layer or view subclass.
 //
@@ -100,14 +94,10 @@ type NSTextLayoutFragment struct {
 // A class that represents the layout fragment typically corresponding to a
 // rendering surface, such as a layer or view subclass.
 func NSTextLayoutFragmentFromID(id objc.ID) NSTextLayoutFragment {
-	return NSTextLayoutFragment{objectivec.Object{id}}
+	return NSTextLayoutFragment{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextLayoutFragment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextLayoutFragment] class.
 //
@@ -222,10 +212,6 @@ type INSTextLayoutFragment interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextLayoutFragment) Init() NSTextLayoutFragment {
 	rv := objc.Send[NSTextLayoutFragment](t.ID, objc.Sel("init"))
@@ -245,11 +231,6 @@ func NewNSTextLayoutFragment() NSTextLayoutFragment {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new layout fragment with the coder you provide.
 //
 // coder: A coder that conforms to [NSCoder].
@@ -262,7 +243,6 @@ func NewTextLayoutFragmentWithCoder(coder foundation.INSCoder) NSTextLayoutFragm
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextLayoutFragmentFromID(rv)
 }
-
 
 // Create a new layout fragment using the provided text element and range.
 //
@@ -277,12 +257,6 @@ func NewTextLayoutFragmentWithTextElementRange(textElement INSTextElement, range
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTextElement:range:"), textElement, rangeInElement)
 	return NSTextLayoutFragmentFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new layout fragment with the coder you provide.
 //
@@ -418,17 +392,6 @@ func (t NSTextLayoutFragment) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An array of text line fragments.
 //
 // # Discussion
@@ -446,8 +409,6 @@ func (t NSTextLayoutFragment) TextLineFragments() []NSTextLineFragment {
 	})
 }
 
-
-
 // The layout information state.
 //
 // # Discussion
@@ -460,8 +421,6 @@ func (t NSTextLayoutFragment) State() NSTextLayoutFragmentState {
 	return NSTextLayoutFragmentState(rv)
 }
 
-
-
 // The range inside the text element relative to the document origin.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/rangeInElement
@@ -469,8 +428,6 @@ func (t NSTextLayoutFragment) RangeInElement() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("rangeInElement"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
-
-
 
 // The parent text element.
 //
@@ -480,8 +437,6 @@ func (t NSTextLayoutFragment) TextElement() INSTextElement {
 	return NSTextElementFromID(objc.ID(rv))
 }
 
-
-
 // The layout manager for this text layout fragment.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/textLayoutManager
@@ -489,8 +444,6 @@ func (t NSTextLayoutFragment) TextLayoutManager() INSTextLayoutManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
-
 
 // The rectangle the framework uses for tiling the layout fragment inside the
 // target layout coordinate system.
@@ -500,8 +453,6 @@ func (t NSTextLayoutFragment) LayoutFragmentFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("layoutFragmentFrame"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The bounds defining the area required for rendering the contents.
 //
@@ -522,8 +473,6 @@ func (t NSTextLayoutFragment) RenderingSurfaceBounds() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The attachment view provider associated with the text layout fragment.
 //
 // # Discussion
@@ -541,8 +490,6 @@ func (t NSTextLayoutFragment) TextAttachmentViewProviders() []NSTextAttachmentVi
 	})
 }
 
-
-
 // The queue on which the framework dispatches layout operations.
 //
 // # Discussion
@@ -558,8 +505,6 @@ func (t NSTextLayoutFragment) SetLayoutQueue(value foundation.NSOperationQueue) 
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutQueue:"), value)
 }
 
-
-
 // The amount of space reserved during paragraph layout between the bottom of
 // the last line in the paragraph and the bottom of the text layout fragment.
 //
@@ -568,8 +513,6 @@ func (t NSTextLayoutFragment) BottomMargin() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("bottomMargin"))
 	return rv
 }
-
-
 
 // The amount of margin space reserved during paragraph layout between the
 // leading edge of the text layout fragment and the start of the lines in the
@@ -586,8 +529,6 @@ func (t NSTextLayoutFragment) LeadingPadding() float64 {
 	return rv
 }
 
-
-
 // The amount of space reserved during paragraph layout between the top of the
 // text layout fragment and the top of the first line in the paragraph.
 //
@@ -596,8 +537,6 @@ func (t NSTextLayoutFragment) TopMargin() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("topMargin"))
 	return rv
 }
-
-
 
 // The amount of margin space reserved during paragraph layout between the end
 // of the lines in the paragraph and the trailing edge of the text layout
@@ -612,28 +551,4 @@ func (t NSTextLayoutFragment) TrailingPadding() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("trailingPadding"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

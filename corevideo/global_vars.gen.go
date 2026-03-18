@@ -3,7 +3,6 @@
 package corevideo
 
 import (
-	"unsafe"
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -329,9 +328,8 @@ func init() {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVBufferMovieTimeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -341,7 +339,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVBufferNonPropagatedAttachmentsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -351,7 +349,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVBufferPropagatedAttachmentsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -361,7 +359,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVBufferTimeScaleKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -371,7 +369,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVBufferTimeValueKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -381,7 +379,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferAlphaChannelIsOpaque"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -391,7 +389,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferAlphaChannelModeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -401,7 +399,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferAlphaChannelMode_PremultipliedAlpha"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -411,7 +409,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferAlphaChannelMode_StraightAlpha"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -421,7 +419,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferAmbientViewingEnvironmentKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -431,7 +429,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferCGColorSpaceKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -441,7 +439,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocationBottomFieldKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -451,7 +449,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocationTopFieldKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -461,7 +459,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_Bottom"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -471,7 +469,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_BottomLeft"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -481,7 +479,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_Center"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -491,7 +489,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_DV420"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -501,7 +499,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_Left"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -511,7 +509,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_Top"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -521,7 +519,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaLocation_TopLeft"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -531,7 +529,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaSubsamplingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -541,7 +539,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaSubsampling_411"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -551,7 +549,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaSubsampling_420"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -561,7 +559,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferChromaSubsampling_422"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -571,7 +569,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferCleanApertureHeightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -581,7 +579,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferCleanApertureHorizontalOffsetKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -591,7 +589,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferCleanApertureKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -601,7 +599,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferCleanApertureVerticalOffsetKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -611,7 +609,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferCleanApertureWidthKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -621,7 +619,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimariesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -631,7 +629,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_DCI_P3"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -641,7 +639,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_EBU_3213"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -651,7 +649,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_ITU_R_2020"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -661,7 +659,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_ITU_R_709_2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -671,7 +669,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_P22"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -681,7 +679,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_P3_D65"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -691,7 +689,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferColorPrimaries_SMPTE_C"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -701,7 +699,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferContentLightLevelInfoKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -711,7 +709,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayDimensionsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -721,7 +719,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayHeightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -731,7 +729,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangleKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -741,7 +739,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangleStereoLeftKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -751,7 +749,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangleStereoRightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -761,7 +759,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_LeftEdgePointsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -771,7 +769,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_RectangleHeightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -781,7 +779,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_RectangleLeftKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -791,7 +789,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_RectangleTopKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -801,7 +799,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_RectangleWidthKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -811,7 +809,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_ReferenceRasterHeightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -821,7 +819,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_ReferenceRasterWidthKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -831,7 +829,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayMaskRectangle_RightEdgePointsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -841,7 +839,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferDisplayWidthKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -851,7 +849,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferFieldCountKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -861,7 +859,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferFieldDetailKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -871,7 +869,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferFieldDetailSpatialFirstLineEarly"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -881,7 +879,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferFieldDetailSpatialFirstLineLate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -891,7 +889,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferFieldDetailTemporalBottomFirst"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -901,7 +899,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferFieldDetailTemporalTopFirst"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -911,7 +909,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferGammaLevelKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -921,7 +919,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferICCProfileKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -931,7 +929,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferLogTransferFunctionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -941,7 +939,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferLogTransferFunction_AppleLog"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -951,7 +949,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferLogTransferFunction_AppleLog2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -961,7 +959,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferMasteringDisplayColorVolumeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -971,7 +969,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferPixelAspectRatioHorizontalSpacingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -981,7 +979,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferPixelAspectRatioKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -991,7 +989,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferPixelAspectRatioVerticalSpacingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1001,7 +999,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferPostDecodeProcessingFrameMetadataKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1011,7 +1009,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferPostDecodeProcessingSequenceMetadataKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1021,7 +1019,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferPreferredCleanApertureKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1031,7 +1029,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferRegionOfInterestKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1041,7 +1039,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferSceneIlluminationKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1051,7 +1049,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunctionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1061,7 +1059,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_ITU_R_2020"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1071,7 +1069,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_ITU_R_2100_HLG"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1081,7 +1079,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_ITU_R_709_2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1091,7 +1089,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_Linear"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1101,7 +1099,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_SMPTE_240M_1995"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1111,7 +1109,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1121,7 +1119,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_SMPTE_ST_428_1"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1131,7 +1129,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_UseGamma"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1141,7 +1139,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferTransferFunction_sRGB"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1151,7 +1149,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferYCbCrMatrixKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1161,7 +1159,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferYCbCrMatrix_ITU_R_2020"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1171,7 +1169,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferYCbCrMatrix_ITU_R_601_4"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1181,7 +1179,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferYCbCrMatrix_ITU_R_709_2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1191,7 +1189,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVImageBufferYCbCrMatrix_SMPTE_240M_1995"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1201,7 +1199,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVMetalBufferCacheMaximumBufferAgeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1211,7 +1209,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVMetalTextureCacheMaximumTextureAgeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1221,7 +1219,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVMetalTextureStorageMode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1231,7 +1229,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVMetalTextureUsage"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1241,7 +1239,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferBytesPerRowAlignmentKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1251,7 +1249,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferCGBitmapContextCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1261,7 +1259,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferCGImageCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1271,7 +1269,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferExtendedPixelsBottomKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1281,7 +1279,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferExtendedPixelsLeftKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1291,7 +1289,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferExtendedPixelsRightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1301,7 +1299,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferExtendedPixelsTopKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1311,7 +1309,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferHeightKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1321,7 +1319,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1331,7 +1329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferIOSurfaceOpenGLFBOCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1341,7 +1339,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferIOSurfaceOpenGLTextureCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1351,7 +1349,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferIOSurfacePropertiesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1361,7 +1359,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferIOSurfacePurgeableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1371,7 +1369,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferMemoryAllocatorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1381,7 +1379,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferMetalCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1391,7 +1389,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferOpenGLCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1401,7 +1399,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferOpenGLTextureCacheCompatibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1411,7 +1409,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferPixelFormatTypeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1421,7 +1419,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferPlaneAlignmentKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1431,7 +1429,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferPoolAllocationThresholdKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1441,7 +1439,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferPoolFreeBufferNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1451,7 +1449,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferPoolMaximumBufferAgeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1461,7 +1459,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferPoolMinimumBufferCountKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1471,7 +1469,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_BlackLevel"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1481,7 +1479,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_ColorMatrix"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1491,7 +1489,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_GainFactor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1501,7 +1499,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_MetadataExtension"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1511,7 +1509,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_RecommendedCrop"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1521,7 +1519,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_SenselSitingOffsets"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1531,7 +1529,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_WhiteBalanceBlueFactor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1541,7 +1539,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_WhiteBalanceCCT"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1551,7 +1549,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_WhiteBalanceRedFactor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1561,7 +1559,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferProResRAWKey_WhiteLevel"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1571,7 +1569,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferVersatileBayerKey_BayerPattern"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1581,7 +1579,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelBufferWidthKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1591,7 +1589,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBitsPerBlock"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1601,7 +1599,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBitsPerComponent"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1611,7 +1609,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBlackBlock"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1621,7 +1619,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBlockHeight"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1631,7 +1629,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBlockHorizontalAlignment"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1641,7 +1639,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBlockVerticalAlignment"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1651,7 +1649,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatBlockWidth"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1661,7 +1659,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatCGBitmapContextCompatibility"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1671,7 +1669,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatCGBitmapInfo"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1681,7 +1679,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatCGImageCompatibility"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1691,7 +1689,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatCodecType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1701,7 +1699,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatComponentRange"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1711,7 +1709,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatComponentRange_FullRange"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1721,7 +1719,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatComponentRange_VideoRange"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1731,7 +1729,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatComponentRange_WideRange"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1741,7 +1739,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatConstant"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1751,7 +1749,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatContainsAlpha"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1761,7 +1759,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatContainsGrayscale"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1771,7 +1769,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatContainsRGB"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1781,7 +1779,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatContainsSenselArray"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1791,7 +1789,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatContainsYCbCr"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1801,7 +1799,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatFillExtendedPixelsCallback"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1811,7 +1809,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatFourCC"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1821,7 +1819,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatHorizontalSubsampling"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1831,7 +1829,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1841,7 +1839,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatOpenGLCompatibility"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1851,7 +1849,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatOpenGLFormat"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1861,7 +1859,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatOpenGLInternalFormat"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1871,7 +1869,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatOpenGLType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1881,7 +1879,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatPlanes"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1891,7 +1889,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatQDCompatibility"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1901,7 +1899,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVPixelFormatVerticalSubsampling"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {

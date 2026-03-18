@@ -37,12 +37,6 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 	return rv
 }
 
-
-
-
-
-
-
 // The Cocoa interface to speech synthesis in macOS.
 //
 // # Overview
@@ -129,14 +123,10 @@ type NSSpeechSynthesizer struct {
 //
 // The Cocoa interface to speech synthesis in macOS.
 func NSSpeechSynthesizerFromID(id objc.ID) NSSpeechSynthesizer {
-	return NSSpeechSynthesizer{objectivec.Object{id}}
+	return NSSpeechSynthesizer{objectivec.Object{ID: id}}
 }
 // NOTE: NSSpeechSynthesizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSpeechSynthesizer] class.
 //
@@ -189,10 +179,6 @@ type INSSpeechSynthesizer interface {
 	Gender() NSVoiceAttributeKey
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSpeechSynthesizer) Init() NSSpeechSynthesizer {
 	rv := objc.Send[NSSpeechSynthesizer](s.ID, objc.Sel("init"))
@@ -211,11 +197,6 @@ func NewNSSpeechSynthesizer() NSSpeechSynthesizer {
 	rv := objc.Send[NSSpeechSynthesizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes the receiver with a voice.
 //
@@ -237,23 +218,6 @@ func NewSpeechSynthesizerWithVoice(voice NSSpeechSynthesizerVoiceName) NSSpeechS
 	return NSSpeechSynthesizerFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The synthesizer’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/delegate
@@ -264,8 +228,6 @@ func (s NSSpeechSynthesizer) Delegate() NSSpeechSynthesizerDelegate {
 func (s NSSpeechSynthesizer) SetDelegate(value NSSpeechSynthesizerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // Indicates whether the receiver uses the speech feedback window.
 //
@@ -289,8 +251,6 @@ func (s NSSpeechSynthesizer) SetUsesFeedbackWindow(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUsesFeedbackWindow:"), value)
 }
 
-
-
 // The synthesizer’s speaking rate (words per minute).
 //
 // # Discussion
@@ -308,8 +268,6 @@ func (s NSSpeechSynthesizer) Rate() float32 {
 func (s NSSpeechSynthesizer) SetRate(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRate:"), value)
 }
-
-
 
 // The synthesizer’s speaking volume.
 //
@@ -330,8 +288,6 @@ func (s NSSpeechSynthesizer) SetVolume(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVolume:"), value)
 }
 
-
-
 // Indicates whether the receiver is currently generating synthesized speech.
 //
 // # Discussion
@@ -348,8 +304,6 @@ func (s NSSpeechSynthesizer) Speaking() bool {
 	return rv
 }
 
-
-
 // The perceived gender of the voice. The supported values are listed in
 //
 // See: https://developer.apple.com/documentation/appkit/nsspeechsynthesizer/voiceattributekey/gender
@@ -357,12 +311,6 @@ func (s NSSpeechSynthesizer) Gender() NSVoiceAttributeKey {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("NSVoiceGender"))
 	return NSVoiceAttributeKey(foundation.NSStringFromID(rv).String())
 }
-
-
-
-
-
-
 
 // Provides the identifiers of the voices available on the system.
 //
@@ -377,8 +325,6 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) AvailableVoices() []st
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // Provides the identifier of the default voice.
 //
 // # Return Value
@@ -390,8 +336,6 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) DefaultVoice() NSSpeec
 	rv := objc.Send[objc.ID](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("defaultVoice"))
 	return NSSpeechSynthesizerVoiceName(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // A Boolean value indicating whether any application is currently speaking
 // through the sound output device.
@@ -410,22 +354,4 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) AnyApplicationSpeaking
 	rv := objc.Send[bool](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("isAnyApplicationSpeaking"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

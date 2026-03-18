@@ -15,8 +15,6 @@ type NSImageDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSImageDelegateObject wraps an existing Objective-C object that conforms to the NSImageDelegate protocol.
 type NSImageDelegateObject struct {
 	objectivec.Object
@@ -25,8 +23,6 @@ func (o NSImageDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSImageDelegateObjectFromID constructs a [NSImageDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSImageDelegateObjectFromID(id objc.ID) NSImageDelegateObject {
@@ -34,9 +30,6 @@ func NSImageDelegateObjectFromID(id objc.ID) NSImageDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the image object is unable, for whatever reason, to
 // lock focus on its image or draw in the specified rectangle.
@@ -65,10 +58,4 @@ func (o NSImageDelegateObject) ImageDidNotDrawInRect(sender INSImage, rect coref
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageDidNotDraw:inRect:"), sender, rect)
 	return NSImageFromID(rv)
 	}
-
-
-
-
-
-
 

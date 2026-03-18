@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // Optional methods that delegates implement to respond to viewport layout changes.
 //
@@ -29,8 +27,6 @@ type NSTextViewportLayoutControllerDelegate interface {
 	ViewportBoundsForTextViewportLayoutController(textViewportLayoutController INSTextViewportLayoutController) corefoundation.CGRect
 }
 
-
-
 // NSTextViewportLayoutControllerDelegateObject wraps an existing Objective-C object that conforms to the NSTextViewportLayoutControllerDelegate protocol.
 type NSTextViewportLayoutControllerDelegateObject struct {
 	objectivec.Object
@@ -39,8 +35,6 @@ func (o NSTextViewportLayoutControllerDelegateObject) BaseObject() objectivec.Ob
 	return o.Object
 }
 
-
-
 // NSTextViewportLayoutControllerDelegateObjectFromID constructs a [NSTextViewportLayoutControllerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextViewportLayoutControllerDelegateObjectFromID(id objc.ID) NSTextViewportLayoutControllerDelegateObject {
@@ -48,9 +42,6 @@ func NSTextViewportLayoutControllerDelegateObjectFromID(id objc.ID) NSTextViewpo
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method the framework calls when the layout controller lays out a text
 // layout fragment in the UI.
@@ -121,10 +112,6 @@ func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControll
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutControllerWillLayout:"), textViewportLayoutController)
 	}
-
-
-
-
 
 // NSTextViewportLayoutControllerDelegateConfig holds optional typed callbacks for [NSTextViewportLayoutControllerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -215,8 +202,4 @@ func NewNSTextViewportLayoutControllerDelegate(config NSTextViewportLayoutContro
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextViewportLayoutControllerDelegateObjectFromID(instance)
 }
-
-
-
-
 

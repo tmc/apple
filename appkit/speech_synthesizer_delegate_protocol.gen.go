@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSSpeechSynthesizer](<doc://com.apple.appkit/documentation/AppKit/NSSpeechSynthesizer>) objects.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSSpeechSynthesizerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSSpeechSynthesizerDelegateObject wraps an existing Objective-C object that conforms to the NSSpeechSynthesizerDelegate protocol.
 type NSSpeechSynthesizerDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSSpeechSynthesizerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSpeechSynthesizerDelegateObjectFromID constructs a [NSSpeechSynthesizerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSpeechSynthesizerDelegateObjectFromID(id objc.ID) NSSpeechSynthesizerDelegateObject {
@@ -37,13 +31,6 @@ func NSSpeechSynthesizerDelegateObjectFromID(id objc.ID) NSSpeechSynthesizerDele
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
 
 // NSSpeechSynthesizerDelegateConfig holds optional typed callbacks for [NSSpeechSynthesizerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -118,8 +105,4 @@ func NewNSSpeechSynthesizerDelegate(config NSSpeechSynthesizerDelegateConfig) NS
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSpeechSynthesizerDelegateObjectFromID(instance)
 }
-
-
-
-
 

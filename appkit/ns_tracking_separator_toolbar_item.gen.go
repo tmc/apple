@@ -35,12 +35,6 @@ func (nc NSTrackingSeparatorToolbarItemClass) Alloc() NSTrackingSeparatorToolbar
 	return rv
 }
 
-
-
-
-
-
-
 // A toolbar separator that aligns with the vertical split view in the same
 // window.
 //
@@ -76,10 +70,6 @@ func NSTrackingSeparatorToolbarItemFromID(id objc.ID) NSTrackingSeparatorToolbar
 // NOTE: NSTrackingSeparatorToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTrackingSeparatorToolbarItem] class.
 //
 // # configuring a tracking separator
@@ -103,10 +93,6 @@ type INSTrackingSeparatorToolbarItem interface {
 	SetSplitView(value INSSplitView)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTrackingSeparatorToolbarItem) Init() NSTrackingSeparatorToolbarItem {
 	rv := objc.Send[NSTrackingSeparatorToolbarItem](t.ID, objc.Sel("init"))
@@ -126,11 +112,6 @@ func NewNSTrackingSeparatorToolbarItem() NSTrackingSeparatorToolbarItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new tracking separator toolbar item and configures it to align
 // with the divider of the split view.
 //
@@ -145,7 +126,6 @@ func NewTrackingSeparatorToolbarItemWithIdentifierSplitViewDividerIndex(identifi
 	rv := objc.Send[objc.ID](objc.ID(getNSTrackingSeparatorToolbarItemClass().class), objc.Sel("trackingSeparatorToolbarItemWithIdentifier:splitView:dividerIndex:"), objc.String(string(identifier)), splitView, dividerIndex)
 	return NSTrackingSeparatorToolbarItemFromID(rv)
 }
-
 
 // Creates a toolbar item with the specified identifier.
 //
@@ -164,23 +144,6 @@ func NewTrackingSeparatorToolbarItemWithItemIdentifier(itemIdentifier NSToolbarI
 	return NSTrackingSeparatorToolbarItemFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The index of the split view divider to align with the tracking separator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTrackingSeparatorToolbarItem/dividerIndex
@@ -191,8 +154,6 @@ func (t NSTrackingSeparatorToolbarItem) DividerIndex() int {
 func (t NSTrackingSeparatorToolbarItem) SetDividerIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDividerIndex:"), value)
 }
-
-
 
 // The vertical split view to align with the toolbar separator.
 //
@@ -209,30 +170,4 @@ func (t NSTrackingSeparatorToolbarItem) SplitView() INSSplitView {
 func (t NSTrackingSeparatorToolbarItem) SetSplitView(value INSSplitView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSplitView:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

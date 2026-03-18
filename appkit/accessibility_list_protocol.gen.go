@@ -19,8 +19,6 @@ type NSAccessibilityList interface {
 	NSAccessibilityTable
 }
 
-
-
 // NSAccessibilityListObject wraps an existing Objective-C object that conforms to the NSAccessibilityList protocol.
 type NSAccessibilityListObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSAccessibilityListObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityListObjectFromID constructs a [NSAccessibilityListObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityListObjectFromID(id objc.ID) NSAccessibilityListObject {
@@ -38,9 +34,6 @@ func NSAccessibilityListObjectFromID(id objc.ID) NSAccessibilityListObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the accessibility element’s frame in screen coordinates.
 //
@@ -408,10 +401,4 @@ func (o NSAccessibilityListObject) SetAccessibilitySelectedRows(selectedRows []o
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
 	}
-
-
-
-
-
-
 

@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // An interface for managing content for the macOS share sheet.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSSharingServicePickerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSSharingServicePickerDelegateObject wraps an existing Objective-C object that conforms to the NSSharingServicePickerDelegate protocol.
 type NSSharingServicePickerDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSSharingServicePickerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSharingServicePickerDelegateObjectFromID constructs a [NSSharingServicePickerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSharingServicePickerDelegateObjectFromID(id objc.ID) NSSharingServicePickerDelegateObject {
@@ -38,9 +32,6 @@ func NSSharingServicePickerDelegateObjectFromID(id objc.ID) NSSharingServicePick
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate to specify which services to make available from the
 // sharing service picker.
@@ -133,10 +124,6 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerCollaborationM
 	})
 	}
 
-
-
-
-
 // NSSharingServicePickerDelegateConfig holds optional typed callbacks for [NSSharingServicePickerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -198,8 +185,4 @@ func NewNSSharingServicePickerDelegate(config NSSharingServicePickerDelegateConf
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSharingServicePickerDelegateObjectFromID(instance)
 }
-
-
-
-
 

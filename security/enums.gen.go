@@ -1416,9 +1416,9 @@ const (
 	CSSM_ALGID_WrapSET_OAEP CssmAlgid = 0
 	CSSM_ALGID_XORBaseAndData CssmAlgid = 0
 	CSSM_ALGID__FIRST_UNUSED CssmAlgid = 30
-	// Deprecated: use CSSM_ALGID_APPLE_YARROW.
+	// Deprecated: use CSSM_ALGID_3DES.
 	CSSM_ALGID_SSL3MasterDerive CssmAlgid = 0
-	// Deprecated: use CSSM_ALGID_APPLE_YARROW.
+	// Deprecated: use CSSM_ALGID_3DES.
 	CSSM_ALGID_SSL3PreMasterGen CssmAlgid = 0
 )
 

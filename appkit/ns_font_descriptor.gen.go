@@ -37,12 +37,6 @@ func (nc NSFontDescriptorClass) Alloc() NSFontDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A dictionary of attributes that describe a font.
 //
 // # Overview
@@ -113,14 +107,10 @@ type NSFontDescriptor struct {
 //
 // A dictionary of attributes that describe a font.
 func NSFontDescriptorFromID(id objc.ID) NSFontDescriptor {
-	return NSFontDescriptor{objectivec.Object{id}}
+	return NSFontDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: NSFontDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFontDescriptor] class.
 //
@@ -222,10 +212,6 @@ type INSFontDescriptor interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFontDescriptor) Init() NSFontDescriptor {
 	rv := objc.Send[NSFontDescriptor](f.ID, objc.Sel("init"))
@@ -245,11 +231,6 @@ func NewNSFontDescriptor() NSFontDescriptor {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new font descriptor with the specified
 // attributes.
 //
@@ -266,7 +247,6 @@ func NewFontDescriptorWithFontAttributes(attributes foundation.INSDictionary) NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFontAttributes:"), attributes)
 	return NSFontDescriptorFromID(rv)
 }
-
 
 // Returns a font descriptor with the name and matrix attributes set to the
 // given values.
@@ -285,7 +265,6 @@ func NewFontDescriptorWithNameMatrix(fontName string, matrix foundation.NSAffine
 	return NSFontDescriptorFromID(rv)
 }
 
-
 // Returns a font descriptor with the name and size attributes set to the
 // given values.
 //
@@ -302,12 +281,6 @@ func NewFontDescriptorWithNameSize(fontName string, size float64) NSFontDescript
 	rv := objc.Send[objc.ID](objc.ID(getNSFontDescriptorClass().class), objc.Sel("fontDescriptorWithName:size:"), objc.String(fontName), size)
 	return NSFontDescriptorFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a new font descriptor with the specified
 // attributes.
@@ -505,10 +478,6 @@ func (f NSFontDescriptor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns a font descriptor that contains the text style.
 //
 // style: The text style for which to return a font descriptor. See [NSFontTextStyle]
@@ -533,13 +502,6 @@ func (_NSFontDescriptorClass NSFontDescriptorClass) PreferredFontDescriptorForTe
 	return NSFontDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The receiver’s dictionary of attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/fontAttributes
@@ -547,8 +509,6 @@ func (f NSFontDescriptor) FontAttributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The current transform matrix of the receiver.
 //
@@ -558,8 +518,6 @@ func (f NSFontDescriptor) Matrix() foundation.NSAffineTransform {
 	return foundation.NSAffineTransformFromID(objc.ID(rv))
 }
 
-
-
 // The point size of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/pointSize
@@ -568,8 +526,6 @@ func (f NSFontDescriptor) PointSize() float64 {
 	return rv
 }
 
-
-
 // The PostScript name of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/postscriptName
@@ -577,8 +533,6 @@ func (f NSFontDescriptor) PostscriptName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("postscriptName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // Constant you use to access
 //
@@ -591,8 +545,6 @@ func (f NSFontDescriptor) SetNSFontFamilyClassMask(value uint32) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSFontFamilyClassMask:"), value)
 }
 
-
-
 // A bit mask that describes the traits of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/symbolicTraits-swift.property
@@ -601,36 +553,9 @@ func (f NSFontDescriptor) SymbolicTraits() NSFontDescriptorSymbolicTraits {
 	return NSFontDescriptorSymbolicTraits(rv)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/requiresFontAssetRequest
 func (f NSFontDescriptor) RequiresFontAssetRequest() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("requiresFontAssetRequest"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

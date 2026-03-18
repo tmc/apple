@@ -14,8 +14,6 @@ type NSIgnoreMisspelledWords interface {
 	objectivec.IObject
 }
 
-
-
 // NSIgnoreMisspelledWordsObject wraps an existing Objective-C object that conforms to the NSIgnoreMisspelledWords protocol.
 type NSIgnoreMisspelledWordsObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSIgnoreMisspelledWordsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSIgnoreMisspelledWordsObjectFromID constructs a [NSIgnoreMisspelledWordsObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSIgnoreMisspelledWordsObjectFromID(id objc.ID) NSIgnoreMisspelledWordsObject {
@@ -33,9 +29,6 @@ func NSIgnoreMisspelledWordsObjectFromID(id objc.ID) NSIgnoreMisspelledWordsObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 //
 // # Discussion
@@ -52,10 +45,4 @@ func (o NSIgnoreMisspelledWordsObject) IgnoreSpelling(sender objectivec.IObject)
 	
 	objc.Send[struct{}](o.ID, objc.Sel("ignoreSpelling:"), sender)
 	}
-
-
-
-
-
-
 

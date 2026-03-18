@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The optional methods that delegates of content storage objects implement to handle content processing.
 //
@@ -20,8 +18,6 @@ type NSTextContentStorageDelegate interface {
 	NSTextContentManagerDelegate
 }
 
-
-
 // NSTextContentStorageDelegateObject wraps an existing Objective-C object that conforms to the NSTextContentStorageDelegate protocol.
 type NSTextContentStorageDelegateObject struct {
 	objectivec.Object
@@ -30,8 +26,6 @@ func (o NSTextContentStorageDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextContentStorageDelegateObjectFromID constructs a [NSTextContentStorageDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextContentStorageDelegateObjectFromID(id objc.ID) NSTextContentStorageDelegateObject {
@@ -39,9 +33,6 @@ func NSTextContentStorageDelegateObjectFromID(id objc.ID) NSTextContentStorageDe
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a custom paragraph for a range that you provide from the object’s
 // attributed string.
@@ -118,10 +109,6 @@ func (o NSTextContentStorageDelegateObject) TextContentManagerShouldEnumerateTex
 	return rv
 	}
 
-
-
-
-
 // NSTextContentStorageDelegateConfig holds optional typed callbacks for [NSTextContentStorageDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -182,8 +169,4 @@ func NewNSTextContentStorageDelegate(config NSTextContentStorageDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextContentStorageDelegateObjectFromID(instance)
 }
-
-
-
-
 

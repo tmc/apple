@@ -37,12 +37,6 @@ func (nc NSFontManagerClass) Alloc() NSFontManager {
 	return rv
 }
 
-
-
-
-
-
-
 // The center of activity for the font-conversion system.
 //
 // # Overview
@@ -143,14 +137,10 @@ type NSFontManager struct {
 //
 // The center of activity for the font-conversion system.
 func NSFontManagerFromID(id objc.ID) NSFontManager {
-	return NSFontManager{objectivec.Object{id}}
+	return NSFontManager{objectivec.Object{ID: id}}
 }
 // NOTE: NSFontManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFontManager] class.
 //
@@ -341,10 +331,6 @@ type INSFontManager interface {
 	SetDelegate(value objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFontManager) Init() NSFontManager {
 	rv := objc.Send[NSFontManager](f.ID, objc.Sel("init"))
@@ -363,15 +349,6 @@ func NewNSFontManager() NSFontManager {
 	rv := objc.Send[NSFontManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the names of the fonts available in the system whose traits are
 // described exactly by the given font trait mask (not the [NSFont] objects
@@ -1014,10 +991,6 @@ func (f NSFontManager) ValidateMenuItem(menuItem INSMenuItem) bool {
 	return rv
 }
 
-
-
-
-
 // Sets the class that creates the shared font manager object.
 //
 // factoryId: The new font manager factory class, which must be a subclass of
@@ -1053,13 +1026,6 @@ func (_NSFontManagerClass NSFontManagerClass) SetFontPanelFactory(factoryId objc
 	objc.Send[objc.ID](objc.ID(_NSFontManagerClass.class), objc.Sel("setFontPanelFactory:"), factoryId)
 }
 
-
-
-
-
-
-
-
 // The names of the fonts available in the system (not the [NSFont] objects
 // themselves).
 //
@@ -1073,8 +1039,6 @@ func (f NSFontManager) AvailableFonts() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The names of the font families available in the system.
 //
 // # Discussion
@@ -1086,8 +1050,6 @@ func (f NSFontManager) AvailableFontFamilies() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("availableFontFamilies"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The currently selected font object.
 //
@@ -1104,8 +1066,6 @@ func (f NSFontManager) SelectedFont() NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("selectedFont"))
 	return NSFontFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the currently selected font has
 // multiple fonts.
@@ -1125,8 +1085,6 @@ func (f NSFontManager) Multiple() bool {
 	return rv
 }
 
-
-
 // The current font conversion action.
 //
 // # Discussion
@@ -1143,8 +1101,6 @@ func (f NSFontManager) CurrentFontAction() NSFontAction {
 	rv := objc.Send[NSFontAction](f.ID, objc.Sel("currentFontAction"))
 	return NSFontAction(rv)
 }
-
-
 
 // A Boolean value that indicates whether the font conversion system’s Font
 // panel and Font menu items are enabled.
@@ -1167,8 +1123,6 @@ func (f NSFontManager) SetEnabled(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setEnabled:"), value)
 }
 
-
-
 // The action sent to the first responder when the user selects a new font
 // from the Font panel or chooses a command from the Font menu.
 //
@@ -1188,8 +1142,6 @@ func (f NSFontManager) SetAction(value objc.SEL) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAction:"), value)
 }
 
-
-
 // The object that receives action messages related to the font manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/target
@@ -1200,8 +1152,6 @@ func (f NSFontManager) Target() objectivec.IObject {
 func (f NSFontManager) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTarget:"), value)
 }
-
-
 
 // The names of the currently loaded font collections.
 //
@@ -1214,8 +1164,6 @@ func (f NSFontManager) SetCollectionNames(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setCollectionNames:"), value)
 }
 
-
-
 // The font manager’s delegate.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfontmanager/delegate
@@ -1226,12 +1174,6 @@ func (f NSFontManager) Delegate() objectivec.IObject {
 func (f NSFontManager) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
 
 // Returns the shared instance of the font manager for the application,
 // creating it if necessary.
@@ -1246,27 +1188,6 @@ func (_NSFontManagerClass NSFontManagerClass) SharedFontManager() NSFontManager 
 	return NSFontManagerFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
 			// Protocol methods for NSMenuItemValidation
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

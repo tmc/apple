@@ -38,12 +38,6 @@ func (nc NSTextBlockClass) Alloc() NSTextBlock {
 	return rv
 }
 
-
-
-
-
-
-
 // A block of text laid out in a subregion of the text container.
 //
 // # Overview
@@ -101,14 +95,10 @@ type NSTextBlock struct {
 //
 // A block of text laid out in a subregion of the text container.
 func NSTextBlockFromID(id objc.ID) NSTextBlock {
-	return NSTextBlock{objectivec.Object{id}}
+	return NSTextBlock{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextBlock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextBlock] class.
 //
@@ -213,10 +203,6 @@ type INSTextBlock interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextBlock) Init() NSTextBlock {
 	rv := objc.Send[NSTextBlock](t.ID, objc.Sel("init"))
@@ -235,16 +221,6 @@ func NewNSTextBlock() NSTextBlock {
 	rv := objc.Send[NSTextBlock](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
 
 // Sets a dimension of the text block.
 //
@@ -481,17 +457,6 @@ func (t NSTextBlock) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The width of the text block.
 //
 // # Discussion
@@ -505,8 +470,6 @@ func (t NSTextBlock) ContentWidth() float64 {
 	return rv
 }
 
-
-
 // The type of value stored for the text block width.
 //
 // # Discussion
@@ -519,8 +482,6 @@ func (t NSTextBlock) ContentWidthValueType() NSTextBlockValueType {
 	return NSTextBlockValueType(rv)
 }
 
-
-
 // The vertical alignment of the text block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/verticalAlignment-swift.property
@@ -532,8 +493,6 @@ func (t NSTextBlock) SetVerticalAlignment(value NSTextBlockVerticalAlignment) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVerticalAlignment:"), value)
 }
 
-
-
 // The background color of the text block.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/backgroundColor
@@ -544,29 +503,4 @@ func (t NSTextBlock) BackgroundColor() INSColor {
 func (t NSTextBlock) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

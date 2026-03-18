@@ -38,12 +38,6 @@ func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 	return rv
 }
 
-
-
-
-
-
-
 // Display one or more buttons in a single horizontal group.
 //
 // # Overview
@@ -156,10 +150,6 @@ func NSSegmentedControlFromID(id objc.ID) NSSegmentedControl {
 }
 // NOTE: NSSegmentedControl adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSegmentedControl] class.
 //
@@ -331,13 +321,7 @@ type INSSegmentedControl interface {
 	SetTagForSegment(tag int, segment int)
 	SetToolTipForSegment(toolTip string, segment int)
 	ToolTipForSegment(segment int) string
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSegmentedControl) Init() NSSegmentedControl {
@@ -358,11 +342,6 @@ func NewNSSegmentedControl() NSSegmentedControl {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -371,7 +350,6 @@ func NewSegmentedControlWithCoder(coder foundation.INSCoder) NSSegmentedControl 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSegmentedControlFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -399,7 +377,6 @@ func NewSegmentedControlWithFrame(frameRect corefoundation.CGRect) NSSegmentedCo
 	return NSSegmentedControlFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/init(images:trackingMode:target:action:)
 func NewSegmentedControlWithImagesTrackingModeTargetAction(images []NSImage, trackingMode NSSegmentSwitchTracking, target objectivec.IObject, action objc.SEL) NSSegmentedControl {
@@ -407,19 +384,12 @@ func NewSegmentedControlWithImagesTrackingModeTargetAction(images []NSImage, tra
 	return NSSegmentedControlFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/init(labels:trackingMode:target:action:)
 func NewSegmentedControlWithLabelsTrackingModeTargetAction(labels []string, trackingMode NSSegmentSwitchTracking, target objectivec.IObject, action objc.SEL) NSSegmentedControl {
 	rv := objc.Send[objc.ID](objc.ID(getNSSegmentedControlClass().class), objc.Sel("segmentedControlWithLabels:trackingMode:target:action:"), objectivec.StringSliceToNSArray(labels), trackingMode, target, action)
 	return NSSegmentedControlFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the label of the specified segment.
 //
@@ -775,20 +745,6 @@ func (s NSSegmentedControl) ToolTipForSegment(segment int) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("toolTipForSegment:"), segment)
 	return foundation.NSStringFromID(rv).String()
 }
-func (s NSSegmentedControl) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The type of tracking behavior the control exhibits.
 //
@@ -810,8 +766,6 @@ func (s NSSegmentedControl) SetTrackingMode(value NSSegmentSwitchTracking) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackingMode:"), value)
 }
 
-
-
 // The visual style used to display the control.
 //
 // # Discussion
@@ -830,8 +784,6 @@ func (s NSSegmentedControl) SetSegmentStyle(value NSSegmentStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentStyle:"), value)
 }
 
-
-
 // The number of segments in the control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/segmentCount
@@ -842,8 +794,6 @@ func (s NSSegmentedControl) SegmentCount() int {
 func (s NSSegmentedControl) SetSegmentCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentCount:"), value)
 }
-
-
 
 // A Boolean value that indicates whether spring loading is enabled for the
 // control.
@@ -887,8 +837,6 @@ func (s NSSegmentedControl) SetSpringLoaded(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpringLoaded:"), value)
 }
 
-
-
 // The index of the selected segment of the control, or `-1` if no segment is
 // selected.
 //
@@ -909,15 +857,11 @@ func (s NSSegmentedControl) SetSelectedSegment(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedSegment:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/indexOfSelectedItem
 func (s NSSegmentedControl) IndexOfSelectedItem() int {
 	rv := objc.Send[int](s.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
-
-
 
 // The color of the selected segment’s bezel, in appearances that support
 // it.
@@ -930,8 +874,6 @@ func (s NSSegmentedControl) SelectedSegmentBezelColor() INSColor {
 func (s NSSegmentedControl) SetSelectedSegmentBezelColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedSegmentBezelColor:"), value)
 }
-
-
 
 // When the tracking mode for the control is set to use a momentary
 // accelerator, returns a value for the selected segment.
@@ -955,8 +897,6 @@ func (s NSSegmentedControl) DoubleValueForSelectedSegment() float64 {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/segmentDistribution
 func (s NSSegmentedControl) SegmentDistribution() NSSegmentDistribution {
 	rv := objc.Send[NSSegmentDistribution](s.ID, objc.Sel("segmentDistribution"))
@@ -966,15 +906,11 @@ func (s NSSegmentedControl) SetSegmentDistribution(value NSSegmentDistribution) 
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentDistribution:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/activeCompressionOptions
 func (s NSSegmentedControl) ActiveCompressionOptions() INSUserInterfaceCompressionOptions {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("activeCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/borderShape
 func (s NSSegmentedControl) BorderShape() NSControlBorderShape {
@@ -985,43 +921,6 @@ func (s NSSegmentedControl) SetBorderShape(value NSControlBorderShape) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBorderShape:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceCompression
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

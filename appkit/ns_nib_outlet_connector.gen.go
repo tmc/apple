@@ -35,12 +35,6 @@ func (nc NSNibOutletConnectorClass) Alloc() NSNibOutletConnector {
 	return rv
 }
 
-
-
-
-
-
-
 // An outlet connection between Interface Builder objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNibOutletConnector
@@ -57,20 +51,12 @@ func NSNibOutletConnectorFromID(id objc.ID) NSNibOutletConnector {
 // Ensure NSNibOutletConnector implements INSNibOutletConnector.
 var _ INSNibOutletConnector = NSNibOutletConnector{}
 
-
-
-
-
 // An interface definition for the [NSNibOutletConnector] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNibOutletConnector
 type INSNibOutletConnector interface {
 	INSNibConnector
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n NSNibOutletConnector) Init() NSNibOutletConnector {
@@ -90,38 +76,4 @@ func NewNSNibOutletConnector() NSNibOutletConnector {
 	rv := objc.Send[NSNibOutletConnector](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

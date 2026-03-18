@@ -38,12 +38,6 @@ func (nc NSCollectionViewLayoutInvalidationContextClass) Alloc() NSCollectionVie
 	return rv
 }
 
-
-
-
-
-
-
 // An object that identifies the portions of your layout that need to be
 // updated.
 //
@@ -108,14 +102,10 @@ type NSCollectionViewLayoutInvalidationContext struct {
 // An object that identifies the portions of your layout that need to be
 // updated.
 func NSCollectionViewLayoutInvalidationContextFromID(id objc.ID) NSCollectionViewLayoutInvalidationContext {
-	return NSCollectionViewLayoutInvalidationContext{objectivec.Object{id}}
+	return NSCollectionViewLayoutInvalidationContext{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionViewLayoutInvalidationContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewLayoutInvalidationContext] class.
 //
@@ -176,10 +166,6 @@ type INSCollectionViewLayoutInvalidationContext interface {
 	InvalidatedDecorationIndexPaths() foundation.INSDictionary
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewLayoutInvalidationContext) Init() NSCollectionViewLayoutInvalidationContext {
 	rv := objc.Send[NSCollectionViewLayoutInvalidationContext](c.ID, objc.Sel("init"))
@@ -198,15 +184,6 @@ func NewNSCollectionViewLayoutInvalidationContext() NSCollectionViewLayoutInvali
 	rv := objc.Send[NSCollectionViewLayoutInvalidationContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Marks the specified items as invalid so that their layout information can
 // be updated.
@@ -276,17 +253,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateDecorationElementsO
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateDecorationElementsOfKind:atIndexPaths:"), objc.String(string(elementKind)), indexPaths)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean that indicates whether all layout data should be marked as
 // invalid.
 //
@@ -308,8 +274,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateEverything() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("invalidateEverything"))
 	return rv
 }
-
-
 
 // A Boolean that indicates whether the layout object should ask for new
 // section and item counts.
@@ -333,8 +297,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateDataSourceCounts() 
 	return rv
 }
 
-
-
 // The delta value to add to the collection view’s content offset.
 //
 // # Discussion
@@ -357,8 +319,6 @@ func (c NSCollectionViewLayoutInvalidationContext) SetContentOffsetAdjustment(va
 	objc.Send[struct{}](c.ID, objc.Sel("setContentOffsetAdjustment:"), value)
 }
 
-
-
 // The delta value to add to the collection view’s content size.
 //
 // # Discussion
@@ -380,8 +340,6 @@ func (c NSCollectionViewLayoutInvalidationContext) SetContentSizeAdjustment(valu
 	objc.Send[struct{}](c.ID, objc.Sel("setContentSizeAdjustment:"), value)
 }
 
-
-
 // The set of items whose layout attributes are invalid.
 //
 // # Discussion
@@ -396,8 +354,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidatedItemIndexPaths() f
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidatedItemIndexPaths"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-
 
 // A dictionary containing the supplementary views whose layout attributes are
 // invalid.
@@ -418,8 +374,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidatedSupplementaryIndex
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // A dictionary containing the decoration views whose layout attributes are
 // invalid.
 //
@@ -438,27 +392,4 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidatedDecorationIndexPat
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidatedDecorationIndexPaths"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSTextSelectionNavigationClass) Alloc() NSTextSelectionNavigation {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface you use to expose methods for obtaining results from actions
 // performed on text selections.
 //
@@ -90,14 +84,10 @@ type NSTextSelectionNavigation struct {
 // An interface you use to expose methods for obtaining results from actions
 // performed on text selections.
 func NSTextSelectionNavigationFromID(id objc.ID) NSTextSelectionNavigation {
-	return NSTextSelectionNavigation{objectivec.Object{id}}
+	return NSTextSelectionNavigation{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextSelectionNavigation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextSelectionNavigation] class.
 //
@@ -185,10 +175,6 @@ type INSTextSelectionNavigation interface {
 	DeletionRangesForTextSelectionDirectionDestinationAllowsDecomposition(textSelection INSTextSelection, direction NSTextSelectionNavigationDirection, destination NSTextSelectionNavigationDestination, allowsDecomposition bool) []NSTextRange
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextSelectionNavigation) Init() NSTextSelectionNavigation {
 	rv := objc.Send[NSTextSelectionNavigation](t.ID, objc.Sel("init"))
@@ -208,11 +194,6 @@ func NewNSTextSelectionNavigation() NSTextSelectionNavigation {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new object using the text selection data source you provide.
 //
 // dataSource: An [NSTextSelectionDataSource].
@@ -223,12 +204,6 @@ func NewTextSelectionNavigationWithDataSource(dataSource NSTextSelectionDataSour
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataSource:"), dataSource)
 	return NSTextSelectionNavigationFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new object using the text selection data source you provide.
 //
@@ -418,17 +393,6 @@ func (t NSTextSelectionNavigation) DeletionRangesForTextSelectionDirectionDestin
 	})
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Determines if the instance could produce selections with multiple
 // noncontiguous selections.
 //
@@ -440,8 +404,6 @@ func (t NSTextSelectionNavigation) AllowsNonContiguousRanges() bool {
 func (t NSTextSelectionNavigation) SetAllowsNonContiguousRanges(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsNonContiguousRanges:"), value)
 }
-
-
 
 // Determines if the framework rotates the coordinate system to match the
 // layout orientation.
@@ -462,8 +424,6 @@ func (t NSTextSelectionNavigation) SetRotatesCoordinateSystemForLayoutOrientatio
 	objc.Send[struct{}](t.ID, objc.Sel("setRotatesCoordinateSystemForLayoutOrientation:"), value)
 }
 
-
-
 // The data source associated with this selection navigation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/textSelectionDataSource
@@ -471,26 +431,4 @@ func (t NSTextSelectionNavigation) TextSelectionDataSource() NSTextSelectionData
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelectionDataSource"))
 	return NSTextSelectionDataSourceObjectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

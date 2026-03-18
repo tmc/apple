@@ -39,12 +39,6 @@ func (nc NSTextLineFragmentClass) Alloc() NSTextLineFragment {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a line fragment as a single textual layout and
 // rendering unit inside a text layout fragment.
 //
@@ -81,14 +75,10 @@ type NSTextLineFragment struct {
 // A class that represents a line fragment as a single textual layout and
 // rendering unit inside a text layout fragment.
 func NSTextLineFragmentFromID(id objc.ID) NSTextLineFragment {
-	return NSTextLineFragment{objectivec.Object{id}}
+	return NSTextLineFragment{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextLineFragment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextLineFragment] class.
 //
@@ -156,10 +146,6 @@ type INSTextLineFragment interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextLineFragment) Init() NSTextLineFragment {
 	rv := objc.Send[NSTextLineFragment](t.ID, objc.Sel("init"))
@@ -179,11 +165,6 @@ func NewNSTextLineFragment() NSTextLineFragment {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new line fragment from the attributed string for the range of
 // characters you specify.
 //
@@ -200,7 +181,6 @@ func NewTextLineFragmentWithAttributedStringRange(attributedString foundation.NS
 	return NSTextLineFragmentFromID(rv)
 }
 
-
 // Creates a new line fragment with from data in an unarchiver.
 //
 // aDecoder: A decoder that conforms to the [NSCoder] protocol.
@@ -213,7 +193,6 @@ func NewTextLineFragmentWithCoder(aDecoder foundation.INSCoder) NSTextLineFragme
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), aDecoder)
 	return NSTextLineFragmentFromID(rv)
 }
-
 
 // Creates a new line fragment using the string, attributes, and range you
 // provide.
@@ -230,12 +209,6 @@ func NewTextLineFragmentWithStringAttributesRange(string_ string, attributes fou
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:attributes:range:"), objc.String(string_), attributes, range_)
 	return NSTextLineFragmentFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new line fragment from the attributed string for the range of
 // characters you specify.
@@ -348,17 +321,6 @@ func (t NSTextLineFragment) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The source attributed string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLineFragment/attributedString
@@ -366,8 +328,6 @@ func (t NSTextLineFragment) AttributedString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
-
-
 
 // The string range for the source attributed string that corresponds to this
 // line fragment.
@@ -378,8 +338,6 @@ func (t NSTextLineFragment) CharacterRange() foundation.NSRange {
 	return foundation.NSRange(rv)
 }
 
-
-
 // Rendering origin for the left-most glyph in the line fragment coordinate
 // system.
 //
@@ -388,8 +346,6 @@ func (t NSTextLineFragment) GlyphOrigin() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("glyphOrigin"))
 	return corefoundation.CGPoint(rv)
 }
-
-
 
 // The typographic bounds that specifies the dimensions of the line fragment
 // for laying out line fragments to each other.
@@ -404,28 +360,4 @@ func (t NSTextLineFragment) TypographicBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("typographicBounds"))
 	return corefoundation.CGRect(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

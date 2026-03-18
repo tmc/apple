@@ -36,12 +36,6 @@ func (nc NSWorkspaceAuthorizationClass) Alloc() NSWorkspaceAuthorization {
 	return rv
 }
 
-
-
-
-
-
-
 // The authorization granted to the app by the user.
 //
 // # Overview
@@ -62,14 +56,10 @@ type NSWorkspaceAuthorization struct {
 //
 // The authorization granted to the app by the user.
 func NSWorkspaceAuthorizationFromID(id objc.ID) NSWorkspaceAuthorization {
-	return NSWorkspaceAuthorization{objectivec.Object{id}}
+	return NSWorkspaceAuthorization{objectivec.Object{ID: id}}
 }
 // NOTE: NSWorkspaceAuthorization adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSWorkspaceAuthorization] class.
 //
@@ -77,10 +67,6 @@ func NSWorkspaceAuthorizationFromID(id objc.ID) NSWorkspaceAuthorization {
 type INSWorkspaceAuthorization interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (w NSWorkspaceAuthorization) Init() NSWorkspaceAuthorization {
@@ -100,44 +86,4 @@ func NewNSWorkspaceAuthorization() NSWorkspaceAuthorization {
 	rv := objc.Send[NSWorkspaceAuthorization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

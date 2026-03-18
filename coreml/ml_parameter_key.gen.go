@@ -5,7 +5,6 @@ package coreml
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -36,12 +35,6 @@ func (mc MLParameterKeyClass) Alloc() MLParameterKey {
 	rv := objc.Send[MLParameterKey](objc.ID(mc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // The keys for the parameter dictionary in a model configuration or a model
 // update context.
@@ -96,10 +89,6 @@ func MLParameterKeyFromID(id objc.ID) MLParameterKey {
 // NOTE: MLParameterKey adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MLParameterKey] class.
 //
 // # Scoping parameter keys
@@ -127,12 +116,7 @@ type IMLParameterKey interface {
 	// A dictionary of configuration settings your app can override when loading a model.
 	Parameters() IMLParameterKey
 	SetParameters(value IMLParameterKey)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p MLParameterKey) Init() MLParameterKey {
@@ -152,15 +136,6 @@ func NewMLParameterKey() MLParameterKey {
 	rv := objc.Send[MLParameterKey](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Creates a copy of a parameter key and adds the scope to it.
 //
@@ -195,20 +170,6 @@ func (p MLParameterKey) ScopedTo(scope string) IMLParameterKey {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("scopedTo:"), objc.String(scope))
 	return MLParameterKeyFromID(rv)
 }
-func (p MLParameterKey) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The list of available compute devices that the model’s prediction methods
 // use.
@@ -222,8 +183,6 @@ func (p MLParameterKey) SetAvailableComputeDevices(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
 
-
-
 // The configuration of the model set during initialization.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodel/configuration
@@ -234,8 +193,6 @@ func (p MLParameterKey) Configuration() IMLModelConfiguration {
 func (p MLParameterKey) SetConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](p.ID, objc.Sel("setConfiguration:"), value)
 }
-
-
 
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
@@ -249,8 +206,6 @@ func (p MLParameterKey) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
 }
 
-
-
 // A dictionary of configuration settings your app can override when loading a
 // model.
 //
@@ -262,12 +217,6 @@ func (p MLParameterKey) Parameters() IMLParameterKey {
 func (p MLParameterKey) SetParameters(value IMLParameterKey) {
 	objc.Send[struct{}](p.ID, objc.Sel("setParameters:"), value)
 }
-
-
-
-
-
-
 
 // The key you use to access the number of neighbors that adjusts the affinity
 // of a k-nearest-neighbor model.
@@ -284,8 +233,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) NumberOfNeighbors() MLParameterK
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the linked model’s filename.
 //
 // # Discussion
@@ -299,8 +246,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) LinkedModelFileName() MLParamete
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("linkedModelFileName"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
-
 
 // The key you use to access the linked model’s search path.
 //
@@ -316,8 +261,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) LinkedModelSearchPath() MLParame
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the weights of a layer in a neural network model.
 //
 // # Discussion
@@ -332,8 +275,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Weights() MLParameterKey {
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the biases of a layer in a neural network model.
 //
 // # Discussion
@@ -347,8 +288,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Biases() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("biases"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
-
 
 // The key you use to access the optimizer’s learning rate parameter.
 //
@@ -374,8 +313,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) LearningRate() MLParameterKey {
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the stochastic gradient descent (SGD)
 // optimizer’s momentum parameter.
 //
@@ -391,8 +328,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Momentum() MLParameterKey {
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the optimizer’s mini batch-size parameter.
 //
 // # Discussion
@@ -406,8 +341,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) MiniBatchSize() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("miniBatchSize"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
-
 
 // The key you use to access the Adam optimizer’s first beta parameter.
 //
@@ -423,8 +356,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Beta1() MLParameterKey {
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the Adam optimizer’s second beta parameter.
 //
 // # Discussion
@@ -438,8 +369,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Beta2() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("beta2"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
-
 
 // The key you use to access the Adam optimizer’s epsilon parameter.
 //
@@ -455,8 +384,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Eps() MLParameterKey {
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the optimizer’s epochs parameter.
 //
 // # Discussion
@@ -470,8 +397,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Epochs() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("epochs"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
-
 
 // The key you use to access the shuffle parameter, a Boolean value that
 // determines whether the model randomizes the data between epochs.
@@ -488,8 +413,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Shuffle() MLParameterKey {
 	return MLParameterKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the seed parameter that initializes the random
 // number generator for the shuffle option.
 //
@@ -504,25 +427,4 @@ func (_MLParameterKeyClass MLParameterKeyClass) Seed() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("seed"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

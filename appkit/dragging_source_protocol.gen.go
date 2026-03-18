@@ -20,8 +20,6 @@ type NSDraggingSource interface {
 	DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation
 }
 
-
-
 // NSDraggingSourceObject wraps an existing Objective-C object that conforms to the NSDraggingSource protocol.
 type NSDraggingSourceObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o NSDraggingSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDraggingSourceObjectFromID constructs a [NSDraggingSourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDraggingSourceObjectFromID(id objc.ID) NSDraggingSourceObject {
@@ -39,9 +35,6 @@ func NSDraggingSourceObjectFromID(id objc.ID) NSDraggingSourceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Declares the types of operations the source allows to be performed.
 //
@@ -132,10 +125,4 @@ func (o NSDraggingSourceObject) IgnoreModifierKeysForDraggingSession(session INS
 	rv := objc.Send[bool](o.ID, objc.Sel("ignoreModifierKeysForDraggingSession:"), session)
 	return rv
 	}
-
-
-
-
-
-
 

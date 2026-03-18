@@ -37,12 +37,6 @@ func (nc NSLevelIndicatorCellClass) Alloc() NSLevelIndicatorCell {
 	return rv
 }
 
-
-
-
-
-
-
 // [NSLevelIndicatorCell] is a subclass of [NSActionCell] that provides
 // several level indicator display styles including: capacity, ranking and
 // relevancy. The capacity style provides both continuous and discrete modes.
@@ -90,10 +84,6 @@ func NSLevelIndicatorCellFromID(id objc.ID) NSLevelIndicatorCell {
 }
 // NOTE: NSLevelIndicatorCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSLevelIndicatorCell] class.
 //
@@ -167,13 +157,7 @@ type INSLevelIndicatorCell interface {
 	TickMarkValueAtIndex(index int) float64
 	// Returns the bounding rectangle of the tick mark identified by `index` (the minimum-value tick mark is at index 0).
 	RectOfTickMarkAtIndex(index int) corefoundation.CGRect
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l NSLevelIndicatorCell) Init() NSLevelIndicatorCell {
@@ -193,11 +177,6 @@ func NewNSLevelIndicatorCell() NSLevelIndicatorCell {
 	rv := objc.Send[NSLevelIndicatorCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -220,7 +199,6 @@ func NewLevelIndicatorCellImageCell(image INSImage) NSLevelIndicatorCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSLevelIndicatorCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -247,7 +225,6 @@ func NewLevelIndicatorCellTextCell(string_ string) NSLevelIndicatorCell {
 	return NSLevelIndicatorCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewLevelIndicatorCellWithCoder(coder foundation.INSCoder) NSLevelIndicatorCell {
@@ -255,7 +232,6 @@ func NewLevelIndicatorCellWithCoder(coder foundation.INSCoder) NSLevelIndicatorC
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSLevelIndicatorCellFromID(rv)
 }
-
 
 // Initializes the receiver with the style specified by `levelIndicatorStyle`.
 //
@@ -272,12 +248,6 @@ func NewLevelIndicatorCellWithLevelIndicatorStyle(levelIndicatorStyle NSLevelInd
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLevelIndicatorStyle:"), levelIndicatorStyle)
 	return NSLevelIndicatorCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the receiver with the style specified by `levelIndicatorStyle`.
 //
@@ -316,20 +286,6 @@ func (l NSLevelIndicatorCell) RectOfTickMarkAtIndex(index int) corefoundation.CG
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("rectOfTickMarkAtIndex:"), index)
 	return corefoundation.CGRect(rv)
 }
-func (l NSLevelIndicatorCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The minimum value of the control.
 //
@@ -345,8 +301,6 @@ func (l NSLevelIndicatorCell) MinValue() float64 {
 func (l NSLevelIndicatorCell) SetMinValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setMinValue:"), value)
 }
-
-
 
 // The maximum value of the control.
 //
@@ -364,8 +318,6 @@ func (l NSLevelIndicatorCell) MaxValue() float64 {
 func (l NSLevelIndicatorCell) SetMaxValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setMaxValue:"), value)
 }
-
-
 
 // The style of the level indicator control.
 //
@@ -385,8 +337,6 @@ func (l NSLevelIndicatorCell) SetLevelIndicatorStyle(value NSLevelIndicatorStyle
 	objc.Send[struct{}](l.ID, objc.Sel("setLevelIndicatorStyle:"), value)
 }
 
-
-
 // The warning value of the level indicator control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicatorCell/warningValue
@@ -398,8 +348,6 @@ func (l NSLevelIndicatorCell) SetWarningValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setWarningValue:"), value)
 }
 
-
-
 // The critical value of the level indicator control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicatorCell/criticalValue
@@ -410,8 +358,6 @@ func (l NSLevelIndicatorCell) CriticalValue() float64 {
 func (l NSLevelIndicatorCell) SetCriticalValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCriticalValue:"), value)
 }
-
-
 
 // The placement of tick marks on the level indicator control.
 //
@@ -437,8 +383,6 @@ func (l NSLevelIndicatorCell) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](l.ID, objc.Sel("setTickMarkPosition:"), value)
 }
 
-
-
 // The number of tick marks displayed by the control.
 //
 // # Discussion
@@ -457,8 +401,6 @@ func (l NSLevelIndicatorCell) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
 
-
-
 // The number of major tick marks displayed by the control.
 //
 // # Discussion
@@ -474,33 +416,4 @@ func (l NSLevelIndicatorCell) NumberOfMajorTickMarks() int {
 func (l NSLevelIndicatorCell) SetNumberOfMajorTickMarks(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberOfMajorTickMarks:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSTabViewClass) Alloc() NSTabView {
 	return rv
 }
 
-
-
-
-
-
-
 // A multipage interface that displays one page at a time.
 //
 // # Overview
@@ -135,10 +129,6 @@ func NSTabViewFromID(id objc.ID) NSTabView {
 }
 // NOTE: NSTabView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTabView] class.
 //
@@ -305,13 +295,7 @@ type INSTabView interface {
 
 	// Returns the tab view item at the specified point.
 	TabViewItemAtPoint(point corefoundation.CGPoint) INSTabViewItem
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTabView) Init() NSTabView {
@@ -332,11 +316,6 @@ func NewNSTabView() NSTabView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -351,7 +330,6 @@ func NewTabViewWithCoder(coder foundation.INSCoder) NSTabView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTabViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -374,12 +352,6 @@ func NewTabViewWithFrame(frameRect corefoundation.CGRect) NSTabView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSTabViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds the specified tab item.
 //
@@ -600,20 +572,6 @@ func (t NSTabView) TabViewItemAtPoint(point corefoundation.CGPoint) INSTabViewIt
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tabViewItemAtPoint:"), point)
 	return NSTabViewItemFromID(rv)
 }
-func (t NSTabView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The tab view’s delegate.
 //
@@ -631,8 +589,6 @@ func (t NSTabView) SetDelegate(value NSTabViewDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The number of items in the tab view’s array of tab view items.
 //
 // # Discussion
@@ -644,8 +600,6 @@ func (t NSTabView) NumberOfTabViewItems() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfTabViewItems"))
 	return rv
 }
-
-
 
 // The tab view’s array of tab view items.
 //
@@ -664,8 +618,6 @@ func (t NSTabView) TabViewItems() []NSTabViewItem {
 func (t NSTabView) SetTabViewItems(value []NSTabViewItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The tab type to display the tabs.
 //
@@ -687,8 +639,6 @@ func (t NSTabView) SetTabViewType(value NSTabViewType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewType:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/tabPosition-swift.property
 func (t NSTabView) TabPosition() NSTabPosition {
 	rv := objc.Send[NSTabPosition](t.ID, objc.Sel("tabPosition"))
@@ -698,8 +648,6 @@ func (t NSTabView) SetTabPosition(value NSTabPosition) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabPosition:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/tabViewBorderType-swift.property
 func (t NSTabView) TabViewBorderType() NSTabViewBorderType {
 	rv := objc.Send[NSTabViewBorderType](t.ID, objc.Sel("tabViewBorderType"))
@@ -708,8 +656,6 @@ func (t NSTabView) TabViewBorderType() NSTabViewBorderType {
 func (t NSTabView) SetTabViewBorderType(value NSTabViewBorderType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewBorderType:"), value)
 }
-
-
 
 // The tab view item for the currently selected tab.
 //
@@ -722,8 +668,6 @@ func (t NSTabView) SelectedTabViewItem() INSTabViewItem {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("selectedTabViewItem"))
 	return NSTabViewItemFromID(objc.ID(rv))
 }
-
-
 
 // The font used for the tab view’s label text.
 //
@@ -742,8 +686,6 @@ func (t NSTabView) Font() NSFont {
 func (t NSTabView) SetFont(value NSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
-
-
 
 // A Boolean value that indicates if the tab view draws a background color
 // when its type is [NSNoTabsNoBorder].
@@ -767,8 +709,6 @@ func (t NSTabView) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
 
-
-
 // The minimum size necessary for the tab view to display tabs in a useful
 // way.
 //
@@ -783,8 +723,6 @@ func (t NSTabView) MinimumSize() corefoundation.CGSize {
 	return corefoundation.CGSize(rv)
 }
 
-
-
 // The rectangle describing the content area of the tab view.
 //
 // # Discussion
@@ -797,8 +735,6 @@ func (t NSTabView) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The size of the tab view.
 //
@@ -817,8 +753,6 @@ func (t NSTabView) ControlSize() NSControlSize {
 func (t NSTabView) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setControlSize:"), value)
 }
-
-
 
 // A Boolean value that indicates if the tab view allows truncating for labels
 // that don’t fit on a tab.
@@ -840,38 +774,4 @@ func (t NSTabView) AllowsTruncatedLabels() bool {
 func (t NSTabView) SetAllowsTruncatedLabels(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsTruncatedLabels:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSCollectionLayoutItemClass) Alloc() NSCollectionLayoutItem {
 	return rv
 }
 
-
-
-
-
-
-
 // The most basic component of a collection view’s layout.
 //
 // # Overview
@@ -92,14 +86,10 @@ type NSCollectionLayoutItem struct {
 //
 // The most basic component of a collection view’s layout.
 func NSCollectionLayoutItemFromID(id objc.ID) NSCollectionLayoutItem {
-	return NSCollectionLayoutItem{objectivec.Object{id}}
+	return NSCollectionLayoutItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutItem] class.
 //
@@ -142,10 +132,6 @@ type INSCollectionLayoutItem interface {
 	SetContentInsets(value NSDirectionalEdgeInsets)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutItem) Init() NSCollectionLayoutItem {
 	rv := objc.Send[NSCollectionLayoutItem](c.ID, objc.Sel("init"))
@@ -165,11 +151,6 @@ func NewNSCollectionLayoutItem() NSCollectionLayoutItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates an item of the specified size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/init(layoutSize:)
@@ -177,7 +158,6 @@ func NewCollectionLayoutItemWithLayoutSize(layoutSize INSCollectionLayoutSize) N
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutItemClass().class), objc.Sel("itemWithLayoutSize:"), layoutSize)
 	return NSCollectionLayoutItemFromID(rv)
 }
-
 
 // Creates an item of the specified size with an array of supplementary items
 // to attach to the item.
@@ -188,23 +168,6 @@ func NewCollectionLayoutItemWithLayoutSizeSupplementaryItems(layoutSize INSColle
 	return NSCollectionLayoutItemFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The item’s size expressed in width and height dimensions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/layoutSize
@@ -212,8 +175,6 @@ func (c NSCollectionLayoutItem) LayoutSize() INSCollectionLayoutSize {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutSize"))
 	return NSCollectionLayoutSizeFromID(objc.ID(rv))
 }
-
-
 
 // An array of the supplementary items attached to the item.
 //
@@ -224,8 +185,6 @@ func (c NSCollectionLayoutItem) SupplementaryItems() []NSCollectionLayoutSupplem
 		return NSCollectionLayoutSupplementaryItemFromID(id)
 	})
 }
-
-
 
 // The amount of space added around the boundaries of the item between other
 // items and this item’s container.
@@ -251,8 +210,6 @@ func (c NSCollectionLayoutItem) SetEdgeSpacing(value INSCollectionLayoutEdgeSpac
 	objc.Send[struct{}](c.ID, objc.Sel("setEdgeSpacing:"), value)
 }
 
-
-
 // The amount of space added around the content of the item to adjust its
 // final size after its position is computed.
 //
@@ -275,28 +232,4 @@ func (c NSCollectionLayoutItem) ContentInsets() NSDirectionalEdgeInsets {
 func (c NSCollectionLayoutItem) SetContentInsets(value NSDirectionalEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentInsets:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

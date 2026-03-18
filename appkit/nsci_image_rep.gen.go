@@ -37,12 +37,6 @@ func (nc NSCIImageRepClass) Alloc() NSCIImageRep {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that can render an image from a Core Image object.
 //
 // # Creating Representations of Core Image Objects
@@ -67,10 +61,6 @@ func NSCIImageRepFromID(id objc.ID) NSCIImageRep {
 // NOTE: NSCIImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCIImageRep] class.
 //
 // # Creating Representations of Core Image Objects
@@ -94,13 +84,7 @@ type INSCIImageRep interface {
 
 	// The Core Image instance.
 	CIImage() objectivec.IObject
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCIImageRep) Init() NSCIImageRep {
@@ -120,11 +104,6 @@ func NewNSCIImageRep() NSCIImageRep {
 	rv := objc.Send[NSCIImageRep](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns a representation of an image initialized to the specified Core
 // Image instance.
@@ -146,7 +125,6 @@ func NewCIImageRepWithCIImage(image objectivec.IObject) NSCIImageRep {
 	return NSCIImageRepFromID(rv)
 }
 
-
 // Creates and returns an image representation object from data in an
 // unarchiver.
 //
@@ -156,12 +134,6 @@ func NewCIImageRepWithCoder(coder foundation.INSCoder) NSCIImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCIImageRepFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a representation of an image initialized to the specified Core
 // Image instance.
@@ -182,20 +154,6 @@ func (c NSCIImageRep) InitWithCIImage(image objectivec.IObject) NSCIImageRep {
 	rv := objc.Send[NSCIImageRep](c.ID, objc.Sel("initWithCIImage:"), image)
 	return rv
 }
-func (c NSCIImageRep) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The Core Image instance.
 //
@@ -204,30 +162,4 @@ func (c NSCIImageRep) CIImage() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("CIImage"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

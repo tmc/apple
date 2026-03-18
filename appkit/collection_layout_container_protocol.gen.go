@@ -35,8 +35,6 @@ type NSCollectionLayoutContainer interface {
 	EffectiveContentInsets() NSDirectionalEdgeInsets
 }
 
-
-
 // NSCollectionLayoutContainerObject wraps an existing Objective-C object that conforms to the NSCollectionLayoutContainer protocol.
 type NSCollectionLayoutContainerObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o NSCollectionLayoutContainerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCollectionLayoutContainerObjectFromID constructs a [NSCollectionLayoutContainerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionLayoutContainerObjectFromID(id objc.ID) NSCollectionLayoutContainerObject {
@@ -54,9 +50,6 @@ func NSCollectionLayoutContainerObjectFromID(id objc.ID) NSCollectionLayoutConta
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The size of the container before content insets are applied.
 //
@@ -99,18 +92,4 @@ func (o NSCollectionLayoutContainerObject) EffectiveContentInsets() NSDirectiona
 	rv := objc.Send[NSDirectionalEdgeInsets](o.ID, objc.Sel("effectiveContentInsets"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (mc MLModelStructureProgramBindingClass) Alloc() MLModelStructureProgramBin
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing a binding in the Program
 //
 // # Overview
@@ -64,14 +58,10 @@ type MLModelStructureProgramBinding struct {
 //
 // A class representing a binding in the Program
 func MLModelStructureProgramBindingFromID(id objc.ID) MLModelStructureProgramBinding {
-	return MLModelStructureProgramBinding{objectivec.Object{id}}
+	return MLModelStructureProgramBinding{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramBinding implements IMLModelStructureProgramBinding.
 var _ IMLModelStructureProgramBinding = MLModelStructureProgramBinding{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramBinding] class.
 //
@@ -92,10 +82,6 @@ type IMLModelStructureProgramBinding interface {
 	Value() IMLModelStructureProgramValue
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructureProgramBinding) Init() MLModelStructureProgramBinding {
 	rv := objc.Send[MLModelStructureProgramBinding](m.ID, objc.Sel("init"))
@@ -115,26 +101,6 @@ func NewMLModelStructureProgramBinding() MLModelStructureProgramBinding {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The name of the variable in the Program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/name
@@ -143,8 +109,6 @@ func (m MLModelStructureProgramBinding) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The compile time constant value in the Program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/value
@@ -152,20 +116,4 @@ func (m MLModelStructureProgramBinding) Value() IMLModelStructureProgramValue {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("value"))
 	return MLModelStructureProgramValueFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

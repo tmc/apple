@@ -37,12 +37,6 @@ func (nc NSTableHeaderCellClass) Alloc() NSTableHeaderCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that a table header view uses to draw the content of the column
 // headers.
 //
@@ -77,10 +71,6 @@ func NSTableHeaderCellFromID(id objc.ID) NSTableHeaderCell {
 // NOTE: NSTableHeaderCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTableHeaderCell] class.
 //
 // # Drawing Sorting Indicators
@@ -98,13 +88,7 @@ type INSTableHeaderCell interface {
 	DrawSortIndicatorWithFrameInViewAscendingPriority(cellFrame corefoundation.CGRect, controlView INSView, ascending bool, priority int)
 	// Returns the location to display the sorting indicator given `theRect`.
 	SortIndicatorRectForBounds(rect corefoundation.CGRect) corefoundation.CGRect
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTableHeaderCell) Init() NSTableHeaderCell {
@@ -124,11 +108,6 @@ func NewNSTableHeaderCell() NSTableHeaderCell {
 	rv := objc.Send[NSTableHeaderCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -152,7 +131,6 @@ func NewTableHeaderCellImageCell(image INSImage) NSTableHeaderCell {
 	return NSTableHeaderCellFromID(rv)
 }
 
-
 // Initializes a text field cell that displays the specified string.
 //
 // string: The string that the text field cell displays.
@@ -168,7 +146,6 @@ func NewTableHeaderCellTextCell(string_ string) NSTableHeaderCell {
 	return NSTableHeaderCellFromID(rv)
 }
 
-
 // Initializes a text field cell from data in the provided unarchiver.
 //
 // coder: An unarchiver object.
@@ -183,12 +160,6 @@ func NewTableHeaderCellWithCoder(coder foundation.INSCoder) NSTableHeaderCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTableHeaderCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Draws a sorting indicator given a cell frame contained inside a view.
 //
@@ -223,45 +194,4 @@ func (t NSTableHeaderCell) SortIndicatorRectForBounds(rect corefoundation.CGRect
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("sortIndicatorRectForBounds:"), rect)
 	return corefoundation.CGRect(rv)
 }
-func (t NSTableHeaderCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The [NSRuleEditorDelegate] protocol defines the optional methods implemented by delegates of [NSRuleEditor](<doc://com.apple.appkit/documentation/AppKit/NSRuleEditor>) objects.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSRuleEditorDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSRuleEditorDelegateObject wraps an existing Objective-C object that conforms to the NSRuleEditorDelegate protocol.
 type NSRuleEditorDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSRuleEditorDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSRuleEditorDelegateObjectFromID constructs a [NSRuleEditorDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSRuleEditorDelegateObjectFromID(id objc.ID) NSRuleEditorDelegateObject {
@@ -38,9 +32,6 @@ func NSRuleEditorDelegateObjectFromID(id objc.ID) NSRuleEditorDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the child of a given item at a given index.
 //
@@ -176,10 +167,6 @@ func (o NSRuleEditorDelegateObject) RuleEditorRowsDidChange(notification foundat
 	objc.Send[struct{}](o.ID, objc.Sel("ruleEditorRowsDidChange:"), notification)
 	}
 
-
-
-
-
 // NSRuleEditorDelegateConfig holds optional typed callbacks for [NSRuleEditorDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -240,8 +227,4 @@ func NewNSRuleEditorDelegate(config NSRuleEditorDelegateConfig) NSRuleEditorDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSRuleEditorDelegateObjectFromID(instance)
 }
-
-
-
-
 

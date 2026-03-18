@@ -19,8 +19,6 @@ type NSCollectionViewPrefetching interface {
 	CollectionViewPrefetchItemsAtIndexPaths(collectionView INSCollectionView, indexPaths []objc.ID)
 }
 
-
-
 // NSCollectionViewPrefetchingObject wraps an existing Objective-C object that conforms to the NSCollectionViewPrefetching protocol.
 type NSCollectionViewPrefetchingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSCollectionViewPrefetchingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCollectionViewPrefetchingObjectFromID constructs a [NSCollectionViewPrefetchingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionViewPrefetchingObjectFromID(id objc.ID) NSCollectionViewPrefetchingObject {
@@ -38,9 +34,6 @@ func NSCollectionViewPrefetchingObjectFromID(id objc.ID) NSCollectionViewPrefetc
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewPrefetching/collectionView(_:prefetchItemsAt:)
@@ -57,10 +50,4 @@ func (o NSCollectionViewPrefetchingObject) CollectionViewCancelPrefetchingForIte
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:cancelPrefetchingForItemsAtIndexPaths:"), collectionView, objectivec.IDSliceToNSArray(indexPaths))
 	}
-
-
-
-
-
-
 

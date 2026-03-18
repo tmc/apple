@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -55,8 +56,6 @@ type NSTextFinderClient interface {
 	SetSelectedRanges(value []foundation.NSValue)
 }
 
-
-
 // NSTextFinderClientObject wraps an existing Objective-C object that conforms to the NSTextFinderClient protocol.
 type NSTextFinderClientObject struct {
 	objectivec.Object
@@ -65,8 +64,6 @@ func (o NSTextFinderClientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextFinderClientObjectFromID constructs a [NSTextFinderClientObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextFinderClientObjectFromID(id objc.ID) NSTextFinderClientObject {
@@ -74,9 +71,6 @@ func NSTextFinderClientObjectFromID(id objc.ID) NSTextFinderClientObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Allows the client to specify a single string for searching.
 //
@@ -175,7 +169,7 @@ func (o NSTextFinderClientObject) VisibleCharacterRanges() []foundation.NSValue 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/string(at:effectiveRange:endsWithSearchBoundary:)
 
-func (o NSTextFinderClientObject) StringAtIndexEffectiveRangeEndsWithSearchBoundary(characterIndex uint, outRange foundation.NSRange, outFlag bool) string {
+func (o NSTextFinderClientObject) StringAtIndexEffectiveRangeEndsWithSearchBoundary(characterIndex uint, outRange foundation.NSRange, outFlag unsafe.Pointer) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("stringAtIndex:effectiveRange:endsWithSearchBoundary:"), characterIndex, outRange, outFlag)
 	return foundation.NSStringFromID(rv).String()
@@ -349,26 +343,7 @@ func (o NSTextFinderClientObject) DrawCharactersInRangeForContentView(range_ fou
 	objc.Send[struct{}](o.ID, objc.Sel("drawCharactersInRange:forContentView:"), range_, view)
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 func (o NSTextFinderClientObject) SetSelectedRanges(value []foundation.NSValue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSelectedRanges:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
 

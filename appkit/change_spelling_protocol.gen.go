@@ -14,8 +14,6 @@ type NSChangeSpelling interface {
 	objectivec.IObject
 }
 
-
-
 // NSChangeSpellingObject wraps an existing Objective-C object that conforms to the NSChangeSpelling protocol.
 type NSChangeSpellingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSChangeSpellingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSChangeSpellingObjectFromID constructs a [NSChangeSpellingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSChangeSpellingObjectFromID(id objc.ID) NSChangeSpellingObject {
@@ -33,9 +29,6 @@ func NSChangeSpellingObjectFromID(id objc.ID) NSChangeSpellingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Replaces the selected word in the receiver with a corrected version from
 // the Spelling panel.
@@ -54,10 +47,4 @@ func (o NSChangeSpellingObject) ChangeSpelling(sender objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("changeSpelling:"), sender)
 	}
-
-
-
-
-
-
 

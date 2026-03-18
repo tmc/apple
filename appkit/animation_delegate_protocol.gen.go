@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSAnimation](<doc://com.apple.appkit/documentation/AppKit/NSAnimation>) objects.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSAnimationDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSAnimationDelegateObject wraps an existing Objective-C object that conforms to the NSAnimationDelegate protocol.
 type NSAnimationDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSAnimationDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAnimationDelegateObjectFromID constructs a [NSAnimationDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAnimationDelegateObjectFromID(id objc.ID) NSAnimationDelegateObject {
@@ -37,9 +31,6 @@ func NSAnimationDelegateObjectFromID(id objc.ID) NSAnimationDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent to the delegate when the specified animation completes its run.
 //
@@ -157,10 +148,6 @@ func (o NSAnimationDelegateObject) AnimationDidReachProgressMark(animation INSAn
 	objc.Send[struct{}](o.ID, objc.Sel("animation:didReachProgressMark:"), animation, progress)
 	}
 
-
-
-
-
 // NSAnimationDelegateConfig holds optional typed callbacks for [NSAnimationDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -275,8 +262,4 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSAnimationDelegateObjectFromID(instance)
 }
-
-
-
-
 

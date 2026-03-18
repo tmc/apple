@@ -37,12 +37,6 @@ func (nc NSTextSelectionClass) Alloc() NSTextSelection {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a single logical selection context that corresponds
 // to an insertion point.
 //
@@ -82,14 +76,10 @@ type NSTextSelection struct {
 // A class that represents a single logical selection context that corresponds
 // to an insertion point.
 func NSTextSelectionFromID(id objc.ID) NSTextSelection {
-	return NSTextSelection{objectivec.Object{id}}
+	return NSTextSelection{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextSelection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextSelection] class.
 //
@@ -165,10 +155,6 @@ type INSTextSelection interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextSelection) Init() NSTextSelection {
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("init"))
@@ -188,11 +174,6 @@ func NewNSTextSelection() NSTextSelection {
 	return rv
 }
 
-
-
-
-
-
 // Creates a test selection from data in an unarchiver.
 //
 // coder: A coder that subclasses [NSCoder].
@@ -205,7 +186,6 @@ func NewTextSelectionWithCoder(coder foundation.INSCoder) NSTextSelection {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextSelectionFromID(rv)
 }
-
 
 // Creates a new text selection with the location and selection affinity you
 // provide.
@@ -222,7 +202,6 @@ func NewTextSelectionWithLocationAffinity(location NSTextLocation, affinity NSTe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:affinity:"), location, affinity)
 	return NSTextSelectionFromID(rv)
 }
-
 
 // Creates a new text selection with the range, selection affinity, and
 // granularity you provide.
@@ -244,7 +223,6 @@ func NewTextSelectionWithRangeAffinityGranularity(range_ INSTextRange, affinity 
 	return NSTextSelectionFromID(rv)
 }
 
-
 // Creates a new text selection with the ranges, selection affinity, and
 // granularity you provide.
 //
@@ -264,12 +242,6 @@ func NewTextSelectionWithRangesAffinityGranularity(textRanges []NSTextRange, aff
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRanges:affinity:granularity:"), objectivec.IObjectSliceToNSArray(textRanges), affinity, granularity)
 	return NSTextSelectionFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new text selection with the location and selection affinity you
 // provide.
@@ -354,17 +326,6 @@ func (t NSTextSelection) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the selection affinity of the text selection.
 //
 // # Discussion
@@ -382,8 +343,6 @@ func (t NSTextSelection) Affinity() NSTextSelectionAffinity {
 	rv := objc.Send[NSTextSelectionAffinity](t.ID, objc.Sel("affinity"))
 	return NSTextSelectionAffinity(rv)
 }
-
-
 
 // Represents the anchor position offset from the beginning of a line fragment
 // in the visual order for the initial tap or click location.
@@ -404,8 +363,6 @@ func (t NSTextSelection) SetAnchorPositionOffset(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAnchorPositionOffset:"), value)
 }
 
-
-
 // The granularity of the selection.
 //
 // # Discussion
@@ -421,8 +378,6 @@ func (t NSTextSelection) Granularity() NSTextSelectionGranularity {
 	return NSTextSelectionGranularity(rv)
 }
 
-
-
 // A Boolean value that indicates whether the framework interprets the
 // selection as logical or visual.
 //
@@ -435,8 +390,6 @@ func (t NSTextSelection) SetLogical(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLogical:"), value)
 }
 
-
-
 // A Boolean value that indicates transient text selection during drag
 // handling.
 //
@@ -445,8 +398,6 @@ func (t NSTextSelection) Transient() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTransient"))
 	return rv
 }
-
-
 
 // Specifies the secondary character location when user taps or clicks at a
 // directional boundary.
@@ -465,8 +416,6 @@ func (t NSTextSelection) SetSecondarySelectionLocation(value NSTextLocation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSecondarySelectionLocation:"), value)
 }
 
-
-
 // Represents an array of noncontiguous logical ranges in the selection.
 //
 // # Discussion
@@ -482,8 +431,6 @@ func (t NSTextSelection) TextRanges() []NSTextRange {
 	})
 }
 
-
-
 // The template attributes the framework uses for characters that replace the
 // contents of this selection.
 //
@@ -495,28 +442,4 @@ func (t NSTextSelection) TypingAttributes() foundation.INSDictionary {
 func (t NSTextSelection) SetTypingAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTypingAttributes:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

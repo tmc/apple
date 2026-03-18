@@ -37,12 +37,6 @@ func (nc NSMediaLibraryBrowserControllerClass) Alloc() NSMediaLibraryBrowserCont
 	return rv
 }
 
-
-
-
-
-
-
 // An object that configures and displays a Media Library Browser panel.
 //
 // # Overview
@@ -145,14 +139,10 @@ type NSMediaLibraryBrowserController struct {
 //
 // An object that configures and displays a Media Library Browser panel.
 func NSMediaLibraryBrowserControllerFromID(id objc.ID) NSMediaLibraryBrowserController {
-	return NSMediaLibraryBrowserController{objectivec.Object{id}}
+	return NSMediaLibraryBrowserController{objectivec.Object{ID: id}}
 }
 // NOTE: NSMediaLibraryBrowserController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMediaLibraryBrowserController] class.
 //
@@ -191,10 +181,6 @@ type INSMediaLibraryBrowserController interface {
 	SetMediaLibraries(value NSMediaLibrary)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMediaLibraryBrowserController) Init() NSMediaLibraryBrowserController {
 	rv := objc.Send[NSMediaLibraryBrowserController](m.ID, objc.Sel("init"))
@@ -214,15 +200,6 @@ func NewNSMediaLibraryBrowserController() NSMediaLibraryBrowserController {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Toggles the visibility of the Media Library Browser.
 //
 // sender: The sender of the message.
@@ -231,17 +208,6 @@ func NewNSMediaLibraryBrowserController() NSMediaLibraryBrowserController {
 func (m NSMediaLibraryBrowserController) TogglePanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("togglePanel:"), sender)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The frame, in global coordinates, used to display the Media Library Browser
 // panel.
@@ -254,8 +220,6 @@ func (m NSMediaLibraryBrowserController) Frame() corefoundation.CGRect {
 func (m NSMediaLibraryBrowserController) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFrame:"), value)
 }
-
-
 
 // A Boolean value that determines whether the Media Library Browser panel is
 // visible.
@@ -280,8 +244,6 @@ func (m NSMediaLibraryBrowserController) SetVisible(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVisible:"), value)
 }
 
-
-
 // The media library that is in use.
 //
 // # Discussion
@@ -303,12 +265,6 @@ func (m NSMediaLibraryBrowserController) SetMediaLibraries(value NSMediaLibrary)
 	objc.Send[struct{}](m.ID, objc.Sel("setMediaLibraries:"), value)
 }
 
-
-
-
-
-
-
 // Returns the shared Media Library Browser instance.
 //
 // # Return Value
@@ -325,22 +281,4 @@ func (_NSMediaLibraryBrowserControllerClass NSMediaLibraryBrowserControllerClass
 	rv := objc.Send[objc.ID](objc.ID(_NSMediaLibraryBrowserControllerClass.class), objc.Sel("sharedMediaLibraryBrowserController"))
 	return NSMediaLibraryBrowserControllerFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

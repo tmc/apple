@@ -39,12 +39,6 @@ func (nc NSGraphicsContextClass) Alloc() NSGraphicsContext {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a graphics context.
 //
 // # Overview
@@ -117,14 +111,10 @@ type NSGraphicsContext struct {
 //
 // An object that represents a graphics context.
 func NSGraphicsContextFromID(id objc.ID) NSGraphicsContext {
-	return NSGraphicsContext{objectivec.Object{id}}
+	return NSGraphicsContext{objectivec.Object{ID: id}}
 }
 // NOTE: NSGraphicsContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSGraphicsContext] class.
 //
@@ -218,10 +208,6 @@ type INSGraphicsContext interface {
 	SetColorRenderingIntent(value NSColorRenderingIntent)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g NSGraphicsContext) Init() NSGraphicsContext {
 	rv := objc.Send[NSGraphicsContext](g.ID, objc.Sel("init"))
@@ -240,11 +226,6 @@ func NewNSGraphicsContext() NSGraphicsContext {
 	rv := objc.Send[NSGraphicsContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a graphics context using the specified attributes.
 //
@@ -271,7 +252,6 @@ func NewGraphicsContextWithAttributes(attributes foundation.INSDictionary) NSGra
 	return NSGraphicsContextFromID(rv)
 }
 
-
 // Creates a new graphics context using the specified bitmap image
 // representation object as the context destination.
 //
@@ -296,7 +276,6 @@ func NewGraphicsContextWithBitmapImageRep(bitmapRep INSBitmapImageRep) NSGraphic
 	return NSGraphicsContextFromID(rv)
 }
 
-
 // Creates a new graphics context from the specified Core Graphics context and
 // the initial flipped state.
 //
@@ -319,12 +298,6 @@ func NewGraphicsContextWithCGContextFlipped(graphicsPort coregraphics.CGContextR
 	return NSGraphicsContextFromID(rv)
 }
 
-
-
-
-
-
-
 // Forces any buffered operations or data to be sent to the graphics
 // context’s destination.
 //
@@ -338,10 +311,6 @@ func NewGraphicsContextWithCGContextFlipped(graphicsPort coregraphics.CGContextR
 func (g NSGraphicsContext) FlushGraphics() {
 	objc.Send[objc.ID](g.ID, objc.Sel("flushGraphics"))
 }
-
-
-
-
 
 // Pops a graphics context from the per-thread stack, makes it current, and
 // sends the context a restore graphics state message.
@@ -384,13 +353,6 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) CurrentContextDrawingToScr
 	return rv
 }
 
-
-
-
-
-
-
-
 // The Core Graphics context, which is a low-level, platform-specific graphics
 // context.
 //
@@ -399,8 +361,6 @@ func (g NSGraphicsContext) CGContext() coregraphics.CGContextRef {
 	rv := objc.Send[coregraphics.CGContextRef](g.ID, objc.Sel("CGContext"))
 	return coregraphics.CGContextRef(rv)
 }
-
-
 
 // A Boolean value that indicates whether the drawing destination is the
 // screen.
@@ -421,8 +381,6 @@ func (g NSGraphicsContext) DrawingToScreen() bool {
 	return rv
 }
 
-
-
 // The attributes used to create this instance.
 //
 // # Discussion
@@ -435,8 +393,6 @@ func (g NSGraphicsContext) Attributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("attributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates the graphics context’s flipped state.
 //
@@ -455,8 +411,6 @@ func (g NSGraphicsContext) Flipped() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isFlipped"))
 	return rv
 }
-
-
 
 // The graphics context’s global compositing operation setting.
 //
@@ -483,8 +437,6 @@ func (g NSGraphicsContext) SetCompositingOperation(value NSCompositingOperation)
 	objc.Send[struct{}](g.ID, objc.Sel("setCompositingOperation:"), value)
 }
 
-
-
 // A constant that specifies the graphics context’s interpolation, or image
 // smoothing, behavior.
 //
@@ -501,8 +453,6 @@ func (g NSGraphicsContext) ImageInterpolation() NSImageInterpolation {
 func (g NSGraphicsContext) SetImageInterpolation(value NSImageInterpolation) {
 	objc.Send[struct{}](g.ID, objc.Sel("setImageInterpolation:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the graphics context uses
 // antialiasing.
@@ -522,8 +472,6 @@ func (g NSGraphicsContext) ShouldAntialias() bool {
 func (g NSGraphicsContext) SetShouldAntialias(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShouldAntialias:"), value)
 }
-
-
 
 // The amount to offset the pattern color when filling the graphics context.
 //
@@ -546,8 +494,6 @@ func (g NSGraphicsContext) PatternPhase() corefoundation.CGPoint {
 func (g NSGraphicsContext) SetPatternPhase(value corefoundation.CGPoint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPatternPhase:"), value)
 }
-
-
 
 // A context for Core Image objects that you can use to render into the
 // graphics context.
@@ -577,8 +523,6 @@ func (g NSGraphicsContext) CIContext() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The color rendering intent in the graphics context’s graphics state.
 //
 // # Discussion
@@ -602,12 +546,6 @@ func (g NSGraphicsContext) SetColorRenderingIntent(value NSColorRenderingIntent)
 	objc.Send[struct{}](g.ID, objc.Sel("setColorRenderingIntent:"), value)
 }
 
-
-
-
-
-
-
 // Returns the current graphics context of the current thread.
 //
 // # Return Value
@@ -626,22 +564,4 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) CurrentContext() NSGraphic
 func (_NSGraphicsContextClass NSGraphicsContextClass) SetCurrentContext(value NSGraphicsContext) {
 	objc.Send[struct{}](objc.ID(_NSGraphicsContextClass.class), objc.Sel("setCurrentContext:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

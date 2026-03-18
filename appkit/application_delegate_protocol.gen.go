@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that manage your app’s life cycle and its interaction with common system services.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSApplicationDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSApplicationDelegateObject wraps an existing Objective-C object that conforms to the NSApplicationDelegate protocol.
 type NSApplicationDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSApplicationDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSApplicationDelegateObjectFromID constructs a [NSApplicationDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSApplicationDelegateObjectFromID(id objc.ID) NSApplicationDelegateObject {
@@ -38,9 +32,6 @@ func NSApplicationDelegateObjectFromID(id objc.ID) NSApplicationDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the app’s initialization is about to complete.
 //
@@ -1281,10 +1272,6 @@ func (o NSApplicationDelegateObject) ApplicationDelegateHandlesKey(sender INSApp
 	return rv
 	}
 
-
-
-
-
 // NSApplicationDelegateConfig holds optional typed callbacks for [NSApplicationDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -1796,8 +1783,4 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSApplicationDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -37,7 +37,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _cGAcquireDisplayFadeReservation func(seconds float32, token *CGDisplayFadeReservationToken) CGError
 
 // CGAcquireDisplayFadeReservation reserves the fade hardware for a specified time interval.
@@ -49,7 +48,6 @@ func CGAcquireDisplayFadeReservation(seconds float32, token *CGDisplayFadeReserv
 	}
 	return _cGAcquireDisplayFadeReservation(seconds, token)
 }
-
 
 var _cGAffineTransformConcat func(t1 corefoundation.CGAffineTransform, t2 corefoundation.CGAffineTransform) corefoundation.CGAffineTransform
 
@@ -63,7 +61,6 @@ func CGAffineTransformConcat(t1 corefoundation.CGAffineTransform, t2 corefoundat
 	return _cGAffineTransformConcat(t1, t2)
 }
 
-
 var _cGAffineTransformDecompose func(transform corefoundation.CGAffineTransform) uintptr
 
 // CGAffineTransformDecompose.
@@ -75,7 +72,6 @@ func CGAffineTransformDecompose(transform corefoundation.CGAffineTransform) uint
 	}
 	return _cGAffineTransformDecompose(transform)
 }
-
 
 var _cGAffineTransformEqualToTransform func(t1 corefoundation.CGAffineTransform, t2 corefoundation.CGAffineTransform) bool
 
@@ -89,7 +85,6 @@ func CGAffineTransformEqualToTransform(t1 corefoundation.CGAffineTransform, t2 c
 	return _cGAffineTransformEqualToTransform(t1, t2)
 }
 
-
 var _cGAffineTransformInvert func(t corefoundation.CGAffineTransform) corefoundation.CGAffineTransform
 
 // CGAffineTransformInvert returns an affine transformation matrix constructed by inverting an existing affine transform.
@@ -101,7 +96,6 @@ func CGAffineTransformInvert(t corefoundation.CGAffineTransform) corefoundation.
 	}
 	return _cGAffineTransformInvert(t)
 }
-
 
 var _cGAffineTransformIsIdentity func(t corefoundation.CGAffineTransform) bool
 
@@ -115,7 +109,6 @@ func CGAffineTransformIsIdentity(t corefoundation.CGAffineTransform) bool {
 	return _cGAffineTransformIsIdentity(t)
 }
 
-
 var _cGAffineTransformMake func(a float64, b float64, c float64, d float64, tx float64, ty float64) corefoundation.CGAffineTransform
 
 // CGAffineTransformMake returns an affine transformation matrix constructed from values you provide.
@@ -127,7 +120,6 @@ func CGAffineTransformMake(a float64, b float64, c float64, d float64, tx float6
 	}
 	return _cGAffineTransformMake(a, b, c, d, tx, ty)
 }
-
 
 var _cGAffineTransformMakeRotation func(angle float64) corefoundation.CGAffineTransform
 
@@ -141,7 +133,6 @@ func CGAffineTransformMakeRotation(angle float64) corefoundation.CGAffineTransfo
 	return _cGAffineTransformMakeRotation(angle)
 }
 
-
 var _cGAffineTransformMakeScale func(sx float64, sy float64) corefoundation.CGAffineTransform
 
 // CGAffineTransformMakeScale returns an affine transformation matrix constructed from scaling values you provide.
@@ -153,7 +144,6 @@ func CGAffineTransformMakeScale(sx float64, sy float64) corefoundation.CGAffineT
 	}
 	return _cGAffineTransformMakeScale(sx, sy)
 }
-
 
 var _cGAffineTransformMakeTranslation func(tx float64, ty float64) corefoundation.CGAffineTransform
 
@@ -167,7 +157,6 @@ func CGAffineTransformMakeTranslation(tx float64, ty float64) corefoundation.CGA
 	return _cGAffineTransformMakeTranslation(tx, ty)
 }
 
-
 var _cGAffineTransformMakeWithComponents func(components uintptr) corefoundation.CGAffineTransform
 
 // CGAffineTransformMakeWithComponents.
@@ -179,7 +168,6 @@ func CGAffineTransformMakeWithComponents(components uintptr) corefoundation.CGAf
 	}
 	return _cGAffineTransformMakeWithComponents(components)
 }
-
 
 var _cGAffineTransformRotate func(t corefoundation.CGAffineTransform, angle float64) corefoundation.CGAffineTransform
 
@@ -193,7 +181,6 @@ func CGAffineTransformRotate(t corefoundation.CGAffineTransform, angle float64) 
 	return _cGAffineTransformRotate(t, angle)
 }
 
-
 var _cGAffineTransformScale func(t corefoundation.CGAffineTransform, sx float64, sy float64) corefoundation.CGAffineTransform
 
 // CGAffineTransformScale returns an affine transformation matrix constructed by scaling an existing affine transform.
@@ -205,7 +192,6 @@ func CGAffineTransformScale(t corefoundation.CGAffineTransform, sx float64, sy f
 	}
 	return _cGAffineTransformScale(t, sx, sy)
 }
-
 
 var _cGAffineTransformTranslate func(t corefoundation.CGAffineTransform, tx float64, ty float64) corefoundation.CGAffineTransform
 
@@ -219,7 +205,6 @@ func CGAffineTransformTranslate(t corefoundation.CGAffineTransform, tx float64, 
 	return _cGAffineTransformTranslate(t, tx, ty)
 }
 
-
 var _cGAssociateMouseAndMouseCursorPosition func(connected uintptr) CGError
 
 // CGAssociateMouseAndMouseCursorPosition connects or disconnects the mouse and cursor while an application is in the foreground.
@@ -231,7 +216,6 @@ func CGAssociateMouseAndMouseCursorPosition(connected uintptr) CGError {
 	}
 	return _cGAssociateMouseAndMouseCursorPosition(connected)
 }
-
 
 var _cGBeginDisplayConfiguration func(config *CGDisplayConfigRef) CGError
 
@@ -245,7 +229,6 @@ func CGBeginDisplayConfiguration(config *CGDisplayConfigRef) CGError {
 	return _cGBeginDisplayConfiguration(config)
 }
 
-
 var _cGBitmapContextCreate func(data unsafe.Pointer, width uintptr, height uintptr, bitsPerComponent uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo) CGContextRef
 
 // CGBitmapContextCreate.
@@ -257,7 +240,6 @@ func CGBitmapContextCreate(data unsafe.Pointer, width uintptr, height uintptr, b
 	}
 	return _cGBitmapContextCreate(data, width, height, bitsPerComponent, bytesPerRow, space, bitmapInfo)
 }
-
 
 var _cGBitmapContextCreateAdaptive func(width uintptr, height uintptr, auxiliaryInfo corefoundation.CFDictionaryRef, onResolve bool) CGContextRef
 
@@ -271,7 +253,6 @@ func CGBitmapContextCreateAdaptive(width uintptr, height uintptr, auxiliaryInfo 
 	return _cGBitmapContextCreateAdaptive(width, height, auxiliaryInfo, onResolve)
 }
 
-
 var _cGBitmapContextCreateImage func(context CGContextRef) CGImageRef
 
 // CGBitmapContextCreateImage creates and returns a CGImage from the pixel data in a bitmap graphics context.
@@ -283,7 +264,6 @@ func CGBitmapContextCreateImage(context CGContextRef) CGImageRef {
 	}
 	return _cGBitmapContextCreateImage(context)
 }
-
 
 var _cGBitmapContextCreateWithData func(data unsafe.Pointer, width uintptr, height uintptr, bitsPerComponent uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo, releaseCallback CGBitmapContextReleaseDataCallback, releaseInfo unsafe.Pointer) CGContextRef
 
@@ -297,7 +277,6 @@ func CGBitmapContextCreateWithData(data unsafe.Pointer, width uintptr, height ui
 	return _cGBitmapContextCreateWithData(data, width, height, bitsPerComponent, bytesPerRow, space, bitmapInfo, releaseCallback, releaseInfo)
 }
 
-
 var _cGBitmapContextGetAlphaInfo func(context CGContextRef) CGImageAlphaInfo
 
 // CGBitmapContextGetAlphaInfo returns the alpha information associated with the context, which indicates how a bitmap context handles the alpha component.
@@ -309,7 +288,6 @@ func CGBitmapContextGetAlphaInfo(context CGContextRef) CGImageAlphaInfo {
 	}
 	return _cGBitmapContextGetAlphaInfo(context)
 }
-
 
 var _cGBitmapContextGetBitmapInfo func(context CGContextRef) CGBitmapInfo
 
@@ -323,7 +301,6 @@ func CGBitmapContextGetBitmapInfo(context CGContextRef) CGBitmapInfo {
 	return _cGBitmapContextGetBitmapInfo(context)
 }
 
-
 var _cGBitmapContextGetBitsPerComponent func(context CGContextRef) uintptr
 
 // CGBitmapContextGetBitsPerComponent returns the bits per component of a bitmap context.
@@ -335,7 +312,6 @@ func CGBitmapContextGetBitsPerComponent(context CGContextRef) uintptr {
 	}
 	return _cGBitmapContextGetBitsPerComponent(context)
 }
-
 
 var _cGBitmapContextGetBitsPerPixel func(context CGContextRef) uintptr
 
@@ -349,7 +325,6 @@ func CGBitmapContextGetBitsPerPixel(context CGContextRef) uintptr {
 	return _cGBitmapContextGetBitsPerPixel(context)
 }
 
-
 var _cGBitmapContextGetBytesPerRow func(context CGContextRef) uintptr
 
 // CGBitmapContextGetBytesPerRow returns the bytes per row of a bitmap context.
@@ -361,7 +336,6 @@ func CGBitmapContextGetBytesPerRow(context CGContextRef) uintptr {
 	}
 	return _cGBitmapContextGetBytesPerRow(context)
 }
-
 
 var _cGBitmapContextGetColorSpace func(context CGContextRef) CGColorSpaceRef
 
@@ -375,7 +349,6 @@ func CGBitmapContextGetColorSpace(context CGContextRef) CGColorSpaceRef {
 	return _cGBitmapContextGetColorSpace(context)
 }
 
-
 var _cGBitmapContextGetData func(context CGContextRef) unsafe.Pointer
 
 // CGBitmapContextGetData returns a pointer to the image data associated with a bitmap context.
@@ -387,7 +360,6 @@ func CGBitmapContextGetData(context CGContextRef) unsafe.Pointer {
 	}
 	return _cGBitmapContextGetData(context)
 }
-
 
 var _cGBitmapContextGetHeight func(context CGContextRef) uintptr
 
@@ -401,7 +373,6 @@ func CGBitmapContextGetHeight(context CGContextRef) uintptr {
 	return _cGBitmapContextGetHeight(context)
 }
 
-
 var _cGBitmapContextGetWidth func(context CGContextRef) uintptr
 
 // CGBitmapContextGetWidth returns the width in pixels of a bitmap context.
@@ -413,8 +384,6 @@ func CGBitmapContextGetWidth(context CGContextRef) uintptr {
 	}
 	return _cGBitmapContextGetWidth(context)
 }
-
-
 
 var _cGCancelDisplayConfiguration func(config CGDisplayConfigRef) CGError
 
@@ -428,7 +397,6 @@ func CGCancelDisplayConfiguration(config CGDisplayConfigRef) CGError {
 	return _cGCancelDisplayConfiguration(config)
 }
 
-
 var _cGCaptureAllDisplays func() CGError
 
 // CGCaptureAllDisplays obtains exclusive use of all active displays, preventing other applications and system services from using the display or changing its configuration.
@@ -440,7 +408,6 @@ func CGCaptureAllDisplays() CGError {
 	}
 	return _cGCaptureAllDisplays()
 }
-
 
 var _cGCaptureAllDisplaysWithOptions func(options CGCaptureOptions) CGError
 
@@ -454,7 +421,6 @@ func CGCaptureAllDisplaysWithOptions(options CGCaptureOptions) CGError {
 	return _cGCaptureAllDisplaysWithOptions(options)
 }
 
-
 var _cGColorConversionInfoConvertData func(info CGColorConversionInfoRef, width uintptr, height uintptr, dst_data unsafe.Pointer, dst_format CGColorBufferFormat, src_data unsafe.Pointer, src_format CGColorBufferFormat, options corefoundation.CFDictionaryRef) bool
 
 // CGColorConversionInfoConvertData.
@@ -467,7 +433,6 @@ func CGColorConversionInfoConvertData(info CGColorConversionInfoRef, width uintp
 	return _cGColorConversionInfoConvertData(info, width, height, dst_data, dst_format, src_data, src_format, options)
 }
 
-
 var _cGColorConversionInfoCreate func(src CGColorSpaceRef, dst CGColorSpaceRef) CGColorConversionInfoRef
 
 // CGColorConversionInfoCreate creates a conversion between two specified color spaces.
@@ -479,7 +444,6 @@ func CGColorConversionInfoCreate(src CGColorSpaceRef, dst CGColorSpaceRef) CGCol
 	}
 	return _cGColorConversionInfoCreate(src, dst)
 }
-
 
 var _cGColorConversionInfoCreateForToneMapping func(from CGColorSpaceRef, source_headroom float32, to CGColorSpaceRef, target_headroom float32, method CGToneMapping, options corefoundation.CFDictionaryRef, err *corefoundation.CFErrorRef) CGColorConversionInfoRef
 
@@ -495,7 +459,6 @@ func CGColorConversionInfoCreateForToneMapping(from CGColorSpaceRef, source_head
 	return _cGColorConversionInfoCreateForToneMapping(from, source_headroom, to, target_headroom, method, options, err)
 }
 
-
 var _cGColorConversionInfoCreateFromList func(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent) CGColorConversionInfoRef
 
 // CGColorConversionInfoCreateFromList creates a conversion between an arbitrary number of specified color spaces.
@@ -507,7 +470,6 @@ func CGColorConversionInfoCreateFromList(options corefoundation.CFDictionaryRef,
 	}
 	return _cGColorConversionInfoCreateFromList(options, arg1, arg2, arg3)
 }
-
 
 var _cGColorConversionInfoCreateFromListWithArguments func(options corefoundation.CFDictionaryRef, arg1 CGColorSpaceRef, arg2 CGColorConversionInfoTransformType, arg3 CGColorRenderingIntent, arg4 uintptr) CGColorConversionInfoRef
 
@@ -521,7 +483,6 @@ func CGColorConversionInfoCreateFromListWithArguments(options corefoundation.CFD
 	return _cGColorConversionInfoCreateFromListWithArguments(options, arg1, arg2, arg3, arg4)
 }
 
-
 var _cGColorConversionInfoCreateWithOptions func(src CGColorSpaceRef, dst CGColorSpaceRef, options corefoundation.CFDictionaryRef) CGColorConversionInfoRef
 
 // CGColorConversionInfoCreateWithOptions.
@@ -533,7 +494,6 @@ func CGColorConversionInfoCreateWithOptions(src CGColorSpaceRef, dst CGColorSpac
 	}
 	return _cGColorConversionInfoCreateWithOptions(src, dst, options)
 }
-
 
 var _cGColorConversionInfoGetTypeID func() uint
 
@@ -547,7 +507,6 @@ func CGColorConversionInfoGetTypeID() uint {
 	return _cGColorConversionInfoGetTypeID()
 }
 
-
 var _cGColorCreate func(space CGColorSpaceRef, components *float64) CGColorRef
 
 // CGColorCreate creates a color using a list of intensity values (including alpha) and an associated color space.
@@ -559,7 +518,6 @@ func CGColorCreate(space CGColorSpaceRef, components *float64) CGColorRef {
 	}
 	return _cGColorCreate(space, components)
 }
-
 
 var _cGColorCreateCopy func(color CGColorRef) CGColorRef
 
@@ -573,7 +531,6 @@ func CGColorCreateCopy(color CGColorRef) CGColorRef {
 	return _cGColorCreateCopy(color)
 }
 
-
 var _cGColorCreateCopyByMatchingToColorSpace func(arg0 CGColorSpaceRef, intent CGColorRenderingIntent, color CGColorRef, options corefoundation.CFDictionaryRef) CGColorRef
 
 // CGColorCreateCopyByMatchingToColorSpace creates a new color in a different color space that matches the provided color.
@@ -585,7 +542,6 @@ func CGColorCreateCopyByMatchingToColorSpace(arg0 CGColorSpaceRef, intent CGColo
 	}
 	return _cGColorCreateCopyByMatchingToColorSpace(arg0, intent, color, options)
 }
-
 
 var _cGColorCreateCopyWithAlpha func(color CGColorRef, alpha float64) CGColorRef
 
@@ -599,7 +555,6 @@ func CGColorCreateCopyWithAlpha(color CGColorRef, alpha float64) CGColorRef {
 	return _cGColorCreateCopyWithAlpha(color, alpha)
 }
 
-
 var _cGColorCreateGenericCMYK func(cyan float64, magenta float64, yellow float64, black float64, alpha float64) CGColorRef
 
 // CGColorCreateGenericCMYK creates a color in the Generic CMYK color space.
@@ -611,7 +566,6 @@ func CGColorCreateGenericCMYK(cyan float64, magenta float64, yellow float64, bla
 	}
 	return _cGColorCreateGenericCMYK(cyan, magenta, yellow, black, alpha)
 }
-
 
 var _cGColorCreateGenericGray func(gray float64, alpha float64) CGColorRef
 
@@ -625,7 +579,6 @@ func CGColorCreateGenericGray(gray float64, alpha float64) CGColorRef {
 	return _cGColorCreateGenericGray(gray, alpha)
 }
 
-
 var _cGColorCreateGenericGrayGamma2_2 func(gray float64, alpha float64) CGColorRef
 
 // CGColorCreateGenericGrayGamma2_2 creates a color in the Generic gray color space with a gamma ramp of 2.2.
@@ -637,7 +590,6 @@ func CGColorCreateGenericGrayGamma2_2(gray float64, alpha float64) CGColorRef {
 	}
 	return _cGColorCreateGenericGrayGamma2_2(gray, alpha)
 }
-
 
 var _cGColorCreateGenericRGB func(red float64, green float64, blue float64, alpha float64) CGColorRef
 
@@ -651,7 +603,6 @@ func CGColorCreateGenericRGB(red float64, green float64, blue float64, alpha flo
 	return _cGColorCreateGenericRGB(red, green, blue, alpha)
 }
 
-
 var _cGColorCreateSRGB func(red float64, green float64, blue float64, alpha float64) CGColorRef
 
 // CGColorCreateSRGB creates a color in the sRGB color space.
@@ -663,7 +614,6 @@ func CGColorCreateSRGB(red float64, green float64, blue float64, alpha float64) 
 	}
 	return _cGColorCreateSRGB(red, green, blue, alpha)
 }
-
 
 var _cGColorCreateWithContentHeadroom func(headroom float32, space CGColorSpaceRef, red float64, green float64, blue float64, alpha float64) CGColorRef
 
@@ -677,7 +627,6 @@ func CGColorCreateWithContentHeadroom(headroom float32, space CGColorSpaceRef, r
 	return _cGColorCreateWithContentHeadroom(headroom, space, red, green, blue, alpha)
 }
 
-
 var _cGColorCreateWithPattern func(space CGColorSpaceRef, pattern CGPatternRef, components *float64) CGColorRef
 
 // CGColorCreateWithPattern creates a color using a list of intensity values (including alpha), a pattern color space, and a pattern.
@@ -689,7 +638,6 @@ func CGColorCreateWithPattern(space CGColorSpaceRef, pattern CGPatternRef, compo
 	}
 	return _cGColorCreateWithPattern(space, pattern, components)
 }
-
 
 var _cGColorEqualToColor func(color1 CGColorRef, color2 CGColorRef) bool
 
@@ -703,7 +651,6 @@ func CGColorEqualToColor(color1 CGColorRef, color2 CGColorRef) bool {
 	return _cGColorEqualToColor(color1, color2)
 }
 
-
 var _cGColorGetAlpha func(color CGColorRef) float64
 
 // CGColorGetAlpha returns the value of the alpha component associated with a color.
@@ -715,7 +662,6 @@ func CGColorGetAlpha(color CGColorRef) float64 {
 	}
 	return _cGColorGetAlpha(color)
 }
-
 
 var _cGColorGetColorSpace func(color CGColorRef) CGColorSpaceRef
 
@@ -729,7 +675,6 @@ func CGColorGetColorSpace(color CGColorRef) CGColorSpaceRef {
 	return _cGColorGetColorSpace(color)
 }
 
-
 var _cGColorGetComponents func(color CGColorRef) *float64
 
 // CGColorGetComponents returns the values of the color components (including alpha) associated with a color.
@@ -741,7 +686,6 @@ func CGColorGetComponents(color CGColorRef) *float64 {
 	}
 	return _cGColorGetComponents(color)
 }
-
 
 var _cGColorGetConstantColor func(colorName corefoundation.CFStringRef) CGColorRef
 
@@ -755,7 +699,6 @@ func CGColorGetConstantColor(colorName corefoundation.CFStringRef) CGColorRef {
 	return _cGColorGetConstantColor(colorName)
 }
 
-
 var _cGColorGetContentHeadroom func(color CGColorRef) float32
 
 // CGColorGetContentHeadroom.
@@ -767,7 +710,6 @@ func CGColorGetContentHeadroom(color CGColorRef) float32 {
 	}
 	return _cGColorGetContentHeadroom(color)
 }
-
 
 var _cGColorGetNumberOfComponents func(color CGColorRef) uintptr
 
@@ -781,7 +723,6 @@ func CGColorGetNumberOfComponents(color CGColorRef) uintptr {
 	return _cGColorGetNumberOfComponents(color)
 }
 
-
 var _cGColorGetPattern func(color CGColorRef) CGPatternRef
 
 // CGColorGetPattern returns the pattern associated with a color in a pattern color space.
@@ -793,7 +734,6 @@ func CGColorGetPattern(color CGColorRef) CGPatternRef {
 	}
 	return _cGColorGetPattern(color)
 }
-
 
 var _cGColorGetTypeID func() uint
 
@@ -807,7 +747,6 @@ func CGColorGetTypeID() uint {
 	return _cGColorGetTypeID()
 }
 
-
 var _cGColorRelease func(color CGColorRef)
 
 // CGColorRelease decrements the retain count of a color.
@@ -819,7 +758,6 @@ func CGColorRelease(color CGColorRef) {
 	}
 	_cGColorRelease(color)
 }
-
 
 var _cGColorRetain func(color CGColorRef) CGColorRef
 
@@ -833,7 +771,6 @@ func CGColorRetain(color CGColorRef) CGColorRef {
 	return _cGColorRetain(color)
 }
 
-
 var _cGColorSpaceCopyBaseColorSpace func(space CGColorSpaceRef) CGColorSpaceRef
 
 // CGColorSpaceCopyBaseColorSpace.
@@ -845,7 +782,6 @@ func CGColorSpaceCopyBaseColorSpace(space CGColorSpaceRef) CGColorSpaceRef {
 	}
 	return _cGColorSpaceCopyBaseColorSpace(space)
 }
-
 
 var _cGColorSpaceCopyICCData func(space CGColorSpaceRef) corefoundation.CFDataRef
 
@@ -859,7 +795,6 @@ func CGColorSpaceCopyICCData(space CGColorSpaceRef) corefoundation.CFDataRef {
 	return _cGColorSpaceCopyICCData(space)
 }
 
-
 var _cGColorSpaceCopyName func(space CGColorSpaceRef) corefoundation.CFStringRef
 
 // CGColorSpaceCopyName returns the name used to create the specified color space.
@@ -871,7 +806,6 @@ func CGColorSpaceCopyName(space CGColorSpaceRef) corefoundation.CFStringRef {
 	}
 	return _cGColorSpaceCopyName(space)
 }
-
 
 var _cGColorSpaceCopyPropertyList func(space CGColorSpaceRef) corefoundation.CFPropertyListRef
 
@@ -885,7 +819,6 @@ func CGColorSpaceCopyPropertyList(space CGColorSpaceRef) corefoundation.CFProper
 	return _cGColorSpaceCopyPropertyList(space)
 }
 
-
 var _cGColorSpaceCreateCalibratedGray func(whitePoint float64, blackPoint float64, gamma float64) CGColorSpaceRef
 
 // CGColorSpaceCreateCalibratedGray creates a calibrated grayscale color space.
@@ -897,7 +830,6 @@ func CGColorSpaceCreateCalibratedGray(whitePoint float64, blackPoint float64, ga
 	}
 	return _cGColorSpaceCreateCalibratedGray(whitePoint, blackPoint, gamma)
 }
-
 
 var _cGColorSpaceCreateCalibratedRGB func(whitePoint float64, blackPoint float64, gamma float64, matrix float64) CGColorSpaceRef
 
@@ -911,7 +843,6 @@ func CGColorSpaceCreateCalibratedRGB(whitePoint float64, blackPoint float64, gam
 	return _cGColorSpaceCreateCalibratedRGB(whitePoint, blackPoint, gamma, matrix)
 }
 
-
 var _cGColorSpaceCreateCopyWithStandardRange func(space CGColorSpaceRef) CGColorSpaceRef
 
 // CGColorSpaceCreateCopyWithStandardRange.
@@ -923,7 +854,6 @@ func CGColorSpaceCreateCopyWithStandardRange(space CGColorSpaceRef) CGColorSpace
 	}
 	return _cGColorSpaceCreateCopyWithStandardRange(space)
 }
-
 
 var _cGColorSpaceCreateDeviceCMYK func() CGColorSpaceRef
 
@@ -937,7 +867,6 @@ func CGColorSpaceCreateDeviceCMYK() CGColorSpaceRef {
 	return _cGColorSpaceCreateDeviceCMYK()
 }
 
-
 var _cGColorSpaceCreateDeviceGray func() CGColorSpaceRef
 
 // CGColorSpaceCreateDeviceGray creates a device-dependent grayscale color space.
@@ -949,7 +878,6 @@ func CGColorSpaceCreateDeviceGray() CGColorSpaceRef {
 	}
 	return _cGColorSpaceCreateDeviceGray()
 }
-
 
 var _cGColorSpaceCreateDeviceRGB func() CGColorSpaceRef
 
@@ -963,7 +891,6 @@ func CGColorSpaceCreateDeviceRGB() CGColorSpaceRef {
 	return _cGColorSpaceCreateDeviceRGB()
 }
 
-
 var _cGColorSpaceCreateExtended func(space CGColorSpaceRef) CGColorSpaceRef
 
 // CGColorSpaceCreateExtended.
@@ -975,7 +902,6 @@ func CGColorSpaceCreateExtended(space CGColorSpaceRef) CGColorSpaceRef {
 	}
 	return _cGColorSpaceCreateExtended(space)
 }
-
 
 var _cGColorSpaceCreateExtendedLinearized func(space CGColorSpaceRef) CGColorSpaceRef
 
@@ -989,7 +915,6 @@ func CGColorSpaceCreateExtendedLinearized(space CGColorSpaceRef) CGColorSpaceRef
 	return _cGColorSpaceCreateExtendedLinearized(space)
 }
 
-
 var _cGColorSpaceCreateICCBased func(nComponents uintptr, range_ *float64, profile CGDataProviderRef, alternate CGColorSpaceRef) CGColorSpaceRef
 
 // CGColorSpaceCreateICCBased creates a device-independent color space that is defined according to the ICC color profile specification.
@@ -1001,7 +926,6 @@ func CGColorSpaceCreateICCBased(nComponents uintptr, range_ *float64, profile CG
 	}
 	return _cGColorSpaceCreateICCBased(nComponents, range_, profile, alternate)
 }
-
 
 var _cGColorSpaceCreateIndexed func(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable *byte) CGColorSpaceRef
 
@@ -1015,7 +939,6 @@ func CGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, col
 	return _cGColorSpaceCreateIndexed(baseSpace, lastIndex, colorTable)
 }
 
-
 var _cGColorSpaceCreateLab func(whitePoint float64, blackPoint float64, range_ float64) CGColorSpaceRef
 
 // CGColorSpaceCreateLab creates a device-independent color space that is relative to human color perception, according to the CIE L*a*b* standard.
@@ -1027,7 +950,6 @@ func CGColorSpaceCreateLab(whitePoint float64, blackPoint float64, range_ float6
 	}
 	return _cGColorSpaceCreateLab(whitePoint, blackPoint, range_)
 }
-
 
 var _cGColorSpaceCreateLinearized func(space CGColorSpaceRef) CGColorSpaceRef
 
@@ -1041,7 +963,6 @@ func CGColorSpaceCreateLinearized(space CGColorSpaceRef) CGColorSpaceRef {
 	return _cGColorSpaceCreateLinearized(space)
 }
 
-
 var _cGColorSpaceCreatePattern func(baseSpace CGColorSpaceRef) CGColorSpaceRef
 
 // CGColorSpaceCreatePattern creates a pattern color space.
@@ -1053,7 +974,6 @@ func CGColorSpaceCreatePattern(baseSpace CGColorSpaceRef) CGColorSpaceRef {
 	}
 	return _cGColorSpaceCreatePattern(baseSpace)
 }
-
 
 var _cGColorSpaceCreateWithColorSyncProfile func(arg0 ColorSyncProfileRef, options corefoundation.CFDictionaryRef) CGColorSpaceRef
 
@@ -1067,7 +987,6 @@ func CGColorSpaceCreateWithColorSyncProfile(arg0 ColorSyncProfileRef, options co
 	return _cGColorSpaceCreateWithColorSyncProfile(arg0, options)
 }
 
-
 var _cGColorSpaceCreateWithICCData func(data corefoundation.CFTypeRef) CGColorSpaceRef
 
 // CGColorSpaceCreateWithICCData creates an ICC-based color space using the ICC profile contained in the specified data.
@@ -1079,7 +998,6 @@ func CGColorSpaceCreateWithICCData(data corefoundation.CFTypeRef) CGColorSpaceRe
 	}
 	return _cGColorSpaceCreateWithICCData(data)
 }
-
 
 var _cGColorSpaceCreateWithName func(name corefoundation.CFStringRef) CGColorSpaceRef
 
@@ -1093,7 +1011,6 @@ func CGColorSpaceCreateWithName(name corefoundation.CFStringRef) CGColorSpaceRef
 	return _cGColorSpaceCreateWithName(name)
 }
 
-
 var _cGColorSpaceCreateWithPropertyList func(plist corefoundation.CFPropertyListRef) CGColorSpaceRef
 
 // CGColorSpaceCreateWithPropertyList creates a color space from a property list.
@@ -1105,7 +1022,6 @@ func CGColorSpaceCreateWithPropertyList(plist corefoundation.CFPropertyListRef) 
 	}
 	return _cGColorSpaceCreateWithPropertyList(plist)
 }
-
 
 var _cGColorSpaceGetBaseColorSpace func(space CGColorSpaceRef) CGColorSpaceRef
 
@@ -1119,7 +1035,6 @@ func CGColorSpaceGetBaseColorSpace(space CGColorSpaceRef) CGColorSpaceRef {
 	return _cGColorSpaceGetBaseColorSpace(space)
 }
 
-
 var _cGColorSpaceGetColorTable func(space CGColorSpaceRef, table *uint8)
 
 // CGColorSpaceGetColorTable copies the entries in the color table of an indexed color space.
@@ -1131,7 +1046,6 @@ func CGColorSpaceGetColorTable(space CGColorSpaceRef, table *uint8) {
 	}
 	_cGColorSpaceGetColorTable(space, table)
 }
-
 
 var _cGColorSpaceGetColorTableCount func(space CGColorSpaceRef) uintptr
 
@@ -1145,7 +1059,6 @@ func CGColorSpaceGetColorTableCount(space CGColorSpaceRef) uintptr {
 	return _cGColorSpaceGetColorTableCount(space)
 }
 
-
 var _cGColorSpaceGetModel func(space CGColorSpaceRef) CGColorSpaceModel
 
 // CGColorSpaceGetModel returns the color space model of the provided color space.
@@ -1157,7 +1070,6 @@ func CGColorSpaceGetModel(space CGColorSpaceRef) CGColorSpaceModel {
 	}
 	return _cGColorSpaceGetModel(space)
 }
-
 
 var _cGColorSpaceGetName func(space CGColorSpaceRef) corefoundation.CFStringRef
 
@@ -1171,7 +1083,6 @@ func CGColorSpaceGetName(space CGColorSpaceRef) corefoundation.CFStringRef {
 	return _cGColorSpaceGetName(space)
 }
 
-
 var _cGColorSpaceGetNumberOfComponents func(space CGColorSpaceRef) uintptr
 
 // CGColorSpaceGetNumberOfComponents returns the number of color components in a color space.
@@ -1183,7 +1094,6 @@ func CGColorSpaceGetNumberOfComponents(space CGColorSpaceRef) uintptr {
 	}
 	return _cGColorSpaceGetNumberOfComponents(space)
 }
-
 
 var _cGColorSpaceGetTypeID func() uint
 
@@ -1197,7 +1107,6 @@ func CGColorSpaceGetTypeID() uint {
 	return _cGColorSpaceGetTypeID()
 }
 
-
 var _cGColorSpaceIsHDR func(arg0 CGColorSpaceRef) bool
 
 // CGColorSpaceIsHDR.
@@ -1209,7 +1118,6 @@ func CGColorSpaceIsHDR(arg0 CGColorSpaceRef) bool {
 	}
 	return _cGColorSpaceIsHDR(arg0)
 }
-
 
 var _cGColorSpaceIsHLGBased func(s CGColorSpaceRef) bool
 
@@ -1223,7 +1131,6 @@ func CGColorSpaceIsHLGBased(s CGColorSpaceRef) bool {
 	return _cGColorSpaceIsHLGBased(s)
 }
 
-
 var _cGColorSpaceIsPQBased func(s CGColorSpaceRef) bool
 
 // CGColorSpaceIsPQBased.
@@ -1235,7 +1142,6 @@ func CGColorSpaceIsPQBased(s CGColorSpaceRef) bool {
 	}
 	return _cGColorSpaceIsPQBased(s)
 }
-
 
 var _cGColorSpaceIsWideGamutRGB func(arg0 CGColorSpaceRef) bool
 
@@ -1249,7 +1155,6 @@ func CGColorSpaceIsWideGamutRGB(arg0 CGColorSpaceRef) bool {
 	return _cGColorSpaceIsWideGamutRGB(arg0)
 }
 
-
 var _cGColorSpaceRelease func(space CGColorSpaceRef)
 
 // CGColorSpaceRelease decrements the retain count of a color space.
@@ -1261,7 +1166,6 @@ func CGColorSpaceRelease(space CGColorSpaceRef) {
 	}
 	_cGColorSpaceRelease(space)
 }
-
 
 var _cGColorSpaceRetain func(space CGColorSpaceRef) CGColorSpaceRef
 
@@ -1275,7 +1179,6 @@ func CGColorSpaceRetain(space CGColorSpaceRef) CGColorSpaceRef {
 	return _cGColorSpaceRetain(space)
 }
 
-
 var _cGColorSpaceSupportsOutput func(space CGColorSpaceRef) bool
 
 // CGColorSpaceSupportsOutput returns a Boolean indicating whether the color space can be used as a destination color space.
@@ -1287,7 +1190,6 @@ func CGColorSpaceSupportsOutput(space CGColorSpaceRef) bool {
 	}
 	return _cGColorSpaceSupportsOutput(space)
 }
-
 
 var _cGColorSpaceUsesExtendedRange func(space CGColorSpaceRef) bool
 
@@ -1301,7 +1203,6 @@ func CGColorSpaceUsesExtendedRange(space CGColorSpaceRef) bool {
 	return _cGColorSpaceUsesExtendedRange(space)
 }
 
-
 var _cGColorSpaceUsesITUR_2100TF func(arg0 CGColorSpaceRef) bool
 
 // CGColorSpaceUsesITUR_2100TF.
@@ -1313,7 +1214,6 @@ func CGColorSpaceUsesITUR_2100TF(arg0 CGColorSpaceRef) bool {
 	}
 	return _cGColorSpaceUsesITUR_2100TF(arg0)
 }
-
 
 var _cGCompleteDisplayConfiguration func(config CGDisplayConfigRef, option CGConfigureOption) CGError
 
@@ -1327,7 +1227,6 @@ func CGCompleteDisplayConfiguration(config CGDisplayConfigRef, option CGConfigur
 	return _cGCompleteDisplayConfiguration(config, option)
 }
 
-
 var _cGConfigureDisplayFadeEffect func(config CGDisplayConfigRef, fadeOutSeconds float32, fadeInSeconds float32, fadeRed float32, fadeGreen float32, fadeBlue float32) CGError
 
 // CGConfigureDisplayFadeEffect modifies the settings of the built-in fade effect that occurs during a display configuration.
@@ -1339,7 +1238,6 @@ func CGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds floa
 	}
 	return _cGConfigureDisplayFadeEffect(config, fadeOutSeconds, fadeInSeconds, fadeRed, fadeGreen, fadeBlue)
 }
-
 
 var _cGConfigureDisplayMirrorOfDisplay func(config CGDisplayConfigRef, display uint32, master uint32) CGError
 
@@ -1353,7 +1251,6 @@ func CGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display uint32
 	return _cGConfigureDisplayMirrorOfDisplay(config, display, master)
 }
 
-
 var _cGConfigureDisplayOrigin func(config CGDisplayConfigRef, display uint32, x int32, y int32) CGError
 
 // CGConfigureDisplayOrigin configures the origin of a display relative to the global display coordinate space.
@@ -1365,7 +1262,6 @@ func CGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x int32
 	}
 	return _cGConfigureDisplayOrigin(config, display, x, y)
 }
-
 
 var _cGConfigureDisplayStereoOperation func(config CGDisplayConfigRef, display uint32, stereo uintptr, forceBlueLine uintptr) CGError
 
@@ -1379,7 +1275,6 @@ func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32
 	return _cGConfigureDisplayStereoOperation(config, display, stereo, forceBlueLine)
 }
 
-
 var _cGConfigureDisplayWithDisplayMode func(config CGDisplayConfigRef, display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
 
 // CGConfigureDisplayWithDisplayMode configures the display mode of a display.
@@ -1391,7 +1286,6 @@ func CGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display uint32
 	}
 	return _cGConfigureDisplayWithDisplayMode(config, display, mode, options)
 }
-
 
 var _cGContextAddArc func(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int)
 
@@ -1405,7 +1299,6 @@ func CGContextAddArc(c CGContextRef, x float64, y float64, radius float64, start
 	_cGContextAddArc(c, x, y, radius, startAngle, endAngle, clockwise)
 }
 
-
 var _cGContextAddArcToPoint func(c CGContextRef, x1 float64, y1 float64, x2 float64, y2 float64, radius float64)
 
 // CGContextAddArcToPoint adds an arc of a circle to the current path, using a radius and tangent points.
@@ -1417,7 +1310,6 @@ func CGContextAddArcToPoint(c CGContextRef, x1 float64, y1 float64, x2 float64, 
 	}
 	_cGContextAddArcToPoint(c, x1, y1, x2, y2, radius)
 }
-
 
 var _cGContextAddCurveToPoint func(c CGContextRef, cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64)
 
@@ -1431,7 +1323,6 @@ func CGContextAddCurveToPoint(c CGContextRef, cp1x float64, cp1y float64, cp2x f
 	_cGContextAddCurveToPoint(c, cp1x, cp1y, cp2x, cp2y, x, y)
 }
 
-
 var _cGContextAddEllipseInRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextAddEllipseInRect adds an ellipse that fits inside the specified rectangle.
@@ -1443,7 +1334,6 @@ func CGContextAddEllipseInRect(c CGContextRef, rect corefoundation.CGRect) {
 	}
 	_cGContextAddEllipseInRect(c, rect)
 }
-
 
 var _cGContextAddLineToPoint func(c CGContextRef, x float64, y float64)
 
@@ -1457,7 +1347,6 @@ func CGContextAddLineToPoint(c CGContextRef, x float64, y float64) {
 	_cGContextAddLineToPoint(c, x, y)
 }
 
-
 var _cGContextAddLines func(c CGContextRef, points *corefoundation.CGPoint, count uintptr)
 
 // CGContextAddLines adds a sequence of connected straight-line segments to the current path.
@@ -1469,7 +1358,6 @@ func CGContextAddLines(c CGContextRef, points *corefoundation.CGPoint, count uin
 	}
 	_cGContextAddLines(c, points, count)
 }
-
 
 var _cGContextAddPath func(c CGContextRef, path CGPathRef)
 
@@ -1483,7 +1371,6 @@ func CGContextAddPath(c CGContextRef, path CGPathRef) {
 	_cGContextAddPath(c, path)
 }
 
-
 var _cGContextAddQuadCurveToPoint func(c CGContextRef, cpx float64, cpy float64, x float64, y float64)
 
 // CGContextAddQuadCurveToPoint appends a quadratic Bézier curve from the current point, using a control point and an end point you specify.
@@ -1495,7 +1382,6 @@ func CGContextAddQuadCurveToPoint(c CGContextRef, cpx float64, cpy float64, x fl
 	}
 	_cGContextAddQuadCurveToPoint(c, cpx, cpy, x, y)
 }
-
 
 var _cGContextAddRect func(c CGContextRef, rect corefoundation.CGRect)
 
@@ -1509,7 +1395,6 @@ func CGContextAddRect(c CGContextRef, rect corefoundation.CGRect) {
 	_cGContextAddRect(c, rect)
 }
 
-
 var _cGContextAddRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr)
 
 // CGContextAddRects adds a set of rectangular paths to the current path.
@@ -1521,7 +1406,6 @@ func CGContextAddRects(c CGContextRef, rects *corefoundation.CGRect, count uintp
 	}
 	_cGContextAddRects(c, rects, count)
 }
-
 
 var _cGContextBeginPage func(c CGContextRef, mediaBox *corefoundation.CGRect)
 
@@ -1535,7 +1419,6 @@ func CGContextBeginPage(c CGContextRef, mediaBox *corefoundation.CGRect) {
 	_cGContextBeginPage(c, mediaBox)
 }
 
-
 var _cGContextBeginPath func(c CGContextRef)
 
 // CGContextBeginPath creates a new empty path in a graphics context.
@@ -1547,7 +1430,6 @@ func CGContextBeginPath(c CGContextRef) {
 	}
 	_cGContextBeginPath(c)
 }
-
 
 var _cGContextBeginTransparencyLayer func(c CGContextRef, auxiliaryInfo corefoundation.CFDictionaryRef)
 
@@ -1561,7 +1443,6 @@ func CGContextBeginTransparencyLayer(c CGContextRef, auxiliaryInfo corefoundatio
 	_cGContextBeginTransparencyLayer(c, auxiliaryInfo)
 }
 
-
 var _cGContextBeginTransparencyLayerWithRect func(c CGContextRef, rect corefoundation.CGRect, auxInfo corefoundation.CFDictionaryRef)
 
 // CGContextBeginTransparencyLayerWithRect begins a transparency layer whose contents are bounded by the specified rectangle.
@@ -1573,7 +1454,6 @@ func CGContextBeginTransparencyLayerWithRect(c CGContextRef, rect corefoundation
 	}
 	_cGContextBeginTransparencyLayerWithRect(c, rect, auxInfo)
 }
-
 
 var _cGContextClearRect func(c CGContextRef, rect corefoundation.CGRect)
 
@@ -1587,7 +1467,6 @@ func CGContextClearRect(c CGContextRef, rect corefoundation.CGRect) {
 	_cGContextClearRect(c, rect)
 }
 
-
 var _cGContextClip func(c CGContextRef)
 
 // CGContextClip modifies the current clipping path, using the nonzero winding number rule.
@@ -1599,7 +1478,6 @@ func CGContextClip(c CGContextRef) {
 	}
 	_cGContextClip(c)
 }
-
 
 var _cGContextClipToMask func(c CGContextRef, rect corefoundation.CGRect, mask CGImageRef)
 
@@ -1613,7 +1491,6 @@ func CGContextClipToMask(c CGContextRef, rect corefoundation.CGRect, mask CGImag
 	_cGContextClipToMask(c, rect, mask)
 }
 
-
 var _cGContextClipToRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextClipToRect sets the clipping path to the intersection of the current clipping path with the area defined by the specified rectangle.
@@ -1625,7 +1502,6 @@ func CGContextClipToRect(c CGContextRef, rect corefoundation.CGRect) {
 	}
 	_cGContextClipToRect(c, rect)
 }
-
 
 var _cGContextClipToRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr)
 
@@ -1639,7 +1515,6 @@ func CGContextClipToRects(c CGContextRef, rects *corefoundation.CGRect, count ui
 	_cGContextClipToRects(c, rects, count)
 }
 
-
 var _cGContextClosePath func(c CGContextRef)
 
 // CGContextClosePath closes and terminates the current path’s subpath.
@@ -1651,7 +1526,6 @@ func CGContextClosePath(c CGContextRef) {
 	}
 	_cGContextClosePath(c)
 }
-
 
 var _cGContextConcatCTM func(c CGContextRef, transform corefoundation.CGAffineTransform)
 
@@ -1665,7 +1539,6 @@ func CGContextConcatCTM(c CGContextRef, transform corefoundation.CGAffineTransfo
 	_cGContextConcatCTM(c, transform)
 }
 
-
 var _cGContextConvertPointToDeviceSpace func(c CGContextRef, point corefoundation.CGPoint) corefoundation.CGPoint
 
 // CGContextConvertPointToDeviceSpace returns a point that is transformed from user space coordinates to device space coordinates.
@@ -1677,7 +1550,6 @@ func CGContextConvertPointToDeviceSpace(c CGContextRef, point corefoundation.CGP
 	}
 	return _cGContextConvertPointToDeviceSpace(c, point)
 }
-
 
 var _cGContextConvertPointToUserSpace func(c CGContextRef, point corefoundation.CGPoint) corefoundation.CGPoint
 
@@ -1691,7 +1563,6 @@ func CGContextConvertPointToUserSpace(c CGContextRef, point corefoundation.CGPoi
 	return _cGContextConvertPointToUserSpace(c, point)
 }
 
-
 var _cGContextConvertRectToDeviceSpace func(c CGContextRef, rect corefoundation.CGRect) corefoundation.CGRect
 
 // CGContextConvertRectToDeviceSpace returns a rectangle that is transformed from user space coordinate to device space coordinates.
@@ -1703,7 +1574,6 @@ func CGContextConvertRectToDeviceSpace(c CGContextRef, rect corefoundation.CGRec
 	}
 	return _cGContextConvertRectToDeviceSpace(c, rect)
 }
-
 
 var _cGContextConvertRectToUserSpace func(c CGContextRef, rect corefoundation.CGRect) corefoundation.CGRect
 
@@ -1717,7 +1587,6 @@ func CGContextConvertRectToUserSpace(c CGContextRef, rect corefoundation.CGRect)
 	return _cGContextConvertRectToUserSpace(c, rect)
 }
 
-
 var _cGContextConvertSizeToDeviceSpace func(c CGContextRef, size corefoundation.CGSize) corefoundation.CGSize
 
 // CGContextConvertSizeToDeviceSpace returns a size that is transformed from user space coordinates to device space coordinates.
@@ -1729,7 +1598,6 @@ func CGContextConvertSizeToDeviceSpace(c CGContextRef, size corefoundation.CGSiz
 	}
 	return _cGContextConvertSizeToDeviceSpace(c, size)
 }
-
 
 var _cGContextConvertSizeToUserSpace func(c CGContextRef, size corefoundation.CGSize) corefoundation.CGSize
 
@@ -1743,7 +1611,6 @@ func CGContextConvertSizeToUserSpace(c CGContextRef, size corefoundation.CGSize)
 	return _cGContextConvertSizeToUserSpace(c, size)
 }
 
-
 var _cGContextCopyPath func(c CGContextRef) CGPathRef
 
 // CGContextCopyPath returns a path object built from the current path information in a graphics context.
@@ -1755,7 +1622,6 @@ func CGContextCopyPath(c CGContextRef) CGPathRef {
 	}
 	return _cGContextCopyPath(c)
 }
-
 
 var _cGContextDrawConicGradient func(c CGContextRef, gradient CGGradientRef, center corefoundation.CGPoint, angle float64)
 
@@ -1769,7 +1635,6 @@ func CGContextDrawConicGradient(c CGContextRef, gradient CGGradientRef, center c
 	_cGContextDrawConicGradient(c, gradient, center, angle)
 }
 
-
 var _cGContextDrawImage func(c CGContextRef, rect corefoundation.CGRect, image CGImageRef)
 
 // CGContextDrawImage draws an image into a graphics context.
@@ -1781,7 +1646,6 @@ func CGContextDrawImage(c CGContextRef, rect corefoundation.CGRect, image CGImag
 	}
 	_cGContextDrawImage(c, rect, image)
 }
-
 
 var _cGContextDrawImageApplyingToneMapping func(c CGContextRef, r corefoundation.CGRect, image CGImageRef, method CGToneMapping, options corefoundation.CFDictionaryRef) bool
 
@@ -1795,7 +1659,6 @@ func CGContextDrawImageApplyingToneMapping(c CGContextRef, r corefoundation.CGRe
 	return _cGContextDrawImageApplyingToneMapping(c, r, image, method, options)
 }
 
-
 var _cGContextDrawLayerAtPoint func(context CGContextRef, point corefoundation.CGPoint, layer uintptr)
 
 // CGContextDrawLayerAtPoint draws the contents of a CGLayer object at the specified point.
@@ -1807,7 +1670,6 @@ func CGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoin
 	}
 	_cGContextDrawLayerAtPoint(context, point, layer)
 }
-
 
 var _cGContextDrawLayerInRect func(context CGContextRef, rect corefoundation.CGRect, layer uintptr)
 
@@ -1821,7 +1683,6 @@ func CGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, 
 	_cGContextDrawLayerInRect(context, rect, layer)
 }
 
-
 var _cGContextDrawLinearGradient func(c CGContextRef, gradient CGGradientRef, startPoint corefoundation.CGPoint, endPoint corefoundation.CGPoint, options CGGradientDrawingOptions)
 
 // CGContextDrawLinearGradient paints a gradient fill that varies along the line defined by the provided starting and ending points.
@@ -1833,7 +1694,6 @@ func CGContextDrawLinearGradient(c CGContextRef, gradient CGGradientRef, startPo
 	}
 	_cGContextDrawLinearGradient(c, gradient, startPoint, endPoint, options)
 }
-
 
 var _cGContextDrawPDFDocument func(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int)
 
@@ -1847,7 +1707,6 @@ func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, docume
 	_cGContextDrawPDFDocument(c, rect, document, page)
 }
 
-
 var _cGContextDrawPDFPage func(c CGContextRef, page CGPDFPageRef)
 
 // CGContextDrawPDFPage draws the content of a PDF page into the current graphics context.
@@ -1859,7 +1718,6 @@ func CGContextDrawPDFPage(c CGContextRef, page CGPDFPageRef) {
 	}
 	_cGContextDrawPDFPage(c, page)
 }
-
 
 var _cGContextDrawPath func(c CGContextRef, mode CGPathDrawingMode)
 
@@ -1873,7 +1731,6 @@ func CGContextDrawPath(c CGContextRef, mode CGPathDrawingMode) {
 	_cGContextDrawPath(c, mode)
 }
 
-
 var _cGContextDrawRadialGradient func(c CGContextRef, gradient CGGradientRef, startCenter corefoundation.CGPoint, startRadius float64, endCenter corefoundation.CGPoint, endRadius float64, options CGGradientDrawingOptions)
 
 // CGContextDrawRadialGradient paints a gradient fill that varies along the area defined by the provided starting and ending circles.
@@ -1885,7 +1742,6 @@ func CGContextDrawRadialGradient(c CGContextRef, gradient CGGradientRef, startCe
 	}
 	_cGContextDrawRadialGradient(c, gradient, startCenter, startRadius, endCenter, endRadius, options)
 }
-
 
 var _cGContextDrawShading func(c CGContextRef, shading CGShadingRef)
 
@@ -1899,7 +1755,6 @@ func CGContextDrawShading(c CGContextRef, shading CGShadingRef) {
 	_cGContextDrawShading(c, shading)
 }
 
-
 var _cGContextDrawTiledImage func(c CGContextRef, rect corefoundation.CGRect, image CGImageRef)
 
 // CGContextDrawTiledImage repeatedly draws an image, scaled to the provided rectangle, to fill the current clip region.
@@ -1911,7 +1766,6 @@ func CGContextDrawTiledImage(c CGContextRef, rect corefoundation.CGRect, image C
 	}
 	_cGContextDrawTiledImage(c, rect, image)
 }
-
 
 var _cGContextEOClip func(c CGContextRef)
 
@@ -1925,7 +1779,6 @@ func CGContextEOClip(c CGContextRef) {
 	_cGContextEOClip(c)
 }
 
-
 var _cGContextEOFillPath func(c CGContextRef)
 
 // CGContextEOFillPath paints the area within the current path, using the even-odd fill rule.
@@ -1937,7 +1790,6 @@ func CGContextEOFillPath(c CGContextRef) {
 	}
 	_cGContextEOFillPath(c)
 }
-
 
 var _cGContextEndPage func(c CGContextRef)
 
@@ -1951,7 +1803,6 @@ func CGContextEndPage(c CGContextRef) {
 	_cGContextEndPage(c)
 }
 
-
 var _cGContextEndTransparencyLayer func(c CGContextRef)
 
 // CGContextEndTransparencyLayer ends a transparency layer.
@@ -1963,7 +1814,6 @@ func CGContextEndTransparencyLayer(c CGContextRef) {
 	}
 	_cGContextEndTransparencyLayer(c)
 }
-
 
 var _cGContextFillEllipseInRect func(c CGContextRef, rect corefoundation.CGRect)
 
@@ -1977,7 +1827,6 @@ func CGContextFillEllipseInRect(c CGContextRef, rect corefoundation.CGRect) {
 	_cGContextFillEllipseInRect(c, rect)
 }
 
-
 var _cGContextFillPath func(c CGContextRef)
 
 // CGContextFillPath paints the area within the current path, using the nonzero winding number rule.
@@ -1989,7 +1838,6 @@ func CGContextFillPath(c CGContextRef) {
 	}
 	_cGContextFillPath(c)
 }
-
 
 var _cGContextFillRect func(c CGContextRef, rect corefoundation.CGRect)
 
@@ -2003,7 +1851,6 @@ func CGContextFillRect(c CGContextRef, rect corefoundation.CGRect) {
 	_cGContextFillRect(c, rect)
 }
 
-
 var _cGContextFillRects func(c CGContextRef, rects *corefoundation.CGRect, count uintptr)
 
 // CGContextFillRects paints the areas contained within the provided rectangles, using the fill color in the current graphics state.
@@ -2015,7 +1862,6 @@ func CGContextFillRects(c CGContextRef, rects *corefoundation.CGRect, count uint
 	}
 	_cGContextFillRects(c, rects, count)
 }
-
 
 var _cGContextFlush func(c CGContextRef)
 
@@ -2029,7 +1875,6 @@ func CGContextFlush(c CGContextRef) {
 	_cGContextFlush(c)
 }
 
-
 var _cGContextGetCTM func(c CGContextRef) corefoundation.CGAffineTransform
 
 // CGContextGetCTM returns the current transformation matrix.
@@ -2041,7 +1886,6 @@ func CGContextGetCTM(c CGContextRef) corefoundation.CGAffineTransform {
 	}
 	return _cGContextGetCTM(c)
 }
-
 
 var _cGContextGetClipBoundingBox func(c CGContextRef) corefoundation.CGRect
 
@@ -2055,7 +1899,6 @@ func CGContextGetClipBoundingBox(c CGContextRef) corefoundation.CGRect {
 	return _cGContextGetClipBoundingBox(c)
 }
 
-
 var _cGContextGetContentToneMappingInfo func(c CGContextRef) CGContentToneMappingInfo
 
 // CGContextGetContentToneMappingInfo.
@@ -2067,7 +1910,6 @@ func CGContextGetContentToneMappingInfo(c CGContextRef) CGContentToneMappingInfo
 	}
 	return _cGContextGetContentToneMappingInfo(c)
 }
-
 
 var _cGContextGetEDRTargetHeadroom func(c CGContextRef) float32
 
@@ -2081,7 +1923,6 @@ func CGContextGetEDRTargetHeadroom(c CGContextRef) float32 {
 	return _cGContextGetEDRTargetHeadroom(c)
 }
 
-
 var _cGContextGetInterpolationQuality func(c CGContextRef) CGInterpolationQuality
 
 // CGContextGetInterpolationQuality returns the current level of interpolation quality for a graphics context.
@@ -2093,7 +1934,6 @@ func CGContextGetInterpolationQuality(c CGContextRef) CGInterpolationQuality {
 	}
 	return _cGContextGetInterpolationQuality(c)
 }
-
 
 var _cGContextGetPathBoundingBox func(c CGContextRef) corefoundation.CGRect
 
@@ -2107,7 +1947,6 @@ func CGContextGetPathBoundingBox(c CGContextRef) corefoundation.CGRect {
 	return _cGContextGetPathBoundingBox(c)
 }
 
-
 var _cGContextGetPathCurrentPoint func(c CGContextRef) corefoundation.CGPoint
 
 // CGContextGetPathCurrentPoint returns the current point in a non-empty path.
@@ -2119,7 +1958,6 @@ func CGContextGetPathCurrentPoint(c CGContextRef) corefoundation.CGPoint {
 	}
 	return _cGContextGetPathCurrentPoint(c)
 }
-
 
 var _cGContextGetTextMatrix func(c CGContextRef) corefoundation.CGAffineTransform
 
@@ -2133,7 +1971,6 @@ func CGContextGetTextMatrix(c CGContextRef) corefoundation.CGAffineTransform {
 	return _cGContextGetTextMatrix(c)
 }
 
-
 var _cGContextGetTextPosition func(c CGContextRef) corefoundation.CGPoint
 
 // CGContextGetTextPosition.
@@ -2145,7 +1982,6 @@ func CGContextGetTextPosition(c CGContextRef) corefoundation.CGPoint {
 	}
 	return _cGContextGetTextPosition(c)
 }
-
 
 var _cGContextGetTypeID func() uint
 
@@ -2159,7 +1995,6 @@ func CGContextGetTypeID() uint {
 	return _cGContextGetTypeID()
 }
 
-
 var _cGContextGetUserSpaceToDeviceSpaceTransform func(c CGContextRef) corefoundation.CGAffineTransform
 
 // CGContextGetUserSpaceToDeviceSpaceTransform returns an affine transform that maps user space coordinates to device space coordinates.
@@ -2171,7 +2006,6 @@ func CGContextGetUserSpaceToDeviceSpaceTransform(c CGContextRef) corefoundation.
 	}
 	return _cGContextGetUserSpaceToDeviceSpaceTransform(c)
 }
-
 
 var _cGContextIsPathEmpty func(c CGContextRef) bool
 
@@ -2185,7 +2019,6 @@ func CGContextIsPathEmpty(c CGContextRef) bool {
 	return _cGContextIsPathEmpty(c)
 }
 
-
 var _cGContextMoveToPoint func(c CGContextRef, x float64, y float64)
 
 // CGContextMoveToPoint begins a new subpath at the point you specify.
@@ -2197,7 +2030,6 @@ func CGContextMoveToPoint(c CGContextRef, x float64, y float64) {
 	}
 	_cGContextMoveToPoint(c, x, y)
 }
-
 
 var _cGContextPathContainsPoint func(c CGContextRef, point corefoundation.CGPoint, mode CGPathDrawingMode) bool
 
@@ -2211,7 +2043,6 @@ func CGContextPathContainsPoint(c CGContextRef, point corefoundation.CGPoint, mo
 	return _cGContextPathContainsPoint(c, point, mode)
 }
 
-
 var _cGContextRelease func(c CGContextRef)
 
 // CGContextRelease decrements the retain count of a graphics context.
@@ -2223,7 +2054,6 @@ func CGContextRelease(c CGContextRef) {
 	}
 	_cGContextRelease(c)
 }
-
 
 var _cGContextReplacePathWithStrokedPath func(c CGContextRef)
 
@@ -2237,7 +2067,6 @@ func CGContextReplacePathWithStrokedPath(c CGContextRef) {
 	_cGContextReplacePathWithStrokedPath(c)
 }
 
-
 var _cGContextResetClip func(c CGContextRef)
 
 // CGContextResetClip.
@@ -2249,7 +2078,6 @@ func CGContextResetClip(c CGContextRef) {
 	}
 	_cGContextResetClip(c)
 }
-
 
 var _cGContextRestoreGState func(c CGContextRef)
 
@@ -2263,7 +2091,6 @@ func CGContextRestoreGState(c CGContextRef) {
 	_cGContextRestoreGState(c)
 }
 
-
 var _cGContextRetain func(c CGContextRef) CGContextRef
 
 // CGContextRetain increments the retain count of a graphics context.
@@ -2275,7 +2102,6 @@ func CGContextRetain(c CGContextRef) CGContextRef {
 	}
 	return _cGContextRetain(c)
 }
-
 
 var _cGContextRotateCTM func(c CGContextRef, angle float64)
 
@@ -2289,7 +2115,6 @@ func CGContextRotateCTM(c CGContextRef, angle float64) {
 	_cGContextRotateCTM(c, angle)
 }
 
-
 var _cGContextSaveGState func(c CGContextRef)
 
 // CGContextSaveGState pushes a copy of the current graphics state onto the graphics state stack for the context.
@@ -2301,7 +2126,6 @@ func CGContextSaveGState(c CGContextRef) {
 	}
 	_cGContextSaveGState(c)
 }
-
 
 var _cGContextScaleCTM func(c CGContextRef, sx float64, sy float64)
 
@@ -2315,7 +2139,6 @@ func CGContextScaleCTM(c CGContextRef, sx float64, sy float64) {
 	_cGContextScaleCTM(c, sx, sy)
 }
 
-
 var _cGContextSetAllowsAntialiasing func(c CGContextRef, allowsAntialiasing bool)
 
 // CGContextSetAllowsAntialiasing sets whether or not to allow antialiasing for a graphics context.
@@ -2327,7 +2150,6 @@ func CGContextSetAllowsAntialiasing(c CGContextRef, allowsAntialiasing bool) {
 	}
 	_cGContextSetAllowsAntialiasing(c, allowsAntialiasing)
 }
-
 
 var _cGContextSetAllowsFontSmoothing func(c CGContextRef, allowsFontSmoothing bool)
 
@@ -2341,7 +2163,6 @@ func CGContextSetAllowsFontSmoothing(c CGContextRef, allowsFontSmoothing bool) {
 	_cGContextSetAllowsFontSmoothing(c, allowsFontSmoothing)
 }
 
-
 var _cGContextSetAllowsFontSubpixelPositioning func(c CGContextRef, allowsFontSubpixelPositioning bool)
 
 // CGContextSetAllowsFontSubpixelPositioning sets whether or not to allow subpixel positioning for a graphics context.
@@ -2353,7 +2174,6 @@ func CGContextSetAllowsFontSubpixelPositioning(c CGContextRef, allowsFontSubpixe
 	}
 	_cGContextSetAllowsFontSubpixelPositioning(c, allowsFontSubpixelPositioning)
 }
-
 
 var _cGContextSetAllowsFontSubpixelQuantization func(c CGContextRef, allowsFontSubpixelQuantization bool)
 
@@ -2367,7 +2187,6 @@ func CGContextSetAllowsFontSubpixelQuantization(c CGContextRef, allowsFontSubpix
 	_cGContextSetAllowsFontSubpixelQuantization(c, allowsFontSubpixelQuantization)
 }
 
-
 var _cGContextSetAlpha func(c CGContextRef, alpha float64)
 
 // CGContextSetAlpha sets the opacity level for objects drawn in a graphics context.
@@ -2379,7 +2198,6 @@ func CGContextSetAlpha(c CGContextRef, alpha float64) {
 	}
 	_cGContextSetAlpha(c, alpha)
 }
-
 
 var _cGContextSetBlendMode func(c CGContextRef, mode uintptr)
 
@@ -2393,7 +2211,6 @@ func CGContextSetBlendMode(c CGContextRef, mode uintptr) {
 	_cGContextSetBlendMode(c, mode)
 }
 
-
 var _cGContextSetCMYKFillColor func(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64)
 
 // CGContextSetCMYKFillColor sets the current fill color to a value in the DeviceCMYK color space.
@@ -2405,7 +2222,6 @@ func CGContextSetCMYKFillColor(c CGContextRef, cyan float64, magenta float64, ye
 	}
 	_cGContextSetCMYKFillColor(c, cyan, magenta, yellow, black, alpha)
 }
-
 
 var _cGContextSetCMYKStrokeColor func(c CGContextRef, cyan float64, magenta float64, yellow float64, black float64, alpha float64)
 
@@ -2419,7 +2235,6 @@ func CGContextSetCMYKStrokeColor(c CGContextRef, cyan float64, magenta float64, 
 	_cGContextSetCMYKStrokeColor(c, cyan, magenta, yellow, black, alpha)
 }
 
-
 var _cGContextSetCharacterSpacing func(c CGContextRef, spacing float64)
 
 // CGContextSetCharacterSpacing sets the current character spacing.
@@ -2431,7 +2246,6 @@ func CGContextSetCharacterSpacing(c CGContextRef, spacing float64) {
 	}
 	_cGContextSetCharacterSpacing(c, spacing)
 }
-
 
 var _cGContextSetContentToneMappingInfo func(c CGContextRef, info CGContentToneMappingInfo)
 
@@ -2445,7 +2259,6 @@ func CGContextSetContentToneMappingInfo(c CGContextRef, info CGContentToneMappin
 	_cGContextSetContentToneMappingInfo(c, info)
 }
 
-
 var _cGContextSetEDRTargetHeadroom func(c CGContextRef, headroom float32) bool
 
 // CGContextSetEDRTargetHeadroom.
@@ -2457,7 +2270,6 @@ func CGContextSetEDRTargetHeadroom(c CGContextRef, headroom float32) bool {
 	}
 	return _cGContextSetEDRTargetHeadroom(c, headroom)
 }
-
 
 var _cGContextSetFillColor func(c CGContextRef, components *float64)
 
@@ -2471,7 +2283,6 @@ func CGContextSetFillColor(c CGContextRef, components *float64) {
 	_cGContextSetFillColor(c, components)
 }
 
-
 var _cGContextSetFillColorSpace func(c CGContextRef, space CGColorSpaceRef)
 
 // CGContextSetFillColorSpace sets the fill color space in a graphics context.
@@ -2483,7 +2294,6 @@ func CGContextSetFillColorSpace(c CGContextRef, space CGColorSpaceRef) {
 	}
 	_cGContextSetFillColorSpace(c, space)
 }
-
 
 var _cGContextSetFillColorWithColor func(c CGContextRef, color CGColorRef)
 
@@ -2497,7 +2307,6 @@ func CGContextSetFillColorWithColor(c CGContextRef, color CGColorRef) {
 	_cGContextSetFillColorWithColor(c, color)
 }
 
-
 var _cGContextSetFillPattern func(c CGContextRef, pattern CGPatternRef, components *float64)
 
 // CGContextSetFillPattern sets the fill pattern in the specified graphics context.
@@ -2509,7 +2318,6 @@ func CGContextSetFillPattern(c CGContextRef, pattern CGPatternRef, components *f
 	}
 	_cGContextSetFillPattern(c, pattern, components)
 }
-
 
 var _cGContextSetFlatness func(c CGContextRef, flatness float64)
 
@@ -2523,7 +2331,6 @@ func CGContextSetFlatness(c CGContextRef, flatness float64) {
 	_cGContextSetFlatness(c, flatness)
 }
 
-
 var _cGContextSetFont func(c CGContextRef, font CGFontRef)
 
 // CGContextSetFont sets the platform font in a graphics context.
@@ -2535,7 +2342,6 @@ func CGContextSetFont(c CGContextRef, font CGFontRef) {
 	}
 	_cGContextSetFont(c, font)
 }
-
 
 var _cGContextSetFontSize func(c CGContextRef, size float64)
 
@@ -2549,7 +2355,6 @@ func CGContextSetFontSize(c CGContextRef, size float64) {
 	_cGContextSetFontSize(c, size)
 }
 
-
 var _cGContextSetGrayFillColor func(c CGContextRef, gray float64, alpha float64)
 
 // CGContextSetGrayFillColor sets the current fill color to a value in the DeviceGray color space.
@@ -2561,7 +2366,6 @@ func CGContextSetGrayFillColor(c CGContextRef, gray float64, alpha float64) {
 	}
 	_cGContextSetGrayFillColor(c, gray, alpha)
 }
-
 
 var _cGContextSetGrayStrokeColor func(c CGContextRef, gray float64, alpha float64)
 
@@ -2575,7 +2379,6 @@ func CGContextSetGrayStrokeColor(c CGContextRef, gray float64, alpha float64) {
 	_cGContextSetGrayStrokeColor(c, gray, alpha)
 }
 
-
 var _cGContextSetInterpolationQuality func(c CGContextRef, quality CGInterpolationQuality)
 
 // CGContextSetInterpolationQuality sets the level of interpolation quality for a graphics context.
@@ -2587,7 +2390,6 @@ func CGContextSetInterpolationQuality(c CGContextRef, quality CGInterpolationQua
 	}
 	_cGContextSetInterpolationQuality(c, quality)
 }
-
 
 var _cGContextSetLineCap func(c CGContextRef, cap_ uintptr)
 
@@ -2601,7 +2403,6 @@ func CGContextSetLineCap(c CGContextRef, cap_ uintptr) {
 	_cGContextSetLineCap(c, cap_)
 }
 
-
 var _cGContextSetLineDash func(c CGContextRef, phase float64, lengths *float64, count uintptr)
 
 // CGContextSetLineDash sets the pattern for dashed lines in a graphics context.
@@ -2613,7 +2414,6 @@ func CGContextSetLineDash(c CGContextRef, phase float64, lengths *float64, count
 	}
 	_cGContextSetLineDash(c, phase, lengths, count)
 }
-
 
 var _cGContextSetLineJoin func(c CGContextRef, join uintptr)
 
@@ -2627,7 +2427,6 @@ func CGContextSetLineJoin(c CGContextRef, join uintptr) {
 	_cGContextSetLineJoin(c, join)
 }
 
-
 var _cGContextSetLineWidth func(c CGContextRef, width float64)
 
 // CGContextSetLineWidth sets the line width for a graphics context.
@@ -2639,7 +2438,6 @@ func CGContextSetLineWidth(c CGContextRef, width float64) {
 	}
 	_cGContextSetLineWidth(c, width)
 }
-
 
 var _cGContextSetMiterLimit func(c CGContextRef, limit float64)
 
@@ -2653,7 +2451,6 @@ func CGContextSetMiterLimit(c CGContextRef, limit float64) {
 	_cGContextSetMiterLimit(c, limit)
 }
 
-
 var _cGContextSetPatternPhase func(c CGContextRef, phase corefoundation.CGSize)
 
 // CGContextSetPatternPhase sets the pattern phase of a context.
@@ -2665,7 +2462,6 @@ func CGContextSetPatternPhase(c CGContextRef, phase corefoundation.CGSize) {
 	}
 	_cGContextSetPatternPhase(c, phase)
 }
-
 
 var _cGContextSetRGBFillColor func(c CGContextRef, red float64, green float64, blue float64, alpha float64)
 
@@ -2679,7 +2475,6 @@ func CGContextSetRGBFillColor(c CGContextRef, red float64, green float64, blue f
 	_cGContextSetRGBFillColor(c, red, green, blue, alpha)
 }
 
-
 var _cGContextSetRGBStrokeColor func(c CGContextRef, red float64, green float64, blue float64, alpha float64)
 
 // CGContextSetRGBStrokeColor sets the current stroke color to a value in the DeviceRGB color space.
@@ -2691,7 +2486,6 @@ func CGContextSetRGBStrokeColor(c CGContextRef, red float64, green float64, blue
 	}
 	_cGContextSetRGBStrokeColor(c, red, green, blue, alpha)
 }
-
 
 var _cGContextSetRenderingIntent func(c CGContextRef, intent CGColorRenderingIntent)
 
@@ -2705,7 +2499,6 @@ func CGContextSetRenderingIntent(c CGContextRef, intent CGColorRenderingIntent) 
 	_cGContextSetRenderingIntent(c, intent)
 }
 
-
 var _cGContextSetShadow func(c CGContextRef, offset corefoundation.CGSize, blur float64)
 
 // CGContextSetShadow enables shadowing in a graphics context.
@@ -2717,7 +2510,6 @@ func CGContextSetShadow(c CGContextRef, offset corefoundation.CGSize, blur float
 	}
 	_cGContextSetShadow(c, offset, blur)
 }
-
 
 var _cGContextSetShadowWithColor func(c CGContextRef, offset corefoundation.CGSize, blur float64, color CGColorRef)
 
@@ -2731,7 +2523,6 @@ func CGContextSetShadowWithColor(c CGContextRef, offset corefoundation.CGSize, b
 	_cGContextSetShadowWithColor(c, offset, blur, color)
 }
 
-
 var _cGContextSetShouldAntialias func(c CGContextRef, shouldAntialias bool)
 
 // CGContextSetShouldAntialias sets antialiasing on or off for a graphics context.
@@ -2743,7 +2534,6 @@ func CGContextSetShouldAntialias(c CGContextRef, shouldAntialias bool) {
 	}
 	_cGContextSetShouldAntialias(c, shouldAntialias)
 }
-
 
 var _cGContextSetShouldSmoothFonts func(c CGContextRef, shouldSmoothFonts bool)
 
@@ -2757,7 +2547,6 @@ func CGContextSetShouldSmoothFonts(c CGContextRef, shouldSmoothFonts bool) {
 	_cGContextSetShouldSmoothFonts(c, shouldSmoothFonts)
 }
 
-
 var _cGContextSetShouldSubpixelPositionFonts func(c CGContextRef, shouldSubpixelPositionFonts bool)
 
 // CGContextSetShouldSubpixelPositionFonts enables or disables subpixel positioning in a graphics context.
@@ -2769,7 +2558,6 @@ func CGContextSetShouldSubpixelPositionFonts(c CGContextRef, shouldSubpixelPosit
 	}
 	_cGContextSetShouldSubpixelPositionFonts(c, shouldSubpixelPositionFonts)
 }
-
 
 var _cGContextSetShouldSubpixelQuantizeFonts func(c CGContextRef, shouldSubpixelQuantizeFonts bool)
 
@@ -2783,7 +2571,6 @@ func CGContextSetShouldSubpixelQuantizeFonts(c CGContextRef, shouldSubpixelQuant
 	_cGContextSetShouldSubpixelQuantizeFonts(c, shouldSubpixelQuantizeFonts)
 }
 
-
 var _cGContextSetStrokeColor func(c CGContextRef, components *float64)
 
 // CGContextSetStrokeColor sets the current stroke color.
@@ -2795,7 +2582,6 @@ func CGContextSetStrokeColor(c CGContextRef, components *float64) {
 	}
 	_cGContextSetStrokeColor(c, components)
 }
-
 
 var _cGContextSetStrokeColorSpace func(c CGContextRef, space CGColorSpaceRef)
 
@@ -2809,7 +2595,6 @@ func CGContextSetStrokeColorSpace(c CGContextRef, space CGColorSpaceRef) {
 	_cGContextSetStrokeColorSpace(c, space)
 }
 
-
 var _cGContextSetStrokeColorWithColor func(c CGContextRef, color CGColorRef)
 
 // CGContextSetStrokeColorWithColor sets the current stroke color in a context, using a CGColor.
@@ -2821,7 +2606,6 @@ func CGContextSetStrokeColorWithColor(c CGContextRef, color CGColorRef) {
 	}
 	_cGContextSetStrokeColorWithColor(c, color)
 }
-
 
 var _cGContextSetStrokePattern func(c CGContextRef, pattern CGPatternRef, components *float64)
 
@@ -2835,7 +2619,6 @@ func CGContextSetStrokePattern(c CGContextRef, pattern CGPatternRef, components 
 	_cGContextSetStrokePattern(c, pattern, components)
 }
 
-
 var _cGContextSetTextDrawingMode func(c CGContextRef, mode CGTextDrawingMode)
 
 // CGContextSetTextDrawingMode sets the current text drawing mode.
@@ -2847,7 +2630,6 @@ func CGContextSetTextDrawingMode(c CGContextRef, mode CGTextDrawingMode) {
 	}
 	_cGContextSetTextDrawingMode(c, mode)
 }
-
 
 var _cGContextSetTextMatrix func(c CGContextRef, t corefoundation.CGAffineTransform)
 
@@ -2861,7 +2643,6 @@ func CGContextSetTextMatrix(c CGContextRef, t corefoundation.CGAffineTransform) 
 	_cGContextSetTextMatrix(c, t)
 }
 
-
 var _cGContextSetTextPosition func(c CGContextRef, x float64, y float64)
 
 // CGContextSetTextPosition sets the location at which text is drawn.
@@ -2873,7 +2654,6 @@ func CGContextSetTextPosition(c CGContextRef, x float64, y float64) {
 	}
 	_cGContextSetTextPosition(c, x, y)
 }
-
 
 var _cGContextShowGlyphsAtPositions func(c CGContextRef, glyphs uintptr, Lpositions *corefoundation.CGPoint, count uintptr)
 
@@ -2887,7 +2667,6 @@ func CGContextShowGlyphsAtPositions(c CGContextRef, glyphs uintptr, Lpositions *
 	_cGContextShowGlyphsAtPositions(c, glyphs, Lpositions, count)
 }
 
-
 var _cGContextStrokeEllipseInRect func(c CGContextRef, rect corefoundation.CGRect)
 
 // CGContextStrokeEllipseInRect strokes an ellipse that fits inside the specified rectangle.
@@ -2899,7 +2678,6 @@ func CGContextStrokeEllipseInRect(c CGContextRef, rect corefoundation.CGRect) {
 	}
 	_cGContextStrokeEllipseInRect(c, rect)
 }
-
 
 var _cGContextStrokeLineSegments func(c CGContextRef, points *corefoundation.CGPoint, count uintptr)
 
@@ -2913,7 +2691,6 @@ func CGContextStrokeLineSegments(c CGContextRef, points *corefoundation.CGPoint,
 	_cGContextStrokeLineSegments(c, points, count)
 }
 
-
 var _cGContextStrokePath func(c CGContextRef)
 
 // CGContextStrokePath paints a line along the current path.
@@ -2925,7 +2702,6 @@ func CGContextStrokePath(c CGContextRef) {
 	}
 	_cGContextStrokePath(c)
 }
-
 
 var _cGContextStrokeRect func(c CGContextRef, rect corefoundation.CGRect)
 
@@ -2939,7 +2715,6 @@ func CGContextStrokeRect(c CGContextRef, rect corefoundation.CGRect) {
 	_cGContextStrokeRect(c, rect)
 }
 
-
 var _cGContextStrokeRectWithWidth func(c CGContextRef, rect corefoundation.CGRect, width float64)
 
 // CGContextStrokeRectWithWidth paints a rectangular path, using the specified line width.
@@ -2951,7 +2726,6 @@ func CGContextStrokeRectWithWidth(c CGContextRef, rect corefoundation.CGRect, wi
 	}
 	_cGContextStrokeRectWithWidth(c, rect, width)
 }
-
 
 var _cGContextSynchronize func(c CGContextRef)
 
@@ -2965,7 +2739,6 @@ func CGContextSynchronize(c CGContextRef) {
 	_cGContextSynchronize(c)
 }
 
-
 var _cGContextSynchronizeAttributes func(c CGContextRef)
 
 // CGContextSynchronizeAttributes.
@@ -2977,7 +2750,6 @@ func CGContextSynchronizeAttributes(c CGContextRef) {
 	}
 	_cGContextSynchronizeAttributes(c)
 }
-
 
 var _cGContextTranslateCTM func(c CGContextRef, tx float64, ty float64)
 
@@ -2991,7 +2763,6 @@ func CGContextTranslateCTM(c CGContextRef, tx float64, ty float64) {
 	_cGContextTranslateCTM(c, tx, ty)
 }
 
-
 var _cGConvertColorDataWithFormat func(width uintptr, height uintptr, dst_data unsafe.Pointer, dst_format CGColorDataFormat, src_data unsafe.Pointer, src_format CGColorDataFormat, options corefoundation.CFDictionaryRef) bool
 
 // CGConvertColorDataWithFormat.
@@ -3003,7 +2774,6 @@ func CGConvertColorDataWithFormat(width uintptr, height uintptr, dst_data unsafe
 	}
 	return _cGConvertColorDataWithFormat(width, height, dst_data, dst_format, src_data, src_format, options)
 }
-
 
 var _cGDataConsumerCreate func(info unsafe.Pointer, cbks *CGDataConsumerCallbacks) CGDataConsumerRef
 
@@ -3017,7 +2787,6 @@ func CGDataConsumerCreate(info unsafe.Pointer, cbks *CGDataConsumerCallbacks) CG
 	return _cGDataConsumerCreate(info, cbks)
 }
 
-
 var _cGDataConsumerCreateWithCFData func(data corefoundation.CFMutableDataRef) CGDataConsumerRef
 
 // CGDataConsumerCreateWithCFData creates a data consumer that writes to a CFData object.
@@ -3029,7 +2798,6 @@ func CGDataConsumerCreateWithCFData(data corefoundation.CFMutableDataRef) CGData
 	}
 	return _cGDataConsumerCreateWithCFData(data)
 }
-
 
 var _cGDataConsumerCreateWithURL func(url corefoundation.CFURLRef) CGDataConsumerRef
 
@@ -3043,7 +2811,6 @@ func CGDataConsumerCreateWithURL(url corefoundation.CFURLRef) CGDataConsumerRef 
 	return _cGDataConsumerCreateWithURL(url)
 }
 
-
 var _cGDataConsumerGetTypeID func() uint
 
 // CGDataConsumerGetTypeID returns the Core Foundation type identifier for Core Graphics data consumers.
@@ -3055,7 +2822,6 @@ func CGDataConsumerGetTypeID() uint {
 	}
 	return _cGDataConsumerGetTypeID()
 }
-
 
 var _cGDataConsumerRelease func(consumer CGDataConsumerRef)
 
@@ -3069,7 +2835,6 @@ func CGDataConsumerRelease(consumer CGDataConsumerRef) {
 	_cGDataConsumerRelease(consumer)
 }
 
-
 var _cGDataConsumerRetain func(consumer CGDataConsumerRef) CGDataConsumerRef
 
 // CGDataConsumerRetain increments the retain count of a data consumer.
@@ -3081,7 +2846,6 @@ func CGDataConsumerRetain(consumer CGDataConsumerRef) CGDataConsumerRef {
 	}
 	return _cGDataConsumerRetain(consumer)
 }
-
 
 var _cGDataProviderCopyData func(provider CGDataProviderRef) corefoundation.CFDataRef
 
@@ -3095,7 +2859,6 @@ func CGDataProviderCopyData(provider CGDataProviderRef) corefoundation.CFDataRef
 	return _cGDataProviderCopyData(provider)
 }
 
-
 var _cGDataProviderCreateDirect func(info unsafe.Pointer, size int64, callbacks *CGDataProviderDirectCallbacks) CGDataProviderRef
 
 // CGDataProviderCreateDirect creates a direct-access data provider.
@@ -3107,7 +2870,6 @@ func CGDataProviderCreateDirect(info unsafe.Pointer, size int64, callbacks *CGDa
 	}
 	return _cGDataProviderCreateDirect(info, size, callbacks)
 }
-
 
 var _cGDataProviderCreateSequential func(info unsafe.Pointer, callbacks *CGDataProviderSequentialCallbacks) CGDataProviderRef
 
@@ -3121,7 +2883,6 @@ func CGDataProviderCreateSequential(info unsafe.Pointer, callbacks *CGDataProvid
 	return _cGDataProviderCreateSequential(info, callbacks)
 }
 
-
 var _cGDataProviderCreateWithCFData func(data corefoundation.CFDataRef) CGDataProviderRef
 
 // CGDataProviderCreateWithCFData creates a data provider that reads from a CFData object.
@@ -3133,7 +2894,6 @@ func CGDataProviderCreateWithCFData(data corefoundation.CFDataRef) CGDataProvide
 	}
 	return _cGDataProviderCreateWithCFData(data)
 }
-
 
 var _cGDataProviderCreateWithData func(info unsafe.Pointer, data unsafe.Pointer, size uintptr, releaseData CGDataProviderReleaseDataCallback) CGDataProviderRef
 
@@ -3147,7 +2907,6 @@ func CGDataProviderCreateWithData(info unsafe.Pointer, data unsafe.Pointer, size
 	return _cGDataProviderCreateWithData(info, data, size, releaseData)
 }
 
-
 var _cGDataProviderCreateWithFilename func(filename *byte) CGDataProviderRef
 
 // CGDataProviderCreateWithFilename creates a direct-access data provider that uses a file to supply data.
@@ -3159,7 +2918,6 @@ func CGDataProviderCreateWithFilename(filename *byte) CGDataProviderRef {
 	}
 	return _cGDataProviderCreateWithFilename(filename)
 }
-
 
 var _cGDataProviderCreateWithURL func(url corefoundation.CFURLRef) CGDataProviderRef
 
@@ -3173,7 +2931,6 @@ func CGDataProviderCreateWithURL(url corefoundation.CFURLRef) CGDataProviderRef 
 	return _cGDataProviderCreateWithURL(url)
 }
 
-
 var _cGDataProviderGetInfo func(provider CGDataProviderRef) unsafe.Pointer
 
 // CGDataProviderGetInfo.
@@ -3185,7 +2942,6 @@ func CGDataProviderGetInfo(provider CGDataProviderRef) unsafe.Pointer {
 	}
 	return _cGDataProviderGetInfo(provider)
 }
-
 
 var _cGDataProviderGetTypeID func() uint
 
@@ -3199,7 +2955,6 @@ func CGDataProviderGetTypeID() uint {
 	return _cGDataProviderGetTypeID()
 }
 
-
 var _cGDataProviderRelease func(provider CGDataProviderRef)
 
 // CGDataProviderRelease decrements the retain count of a data provider.
@@ -3211,7 +2966,6 @@ func CGDataProviderRelease(provider CGDataProviderRef) {
 	}
 	_cGDataProviderRelease(provider)
 }
-
 
 var _cGDataProviderRetain func(provider CGDataProviderRef) CGDataProviderRef
 
@@ -3225,7 +2979,6 @@ func CGDataProviderRetain(provider CGDataProviderRef) CGDataProviderRef {
 	return _cGDataProviderRetain(provider)
 }
 
-
 var _cGDirectDisplayCopyCurrentMetalDevice func(display uint32) unsafe.Pointer
 
 // CGDirectDisplayCopyCurrentMetalDevice returns the GPU device instance that’s currently driving a display.
@@ -3237,7 +2990,6 @@ func CGDirectDisplayCopyCurrentMetalDevice(display uint32) unsafe.Pointer {
 	}
 	return _cGDirectDisplayCopyCurrentMetalDevice(display)
 }
-
 
 var _cGDisplayBounds func(display uint32) corefoundation.CGRect
 
@@ -3251,7 +3003,6 @@ func CGDisplayBounds(display uint32) corefoundation.CGRect {
 	return _cGDisplayBounds(display)
 }
 
-
 var _cGDisplayCapture func(display uint32) CGError
 
 // CGDisplayCapture obtains exclusive use of a display, preventing other applications and system services from using the display or changing its configuration.
@@ -3263,7 +3014,6 @@ func CGDisplayCapture(display uint32) CGError {
 	}
 	return _cGDisplayCapture(display)
 }
-
 
 var _cGDisplayCaptureWithOptions func(display uint32, options CGCaptureOptions) CGError
 
@@ -3277,7 +3027,6 @@ func CGDisplayCaptureWithOptions(display uint32, options CGCaptureOptions) CGErr
 	return _cGDisplayCaptureWithOptions(display, options)
 }
 
-
 var _cGDisplayCopyAllDisplayModes func(display uint32, options corefoundation.CFDictionaryRef) corefoundation.CFArrayRef
 
 // CGDisplayCopyAllDisplayModes returns information about the currently available display modes.
@@ -3289,7 +3038,6 @@ func CGDisplayCopyAllDisplayModes(display uint32, options corefoundation.CFDicti
 	}
 	return _cGDisplayCopyAllDisplayModes(display, options)
 }
-
 
 var _cGDisplayCopyColorSpace func(display uint32) CGColorSpaceRef
 
@@ -3303,7 +3051,6 @@ func CGDisplayCopyColorSpace(display uint32) CGColorSpaceRef {
 	return _cGDisplayCopyColorSpace(display)
 }
 
-
 var _cGDisplayCopyDisplayMode func(display uint32) CGDisplayModeRef
 
 // CGDisplayCopyDisplayMode returns information about a display’s current configuration.
@@ -3315,7 +3062,6 @@ func CGDisplayCopyDisplayMode(display uint32) CGDisplayModeRef {
 	}
 	return _cGDisplayCopyDisplayMode(display)
 }
-
 
 var _cGDisplayCreateImage func(displayID uint32) CGImageRef
 
@@ -3331,7 +3077,6 @@ func CGDisplayCreateImage(displayID uint32) CGImageRef {
 	return _cGDisplayCreateImage(displayID)
 }
 
-
 var _cGDisplayCreateImageForRect func(display uint32, rect corefoundation.CGRect) CGImageRef
 
 // CGDisplayCreateImageForRect returns an image containing the contents of a portion of the specified display.
@@ -3346,7 +3091,6 @@ func CGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) CGI
 	return _cGDisplayCreateImageForRect(display, rect)
 }
 
-
 var _cGDisplayFade func(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous uintptr) CGError
 
 // CGDisplayFade performs a single fade operation.
@@ -3358,7 +3102,6 @@ func CGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startB
 	}
 	return _cGDisplayFade(token, duration, startBlend, endBlend, redBlend, greenBlend, blueBlend, synchronous)
 }
-
 
 var _cGDisplayGammaTableCapacity func(display uint32) uint32
 
@@ -3372,7 +3115,6 @@ func CGDisplayGammaTableCapacity(display uint32) uint32 {
 	return _cGDisplayGammaTableCapacity(display)
 }
 
-
 var _cGDisplayGetDrawingContext func(display uint32) CGContextRef
 
 // CGDisplayGetDrawingContext returns a graphics context suitable for drawing to a captured display.
@@ -3384,7 +3126,6 @@ func CGDisplayGetDrawingContext(display uint32) CGContextRef {
 	}
 	return _cGDisplayGetDrawingContext(display)
 }
-
 
 var _cGDisplayHideCursor func(display uint32) CGError
 
@@ -3398,7 +3139,6 @@ func CGDisplayHideCursor(display uint32) CGError {
 	return _cGDisplayHideCursor(display)
 }
 
-
 var _cGDisplayIDToOpenGLDisplayMask func(display uint32) CGOpenGLDisplayMask
 
 // CGDisplayIDToOpenGLDisplayMask maps a display ID to an OpenGL display mask.
@@ -3410,7 +3150,6 @@ func CGDisplayIDToOpenGLDisplayMask(display uint32) CGOpenGLDisplayMask {
 	}
 	return _cGDisplayIDToOpenGLDisplayMask(display)
 }
-
 
 var _cGDisplayIsActive func(display uint32) objectivec.IObject
 
@@ -3424,7 +3163,6 @@ func CGDisplayIsActive(display uint32) objectivec.IObject {
 	return _cGDisplayIsActive(display)
 }
 
-
 var _cGDisplayIsAlwaysInMirrorSet func(display uint32) objectivec.IObject
 
 // CGDisplayIsAlwaysInMirrorSet returns a Boolean value indicating whether a display is always in a mirroring set.
@@ -3436,7 +3174,6 @@ func CGDisplayIsAlwaysInMirrorSet(display uint32) objectivec.IObject {
 	}
 	return _cGDisplayIsAlwaysInMirrorSet(display)
 }
-
 
 var _cGDisplayIsAsleep func(display uint32) objectivec.IObject
 
@@ -3450,7 +3187,6 @@ func CGDisplayIsAsleep(display uint32) objectivec.IObject {
 	return _cGDisplayIsAsleep(display)
 }
 
-
 var _cGDisplayIsBuiltin func(display uint32) objectivec.IObject
 
 // CGDisplayIsBuiltin returns a Boolean value indicating whether a display is built-in, such as the internal display in portable systems.
@@ -3462,7 +3198,6 @@ func CGDisplayIsBuiltin(display uint32) objectivec.IObject {
 	}
 	return _cGDisplayIsBuiltin(display)
 }
-
 
 var _cGDisplayIsInHWMirrorSet func(display uint32) objectivec.IObject
 
@@ -3476,7 +3211,6 @@ func CGDisplayIsInHWMirrorSet(display uint32) objectivec.IObject {
 	return _cGDisplayIsInHWMirrorSet(display)
 }
 
-
 var _cGDisplayIsInMirrorSet func(display uint32) objectivec.IObject
 
 // CGDisplayIsInMirrorSet returns a Boolean value indicating whether a display is in a mirroring set.
@@ -3488,7 +3222,6 @@ func CGDisplayIsInMirrorSet(display uint32) objectivec.IObject {
 	}
 	return _cGDisplayIsInMirrorSet(display)
 }
-
 
 var _cGDisplayIsMain func(display uint32) objectivec.IObject
 
@@ -3502,7 +3235,6 @@ func CGDisplayIsMain(display uint32) objectivec.IObject {
 	return _cGDisplayIsMain(display)
 }
 
-
 var _cGDisplayIsOnline func(display uint32) objectivec.IObject
 
 // CGDisplayIsOnline returns a Boolean value indicating whether a display is connected or online.
@@ -3514,7 +3246,6 @@ func CGDisplayIsOnline(display uint32) objectivec.IObject {
 	}
 	return _cGDisplayIsOnline(display)
 }
-
 
 var _cGDisplayIsStereo func(display uint32) objectivec.IObject
 
@@ -3528,7 +3259,6 @@ func CGDisplayIsStereo(display uint32) objectivec.IObject {
 	return _cGDisplayIsStereo(display)
 }
 
-
 var _cGDisplayMirrorsDisplay func(display uint32) uint32
 
 // CGDisplayMirrorsDisplay for a secondary display in a mirroring set, returns the primary display.
@@ -3540,7 +3270,6 @@ func CGDisplayMirrorsDisplay(display uint32) uint32 {
 	}
 	return _cGDisplayMirrorsDisplay(display)
 }
-
 
 var _cGDisplayModeGetHeight func(mode CGDisplayModeRef) uintptr
 
@@ -3554,7 +3283,6 @@ func CGDisplayModeGetHeight(mode CGDisplayModeRef) uintptr {
 	return _cGDisplayModeGetHeight(mode)
 }
 
-
 var _cGDisplayModeGetIODisplayModeID func(mode CGDisplayModeRef) int32
 
 // CGDisplayModeGetIODisplayModeID returns the I/O Kit display mode ID of the specified display mode.
@@ -3566,7 +3294,6 @@ func CGDisplayModeGetIODisplayModeID(mode CGDisplayModeRef) int32 {
 	}
 	return _cGDisplayModeGetIODisplayModeID(mode)
 }
-
 
 var _cGDisplayModeGetIOFlags func(mode CGDisplayModeRef) uint32
 
@@ -3580,7 +3307,6 @@ func CGDisplayModeGetIOFlags(mode CGDisplayModeRef) uint32 {
 	return _cGDisplayModeGetIOFlags(mode)
 }
 
-
 var _cGDisplayModeGetPixelHeight func(mode CGDisplayModeRef) uintptr
 
 // CGDisplayModeGetPixelHeight.
@@ -3592,7 +3318,6 @@ func CGDisplayModeGetPixelHeight(mode CGDisplayModeRef) uintptr {
 	}
 	return _cGDisplayModeGetPixelHeight(mode)
 }
-
 
 var _cGDisplayModeGetPixelWidth func(mode CGDisplayModeRef) uintptr
 
@@ -3606,7 +3331,6 @@ func CGDisplayModeGetPixelWidth(mode CGDisplayModeRef) uintptr {
 	return _cGDisplayModeGetPixelWidth(mode)
 }
 
-
 var _cGDisplayModeGetRefreshRate func(mode CGDisplayModeRef) float64
 
 // CGDisplayModeGetRefreshRate returns the refresh rate of the specified display mode.
@@ -3618,7 +3342,6 @@ func CGDisplayModeGetRefreshRate(mode CGDisplayModeRef) float64 {
 	}
 	return _cGDisplayModeGetRefreshRate(mode)
 }
-
 
 var _cGDisplayModeGetTypeID func() uint
 
@@ -3632,7 +3355,6 @@ func CGDisplayModeGetTypeID() uint {
 	return _cGDisplayModeGetTypeID()
 }
 
-
 var _cGDisplayModeGetWidth func(mode CGDisplayModeRef) uintptr
 
 // CGDisplayModeGetWidth returns the width of the specified display mode.
@@ -3644,7 +3366,6 @@ func CGDisplayModeGetWidth(mode CGDisplayModeRef) uintptr {
 	}
 	return _cGDisplayModeGetWidth(mode)
 }
-
 
 var _cGDisplayModeIsUsableForDesktopGUI func(mode CGDisplayModeRef) bool
 
@@ -3658,7 +3379,6 @@ func CGDisplayModeIsUsableForDesktopGUI(mode CGDisplayModeRef) bool {
 	return _cGDisplayModeIsUsableForDesktopGUI(mode)
 }
 
-
 var _cGDisplayModeRelease func(mode CGDisplayModeRef)
 
 // CGDisplayModeRelease releases a Core Graphics display mode.
@@ -3670,7 +3390,6 @@ func CGDisplayModeRelease(mode CGDisplayModeRef) {
 	}
 	_cGDisplayModeRelease(mode)
 }
-
 
 var _cGDisplayModeRetain func(mode CGDisplayModeRef) CGDisplayModeRef
 
@@ -3684,7 +3403,6 @@ func CGDisplayModeRetain(mode CGDisplayModeRef) CGDisplayModeRef {
 	return _cGDisplayModeRetain(mode)
 }
 
-
 var _cGDisplayModelNumber func(display uint32) uint32
 
 // CGDisplayModelNumber returns the model number of a display monitor.
@@ -3696,7 +3414,6 @@ func CGDisplayModelNumber(display uint32) uint32 {
 	}
 	return _cGDisplayModelNumber(display)
 }
-
 
 var _cGDisplayMoveCursorToPoint func(display uint32, point corefoundation.CGPoint) CGError
 
@@ -3710,7 +3427,6 @@ func CGDisplayMoveCursorToPoint(display uint32, point corefoundation.CGPoint) CG
 	return _cGDisplayMoveCursorToPoint(display, point)
 }
 
-
 var _cGDisplayPixelsHigh func(display uint32) uintptr
 
 // CGDisplayPixelsHigh returns the display height in pixel units.
@@ -3722,7 +3438,6 @@ func CGDisplayPixelsHigh(display uint32) uintptr {
 	}
 	return _cGDisplayPixelsHigh(display)
 }
-
 
 var _cGDisplayPixelsWide func(display uint32) uintptr
 
@@ -3736,7 +3451,6 @@ func CGDisplayPixelsWide(display uint32) uintptr {
 	return _cGDisplayPixelsWide(display)
 }
 
-
 var _cGDisplayPrimaryDisplay func(display uint32) uint32
 
 // CGDisplayPrimaryDisplay returns the primary display in a hardware mirroring set.
@@ -3748,7 +3462,6 @@ func CGDisplayPrimaryDisplay(display uint32) uint32 {
 	}
 	return _cGDisplayPrimaryDisplay(display)
 }
-
 
 var _cGDisplayRegisterReconfigurationCallback func(callback CGDisplayReconfigurationCallBack, userInfo unsafe.Pointer) CGError
 
@@ -3762,7 +3475,6 @@ func CGDisplayRegisterReconfigurationCallback(callback CGDisplayReconfigurationC
 	return _cGDisplayRegisterReconfigurationCallback(callback, userInfo)
 }
 
-
 var _cGDisplayRelease func(display uint32) CGError
 
 // CGDisplayRelease releases a captured display.
@@ -3774,7 +3486,6 @@ func CGDisplayRelease(display uint32) CGError {
 	}
 	return _cGDisplayRelease(display)
 }
-
 
 var _cGDisplayRemoveReconfigurationCallback func(callback CGDisplayReconfigurationCallBack, userInfo unsafe.Pointer) CGError
 
@@ -3788,7 +3499,6 @@ func CGDisplayRemoveReconfigurationCallback(callback CGDisplayReconfigurationCal
 	return _cGDisplayRemoveReconfigurationCallback(callback, userInfo)
 }
 
-
 var _cGDisplayRestoreColorSyncSettings func()
 
 // CGDisplayRestoreColorSyncSettings restores the gamma tables to the values in the user’s ColorSync display profile.
@@ -3800,7 +3510,6 @@ func CGDisplayRestoreColorSyncSettings() {
 	}
 	_cGDisplayRestoreColorSyncSettings()
 }
-
 
 var _cGDisplayRotation func(display uint32) float64
 
@@ -3814,7 +3523,6 @@ func CGDisplayRotation(display uint32) float64 {
 	return _cGDisplayRotation(display)
 }
 
-
 var _cGDisplayScreenSize func(display uint32) corefoundation.CGSize
 
 // CGDisplayScreenSize returns the width and height of a display in millimeters.
@@ -3826,7 +3534,6 @@ func CGDisplayScreenSize(display uint32) corefoundation.CGSize {
 	}
 	return _cGDisplayScreenSize(display)
 }
-
 
 var _cGDisplaySerialNumber func(display uint32) uint32
 
@@ -3840,7 +3547,6 @@ func CGDisplaySerialNumber(display uint32) uint32 {
 	return _cGDisplaySerialNumber(display)
 }
 
-
 var _cGDisplaySetDisplayMode func(display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
 
 // CGDisplaySetDisplayMode switches a display to a different mode.
@@ -3852,7 +3558,6 @@ func CGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options core
 	}
 	return _cGDisplaySetDisplayMode(display, mode, options)
 }
-
 
 var _cGDisplaySetStereoOperation func(display uint32, stereo uintptr, forceBlueLine uintptr, option CGConfigureOption) CGError
 
@@ -3866,7 +3571,6 @@ func CGDisplaySetStereoOperation(display uint32, stereo uintptr, forceBlueLine u
 	return _cGDisplaySetStereoOperation(display, stereo, forceBlueLine, option)
 }
 
-
 var _cGDisplayShowCursor func(display uint32) CGError
 
 // CGDisplayShowCursor decrements the hide cursor count, and shows the mouse cursor if the count is `0`.
@@ -3878,7 +3582,6 @@ func CGDisplayShowCursor(display uint32) CGError {
 	}
 	return _cGDisplayShowCursor(display)
 }
-
 
 var _cGDisplayUnitNumber func(display uint32) uint32
 
@@ -3892,7 +3595,6 @@ func CGDisplayUnitNumber(display uint32) uint32 {
 	return _cGDisplayUnitNumber(display)
 }
 
-
 var _cGDisplayUsesOpenGLAcceleration func(display uint32) objectivec.IObject
 
 // CGDisplayUsesOpenGLAcceleration returns a Boolean value indicating whether Quartz is using OpenGL-based window acceleration (Quartz Extreme) to render in a display.
@@ -3904,7 +3606,6 @@ func CGDisplayUsesOpenGLAcceleration(display uint32) objectivec.IObject {
 	}
 	return _cGDisplayUsesOpenGLAcceleration(display)
 }
-
 
 var _cGDisplayVendorNumber func(display uint32) uint32
 
@@ -3918,7 +3619,6 @@ func CGDisplayVendorNumber(display uint32) uint32 {
 	return _cGDisplayVendorNumber(display)
 }
 
-
 var _cGEXRToneMappingGammaGetDefaultOptions func() corefoundation.CFDictionaryRef
 
 // CGEXRToneMappingGammaGetDefaultOptions.
@@ -3930,7 +3630,6 @@ func CGEXRToneMappingGammaGetDefaultOptions() corefoundation.CFDictionaryRef {
 	}
 	return _cGEXRToneMappingGammaGetDefaultOptions()
 }
-
 
 var _cGErrorSetCallback func(callback CGErrorCallback)
 
@@ -3944,7 +3643,6 @@ func CGErrorSetCallback(callback CGErrorCallback) {
 	_cGErrorSetCallback(callback)
 }
 
-
 var _cGEventCreate func(source CGEventSourceRef) CGEventRef
 
 // CGEventCreate returns a new Quartz event.
@@ -3956,7 +3654,6 @@ func CGEventCreate(source CGEventSourceRef) CGEventRef {
 	}
 	return _cGEventCreate(source)
 }
-
 
 var _cGEventCreateCopy func(event CGEventRef) CGEventRef
 
@@ -3970,7 +3667,6 @@ func CGEventCreateCopy(event CGEventRef) CGEventRef {
 	return _cGEventCreateCopy(event)
 }
 
-
 var _cGEventCreateData func(allocator corefoundation.CFAllocatorRef, event CGEventRef) corefoundation.CFDataRef
 
 // CGEventCreateData returns a flattened data representation of a Quartz event.
@@ -3982,7 +3678,6 @@ func CGEventCreateData(allocator corefoundation.CFAllocatorRef, event CGEventRef
 	}
 	return _cGEventCreateData(allocator, event)
 }
-
 
 var _cGEventCreateFromData func(allocator corefoundation.CFAllocatorRef, data corefoundation.CFDataRef) CGEventRef
 
@@ -3996,7 +3691,6 @@ func CGEventCreateFromData(allocator corefoundation.CFAllocatorRef, data corefou
 	return _cGEventCreateFromData(allocator, data)
 }
 
-
 var _cGEventCreateKeyboardEvent func(source CGEventSourceRef, virtualKey uint16, keyDown bool) CGEventRef
 
 // CGEventCreateKeyboardEvent returns a new Quartz keyboard event.
@@ -4008,7 +3702,6 @@ func CGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey uint16, keyD
 	}
 	return _cGEventCreateKeyboardEvent(source, virtualKey, keyDown)
 }
-
 
 var _cGEventCreateMouseEvent func(source CGEventSourceRef, mouseType CGEventType, mouseCursorPosition corefoundation.CGPoint, mouseButton CGMouseButton) CGEventRef
 
@@ -4022,7 +3715,6 @@ func CGEventCreateMouseEvent(source CGEventSourceRef, mouseType CGEventType, mou
 	return _cGEventCreateMouseEvent(source, mouseType, mouseCursorPosition, mouseButton)
 }
 
-
 var _cGEventCreateScrollWheelEvent func(source CGEventSourceRef, units CGScrollEventUnit, wheelCount uint32, wheel1 int32) CGEventRef
 
 // CGEventCreateScrollWheelEvent returns a new Quartz scrolling event.
@@ -4034,7 +3726,6 @@ func CGEventCreateScrollWheelEvent(source CGEventSourceRef, units CGScrollEventU
 	}
 	return _cGEventCreateScrollWheelEvent(source, units, wheelCount, wheel1)
 }
-
 
 var _cGEventCreateScrollWheelEvent2 func(source CGEventSourceRef, units CGScrollEventUnit, wheelCount uint32, wheel1 int32, wheel2 int32, wheel3 int32) CGEventRef
 
@@ -4048,7 +3739,6 @@ func CGEventCreateScrollWheelEvent2(source CGEventSourceRef, units CGScrollEvent
 	return _cGEventCreateScrollWheelEvent2(source, units, wheelCount, wheel1, wheel2, wheel3)
 }
 
-
 var _cGEventCreateSourceFromEvent func(event CGEventRef) CGEventSourceRef
 
 // CGEventCreateSourceFromEvent returns a Quartz event source created from an existing Quartz event.
@@ -4060,7 +3750,6 @@ func CGEventCreateSourceFromEvent(event CGEventRef) CGEventSourceRef {
 	}
 	return _cGEventCreateSourceFromEvent(event)
 }
-
 
 var _cGEventGetDoubleValueField func(event CGEventRef, field CGEventField) float64
 
@@ -4074,7 +3763,6 @@ func CGEventGetDoubleValueField(event CGEventRef, field CGEventField) float64 {
 	return _cGEventGetDoubleValueField(event, field)
 }
 
-
 var _cGEventGetFlags func(event CGEventRef) CGEventFlags
 
 // CGEventGetFlags returns the event flags of a Quartz event.
@@ -4086,7 +3774,6 @@ func CGEventGetFlags(event CGEventRef) CGEventFlags {
 	}
 	return _cGEventGetFlags(event)
 }
-
 
 var _cGEventGetIntegerValueField func(event CGEventRef, field CGEventField) int64
 
@@ -4100,7 +3787,6 @@ func CGEventGetIntegerValueField(event CGEventRef, field CGEventField) int64 {
 	return _cGEventGetIntegerValueField(event, field)
 }
 
-
 var _cGEventGetLocation func(event CGEventRef) corefoundation.CGPoint
 
 // CGEventGetLocation returns the location of a Quartz mouse event.
@@ -4112,7 +3798,6 @@ func CGEventGetLocation(event CGEventRef) corefoundation.CGPoint {
 	}
 	return _cGEventGetLocation(event)
 }
-
 
 var _cGEventGetTimestamp func(event CGEventRef) CGEventTimestamp
 
@@ -4126,7 +3811,6 @@ func CGEventGetTimestamp(event CGEventRef) CGEventTimestamp {
 	return _cGEventGetTimestamp(event)
 }
 
-
 var _cGEventGetType func(event CGEventRef) CGEventType
 
 // CGEventGetType returns the event type of a Quartz event (left mouse down, for example).
@@ -4138,7 +3822,6 @@ func CGEventGetType(event CGEventRef) CGEventType {
 	}
 	return _cGEventGetType(event)
 }
-
 
 var _cGEventGetTypeID func() uint
 
@@ -4152,7 +3835,6 @@ func CGEventGetTypeID() uint {
 	return _cGEventGetTypeID()
 }
 
-
 var _cGEventGetUnflippedLocation func(event CGEventRef) corefoundation.CGPoint
 
 // CGEventGetUnflippedLocation returns the location of a Quartz mouse event.
@@ -4164,7 +3846,6 @@ func CGEventGetUnflippedLocation(event CGEventRef) corefoundation.CGPoint {
 	}
 	return _cGEventGetUnflippedLocation(event)
 }
-
 
 var _cGEventKeyboardGetUnicodeString func(event CGEventRef, maxStringLength uint, actualStringLength *uint, unicodeString *uint16)
 
@@ -4178,7 +3859,6 @@ func CGEventKeyboardGetUnicodeString(event CGEventRef, maxStringLength uint, act
 	_cGEventKeyboardGetUnicodeString(event, maxStringLength, actualStringLength, unicodeString)
 }
 
-
 var _cGEventKeyboardSetUnicodeString func(event CGEventRef, stringLength uint, unicodeString *uint16)
 
 // CGEventKeyboardSetUnicodeString sets the Unicode string associated with a Quartz keyboard event.
@@ -4190,7 +3870,6 @@ func CGEventKeyboardSetUnicodeString(event CGEventRef, stringLength uint, unicod
 	}
 	_cGEventKeyboardSetUnicodeString(event, stringLength, unicodeString)
 }
-
 
 var _cGEventPost func(tap CGEventTapLocation, event CGEventRef)
 
@@ -4204,7 +3883,6 @@ func CGEventPost(tap CGEventTapLocation, event CGEventRef) {
 	_cGEventPost(tap, event)
 }
 
-
 var _cGEventPostToPSN func(processSerialNumber unsafe.Pointer, event CGEventRef)
 
 // CGEventPostToPSN posts a Quartz event into the event stream for a specific application.
@@ -4216,7 +3894,6 @@ func CGEventPostToPSN(processSerialNumber unsafe.Pointer, event CGEventRef) {
 	}
 	_cGEventPostToPSN(processSerialNumber, event)
 }
-
 
 var _cGEventPostToPid func(pid int32, event CGEventRef)
 
@@ -4230,7 +3907,6 @@ func CGEventPostToPid(pid int32, event CGEventRef) {
 	_cGEventPostToPid(pid, event)
 }
 
-
 var _cGEventSetDoubleValueField func(event CGEventRef, field CGEventField, value float64)
 
 // CGEventSetDoubleValueField sets the floating-point value of a field in a Quartz event.
@@ -4242,7 +3918,6 @@ func CGEventSetDoubleValueField(event CGEventRef, field CGEventField, value floa
 	}
 	_cGEventSetDoubleValueField(event, field, value)
 }
-
 
 var _cGEventSetFlags func(event CGEventRef, flags CGEventFlags)
 
@@ -4256,7 +3931,6 @@ func CGEventSetFlags(event CGEventRef, flags CGEventFlags) {
 	_cGEventSetFlags(event, flags)
 }
 
-
 var _cGEventSetIntegerValueField func(event CGEventRef, field CGEventField, value int64)
 
 // CGEventSetIntegerValueField sets the integer value of a field in a Quartz event.
@@ -4268,7 +3942,6 @@ func CGEventSetIntegerValueField(event CGEventRef, field CGEventField, value int
 	}
 	_cGEventSetIntegerValueField(event, field, value)
 }
-
 
 var _cGEventSetLocation func(event CGEventRef, location corefoundation.CGPoint)
 
@@ -4282,7 +3955,6 @@ func CGEventSetLocation(event CGEventRef, location corefoundation.CGPoint) {
 	_cGEventSetLocation(event, location)
 }
 
-
 var _cGEventSetSource func(event CGEventRef, source CGEventSourceRef)
 
 // CGEventSetSource sets the event source of a Quartz event.
@@ -4294,7 +3966,6 @@ func CGEventSetSource(event CGEventRef, source CGEventSourceRef) {
 	}
 	_cGEventSetSource(event, source)
 }
-
 
 var _cGEventSetTimestamp func(event CGEventRef, timestamp CGEventTimestamp)
 
@@ -4308,7 +3979,6 @@ func CGEventSetTimestamp(event CGEventRef, timestamp CGEventTimestamp) {
 	_cGEventSetTimestamp(event, timestamp)
 }
 
-
 var _cGEventSetType func(event CGEventRef, type_ CGEventType)
 
 // CGEventSetType sets the event type of a Quartz event (left mouse down, for example).
@@ -4320,7 +3990,6 @@ func CGEventSetType(event CGEventRef, type_ CGEventType) {
 	}
 	_cGEventSetType(event, type_)
 }
-
 
 var _cGEventSourceButtonState func(stateID CGEventSourceStateID, button CGMouseButton) bool
 
@@ -4334,7 +4003,6 @@ func CGEventSourceButtonState(stateID CGEventSourceStateID, button CGMouseButton
 	return _cGEventSourceButtonState(stateID, button)
 }
 
-
 var _cGEventSourceCounterForEventType func(stateID CGEventSourceStateID, eventType CGEventType) uint32
 
 // CGEventSourceCounterForEventType returns a count of events of a given type seen since the window server started.
@@ -4346,7 +4014,6 @@ func CGEventSourceCounterForEventType(stateID CGEventSourceStateID, eventType CG
 	}
 	return _cGEventSourceCounterForEventType(stateID, eventType)
 }
-
 
 var _cGEventSourceCreate func(stateID CGEventSourceStateID) CGEventSourceRef
 
@@ -4360,7 +4027,6 @@ func CGEventSourceCreate(stateID CGEventSourceStateID) CGEventSourceRef {
 	return _cGEventSourceCreate(stateID)
 }
 
-
 var _cGEventSourceFlagsState func(stateID CGEventSourceStateID) CGEventFlags
 
 // CGEventSourceFlagsState returns the current flags of a Quartz event source.
@@ -4372,7 +4038,6 @@ func CGEventSourceFlagsState(stateID CGEventSourceStateID) CGEventFlags {
 	}
 	return _cGEventSourceFlagsState(stateID)
 }
-
 
 var _cGEventSourceGetKeyboardType func(source CGEventSourceRef) CGEventSourceKeyboardType
 
@@ -4386,7 +4051,6 @@ func CGEventSourceGetKeyboardType(source CGEventSourceRef) CGEventSourceKeyboard
 	return _cGEventSourceGetKeyboardType(source)
 }
 
-
 var _cGEventSourceGetLocalEventsFilterDuringSuppressionState func(source CGEventSourceRef, state CGEventSuppressionState) CGEventFilterMask
 
 // CGEventSourceGetLocalEventsFilterDuringSuppressionState returns the mask that indicates which classes of local hardware events are enabled during event suppression.
@@ -4398,7 +4062,6 @@ func CGEventSourceGetLocalEventsFilterDuringSuppressionState(source CGEventSourc
 	}
 	return _cGEventSourceGetLocalEventsFilterDuringSuppressionState(source, state)
 }
-
 
 var _cGEventSourceGetLocalEventsSuppressionInterval func(source CGEventSourceRef) float64
 
@@ -4412,7 +4075,6 @@ func CGEventSourceGetLocalEventsSuppressionInterval(source CGEventSourceRef) flo
 	return _cGEventSourceGetLocalEventsSuppressionInterval(source)
 }
 
-
 var _cGEventSourceGetPixelsPerLine func(source CGEventSourceRef) float64
 
 // CGEventSourceGetPixelsPerLine gets the scale of pixels per line in a scrolling event source.
@@ -4424,7 +4086,6 @@ func CGEventSourceGetPixelsPerLine(source CGEventSourceRef) float64 {
 	}
 	return _cGEventSourceGetPixelsPerLine(source)
 }
-
 
 var _cGEventSourceGetSourceStateID func(source CGEventSourceRef) CGEventSourceStateID
 
@@ -4438,7 +4099,6 @@ func CGEventSourceGetSourceStateID(source CGEventSourceRef) CGEventSourceStateID
 	return _cGEventSourceGetSourceStateID(source)
 }
 
-
 var _cGEventSourceGetTypeID func() uint
 
 // CGEventSourceGetTypeID returns the type identifier for the opaque type [CGEventSourceRef].
@@ -4450,7 +4110,6 @@ func CGEventSourceGetTypeID() uint {
 	}
 	return _cGEventSourceGetTypeID()
 }
-
 
 var _cGEventSourceGetUserData func(source CGEventSourceRef) int64
 
@@ -4464,7 +4123,6 @@ func CGEventSourceGetUserData(source CGEventSourceRef) int64 {
 	return _cGEventSourceGetUserData(source)
 }
 
-
 var _cGEventSourceKeyState func(stateID CGEventSourceStateID, key uint16) bool
 
 // CGEventSourceKeyState returns a Boolean value indicating the current keyboard state of a Quartz event source.
@@ -4476,7 +4134,6 @@ func CGEventSourceKeyState(stateID CGEventSourceStateID, key uint16) bool {
 	}
 	return _cGEventSourceKeyState(stateID, key)
 }
-
 
 var _cGEventSourceSecondsSinceLastEventType func(stateID CGEventSourceStateID, eventType CGEventType) float64
 
@@ -4490,7 +4147,6 @@ func CGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eventT
 	return _cGEventSourceSecondsSinceLastEventType(stateID, eventType)
 }
 
-
 var _cGEventSourceSetKeyboardType func(source CGEventSourceRef, keyboardType CGEventSourceKeyboardType)
 
 // CGEventSourceSetKeyboardType sets the keyboard type to be used with a Quartz event source.
@@ -4502,7 +4158,6 @@ func CGEventSourceSetKeyboardType(source CGEventSourceRef, keyboardType CGEventS
 	}
 	_cGEventSourceSetKeyboardType(source, keyboardType)
 }
-
 
 var _cGEventSourceSetLocalEventsFilterDuringSuppressionState func(source CGEventSourceRef, filter CGEventFilterMask, state CGEventSuppressionState)
 
@@ -4516,7 +4171,6 @@ func CGEventSourceSetLocalEventsFilterDuringSuppressionState(source CGEventSourc
 	_cGEventSourceSetLocalEventsFilterDuringSuppressionState(source, filter, state)
 }
 
-
 var _cGEventSourceSetLocalEventsSuppressionInterval func(source CGEventSourceRef, seconds float64)
 
 // CGEventSourceSetLocalEventsSuppressionInterval sets the interval that local hardware events may be suppressed following the posting of a Quartz event.
@@ -4528,7 +4182,6 @@ func CGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, sec
 	}
 	_cGEventSourceSetLocalEventsSuppressionInterval(source, seconds)
 }
-
 
 var _cGEventSourceSetPixelsPerLine func(source CGEventSourceRef, pixelsPerLine float64)
 
@@ -4542,7 +4195,6 @@ func CGEventSourceSetPixelsPerLine(source CGEventSourceRef, pixelsPerLine float6
 	_cGEventSourceSetPixelsPerLine(source, pixelsPerLine)
 }
 
-
 var _cGEventSourceSetUserData func(source CGEventSourceRef, userData int64)
 
 // CGEventSourceSetUserData sets the 64-bit user-specified data for a Quartz event source.
@@ -4554,7 +4206,6 @@ func CGEventSourceSetUserData(source CGEventSourceRef, userData int64) {
 	}
 	_cGEventSourceSetUserData(source, userData)
 }
-
 
 var _cGEventTapCreate func(tap CGEventTapLocation, place CGEventTapPlacement, options CGEventTapOptions, eventsOfInterest CGEventMask, callback CGEventTapCallBack, userInfo unsafe.Pointer) corefoundation.CFMachPort
 
@@ -4568,7 +4219,6 @@ func CGEventTapCreate(tap CGEventTapLocation, place CGEventTapPlacement, options
 	return _cGEventTapCreate(tap, place, options, eventsOfInterest, callback, userInfo)
 }
 
-
 var _cGEventTapCreateForPSN func(processSerialNumber unsafe.Pointer, place CGEventTapPlacement, options CGEventTapOptions, eventsOfInterest CGEventMask, callback CGEventTapCallBack, userInfo unsafe.Pointer) corefoundation.CFMachPort
 
 // CGEventTapCreateForPSN creates an event tap for a specified process.
@@ -4580,7 +4230,6 @@ func CGEventTapCreateForPSN(processSerialNumber unsafe.Pointer, place CGEventTap
 	}
 	return _cGEventTapCreateForPSN(processSerialNumber, place, options, eventsOfInterest, callback, userInfo)
 }
-
 
 var _cGEventTapCreateForPid func(pid int32, place CGEventTapPlacement, options CGEventTapOptions, eventsOfInterest CGEventMask, callback CGEventTapCallBack, userInfo unsafe.Pointer) corefoundation.CFMachPort
 
@@ -4594,7 +4243,6 @@ func CGEventTapCreateForPid(pid int32, place CGEventTapPlacement, options CGEven
 	return _cGEventTapCreateForPid(pid, place, options, eventsOfInterest, callback, userInfo)
 }
 
-
 var _cGEventTapEnable func(tap corefoundation.CFMachPort, enable bool)
 
 // CGEventTapEnable enables or disables an event tap.
@@ -4606,7 +4254,6 @@ func CGEventTapEnable(tap corefoundation.CFMachPort, enable bool) {
 	}
 	_cGEventTapEnable(tap, enable)
 }
-
 
 var _cGEventTapIsEnabled func(tap corefoundation.CFMachPort) bool
 
@@ -4620,7 +4267,6 @@ func CGEventTapIsEnabled(tap corefoundation.CFMachPort) bool {
 	return _cGEventTapIsEnabled(tap)
 }
 
-
 var _cGEventTapPostEvent func(proxy CGEventTapProxy, event CGEventRef)
 
 // CGEventTapPostEvent posts a Quartz event from an event tap into the event stream.
@@ -4632,7 +4278,6 @@ func CGEventTapPostEvent(proxy CGEventTapProxy, event CGEventRef) {
 	}
 	_cGEventTapPostEvent(proxy, event)
 }
-
 
 var _cGFontCanCreatePostScriptSubset func(font CGFontRef, format CGFontPostScriptFormat) bool
 
@@ -4646,7 +4291,6 @@ func CGFontCanCreatePostScriptSubset(font CGFontRef, format CGFontPostScriptForm
 	return _cGFontCanCreatePostScriptSubset(font, format)
 }
 
-
 var _cGFontCopyFullName func(font CGFontRef) corefoundation.CFStringRef
 
 // CGFontCopyFullName returns the full name associated with a font object.
@@ -4658,7 +4302,6 @@ func CGFontCopyFullName(font CGFontRef) corefoundation.CFStringRef {
 	}
 	return _cGFontCopyFullName(font)
 }
-
 
 var _cGFontCopyGlyphNameForGlyph func(font CGFontRef, glyph uintptr) corefoundation.CFStringRef
 
@@ -4672,7 +4315,6 @@ func CGFontCopyGlyphNameForGlyph(font CGFontRef, glyph uintptr) corefoundation.C
 	return _cGFontCopyGlyphNameForGlyph(font, glyph)
 }
 
-
 var _cGFontCopyPostScriptName func(font CGFontRef) corefoundation.CFStringRef
 
 // CGFontCopyPostScriptName obtains the PostScript name of a font.
@@ -4684,7 +4326,6 @@ func CGFontCopyPostScriptName(font CGFontRef) corefoundation.CFStringRef {
 	}
 	return _cGFontCopyPostScriptName(font)
 }
-
 
 var _cGFontCopyTableForTag func(font CGFontRef, tag uint32) corefoundation.CFDataRef
 
@@ -4698,7 +4339,6 @@ func CGFontCopyTableForTag(font CGFontRef, tag uint32) corefoundation.CFDataRef 
 	return _cGFontCopyTableForTag(font, tag)
 }
 
-
 var _cGFontCopyTableTags func(font CGFontRef) corefoundation.CFArrayRef
 
 // CGFontCopyTableTags returns an array of tags that correspond to the font tables for a font.
@@ -4710,7 +4350,6 @@ func CGFontCopyTableTags(font CGFontRef) corefoundation.CFArrayRef {
 	}
 	return _cGFontCopyTableTags(font)
 }
-
 
 var _cGFontCopyVariationAxes func(font CGFontRef) corefoundation.CFArrayRef
 
@@ -4724,7 +4363,6 @@ func CGFontCopyVariationAxes(font CGFontRef) corefoundation.CFArrayRef {
 	return _cGFontCopyVariationAxes(font)
 }
 
-
 var _cGFontCopyVariations func(font CGFontRef) corefoundation.CFDictionaryRef
 
 // CGFontCopyVariations returns the variation specification dictionary for a font.
@@ -4736,7 +4374,6 @@ func CGFontCopyVariations(font CGFontRef) corefoundation.CFDictionaryRef {
 	}
 	return _cGFontCopyVariations(font)
 }
-
 
 var _cGFontCreateCopyWithVariations func(font CGFontRef, variations corefoundation.CFDictionaryRef) CGFontRef
 
@@ -4750,7 +4387,6 @@ func CGFontCreateCopyWithVariations(font CGFontRef, variations corefoundation.CF
 	return _cGFontCreateCopyWithVariations(font, variations)
 }
 
-
 var _cGFontCreatePostScriptEncoding func(font CGFontRef, encoding uintptr) corefoundation.CFDataRef
 
 // CGFontCreatePostScriptEncoding creates a PostScript encoding of a font.
@@ -4762,7 +4398,6 @@ func CGFontCreatePostScriptEncoding(font CGFontRef, encoding uintptr) corefounda
 	}
 	return _cGFontCreatePostScriptEncoding(font, encoding)
 }
-
 
 var _cGFontCreatePostScriptSubset func(font CGFontRef, subsetName corefoundation.CFStringRef, format CGFontPostScriptFormat, glyphs uintptr, count uintptr, encoding uintptr) corefoundation.CFDataRef
 
@@ -4776,7 +4411,6 @@ func CGFontCreatePostScriptSubset(font CGFontRef, subsetName corefoundation.CFSt
 	return _cGFontCreatePostScriptSubset(font, subsetName, format, glyphs, count, encoding)
 }
 
-
 var _cGFontCreateWithDataProvider func(provider CGDataProviderRef) CGFontRef
 
 // CGFontCreateWithDataProvider creates a font object from data supplied from a data provider.
@@ -4788,7 +4422,6 @@ func CGFontCreateWithDataProvider(provider CGDataProviderRef) CGFontRef {
 	}
 	return _cGFontCreateWithDataProvider(provider)
 }
-
 
 var _cGFontCreateWithFontName func(name corefoundation.CFStringRef) CGFontRef
 
@@ -4802,7 +4435,6 @@ func CGFontCreateWithFontName(name corefoundation.CFStringRef) CGFontRef {
 	return _cGFontCreateWithFontName(name)
 }
 
-
 var _cGFontGetAscent func(font CGFontRef) int
 
 // CGFontGetAscent returns the ascent of a font.
@@ -4814,7 +4446,6 @@ func CGFontGetAscent(font CGFontRef) int {
 	}
 	return _cGFontGetAscent(font)
 }
-
 
 var _cGFontGetCapHeight func(font CGFontRef) int
 
@@ -4828,7 +4459,6 @@ func CGFontGetCapHeight(font CGFontRef) int {
 	return _cGFontGetCapHeight(font)
 }
 
-
 var _cGFontGetDescent func(font CGFontRef) int
 
 // CGFontGetDescent returns the descent of a font.
@@ -4840,7 +4470,6 @@ func CGFontGetDescent(font CGFontRef) int {
 	}
 	return _cGFontGetDescent(font)
 }
-
 
 var _cGFontGetFontBBox func(font CGFontRef) corefoundation.CGRect
 
@@ -4854,7 +4483,6 @@ func CGFontGetFontBBox(font CGFontRef) corefoundation.CGRect {
 	return _cGFontGetFontBBox(font)
 }
 
-
 var _cGFontGetGlyphAdvances func(font CGFontRef, glyphs uintptr, count uintptr, advances *int) bool
 
 // CGFontGetGlyphAdvances gets the advance width of each glyph in the provided array.
@@ -4866,7 +4494,6 @@ func CGFontGetGlyphAdvances(font CGFontRef, glyphs uintptr, count uintptr, advan
 	}
 	return _cGFontGetGlyphAdvances(font, glyphs, count, unsafe.SliceData(advances))
 }
-
 
 var _cGFontGetGlyphBBoxes func(font CGFontRef, glyphs uintptr, count uintptr, bboxes *corefoundation.CGRect) bool
 
@@ -4880,7 +4507,6 @@ func CGFontGetGlyphBBoxes(font CGFontRef, glyphs uintptr, count uintptr, bboxes 
 	return _cGFontGetGlyphBBoxes(font, glyphs, count, bboxes)
 }
 
-
 var _cGFontGetGlyphWithGlyphName func(font CGFontRef, name corefoundation.CFStringRef) objectivec.IObject
 
 // CGFontGetGlyphWithGlyphName returns the glyph for the glyph name associated with the specified font object.
@@ -4892,7 +4518,6 @@ func CGFontGetGlyphWithGlyphName(font CGFontRef, name corefoundation.CFStringRef
 	}
 	return _cGFontGetGlyphWithGlyphName(font, name)
 }
-
 
 var _cGFontGetItalicAngle func(font CGFontRef) float64
 
@@ -4906,7 +4531,6 @@ func CGFontGetItalicAngle(font CGFontRef) float64 {
 	return _cGFontGetItalicAngle(font)
 }
 
-
 var _cGFontGetLeading func(font CGFontRef) int
 
 // CGFontGetLeading returns the leading of a font.
@@ -4918,7 +4542,6 @@ func CGFontGetLeading(font CGFontRef) int {
 	}
 	return _cGFontGetLeading(font)
 }
-
 
 var _cGFontGetNumberOfGlyphs func(font CGFontRef) uintptr
 
@@ -4932,7 +4555,6 @@ func CGFontGetNumberOfGlyphs(font CGFontRef) uintptr {
 	return _cGFontGetNumberOfGlyphs(font)
 }
 
-
 var _cGFontGetStemV func(font CGFontRef) float64
 
 // CGFontGetStemV returns the thickness of the dominant vertical stems of glyphs in a font.
@@ -4944,7 +4566,6 @@ func CGFontGetStemV(font CGFontRef) float64 {
 	}
 	return _cGFontGetStemV(font)
 }
-
 
 var _cGFontGetTypeID func() uint
 
@@ -4958,7 +4579,6 @@ func CGFontGetTypeID() uint {
 	return _cGFontGetTypeID()
 }
 
-
 var _cGFontGetUnitsPerEm func(font CGFontRef) int
 
 // CGFontGetUnitsPerEm returns the number of glyph space units per em for the provided font.
@@ -4970,7 +4590,6 @@ func CGFontGetUnitsPerEm(font CGFontRef) int {
 	}
 	return _cGFontGetUnitsPerEm(font)
 }
-
 
 var _cGFontGetXHeight func(font CGFontRef) int
 
@@ -4984,7 +4603,6 @@ func CGFontGetXHeight(font CGFontRef) int {
 	return _cGFontGetXHeight(font)
 }
 
-
 var _cGFontRelease func(font CGFontRef)
 
 // CGFontRelease decrements the retain count of a font.
@@ -4996,7 +4614,6 @@ func CGFontRelease(font CGFontRef) {
 	}
 	_cGFontRelease(font)
 }
-
 
 var _cGFontRetain func(font CGFontRef) CGFontRef
 
@@ -5010,7 +4627,6 @@ func CGFontRetain(font CGFontRef) CGFontRef {
 	return _cGFontRetain(font)
 }
 
-
 var _cGFunctionCreate func(info unsafe.Pointer, domainDimension uintptr, domain *float64, rangeDimension uintptr, range_ *float64, callbacks *CGFunctionCallbacks) CGFunctionRef
 
 // CGFunctionCreate creates a Core Graphics function.
@@ -5022,7 +4638,6 @@ func CGFunctionCreate(info unsafe.Pointer, domainDimension uintptr, domain *floa
 	}
 	return _cGFunctionCreate(info, domainDimension, domain, rangeDimension, range_, callbacks)
 }
-
 
 var _cGFunctionGetTypeID func() uint
 
@@ -5036,7 +4651,6 @@ func CGFunctionGetTypeID() uint {
 	return _cGFunctionGetTypeID()
 }
 
-
 var _cGFunctionRelease func(function CGFunctionRef)
 
 // CGFunctionRelease decrements the retain count of a function object.
@@ -5048,7 +4662,6 @@ func CGFunctionRelease(function CGFunctionRef) {
 	}
 	_cGFunctionRelease(function)
 }
-
 
 var _cGFunctionRetain func(function CGFunctionRef) CGFunctionRef
 
@@ -5062,7 +4675,6 @@ func CGFunctionRetain(function CGFunctionRef) CGFunctionRef {
 	return _cGFunctionRetain(function)
 }
 
-
 var _cGGetActiveDisplayList func(maxDisplays uint32, activeDisplays *uint32, displayCount *uint32) CGError
 
 // CGGetActiveDisplayList provides a list of displays that are active for drawing.
@@ -5074,7 +4686,6 @@ func CGGetActiveDisplayList(maxDisplays uint32, activeDisplays *uint32, displayC
 	}
 	return _cGGetActiveDisplayList(maxDisplays, activeDisplays, displayCount)
 }
-
 
 var _cGGetDisplayTransferByFormula func(display uint32, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) CGError
 
@@ -5088,7 +4699,6 @@ func CGGetDisplayTransferByFormula(display uint32, redMin *CGGammaValue, redMax 
 	return _cGGetDisplayTransferByFormula(display, redMin, redMax, redGamma, greenMin, greenMax, greenGamma, blueMin, blueMax, blueGamma)
 }
 
-
 var _cGGetDisplayTransferByTable func(display uint32, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) CGError
 
 // CGGetDisplayTransferByTable gets the values in the RGB gamma tables for a display.
@@ -5100,7 +4710,6 @@ func CGGetDisplayTransferByTable(display uint32, capacity uint32, redTable *CGGa
 	}
 	return _cGGetDisplayTransferByTable(display, capacity, redTable, greenTable, blueTable, sampleCount)
 }
-
 
 var _cGGetDisplaysWithOpenGLDisplayMask func(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError
 
@@ -5114,7 +4723,6 @@ func CGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays ui
 	return _cGGetDisplaysWithOpenGLDisplayMask(mask, maxDisplays, displays, matchingDisplayCount)
 }
 
-
 var _cGGetDisplaysWithPoint func(point corefoundation.CGPoint, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError
 
 // CGGetDisplaysWithPoint provides a list of online displays with bounds that include the specified point.
@@ -5126,7 +4734,6 @@ func CGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32, di
 	}
 	return _cGGetDisplaysWithPoint(point, maxDisplays, displays, matchingDisplayCount)
 }
-
 
 var _cGGetDisplaysWithRect func(rect corefoundation.CGRect, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError
 
@@ -5140,7 +4747,6 @@ func CGGetDisplaysWithRect(rect corefoundation.CGRect, maxDisplays uint32, displ
 	return _cGGetDisplaysWithRect(rect, maxDisplays, displays, matchingDisplayCount)
 }
 
-
 var _cGGetEventTapList func(maxNumberOfTaps uint32, tapList *CGEventTapInformation, eventTapCount *uint32) CGError
 
 // CGGetEventTapList gets a list of currently installed event taps.
@@ -5152,7 +4758,6 @@ func CGGetEventTapList(maxNumberOfTaps uint32, tapList *CGEventTapInformation, e
 	}
 	return _cGGetEventTapList(maxNumberOfTaps, tapList, eventTapCount)
 }
-
 
 var _cGGetLastMouseDelta func(deltaX *int32, deltaY *int32)
 
@@ -5166,7 +4771,6 @@ func CGGetLastMouseDelta(deltaX *int32, deltaY *int32) {
 	_cGGetLastMouseDelta(deltaX, deltaY)
 }
 
-
 var _cGGetOnlineDisplayList func(maxDisplays uint32, onlineDisplays *uint32, displayCount *uint32) CGError
 
 // CGGetOnlineDisplayList provides a list of displays that are online (active, mirrored, or sleeping).
@@ -5178,7 +4782,6 @@ func CGGetOnlineDisplayList(maxDisplays uint32, onlineDisplays *uint32, displayC
 	}
 	return _cGGetOnlineDisplayList(maxDisplays, onlineDisplays, displayCount)
 }
-
 
 var _cGGradientCreateWithColorComponents func(space CGColorSpaceRef, components *float64, locations *float64, count uintptr) CGGradientRef
 
@@ -5192,7 +4795,6 @@ func CGGradientCreateWithColorComponents(space CGColorSpaceRef, components *floa
 	return _cGGradientCreateWithColorComponents(space, components, locations, count)
 }
 
-
 var _cGGradientCreateWithColors func(space CGColorSpaceRef, colors corefoundation.CFArrayRef, locations *float64) CGGradientRef
 
 // CGGradientCreateWithColors creates a gradient object from a color space and the provided color objects and locations.
@@ -5204,7 +4806,6 @@ func CGGradientCreateWithColors(space CGColorSpaceRef, colors corefoundation.CFA
 	}
 	return _cGGradientCreateWithColors(space, colors, locations)
 }
-
 
 var _cGGradientCreateWithContentHeadroom func(headroom float32, space CGColorSpaceRef, components *float64, locations *float64, count uintptr) CGGradientRef
 
@@ -5218,7 +4819,6 @@ func CGGradientCreateWithContentHeadroom(headroom float32, space CGColorSpaceRef
 	return _cGGradientCreateWithContentHeadroom(headroom, space, components, locations, count)
 }
 
-
 var _cGGradientGetContentHeadroom func(gradient CGGradientRef) float32
 
 // CGGradientGetContentHeadroom.
@@ -5230,7 +4830,6 @@ func CGGradientGetContentHeadroom(gradient CGGradientRef) float32 {
 	}
 	return _cGGradientGetContentHeadroom(gradient)
 }
-
 
 var _cGGradientGetTypeID func() uint
 
@@ -5244,7 +4843,6 @@ func CGGradientGetTypeID() uint {
 	return _cGGradientGetTypeID()
 }
 
-
 var _cGGradientRelease func(gradient CGGradientRef)
 
 // CGGradientRelease decrements the retain count of a CGGradient object.
@@ -5256,7 +4854,6 @@ func CGGradientRelease(gradient CGGradientRef) {
 	}
 	_cGGradientRelease(gradient)
 }
-
 
 var _cGGradientRetain func(gradient CGGradientRef) CGGradientRef
 
@@ -5270,7 +4867,6 @@ func CGGradientRetain(gradient CGGradientRef) CGGradientRef {
 	return _cGGradientRetain(gradient)
 }
 
-
 var _cGImageCalculateContentAverageLightLevel func(image CGImageRef) float32
 
 // CGImageCalculateContentAverageLightLevel.
@@ -5282,7 +4878,6 @@ func CGImageCalculateContentAverageLightLevel(image CGImageRef) float32 {
 	}
 	return _cGImageCalculateContentAverageLightLevel(image)
 }
-
 
 var _cGImageCalculateContentHeadroom func(image CGImageRef) float32
 
@@ -5296,7 +4891,6 @@ func CGImageCalculateContentHeadroom(image CGImageRef) float32 {
 	return _cGImageCalculateContentHeadroom(image)
 }
 
-
 var _cGImageContainsImageSpecificToneMappingMetadata func(image CGImageRef) bool
 
 // CGImageContainsImageSpecificToneMappingMetadata.
@@ -5308,7 +4902,6 @@ func CGImageContainsImageSpecificToneMappingMetadata(image CGImageRef) bool {
 	}
 	return _cGImageContainsImageSpecificToneMappingMetadata(image)
 }
-
 
 var _cGImageCreate func(width uintptr, height uintptr, bitsPerComponent uintptr, bitsPerPixel uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo, provider CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) CGImageRef
 
@@ -5322,7 +4915,6 @@ func CGImageCreate(width uintptr, height uintptr, bitsPerComponent uintptr, bits
 	return _cGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, space, bitmapInfo, provider, decode, shouldInterpolate, intent)
 }
 
-
 var _cGImageCreateCopy func(image CGImageRef) CGImageRef
 
 // CGImageCreateCopy creates a copy of a bitmap image.
@@ -5334,7 +4926,6 @@ func CGImageCreateCopy(image CGImageRef) CGImageRef {
 	}
 	return _cGImageCreateCopy(image)
 }
-
 
 var _cGImageCreateCopyWithCalculatedHDRStats func(image CGImageRef) CGImageRef
 
@@ -5348,7 +4939,6 @@ func CGImageCreateCopyWithCalculatedHDRStats(image CGImageRef) CGImageRef {
 	return _cGImageCreateCopyWithCalculatedHDRStats(image)
 }
 
-
 var _cGImageCreateCopyWithColorSpace func(image CGImageRef, space CGColorSpaceRef) CGImageRef
 
 // CGImageCreateCopyWithColorSpace creates a copy of a bitmap image, replacing its colorspace.
@@ -5360,7 +4950,6 @@ func CGImageCreateCopyWithColorSpace(image CGImageRef, space CGColorSpaceRef) CG
 	}
 	return _cGImageCreateCopyWithColorSpace(image, space)
 }
-
 
 var _cGImageCreateCopyWithContentAverageLightLevel func(image CGImageRef, avll float32) CGImageRef
 
@@ -5374,7 +4963,6 @@ func CGImageCreateCopyWithContentAverageLightLevel(image CGImageRef, avll float3
 	return _cGImageCreateCopyWithContentAverageLightLevel(image, avll)
 }
 
-
 var _cGImageCreateCopyWithContentHeadroom func(headroom float32, image CGImageRef) CGImageRef
 
 // CGImageCreateCopyWithContentHeadroom.
@@ -5386,7 +4974,6 @@ func CGImageCreateCopyWithContentHeadroom(headroom float32, image CGImageRef) CG
 	}
 	return _cGImageCreateCopyWithContentHeadroom(headroom, image)
 }
-
 
 var _cGImageCreateWithContentHeadroom func(headroom float32, width uintptr, height uintptr, bitsPerComponent uintptr, bitsPerPixel uintptr, bytesPerRow uintptr, space CGColorSpaceRef, bitmapInfo CGBitmapInfo, provider CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) CGImageRef
 
@@ -5400,7 +4987,6 @@ func CGImageCreateWithContentHeadroom(headroom float32, width uintptr, height ui
 	return _cGImageCreateWithContentHeadroom(headroom, width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, space, bitmapInfo, provider, decode, shouldInterpolate, intent)
 }
 
-
 var _cGImageCreateWithImageInRect func(image CGImageRef, rect corefoundation.CGRect) CGImageRef
 
 // CGImageCreateWithImageInRect creates a bitmap image using the data contained within a subregion of an existing bitmap image.
@@ -5412,7 +4998,6 @@ func CGImageCreateWithImageInRect(image CGImageRef, rect corefoundation.CGRect) 
 	}
 	return _cGImageCreateWithImageInRect(image, rect)
 }
-
 
 var _cGImageCreateWithJPEGDataProvider func(source CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) CGImageRef
 
@@ -5426,7 +5011,6 @@ func CGImageCreateWithJPEGDataProvider(source CGDataProviderRef, decode *float64
 	return _cGImageCreateWithJPEGDataProvider(source, decode, shouldInterpolate, intent)
 }
 
-
 var _cGImageCreateWithMask func(image CGImageRef, mask CGImageRef) CGImageRef
 
 // CGImageCreateWithMask creates a bitmap image from an existing image and an image mask.
@@ -5438,7 +5022,6 @@ func CGImageCreateWithMask(image CGImageRef, mask CGImageRef) CGImageRef {
 	}
 	return _cGImageCreateWithMask(image, mask)
 }
-
 
 var _cGImageCreateWithMaskingColors func(image CGImageRef, components *float64) CGImageRef
 
@@ -5452,7 +5035,6 @@ func CGImageCreateWithMaskingColors(image CGImageRef, components *float64) CGIma
 	return _cGImageCreateWithMaskingColors(image, components)
 }
 
-
 var _cGImageCreateWithPNGDataProvider func(source CGDataProviderRef, decode *float64, shouldInterpolate bool, intent CGColorRenderingIntent) CGImageRef
 
 // CGImageCreateWithPNGDataProvider creates a bitmap image using PNG-encoded data supplied by a data provider.
@@ -5464,7 +5046,6 @@ func CGImageCreateWithPNGDataProvider(source CGDataProviderRef, decode *float64,
 	}
 	return _cGImageCreateWithPNGDataProvider(source, decode, shouldInterpolate, intent)
 }
-
 
 var _cGImageGetAlphaInfo func(image CGImageRef) CGImageAlphaInfo
 
@@ -5478,7 +5059,6 @@ func CGImageGetAlphaInfo(image CGImageRef) CGImageAlphaInfo {
 	return _cGImageGetAlphaInfo(image)
 }
 
-
 var _cGImageGetBitmapInfo func(image CGImageRef) CGBitmapInfo
 
 // CGImageGetBitmapInfo returns the bitmap information for a bitmap image.
@@ -5490,7 +5070,6 @@ func CGImageGetBitmapInfo(image CGImageRef) CGBitmapInfo {
 	}
 	return _cGImageGetBitmapInfo(image)
 }
-
 
 var _cGImageGetBitsPerComponent func(image CGImageRef) uintptr
 
@@ -5504,7 +5083,6 @@ func CGImageGetBitsPerComponent(image CGImageRef) uintptr {
 	return _cGImageGetBitsPerComponent(image)
 }
 
-
 var _cGImageGetBitsPerPixel func(image CGImageRef) uintptr
 
 // CGImageGetBitsPerPixel returns the number of bits allocated for a single pixel in a bitmap image.
@@ -5516,7 +5094,6 @@ func CGImageGetBitsPerPixel(image CGImageRef) uintptr {
 	}
 	return _cGImageGetBitsPerPixel(image)
 }
-
 
 var _cGImageGetByteOrderInfo func(image CGImageRef) CGImageByteOrderInfo
 
@@ -5530,7 +5107,6 @@ func CGImageGetByteOrderInfo(image CGImageRef) CGImageByteOrderInfo {
 	return _cGImageGetByteOrderInfo(image)
 }
 
-
 var _cGImageGetBytesPerRow func(image CGImageRef) uintptr
 
 // CGImageGetBytesPerRow returns the number of bytes allocated for a single row of a bitmap image.
@@ -5542,7 +5118,6 @@ func CGImageGetBytesPerRow(image CGImageRef) uintptr {
 	}
 	return _cGImageGetBytesPerRow(image)
 }
-
 
 var _cGImageGetColorSpace func(image CGImageRef) CGColorSpaceRef
 
@@ -5556,7 +5131,6 @@ func CGImageGetColorSpace(image CGImageRef) CGColorSpaceRef {
 	return _cGImageGetColorSpace(image)
 }
 
-
 var _cGImageGetContentAverageLightLevel func(image CGImageRef) float32
 
 // CGImageGetContentAverageLightLevel.
@@ -5568,7 +5142,6 @@ func CGImageGetContentAverageLightLevel(image CGImageRef) float32 {
 	}
 	return _cGImageGetContentAverageLightLevel(image)
 }
-
 
 var _cGImageGetContentHeadroom func(image CGImageRef) float32
 
@@ -5582,7 +5155,6 @@ func CGImageGetContentHeadroom(image CGImageRef) float32 {
 	return _cGImageGetContentHeadroom(image)
 }
 
-
 var _cGImageGetDataProvider func(image CGImageRef) CGDataProviderRef
 
 // CGImageGetDataProvider returns the data provider for a bitmap image or image mask.
@@ -5594,7 +5166,6 @@ func CGImageGetDataProvider(image CGImageRef) CGDataProviderRef {
 	}
 	return _cGImageGetDataProvider(image)
 }
-
 
 var _cGImageGetDecode func(image CGImageRef) *float64
 
@@ -5608,7 +5179,6 @@ func CGImageGetDecode(image CGImageRef) *float64 {
 	return _cGImageGetDecode(image)
 }
 
-
 var _cGImageGetHeight func(image CGImageRef) uintptr
 
 // CGImageGetHeight returns the height of a bitmap image.
@@ -5620,7 +5190,6 @@ func CGImageGetHeight(image CGImageRef) uintptr {
 	}
 	return _cGImageGetHeight(image)
 }
-
 
 var _cGImageGetPixelFormatInfo func(image CGImageRef) CGImagePixelFormatInfo
 
@@ -5634,7 +5203,6 @@ func CGImageGetPixelFormatInfo(image CGImageRef) CGImagePixelFormatInfo {
 	return _cGImageGetPixelFormatInfo(image)
 }
 
-
 var _cGImageGetRenderingIntent func(image CGImageRef) CGColorRenderingIntent
 
 // CGImageGetRenderingIntent returns the rendering intent setting for a bitmap image.
@@ -5646,7 +5214,6 @@ func CGImageGetRenderingIntent(image CGImageRef) CGColorRenderingIntent {
 	}
 	return _cGImageGetRenderingIntent(image)
 }
-
 
 var _cGImageGetShouldInterpolate func(image CGImageRef) bool
 
@@ -5660,7 +5227,6 @@ func CGImageGetShouldInterpolate(image CGImageRef) bool {
 	return _cGImageGetShouldInterpolate(image)
 }
 
-
 var _cGImageGetTypeID func() uint
 
 // CGImageGetTypeID returns the type identifier for CGImage objects.
@@ -5672,7 +5238,6 @@ func CGImageGetTypeID() uint {
 	}
 	return _cGImageGetTypeID()
 }
-
 
 var _cGImageGetUTType func(image CGImageRef) corefoundation.CFStringRef
 
@@ -5686,7 +5251,6 @@ func CGImageGetUTType(image CGImageRef) corefoundation.CFStringRef {
 	return _cGImageGetUTType(image)
 }
 
-
 var _cGImageGetWidth func(image CGImageRef) uintptr
 
 // CGImageGetWidth returns the width of a bitmap image, in pixels.
@@ -5698,7 +5262,6 @@ func CGImageGetWidth(image CGImageRef) uintptr {
 	}
 	return _cGImageGetWidth(image)
 }
-
 
 var _cGImageIsMask func(image CGImageRef) bool
 
@@ -5712,7 +5275,6 @@ func CGImageIsMask(image CGImageRef) bool {
 	return _cGImageIsMask(image)
 }
 
-
 var _cGImageMaskCreate func(width uintptr, height uintptr, bitsPerComponent uintptr, bitsPerPixel uintptr, bytesPerRow uintptr, provider CGDataProviderRef, decode *float64, shouldInterpolate bool) CGImageRef
 
 // CGImageMaskCreate creates a bitmap image mask from data supplied by a data provider.
@@ -5724,7 +5286,6 @@ func CGImageMaskCreate(width uintptr, height uintptr, bitsPerComponent uintptr, 
 	}
 	return _cGImageMaskCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, provider, decode, shouldInterpolate)
 }
-
 
 var _cGImageRelease func(image CGImageRef)
 
@@ -5738,7 +5299,6 @@ func CGImageRelease(image CGImageRef) {
 	_cGImageRelease(image)
 }
 
-
 var _cGImageRetain func(image CGImageRef) CGImageRef
 
 // CGImageRetain increments the retain count of a bitmap image.
@@ -5750,7 +5310,6 @@ func CGImageRetain(image CGImageRef) CGImageRef {
 	}
 	return _cGImageRetain(image)
 }
-
 
 var _cGImageShouldToneMap func(image CGImageRef) bool
 
@@ -5764,7 +5323,6 @@ func CGImageShouldToneMap(image CGImageRef) bool {
 	return _cGImageShouldToneMap(image)
 }
 
-
 var _cGLayerCreateWithContext func(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) objectivec.IObject
 
 // CGLayerCreateWithContext creates a layer object that is associated with a graphics context.
@@ -5776,7 +5334,6 @@ func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, 
 	}
 	return _cGLayerCreateWithContext(context, size, auxiliaryInfo)
 }
-
 
 var _cGLayerGetContext func(layer uintptr) CGContextRef
 
@@ -5790,7 +5347,6 @@ func CGLayerGetContext(layer uintptr) CGContextRef {
 	return _cGLayerGetContext(layer)
 }
 
-
 var _cGLayerGetSize func(layer uintptr) corefoundation.CGSize
 
 // CGLayerGetSize returns the width and height of a layer object.
@@ -5802,7 +5358,6 @@ func CGLayerGetSize(layer uintptr) corefoundation.CGSize {
 	}
 	return _cGLayerGetSize(layer)
 }
-
 
 var _cGLayerGetTypeID func() uint
 
@@ -5816,7 +5371,6 @@ func CGLayerGetTypeID() uint {
 	return _cGLayerGetTypeID()
 }
 
-
 var _cGLayerRelease func(layer uintptr)
 
 // CGLayerRelease decrements the retain count of a layer object.
@@ -5828,7 +5382,6 @@ func CGLayerRelease(layer uintptr) {
 	}
 	_cGLayerRelease(layer)
 }
-
 
 var _cGLayerRetain func(layer uintptr) objectivec.IObject
 
@@ -5842,7 +5395,6 @@ func CGLayerRetain(layer uintptr) objectivec.IObject {
 	return _cGLayerRetain(layer)
 }
 
-
 var _cGMainDisplayID func() uint32
 
 // CGMainDisplayID returns the display ID of the main display.
@@ -5854,7 +5406,6 @@ func CGMainDisplayID() uint32 {
 	}
 	return _cGMainDisplayID()
 }
-
 
 var _cGOpenGLDisplayMaskToDisplayID func(mask CGOpenGLDisplayMask) uint32
 
@@ -5868,7 +5419,6 @@ func CGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) uint32 {
 	return _cGOpenGLDisplayMaskToDisplayID(mask)
 }
 
-
 var _cGPDFArrayApplyBlock func(array CGPDFArrayRef, block CGPDFArrayApplierBlock, info unsafe.Pointer)
 
 // CGPDFArrayApplyBlock.
@@ -5880,7 +5430,6 @@ func CGPDFArrayApplyBlock(array CGPDFArrayRef, block CGPDFArrayApplierBlock, inf
 	}
 	_cGPDFArrayApplyBlock(array, block, info)
 }
-
 
 var _cGPDFArrayGetArray func(array CGPDFArrayRef, index uintptr, value *CGPDFArrayRef) bool
 
@@ -5894,7 +5443,6 @@ func CGPDFArrayGetArray(array CGPDFArrayRef, index uintptr, value *CGPDFArrayRef
 	return _cGPDFArrayGetArray(array, index, value)
 }
 
-
 var _cGPDFArrayGetBoolean func(array CGPDFArrayRef, index uintptr, value *CGPDFBoolean) bool
 
 // CGPDFArrayGetBoolean returns whether an object at a given index in a PDF array is a PDF Boolean and, if so, retrieves that Boolean.
@@ -5906,7 +5454,6 @@ func CGPDFArrayGetBoolean(array CGPDFArrayRef, index uintptr, value *CGPDFBoolea
 	}
 	return _cGPDFArrayGetBoolean(array, index, value)
 }
-
 
 var _cGPDFArrayGetCount func(array CGPDFArrayRef) uintptr
 
@@ -5920,7 +5467,6 @@ func CGPDFArrayGetCount(array CGPDFArrayRef) uintptr {
 	return _cGPDFArrayGetCount(array)
 }
 
-
 var _cGPDFArrayGetDictionary func(array CGPDFArrayRef, index uintptr, value *CGPDFDictionaryRef) bool
 
 // CGPDFArrayGetDictionary returns whether an object at a given index in a PDF array is a PDF dictionary and, if so, retrieves that dictionary.
@@ -5932,7 +5478,6 @@ func CGPDFArrayGetDictionary(array CGPDFArrayRef, index uintptr, value *CGPDFDic
 	}
 	return _cGPDFArrayGetDictionary(array, index, value)
 }
-
 
 var _cGPDFArrayGetInteger func(array CGPDFArrayRef, index uintptr, value *CGPDFInteger) bool
 
@@ -5946,7 +5491,6 @@ func CGPDFArrayGetInteger(array CGPDFArrayRef, index uintptr, value *CGPDFIntege
 	return _cGPDFArrayGetInteger(array, index, value)
 }
 
-
 var _cGPDFArrayGetName func(array CGPDFArrayRef, index uintptr, value *byte) bool
 
 // CGPDFArrayGetName returns whether an object at a given index in a PDF array is a PDF name reference (represented as a constant C string) and, if so, retrieves that name.
@@ -5958,7 +5502,6 @@ func CGPDFArrayGetName(array CGPDFArrayRef, index uintptr, value *byte) bool {
 	}
 	return _cGPDFArrayGetName(array, index, value)
 }
-
 
 var _cGPDFArrayGetNull func(array CGPDFArrayRef, index uintptr) bool
 
@@ -5972,7 +5515,6 @@ func CGPDFArrayGetNull(array CGPDFArrayRef, index uintptr) bool {
 	return _cGPDFArrayGetNull(array, index)
 }
 
-
 var _cGPDFArrayGetNumber func(array CGPDFArrayRef, index uintptr, value *CGPDFReal) bool
 
 // CGPDFArrayGetNumber returns whether an object at a given index in a PDF array is a PDF number and, if so, retrieves that object.
@@ -5984,7 +5526,6 @@ func CGPDFArrayGetNumber(array CGPDFArrayRef, index uintptr, value *CGPDFReal) b
 	}
 	return _cGPDFArrayGetNumber(array, index, value)
 }
-
 
 var _cGPDFArrayGetObject func(array CGPDFArrayRef, index uintptr, value *CGPDFObjectRef) bool
 
@@ -5998,7 +5539,6 @@ func CGPDFArrayGetObject(array CGPDFArrayRef, index uintptr, value *CGPDFObjectR
 	return _cGPDFArrayGetObject(array, index, value)
 }
 
-
 var _cGPDFArrayGetStream func(array CGPDFArrayRef, index uintptr, value *CGPDFStreamRef) bool
 
 // CGPDFArrayGetStream returns whether an object at a given index in a PDF array is a PDF stream and, if so, retrieves that stream.
@@ -6010,7 +5550,6 @@ func CGPDFArrayGetStream(array CGPDFArrayRef, index uintptr, value *CGPDFStreamR
 	}
 	return _cGPDFArrayGetStream(array, index, value)
 }
-
 
 var _cGPDFArrayGetString func(array CGPDFArrayRef, index uintptr, value *CGPDFStringRef) bool
 
@@ -6024,7 +5563,6 @@ func CGPDFArrayGetString(array CGPDFArrayRef, index uintptr, value *CGPDFStringR
 	return _cGPDFArrayGetString(array, index, value)
 }
 
-
 var _cGPDFContentStreamCreateWithPage func(page CGPDFPageRef) CGPDFContentStreamRef
 
 // CGPDFContentStreamCreateWithPage creates a content stream object from a PDF page object.
@@ -6036,7 +5574,6 @@ func CGPDFContentStreamCreateWithPage(page CGPDFPageRef) CGPDFContentStreamRef {
 	}
 	return _cGPDFContentStreamCreateWithPage(page)
 }
-
 
 var _cGPDFContentStreamCreateWithStream func(stream CGPDFStreamRef, streamResources CGPDFDictionaryRef, parent CGPDFContentStreamRef) CGPDFContentStreamRef
 
@@ -6050,7 +5587,6 @@ func CGPDFContentStreamCreateWithStream(stream CGPDFStreamRef, streamResources C
 	return _cGPDFContentStreamCreateWithStream(stream, streamResources, parent)
 }
 
-
 var _cGPDFContentStreamGetResource func(cs CGPDFContentStreamRef, category *byte, name *byte) CGPDFObjectRef
 
 // CGPDFContentStreamGetResource gets the specified resource from a PDF content stream object.
@@ -6062,7 +5598,6 @@ func CGPDFContentStreamGetResource(cs CGPDFContentStreamRef, category *byte, nam
 	}
 	return _cGPDFContentStreamGetResource(cs, category, name)
 }
-
 
 var _cGPDFContentStreamGetStreams func(cs CGPDFContentStreamRef) corefoundation.CFArrayRef
 
@@ -6076,7 +5611,6 @@ func CGPDFContentStreamGetStreams(cs CGPDFContentStreamRef) corefoundation.CFArr
 	return _cGPDFContentStreamGetStreams(cs)
 }
 
-
 var _cGPDFContentStreamRelease func(cs CGPDFContentStreamRef)
 
 // CGPDFContentStreamRelease decrements the retain count of a PDF content stream object.
@@ -6088,7 +5622,6 @@ func CGPDFContentStreamRelease(cs CGPDFContentStreamRef) {
 	}
 	_cGPDFContentStreamRelease(cs)
 }
-
 
 var _cGPDFContentStreamRetain func(cs CGPDFContentStreamRef) CGPDFContentStreamRef
 
@@ -6102,7 +5635,6 @@ func CGPDFContentStreamRetain(cs CGPDFContentStreamRef) CGPDFContentStreamRef {
 	return _cGPDFContentStreamRetain(cs)
 }
 
-
 var _cGPDFContextAddDestinationAtPoint func(context CGContextRef, name corefoundation.CFStringRef, point corefoundation.CGPoint)
 
 // CGPDFContextAddDestinationAtPoint sets a destination to jump to when a point in the current page of a PDF graphics context is clicked.
@@ -6114,7 +5646,6 @@ func CGPDFContextAddDestinationAtPoint(context CGContextRef, name corefoundation
 	}
 	_cGPDFContextAddDestinationAtPoint(context, name, point)
 }
-
 
 var _cGPDFContextAddDocumentMetadata func(context CGContextRef, metadata corefoundation.CFDataRef)
 
@@ -6128,7 +5659,6 @@ func CGPDFContextAddDocumentMetadata(context CGContextRef, metadata corefoundati
 	_cGPDFContextAddDocumentMetadata(context, metadata)
 }
 
-
 var _cGPDFContextBeginPage func(context CGContextRef, pageInfo corefoundation.CFDictionaryRef)
 
 // CGPDFContextBeginPage begins a new page in a PDF graphics context.
@@ -6140,7 +5670,6 @@ func CGPDFContextBeginPage(context CGContextRef, pageInfo corefoundation.CFDicti
 	}
 	_cGPDFContextBeginPage(context, pageInfo)
 }
-
 
 var _cGPDFContextBeginTag func(context CGContextRef, tagType CGPDFTagType, tagProperties corefoundation.CFDictionaryRef)
 
@@ -6154,7 +5683,6 @@ func CGPDFContextBeginTag(context CGContextRef, tagType CGPDFTagType, tagPropert
 	_cGPDFContextBeginTag(context, tagType, tagProperties)
 }
 
-
 var _cGPDFContextClose func(context CGContextRef)
 
 // CGPDFContextClose closes a PDF document.
@@ -6166,7 +5694,6 @@ func CGPDFContextClose(context CGContextRef) {
 	}
 	_cGPDFContextClose(context)
 }
-
 
 var _cGPDFContextCreate func(consumer CGDataConsumerRef, mediaBox *corefoundation.CGRect, auxiliaryInfo corefoundation.CFDictionaryRef) CGContextRef
 
@@ -6180,7 +5707,6 @@ func CGPDFContextCreate(consumer CGDataConsumerRef, mediaBox *corefoundation.CGR
 	return _cGPDFContextCreate(consumer, mediaBox, auxiliaryInfo)
 }
 
-
 var _cGPDFContextCreateWithURL func(url corefoundation.CFURLRef, mediaBox *corefoundation.CGRect, auxiliaryInfo corefoundation.CFDictionaryRef) CGContextRef
 
 // CGPDFContextCreateWithURL creates a URL-based PDF graphics context.
@@ -6192,7 +5718,6 @@ func CGPDFContextCreateWithURL(url corefoundation.CFURLRef, mediaBox *corefounda
 	}
 	return _cGPDFContextCreateWithURL(url, mediaBox, auxiliaryInfo)
 }
-
 
 var _cGPDFContextEndPage func(context CGContextRef)
 
@@ -6206,7 +5731,6 @@ func CGPDFContextEndPage(context CGContextRef) {
 	_cGPDFContextEndPage(context)
 }
 
-
 var _cGPDFContextEndTag func(context CGContextRef)
 
 // CGPDFContextEndTag.
@@ -6218,7 +5742,6 @@ func CGPDFContextEndTag(context CGContextRef) {
 	}
 	_cGPDFContextEndTag(context)
 }
-
 
 var _cGPDFContextSetDestinationForRect func(context CGContextRef, name corefoundation.CFStringRef, rect corefoundation.CGRect)
 
@@ -6232,7 +5755,6 @@ func CGPDFContextSetDestinationForRect(context CGContextRef, name corefoundation
 	_cGPDFContextSetDestinationForRect(context, name, rect)
 }
 
-
 var _cGPDFContextSetIDTree func(context CGContextRef, IDTreeDictionary CGPDFDictionaryRef)
 
 // CGPDFContextSetIDTree.
@@ -6244,7 +5766,6 @@ func CGPDFContextSetIDTree(context CGContextRef, IDTreeDictionary CGPDFDictionar
 	}
 	_cGPDFContextSetIDTree(context, IDTreeDictionary)
 }
-
 
 var _cGPDFContextSetOutline func(context CGContextRef, outline corefoundation.CFDictionaryRef)
 
@@ -6258,7 +5779,6 @@ func CGPDFContextSetOutline(context CGContextRef, outline corefoundation.CFDicti
 	_cGPDFContextSetOutline(context, outline)
 }
 
-
 var _cGPDFContextSetPageTagStructureTree func(context CGContextRef, pageTagStructureTreeDictionary corefoundation.CFDictionaryRef)
 
 // CGPDFContextSetPageTagStructureTree.
@@ -6270,7 +5790,6 @@ func CGPDFContextSetPageTagStructureTree(context CGContextRef, pageTagStructureT
 	}
 	_cGPDFContextSetPageTagStructureTree(context, pageTagStructureTreeDictionary)
 }
-
 
 var _cGPDFContextSetParentTree func(context CGContextRef, parentTreeDictionary CGPDFDictionaryRef)
 
@@ -6284,7 +5803,6 @@ func CGPDFContextSetParentTree(context CGContextRef, parentTreeDictionary CGPDFD
 	_cGPDFContextSetParentTree(context, parentTreeDictionary)
 }
 
-
 var _cGPDFContextSetURLForRect func(context CGContextRef, url corefoundation.CFURLRef, rect corefoundation.CGRect)
 
 // CGPDFContextSetURLForRect sets the URL associated with a rectangle in a PDF graphics context.
@@ -6296,7 +5814,6 @@ func CGPDFContextSetURLForRect(context CGContextRef, url corefoundation.CFURLRef
 	}
 	_cGPDFContextSetURLForRect(context, url, rect)
 }
-
 
 var _cGPDFDictionaryApplyBlock func(dict CGPDFDictionaryRef, block CGPDFDictionaryApplierBlock, info unsafe.Pointer)
 
@@ -6310,7 +5827,6 @@ func CGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionaryApp
 	_cGPDFDictionaryApplyBlock(dict, block, info)
 }
 
-
 var _cGPDFDictionaryApplyFunction func(dict CGPDFDictionaryRef, function CGPDFDictionaryApplierFunction, info unsafe.Pointer)
 
 // CGPDFDictionaryApplyFunction applies a function to each entry in a dictionary.
@@ -6322,7 +5838,6 @@ func CGPDFDictionaryApplyFunction(dict CGPDFDictionaryRef, function CGPDFDiction
 	}
 	_cGPDFDictionaryApplyFunction(dict, function, info)
 }
-
 
 var _cGPDFDictionaryGetArray func(dict CGPDFDictionaryRef, key *byte, value *CGPDFArrayRef) bool
 
@@ -6336,7 +5851,6 @@ func CGPDFDictionaryGetArray(dict CGPDFDictionaryRef, key *byte, value *CGPDFArr
 	return _cGPDFDictionaryGetArray(dict, key, value)
 }
 
-
 var _cGPDFDictionaryGetBoolean func(dict CGPDFDictionaryRef, key *byte, value *CGPDFBoolean) bool
 
 // CGPDFDictionaryGetBoolean returns whether there is a PDF Boolean value associated with a specified key in a PDF dictionary and, if so, retrieves the Boolean value.
@@ -6348,7 +5862,6 @@ func CGPDFDictionaryGetBoolean(dict CGPDFDictionaryRef, key *byte, value *CGPDFB
 	}
 	return _cGPDFDictionaryGetBoolean(dict, key, value)
 }
-
 
 var _cGPDFDictionaryGetCount func(dict CGPDFDictionaryRef) uintptr
 
@@ -6362,7 +5875,6 @@ func CGPDFDictionaryGetCount(dict CGPDFDictionaryRef) uintptr {
 	return _cGPDFDictionaryGetCount(dict)
 }
 
-
 var _cGPDFDictionaryGetDictionary func(dict CGPDFDictionaryRef, key *byte, value *CGPDFDictionaryRef) bool
 
 // CGPDFDictionaryGetDictionary returns whether there is another PDF dictionary associated with a specified key in a PDF dictionary and, if so, retrieves that dictionary.
@@ -6374,7 +5886,6 @@ func CGPDFDictionaryGetDictionary(dict CGPDFDictionaryRef, key *byte, value *CGP
 	}
 	return _cGPDFDictionaryGetDictionary(dict, key, value)
 }
-
 
 var _cGPDFDictionaryGetInteger func(dict CGPDFDictionaryRef, key *byte, value *CGPDFInteger) bool
 
@@ -6388,7 +5899,6 @@ func CGPDFDictionaryGetInteger(dict CGPDFDictionaryRef, key *byte, value *CGPDFI
 	return _cGPDFDictionaryGetInteger(dict, key, value)
 }
 
-
 var _cGPDFDictionaryGetName func(dict CGPDFDictionaryRef, key *byte, value *byte) bool
 
 // CGPDFDictionaryGetName returns whether an object with a specified key in a PDF dictionary is a PDF name reference (represented as a constant C string) and, if so, retrieves that name.
@@ -6400,7 +5910,6 @@ func CGPDFDictionaryGetName(dict CGPDFDictionaryRef, key *byte, value *byte) boo
 	}
 	return _cGPDFDictionaryGetName(dict, key, value)
 }
-
 
 var _cGPDFDictionaryGetNumber func(dict CGPDFDictionaryRef, key *byte, value *CGPDFReal) bool
 
@@ -6414,7 +5923,6 @@ func CGPDFDictionaryGetNumber(dict CGPDFDictionaryRef, key *byte, value *CGPDFRe
 	return _cGPDFDictionaryGetNumber(dict, key, value)
 }
 
-
 var _cGPDFDictionaryGetObject func(dict CGPDFDictionaryRef, key *byte, value *CGPDFObjectRef) bool
 
 // CGPDFDictionaryGetObject returns whether there is a PDF object associated with a specified key in a PDF dictionary and, if so, retrieves that object.
@@ -6426,7 +5934,6 @@ func CGPDFDictionaryGetObject(dict CGPDFDictionaryRef, key *byte, value *CGPDFOb
 	}
 	return _cGPDFDictionaryGetObject(dict, key, value)
 }
-
 
 var _cGPDFDictionaryGetStream func(dict CGPDFDictionaryRef, key *byte, value *CGPDFStreamRef) bool
 
@@ -6440,7 +5947,6 @@ func CGPDFDictionaryGetStream(dict CGPDFDictionaryRef, key *byte, value *CGPDFSt
 	return _cGPDFDictionaryGetStream(dict, key, value)
 }
 
-
 var _cGPDFDictionaryGetString func(dict CGPDFDictionaryRef, key *byte, value *CGPDFStringRef) bool
 
 // CGPDFDictionaryGetString returns whether there is a PDF string associated with a specified key in a PDF dictionary and, if so, retrieves that string.
@@ -6452,7 +5958,6 @@ func CGPDFDictionaryGetString(dict CGPDFDictionaryRef, key *byte, value *CGPDFSt
 	}
 	return _cGPDFDictionaryGetString(dict, key, value)
 }
-
 
 var _cGPDFDocumentAllowsCopying func(document CGPDFDocumentRef) bool
 
@@ -6466,7 +5971,6 @@ func CGPDFDocumentAllowsCopying(document CGPDFDocumentRef) bool {
 	return _cGPDFDocumentAllowsCopying(document)
 }
 
-
 var _cGPDFDocumentAllowsPrinting func(document CGPDFDocumentRef) bool
 
 // CGPDFDocumentAllowsPrinting returns whether a PDF document allows printing.
@@ -6478,7 +5982,6 @@ func CGPDFDocumentAllowsPrinting(document CGPDFDocumentRef) bool {
 	}
 	return _cGPDFDocumentAllowsPrinting(document)
 }
-
 
 var _cGPDFDocumentCreateWithProvider func(provider CGDataProviderRef) CGPDFDocumentRef
 
@@ -6492,7 +5995,6 @@ func CGPDFDocumentCreateWithProvider(provider CGDataProviderRef) CGPDFDocumentRe
 	return _cGPDFDocumentCreateWithProvider(provider)
 }
 
-
 var _cGPDFDocumentCreateWithURL func(url corefoundation.CFURLRef) CGPDFDocumentRef
 
 // CGPDFDocumentCreateWithURL creates a Core Graphics PDF document using data specified by a URL.
@@ -6504,7 +6006,6 @@ func CGPDFDocumentCreateWithURL(url corefoundation.CFURLRef) CGPDFDocumentRef {
 	}
 	return _cGPDFDocumentCreateWithURL(url)
 }
-
 
 var _cGPDFDocumentGetAccessPermissions func(document CGPDFDocumentRef) CGPDFAccessPermissions
 
@@ -6518,7 +6019,6 @@ func CGPDFDocumentGetAccessPermissions(document CGPDFDocumentRef) CGPDFAccessPer
 	return _cGPDFDocumentGetAccessPermissions(document)
 }
 
-
 var _cGPDFDocumentGetArtBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
 // CGPDFDocumentGetArtBox returns the art box of a page in a PDF document.
@@ -6530,7 +6030,6 @@ func CGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) corefoundation.
 	}
 	return _cGPDFDocumentGetArtBox(document, page)
 }
-
 
 var _cGPDFDocumentGetBleedBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
@@ -6544,7 +6043,6 @@ func CGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int) corefoundatio
 	return _cGPDFDocumentGetBleedBox(document, page)
 }
 
-
 var _cGPDFDocumentGetCatalog func(document CGPDFDocumentRef) CGPDFDictionaryRef
 
 // CGPDFDocumentGetCatalog returns the document catalog of a Core Graphics PDF document.
@@ -6556,7 +6054,6 @@ func CGPDFDocumentGetCatalog(document CGPDFDocumentRef) CGPDFDictionaryRef {
 	}
 	return _cGPDFDocumentGetCatalog(document)
 }
-
 
 var _cGPDFDocumentGetCropBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
@@ -6570,7 +6067,6 @@ func CGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int) corefoundation
 	return _cGPDFDocumentGetCropBox(document, page)
 }
 
-
 var _cGPDFDocumentGetID func(document CGPDFDocumentRef) CGPDFArrayRef
 
 // CGPDFDocumentGetID gets the file identifier for a PDF document.
@@ -6582,7 +6078,6 @@ func CGPDFDocumentGetID(document CGPDFDocumentRef) CGPDFArrayRef {
 	}
 	return _cGPDFDocumentGetID(document)
 }
-
 
 var _cGPDFDocumentGetInfo func(document CGPDFDocumentRef) CGPDFDictionaryRef
 
@@ -6596,7 +6091,6 @@ func CGPDFDocumentGetInfo(document CGPDFDocumentRef) CGPDFDictionaryRef {
 	return _cGPDFDocumentGetInfo(document)
 }
 
-
 var _cGPDFDocumentGetMediaBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
 // CGPDFDocumentGetMediaBox returns the media box of a page in a PDF document.
@@ -6608,7 +6102,6 @@ func CGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int) corefoundatio
 	}
 	return _cGPDFDocumentGetMediaBox(document, page)
 }
-
 
 var _cGPDFDocumentGetNumberOfPages func(document CGPDFDocumentRef) uintptr
 
@@ -6622,7 +6115,6 @@ func CGPDFDocumentGetNumberOfPages(document CGPDFDocumentRef) uintptr {
 	return _cGPDFDocumentGetNumberOfPages(document)
 }
 
-
 var _cGPDFDocumentGetOutline func(document CGPDFDocumentRef) corefoundation.CFDictionaryRef
 
 // CGPDFDocumentGetOutline.
@@ -6634,7 +6126,6 @@ func CGPDFDocumentGetOutline(document CGPDFDocumentRef) corefoundation.CFDiction
 	}
 	return _cGPDFDocumentGetOutline(document)
 }
-
 
 var _cGPDFDocumentGetPage func(document CGPDFDocumentRef, pageNumber uintptr) CGPDFPageRef
 
@@ -6648,7 +6139,6 @@ func CGPDFDocumentGetPage(document CGPDFDocumentRef, pageNumber uintptr) CGPDFPa
 	return _cGPDFDocumentGetPage(document, pageNumber)
 }
 
-
 var _cGPDFDocumentGetRotationAngle func(document CGPDFDocumentRef, page int) int
 
 // CGPDFDocumentGetRotationAngle returns the rotation angle of a page in a PDF document.
@@ -6660,7 +6150,6 @@ func CGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) int {
 	}
 	return _cGPDFDocumentGetRotationAngle(document, page)
 }
-
 
 var _cGPDFDocumentGetTrimBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
@@ -6674,7 +6163,6 @@ func CGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int) corefoundation
 	return _cGPDFDocumentGetTrimBox(document, page)
 }
 
-
 var _cGPDFDocumentGetTypeID func() uint
 
 // CGPDFDocumentGetTypeID returns the type identifier for Core Graphics PDF documents.
@@ -6686,7 +6174,6 @@ func CGPDFDocumentGetTypeID() uint {
 	}
 	return _cGPDFDocumentGetTypeID()
 }
-
 
 var _cGPDFDocumentGetVersion func(document CGPDFDocumentRef, majorVersion *int, minorVersion *int)
 
@@ -6700,7 +6187,6 @@ func CGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion []int, mino
 	_cGPDFDocumentGetVersion(document, unsafe.SliceData(majorVersion), unsafe.SliceData(minorVersion))
 }
 
-
 var _cGPDFDocumentIsEncrypted func(document CGPDFDocumentRef) bool
 
 // CGPDFDocumentIsEncrypted returns whether the specified PDF file is encrypted.
@@ -6712,7 +6198,6 @@ func CGPDFDocumentIsEncrypted(document CGPDFDocumentRef) bool {
 	}
 	return _cGPDFDocumentIsEncrypted(document)
 }
-
 
 var _cGPDFDocumentIsUnlocked func(document CGPDFDocumentRef) bool
 
@@ -6726,7 +6211,6 @@ func CGPDFDocumentIsUnlocked(document CGPDFDocumentRef) bool {
 	return _cGPDFDocumentIsUnlocked(document)
 }
 
-
 var _cGPDFDocumentRelease func(document CGPDFDocumentRef)
 
 // CGPDFDocumentRelease decrements the retain count of a PDF document.
@@ -6738,7 +6222,6 @@ func CGPDFDocumentRelease(document CGPDFDocumentRef) {
 	}
 	_cGPDFDocumentRelease(document)
 }
-
 
 var _cGPDFDocumentRetain func(document CGPDFDocumentRef) CGPDFDocumentRef
 
@@ -6752,7 +6235,6 @@ func CGPDFDocumentRetain(document CGPDFDocumentRef) CGPDFDocumentRef {
 	return _cGPDFDocumentRetain(document)
 }
 
-
 var _cGPDFDocumentUnlockWithPassword func(document CGPDFDocumentRef, password *byte) bool
 
 // CGPDFDocumentUnlockWithPassword unlocks an encrypted PDF document when a valid password is supplied.
@@ -6764,7 +6246,6 @@ func CGPDFDocumentUnlockWithPassword(document CGPDFDocumentRef, password *byte) 
 	}
 	return _cGPDFDocumentUnlockWithPassword(document, password)
 }
-
 
 var _cGPDFObjectGetType func(object CGPDFObjectRef) CGPDFObjectType
 
@@ -6778,7 +6259,6 @@ func CGPDFObjectGetType(object CGPDFObjectRef) CGPDFObjectType {
 	return _cGPDFObjectGetType(object)
 }
 
-
 var _cGPDFObjectGetValue func(object CGPDFObjectRef, type_ CGPDFObjectType, value unsafe.Pointer) bool
 
 // CGPDFObjectGetValue returns whether an object is of a given type and if it is, retrieves its value.
@@ -6790,7 +6270,6 @@ func CGPDFObjectGetValue(object CGPDFObjectRef, type_ CGPDFObjectType, value uns
 	}
 	return _cGPDFObjectGetValue(object, type_, value)
 }
-
 
 var _cGPDFOperatorTableCreate func() CGPDFOperatorTableRef
 
@@ -6804,7 +6283,6 @@ func CGPDFOperatorTableCreate() CGPDFOperatorTableRef {
 	return _cGPDFOperatorTableCreate()
 }
 
-
 var _cGPDFOperatorTableRelease func(table CGPDFOperatorTableRef)
 
 // CGPDFOperatorTableRelease decrements the retain count of a CGPDFOperatorTable object.
@@ -6816,7 +6294,6 @@ func CGPDFOperatorTableRelease(table CGPDFOperatorTableRef) {
 	}
 	_cGPDFOperatorTableRelease(table)
 }
-
 
 var _cGPDFOperatorTableRetain func(table CGPDFOperatorTableRef) CGPDFOperatorTableRef
 
@@ -6830,7 +6307,6 @@ func CGPDFOperatorTableRetain(table CGPDFOperatorTableRef) CGPDFOperatorTableRef
 	return _cGPDFOperatorTableRetain(table)
 }
 
-
 var _cGPDFOperatorTableSetCallback func(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback)
 
 // CGPDFOperatorTableSetCallback sets a callback function for a PDF operator.
@@ -6842,7 +6318,6 @@ func CGPDFOperatorTableSetCallback(table CGPDFOperatorTableRef, name *byte, call
 	}
 	_cGPDFOperatorTableSetCallback(table, name, callback)
 }
-
 
 var _cGPDFPageGetBoxRect func(page CGPDFPageRef, box CGPDFBox) corefoundation.CGRect
 
@@ -6856,7 +6331,6 @@ func CGPDFPageGetBoxRect(page CGPDFPageRef, box CGPDFBox) corefoundation.CGRect 
 	return _cGPDFPageGetBoxRect(page, box)
 }
 
-
 var _cGPDFPageGetDictionary func(page CGPDFPageRef) CGPDFDictionaryRef
 
 // CGPDFPageGetDictionary returns the dictionary of a PDF page.
@@ -6868,7 +6342,6 @@ func CGPDFPageGetDictionary(page CGPDFPageRef) CGPDFDictionaryRef {
 	}
 	return _cGPDFPageGetDictionary(page)
 }
-
 
 var _cGPDFPageGetDocument func(page CGPDFPageRef) CGPDFDocumentRef
 
@@ -6882,7 +6355,6 @@ func CGPDFPageGetDocument(page CGPDFPageRef) CGPDFDocumentRef {
 	return _cGPDFPageGetDocument(page)
 }
 
-
 var _cGPDFPageGetDrawingTransform func(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int, preserveAspectRatio bool) corefoundation.CGAffineTransform
 
 // CGPDFPageGetDrawingTransform returns the affine transform that maps a box to a given rectangle on a PDF page.
@@ -6894,7 +6366,6 @@ func CGPDFPageGetDrawingTransform(page CGPDFPageRef, box CGPDFBox, rect corefoun
 	}
 	return _cGPDFPageGetDrawingTransform(page, box, rect, rotate, preserveAspectRatio)
 }
-
 
 var _cGPDFPageGetPageNumber func(page CGPDFPageRef) uintptr
 
@@ -6908,7 +6379,6 @@ func CGPDFPageGetPageNumber(page CGPDFPageRef) uintptr {
 	return _cGPDFPageGetPageNumber(page)
 }
 
-
 var _cGPDFPageGetRotationAngle func(page CGPDFPageRef) int
 
 // CGPDFPageGetRotationAngle returns the rotation angle of a PDF page, in degrees.
@@ -6920,7 +6390,6 @@ func CGPDFPageGetRotationAngle(page CGPDFPageRef) int {
 	}
 	return _cGPDFPageGetRotationAngle(page)
 }
-
 
 var _cGPDFPageGetTypeID func() uint
 
@@ -6934,7 +6403,6 @@ func CGPDFPageGetTypeID() uint {
 	return _cGPDFPageGetTypeID()
 }
 
-
 var _cGPDFPageRelease func(page CGPDFPageRef)
 
 // CGPDFPageRelease decrements the retain count of a PDF page.
@@ -6946,7 +6414,6 @@ func CGPDFPageRelease(page CGPDFPageRef) {
 	}
 	_cGPDFPageRelease(page)
 }
-
 
 var _cGPDFPageRetain func(page CGPDFPageRef) CGPDFPageRef
 
@@ -6960,7 +6427,6 @@ func CGPDFPageRetain(page CGPDFPageRef) CGPDFPageRef {
 	return _cGPDFPageRetain(page)
 }
 
-
 var _cGPDFScannerCreate func(cs CGPDFContentStreamRef, table CGPDFOperatorTableRef, info unsafe.Pointer) CGPDFScannerRef
 
 // CGPDFScannerCreate creates a PDF scanner.
@@ -6972,7 +6438,6 @@ func CGPDFScannerCreate(cs CGPDFContentStreamRef, table CGPDFOperatorTableRef, i
 	}
 	return _cGPDFScannerCreate(cs, table, info)
 }
-
 
 var _cGPDFScannerGetContentStream func(scanner CGPDFScannerRef) CGPDFContentStreamRef
 
@@ -6986,7 +6451,6 @@ func CGPDFScannerGetContentStream(scanner CGPDFScannerRef) CGPDFContentStreamRef
 	return _cGPDFScannerGetContentStream(scanner)
 }
 
-
 var _cGPDFScannerPopArray func(scanner CGPDFScannerRef, value *CGPDFArrayRef) bool
 
 // CGPDFScannerPopArray retrieves an array object from the scanner stack.
@@ -6998,7 +6462,6 @@ func CGPDFScannerPopArray(scanner CGPDFScannerRef, value *CGPDFArrayRef) bool {
 	}
 	return _cGPDFScannerPopArray(scanner, value)
 }
-
 
 var _cGPDFScannerPopBoolean func(scanner CGPDFScannerRef, value *CGPDFBoolean) bool
 
@@ -7012,7 +6475,6 @@ func CGPDFScannerPopBoolean(scanner CGPDFScannerRef, value *CGPDFBoolean) bool {
 	return _cGPDFScannerPopBoolean(scanner, value)
 }
 
-
 var _cGPDFScannerPopDictionary func(scanner CGPDFScannerRef, value *CGPDFDictionaryRef) bool
 
 // CGPDFScannerPopDictionary retrieves a PDF dictionary object from the scanner stack.
@@ -7024,7 +6486,6 @@ func CGPDFScannerPopDictionary(scanner CGPDFScannerRef, value *CGPDFDictionaryRe
 	}
 	return _cGPDFScannerPopDictionary(scanner, value)
 }
-
 
 var _cGPDFScannerPopInteger func(scanner CGPDFScannerRef, value *CGPDFInteger) bool
 
@@ -7038,7 +6499,6 @@ func CGPDFScannerPopInteger(scanner CGPDFScannerRef, value *CGPDFInteger) bool {
 	return _cGPDFScannerPopInteger(scanner, value)
 }
 
-
 var _cGPDFScannerPopName func(scanner CGPDFScannerRef, value *byte) bool
 
 // CGPDFScannerPopName retrieves a character string from the scanner stack.
@@ -7050,7 +6510,6 @@ func CGPDFScannerPopName(scanner CGPDFScannerRef, value *byte) bool {
 	}
 	return _cGPDFScannerPopName(scanner, value)
 }
-
 
 var _cGPDFScannerPopNumber func(scanner CGPDFScannerRef, value *CGPDFReal) bool
 
@@ -7064,7 +6523,6 @@ func CGPDFScannerPopNumber(scanner CGPDFScannerRef, value *CGPDFReal) bool {
 	return _cGPDFScannerPopNumber(scanner, value)
 }
 
-
 var _cGPDFScannerPopObject func(scanner CGPDFScannerRef, value *CGPDFObjectRef) bool
 
 // CGPDFScannerPopObject retrieves an object from the scanner stack.
@@ -7076,7 +6534,6 @@ func CGPDFScannerPopObject(scanner CGPDFScannerRef, value *CGPDFObjectRef) bool 
 	}
 	return _cGPDFScannerPopObject(scanner, value)
 }
-
 
 var _cGPDFScannerPopStream func(scanner CGPDFScannerRef, value *CGPDFStreamRef) bool
 
@@ -7090,7 +6547,6 @@ func CGPDFScannerPopStream(scanner CGPDFScannerRef, value *CGPDFStreamRef) bool 
 	return _cGPDFScannerPopStream(scanner, value)
 }
 
-
 var _cGPDFScannerPopString func(scanner CGPDFScannerRef, value *CGPDFStringRef) bool
 
 // CGPDFScannerPopString retrieves a string object from the scanner stack.
@@ -7102,7 +6558,6 @@ func CGPDFScannerPopString(scanner CGPDFScannerRef, value *CGPDFStringRef) bool 
 	}
 	return _cGPDFScannerPopString(scanner, value)
 }
-
 
 var _cGPDFScannerRelease func(scanner CGPDFScannerRef)
 
@@ -7116,7 +6571,6 @@ func CGPDFScannerRelease(scanner CGPDFScannerRef) {
 	_cGPDFScannerRelease(scanner)
 }
 
-
 var _cGPDFScannerRetain func(scanner CGPDFScannerRef) CGPDFScannerRef
 
 // CGPDFScannerRetain increments the retain count of a scanner object.
@@ -7128,7 +6582,6 @@ func CGPDFScannerRetain(scanner CGPDFScannerRef) CGPDFScannerRef {
 	}
 	return _cGPDFScannerRetain(scanner)
 }
-
 
 var _cGPDFScannerScan func(scanner CGPDFScannerRef) bool
 
@@ -7142,7 +6595,6 @@ func CGPDFScannerScan(scanner CGPDFScannerRef) bool {
 	return _cGPDFScannerScan(scanner)
 }
 
-
 var _cGPDFScannerStop func(s CGPDFScannerRef)
 
 // CGPDFScannerStop.
@@ -7154,7 +6606,6 @@ func CGPDFScannerStop(s CGPDFScannerRef) {
 	}
 	_cGPDFScannerStop(s)
 }
-
 
 var _cGPDFStreamCopyData func(stream CGPDFStreamRef, format *CGPDFDataFormat) corefoundation.CFDataRef
 
@@ -7168,7 +6619,6 @@ func CGPDFStreamCopyData(stream CGPDFStreamRef, format *CGPDFDataFormat) corefou
 	return _cGPDFStreamCopyData(stream, format)
 }
 
-
 var _cGPDFStreamGetDictionary func(stream CGPDFStreamRef) CGPDFDictionaryRef
 
 // CGPDFStreamGetDictionary returns the dictionary associated with a PDF stream.
@@ -7180,7 +6630,6 @@ func CGPDFStreamGetDictionary(stream CGPDFStreamRef) CGPDFDictionaryRef {
 	}
 	return _cGPDFStreamGetDictionary(stream)
 }
-
 
 var _cGPDFStringCopyDate func(string_ CGPDFStringRef) corefoundation.CFDateRef
 
@@ -7194,7 +6643,6 @@ func CGPDFStringCopyDate(string_ CGPDFStringRef) corefoundation.CFDateRef {
 	return _cGPDFStringCopyDate(string_)
 }
 
-
 var _cGPDFStringCopyTextString func(string_ CGPDFStringRef) corefoundation.CFStringRef
 
 // CGPDFStringCopyTextString returns a CFString object that represents a PDF string as a text string.
@@ -7206,7 +6654,6 @@ func CGPDFStringCopyTextString(string_ CGPDFStringRef) corefoundation.CFStringRe
 	}
 	return _cGPDFStringCopyTextString(string_)
 }
-
 
 var _cGPDFStringGetBytePtr func(string_ CGPDFStringRef) *byte
 
@@ -7220,7 +6667,6 @@ func CGPDFStringGetBytePtr(string_ CGPDFStringRef) *byte {
 	return _cGPDFStringGetBytePtr(string_)
 }
 
-
 var _cGPDFStringGetLength func(string_ CGPDFStringRef) uintptr
 
 // CGPDFStringGetLength returns the number of bytes in a PDF string.
@@ -7232,7 +6678,6 @@ func CGPDFStringGetLength(string_ CGPDFStringRef) uintptr {
 	}
 	return _cGPDFStringGetLength(string_)
 }
-
 
 var _cGPSConverterAbort func(converter CGPSConverterRef) bool
 
@@ -7246,7 +6691,6 @@ func CGPSConverterAbort(converter CGPSConverterRef) bool {
 	return _cGPSConverterAbort(converter)
 }
 
-
 var _cGPSConverterConvert func(converter CGPSConverterRef, provider CGDataProviderRef, consumer CGDataConsumerRef, options corefoundation.CFDictionaryRef) bool
 
 // CGPSConverterConvert uses a PostScript converter to convert PostScript data to PDF data.
@@ -7258,7 +6702,6 @@ func CGPSConverterConvert(converter CGPSConverterRef, provider CGDataProviderRef
 	}
 	return _cGPSConverterConvert(converter, provider, consumer, options)
 }
-
 
 var _cGPSConverterCreate func(info unsafe.Pointer, callbacks *CGPSConverterCallbacks, options corefoundation.CFDictionaryRef) CGPSConverterRef
 
@@ -7272,7 +6715,6 @@ func CGPSConverterCreate(info unsafe.Pointer, callbacks *CGPSConverterCallbacks,
 	return _cGPSConverterCreate(info, callbacks, options)
 }
 
-
 var _cGPSConverterGetTypeID func() uint
 
 // CGPSConverterGetTypeID returns the Core Foundation type identifier for PostScript converters.
@@ -7284,7 +6726,6 @@ func CGPSConverterGetTypeID() uint {
 	}
 	return _cGPSConverterGetTypeID()
 }
-
 
 var _cGPSConverterIsConverting func(converter CGPSConverterRef) bool
 
@@ -7298,7 +6739,6 @@ func CGPSConverterIsConverting(converter CGPSConverterRef) bool {
 	return _cGPSConverterIsConverting(converter)
 }
 
-
 var _cGPathApply func(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunction)
 
 // CGPathApply for each element in a graphics path, calls a custom applier function.
@@ -7310,7 +6750,6 @@ func CGPathApply(path CGPathRef, info unsafe.Pointer, function CGPathApplierFunc
 	}
 	_cGPathApply(path, info, function)
 }
-
 
 var _cGPathApplyWithBlock func(path CGPathRef, block CGPathApplyBlock)
 
@@ -7324,7 +6763,6 @@ func CGPathApplyWithBlock(path CGPathRef, block CGPathApplyBlock) {
 	_cGPathApplyWithBlock(path, block)
 }
 
-
 var _cGPathCloseSubpath func(path CGMutablePathRef)
 
 // CGPathCloseSubpath closes and completes a subpath in a mutable graphics path.
@@ -7336,7 +6774,6 @@ func CGPathCloseSubpath(path CGMutablePathRef) {
 	}
 	_cGPathCloseSubpath(path)
 }
-
 
 var _cGPathContainsPoint func(path CGPathRef, m *corefoundation.CGAffineTransform, point corefoundation.CGPoint, eoFill bool) bool
 
@@ -7350,7 +6787,6 @@ func CGPathContainsPoint(path CGPathRef, m *corefoundation.CGAffineTransform, po
 	return _cGPathContainsPoint(path, m, point, eoFill)
 }
 
-
 var _cGPathCreateCopy func(path CGPathRef) CGPathRef
 
 // CGPathCreateCopy creates an immutable copy of a graphics path.
@@ -7362,7 +6798,6 @@ func CGPathCreateCopy(path CGPathRef) CGPathRef {
 	}
 	return _cGPathCreateCopy(path)
 }
-
 
 var _cGPathCreateCopyByDashingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform, phase float64, lengths *float64, count uintptr) CGPathRef
 
@@ -7376,7 +6811,6 @@ func CGPathCreateCopyByDashingPath(path CGPathRef, transform *corefoundation.CGA
 	return _cGPathCreateCopyByDashingPath(path, transform, phase, lengths, count)
 }
 
-
 var _cGPathCreateCopyByFlattening func(path CGPathRef, flatteningThreshold float64) CGPathRef
 
 // CGPathCreateCopyByFlattening.
@@ -7388,7 +6822,6 @@ func CGPathCreateCopyByFlattening(path CGPathRef, flatteningThreshold float64) C
 	}
 	return _cGPathCreateCopyByFlattening(path, flatteningThreshold)
 }
-
 
 var _cGPathCreateCopyByIntersectingPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
 
@@ -7402,7 +6835,6 @@ func CGPathCreateCopyByIntersectingPath(path CGPathRef, maskPath CGPathRef, even
 	return _cGPathCreateCopyByIntersectingPath(path, maskPath, evenOddFillRule)
 }
 
-
 var _cGPathCreateCopyByNormalizing func(path CGPathRef, evenOddFillRule bool) CGPathRef
 
 // CGPathCreateCopyByNormalizing.
@@ -7414,7 +6846,6 @@ func CGPathCreateCopyByNormalizing(path CGPathRef, evenOddFillRule bool) CGPathR
 	}
 	return _cGPathCreateCopyByNormalizing(path, evenOddFillRule)
 }
-
 
 var _cGPathCreateCopyByStrokingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform, lineWidth float64, lineCap uintptr, lineJoin uintptr, miterLimit float64) CGPathRef
 
@@ -7428,7 +6859,6 @@ func CGPathCreateCopyByStrokingPath(path CGPathRef, transform *corefoundation.CG
 	return _cGPathCreateCopyByStrokingPath(path, transform, lineWidth, lineCap, lineJoin, miterLimit)
 }
 
-
 var _cGPathCreateCopyBySubtractingPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
 
 // CGPathCreateCopyBySubtractingPath.
@@ -7440,7 +6870,6 @@ func CGPathCreateCopyBySubtractingPath(path CGPathRef, maskPath CGPathRef, evenO
 	}
 	return _cGPathCreateCopyBySubtractingPath(path, maskPath, evenOddFillRule)
 }
-
 
 var _cGPathCreateCopyBySymmetricDifferenceOfPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
 
@@ -7454,7 +6883,6 @@ func CGPathCreateCopyBySymmetricDifferenceOfPath(path CGPathRef, maskPath CGPath
 	return _cGPathCreateCopyBySymmetricDifferenceOfPath(path, maskPath, evenOddFillRule)
 }
 
-
 var _cGPathCreateCopyByTransformingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform) CGPathRef
 
 // CGPathCreateCopyByTransformingPath creates an immutable copy of a graphics path transformed by a transformation matrix.
@@ -7466,7 +6894,6 @@ func CGPathCreateCopyByTransformingPath(path CGPathRef, transform *corefoundatio
 	}
 	return _cGPathCreateCopyByTransformingPath(path, transform)
 }
-
 
 var _cGPathCreateCopyByUnioningPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
 
@@ -7480,7 +6907,6 @@ func CGPathCreateCopyByUnioningPath(path CGPathRef, maskPath CGPathRef, evenOddF
 	return _cGPathCreateCopyByUnioningPath(path, maskPath, evenOddFillRule)
 }
 
-
 var _cGPathCreateCopyOfLineByIntersectingPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
 
 // CGPathCreateCopyOfLineByIntersectingPath.
@@ -7492,7 +6918,6 @@ func CGPathCreateCopyOfLineByIntersectingPath(path CGPathRef, maskPath CGPathRef
 	}
 	return _cGPathCreateCopyOfLineByIntersectingPath(path, maskPath, evenOddFillRule)
 }
-
 
 var _cGPathCreateCopyOfLineBySubtractingPath func(path CGPathRef, maskPath CGPathRef, evenOddFillRule bool) CGPathRef
 
@@ -7506,7 +6931,6 @@ func CGPathCreateCopyOfLineBySubtractingPath(path CGPathRef, maskPath CGPathRef,
 	return _cGPathCreateCopyOfLineBySubtractingPath(path, maskPath, evenOddFillRule)
 }
 
-
 var _cGPathCreateMutable func() CGMutablePathRef
 
 // CGPathCreateMutable creates a mutable graphics path.
@@ -7518,7 +6942,6 @@ func CGPathCreateMutable() CGMutablePathRef {
 	}
 	return _cGPathCreateMutable()
 }
-
 
 var _cGPathCreateMutableCopy func(path CGPathRef) CGMutablePathRef
 
@@ -7532,7 +6955,6 @@ func CGPathCreateMutableCopy(path CGPathRef) CGMutablePathRef {
 	return _cGPathCreateMutableCopy(path)
 }
 
-
 var _cGPathCreateMutableCopyByTransformingPath func(path CGPathRef, transform *corefoundation.CGAffineTransform) CGMutablePathRef
 
 // CGPathCreateMutableCopyByTransformingPath creates a mutable copy of a graphics path transformed by a transformation matrix.
@@ -7544,7 +6966,6 @@ func CGPathCreateMutableCopyByTransformingPath(path CGPathRef, transform *corefo
 	}
 	return _cGPathCreateMutableCopyByTransformingPath(path, transform)
 }
-
 
 var _cGPathCreateSeparateComponents func(path CGPathRef, evenOddFillRule bool) corefoundation.CFArrayRef
 
@@ -7558,7 +6979,6 @@ func CGPathCreateSeparateComponents(path CGPathRef, evenOddFillRule bool) corefo
 	return _cGPathCreateSeparateComponents(path, evenOddFillRule)
 }
 
-
 var _cGPathCreateWithEllipseInRect func(rect corefoundation.CGRect, transform *corefoundation.CGAffineTransform) CGPathRef
 
 // CGPathCreateWithEllipseInRect create an immutable path of an ellipse.
@@ -7570,7 +6990,6 @@ func CGPathCreateWithEllipseInRect(rect corefoundation.CGRect, transform *corefo
 	}
 	return _cGPathCreateWithEllipseInRect(rect, transform)
 }
-
 
 var _cGPathCreateWithRect func(rect corefoundation.CGRect, transform *corefoundation.CGAffineTransform) CGPathRef
 
@@ -7584,7 +7003,6 @@ func CGPathCreateWithRect(rect corefoundation.CGRect, transform *corefoundation.
 	return _cGPathCreateWithRect(rect, transform)
 }
 
-
 var _cGPathCreateWithRoundedRect func(rect corefoundation.CGRect, cornerWidth float64, cornerHeight float64, transform *corefoundation.CGAffineTransform) CGPathRef
 
 // CGPathCreateWithRoundedRect create an immutable path of a rounded rectangle.
@@ -7596,7 +7014,6 @@ func CGPathCreateWithRoundedRect(rect corefoundation.CGRect, cornerWidth float64
 	}
 	return _cGPathCreateWithRoundedRect(rect, cornerWidth, cornerHeight, transform)
 }
-
 
 var _cGPathEqualToPath func(path1 CGPathRef, path2 CGPathRef) bool
 
@@ -7610,7 +7027,6 @@ func CGPathEqualToPath(path1 CGPathRef, path2 CGPathRef) bool {
 	return _cGPathEqualToPath(path1, path2)
 }
 
-
 var _cGPathGetBoundingBox func(path CGPathRef) corefoundation.CGRect
 
 // CGPathGetBoundingBox returns the bounding box containing all points in a graphics path.
@@ -7622,7 +7038,6 @@ func CGPathGetBoundingBox(path CGPathRef) corefoundation.CGRect {
 	}
 	return _cGPathGetBoundingBox(path)
 }
-
 
 var _cGPathGetCurrentPoint func(path CGPathRef) corefoundation.CGPoint
 
@@ -7636,7 +7051,6 @@ func CGPathGetCurrentPoint(path CGPathRef) corefoundation.CGPoint {
 	return _cGPathGetCurrentPoint(path)
 }
 
-
 var _cGPathGetPathBoundingBox func(path CGPathRef) corefoundation.CGRect
 
 // CGPathGetPathBoundingBox returns the bounding box of a graphics path.
@@ -7648,7 +7062,6 @@ func CGPathGetPathBoundingBox(path CGPathRef) corefoundation.CGRect {
 	}
 	return _cGPathGetPathBoundingBox(path)
 }
-
 
 var _cGPathGetTypeID func() uint
 
@@ -7662,7 +7075,6 @@ func CGPathGetTypeID() uint {
 	return _cGPathGetTypeID()
 }
 
-
 var _cGPathIntersectsPath func(path1 CGPathRef, path2 CGPathRef, evenOddFillRule bool) bool
 
 // CGPathIntersectsPath.
@@ -7674,7 +7086,6 @@ func CGPathIntersectsPath(path1 CGPathRef, path2 CGPathRef, evenOddFillRule bool
 	}
 	return _cGPathIntersectsPath(path1, path2, evenOddFillRule)
 }
-
 
 var _cGPathIsEmpty func(path CGPathRef) bool
 
@@ -7688,7 +7099,6 @@ func CGPathIsEmpty(path CGPathRef) bool {
 	return _cGPathIsEmpty(path)
 }
 
-
 var _cGPathIsRect func(path CGPathRef, rect *corefoundation.CGRect) bool
 
 // CGPathIsRect indicates whether or not a graphics path represents a rectangle.
@@ -7700,7 +7110,6 @@ func CGPathIsRect(path CGPathRef, rect *corefoundation.CGRect) bool {
 	}
 	return _cGPathIsRect(path, rect)
 }
-
 
 var _cGPathRelease func(path CGPathRef)
 
@@ -7714,7 +7123,6 @@ func CGPathRelease(path CGPathRef) {
 	_cGPathRelease(path)
 }
 
-
 var _cGPathRetain func(path CGPathRef) CGPathRef
 
 // CGPathRetain increments the retain count of a graphics path.
@@ -7726,7 +7134,6 @@ func CGPathRetain(path CGPathRef) CGPathRef {
 	}
 	return _cGPathRetain(path)
 }
-
 
 var _cGPatternCreate func(info unsafe.Pointer, bounds corefoundation.CGRect, matrix corefoundation.CGAffineTransform, xStep float64, yStep float64, tiling CGPatternTiling, isColored bool, callbacks *CGPatternCallbacks) CGPatternRef
 
@@ -7740,7 +7147,6 @@ func CGPatternCreate(info unsafe.Pointer, bounds corefoundation.CGRect, matrix c
 	return _cGPatternCreate(info, bounds, matrix, xStep, yStep, tiling, isColored, callbacks)
 }
 
-
 var _cGPatternGetTypeID func() uint
 
 // CGPatternGetTypeID returns the type identifier for Core Graphics patterns.
@@ -7752,7 +7158,6 @@ func CGPatternGetTypeID() uint {
 	}
 	return _cGPatternGetTypeID()
 }
-
 
 var _cGPatternRelease func(pattern CGPatternRef)
 
@@ -7766,7 +7171,6 @@ func CGPatternRelease(pattern CGPatternRef) {
 	_cGPatternRelease(pattern)
 }
 
-
 var _cGPatternRetain func(pattern CGPatternRef) CGPatternRef
 
 // CGPatternRetain increments the retain count of a Core Graphics pattern.
@@ -7778,7 +7182,6 @@ func CGPatternRetain(pattern CGPatternRef) CGPatternRef {
 	}
 	return _cGPatternRetain(pattern)
 }
-
 
 var _cGPointApplyAffineTransform func(point corefoundation.CGPoint, t corefoundation.CGAffineTransform) corefoundation.CGPoint
 
@@ -7792,7 +7195,6 @@ func CGPointApplyAffineTransform(point corefoundation.CGPoint, t corefoundation.
 	return _cGPointApplyAffineTransform(point, t)
 }
 
-
 var _cGPointCreateDictionaryRepresentation func(point corefoundation.CGPoint) corefoundation.CFDictionaryRef
 
 // CGPointCreateDictionaryRepresentation returns a dictionary representation of the specified point.
@@ -7804,7 +7206,6 @@ func CGPointCreateDictionaryRepresentation(point corefoundation.CGPoint) corefou
 	}
 	return _cGPointCreateDictionaryRepresentation(point)
 }
-
 
 var _cGPointEqualToPoint func(point1 corefoundation.CGPoint, point2 corefoundation.CGPoint) bool
 
@@ -7820,8 +7221,6 @@ func CGPointEqualToPoint(point1 corefoundation.CGPoint, point2 corefoundation.CG
 	return _cGPointEqualToPoint(point1, point2)
 }
 
-
-
 var _cGPointMakeWithDictionaryRepresentation func(dict corefoundation.CFDictionaryRef, point *corefoundation.CGPoint) bool
 
 // CGPointMakeWithDictionaryRepresentation fills in a point using the contents of the specified dictionary.
@@ -7833,7 +7232,6 @@ func CGPointMakeWithDictionaryRepresentation(dict corefoundation.CFDictionaryRef
 	}
 	return _cGPointMakeWithDictionaryRepresentation(dict, point)
 }
-
 
 var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition uintptr, buttonCount CGButtonCount, mouseButtonDown uintptr) CGError
 
@@ -7847,7 +7245,6 @@ func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCur
 	return _cGPostMouseEvent(mouseCursorPosition, updateMouseCursorPosition, buttonCount, mouseButtonDown)
 }
 
-
 var _cGPostScrollWheelEvent func(wheelCount CGWheelCount, wheel1 int32) CGError
 
 // CGPostScrollWheelEvent synthesizes a low-level scrolling event on the local machine.
@@ -7859,7 +7256,6 @@ func CGPostScrollWheelEvent(wheelCount CGWheelCount, wheel1 int32) CGError {
 	}
 	return _cGPostScrollWheelEvent(wheelCount, wheel1)
 }
-
 
 var _cGPreflightListenEventAccess func() bool
 
@@ -7873,7 +7269,6 @@ func CGPreflightListenEventAccess() bool {
 	return _cGPreflightListenEventAccess()
 }
 
-
 var _cGPreflightPostEventAccess func() bool
 
 // CGPreflightPostEventAccess.
@@ -7885,7 +7280,6 @@ func CGPreflightPostEventAccess() bool {
 	}
 	return _cGPreflightPostEventAccess()
 }
-
 
 var _cGPreflightScreenCaptureAccess func() bool
 
@@ -7899,7 +7293,6 @@ func CGPreflightScreenCaptureAccess() bool {
 	return _cGPreflightScreenCaptureAccess()
 }
 
-
 var _cGRectApplyAffineTransform func(rect corefoundation.CGRect, t corefoundation.CGAffineTransform) corefoundation.CGRect
 
 // CGRectApplyAffineTransform applies an affine transform to a rectangle.
@@ -7911,7 +7304,6 @@ func CGRectApplyAffineTransform(rect corefoundation.CGRect, t corefoundation.CGA
 	}
 	return _cGRectApplyAffineTransform(rect, t)
 }
-
 
 var _cGRectContainsPoint func(rect corefoundation.CGRect, point corefoundation.CGPoint) bool
 
@@ -7925,7 +7317,6 @@ func CGRectContainsPoint(rect corefoundation.CGRect, point corefoundation.CGPoin
 	return _cGRectContainsPoint(rect, point)
 }
 
-
 var _cGRectContainsRect func(rect1 corefoundation.CGRect, rect2 corefoundation.CGRect) bool
 
 // CGRectContainsRect returns whether the first rectangle contains the second rectangle.
@@ -7937,7 +7328,6 @@ func CGRectContainsRect(rect1 corefoundation.CGRect, rect2 corefoundation.CGRect
 	}
 	return _cGRectContainsRect(rect1, rect2)
 }
-
 
 var _cGRectCreateDictionaryRepresentation func(arg0 corefoundation.CGRect) corefoundation.CFDictionaryRef
 
@@ -7951,7 +7341,6 @@ func CGRectCreateDictionaryRepresentation(arg0 corefoundation.CGRect) corefounda
 	return _cGRectCreateDictionaryRepresentation(arg0)
 }
 
-
 var _cGRectDivide func(rect corefoundation.CGRect, slice *corefoundation.CGRect, remainder *corefoundation.CGRect, amount float64, edge CGRectEdge)
 
 // CGRectDivide divides a source rectangle into two component rectangles.
@@ -7963,7 +7352,6 @@ func CGRectDivide(rect corefoundation.CGRect, slice *corefoundation.CGRect, rema
 	}
 	_cGRectDivide(rect, slice, remainder, amount, edge)
 }
-
 
 var _cGRectEqualToRect func(rect1 corefoundation.CGRect, rect2 corefoundation.CGRect) bool
 
@@ -7979,7 +7367,6 @@ func CGRectEqualToRect(rect1 corefoundation.CGRect, rect2 corefoundation.CGRect)
 	return _cGRectEqualToRect(rect1, rect2)
 }
 
-
 var _cGRectGetHeight func(rect corefoundation.CGRect) float64
 
 // CGRectGetHeight returns the height of a rectangle.
@@ -7991,7 +7378,6 @@ func CGRectGetHeight(rect corefoundation.CGRect) float64 {
 	}
 	return _cGRectGetHeight(rect)
 }
-
 
 var _cGRectGetMaxX func(rect corefoundation.CGRect) float64
 
@@ -8005,7 +7391,6 @@ func CGRectGetMaxX(rect corefoundation.CGRect) float64 {
 	return _cGRectGetMaxX(rect)
 }
 
-
 var _cGRectGetMaxY func(rect corefoundation.CGRect) float64
 
 // CGRectGetMaxY returns the largest value for the y-coordinate of the rectangle.
@@ -8017,7 +7402,6 @@ func CGRectGetMaxY(rect corefoundation.CGRect) float64 {
 	}
 	return _cGRectGetMaxY(rect)
 }
-
 
 var _cGRectGetMidX func(rect corefoundation.CGRect) float64
 
@@ -8031,7 +7415,6 @@ func CGRectGetMidX(rect corefoundation.CGRect) float64 {
 	return _cGRectGetMidX(rect)
 }
 
-
 var _cGRectGetMidY func(rect corefoundation.CGRect) float64
 
 // CGRectGetMidY returns the y-coordinate that establishes the center of the rectangle.
@@ -8043,7 +7426,6 @@ func CGRectGetMidY(rect corefoundation.CGRect) float64 {
 	}
 	return _cGRectGetMidY(rect)
 }
-
 
 var _cGRectGetMinX func(rect corefoundation.CGRect) float64
 
@@ -8057,7 +7439,6 @@ func CGRectGetMinX(rect corefoundation.CGRect) float64 {
 	return _cGRectGetMinX(rect)
 }
 
-
 var _cGRectGetMinY func(rect corefoundation.CGRect) float64
 
 // CGRectGetMinY returns the smallest value for the y-coordinate of the rectangle.
@@ -8069,7 +7450,6 @@ func CGRectGetMinY(rect corefoundation.CGRect) float64 {
 	}
 	return _cGRectGetMinY(rect)
 }
-
 
 var _cGRectGetWidth func(rect corefoundation.CGRect) float64
 
@@ -8083,7 +7463,6 @@ func CGRectGetWidth(rect corefoundation.CGRect) float64 {
 	return _cGRectGetWidth(rect)
 }
 
-
 var _cGRectInset func(rect corefoundation.CGRect, dx float64, dy float64) corefoundation.CGRect
 
 // CGRectInset returns a rectangle that is smaller or larger than the source rectangle, with the same center point.
@@ -8095,7 +7474,6 @@ func CGRectInset(rect corefoundation.CGRect, dx float64, dy float64) corefoundat
 	}
 	return _cGRectInset(rect, dx, dy)
 }
-
 
 var _cGRectIntegral func(rect corefoundation.CGRect) corefoundation.CGRect
 
@@ -8109,7 +7487,6 @@ func CGRectIntegral(rect corefoundation.CGRect) corefoundation.CGRect {
 	return _cGRectIntegral(rect)
 }
 
-
 var _cGRectIntersection func(r1 corefoundation.CGRect, r2 corefoundation.CGRect) corefoundation.CGRect
 
 // CGRectIntersection returns the intersection of two rectangles.
@@ -8121,7 +7498,6 @@ func CGRectIntersection(r1 corefoundation.CGRect, r2 corefoundation.CGRect) core
 	}
 	return _cGRectIntersection(r1, r2)
 }
-
 
 var _cGRectIntersectsRect func(rect1 corefoundation.CGRect, rect2 corefoundation.CGRect) bool
 
@@ -8135,7 +7511,6 @@ func CGRectIntersectsRect(rect1 corefoundation.CGRect, rect2 corefoundation.CGRe
 	return _cGRectIntersectsRect(rect1, rect2)
 }
 
-
 var _cGRectIsEmpty func(rect corefoundation.CGRect) bool
 
 // CGRectIsEmpty returns whether a rectangle has zero width or height, or is a null rectangle.
@@ -8147,7 +7522,6 @@ func CGRectIsEmpty(rect corefoundation.CGRect) bool {
 	}
 	return _cGRectIsEmpty(rect)
 }
-
 
 var _cGRectIsInfinite func(rect corefoundation.CGRect) bool
 
@@ -8161,7 +7535,6 @@ func CGRectIsInfinite(rect corefoundation.CGRect) bool {
 	return _cGRectIsInfinite(rect)
 }
 
-
 var _cGRectIsNull func(rect corefoundation.CGRect) bool
 
 // CGRectIsNull returns whether the rectangle is equal to the null rectangle.
@@ -8173,8 +7546,6 @@ func CGRectIsNull(rect corefoundation.CGRect) bool {
 	}
 	return _cGRectIsNull(rect)
 }
-
-
 
 var _cGRectMakeWithDictionaryRepresentation func(dict corefoundation.CFDictionaryRef, rect *corefoundation.CGRect) bool
 
@@ -8188,7 +7559,6 @@ func CGRectMakeWithDictionaryRepresentation(dict corefoundation.CFDictionaryRef,
 	return _cGRectMakeWithDictionaryRepresentation(dict, rect)
 }
 
-
 var _cGRectOffset func(rect corefoundation.CGRect, dx float64, dy float64) corefoundation.CGRect
 
 // CGRectOffset returns a rectangle with an origin that is offset from that of the source rectangle.
@@ -8200,7 +7570,6 @@ func CGRectOffset(rect corefoundation.CGRect, dx float64, dy float64) corefounda
 	}
 	return _cGRectOffset(rect, dx, dy)
 }
-
 
 var _cGRectStandardize func(rect corefoundation.CGRect) corefoundation.CGRect
 
@@ -8214,7 +7583,6 @@ func CGRectStandardize(rect corefoundation.CGRect) corefoundation.CGRect {
 	return _cGRectStandardize(rect)
 }
 
-
 var _cGRectUnion func(r1 corefoundation.CGRect, r2 corefoundation.CGRect) corefoundation.CGRect
 
 // CGRectUnion returns the smallest rectangle that contains the two source rectangles.
@@ -8226,7 +7594,6 @@ func CGRectUnion(r1 corefoundation.CGRect, r2 corefoundation.CGRect) corefoundat
 	}
 	return _cGRectUnion(r1, r2)
 }
-
 
 var _cGReleaseAllDisplays func() CGError
 
@@ -8240,7 +7607,6 @@ func CGReleaseAllDisplays() CGError {
 	return _cGReleaseAllDisplays()
 }
 
-
 var _cGReleaseDisplayFadeReservation func(token CGDisplayFadeReservationToken) CGError
 
 // CGReleaseDisplayFadeReservation releases a display fade reservation, and unfades the display if needed.
@@ -8252,7 +7618,6 @@ func CGReleaseDisplayFadeReservation(token CGDisplayFadeReservationToken) CGErro
 	}
 	return _cGReleaseDisplayFadeReservation(token)
 }
-
 
 var _cGRenderingBufferLockBytePtr func(provider CGRenderingBufferProviderRef) unsafe.Pointer
 
@@ -8266,7 +7631,6 @@ func CGRenderingBufferLockBytePtr(provider CGRenderingBufferProviderRef) unsafe.
 	return _cGRenderingBufferLockBytePtr(provider)
 }
 
-
 var _cGRenderingBufferProviderCreate func(info unsafe.Pointer, size uintptr) CGRenderingBufferProviderRef
 
 // CGRenderingBufferProviderCreate.
@@ -8278,7 +7642,6 @@ func CGRenderingBufferProviderCreate(info unsafe.Pointer, size uintptr) CGRender
 	}
 	return _cGRenderingBufferProviderCreate(info, size)
 }
-
 
 var _cGRenderingBufferProviderCreateWithCFData func(data corefoundation.CFMutableDataRef) CGRenderingBufferProviderRef
 
@@ -8292,7 +7655,6 @@ func CGRenderingBufferProviderCreateWithCFData(data corefoundation.CFMutableData
 	return _cGRenderingBufferProviderCreateWithCFData(data)
 }
 
-
 var _cGRenderingBufferProviderGetSize func(provider CGRenderingBufferProviderRef) uintptr
 
 // CGRenderingBufferProviderGetSize.
@@ -8304,7 +7666,6 @@ func CGRenderingBufferProviderGetSize(provider CGRenderingBufferProviderRef) uin
 	}
 	return _cGRenderingBufferProviderGetSize(provider)
 }
-
 
 var _cGRenderingBufferProviderGetTypeID func() uint
 
@@ -8318,7 +7679,6 @@ func CGRenderingBufferProviderGetTypeID() uint {
 	return _cGRenderingBufferProviderGetTypeID()
 }
 
-
 var _cGRenderingBufferUnlockBytePtr func(provider CGRenderingBufferProviderRef)
 
 // CGRenderingBufferUnlockBytePtr.
@@ -8330,7 +7690,6 @@ func CGRenderingBufferUnlockBytePtr(provider CGRenderingBufferProviderRef) {
 	}
 	_cGRenderingBufferUnlockBytePtr(provider)
 }
-
 
 var _cGRequestListenEventAccess func() bool
 
@@ -8344,7 +7703,6 @@ func CGRequestListenEventAccess() bool {
 	return _cGRequestListenEventAccess()
 }
 
-
 var _cGRequestPostEventAccess func() bool
 
 // CGRequestPostEventAccess.
@@ -8356,7 +7714,6 @@ func CGRequestPostEventAccess() bool {
 	}
 	return _cGRequestPostEventAccess()
 }
-
 
 var _cGRequestScreenCaptureAccess func() bool
 
@@ -8370,7 +7727,6 @@ func CGRequestScreenCaptureAccess() bool {
 	return _cGRequestScreenCaptureAccess()
 }
 
-
 var _cGRestorePermanentDisplayConfiguration func()
 
 // CGRestorePermanentDisplayConfiguration restores the permanent display configuration settings for the current user.
@@ -8382,7 +7738,6 @@ func CGRestorePermanentDisplayConfiguration() {
 	}
 	_cGRestorePermanentDisplayConfiguration()
 }
-
 
 var _cGSessionCopyCurrentDictionary func() corefoundation.CFDictionaryRef
 
@@ -8396,7 +7751,6 @@ func CGSessionCopyCurrentDictionary() corefoundation.CFDictionaryRef {
 	return _cGSessionCopyCurrentDictionary()
 }
 
-
 var _cGSetDisplayTransferByByteTable func(display uint32, tableSize uint32, redTable *uint8, greenTable *uint8, blueTable *uint8) CGError
 
 // CGSetDisplayTransferByByteTable sets the byte values in the 8-bit RGB gamma tables for a display.
@@ -8408,7 +7762,6 @@ func CGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable 
 	}
 	return _cGSetDisplayTransferByByteTable(display, tableSize, redTable, greenTable, blueTable)
 }
-
 
 var _cGSetDisplayTransferByFormula func(display uint32, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) CGError
 
@@ -8422,7 +7775,6 @@ func CGSetDisplayTransferByFormula(display uint32, redMin CGGammaValue, redMax C
 	return _cGSetDisplayTransferByFormula(display, redMin, redMax, redGamma, greenMin, greenMax, greenGamma, blueMin, blueMax, blueGamma)
 }
 
-
 var _cGSetDisplayTransferByTable func(display uint32, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) CGError
 
 // CGSetDisplayTransferByTable sets the color gamma function for a display by specifying the values in the RGB gamma tables.
@@ -8434,7 +7786,6 @@ func CGSetDisplayTransferByTable(display uint32, tableSize uint32, redTable *CGG
 	}
 	return _cGSetDisplayTransferByTable(display, tableSize, redTable, greenTable, blueTable)
 }
-
 
 var _cGShadingCreateAxial func(space CGColorSpaceRef, start corefoundation.CGPoint, end corefoundation.CGPoint, function CGFunctionRef, extendStart bool, extendEnd bool) CGShadingRef
 
@@ -8448,7 +7799,6 @@ func CGShadingCreateAxial(space CGColorSpaceRef, start corefoundation.CGPoint, e
 	return _cGShadingCreateAxial(space, start, end, function, extendStart, extendEnd)
 }
 
-
 var _cGShadingCreateAxialWithContentHeadroom func(headroom float32, space CGColorSpaceRef, start corefoundation.CGPoint, end corefoundation.CGPoint, function CGFunctionRef, extendStart bool, extendEnd bool) CGShadingRef
 
 // CGShadingCreateAxialWithContentHeadroom.
@@ -8460,7 +7810,6 @@ func CGShadingCreateAxialWithContentHeadroom(headroom float32, space CGColorSpac
 	}
 	return _cGShadingCreateAxialWithContentHeadroom(headroom, space, start, end, function, extendStart, extendEnd)
 }
-
 
 var _cGShadingCreateRadial func(space CGColorSpaceRef, start corefoundation.CGPoint, startRadius float64, end corefoundation.CGPoint, endRadius float64, function CGFunctionRef, extendStart bool, extendEnd bool) CGShadingRef
 
@@ -8474,7 +7823,6 @@ func CGShadingCreateRadial(space CGColorSpaceRef, start corefoundation.CGPoint, 
 	return _cGShadingCreateRadial(space, start, startRadius, end, endRadius, function, extendStart, extendEnd)
 }
 
-
 var _cGShadingCreateRadialWithContentHeadroom func(headroom float32, space CGColorSpaceRef, start corefoundation.CGPoint, startRadius float64, end corefoundation.CGPoint, endRadius float64, function CGFunctionRef, extendStart bool, extendEnd bool) CGShadingRef
 
 // CGShadingCreateRadialWithContentHeadroom.
@@ -8486,7 +7834,6 @@ func CGShadingCreateRadialWithContentHeadroom(headroom float32, space CGColorSpa
 	}
 	return _cGShadingCreateRadialWithContentHeadroom(headroom, space, start, startRadius, end, endRadius, function, extendStart, extendEnd)
 }
-
 
 var _cGShadingGetContentHeadroom func(shading CGShadingRef) float32
 
@@ -8500,7 +7847,6 @@ func CGShadingGetContentHeadroom(shading CGShadingRef) float32 {
 	return _cGShadingGetContentHeadroom(shading)
 }
 
-
 var _cGShadingGetTypeID func() uint
 
 // CGShadingGetTypeID returns the Core Foundation type identifier for Core Graphics shading objects.
@@ -8512,7 +7858,6 @@ func CGShadingGetTypeID() uint {
 	}
 	return _cGShadingGetTypeID()
 }
-
 
 var _cGShadingRelease func(shading CGShadingRef)
 
@@ -8526,7 +7871,6 @@ func CGShadingRelease(shading CGShadingRef) {
 	_cGShadingRelease(shading)
 }
 
-
 var _cGShadingRetain func(shading CGShadingRef) CGShadingRef
 
 // CGShadingRetain increments the retain count of a shading object.
@@ -8538,7 +7882,6 @@ func CGShadingRetain(shading CGShadingRef) CGShadingRef {
 	}
 	return _cGShadingRetain(shading)
 }
-
 
 var _cGShieldingWindowID func(display uint32) CGWindowID
 
@@ -8552,7 +7895,6 @@ func CGShieldingWindowID(display uint32) CGWindowID {
 	return _cGShieldingWindowID(display)
 }
 
-
 var _cGShieldingWindowLevel func() CGWindowLevel
 
 // CGShieldingWindowLevel returns the window level of the shield window for a captured display.
@@ -8564,7 +7906,6 @@ func CGShieldingWindowLevel() CGWindowLevel {
 	}
 	return _cGShieldingWindowLevel()
 }
-
 
 var _cGSizeApplyAffineTransform func(size corefoundation.CGSize, t corefoundation.CGAffineTransform) corefoundation.CGSize
 
@@ -8578,7 +7919,6 @@ func CGSizeApplyAffineTransform(size corefoundation.CGSize, t corefoundation.CGA
 	return _cGSizeApplyAffineTransform(size, t)
 }
 
-
 var _cGSizeCreateDictionaryRepresentation func(size corefoundation.CGSize) corefoundation.CFDictionaryRef
 
 // CGSizeCreateDictionaryRepresentation returns a dictionary representation of the specified size.
@@ -8590,7 +7930,6 @@ func CGSizeCreateDictionaryRepresentation(size corefoundation.CGSize) corefounda
 	}
 	return _cGSizeCreateDictionaryRepresentation(size)
 }
-
 
 var _cGSizeEqualToSize func(size1 corefoundation.CGSize, size2 corefoundation.CGSize) bool
 
@@ -8606,8 +7945,6 @@ func CGSizeEqualToSize(size1 corefoundation.CGSize, size2 corefoundation.CGSize)
 	return _cGSizeEqualToSize(size1, size2)
 }
 
-
-
 var _cGSizeMakeWithDictionaryRepresentation func(dict corefoundation.CFDictionaryRef, size *corefoundation.CGSize) bool
 
 // CGSizeMakeWithDictionaryRepresentation fills in a size using the contents of the specified dictionary.
@@ -8619,8 +7956,6 @@ func CGSizeMakeWithDictionaryRepresentation(dict corefoundation.CFDictionaryRef,
 	}
 	return _cGSizeMakeWithDictionaryRepresentation(dict, size)
 }
-
-
 
 var _cGWarpMouseCursorPosition func(newCursorPosition corefoundation.CGPoint) CGError
 
@@ -8634,7 +7969,6 @@ func CGWarpMouseCursorPosition(newCursorPosition corefoundation.CGPoint) CGError
 	return _cGWarpMouseCursorPosition(newCursorPosition)
 }
 
-
 var _cGWindowLevelForKey func(key CGWindowLevelKey) CGWindowLevel
 
 // CGWindowLevelForKey returns the window level that corresponds to one of the standard window types.
@@ -8646,7 +7980,6 @@ func CGWindowLevelForKey(key CGWindowLevelKey) CGWindowLevel {
 	}
 	return _cGWindowLevelForKey(key)
 }
-
 
 var _cGWindowListCopyWindowInfo func(option CGWindowListOption, relativeToWindow CGWindowID) corefoundation.CFArrayRef
 
@@ -8660,7 +7993,6 @@ func CGWindowListCopyWindowInfo(option CGWindowListOption, relativeToWindow CGWi
 	return _cGWindowListCopyWindowInfo(option, relativeToWindow)
 }
 
-
 var _cGWindowListCreate func(option CGWindowListOption, relativeToWindow CGWindowID) corefoundation.CFArrayRef
 
 // CGWindowListCreate returns the list of window IDs associated with the specified windows in the current user session.
@@ -8673,7 +8005,6 @@ func CGWindowListCreate(option CGWindowListOption, relativeToWindow CGWindowID) 
 	return _cGWindowListCreate(option, relativeToWindow)
 }
 
-
 var _cGWindowListCreateDescriptionFromArray func(windowArray corefoundation.CFArrayRef) corefoundation.CFArrayRef
 
 // CGWindowListCreateDescriptionFromArray generates and returns information about windows with the specified window IDs.
@@ -8685,7 +8016,6 @@ func CGWindowListCreateDescriptionFromArray(windowArray corefoundation.CFArrayRe
 	}
 	return _cGWindowListCreateDescriptionFromArray(windowArray)
 }
-
 
 var _cGWindowListCreateImage func(screenBounds corefoundation.CGRect, listOption CGWindowListOption, windowID CGWindowID, imageOption CGWindowImageOption) CGImageRef
 
@@ -8701,7 +8031,6 @@ func CGWindowListCreateImage(screenBounds corefoundation.CGRect, listOption CGWi
 	return _cGWindowListCreateImage(screenBounds, listOption, windowID, imageOption)
 }
 
-
 var _cGWindowServerCreateServerPort func() corefoundation.CFMachPort
 
 // CGWindowServerCreateServerPort.
@@ -8713,8 +8042,6 @@ func CGWindowServerCreateServerPort() corefoundation.CFMachPort {
 	}
 	return _cGWindowServerCreateServerPort()
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -9387,5 +8714,4 @@ func init() {
 		registerFunc(&_cGWindowListCreateImage, frameworkHandle, "CGWindowListCreateImage")
 		registerFunc(&_cGWindowServerCreateServerPort, frameworkHandle, "CGWindowServerCreateServerPort")
 	}
-
 

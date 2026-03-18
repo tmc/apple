@@ -37,12 +37,6 @@ func (nc NSDraggingItemClass) Alloc() NSDraggingItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A single dragged item within a dragging session.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSDraggingItem struct {
 //
 // A single dragged item within a dragging session.
 func NSDraggingItemFromID(id objc.ID) NSDraggingItem {
-	return NSDraggingItem{objectivec.Object{id}}
+	return NSDraggingItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSDraggingItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDraggingItem] class.
 //
@@ -143,10 +133,6 @@ type INSDraggingItem interface {
 	Item() objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDraggingItem) Init() NSDraggingItem {
 	rv := objc.Send[NSDraggingItem](d.ID, objc.Sel("init"))
@@ -165,11 +151,6 @@ func NewNSDraggingItem() NSDraggingItem {
 	rv := objc.Send[NSDraggingItem](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates and returns a dragging item using the specified content.
 //
@@ -196,12 +177,6 @@ func NewDraggingItemWithPasteboardWriter(pasteboardWriter NSPasteboardWriting) N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardWriter:"), pasteboardWriter)
 	return NSDraggingItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates and returns a dragging item using the specified content.
 //
@@ -263,17 +238,6 @@ func (d NSDraggingItem) SetDraggingFrameContents(frame corefoundation.CGRect, co
 	objc.Send[objc.ID](d.ID, objc.Sel("setDraggingFrame:contents:"), frame, contents)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The frame of the dragging item.
 //
 // # Discussion
@@ -299,8 +263,6 @@ func (d NSDraggingItem) SetDraggingFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDraggingFrame:"), value)
 }
 
-
-
 // An array of dragging image components to use to create the drag image.
 //
 // # Discussion
@@ -316,8 +278,6 @@ func (d NSDraggingItem) ImageComponents() []NSDraggingImageComponent {
 		return NSDraggingImageComponentFromID(id)
 	})
 }
-
-
 
 // An array of blocks that provide the dragging image components.
 //
@@ -349,8 +309,6 @@ func (d NSDraggingItem) SetImageComponentsProvider(value VoidHandler) {
 	objc.Send[struct{}](d.ID, objc.Sel("setImageComponentsProvider:"), block)
 }
 
-
-
 // The pasteboard reader or writer object dependent on the context where you
 // use the dragging item.
 //
@@ -373,26 +331,4 @@ func (d NSDraggingItem) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

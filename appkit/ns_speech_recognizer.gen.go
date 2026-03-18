@@ -37,12 +37,6 @@ func (nc NSSpeechRecognizerClass) Alloc() NSSpeechRecognizer {
 	return rv
 }
 
-
-
-
-
-
-
 // The Cocoa interface to speech recognition in macOS.
 //
 // # Overview
@@ -106,14 +100,10 @@ type NSSpeechRecognizer struct {
 //
 // The Cocoa interface to speech recognition in macOS.
 func NSSpeechRecognizerFromID(id objc.ID) NSSpeechRecognizer {
-	return NSSpeechRecognizer{objectivec.Object{id}}
+	return NSSpeechRecognizer{objectivec.Object{ID: id}}
 }
 // NOTE: NSSpeechRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSpeechRecognizer] class.
 //
@@ -171,10 +161,6 @@ type INSSpeechRecognizer interface {
 	StopListening()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSpeechRecognizer) Init() NSSpeechRecognizer {
 	rv := objc.Send[NSSpeechRecognizer](s.ID, objc.Sel("init"))
@@ -193,16 +179,6 @@ func NewNSSpeechRecognizer() NSSpeechRecognizer {
 	rv := objc.Send[NSSpeechRecognizer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
 
 // Tells the speech recognition engine to begin listening for commands.
 //
@@ -223,17 +199,6 @@ func (s NSSpeechRecognizer) StopListening() {
 	objc.Send[objc.ID](s.ID, objc.Sel("stopListening"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The delegate for the speech recognizer object.
 //
 // # Discussion
@@ -248,8 +213,6 @@ func (s NSSpeechRecognizer) Delegate() NSSpeechRecognizerDelegate {
 func (s NSSpeechRecognizer) SetDelegate(value NSSpeechRecognizerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // An array of strings defining the commands for which the speech recognizer
 // object should listen.
@@ -273,8 +236,6 @@ func (s NSSpeechRecognizer) SetCommands(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCommands:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The title of the commands section in the Speech Commands window or `nil` if
 // there is no title.
 //
@@ -294,8 +255,6 @@ func (s NSSpeechRecognizer) DisplayedCommandsTitle() string {
 func (s NSSpeechRecognizer) SetDisplayedCommandsTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayedCommandsTitle:"), objc.String(value))
 }
-
-
 
 // A Boolean value that indicates whether the speech recognizer object should
 // only enable its commands when its application is the frontmost one.
@@ -322,8 +281,6 @@ func (s NSSpeechRecognizer) ListensInForegroundOnly() bool {
 func (s NSSpeechRecognizer) SetListensInForegroundOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setListensInForegroundOnly:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the speech recognizer object should
 // block all other recognizers (that is, other applications attempting to
@@ -352,26 +309,4 @@ func (s NSSpeechRecognizer) BlocksOtherRecognizers() bool {
 func (s NSSpeechRecognizer) SetBlocksOtherRecognizers(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBlocksOtherRecognizers:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

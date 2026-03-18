@@ -38,12 +38,6 @@ func (nc NSTableCellViewClass) Alloc() NSTableCellView {
 	return rv
 }
 
-
-
-
-
-
-
 // A reusable container view shown for a particular cell in a table view that
 // uses rows for content.
 //
@@ -100,10 +94,6 @@ func NSTableCellViewFromID(id objc.ID) NSTableCellView {
 }
 // NOTE: NSTableCellView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTableCellView] class.
 //
@@ -168,13 +158,7 @@ type INSTableCellView interface {
 
 	// Returns dragging images for the cell.
 	DraggingImageComponents() []NSDraggingImageComponent
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTableCellView) Init() NSTableCellView {
@@ -195,11 +179,6 @@ func NewNSTableCellView() NSTableCellView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -214,7 +193,6 @@ func NewTableCellViewWithCoder(coder foundation.INSCoder) NSTableCellView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTableCellViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -238,26 +216,6 @@ func NewTableCellViewWithFrame(frameRect corefoundation.CGRect) NSTableCellView 
 	return NSTableCellViewFromID(rv)
 }
 
-
-
-
-
-
-func (t NSTableCellView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The object that represents the cell data.
 //
 // # Discussion
@@ -275,8 +233,6 @@ func (t NSTableCellView) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setObjectValue:"), value)
 }
 
-
-
 // Image displayed by the cell.
 //
 // # Discussion
@@ -293,8 +249,6 @@ func (t NSTableCellView) SetImageView(value INSImageView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImageView:"), value)
 }
 
-
-
 // Text displayed by the cell.
 //
 // # Discussion
@@ -310,8 +264,6 @@ func (t NSTableCellView) TextField() INSTextField {
 func (t NSTableCellView) SetTextField(value INSTextField) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextField:"), value)
 }
-
-
 
 // This property is automatically set by the enclosing row view to let this
 // view know what its background looks like.
@@ -336,8 +288,6 @@ func (t NSTableCellView) SetBackgroundStyle(value NSBackgroundStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundStyle:"), value)
 }
 
-
-
 // Returns the row size style.
 //
 // # Discussion
@@ -361,8 +311,6 @@ func (t NSTableCellView) SetRowSizeStyle(value NSTableViewRowSizeStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowSizeStyle:"), value)
 }
 
-
-
 // Returns dragging images for the cell.
 //
 // # Discussion
@@ -381,38 +329,4 @@ func (t NSTableCellView) DraggingImageComponents() []NSDraggingImageComponent {
 		return NSDraggingImageComponentFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -9,9 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods that a delegate of a split view implements.
 //
@@ -19,8 +17,6 @@ var _ = fmt.Sprintf
 type NSSplitViewDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSSplitViewDelegateObject wraps an existing Objective-C object that conforms to the NSSplitViewDelegate protocol.
 type NSSplitViewDelegateObject struct {
@@ -30,8 +26,6 @@ func (o NSSplitViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSplitViewDelegateObjectFromID constructs a [NSSplitViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSplitViewDelegateObjectFromID(id objc.ID) NSSplitViewDelegateObject {
@@ -39,9 +33,6 @@ func NSSplitViewDelegateObjectFromID(id objc.ID) NSSplitViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Notifies the delegate when the split view is about to resize its subviews.
 //
@@ -381,10 +372,6 @@ func (o NSSplitViewDelegateObject) SplitViewShouldAdjustSizeOfSubview(splitView 
 	return rv
 	}
 
-
-
-
-
 // NSSplitViewDelegateConfig holds optional typed callbacks for [NSSplitViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -544,8 +531,4 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSplitViewDelegateObjectFromID(instance)
 }
-
-
-
-
 

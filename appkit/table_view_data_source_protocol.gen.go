@@ -16,8 +16,6 @@ type NSTableViewDataSource interface {
 	objectivec.IObject
 }
 
-
-
 // NSTableViewDataSourceObject wraps an existing Objective-C object that conforms to the NSTableViewDataSource protocol.
 type NSTableViewDataSourceObject struct {
 	objectivec.Object
@@ -26,8 +24,6 @@ func (o NSTableViewDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTableViewDataSourceObjectFromID constructs a [NSTableViewDataSourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTableViewDataSourceObjectFromID(id objc.ID) NSTableViewDataSourceObject {
@@ -35,9 +31,6 @@ func NSTableViewDataSourceObjectFromID(id objc.ID) NSTableViewDataSourceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the number of records managed for `aTableView` by the data source
 // object.
@@ -313,10 +306,4 @@ func (o NSTableViewDataSourceObject) TableViewSortDescriptorsDidChange(tableView
 	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:sortDescriptorsDidChange:"), tableView, objectivec.IObjectSliceToNSArray(oldDescriptors))
 	}
-
-
-
-
-
-
 

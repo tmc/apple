@@ -37,12 +37,6 @@ func (nc NSAlertClass) Alloc() NSAlert {
 	return rv
 }
 
-
-
-
-
-
-
 // A modal dialog or sheet attached to a document window.
 //
 // # Overview
@@ -149,14 +143,10 @@ type NSAlert struct {
 //
 // A modal dialog or sheet attached to a document window.
 func NSAlertFromID(id objc.ID) NSAlert {
-	return NSAlert{objectivec.Object{id}}
+	return NSAlert{objectivec.Object{ID: id}}
 }
 // NOTE: NSAlert adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAlert] class.
 //
@@ -267,10 +257,6 @@ type INSAlert interface {
 	Window() INSWindow
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAlert) Init() NSAlert {
 	rv := objc.Send[NSAlert](a.ID, objc.Sel("init"))
@@ -289,11 +275,6 @@ func NewNSAlert() NSAlert {
 	rv := objc.Send[NSAlert](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an alert initialized from information in an error object.
 //
@@ -315,12 +296,6 @@ func NewAlertWithError(error_ foundation.INSError) NSAlert {
 	rv := objc.Send[objc.ID](objc.ID(getNSAlertClass().class), objc.Sel("alertWithError:"), error_)
 	return NSAlertFromID(rv)
 }
-
-
-
-
-
-
 
 // Specifies that the alert must do immediate layout instead of lazily just
 // before display.
@@ -398,9 +373,9 @@ func (a NSAlert) RunModal() NSModalResponse {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/beginSheetModal(for:completionHandler:)
 func (a NSAlert) BeginSheetModalForWindowCompletionHandler(sheetWindow INSWindow, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](a.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), sheetWindow, _block1)
+	objc.Send[objc.ID](a.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), sheetWindow, _block1)
 }
 
 // Adds a button with a given title to the alert.
@@ -434,17 +409,6 @@ func (a NSAlert) AddButtonWithTitle(title string) INSButton {
 	return NSButtonFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Indicates the alert’s severity level.
 //
 // # Discussion
@@ -461,8 +425,6 @@ func (a NSAlert) AlertStyle() NSAlertStyle {
 func (a NSAlert) SetAlertStyle(value NSAlertStyle) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAlertStyle:"), value)
 }
-
-
 
 // The alert’s accessory view.
 //
@@ -487,8 +449,6 @@ func (a NSAlert) AccessoryView() INSView {
 func (a NSAlert) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAccessoryView:"), value)
 }
-
-
 
 // Specifies whether the alert has a help button.
 //
@@ -524,8 +484,6 @@ func (a NSAlert) SetShowsHelp(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setShowsHelp:"), value)
 }
 
-
-
 // The alert’s HTML help anchor.
 //
 // # Discussion
@@ -542,8 +500,6 @@ func (a NSAlert) HelpAnchor() NSHelpAnchorName {
 func (a NSAlert) SetHelpAnchor(value NSHelpAnchorName) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHelpAnchor:"), objc.String(string(value)))
 }
-
-
 
 // The alert’s delegate.
 //
@@ -562,8 +518,6 @@ func (a NSAlert) SetDelegate(value NSAlertDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The alert’s suppression checkbox.
 //
 // # Discussion
@@ -580,8 +534,6 @@ func (a NSAlert) SuppressionButton() INSButton {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("suppressionButton"))
 	return NSButtonFromID(objc.ID(rv))
 }
-
-
 
 // Specifies whether the alert includes a suppression checkbox, which you can
 // employ to allow a user to opt out of seeing the alert again.
@@ -618,8 +570,6 @@ func (a NSAlert) SetShowsSuppressionButton(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setShowsSuppressionButton:"), value)
 }
 
-
-
 // The alert’s informative text.
 //
 // # Discussion
@@ -635,8 +585,6 @@ func (a NSAlert) SetInformativeText(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInformativeText:"), objc.String(value))
 }
 
-
-
 // The alert’s message text or title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/messageText
@@ -647,8 +595,6 @@ func (a NSAlert) MessageText() string {
 func (a NSAlert) SetMessageText(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMessageText:"), objc.String(value))
 }
-
-
 
 // The custom icon displayed in the alert.
 //
@@ -670,8 +616,6 @@ func (a NSAlert) Icon() INSImage {
 func (a NSAlert) SetIcon(value INSImage) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIcon:"), value)
 }
-
-
 
 // The array of response buttons for the alert.
 //
@@ -696,8 +640,6 @@ func (a NSAlert) Buttons() []NSButton {
 	})
 }
 
-
-
 // The app-modal panel or document-modal sheet that corresponds to the alert.
 //
 // # Discussion
@@ -712,27 +654,4 @@ func (a NSAlert) Window() INSWindow {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("window"))
 	return NSWindowFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

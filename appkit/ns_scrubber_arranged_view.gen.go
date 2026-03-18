@@ -37,12 +37,6 @@ func (nc NSScrubberArrangedViewClass) Alloc() NSScrubberArrangedView {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class for the views whose layout is managed by a scrubber.
 //
 // # Managing selection and highlighting
@@ -69,10 +63,6 @@ func NSScrubberArrangedViewFromID(id objc.ID) NSScrubberArrangedView {
 }
 // NOTE: NSScrubberArrangedView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScrubberArrangedView] class.
 //
@@ -104,13 +94,7 @@ type INSScrubberArrangedView interface {
 
 	// Updates the layout of the arranged view to respect the provided layout attributes.
 	ApplyLayoutAttributes(layoutAttributes INSScrubberLayoutAttributes)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberArrangedView) Init() NSScrubberArrangedView {
@@ -131,11 +115,6 @@ func NewNSScrubberArrangedView() NSScrubberArrangedView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -150,7 +129,6 @@ func NewScrubberArrangedViewWithCoder(coder foundation.INSCoder) NSScrubberArran
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberArrangedViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -174,12 +152,6 @@ func NewScrubberArrangedViewWithFrame(frameRect corefoundation.CGRect) NSScrubbe
 	return NSScrubberArrangedViewFromID(rv)
 }
 
-
-
-
-
-
-
 // Updates the layout of the arranged view to respect the provided layout
 // attributes.
 //
@@ -190,20 +162,6 @@ func NewScrubberArrangedViewWithFrame(frameRect corefoundation.CGRect) NSScrubbe
 func (s NSScrubberArrangedView) ApplyLayoutAttributes(layoutAttributes INSScrubberLayoutAttributes) {
 	objc.Send[objc.ID](s.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
 }
-func (s NSScrubberArrangedView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that specifies whether the view is currently highlighted.
 //
@@ -216,8 +174,6 @@ func (s NSScrubberArrangedView) SetHighlighted(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHighlighted:"), value)
 }
 
-
-
 // A Boolean value that specifies whether the current view is selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberArrangedView/isSelected
@@ -228,38 +184,4 @@ func (s NSScrubberArrangedView) Selected() bool {
 func (s NSScrubberArrangedView) SetSelected(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelected:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

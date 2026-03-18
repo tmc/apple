@@ -14,8 +14,6 @@ type NSPasteboardReading interface {
 	objectivec.IObject
 }
 
-
-
 // NSPasteboardReadingObject wraps an existing Objective-C object that conforms to the NSPasteboardReading protocol.
 type NSPasteboardReadingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSPasteboardReadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPasteboardReadingObjectFromID constructs a [NSPasteboardReadingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPasteboardReadingObjectFromID(id objc.ID) NSPasteboardReadingObject {
@@ -33,13 +29,4 @@ func NSPasteboardReadingObjectFromID(id objc.ID) NSPasteboardReadingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

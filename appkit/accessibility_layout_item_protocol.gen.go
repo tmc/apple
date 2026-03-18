@@ -18,8 +18,6 @@ type NSAccessibilityLayoutItem interface {
 	NSAccessibilityGroup
 }
 
-
-
 // NSAccessibilityLayoutItemObject wraps an existing Objective-C object that conforms to the NSAccessibilityLayoutItem protocol.
 type NSAccessibilityLayoutItemObject struct {
 	objectivec.Object
@@ -28,8 +26,6 @@ func (o NSAccessibilityLayoutItemObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityLayoutItemObjectFromID constructs a [NSAccessibilityLayoutItemObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityLayoutItemObjectFromID(id objc.ID) NSAccessibilityLayoutItemObject {
@@ -37,9 +33,6 @@ func NSAccessibilityLayoutItemObjectFromID(id objc.ID) NSAccessibilityLayoutItem
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sets the accessibility element’s frame.
 //
@@ -152,10 +145,4 @@ func (o NSAccessibilityLayoutItemObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

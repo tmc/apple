@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // An interface that provides the content to share from the macOS share sheet.
 //
@@ -25,8 +23,6 @@ type NSSharingServicePickerToolbarItemDelegate interface {
 	ItemsForSharingServicePickerToolbarItem(pickerToolbarItem INSSharingServicePickerToolbarItem) foundation.INSArray
 }
 
-
-
 // NSSharingServicePickerToolbarItemDelegateObject wraps an existing Objective-C object that conforms to the NSSharingServicePickerToolbarItemDelegate protocol.
 type NSSharingServicePickerToolbarItemDelegateObject struct {
 	objectivec.Object
@@ -35,8 +31,6 @@ func (o NSSharingServicePickerToolbarItemDelegateObject) BaseObject() objectivec
 	return o.Object
 }
 
-
-
 // NSSharingServicePickerToolbarItemDelegateObjectFromID constructs a [NSSharingServicePickerToolbarItemDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSharingServicePickerToolbarItemDelegateObjectFromID(id objc.ID) NSSharingServicePickerToolbarItemDelegateObject {
@@ -44,9 +38,6 @@ func NSSharingServicePickerToolbarItemDelegateObjectFromID(id objc.ID) NSSharing
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate for the items to share.
 //
@@ -163,10 +154,6 @@ func (o NSSharingServicePickerToolbarItemDelegateObject) SharingServicePickerCol
 	})
 	}
 
-
-
-
-
 // NSSharingServicePickerToolbarItemDelegateConfig holds optional typed callbacks for [NSSharingServicePickerToolbarItemDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -227,8 +214,4 @@ func NewNSSharingServicePickerToolbarItemDelegate(config NSSharingServicePickerT
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSharingServicePickerToolbarItemDelegateObjectFromID(instance)
 }
-
-
-
-
 

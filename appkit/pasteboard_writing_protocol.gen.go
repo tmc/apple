@@ -19,8 +19,6 @@ type NSPasteboardWriting interface {
 	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
 }
 
-
-
 // NSPasteboardWritingObject wraps an existing Objective-C object that conforms to the NSPasteboardWriting protocol.
 type NSPasteboardWritingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSPasteboardWritingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPasteboardWritingObjectFromID constructs a [NSPasteboardWritingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPasteboardWritingObjectFromID(id objc.ID) NSPasteboardWritingObject {
@@ -38,9 +34,6 @@ func NSPasteboardWritingObjectFromID(id objc.ID) NSPasteboardWritingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns an array of UTI strings of data types the receiver can write to a
 // given pasteboard.
@@ -129,10 +122,4 @@ func (o NSPasteboardWritingObject) WritingOptionsForTypePasteboard(type_ NSPaste
 	rv := objc.Send[NSPasteboardWritingOptions](o.ID, objc.Sel("writingOptionsForType:pasteboard:"), objc.String(string(type_)), pasteboard)
 	return rv
 	}
-
-
-
-
-
-
 

@@ -4,14 +4,13 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods you implement in a table view delegate to customize the behavior of the table view.
 //
@@ -21,8 +20,6 @@ type NSTableViewDelegate interface {
 	NSControlTextEditingDelegate
 }
 
-
-
 // NSTableViewDelegateObject wraps an existing Objective-C object that conforms to the NSTableViewDelegate protocol.
 type NSTableViewDelegateObject struct {
 	objectivec.Object
@@ -31,8 +28,6 @@ func (o NSTableViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTableViewDelegateObjectFromID constructs a [NSTableViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTableViewDelegateObjectFromID(id objc.ID) NSTableViewDelegateObject {
@@ -40,9 +35,6 @@ func NSTableViewDelegateObjectFromID(id objc.ID) NSTableViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate for a view to display the specified row and column.
 //
@@ -1104,7 +1096,7 @@ func (o NSTableViewDelegateObject) ControlTextShouldEndEditing(control INSContro
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSTableViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSTableViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -1203,10 +1195,6 @@ func (o NSTableViewDelegateObject) ControlTextDidEndEditing(obj foundation.NSNot
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
-
-
-
-
 
 // NSTableViewDelegateConfig holds optional typed callbacks for [NSTableViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -1591,8 +1579,4 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTableViewDelegateObjectFromID(instance)
 }
-
-
-
-
 

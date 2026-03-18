@@ -37,12 +37,6 @@ func (mc MLOptimizationHintsClass) Alloc() MLOptimizationHints {
 	return rv
 }
 
-
-
-
-
-
-
 // MLOptimizationHints
 //
 // # Overview
@@ -68,14 +62,10 @@ type MLOptimizationHints struct {
 //
 // MLOptimizationHints
 func MLOptimizationHintsFromID(id objc.ID) MLOptimizationHints {
-	return MLOptimizationHints{objectivec.Object{id}}
+	return MLOptimizationHints{objectivec.Object{ID: id}}
 }
 // NOTE: MLOptimizationHints adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLOptimizationHints] class.
 //
@@ -108,10 +98,6 @@ type IMLOptimizationHints interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (o MLOptimizationHints) Init() MLOptimizationHints {
 	rv := objc.Send[MLOptimizationHints](o.ID, objc.Sel("init"))
@@ -131,28 +117,9 @@ func NewMLOptimizationHints() MLOptimizationHints {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (o MLOptimizationHints) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The anticipated reshape frequency
 //
@@ -175,8 +142,6 @@ func (o MLOptimizationHints) SetReshapeFrequency(value MLReshapeFrequencyHint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setReshapeFrequency:"), value)
 }
 
-
-
 // Optimization strategy for the model specialization.
 //
 // # Discussion
@@ -195,22 +160,4 @@ func (o MLOptimizationHints) SpecializationStrategy() MLSpecializationStrategy {
 func (o MLOptimizationHints) SetSpecializationStrategy(value MLSpecializationStrategy) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSpecializationStrategy:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSSharingServicePickerClass) Alloc() NSSharingServicePicker {
 	return rv
 }
 
-
-
-
-
-
-
 // A list of sharing services that the user can choose from.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSSharingServicePicker struct {
 //
 // A list of sharing services that the user can choose from.
 func NSSharingServicePickerFromID(id objc.ID) NSSharingServicePicker {
-	return NSSharingServicePicker{objectivec.Object{id}}
+	return NSSharingServicePicker{objectivec.Object{ID: id}}
 }
 // NOTE: NSSharingServicePicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSharingServicePicker] class.
 //
@@ -144,10 +134,6 @@ type INSSharingServicePicker interface {
 	StandardShareMenuItem() INSMenuItem
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSharingServicePicker) Init() NSSharingServicePicker {
 	rv := objc.Send[NSSharingServicePicker](s.ID, objc.Sel("init"))
@@ -166,11 +152,6 @@ func NewNSSharingServicePicker() NSSharingServicePicker {
 	rv := objc.Send[NSSharingServicePicker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new sharing service picker for the selected items.
 //
@@ -203,12 +184,6 @@ func NewSharingServicePickerWithItems(items foundation.INSArray) NSSharingServic
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:"), items)
 	return NSSharingServicePickerFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new sharing service picker for the selected items.
 //
@@ -286,17 +261,6 @@ func (s NSSharingServicePicker) Close() {
 	objc.Send[objc.ID](s.ID, objc.Sel("close"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The object for managing the sharing service picker.
 //
 // # Discussion
@@ -313,8 +277,6 @@ func (s NSSharingServicePicker) SetDelegate(value NSSharingServicePickerDelegate
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // A menu item suitable to display the picker for the specified items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/standardShareMenuItem
@@ -322,26 +284,4 @@ func (s NSSharingServicePicker) StandardShareMenuItem() INSMenuItem {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("standardShareMenuItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

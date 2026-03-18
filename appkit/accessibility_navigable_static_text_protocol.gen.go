@@ -38,8 +38,6 @@ type NSAccessibilityNavigableStaticText interface {
 	AccessibilityStringForRange(range_ foundation.NSRange) string
 }
 
-
-
 // NSAccessibilityNavigableStaticTextObject wraps an existing Objective-C object that conforms to the NSAccessibilityNavigableStaticText protocol.
 type NSAccessibilityNavigableStaticTextObject struct {
 	objectivec.Object
@@ -48,8 +46,6 @@ func (o NSAccessibilityNavigableStaticTextObject) BaseObject() objectivec.Object
 	return o.Object
 }
 
-
-
 // NSAccessibilityNavigableStaticTextObjectFromID constructs a [NSAccessibilityNavigableStaticTextObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityNavigableStaticTextObjectFromID(id objc.ID) NSAccessibilityNavigableStaticTextObject {
@@ -57,9 +53,6 @@ func NSAccessibilityNavigableStaticTextObjectFromID(id objc.ID) NSAccessibilityN
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the rectangle that encloses the specified range of characters.
 //
@@ -284,10 +277,4 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityVisibleCharacterR
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
 	return rv
 	}
-
-
-
-
-
-
 

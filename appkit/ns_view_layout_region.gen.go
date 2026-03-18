@@ -36,12 +36,6 @@ func (nc NSViewLayoutRegionClass) Alloc() NSViewLayoutRegion {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayoutRegion
 type NSViewLayoutRegion struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type NSViewLayoutRegion struct {
 
 // NSViewLayoutRegionFromID constructs a [NSViewLayoutRegion] from an objc.ID.
 func NSViewLayoutRegionFromID(id objc.ID) NSViewLayoutRegion {
-	return NSViewLayoutRegion{objectivec.Object{id}}
+	return NSViewLayoutRegion{objectivec.Object{ID: id}}
 }
 // Ensure NSViewLayoutRegion implements INSViewLayoutRegion.
 var _ INSViewLayoutRegion = NSViewLayoutRegion{}
-
-
-
-
 
 // An interface definition for the [NSViewLayoutRegion] class.
 //
@@ -64,10 +54,6 @@ var _ INSViewLayoutRegion = NSViewLayoutRegion{}
 type INSViewLayoutRegion interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v NSViewLayoutRegion) Init() NSViewLayoutRegion {
@@ -88,19 +74,6 @@ func NewNSViewLayoutRegion() NSViewLayoutRegion {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayoutRegion/marginsLayoutRegionWithCornerAdaptation:
 func (_NSViewLayoutRegionClass NSViewLayoutRegionClass) MarginsLayoutRegionWithCornerAdaptation(adaptivityAxis NSViewLayoutRegionAdaptivityAxis) NSViewLayoutRegion {
@@ -114,25 +87,4 @@ func (_NSViewLayoutRegionClass NSViewLayoutRegionClass) SafeAreaLayoutRegionWith
 	rv := objc.Send[objc.ID](objc.ID(_NSViewLayoutRegionClass.class), objc.Sel("safeAreaLayoutRegionWithCornerAdaptation:"), adaptivityAxis)
 	return NSViewLayoutRegionFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

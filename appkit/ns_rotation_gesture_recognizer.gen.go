@@ -37,12 +37,6 @@ func (nc NSRotationGestureRecognizerClass) Alloc() NSRotationGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
-
 // A continuous gesture recognizer that tracks two trackpad touches moving
 // opposite each other in a circular motion.
 //
@@ -79,10 +73,6 @@ func NSRotationGestureRecognizerFromID(id objc.ID) NSRotationGestureRecognizer {
 // NOTE: NSRotationGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSRotationGestureRecognizer] class.
 //
 // # Interpreting the Gesture
@@ -104,13 +94,7 @@ type INSRotationGestureRecognizer interface {
 	// The rotation of the gesture in degrees.
 	RotationInDegrees() float64
 	SetRotationInDegrees(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r NSRotationGestureRecognizer) Init() NSRotationGestureRecognizer {
@@ -131,11 +115,6 @@ func NewNSRotationGestureRecognizer() NSRotationGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewRotationGestureRecognizerWithCoder(coder foundation.INSCoder) NSRotationGestureRecognizer {
@@ -143,7 +122,6 @@ func NewRotationGestureRecognizerWithCoder(coder foundation.INSCoder) NSRotation
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSRotationGestureRecognizerFromID(rv)
 }
-
 
 // Initializes the gesture recognizer with the specified target and action
 // information.
@@ -177,26 +155,6 @@ func NewRotationGestureRecognizerWithTargetAction(target objectivec.IObject, act
 	return NSRotationGestureRecognizerFromID(rv)
 }
 
-
-
-
-
-
-func (r NSRotationGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The rotation of the gesture in radians.
 //
 // # Discussion
@@ -214,8 +172,6 @@ func (r NSRotationGestureRecognizer) SetRotation(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRotation:"), value)
 }
 
-
-
 // The rotation of the gesture in degrees.
 //
 // # Discussion
@@ -232,29 +188,4 @@ func (r NSRotationGestureRecognizer) RotationInDegrees() float64 {
 func (r NSRotationGestureRecognizer) SetRotationInDegrees(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRotationInDegrees:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

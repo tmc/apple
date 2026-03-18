@@ -20,8 +20,6 @@ type NSUserActivityRestoring interface {
 	RestoreUserActivityState(userActivity foundation.NSUserActivity)
 }
 
-
-
 // NSUserActivityRestoringObject wraps an existing Objective-C object that conforms to the NSUserActivityRestoring protocol.
 type NSUserActivityRestoringObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o NSUserActivityRestoringObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSUserActivityRestoringObjectFromID constructs a [NSUserActivityRestoringObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSUserActivityRestoringObjectFromID(id objc.ID) NSUserActivityRestoringObject {
@@ -39,9 +35,6 @@ func NSUserActivityRestoringObjectFromID(id objc.ID) NSUserActivityRestoringObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Restores the state necessary to continue the specified user activity.
 //
@@ -73,10 +66,4 @@ func (o NSUserActivityRestoringObject) RestoreUserActivityState(userActivity fou
 	
 	objc.Send[struct{}](o.ID, objc.Sel("restoreUserActivityState:"), userActivity)
 	}
-
-
-
-
-
-
 

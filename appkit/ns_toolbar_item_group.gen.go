@@ -36,12 +36,6 @@ func (nc NSToolbarItemGroupClass) Alloc() NSToolbarItemGroup {
 	return rv
 }
 
-
-
-
-
-
-
 // A group of subitems in a toolbar item.
 //
 // # Overview
@@ -101,10 +95,6 @@ func NSToolbarItemGroupFromID(id objc.ID) NSToolbarItemGroup {
 // NOTE: NSToolbarItemGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSToolbarItemGroup] class.
 //
 // # Working with subitems
@@ -150,10 +140,6 @@ type INSToolbarItemGroup interface {
 	SetSelectionMode(value NSToolbarItemGroupSelectionMode)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSToolbarItemGroup) Init() NSToolbarItemGroup {
 	rv := objc.Send[NSToolbarItemGroup](t.ID, objc.Sel("init"))
@@ -173,11 +159,6 @@ func NewNSToolbarItemGroup() NSToolbarItemGroup {
 	return rv
 }
 
-
-
-
-
-
 // Creates a toolbar item with the specified identifier.
 //
 // itemIdentifier: The identifier for the toolbar item. You use this value to identify the
@@ -194,7 +175,6 @@ func NewToolbarItemGroupWithItemIdentifier(itemIdentifier NSToolbarItemIdentifie
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItemIdentifier:"), objc.String(string(itemIdentifier)))
 	return NSToolbarItemGroupFromID(rv)
 }
-
 
 // Creates a grouped toolbar item with images.
 //
@@ -220,7 +200,6 @@ func NewToolbarItemGroupWithItemIdentifierImagesSelectionModeLabelsTargetAction(
 	return NSToolbarItemGroupFromID(rv)
 }
 
-
 // Creates a grouped toolbar item with labels.
 //
 // itemIdentifier: The identifier for the grouped toolbar item.
@@ -245,12 +224,6 @@ func NewToolbarItemGroupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(
 	rv := objc.Send[objc.ID](objc.ID(getNSToolbarItemGroupClass().class), objc.Sel("groupWithItemIdentifier:titles:selectionMode:labels:target:action:"), objc.String(string(itemIdentifier)), objectivec.StringSliceToNSArray(titles), selectionMode, objectivec.StringSliceToNSArray(labels), target, action)
 	return NSToolbarItemGroupFromID(rv)
 }
-
-
-
-
-
-
 
 // Indicates whether a specified index is currently selected.
 //
@@ -286,17 +259,6 @@ func (t NSToolbarItemGroup) SetSelectedAtIndex(selected bool, index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setSelected:atIndex:"), selected, index)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The subitems of the grouped toolbar item.
 //
 // # Discussion
@@ -314,8 +276,6 @@ func (t NSToolbarItemGroup) Subitems() []NSToolbarItem {
 func (t NSToolbarItemGroup) SetSubitems(value []NSToolbarItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSubitems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The index value for the most recently selected subitem of a grouped toolbar
 // item.
@@ -342,8 +302,6 @@ func (t NSToolbarItemGroup) SetSelectedIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedIndex:"), value)
 }
 
-
-
 // A value that represents how a toolbar displays a grouped toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/controlRepresentation-swift.property
@@ -355,8 +313,6 @@ func (t NSToolbarItemGroup) SetControlRepresentation(value NSToolbarItemGroupCon
 	objc.Send[struct{}](t.ID, objc.Sel("setControlRepresentation:"), value)
 }
 
-
-
 // The selection mode of the grouped toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/selectionMode-swift.property
@@ -367,30 +323,4 @@ func (t NSToolbarItemGroup) SelectionMode() NSToolbarItemGroupSelectionMode {
 func (t NSToolbarItemGroup) SetSelectionMode(value NSToolbarItemGroupSelectionMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectionMode:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

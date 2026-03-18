@@ -39,12 +39,6 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 	return rv
 }
 
-
-
-
-
-
-
 // A controller that can manage an object’s properties referenced by
 // key-value paths.
 //
@@ -158,10 +152,6 @@ func NSObjectControllerFromID(id objc.ID) NSObjectController {
 }
 // NOTE: NSObjectController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSObjectController] class.
 //
@@ -301,13 +291,7 @@ type INSObjectController interface {
 
 	// Returns whether the receiver can handle the action method for a user interface item.
 	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (o NSObjectController) Init() NSObjectController {
@@ -328,11 +312,6 @@ func NewNSObjectController() NSObjectController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewObjectControllerWithCoder(coder foundation.INSCoder) NSObjectController {
@@ -340,7 +319,6 @@ func NewObjectControllerWithCoder(coder foundation.INSCoder) NSObjectController 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSObjectControllerFromID(rv)
 }
-
 
 // Initializes and returns an [NSObjectController] object with the given
 // content.
@@ -358,12 +336,6 @@ func NewObjectControllerWithContent(content objectivec.IObject) NSObjectControll
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContent:"), content)
 	return NSObjectControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns an [NSObjectController] object with the given
 // content.
@@ -553,7 +525,7 @@ func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetch(with:merge:)
 func (o NSObjectController) FetchWithRequestMergeError(fetchRequest objectivec.IObject, merge bool) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](o.ID, objc.Sel("fetchWithRequest:merge:error:"), fetchRequest, merge, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -584,20 +556,6 @@ func (o NSObjectController) ValidateUserInterfaceItem(item NSValidatedUserInterf
 	rv := objc.Send[bool](o.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-func (o NSObjectController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The receiver’s content object.
 //
@@ -609,8 +567,6 @@ func (o NSObjectController) Content() objectivec.IObject {
 func (o NSObjectController) SetContent(value objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContent:"), value)
 }
-
-
 
 // A Boolean that shows whether the receiver automatically creates and inserts
 // new content objects automatically when loading from a nib file.
@@ -635,8 +591,6 @@ func (o NSObjectController) SetAutomaticallyPreparesContent(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutomaticallyPreparesContent:"), value)
 }
 
-
-
 // The object class to use when creating new objects.
 //
 // # Discussion
@@ -654,8 +608,6 @@ func (o NSObjectController) SetObjectClass(value objc.Class) {
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectClass:"), value)
 }
 
-
-
 // A Boolean value that indicates whether an object can be added to the
 // receiver using [Add].
 //
@@ -672,8 +624,6 @@ func (o NSObjectController) CanAdd() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether an object can be removed from the
 // receiver.
 //
@@ -689,8 +639,6 @@ func (o NSObjectController) CanRemove() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canRemove"))
 	return rv
 }
-
-
 
 // A Boolean that indicates whether the receiver allows adding and removing
 // objects.
@@ -710,8 +658,6 @@ func (o NSObjectController) SetEditable(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEditable:"), value)
 }
 
-
-
 // The entity name used by the receiver to create new objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/entityName
@@ -722,8 +668,6 @@ func (o NSObjectController) EntityName() string {
 func (o NSObjectController) SetEntityName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEntityName:"), objc.String(value))
 }
-
-
 
 // A Boolean that indicates whether the receiver uses lazy fetching.
 //
@@ -743,8 +687,6 @@ func (o NSObjectController) SetUsesLazyFetching(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUsesLazyFetching:"), value)
 }
 
-
-
 // The receiver’s fetch predicate.
 //
 // # Discussion
@@ -762,8 +704,6 @@ func (o NSObjectController) SetFetchPredicate(value foundation.INSPredicate) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFetchPredicate:"), value)
 }
 
-
-
 // The receiver’s managed object context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/managedObjectContext
@@ -775,8 +715,6 @@ func (o NSObjectController) SetManagedObjectContext(value objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 
-
-
 // An array of all objects to be affected by editing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/selectedObjects
@@ -784,8 +722,6 @@ func (o NSObjectController) SelectedObjects() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("selectedObjects"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-
 
 // A proxy object representing the receiver’s selection.
 //
@@ -800,31 +736,4 @@ func (o NSObjectController) Selection() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("selection"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

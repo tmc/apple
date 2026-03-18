@@ -39,12 +39,6 @@ func (mc MLModelClass) Alloc() MLModel {
 	return rv
 }
 
-
-
-
-
-
-
 // An encapsulation of all the details of your machine learning model.
 //
 // # Overview
@@ -102,14 +96,10 @@ type MLModel struct {
 //
 // An encapsulation of all the details of your machine learning model.
 func MLModelFromID(id objc.ID) MLModel {
-	return MLModel{objectivec.Object{id}}
+	return MLModel{objectivec.Object{ID: id}}
 }
 // NOTE: MLModel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLModel] class.
 //
@@ -136,14 +126,14 @@ type IMLModel interface {
 
 	// Topic: Making predictions
 
-	PredictionFromFeaturesError(input objectivec.IObject) objectivec.IObject
-	PredictionFromFeaturesOptionsError(input objectivec.IObject, options IMLPredictionOptions) objectivec.IObject
+	PredictionFromFeaturesError(input objectivec.IObject) (objectivec.IObject, error)
+	PredictionFromFeaturesOptionsError(input objectivec.IObject, options IMLPredictionOptions) (objectivec.IObject, error)
 	// Generates predictions for each input feature provider within the batch provider.
 	PredictionsFromBatchError(inputBatch MLBatchProvider) (MLBatchProvider, error)
 	// Generates a prediction for each input feature provider within the batch provider using the prediction options.
 	PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, options IMLPredictionOptions) (MLBatchProvider, error)
-	PredictionFromFeaturesUsingStateError(inputFeatures objectivec.IObject, state IMLState) objectivec.IObject
-	PredictionFromFeaturesUsingStateOptionsError(inputFeatures objectivec.IObject, state IMLState, options IMLPredictionOptions) objectivec.IObject
+	PredictionFromFeaturesUsingStateError(inputFeatures objectivec.IObject, state IMLState) (objectivec.IObject, error)
+	PredictionFromFeaturesUsingStateOptionsError(inputFeatures objectivec.IObject, state IMLState, options IMLPredictionOptions) (objectivec.IObject, error)
 
 	// Topic: Inspecting a model
 
@@ -161,10 +151,6 @@ type IMLModel interface {
 	Metadata() MLModelMetadataKey
 	SetMetadata(value MLModelMetadataKey)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLModel) Init() MLModel {
@@ -184,11 +170,6 @@ func NewMLModel() MLModel {
 	rv := objc.Send[MLModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a Core ML model instance from a compiled model file and a custom
 // configuration.
@@ -228,7 +209,6 @@ func NewModelWithContentsOfURLConfigurationError(url foundation.INSURL, configur
 	return MLModelFromID(rv), nil
 }
 
-
 // Creates a Core ML model instance from a compiled model file.
 //
 // url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
@@ -264,24 +244,30 @@ func NewModelWithContentsOfURLError(url foundation.INSURL) (MLModel, error) {
 	return MLModelFromID(rv), nil
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:)
-func (m MLModel) PredictionFromFeaturesError(input objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error"), input)
-	return objectivec.Object{ID: rv}
+func (m MLModel) PredictionFromFeaturesError(input objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:error:"), input, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
 }
 
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:options:)
-func (m MLModel) PredictionFromFeaturesOptionsError(input objectivec.IObject, options IMLPredictionOptions) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error"), input, options)
-	return objectivec.Object{ID: rv}
+func (m MLModel) PredictionFromFeaturesOptionsError(input objectivec.IObject, options IMLPredictionOptions) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:options:error:"), input, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
 }
 
 // Generates predictions for each input feature provider within the batch
@@ -301,7 +287,7 @@ func (m MLModel) PredictionFromFeaturesOptionsError(input objectivec.IObject, op
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/predictions(fromBatch:)
 func (m MLModel) PredictionsFromBatchError(inputBatch MLBatchProvider) (MLBatchProvider, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:error:"), inputBatch, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -330,7 +316,7 @@ func (m MLModel) PredictionsFromBatchError(inputBatch MLBatchProvider) (MLBatchP
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/predictions(from:options:)
 func (m MLModel) PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, options IMLPredictionOptions) (MLBatchProvider, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionsFromBatch:options:error:"), inputBatch, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -342,26 +328,9 @@ func (m MLModel) PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, op
 
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:)
-func (m MLModel) PredictionFromFeaturesUsingStateError(inputFeatures objectivec.IObject, state IMLState) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:error"), inputFeatures, state)
-	return objectivec.Object{ID: rv}
-}
-
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:options:)
-func (m MLModel) PredictionFromFeaturesUsingStateOptionsError(inputFeatures objectivec.IObject, state IMLState, options IMLPredictionOptions) objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error"), inputFeatures, state, options)
-	return objectivec.Object{ID: rv}
-}
-
-// Returns a model parameter value for a key.
-//
-// key: The key to a model parameter value.
-//
-// See: https://developer.apple.com/documentation/CoreML/MLModel/parameterValue(for:)
-func (m MLModel) ParameterValueForKeyError(key IMLParameterKey) (objectivec.IObject, error) {
-			var errorPtr objc.ID
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
+func (m MLModel) PredictionFromFeaturesUsingStateError(inputFeatures objectivec.IObject, state IMLState) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:error:"), inputFeatures, state, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -370,9 +339,34 @@ func (m MLModel) ParameterValueForKeyError(key IMLParameterKey) (objectivec.IObj
 
 }
 
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:options:)
+func (m MLModel) PredictionFromFeaturesUsingStateOptionsError(inputFeatures objectivec.IObject, state IMLState, options IMLPredictionOptions) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("predictionFromFeatures:usingState:options:error:"), inputFeatures, state, options, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
 
+}
 
+// Returns a model parameter value for a key.
+//
+// key: The key to a model parameter value.
+//
+// See: https://developer.apple.com/documentation/CoreML/MLModel/parameterValue(for:)
+func (m MLModel) ParameterValueForKeyError(key IMLParameterKey) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("parameterValueForKey:error:"), key, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
 
+}
 
 // Construct a model asynchronously from a compiled model asset.
 //
@@ -385,15 +379,15 @@ func (m MLModel) ParameterValueForKeyError(key IMLParameterKey) (objectivec.IObj
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/load(_:configuration:completionHandler:)
 func (_MLModelClass MLModelClass) LoadModelAssetConfigurationCompletionHandler(asset IMLModelAsset, configuration IMLModelConfiguration, handler MLModelErrorHandler) {
-		_block2, _cleanup2 := NewMLModelErrorBlock(handler)
+_block2, _cleanup2 := NewMLModelErrorBlock(handler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
+	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
 
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)
 func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.INSURL) (foundation.NSURL, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("compileModelAtURL:error:"), modelURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -402,13 +396,6 @@ func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.INS
 	return foundation.NSURLFromID(rv), nil
 
 }
-
-
-
-
-
-
-
 
 // The list of available compute devices that the model’s prediction methods
 // use.
@@ -422,8 +409,6 @@ func (m MLModel) SetAvailableComputeDevices(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
 
-
-
 // The configuration of the model set during initialization.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/configuration
@@ -431,8 +416,6 @@ func (m MLModel) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-
-
 
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
@@ -442,8 +425,6 @@ func (m MLModel) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-
-
 
 // A dictionary of the model’s creation information, such as its
 // description, author, version, and license.
@@ -456,23 +437,6 @@ func (m MLModel) Metadata() MLModelMetadataKey {
 func (m MLModel) SetMetadata(value MLModelMetadataKey) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMetadata:"), objc.String(string(value)))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // LoadModelAssetConfiguration is a synchronous wrapper around [MLModel.LoadModelAssetConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -492,9 +456,4 @@ func (mc MLModelClass) LoadModelAssetConfiguration(ctx context.Context, asset IM
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

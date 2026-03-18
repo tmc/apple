@@ -37,12 +37,6 @@ func (nc NSAnimationClass) Alloc() NSAnimation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages the timing and progress of animations in the user
 // interface.
 //
@@ -135,14 +129,10 @@ type NSAnimation struct {
 // An object that manages the timing and progress of animations in the user
 // interface.
 func NSAnimationFromID(id objc.ID) NSAnimation {
-	return NSAnimation{objectivec.Object{id}}
+	return NSAnimation{objectivec.Object{ID: id}}
 }
 // NOTE: NSAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAnimation] class.
 //
@@ -268,10 +258,6 @@ type INSAnimation interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAnimation) Init() NSAnimation {
 	rv := objc.Send[NSAnimation](a.ID, objc.Sel("init"))
@@ -291,11 +277,6 @@ func NewNSAnimation() NSAnimation {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(coder:)
 func NewAnimationWithCoder(coder foundation.INSCoder) NSAnimation {
@@ -303,7 +284,6 @@ func NewAnimationWithCoder(coder foundation.INSCoder) NSAnimation {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSAnimationFromID(rv)
 }
-
 
 // Returns an [NSAnimation] object initialized with the specified duration and
 // animation-curve values.
@@ -332,12 +312,6 @@ func NewAnimationWithDurationAnimationCurve(duration float64, animationCurve NSA
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDuration:animationCurve:"), duration, animationCurve)
 	return NSAnimationFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSAnimation] object initialized with the specified duration and
 // animation-curve values.
@@ -501,17 +475,6 @@ func (a NSAnimation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The blocking mode of the animation.
 //
 // # Discussion
@@ -543,8 +506,6 @@ func (a NSAnimation) SetAnimationBlockingMode(value NSAnimationBlockingMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationBlockingMode:"), value)
 }
 
-
-
 // An array of strings representing the run loop modes in which the animation
 // can run.
 //
@@ -565,8 +526,6 @@ func (a NSAnimation) RunLoopModesForAnimating() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("runLoopModesForAnimating"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The timing curve for the animation.
 //
@@ -593,8 +552,6 @@ func (a NSAnimation) SetAnimationCurve(value NSAnimationCurve) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationCurve:"), value)
 }
 
-
-
 // The duration of the animation, in seconds.
 //
 // # Discussion
@@ -614,8 +571,6 @@ func (a NSAnimation) Duration() float64 {
 func (a NSAnimation) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
-
-
 
 // The number of frame updates per second to generate for the animation.
 //
@@ -640,8 +595,6 @@ func (a NSAnimation) SetFrameRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFrameRate:"), value)
 }
 
-
-
 // The animation delegate.
 //
 // # Discussion
@@ -656,8 +609,6 @@ func (a NSAnimation) Delegate() NSAnimationDelegate {
 func (a NSAnimation) SetDelegate(value NSAnimationDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean value indicating whether the animation is in progress.
 //
@@ -674,8 +625,6 @@ func (a NSAnimation) Animating() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAnimating"))
 	return rv
 }
-
-
 
 // The current progress of the animation.
 //
@@ -702,8 +651,6 @@ func (a NSAnimation) SetCurrentProgress(value NSAnimationProgress) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentProgress:"), value)
 }
 
-
-
 // The current value of the animation effect, based on the current progress
 //
 // # Discussion
@@ -728,8 +675,6 @@ func (a NSAnimation) CurrentValue() float32 {
 	return rv
 }
 
-
-
 // An array of floating-point numbers representing current progress marks.
 //
 // # Discussion
@@ -751,28 +696,4 @@ func (a NSAnimation) ProgressMarks() []foundation.NSNumber {
 func (a NSAnimation) SetProgressMarks(value []foundation.NSNumber) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProgressMarks:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

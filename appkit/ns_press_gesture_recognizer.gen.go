@@ -37,12 +37,6 @@ func (nc NSPressGestureRecognizerClass) Alloc() NSPressGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
-
 // A discrete gesture recognizer that tracks whether the user holds down a
 // mouse button for a minimum amount of time before releasing it.
 //
@@ -86,10 +80,6 @@ func NSPressGestureRecognizerFromID(id objc.ID) NSPressGestureRecognizer {
 // NOTE: NSPressGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPressGestureRecognizer] class.
 //
 // # Configuring the Gesture Recognizer
@@ -121,13 +111,7 @@ type INSPressGestureRecognizer interface {
 	// The number of necessary touches on a Touch Bar for the gesture recognizer to match.
 	NumberOfTouchesRequired() int
 	SetNumberOfTouchesRequired(value int)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPressGestureRecognizer) Init() NSPressGestureRecognizer {
@@ -148,11 +132,6 @@ func NewNSPressGestureRecognizer() NSPressGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewPressGestureRecognizerWithCoder(coder foundation.INSCoder) NSPressGestureRecognizer {
@@ -160,7 +139,6 @@ func NewPressGestureRecognizerWithCoder(coder foundation.INSCoder) NSPressGestur
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPressGestureRecognizerFromID(rv)
 }
-
 
 // Initializes the gesture recognizer with the specified target and action
 // information.
@@ -194,26 +172,6 @@ func NewPressGestureRecognizerWithTargetAction(target objectivec.IObject, action
 	return NSPressGestureRecognizerFromID(rv)
 }
 
-
-
-
-
-
-func (p NSPressGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The maximum movement of the mouse in the view before the gesture fails.
 //
 // # Discussion
@@ -230,8 +188,6 @@ func (p NSPressGestureRecognizer) AllowableMovement() float64 {
 func (p NSPressGestureRecognizer) SetAllowableMovement(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowableMovement:"), value)
 }
-
-
 
 // A bit mask of the buttons required to recognize this press.
 //
@@ -259,8 +215,6 @@ func (p NSPressGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setButtonMask:"), value)
 }
 
-
-
 // The minimum time (in seconds) that the user must hold the mouse button in
 // the view for a valid gesture.
 //
@@ -278,8 +232,6 @@ func (p NSPressGestureRecognizer) SetMinimumPressDuration(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinimumPressDuration:"), value)
 }
 
-
-
 // The number of necessary touches on a Touch Bar for the gesture recognizer
 // to match.
 //
@@ -291,29 +243,4 @@ func (p NSPressGestureRecognizer) NumberOfTouchesRequired() int {
 func (p NSPressGestureRecognizer) SetNumberOfTouchesRequired(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNumberOfTouchesRequired:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -32,8 +32,6 @@ type NSAccessibilityStepper interface {
 	AccessibilityPerformIncrement() bool
 }
 
-
-
 // NSAccessibilityStepperObject wraps an existing Objective-C object that conforms to the NSAccessibilityStepper protocol.
 type NSAccessibilityStepperObject struct {
 	objectivec.Object
@@ -42,8 +40,6 @@ func (o NSAccessibilityStepperObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityStepperObjectFromID constructs a [NSAccessibilityStepperObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityStepperObjectFromID(id objc.ID) NSAccessibilityStepperObject {
@@ -51,9 +47,6 @@ func NSAccessibilityStepperObjectFromID(id objc.ID) NSAccessibilityStepperObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a short description of the stepper.
 //
@@ -247,10 +240,4 @@ func (o NSAccessibilityStepperObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

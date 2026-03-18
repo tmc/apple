@@ -35,7 +35,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _mLAllComputeDevices func() []unsafe.Pointer
 
 // MLAllComputeDevices returns an array that contains all of the compute devices that are accessible.
@@ -48,13 +47,10 @@ func MLAllComputeDevices() []unsafe.Pointer {
 	return _mLAllComputeDevices()
 }
 
-
-
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 		registerFunc(&_mLAllComputeDevices, frameworkHandle, "MLAllComputeDevices")
 	}
-
 

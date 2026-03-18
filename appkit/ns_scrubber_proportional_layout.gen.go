@@ -36,12 +36,6 @@ func (nc NSScrubberProportionalLayoutClass) Alloc() NSScrubberProportionalLayout
 	return rv
 }
 
-
-
-
-
-
-
 // A concrete layout object that sizes each item to some fraction of the
 // scrubber’s visible size.
 //
@@ -69,10 +63,6 @@ func NSScrubberProportionalLayoutFromID(id objc.ID) NSScrubberProportionalLayout
 // NOTE: NSScrubberProportionalLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSScrubberProportionalLayout] class.
 //
 // # Initializing a proprotional layout
@@ -98,13 +88,7 @@ type INSScrubberProportionalLayout interface {
 	// The number of items visible in the scrubber at once.
 	NumberOfVisibleItems() int
 	SetNumberOfVisibleItems(value int)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberProportionalLayout) Init() NSScrubberProportionalLayout {
@@ -125,11 +109,6 @@ func NewNSScrubberProportionalLayout() NSScrubberProportionalLayout {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a newly allocated proprotional layout object from a
 // storyboard or nib file.
 //
@@ -143,7 +122,6 @@ func NewScrubberProportionalLayoutWithCoder(coder foundation.INSCoder) NSScrubbe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberProportionalLayoutFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated proportional layout, configured
 // to display the given number of items.
@@ -161,12 +139,6 @@ func NewScrubberProportionalLayoutWithNumberOfVisibleItems(numberOfVisibleItems 
 	return NSScrubberProportionalLayoutFromID(rv)
 }
 
-
-
-
-
-
-
 // Initializes and returns a newly allocated proportional layout, configured
 // to display the given number of items.
 //
@@ -181,20 +153,6 @@ func (s NSScrubberProportionalLayout) InitWithNumberOfVisibleItems(numberOfVisib
 	rv := objc.Send[NSScrubberProportionalLayout](s.ID, objc.Sel("initWithNumberOfVisibleItems:"), numberOfVisibleItems)
 	return rv
 }
-func (s NSScrubberProportionalLayout) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The number of items visible in the scrubber at once.
 //
@@ -206,29 +164,4 @@ func (s NSScrubberProportionalLayout) NumberOfVisibleItems() int {
 func (s NSScrubberProportionalLayout) SetNumberOfVisibleItems(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfVisibleItems:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -16,8 +16,6 @@ type NSOutlineViewDataSource interface {
 	objectivec.IObject
 }
 
-
-
 // NSOutlineViewDataSourceObject wraps an existing Objective-C object that conforms to the NSOutlineViewDataSource protocol.
 type NSOutlineViewDataSourceObject struct {
 	objectivec.Object
@@ -26,8 +24,6 @@ func (o NSOutlineViewDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSOutlineViewDataSourceObjectFromID constructs a [NSOutlineViewDataSourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSOutlineViewDataSourceObjectFromID(id objc.ID) NSOutlineViewDataSourceObject {
@@ -35,9 +31,6 @@ func NSOutlineViewDataSourceObjectFromID(id objc.ID) NSOutlineViewDataSourceObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value that indicates whether a drop operation was
 // successful.
@@ -422,10 +415,4 @@ func (o NSOutlineViewDataSourceObject) OutlineViewValidateDropProposedItemPropos
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("outlineView:validateDrop:proposedItem:proposedChildIndex:"), outlineView, info, item, index)
 	return rv
 	}
-
-
-
-
-
-
 

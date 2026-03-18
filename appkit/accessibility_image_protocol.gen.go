@@ -22,8 +22,6 @@ type NSAccessibilityImage interface {
 	AccessibilityLabel() string
 }
 
-
-
 // NSAccessibilityImageObject wraps an existing Objective-C object that conforms to the NSAccessibilityImage protocol.
 type NSAccessibilityImageObject struct {
 	objectivec.Object
@@ -32,8 +30,6 @@ func (o NSAccessibilityImageObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityImageObjectFromID constructs a [NSAccessibilityImageObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityImageObjectFromID(id objc.ID) NSAccessibilityImageObject {
@@ -41,9 +37,6 @@ func NSAccessibilityImageObjectFromID(id objc.ID) NSAccessibilityImageObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a short description of the image’s label.
 //
@@ -164,10 +157,4 @@ func (o NSAccessibilityImageObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

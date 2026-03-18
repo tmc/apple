@@ -36,12 +36,6 @@ func (mc MLStateClass) Alloc() MLState {
 	return rv
 }
 
-
-
-
-
-
-
 // Handle to the state buffers.
 //
 // # Overview
@@ -68,14 +62,10 @@ type MLState struct {
 //
 // Handle to the state buffers.
 func MLStateFromID(id objc.ID) MLState {
-	return MLState{objectivec.Object{id}}
+	return MLState{objectivec.Object{ID: id}}
 }
 // NOTE: MLState adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLState] class.
 //
@@ -83,10 +73,6 @@ func MLStateFromID(id objc.ID) MLState {
 type IMLState interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s MLState) Init() MLState {
@@ -106,46 +92,4 @@ func NewMLState() MLState {
 	rv := objc.Send[MLState](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

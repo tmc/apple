@@ -37,12 +37,6 @@ func (nc NSTouchClass) Alloc() NSTouch {
 	return rv
 }
 
-
-
-
-
-
-
 // A snapshot of a particular touch at an instant in time.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSTouch struct {
 //
 // A snapshot of a particular touch at an instant in time.
 func NSTouchFromID(id objc.ID) NSTouch {
-	return NSTouch{objectivec.Object{id}}
+	return NSTouch{objectivec.Object{ID: id}}
 }
 // NOTE: NSTouch adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTouch] class.
 //
@@ -154,10 +144,6 @@ type INSTouch interface {
 	PreviousLocationInView(view INSView) corefoundation.CGPoint
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTouch) Init() NSTouch {
 	rv := objc.Send[NSTouch](t.ID, objc.Sel("init"))
@@ -177,15 +163,6 @@ func NewNSTouch() NSTouch {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Indicates the location of the touch in the view’s coordinates.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/location(in:)
@@ -202,17 +179,6 @@ func (t NSTouch) PreviousLocationInView(view INSView) corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A type of touch from a Touch Bar interaction.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/type
@@ -220,8 +186,6 @@ func (t NSTouch) Type() NSTouchType {
 	rv := objc.Send[NSTouchType](t.ID, objc.Sel("type"))
 	return NSTouchType(rv)
 }
-
-
 
 // The changes to a particular touch during its lifetime.
 //
@@ -243,8 +207,6 @@ func (t NSTouch) Identity() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The current phase of the touch.
 //
 // # Discussion
@@ -259,8 +221,6 @@ func (t NSTouch) Phase() NSTouchPhase {
 	return NSTouchPhase(rv)
 }
 
-
-
 // The normalized position of the touch.
 //
 // # Discussion
@@ -273,8 +233,6 @@ func (t NSTouch) NormalizedPosition() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("normalizedPosition"))
 	return corefoundation.CGPoint(rv)
 }
-
-
 
 // The indicator for a resting touch.
 //
@@ -289,8 +247,6 @@ func (t NSTouch) Resting() bool {
 	return rv
 }
 
-
-
 // The digitizer that generates the touch. Useful to distinguish touches
 // emanating from multiple-device scenarios.
 //
@@ -299,8 +255,6 @@ func (t NSTouch) Device() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("device"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The range of the touch device in points, such as 72 ppi.
 //
@@ -313,29 +267,4 @@ func (t NSTouch) DeviceSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](t.ID, objc.Sel("deviceSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

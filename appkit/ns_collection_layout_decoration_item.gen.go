@@ -37,12 +37,6 @@ func (nc NSCollectionLayoutDecorationItemClass) Alloc() NSCollectionLayoutDecora
 	return rv
 }
 
-
-
-
-
-
-
 // An object used to add a background to a section of a collection view.
 //
 // # Overview
@@ -77,10 +71,6 @@ func NSCollectionLayoutDecorationItemFromID(id objc.ID) NSCollectionLayoutDecora
 // NOTE: NSCollectionLayoutDecorationItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionLayoutDecorationItem] class.
 //
 // # Getting the element kind
@@ -112,10 +102,6 @@ type INSCollectionLayoutDecorationItem interface {
 	SetDecorationItems(value INSCollectionLayoutDecorationItem)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutDecorationItem) Init() NSCollectionLayoutDecorationItem {
 	rv := objc.Send[NSCollectionLayoutDecorationItem](c.ID, objc.Sel("init"))
@@ -135,11 +121,6 @@ func NewNSCollectionLayoutDecorationItem() NSCollectionLayoutDecorationItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates an item of the specified size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/init(layoutSize:)
@@ -147,7 +128,6 @@ func NewCollectionLayoutDecorationItemWithLayoutSize(layoutSize INSCollectionLay
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutDecorationItemClass().class), objc.Sel("itemWithLayoutSize:"), layoutSize)
 	return NSCollectionLayoutDecorationItemFromID(rv)
 }
-
 
 // Creates an item of the specified size with an array of supplementary items
 // to attach to the item.
@@ -158,16 +138,6 @@ func NewCollectionLayoutDecorationItemWithLayoutSizeSupplementaryItems(layoutSiz
 	return NSCollectionLayoutDecorationItemFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
 // Creates a section background with a string to identify the element kind.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutDecorationItem/background(elementKind:)
@@ -176,13 +146,6 @@ func (_NSCollectionLayoutDecorationItemClass NSCollectionLayoutDecorationItemCla
 	return NSCollectionLayoutDecorationItemFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A string that identifies the type of decoration item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutDecorationItem/elementKind
@@ -190,8 +153,6 @@ func (c NSCollectionLayoutDecorationItem) ElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("elementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The vertical stacking order of the decoration item in relation to other
 // items in the section.
@@ -210,8 +171,6 @@ func (c NSCollectionLayoutDecorationItem) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
 }
 
-
-
 // An array of the decoration items that are anchored to the section, such as
 // background decoration views.
 //
@@ -223,29 +182,4 @@ func (c NSCollectionLayoutDecorationItem) DecorationItems() INSCollectionLayoutD
 func (c NSCollectionLayoutDecorationItem) SetDecorationItems(value INSCollectionLayoutDecorationItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDecorationItems:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

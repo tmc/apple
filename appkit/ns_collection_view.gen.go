@@ -38,12 +38,6 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 	return rv
 }
 
-
-
-
-
-
-
 // An ordered collection of data items displayed in a customizable layout.
 //
 // # Overview
@@ -370,10 +364,6 @@ func NSCollectionViewFromID(id objc.ID) NSCollectionView {
 // NOTE: NSCollectionView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionView] class.
 //
 // # Providing the Collection View’s Data
@@ -660,13 +650,7 @@ type INSCollectionView interface {
 	DraggingImageForItemsAtIndexesWithEventOffset(indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage
 	// Configures the drag operation mask.
 	SetDraggingSourceOperationMaskForLocal(dragOperationMask NSDragOperation, localDestination bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCollectionView) Init() NSCollectionView {
@@ -687,11 +671,6 @@ func NewNSCollectionView() NSCollectionView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -706,7 +685,6 @@ func NewCollectionViewWithCoder(coder foundation.INSCoder) NSCollectionView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCollectionViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -729,12 +707,6 @@ func NewCollectionViewWithFrame(frameRect corefoundation.CGRect) NSCollectionVie
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSCollectionViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates or returns a reusable item object of the specified type.
 //
@@ -1592,11 +1564,11 @@ func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/performBatchUpdates(_:completionHandler:)
 func (c NSCollectionView) PerformBatchUpdatesCompletionHandler(updates VoidHandler, completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewVoidBlock(updates)
+_block0, _cleanup0 := NewVoidBlock(updates)
 	defer _cleanup0()
 	_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](c.ID, objc.Sel("performBatchUpdates:completionHandler:"), _block0, _block1)
+	objc.Send[objc.ID](c.ID, objc.Sel("performBatchUpdates:completionHandler:"), _block0, _block1)
 }
 
 // Returns an image to use for dragging the specified items.
@@ -1857,20 +1829,6 @@ func (c NSCollectionView) IgnoreModifierKeysForDraggingSession(session INSDraggi
 	rv := objc.Send[bool](c.ID, objc.Sel("ignoreModifierKeysForDraggingSession:"), session)
 	return rv
 }
-func (c NSCollectionView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // An object that provides data for the collection view.
 //
@@ -1895,8 +1853,6 @@ func (c NSCollectionView) SetDataSource(value NSCollectionViewDataSource) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDataSource:"), value)
 }
 
-
-
 // The collection view’s delegate object.
 //
 // # Discussion
@@ -1915,8 +1871,6 @@ func (c NSCollectionView) Delegate() NSCollectionViewDelegate {
 func (c NSCollectionView) SetDelegate(value NSCollectionViewDelegate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // An array that provides data for the collection view.
 //
@@ -1944,8 +1898,6 @@ func (c NSCollectionView) SetContent(value []objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContent:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The background view placed behind all items and supplementary views.
 //
 // # Discussion
@@ -1971,8 +1923,6 @@ func (c NSCollectionView) SetBackgroundView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundView:"), value)
 }
 
-
-
 // An array containing the collection view’s background colors.
 //
 // # Discussion
@@ -1997,8 +1947,6 @@ func (c NSCollectionView) BackgroundColors() []NSColor {
 func (c NSCollectionView) SetBackgroundColors(value []NSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundColors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // A Boolean value that indicates whether the collection view’s background
 // view scrolls with the items and other content.
@@ -2029,8 +1977,6 @@ func (c NSCollectionView) SetBackgroundViewScrollsWithContent(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundViewScrollsWithContent:"), value)
 }
 
-
-
 // The layout object used to organize the collection view’s content.
 //
 // # Discussion
@@ -2059,8 +2005,6 @@ func (c NSCollectionView) SetCollectionViewLayout(value INSCollectionViewLayout)
 	objc.Send[struct{}](c.ID, objc.Sel("setCollectionViewLayout:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/prefetchDataSource
 func (c NSCollectionView) PrefetchDataSource() NSCollectionViewPrefetching {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("prefetchDataSource"))
@@ -2069,8 +2013,6 @@ func (c NSCollectionView) PrefetchDataSource() NSCollectionViewPrefetching {
 func (c NSCollectionView) SetPrefetchDataSource(value NSCollectionViewPrefetching) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPrefetchDataSource:"), value)
 }
-
-
 
 // The number of sections in the collection view.
 //
@@ -2085,8 +2027,6 @@ func (c NSCollectionView) NumberOfSections() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfSections"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the user may select items in the
 // collection view.
@@ -2112,8 +2052,6 @@ func (c NSCollectionView) SetSelectable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectable:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the user may select more than one
 // item in the collection view.
 //
@@ -2136,8 +2074,6 @@ func (c NSCollectionView) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
 
-
-
 // A Boolean value indicating whether the collection view may have no selected
 // items.
 //
@@ -2158,8 +2094,6 @@ func (c NSCollectionView) AllowsEmptySelection() bool {
 func (c NSCollectionView) SetAllowsEmptySelection(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsEmptySelection:"), value)
 }
-
-
 
 // The set of index paths representing the currently selected items.
 //
@@ -2192,8 +2126,6 @@ func (c NSCollectionView) SetSelectionIndexPaths(value foundation.INSSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectionIndexPaths:"), value)
 }
 
-
-
 // A Boolean value indicating whether the collection view is the first
 // responder.
 //
@@ -2209,8 +2141,6 @@ func (c NSCollectionView) FirstResponder() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFirstResponder"))
 	return rv
 }
-
-
 
 // The indexes of the currently selected items.
 //
@@ -2230,12 +2160,6 @@ func (c NSCollectionView) SetSelectionIndexes(value foundation.NSIndexSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectionIndexes:"), value)
 }
 
-
-
-
-
-
-
 // The element kind string assigned to the attributes object when it
 // represents an inter-item gap.
 //
@@ -2245,8 +2169,6 @@ func (_NSCollectionViewClass NSCollectionViewClass) ElementKindInterItemGapIndic
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // A supplementary view that acts as a footer for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
@@ -2254,8 +2176,6 @@ func (_NSCollectionViewClass NSCollectionViewClass) ElementKindSectionFooter() s
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // A supplementary view that acts as a header for a given section.
 //
@@ -2265,39 +2185,6 @@ func (_NSCollectionViewClass NSCollectionViewClass) ElementKindSectionHeader() s
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSDraggingSource
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

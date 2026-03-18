@@ -36,12 +36,6 @@ func (nc NSPressureConfigurationClass) Alloc() NSPressureConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // An encapsulation of the behavior and progression of a Force Touch trackpad
 // as it responds to specific events.
 //
@@ -71,14 +65,10 @@ type NSPressureConfiguration struct {
 // An encapsulation of the behavior and progression of a Force Touch trackpad
 // as it responds to specific events.
 func NSPressureConfigurationFromID(id objc.ID) NSPressureConfiguration {
-	return NSPressureConfiguration{objectivec.Object{id}}
+	return NSPressureConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: NSPressureConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPressureConfiguration] class.
 //
@@ -108,10 +98,6 @@ type INSPressureConfiguration interface {
 	PressureBehavior() NSPressureBehavior
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPressureConfiguration) Init() NSPressureConfiguration {
 	rv := objc.Send[NSPressureConfiguration](p.ID, objc.Sel("init"))
@@ -130,11 +116,6 @@ func NewNSPressureConfiguration() NSPressureConfiguration {
 	rv := objc.Send[NSPressureConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a pressure configuration object with a specified pressure
 // behavior.
@@ -159,12 +140,6 @@ func NewPressureConfigurationWithPressureBehavior(pressureBehavior NSPressureBeh
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPressureBehavior:"), pressureBehavior)
 	return NSPressureConfigurationFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a pressure configuration object with a specified pressure
 // behavior.
@@ -212,17 +187,6 @@ func (p NSPressureConfiguration) Set() {
 	objc.Send[objc.ID](p.ID, objc.Sel("set"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The pressure behavior of the pressure configuration object.
 //
 // # Discussion
@@ -236,26 +200,4 @@ func (p NSPressureConfiguration) PressureBehavior() NSPressureBehavior {
 	rv := objc.Send[NSPressureBehavior](p.ID, objc.Sel("pressureBehavior"))
 	return NSPressureBehavior(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

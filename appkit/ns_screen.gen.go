@@ -38,12 +38,6 @@ func (nc NSScreenClass) Alloc() NSScreen {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that describes the attributes of a computer’s monitor or
 // screen.
 //
@@ -121,14 +115,10 @@ type NSScreen struct {
 // An object that describes the attributes of a computer’s monitor or
 // screen.
 func NSScreenFromID(id objc.ID) NSScreen {
-	return NSScreen{objectivec.Object{id}}
+	return NSScreen{objectivec.Object{ID: id}}
 }
 // NOTE: NSScreen adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScreen] class.
 //
@@ -259,10 +249,6 @@ type INSScreen interface {
 	SetCgDirectDisplayID(value uint32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScreen) Init() NSScreen {
 	rv := objc.Send[NSScreen](s.ID, objc.Sel("init"))
@@ -281,15 +267,6 @@ func NewNSScreen() NSScreen {
 	rv := objc.Send[NSScreen](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // A Boolean value indicating whether the color space of the screen is capable
 // of representing the specified display gamut.
@@ -367,17 +344,6 @@ func (s NSScreen) DisplayLinkWithTargetSelector(target objectivec.IObject, selec
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The current bit depth and colorspace information of the screen.
 //
 // # Discussion
@@ -392,8 +358,6 @@ func (s NSScreen) Depth() NSWindowDepth {
 	return NSWindowDepth(rv)
 }
 
-
-
 // The dimensions and location of the screen.
 //
 // # Discussion
@@ -406,8 +370,6 @@ func (s NSScreen) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // A zero-terminated array of the window depths supported by the screen.
 //
@@ -423,8 +385,6 @@ func (s NSScreen) SupportedWindowDepths() NSWindowDepth {
 	rv := objc.Send[NSWindowDepth](s.ID, objc.Sel("supportedWindowDepths"))
 	return NSWindowDepth(rv)
 }
-
-
 
 // The device dictionary for the screen.
 //
@@ -451,8 +411,6 @@ func (s NSScreen) DeviceDescription() foundation.INSDictionary {
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The color space of the screen.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/colorSpace
@@ -461,8 +419,6 @@ func (s NSScreen) ColorSpace() INSColorSpace {
 	return NSColorSpaceFromID(objc.ID(rv))
 }
 
-
-
 // The localized name of the display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/localizedName
@@ -470,8 +426,6 @@ func (s NSScreen) LocalizedName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("localizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The backing store pixel scale factor for the screen.
 //
@@ -489,8 +443,6 @@ func (s NSScreen) BackingScaleFactor() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("backingScaleFactor"))
 	return rv
 }
-
-
 
 // The current location and dimensions of the visible screen.
 //
@@ -517,8 +469,6 @@ func (s NSScreen) VisibleFrame() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The distances from the screen’s edges at which content isn’t obscured.
 //
 // # Discussion
@@ -541,8 +491,6 @@ func (s NSScreen) SafeAreaInsets() foundation.NSEdgeInsets {
 	return foundation.NSEdgeInsets(rv)
 }
 
-
-
 // The unobscured portion of the top-left corner of the screen.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscreen/auxiliarytopleftarea-uglc
@@ -554,8 +502,6 @@ func (s NSScreen) SetAuxiliaryTopLeftArea(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAuxiliaryTopLeftArea:"), value)
 }
 
-
-
 // The unobscured portion of the top-right corner of the screen.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscreen/auxiliarytoprightarea-gr2n
@@ -566,8 +512,6 @@ func (s NSScreen) AuxiliaryTopRightArea() corefoundation.CGRect {
 func (s NSScreen) SetAuxiliaryTopRightArea(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAuxiliaryTopRightArea:"), value)
 }
-
-
 
 // The maximum possible color component value for the screen when it’s in
 // extended dynamic range (EDR) mode.
@@ -590,8 +534,6 @@ func (s NSScreen) MaximumPotentialExtendedDynamicRangeColorComponentValue() floa
 	return rv
 }
 
-
-
 // The current maximum color component value for the screen.
 //
 // # Discussion
@@ -611,8 +553,6 @@ func (s NSScreen) MaximumExtendedDynamicRangeColorComponentValue() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("maximumExtendedDynamicRangeColorComponentValue"))
 	return rv
 }
-
-
 
 // The current maximum color component value for reference rendering to the
 // screen.
@@ -636,8 +576,6 @@ func (s NSScreen) MaximumReferenceExtendedDynamicRangeColorComponentValue() floa
 	return rv
 }
 
-
-
 // The maximum number of frames per second that the screen supports.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/maximumFramesPerSecond
@@ -645,8 +583,6 @@ func (s NSScreen) MaximumFramesPerSecond() int {
 	rv := objc.Send[int](s.ID, objc.Sel("maximumFramesPerSecond"))
 	return rv
 }
-
-
 
 // The shortest refresh interval that the screen supports.
 //
@@ -662,8 +598,6 @@ func (s NSScreen) MinimumRefreshInterval() float64 {
 	return rv
 }
 
-
-
 // The largest refresh interval that the screen supports.
 //
 // # Discussion
@@ -677,8 +611,6 @@ func (s NSScreen) MaximumRefreshInterval() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("maximumRefreshInterval"))
 	return rv
 }
-
-
 
 // The number of seconds between the screen’s supported update rates, for
 // screens that support fixed update rates.
@@ -702,8 +634,6 @@ func (s NSScreen) DisplayUpdateGranularity() float64 {
 	return rv
 }
 
-
-
 // The time of the last framebuffer update, expressed as the number of seconds
 // since system startup.
 //
@@ -718,8 +648,6 @@ func (s NSScreen) LastDisplayUpdateTimestamp() float64 {
 	return rv
 }
 
-
-
 // The CGDirectDisplayID for this screen. This will return nil if there
 // isn’t one and will never return kCGNullDirectDisplay.
 //
@@ -731,12 +659,6 @@ func (s NSScreen) CgDirectDisplayID() uint32 {
 func (s NSScreen) SetCgDirectDisplayID(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCgDirectDisplayID:"), value)
 }
-
-
-
-
-
-
 
 // Returns the screen object containing the window with the keyboard focus.
 //
@@ -761,8 +683,6 @@ func (_NSScreenClass NSScreenClass) MainScreen() NSScreen {
 	return NSScreenFromID(objc.ID(rv))
 }
 
-
-
 // Returns a screen object representing the screen that can best represent
 // color.
 //
@@ -780,8 +700,6 @@ func (_NSScreenClass NSScreenClass) DeepestScreen() NSScreen {
 	rv := objc.Send[objc.ID](objc.ID(_NSScreenClass.class), objc.Sel("deepestScreen"))
 	return NSScreenFromID(objc.ID(rv))
 }
-
-
 
 // Returns an array of screen objects representing all of the screens
 // available on the system.
@@ -815,8 +733,6 @@ func (_NSScreenClass NSScreenClass) Screens() []NSScreen {
 	})
 }
 
-
-
 // Returns a Boolean value indicating whether each screen can have its own set
 // of spaces.
 //
@@ -832,8 +748,6 @@ func (_NSScreenClass NSScreenClass) ScreensHaveSeparateSpaces() bool {
 	return rv
 }
 
-
-
 // Returns the application instance, creating it if it doesn’t exist yet.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/shared
@@ -844,22 +758,4 @@ func (_NSScreenClass NSScreenClass) Shared() NSApplication {
 func (_NSScreenClass NSScreenClass) SetShared(value NSApplication) {
 	objc.Send[struct{}](objc.ID(_NSScreenClass.class), objc.Sel("setSharedApplication:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

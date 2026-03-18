@@ -20,4 +20,3 @@ func (n NSColor) RGBA() (r, g, b, a uint32) {
 	return
 }
 
-

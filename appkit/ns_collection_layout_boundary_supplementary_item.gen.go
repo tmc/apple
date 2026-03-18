@@ -37,12 +37,6 @@ func (nc NSCollectionLayoutBoundarySupplementaryItemClass) Alloc() NSCollectionL
 	return rv
 }
 
-
-
-
-
-
-
 // An object used to add headers or footers to a collection view.
 //
 // # Overview
@@ -85,10 +79,6 @@ func NSCollectionLayoutBoundarySupplementaryItemFromID(id objc.ID) NSCollectionL
 // NOTE: NSCollectionLayoutBoundarySupplementaryItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionLayoutBoundarySupplementaryItem] class.
 //
 // # Specifying scrolling behavior
@@ -128,10 +118,6 @@ type INSCollectionLayoutBoundarySupplementaryItem interface {
 	SetBoundarySupplementaryItems(value INSCollectionLayoutBoundarySupplementaryItem)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutBoundarySupplementaryItem) Init() NSCollectionLayoutBoundarySupplementaryItem {
 	rv := objc.Send[NSCollectionLayoutBoundarySupplementaryItem](c.ID, objc.Sel("init"))
@@ -151,11 +137,6 @@ func NewNSCollectionLayoutBoundarySupplementaryItem() NSCollectionLayoutBoundary
 	return rv
 }
 
-
-
-
-
-
 // Creates an item of the specified size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/init(layoutSize:)
@@ -163,7 +144,6 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSize(layoutSize INSCo
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutBoundarySupplementaryItemClass().class), objc.Sel("itemWithLayoutSize:"), layoutSize)
 	return NSCollectionLayoutBoundarySupplementaryItemFromID(rv)
 }
-
 
 // Creates a boundary supplementary item of the specified size and element
 // kind, with an alignment relative to a section or layout.
@@ -173,7 +153,6 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSizeElementKindAlignm
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutBoundarySupplementaryItemClass().class), objc.Sel("boundarySupplementaryItemWithLayoutSize:elementKind:alignment:"), layoutSize, objc.String(elementKind), alignment)
 	return NSCollectionLayoutBoundarySupplementaryItemFromID(rv)
 }
-
 
 // Creates a boundary supplementary item of the specified size and element
 // kind, with an alignment relative to a section or layout at an absolute
@@ -185,7 +164,6 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSizeElementKindAlignm
 	return NSCollectionLayoutBoundarySupplementaryItemFromID(rv)
 }
 
-
 // Creates a supplementary item of the specified size and element kind, with
 // an anchor relative to a container.
 //
@@ -194,7 +172,6 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSizeElementKindContai
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutBoundarySupplementaryItemClass().class), objc.Sel("supplementaryItemWithLayoutSize:elementKind:containerAnchor:"), layoutSize, objc.String(elementKind), containerAnchor)
 	return NSCollectionLayoutBoundarySupplementaryItemFromID(rv)
 }
-
 
 // Creates a supplementary item of the specified size and element kind, an
 // anchor relative to a container, and an anchor relative to an item.
@@ -205,7 +182,6 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSizeElementKindContai
 	return NSCollectionLayoutBoundarySupplementaryItemFromID(rv)
 }
 
-
 // Creates an item of the specified size with an array of supplementary items
 // to attach to the item.
 //
@@ -214,23 +190,6 @@ func NewCollectionLayoutBoundarySupplementaryItemWithLayoutSizeSupplementaryItem
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutBoundarySupplementaryItemClass().class), objc.Sel("itemWithLayoutSize:supplementaryItems:"), layoutSize, objectivec.IObjectSliceToNSArray(supplementaryItems))
 	return NSCollectionLayoutBoundarySupplementaryItemFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether a header or footer is pinned to the
 // top or bottom visible boundary of the section or layout it’s attached to.
@@ -257,8 +216,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) SetPinToVisibleBounds(value
 	objc.Send[struct{}](c.ID, objc.Sel("setPinToVisibleBounds:"), value)
 }
 
-
-
 // The floating-point value of the boundary supplementary item’s offset from
 // the section or layout it’s attached to.
 //
@@ -268,8 +225,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) Offset() corefoundation.CGP
 	return corefoundation.CGPoint(rv)
 }
 
-
-
 // The alignment of the boundary supplementary item relative to the section or
 // layout it’s attached to.
 //
@@ -278,8 +233,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) Alignment() NSRectAlignment
 	rv := objc.Send[NSRectAlignment](c.ID, objc.Sel("alignment"))
 	return NSRectAlignment(rv)
 }
-
-
 
 // A Boolean value that indicates whether a boundary supplementary item
 // extends the content area of the section or layout it’s attached to.
@@ -299,8 +252,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) SetExtendsBoundary(value bo
 	objc.Send[struct{}](c.ID, objc.Sel("setExtendsBoundary:"), value)
 }
 
-
-
 // An array of the supplementary items that are associated with the boundary
 // edges of the entire layout, such as global headers and footers.
 //
@@ -312,27 +263,4 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) BoundarySupplementaryItems(
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetBoundarySupplementaryItems(value INSCollectionLayoutBoundarySupplementaryItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

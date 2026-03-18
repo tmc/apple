@@ -37,12 +37,6 @@ func (nc NSOpenPanelClass) Alloc() NSOpenPanel {
 	return rv
 }
 
-
-
-
-
-
-
 // A panel that prompts the user to select a file to open.
 //
 // # Overview
@@ -91,10 +85,6 @@ func NSOpenPanelFromID(id objc.ID) NSOpenPanel {
 }
 // NOTE: NSOpenPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSOpenPanel] class.
 //
@@ -157,13 +147,7 @@ type INSOpenPanel interface {
 	// A Boolean value that indicates how the panel responds to iCloud documents that have conflicting versions.
 	CanResolveUbiquitousConflicts() bool
 	SetCanResolveUbiquitousConflicts(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (o NSOpenPanel) Init() NSOpenPanel {
@@ -183,11 +167,6 @@ func NewNSOpenPanel() NSOpenPanel {
 	rv := objc.Send[NSOpenPanel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a titled window that contains the specified content view
 // controller.
@@ -221,7 +200,6 @@ func NewOpenPanelWindowWithContentViewController(contentViewController INSViewCo
 	return NSOpenPanelFromID(rv)
 }
 
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -232,7 +210,6 @@ func NewOpenPanelWithCoder(coder foundation.INSCoder) NSOpenPanel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSOpenPanelFromID(rv)
 }
-
 
 // Initializes the window with the specified values.
 //
@@ -283,7 +260,6 @@ func NewOpenPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
 	return NSOpenPanelFromID(rv)
 }
-
 
 // Initializes an allocated window with the specified values.
 //
@@ -339,26 +315,6 @@ func NewOpenPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 	return NSOpenPanelFromID(rv)
 }
 
-
-
-
-
-
-func (o NSOpenPanel) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean that indicates whether the user can choose files in the panel.
 //
 // # Discussion
@@ -376,8 +332,6 @@ func (o NSOpenPanel) CanChooseFiles() bool {
 func (o NSOpenPanel) SetCanChooseFiles(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanChooseFiles:"), value)
 }
-
-
 
 // A Boolean that indicates whether the user can choose directories in the
 // panel.
@@ -397,8 +351,6 @@ func (o NSOpenPanel) CanChooseDirectories() bool {
 func (o NSOpenPanel) SetCanChooseDirectories(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanChooseDirectories:"), value)
 }
-
-
 
 // A Boolean that indicates whether the panel resolves aliases.
 //
@@ -421,8 +373,6 @@ func (o NSOpenPanel) SetResolvesAliases(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setResolvesAliases:"), value)
 }
 
-
-
 // A Boolean that indicates whether the user may select multiple files and
 // directories.
 //
@@ -443,8 +393,6 @@ func (o NSOpenPanel) AllowsMultipleSelection() bool {
 func (o NSOpenPanel) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the panel’s accessory view is
 // visible.
@@ -468,8 +416,6 @@ func (o NSOpenPanel) SetAccessoryViewDisclosed(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessoryViewDisclosed:"), value)
 }
 
-
-
 // An array of URLs, each of which contains the fully specified location of a
 // selected file or directory.
 //
@@ -485,8 +431,6 @@ func (o NSOpenPanel) URLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
-
-
 
 // A Boolean value that indicates how the panel responds to iCloud documents
 // that aren’t fully downloaded locally.
@@ -522,8 +466,6 @@ func (o NSOpenPanel) SetCanDownloadUbiquitousContents(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanDownloadUbiquitousContents:"), value)
 }
 
-
-
 // A Boolean value that indicates how the panel responds to iCloud documents
 // that have conflicting versions.
 //
@@ -557,39 +499,4 @@ func (o NSOpenPanel) CanResolveUbiquitousConflicts() bool {
 func (o NSOpenPanel) SetCanResolveUbiquitousConflicts(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanResolveUbiquitousConflicts:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

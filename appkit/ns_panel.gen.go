@@ -37,12 +37,6 @@ func (nc NSPanelClass) Alloc() NSPanel {
 	return rv
 }
 
-
-
-
-
-
-
 // A special kind of window that typically performs a function that is
 // auxiliary to the main window.
 //
@@ -73,10 +67,6 @@ func NSPanelFromID(id objc.ID) NSPanel {
 // NOTE: NSPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPanel] class.
 //
 // # Configuring Panels
@@ -93,13 +83,7 @@ type INSPanel interface {
 	// A Boolean value that indicates whether the receiver becomes the key window only when needed.
 	BecomesKeyOnlyIfNeeded() bool
 	SetBecomesKeyOnlyIfNeeded(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPanel) Init() NSPanel {
@@ -119,11 +103,6 @@ func NewNSPanel() NSPanel {
 	rv := objc.Send[NSPanel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a titled window that contains the specified content view
 // controller.
@@ -157,7 +136,6 @@ func NewPanelWindowWithContentViewController(contentViewController INSViewContro
 	return NSPanelFromID(rv)
 }
 
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -168,7 +146,6 @@ func NewPanelWithCoder(coder foundation.INSCoder) NSPanel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPanelFromID(rv)
 }
-
 
 // Initializes the window with the specified values.
 //
@@ -219,7 +196,6 @@ func NewPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation.CGR
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
 	return NSPanelFromID(rv)
 }
-
 
 // Initializes an allocated window with the specified values.
 //
@@ -275,26 +251,6 @@ func NewPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundati
 	return NSPanelFromID(rv)
 }
 
-
-
-
-
-
-func (p NSPanel) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the receiver becomes the key window
 // only when needed.
 //
@@ -325,39 +281,4 @@ func (p NSPanel) BecomesKeyOnlyIfNeeded() bool {
 func (p NSPanel) SetBecomesKeyOnlyIfNeeded(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBecomesKeyOnlyIfNeeded:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSTextInsertionIndicatorClass) Alloc() NSTextInsertionIndicator {
 	return rv
 }
 
-
-
-
-
-
-
 // A view that represents the insertion indicator in text.
 //
 // # Overview
@@ -107,10 +101,6 @@ func NSTextInsertionIndicatorFromID(id objc.ID) NSTextInsertionIndicator {
 // NOTE: NSTextInsertionIndicator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTextInsertionIndicator] class.
 //
 // # Configuring indicators
@@ -148,13 +138,7 @@ type INSTextInsertionIndicator interface {
 	// Options that affect the automatic display mode.
 	AutomaticModeOptions() NSTextInsertionIndicatorAutomaticModeOptions
 	SetAutomaticModeOptions(value NSTextInsertionIndicatorAutomaticModeOptions)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextInsertionIndicator) Init() NSTextInsertionIndicator {
@@ -175,11 +159,6 @@ func NewNSTextInsertionIndicator() NSTextInsertionIndicator {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -194,7 +173,6 @@ func NewTextInsertionIndicatorWithCoder(coder foundation.INSCoder) NSTextInserti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextInsertionIndicatorFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -218,26 +196,6 @@ func NewTextInsertionIndicatorWithFrame(frameRect corefoundation.CGRect) NSTextI
 	return NSTextInsertionIndicatorFromID(rv)
 }
 
-
-
-
-
-
-func (t NSTextInsertionIndicator) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The color of this indicator.
 //
 // # Discussion
@@ -256,8 +214,6 @@ func (t NSTextInsertionIndicator) Color() INSColor {
 func (t NSTextInsertionIndicator) SetColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setColor:"), value)
 }
-
-
 
 // An optional closure the system calls during dictation.
 //
@@ -283,8 +239,6 @@ func (t NSTextInsertionIndicator) SetEffectsViewInserter(value ViewHandler) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEffectsViewInserter:"), block)
 }
 
-
-
 // A value that describes the display mode of an indicator.
 //
 // # Discussion
@@ -307,8 +261,6 @@ func (t NSTextInsertionIndicator) SetDisplayMode(value NSTextInsertionIndicatorD
 	objc.Send[struct{}](t.ID, objc.Sel("setDisplayMode:"), value)
 }
 
-
-
 // Options that affect the automatic display mode.
 //
 // # Discussion
@@ -324,12 +276,6 @@ func (t NSTextInsertionIndicator) SetAutomaticModeOptions(value NSTextInsertionI
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticModeOptions:"), value)
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/textinsertionpointcolor
 func (_NSTextInsertionIndicatorClass NSTextInsertionIndicatorClass) TextInsertionPointColor() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSTextInsertionIndicatorClass.class), objc.Sel("textInsertionPointColor"))
@@ -338,34 +284,4 @@ func (_NSTextInsertionIndicatorClass NSTextInsertionIndicatorClass) TextInsertio
 func (_NSTextInsertionIndicatorClass NSTextInsertionIndicatorClass) SetTextInsertionPointColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSTextInsertionIndicatorClass.class), objc.Sel("setTextInsertionPointColor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

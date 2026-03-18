@@ -37,12 +37,6 @@ func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate
 	return rv
 }
 
-
-
-
-
-
-
 // A template that describes available predicates and how to display them.
 //
 // # Overview
@@ -131,14 +125,10 @@ type NSPredicateEditorRowTemplate struct {
 //
 // A template that describes available predicates and how to display them.
 func NSPredicateEditorRowTemplateFromID(id objc.ID) NSPredicateEditorRowTemplate {
-	return NSPredicateEditorRowTemplate{objectivec.Object{id}}
+	return NSPredicateEditorRowTemplate{objectivec.Object{ID: id}}
 }
 // NOTE: NSPredicateEditorRowTemplate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPredicateEditorRowTemplate] class.
 //
@@ -218,10 +208,6 @@ type INSPredicateEditorRowTemplate interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPredicateEditorRowTemplate) Init() NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("init"))
@@ -240,11 +226,6 @@ func NewNSPredicateEditorRowTemplate() NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns a row template suitable for displaying compound
 // predicates.
@@ -270,7 +251,6 @@ func NewPredicateEditorRowTemplateWithCompoundTypes(compoundTypes []foundation.N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompoundTypes:"), objectivec.IObjectSliceToNSArray(compoundTypes))
 	return NSPredicateEditorRowTemplateFromID(rv)
 }
-
 
 // Initializes and returns a “pop-up-pop-up-view”–style row template.
 //
@@ -328,7 +308,6 @@ func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionAttributeTyp
 	return NSPredicateEditorRowTemplateFromID(rv)
 }
 
-
 // Initializes and returns a “pop-up-pop-up-pop-up”–style row template.
 //
 // leftExpressions: An array of [NSExpression] objects that represent the left side of a
@@ -370,12 +349,6 @@ func NewPredicateEditorRowTemplateWithLeftExpressionsRightExpressionsModifierOpe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpressions:rightExpressions:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), objectivec.IObjectSliceToNSArray(rightExpressions), modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return NSPredicateEditorRowTemplateFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a “pop-up-pop-up-pop-up”–style row template.
 //
@@ -592,10 +565,6 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns an array of predicate templates for the given attribute key paths
 // for a given entity.
 //
@@ -626,13 +595,6 @@ func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) Temp
 	})
 }
 
-
-
-
-
-
-
-
 // Returns the views that display this template’s predicate.
 //
 // # Return Value
@@ -655,8 +617,6 @@ func (p NSPredicateEditorRowTemplate) TemplateViews() []NSView {
 	})
 }
 
-
-
 // Returns the left hand expressions for the receiver.
 //
 // # Return Value
@@ -671,8 +631,6 @@ func (p NSPredicateEditorRowTemplate) LeftExpressions() []foundation.NSExpressio
 	})
 }
 
-
-
 // Returns the right hand expressions for the receiver.
 //
 // # Return Value
@@ -686,8 +644,6 @@ func (p NSPredicateEditorRowTemplate) RightExpressions() []foundation.NSExpressi
 		return foundation.NSExpressionFromID(id)
 	})
 }
-
-
 
 // Returns the compound predicate types.
 //
@@ -707,8 +663,6 @@ func (p NSPredicateEditorRowTemplate) CompoundTypes() []foundation.NSNumber {
 	})
 }
 
-
-
 // Returns the comparison predicate modifier for the receiver.
 //
 // # Return Value
@@ -720,8 +674,6 @@ func (p NSPredicateEditorRowTemplate) Modifier() foundation.NSComparisonPredicat
 	rv := objc.Send[foundation.NSComparisonPredicateModifier](p.ID, objc.Sel("modifier"))
 	return foundation.NSComparisonPredicateModifier(rv)
 }
-
-
 
 // Returns the array of comparison predicate operators.
 //
@@ -741,8 +693,6 @@ func (p NSPredicateEditorRowTemplate) Operators() []foundation.NSNumber {
 	})
 }
 
-
-
 // Returns the comparison predicate options.
 //
 // # Return Value
@@ -760,8 +710,6 @@ func (p NSPredicateEditorRowTemplate) Options() uint {
 	return rv
 }
 
-
-
 // Returns the attribute type of the receiver’s right expression.
 //
 // # Return Value
@@ -774,8 +722,6 @@ func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() objectivec.
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The value of the receiver’s cell as an Objective-C object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/objectvalue
@@ -787,8 +733,6 @@ func (p NSPredicateEditorRowTemplate) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObjectValue:"), value)
 }
 
-
-
 // The row templates for the receiver.
 //
 // See: https://developer.apple.com/documentation/appkit/nspredicateeditor/rowtemplates
@@ -799,28 +743,4 @@ func (p NSPredicateEditorRowTemplate) RowTemplates() INSPredicateEditorRowTempla
 func (p NSPredicateEditorRowTemplate) SetRowTemplates(value INSPredicateEditorRowTemplate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRowTemplates:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

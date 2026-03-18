@@ -38,12 +38,6 @@ func (nc NSTextClass) Alloc() NSText {
 	return rv
 }
 
-
-
-
-
-
-
 // The most general programmatic interface for objects that manage text.
 //
 // # Overview
@@ -62,11 +56,6 @@ func (nc NSTextClass) Alloc() NSText {
 // example, a text object draws the title of a window, the commands in a menu,
 // the title of a button, and the items in a browser. Your app can also create
 // text objects for its own purposes.
-//
-// # Getting the characters
-//
-//   - [NSText.String]: The characters of the receiver’s text.
-//   - [NSText.SetString]
 //
 // # Setting graphics attributes
 //
@@ -203,16 +192,7 @@ func NSTextFromID(id objc.ID) NSText {
 // NOTE: NSText adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSText] class.
-//
-// # Getting the characters
-//
-//   - [INSText.String]: The characters of the receiver’s text.
-//   - [INSText.SetString]
 //
 // # Setting graphics attributes
 //
@@ -340,12 +320,6 @@ type INSText interface {
 	INSView
 	NSChangeSpelling
 	NSIgnoreMisspelledWords
-
-	// Topic: Getting the characters
-
-	// The characters of the receiver’s text.
-	String() string
-	SetString(value string)
 
 	// Topic: Setting graphics attributes
 
@@ -516,13 +490,7 @@ type INSText interface {
 	// The receiver’s delegate.
 	Delegate() NSTextDelegate
 	SetDelegate(value NSTextDelegate)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSText) Init() NSText {
@@ -543,11 +511,6 @@ func NewNSText() NSText {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/init(coder:)
 func NewTextWithCoder(coder foundation.INSCoder) NSText {
@@ -556,7 +519,6 @@ func NewTextWithCoder(coder foundation.INSCoder) NSText {
 	return NSTextFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/init(frame:)
 func NewTextWithFrame(frameRect corefoundation.CGRect) NSText {
@@ -564,12 +526,6 @@ func NewTextWithFrame(frameRect corefoundation.CGRect) NSText {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSTextFromID(rv)
 }
-
-
-
-
-
-
 
 // This action method shows or hides the ruler, if the receiver is enclosed in
 // a scroll view.
@@ -1012,39 +968,6 @@ func (t NSText) ChangeSpelling(sender objectivec.IObject) {
 func (t NSText) IgnoreSpelling(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("ignoreSpelling:"), sender)
 }
-func (t NSText) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-// The characters of the receiver’s text.
-//
-// # Discussion
-// 
-// For performance reasons, this value is the current backing store of the
-// text object. If you want to maintain a snapshot of this as you manipulate
-// the text storage, you should make a copy of the appropriate substring.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSText/string
-func (t NSText) String() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("string"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (t NSText) SetString(value string) {
-	objc.Send[struct{}](t.ID, objc.Sel("setString:"), objc.String(value))
-}
-
-
 
 // The receiver’s background color to a given color.
 //
@@ -1056,8 +979,6 @@ func (t NSText) BackgroundColor() INSColor {
 func (t NSText) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // A Boolean that controls whether the receiver draws its background.
 //
@@ -1077,8 +998,6 @@ func (t NSText) DrawsBackground() bool {
 func (t NSText) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
-
-
 
 // A Boolean that controls whether the receiver allows the user to edit its
 // text.
@@ -1104,8 +1023,6 @@ func (t NSText) SetEditable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEditable:"), value)
 }
 
-
-
 // A Boolean that controls whether the receiver allows the user to select its
 // text.
 //
@@ -1129,8 +1046,6 @@ func (t NSText) Selectable() bool {
 func (t NSText) SetSelectable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectable:"), value)
 }
-
-
 
 // A Boolean that controls whether the receiver interprets Tab, Shift-Tab, and
 // Return (Enter) as cues to end editing and possibly to change the first
@@ -1158,8 +1073,6 @@ func (t NSText) SetFieldEditor(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFieldEditor:"), value)
 }
 
-
-
 // A Boolean that controls whether the receiver allows the user to apply
 // attributes to specific ranges of the text.
 //
@@ -1179,8 +1092,6 @@ func (t NSText) RichText() bool {
 func (t NSText) SetRichText(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRichText:"), value)
 }
-
-
 
 // A Boolean that controls whether the receiver allows the user to import
 // files by dragging.
@@ -1205,8 +1116,6 @@ func (t NSText) SetImportsGraphics(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImportsGraphics:"), value)
 }
 
-
-
 // A Boolean that controls whether the receiver uses the Font panel and Font
 // menu.
 //
@@ -1229,8 +1138,6 @@ func (t NSText) SetUsesFontPanel(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesFontPanel:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver’s enclosing scroll
 // view shows its ruler.
 //
@@ -1248,8 +1155,6 @@ func (t NSText) RulerVisible() bool {
 	return rv
 }
 
-
-
 // The receiver’s characters within `aRange`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/selectedRange
@@ -1260,8 +1165,6 @@ func (t NSText) SelectedRange() foundation.NSRange {
 func (t NSText) SetSelectedRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedRange:"), value)
 }
-
-
 
 // The font of all the receiver’s text.
 //
@@ -1279,8 +1182,6 @@ func (t NSText) Font() NSFont {
 func (t NSText) SetFont(value NSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
-
-
 
 // The alignment of all the receiver’s text.
 //
@@ -1304,8 +1205,6 @@ func (t NSText) SetAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAlignment:"), value)
 }
 
-
-
 // The text color of all characters in the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/textColor
@@ -1316,8 +1215,6 @@ func (t NSText) TextColor() INSColor {
 func (t NSText) SetTextColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextColor:"), value)
 }
-
-
 
 // The initial writing direction used to determine the actual writing
 // direction for text.
@@ -1337,8 +1234,6 @@ func (t NSText) SetBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBaseWritingDirection:"), value)
 }
 
-
-
 // The receiver’s maximum size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/maxSize
@@ -1350,8 +1245,6 @@ func (t NSText) SetMaxSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxSize:"), value)
 }
 
-
-
 // The receiver’s minimum size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/minSize
@@ -1362,8 +1255,6 @@ func (t NSText) MinSize() corefoundation.CGSize {
 func (t NSText) SetMinSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMinSize:"), value)
 }
-
-
 
 // A Boolean that controls whether the receiver changes its height to fit the
 // height of its text.
@@ -1384,8 +1275,6 @@ func (t NSText) SetVerticallyResizable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVerticallyResizable:"), value)
 }
 
-
-
 // A Boolean that controls whether the receiver changes its width to fit the
 // width of its text.
 //
@@ -1405,8 +1294,6 @@ func (t NSText) SetHorizontallyResizable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHorizontallyResizable:"), value)
 }
 
-
-
 // The receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/delegate
@@ -1418,49 +1305,9 @@ func (t NSText) SetDelegate(value NSTextDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSChangeSpelling
 			
 
-
-
-
-
-
 			// Protocol methods for NSIgnoreMisspelledWords
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

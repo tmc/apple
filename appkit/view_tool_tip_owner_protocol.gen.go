@@ -22,8 +22,6 @@ type NSViewToolTipOwner interface {
 	ViewStringForToolTipPointUserData(view INSView, tag objectivec.IObject, point corefoundation.CGPoint, data unsafe.Pointer) string
 }
 
-
-
 // NSViewToolTipOwnerObject wraps an existing Objective-C object that conforms to the NSViewToolTipOwner protocol.
 type NSViewToolTipOwnerObject struct {
 	objectivec.Object
@@ -32,8 +30,6 @@ func (o NSViewToolTipOwnerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSViewToolTipOwnerObjectFromID constructs a [NSViewToolTipOwnerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSViewToolTipOwnerObjectFromID(id objc.ID) NSViewToolTipOwnerObject {
@@ -41,9 +37,6 @@ func NSViewToolTipOwnerObjectFromID(id objc.ID) NSViewToolTipOwnerObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the tool tip string to be displayed due to the cursor pausing at
 // location `point` within the tool tip rectangle identified by `tag` in the
@@ -61,10 +54,4 @@ func (o NSViewToolTipOwnerObject) ViewStringForToolTipPointUserData(view INSView
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("view:stringForToolTip:point:userData:"), view, tag, point, data)
 	return foundation.NSStringFromID(rv).String()
 	}
-
-
-
-
-
-
 

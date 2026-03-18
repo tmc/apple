@@ -37,12 +37,6 @@ func (nc NSTableColumnClass) Alloc() NSTableColumn {
 	return rv
 }
 
-
-
-
-
-
-
 // The display characteristics and identifier for a column in a table view.
 //
 // # Overview
@@ -125,14 +119,10 @@ type NSTableColumn struct {
 //
 // The display characteristics and identifier for a column in a table view.
 func NSTableColumnFromID(id objc.ID) NSTableColumn {
-	return NSTableColumn{objectivec.Object{id}}
+	return NSTableColumn{objectivec.Object{ID: id}}
 }
 // NOTE: NSTableColumn adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTableColumn] class.
 //
@@ -275,10 +265,6 @@ type INSTableColumn interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTableColumn) Init() NSTableColumn {
 	rv := objc.Send[NSTableColumn](t.ID, objc.Sel("init"))
@@ -298,11 +284,6 @@ func NewNSTableColumn() NSTableColumn {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/init(coder:)
 func NewTableColumnWithCoder(coder foundation.INSCoder) NSTableColumn {
@@ -310,7 +291,6 @@ func NewTableColumnWithCoder(coder foundation.INSCoder) NSTableColumn {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTableColumnFromID(rv)
 }
-
 
 // Initializes a newly created table column with a string identifier.
 //
@@ -333,12 +313,6 @@ func NewTableColumnWithIdentifier(identifier NSUserInterfaceItemIdentifier) NSTa
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSTableColumnFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly created table column with a string identifier.
 //
@@ -422,17 +396,6 @@ func (t NSTableColumn) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The table view that contains the table column.
 //
 // # Discussion
@@ -449,8 +412,6 @@ func (t NSTableColumn) TableView() INSTableView {
 func (t NSTableColumn) SetTableView(value INSTableView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTableView:"), value)
 }
-
-
 
 // The table column’s width, in points.
 //
@@ -475,8 +436,6 @@ func (t NSTableColumn) SetWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWidth:"), value)
 }
 
-
-
 // The table column’s minimum width, in points.
 //
 // # Discussion
@@ -497,8 +456,6 @@ func (t NSTableColumn) SetMinWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMinWidth:"), value)
 }
 
-
-
 // The table column’s maximum width, in points.
 //
 // # Discussion
@@ -518,8 +475,6 @@ func (t NSTableColumn) MaxWidth() float64 {
 func (t NSTableColumn) SetMaxWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxWidth:"), value)
 }
-
-
 
 // The table column’s resizing mask.
 //
@@ -544,8 +499,6 @@ func (t NSTableColumn) SetResizingMask(value NSTableColumnResizingOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResizingMask:"), value)
 }
 
-
-
 // The title of the table column’s header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/title
@@ -556,8 +509,6 @@ func (t NSTableColumn) Title() string {
 func (t NSTableColumn) SetTitle(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The cell used to draw the table column’s header.
 //
@@ -577,8 +528,6 @@ func (t NSTableColumn) SetHeaderCell(value INSTableHeaderCell) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderCell:"), value)
 }
 
-
-
 // The identifier string for the table column.
 //
 // # Discussion
@@ -593,8 +542,6 @@ func (t NSTableColumn) Identifier() NSUserInterfaceItemIdentifier {
 func (t NSTableColumn) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
-
 
 // A Boolean that indicates whether a cell-based table’s column cells are
 // user editable.
@@ -618,8 +565,6 @@ func (t NSTableColumn) SetEditable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEditable:"), value)
 }
 
-
-
 // The table column’s sort descriptor prototype.
 //
 // # Discussion
@@ -636,8 +581,6 @@ func (t NSTableColumn) SortDescriptorPrototype() foundation.INSSortDescriptor {
 func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.INSSortDescriptor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSortDescriptorPrototype:"), value)
 }
-
-
 
 // A Boolean that indicates whether the table column is hidden.
 //
@@ -665,8 +608,6 @@ func (t NSTableColumn) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
 
-
-
 // The string that’s displayed in a help tag over the table column header.
 //
 // # Discussion
@@ -684,8 +625,6 @@ func (t NSTableColumn) HeaderToolTip() string {
 func (t NSTableColumn) SetHeaderToolTip(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderToolTip:"), objc.String(value))
 }
-
-
 
 // The cell prototype used by the table column to draw individual cells.
 //
@@ -706,33 +645,6 @@ func (t NSTableColumn) SetDataCell(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDataCell:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceItemIdentification
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

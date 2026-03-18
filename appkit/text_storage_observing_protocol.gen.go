@@ -35,8 +35,6 @@ type NSTextStorageObserving interface {
 	SetTextStorage(value NSTextStorage)
 }
 
-
-
 // NSTextStorageObservingObject wraps an existing Objective-C object that conforms to the NSTextStorageObserving protocol.
 type NSTextStorageObservingObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o NSTextStorageObservingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextStorageObservingObjectFromID constructs a [NSTextStorageObservingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextStorageObservingObjectFromID(id objc.ID) NSTextStorageObservingObject {
@@ -54,9 +50,6 @@ func NSTextStorageObservingObjectFromID(id objc.ID) NSTextStorageObservingObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
 
@@ -82,14 +75,7 @@ func (o NSTextStorageObservingObject) ProcessEditingForTextStorageEditedRangeCha
 	objc.Send[struct{}](o.ID, objc.Sel("processEditingForTextStorage:edited:range:changeInLength:invalidatedRange:"), textStorage, editMask, newCharRange, delta, invalidatedCharRange)
 	}
 
-
-
-
 func (o NSTextStorageObservingObject) SetTextStorage(value NSTextStorage) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextStorage:"), value)
 }
-
-
-
-
 

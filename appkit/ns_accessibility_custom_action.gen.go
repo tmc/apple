@@ -37,12 +37,6 @@ func (nc NSAccessibilityCustomActionClass) Alloc() NSAccessibilityCustomAction {
 	return rv
 }
 
-
-
-
-
-
-
 // A custom action to perform on an accessible object.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSAccessibilityCustomAction struct {
 //
 // A custom action to perform on an accessible object.
 func NSAccessibilityCustomActionFromID(id objc.ID) NSAccessibilityCustomAction {
-	return NSAccessibilityCustomAction{objectivec.Object{id}}
+	return NSAccessibilityCustomAction{objectivec.Object{ID: id}}
 }
 // NOTE: NSAccessibilityCustomAction adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAccessibilityCustomAction] class.
 //
@@ -147,10 +137,6 @@ type INSAccessibilityCustomAction interface {
 	SetSelector(value objc.SEL)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAccessibilityCustomAction) Init() NSAccessibilityCustomAction {
 	rv := objc.Send[NSAccessibilityCustomAction](a.ID, objc.Sel("init"))
@@ -170,11 +156,6 @@ func NewNSAccessibilityCustomAction() NSAccessibilityCustomAction {
 	return rv
 }
 
-
-
-
-
-
 // Creates a custom action object with the specified name and handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:handler:)
@@ -183,7 +164,6 @@ func NewAccessibilityCustomActionWithNameHandler(name string, handler bool) NSAc
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:handler:"), objc.String(name), handler)
 	return NSAccessibilityCustomActionFromID(rv)
 }
-
 
 // Creates a custom action object with the specified name, target, and
 // selector.
@@ -195,19 +175,13 @@ func NewAccessibilityCustomActionWithNameTargetSelector(name string, target obje
 	return NSAccessibilityCustomActionFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a custom action object with the specified name and handler.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:handler:)
 func (a NSAccessibilityCustomAction) InitWithNameHandler(name string, handler ErrorHandler) NSAccessibilityCustomAction {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
 	return NSAccessibilityCustomActionFromID(rv)
 }
 
@@ -220,17 +194,6 @@ func (a NSAccessibilityCustomAction) InitWithNameTargetSelector(name string, tar
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A localized name that describes the action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/name
@@ -241,8 +204,6 @@ func (a NSAccessibilityCustomAction) Name() string {
 func (a NSAccessibilityCustomAction) SetName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // The closure that handles the execution of the action.
 //
@@ -258,8 +219,6 @@ func (a NSAccessibilityCustomAction) SetHandler(value VoidHandler) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHandler:"), block)
 }
 
-
-
 // The object that performs the action through a selector.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/target
@@ -271,8 +230,6 @@ func (a NSAccessibilityCustomAction) SetTarget(value objectivec.Object) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTarget:"), value)
 }
 
-
-
 // The method to call on the target to perform the action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/selector
@@ -283,26 +240,4 @@ func (a NSAccessibilityCustomAction) Selector() objc.SEL {
 func (a NSAccessibilityCustomAction) SetSelector(value objc.SEL) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSelector:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

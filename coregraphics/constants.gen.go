@@ -3,64 +3,28 @@
 package coregraphics
 
 
-// kCGBitmapByteOrder16Host: // 16-bit, host endian format.
+// KCGBitmapByteOrder16Host : 16-bit, host endian format.
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/kCGBitmapByteOrder16Host
-/* debug [constant]: kCGBitmapByteOrder16Host */
-// FIXME: ParsedConstant missing Value field
+const KCGBitmapByteOrder16Host CGBitmapInfo = 4096
 
-
-// kCGBitmapByteOrder32Host: // 32-bit, host endian format.
+// KCGBitmapByteOrder32Host : 32-bit, host endian format.
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/kCGBitmapByteOrder32Host
-/* debug [constant]: kCGBitmapByteOrder32Host */
-// FIXME: ParsedConstant missing Value field
+const KCGBitmapByteOrder32Host CGBitmapInfo = 8192
 
-
-
-// See: https://developer.apple.com/documentation/CoreGraphics/kCGDefaultHDRImageContentHeadroom
-/* debug [constant]: kCGDefaultHDRImageContentHeadroom */
-// FIXME: ParsedConstant missing Value field
-
-
-// kCGFontIndexInvalid: // An invalid font index (a value which never represents a valid glyph).
+// KCGFontIndexInvalid : An invalid font index (a value which never represents a valid glyph).
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/kCGFontIndexInvalid
-/* debug [constant]: kCGFontIndexInvalid */
-// FIXME: ParsedConstant missing Value field
+const KCGFontIndexInvalid CGFontIndex = 65535
 
-
-// kCGFontIndexMax: // The maximum allowed value of a [CGFontIndex].
+// KCGFontIndexMax : The maximum allowed value of a [CGFontIndex](<doc://com.apple.coregraphics/documentation/CoreGraphics/CGFontIndex>).
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/kCGFontIndexMax
-/* debug [constant]: kCGFontIndexMax */
-// FIXME: ParsedConstant missing Value field
+const KCGFontIndexMax CGFontIndex = 65534
 
-
-// kCGGlyphMax: // The maximum allowed value of a [CGGlyph].
+// KCGGlyphMax : The maximum allowed value of a [CGGlyph](<doc://com.apple.coregraphics/documentation/CoreGraphics/CGGlyph>).
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/kCGGlyphMax
-/* debug [constant]: kCGGlyphMax */
-// FIXME: ParsedConstant missing Value field
-
-
-
-// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/actualText
-/* debug [constant]: kCGPDFTagPropertyActualText */
-// FIXME: ParsedConstant missing Value field
-
-
-
-// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/alternativeText
-/* debug [constant]: kCGPDFTagPropertyAlternativeText */
-// FIXME: ParsedConstant missing Value field
-
-
-
-// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/languageText
-/* debug [constant]: kCGPDFTagPropertyLanguageText */
-// FIXME: ParsedConstant missing Value field
-
-
-
-// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/titleText
-/* debug [constant]: kCGPDFTagPropertyTitleText */
-// FIXME: ParsedConstant missing Value field
-
-
+const KCGGlyphMax CGFontIndex = 65534
 

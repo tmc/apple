@@ -38,12 +38,6 @@ func (nc NSColorPickerClass) Alloc() NSColorPicker {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract superclass that implements the default color picking protocol.
 //
 // # Overview
@@ -86,14 +80,10 @@ type NSColorPicker struct {
 //
 // An abstract superclass that implements the default color picking protocol.
 func NSColorPickerFromID(id objc.ID) NSColorPicker {
-	return NSColorPicker{objectivec.Object{id}}
+	return NSColorPicker{objectivec.Object{ID: id}}
 }
 // NOTE: NSColorPicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSColorPicker] class.
 //
@@ -162,10 +152,6 @@ type INSColorPicker interface {
 	AlphaControlAddedOrRemoved(sender objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSColorPicker) Init() NSColorPicker {
 	rv := objc.Send[NSColorPicker](c.ID, objc.Sel("init"))
@@ -184,11 +170,6 @@ func NewNSColorPicker() NSColorPicker {
 	rv := objc.Send[NSColorPicker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes the color picker with the specified color panel and color
 // picker mode mask.
@@ -214,12 +195,6 @@ func NewColorPickerWithPickerMaskColorPanel(mask uint, owningColorPanel INSColor
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPickerMask:colorPanel:"), mask, owningColorPanel)
 	return NSColorPickerFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the color picker with the specified color panel and color
 // picker mode mask.
@@ -330,17 +305,6 @@ func (c NSColorPicker) AlphaControlAddedOrRemoved(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("alphaControlAddedOrRemoved:"), sender)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The color panel instance that owns the color picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPicker/colorPanel
@@ -348,8 +312,6 @@ func (c NSColorPicker) ColorPanel() INSColorPanel {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorPanel"))
 	return NSColorPanelFromID(objc.ID(rv))
 }
-
-
 
 // The button image used by the color picker.
 //
@@ -368,8 +330,6 @@ func (c NSColorPicker) ProvideNewButtonImage() INSImage {
 	return NSImageFromID(objc.ID(rv))
 }
 
-
-
 // The tool tip that is shown when the mouse cursor is over the color
 // picker’s button image.
 //
@@ -384,8 +344,6 @@ func (c NSColorPicker) ButtonToolTip() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("buttonToolTip"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The minimum content size.
 //
@@ -405,27 +363,4 @@ func (c NSColorPicker) MinContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("minContentSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSPDFImageRepClass) Alloc() NSPDFImageRep {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that can render an image from a PDF format data stream.
 //
 // # Creating Representations of Images from PDF Data
@@ -70,10 +64,6 @@ func NSPDFImageRepFromID(id objc.ID) NSPDFImageRep {
 }
 // NOTE: NSPDFImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPDFImageRep] class.
 //
@@ -109,13 +99,7 @@ type INSPDFImageRep interface {
 	PageCount() int
 	// The PDF representation of the representation’s image.
 	PDFRepresentation() foundation.INSData
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPDFImageRep) Init() NSPDFImageRep {
@@ -136,11 +120,6 @@ func NewNSPDFImageRep() NSPDFImageRep {
 	return rv
 }
 
-
-
-
-
-
 // Creates and returns an image representation object from data in an
 // unarchiver.
 //
@@ -150,7 +129,6 @@ func NewPDFImageRepWithCoder(coder foundation.INSCoder) NSPDFImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPDFImageRepFromID(rv)
 }
-
 
 // Returns a representation of an image initialized with the specified PDF
 // data.
@@ -170,12 +148,6 @@ func NewPDFImageRepWithData(pdfData foundation.INSData) NSPDFImageRep {
 	return NSPDFImageRepFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns a representation of an image initialized with the specified PDF
 // data.
 //
@@ -192,20 +164,6 @@ func (p NSPDFImageRep) InitWithData(pdfData foundation.INSData) NSPDFImageRep {
 	rv := objc.Send[NSPDFImageRep](p.ID, objc.Sel("initWithData:"), pdfData)
 	return rv
 }
-func (p NSPDFImageRep) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The image representation’s bounding rectangle.
 //
@@ -219,8 +177,6 @@ func (p NSPDFImageRep) Bounds() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The page currently displayed by the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/currentPage
@@ -232,8 +188,6 @@ func (p NSPDFImageRep) SetCurrentPage(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCurrentPage:"), value)
 }
 
-
-
 // The number of pages in the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pageCount
@@ -242,8 +196,6 @@ func (p NSPDFImageRep) PageCount() int {
 	return rv
 }
 
-
-
 // The PDF representation of the representation’s image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pdfRepresentation
@@ -251,30 +203,4 @@ func (p NSPDFImageRep) PDFRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("PDFRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

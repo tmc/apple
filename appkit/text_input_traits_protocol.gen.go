@@ -154,8 +154,6 @@ type NSTextInputTraits interface {
 	SetWritingToolsBehavior(value NSWritingToolsBehavior)
 }
 
-
-
 // NSTextInputTraitsObject wraps an existing Objective-C object that conforms to the NSTextInputTraits protocol.
 type NSTextInputTraitsObject struct {
 	objectivec.Object
@@ -164,8 +162,6 @@ func (o NSTextInputTraitsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextInputTraitsObjectFromID constructs a [NSTextInputTraitsObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextInputTraitsObjectFromID(id objc.ID) NSTextInputTraitsObject {
@@ -173,9 +169,6 @@ func NSTextInputTraitsObjectFromID(id objc.ID) NSTextInputTraitsObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/autocorrectionType
 
@@ -289,79 +282,59 @@ func (o NSTextInputTraitsObject) WritingToolsBehavior() NSWritingToolsBehavior {
 	return rv
 	}
 
-
-
-
 func (o NSTextInputTraitsObject) SetAutocorrectionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutocorrectionType:"), value)
 }
-
 
 func (o NSTextInputTraitsObject) SetDataDetectionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDataDetectionType:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetGrammarCheckingType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGrammarCheckingType:"), value)
 }
-
 
 func (o NSTextInputTraitsObject) SetInlinePredictionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInlinePredictionType:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetLinkDetectionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLinkDetectionType:"), value)
 }
-
 
 func (o NSTextInputTraitsObject) SetSmartDashesType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmartDashesType:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetSmartInsertDeleteType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmartInsertDeleteType:"), value)
 }
-
 
 func (o NSTextInputTraitsObject) SetSmartQuotesType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmartQuotesType:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetSpellCheckingType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSpellCheckingType:"), value)
 }
-
 
 func (o NSTextInputTraitsObject) SetTextCompletionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextCompletionType:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetTextReplacementType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextReplacementType:"), value)
 }
-
 
 func (o NSTextInputTraitsObject) SetAllowedWritingToolsResultOptions(value NSWritingToolsResultOptions) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAllowedWritingToolsResultOptions:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetMathExpressionCompletionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMathExpressionCompletionType:"), value)
 }
 
-
 func (o NSTextInputTraitsObject) SetWritingToolsBehavior(value NSWritingToolsBehavior) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWritingToolsBehavior:"), value)
 }
-
-
-
-
 

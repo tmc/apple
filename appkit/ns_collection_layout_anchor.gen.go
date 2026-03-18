@@ -37,12 +37,6 @@ func (nc NSCollectionLayoutAnchorClass) Alloc() NSCollectionLayoutAnchor {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines how to attach a supplementary item to an item in a
 // collection view.
 //
@@ -107,14 +101,10 @@ type NSCollectionLayoutAnchor struct {
 // An object that defines how to attach a supplementary item to an item in a
 // collection view.
 func NSCollectionLayoutAnchorFromID(id objc.ID) NSCollectionLayoutAnchor {
-	return NSCollectionLayoutAnchor{objectivec.Object{id}}
+	return NSCollectionLayoutAnchor{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutAnchor] class.
 //
@@ -147,10 +137,6 @@ type INSCollectionLayoutAnchor interface {
 	IsFractionalOffset() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutAnchor) Init() NSCollectionLayoutAnchor {
 	rv := objc.Send[NSCollectionLayoutAnchor](c.ID, objc.Sel("init"))
@@ -170,11 +156,6 @@ func NewNSCollectionLayoutAnchor() NSCollectionLayoutAnchor {
 	return rv
 }
 
-
-
-
-
-
 // Creates an anchor with the specified edges to attach to.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutAnchor/init(edges:)
@@ -182,7 +163,6 @@ func NewCollectionLayoutAnchorWithEdges(edges NSDirectionalRectEdge) NSCollectio
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutAnchorClass().class), objc.Sel("layoutAnchorWithEdges:"), edges)
 	return NSCollectionLayoutAnchorFromID(rv)
 }
-
 
 // Creates an anchor with the specified edges to attach to, offset by the
 // provided absolute value.
@@ -193,7 +173,6 @@ func NewCollectionLayoutAnchorWithEdgesAbsoluteOffset(edges NSDirectionalRectEdg
 	return NSCollectionLayoutAnchorFromID(rv)
 }
 
-
 // Creates an anchor with the specified edges to attach to, offset by the
 // provided fractional value.
 //
@@ -203,23 +182,6 @@ func NewCollectionLayoutAnchorWithEdgesFractionalOffset(edges NSDirectionalRectE
 	return NSCollectionLayoutAnchorFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The edges of the item an anchor is attached to.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutAnchor/edges
@@ -227,8 +189,6 @@ func (c NSCollectionLayoutAnchor) Edges() NSDirectionalRectEdge {
 	rv := objc.Send[NSDirectionalRectEdge](c.ID, objc.Sel("edges"))
 	return NSDirectionalRectEdge(rv)
 }
-
-
 
 // The floating-point value of the anchor’s offset from the item it’s
 // attached to.
@@ -239,8 +199,6 @@ func (c NSCollectionLayoutAnchor) Offset() corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-
-
 // A Boolean value that indicates whether the anchor’s offset is expressed
 // as an absolute value.
 //
@@ -250,8 +208,6 @@ func (c NSCollectionLayoutAnchor) IsAbsoluteOffset() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the anchor’s offset is expressed
 // as a fraction of its supplementary item’s dimension.
 //
@@ -260,28 +216,4 @@ func (c NSCollectionLayoutAnchor) IsFractionalOffset() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFractionalOffset"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

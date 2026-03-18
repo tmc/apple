@@ -36,12 +36,6 @@ func (mc MLModelStructureProgramFunctionClass) Alloc() MLModelStructureProgramFu
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing a function in the Program.
 //
 // # Accessing the program function properties
@@ -58,14 +52,10 @@ type MLModelStructureProgramFunction struct {
 //
 // A class representing a function in the Program.
 func MLModelStructureProgramFunctionFromID(id objc.ID) MLModelStructureProgramFunction {
-	return MLModelStructureProgramFunction{objectivec.Object{id}}
+	return MLModelStructureProgramFunction{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramFunction implements IMLModelStructureProgramFunction.
 var _ IMLModelStructureProgramFunction = MLModelStructureProgramFunction{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramFunction] class.
 //
@@ -86,10 +76,6 @@ type IMLModelStructureProgramFunction interface {
 	Inputs() []MLModelStructureProgramNamedValueType
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructureProgramFunction) Init() MLModelStructureProgramFunction {
 	rv := objc.Send[MLModelStructureProgramFunction](m.ID, objc.Sel("init"))
@@ -109,26 +95,6 @@ func NewMLModelStructureProgramFunction() MLModelStructureProgramFunction {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The active block in the function.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction/block
@@ -136,8 +102,6 @@ func (m MLModelStructureProgramFunction) Block() IMLModelStructureProgramBlock {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("block"))
 	return MLModelStructureProgramBlockFromID(objc.ID(rv))
 }
-
-
 
 // The named inputs to the function.
 //
@@ -148,20 +112,4 @@ func (m MLModelStructureProgramFunction) Inputs() []MLModelStructureProgramNamed
 		return MLModelStructureProgramNamedValueTypeFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

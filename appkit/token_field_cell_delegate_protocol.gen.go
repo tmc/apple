@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSTokenFieldCell](<doc://com.apple.appkit/documentation/AppKit/NSTokenFieldCell>) objects to work with tokenized strings.
 //
@@ -18,8 +17,6 @@ var _ = fmt.Sprintf
 type NSTokenFieldCellDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSTokenFieldCellDelegateObject wraps an existing Objective-C object that conforms to the NSTokenFieldCellDelegate protocol.
 type NSTokenFieldCellDelegateObject struct {
@@ -29,8 +26,6 @@ func (o NSTokenFieldCellDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTokenFieldCellDelegateObjectFromID constructs a [NSTokenFieldCellDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTokenFieldCellDelegateObjectFromID(id objc.ID) NSTokenFieldCellDelegateObject {
@@ -38,9 +33,6 @@ func NSTokenFieldCellDelegateObjectFromID(id objc.ID) NSTokenFieldCellDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Allows the delegate to provide a string to be displayed as a proxy for the
 // represented object.
@@ -118,7 +110,7 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellStyleForRepresentedObject(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
 
-func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenFieldCell INSTokenFieldCell, substring string, tokenIndex int, selectedIndex int) foundation.INSArray {
+func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenFieldCell INSTokenFieldCell, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenFieldCell, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
@@ -292,10 +284,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellMenuForRepresentedObject(t
 	return NSMenuFromID(rv)
 	}
 
-
-
-
-
 // NSTokenFieldCellDelegateConfig holds optional typed callbacks for [NSTokenFieldCellDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -386,8 +374,4 @@ func NewNSTokenFieldCellDelegate(config NSTokenFieldCellDelegateConfig) NSTokenF
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTokenFieldCellDelegateObjectFromID(instance)
 }
-
-
-
-
 

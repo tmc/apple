@@ -36,12 +36,6 @@ func (nc NSTextElementClass) Alloc() NSTextElement {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class that represents the smallest units of text layout
 // such as paragraphs or attachments.
 //
@@ -75,14 +69,10 @@ type NSTextElement struct {
 // An abstract base class that represents the smallest units of text layout
 // such as paragraphs or attachments.
 func NSTextElementFromID(id objc.ID) NSTextElement {
-	return NSTextElement{objectivec.Object{id}}
+	return NSTextElement{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextElement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextElement] class.
 //
@@ -137,10 +127,6 @@ type INSTextElement interface {
 	ChildElements() []NSTextElement
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextElement) Init() NSTextElement {
 	rv := objc.Send[NSTextElement](t.ID, objc.Sel("init"))
@@ -160,11 +146,6 @@ func NewNSTextElement() NSTextElement {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new text element with the content manager you provide.
 //
 // textContentManager: The [NSTextContentManager] to apply to this text element.
@@ -176,12 +157,6 @@ func NewTextElementWithTextContentManager(textContentManager INSTextContentManag
 	return NSTextElementFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new text element with the content manager you provide.
 //
 // textContentManager: The [NSTextContentManager] to apply to this text element.
@@ -191,17 +166,6 @@ func (t NSTextElement) InitWithTextContentManager(textContentManager INSTextCont
 	rv := objc.Send[NSTextElement](t.ID, objc.Sel("initWithTextContentManager:"), textContentManager)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The value that represents the current content manager.
 //
@@ -214,8 +178,6 @@ func (t NSTextElement) SetTextContentManager(value INSTextContentManager) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextContentManager:"), value)
 }
 
-
-
 // A range value that represents the range of the element inside the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElement/elementRange
@@ -227,8 +189,6 @@ func (t NSTextElement) SetElementRange(value INSTextRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setElementRange:"), value)
 }
 
-
-
 // A Boolean value that indicates whether this element is in the text layout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElement/isRepresentedElement
@@ -236,8 +196,6 @@ func (t NSTextElement) IsRepresentedElement() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRepresentedElement"))
 	return rv
 }
-
-
 
 // A value that represents the parent element if this text element is a child
 // of an enclosing element.
@@ -248,8 +206,6 @@ func (t NSTextElement) ParentElement() INSTextElement {
 	return NSTextElementFromID(objc.ID(rv))
 }
 
-
-
 // An array of zero or more child text elements.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElement/childElements
@@ -259,26 +215,4 @@ func (t NSTextElement) ChildElements() []NSTextElement {
 		return NSTextElementFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

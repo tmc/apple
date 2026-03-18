@@ -38,7 +38,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _cVBufferCopyAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef, attachmentMode *CVAttachmentMode) corefoundation.CFTypeRef
 
 // CVBufferCopyAttachment returns a copy of an attachment from a Core Video buffer.
@@ -50,7 +49,6 @@ func CVBufferCopyAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, 
 	}
 	return _cVBufferCopyAttachment(buffer, key, attachmentMode)
 }
-
 
 var _cVBufferCopyAttachments func(buffer CVBufferRef, attachmentMode CVAttachmentMode) corefoundation.CFDictionaryRef
 
@@ -64,7 +62,6 @@ func CVBufferCopyAttachments(buffer CVBufferRef, attachmentMode CVAttachmentMode
 	return _cVBufferCopyAttachments(buffer, attachmentMode)
 }
 
-
 var _cVBufferHasAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef) bool
 
 // CVBufferHasAttachment returns a Boolean value that indicates whether a Core Video buffer contains a specified attachment.
@@ -76,7 +73,6 @@ func CVBufferHasAttachment(buffer CVBufferRef, key corefoundation.CFStringRef) b
 	}
 	return _cVBufferHasAttachment(buffer, key)
 }
-
 
 var _cVBufferPropagateAttachments func(sourceBuffer CVBufferRef, destinationBuffer CVBufferRef)
 
@@ -90,7 +86,6 @@ func CVBufferPropagateAttachments(sourceBuffer CVBufferRef, destinationBuffer CV
 	_cVBufferPropagateAttachments(sourceBuffer, destinationBuffer)
 }
 
-
 var _cVBufferRelease func(buffer CVBufferRef)
 
 // CVBufferRelease releases a Core Video buffer.
@@ -102,7 +97,6 @@ func CVBufferRelease(buffer CVBufferRef) {
 	}
 	_cVBufferRelease(buffer)
 }
-
 
 var _cVBufferRemoveAllAttachments func(buffer CVBufferRef)
 
@@ -116,7 +110,6 @@ func CVBufferRemoveAllAttachments(buffer CVBufferRef) {
 	_cVBufferRemoveAllAttachments(buffer)
 }
 
-
 var _cVBufferRemoveAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef)
 
 // CVBufferRemoveAttachment removes the attachment you specify from a Core Video buffer.
@@ -128,7 +121,6 @@ func CVBufferRemoveAttachment(buffer CVBufferRef, key corefoundation.CFStringRef
 	}
 	_cVBufferRemoveAttachment(buffer, key)
 }
-
 
 var _cVBufferRetain func(buffer CVBufferRef) CVBufferRef
 
@@ -142,7 +134,6 @@ func CVBufferRetain(buffer CVBufferRef) CVBufferRef {
 	return _cVBufferRetain(buffer)
 }
 
-
 var _cVBufferSetAttachment func(buffer CVBufferRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CVAttachmentMode)
 
 // CVBufferSetAttachment sets or adds an attachment to a Core Video buffer.
@@ -154,7 +145,6 @@ func CVBufferSetAttachment(buffer CVBufferRef, key corefoundation.CFStringRef, v
 	}
 	_cVBufferSetAttachment(buffer, key, value, attachmentMode)
 }
-
 
 var _cVBufferSetAttachments func(buffer CVBufferRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CVAttachmentMode)
 
@@ -168,7 +158,6 @@ func CVBufferSetAttachments(buffer CVBufferRef, theAttachments corefoundation.CF
 	_cVBufferSetAttachments(buffer, theAttachments, attachmentMode)
 }
 
-
 var _cVColorPrimariesGetIntegerCodePointForString func(colorPrimariesString corefoundation.CFStringRef) int
 
 // CVColorPrimariesGetIntegerCodePointForString returns the standard integer code point corresponding to the Core Video color primaries constant string that you specify.
@@ -181,7 +170,6 @@ func CVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefound
 	return _cVColorPrimariesGetIntegerCodePointForString(colorPrimariesString)
 }
 
-
 var _cVColorPrimariesGetStringForIntegerCodePoint func(colorPrimariesCodePoint int) corefoundation.CFStringRef
 
 // CVColorPrimariesGetStringForIntegerCodePoint returns the Core Video color primaries string corresponding to the standard integer code point that you specify.
@@ -193,7 +181,6 @@ func CVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int) c
 	}
 	return _cVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint)
 }
-
 
 var _cVDisplayLinkCreateWithActiveCGDisplays func(displayLinkOut *CVDisplayLinkRef) CVReturn
 
@@ -209,7 +196,6 @@ func CVDisplayLinkCreateWithActiveCGDisplays(displayLinkOut *CVDisplayLinkRef) C
 	return _cVDisplayLinkCreateWithActiveCGDisplays(displayLinkOut)
 }
 
-
 var _cVDisplayLinkCreateWithCGDisplay func(displayID uint32, displayLinkOut *CVDisplayLinkRef) CVReturn
 
 // CVDisplayLinkCreateWithCGDisplay creates a display link for a single display.
@@ -223,7 +209,6 @@ func CVDisplayLinkCreateWithCGDisplay(displayID uint32, displayLinkOut *CVDispla
 	}
 	return _cVDisplayLinkCreateWithCGDisplay(displayID, displayLinkOut)
 }
-
 
 var _cVDisplayLinkCreateWithCGDisplays func(displayArray *uint32, count int, displayLinkOut *CVDisplayLinkRef) CVReturn
 
@@ -239,7 +224,6 @@ func CVDisplayLinkCreateWithCGDisplays(displayArray *uint32, count int, displayL
 	return _cVDisplayLinkCreateWithCGDisplays(displayArray, count, displayLinkOut)
 }
 
-
 var _cVDisplayLinkCreateWithOpenGLDisplayMask func(mask coregraphics.CGOpenGLDisplayMask, displayLinkOut *CVDisplayLinkRef) CVReturn
 
 // CVDisplayLinkCreateWithOpenGLDisplayMask creates a display link from an OpenGL display mask.
@@ -253,7 +237,6 @@ func CVDisplayLinkCreateWithOpenGLDisplayMask(mask coregraphics.CGOpenGLDisplayM
 	}
 	return _cVDisplayLinkCreateWithOpenGLDisplayMask(mask, displayLinkOut)
 }
-
 
 var _cVDisplayLinkGetActualOutputVideoRefreshPeriod func(displayLink CVDisplayLinkRef) float64
 
@@ -269,7 +252,6 @@ func CVDisplayLinkGetActualOutputVideoRefreshPeriod(displayLink CVDisplayLinkRef
 	return _cVDisplayLinkGetActualOutputVideoRefreshPeriod(displayLink)
 }
 
-
 var _cVDisplayLinkGetCurrentCGDisplay func(displayLink CVDisplayLinkRef) uint32
 
 // CVDisplayLinkGetCurrentCGDisplay gets the current display associated with a display link.
@@ -283,7 +265,6 @@ func CVDisplayLinkGetCurrentCGDisplay(displayLink CVDisplayLinkRef) uint32 {
 	}
 	return _cVDisplayLinkGetCurrentCGDisplay(displayLink)
 }
-
 
 var _cVDisplayLinkGetCurrentTime func(displayLink CVDisplayLinkRef, outTime *CVTimeStamp) CVReturn
 
@@ -299,7 +280,6 @@ func CVDisplayLinkGetCurrentTime(displayLink CVDisplayLinkRef, outTime *CVTimeSt
 	return _cVDisplayLinkGetCurrentTime(displayLink, outTime)
 }
 
-
 var _cVDisplayLinkGetNominalOutputVideoRefreshPeriod func(displayLink CVDisplayLinkRef) CVTime
 
 // CVDisplayLinkGetNominalOutputVideoRefreshPeriod retrieves the nominal refresh period of a display link.
@@ -313,7 +293,6 @@ func CVDisplayLinkGetNominalOutputVideoRefreshPeriod(displayLink CVDisplayLinkRe
 	}
 	return _cVDisplayLinkGetNominalOutputVideoRefreshPeriod(displayLink)
 }
-
 
 var _cVDisplayLinkGetOutputVideoLatency func(displayLink CVDisplayLinkRef) CVTime
 
@@ -329,7 +308,6 @@ func CVDisplayLinkGetOutputVideoLatency(displayLink CVDisplayLinkRef) CVTime {
 	return _cVDisplayLinkGetOutputVideoLatency(displayLink)
 }
 
-
 var _cVDisplayLinkGetTypeID func() uint
 
 // CVDisplayLinkGetTypeID obtains the Core Foundation ID for the display link data type.
@@ -343,7 +321,6 @@ func CVDisplayLinkGetTypeID() uint {
 	}
 	return _cVDisplayLinkGetTypeID()
 }
-
 
 var _cVDisplayLinkIsRunning func(displayLink CVDisplayLinkRef) bool
 
@@ -359,7 +336,6 @@ func CVDisplayLinkIsRunning(displayLink CVDisplayLinkRef) bool {
 	return _cVDisplayLinkIsRunning(displayLink)
 }
 
-
 var _cVDisplayLinkRelease func(displayLink CVDisplayLinkRef)
 
 // CVDisplayLinkRelease releases a display link.
@@ -372,7 +348,6 @@ func CVDisplayLinkRelease(displayLink CVDisplayLinkRef) {
 	_cVDisplayLinkRelease(displayLink)
 }
 
-
 var _cVDisplayLinkRetain func(displayLink CVDisplayLinkRef) CVDisplayLinkRef
 
 // CVDisplayLinkRetain retains a display link.
@@ -384,7 +359,6 @@ func CVDisplayLinkRetain(displayLink CVDisplayLinkRef) CVDisplayLinkRef {
 	}
 	return _cVDisplayLinkRetain(displayLink)
 }
-
 
 var _cVDisplayLinkSetCurrentCGDisplay func(displayLink CVDisplayLinkRef, displayID uint32) CVReturn
 
@@ -400,7 +374,6 @@ func CVDisplayLinkSetCurrentCGDisplay(displayLink CVDisplayLinkRef, displayID ui
 	return _cVDisplayLinkSetCurrentCGDisplay(displayLink, displayID)
 }
 
-
 var _cVDisplayLinkSetCurrentCGDisplayFromOpenGLContext func(displayLink CVDisplayLinkRef, cglContext unsafe.Pointer, cglPixelFormat unsafe.Pointer) CVReturn
 
 // CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext selects the display link most optimal for the current renderer of an OpenGL context.
@@ -414,7 +387,6 @@ func CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(displayLink CVDisplayLink
 	}
 	return _cVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(displayLink, cglContext, cglPixelFormat)
 }
-
 
 var _cVDisplayLinkSetOutputCallback func(displayLink CVDisplayLinkRef, callback CVDisplayLinkOutputCallback, userInfo unsafe.Pointer) CVReturn
 
@@ -430,7 +402,6 @@ func CVDisplayLinkSetOutputCallback(displayLink CVDisplayLinkRef, callback CVDis
 	return _cVDisplayLinkSetOutputCallback(displayLink, callback, userInfo)
 }
 
-
 var _cVDisplayLinkSetOutputHandler func(displayLink CVDisplayLinkRef, handler CVDisplayLinkOutputHandler) CVReturn
 
 // CVDisplayLinkSetOutputHandler.
@@ -444,7 +415,6 @@ func CVDisplayLinkSetOutputHandler(displayLink CVDisplayLinkRef, handler CVDispl
 	}
 	return _cVDisplayLinkSetOutputHandler(displayLink, handler)
 }
-
 
 var _cVDisplayLinkStart func(displayLink CVDisplayLinkRef) CVReturn
 
@@ -460,7 +430,6 @@ func CVDisplayLinkStart(displayLink CVDisplayLinkRef) CVReturn {
 	return _cVDisplayLinkStart(displayLink)
 }
 
-
 var _cVDisplayLinkStop func(displayLink CVDisplayLinkRef) CVReturn
 
 // CVDisplayLinkStop stops a display link.
@@ -474,7 +443,6 @@ func CVDisplayLinkStop(displayLink CVDisplayLinkRef) CVReturn {
 	}
 	return _cVDisplayLinkStop(displayLink)
 }
-
 
 var _cVDisplayLinkTranslateTime func(displayLink CVDisplayLinkRef, inTime *CVTimeStamp, outTime *CVTimeStamp) CVReturn
 
@@ -490,7 +458,6 @@ func CVDisplayLinkTranslateTime(displayLink CVDisplayLinkRef, inTime *CVTimeStam
 	return _cVDisplayLinkTranslateTime(displayLink, inTime, outTime)
 }
 
-
 var _cVGetCurrentHostTime func() uint64
 
 // CVGetCurrentHostTime returns the current system time.
@@ -502,7 +469,6 @@ func CVGetCurrentHostTime() uint64 {
 	}
 	return _cVGetCurrentHostTime()
 }
-
 
 var _cVGetHostClockFrequency func() float64
 
@@ -516,7 +482,6 @@ func CVGetHostClockFrequency() float64 {
 	return _cVGetHostClockFrequency()
 }
 
-
 var _cVGetHostClockMinimumTimeDelta func() uint32
 
 // CVGetHostClockMinimumTimeDelta returns the smallest possible increment in the system time.
@@ -528,7 +493,6 @@ func CVGetHostClockMinimumTimeDelta() uint32 {
 	}
 	return _cVGetHostClockMinimumTimeDelta()
 }
-
 
 var _cVImageBufferCreateColorSpaceFromAttachments func(attachments corefoundation.CFDictionaryRef) coregraphics.CGColorSpaceRef
 
@@ -542,7 +506,6 @@ func CVImageBufferCreateColorSpaceFromAttachments(attachments corefoundation.CFD
 	return _cVImageBufferCreateColorSpaceFromAttachments(attachments)
 }
 
-
 var _cVImageBufferGetCleanRect func(imageBuffer CVImageBufferRef) corefoundation.CGRect
 
 // CVImageBufferGetCleanRect returns the source rectangle of a Core Video image buffer that represents the clean aperture of the buffer in encoded pixels.
@@ -554,7 +517,6 @@ func CVImageBufferGetCleanRect(imageBuffer CVImageBufferRef) corefoundation.CGRe
 	}
 	return _cVImageBufferGetCleanRect(imageBuffer)
 }
-
 
 var _cVImageBufferGetColorSpace func(imageBuffer CVImageBufferRef) coregraphics.CGColorSpaceRef
 
@@ -568,7 +530,6 @@ func CVImageBufferGetColorSpace(imageBuffer CVImageBufferRef) coregraphics.CGCol
 	return _cVImageBufferGetColorSpace(imageBuffer)
 }
 
-
 var _cVImageBufferGetDisplaySize func(imageBuffer CVImageBufferRef) corefoundation.CGSize
 
 // CVImageBufferGetDisplaySize returns the nominal output display size, in square pixels, of a Core Video image buffer.
@@ -580,7 +541,6 @@ func CVImageBufferGetDisplaySize(imageBuffer CVImageBufferRef) corefoundation.CG
 	}
 	return _cVImageBufferGetDisplaySize(imageBuffer)
 }
-
 
 var _cVImageBufferGetEncodedSize func(imageBuffer CVImageBufferRef) corefoundation.CGSize
 
@@ -594,7 +554,6 @@ func CVImageBufferGetEncodedSize(imageBuffer CVImageBufferRef) corefoundation.CG
 	return _cVImageBufferGetEncodedSize(imageBuffer)
 }
 
-
 var _cVImageBufferIsFlipped func(imageBuffer CVImageBufferRef) bool
 
 // CVImageBufferIsFlipped returns a Boolean value indicating whether the image is vertically flipped.
@@ -606,7 +565,6 @@ func CVImageBufferIsFlipped(imageBuffer CVImageBufferRef) bool {
 	}
 	return _cVImageBufferIsFlipped(imageBuffer)
 }
-
 
 var _cVIsCompressedPixelFormatAvailable func(pixelFormatType uint32) bool
 
@@ -620,7 +578,6 @@ func CVIsCompressedPixelFormatAvailable(pixelFormatType uint32) bool {
 	return _cVIsCompressedPixelFormatAvailable(pixelFormatType)
 }
 
-
 var _cVMetalBufferCacheCreate func(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice unsafe.Pointer, cacheOut *CVMetalBufferCacheRef) CVReturn
 
 // CVMetalBufferCacheCreate.
@@ -632,7 +589,6 @@ func CVMetalBufferCacheCreate(allocator corefoundation.CFAllocatorRef, cacheAttr
 	}
 	return _cVMetalBufferCacheCreate(allocator, cacheAttributes, metalDevice, cacheOut)
 }
-
 
 var _cVMetalBufferCacheCreateBufferFromImage func(allocator corefoundation.CFAllocatorRef, bufferCache CVMetalBufferCacheRef, imageBuffer CVImageBufferRef, bufferOut *CVMetalBufferRef) CVReturn
 
@@ -646,7 +602,6 @@ func CVMetalBufferCacheCreateBufferFromImage(allocator corefoundation.CFAllocato
 	return _cVMetalBufferCacheCreateBufferFromImage(allocator, bufferCache, imageBuffer, bufferOut)
 }
 
-
 var _cVMetalBufferCacheFlush func(bufferCache CVMetalBufferCacheRef, options CVOptionFlags)
 
 // CVMetalBufferCacheFlush.
@@ -658,7 +613,6 @@ func CVMetalBufferCacheFlush(bufferCache CVMetalBufferCacheRef, options CVOption
 	}
 	_cVMetalBufferCacheFlush(bufferCache, options)
 }
-
 
 var _cVMetalBufferCacheGetTypeID func() uint
 
@@ -672,7 +626,6 @@ func CVMetalBufferCacheGetTypeID() uint {
 	return _cVMetalBufferCacheGetTypeID()
 }
 
-
 var _cVMetalBufferGetBuffer func(buffer CVMetalBufferRef) unsafe.Pointer
 
 // CVMetalBufferGetBuffer.
@@ -684,7 +637,6 @@ func CVMetalBufferGetBuffer(buffer CVMetalBufferRef) unsafe.Pointer {
 	}
 	return _cVMetalBufferGetBuffer(buffer)
 }
-
 
 var _cVMetalBufferGetTypeID func() uint
 
@@ -698,7 +650,6 @@ func CVMetalBufferGetTypeID() uint {
 	return _cVMetalBufferGetTypeID()
 }
 
-
 var _cVMetalTextureCacheCreate func(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice unsafe.Pointer, textureAttributes corefoundation.CFDictionaryRef, cacheOut *CVMetalTextureCacheRef) CVReturn
 
 // CVMetalTextureCacheCreate creates a new texture cache.
@@ -710,7 +661,6 @@ func CVMetalTextureCacheCreate(allocator corefoundation.CFAllocatorRef, cacheAtt
 	}
 	return _cVMetalTextureCacheCreate(allocator, cacheAttributes, metalDevice, textureAttributes, cacheOut)
 }
-
 
 var _cVMetalTextureCacheCreateTextureFromImage func(allocator corefoundation.CFAllocatorRef, textureCache CVMetalTextureCacheRef, sourceImage CVImageBufferRef, textureAttributes corefoundation.CFDictionaryRef, pixelFormat metal.MTLPixelFormat, width uintptr, height uintptr, planeIndex uintptr, textureOut *CVMetalTextureRef) CVReturn
 
@@ -724,7 +674,6 @@ func CVMetalTextureCacheCreateTextureFromImage(allocator corefoundation.CFAlloca
 	return _cVMetalTextureCacheCreateTextureFromImage(allocator, textureCache, sourceImage, textureAttributes, pixelFormat, width, height, planeIndex, textureOut)
 }
 
-
 var _cVMetalTextureCacheFlush func(textureCache CVMetalTextureCacheRef, options CVOptionFlags)
 
 // CVMetalTextureCacheFlush manually flushes the contents of the provided texture cache.
@@ -736,7 +685,6 @@ func CVMetalTextureCacheFlush(textureCache CVMetalTextureCacheRef, options CVOpt
 	}
 	_cVMetalTextureCacheFlush(textureCache, options)
 }
-
 
 var _cVMetalTextureCacheGetTypeID func() uint
 
@@ -750,7 +698,6 @@ func CVMetalTextureCacheGetTypeID() uint {
 	return _cVMetalTextureCacheGetTypeID()
 }
 
-
 var _cVMetalTextureGetCleanTexCoords func(image CVMetalTextureRef, lowerLeft unsafe.Pointer, lowerRight unsafe.Pointer, upperRight unsafe.Pointer, upperLeft unsafe.Pointer)
 
 // CVMetalTextureGetCleanTexCoords returns convenient normalized texture coordinates for the part of the image that should be displayed.
@@ -762,7 +709,6 @@ func CVMetalTextureGetCleanTexCoords(image CVMetalTextureRef, lowerLeft unsafe.P
 	}
 	_cVMetalTextureGetCleanTexCoords(image, lowerLeft, lowerRight, upperRight, upperLeft)
 }
-
 
 var _cVMetalTextureGetTexture func(image CVMetalTextureRef) unsafe.Pointer
 
@@ -776,7 +722,6 @@ func CVMetalTextureGetTexture(image CVMetalTextureRef) unsafe.Pointer {
 	return _cVMetalTextureGetTexture(image)
 }
 
-
 var _cVMetalTextureGetTypeID func() uint
 
 // CVMetalTextureGetTypeID returns the Core Foundation type identifier for a CoreVideo Metal texture-based image buffer.
@@ -788,7 +733,6 @@ func CVMetalTextureGetTypeID() uint {
 	}
 	return _cVMetalTextureGetTypeID()
 }
-
 
 var _cVMetalTextureIsFlipped func(image CVMetalTextureRef) bool
 
@@ -802,7 +746,6 @@ func CVMetalTextureIsFlipped(image CVMetalTextureRef) bool {
 	return _cVMetalTextureIsFlipped(image)
 }
 
-
 var _cVOpenGLBufferPoolRelease func(openGLBufferPool CVOpenGLBufferPoolRef)
 
 // CVOpenGLBufferPoolRelease releases an OpenGL buffer pool.
@@ -814,7 +757,6 @@ func CVOpenGLBufferPoolRelease(openGLBufferPool CVOpenGLBufferPoolRef) {
 	}
 	_cVOpenGLBufferPoolRelease(openGLBufferPool)
 }
-
 
 var _cVOpenGLBufferPoolRetain func(openGLBufferPool CVOpenGLBufferPoolRef) CVOpenGLBufferPoolRef
 
@@ -828,7 +770,6 @@ func CVOpenGLBufferPoolRetain(openGLBufferPool CVOpenGLBufferPoolRef) CVOpenGLBu
 	return _cVOpenGLBufferPoolRetain(openGLBufferPool)
 }
 
-
 var _cVOpenGLBufferRelease func(buffer CVOpenGLBufferRef)
 
 // CVOpenGLBufferRelease releases a Core Video OpenGL buffer.
@@ -840,7 +781,6 @@ func CVOpenGLBufferRelease(buffer CVOpenGLBufferRef) {
 	}
 	_cVOpenGLBufferRelease(buffer)
 }
-
 
 var _cVOpenGLBufferRetain func(buffer CVOpenGLBufferRef) CVOpenGLBufferRef
 
@@ -854,7 +794,6 @@ func CVOpenGLBufferRetain(buffer CVOpenGLBufferRef) CVOpenGLBufferRef {
 	return _cVOpenGLBufferRetain(buffer)
 }
 
-
 var _cVOpenGLTextureCacheRelease func(textureCache CVOpenGLTextureCacheRef)
 
 // CVOpenGLTextureCacheRelease releases a texture cache object.
@@ -866,7 +805,6 @@ func CVOpenGLTextureCacheRelease(textureCache CVOpenGLTextureCacheRef) {
 	}
 	_cVOpenGLTextureCacheRelease(textureCache)
 }
-
 
 var _cVOpenGLTextureCacheRetain func(textureCache CVOpenGLTextureCacheRef) CVOpenGLTextureCacheRef
 
@@ -880,7 +818,6 @@ func CVOpenGLTextureCacheRetain(textureCache CVOpenGLTextureCacheRef) CVOpenGLTe
 	return _cVOpenGLTextureCacheRetain(textureCache)
 }
 
-
 var _cVOpenGLTextureRelease func(texture CVOpenGLTextureRef)
 
 // CVOpenGLTextureRelease releases a Core Video OpenGL texture.
@@ -892,7 +829,6 @@ func CVOpenGLTextureRelease(texture CVOpenGLTextureRef) {
 	}
 	_cVOpenGLTextureRelease(texture)
 }
-
 
 var _cVOpenGLTextureRetain func(texture CVOpenGLTextureRef) CVOpenGLTextureRef
 
@@ -906,7 +842,6 @@ func CVOpenGLTextureRetain(texture CVOpenGLTextureRef) CVOpenGLTextureRef {
 	return _cVOpenGLTextureRetain(texture)
 }
 
-
 var _cVPixelBufferCopyCreationAttributes func(pixelBuffer CVPixelBufferRef) corefoundation.CFDictionaryRef
 
 // CVPixelBufferCopyCreationAttributes.
@@ -918,7 +853,6 @@ func CVPixelBufferCopyCreationAttributes(pixelBuffer CVPixelBufferRef) corefound
 	}
 	return _cVPixelBufferCopyCreationAttributes(pixelBuffer)
 }
-
 
 var _cVPixelBufferCreate func(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 
@@ -932,7 +866,6 @@ func CVPixelBufferCreate(allocator corefoundation.CFAllocatorRef, width uintptr,
 	return _cVPixelBufferCreate(allocator, width, height, pixelFormatType, pixelBufferAttributes, pixelBufferOut)
 }
 
-
 var _cVPixelBufferCreateResolvedAttributesDictionary func(allocator corefoundation.CFAllocatorRef, attributes corefoundation.CFArrayRef, resolvedDictionaryOut *corefoundation.CFDictionaryRef) CVReturn
 
 // CVPixelBufferCreateResolvedAttributesDictionary resolves an array of [CFDictionary] objects describing various pixel buffer attributes into a single dictionary.
@@ -944,7 +877,6 @@ func CVPixelBufferCreateResolvedAttributesDictionary(allocator corefoundation.CF
 	}
 	return _cVPixelBufferCreateResolvedAttributesDictionary(allocator, attributes, resolvedDictionaryOut)
 }
-
 
 var _cVPixelBufferCreateWithBytes func(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, baseAddress unsafe.Pointer, bytesPerRow uintptr, releaseCallback CVPixelBufferReleaseBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 
@@ -958,7 +890,6 @@ func CVPixelBufferCreateWithBytes(allocator corefoundation.CFAllocatorRef, width
 	return _cVPixelBufferCreateWithBytes(allocator, width, height, pixelFormatType, baseAddress, bytesPerRow, releaseCallback, releaseRefCon, pixelBufferAttributes, pixelBufferOut)
 }
 
-
 var _cVPixelBufferCreateWithIOSurface func(allocator corefoundation.CFAllocatorRef, surface unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 
 // CVPixelBufferCreateWithIOSurface creates a single pixel buffer for the IO surface that you specify.
@@ -970,7 +901,6 @@ func CVPixelBufferCreateWithIOSurface(allocator corefoundation.CFAllocatorRef, s
 	}
 	return _cVPixelBufferCreateWithIOSurface(allocator, surface, pixelBufferAttributes, pixelBufferOut)
 }
-
 
 var _cVPixelBufferCreateWithPlanarBytes func(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth uintptr, planeHeight uintptr, planeBytesPerRow uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 
@@ -984,7 +914,6 @@ func CVPixelBufferCreateWithPlanarBytes(allocator corefoundation.CFAllocatorRef,
 	return _cVPixelBufferCreateWithPlanarBytes(allocator, width, height, pixelFormatType, dataPtr, dataSize, numberOfPlanes, planeBaseAddress, planeWidth, planeHeight, planeBytesPerRow, releaseCallback, releaseRefCon, pixelBufferAttributes, pixelBufferOut)
 }
 
-
 var _cVPixelBufferFillExtendedPixels func(pixelBuffer CVPixelBufferRef) CVReturn
 
 // CVPixelBufferFillExtendedPixels fills the extended pixels of the pixel buffer.
@@ -996,7 +925,6 @@ func CVPixelBufferFillExtendedPixels(pixelBuffer CVPixelBufferRef) CVReturn {
 	}
 	return _cVPixelBufferFillExtendedPixels(pixelBuffer)
 }
-
 
 var _cVPixelBufferGetBaseAddress func(pixelBuffer CVPixelBufferRef) unsafe.Pointer
 
@@ -1010,7 +938,6 @@ func CVPixelBufferGetBaseAddress(pixelBuffer CVPixelBufferRef) unsafe.Pointer {
 	return _cVPixelBufferGetBaseAddress(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetBaseAddressOfPlane func(pixelBuffer CVPixelBufferRef, planeIndex uintptr) unsafe.Pointer
 
 // CVPixelBufferGetBaseAddressOfPlane returns the base address of the plane at the specified plane index.
@@ -1022,7 +949,6 @@ func CVPixelBufferGetBaseAddressOfPlane(pixelBuffer CVPixelBufferRef, planeIndex
 	}
 	return _cVPixelBufferGetBaseAddressOfPlane(pixelBuffer, planeIndex)
 }
-
 
 var _cVPixelBufferGetBytesPerRow func(pixelBuffer CVPixelBufferRef) uintptr
 
@@ -1036,7 +962,6 @@ func CVPixelBufferGetBytesPerRow(pixelBuffer CVPixelBufferRef) uintptr {
 	return _cVPixelBufferGetBytesPerRow(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetBytesPerRowOfPlane func(pixelBuffer CVPixelBufferRef, planeIndex uintptr) uintptr
 
 // CVPixelBufferGetBytesPerRowOfPlane returns the number of bytes per row for a plane at the specified index in the pixel buffer.
@@ -1048,7 +973,6 @@ func CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer CVPixelBufferRef, planeIndex
 	}
 	return _cVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, planeIndex)
 }
-
 
 var _cVPixelBufferGetDataSize func(pixelBuffer CVPixelBufferRef) uintptr
 
@@ -1062,7 +986,6 @@ func CVPixelBufferGetDataSize(pixelBuffer CVPixelBufferRef) uintptr {
 	return _cVPixelBufferGetDataSize(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetExtendedPixels func(pixelBuffer CVPixelBufferRef, extraColumnsOnLeft *uintptr, extraColumnsOnRight *uintptr, extraRowsOnTop *uintptr, extraRowsOnBottom *uintptr)
 
 // CVPixelBufferGetExtendedPixels returns the amount of extended pixel padding in the pixel buffer.
@@ -1074,7 +997,6 @@ func CVPixelBufferGetExtendedPixels(pixelBuffer CVPixelBufferRef, extraColumnsOn
 	}
 	_cVPixelBufferGetExtendedPixels(pixelBuffer, extraColumnsOnLeft, extraColumnsOnRight, extraRowsOnTop, extraRowsOnBottom)
 }
-
 
 var _cVPixelBufferGetHeight func(pixelBuffer CVPixelBufferRef) uintptr
 
@@ -1088,7 +1010,6 @@ func CVPixelBufferGetHeight(pixelBuffer CVPixelBufferRef) uintptr {
 	return _cVPixelBufferGetHeight(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetHeightOfPlane func(pixelBuffer CVPixelBufferRef, planeIndex uintptr) uintptr
 
 // CVPixelBufferGetHeightOfPlane returns the height of the plane at planeIndex in the pixel buffer.
@@ -1100,7 +1021,6 @@ func CVPixelBufferGetHeightOfPlane(pixelBuffer CVPixelBufferRef, planeIndex uint
 	}
 	return _cVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
 }
-
 
 var _cVPixelBufferGetIOSurface func(pixelBuffer CVPixelBufferRef) unsafe.Pointer
 
@@ -1114,7 +1034,6 @@ func CVPixelBufferGetIOSurface(pixelBuffer CVPixelBufferRef) unsafe.Pointer {
 	return _cVPixelBufferGetIOSurface(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetPixelFormatType func(pixelBuffer CVPixelBufferRef) uint32
 
 // CVPixelBufferGetPixelFormatType returns the pixel format type of the pixel buffer.
@@ -1126,7 +1045,6 @@ func CVPixelBufferGetPixelFormatType(pixelBuffer CVPixelBufferRef) uint32 {
 	}
 	return _cVPixelBufferGetPixelFormatType(pixelBuffer)
 }
-
 
 var _cVPixelBufferGetPlaneCount func(pixelBuffer CVPixelBufferRef) uintptr
 
@@ -1140,7 +1058,6 @@ func CVPixelBufferGetPlaneCount(pixelBuffer CVPixelBufferRef) uintptr {
 	return _cVPixelBufferGetPlaneCount(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetTypeID func() uint
 
 // CVPixelBufferGetTypeID returns the Core Foundation type identifier of the pixel buffer type.
@@ -1152,7 +1069,6 @@ func CVPixelBufferGetTypeID() uint {
 	}
 	return _cVPixelBufferGetTypeID()
 }
-
 
 var _cVPixelBufferGetWidth func(pixelBuffer CVPixelBufferRef) uintptr
 
@@ -1166,7 +1082,6 @@ func CVPixelBufferGetWidth(pixelBuffer CVPixelBufferRef) uintptr {
 	return _cVPixelBufferGetWidth(pixelBuffer)
 }
 
-
 var _cVPixelBufferGetWidthOfPlane func(pixelBuffer CVPixelBufferRef, planeIndex uintptr) uintptr
 
 // CVPixelBufferGetWidthOfPlane returns the width of the plane at a given index in the pixel buffer.
@@ -1178,7 +1093,6 @@ func CVPixelBufferGetWidthOfPlane(pixelBuffer CVPixelBufferRef, planeIndex uintp
 	}
 	return _cVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
 }
-
 
 var _cVPixelBufferIsCompatibleWithAttributes func(pixelBuffer CVPixelBufferRef, attributes corefoundation.CFDictionaryRef) bool
 
@@ -1192,7 +1106,6 @@ func CVPixelBufferIsCompatibleWithAttributes(pixelBuffer CVPixelBufferRef, attri
 	return _cVPixelBufferIsCompatibleWithAttributes(pixelBuffer, attributes)
 }
 
-
 var _cVPixelBufferIsPlanar func(pixelBuffer CVPixelBufferRef) bool
 
 // CVPixelBufferIsPlanar determines whether the pixel buffer is planar.
@@ -1204,7 +1117,6 @@ func CVPixelBufferIsPlanar(pixelBuffer CVPixelBufferRef) bool {
 	}
 	return _cVPixelBufferIsPlanar(pixelBuffer)
 }
-
 
 var _cVPixelBufferLockBaseAddress func(pixelBuffer CVPixelBufferRef, lockFlags CVPixelBufferLockFlags) CVReturn
 
@@ -1218,7 +1130,6 @@ func CVPixelBufferLockBaseAddress(pixelBuffer CVPixelBufferRef, lockFlags CVPixe
 	return _cVPixelBufferLockBaseAddress(pixelBuffer, lockFlags)
 }
 
-
 var _cVPixelBufferPoolCreate func(allocator corefoundation.CFAllocatorRef, poolAttributes corefoundation.CFDictionaryRef, pixelBufferAttributes corefoundation.CFDictionaryRef, poolOut *CVPixelBufferPoolRef) CVReturn
 
 // CVPixelBufferPoolCreate creates a pixel buffer pool using the allocator and attributes that you specify.
@@ -1230,7 +1141,6 @@ func CVPixelBufferPoolCreate(allocator corefoundation.CFAllocatorRef, poolAttrib
 	}
 	return _cVPixelBufferPoolCreate(allocator, poolAttributes, pixelBufferAttributes, poolOut)
 }
-
 
 var _cVPixelBufferPoolCreatePixelBuffer func(allocator corefoundation.CFAllocatorRef, pixelBufferPool CVPixelBufferPoolRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 
@@ -1244,7 +1154,6 @@ func CVPixelBufferPoolCreatePixelBuffer(allocator corefoundation.CFAllocatorRef,
 	return _cVPixelBufferPoolCreatePixelBuffer(allocator, pixelBufferPool, pixelBufferOut)
 }
 
-
 var _cVPixelBufferPoolCreatePixelBufferWithAuxAttributes func(allocator corefoundation.CFAllocatorRef, pixelBufferPool CVPixelBufferPoolRef, auxAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 
 // CVPixelBufferPoolCreatePixelBufferWithAuxAttributes creates a new pixel buffer with auxiliary attributes from the pool.
@@ -1256,7 +1165,6 @@ func CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(allocator corefoundatio
 	}
 	return _cVPixelBufferPoolCreatePixelBufferWithAuxAttributes(allocator, pixelBufferPool, auxAttributes, pixelBufferOut)
 }
-
 
 var _cVPixelBufferPoolFlush func(pool CVPixelBufferPoolRef, options CVPixelBufferPoolFlushFlags)
 
@@ -1270,7 +1178,6 @@ func CVPixelBufferPoolFlush(pool CVPixelBufferPoolRef, options CVPixelBufferPool
 	_cVPixelBufferPoolFlush(pool, options)
 }
 
-
 var _cVPixelBufferPoolGetAttributes func(pool CVPixelBufferPoolRef) corefoundation.CFDictionaryRef
 
 // CVPixelBufferPoolGetAttributes the pool attributes dictionary for a pixel buffer pool.
@@ -1282,7 +1189,6 @@ func CVPixelBufferPoolGetAttributes(pool CVPixelBufferPoolRef) corefoundation.CF
 	}
 	return _cVPixelBufferPoolGetAttributes(pool)
 }
-
 
 var _cVPixelBufferPoolGetPixelBufferAttributes func(pool CVPixelBufferPoolRef) corefoundation.CFDictionaryRef
 
@@ -1296,7 +1202,6 @@ func CVPixelBufferPoolGetPixelBufferAttributes(pool CVPixelBufferPoolRef) corefo
 	return _cVPixelBufferPoolGetPixelBufferAttributes(pool)
 }
 
-
 var _cVPixelBufferPoolGetTypeID func() uint
 
 // CVPixelBufferPoolGetTypeID returns the Core Foundation type identifier of the pixel buffer pool type.
@@ -1308,7 +1213,6 @@ func CVPixelBufferPoolGetTypeID() uint {
 	}
 	return _cVPixelBufferPoolGetTypeID()
 }
-
 
 var _cVPixelBufferPoolRelease func(pixelBufferPool CVPixelBufferPoolRef)
 
@@ -1322,7 +1226,6 @@ func CVPixelBufferPoolRelease(pixelBufferPool CVPixelBufferPoolRef) {
 	_cVPixelBufferPoolRelease(pixelBufferPool)
 }
 
-
 var _cVPixelBufferPoolRetain func(pixelBufferPool CVPixelBufferPoolRef) CVPixelBufferPoolRef
 
 // CVPixelBufferPoolRetain retains the pixel buffer pool that you specify.
@@ -1334,7 +1237,6 @@ func CVPixelBufferPoolRetain(pixelBufferPool CVPixelBufferPoolRef) CVPixelBuffer
 	}
 	return _cVPixelBufferPoolRetain(pixelBufferPool)
 }
-
 
 var _cVPixelBufferRelease func(texture CVPixelBufferRef)
 
@@ -1348,7 +1250,6 @@ func CVPixelBufferRelease(texture CVPixelBufferRef) {
 	_cVPixelBufferRelease(texture)
 }
 
-
 var _cVPixelBufferRetain func(texture CVPixelBufferRef) CVPixelBufferRef
 
 // CVPixelBufferRetain retains a pixel buffer.
@@ -1360,7 +1261,6 @@ func CVPixelBufferRetain(texture CVPixelBufferRef) CVPixelBufferRef {
 	}
 	return _cVPixelBufferRetain(texture)
 }
-
 
 var _cVPixelBufferUnlockBaseAddress func(pixelBuffer CVPixelBufferRef, unlockFlags CVPixelBufferLockFlags) CVReturn
 
@@ -1374,7 +1274,6 @@ func CVPixelBufferUnlockBaseAddress(pixelBuffer CVPixelBufferRef, unlockFlags CV
 	return _cVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags)
 }
 
-
 var _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes func(allocator corefoundation.CFAllocatorRef) corefoundation.CFArrayRef
 
 // CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes returns all the pixel format descriptions known to Core Video.
@@ -1386,7 +1285,6 @@ func CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(allocator corefo
 	}
 	return _cVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(allocator)
 }
-
 
 var _cVPixelFormatDescriptionCreateWithPixelFormatType func(allocator corefoundation.CFAllocatorRef, pixelFormat uint32) corefoundation.CFDictionaryRef
 
@@ -1400,7 +1298,6 @@ func CVPixelFormatDescriptionCreateWithPixelFormatType(allocator corefoundation.
 	return _cVPixelFormatDescriptionCreateWithPixelFormatType(allocator, pixelFormat)
 }
 
-
 var _cVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType func(description corefoundation.CFDictionaryRef, pixelFormat uint32)
 
 // CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType registers a pixel format description with Core Video.
@@ -1412,7 +1309,6 @@ func CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(description 
 	}
 	_cVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(description, pixelFormat)
 }
-
 
 var _cVPixelFormatTypeCopyFourCharCodeString func(pixelFormat uint32) corefoundation.CFStringRef
 
@@ -1426,7 +1322,6 @@ func CVPixelFormatTypeCopyFourCharCodeString(pixelFormat uint32) corefoundation.
 	return _cVPixelFormatTypeCopyFourCharCodeString(pixelFormat)
 }
 
-
 var _cVTransferFunctionGetIntegerCodePointForString func(transferFunctionString corefoundation.CFStringRef) int
 
 // CVTransferFunctionGetIntegerCodePointForString returns the standard integer code point corresponding to the Core Video transfer function string that you specify.
@@ -1438,7 +1333,6 @@ func CVTransferFunctionGetIntegerCodePointForString(transferFunctionString coref
 	}
 	return _cVTransferFunctionGetIntegerCodePointForString(transferFunctionString)
 }
-
 
 var _cVTransferFunctionGetStringForIntegerCodePoint func(transferFunctionCodePoint int) corefoundation.CFStringRef
 
@@ -1452,7 +1346,6 @@ func CVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint in
 	return _cVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint)
 }
 
-
 var _cVYCbCrMatrixGetIntegerCodePointForString func(yCbCrMatrixString corefoundation.CFStringRef) int
 
 // CVYCbCrMatrixGetIntegerCodePointForString returns the standard integer code point corresponding to the Core Video YCbCr matrix string that you specify.
@@ -1465,7 +1358,6 @@ func CVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundation.
 	return _cVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString)
 }
 
-
 var _cVYCbCrMatrixGetStringForIntegerCodePoint func(yCbCrMatrixCodePoint int) corefoundation.CFStringRef
 
 // CVYCbCrMatrixGetStringForIntegerCodePoint returns the Core Video YCbCr matrix string corresponding to the standard integer code point that you specify.
@@ -1477,8 +1369,6 @@ func CVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int) corefou
 	}
 	return _cVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint)
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -1593,9 +1483,4 @@ func init() {
 		registerFunc(&_cVYCbCrMatrixGetIntegerCodePointForString, frameworkHandle, "CVYCbCrMatrixGetIntegerCodePointForString")
 		registerFunc(&_cVYCbCrMatrixGetStringForIntegerCodePoint, frameworkHandle, "CVYCbCrMatrixGetStringForIntegerCodePoint")
 	}
-
-
-
-
-
 

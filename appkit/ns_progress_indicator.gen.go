@@ -38,12 +38,6 @@ func (nc NSProgressIndicatorClass) Alloc() NSProgressIndicator {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface that provides visual feedback to the user about the status of
 // an ongoing task.
 //
@@ -106,10 +100,6 @@ func NSProgressIndicatorFromID(id objc.ID) NSProgressIndicator {
 }
 // NOTE: NSProgressIndicator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSProgressIndicator] class.
 //
@@ -209,13 +199,7 @@ type INSProgressIndicator interface {
 	// A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
 	DisplayedWhenStopped() bool
 	SetDisplayedWhenStopped(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSProgressIndicator) Init() NSProgressIndicator {
@@ -236,11 +220,6 @@ func NewNSProgressIndicator() NSProgressIndicator {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -255,7 +234,6 @@ func NewProgressIndicatorWithCoder(coder foundation.INSCoder) NSProgressIndicato
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSProgressIndicatorFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -278,12 +256,6 @@ func NewProgressIndicatorWithFrame(frameRect corefoundation.CGRect) NSProgressIn
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSProgressIndicatorFromID(rv)
 }
-
-
-
-
-
-
 
 // Starts the animation of an indeterminate progress indicator.
 //
@@ -353,20 +325,6 @@ func (p NSProgressIndicator) AccessibilityValue() foundation.NSNumber {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSNumberFromID(rv)
 }
-func (p NSProgressIndicator) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean that indicates whether the progress indicator implements
 // animation in a separate thread.
@@ -390,8 +348,6 @@ func (p NSProgressIndicator) SetUsesThreadedAnimation(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesThreadedAnimation:"), value)
 }
 
-
-
 // The value that indicates the current extent of the progress indicator.
 //
 // # Discussion
@@ -411,8 +367,6 @@ func (p NSProgressIndicator) SetDoubleValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleValue:"), value)
 }
 
-
-
 // The minimum value for the progress indicator.
 //
 // # Discussion
@@ -431,8 +385,6 @@ func (p NSProgressIndicator) SetMinValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinValue:"), value)
 }
 
-
-
 // The maximum value for the progress indicator.
 //
 // # Discussion
@@ -450,8 +402,6 @@ func (p NSProgressIndicator) MaxValue() float64 {
 func (p NSProgressIndicator) SetMaxValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMaxValue:"), value)
 }
-
-
 
 // The progress object to use for updating the progress view.
 //
@@ -477,8 +427,6 @@ func (p NSProgressIndicator) SetObservedProgress(value foundation.NSProgress) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObservedProgress:"), value)
 }
 
-
-
 // The size of the progress indicator.
 //
 // # Discussion
@@ -494,8 +442,6 @@ func (p NSProgressIndicator) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlSize:"), value)
 }
 
-
-
 // The progress indicator’s control tint.
 //
 // # Discussion
@@ -510,8 +456,6 @@ func (p NSProgressIndicator) ControlTint() NSControlTint {
 func (p NSProgressIndicator) SetControlTint(value NSControlTint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlTint:"), value)
 }
-
-
 
 // A Boolean that indicates whether the progress indicator’s frame has a
 // three-dimensional bezel.
@@ -531,8 +475,6 @@ func (p NSProgressIndicator) Bezeled() bool {
 func (p NSProgressIndicator) SetBezeled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBezeled:"), value)
 }
-
-
 
 // A Boolean that indicates whether the progress indicator is indeterminate.
 //
@@ -555,8 +497,6 @@ func (p NSProgressIndicator) SetIndeterminate(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIndeterminate:"), value)
 }
 
-
-
 // The style of the progress indicator (bar or spinning).
 //
 // # Discussion
@@ -573,8 +513,6 @@ func (p NSProgressIndicator) Style() NSProgressIndicatorStyle {
 func (p NSProgressIndicator) SetStyle(value NSProgressIndicatorStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setStyle:"), value)
 }
-
-
 
 // A Boolean that indicates whether the progress indicator hides itself when
 // it isn’t animating.
@@ -596,20 +534,6 @@ func (p NSProgressIndicator) DisplayedWhenStopped() bool {
 func (p NSProgressIndicator) SetDisplayedWhenStopped(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDisplayedWhenStopped:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityProgressIndicator
 			
@@ -706,28 +630,4 @@ func (o NSProgressIndicator) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

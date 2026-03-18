@@ -14,8 +14,6 @@ type NSSpeechRecognizerDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSSpeechRecognizerDelegateObject wraps an existing Objective-C object that conforms to the NSSpeechRecognizerDelegate protocol.
 type NSSpeechRecognizerDelegateObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSSpeechRecognizerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSpeechRecognizerDelegateObjectFromID constructs a [NSSpeechRecognizerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSpeechRecognizerDelegateObjectFromID(id objc.ID) NSSpeechRecognizerDelegateObject {
@@ -33,9 +29,6 @@ func NSSpeechRecognizerDelegateObjectFromID(id objc.ID) NSSpeechRecognizerDelega
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked when the recognition engine has recognized the application command
 // `command`.
@@ -52,10 +45,4 @@ func (o NSSpeechRecognizerDelegateObject) SpeechRecognizerDidRecognizeCommand(se
 	
 	objc.Send[struct{}](o.ID, objc.Sel("speechRecognizer:didRecognizeCommand:"), sender, objc.String(command))
 	}
-
-
-
-
-
-
 

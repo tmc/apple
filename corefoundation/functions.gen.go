@@ -36,7 +36,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _cFAbsoluteTimeGetCurrent func() CFAbsoluteTime
 
 // CFAbsoluteTimeGetCurrent returns the current system absolute time.
@@ -48,7 +47,6 @@ func CFAbsoluteTimeGetCurrent() CFAbsoluteTime {
 	}
 	return _cFAbsoluteTimeGetCurrent()
 }
-
 
 var _cFAllocatorAllocate func(allocator CFAllocatorRef, size int, hint uint64) unsafe.Pointer
 
@@ -62,7 +60,6 @@ func CFAllocatorAllocate(allocator CFAllocatorRef, size int, hint uint64) unsafe
 	return _cFAllocatorAllocate(allocator, size, hint)
 }
 
-
 var _cFAllocatorAllocateBytes func(allocator CFAllocatorRef, size int, hint uint64) unsafe.Pointer
 
 // CFAllocatorAllocateBytes.
@@ -74,7 +71,6 @@ func CFAllocatorAllocateBytes(allocator CFAllocatorRef, size int, hint uint64) u
 	}
 	return _cFAllocatorAllocateBytes(allocator, size, hint)
 }
-
 
 var _cFAllocatorAllocateTyped func(allocator CFAllocatorRef, size int, descriptor CFAllocatorTypeID, hint uint64) unsafe.Pointer
 
@@ -88,7 +84,6 @@ func CFAllocatorAllocateTyped(allocator CFAllocatorRef, size int, descriptor CFA
 	return _cFAllocatorAllocateTyped(allocator, size, descriptor, hint)
 }
 
-
 var _cFAllocatorCreate func(allocator CFAllocatorRef, context *CFAllocatorContext) CFAllocatorRef
 
 // CFAllocatorCreate creates an allocator object.
@@ -100,7 +95,6 @@ func CFAllocatorCreate(allocator CFAllocatorRef, context *CFAllocatorContext) CF
 	}
 	return _cFAllocatorCreate(allocator, context)
 }
-
 
 var _cFAllocatorCreateWithZone func(allocator CFAllocatorRef, zone unsafe.Pointer) CFAllocatorRef
 
@@ -114,7 +108,6 @@ func CFAllocatorCreateWithZone(allocator CFAllocatorRef, zone unsafe.Pointer) CF
 	return _cFAllocatorCreateWithZone(allocator, zone)
 }
 
-
 var _cFAllocatorDeallocate func(allocator CFAllocatorRef, ptr unsafe.Pointer)
 
 // CFAllocatorDeallocate deallocates a block of memory with a given allocator.
@@ -126,7 +119,6 @@ func CFAllocatorDeallocate(allocator CFAllocatorRef, ptr unsafe.Pointer) {
 	}
 	_cFAllocatorDeallocate(allocator, ptr)
 }
-
 
 var _cFAllocatorGetContext func(allocator CFAllocatorRef, context *CFAllocatorContext)
 
@@ -140,7 +132,6 @@ func CFAllocatorGetContext(allocator CFAllocatorRef, context *CFAllocatorContext
 	_cFAllocatorGetContext(allocator, context)
 }
 
-
 var _cFAllocatorGetDefault func() CFAllocatorRef
 
 // CFAllocatorGetDefault gets the default allocator object for the current thread.
@@ -152,7 +143,6 @@ func CFAllocatorGetDefault() CFAllocatorRef {
 	}
 	return _cFAllocatorGetDefault()
 }
-
 
 var _cFAllocatorGetPreferredSizeForSize func(allocator CFAllocatorRef, size int, hint uint64) int
 
@@ -166,7 +156,6 @@ func CFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size int, hint
 	return _cFAllocatorGetPreferredSizeForSize(allocator, size, hint)
 }
 
-
 var _cFAllocatorGetTypeID func() uint
 
 // CFAllocatorGetTypeID returns the type identifier for the CFAllocator opaque type.
@@ -178,7 +167,6 @@ func CFAllocatorGetTypeID() uint {
 	}
 	return _cFAllocatorGetTypeID()
 }
-
 
 var _cFAllocatorReallocate func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) unsafe.Pointer
 
@@ -192,7 +180,6 @@ func CFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize
 	return _cFAllocatorReallocate(allocator, ptr, newsize, hint)
 }
 
-
 var _cFAllocatorReallocateBytes func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) unsafe.Pointer
 
 // CFAllocatorReallocateBytes.
@@ -204,7 +191,6 @@ func CFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer, ne
 	}
 	return _cFAllocatorReallocateBytes(allocator, ptr, newsize, hint)
 }
-
 
 var _cFAllocatorReallocateTyped func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, descriptor CFAllocatorTypeID, hint uint64) unsafe.Pointer
 
@@ -218,7 +204,6 @@ func CFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer, ne
 	return _cFAllocatorReallocateTyped(allocator, ptr, newsize, descriptor, hint)
 }
 
-
 var _cFAllocatorSetDefault func(allocator CFAllocatorRef)
 
 // CFAllocatorSetDefault sets the given allocator as the default for the current thread.
@@ -230,7 +215,6 @@ func CFAllocatorSetDefault(allocator CFAllocatorRef) {
 	}
 	_cFAllocatorSetDefault(allocator)
 }
-
 
 var _cFArrayAppendArray func(theArray CFMutableArrayRef, otherArray CFArrayRef, otherRange CFRange)
 
@@ -244,7 +228,6 @@ func CFArrayAppendArray(theArray CFMutableArrayRef, otherArray CFArrayRef, other
 	_cFArrayAppendArray(theArray, otherArray, otherRange)
 }
 
-
 var _cFArrayAppendValue func(theArray CFMutableArrayRef, value unsafe.Pointer)
 
 // CFArrayAppendValue adds a value to an array giving it the new largest index.
@@ -256,7 +239,6 @@ func CFArrayAppendValue(theArray CFMutableArrayRef, value unsafe.Pointer) {
 	}
 	_cFArrayAppendValue(theArray, value)
 }
-
 
 var _cFArrayApplyFunction func(theArray CFArrayRef, range_ CFRange, applier CFArrayApplierFunction, context unsafe.Pointer)
 
@@ -270,7 +252,6 @@ func CFArrayApplyFunction(theArray CFArrayRef, range_ CFRange, applier CFArrayAp
 	_cFArrayApplyFunction(theArray, range_, applier, context)
 }
 
-
 var _cFArrayBSearchValues func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) int
 
 // CFArrayBSearchValues searches an array for a value using a binary search algorithm.
@@ -282,7 +263,6 @@ func CFArrayBSearchValues(theArray CFArrayRef, range_ CFRange, value unsafe.Poin
 	}
 	return _cFArrayBSearchValues(theArray, range_, value, comparator, context)
 }
-
 
 var _cFArrayContainsValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) bool
 
@@ -296,7 +276,6 @@ func CFArrayContainsValue(theArray CFArrayRef, range_ CFRange, value unsafe.Poin
 	return _cFArrayContainsValue(theArray, range_, value)
 }
 
-
 var _cFArrayCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFArrayCallBacks) CFArrayRef
 
 // CFArrayCreate creates a new immutable array with the given values.
@@ -308,7 +287,6 @@ func CFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues in
 	}
 	return _cFArrayCreate(allocator, values, numValues, callBacks)
 }
-
 
 var _cFArrayCreateCopy func(allocator CFAllocatorRef, theArray CFArrayRef) CFArrayRef
 
@@ -322,7 +300,6 @@ func CFArrayCreateCopy(allocator CFAllocatorRef, theArray CFArrayRef) CFArrayRef
 	return _cFArrayCreateCopy(allocator, theArray)
 }
 
-
 var _cFArrayCreateMutable func(allocator CFAllocatorRef, capacity int, callBacks *CFArrayCallBacks) CFMutableArrayRef
 
 // CFArrayCreateMutable creates a new empty mutable array.
@@ -334,7 +311,6 @@ func CFArrayCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFA
 	}
 	return _cFArrayCreateMutable(allocator, capacity, callBacks)
 }
-
 
 var _cFArrayCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theArray CFArrayRef) CFMutableArrayRef
 
@@ -348,7 +324,6 @@ func CFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArray C
 	return _cFArrayCreateMutableCopy(allocator, capacity, theArray)
 }
 
-
 var _cFArrayExchangeValuesAtIndices func(theArray CFMutableArrayRef, idx1 int, idx2 int)
 
 // CFArrayExchangeValuesAtIndices exchanges the values at two indices of an array.
@@ -360,7 +335,6 @@ func CFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 int, idx2 i
 	}
 	_cFArrayExchangeValuesAtIndices(theArray, idx1, idx2)
 }
-
 
 var _cFArrayGetCount func(theArray CFArrayRef) int
 
@@ -374,7 +348,6 @@ func CFArrayGetCount(theArray CFArrayRef) int {
 	return _cFArrayGetCount(theArray)
 }
 
-
 var _cFArrayGetCountOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int
 
 // CFArrayGetCountOfValue counts the number of times a given value occurs in an array.
@@ -386,7 +359,6 @@ func CFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Po
 	}
 	return _cFArrayGetCountOfValue(theArray, range_, value)
 }
-
 
 var _cFArrayGetFirstIndexOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int
 
@@ -400,7 +372,6 @@ func CFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsa
 	return _cFArrayGetFirstIndexOfValue(theArray, range_, value)
 }
 
-
 var _cFArrayGetLastIndexOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int
 
 // CFArrayGetLastIndexOfValue searches an array backward for a value.
@@ -412,7 +383,6 @@ func CFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsaf
 	}
 	return _cFArrayGetLastIndexOfValue(theArray, range_, value)
 }
-
 
 var _cFArrayGetTypeID func() uint
 
@@ -426,7 +396,6 @@ func CFArrayGetTypeID() uint {
 	return _cFArrayGetTypeID()
 }
 
-
 var _cFArrayGetValueAtIndex func(theArray CFArrayRef, idx int) unsafe.Pointer
 
 // CFArrayGetValueAtIndex retrieves a value at a given index.
@@ -438,7 +407,6 @@ func CFArrayGetValueAtIndex(theArray CFArrayRef, idx int) unsafe.Pointer {
 	}
 	return _cFArrayGetValueAtIndex(theArray, idx)
 }
-
 
 var _cFArrayGetValues func(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer)
 
@@ -452,7 +420,6 @@ func CFArrayGetValues(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer
 	_cFArrayGetValues(theArray, range_, values)
 }
 
-
 var _cFArrayInsertValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)
 
 // CFArrayInsertValueAtIndex inserts a value into an array at a given index.
@@ -464,7 +431,6 @@ func CFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe
 	}
 	_cFArrayInsertValueAtIndex(theArray, idx, value)
 }
-
 
 var _cFArrayRemoveAllValues func(theArray CFMutableArrayRef)
 
@@ -478,7 +444,6 @@ func CFArrayRemoveAllValues(theArray CFMutableArrayRef) {
 	_cFArrayRemoveAllValues(theArray)
 }
 
-
 var _cFArrayRemoveValueAtIndex func(theArray CFMutableArrayRef, idx int)
 
 // CFArrayRemoveValueAtIndex removes the value at a given index from an array.
@@ -490,7 +455,6 @@ func CFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int) {
 	}
 	_cFArrayRemoveValueAtIndex(theArray, idx)
 }
-
 
 var _cFArrayReplaceValues func(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int)
 
@@ -504,7 +468,6 @@ func CFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues 
 	_cFArrayReplaceValues(theArray, range_, newValues, newCount)
 }
 
-
 var _cFArraySetValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)
 
 // CFArraySetValueAtIndex changes the value at a given index in an array.
@@ -516,7 +479,6 @@ func CFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Po
 	}
 	_cFArraySetValueAtIndex(theArray, idx, value)
 }
-
 
 var _cFArraySortValues func(theArray CFMutableArrayRef, range_ CFRange, comparator CFComparatorFunction, context unsafe.Pointer)
 
@@ -530,7 +492,6 @@ func CFArraySortValues(theArray CFMutableArrayRef, range_ CFRange, comparator CF
 	_cFArraySortValues(theArray, range_, comparator, context)
 }
 
-
 var _cFAttributedStringBeginEditing func(aStr CFMutableAttributedStringRef)
 
 // CFAttributedStringBeginEditing defers internal consistency-checking and coalescing for a mutable attributed string.
@@ -542,7 +503,6 @@ func CFAttributedStringBeginEditing(aStr CFMutableAttributedStringRef) {
 	}
 	_cFAttributedStringBeginEditing(aStr)
 }
-
 
 var _cFAttributedStringCreate func(alloc CFAllocatorRef, str CFStringRef, attributes CFDictionaryRef) CFAttributedStringRef
 
@@ -556,7 +516,6 @@ func CFAttributedStringCreate(alloc CFAllocatorRef, str CFStringRef, attributes 
 	return _cFAttributedStringCreate(alloc, str, attributes)
 }
 
-
 var _cFAttributedStringCreateCopy func(alloc CFAllocatorRef, aStr CFAttributedStringRef) CFAttributedStringRef
 
 // CFAttributedStringCreateCopy creates an immutable copy of an attributed string.
@@ -568,7 +527,6 @@ func CFAttributedStringCreateCopy(alloc CFAllocatorRef, aStr CFAttributedStringR
 	}
 	return _cFAttributedStringCreateCopy(alloc, aStr)
 }
-
 
 var _cFAttributedStringCreateMutable func(alloc CFAllocatorRef, maxLength int) CFMutableAttributedStringRef
 
@@ -582,7 +540,6 @@ func CFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength int) CFMuta
 	return _cFAttributedStringCreateMutable(alloc, maxLength)
 }
 
-
 var _cFAttributedStringCreateMutableCopy func(alloc CFAllocatorRef, maxLength int, aStr CFAttributedStringRef) CFMutableAttributedStringRef
 
 // CFAttributedStringCreateMutableCopy creates a mutable copy of an attributed string.
@@ -594,7 +551,6 @@ func CFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, aS
 	}
 	return _cFAttributedStringCreateMutableCopy(alloc, maxLength, aStr)
 }
-
 
 var _cFAttributedStringCreateWithSubstring func(alloc CFAllocatorRef, aStr CFAttributedStringRef, range_ CFRange) CFAttributedStringRef
 
@@ -608,7 +564,6 @@ func CFAttributedStringCreateWithSubstring(alloc CFAllocatorRef, aStr CFAttribut
 	return _cFAttributedStringCreateWithSubstring(alloc, aStr, range_)
 }
 
-
 var _cFAttributedStringEndEditing func(aStr CFMutableAttributedStringRef)
 
 // CFAttributedStringEndEditing re-enables internal consistency-checking and coalescing for a mutable attributed string.
@@ -620,7 +575,6 @@ func CFAttributedStringEndEditing(aStr CFMutableAttributedStringRef) {
 	}
 	_cFAttributedStringEndEditing(aStr)
 }
-
 
 var _cFAttributedStringGetAttribute func(aStr CFAttributedStringRef, loc int, attrName CFStringRef, effectiveRange *CFRange) CFTypeRef
 
@@ -634,7 +588,6 @@ func CFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attrNam
 	return _cFAttributedStringGetAttribute(aStr, loc, attrName, effectiveRange)
 }
 
-
 var _cFAttributedStringGetAttributeAndLongestEffectiveRange func(aStr CFAttributedStringRef, loc int, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) CFTypeRef
 
 // CFAttributedStringGetAttributeAndLongestEffectiveRange returns the value of a given attribute of an attributed string at a specified location.
@@ -646,7 +599,6 @@ func CFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStr
 	}
 	return _cFAttributedStringGetAttributeAndLongestEffectiveRange(aStr, loc, attrName, inRange, longestEffectiveRange)
 }
-
 
 var _cFAttributedStringGetAttributes func(aStr CFAttributedStringRef, loc int, effectiveRange *CFRange) CFDictionaryRef
 
@@ -660,7 +612,6 @@ func CFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc int, effect
 	return _cFAttributedStringGetAttributes(aStr, loc, effectiveRange)
 }
 
-
 var _cFAttributedStringGetAttributesAndLongestEffectiveRange func(aStr CFAttributedStringRef, loc int, inRange CFRange, longestEffectiveRange *CFRange) CFDictionaryRef
 
 // CFAttributedStringGetAttributesAndLongestEffectiveRange returns the attributes of an attributed string at a specified location.
@@ -672,7 +623,6 @@ func CFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedSt
 	}
 	return _cFAttributedStringGetAttributesAndLongestEffectiveRange(aStr, loc, inRange, longestEffectiveRange)
 }
-
 
 var _cFAttributedStringGetBidiLevelsAndResolvedDirections func(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) bool
 
@@ -686,7 +636,6 @@ func CFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString CFAtt
 	return _cFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString, range_, baseDirection, bidiLevels, baseDirections)
 }
 
-
 var _cFAttributedStringGetLength func(aStr CFAttributedStringRef) int
 
 // CFAttributedStringGetLength returns the length of the attributed string in characters.
@@ -698,7 +647,6 @@ func CFAttributedStringGetLength(aStr CFAttributedStringRef) int {
 	}
 	return _cFAttributedStringGetLength(aStr)
 }
-
 
 var _cFAttributedStringGetMutableString func(aStr CFMutableAttributedStringRef) CFMutableStringRef
 
@@ -712,7 +660,6 @@ func CFAttributedStringGetMutableString(aStr CFMutableAttributedStringRef) CFMut
 	return _cFAttributedStringGetMutableString(aStr)
 }
 
-
 var _cFAttributedStringGetStatisticalWritingDirections func(attributedString CFAttributedStringRef, range_ CFRange, baseDirection int8, bidiLevels *uint8, baseDirections *uint8) bool
 
 // CFAttributedStringGetStatisticalWritingDirections.
@@ -724,7 +671,6 @@ func CFAttributedStringGetStatisticalWritingDirections(attributedString CFAttrib
 	}
 	return _cFAttributedStringGetStatisticalWritingDirections(attributedString, range_, baseDirection, bidiLevels, baseDirections)
 }
-
 
 var _cFAttributedStringGetString func(aStr CFAttributedStringRef) CFStringRef
 
@@ -738,7 +684,6 @@ func CFAttributedStringGetString(aStr CFAttributedStringRef) CFStringRef {
 	return _cFAttributedStringGetString(aStr)
 }
 
-
 var _cFAttributedStringGetTypeID func() uint
 
 // CFAttributedStringGetTypeID returns the type identifier for the CFAttributedString opaque type.
@@ -750,7 +695,6 @@ func CFAttributedStringGetTypeID() uint {
 	}
 	return _cFAttributedStringGetTypeID()
 }
-
 
 var _cFAttributedStringRemoveAttribute func(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef)
 
@@ -764,7 +708,6 @@ func CFAttributedStringRemoveAttribute(aStr CFMutableAttributedStringRef, range_
 	_cFAttributedStringRemoveAttribute(aStr, range_, attrName)
 }
 
-
 var _cFAttributedStringReplaceAttributedString func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFAttributedStringRef)
 
 // CFAttributedStringReplaceAttributedString replaces the attributed substring over a range with another attributed string.
@@ -776,7 +719,6 @@ func CFAttributedStringReplaceAttributedString(aStr CFMutableAttributedStringRef
 	}
 	_cFAttributedStringReplaceAttributedString(aStr, range_, replacement)
 }
-
 
 var _cFAttributedStringReplaceString func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFStringRef)
 
@@ -790,7 +732,6 @@ func CFAttributedStringReplaceString(aStr CFMutableAttributedStringRef, range_ C
 	_cFAttributedStringReplaceString(aStr, range_, replacement)
 }
 
-
 var _cFAttributedStringSetAttribute func(aStr CFMutableAttributedStringRef, range_ CFRange, attrName CFStringRef, value CFTypeRef)
 
 // CFAttributedStringSetAttribute sets the value of a single attribute over the specified range.
@@ -802,7 +743,6 @@ func CFAttributedStringSetAttribute(aStr CFMutableAttributedStringRef, range_ CF
 	}
 	_cFAttributedStringSetAttribute(aStr, range_, attrName, value)
 }
-
 
 var _cFAttributedStringSetAttributes func(aStr CFMutableAttributedStringRef, range_ CFRange, replacement CFDictionaryRef, clearOtherAttributes bool)
 
@@ -816,7 +756,6 @@ func CFAttributedStringSetAttributes(aStr CFMutableAttributedStringRef, range_ C
 	_cFAttributedStringSetAttributes(aStr, range_, replacement, clearOtherAttributes)
 }
 
-
 var _cFAutorelease func(arg CFTypeRef) CFTypeRef
 
 // CFAutorelease.
@@ -828,7 +767,6 @@ func CFAutorelease(arg CFTypeRef) CFTypeRef {
 	}
 	return _cFAutorelease(arg)
 }
-
 
 var _cFBagAddValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
@@ -842,7 +780,6 @@ func CFBagAddValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	_cFBagAddValue(theBag, value)
 }
 
-
 var _cFBagApplyFunction func(theBag CFBagRef, applier CFBagApplierFunction, context unsafe.Pointer)
 
 // CFBagApplyFunction calls a function once for each value in a bag.
@@ -854,7 +791,6 @@ func CFBagApplyFunction(theBag CFBagRef, applier CFBagApplierFunction, context u
 	}
 	_cFBagApplyFunction(theBag, applier, context)
 }
-
 
 var _cFBagContainsValue func(theBag CFBagRef, value unsafe.Pointer) bool
 
@@ -868,7 +804,6 @@ func CFBagContainsValue(theBag CFBagRef, value unsafe.Pointer) bool {
 	return _cFBagContainsValue(theBag, value)
 }
 
-
 var _cFBagCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFBagCallBacks) CFBagRef
 
 // CFBagCreate creates an immutable bag containing specified values.
@@ -880,7 +815,6 @@ func CFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int,
 	}
 	return _cFBagCreate(allocator, values, numValues, callBacks)
 }
-
 
 var _cFBagCreateCopy func(allocator CFAllocatorRef, theBag CFBagRef) CFBagRef
 
@@ -894,7 +828,6 @@ func CFBagCreateCopy(allocator CFAllocatorRef, theBag CFBagRef) CFBagRef {
 	return _cFBagCreateCopy(allocator, theBag)
 }
 
-
 var _cFBagCreateMutable func(allocator CFAllocatorRef, capacity int, callBacks *CFBagCallBacks) CFMutableBagRef
 
 // CFBagCreateMutable creates a new empty mutable bag.
@@ -906,7 +839,6 @@ func CFBagCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFBag
 	}
 	return _cFBagCreateMutable(allocator, capacity, callBacks)
 }
-
 
 var _cFBagCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theBag CFBagRef) CFMutableBagRef
 
@@ -920,7 +852,6 @@ func CFBagCreateMutableCopy(allocator CFAllocatorRef, capacity int, theBag CFBag
 	return _cFBagCreateMutableCopy(allocator, capacity, theBag)
 }
 
-
 var _cFBagGetCount func(theBag CFBagRef) int
 
 // CFBagGetCount returns the number of values currently in a bag.
@@ -932,7 +863,6 @@ func CFBagGetCount(theBag CFBagRef) int {
 	}
 	return _cFBagGetCount(theBag)
 }
-
 
 var _cFBagGetCountOfValue func(theBag CFBagRef, value unsafe.Pointer) int
 
@@ -946,7 +876,6 @@ func CFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) int {
 	return _cFBagGetCountOfValue(theBag, value)
 }
 
-
 var _cFBagGetTypeID func() uint
 
 // CFBagGetTypeID returns the type identifier for the CFBag opaque type.
@@ -958,7 +887,6 @@ func CFBagGetTypeID() uint {
 	}
 	return _cFBagGetTypeID()
 }
-
 
 var _cFBagGetValue func(theBag CFBagRef, value unsafe.Pointer) unsafe.Pointer
 
@@ -972,7 +900,6 @@ func CFBagGetValue(theBag CFBagRef, value unsafe.Pointer) unsafe.Pointer {
 	return _cFBagGetValue(theBag, value)
 }
 
-
 var _cFBagGetValueIfPresent func(theBag CFBagRef, candidate unsafe.Pointer, value unsafe.Pointer) bool
 
 // CFBagGetValueIfPresent reports whether or not a value is in a bag, and returns that value indirectly if it exists.
@@ -984,7 +911,6 @@ func CFBagGetValueIfPresent(theBag CFBagRef, candidate unsafe.Pointer, value uns
 	}
 	return _cFBagGetValueIfPresent(theBag, candidate, value)
 }
-
 
 var _cFBagGetValues func(theBag CFBagRef, values unsafe.Pointer)
 
@@ -998,7 +924,6 @@ func CFBagGetValues(theBag CFBagRef, values unsafe.Pointer) {
 	_cFBagGetValues(theBag, values)
 }
 
-
 var _cFBagRemoveAllValues func(theBag CFMutableBagRef)
 
 // CFBagRemoveAllValues removes all values from a mutable bag.
@@ -1010,7 +935,6 @@ func CFBagRemoveAllValues(theBag CFMutableBagRef) {
 	}
 	_cFBagRemoveAllValues(theBag)
 }
-
 
 var _cFBagRemoveValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
@@ -1024,7 +948,6 @@ func CFBagRemoveValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	_cFBagRemoveValue(theBag, value)
 }
 
-
 var _cFBagReplaceValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
 // CFBagReplaceValue replaces a value in a mutable bag.
@@ -1036,7 +959,6 @@ func CFBagReplaceValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	}
 	_cFBagReplaceValue(theBag, value)
 }
-
 
 var _cFBagSetValue func(theBag CFMutableBagRef, value unsafe.Pointer)
 
@@ -1050,7 +972,6 @@ func CFBagSetValue(theBag CFMutableBagRef, value unsafe.Pointer) {
 	_cFBagSetValue(theBag, value)
 }
 
-
 var _cFBinaryHeapAddValue func(heap CFBinaryHeapRef, value unsafe.Pointer)
 
 // CFBinaryHeapAddValue adds a value to a binary heap.
@@ -1062,7 +983,6 @@ func CFBinaryHeapAddValue(heap CFBinaryHeapRef, value unsafe.Pointer) {
 	}
 	_cFBinaryHeapAddValue(heap, value)
 }
-
 
 var _cFBinaryHeapApplyFunction func(heap CFBinaryHeapRef, applier CFBinaryHeapApplierFunction, context unsafe.Pointer)
 
@@ -1076,7 +996,6 @@ func CFBinaryHeapApplyFunction(heap CFBinaryHeapRef, applier CFBinaryHeapApplier
 	_cFBinaryHeapApplyFunction(heap, applier, context)
 }
 
-
 var _cFBinaryHeapContainsValue func(heap CFBinaryHeapRef, value unsafe.Pointer) bool
 
 // CFBinaryHeapContainsValue returns whether a given value is in a binary heap.
@@ -1088,7 +1007,6 @@ func CFBinaryHeapContainsValue(heap CFBinaryHeapRef, value unsafe.Pointer) bool 
 	}
 	return _cFBinaryHeapContainsValue(heap, value)
 }
-
 
 var _cFBinaryHeapCreate func(allocator CFAllocatorRef, capacity int, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) CFBinaryHeapRef
 
@@ -1102,7 +1020,6 @@ func CFBinaryHeapCreate(allocator CFAllocatorRef, capacity int, callBacks *CFBin
 	return _cFBinaryHeapCreate(allocator, capacity, callBacks, compareContext)
 }
 
-
 var _cFBinaryHeapCreateCopy func(allocator CFAllocatorRef, capacity int, heap CFBinaryHeapRef) CFBinaryHeapRef
 
 // CFBinaryHeapCreateCopy creates a new mutable or fixed-mutable binary heap with the values from a pre-existing binary heap.
@@ -1114,7 +1031,6 @@ func CFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity int, heap CFBinar
 	}
 	return _cFBinaryHeapCreateCopy(allocator, capacity, heap)
 }
-
 
 var _cFBinaryHeapGetCount func(heap CFBinaryHeapRef) int
 
@@ -1128,7 +1044,6 @@ func CFBinaryHeapGetCount(heap CFBinaryHeapRef) int {
 	return _cFBinaryHeapGetCount(heap)
 }
 
-
 var _cFBinaryHeapGetCountOfValue func(heap CFBinaryHeapRef, value unsafe.Pointer) int
 
 // CFBinaryHeapGetCountOfValue counts the number of times a given value occurs in a binary heap.
@@ -1140,7 +1055,6 @@ func CFBinaryHeapGetCountOfValue(heap CFBinaryHeapRef, value unsafe.Pointer) int
 	}
 	return _cFBinaryHeapGetCountOfValue(heap, value)
 }
-
 
 var _cFBinaryHeapGetMinimum func(heap CFBinaryHeapRef) unsafe.Pointer
 
@@ -1154,7 +1068,6 @@ func CFBinaryHeapGetMinimum(heap CFBinaryHeapRef) unsafe.Pointer {
 	return _cFBinaryHeapGetMinimum(heap)
 }
 
-
 var _cFBinaryHeapGetMinimumIfPresent func(heap CFBinaryHeapRef, value unsafe.Pointer) bool
 
 // CFBinaryHeapGetMinimumIfPresent returns the minimum value in a binary heap, if present.
@@ -1166,7 +1079,6 @@ func CFBinaryHeapGetMinimumIfPresent(heap CFBinaryHeapRef, value unsafe.Pointer)
 	}
 	return _cFBinaryHeapGetMinimumIfPresent(heap, value)
 }
-
 
 var _cFBinaryHeapGetTypeID func() uint
 
@@ -1180,7 +1092,6 @@ func CFBinaryHeapGetTypeID() uint {
 	return _cFBinaryHeapGetTypeID()
 }
 
-
 var _cFBinaryHeapGetValues func(heap CFBinaryHeapRef, values unsafe.Pointer)
 
 // CFBinaryHeapGetValues copies all the values from a binary heap into a sorted C array.
@@ -1192,7 +1103,6 @@ func CFBinaryHeapGetValues(heap CFBinaryHeapRef, values unsafe.Pointer) {
 	}
 	_cFBinaryHeapGetValues(heap, values)
 }
-
 
 var _cFBinaryHeapRemoveAllValues func(heap CFBinaryHeapRef)
 
@@ -1206,7 +1116,6 @@ func CFBinaryHeapRemoveAllValues(heap CFBinaryHeapRef) {
 	_cFBinaryHeapRemoveAllValues(heap)
 }
 
-
 var _cFBinaryHeapRemoveMinimumValue func(heap CFBinaryHeapRef)
 
 // CFBinaryHeapRemoveMinimumValue removes the minimum value from a binary heap.
@@ -1218,7 +1127,6 @@ func CFBinaryHeapRemoveMinimumValue(heap CFBinaryHeapRef) {
 	}
 	_cFBinaryHeapRemoveMinimumValue(heap)
 }
-
 
 var _cFBitVectorContainsBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) bool
 
@@ -1232,7 +1140,6 @@ func CFBitVectorContainsBit(bv CFBitVectorRef, range_ CFRange, value CFBit) bool
 	return _cFBitVectorContainsBit(bv, range_, value)
 }
 
-
 var _cFBitVectorCreate func(allocator CFAllocatorRef, bytes *uint8, numBits int) CFBitVectorRef
 
 // CFBitVectorCreate creates an immutable bit vector from a block of memory.
@@ -1244,7 +1151,6 @@ func CFBitVectorCreate(allocator CFAllocatorRef, bytes *uint8, numBits int) CFBi
 	}
 	return _cFBitVectorCreate(allocator, bytes, numBits)
 }
-
 
 var _cFBitVectorCreateCopy func(allocator CFAllocatorRef, bv CFBitVectorRef) CFBitVectorRef
 
@@ -1258,7 +1164,6 @@ func CFBitVectorCreateCopy(allocator CFAllocatorRef, bv CFBitVectorRef) CFBitVec
 	return _cFBitVectorCreateCopy(allocator, bv)
 }
 
-
 var _cFBitVectorCreateMutable func(allocator CFAllocatorRef, capacity int) CFMutableBitVectorRef
 
 // CFBitVectorCreateMutable creates a mutable bit vector.
@@ -1270,7 +1175,6 @@ func CFBitVectorCreateMutable(allocator CFAllocatorRef, capacity int) CFMutableB
 	}
 	return _cFBitVectorCreateMutable(allocator, capacity)
 }
-
 
 var _cFBitVectorCreateMutableCopy func(allocator CFAllocatorRef, capacity int, bv CFBitVectorRef) CFMutableBitVectorRef
 
@@ -1284,7 +1188,6 @@ func CFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv CFB
 	return _cFBitVectorCreateMutableCopy(allocator, capacity, bv)
 }
 
-
 var _cFBitVectorFlipBitAtIndex func(bv CFMutableBitVectorRef, idx int)
 
 // CFBitVectorFlipBitAtIndex flips a bit value in a bit vector.
@@ -1296,7 +1199,6 @@ func CFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int) {
 	}
 	_cFBitVectorFlipBitAtIndex(bv, idx)
 }
-
 
 var _cFBitVectorFlipBits func(bv CFMutableBitVectorRef, range_ CFRange)
 
@@ -1310,7 +1212,6 @@ func CFBitVectorFlipBits(bv CFMutableBitVectorRef, range_ CFRange) {
 	_cFBitVectorFlipBits(bv, range_)
 }
 
-
 var _cFBitVectorGetBitAtIndex func(bv CFBitVectorRef, idx int) CFBit
 
 // CFBitVectorGetBitAtIndex returns the bit value at a given index in a bit vector.
@@ -1322,7 +1223,6 @@ func CFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx int) CFBit {
 	}
 	return _cFBitVectorGetBitAtIndex(bv, idx)
 }
-
 
 var _cFBitVectorGetBits func(bv CFBitVectorRef, range_ CFRange, bytes *uint8)
 
@@ -1336,7 +1236,6 @@ func CFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes *uint8) {
 	_cFBitVectorGetBits(bv, range_, bytes)
 }
 
-
 var _cFBitVectorGetCount func(bv CFBitVectorRef) int
 
 // CFBitVectorGetCount returns the number of bit values in a bit vector.
@@ -1348,7 +1247,6 @@ func CFBitVectorGetCount(bv CFBitVectorRef) int {
 	}
 	return _cFBitVectorGetCount(bv)
 }
-
 
 var _cFBitVectorGetCountOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) int
 
@@ -1362,7 +1260,6 @@ func CFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) in
 	return _cFBitVectorGetCountOfBit(bv, range_, value)
 }
 
-
 var _cFBitVectorGetFirstIndexOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) int
 
 // CFBitVectorGetFirstIndexOfBit locates the first occurrence of a certain bit value within a range of bits in a bit vector.
@@ -1374,7 +1271,6 @@ func CFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBi
 	}
 	return _cFBitVectorGetFirstIndexOfBit(bv, range_, value)
 }
-
 
 var _cFBitVectorGetLastIndexOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) int
 
@@ -1388,7 +1284,6 @@ func CFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit
 	return _cFBitVectorGetLastIndexOfBit(bv, range_, value)
 }
 
-
 var _cFBitVectorGetTypeID func() uint
 
 // CFBitVectorGetTypeID returns the type identifier for the CFBitVector opaque type.
@@ -1400,7 +1295,6 @@ func CFBitVectorGetTypeID() uint {
 	}
 	return _cFBitVectorGetTypeID()
 }
-
 
 var _cFBitVectorSetAllBits func(bv CFMutableBitVectorRef, value CFBit)
 
@@ -1414,7 +1308,6 @@ func CFBitVectorSetAllBits(bv CFMutableBitVectorRef, value CFBit) {
 	_cFBitVectorSetAllBits(bv, value)
 }
 
-
 var _cFBitVectorSetBitAtIndex func(bv CFMutableBitVectorRef, idx int, value CFBit)
 
 // CFBitVectorSetBitAtIndex sets the value of a particular bit in a bit vector.
@@ -1426,7 +1319,6 @@ func CFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit) {
 	}
 	_cFBitVectorSetBitAtIndex(bv, idx, value)
 }
-
 
 var _cFBitVectorSetBits func(bv CFMutableBitVectorRef, range_ CFRange, value CFBit)
 
@@ -1440,7 +1332,6 @@ func CFBitVectorSetBits(bv CFMutableBitVectorRef, range_ CFRange, value CFBit) {
 	_cFBitVectorSetBits(bv, range_, value)
 }
 
-
 var _cFBitVectorSetCount func(bv CFMutableBitVectorRef, count int)
 
 // CFBitVectorSetCount changes the size of a mutable bit vector.
@@ -1452,7 +1343,6 @@ func CFBitVectorSetCount(bv CFMutableBitVectorRef, count int) {
 	}
 	_cFBitVectorSetCount(bv, count)
 }
-
 
 var _cFBooleanGetTypeID func() uint
 
@@ -1466,7 +1356,6 @@ func CFBooleanGetTypeID() uint {
 	return _cFBooleanGetTypeID()
 }
 
-
 var _cFBooleanGetValue func(boolean CFBooleanRef) bool
 
 // CFBooleanGetValue returns the value of a CFBoolean object as a standard C type [Boolean].
@@ -1478,7 +1367,6 @@ func CFBooleanGetValue(boolean CFBooleanRef) bool {
 	}
 	return _cFBooleanGetValue(boolean)
 }
-
 
 var _cFBundleCopyAuxiliaryExecutableURL func(bundle CFBundleRef, executableName CFStringRef) CFURLRef
 
@@ -1492,7 +1380,6 @@ func CFBundleCopyAuxiliaryExecutableURL(bundle CFBundleRef, executableName CFStr
 	return _cFBundleCopyAuxiliaryExecutableURL(bundle, executableName)
 }
 
-
 var _cFBundleCopyBuiltInPlugInsURL func(bundle CFBundleRef) CFURLRef
 
 // CFBundleCopyBuiltInPlugInsURL returns the location of a bundle’s built in plug-in.
@@ -1504,7 +1391,6 @@ func CFBundleCopyBuiltInPlugInsURL(bundle CFBundleRef) CFURLRef {
 	}
 	return _cFBundleCopyBuiltInPlugInsURL(bundle)
 }
-
 
 var _cFBundleCopyBundleLocalizations func(bundle CFBundleRef) CFArrayRef
 
@@ -1518,7 +1404,6 @@ func CFBundleCopyBundleLocalizations(bundle CFBundleRef) CFArrayRef {
 	return _cFBundleCopyBundleLocalizations(bundle)
 }
 
-
 var _cFBundleCopyBundleURL func(bundle CFBundleRef) CFURLRef
 
 // CFBundleCopyBundleURL returns the location of a bundle.
@@ -1530,7 +1415,6 @@ func CFBundleCopyBundleURL(bundle CFBundleRef) CFURLRef {
 	}
 	return _cFBundleCopyBundleURL(bundle)
 }
-
 
 var _cFBundleCopyExecutableArchitectures func(bundle CFBundleRef) CFArrayRef
 
@@ -1544,7 +1428,6 @@ func CFBundleCopyExecutableArchitectures(bundle CFBundleRef) CFArrayRef {
 	return _cFBundleCopyExecutableArchitectures(bundle)
 }
 
-
 var _cFBundleCopyExecutableArchitecturesForURL func(url CFURLRef) CFArrayRef
 
 // CFBundleCopyExecutableArchitecturesForURL returns an array of CFNumbers representing the architectures a given URL provides.
@@ -1556,7 +1439,6 @@ func CFBundleCopyExecutableArchitecturesForURL(url CFURLRef) CFArrayRef {
 	}
 	return _cFBundleCopyExecutableArchitecturesForURL(url)
 }
-
 
 var _cFBundleCopyExecutableURL func(bundle CFBundleRef) CFURLRef
 
@@ -1570,7 +1452,6 @@ func CFBundleCopyExecutableURL(bundle CFBundleRef) CFURLRef {
 	return _cFBundleCopyExecutableURL(bundle)
 }
 
-
 var _cFBundleCopyInfoDictionaryForURL func(url CFURLRef) CFDictionaryRef
 
 // CFBundleCopyInfoDictionaryForURL returns the information dictionary for a given URL location.
@@ -1582,7 +1463,6 @@ func CFBundleCopyInfoDictionaryForURL(url CFURLRef) CFDictionaryRef {
 	}
 	return _cFBundleCopyInfoDictionaryForURL(url)
 }
-
 
 var _cFBundleCopyInfoDictionaryInDirectory func(bundleURL CFURLRef) CFDictionaryRef
 
@@ -1596,7 +1476,6 @@ func CFBundleCopyInfoDictionaryInDirectory(bundleURL CFURLRef) CFDictionaryRef {
 	return _cFBundleCopyInfoDictionaryInDirectory(bundleURL)
 }
 
-
 var _cFBundleCopyLocalizationsForPreferences func(locArray CFArrayRef, prefArray CFArrayRef) CFArrayRef
 
 // CFBundleCopyLocalizationsForPreferences given an array of possible localizations and preferred locations, returns the one or more of them that CFBundle would use, without reference to the current application context.
@@ -1608,7 +1487,6 @@ func CFBundleCopyLocalizationsForPreferences(locArray CFArrayRef, prefArray CFAr
 	}
 	return _cFBundleCopyLocalizationsForPreferences(locArray, prefArray)
 }
-
 
 var _cFBundleCopyLocalizationsForURL func(url CFURLRef) CFArrayRef
 
@@ -1622,7 +1500,6 @@ func CFBundleCopyLocalizationsForURL(url CFURLRef) CFArrayRef {
 	return _cFBundleCopyLocalizationsForURL(url)
 }
 
-
 var _cFBundleCopyLocalizedString func(bundle CFBundleRef, key CFStringRef, value CFStringRef, tableName CFStringRef) CFStringRef
 
 // CFBundleCopyLocalizedString returns a localized string from a bundle’s strings file.
@@ -1634,7 +1511,6 @@ func CFBundleCopyLocalizedString(bundle CFBundleRef, key CFStringRef, value CFSt
 	}
 	return _cFBundleCopyLocalizedString(bundle, key, value, tableName)
 }
-
 
 var _cFBundleCopyLocalizedStringForLocalizations func(bundle CFBundleRef, key CFStringRef, value CFStringRef, tableName CFStringRef, localizations CFArrayRef) CFStringRef
 
@@ -1648,7 +1524,6 @@ func CFBundleCopyLocalizedStringForLocalizations(bundle CFBundleRef, key CFStrin
 	return _cFBundleCopyLocalizedStringForLocalizations(bundle, key, value, tableName, localizations)
 }
 
-
 var _cFBundleCopyPreferredLocalizationsFromArray func(locArray CFArrayRef) CFArrayRef
 
 // CFBundleCopyPreferredLocalizationsFromArray given an array of possible localizations, returns the one or more of them that CFBundle would use in the current application context.
@@ -1660,7 +1535,6 @@ func CFBundleCopyPreferredLocalizationsFromArray(locArray CFArrayRef) CFArrayRef
 	}
 	return _cFBundleCopyPreferredLocalizationsFromArray(locArray)
 }
-
 
 var _cFBundleCopyPrivateFrameworksURL func(bundle CFBundleRef) CFURLRef
 
@@ -1674,7 +1548,6 @@ func CFBundleCopyPrivateFrameworksURL(bundle CFBundleRef) CFURLRef {
 	return _cFBundleCopyPrivateFrameworksURL(bundle)
 }
 
-
 var _cFBundleCopyResourceURL func(bundle CFBundleRef, resourceName CFStringRef, resourceType CFStringRef, subDirName CFStringRef) CFURLRef
 
 // CFBundleCopyResourceURL returns the location of a resource contained in the specified bundle.
@@ -1686,7 +1559,6 @@ func CFBundleCopyResourceURL(bundle CFBundleRef, resourceName CFStringRef, resou
 	}
 	return _cFBundleCopyResourceURL(bundle, resourceName, resourceType, subDirName)
 }
-
 
 var _cFBundleCopyResourceURLForLocalization func(bundle CFBundleRef, resourceName CFStringRef, resourceType CFStringRef, subDirName CFStringRef, localizationName CFStringRef) CFURLRef
 
@@ -1700,7 +1572,6 @@ func CFBundleCopyResourceURLForLocalization(bundle CFBundleRef, resourceName CFS
 	return _cFBundleCopyResourceURLForLocalization(bundle, resourceName, resourceType, subDirName, localizationName)
 }
 
-
 var _cFBundleCopyResourceURLInDirectory func(bundleURL CFURLRef, resourceName CFStringRef, resourceType CFStringRef, subDirName CFStringRef) CFURLRef
 
 // CFBundleCopyResourceURLInDirectory returns the location of a resource contained in the specified bundle directory without requiring the creation of a CFBundle object.
@@ -1712,7 +1583,6 @@ func CFBundleCopyResourceURLInDirectory(bundleURL CFURLRef, resourceName CFStrin
 	}
 	return _cFBundleCopyResourceURLInDirectory(bundleURL, resourceName, resourceType, subDirName)
 }
-
 
 var _cFBundleCopyResourceURLsOfType func(bundle CFBundleRef, resourceType CFStringRef, subDirName CFStringRef) CFArrayRef
 
@@ -1726,7 +1596,6 @@ func CFBundleCopyResourceURLsOfType(bundle CFBundleRef, resourceType CFStringRef
 	return _cFBundleCopyResourceURLsOfType(bundle, resourceType, subDirName)
 }
 
-
 var _cFBundleCopyResourceURLsOfTypeForLocalization func(bundle CFBundleRef, resourceType CFStringRef, subDirName CFStringRef, localizationName CFStringRef) CFArrayRef
 
 // CFBundleCopyResourceURLsOfTypeForLocalization returns an array containing copies of the URL locations for a specified bundle, resource, and localization name.
@@ -1738,7 +1607,6 @@ func CFBundleCopyResourceURLsOfTypeForLocalization(bundle CFBundleRef, resourceT
 	}
 	return _cFBundleCopyResourceURLsOfTypeForLocalization(bundle, resourceType, subDirName, localizationName)
 }
-
 
 var _cFBundleCopyResourceURLsOfTypeInDirectory func(bundleURL CFURLRef, resourceType CFStringRef, subDirName CFStringRef) CFArrayRef
 
@@ -1752,7 +1620,6 @@ func CFBundleCopyResourceURLsOfTypeInDirectory(bundleURL CFURLRef, resourceType 
 	return _cFBundleCopyResourceURLsOfTypeInDirectory(bundleURL, resourceType, subDirName)
 }
 
-
 var _cFBundleCopyResourcesDirectoryURL func(bundle CFBundleRef) CFURLRef
 
 // CFBundleCopyResourcesDirectoryURL returns the location of a bundle’s Resources directory.
@@ -1764,7 +1631,6 @@ func CFBundleCopyResourcesDirectoryURL(bundle CFBundleRef) CFURLRef {
 	}
 	return _cFBundleCopyResourcesDirectoryURL(bundle)
 }
-
 
 var _cFBundleCopySharedFrameworksURL func(bundle CFBundleRef) CFURLRef
 
@@ -1778,7 +1644,6 @@ func CFBundleCopySharedFrameworksURL(bundle CFBundleRef) CFURLRef {
 	return _cFBundleCopySharedFrameworksURL(bundle)
 }
 
-
 var _cFBundleCopySharedSupportURL func(bundle CFBundleRef) CFURLRef
 
 // CFBundleCopySharedSupportURL returns the location of a bundle’s shared support files directory.
@@ -1790,7 +1655,6 @@ func CFBundleCopySharedSupportURL(bundle CFBundleRef) CFURLRef {
 	}
 	return _cFBundleCopySharedSupportURL(bundle)
 }
-
 
 var _cFBundleCopySupportFilesDirectoryURL func(bundle CFBundleRef) CFURLRef
 
@@ -1804,7 +1668,6 @@ func CFBundleCopySupportFilesDirectoryURL(bundle CFBundleRef) CFURLRef {
 	return _cFBundleCopySupportFilesDirectoryURL(bundle)
 }
 
-
 var _cFBundleCreate func(allocator CFAllocatorRef, bundleURL CFURLRef) CFBundleRef
 
 // CFBundleCreate creates a CFBundle object.
@@ -1816,7 +1679,6 @@ func CFBundleCreate(allocator CFAllocatorRef, bundleURL CFURLRef) CFBundleRef {
 	}
 	return _cFBundleCreate(allocator, bundleURL)
 }
-
 
 var _cFBundleCreateBundlesFromDirectory func(allocator CFAllocatorRef, directoryURL CFURLRef, bundleType CFStringRef) CFArrayRef
 
@@ -1830,7 +1692,6 @@ func CFBundleCreateBundlesFromDirectory(allocator CFAllocatorRef, directoryURL C
 	return _cFBundleCreateBundlesFromDirectory(allocator, directoryURL, bundleType)
 }
 
-
 var _cFBundleGetAllBundles func() CFArrayRef
 
 // CFBundleGetAllBundles returns an array containing all of the bundles currently open in the application.
@@ -1842,7 +1703,6 @@ func CFBundleGetAllBundles() CFArrayRef {
 	}
 	return _cFBundleGetAllBundles()
 }
-
 
 var _cFBundleGetBundleWithIdentifier func(bundleID CFStringRef) CFBundleRef
 
@@ -1856,7 +1716,6 @@ func CFBundleGetBundleWithIdentifier(bundleID CFStringRef) CFBundleRef {
 	return _cFBundleGetBundleWithIdentifier(bundleID)
 }
 
-
 var _cFBundleGetDataPointerForName func(bundle CFBundleRef, symbolName CFStringRef) unsafe.Pointer
 
 // CFBundleGetDataPointerForName returns a data pointer to a symbol of the given name.
@@ -1868,7 +1727,6 @@ func CFBundleGetDataPointerForName(bundle CFBundleRef, symbolName CFStringRef) u
 	}
 	return _cFBundleGetDataPointerForName(bundle, symbolName)
 }
-
 
 var _cFBundleGetDataPointersForNames func(bundle CFBundleRef, symbolNames CFArrayRef, stbl unsafe.Pointer)
 
@@ -1882,7 +1740,6 @@ func CFBundleGetDataPointersForNames(bundle CFBundleRef, symbolNames CFArrayRef,
 	_cFBundleGetDataPointersForNames(bundle, symbolNames, stbl)
 }
 
-
 var _cFBundleGetDevelopmentRegion func(bundle CFBundleRef) CFStringRef
 
 // CFBundleGetDevelopmentRegion returns the bundle’s development region from the bundle’s information property list.
@@ -1894,7 +1751,6 @@ func CFBundleGetDevelopmentRegion(bundle CFBundleRef) CFStringRef {
 	}
 	return _cFBundleGetDevelopmentRegion(bundle)
 }
-
 
 var _cFBundleGetFunctionPointerForName func(bundle CFBundleRef, functionName CFStringRef) unsafe.Pointer
 
@@ -1908,7 +1764,6 @@ func CFBundleGetFunctionPointerForName(bundle CFBundleRef, functionName CFString
 	return _cFBundleGetFunctionPointerForName(bundle, functionName)
 }
 
-
 var _cFBundleGetFunctionPointersForNames func(bundle CFBundleRef, functionNames CFArrayRef, ftbl unsafe.Pointer)
 
 // CFBundleGetFunctionPointersForNames constructs a function table containing pointers to all of the functions found in a bundle’s main executable code.
@@ -1920,7 +1775,6 @@ func CFBundleGetFunctionPointersForNames(bundle CFBundleRef, functionNames CFArr
 	}
 	_cFBundleGetFunctionPointersForNames(bundle, functionNames, ftbl)
 }
-
 
 var _cFBundleGetIdentifier func(bundle CFBundleRef) CFStringRef
 
@@ -1934,7 +1788,6 @@ func CFBundleGetIdentifier(bundle CFBundleRef) CFStringRef {
 	return _cFBundleGetIdentifier(bundle)
 }
 
-
 var _cFBundleGetInfoDictionary func(bundle CFBundleRef) CFDictionaryRef
 
 // CFBundleGetInfoDictionary returns a bundle’s information dictionary.
@@ -1946,7 +1799,6 @@ func CFBundleGetInfoDictionary(bundle CFBundleRef) CFDictionaryRef {
 	}
 	return _cFBundleGetInfoDictionary(bundle)
 }
-
 
 var _cFBundleGetLocalInfoDictionary func(bundle CFBundleRef) CFDictionaryRef
 
@@ -1960,7 +1812,6 @@ func CFBundleGetLocalInfoDictionary(bundle CFBundleRef) CFDictionaryRef {
 	return _cFBundleGetLocalInfoDictionary(bundle)
 }
 
-
 var _cFBundleGetMainBundle func() CFBundleRef
 
 // CFBundleGetMainBundle returns an application’s main bundle.
@@ -1972,7 +1823,6 @@ func CFBundleGetMainBundle() CFBundleRef {
 	}
 	return _cFBundleGetMainBundle()
 }
-
 
 var _cFBundleGetPackageInfo func(bundle CFBundleRef, packageType *uint32, packageCreator *uint32)
 
@@ -1986,7 +1836,6 @@ func CFBundleGetPackageInfo(bundle CFBundleRef, packageType *uint32, packageCrea
 	_cFBundleGetPackageInfo(bundle, packageType, packageCreator)
 }
 
-
 var _cFBundleGetPackageInfoInDirectory func(url CFURLRef, packageType *uint32, packageCreator *uint32) bool
 
 // CFBundleGetPackageInfoInDirectory returns a bundle’s package type and creator without having to create a CFBundle object.
@@ -1998,7 +1847,6 @@ func CFBundleGetPackageInfoInDirectory(url CFURLRef, packageType *uint32, packag
 	}
 	return _cFBundleGetPackageInfoInDirectory(url, packageType, packageCreator)
 }
-
 
 var _cFBundleGetPlugIn func(bundle CFBundleRef) CFPlugInRef
 
@@ -2012,7 +1860,6 @@ func CFBundleGetPlugIn(bundle CFBundleRef) CFPlugInRef {
 	return _cFBundleGetPlugIn(bundle)
 }
 
-
 var _cFBundleGetTypeID func() uint
 
 // CFBundleGetTypeID returns the type identifier for the CFBundle opaque type.
@@ -2024,7 +1871,6 @@ func CFBundleGetTypeID() uint {
 	}
 	return _cFBundleGetTypeID()
 }
-
 
 var _cFBundleGetValueForInfoDictionaryKey func(bundle CFBundleRef, key CFStringRef) CFTypeRef
 
@@ -2038,7 +1884,6 @@ func CFBundleGetValueForInfoDictionaryKey(bundle CFBundleRef, key CFStringRef) C
 	return _cFBundleGetValueForInfoDictionaryKey(bundle, key)
 }
 
-
 var _cFBundleGetVersionNumber func(bundle CFBundleRef) uint32
 
 // CFBundleGetVersionNumber returns a bundle’s version number.
@@ -2050,7 +1895,6 @@ func CFBundleGetVersionNumber(bundle CFBundleRef) uint32 {
 	}
 	return _cFBundleGetVersionNumber(bundle)
 }
-
 
 var _cFBundleIsArchitectureLoadable func(arch int32) bool
 
@@ -2064,7 +1908,6 @@ func CFBundleIsArchitectureLoadable(arch int32) bool {
 	return _cFBundleIsArchitectureLoadable(arch)
 }
 
-
 var _cFBundleIsExecutableLoadable func(bundle CFBundleRef) bool
 
 // CFBundleIsExecutableLoadable.
@@ -2076,7 +1919,6 @@ func CFBundleIsExecutableLoadable(bundle CFBundleRef) bool {
 	}
 	return _cFBundleIsExecutableLoadable(bundle)
 }
-
 
 var _cFBundleIsExecutableLoadableForURL func(url CFURLRef) bool
 
@@ -2090,7 +1932,6 @@ func CFBundleIsExecutableLoadableForURL(url CFURLRef) bool {
 	return _cFBundleIsExecutableLoadableForURL(url)
 }
 
-
 var _cFBundleIsExecutableLoaded func(bundle CFBundleRef) bool
 
 // CFBundleIsExecutableLoaded obtains information about the load status for a bundle’s main executable.
@@ -2102,7 +1943,6 @@ func CFBundleIsExecutableLoaded(bundle CFBundleRef) bool {
 	}
 	return _cFBundleIsExecutableLoaded(bundle)
 }
-
 
 var _cFBundleLoadExecutable func(bundle CFBundleRef) bool
 
@@ -2116,7 +1956,6 @@ func CFBundleLoadExecutable(bundle CFBundleRef) bool {
 	return _cFBundleLoadExecutable(bundle)
 }
 
-
 var _cFBundleLoadExecutableAndReturnError func(bundle CFBundleRef, err *CFErrorRef) bool
 
 // CFBundleLoadExecutableAndReturnError returns a Boolean value that indicates whether a given bundle is loaded, attempting to load it if necessary.
@@ -2128,7 +1967,6 @@ func CFBundleLoadExecutableAndReturnError(bundle CFBundleRef, err *CFErrorRef) b
 	}
 	return _cFBundleLoadExecutableAndReturnError(bundle, err)
 }
-
 
 var _cFBundlePreflightExecutable func(bundle CFBundleRef, err *CFErrorRef) bool
 
@@ -2142,7 +1980,6 @@ func CFBundlePreflightExecutable(bundle CFBundleRef, err *CFErrorRef) bool {
 	return _cFBundlePreflightExecutable(bundle, err)
 }
 
-
 var _cFBundleUnloadExecutable func(bundle CFBundleRef)
 
 // CFBundleUnloadExecutable unloads the main executable for the specified bundle.
@@ -2154,8 +1991,6 @@ func CFBundleUnloadExecutable(bundle CFBundleRef) {
 	}
 	_cFBundleUnloadExecutable(bundle)
 }
-
-
 
 var _cFCalendarAddComponents func(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc *byte) bool
 
@@ -2169,7 +2004,6 @@ func CFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options
 	return _cFCalendarAddComponents(calendar, at, options, componentDesc)
 }
 
-
 var _cFCalendarComposeAbsoluteTime func(calendar CFCalendarRef, at *CFAbsoluteTime, componentDesc *byte) bool
 
 // CFCalendarComposeAbsoluteTime computes the absolute time from components in a description string.
@@ -2181,7 +2015,6 @@ func CFCalendarComposeAbsoluteTime(calendar CFCalendarRef, at *CFAbsoluteTime, c
 	}
 	return _cFCalendarComposeAbsoluteTime(calendar, at, componentDesc)
 }
-
 
 var _cFCalendarCopyCurrent func() CFCalendarRef
 
@@ -2195,7 +2028,6 @@ func CFCalendarCopyCurrent() CFCalendarRef {
 	return _cFCalendarCopyCurrent()
 }
 
-
 var _cFCalendarCopyLocale func(calendar CFCalendarRef) CFLocaleRef
 
 // CFCalendarCopyLocale returns a locale object for a specified calendar.
@@ -2207,7 +2039,6 @@ func CFCalendarCopyLocale(calendar CFCalendarRef) CFLocaleRef {
 	}
 	return _cFCalendarCopyLocale(calendar)
 }
-
 
 var _cFCalendarCopyTimeZone func(calendar CFCalendarRef) CFTimeZoneRef
 
@@ -2221,7 +2052,6 @@ func CFCalendarCopyTimeZone(calendar CFCalendarRef) CFTimeZoneRef {
 	return _cFCalendarCopyTimeZone(calendar)
 }
 
-
 var _cFCalendarCreateWithIdentifier func(allocator CFAllocatorRef, identifier CFCalendarIdentifier) CFCalendarRef
 
 // CFCalendarCreateWithIdentifier returns a calendar object for the calendar identified by a calendar identifier.
@@ -2233,7 +2063,6 @@ func CFCalendarCreateWithIdentifier(allocator CFAllocatorRef, identifier CFCalen
 	}
 	return _cFCalendarCreateWithIdentifier(allocator, identifier)
 }
-
 
 var _cFCalendarDecomposeAbsoluteTime func(calendar CFCalendarRef, at CFAbsoluteTime, componentDesc *byte) bool
 
@@ -2247,7 +2076,6 @@ func CFCalendarDecomposeAbsoluteTime(calendar CFCalendarRef, at CFAbsoluteTime, 
 	return _cFCalendarDecomposeAbsoluteTime(calendar, at, componentDesc)
 }
 
-
 var _cFCalendarGetComponentDifference func(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc *byte) bool
 
 // CFCalendarGetComponentDifference computes the difference between the two absolute times, in terms of specified calendrical components.
@@ -2259,7 +2087,6 @@ func CFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsol
 	}
 	return _cFCalendarGetComponentDifference(calendar, startingAT, resultAT, options, componentDesc)
 }
-
 
 var _cFCalendarGetFirstWeekday func(calendar CFCalendarRef) int
 
@@ -2273,7 +2100,6 @@ func CFCalendarGetFirstWeekday(calendar CFCalendarRef) int {
 	return _cFCalendarGetFirstWeekday(calendar)
 }
 
-
 var _cFCalendarGetIdentifier func(calendar CFCalendarRef) CFCalendarIdentifier
 
 // CFCalendarGetIdentifier returns the given calendar’s identifier.
@@ -2285,7 +2111,6 @@ func CFCalendarGetIdentifier(calendar CFCalendarRef) CFCalendarIdentifier {
 	}
 	return _cFCalendarGetIdentifier(calendar)
 }
-
 
 var _cFCalendarGetMaximumRangeOfUnit func(calendar CFCalendarRef, unit CFCalendarUnit) CFRange
 
@@ -2299,7 +2124,6 @@ func CFCalendarGetMaximumRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit
 	return _cFCalendarGetMaximumRangeOfUnit(calendar, unit)
 }
 
-
 var _cFCalendarGetMinimumDaysInFirstWeek func(calendar CFCalendarRef) int
 
 // CFCalendarGetMinimumDaysInFirstWeek returns the minimum number of days in the first week of a specified calendar.
@@ -2311,7 +2135,6 @@ func CFCalendarGetMinimumDaysInFirstWeek(calendar CFCalendarRef) int {
 	}
 	return _cFCalendarGetMinimumDaysInFirstWeek(calendar)
 }
-
 
 var _cFCalendarGetMinimumRangeOfUnit func(calendar CFCalendarRef, unit CFCalendarUnit) CFRange
 
@@ -2325,7 +2148,6 @@ func CFCalendarGetMinimumRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit
 	return _cFCalendarGetMinimumRangeOfUnit(calendar, unit)
 }
 
-
 var _cFCalendarGetOrdinalityOfUnit func(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) int
 
 // CFCalendarGetOrdinalityOfUnit returns the ordinal number of a calendrical unit within a larger unit at a specified absolute time.
@@ -2337,7 +2159,6 @@ func CFCalendarGetOrdinalityOfUnit(calendar CFCalendarRef, smallerUnit CFCalenda
 	}
 	return _cFCalendarGetOrdinalityOfUnit(calendar, smallerUnit, biggerUnit, at)
 }
-
 
 var _cFCalendarGetRangeOfUnit func(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) CFRange
 
@@ -2351,7 +2172,6 @@ func CFCalendarGetRangeOfUnit(calendar CFCalendarRef, smallerUnit CFCalendarUnit
 	return _cFCalendarGetRangeOfUnit(calendar, smallerUnit, biggerUnit, at)
 }
 
-
 var _cFCalendarGetTimeRangeOfUnit func(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *float64) bool
 
 // CFCalendarGetTimeRangeOfUnit returns by reference the start time and duration of a given calendar unit that contains a given absolute time.
@@ -2363,7 +2183,6 @@ func CFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit, a
 	}
 	return _cFCalendarGetTimeRangeOfUnit(calendar, unit, at, startp, tip)
 }
-
 
 var _cFCalendarGetTypeID func() uint
 
@@ -2377,7 +2196,6 @@ func CFCalendarGetTypeID() uint {
 	return _cFCalendarGetTypeID()
 }
 
-
 var _cFCalendarSetFirstWeekday func(calendar CFCalendarRef, wkdy int)
 
 // CFCalendarSetFirstWeekday sets the first weekday for a calendar.
@@ -2389,7 +2207,6 @@ func CFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int) {
 	}
 	_cFCalendarSetFirstWeekday(calendar, wkdy)
 }
-
 
 var _cFCalendarSetLocale func(calendar CFCalendarRef, locale CFLocaleRef)
 
@@ -2403,7 +2220,6 @@ func CFCalendarSetLocale(calendar CFCalendarRef, locale CFLocaleRef) {
 	_cFCalendarSetLocale(calendar, locale)
 }
 
-
 var _cFCalendarSetMinimumDaysInFirstWeek func(calendar CFCalendarRef, mwd int)
 
 // CFCalendarSetMinimumDaysInFirstWeek sets the minimum number of days in the first week of a specified calendar.
@@ -2415,7 +2231,6 @@ func CFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int) {
 	}
 	_cFCalendarSetMinimumDaysInFirstWeek(calendar, mwd)
 }
-
 
 var _cFCalendarSetTimeZone func(calendar CFCalendarRef, tz CFTimeZoneRef)
 
@@ -2429,7 +2244,6 @@ func CFCalendarSetTimeZone(calendar CFCalendarRef, tz CFTimeZoneRef) {
 	_cFCalendarSetTimeZone(calendar, tz)
 }
 
-
 var _cFCharacterSetAddCharactersInRange func(theSet CFMutableCharacterSetRef, theRange CFRange)
 
 // CFCharacterSetAddCharactersInRange adds a given range to a character set.
@@ -2441,7 +2255,6 @@ func CFCharacterSetAddCharactersInRange(theSet CFMutableCharacterSetRef, theRang
 	}
 	_cFCharacterSetAddCharactersInRange(theSet, theRange)
 }
-
 
 var _cFCharacterSetAddCharactersInString func(theSet CFMutableCharacterSetRef, theString CFStringRef)
 
@@ -2455,7 +2268,6 @@ func CFCharacterSetAddCharactersInString(theSet CFMutableCharacterSetRef, theStr
 	_cFCharacterSetAddCharactersInString(theSet, theString)
 }
 
-
 var _cFCharacterSetCreateBitmapRepresentation func(alloc CFAllocatorRef, theSet CFCharacterSetRef) CFDataRef
 
 // CFCharacterSetCreateBitmapRepresentation creates a new immutable data with the bitmap representation from the given character set.
@@ -2467,7 +2279,6 @@ func CFCharacterSetCreateBitmapRepresentation(alloc CFAllocatorRef, theSet CFCha
 	}
 	return _cFCharacterSetCreateBitmapRepresentation(alloc, theSet)
 }
-
 
 var _cFCharacterSetCreateCopy func(alloc CFAllocatorRef, theSet CFCharacterSetRef) CFCharacterSetRef
 
@@ -2481,7 +2292,6 @@ func CFCharacterSetCreateCopy(alloc CFAllocatorRef, theSet CFCharacterSetRef) CF
 	return _cFCharacterSetCreateCopy(alloc, theSet)
 }
 
-
 var _cFCharacterSetCreateInvertedSet func(alloc CFAllocatorRef, theSet CFCharacterSetRef) CFCharacterSetRef
 
 // CFCharacterSetCreateInvertedSet creates a new immutable character set that is the invert of the specified character set.
@@ -2493,7 +2303,6 @@ func CFCharacterSetCreateInvertedSet(alloc CFAllocatorRef, theSet CFCharacterSet
 	}
 	return _cFCharacterSetCreateInvertedSet(alloc, theSet)
 }
-
 
 var _cFCharacterSetCreateMutable func(alloc CFAllocatorRef) CFMutableCharacterSetRef
 
@@ -2507,7 +2316,6 @@ func CFCharacterSetCreateMutable(alloc CFAllocatorRef) CFMutableCharacterSetRef 
 	return _cFCharacterSetCreateMutable(alloc)
 }
 
-
 var _cFCharacterSetCreateMutableCopy func(alloc CFAllocatorRef, theSet CFCharacterSetRef) CFMutableCharacterSetRef
 
 // CFCharacterSetCreateMutableCopy creates a new mutable character set with the values from another character set.
@@ -2519,7 +2327,6 @@ func CFCharacterSetCreateMutableCopy(alloc CFAllocatorRef, theSet CFCharacterSet
 	}
 	return _cFCharacterSetCreateMutableCopy(alloc, theSet)
 }
-
 
 var _cFCharacterSetCreateWithBitmapRepresentation func(alloc CFAllocatorRef, theData CFDataRef) CFCharacterSetRef
 
@@ -2533,7 +2340,6 @@ func CFCharacterSetCreateWithBitmapRepresentation(alloc CFAllocatorRef, theData 
 	return _cFCharacterSetCreateWithBitmapRepresentation(alloc, theData)
 }
 
-
 var _cFCharacterSetCreateWithCharactersInRange func(alloc CFAllocatorRef, theRange CFRange) CFCharacterSetRef
 
 // CFCharacterSetCreateWithCharactersInRange creates a new character set with the values from the given range of Unicode characters.
@@ -2545,7 +2351,6 @@ func CFCharacterSetCreateWithCharactersInRange(alloc CFAllocatorRef, theRange CF
 	}
 	return _cFCharacterSetCreateWithCharactersInRange(alloc, theRange)
 }
-
 
 var _cFCharacterSetCreateWithCharactersInString func(alloc CFAllocatorRef, theString CFStringRef) CFCharacterSetRef
 
@@ -2559,7 +2364,6 @@ func CFCharacterSetCreateWithCharactersInString(alloc CFAllocatorRef, theString 
 	return _cFCharacterSetCreateWithCharactersInString(alloc, theString)
 }
 
-
 var _cFCharacterSetGetPredefined func(theSetIdentifier CFCharacterSetPredefinedSet) CFCharacterSetRef
 
 // CFCharacterSetGetPredefined returns a predefined character set.
@@ -2571,7 +2375,6 @@ func CFCharacterSetGetPredefined(theSetIdentifier CFCharacterSetPredefinedSet) C
 	}
 	return _cFCharacterSetGetPredefined(theSetIdentifier)
 }
-
 
 var _cFCharacterSetGetTypeID func() uint
 
@@ -2585,7 +2388,6 @@ func CFCharacterSetGetTypeID() uint {
 	return _cFCharacterSetGetTypeID()
 }
 
-
 var _cFCharacterSetHasMemberInPlane func(theSet CFCharacterSetRef, thePlane int) bool
 
 // CFCharacterSetHasMemberInPlane reports whether or not a character set contains at least one member character in the specified plane.
@@ -2597,7 +2399,6 @@ func CFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane int) bool
 	}
 	return _cFCharacterSetHasMemberInPlane(theSet, thePlane)
 }
-
 
 var _cFCharacterSetIntersect func(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef)
 
@@ -2611,7 +2412,6 @@ func CFCharacterSetIntersect(theSet CFMutableCharacterSetRef, theOtherSet CFChar
 	_cFCharacterSetIntersect(theSet, theOtherSet)
 }
 
-
 var _cFCharacterSetInvert func(theSet CFMutableCharacterSetRef)
 
 // CFCharacterSetInvert inverts the content of a given character set.
@@ -2623,7 +2423,6 @@ func CFCharacterSetInvert(theSet CFMutableCharacterSetRef) {
 	}
 	_cFCharacterSetInvert(theSet)
 }
-
 
 var _cFCharacterSetIsCharacterMember func(theSet CFCharacterSetRef, theChar uint16) bool
 
@@ -2637,7 +2436,6 @@ func CFCharacterSetIsCharacterMember(theSet CFCharacterSetRef, theChar uint16) b
 	return _cFCharacterSetIsCharacterMember(theSet, theChar)
 }
 
-
 var _cFCharacterSetIsLongCharacterMember func(theSet CFCharacterSetRef, theChar uint32) bool
 
 // CFCharacterSetIsLongCharacterMember reports whether or not a given UTF-32 character is in a character set.
@@ -2649,7 +2447,6 @@ func CFCharacterSetIsLongCharacterMember(theSet CFCharacterSetRef, theChar uint3
 	}
 	return _cFCharacterSetIsLongCharacterMember(theSet, theChar)
 }
-
 
 var _cFCharacterSetIsSupersetOfSet func(theSet CFCharacterSetRef, theOtherset CFCharacterSetRef) bool
 
@@ -2663,7 +2460,6 @@ func CFCharacterSetIsSupersetOfSet(theSet CFCharacterSetRef, theOtherset CFChara
 	return _cFCharacterSetIsSupersetOfSet(theSet, theOtherset)
 }
 
-
 var _cFCharacterSetRemoveCharactersInRange func(theSet CFMutableCharacterSetRef, theRange CFRange)
 
 // CFCharacterSetRemoveCharactersInRange removes a given range of Unicode characters from a character set.
@@ -2675,7 +2471,6 @@ func CFCharacterSetRemoveCharactersInRange(theSet CFMutableCharacterSetRef, theR
 	}
 	_cFCharacterSetRemoveCharactersInRange(theSet, theRange)
 }
-
 
 var _cFCharacterSetRemoveCharactersInString func(theSet CFMutableCharacterSetRef, theString CFStringRef)
 
@@ -2689,7 +2484,6 @@ func CFCharacterSetRemoveCharactersInString(theSet CFMutableCharacterSetRef, the
 	_cFCharacterSetRemoveCharactersInString(theSet, theString)
 }
 
-
 var _cFCharacterSetUnion func(theSet CFMutableCharacterSetRef, theOtherSet CFCharacterSetRef)
 
 // CFCharacterSetUnion forms the union of two character sets.
@@ -2701,15 +2495,6 @@ func CFCharacterSetUnion(theSet CFMutableCharacterSetRef, theOtherSet CFCharacte
 	}
 	_cFCharacterSetUnion(theSet, theOtherSet)
 }
-
-
-
-
-
-
-
-
-
 
 var _cFCopyDescription func(cf CFTypeRef) CFStringRef
 
@@ -2723,7 +2508,6 @@ func CFCopyDescription(cf CFTypeRef) CFStringRef {
 	return _cFCopyDescription(cf)
 }
 
-
 var _cFCopyTypeIDDescription func(type_id uint) CFStringRef
 
 // CFCopyTypeIDDescription returns a textual description of a Core Foundation type, as identified by its type ID, which can be used when debugging.
@@ -2735,7 +2519,6 @@ func CFCopyTypeIDDescription(type_id uint) CFStringRef {
 	}
 	return _cFCopyTypeIDDescription(type_id)
 }
-
 
 var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *uint8, length int)
 
@@ -2749,7 +2532,6 @@ func CFDataAppendBytes(theData CFMutableDataRef, bytes *uint8, length int) {
 	_cFDataAppendBytes(theData, bytes, length)
 }
 
-
 var _cFDataCreate func(allocator CFAllocatorRef, bytes *uint8, length int) CFDataRef
 
 // CFDataCreate creates an immutable CFData object using data copied from a specified byte buffer.
@@ -2761,7 +2543,6 @@ func CFDataCreate(allocator CFAllocatorRef, bytes *uint8, length int) CFDataRef 
 	}
 	return _cFDataCreate(allocator, bytes, length)
 }
-
 
 var _cFDataCreateCopy func(allocator CFAllocatorRef, theData CFDataRef) CFDataRef
 
@@ -2775,7 +2556,6 @@ func CFDataCreateCopy(allocator CFAllocatorRef, theData CFDataRef) CFDataRef {
 	return _cFDataCreateCopy(allocator, theData)
 }
 
-
 var _cFDataCreateMutable func(allocator CFAllocatorRef, capacity int) CFMutableDataRef
 
 // CFDataCreateMutable creates an empty CFMutableData object.
@@ -2787,7 +2567,6 @@ func CFDataCreateMutable(allocator CFAllocatorRef, capacity int) CFMutableDataRe
 	}
 	return _cFDataCreateMutable(allocator, capacity)
 }
-
 
 var _cFDataCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theData CFDataRef) CFMutableDataRef
 
@@ -2801,7 +2580,6 @@ func CFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData CFD
 	return _cFDataCreateMutableCopy(allocator, capacity, theData)
 }
 
-
 var _cFDataCreateWithBytesNoCopy func(allocator CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) CFDataRef
 
 // CFDataCreateWithBytesNoCopy creates an immutable CFData object from an external (client-owned) byte buffer.
@@ -2813,7 +2591,6 @@ func CFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes *uint8, length 
 	}
 	return _cFDataCreateWithBytesNoCopy(allocator, bytes, length, bytesDeallocator)
 }
-
 
 var _cFDataDeleteBytes func(theData CFMutableDataRef, range_ CFRange)
 
@@ -2827,7 +2604,6 @@ func CFDataDeleteBytes(theData CFMutableDataRef, range_ CFRange) {
 	_cFDataDeleteBytes(theData, range_)
 }
 
-
 var _cFDataFind func(theData CFDataRef, dataToFind CFDataRef, searchRange CFRange, compareOptions CFDataSearchFlags) CFRange
 
 // CFDataFind finds and returns the range within a data object of the first occurrence of the given data, within a given range, subject to any given options.
@@ -2839,7 +2615,6 @@ func CFDataFind(theData CFDataRef, dataToFind CFDataRef, searchRange CFRange, co
 	}
 	return _cFDataFind(theData, dataToFind, searchRange, compareOptions)
 }
-
 
 var _cFDataGetBytePtr func(theData CFDataRef) *uint8
 
@@ -2853,7 +2628,6 @@ func CFDataGetBytePtr(theData CFDataRef) *uint8 {
 	return _cFDataGetBytePtr(theData)
 }
 
-
 var _cFDataGetBytes func(theData CFDataRef, range_ CFRange, buffer *uint8)
 
 // CFDataGetBytes copies the byte contents of a CFData object to an external buffer.
@@ -2865,7 +2639,6 @@ func CFDataGetBytes(theData CFDataRef, range_ CFRange, buffer *uint8) {
 	}
 	_cFDataGetBytes(theData, range_, buffer)
 }
-
 
 var _cFDataGetLength func(theData CFDataRef) int
 
@@ -2879,7 +2652,6 @@ func CFDataGetLength(theData CFDataRef) int {
 	return _cFDataGetLength(theData)
 }
 
-
 var _cFDataGetMutableBytePtr func(theData CFMutableDataRef) *uint8
 
 // CFDataGetMutableBytePtr returns a pointer to a mutable byte buffer of a CFMutableData object.
@@ -2891,7 +2663,6 @@ func CFDataGetMutableBytePtr(theData CFMutableDataRef) *uint8 {
 	}
 	return _cFDataGetMutableBytePtr(theData)
 }
-
 
 var _cFDataGetTypeID func() uint
 
@@ -2905,7 +2676,6 @@ func CFDataGetTypeID() uint {
 	return _cFDataGetTypeID()
 }
 
-
 var _cFDataIncreaseLength func(theData CFMutableDataRef, extraLength int)
 
 // CFDataIncreaseLength increases the length of a CFMutableData object’s internal byte buffer, zero-filling the extension to the buffer.
@@ -2917,7 +2687,6 @@ func CFDataIncreaseLength(theData CFMutableDataRef, extraLength int) {
 	}
 	_cFDataIncreaseLength(theData, extraLength)
 }
-
 
 var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *uint8, newLength int)
 
@@ -2931,7 +2700,6 @@ func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes *uint
 	_cFDataReplaceBytes(theData, range_, newBytes, newLength)
 }
 
-
 var _cFDataSetLength func(theData CFMutableDataRef, length int)
 
 // CFDataSetLength resets the length of a CFMutableData object’s internal byte buffer.
@@ -2943,7 +2711,6 @@ func CFDataSetLength(theData CFMutableDataRef, length int) {
 	}
 	_cFDataSetLength(theData, length)
 }
-
 
 var _cFDateCompare func(theDate CFDateRef, otherDate CFDateRef, context unsafe.Pointer) CFComparisonResult
 
@@ -2957,7 +2724,6 @@ func CFDateCompare(theDate CFDateRef, otherDate CFDateRef, context unsafe.Pointe
 	return _cFDateCompare(theDate, otherDate, context)
 }
 
-
 var _cFDateCreate func(allocator CFAllocatorRef, at CFAbsoluteTime) CFDateRef
 
 // CFDateCreate creates a [CFDate] object given an absolute time.
@@ -2969,7 +2735,6 @@ func CFDateCreate(allocator CFAllocatorRef, at CFAbsoluteTime) CFDateRef {
 	}
 	return _cFDateCreate(allocator, at)
 }
-
 
 var _cFDateFormatterCopyProperty func(formatter CFDateFormatterRef, key CFDateFormatterKey) CFTypeRef
 
@@ -2983,7 +2748,6 @@ func CFDateFormatterCopyProperty(formatter CFDateFormatterRef, key CFDateFormatt
 	return _cFDateFormatterCopyProperty(formatter, key)
 }
 
-
 var _cFDateFormatterCreate func(allocator CFAllocatorRef, locale CFLocaleRef, dateStyle CFDateFormatterStyle, timeStyle CFDateFormatterStyle) CFDateFormatterRef
 
 // CFDateFormatterCreate creates a new CFDateFormatter object, localized to the given locale, which will format dates to the given date and time styles.
@@ -2995,7 +2759,6 @@ func CFDateFormatterCreate(allocator CFAllocatorRef, locale CFLocaleRef, dateSty
 	}
 	return _cFDateFormatterCreate(allocator, locale, dateStyle, timeStyle)
 }
-
 
 var _cFDateFormatterCreateDateFormatFromTemplate func(allocator CFAllocatorRef, tmplate CFStringRef, options uint64, locale CFLocaleRef) CFStringRef
 
@@ -3009,7 +2772,6 @@ func CFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tmpla
 	return _cFDateFormatterCreateDateFormatFromTemplate(allocator, tmplate, options, locale)
 }
 
-
 var _cFDateFormatterCreateDateFromString func(allocator CFAllocatorRef, formatter CFDateFormatterRef, string_ CFStringRef, rangep *CFRange) CFDateRef
 
 // CFDateFormatterCreateDateFromString returns a date object representing a given string.
@@ -3021,7 +2783,6 @@ func CFDateFormatterCreateDateFromString(allocator CFAllocatorRef, formatter CFD
 	}
 	return _cFDateFormatterCreateDateFromString(allocator, formatter, string_, rangep)
 }
-
 
 var _cFDateFormatterCreateISO8601Formatter func(allocator CFAllocatorRef, formatOptions CFISO8601DateFormatOptions) CFDateFormatterRef
 
@@ -3035,7 +2796,6 @@ func CFDateFormatterCreateISO8601Formatter(allocator CFAllocatorRef, formatOptio
 	return _cFDateFormatterCreateISO8601Formatter(allocator, formatOptions)
 }
 
-
 var _cFDateFormatterCreateStringWithAbsoluteTime func(allocator CFAllocatorRef, formatter CFDateFormatterRef, at CFAbsoluteTime) CFStringRef
 
 // CFDateFormatterCreateStringWithAbsoluteTime returns a string representation of the given absolute time using the specified date formatter.
@@ -3047,7 +2807,6 @@ func CFDateFormatterCreateStringWithAbsoluteTime(allocator CFAllocatorRef, forma
 	}
 	return _cFDateFormatterCreateStringWithAbsoluteTime(allocator, formatter, at)
 }
-
 
 var _cFDateFormatterCreateStringWithDate func(allocator CFAllocatorRef, formatter CFDateFormatterRef, date CFDateRef) CFStringRef
 
@@ -3061,7 +2820,6 @@ func CFDateFormatterCreateStringWithDate(allocator CFAllocatorRef, formatter CFD
 	return _cFDateFormatterCreateStringWithDate(allocator, formatter, date)
 }
 
-
 var _cFDateFormatterGetAbsoluteTimeFromString func(formatter CFDateFormatterRef, string_ CFStringRef, rangep *CFRange, atp *CFAbsoluteTime) bool
 
 // CFDateFormatterGetAbsoluteTimeFromString returns an absolute time object representing a given string.
@@ -3073,7 +2831,6 @@ func CFDateFormatterGetAbsoluteTimeFromString(formatter CFDateFormatterRef, stri
 	}
 	return _cFDateFormatterGetAbsoluteTimeFromString(formatter, string_, rangep, atp)
 }
-
 
 var _cFDateFormatterGetDateStyle func(formatter CFDateFormatterRef) CFDateFormatterStyle
 
@@ -3087,7 +2844,6 @@ func CFDateFormatterGetDateStyle(formatter CFDateFormatterRef) CFDateFormatterSt
 	return _cFDateFormatterGetDateStyle(formatter)
 }
 
-
 var _cFDateFormatterGetFormat func(formatter CFDateFormatterRef) CFStringRef
 
 // CFDateFormatterGetFormat returns a format string for the given date formatter object.
@@ -3099,7 +2855,6 @@ func CFDateFormatterGetFormat(formatter CFDateFormatterRef) CFStringRef {
 	}
 	return _cFDateFormatterGetFormat(formatter)
 }
-
 
 var _cFDateFormatterGetLocale func(formatter CFDateFormatterRef) CFLocaleRef
 
@@ -3113,7 +2868,6 @@ func CFDateFormatterGetLocale(formatter CFDateFormatterRef) CFLocaleRef {
 	return _cFDateFormatterGetLocale(formatter)
 }
 
-
 var _cFDateFormatterGetTimeStyle func(formatter CFDateFormatterRef) CFDateFormatterStyle
 
 // CFDateFormatterGetTimeStyle returns the time style used to create the given date formatter object.
@@ -3125,7 +2879,6 @@ func CFDateFormatterGetTimeStyle(formatter CFDateFormatterRef) CFDateFormatterSt
 	}
 	return _cFDateFormatterGetTimeStyle(formatter)
 }
-
 
 var _cFDateFormatterGetTypeID func() uint
 
@@ -3139,7 +2892,6 @@ func CFDateFormatterGetTypeID() uint {
 	return _cFDateFormatterGetTypeID()
 }
 
-
 var _cFDateFormatterSetFormat func(formatter CFDateFormatterRef, formatString CFStringRef)
 
 // CFDateFormatterSetFormat sets the format string of the given date formatter to the specified value.
@@ -3151,7 +2903,6 @@ func CFDateFormatterSetFormat(formatter CFDateFormatterRef, formatString CFStrin
 	}
 	_cFDateFormatterSetFormat(formatter, formatString)
 }
-
 
 var _cFDateFormatterSetProperty func(formatter CFDateFormatterRef, key CFStringRef, value CFTypeRef)
 
@@ -3165,7 +2916,6 @@ func CFDateFormatterSetProperty(formatter CFDateFormatterRef, key CFStringRef, v
 	_cFDateFormatterSetProperty(formatter, key, value)
 }
 
-
 var _cFDateGetAbsoluteTime func(theDate CFDateRef) CFAbsoluteTime
 
 // CFDateGetAbsoluteTime returns a [CFDate] object’s absolute time.
@@ -3177,7 +2927,6 @@ func CFDateGetAbsoluteTime(theDate CFDateRef) CFAbsoluteTime {
 	}
 	return _cFDateGetAbsoluteTime(theDate)
 }
-
 
 var _cFDateGetTimeIntervalSinceDate func(theDate CFDateRef, otherDate CFDateRef) float64
 
@@ -3191,7 +2940,6 @@ func CFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) floa
 	return _cFDateGetTimeIntervalSinceDate(theDate, otherDate)
 }
 
-
 var _cFDateGetTypeID func() uint
 
 // CFDateGetTypeID returns the type identifier for the [CFDate] opaque type.
@@ -3203,7 +2951,6 @@ func CFDateGetTypeID() uint {
 	}
 	return _cFDateGetTypeID()
 }
-
 
 var _cFDictionaryAddValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)
 
@@ -3217,7 +2964,6 @@ func CFDictionaryAddValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, va
 	_cFDictionaryAddValue(theDict, key, value)
 }
 
-
 var _cFDictionaryApplyFunction func(theDict CFDictionaryRef, applier CFDictionaryApplierFunction, context unsafe.Pointer)
 
 // CFDictionaryApplyFunction calls a function once for each key-value pair in a dictionary.
@@ -3229,7 +2975,6 @@ func CFDictionaryApplyFunction(theDict CFDictionaryRef, applier CFDictionaryAppl
 	}
 	_cFDictionaryApplyFunction(theDict, applier, context)
 }
-
 
 var _cFDictionaryContainsKey func(theDict CFDictionaryRef, key unsafe.Pointer) bool
 
@@ -3243,7 +2988,6 @@ func CFDictionaryContainsKey(theDict CFDictionaryRef, key unsafe.Pointer) bool {
 	return _cFDictionaryContainsKey(theDict, key)
 }
 
-
 var _cFDictionaryContainsValue func(theDict CFDictionaryRef, value unsafe.Pointer) bool
 
 // CFDictionaryContainsValue returns a Boolean value that indicates whether a given value is in a dictionary.
@@ -3255,7 +2999,6 @@ func CFDictionaryContainsValue(theDict CFDictionaryRef, value unsafe.Pointer) bo
 	}
 	return _cFDictionaryContainsValue(theDict, value)
 }
-
 
 var _cFDictionaryCreate func(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFDictionaryRef
 
@@ -3269,7 +3012,6 @@ func CFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values un
 	return _cFDictionaryCreate(allocator, keys, values, numValues, keyCallBacks, valueCallBacks)
 }
 
-
 var _cFDictionaryCreateCopy func(allocator CFAllocatorRef, theDict CFDictionaryRef) CFDictionaryRef
 
 // CFDictionaryCreateCopy creates and returns a new immutable dictionary with the key-value pairs of another dictionary.
@@ -3281,7 +3023,6 @@ func CFDictionaryCreateCopy(allocator CFAllocatorRef, theDict CFDictionaryRef) C
 	}
 	return _cFDictionaryCreateCopy(allocator, theDict)
 }
-
 
 var _cFDictionaryCreateMutable func(allocator CFAllocatorRef, capacity int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFMutableDictionaryRef
 
@@ -3295,7 +3036,6 @@ func CFDictionaryCreateMutable(allocator CFAllocatorRef, capacity int, keyCallBa
 	return _cFDictionaryCreateMutable(allocator, capacity, keyCallBacks, valueCallBacks)
 }
 
-
 var _cFDictionaryCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theDict CFDictionaryRef) CFMutableDictionaryRef
 
 // CFDictionaryCreateMutableCopy creates a new mutable dictionary with the key-value pairs from another dictionary.
@@ -3307,7 +3047,6 @@ func CFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity int, theDi
 	}
 	return _cFDictionaryCreateMutableCopy(allocator, capacity, theDict)
 }
-
 
 var _cFDictionaryGetCount func(theDict CFDictionaryRef) int
 
@@ -3321,7 +3060,6 @@ func CFDictionaryGetCount(theDict CFDictionaryRef) int {
 	return _cFDictionaryGetCount(theDict)
 }
 
-
 var _cFDictionaryGetCountOfKey func(theDict CFDictionaryRef, key unsafe.Pointer) int
 
 // CFDictionaryGetCountOfKey returns the number of times a key occurs in a dictionary.
@@ -3333,7 +3071,6 @@ func CFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) int 
 	}
 	return _cFDictionaryGetCountOfKey(theDict, key)
 }
-
 
 var _cFDictionaryGetCountOfValue func(theDict CFDictionaryRef, value unsafe.Pointer) int
 
@@ -3347,7 +3084,6 @@ func CFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointer) 
 	return _cFDictionaryGetCountOfValue(theDict, value)
 }
 
-
 var _cFDictionaryGetKeysAndValues func(theDict CFDictionaryRef, keys unsafe.Pointer, values unsafe.Pointer)
 
 // CFDictionaryGetKeysAndValues fills two buffers with the keys and values from a dictionary.
@@ -3359,7 +3095,6 @@ func CFDictionaryGetKeysAndValues(theDict CFDictionaryRef, keys unsafe.Pointer, 
 	}
 	_cFDictionaryGetKeysAndValues(theDict, keys, values)
 }
-
 
 var _cFDictionaryGetTypeID func() uint
 
@@ -3373,7 +3108,6 @@ func CFDictionaryGetTypeID() uint {
 	return _cFDictionaryGetTypeID()
 }
 
-
 var _cFDictionaryGetValue func(theDict CFDictionaryRef, key unsafe.Pointer) unsafe.Pointer
 
 // CFDictionaryGetValue returns the value associated with a given key.
@@ -3385,7 +3119,6 @@ func CFDictionaryGetValue(theDict CFDictionaryRef, key unsafe.Pointer) unsafe.Po
 	}
 	return _cFDictionaryGetValue(theDict, key)
 }
-
 
 var _cFDictionaryGetValueIfPresent func(theDict CFDictionaryRef, key unsafe.Pointer, value unsafe.Pointer) bool
 
@@ -3399,7 +3132,6 @@ func CFDictionaryGetValueIfPresent(theDict CFDictionaryRef, key unsafe.Pointer, 
 	return _cFDictionaryGetValueIfPresent(theDict, key, value)
 }
 
-
 var _cFDictionaryRemoveAllValues func(theDict CFMutableDictionaryRef)
 
 // CFDictionaryRemoveAllValues removes all the key-value pairs from a dictionary, making it empty.
@@ -3411,7 +3143,6 @@ func CFDictionaryRemoveAllValues(theDict CFMutableDictionaryRef) {
 	}
 	_cFDictionaryRemoveAllValues(theDict)
 }
-
 
 var _cFDictionaryRemoveValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer)
 
@@ -3425,7 +3156,6 @@ func CFDictionaryRemoveValue(theDict CFMutableDictionaryRef, key unsafe.Pointer)
 	_cFDictionaryRemoveValue(theDict, key)
 }
 
-
 var _cFDictionaryReplaceValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)
 
 // CFDictionaryReplaceValue replaces a value corresponding to a given key.
@@ -3437,7 +3167,6 @@ func CFDictionaryReplaceValue(theDict CFMutableDictionaryRef, key unsafe.Pointer
 	}
 	_cFDictionaryReplaceValue(theDict, key, value)
 }
-
 
 var _cFDictionarySetValue func(theDict CFMutableDictionaryRef, key unsafe.Pointer, value unsafe.Pointer)
 
@@ -3451,7 +3180,6 @@ func CFDictionarySetValue(theDict CFMutableDictionaryRef, key unsafe.Pointer, va
 	_cFDictionarySetValue(theDict, key, value)
 }
 
-
 var _cFEqual func(cf1 CFTypeRef, cf2 CFTypeRef) bool
 
 // CFEqual determines whether two Core Foundation objects are considered equal.
@@ -3463,7 +3191,6 @@ func CFEqual(cf1 CFTypeRef, cf2 CFTypeRef) bool {
 	}
 	return _cFEqual(cf1, cf2)
 }
-
 
 var _cFErrorCopyDescription func(err CFErrorRef) CFStringRef
 
@@ -3477,7 +3204,6 @@ func CFErrorCopyDescription(err CFErrorRef) CFStringRef {
 	return _cFErrorCopyDescription(err)
 }
 
-
 var _cFErrorCopyFailureReason func(err CFErrorRef) CFStringRef
 
 // CFErrorCopyFailureReason returns a human-presentable failure reason for a given error.
@@ -3489,7 +3215,6 @@ func CFErrorCopyFailureReason(err CFErrorRef) CFStringRef {
 	}
 	return _cFErrorCopyFailureReason(err)
 }
-
 
 var _cFErrorCopyRecoverySuggestion func(err CFErrorRef) CFStringRef
 
@@ -3503,7 +3228,6 @@ func CFErrorCopyRecoverySuggestion(err CFErrorRef) CFStringRef {
 	return _cFErrorCopyRecoverySuggestion(err)
 }
 
-
 var _cFErrorCopyUserInfo func(err CFErrorRef) CFDictionaryRef
 
 // CFErrorCopyUserInfo returns the user info dictionary for a given CFError.
@@ -3515,7 +3239,6 @@ func CFErrorCopyUserInfo(err CFErrorRef) CFDictionaryRef {
 	}
 	return _cFErrorCopyUserInfo(err)
 }
-
 
 var _cFErrorCreate func(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfo CFDictionaryRef) CFErrorRef
 
@@ -3529,7 +3252,6 @@ func CFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code int, use
 	return _cFErrorCreate(allocator, domain, code, userInfo)
 }
 
-
 var _cFErrorCreateWithUserInfoKeysAndValues func(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues int) CFErrorRef
 
 // CFErrorCreateWithUserInfoKeysAndValues creates a new CFError object using given keys and values to create the user info dictionary.
@@ -3541,7 +3263,6 @@ func CFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFE
 	}
 	return _cFErrorCreateWithUserInfoKeysAndValues(allocator, domain, code, userInfoKeys, userInfoValues, numUserInfoValues)
 }
-
 
 var _cFErrorGetCode func(err CFErrorRef) int
 
@@ -3555,7 +3276,6 @@ func CFErrorGetCode(err CFErrorRef) int {
 	return _cFErrorGetCode(err)
 }
 
-
 var _cFErrorGetDomain func(err CFErrorRef) CFErrorDomain
 
 // CFErrorGetDomain returns the error domain for a given CFError.
@@ -3567,7 +3287,6 @@ func CFErrorGetDomain(err CFErrorRef) CFErrorDomain {
 	}
 	return _cFErrorGetDomain(err)
 }
-
 
 var _cFErrorGetTypeID func() uint
 
@@ -3581,7 +3300,6 @@ func CFErrorGetTypeID() uint {
 	return _cFErrorGetTypeID()
 }
 
-
 var _cFFileDescriptorCreate func(allocator CFAllocatorRef, fd CFFileDescriptorNativeDescriptor, closeOnInvalidate bool, callout CFFileDescriptorCallBack, context *CFFileDescriptorContext) CFFileDescriptorRef
 
 // CFFileDescriptorCreate creates a new CFFileDescriptor.
@@ -3593,7 +3311,6 @@ func CFFileDescriptorCreate(allocator CFAllocatorRef, fd CFFileDescriptorNativeD
 	}
 	return _cFFileDescriptorCreate(allocator, fd, closeOnInvalidate, callout, context)
 }
-
 
 var _cFFileDescriptorCreateRunLoopSource func(allocator CFAllocatorRef, f CFFileDescriptorRef, order int) CFRunLoopSourceRef
 
@@ -3607,7 +3324,6 @@ func CFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescr
 	return _cFFileDescriptorCreateRunLoopSource(allocator, f, order)
 }
 
-
 var _cFFileDescriptorDisableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64)
 
 // CFFileDescriptorDisableCallBacks disables callbacks for a given CFFileDescriptor.
@@ -3619,7 +3335,6 @@ func CFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes uint6
 	}
 	_cFFileDescriptorDisableCallBacks(f, callBackTypes)
 }
-
 
 var _cFFileDescriptorEnableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64)
 
@@ -3633,7 +3348,6 @@ func CFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uint64
 	_cFFileDescriptorEnableCallBacks(f, callBackTypes)
 }
 
-
 var _cFFileDescriptorGetContext func(f CFFileDescriptorRef, context *CFFileDescriptorContext)
 
 // CFFileDescriptorGetContext gets the context for a given CFFileDescriptor.
@@ -3645,7 +3359,6 @@ func CFFileDescriptorGetContext(f CFFileDescriptorRef, context *CFFileDescriptor
 	}
 	_cFFileDescriptorGetContext(f, context)
 }
-
 
 var _cFFileDescriptorGetNativeDescriptor func(f CFFileDescriptorRef) CFFileDescriptorNativeDescriptor
 
@@ -3659,7 +3372,6 @@ func CFFileDescriptorGetNativeDescriptor(f CFFileDescriptorRef) CFFileDescriptor
 	return _cFFileDescriptorGetNativeDescriptor(f)
 }
 
-
 var _cFFileDescriptorGetTypeID func() uint
 
 // CFFileDescriptorGetTypeID returns the type identifier for the CFFileDescriptor opaque type.
@@ -3671,7 +3383,6 @@ func CFFileDescriptorGetTypeID() uint {
 	}
 	return _cFFileDescriptorGetTypeID()
 }
-
 
 var _cFFileDescriptorInvalidate func(f CFFileDescriptorRef)
 
@@ -3685,7 +3396,6 @@ func CFFileDescriptorInvalidate(f CFFileDescriptorRef) {
 	_cFFileDescriptorInvalidate(f)
 }
 
-
 var _cFFileDescriptorIsValid func(f CFFileDescriptorRef) bool
 
 // CFFileDescriptorIsValid returns a Boolean value that indicates whether the native file descriptor for a given CFFileDescriptor is valid.
@@ -3697,7 +3407,6 @@ func CFFileDescriptorIsValid(f CFFileDescriptorRef) bool {
 	}
 	return _cFFileDescriptorIsValid(f)
 }
-
 
 var _cFFileSecurityClearProperties func(fileSec CFFileSecurityRef, clearPropertyMask CFFileSecurityClearOptions) bool
 
@@ -3711,7 +3420,6 @@ func CFFileSecurityClearProperties(fileSec CFFileSecurityRef, clearPropertyMask 
 	return _cFFileSecurityClearProperties(fileSec, clearPropertyMask)
 }
 
-
 var _cFFileSecurityCopyAccessControlList func(fileSec CFFileSecurityRef, accessControlList uintptr) bool
 
 // CFFileSecurityCopyAccessControlList copies the access control list associated with a [CFFileSecurityRef] object.
@@ -3723,7 +3431,6 @@ func CFFileSecurityCopyAccessControlList(fileSec CFFileSecurityRef, accessContro
 	}
 	return _cFFileSecurityCopyAccessControlList(fileSec, accessControlList)
 }
-
 
 var _cFFileSecurityCopyGroupUUID func(fileSec CFFileSecurityRef, groupUUID *CFUUIDRef) bool
 
@@ -3737,7 +3444,6 @@ func CFFileSecurityCopyGroupUUID(fileSec CFFileSecurityRef, groupUUID *CFUUIDRef
 	return _cFFileSecurityCopyGroupUUID(fileSec, groupUUID)
 }
 
-
 var _cFFileSecurityCopyOwnerUUID func(fileSec CFFileSecurityRef, ownerUUID *CFUUIDRef) bool
 
 // CFFileSecurityCopyOwnerUUID copies the owner UUID associated with a [CFFileSecurityRef] object.
@@ -3749,7 +3455,6 @@ func CFFileSecurityCopyOwnerUUID(fileSec CFFileSecurityRef, ownerUUID *CFUUIDRef
 	}
 	return _cFFileSecurityCopyOwnerUUID(fileSec, ownerUUID)
 }
-
 
 var _cFFileSecurityCreate func(allocator CFAllocatorRef) CFFileSecurityRef
 
@@ -3763,7 +3468,6 @@ func CFFileSecurityCreate(allocator CFAllocatorRef) CFFileSecurityRef {
 	return _cFFileSecurityCreate(allocator)
 }
 
-
 var _cFFileSecurityCreateCopy func(allocator CFAllocatorRef, fileSec CFFileSecurityRef) CFFileSecurityRef
 
 // CFFileSecurityCreateCopy creates a copy of a [CFFileSecurityRef] object.
@@ -3775,7 +3479,6 @@ func CFFileSecurityCreateCopy(allocator CFAllocatorRef, fileSec CFFileSecurityRe
 	}
 	return _cFFileSecurityCreateCopy(allocator, fileSec)
 }
-
 
 var _cFFileSecurityGetGroup func(fileSec CFFileSecurityRef, group *uint32) bool
 
@@ -3789,7 +3492,6 @@ func CFFileSecurityGetGroup(fileSec CFFileSecurityRef, group *uint32) bool {
 	return _cFFileSecurityGetGroup(fileSec, group)
 }
 
-
 var _cFFileSecurityGetMode func(fileSec CFFileSecurityRef, mode *uint16) bool
 
 // CFFileSecurityGetMode gets the file mode associated with a [CFFileSecurityRef] object.
@@ -3801,7 +3503,6 @@ func CFFileSecurityGetMode(fileSec CFFileSecurityRef, mode *uint16) bool {
 	}
 	return _cFFileSecurityGetMode(fileSec, mode)
 }
-
 
 var _cFFileSecurityGetOwner func(fileSec CFFileSecurityRef, owner *uint32) bool
 
@@ -3815,7 +3516,6 @@ func CFFileSecurityGetOwner(fileSec CFFileSecurityRef, owner *uint32) bool {
 	return _cFFileSecurityGetOwner(fileSec, owner)
 }
 
-
 var _cFFileSecurityGetTypeID func() uint
 
 // CFFileSecurityGetTypeID returns the type identifier for the [CFFileSecurityRef] opaque type.
@@ -3827,7 +3527,6 @@ func CFFileSecurityGetTypeID() uint {
 	}
 	return _cFFileSecurityGetTypeID()
 }
-
 
 var _cFFileSecuritySetAccessControlList func(fileSec CFFileSecurityRef, accessControlList unsafe.Pointer) bool
 
@@ -3841,7 +3540,6 @@ func CFFileSecuritySetAccessControlList(fileSec CFFileSecurityRef, accessControl
 	return _cFFileSecuritySetAccessControlList(fileSec, accessControlList)
 }
 
-
 var _cFFileSecuritySetGroup func(fileSec CFFileSecurityRef, group uint32) bool
 
 // CFFileSecuritySetGroup sets the group ID associated with a [CFFileSecurityRef] object.
@@ -3853,7 +3551,6 @@ func CFFileSecuritySetGroup(fileSec CFFileSecurityRef, group uint32) bool {
 	}
 	return _cFFileSecuritySetGroup(fileSec, group)
 }
-
 
 var _cFFileSecuritySetGroupUUID func(fileSec CFFileSecurityRef, groupUUID CFUUIDRef) bool
 
@@ -3867,7 +3564,6 @@ func CFFileSecuritySetGroupUUID(fileSec CFFileSecurityRef, groupUUID CFUUIDRef) 
 	return _cFFileSecuritySetGroupUUID(fileSec, groupUUID)
 }
 
-
 var _cFFileSecuritySetMode func(fileSec CFFileSecurityRef, mode uint16) bool
 
 // CFFileSecuritySetMode sets the file mode associated with a [CFFileSecurityRef] object.
@@ -3879,7 +3575,6 @@ func CFFileSecuritySetMode(fileSec CFFileSecurityRef, mode uint16) bool {
 	}
 	return _cFFileSecuritySetMode(fileSec, mode)
 }
-
 
 var _cFFileSecuritySetOwner func(fileSec CFFileSecurityRef, owner uint32) bool
 
@@ -3893,7 +3588,6 @@ func CFFileSecuritySetOwner(fileSec CFFileSecurityRef, owner uint32) bool {
 	return _cFFileSecuritySetOwner(fileSec, owner)
 }
 
-
 var _cFFileSecuritySetOwnerUUID func(fileSec CFFileSecurityRef, ownerUUID CFUUIDRef) bool
 
 // CFFileSecuritySetOwnerUUID sets the owner UUID associated with a [CFFileSecurityRef] object.
@@ -3905,7 +3599,6 @@ func CFFileSecuritySetOwnerUUID(fileSec CFFileSecurityRef, ownerUUID CFUUIDRef) 
 	}
 	return _cFFileSecuritySetOwnerUUID(fileSec, ownerUUID)
 }
-
 
 var _cFGetAllocator func(cf CFTypeRef) CFAllocatorRef
 
@@ -3919,7 +3612,6 @@ func CFGetAllocator(cf CFTypeRef) CFAllocatorRef {
 	return _cFGetAllocator(cf)
 }
 
-
 var _cFGetRetainCount func(cf CFTypeRef) int
 
 // CFGetRetainCount returns the reference count of a Core Foundation object.
@@ -3931,7 +3623,6 @@ func CFGetRetainCount(cf CFTypeRef) int {
 	}
 	return _cFGetRetainCount(cf)
 }
-
 
 var _cFGetTypeID func(cf CFTypeRef) uint
 
@@ -3945,7 +3636,6 @@ func CFGetTypeID(cf CFTypeRef) uint {
 	return _cFGetTypeID(cf)
 }
 
-
 var _cFHash func(cf CFTypeRef) uint
 
 // CFHash returns a code that can be used to identify an object in a hashing structure.
@@ -3957,7 +3647,6 @@ func CFHash(cf CFTypeRef) uint {
 	}
 	return _cFHash(cf)
 }
-
 
 var _cFLocaleCopyAvailableLocaleIdentifiers func() CFArrayRef
 
@@ -3971,7 +3660,6 @@ func CFLocaleCopyAvailableLocaleIdentifiers() CFArrayRef {
 	return _cFLocaleCopyAvailableLocaleIdentifiers()
 }
 
-
 var _cFLocaleCopyCommonISOCurrencyCodes func() CFArrayRef
 
 // CFLocaleCopyCommonISOCurrencyCodes returns an array of strings that represents ISO currency codes for currencies in common use.
@@ -3983,7 +3671,6 @@ func CFLocaleCopyCommonISOCurrencyCodes() CFArrayRef {
 	}
 	return _cFLocaleCopyCommonISOCurrencyCodes()
 }
-
 
 var _cFLocaleCopyCurrent func() CFLocaleRef
 
@@ -3997,7 +3684,6 @@ func CFLocaleCopyCurrent() CFLocaleRef {
 	return _cFLocaleCopyCurrent()
 }
 
-
 var _cFLocaleCopyDisplayNameForPropertyValue func(displayLocale CFLocaleRef, key CFLocaleKey, value CFStringRef) CFStringRef
 
 // CFLocaleCopyDisplayNameForPropertyValue returns the display name for the given value.
@@ -4009,7 +3695,6 @@ func CFLocaleCopyDisplayNameForPropertyValue(displayLocale CFLocaleRef, key CFLo
 	}
 	return _cFLocaleCopyDisplayNameForPropertyValue(displayLocale, key, value)
 }
-
 
 var _cFLocaleCopyISOCountryCodes func() CFArrayRef
 
@@ -4023,7 +3708,6 @@ func CFLocaleCopyISOCountryCodes() CFArrayRef {
 	return _cFLocaleCopyISOCountryCodes()
 }
 
-
 var _cFLocaleCopyISOCurrencyCodes func() CFArrayRef
 
 // CFLocaleCopyISOCurrencyCodes returns an array of CFString objects that represents all known legal ISO currency codes.
@@ -4035,7 +3719,6 @@ func CFLocaleCopyISOCurrencyCodes() CFArrayRef {
 	}
 	return _cFLocaleCopyISOCurrencyCodes()
 }
-
 
 var _cFLocaleCopyISOLanguageCodes func() CFArrayRef
 
@@ -4049,7 +3732,6 @@ func CFLocaleCopyISOLanguageCodes() CFArrayRef {
 	return _cFLocaleCopyISOLanguageCodes()
 }
 
-
 var _cFLocaleCopyPreferredLanguages func() CFArrayRef
 
 // CFLocaleCopyPreferredLanguages returns the array of canonicalized language IDs that the user prefers.
@@ -4061,7 +3743,6 @@ func CFLocaleCopyPreferredLanguages() CFArrayRef {
 	}
 	return _cFLocaleCopyPreferredLanguages()
 }
-
 
 var _cFLocaleCreate func(allocator CFAllocatorRef, localeIdentifier CFLocaleIdentifier) CFLocaleRef
 
@@ -4075,7 +3756,6 @@ func CFLocaleCreate(allocator CFAllocatorRef, localeIdentifier CFLocaleIdentifie
 	return _cFLocaleCreate(allocator, localeIdentifier)
 }
 
-
 var _cFLocaleCreateCanonicalLanguageIdentifierFromString func(allocator CFAllocatorRef, localeIdentifier CFStringRef) CFLocaleIdentifier
 
 // CFLocaleCreateCanonicalLanguageIdentifierFromString returns a canonical language identifier by mapping an arbitrary locale identification string to the canonical identifier
@@ -4087,7 +3767,6 @@ func CFLocaleCreateCanonicalLanguageIdentifierFromString(allocator CFAllocatorRe
 	}
 	return _cFLocaleCreateCanonicalLanguageIdentifierFromString(allocator, localeIdentifier)
 }
-
 
 var _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes func(allocator CFAllocatorRef, lcode unsafe.Pointer, rcode unsafe.Pointer) CFLocaleIdentifier
 
@@ -4101,7 +3780,6 @@ func CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator CFA
 	return _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator, lcode, rcode)
 }
 
-
 var _cFLocaleCreateCanonicalLocaleIdentifierFromString func(allocator CFAllocatorRef, localeIdentifier CFStringRef) CFLocaleIdentifier
 
 // CFLocaleCreateCanonicalLocaleIdentifierFromString returns a canonical locale identifier by mapping an arbitrary locale identification string to the canonical identifier.
@@ -4113,7 +3791,6 @@ func CFLocaleCreateCanonicalLocaleIdentifierFromString(allocator CFAllocatorRef,
 	}
 	return _cFLocaleCreateCanonicalLocaleIdentifierFromString(allocator, localeIdentifier)
 }
-
 
 var _cFLocaleCreateComponentsFromLocaleIdentifier func(allocator CFAllocatorRef, localeID CFLocaleIdentifier) CFDictionaryRef
 
@@ -4127,7 +3804,6 @@ func CFLocaleCreateComponentsFromLocaleIdentifier(allocator CFAllocatorRef, loca
 	return _cFLocaleCreateComponentsFromLocaleIdentifier(allocator, localeID)
 }
 
-
 var _cFLocaleCreateCopy func(allocator CFAllocatorRef, locale CFLocaleRef) CFLocaleRef
 
 // CFLocaleCreateCopy returns a copy of a locale.
@@ -4139,7 +3815,6 @@ func CFLocaleCreateCopy(allocator CFAllocatorRef, locale CFLocaleRef) CFLocaleRe
 	}
 	return _cFLocaleCreateCopy(allocator, locale)
 }
-
 
 var _cFLocaleCreateLocaleIdentifierFromComponents func(allocator CFAllocatorRef, dictionary CFDictionaryRef) CFLocaleIdentifier
 
@@ -4153,7 +3828,6 @@ func CFLocaleCreateLocaleIdentifierFromComponents(allocator CFAllocatorRef, dict
 	return _cFLocaleCreateLocaleIdentifierFromComponents(allocator, dictionary)
 }
 
-
 var _cFLocaleCreateLocaleIdentifierFromWindowsLocaleCode func(allocator CFAllocatorRef, lcid uint32) CFLocaleIdentifier
 
 // CFLocaleCreateLocaleIdentifierFromWindowsLocaleCode returns a locale identifier from a Windows locale code.
@@ -4165,7 +3839,6 @@ func CFLocaleCreateLocaleIdentifierFromWindowsLocaleCode(allocator CFAllocatorRe
 	}
 	return _cFLocaleCreateLocaleIdentifierFromWindowsLocaleCode(allocator, lcid)
 }
-
 
 var _cFLocaleGetIdentifier func(locale CFLocaleRef) CFLocaleIdentifier
 
@@ -4179,7 +3852,6 @@ func CFLocaleGetIdentifier(locale CFLocaleRef) CFLocaleIdentifier {
 	return _cFLocaleGetIdentifier(locale)
 }
 
-
 var _cFLocaleGetLanguageCharacterDirection func(isoLangCode CFStringRef) CFLocaleLanguageDirection
 
 // CFLocaleGetLanguageCharacterDirection returns the character direction for the specified ISO language code.
@@ -4191,7 +3863,6 @@ func CFLocaleGetLanguageCharacterDirection(isoLangCode CFStringRef) CFLocaleLang
 	}
 	return _cFLocaleGetLanguageCharacterDirection(isoLangCode)
 }
-
 
 var _cFLocaleGetLanguageLineDirection func(isoLangCode CFStringRef) CFLocaleLanguageDirection
 
@@ -4205,7 +3876,6 @@ func CFLocaleGetLanguageLineDirection(isoLangCode CFStringRef) CFLocaleLanguageD
 	return _cFLocaleGetLanguageLineDirection(isoLangCode)
 }
 
-
 var _cFLocaleGetSystem func() CFLocaleRef
 
 // CFLocaleGetSystem returns the root, canonical locale.
@@ -4217,7 +3887,6 @@ func CFLocaleGetSystem() CFLocaleRef {
 	}
 	return _cFLocaleGetSystem()
 }
-
 
 var _cFLocaleGetTypeID func() uint
 
@@ -4231,7 +3900,6 @@ func CFLocaleGetTypeID() uint {
 	return _cFLocaleGetTypeID()
 }
 
-
 var _cFLocaleGetValue func(locale CFLocaleRef, key CFLocaleKey) CFTypeRef
 
 // CFLocaleGetValue returns the corresponding value for the given key of a locale’s key-value pair.
@@ -4243,7 +3911,6 @@ func CFLocaleGetValue(locale CFLocaleRef, key CFLocaleKey) CFTypeRef {
 	}
 	return _cFLocaleGetValue(locale, key)
 }
-
 
 var _cFLocaleGetWindowsLocaleCodeFromLocaleIdentifier func(localeIdentifier CFLocaleIdentifier) uint32
 
@@ -4257,7 +3924,6 @@ func CFLocaleGetWindowsLocaleCodeFromLocaleIdentifier(localeIdentifier CFLocaleI
 	return _cFLocaleGetWindowsLocaleCodeFromLocaleIdentifier(localeIdentifier)
 }
 
-
 var _cFMachPortCreate func(allocator CFAllocatorRef, callout CFMachPortCallBack, context *CFMachPortContext, shouldFreeInfo *bool) CFMachPortRef
 
 // CFMachPortCreate creates a CFMachPort object with a new Mach port.
@@ -4269,7 +3935,6 @@ func CFMachPortCreate(allocator CFAllocatorRef, callout CFMachPortCallBack, cont
 	}
 	return _cFMachPortCreate(allocator, callout, context, shouldFreeInfo)
 }
-
 
 var _cFMachPortCreateRunLoopSource func(allocator CFAllocatorRef, port CFMachPortRef, order int) CFRunLoopSourceRef
 
@@ -4283,7 +3948,6 @@ func CFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortRef,
 	return _cFMachPortCreateRunLoopSource(allocator, port, order)
 }
 
-
 var _cFMachPortCreateWithPort func(allocator CFAllocatorRef, portNum uint32, callout CFMachPortCallBack, context *CFMachPortContext, shouldFreeInfo *bool) CFMachPortRef
 
 // CFMachPortCreateWithPort creates a CFMachPort object for a pre-existing native Mach port.
@@ -4295,7 +3959,6 @@ func CFMachPortCreateWithPort(allocator CFAllocatorRef, portNum uint32, callout 
 	}
 	return _cFMachPortCreateWithPort(allocator, portNum, callout, context, shouldFreeInfo)
 }
-
 
 var _cFMachPortGetContext func(port CFMachPortRef, context *CFMachPortContext)
 
@@ -4309,7 +3972,6 @@ func CFMachPortGetContext(port CFMachPortRef, context *CFMachPortContext) {
 	_cFMachPortGetContext(port, context)
 }
 
-
 var _cFMachPortGetInvalidationCallBack func(port CFMachPortRef) CFMachPortInvalidationCallBack
 
 // CFMachPortGetInvalidationCallBack returns the invalidation callback function for a CFMachPort object.
@@ -4321,7 +3983,6 @@ func CFMachPortGetInvalidationCallBack(port CFMachPortRef) CFMachPortInvalidatio
 	}
 	return _cFMachPortGetInvalidationCallBack(port)
 }
-
 
 var _cFMachPortGetPort func(port CFMachPortRef) uint32
 
@@ -4335,7 +3996,6 @@ func CFMachPortGetPort(port CFMachPortRef) uint32 {
 	return _cFMachPortGetPort(port)
 }
 
-
 var _cFMachPortGetTypeID func() uint
 
 // CFMachPortGetTypeID returns the type identifier for the CFMachPort opaque type.
@@ -4347,7 +4007,6 @@ func CFMachPortGetTypeID() uint {
 	}
 	return _cFMachPortGetTypeID()
 }
-
 
 var _cFMachPortInvalidate func(port CFMachPortRef)
 
@@ -4361,7 +4020,6 @@ func CFMachPortInvalidate(port CFMachPortRef) {
 	_cFMachPortInvalidate(port)
 }
 
-
 var _cFMachPortIsValid func(port CFMachPortRef) bool
 
 // CFMachPortIsValid returns a Boolean value that indicates whether a CFMachPort object is valid and able to receive messages.
@@ -4373,7 +4031,6 @@ func CFMachPortIsValid(port CFMachPortRef) bool {
 	}
 	return _cFMachPortIsValid(port)
 }
-
 
 var _cFMachPortSetInvalidationCallBack func(port CFMachPortRef, callout CFMachPortInvalidationCallBack)
 
@@ -4387,7 +4044,6 @@ func CFMachPortSetInvalidationCallBack(port CFMachPortRef, callout CFMachPortInv
 	_cFMachPortSetInvalidationCallBack(port, callout)
 }
 
-
 var _cFMakeCollectable func(cf CFTypeRef) CFTypeRef
 
 // CFMakeCollectable makes a newly-allocated Core Foundation object eligible for garbage collection.
@@ -4399,7 +4055,6 @@ func CFMakeCollectable(cf CFTypeRef) CFTypeRef {
 	}
 	return _cFMakeCollectable(cf)
 }
-
 
 var _cFMessagePortCreateLocal func(allocator CFAllocatorRef, name CFStringRef, callout CFMessagePortCallBack, context *CFMessagePortContext, shouldFreeInfo *bool) CFMessagePortRef
 
@@ -4413,7 +4068,6 @@ func CFMessagePortCreateLocal(allocator CFAllocatorRef, name CFStringRef, callou
 	return _cFMessagePortCreateLocal(allocator, name, callout, context, shouldFreeInfo)
 }
 
-
 var _cFMessagePortCreateRemote func(allocator CFAllocatorRef, name CFStringRef) CFMessagePortRef
 
 // CFMessagePortCreateRemote returns a CFMessagePort object connected to a remote port.
@@ -4425,7 +4079,6 @@ func CFMessagePortCreateRemote(allocator CFAllocatorRef, name CFStringRef) CFMes
 	}
 	return _cFMessagePortCreateRemote(allocator, name)
 }
-
 
 var _cFMessagePortCreateRunLoopSource func(allocator CFAllocatorRef, local CFMessagePortRef, order int) CFRunLoopSourceRef
 
@@ -4439,7 +4092,6 @@ func CFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessageP
 	return _cFMessagePortCreateRunLoopSource(allocator, local, order)
 }
 
-
 var _cFMessagePortGetContext func(ms CFMessagePortRef, context *CFMessagePortContext)
 
 // CFMessagePortGetContext returns the context information for a CFMessagePort object.
@@ -4451,7 +4103,6 @@ func CFMessagePortGetContext(ms CFMessagePortRef, context *CFMessagePortContext)
 	}
 	_cFMessagePortGetContext(ms, context)
 }
-
 
 var _cFMessagePortGetInvalidationCallBack func(ms CFMessagePortRef) CFMessagePortInvalidationCallBack
 
@@ -4465,7 +4116,6 @@ func CFMessagePortGetInvalidationCallBack(ms CFMessagePortRef) CFMessagePortInva
 	return _cFMessagePortGetInvalidationCallBack(ms)
 }
 
-
 var _cFMessagePortGetName func(ms CFMessagePortRef) CFStringRef
 
 // CFMessagePortGetName returns the name with which a CFMessagePort object is registered.
@@ -4477,7 +4127,6 @@ func CFMessagePortGetName(ms CFMessagePortRef) CFStringRef {
 	}
 	return _cFMessagePortGetName(ms)
 }
-
 
 var _cFMessagePortGetTypeID func() uint
 
@@ -4491,7 +4140,6 @@ func CFMessagePortGetTypeID() uint {
 	return _cFMessagePortGetTypeID()
 }
 
-
 var _cFMessagePortInvalidate func(ms CFMessagePortRef)
 
 // CFMessagePortInvalidate invalidates a CFMessagePort object, stopping it from receiving or sending any more messages.
@@ -4503,7 +4151,6 @@ func CFMessagePortInvalidate(ms CFMessagePortRef) {
 	}
 	_cFMessagePortInvalidate(ms)
 }
-
 
 var _cFMessagePortIsRemote func(ms CFMessagePortRef) bool
 
@@ -4517,7 +4164,6 @@ func CFMessagePortIsRemote(ms CFMessagePortRef) bool {
 	return _cFMessagePortIsRemote(ms)
 }
 
-
 var _cFMessagePortIsValid func(ms CFMessagePortRef) bool
 
 // CFMessagePortIsValid returns a Boolean value that indicates whether a CFMessagePort object is valid and able to send or receive messages.
@@ -4529,7 +4175,6 @@ func CFMessagePortIsValid(ms CFMessagePortRef) bool {
 	}
 	return _cFMessagePortIsValid(ms)
 }
-
 
 var _cFMessagePortSendRequest func(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout float64, rcvTimeout float64, replyMode CFStringRef, returnData *CFDataRef) int32
 
@@ -4543,7 +4188,6 @@ func CFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDataR
 	return _cFMessagePortSendRequest(remote, msgid, data, sendTimeout, rcvTimeout, replyMode, returnData)
 }
 
-
 var _cFMessagePortSetDispatchQueue func(ms CFMessagePortRef, queue uintptr)
 
 // CFMessagePortSetDispatchQueue schedules callbacks for the specified message port on the specified dispatch queue.
@@ -4555,7 +4199,6 @@ func CFMessagePortSetDispatchQueue(ms CFMessagePortRef, queue dispatch.Queue) {
 	}
 	_cFMessagePortSetDispatchQueue(ms, uintptr(queue.Handle()))
 }
-
 
 var _cFMessagePortSetInvalidationCallBack func(ms CFMessagePortRef, callout CFMessagePortInvalidationCallBack)
 
@@ -4569,7 +4212,6 @@ func CFMessagePortSetInvalidationCallBack(ms CFMessagePortRef, callout CFMessage
 	_cFMessagePortSetInvalidationCallBack(ms, callout)
 }
 
-
 var _cFMessagePortSetName func(ms CFMessagePortRef, newName CFStringRef) bool
 
 // CFMessagePortSetName sets the name of a local CFMessagePort object.
@@ -4581,7 +4223,6 @@ func CFMessagePortSetName(ms CFMessagePortRef, newName CFStringRef) bool {
 	}
 	return _cFMessagePortSetName(ms, newName)
 }
-
 
 var _cFNotificationCenterAddObserver func(center CFNotificationCenterRef, observer unsafe.Pointer, callBack CFNotificationCallback, name CFStringRef, object unsafe.Pointer, suspensionBehavior CFNotificationSuspensionBehavior)
 
@@ -4595,7 +4236,6 @@ func CFNotificationCenterAddObserver(center CFNotificationCenterRef, observer un
 	_cFNotificationCenterAddObserver(center, observer, callBack, name, object, suspensionBehavior)
 }
 
-
 var _cFNotificationCenterGetDarwinNotifyCenter func() CFNotificationCenterRef
 
 // CFNotificationCenterGetDarwinNotifyCenter returns the application’s Darwin notification center.
@@ -4607,7 +4247,6 @@ func CFNotificationCenterGetDarwinNotifyCenter() CFNotificationCenterRef {
 	}
 	return _cFNotificationCenterGetDarwinNotifyCenter()
 }
-
 
 var _cFNotificationCenterGetDistributedCenter func() CFNotificationCenterRef
 
@@ -4621,7 +4260,6 @@ func CFNotificationCenterGetDistributedCenter() CFNotificationCenterRef {
 	return _cFNotificationCenterGetDistributedCenter()
 }
 
-
 var _cFNotificationCenterGetLocalCenter func() CFNotificationCenterRef
 
 // CFNotificationCenterGetLocalCenter returns the application’s local notification center.
@@ -4633,7 +4271,6 @@ func CFNotificationCenterGetLocalCenter() CFNotificationCenterRef {
 	}
 	return _cFNotificationCenterGetLocalCenter()
 }
-
 
 var _cFNotificationCenterGetTypeID func() uint
 
@@ -4647,7 +4284,6 @@ func CFNotificationCenterGetTypeID() uint {
 	return _cFNotificationCenterGetTypeID()
 }
 
-
 var _cFNotificationCenterPostNotification func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, deliverImmediately bool)
 
 // CFNotificationCenterPostNotification posts a notification for an object.
@@ -4659,7 +4295,6 @@ func CFNotificationCenterPostNotification(center CFNotificationCenterRef, name C
 	}
 	_cFNotificationCenterPostNotification(center, name, object, userInfo, deliverImmediately)
 }
-
 
 var _cFNotificationCenterPostNotificationWithOptions func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64)
 
@@ -4673,7 +4308,6 @@ func CFNotificationCenterPostNotificationWithOptions(center CFNotificationCenter
 	_cFNotificationCenterPostNotificationWithOptions(center, name, object, userInfo, options)
 }
 
-
 var _cFNotificationCenterRemoveEveryObserver func(center CFNotificationCenterRef, observer unsafe.Pointer)
 
 // CFNotificationCenterRemoveEveryObserver stops an observer from receiving any notifications from any object.
@@ -4685,7 +4319,6 @@ func CFNotificationCenterRemoveEveryObserver(center CFNotificationCenterRef, obs
 	}
 	_cFNotificationCenterRemoveEveryObserver(center, observer)
 }
-
 
 var _cFNotificationCenterRemoveObserver func(center CFNotificationCenterRef, observer unsafe.Pointer, name CFNotificationName, object unsafe.Pointer)
 
@@ -4699,7 +4332,6 @@ func CFNotificationCenterRemoveObserver(center CFNotificationCenterRef, observer
 	_cFNotificationCenterRemoveObserver(center, observer, name, object)
 }
 
-
 var _cFNullGetTypeID func() uint
 
 // CFNullGetTypeID returns the type identifier for the CFNull opaque type.
@@ -4711,7 +4343,6 @@ func CFNullGetTypeID() uint {
 	}
 	return _cFNullGetTypeID()
 }
-
 
 var _cFNumberCompare func(number CFNumberRef, otherNumber CFNumberRef, context unsafe.Pointer) CFComparisonResult
 
@@ -4725,7 +4356,6 @@ func CFNumberCompare(number CFNumberRef, otherNumber CFNumberRef, context unsafe
 	return _cFNumberCompare(number, otherNumber, context)
 }
 
-
 var _cFNumberCreate func(allocator CFAllocatorRef, theType CFNumberType, valuePtr unsafe.Pointer) CFNumberRef
 
 // CFNumberCreate creates a CFNumber object using a specified value.
@@ -4737,7 +4367,6 @@ func CFNumberCreate(allocator CFAllocatorRef, theType CFNumberType, valuePtr uns
 	}
 	return _cFNumberCreate(allocator, theType, valuePtr)
 }
-
 
 var _cFNumberFormatterCopyProperty func(formatter CFNumberFormatterRef, key CFNumberFormatterKey) CFTypeRef
 
@@ -4751,7 +4380,6 @@ func CFNumberFormatterCopyProperty(formatter CFNumberFormatterRef, key CFNumberF
 	return _cFNumberFormatterCopyProperty(formatter, key)
 }
 
-
 var _cFNumberFormatterCreate func(allocator CFAllocatorRef, locale CFLocaleRef, style CFNumberFormatterStyle) CFNumberFormatterRef
 
 // CFNumberFormatterCreate creates a new CFNumberFormatter object, localized to the given locale, which will format numbers to the given style.
@@ -4763,7 +4391,6 @@ func CFNumberFormatterCreate(allocator CFAllocatorRef, locale CFLocaleRef, style
 	}
 	return _cFNumberFormatterCreate(allocator, locale, style)
 }
-
 
 var _cFNumberFormatterCreateNumberFromString func(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options uint64) CFNumberRef
 
@@ -4777,7 +4404,6 @@ func CFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, formatter
 	return _cFNumberFormatterCreateNumberFromString(allocator, formatter, string_, rangep, options)
 }
 
-
 var _cFNumberFormatterCreateStringWithNumber func(allocator CFAllocatorRef, formatter CFNumberFormatterRef, number CFNumberRef) CFStringRef
 
 // CFNumberFormatterCreateStringWithNumber returns a string representation of the given number using the specified number formatter.
@@ -4789,7 +4415,6 @@ func CFNumberFormatterCreateStringWithNumber(allocator CFAllocatorRef, formatter
 	}
 	return _cFNumberFormatterCreateStringWithNumber(allocator, formatter, number)
 }
-
 
 var _cFNumberFormatterCreateStringWithValue func(allocator CFAllocatorRef, formatter CFNumberFormatterRef, numberType CFNumberType, valuePtr unsafe.Pointer) CFStringRef
 
@@ -4803,7 +4428,6 @@ func CFNumberFormatterCreateStringWithValue(allocator CFAllocatorRef, formatter 
 	return _cFNumberFormatterCreateStringWithValue(allocator, formatter, numberType, valuePtr)
 }
 
-
 var _cFNumberFormatterGetDecimalInfoForCurrencyCode func(currencyCode CFStringRef, defaultFractionDigits *int32, roundingIncrement *float64) bool
 
 // CFNumberFormatterGetDecimalInfoForCurrencyCode returns the number of fraction digits that should be displayed, and the rounding increment, for a given currency.
@@ -4815,7 +4439,6 @@ func CFNumberFormatterGetDecimalInfoForCurrencyCode(currencyCode CFStringRef, de
 	}
 	return _cFNumberFormatterGetDecimalInfoForCurrencyCode(currencyCode, defaultFractionDigits, unsafe.SliceData(roundingIncrement))
 }
-
 
 var _cFNumberFormatterGetFormat func(formatter CFNumberFormatterRef) CFStringRef
 
@@ -4829,7 +4452,6 @@ func CFNumberFormatterGetFormat(formatter CFNumberFormatterRef) CFStringRef {
 	return _cFNumberFormatterGetFormat(formatter)
 }
 
-
 var _cFNumberFormatterGetLocale func(formatter CFNumberFormatterRef) CFLocaleRef
 
 // CFNumberFormatterGetLocale returns the locale object used to create the given number formatter object.
@@ -4841,7 +4463,6 @@ func CFNumberFormatterGetLocale(formatter CFNumberFormatterRef) CFLocaleRef {
 	}
 	return _cFNumberFormatterGetLocale(formatter)
 }
-
 
 var _cFNumberFormatterGetStyle func(formatter CFNumberFormatterRef) CFNumberFormatterStyle
 
@@ -4855,7 +4476,6 @@ func CFNumberFormatterGetStyle(formatter CFNumberFormatterRef) CFNumberFormatter
 	return _cFNumberFormatterGetStyle(formatter)
 }
 
-
 var _cFNumberFormatterGetTypeID func() uint
 
 // CFNumberFormatterGetTypeID returns the type identifier for the [CFNumberFormatter] opaque type.
@@ -4867,7 +4487,6 @@ func CFNumberFormatterGetTypeID() uint {
 	}
 	return _cFNumberFormatterGetTypeID()
 }
-
 
 var _cFNumberFormatterGetValueFromString func(formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, numberType CFNumberType, valuePtr unsafe.Pointer) bool
 
@@ -4881,7 +4500,6 @@ func CFNumberFormatterGetValueFromString(formatter CFNumberFormatterRef, string_
 	return _cFNumberFormatterGetValueFromString(formatter, string_, rangep, numberType, valuePtr)
 }
 
-
 var _cFNumberFormatterSetFormat func(formatter CFNumberFormatterRef, formatString CFStringRef)
 
 // CFNumberFormatterSetFormat sets the format string of a number formatter.
@@ -4893,7 +4511,6 @@ func CFNumberFormatterSetFormat(formatter CFNumberFormatterRef, formatString CFS
 	}
 	_cFNumberFormatterSetFormat(formatter, formatString)
 }
-
 
 var _cFNumberFormatterSetProperty func(formatter CFNumberFormatterRef, key CFNumberFormatterKey, value CFTypeRef)
 
@@ -4907,7 +4524,6 @@ func CFNumberFormatterSetProperty(formatter CFNumberFormatterRef, key CFNumberFo
 	_cFNumberFormatterSetProperty(formatter, key, value)
 }
 
-
 var _cFNumberGetByteSize func(number CFNumberRef) int
 
 // CFNumberGetByteSize returns the number of bytes used by a CFNumber object to store its value.
@@ -4919,7 +4535,6 @@ func CFNumberGetByteSize(number CFNumberRef) int {
 	}
 	return _cFNumberGetByteSize(number)
 }
-
 
 var _cFNumberGetType func(number CFNumberRef) CFNumberType
 
@@ -4933,7 +4548,6 @@ func CFNumberGetType(number CFNumberRef) CFNumberType {
 	return _cFNumberGetType(number)
 }
 
-
 var _cFNumberGetTypeID func() uint
 
 // CFNumberGetTypeID returns the type identifier for the CFNumber opaque type.
@@ -4945,7 +4559,6 @@ func CFNumberGetTypeID() uint {
 	}
 	return _cFNumberGetTypeID()
 }
-
 
 var _cFNumberGetValue func(number CFNumberRef, theType CFNumberType, valuePtr unsafe.Pointer) bool
 
@@ -4959,7 +4572,6 @@ func CFNumberGetValue(number CFNumberRef, theType CFNumberType, valuePtr unsafe.
 	return _cFNumberGetValue(number, theType, valuePtr)
 }
 
-
 var _cFNumberIsFloatType func(number CFNumberRef) bool
 
 // CFNumberIsFloatType determines whether a CFNumber object contains a value stored as one of the defined floating point types.
@@ -4971,7 +4583,6 @@ func CFNumberIsFloatType(number CFNumberRef) bool {
 	}
 	return _cFNumberIsFloatType(number)
 }
-
 
 var _cFPlugInAddInstanceForFactory func(factoryID CFUUIDRef)
 
@@ -4985,7 +4596,6 @@ func CFPlugInAddInstanceForFactory(factoryID CFUUIDRef) {
 	_cFPlugInAddInstanceForFactory(factoryID)
 }
 
-
 var _cFPlugInCreate func(allocator CFAllocatorRef, plugInURL CFURLRef) CFPlugInRef
 
 // CFPlugInCreate creates a CFPlugIn given its URL.
@@ -4997,7 +4607,6 @@ func CFPlugInCreate(allocator CFAllocatorRef, plugInURL CFURLRef) CFPlugInRef {
 	}
 	return _cFPlugInCreate(allocator, plugInURL)
 }
-
 
 var _cFPlugInFindFactoriesForPlugInType func(typeUUID CFUUIDRef) CFArrayRef
 
@@ -5011,7 +4620,6 @@ func CFPlugInFindFactoriesForPlugInType(typeUUID CFUUIDRef) CFArrayRef {
 	return _cFPlugInFindFactoriesForPlugInType(typeUUID)
 }
 
-
 var _cFPlugInFindFactoriesForPlugInTypeInPlugIn func(typeUUID CFUUIDRef, plugIn CFPlugInRef) CFArrayRef
 
 // CFPlugInFindFactoriesForPlugInTypeInPlugIn searches the given plug-in for factory functions capable of creating an instance of the given type.
@@ -5023,7 +4631,6 @@ func CFPlugInFindFactoriesForPlugInTypeInPlugIn(typeUUID CFUUIDRef, plugIn CFPlu
 	}
 	return _cFPlugInFindFactoriesForPlugInTypeInPlugIn(typeUUID, plugIn)
 }
-
 
 var _cFPlugInGetBundle func(plugIn CFPlugInRef) CFBundleRef
 
@@ -5037,7 +4644,6 @@ func CFPlugInGetBundle(plugIn CFPlugInRef) CFBundleRef {
 	return _cFPlugInGetBundle(plugIn)
 }
 
-
 var _cFPlugInGetTypeID func() uint
 
 // CFPlugInGetTypeID returns the type identifier for the [CFPlugIn] opaque type.
@@ -5049,7 +4655,6 @@ func CFPlugInGetTypeID() uint {
 	}
 	return _cFPlugInGetTypeID()
 }
-
 
 var _cFPlugInInstanceCreate func(allocator CFAllocatorRef, factoryUUID CFUUIDRef, typeUUID CFUUIDRef) unsafe.Pointer
 
@@ -5063,7 +4668,6 @@ func CFPlugInInstanceCreate(allocator CFAllocatorRef, factoryUUID CFUUIDRef, typ
 	return _cFPlugInInstanceCreate(allocator, factoryUUID, typeUUID)
 }
 
-
 var _cFPlugInInstanceCreateWithInstanceDataSize func(allocator CFAllocatorRef, instanceDataSize int, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) CFPlugInInstanceRef
 
 // CFPlugInInstanceCreateWithInstanceDataSize not recommended.
@@ -5075,7 +4679,6 @@ func CFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, instan
 	}
 	return _cFPlugInInstanceCreateWithInstanceDataSize(allocator, instanceDataSize, deallocateInstanceFunction, factoryName, getInterfaceFunction)
 }
-
 
 var _cFPlugInInstanceGetFactoryName func(instance CFPlugInInstanceRef) CFStringRef
 
@@ -5089,7 +4692,6 @@ func CFPlugInInstanceGetFactoryName(instance CFPlugInInstanceRef) CFStringRef {
 	return _cFPlugInInstanceGetFactoryName(instance)
 }
 
-
 var _cFPlugInInstanceGetInstanceData func(instance CFPlugInInstanceRef) unsafe.Pointer
 
 // CFPlugInInstanceGetInstanceData not recommended.
@@ -5101,7 +4703,6 @@ func CFPlugInInstanceGetInstanceData(instance CFPlugInInstanceRef) unsafe.Pointe
 	}
 	return _cFPlugInInstanceGetInstanceData(instance)
 }
-
 
 var _cFPlugInInstanceGetInterfaceFunctionTable func(instance CFPlugInInstanceRef, interfaceName CFStringRef, ftbl unsafe.Pointer) bool
 
@@ -5115,7 +4716,6 @@ func CFPlugInInstanceGetInterfaceFunctionTable(instance CFPlugInInstanceRef, int
 	return _cFPlugInInstanceGetInterfaceFunctionTable(instance, interfaceName, ftbl)
 }
 
-
 var _cFPlugInInstanceGetTypeID func() uint
 
 // CFPlugInInstanceGetTypeID not recommended.
@@ -5127,7 +4727,6 @@ func CFPlugInInstanceGetTypeID() uint {
 	}
 	return _cFPlugInInstanceGetTypeID()
 }
-
 
 var _cFPlugInIsLoadOnDemand func(plugIn CFPlugInRef) bool
 
@@ -5141,7 +4740,6 @@ func CFPlugInIsLoadOnDemand(plugIn CFPlugInRef) bool {
 	return _cFPlugInIsLoadOnDemand(plugIn)
 }
 
-
 var _cFPlugInRegisterFactoryFunction func(factoryUUID CFUUIDRef, func_ CFPlugInFactoryFunction) bool
 
 // CFPlugInRegisterFactoryFunction registers a factory function and its UUID with a [CFPlugIn] object.
@@ -5153,7 +4751,6 @@ func CFPlugInRegisterFactoryFunction(factoryUUID CFUUIDRef, func_ CFPlugInFactor
 	}
 	return _cFPlugInRegisterFactoryFunction(factoryUUID, func_)
 }
-
 
 var _cFPlugInRegisterFactoryFunctionByName func(factoryUUID CFUUIDRef, plugIn CFPlugInRef, functionName CFStringRef) bool
 
@@ -5167,7 +4764,6 @@ func CFPlugInRegisterFactoryFunctionByName(factoryUUID CFUUIDRef, plugIn CFPlugI
 	return _cFPlugInRegisterFactoryFunctionByName(factoryUUID, plugIn, functionName)
 }
 
-
 var _cFPlugInRegisterPlugInType func(factoryUUID CFUUIDRef, typeUUID CFUUIDRef) bool
 
 // CFPlugInRegisterPlugInType registers a type and its corresponding factory function with a [CFPlugIn] object.
@@ -5179,7 +4775,6 @@ func CFPlugInRegisterPlugInType(factoryUUID CFUUIDRef, typeUUID CFUUIDRef) bool 
 	}
 	return _cFPlugInRegisterPlugInType(factoryUUID, typeUUID)
 }
-
 
 var _cFPlugInRemoveInstanceForFactory func(factoryID CFUUIDRef)
 
@@ -5193,7 +4788,6 @@ func CFPlugInRemoveInstanceForFactory(factoryID CFUUIDRef) {
 	_cFPlugInRemoveInstanceForFactory(factoryID)
 }
 
-
 var _cFPlugInSetLoadOnDemand func(plugIn CFPlugInRef, flag bool)
 
 // CFPlugInSetLoadOnDemand enables or disables load on demand for plug-ins that do dynamic registration (only when a client requests an instance of a supported type).
@@ -5205,7 +4799,6 @@ func CFPlugInSetLoadOnDemand(plugIn CFPlugInRef, flag bool) {
 	}
 	_cFPlugInSetLoadOnDemand(plugIn, flag)
 }
-
 
 var _cFPlugInUnregisterFactory func(factoryUUID CFUUIDRef) bool
 
@@ -5219,7 +4812,6 @@ func CFPlugInUnregisterFactory(factoryUUID CFUUIDRef) bool {
 	return _cFPlugInUnregisterFactory(factoryUUID)
 }
 
-
 var _cFPlugInUnregisterPlugInType func(factoryUUID CFUUIDRef, typeUUID CFUUIDRef) bool
 
 // CFPlugInUnregisterPlugInType removes the given type from a plug-in’s list of registered types.
@@ -5231,7 +4823,6 @@ func CFPlugInUnregisterPlugInType(factoryUUID CFUUIDRef, typeUUID CFUUIDRef) boo
 	}
 	return _cFPlugInUnregisterPlugInType(factoryUUID, typeUUID)
 }
-
 
 var _cFPreferencesAddSuitePreferencesToApp func(applicationID CFStringRef, suiteID CFStringRef)
 
@@ -5245,7 +4836,6 @@ func CFPreferencesAddSuitePreferencesToApp(applicationID CFStringRef, suiteID CF
 	_cFPreferencesAddSuitePreferencesToApp(applicationID, suiteID)
 }
 
-
 var _cFPreferencesAppSynchronize func(applicationID CFStringRef) bool
 
 // CFPreferencesAppSynchronize writes to permanent storage all pending changes to the preference data for the application, and reads the latest preference data from permanent storage.
@@ -5257,7 +4847,6 @@ func CFPreferencesAppSynchronize(applicationID CFStringRef) bool {
 	}
 	return _cFPreferencesAppSynchronize(applicationID)
 }
-
 
 var _cFPreferencesAppValueIsForced func(key CFStringRef, applicationID CFStringRef) bool
 
@@ -5271,7 +4860,6 @@ func CFPreferencesAppValueIsForced(key CFStringRef, applicationID CFStringRef) b
 	return _cFPreferencesAppValueIsForced(key, applicationID)
 }
 
-
 var _cFPreferencesCopyAppValue func(key CFStringRef, applicationID CFStringRef) CFPropertyListRef
 
 // CFPreferencesCopyAppValue obtains a preference value for the specified key and application.
@@ -5283,7 +4871,6 @@ func CFPreferencesCopyAppValue(key CFStringRef, applicationID CFStringRef) CFPro
 	}
 	return _cFPreferencesCopyAppValue(key, applicationID)
 }
-
 
 var _cFPreferencesCopyKeyList func(applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) CFArrayRef
 
@@ -5297,7 +4884,6 @@ func CFPreferencesCopyKeyList(applicationID CFStringRef, userName CFStringRef, h
 	return _cFPreferencesCopyKeyList(applicationID, userName, hostName)
 }
 
-
 var _cFPreferencesCopyMultiple func(keysToFetch CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) CFDictionaryRef
 
 // CFPreferencesCopyMultiple returns a dictionary containing preference values for multiple keys.
@@ -5309,7 +4895,6 @@ func CFPreferencesCopyMultiple(keysToFetch CFArrayRef, applicationID CFStringRef
 	}
 	return _cFPreferencesCopyMultiple(keysToFetch, applicationID, userName, hostName)
 }
-
 
 var _cFPreferencesCopyValue func(key CFStringRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) CFPropertyListRef
 
@@ -5323,7 +4908,6 @@ func CFPreferencesCopyValue(key CFStringRef, applicationID CFStringRef, userName
 	return _cFPreferencesCopyValue(key, applicationID, userName, hostName)
 }
 
-
 var _cFPreferencesGetAppBooleanValue func(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) bool
 
 // CFPreferencesGetAppBooleanValue convenience function that directly obtains a Boolean preference value for the specified key.
@@ -5335,7 +4919,6 @@ func CFPreferencesGetAppBooleanValue(key CFStringRef, applicationID CFStringRef,
 	}
 	return _cFPreferencesGetAppBooleanValue(key, applicationID, keyExistsAndHasValidFormat)
 }
-
 
 var _cFPreferencesGetAppIntegerValue func(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) int
 
@@ -5349,7 +4932,6 @@ func CFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringRef,
 	return _cFPreferencesGetAppIntegerValue(key, applicationID, keyExistsAndHasValidFormat)
 }
 
-
 var _cFPreferencesRemoveSuitePreferencesFromApp func(applicationID CFStringRef, suiteID CFStringRef)
 
 // CFPreferencesRemoveSuitePreferencesFromApp removes suite preferences from an application’s search chain.
@@ -5361,7 +4943,6 @@ func CFPreferencesRemoveSuitePreferencesFromApp(applicationID CFStringRef, suite
 	}
 	_cFPreferencesRemoveSuitePreferencesFromApp(applicationID, suiteID)
 }
-
 
 var _cFPreferencesSetAppValue func(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef)
 
@@ -5375,7 +4956,6 @@ func CFPreferencesSetAppValue(key CFStringRef, value CFPropertyListRef, applicat
 	_cFPreferencesSetAppValue(key, value, applicationID)
 }
 
-
 var _cFPreferencesSetMultiple func(keysToSet CFDictionaryRef, keysToRemove CFArrayRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef)
 
 // CFPreferencesSetMultiple convenience function that allows you to set and remove multiple preference values.
@@ -5387,7 +4967,6 @@ func CFPreferencesSetMultiple(keysToSet CFDictionaryRef, keysToRemove CFArrayRef
 	}
 	_cFPreferencesSetMultiple(keysToSet, keysToRemove, applicationID, userName, hostName)
 }
-
 
 var _cFPreferencesSetValue func(key CFStringRef, value CFPropertyListRef, applicationID CFStringRef, userName CFStringRef, hostName CFStringRef)
 
@@ -5401,7 +4980,6 @@ func CFPreferencesSetValue(key CFStringRef, value CFPropertyListRef, application
 	_cFPreferencesSetValue(key, value, applicationID, userName, hostName)
 }
 
-
 var _cFPreferencesSynchronize func(applicationID CFStringRef, userName CFStringRef, hostName CFStringRef) bool
 
 // CFPreferencesSynchronize for the specified domain, writes all pending changes to preference data to permanent storage, and reads latest preference data from permanent storage.
@@ -5413,7 +4991,6 @@ func CFPreferencesSynchronize(applicationID CFStringRef, userName CFStringRef, h
 	}
 	return _cFPreferencesSynchronize(applicationID, userName, hostName)
 }
-
 
 var _cFPropertyListCreateData func(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) CFDataRef
 
@@ -5427,7 +5004,6 @@ func CFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyL
 	return _cFPropertyListCreateData(allocator, propertyList, format, options, err)
 }
 
-
 var _cFPropertyListCreateDeepCopy func(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption uint64) CFPropertyListRef
 
 // CFPropertyListCreateDeepCopy recursively creates a copy of a given property list.
@@ -5439,7 +5015,6 @@ func CFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPrope
 	}
 	return _cFPropertyListCreateDeepCopy(allocator, propertyList, mutabilityOption)
 }
-
 
 var _cFPropertyListCreateWithData func(allocator CFAllocatorRef, data CFDataRef, options uint64, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef
 
@@ -5453,7 +5028,6 @@ func CFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, opti
 	return _cFPropertyListCreateWithData(allocator, data, options, format, err)
 }
 
-
 var _cFPropertyListCreateWithStream func(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength int, options uint64, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef
 
 // CFPropertyListCreateWithStream create and return a property list with a CFReadStream input.
@@ -5465,7 +5039,6 @@ func CFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadStrea
 	}
 	return _cFPropertyListCreateWithStream(allocator, stream, streamLength, options, format, err)
 }
-
 
 var _cFPropertyListIsValid func(plist CFPropertyListRef, format CFPropertyListFormat) bool
 
@@ -5479,7 +5052,6 @@ func CFPropertyListIsValid(plist CFPropertyListRef, format CFPropertyListFormat)
 	return _cFPropertyListIsValid(plist, format)
 }
 
-
 var _cFPropertyListWrite func(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) int
 
 // CFPropertyListWrite write the bytes of a serialized property list out to a stream.
@@ -5491,8 +5063,6 @@ func CFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStreamRef
 	}
 	return _cFPropertyListWrite(propertyList, stream, format, options, err)
 }
-
-
 
 var _cFReadStreamClose func(stream CFReadStreamRef)
 
@@ -5506,7 +5076,6 @@ func CFReadStreamClose(stream CFReadStreamRef) {
 	_cFReadStreamClose(stream)
 }
 
-
 var _cFReadStreamCopyDispatchQueue func(stream CFReadStreamRef) uintptr
 
 // CFReadStreamCopyDispatchQueue.
@@ -5518,7 +5087,6 @@ func CFReadStreamCopyDispatchQueue(stream CFReadStreamRef) dispatch.Queue {
 	}
 	return dispatch.QueueFromHandle(_cFReadStreamCopyDispatchQueue(stream))
 }
-
 
 var _cFReadStreamCopyError func(stream CFReadStreamRef) CFErrorRef
 
@@ -5532,7 +5100,6 @@ func CFReadStreamCopyError(stream CFReadStreamRef) CFErrorRef {
 	return _cFReadStreamCopyError(stream)
 }
 
-
 var _cFReadStreamCopyProperty func(stream CFReadStreamRef, propertyName CFStreamPropertyKey) CFTypeRef
 
 // CFReadStreamCopyProperty returns the value of a property for a stream.
@@ -5544,7 +5111,6 @@ func CFReadStreamCopyProperty(stream CFReadStreamRef, propertyName CFStreamPrope
 	}
 	return _cFReadStreamCopyProperty(stream, propertyName)
 }
-
 
 var _cFReadStreamCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *uint8, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef
 
@@ -5558,7 +5124,6 @@ func CFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, lengt
 	return _cFReadStreamCreateWithBytesNoCopy(alloc, bytes, length, bytesDeallocator)
 }
 
-
 var _cFReadStreamCreateWithFile func(alloc CFAllocatorRef, fileURL CFURLRef) CFReadStreamRef
 
 // CFReadStreamCreateWithFile creates a readable stream for a file.
@@ -5571,7 +5136,6 @@ func CFReadStreamCreateWithFile(alloc CFAllocatorRef, fileURL CFURLRef) CFReadSt
 	return _cFReadStreamCreateWithFile(alloc, fileURL)
 }
 
-
 var _cFReadStreamGetBuffer func(stream CFReadStreamRef, maxBytesToRead int, numBytesRead *int) *uint8
 
 // CFReadStreamGetBuffer returns a pointer to a stream’s internal buffer of unread data, if possible.
@@ -5583,7 +5147,6 @@ func CFReadStreamGetBuffer(stream CFReadStreamRef, maxBytesToRead int, numBytesR
 	}
 	return _cFReadStreamGetBuffer(stream, maxBytesToRead, numBytesRead)
 }
-
 
 var _cFReadStreamGetError func(stream CFReadStreamRef) CFStreamError
 
@@ -5599,7 +5162,6 @@ func CFReadStreamGetError(stream CFReadStreamRef) CFStreamError {
 	return _cFReadStreamGetError(stream)
 }
 
-
 var _cFReadStreamGetStatus func(stream CFReadStreamRef) CFStreamStatus
 
 // CFReadStreamGetStatus returns the current state of a stream.
@@ -5611,7 +5173,6 @@ func CFReadStreamGetStatus(stream CFReadStreamRef) CFStreamStatus {
 	}
 	return _cFReadStreamGetStatus(stream)
 }
-
 
 var _cFReadStreamGetTypeID func() uint
 
@@ -5625,7 +5186,6 @@ func CFReadStreamGetTypeID() uint {
 	return _cFReadStreamGetTypeID()
 }
 
-
 var _cFReadStreamHasBytesAvailable func(stream CFReadStreamRef) bool
 
 // CFReadStreamHasBytesAvailable returns a Boolean value that indicates whether a readable stream has data that can be read without blocking.
@@ -5637,7 +5197,6 @@ func CFReadStreamHasBytesAvailable(stream CFReadStreamRef) bool {
 	}
 	return _cFReadStreamHasBytesAvailable(stream)
 }
-
 
 var _cFReadStreamOpen func(stream CFReadStreamRef) bool
 
@@ -5651,7 +5210,6 @@ func CFReadStreamOpen(stream CFReadStreamRef) bool {
 	return _cFReadStreamOpen(stream)
 }
 
-
 var _cFReadStreamRead func(stream CFReadStreamRef, buffer *uint8, bufferLength int) int
 
 // CFReadStreamRead reads data from a readable stream.
@@ -5663,7 +5221,6 @@ func CFReadStreamRead(stream CFReadStreamRef, buffer *uint8, bufferLength int) i
 	}
 	return _cFReadStreamRead(stream, buffer, bufferLength)
 }
-
 
 var _cFReadStreamScheduleWithRunLoop func(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
@@ -5677,7 +5234,6 @@ func CFReadStreamScheduleWithRunLoop(stream CFReadStreamRef, runLoop CFRunLoopRe
 	_cFReadStreamScheduleWithRunLoop(stream, runLoop, runLoopMode)
 }
 
-
 var _cFReadStreamSetClient func(stream CFReadStreamRef, streamEvents uint64, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) bool
 
 // CFReadStreamSetClient assigns a client to a stream, which receives callbacks when certain events occur.
@@ -5689,7 +5245,6 @@ func CFReadStreamSetClient(stream CFReadStreamRef, streamEvents uint64, clientCB
 	}
 	return _cFReadStreamSetClient(stream, streamEvents, clientCB, clientContext)
 }
-
 
 var _cFReadStreamSetDispatchQueue func(stream CFReadStreamRef, q uintptr)
 
@@ -5703,7 +5258,6 @@ func CFReadStreamSetDispatchQueue(stream CFReadStreamRef, q dispatch.Queue) {
 	_cFReadStreamSetDispatchQueue(stream, uintptr(q.Handle()))
 }
 
-
 var _cFReadStreamSetProperty func(stream CFReadStreamRef, propertyName CFStreamPropertyKey, propertyValue CFTypeRef) bool
 
 // CFReadStreamSetProperty sets the value of a property for a stream.
@@ -5715,7 +5269,6 @@ func CFReadStreamSetProperty(stream CFReadStreamRef, propertyName CFStreamProper
 	}
 	return _cFReadStreamSetProperty(stream, propertyName, propertyValue)
 }
-
 
 var _cFReadStreamUnscheduleFromRunLoop func(stream CFReadStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
@@ -5729,7 +5282,6 @@ func CFReadStreamUnscheduleFromRunLoop(stream CFReadStreamRef, runLoop CFRunLoop
 	_cFReadStreamUnscheduleFromRunLoop(stream, runLoop, runLoopMode)
 }
 
-
 var _cFRelease func(cf CFTypeRef)
 
 // CFRelease releases a Core Foundation object.
@@ -5741,7 +5293,6 @@ func CFRelease(cf CFTypeRef) {
 	}
 	_cFRelease(cf)
 }
-
 
 var _cFRetain func(cf CFTypeRef) CFTypeRef
 
@@ -5755,7 +5306,6 @@ func CFRetain(cf CFTypeRef) CFTypeRef {
 	return _cFRetain(cf)
 }
 
-
 var _cFRunLoopAddCommonMode func(rl CFRunLoopRef, mode CFRunLoopMode)
 
 // CFRunLoopAddCommonMode adds a mode to the set of run loop common modes.
@@ -5767,7 +5317,6 @@ func CFRunLoopAddCommonMode(rl CFRunLoopRef, mode CFRunLoopMode) {
 	}
 	_cFRunLoopAddCommonMode(rl, mode)
 }
-
 
 var _cFRunLoopAddObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode)
 
@@ -5781,7 +5330,6 @@ func CFRunLoopAddObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode C
 	_cFRunLoopAddObserver(rl, observer, mode)
 }
 
-
 var _cFRunLoopAddSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode)
 
 // CFRunLoopAddSource adds a CFRunLoopSource object to a run loop mode.
@@ -5793,7 +5341,6 @@ func CFRunLoopAddSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLo
 	}
 	_cFRunLoopAddSource(rl, source, mode)
 }
-
 
 var _cFRunLoopAddTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode)
 
@@ -5807,7 +5354,6 @@ func CFRunLoopAddTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopM
 	_cFRunLoopAddTimer(rl, timer, mode)
 }
 
-
 var _cFRunLoopContainsObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode) bool
 
 // CFRunLoopContainsObserver returns a Boolean value that indicates whether a run loop mode contains a particular CFRunLoopObserver object.
@@ -5819,7 +5365,6 @@ func CFRunLoopContainsObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, m
 	}
 	return _cFRunLoopContainsObserver(rl, observer, mode)
 }
-
 
 var _cFRunLoopContainsSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode) bool
 
@@ -5833,7 +5378,6 @@ func CFRunLoopContainsSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CF
 	return _cFRunLoopContainsSource(rl, source, mode)
 }
 
-
 var _cFRunLoopContainsTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode) bool
 
 // CFRunLoopContainsTimer returns a Boolean value that indicates whether a run loop mode contains a particular CFRunLoopTimer object.
@@ -5845,7 +5389,6 @@ func CFRunLoopContainsTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRun
 	}
 	return _cFRunLoopContainsTimer(rl, timer, mode)
 }
-
 
 var _cFRunLoopCopyAllModes func(rl CFRunLoopRef) CFArrayRef
 
@@ -5859,7 +5402,6 @@ func CFRunLoopCopyAllModes(rl CFRunLoopRef) CFArrayRef {
 	return _cFRunLoopCopyAllModes(rl)
 }
 
-
 var _cFRunLoopCopyCurrentMode func(rl CFRunLoopRef) CFRunLoopMode
 
 // CFRunLoopCopyCurrentMode returns the name of the mode in which a given run loop is currently running.
@@ -5871,7 +5413,6 @@ func CFRunLoopCopyCurrentMode(rl CFRunLoopRef) CFRunLoopMode {
 	}
 	return _cFRunLoopCopyCurrentMode(rl)
 }
-
 
 var _cFRunLoopGetCurrent func() CFRunLoopRef
 
@@ -5885,7 +5426,6 @@ func CFRunLoopGetCurrent() CFRunLoopRef {
 	return _cFRunLoopGetCurrent()
 }
 
-
 var _cFRunLoopGetMain func() CFRunLoopRef
 
 // CFRunLoopGetMain returns the main CFRunLoop object.
@@ -5897,7 +5437,6 @@ func CFRunLoopGetMain() CFRunLoopRef {
 	}
 	return _cFRunLoopGetMain()
 }
-
 
 var _cFRunLoopGetNextTimerFireDate func(rl CFRunLoopRef, mode CFRunLoopMode) CFAbsoluteTime
 
@@ -5911,7 +5450,6 @@ func CFRunLoopGetNextTimerFireDate(rl CFRunLoopRef, mode CFRunLoopMode) CFAbsolu
 	return _cFRunLoopGetNextTimerFireDate(rl, mode)
 }
 
-
 var _cFRunLoopGetTypeID func() uint
 
 // CFRunLoopGetTypeID returns the type identifier for the CFRunLoop opaque type.
@@ -5923,7 +5461,6 @@ func CFRunLoopGetTypeID() uint {
 	}
 	return _cFRunLoopGetTypeID()
 }
-
 
 var _cFRunLoopIsWaiting func(rl CFRunLoopRef) bool
 
@@ -5937,7 +5474,6 @@ func CFRunLoopIsWaiting(rl CFRunLoopRef) bool {
 	return _cFRunLoopIsWaiting(rl)
 }
 
-
 var _cFRunLoopObserverCreate func(allocator CFAllocatorRef, activities uint64, repeats bool, order int, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) CFRunLoopObserverRef
 
 // CFRunLoopObserverCreate creates a CFRunLoopObserver object with a function callback.
@@ -5949,7 +5485,6 @@ func CFRunLoopObserverCreate(allocator CFAllocatorRef, activities uint64, repeat
 	}
 	return _cFRunLoopObserverCreate(allocator, activities, repeats, order, callout, context)
 }
-
 
 var _cFRunLoopObserverCreateWithHandler func(allocator CFAllocatorRef, activities uint64, repeats bool, order int) CFRunLoopObserverRef
 
@@ -5963,7 +5498,6 @@ func CFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities uin
 	return _cFRunLoopObserverCreateWithHandler(allocator, activities, repeats, order)
 }
 
-
 var _cFRunLoopObserverDoesRepeat func(observer CFRunLoopObserverRef) bool
 
 // CFRunLoopObserverDoesRepeat returns a Boolean value that indicates whether a CFRunLoopObserver repeats.
@@ -5975,7 +5509,6 @@ func CFRunLoopObserverDoesRepeat(observer CFRunLoopObserverRef) bool {
 	}
 	return _cFRunLoopObserverDoesRepeat(observer)
 }
-
 
 var _cFRunLoopObserverGetActivities func(observer CFRunLoopObserverRef) uint64
 
@@ -5989,7 +5522,6 @@ func CFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) uint64 {
 	return _cFRunLoopObserverGetActivities(observer)
 }
 
-
 var _cFRunLoopObserverGetContext func(observer CFRunLoopObserverRef, context *CFRunLoopObserverContext)
 
 // CFRunLoopObserverGetContext returns the context information for a CFRunLoopObserver object.
@@ -6001,7 +5533,6 @@ func CFRunLoopObserverGetContext(observer CFRunLoopObserverRef, context *CFRunLo
 	}
 	_cFRunLoopObserverGetContext(observer, context)
 }
-
 
 var _cFRunLoopObserverGetOrder func(observer CFRunLoopObserverRef) int
 
@@ -6015,7 +5546,6 @@ func CFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) int {
 	return _cFRunLoopObserverGetOrder(observer)
 }
 
-
 var _cFRunLoopObserverGetTypeID func() uint
 
 // CFRunLoopObserverGetTypeID returns the type identifier for the CFRunLoopObserver opaque type.
@@ -6027,7 +5557,6 @@ func CFRunLoopObserverGetTypeID() uint {
 	}
 	return _cFRunLoopObserverGetTypeID()
 }
-
 
 var _cFRunLoopObserverInvalidate func(observer CFRunLoopObserverRef)
 
@@ -6041,7 +5570,6 @@ func CFRunLoopObserverInvalidate(observer CFRunLoopObserverRef) {
 	_cFRunLoopObserverInvalidate(observer)
 }
 
-
 var _cFRunLoopObserverIsValid func(observer CFRunLoopObserverRef) bool
 
 // CFRunLoopObserverIsValid returns a Boolean value that indicates whether a CFRunLoopObserver object is valid and able to fire.
@@ -6053,7 +5581,6 @@ func CFRunLoopObserverIsValid(observer CFRunLoopObserverRef) bool {
 	}
 	return _cFRunLoopObserverIsValid(observer)
 }
-
 
 var _cFRunLoopPerformBlock func(rl CFRunLoopRef, mode CFTypeRef)
 
@@ -6067,7 +5594,6 @@ func CFRunLoopPerformBlock(rl CFRunLoopRef, mode CFTypeRef) {
 	_cFRunLoopPerformBlock(rl, mode)
 }
 
-
 var _cFRunLoopRemoveObserver func(rl CFRunLoopRef, observer CFRunLoopObserverRef, mode CFRunLoopMode)
 
 // CFRunLoopRemoveObserver removes a CFRunLoopObserver object from a run loop mode.
@@ -6079,7 +5605,6 @@ func CFRunLoopRemoveObserver(rl CFRunLoopRef, observer CFRunLoopObserverRef, mod
 	}
 	_cFRunLoopRemoveObserver(rl, observer, mode)
 }
-
 
 var _cFRunLoopRemoveSource func(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRunLoopMode)
 
@@ -6093,7 +5618,6 @@ func CFRunLoopRemoveSource(rl CFRunLoopRef, source CFRunLoopSourceRef, mode CFRu
 	_cFRunLoopRemoveSource(rl, source, mode)
 }
 
-
 var _cFRunLoopRemoveTimer func(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLoopMode)
 
 // CFRunLoopRemoveTimer removes a CFRunLoopTimer object from a run loop mode.
@@ -6105,7 +5629,6 @@ func CFRunLoopRemoveTimer(rl CFRunLoopRef, timer CFRunLoopTimerRef, mode CFRunLo
 	}
 	_cFRunLoopRemoveTimer(rl, timer, mode)
 }
-
 
 var _cFRunLoopRun func()
 
@@ -6119,7 +5642,6 @@ func CFRunLoopRun() {
 	_cFRunLoopRun()
 }
 
-
 var _cFRunLoopRunInMode func(mode CFRunLoopMode, seconds float64, returnAfterSourceHandled bool) CFRunLoopRunResult
 
 // CFRunLoopRunInMode runs the current thread’s CFRunLoop object in a particular mode.
@@ -6131,7 +5653,6 @@ func CFRunLoopRunInMode(mode CFRunLoopMode, seconds float64, returnAfterSourceHa
 	}
 	return _cFRunLoopRunInMode(mode, seconds, returnAfterSourceHandled)
 }
-
 
 var _cFRunLoopSourceCreate func(allocator CFAllocatorRef, order int, context *CFRunLoopSourceContext) CFRunLoopSourceRef
 
@@ -6145,7 +5666,6 @@ func CFRunLoopSourceCreate(allocator CFAllocatorRef, order int, context *CFRunLo
 	return _cFRunLoopSourceCreate(allocator, order, context)
 }
 
-
 var _cFRunLoopSourceGetContext func(source CFRunLoopSourceRef, context *CFRunLoopSourceContext)
 
 // CFRunLoopSourceGetContext returns the context information for a CFRunLoopSource object.
@@ -6157,7 +5677,6 @@ func CFRunLoopSourceGetContext(source CFRunLoopSourceRef, context *CFRunLoopSour
 	}
 	_cFRunLoopSourceGetContext(source, context)
 }
-
 
 var _cFRunLoopSourceGetOrder func(source CFRunLoopSourceRef) int
 
@@ -6171,7 +5690,6 @@ func CFRunLoopSourceGetOrder(source CFRunLoopSourceRef) int {
 	return _cFRunLoopSourceGetOrder(source)
 }
 
-
 var _cFRunLoopSourceGetTypeID func() uint
 
 // CFRunLoopSourceGetTypeID returns the type identifier of the CFRunLoopSource opaque type.
@@ -6183,7 +5701,6 @@ func CFRunLoopSourceGetTypeID() uint {
 	}
 	return _cFRunLoopSourceGetTypeID()
 }
-
 
 var _cFRunLoopSourceInvalidate func(source CFRunLoopSourceRef)
 
@@ -6197,7 +5714,6 @@ func CFRunLoopSourceInvalidate(source CFRunLoopSourceRef) {
 	_cFRunLoopSourceInvalidate(source)
 }
 
-
 var _cFRunLoopSourceIsValid func(source CFRunLoopSourceRef) bool
 
 // CFRunLoopSourceIsValid returns a Boolean value that indicates whether a CFRunLoopSource object is valid and able to fire.
@@ -6209,7 +5725,6 @@ func CFRunLoopSourceIsValid(source CFRunLoopSourceRef) bool {
 	}
 	return _cFRunLoopSourceIsValid(source)
 }
-
 
 var _cFRunLoopSourceSignal func(source CFRunLoopSourceRef)
 
@@ -6223,7 +5738,6 @@ func CFRunLoopSourceSignal(source CFRunLoopSourceRef) {
 	_cFRunLoopSourceSignal(source)
 }
 
-
 var _cFRunLoopStop func(rl CFRunLoopRef)
 
 // CFRunLoopStop forces a CFRunLoop object to stop running.
@@ -6235,7 +5749,6 @@ func CFRunLoopStop(rl CFRunLoopRef) {
 	}
 	_cFRunLoopStop(rl)
 }
-
 
 var _cFRunLoopTimerCreate func(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) CFRunLoopTimerRef
 
@@ -6249,7 +5762,6 @@ func CFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, int
 	return _cFRunLoopTimerCreate(allocator, fireDate, interval, flags, order, callout, context)
 }
 
-
 var _cFRunLoopTimerCreateWithHandler func(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int) CFRunLoopTimerRef
 
 // CFRunLoopTimerCreateWithHandler creates a new CFRunLoopTimer object with a block-based handler.
@@ -6261,7 +5773,6 @@ func CFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbsolu
 	}
 	return _cFRunLoopTimerCreateWithHandler(allocator, fireDate, interval, flags, order)
 }
-
 
 var _cFRunLoopTimerDoesRepeat func(timer CFRunLoopTimerRef) bool
 
@@ -6275,7 +5786,6 @@ func CFRunLoopTimerDoesRepeat(timer CFRunLoopTimerRef) bool {
 	return _cFRunLoopTimerDoesRepeat(timer)
 }
 
-
 var _cFRunLoopTimerGetContext func(timer CFRunLoopTimerRef, context *CFRunLoopTimerContext)
 
 // CFRunLoopTimerGetContext returns the context information for a CFRunLoopTimer object.
@@ -6287,7 +5797,6 @@ func CFRunLoopTimerGetContext(timer CFRunLoopTimerRef, context *CFRunLoopTimerCo
 	}
 	_cFRunLoopTimerGetContext(timer, context)
 }
-
 
 var _cFRunLoopTimerGetInterval func(timer CFRunLoopTimerRef) float64
 
@@ -6301,7 +5810,6 @@ func CFRunLoopTimerGetInterval(timer CFRunLoopTimerRef) float64 {
 	return _cFRunLoopTimerGetInterval(timer)
 }
 
-
 var _cFRunLoopTimerGetNextFireDate func(timer CFRunLoopTimerRef) CFAbsoluteTime
 
 // CFRunLoopTimerGetNextFireDate returns the next firing time for a CFRunLoopTimer object.
@@ -6313,7 +5821,6 @@ func CFRunLoopTimerGetNextFireDate(timer CFRunLoopTimerRef) CFAbsoluteTime {
 	}
 	return _cFRunLoopTimerGetNextFireDate(timer)
 }
-
 
 var _cFRunLoopTimerGetOrder func(timer CFRunLoopTimerRef) int
 
@@ -6327,7 +5834,6 @@ func CFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) int {
 	return _cFRunLoopTimerGetOrder(timer)
 }
 
-
 var _cFRunLoopTimerGetTolerance func(timer CFRunLoopTimerRef) float64
 
 // CFRunLoopTimerGetTolerance.
@@ -6339,7 +5845,6 @@ func CFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) float64 {
 	}
 	return _cFRunLoopTimerGetTolerance(timer)
 }
-
 
 var _cFRunLoopTimerGetTypeID func() uint
 
@@ -6353,7 +5858,6 @@ func CFRunLoopTimerGetTypeID() uint {
 	return _cFRunLoopTimerGetTypeID()
 }
 
-
 var _cFRunLoopTimerInvalidate func(timer CFRunLoopTimerRef)
 
 // CFRunLoopTimerInvalidate invalidates a CFRunLoopTimer object, stopping it from ever firing again.
@@ -6365,7 +5869,6 @@ func CFRunLoopTimerInvalidate(timer CFRunLoopTimerRef) {
 	}
 	_cFRunLoopTimerInvalidate(timer)
 }
-
 
 var _cFRunLoopTimerIsValid func(timer CFRunLoopTimerRef) bool
 
@@ -6379,7 +5882,6 @@ func CFRunLoopTimerIsValid(timer CFRunLoopTimerRef) bool {
 	return _cFRunLoopTimerIsValid(timer)
 }
 
-
 var _cFRunLoopTimerSetNextFireDate func(timer CFRunLoopTimerRef, fireDate CFAbsoluteTime)
 
 // CFRunLoopTimerSetNextFireDate sets the next firing date for a CFRunLoopTimer object .
@@ -6391,7 +5893,6 @@ func CFRunLoopTimerSetNextFireDate(timer CFRunLoopTimerRef, fireDate CFAbsoluteT
 	}
 	_cFRunLoopTimerSetNextFireDate(timer, fireDate)
 }
-
 
 var _cFRunLoopTimerSetTolerance func(timer CFRunLoopTimerRef, tolerance float64)
 
@@ -6405,7 +5906,6 @@ func CFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64) {
 	_cFRunLoopTimerSetTolerance(timer, tolerance)
 }
 
-
 var _cFRunLoopWakeUp func(rl CFRunLoopRef)
 
 // CFRunLoopWakeUp wakes a waiting CFRunLoop object.
@@ -6417,7 +5917,6 @@ func CFRunLoopWakeUp(rl CFRunLoopRef) {
 	}
 	_cFRunLoopWakeUp(rl)
 }
-
 
 var _cFSetAddValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
@@ -6431,7 +5930,6 @@ func CFSetAddValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	_cFSetAddValue(theSet, value)
 }
 
-
 var _cFSetApplyFunction func(theSet CFSetRef, applier CFSetApplierFunction, context unsafe.Pointer)
 
 // CFSetApplyFunction calls a function once for each value in a set.
@@ -6443,7 +5941,6 @@ func CFSetApplyFunction(theSet CFSetRef, applier CFSetApplierFunction, context u
 	}
 	_cFSetApplyFunction(theSet, applier, context)
 }
-
 
 var _cFSetContainsValue func(theSet CFSetRef, value unsafe.Pointer) bool
 
@@ -6457,7 +5954,6 @@ func CFSetContainsValue(theSet CFSetRef, value unsafe.Pointer) bool {
 	return _cFSetContainsValue(theSet, value)
 }
 
-
 var _cFSetCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFSetCallBacks) CFSetRef
 
 // CFSetCreate creates an immutable CFSet object containing supplied values.
@@ -6469,7 +5965,6 @@ func CFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int,
 	}
 	return _cFSetCreate(allocator, values, numValues, callBacks)
 }
-
 
 var _cFSetCreateCopy func(allocator CFAllocatorRef, theSet CFSetRef) CFSetRef
 
@@ -6483,7 +5978,6 @@ func CFSetCreateCopy(allocator CFAllocatorRef, theSet CFSetRef) CFSetRef {
 	return _cFSetCreateCopy(allocator, theSet)
 }
 
-
 var _cFSetCreateMutable func(allocator CFAllocatorRef, capacity int, callBacks *CFSetCallBacks) CFMutableSetRef
 
 // CFSetCreateMutable creates an empty CFMutableSet object.
@@ -6495,7 +5989,6 @@ func CFSetCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFSet
 	}
 	return _cFSetCreateMutable(allocator, capacity, callBacks)
 }
-
 
 var _cFSetCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theSet CFSetRef) CFMutableSetRef
 
@@ -6509,7 +6002,6 @@ func CFSetCreateMutableCopy(allocator CFAllocatorRef, capacity int, theSet CFSet
 	return _cFSetCreateMutableCopy(allocator, capacity, theSet)
 }
 
-
 var _cFSetGetCount func(theSet CFSetRef) int
 
 // CFSetGetCount returns the number of values currently in a set.
@@ -6521,7 +6013,6 @@ func CFSetGetCount(theSet CFSetRef) int {
 	}
 	return _cFSetGetCount(theSet)
 }
-
 
 var _cFSetGetCountOfValue func(theSet CFSetRef, value unsafe.Pointer) int
 
@@ -6535,7 +6026,6 @@ func CFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) int {
 	return _cFSetGetCountOfValue(theSet, value)
 }
 
-
 var _cFSetGetTypeID func() uint
 
 // CFSetGetTypeID returns the type identifier for the CFSet type.
@@ -6547,7 +6037,6 @@ func CFSetGetTypeID() uint {
 	}
 	return _cFSetGetTypeID()
 }
-
 
 var _cFSetGetValue func(theSet CFSetRef, value unsafe.Pointer) unsafe.Pointer
 
@@ -6561,7 +6050,6 @@ func CFSetGetValue(theSet CFSetRef, value unsafe.Pointer) unsafe.Pointer {
 	return _cFSetGetValue(theSet, value)
 }
 
-
 var _cFSetGetValueIfPresent func(theSet CFSetRef, candidate unsafe.Pointer, value unsafe.Pointer) bool
 
 // CFSetGetValueIfPresent reports whether or not a value is in a set, and if it exists returns the value indirectly.
@@ -6573,7 +6061,6 @@ func CFSetGetValueIfPresent(theSet CFSetRef, candidate unsafe.Pointer, value uns
 	}
 	return _cFSetGetValueIfPresent(theSet, candidate, value)
 }
-
 
 var _cFSetGetValues func(theSet CFSetRef, values unsafe.Pointer)
 
@@ -6587,7 +6074,6 @@ func CFSetGetValues(theSet CFSetRef, values unsafe.Pointer) {
 	_cFSetGetValues(theSet, values)
 }
 
-
 var _cFSetRemoveAllValues func(theSet CFMutableSetRef)
 
 // CFSetRemoveAllValues removes all values from a CFMutableSet object.
@@ -6599,7 +6085,6 @@ func CFSetRemoveAllValues(theSet CFMutableSetRef) {
 	}
 	_cFSetRemoveAllValues(theSet)
 }
-
 
 var _cFSetRemoveValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
@@ -6613,7 +6098,6 @@ func CFSetRemoveValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	_cFSetRemoveValue(theSet, value)
 }
 
-
 var _cFSetReplaceValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
 // CFSetReplaceValue replaces a value in a CFMutableSet object.
@@ -6625,7 +6109,6 @@ func CFSetReplaceValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	}
 	_cFSetReplaceValue(theSet, value)
 }
-
 
 var _cFSetSetValue func(theSet CFMutableSetRef, value unsafe.Pointer)
 
@@ -6639,7 +6122,6 @@ func CFSetSetValue(theSet CFMutableSetRef, value unsafe.Pointer) {
 	_cFSetSetValue(theSet, value)
 }
 
-
 var _cFShow func(obj CFTypeRef)
 
 // CFShow prints a description of a Core Foundation object to stderr.
@@ -6651,7 +6133,6 @@ func CFShow(obj CFTypeRef) {
 	}
 	_cFShow(obj)
 }
-
 
 var _cFShowStr func(str CFStringRef)
 
@@ -6665,7 +6146,6 @@ func CFShowStr(str CFStringRef) {
 	_cFShowStr(str)
 }
 
-
 var _cFSocketConnectToAddress func(s CFSocketRef, address CFDataRef, timeout float64) CFSocketError
 
 // CFSocketConnectToAddress opens a connection to a remote socket.
@@ -6677,7 +6157,6 @@ func CFSocketConnectToAddress(s CFSocketRef, address CFDataRef, timeout float64)
 	}
 	return _cFSocketConnectToAddress(s, address, timeout)
 }
-
 
 var _cFSocketCopyAddress func(s CFSocketRef) CFDataRef
 
@@ -6691,7 +6170,6 @@ func CFSocketCopyAddress(s CFSocketRef) CFDataRef {
 	return _cFSocketCopyAddress(s)
 }
 
-
 var _cFSocketCopyPeerAddress func(s CFSocketRef) CFDataRef
 
 // CFSocketCopyPeerAddress returns the remote address to which a CFSocket object is connected.
@@ -6703,7 +6181,6 @@ func CFSocketCopyPeerAddress(s CFSocketRef) CFDataRef {
 	}
 	return _cFSocketCopyPeerAddress(s)
 }
-
 
 var _cFSocketCopyRegisteredSocketSignature func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) CFSocketError
 
@@ -6717,7 +6194,6 @@ func CFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSignatur
 	return _cFSocketCopyRegisteredSocketSignature(nameServerSignature, timeout, name, signature, nameServerAddress)
 }
 
-
 var _cFSocketCopyRegisteredValue func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) CFSocketError
 
 // CFSocketCopyRegisteredValue returns a value registered with a CFSocket name server.
@@ -6729,7 +6205,6 @@ func CFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, timeout
 	}
 	return _cFSocketCopyRegisteredValue(nameServerSignature, timeout, name, value, nameServerAddress)
 }
-
 
 var _cFSocketCreate func(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
 
@@ -6743,7 +6218,6 @@ func CFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType i
 	return _cFSocketCreate(allocator, protocolFamily, socketType, protocol_, callBackTypes, callout, context)
 }
 
-
 var _cFSocketCreateConnectedToSocketSignature func(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext, timeout float64) CFSocketRef
 
 // CFSocketCreateConnectedToSocketSignature creates a CFSocket object and opens a connection to a remote socket.
@@ -6755,7 +6229,6 @@ func CFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signatur
 	}
 	return _cFSocketCreateConnectedToSocketSignature(allocator, signature, callBackTypes, callout, context, timeout)
 }
-
 
 var _cFSocketCreateRunLoopSource func(allocator CFAllocatorRef, s CFSocketRef, order int) CFRunLoopSourceRef
 
@@ -6769,7 +6242,6 @@ func CFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order 
 	return _cFSocketCreateRunLoopSource(allocator, s, order)
 }
 
-
 var _cFSocketCreateWithNative func(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
 
 // CFSocketCreateWithNative creates a CFSocket object for a pre-existing native socket.
@@ -6781,7 +6253,6 @@ func CFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandl
 	}
 	return _cFSocketCreateWithNative(allocator, sock, callBackTypes, callout, context)
 }
-
 
 var _cFSocketCreateWithSocketSignature func(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
 
@@ -6795,7 +6266,6 @@ func CFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSo
 	return _cFSocketCreateWithSocketSignature(allocator, signature, callBackTypes, callout, context)
 }
 
-
 var _cFSocketDisableCallBacks func(s CFSocketRef, callBackTypes uint64)
 
 // CFSocketDisableCallBacks disables the callback function of a CFSocket object for certain types of socket activity.
@@ -6807,7 +6277,6 @@ func CFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64) {
 	}
 	_cFSocketDisableCallBacks(s, callBackTypes)
 }
-
 
 var _cFSocketEnableCallBacks func(s CFSocketRef, callBackTypes uint64)
 
@@ -6821,7 +6290,6 @@ func CFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64) {
 	_cFSocketEnableCallBacks(s, callBackTypes)
 }
 
-
 var _cFSocketGetContext func(s CFSocketRef, context *CFSocketContext)
 
 // CFSocketGetContext returns the context information for a CFSocket object.
@@ -6833,7 +6301,6 @@ func CFSocketGetContext(s CFSocketRef, context *CFSocketContext) {
 	}
 	_cFSocketGetContext(s, context)
 }
-
 
 var _cFSocketGetDefaultNameRegistryPortNumber func() uint16
 
@@ -6847,7 +6314,6 @@ func CFSocketGetDefaultNameRegistryPortNumber() uint16 {
 	return _cFSocketGetDefaultNameRegistryPortNumber()
 }
 
-
 var _cFSocketGetNative func(s CFSocketRef) CFSocketNativeHandle
 
 // CFSocketGetNative returns the native socket associated with a CFSocket object.
@@ -6859,7 +6325,6 @@ func CFSocketGetNative(s CFSocketRef) CFSocketNativeHandle {
 	}
 	return _cFSocketGetNative(s)
 }
-
 
 var _cFSocketGetSocketFlags func(s CFSocketRef) uint64
 
@@ -6873,7 +6338,6 @@ func CFSocketGetSocketFlags(s CFSocketRef) uint64 {
 	return _cFSocketGetSocketFlags(s)
 }
 
-
 var _cFSocketGetTypeID func() uint
 
 // CFSocketGetTypeID returns the type identifier for the CFSocket opaque type.
@@ -6885,7 +6349,6 @@ func CFSocketGetTypeID() uint {
 	}
 	return _cFSocketGetTypeID()
 }
-
 
 var _cFSocketInvalidate func(s CFSocketRef)
 
@@ -6899,7 +6362,6 @@ func CFSocketInvalidate(s CFSocketRef) {
 	_cFSocketInvalidate(s)
 }
 
-
 var _cFSocketIsValid func(s CFSocketRef) bool
 
 // CFSocketIsValid returns a Boolean value that indicates whether a CFSocket object is valid and able to send or receive messages.
@@ -6911,7 +6373,6 @@ func CFSocketIsValid(s CFSocketRef) bool {
 	}
 	return _cFSocketIsValid(s)
 }
-
 
 var _cFSocketRegisterSocketSignature func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature) CFSocketError
 
@@ -6925,7 +6386,6 @@ func CFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, tim
 	return _cFSocketRegisterSocketSignature(nameServerSignature, timeout, name, signature)
 }
 
-
 var _cFSocketRegisterValue func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value CFPropertyListRef) CFSocketError
 
 // CFSocketRegisterValue registers a property-list value with a CFSocket name server.
@@ -6937,7 +6397,6 @@ func CFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout float
 	}
 	return _cFSocketRegisterValue(nameServerSignature, timeout, name, value)
 }
-
 
 var _cFSocketSendData func(s CFSocketRef, address CFDataRef, data CFDataRef, timeout float64) CFSocketError
 
@@ -6951,7 +6410,6 @@ func CFSocketSendData(s CFSocketRef, address CFDataRef, data CFDataRef, timeout 
 	return _cFSocketSendData(s, address, data, timeout)
 }
 
-
 var _cFSocketSetAddress func(s CFSocketRef, address CFDataRef) CFSocketError
 
 // CFSocketSetAddress binds a local address to a CFSocket object and configures it for listening.
@@ -6963,7 +6421,6 @@ func CFSocketSetAddress(s CFSocketRef, address CFDataRef) CFSocketError {
 	}
 	return _cFSocketSetAddress(s, address)
 }
-
 
 var _cFSocketSetDefaultNameRegistryPortNumber func(port uint16)
 
@@ -6977,7 +6434,6 @@ func CFSocketSetDefaultNameRegistryPortNumber(port uint16) {
 	_cFSocketSetDefaultNameRegistryPortNumber(port)
 }
 
-
 var _cFSocketSetSocketFlags func(s CFSocketRef, flags uint64)
 
 // CFSocketSetSocketFlags sets flags that control certain behaviors of a CFSocket object.
@@ -6989,7 +6445,6 @@ func CFSocketSetSocketFlags(s CFSocketRef, flags uint64) {
 	}
 	_cFSocketSetSocketFlags(s, flags)
 }
-
 
 var _cFSocketUnregister func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef) CFSocketError
 
@@ -7003,7 +6458,6 @@ func CFSocketUnregister(nameServerSignature *CFSocketSignature, timeout float64,
 	return _cFSocketUnregister(nameServerSignature, timeout, name)
 }
 
-
 var _cFStreamCreateBoundPair func(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int)
 
 // CFStreamCreateBoundPair creates a bound pair of read and write streams.
@@ -7015,7 +6469,6 @@ func CFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, 
 	}
 	_cFStreamCreateBoundPair(alloc, readStream, writeStream, transferBufferSize)
 }
-
 
 var _cFStreamCreatePairWithPeerSocketSignature func(alloc CFAllocatorRef, signature *CFSocketSignature, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)
 
@@ -7031,7 +6484,6 @@ func CFStreamCreatePairWithPeerSocketSignature(alloc CFAllocatorRef, signature *
 	_cFStreamCreatePairWithPeerSocketSignature(alloc, signature, readStream, writeStream)
 }
 
-
 var _cFStreamCreatePairWithSocket func(alloc CFAllocatorRef, sock CFSocketNativeHandle, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)
 
 // CFStreamCreatePairWithSocket creates readable and writable streams connected to a socket.
@@ -7045,7 +6497,6 @@ func CFStreamCreatePairWithSocket(alloc CFAllocatorRef, sock CFSocketNativeHandl
 	}
 	_cFStreamCreatePairWithSocket(alloc, sock, readStream, writeStream)
 }
-
 
 var _cFStreamCreatePairWithSocketToHost func(alloc CFAllocatorRef, host CFStringRef, port uint32, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef)
 
@@ -7061,7 +6512,6 @@ func CFStreamCreatePairWithSocketToHost(alloc CFAllocatorRef, host CFStringRef, 
 	_cFStreamCreatePairWithSocketToHost(alloc, host, port, readStream, writeStream)
 }
 
-
 var _cFStringAppend func(theString CFMutableStringRef, appendedString CFStringRef)
 
 // CFStringAppend appends the characters of a string to those of a CFMutableString object.
@@ -7073,7 +6523,6 @@ func CFStringAppend(theString CFMutableStringRef, appendedString CFStringRef) {
 	}
 	_cFStringAppend(theString, appendedString)
 }
-
 
 var _cFStringAppendCString func(theString CFMutableStringRef, cStr *byte, encoding uint32)
 
@@ -7087,7 +6536,6 @@ func CFStringAppendCString(theString CFMutableStringRef, cStr *byte, encoding ui
 	_cFStringAppendCString(theString, cStr, encoding)
 }
 
-
 var _cFStringAppendCharacters func(theString CFMutableStringRef, chars *uint16, numChars int)
 
 // CFStringAppendCharacters appends a buffer of Unicode characters to the character contents of a CFMutableString object.
@@ -7099,7 +6547,6 @@ func CFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numCh
 	}
 	_cFStringAppendCharacters(theString, chars, numChars)
 }
-
 
 var _cFStringAppendFormat func(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef)
 
@@ -7113,7 +6560,6 @@ func CFStringAppendFormat(theString CFMutableStringRef, formatOptions CFDictiona
 	_cFStringAppendFormat(theString, formatOptions, format)
 }
 
-
 var _cFStringAppendFormatAndArguments func(theString CFMutableStringRef, formatOptions CFDictionaryRef, format CFStringRef, arguments uintptr)
 
 // CFStringAppendFormatAndArguments appends a formatted string to the character contents of a CFMutableString object.
@@ -7125,7 +6571,6 @@ func CFStringAppendFormatAndArguments(theString CFMutableStringRef, formatOption
 	}
 	_cFStringAppendFormatAndArguments(theString, formatOptions, format, arguments)
 }
-
 
 var _cFStringAppendPascalString func(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32)
 
@@ -7139,7 +6584,6 @@ func CFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointe
 	_cFStringAppendPascalString(theString, pStr, encoding)
 }
 
-
 var _cFStringCapitalize func(theString CFMutableStringRef, locale CFLocaleRef)
 
 // CFStringCapitalize changes the first character in each word of a string to uppercase (if it is a lowercase alphabetical character).
@@ -7151,7 +6595,6 @@ func CFStringCapitalize(theString CFMutableStringRef, locale CFLocaleRef) {
 	}
 	_cFStringCapitalize(theString, locale)
 }
-
 
 var _cFStringCompare func(theString1 CFStringRef, theString2 CFStringRef, compareOptions CFStringCompareFlags) CFComparisonResult
 
@@ -7165,7 +6608,6 @@ func CFStringCompare(theString1 CFStringRef, theString2 CFStringRef, compareOpti
 	return _cFStringCompare(theString1, theString2, compareOptions)
 }
 
-
 var _cFStringCompareWithOptions func(theString1 CFStringRef, theString2 CFStringRef, rangeToCompare CFRange, compareOptions CFStringCompareFlags) CFComparisonResult
 
 // CFStringCompareWithOptions compares a range of the characters in one string with that of another string.
@@ -7177,7 +6619,6 @@ func CFStringCompareWithOptions(theString1 CFStringRef, theString2 CFStringRef, 
 	}
 	return _cFStringCompareWithOptions(theString1, theString2, rangeToCompare, compareOptions)
 }
-
 
 var _cFStringCompareWithOptionsAndLocale func(theString1 CFStringRef, theString2 CFStringRef, rangeToCompare CFRange, compareOptions CFStringCompareFlags, locale CFLocaleRef) CFComparisonResult
 
@@ -7191,7 +6632,6 @@ func CFStringCompareWithOptionsAndLocale(theString1 CFStringRef, theString2 CFSt
 	return _cFStringCompareWithOptionsAndLocale(theString1, theString2, rangeToCompare, compareOptions, locale)
 }
 
-
 var _cFStringConvertEncodingToIANACharSetName func(encoding uint32) CFStringRef
 
 // CFStringConvertEncodingToIANACharSetName returns the name of the IANA registry “charset” that is the closest mapping to a specified string encoding.
@@ -7203,7 +6643,6 @@ func CFStringConvertEncodingToIANACharSetName(encoding uint32) CFStringRef {
 	}
 	return _cFStringConvertEncodingToIANACharSetName(encoding)
 }
-
 
 var _cFStringConvertEncodingToNSStringEncoding func(encoding uint32) uint
 
@@ -7217,7 +6656,6 @@ func CFStringConvertEncodingToNSStringEncoding(encoding uint32) uint {
 	return _cFStringConvertEncodingToNSStringEncoding(encoding)
 }
 
-
 var _cFStringConvertEncodingToWindowsCodepage func(encoding uint32) uint32
 
 // CFStringConvertEncodingToWindowsCodepage returns the Windows codepage identifier that maps most closely to a given Core Foundation encoding constant.
@@ -7229,7 +6667,6 @@ func CFStringConvertEncodingToWindowsCodepage(encoding uint32) uint32 {
 	}
 	return _cFStringConvertEncodingToWindowsCodepage(encoding)
 }
-
 
 var _cFStringConvertIANACharSetNameToEncoding func(theString CFStringRef) uint32
 
@@ -7243,7 +6680,6 @@ func CFStringConvertIANACharSetNameToEncoding(theString CFStringRef) uint32 {
 	return _cFStringConvertIANACharSetNameToEncoding(theString)
 }
 
-
 var _cFStringConvertNSStringEncodingToEncoding func(encoding uint) uint32
 
 // CFStringConvertNSStringEncodingToEncoding returns the Core Foundation encoding constant that is the closest mapping to a given Cocoa encoding.
@@ -7255,7 +6691,6 @@ func CFStringConvertNSStringEncodingToEncoding(encoding uint) uint32 {
 	}
 	return _cFStringConvertNSStringEncodingToEncoding(encoding)
 }
-
 
 var _cFStringConvertWindowsCodepageToEncoding func(codepage uint32) uint32
 
@@ -7269,7 +6704,6 @@ func CFStringConvertWindowsCodepageToEncoding(codepage uint32) uint32 {
 	return _cFStringConvertWindowsCodepageToEncoding(codepage)
 }
 
-
 var _cFStringCreateArrayBySeparatingStrings func(alloc CFAllocatorRef, theString CFStringRef, separatorString CFStringRef) CFArrayRef
 
 // CFStringCreateArrayBySeparatingStrings creates an array of CFString objects from a single CFString object.
@@ -7281,7 +6715,6 @@ func CFStringCreateArrayBySeparatingStrings(alloc CFAllocatorRef, theString CFSt
 	}
 	return _cFStringCreateArrayBySeparatingStrings(alloc, theString, separatorString)
 }
-
 
 var _cFStringCreateArrayWithFindResults func(alloc CFAllocatorRef, theString CFStringRef, stringToFind CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) CFArrayRef
 
@@ -7295,7 +6728,6 @@ func CFStringCreateArrayWithFindResults(alloc CFAllocatorRef, theString CFString
 	return _cFStringCreateArrayWithFindResults(alloc, theString, stringToFind, rangeToSearch, compareOptions)
 }
 
-
 var _cFStringCreateByCombiningStrings func(alloc CFAllocatorRef, theArray CFArrayRef, separatorString CFStringRef) CFStringRef
 
 // CFStringCreateByCombiningStrings creates a single string from the individual CFString objects that comprise the elements of an array.
@@ -7307,7 +6739,6 @@ func CFStringCreateByCombiningStrings(alloc CFAllocatorRef, theArray CFArrayRef,
 	}
 	return _cFStringCreateByCombiningStrings(alloc, theArray, separatorString)
 }
-
 
 var _cFStringCreateCopy func(alloc CFAllocatorRef, theString CFStringRef) CFStringRef
 
@@ -7321,7 +6752,6 @@ func CFStringCreateCopy(alloc CFAllocatorRef, theString CFStringRef) CFStringRef
 	return _cFStringCreateCopy(alloc, theString)
 }
 
-
 var _cFStringCreateExternalRepresentation func(alloc CFAllocatorRef, theString CFStringRef, encoding uint32, lossByte uint8) CFDataRef
 
 // CFStringCreateExternalRepresentation creates an “external representation” of a CFString object, that is, a CFData object.
@@ -7333,7 +6763,6 @@ func CFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStri
 	}
 	return _cFStringCreateExternalRepresentation(alloc, theString, encoding, lossByte)
 }
-
 
 var _cFStringCreateFromExternalRepresentation func(alloc CFAllocatorRef, data CFDataRef, encoding uint32) CFStringRef
 
@@ -7347,7 +6776,6 @@ func CFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataR
 	return _cFStringCreateFromExternalRepresentation(alloc, data, encoding)
 }
 
-
 var _cFStringCreateMutable func(alloc CFAllocatorRef, maxLength int) CFMutableStringRef
 
 // CFStringCreateMutable creates an empty CFMutableString object.
@@ -7359,7 +6787,6 @@ func CFStringCreateMutable(alloc CFAllocatorRef, maxLength int) CFMutableStringR
 	}
 	return _cFStringCreateMutable(alloc, maxLength)
 }
-
 
 var _cFStringCreateMutableCopy func(alloc CFAllocatorRef, maxLength int, theString CFStringRef) CFMutableStringRef
 
@@ -7373,7 +6800,6 @@ func CFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, theString CF
 	return _cFStringCreateMutableCopy(alloc, maxLength, theString)
 }
 
-
 var _cFStringCreateMutableWithExternalCharactersNoCopy func(alloc CFAllocatorRef, chars *uint16, numChars int, capacity int, externalCharactersAllocator CFAllocatorRef) CFMutableStringRef
 
 // CFStringCreateMutableWithExternalCharactersNoCopy creates a CFMutableString object whose Unicode character buffer is controlled externally.
@@ -7385,7 +6811,6 @@ func CFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, cha
 	}
 	return _cFStringCreateMutableWithExternalCharactersNoCopy(alloc, chars, numChars, capacity, externalCharactersAllocator)
 }
-
 
 var _cFStringCreateStringWithValidatedFormat func(alloc CFAllocatorRef, formatOptions CFDictionaryRef, validFormatSpecifiers CFStringRef, format CFStringRef, errorPtr *CFErrorRef) CFStringRef
 
@@ -7399,7 +6824,6 @@ func CFStringCreateStringWithValidatedFormat(alloc CFAllocatorRef, formatOptions
 	return _cFStringCreateStringWithValidatedFormat(alloc, formatOptions, validFormatSpecifiers, format, errorPtr)
 }
 
-
 var _cFStringCreateStringWithValidatedFormatAndArguments func(alloc CFAllocatorRef, formatOptions CFDictionaryRef, validFormatSpecifiers CFStringRef, format CFStringRef, arguments uintptr, errorPtr *CFErrorRef) CFStringRef
 
 // CFStringCreateStringWithValidatedFormatAndArguments.
@@ -7411,7 +6835,6 @@ func CFStringCreateStringWithValidatedFormatAndArguments(alloc CFAllocatorRef, f
 	}
 	return _cFStringCreateStringWithValidatedFormatAndArguments(alloc, formatOptions, validFormatSpecifiers, format, arguments, errorPtr)
 }
-
 
 var _cFStringCreateWithBytes func(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef
 
@@ -7425,7 +6848,6 @@ func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes *uint8, numBytes int, e
 	return _cFStringCreateWithBytes(alloc, bytes, numBytes, encoding, isExternalRepresentation)
 }
 
-
 var _cFStringCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *uint8, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef
 
 // CFStringCreateWithBytesNoCopy creates a string from a buffer, containing characters in a specified encoding, that might serve as the backing store for the new string.
@@ -7437,7 +6859,6 @@ func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, numBytes 
 	}
 	return _cFStringCreateWithBytesNoCopy(alloc, bytes, numBytes, encoding, isExternalRepresentation, contentsDeallocator)
 }
-
 
 var _cFStringCreateWithCString func(alloc CFAllocatorRef, cStr *byte, encoding uint32) CFStringRef
 
@@ -7451,7 +6872,6 @@ func CFStringCreateWithCString(alloc CFAllocatorRef, cStr *byte, encoding uint32
 	return _cFStringCreateWithCString(alloc, cStr, encoding)
 }
 
-
 var _cFStringCreateWithCStringNoCopy func(alloc CFAllocatorRef, cStr *byte, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef
 
 // CFStringCreateWithCStringNoCopy creates a CFString object from an external C string buffer that might serve as the backing store for the object.
@@ -7463,7 +6883,6 @@ func CFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr *byte, encoding 
 	}
 	return _cFStringCreateWithCStringNoCopy(alloc, cStr, encoding, contentsDeallocator)
 }
-
 
 var _cFStringCreateWithCharacters func(alloc CFAllocatorRef, chars *uint16, numChars int) CFStringRef
 
@@ -7477,7 +6896,6 @@ func CFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars 
 	return _cFStringCreateWithCharacters(alloc, chars, numChars)
 }
 
-
 var _cFStringCreateWithCharactersNoCopy func(alloc CFAllocatorRef, chars *uint16, numChars int, contentsDeallocator CFAllocatorRef) CFStringRef
 
 // CFStringCreateWithCharactersNoCopy creates a string from a buffer of Unicode characters that might serve as the backing store for the object.
@@ -7489,7 +6907,6 @@ func CFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, num
 	}
 	return _cFStringCreateWithCharactersNoCopy(alloc, chars, numChars, contentsDeallocator)
 }
-
 
 var _cFStringCreateWithFileSystemRepresentation func(alloc CFAllocatorRef, buffer *byte) CFStringRef
 
@@ -7503,7 +6920,6 @@ func CFStringCreateWithFileSystemRepresentation(alloc CFAllocatorRef, buffer *by
 	return _cFStringCreateWithFileSystemRepresentation(alloc, buffer)
 }
 
-
 var _cFStringCreateWithFormat func(alloc CFAllocatorRef, formatOptions CFDictionaryRef, format CFStringRef) CFStringRef
 
 // CFStringCreateWithFormat creates an immutable string from a formatted string and a variable number of arguments.
@@ -7515,7 +6931,6 @@ func CFStringCreateWithFormat(alloc CFAllocatorRef, formatOptions CFDictionaryRe
 	}
 	return _cFStringCreateWithFormat(alloc, formatOptions, format)
 }
-
 
 var _cFStringCreateWithFormatAndArguments func(alloc CFAllocatorRef, formatOptions CFDictionaryRef, format CFStringRef, arguments uintptr) CFStringRef
 
@@ -7529,7 +6944,6 @@ func CFStringCreateWithFormatAndArguments(alloc CFAllocatorRef, formatOptions CF
 	return _cFStringCreateWithFormatAndArguments(alloc, formatOptions, format, arguments)
 }
 
-
 var _cFStringCreateWithPascalString func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32) CFStringRef
 
 // CFStringCreateWithPascalString creates an immutable CFString object from a Pascal string.
@@ -7541,7 +6955,6 @@ func CFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, e
 	}
 	return _cFStringCreateWithPascalString(alloc, pStr, encoding)
 }
-
 
 var _cFStringCreateWithPascalStringNoCopy func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef
 
@@ -7555,7 +6968,6 @@ func CFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.Poin
 	return _cFStringCreateWithPascalStringNoCopy(alloc, pStr, encoding, contentsDeallocator)
 }
 
-
 var _cFStringCreateWithSubstring func(alloc CFAllocatorRef, str CFStringRef, range_ CFRange) CFStringRef
 
 // CFStringCreateWithSubstring creates an immutable string from a segment (substring) of an existing string.
@@ -7567,7 +6979,6 @@ func CFStringCreateWithSubstring(alloc CFAllocatorRef, str CFStringRef, range_ C
 	}
 	return _cFStringCreateWithSubstring(alloc, str, range_)
 }
-
 
 var _cFStringDelete func(theString CFMutableStringRef, range_ CFRange)
 
@@ -7581,7 +6992,6 @@ func CFStringDelete(theString CFMutableStringRef, range_ CFRange) {
 	_cFStringDelete(theString, range_)
 }
 
-
 var _cFStringFind func(theString CFStringRef, stringToFind CFStringRef, compareOptions CFStringCompareFlags) CFRange
 
 // CFStringFind searches for a substring within a string and, if it is found, yields the range of the substring within the object’s characters.
@@ -7593,7 +7003,6 @@ func CFStringFind(theString CFStringRef, stringToFind CFStringRef, compareOption
 	}
 	return _cFStringFind(theString, stringToFind, compareOptions)
 }
-
 
 var _cFStringFindAndReplace func(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) int
 
@@ -7607,7 +7016,6 @@ func CFStringFindAndReplace(theString CFMutableStringRef, stringToFind CFStringR
 	return _cFStringFindAndReplace(theString, stringToFind, replacementString, rangeToSearch, compareOptions)
 }
 
-
 var _cFStringFindCharacterFromSet func(theString CFStringRef, theSet CFCharacterSetRef, rangeToSearch CFRange, searchOptions CFStringCompareFlags, result *CFRange) bool
 
 // CFStringFindCharacterFromSet query the range of the first character contained in the specified character set.
@@ -7619,7 +7027,6 @@ func CFStringFindCharacterFromSet(theString CFStringRef, theSet CFCharacterSetRe
 	}
 	return _cFStringFindCharacterFromSet(theString, theSet, rangeToSearch, searchOptions, result)
 }
-
 
 var _cFStringFindWithOptions func(theString CFStringRef, stringToFind CFStringRef, rangeToSearch CFRange, searchOptions CFStringCompareFlags, result *CFRange) bool
 
@@ -7633,7 +7040,6 @@ func CFStringFindWithOptions(theString CFStringRef, stringToFind CFStringRef, ra
 	return _cFStringFindWithOptions(theString, stringToFind, rangeToSearch, searchOptions, result)
 }
 
-
 var _cFStringFindWithOptionsAndLocale func(theString CFStringRef, stringToFind CFStringRef, rangeToSearch CFRange, searchOptions CFStringCompareFlags, locale CFLocaleRef, result *CFRange) bool
 
 // CFStringFindWithOptionsAndLocale returns a Boolean value that indicates whether a given string was found in a given source string.
@@ -7645,7 +7051,6 @@ func CFStringFindWithOptionsAndLocale(theString CFStringRef, stringToFind CFStri
 	}
 	return _cFStringFindWithOptionsAndLocale(theString, stringToFind, rangeToSearch, searchOptions, locale, result)
 }
-
 
 var _cFStringFold func(theString CFMutableStringRef, theFlags CFStringCompareFlags, theLocale CFLocaleRef)
 
@@ -7659,7 +7064,6 @@ func CFStringFold(theString CFMutableStringRef, theFlags CFStringCompareFlags, t
 	_cFStringFold(theString, theFlags, theLocale)
 }
 
-
 var _cFStringGetBytes func(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer *uint8, maxBufLen int, usedBufLen *int) int
 
 // CFStringGetBytes fetches a range of the characters from a string into a byte buffer after converting the characters to a specified encoding.
@@ -7671,7 +7075,6 @@ func CFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lo
 	}
 	return _cFStringGetBytes(theString, range_, encoding, lossByte, isExternalRepresentation, buffer, maxBufLen, usedBufLen)
 }
-
 
 var _cFStringGetCString func(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) bool
 
@@ -7685,7 +7088,6 @@ func CFStringGetCString(theString CFStringRef, buffer *byte, bufferSize int, enc
 	return _cFStringGetCString(theString, buffer, bufferSize, encoding)
 }
 
-
 var _cFStringGetCStringPtr func(theString CFStringRef, encoding uint32) *byte
 
 // CFStringGetCStringPtr quickly obtains a pointer to a C-string buffer containing the characters of a string in a given encoding.
@@ -7697,7 +7099,6 @@ func CFStringGetCStringPtr(theString CFStringRef, encoding uint32) *byte {
 	}
 	return _cFStringGetCStringPtr(theString, encoding)
 }
-
 
 var _cFStringGetCharacterAtIndex func(theString CFStringRef, idx int) uint16
 
@@ -7711,8 +7112,6 @@ func CFStringGetCharacterAtIndex(theString CFStringRef, idx int) uint16 {
 	return _cFStringGetCharacterAtIndex(theString, idx)
 }
 
-
-
 var _cFStringGetCharacters func(theString CFStringRef, range_ CFRange, buffer *uint16)
 
 // CFStringGetCharacters copies a range of the Unicode characters from a string to a user-provided buffer.
@@ -7724,7 +7123,6 @@ func CFStringGetCharacters(theString CFStringRef, range_ CFRange, buffer *uint16
 	}
 	_cFStringGetCharacters(theString, range_, buffer)
 }
-
 
 var _cFStringGetCharactersPtr func(theString CFStringRef) *uint16
 
@@ -7738,7 +7136,6 @@ func CFStringGetCharactersPtr(theString CFStringRef) *uint16 {
 	return _cFStringGetCharactersPtr(theString)
 }
 
-
 var _cFStringGetDoubleValue func(str CFStringRef) float64
 
 // CFStringGetDoubleValue returns the primary `double` value represented by a string.
@@ -7750,7 +7147,6 @@ func CFStringGetDoubleValue(str CFStringRef) float64 {
 	}
 	return _cFStringGetDoubleValue(str)
 }
-
 
 var _cFStringGetFastestEncoding func(theString CFStringRef) uint32
 
@@ -7764,7 +7160,6 @@ func CFStringGetFastestEncoding(theString CFStringRef) uint32 {
 	return _cFStringGetFastestEncoding(theString)
 }
 
-
 var _cFStringGetFileSystemRepresentation func(string_ CFStringRef, buffer *byte, maxBufLen int) bool
 
 // CFStringGetFileSystemRepresentation extracts the contents of a string as a [NULL]-terminated 8-bit string appropriate for passing to POSIX APIs.
@@ -7776,7 +7171,6 @@ func CFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, maxB
 	}
 	return _cFStringGetFileSystemRepresentation(string_, buffer, maxBufLen)
 }
-
 
 var _cFStringGetHyphenationLocationBeforeIndex func(string_ CFStringRef, location int, limitRange CFRange, options uint64, locale CFLocaleRef, character *uint32) int
 
@@ -7790,7 +7184,6 @@ func CFStringGetHyphenationLocationBeforeIndex(string_ CFStringRef, location int
 	return _cFStringGetHyphenationLocationBeforeIndex(string_, location, limitRange, options, locale, character)
 }
 
-
 var _cFStringGetIntValue func(str CFStringRef) int32
 
 // CFStringGetIntValue returns the integer value represented by a string.
@@ -7802,7 +7195,6 @@ func CFStringGetIntValue(str CFStringRef) int32 {
 	}
 	return _cFStringGetIntValue(str)
 }
-
 
 var _cFStringGetLength func(theString CFStringRef) int
 
@@ -7816,7 +7208,6 @@ func CFStringGetLength(theString CFStringRef) int {
 	return _cFStringGetLength(theString)
 }
 
-
 var _cFStringGetLineBounds func(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int)
 
 // CFStringGetLineBounds given a range of characters in a string, obtains the line bounds—that is, the indexes of the first character and the final characters of the lines containing the range.
@@ -7828,7 +7219,6 @@ func CFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex
 	}
 	_cFStringGetLineBounds(theString, range_, lineBeginIndex, lineEndIndex, contentsEndIndex)
 }
-
 
 var _cFStringGetListOfAvailableEncodings func() *uint32
 
@@ -7842,8 +7232,6 @@ func CFStringGetListOfAvailableEncodings() *uint32 {
 	return _cFStringGetListOfAvailableEncodings()
 }
 
-
-
 var _cFStringGetMaximumSizeForEncoding func(length int, encoding uint32) int
 
 // CFStringGetMaximumSizeForEncoding returns the maximum number of bytes a string of a specified length (in Unicode characters) will take up if encoded in a specified encoding.
@@ -7855,7 +7243,6 @@ func CFStringGetMaximumSizeForEncoding(length int, encoding uint32) int {
 	}
 	return _cFStringGetMaximumSizeForEncoding(length, encoding)
 }
-
 
 var _cFStringGetMaximumSizeOfFileSystemRepresentation func(string_ CFStringRef) int
 
@@ -7869,7 +7256,6 @@ func CFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) int {
 	return _cFStringGetMaximumSizeOfFileSystemRepresentation(string_)
 }
 
-
 var _cFStringGetMostCompatibleMacStringEncoding func(encoding uint32) uint32
 
 // CFStringGetMostCompatibleMacStringEncoding returns the most compatible Mac OS script value for the given input encoding.
@@ -7881,7 +7267,6 @@ func CFStringGetMostCompatibleMacStringEncoding(encoding uint32) uint32 {
 	}
 	return _cFStringGetMostCompatibleMacStringEncoding(encoding)
 }
-
 
 var _cFStringGetNameOfEncoding func(encoding uint32) CFStringRef
 
@@ -7895,7 +7280,6 @@ func CFStringGetNameOfEncoding(encoding uint32) CFStringRef {
 	return _cFStringGetNameOfEncoding(encoding)
 }
 
-
 var _cFStringGetParagraphBounds func(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int)
 
 // CFStringGetParagraphBounds given a range of characters in a string, obtains the paragraph bounds—that is, the indexes of the first character and the final characters of the paragraph(s) containing the range.
@@ -7907,7 +7291,6 @@ func CFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginInd
 	}
 	_cFStringGetParagraphBounds(string_, range_, parBeginIndex, parEndIndex, contentsEndIndex)
 }
-
 
 var _cFStringGetPascalString func(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) bool
 
@@ -7921,7 +7304,6 @@ func CFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize int
 	return _cFStringGetPascalString(theString, buffer, bufferSize, encoding)
 }
 
-
 var _cFStringGetPascalStringPtr func(theString CFStringRef, encoding uint32) *byte
 
 // CFStringGetPascalStringPtr quickly obtains a pointer to a Pascal buffer containing the characters of a string in a given encoding.
@@ -7933,7 +7315,6 @@ func CFStringGetPascalStringPtr(theString CFStringRef, encoding uint32) *byte {
 	}
 	return _cFStringGetPascalStringPtr(theString, encoding)
 }
-
 
 var _cFStringGetRangeOfComposedCharactersAtIndex func(theString CFStringRef, theIndex int) CFRange
 
@@ -7947,7 +7328,6 @@ func CFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIndex
 	return _cFStringGetRangeOfComposedCharactersAtIndex(theString, theIndex)
 }
 
-
 var _cFStringGetSmallestEncoding func(theString CFStringRef) uint32
 
 // CFStringGetSmallestEncoding returns the smallest encoding on the current system for the character contents of a string.
@@ -7959,8 +7339,6 @@ func CFStringGetSmallestEncoding(theString CFStringRef) uint32 {
 	}
 	return _cFStringGetSmallestEncoding(theString)
 }
-
-
 
 var _cFStringGetSystemEncoding func() uint32
 
@@ -7974,7 +7352,6 @@ func CFStringGetSystemEncoding() uint32 {
 	return _cFStringGetSystemEncoding()
 }
 
-
 var _cFStringGetTypeID func() uint
 
 // CFStringGetTypeID returns the type identifier for the CFString opaque type.
@@ -7986,7 +7363,6 @@ func CFStringGetTypeID() uint {
 	}
 	return _cFStringGetTypeID()
 }
-
 
 var _cFStringHasPrefix func(theString CFStringRef, prefix CFStringRef) bool
 
@@ -8000,7 +7376,6 @@ func CFStringHasPrefix(theString CFStringRef, prefix CFStringRef) bool {
 	return _cFStringHasPrefix(theString, prefix)
 }
 
-
 var _cFStringHasSuffix func(theString CFStringRef, suffix CFStringRef) bool
 
 // CFStringHasSuffix determines if a string ends with a specified sequence of characters.
@@ -8012,8 +7387,6 @@ func CFStringHasSuffix(theString CFStringRef, suffix CFStringRef) bool {
 	}
 	return _cFStringHasSuffix(theString, suffix)
 }
-
-
 
 var _cFStringInsert func(str CFMutableStringRef, idx int, insertedStr CFStringRef)
 
@@ -8027,7 +7400,6 @@ func CFStringInsert(str CFMutableStringRef, idx int, insertedStr CFStringRef) {
 	_cFStringInsert(str, idx, insertedStr)
 }
 
-
 var _cFStringIsEncodingAvailable func(encoding uint32) bool
 
 // CFStringIsEncodingAvailable determines whether a given Core Foundation string encoding is available on the current system.
@@ -8039,7 +7411,6 @@ func CFStringIsEncodingAvailable(encoding uint32) bool {
 	}
 	return _cFStringIsEncodingAvailable(encoding)
 }
-
 
 var _cFStringIsHyphenationAvailableForLocale func(locale CFLocaleRef) bool
 
@@ -8053,9 +7424,6 @@ func CFStringIsHyphenationAvailableForLocale(locale CFLocaleRef) bool {
 	return _cFStringIsHyphenationAvailableForLocale(locale)
 }
 
-
-
-
 var _cFStringLowercase func(theString CFMutableStringRef, locale CFLocaleRef)
 
 // CFStringLowercase changes all uppercase alphabetical characters in a CFMutableString to lowercase.
@@ -8067,7 +7435,6 @@ func CFStringLowercase(theString CFMutableStringRef, locale CFLocaleRef) {
 	}
 	_cFStringLowercase(theString, locale)
 }
-
 
 var _cFStringNormalize func(theString CFMutableStringRef, theForm CFStringNormalizationForm)
 
@@ -8081,7 +7448,6 @@ func CFStringNormalize(theString CFMutableStringRef, theForm CFStringNormalizati
 	_cFStringNormalize(theString, theForm)
 }
 
-
 var _cFStringPad func(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int)
 
 // CFStringPad enlarges a string, padding it with specified characters, or truncates the string.
@@ -8093,7 +7459,6 @@ func CFStringPad(theString CFMutableStringRef, padString CFStringRef, length int
 	}
 	_cFStringPad(theString, padString, length, indexIntoPad)
 }
-
 
 var _cFStringReplace func(theString CFMutableStringRef, range_ CFRange, replacement CFStringRef)
 
@@ -8107,7 +7472,6 @@ func CFStringReplace(theString CFMutableStringRef, range_ CFRange, replacement C
 	_cFStringReplace(theString, range_, replacement)
 }
 
-
 var _cFStringReplaceAll func(theString CFMutableStringRef, replacement CFStringRef)
 
 // CFStringReplaceAll replaces all characters of a CFMutableString object with other characters.
@@ -8119,7 +7483,6 @@ func CFStringReplaceAll(theString CFMutableStringRef, replacement CFStringRef) {
 	}
 	_cFStringReplaceAll(theString, replacement)
 }
-
 
 var _cFStringSetExternalCharactersNoCopy func(theString CFMutableStringRef, chars *uint16, length int, capacity int)
 
@@ -8133,7 +7496,6 @@ func CFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *ui
 	_cFStringSetExternalCharactersNoCopy(theString, chars, length, capacity)
 }
 
-
 var _cFStringTokenizerAdvanceToNextToken func(tokenizer CFStringTokenizerRef) CFStringTokenizerTokenType
 
 // CFStringTokenizerAdvanceToNextToken advances the tokenizer to the next token and sets that as the current token.
@@ -8145,7 +7507,6 @@ func CFStringTokenizerAdvanceToNextToken(tokenizer CFStringTokenizerRef) CFStrin
 	}
 	return _cFStringTokenizerAdvanceToNextToken(tokenizer)
 }
-
 
 var _cFStringTokenizerCopyBestStringLanguage func(string_ CFStringRef, range_ CFRange) CFStringRef
 
@@ -8159,7 +7520,6 @@ func CFStringTokenizerCopyBestStringLanguage(string_ CFStringRef, range_ CFRange
 	return _cFStringTokenizerCopyBestStringLanguage(string_, range_)
 }
 
-
 var _cFStringTokenizerCopyCurrentTokenAttribute func(tokenizer CFStringTokenizerRef, attribute uint64) CFTypeRef
 
 // CFStringTokenizerCopyCurrentTokenAttribute returns a given attribute of the current token.
@@ -8171,7 +7531,6 @@ func CFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, 
 	}
 	return _cFStringTokenizerCopyCurrentTokenAttribute(tokenizer, attribute)
 }
-
 
 var _cFStringTokenizerCreate func(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options uint64, locale CFLocaleRef) CFStringTokenizerRef
 
@@ -8185,7 +7544,6 @@ func CFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ C
 	return _cFStringTokenizerCreate(alloc, string_, range_, options, locale)
 }
 
-
 var _cFStringTokenizerGetCurrentSubTokens func(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength int, derivedSubTokens CFMutableArrayRef) int
 
 // CFStringTokenizerGetCurrentSubTokens retrieves the subtokens or derived subtokens contained in the compound token.
@@ -8197,7 +7555,6 @@ func CFStringTokenizerGetCurrentSubTokens(tokenizer CFStringTokenizerRef, ranges
 	}
 	return _cFStringTokenizerGetCurrentSubTokens(tokenizer, ranges, maxRangeLength, derivedSubTokens)
 }
-
 
 var _cFStringTokenizerGetCurrentTokenRange func(tokenizer CFStringTokenizerRef) CFRange
 
@@ -8211,7 +7568,6 @@ func CFStringTokenizerGetCurrentTokenRange(tokenizer CFStringTokenizerRef) CFRan
 	return _cFStringTokenizerGetCurrentTokenRange(tokenizer)
 }
 
-
 var _cFStringTokenizerGetTypeID func() uint
 
 // CFStringTokenizerGetTypeID returns the type ID for CFStringTokenizer.
@@ -8223,7 +7579,6 @@ func CFStringTokenizerGetTypeID() uint {
 	}
 	return _cFStringTokenizerGetTypeID()
 }
-
 
 var _cFStringTokenizerGoToTokenAtIndex func(tokenizer CFStringTokenizerRef, index int) CFStringTokenizerTokenType
 
@@ -8237,7 +7592,6 @@ func CFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index int
 	return _cFStringTokenizerGoToTokenAtIndex(tokenizer, index)
 }
 
-
 var _cFStringTokenizerSetString func(tokenizer CFStringTokenizerRef, string_ CFStringRef, range_ CFRange)
 
 // CFStringTokenizerSetString sets the string for a tokenizer.
@@ -8249,7 +7603,6 @@ func CFStringTokenizerSetString(tokenizer CFStringTokenizerRef, string_ CFString
 	}
 	_cFStringTokenizerSetString(tokenizer, string_, range_)
 }
-
 
 var _cFStringTransform func(string_ CFMutableStringRef, range_ *CFRange, transform CFStringRef, reverse bool) bool
 
@@ -8263,7 +7616,6 @@ func CFStringTransform(string_ CFMutableStringRef, range_ *CFRange, transform CF
 	return _cFStringTransform(string_, range_, transform, reverse)
 }
 
-
 var _cFStringTrim func(theString CFMutableStringRef, trimString CFStringRef)
 
 // CFStringTrim trims a specified substring from the beginning and end of a CFMutableString object.
@@ -8275,7 +7627,6 @@ func CFStringTrim(theString CFMutableStringRef, trimString CFStringRef) {
 	}
 	_cFStringTrim(theString, trimString)
 }
-
 
 var _cFStringTrimWhitespace func(theString CFMutableStringRef)
 
@@ -8289,7 +7640,6 @@ func CFStringTrimWhitespace(theString CFMutableStringRef) {
 	_cFStringTrimWhitespace(theString)
 }
 
-
 var _cFStringUppercase func(theString CFMutableStringRef, locale CFLocaleRef)
 
 // CFStringUppercase changes all lowercase alphabetical characters in a CFMutableString object to uppercase.
@@ -8301,22 +7651,6 @@ func CFStringUppercase(theString CFMutableStringRef, locale CFLocaleRef) {
 	}
 	_cFStringUppercase(theString, locale)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var _cFTimeZoneCopyAbbreviation func(tz CFTimeZoneRef, at CFAbsoluteTime) CFStringRef
 
@@ -8330,7 +7664,6 @@ func CFTimeZoneCopyAbbreviation(tz CFTimeZoneRef, at CFAbsoluteTime) CFStringRef
 	return _cFTimeZoneCopyAbbreviation(tz, at)
 }
 
-
 var _cFTimeZoneCopyAbbreviationDictionary func() CFDictionaryRef
 
 // CFTimeZoneCopyAbbreviationDictionary returns a dictionary holding the mappings of time zone abbreviations to time zone names.
@@ -8342,7 +7675,6 @@ func CFTimeZoneCopyAbbreviationDictionary() CFDictionaryRef {
 	}
 	return _cFTimeZoneCopyAbbreviationDictionary()
 }
-
 
 var _cFTimeZoneCopyDefault func() CFTimeZoneRef
 
@@ -8356,7 +7688,6 @@ func CFTimeZoneCopyDefault() CFTimeZoneRef {
 	return _cFTimeZoneCopyDefault()
 }
 
-
 var _cFTimeZoneCopyKnownNames func() CFArrayRef
 
 // CFTimeZoneCopyKnownNames returns an array of strings containing the names of all the time zones known to the system.
@@ -8368,7 +7699,6 @@ func CFTimeZoneCopyKnownNames() CFArrayRef {
 	}
 	return _cFTimeZoneCopyKnownNames()
 }
-
 
 var _cFTimeZoneCopyLocalizedName func(tz CFTimeZoneRef, style CFTimeZoneNameStyle, locale CFLocaleRef) CFStringRef
 
@@ -8382,7 +7712,6 @@ func CFTimeZoneCopyLocalizedName(tz CFTimeZoneRef, style CFTimeZoneNameStyle, lo
 	return _cFTimeZoneCopyLocalizedName(tz, style, locale)
 }
 
-
 var _cFTimeZoneCopySystem func() CFTimeZoneRef
 
 // CFTimeZoneCopySystem returns the time zone currently used by the system.
@@ -8394,7 +7723,6 @@ func CFTimeZoneCopySystem() CFTimeZoneRef {
 	}
 	return _cFTimeZoneCopySystem()
 }
-
 
 var _cFTimeZoneCreate func(allocator CFAllocatorRef, name CFStringRef, data CFDataRef) CFTimeZoneRef
 
@@ -8408,7 +7736,6 @@ func CFTimeZoneCreate(allocator CFAllocatorRef, name CFStringRef, data CFDataRef
 	return _cFTimeZoneCreate(allocator, name, data)
 }
 
-
 var _cFTimeZoneCreateWithName func(allocator CFAllocatorRef, name CFStringRef, tryAbbrev bool) CFTimeZoneRef
 
 // CFTimeZoneCreateWithName returns the time zone object identified by a given name or abbreviation.
@@ -8420,7 +7747,6 @@ func CFTimeZoneCreateWithName(allocator CFAllocatorRef, name CFStringRef, tryAbb
 	}
 	return _cFTimeZoneCreateWithName(allocator, name, tryAbbrev)
 }
-
 
 var _cFTimeZoneCreateWithTimeIntervalFromGMT func(allocator CFAllocatorRef, ti float64) CFTimeZoneRef
 
@@ -8434,7 +7760,6 @@ func CFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti float6
 	return _cFTimeZoneCreateWithTimeIntervalFromGMT(allocator, ti)
 }
 
-
 var _cFTimeZoneGetData func(tz CFTimeZoneRef) CFDataRef
 
 // CFTimeZoneGetData returns the data that stores the information used by a time zone.
@@ -8446,7 +7771,6 @@ func CFTimeZoneGetData(tz CFTimeZoneRef) CFDataRef {
 	}
 	return _cFTimeZoneGetData(tz)
 }
-
 
 var _cFTimeZoneGetDaylightSavingTimeOffset func(tz CFTimeZoneRef, at CFAbsoluteTime) float64
 
@@ -8460,7 +7784,6 @@ func CFTimeZoneGetDaylightSavingTimeOffset(tz CFTimeZoneRef, at CFAbsoluteTime) 
 	return _cFTimeZoneGetDaylightSavingTimeOffset(tz, at)
 }
 
-
 var _cFTimeZoneGetName func(tz CFTimeZoneRef) CFStringRef
 
 // CFTimeZoneGetName returns the geopolitical region name that identifies a given time zone.
@@ -8472,7 +7795,6 @@ func CFTimeZoneGetName(tz CFTimeZoneRef) CFStringRef {
 	}
 	return _cFTimeZoneGetName(tz)
 }
-
 
 var _cFTimeZoneGetNextDaylightSavingTimeTransition func(tz CFTimeZoneRef, at CFAbsoluteTime) CFAbsoluteTime
 
@@ -8486,7 +7808,6 @@ func CFTimeZoneGetNextDaylightSavingTimeTransition(tz CFTimeZoneRef, at CFAbsolu
 	return _cFTimeZoneGetNextDaylightSavingTimeTransition(tz, at)
 }
 
-
 var _cFTimeZoneGetSecondsFromGMT func(tz CFTimeZoneRef, at CFAbsoluteTime) float64
 
 // CFTimeZoneGetSecondsFromGMT returns the difference in seconds between the receiver and Greenwich Mean Time (GMT) at the specified date.
@@ -8498,7 +7819,6 @@ func CFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) float64 {
 	}
 	return _cFTimeZoneGetSecondsFromGMT(tz, at)
 }
-
 
 var _cFTimeZoneGetTypeID func() uint
 
@@ -8512,7 +7832,6 @@ func CFTimeZoneGetTypeID() uint {
 	return _cFTimeZoneGetTypeID()
 }
 
-
 var _cFTimeZoneIsDaylightSavingTime func(tz CFTimeZoneRef, at CFAbsoluteTime) bool
 
 // CFTimeZoneIsDaylightSavingTime returns whether or not a time zone is in daylight savings time at a specified date.
@@ -8524,7 +7843,6 @@ func CFTimeZoneIsDaylightSavingTime(tz CFTimeZoneRef, at CFAbsoluteTime) bool {
 	}
 	return _cFTimeZoneIsDaylightSavingTime(tz, at)
 }
-
 
 var _cFTimeZoneResetSystem func()
 
@@ -8538,7 +7856,6 @@ func CFTimeZoneResetSystem() {
 	_cFTimeZoneResetSystem()
 }
 
-
 var _cFTimeZoneSetAbbreviationDictionary func(dict CFDictionaryRef)
 
 // CFTimeZoneSetAbbreviationDictionary sets the abbreviation dictionary to a given dictionary.
@@ -8550,7 +7867,6 @@ func CFTimeZoneSetAbbreviationDictionary(dict CFDictionaryRef) {
 	}
 	_cFTimeZoneSetAbbreviationDictionary(dict)
 }
-
 
 var _cFTimeZoneSetDefault func(tz CFTimeZoneRef)
 
@@ -8564,7 +7880,6 @@ func CFTimeZoneSetDefault(tz CFTimeZoneRef) {
 	_cFTimeZoneSetDefault(tz)
 }
 
-
 var _cFTreeAppendChild func(tree CFTreeRef, newChild CFTreeRef)
 
 // CFTreeAppendChild adds a new child to a tree as the last in its list of children.
@@ -8576,7 +7891,6 @@ func CFTreeAppendChild(tree CFTreeRef, newChild CFTreeRef) {
 	}
 	_cFTreeAppendChild(tree, newChild)
 }
-
 
 var _cFTreeApplyFunctionToChildren func(tree CFTreeRef, applier CFTreeApplierFunction, context unsafe.Pointer)
 
@@ -8590,7 +7904,6 @@ func CFTreeApplyFunctionToChildren(tree CFTreeRef, applier CFTreeApplierFunction
 	_cFTreeApplyFunctionToChildren(tree, applier, context)
 }
 
-
 var _cFTreeCreate func(allocator CFAllocatorRef, context *CFTreeContext) CFTreeRef
 
 // CFTreeCreate creates a new CFTree object.
@@ -8602,7 +7915,6 @@ func CFTreeCreate(allocator CFAllocatorRef, context *CFTreeContext) CFTreeRef {
 	}
 	return _cFTreeCreate(allocator, context)
 }
-
 
 var _cFTreeFindRoot func(tree CFTreeRef) CFTreeRef
 
@@ -8616,7 +7928,6 @@ func CFTreeFindRoot(tree CFTreeRef) CFTreeRef {
 	return _cFTreeFindRoot(tree)
 }
 
-
 var _cFTreeGetChildAtIndex func(tree CFTreeRef, idx int) CFTreeRef
 
 // CFTreeGetChildAtIndex returns the child of a tree at the specified index.
@@ -8628,7 +7939,6 @@ func CFTreeGetChildAtIndex(tree CFTreeRef, idx int) CFTreeRef {
 	}
 	return _cFTreeGetChildAtIndex(tree, idx)
 }
-
 
 var _cFTreeGetChildCount func(tree CFTreeRef) int
 
@@ -8642,7 +7952,6 @@ func CFTreeGetChildCount(tree CFTreeRef) int {
 	return _cFTreeGetChildCount(tree)
 }
 
-
 var _cFTreeGetChildren func(tree CFTreeRef, children *CFTreeRef)
 
 // CFTreeGetChildren fills a buffer with children from the tree.
@@ -8654,7 +7963,6 @@ func CFTreeGetChildren(tree CFTreeRef, children *CFTreeRef) {
 	}
 	_cFTreeGetChildren(tree, children)
 }
-
 
 var _cFTreeGetContext func(tree CFTreeRef, context *CFTreeContext)
 
@@ -8668,7 +7976,6 @@ func CFTreeGetContext(tree CFTreeRef, context *CFTreeContext) {
 	_cFTreeGetContext(tree, context)
 }
 
-
 var _cFTreeGetFirstChild func(tree CFTreeRef) CFTreeRef
 
 // CFTreeGetFirstChild returns the first child of a tree.
@@ -8680,7 +7987,6 @@ func CFTreeGetFirstChild(tree CFTreeRef) CFTreeRef {
 	}
 	return _cFTreeGetFirstChild(tree)
 }
-
 
 var _cFTreeGetNextSibling func(tree CFTreeRef) CFTreeRef
 
@@ -8694,7 +8000,6 @@ func CFTreeGetNextSibling(tree CFTreeRef) CFTreeRef {
 	return _cFTreeGetNextSibling(tree)
 }
 
-
 var _cFTreeGetParent func(tree CFTreeRef) CFTreeRef
 
 // CFTreeGetParent returns the parent of a given tree.
@@ -8706,7 +8011,6 @@ func CFTreeGetParent(tree CFTreeRef) CFTreeRef {
 	}
 	return _cFTreeGetParent(tree)
 }
-
 
 var _cFTreeGetTypeID func() uint
 
@@ -8720,7 +8024,6 @@ func CFTreeGetTypeID() uint {
 	return _cFTreeGetTypeID()
 }
 
-
 var _cFTreeInsertSibling func(tree CFTreeRef, newSibling CFTreeRef)
 
 // CFTreeInsertSibling inserts a new sibling after a given tree.
@@ -8732,7 +8035,6 @@ func CFTreeInsertSibling(tree CFTreeRef, newSibling CFTreeRef) {
 	}
 	_cFTreeInsertSibling(tree, newSibling)
 }
-
 
 var _cFTreePrependChild func(tree CFTreeRef, newChild CFTreeRef)
 
@@ -8746,7 +8048,6 @@ func CFTreePrependChild(tree CFTreeRef, newChild CFTreeRef) {
 	_cFTreePrependChild(tree, newChild)
 }
 
-
 var _cFTreeRemove func(tree CFTreeRef)
 
 // CFTreeRemove removes a tree from its parent.
@@ -8758,7 +8059,6 @@ func CFTreeRemove(tree CFTreeRef) {
 	}
 	_cFTreeRemove(tree)
 }
-
 
 var _cFTreeRemoveAllChildren func(tree CFTreeRef)
 
@@ -8772,7 +8072,6 @@ func CFTreeRemoveAllChildren(tree CFTreeRef) {
 	_cFTreeRemoveAllChildren(tree)
 }
 
-
 var _cFTreeSetContext func(tree CFTreeRef, context *CFTreeContext)
 
 // CFTreeSetContext replaces the context of a tree by releasing the old information pointer and retaining the new one.
@@ -8784,7 +8083,6 @@ func CFTreeSetContext(tree CFTreeRef, context *CFTreeContext) {
 	}
 	_cFTreeSetContext(tree, context)
 }
-
 
 var _cFTreeSortChildren func(tree CFTreeRef, comparator CFComparatorFunction, context unsafe.Pointer)
 
@@ -8798,7 +8096,6 @@ func CFTreeSortChildren(tree CFTreeRef, comparator CFComparatorFunction, context
 	_cFTreeSortChildren(tree, comparator, context)
 }
 
-
 var _cFURLCanBeDecomposed func(anURL CFURLRef) bool
 
 // CFURLCanBeDecomposed determines if the given URL conforms to RFC 1808 and therefore can be decomposed.
@@ -8810,7 +8107,6 @@ func CFURLCanBeDecomposed(anURL CFURLRef) bool {
 	}
 	return _cFURLCanBeDecomposed(anURL)
 }
-
 
 var _cFURLClearResourcePropertyCache func(url CFURLRef)
 
@@ -8824,7 +8120,6 @@ func CFURLClearResourcePropertyCache(url CFURLRef) {
 	_cFURLClearResourcePropertyCache(url)
 }
 
-
 var _cFURLClearResourcePropertyCacheForKey func(url CFURLRef, key CFStringRef)
 
 // CFURLClearResourcePropertyCacheForKey removes the cached resource value identified by a given key from the URL object.
@@ -8836,7 +8131,6 @@ func CFURLClearResourcePropertyCacheForKey(url CFURLRef, key CFStringRef) {
 	}
 	_cFURLClearResourcePropertyCacheForKey(url, key)
 }
-
 
 var _cFURLCopyAbsoluteURL func(relativeURL CFURLRef) CFURLRef
 
@@ -8850,7 +8144,6 @@ func CFURLCopyAbsoluteURL(relativeURL CFURLRef) CFURLRef {
 	return _cFURLCopyAbsoluteURL(relativeURL)
 }
 
-
 var _cFURLCopyFileSystemPath func(anURL CFURLRef, pathStyle CFURLPathStyle) CFStringRef
 
 // CFURLCopyFileSystemPath returns the path portion of a given URL.
@@ -8862,7 +8155,6 @@ func CFURLCopyFileSystemPath(anURL CFURLRef, pathStyle CFURLPathStyle) CFStringR
 	}
 	return _cFURLCopyFileSystemPath(anURL, pathStyle)
 }
-
 
 var _cFURLCopyFragment func(anURL CFURLRef, charactersToLeaveEscaped CFStringRef) CFStringRef
 
@@ -8876,7 +8168,6 @@ func CFURLCopyFragment(anURL CFURLRef, charactersToLeaveEscaped CFStringRef) CFS
 	return _cFURLCopyFragment(anURL, charactersToLeaveEscaped)
 }
 
-
 var _cFURLCopyHostName func(anURL CFURLRef) CFStringRef
 
 // CFURLCopyHostName returns the host name of a given URL.
@@ -8888,7 +8179,6 @@ func CFURLCopyHostName(anURL CFURLRef) CFStringRef {
 	}
 	return _cFURLCopyHostName(anURL)
 }
-
 
 var _cFURLCopyLastPathComponent func(url CFURLRef) CFStringRef
 
@@ -8902,7 +8192,6 @@ func CFURLCopyLastPathComponent(url CFURLRef) CFStringRef {
 	return _cFURLCopyLastPathComponent(url)
 }
 
-
 var _cFURLCopyNetLocation func(anURL CFURLRef) CFStringRef
 
 // CFURLCopyNetLocation returns the net location portion of a given URL.
@@ -8914,7 +8203,6 @@ func CFURLCopyNetLocation(anURL CFURLRef) CFStringRef {
 	}
 	return _cFURLCopyNetLocation(anURL)
 }
-
 
 var _cFURLCopyPassword func(anURL CFURLRef) CFStringRef
 
@@ -8928,7 +8216,6 @@ func CFURLCopyPassword(anURL CFURLRef) CFStringRef {
 	return _cFURLCopyPassword(anURL)
 }
 
-
 var _cFURLCopyPath func(anURL CFURLRef) CFStringRef
 
 // CFURLCopyPath returns the path portion of a given URL.
@@ -8940,7 +8227,6 @@ func CFURLCopyPath(anURL CFURLRef) CFStringRef {
 	}
 	return _cFURLCopyPath(anURL)
 }
-
 
 var _cFURLCopyPathExtension func(url CFURLRef) CFStringRef
 
@@ -8954,7 +8240,6 @@ func CFURLCopyPathExtension(url CFURLRef) CFStringRef {
 	return _cFURLCopyPathExtension(url)
 }
 
-
 var _cFURLCopyQueryString func(anURL CFURLRef, charactersToLeaveEscaped CFStringRef) CFStringRef
 
 // CFURLCopyQueryString returns the query string of a given URL.
@@ -8966,7 +8251,6 @@ func CFURLCopyQueryString(anURL CFURLRef, charactersToLeaveEscaped CFStringRef) 
 	}
 	return _cFURLCopyQueryString(anURL, charactersToLeaveEscaped)
 }
-
 
 var _cFURLCopyResourcePropertiesForKeys func(url CFURLRef, keys CFArrayRef, err *CFErrorRef) CFDictionaryRef
 
@@ -8980,7 +8264,6 @@ func CFURLCopyResourcePropertiesForKeys(url CFURLRef, keys CFArrayRef, err *CFEr
 	return _cFURLCopyResourcePropertiesForKeys(url, keys, err)
 }
 
-
 var _cFURLCopyResourcePropertyForKey func(url CFURLRef, key CFStringRef, propertyValueTypeRefPtr unsafe.Pointer, err *CFErrorRef) bool
 
 // CFURLCopyResourcePropertyForKey returns the value of a given resource property of a given URL.
@@ -8992,7 +8275,6 @@ func CFURLCopyResourcePropertyForKey(url CFURLRef, key CFStringRef, propertyValu
 	}
 	return _cFURLCopyResourcePropertyForKey(url, key, propertyValueTypeRefPtr, err)
 }
-
 
 var _cFURLCopyResourceSpecifier func(anURL CFURLRef) CFStringRef
 
@@ -9006,7 +8288,6 @@ func CFURLCopyResourceSpecifier(anURL CFURLRef) CFStringRef {
 	return _cFURLCopyResourceSpecifier(anURL)
 }
 
-
 var _cFURLCopyScheme func(anURL CFURLRef) CFStringRef
 
 // CFURLCopyScheme returns the scheme portion of a given URL.
@@ -9018,7 +8299,6 @@ func CFURLCopyScheme(anURL CFURLRef) CFStringRef {
 	}
 	return _cFURLCopyScheme(anURL)
 }
-
 
 var _cFURLCopyStrictPath func(anURL CFURLRef, isAbsolute *bool) CFStringRef
 
@@ -9032,7 +8312,6 @@ func CFURLCopyStrictPath(anURL CFURLRef, isAbsolute *bool) CFStringRef {
 	return _cFURLCopyStrictPath(anURL, isAbsolute)
 }
 
-
 var _cFURLCopyUserName func(anURL CFURLRef) CFStringRef
 
 // CFURLCopyUserName returns the user name from a given URL.
@@ -9044,7 +8323,6 @@ func CFURLCopyUserName(anURL CFURLRef) CFStringRef {
 	}
 	return _cFURLCopyUserName(anURL)
 }
-
 
 var _cFURLCreateAbsoluteURLWithBytes func(alloc CFAllocatorRef, relativeURLBytes *uint8, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef
 
@@ -9058,7 +8336,6 @@ func CFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes *uin
 	return _cFURLCreateAbsoluteURLWithBytes(alloc, relativeURLBytes, length, encoding, baseURL, useCompatibilityMode)
 }
 
-
 var _cFURLCreateBookmarkData func(allocator CFAllocatorRef, url CFURLRef, options CFURLBookmarkCreationOptions, resourcePropertiesToInclude CFArrayRef, relativeToURL CFURLRef, err *CFErrorRef) CFDataRef
 
 // CFURLCreateBookmarkData returns bookmark data for a URL, created with specified options and resource values.
@@ -9070,7 +8347,6 @@ func CFURLCreateBookmarkData(allocator CFAllocatorRef, url CFURLRef, options CFU
 	}
 	return _cFURLCreateBookmarkData(allocator, url, options, resourcePropertiesToInclude, relativeToURL, err)
 }
-
 
 var _cFURLCreateBookmarkDataFromFile func(allocator CFAllocatorRef, fileURL CFURLRef, errorRef *CFErrorRef) CFDataRef
 
@@ -9084,7 +8360,6 @@ func CFURLCreateBookmarkDataFromFile(allocator CFAllocatorRef, fileURL CFURLRef,
 	return _cFURLCreateBookmarkDataFromFile(allocator, fileURL, errorRef)
 }
 
-
 var _cFURLCreateByResolvingBookmarkData func(allocator CFAllocatorRef, bookmark CFDataRef, options CFURLBookmarkResolutionOptions, relativeToURL CFURLRef, resourcePropertiesToInclude CFArrayRef, isStale *bool, err *CFErrorRef) CFURLRef
 
 // CFURLCreateByResolvingBookmarkData returns a new URL made by resolving bookmark data.
@@ -9096,7 +8371,6 @@ func CFURLCreateByResolvingBookmarkData(allocator CFAllocatorRef, bookmark CFDat
 	}
 	return _cFURLCreateByResolvingBookmarkData(allocator, bookmark, options, relativeToURL, resourcePropertiesToInclude, isStale, err)
 }
-
 
 var _cFURLCreateCopyAppendingPathComponent func(allocator CFAllocatorRef, url CFURLRef, pathComponent CFStringRef, isDirectory bool) CFURLRef
 
@@ -9110,7 +8384,6 @@ func CFURLCreateCopyAppendingPathComponent(allocator CFAllocatorRef, url CFURLRe
 	return _cFURLCreateCopyAppendingPathComponent(allocator, url, pathComponent, isDirectory)
 }
 
-
 var _cFURLCreateCopyAppendingPathExtension func(allocator CFAllocatorRef, url CFURLRef, extension CFStringRef) CFURLRef
 
 // CFURLCreateCopyAppendingPathExtension creates a copy of a given URL and appends a path extension.
@@ -9122,7 +8395,6 @@ func CFURLCreateCopyAppendingPathExtension(allocator CFAllocatorRef, url CFURLRe
 	}
 	return _cFURLCreateCopyAppendingPathExtension(allocator, url, extension)
 }
-
 
 var _cFURLCreateCopyDeletingLastPathComponent func(allocator CFAllocatorRef, url CFURLRef) CFURLRef
 
@@ -9136,7 +8408,6 @@ func CFURLCreateCopyDeletingLastPathComponent(allocator CFAllocatorRef, url CFUR
 	return _cFURLCreateCopyDeletingLastPathComponent(allocator, url)
 }
 
-
 var _cFURLCreateCopyDeletingPathExtension func(allocator CFAllocatorRef, url CFURLRef) CFURLRef
 
 // CFURLCreateCopyDeletingPathExtension creates a copy of a given URL with its last path extension removed.
@@ -9148,7 +8419,6 @@ func CFURLCreateCopyDeletingPathExtension(allocator CFAllocatorRef, url CFURLRef
 	}
 	return _cFURLCreateCopyDeletingPathExtension(allocator, url)
 }
-
 
 var _cFURLCreateData func(allocator CFAllocatorRef, url CFURLRef, encoding uint32, escapeWhitespace bool) CFDataRef
 
@@ -9162,7 +8432,6 @@ func CFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding uint32, es
 	return _cFURLCreateData(allocator, url, encoding, escapeWhitespace)
 }
 
-
 var _cFURLCreateFilePathURL func(allocator CFAllocatorRef, url CFURLRef, err *CFErrorRef) CFURLRef
 
 // CFURLCreateFilePathURL returns a new file path URL that refers to the same resource as a specified URL.
@@ -9174,7 +8443,6 @@ func CFURLCreateFilePathURL(allocator CFAllocatorRef, url CFURLRef, err *CFError
 	}
 	return _cFURLCreateFilePathURL(allocator, url, err)
 }
-
 
 var _cFURLCreateFileReferenceURL func(allocator CFAllocatorRef, url CFURLRef, err *CFErrorRef) CFURLRef
 
@@ -9188,7 +8456,6 @@ func CFURLCreateFileReferenceURL(allocator CFAllocatorRef, url CFURLRef, err *CF
 	return _cFURLCreateFileReferenceURL(allocator, url, err)
 }
 
-
 var _cFURLCreateFromFileSystemRepresentation func(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool) CFURLRef
 
 // CFURLCreateFromFileSystemRepresentation creates a new [CFURL] object for a file system entity using the native representation.
@@ -9200,7 +8467,6 @@ func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer *u
 	}
 	return _cFURLCreateFromFileSystemRepresentation(allocator, buffer, bufLen, isDirectory)
 }
-
 
 var _cFURLCreateFromFileSystemRepresentationRelativeToBase func(allocator CFAllocatorRef, buffer *uint8, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef
 
@@ -9214,7 +8480,6 @@ func CFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocator
 	return _cFURLCreateFromFileSystemRepresentationRelativeToBase(allocator, buffer, bufLen, isDirectory, baseURL)
 }
 
-
 var _cFURLCreateResourcePropertiesForKeysFromBookmarkData func(allocator CFAllocatorRef, resourcePropertiesToReturn CFArrayRef, bookmark CFDataRef) CFDictionaryRef
 
 // CFURLCreateResourcePropertiesForKeysFromBookmarkData returns the resource values for properties identified by a specified array of keys contained in specified bookmark data.
@@ -9226,7 +8491,6 @@ func CFURLCreateResourcePropertiesForKeysFromBookmarkData(allocator CFAllocatorR
 	}
 	return _cFURLCreateResourcePropertiesForKeysFromBookmarkData(allocator, resourcePropertiesToReturn, bookmark)
 }
-
 
 var _cFURLCreateResourcePropertyForKeyFromBookmarkData func(allocator CFAllocatorRef, resourcePropertyKey CFStringRef, bookmark CFDataRef) CFTypeRef
 
@@ -9240,7 +8504,6 @@ func CFURLCreateResourcePropertyForKeyFromBookmarkData(allocator CFAllocatorRef,
 	return _cFURLCreateResourcePropertyForKeyFromBookmarkData(allocator, resourcePropertyKey, bookmark)
 }
 
-
 var _cFURLCreateStringByReplacingPercentEscapes func(allocator CFAllocatorRef, originalString CFStringRef, charactersToLeaveEscaped CFStringRef) CFStringRef
 
 // CFURLCreateStringByReplacingPercentEscapes creates a new string by replacing any percent escape sequences with their character equivalent.
@@ -9252,7 +8515,6 @@ func CFURLCreateStringByReplacingPercentEscapes(allocator CFAllocatorRef, origin
 	}
 	return _cFURLCreateStringByReplacingPercentEscapes(allocator, originalString, charactersToLeaveEscaped)
 }
-
 
 var _cFURLCreateWithBytes func(allocator CFAllocatorRef, URLBytes *uint8, length int, encoding uint32, baseURL CFURLRef) CFURLRef
 
@@ -9266,7 +8528,6 @@ func CFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes *uint8, length int,
 	return _cFURLCreateWithBytes(allocator, URLBytes, length, encoding, baseURL)
 }
 
-
 var _cFURLCreateWithFileSystemPath func(allocator CFAllocatorRef, filePath CFStringRef, pathStyle CFURLPathStyle, isDirectory bool) CFURLRef
 
 // CFURLCreateWithFileSystemPath creates a [CFURL] object using a local file system path string.
@@ -9278,7 +8539,6 @@ func CFURLCreateWithFileSystemPath(allocator CFAllocatorRef, filePath CFStringRe
 	}
 	return _cFURLCreateWithFileSystemPath(allocator, filePath, pathStyle, isDirectory)
 }
-
 
 var _cFURLCreateWithFileSystemPathRelativeToBase func(allocator CFAllocatorRef, filePath CFStringRef, pathStyle CFURLPathStyle, isDirectory bool, baseURL CFURLRef) CFURLRef
 
@@ -9292,7 +8552,6 @@ func CFURLCreateWithFileSystemPathRelativeToBase(allocator CFAllocatorRef, fileP
 	return _cFURLCreateWithFileSystemPathRelativeToBase(allocator, filePath, pathStyle, isDirectory, baseURL)
 }
 
-
 var _cFURLCreateWithString func(allocator CFAllocatorRef, URLString CFStringRef, baseURL CFURLRef) CFURLRef
 
 // CFURLCreateWithString creates a [CFURL] object using a given [CFString] object.
@@ -9304,7 +8563,6 @@ func CFURLCreateWithString(allocator CFAllocatorRef, URLString CFStringRef, base
 	}
 	return _cFURLCreateWithString(allocator, URLString, baseURL)
 }
-
 
 var _cFURLEnumeratorCreateForDirectoryURL func(alloc CFAllocatorRef, directoryURL CFURLRef, option CFURLEnumeratorOptions, propertyKeys CFArrayRef) CFURLEnumeratorRef
 
@@ -9318,7 +8576,6 @@ func CFURLEnumeratorCreateForDirectoryURL(alloc CFAllocatorRef, directoryURL CFU
 	return _cFURLEnumeratorCreateForDirectoryURL(alloc, directoryURL, option, propertyKeys)
 }
 
-
 var _cFURLEnumeratorCreateForMountedVolumes func(alloc CFAllocatorRef, option CFURLEnumeratorOptions, propertyKeys CFArrayRef) CFURLEnumeratorRef
 
 // CFURLEnumeratorCreateForMountedVolumes creates and returns a volume enumerator with provided enumerator behavior options and properties to be prefetched.
@@ -9330,7 +8587,6 @@ func CFURLEnumeratorCreateForMountedVolumes(alloc CFAllocatorRef, option CFURLEn
 	}
 	return _cFURLEnumeratorCreateForMountedVolumes(alloc, option, propertyKeys)
 }
-
 
 var _cFURLEnumeratorGetDescendentLevel func(enumerator CFURLEnumeratorRef) int
 
@@ -9344,7 +8600,6 @@ func CFURLEnumeratorGetDescendentLevel(enumerator CFURLEnumeratorRef) int {
 	return _cFURLEnumeratorGetDescendentLevel(enumerator)
 }
 
-
 var _cFURLEnumeratorGetNextURL func(enumerator CFURLEnumeratorRef, url *CFURLRef, err *CFErrorRef) CFURLEnumeratorResult
 
 // CFURLEnumeratorGetNextURL advances an enumerator to the next URL.
@@ -9356,7 +8611,6 @@ func CFURLEnumeratorGetNextURL(enumerator CFURLEnumeratorRef, url *CFURLRef, err
 	}
 	return _cFURLEnumeratorGetNextURL(enumerator, url, err)
 }
-
 
 var _cFURLEnumeratorGetTypeID func() uint
 
@@ -9370,7 +8624,6 @@ func CFURLEnumeratorGetTypeID() uint {
 	return _cFURLEnumeratorGetTypeID()
 }
 
-
 var _cFURLEnumeratorSkipDescendents func(enumerator CFURLEnumeratorRef)
 
 // CFURLEnumeratorSkipDescendents tells a recursive enumerator not to descend into the directory at the URL that was returned by the most recent call to the CFURLEnumeratorGetNextURL(_:_:_:) function.
@@ -9382,7 +8635,6 @@ func CFURLEnumeratorSkipDescendents(enumerator CFURLEnumeratorRef) {
 	}
 	_cFURLEnumeratorSkipDescendents(enumerator)
 }
-
 
 var _cFURLGetBaseURL func(anURL CFURLRef) CFURLRef
 
@@ -9396,7 +8648,6 @@ func CFURLGetBaseURL(anURL CFURLRef) CFURLRef {
 	return _cFURLGetBaseURL(anURL)
 }
 
-
 var _cFURLGetByteRangeForComponent func(url CFURLRef, component CFURLComponentType, rangeIncludingSeparators *CFRange) CFRange
 
 // CFURLGetByteRangeForComponent returns the range of the specified component in the bytes of a URL.
@@ -9408,7 +8659,6 @@ func CFURLGetByteRangeForComponent(url CFURLRef, component CFURLComponentType, r
 	}
 	return _cFURLGetByteRangeForComponent(url, component, rangeIncludingSeparators)
 }
-
 
 var _cFURLGetBytes func(url CFURLRef, buffer *uint8, bufferLength int) int
 
@@ -9422,7 +8672,6 @@ func CFURLGetBytes(url CFURLRef, buffer *uint8, bufferLength int) int {
 	return _cFURLGetBytes(url, buffer, bufferLength)
 }
 
-
 var _cFURLGetFileSystemRepresentation func(url CFURLRef, resolveAgainstBase bool, buffer *uint8, maxBufLen int) bool
 
 // CFURLGetFileSystemRepresentation fills a buffer with the file system’s native string representation of a given URL’s path.
@@ -9434,7 +8683,6 @@ func CFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buf
 	}
 	return _cFURLGetFileSystemRepresentation(url, resolveAgainstBase, buffer, maxBufLen)
 }
-
 
 var _cFURLGetPortNumber func(anURL CFURLRef) int32
 
@@ -9448,7 +8696,6 @@ func CFURLGetPortNumber(anURL CFURLRef) int32 {
 	return _cFURLGetPortNumber(anURL)
 }
 
-
 var _cFURLGetString func(anURL CFURLRef) CFStringRef
 
 // CFURLGetString returns the URL as a [CFString] object.
@@ -9460,7 +8707,6 @@ func CFURLGetString(anURL CFURLRef) CFStringRef {
 	}
 	return _cFURLGetString(anURL)
 }
-
 
 var _cFURLGetTypeID func() uint
 
@@ -9474,7 +8720,6 @@ func CFURLGetTypeID() uint {
 	return _cFURLGetTypeID()
 }
 
-
 var _cFURLHasDirectoryPath func(anURL CFURLRef) bool
 
 // CFURLHasDirectoryPath determines if a given URL’s path represents a directory.
@@ -9486,7 +8731,6 @@ func CFURLHasDirectoryPath(anURL CFURLRef) bool {
 	}
 	return _cFURLHasDirectoryPath(anURL)
 }
-
 
 var _cFURLIsFileReferenceURL func(url CFURLRef) bool
 
@@ -9500,7 +8744,6 @@ func CFURLIsFileReferenceURL(url CFURLRef) bool {
 	return _cFURLIsFileReferenceURL(url)
 }
 
-
 var _cFURLResourceIsReachable func(url CFURLRef, err *CFErrorRef) bool
 
 // CFURLResourceIsReachable returns whether the resource pointed to by a file URL can be reached.
@@ -9512,7 +8755,6 @@ func CFURLResourceIsReachable(url CFURLRef, err *CFErrorRef) bool {
 	}
 	return _cFURLResourceIsReachable(url, err)
 }
-
 
 var _cFURLSetResourcePropertiesForKeys func(url CFURLRef, keyedPropertyValues CFDictionaryRef, err *CFErrorRef) bool
 
@@ -9526,7 +8768,6 @@ func CFURLSetResourcePropertiesForKeys(url CFURLRef, keyedPropertyValues CFDicti
 	return _cFURLSetResourcePropertiesForKeys(url, keyedPropertyValues, err)
 }
 
-
 var _cFURLSetResourcePropertyForKey func(url CFURLRef, key CFStringRef, propertyValue CFTypeRef, err *CFErrorRef) bool
 
 // CFURLSetResourcePropertyForKey sets the URL’s resource property for a given key to a given value.
@@ -9538,7 +8779,6 @@ func CFURLSetResourcePropertyForKey(url CFURLRef, key CFStringRef, propertyValue
 	}
 	return _cFURLSetResourcePropertyForKey(url, key, propertyValue, err)
 }
-
 
 var _cFURLSetTemporaryResourcePropertyForKey func(url CFURLRef, key CFStringRef, propertyValue CFTypeRef)
 
@@ -9552,7 +8792,6 @@ func CFURLSetTemporaryResourcePropertyForKey(url CFURLRef, key CFStringRef, prop
 	_cFURLSetTemporaryResourcePropertyForKey(url, key, propertyValue)
 }
 
-
 var _cFURLStartAccessingSecurityScopedResource func(url CFURLRef) bool
 
 // CFURLStartAccessingSecurityScopedResource in an app that has adopted App Sandbox, makes the resource pointed to by a security-scoped URL available to the app.
@@ -9564,7 +8803,6 @@ func CFURLStartAccessingSecurityScopedResource(url CFURLRef) bool {
 	}
 	return _cFURLStartAccessingSecurityScopedResource(url)
 }
-
 
 var _cFURLStopAccessingSecurityScopedResource func(url CFURLRef)
 
@@ -9578,7 +8816,6 @@ func CFURLStopAccessingSecurityScopedResource(url CFURLRef) {
 	_cFURLStopAccessingSecurityScopedResource(url)
 }
 
-
 var _cFURLWriteBookmarkDataToFile func(bookmarkRef CFDataRef, fileURL CFURLRef, options CFURLBookmarkFileCreationOptions, errorRef *CFErrorRef) bool
 
 // CFURLWriteBookmarkDataToFile creates an alias file on disk at a specified location with specified bookmark data.
@@ -9590,7 +8827,6 @@ func CFURLWriteBookmarkDataToFile(bookmarkRef CFDataRef, fileURL CFURLRef, optio
 	}
 	return _cFURLWriteBookmarkDataToFile(bookmarkRef, fileURL, options, errorRef)
 }
-
 
 var _cFUUIDCreate func(alloc CFAllocatorRef) CFUUIDRef
 
@@ -9604,7 +8840,6 @@ func CFUUIDCreate(alloc CFAllocatorRef) CFUUIDRef {
 	return _cFUUIDCreate(alloc)
 }
 
-
 var _cFUUIDCreateFromString func(alloc CFAllocatorRef, uuidStr CFStringRef) CFUUIDRef
 
 // CFUUIDCreateFromString creates a CFUUID object for a specified string.
@@ -9616,7 +8851,6 @@ func CFUUIDCreateFromString(alloc CFAllocatorRef, uuidStr CFStringRef) CFUUIDRef
 	}
 	return _cFUUIDCreateFromString(alloc, uuidStr)
 }
-
 
 var _cFUUIDCreateFromUUIDBytes func(alloc CFAllocatorRef, bytes CFUUIDBytes) CFUUIDRef
 
@@ -9630,7 +8864,6 @@ func CFUUIDCreateFromUUIDBytes(alloc CFAllocatorRef, bytes CFUUIDBytes) CFUUIDRe
 	return _cFUUIDCreateFromUUIDBytes(alloc, bytes)
 }
 
-
 var _cFUUIDCreateString func(alloc CFAllocatorRef, uuid CFUUIDRef) CFStringRef
 
 // CFUUIDCreateString returns the string representation of a specified CFUUID object.
@@ -9642,7 +8875,6 @@ func CFUUIDCreateString(alloc CFAllocatorRef, uuid CFUUIDRef) CFStringRef {
 	}
 	return _cFUUIDCreateString(alloc, uuid)
 }
-
 
 var _cFUUIDCreateWithBytes func(alloc CFAllocatorRef, byte0 uint8, byte1 uint8, byte2 uint8, byte3 uint8, byte4 uint8, byte5 uint8, byte6 uint8, byte7 uint8, byte8 uint8, byte9 uint8, byte10 uint8, byte11 uint8, byte12 uint8, byte13 uint8, byte14 uint8, byte15 uint8) CFUUIDRef
 
@@ -9656,7 +8888,6 @@ func CFUUIDCreateWithBytes(alloc CFAllocatorRef, byte0 uint8, byte1 uint8, byte2
 	return _cFUUIDCreateWithBytes(alloc, byte0, byte1, byte2, byte3, byte4, byte5, byte6, byte7, byte8, byte9, byte10, byte11, byte12, byte13, byte14, byte15)
 }
 
-
 var _cFUUIDGetConstantUUIDWithBytes func(alloc CFAllocatorRef, byte0 uint8, byte1 uint8, byte2 uint8, byte3 uint8, byte4 uint8, byte5 uint8, byte6 uint8, byte7 uint8, byte8 uint8, byte9 uint8, byte10 uint8, byte11 uint8, byte12 uint8, byte13 uint8, byte14 uint8, byte15 uint8) CFUUIDRef
 
 // CFUUIDGetConstantUUIDWithBytes returns a CFUUID object from raw UUID bytes.
@@ -9668,7 +8899,6 @@ func CFUUIDGetConstantUUIDWithBytes(alloc CFAllocatorRef, byte0 uint8, byte1 uin
 	}
 	return _cFUUIDGetConstantUUIDWithBytes(alloc, byte0, byte1, byte2, byte3, byte4, byte5, byte6, byte7, byte8, byte9, byte10, byte11, byte12, byte13, byte14, byte15)
 }
-
 
 var _cFUUIDGetTypeID func() uint
 
@@ -9682,7 +8912,6 @@ func CFUUIDGetTypeID() uint {
 	return _cFUUIDGetTypeID()
 }
 
-
 var _cFUUIDGetUUIDBytes func(uuid CFUUIDRef) CFUUIDBytes
 
 // CFUUIDGetUUIDBytes returns the value of a UUID object as raw bytes.
@@ -9694,7 +8923,6 @@ func CFUUIDGetUUIDBytes(uuid CFUUIDRef) CFUUIDBytes {
 	}
 	return _cFUUIDGetUUIDBytes(uuid)
 }
-
 
 var _cFUserNotificationCancel func(userNotification CFUserNotificationRef) int32
 
@@ -9708,8 +8936,6 @@ func CFUserNotificationCancel(userNotification CFUserNotificationRef) int32 {
 	return _cFUserNotificationCancel(userNotification)
 }
 
-
-
 var _cFUserNotificationCreate func(allocator CFAllocatorRef, timeout float64, flags uint64, err *int32, dictionary CFDictionaryRef) CFUserNotificationRef
 
 // CFUserNotificationCreate creates a CFUserNotification object and displays its notification dialog on screen.
@@ -9721,7 +8947,6 @@ func CFUserNotificationCreate(allocator CFAllocatorRef, timeout float64, flags u
 	}
 	return _cFUserNotificationCreate(allocator, timeout, flags, err, dictionary)
 }
-
 
 var _cFUserNotificationCreateRunLoopSource func(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order int) CFRunLoopSourceRef
 
@@ -9735,7 +8960,6 @@ func CFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotific
 	return _cFUserNotificationCreateRunLoopSource(allocator, userNotification, callout, order)
 }
 
-
 var _cFUserNotificationDisplayAlert func(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *uint64) int32
 
 // CFUserNotificationDisplayAlert displays a user notification dialog and waits for a user response.
@@ -9747,7 +8971,6 @@ func CFUserNotificationDisplayAlert(timeout float64, flags uint64, iconURL CFURL
 	}
 	return _cFUserNotificationDisplayAlert(timeout, flags, iconURL, soundURL, localizationURL, alertHeader, alertMessage, defaultButtonTitle, alternateButtonTitle, otherButtonTitle, responseFlags)
 }
-
 
 var _cFUserNotificationDisplayNotice func(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) int32
 
@@ -9761,7 +8984,6 @@ func CFUserNotificationDisplayNotice(timeout float64, flags uint64, iconURL CFUR
 	return _cFUserNotificationDisplayNotice(timeout, flags, iconURL, soundURL, localizationURL, alertHeader, alertMessage, defaultButtonTitle)
 }
 
-
 var _cFUserNotificationGetResponseDictionary func(userNotification CFUserNotificationRef) CFDictionaryRef
 
 // CFUserNotificationGetResponseDictionary returns the dictionary containing all the text field values from a dismissed notification dialog.
@@ -9773,7 +8995,6 @@ func CFUserNotificationGetResponseDictionary(userNotification CFUserNotification
 	}
 	return _cFUserNotificationGetResponseDictionary(userNotification)
 }
-
 
 var _cFUserNotificationGetResponseValue func(userNotification CFUserNotificationRef, key CFStringRef, idx int) CFStringRef
 
@@ -9787,7 +9008,6 @@ func CFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, 
 	return _cFUserNotificationGetResponseValue(userNotification, key, idx)
 }
 
-
 var _cFUserNotificationGetTypeID func() uint
 
 // CFUserNotificationGetTypeID returns the type identifier for the [CFUserNotification] opaque type.
@@ -9799,8 +9019,6 @@ func CFUserNotificationGetTypeID() uint {
 	}
 	return _cFUserNotificationGetTypeID()
 }
-
-
 
 var _cFUserNotificationReceiveResponse func(userNotification CFUserNotificationRef, timeout float64, responseFlags *uint64) int32
 
@@ -9814,8 +9032,6 @@ func CFUserNotificationReceiveResponse(userNotification CFUserNotificationRef, t
 	return _cFUserNotificationReceiveResponse(userNotification, timeout, responseFlags)
 }
 
-
-
 var _cFUserNotificationUpdate func(userNotification CFUserNotificationRef, timeout float64, flags uint64, dictionary CFDictionaryRef) int32
 
 // CFUserNotificationUpdate updates a displayed user notification dialog with new user interface information.
@@ -9827,7 +9043,6 @@ func CFUserNotificationUpdate(userNotification CFUserNotificationRef, timeout fl
 	}
 	return _cFUserNotificationUpdate(userNotification, timeout, flags, dictionary)
 }
-
 
 var _cFWriteStreamCanAcceptBytes func(stream CFWriteStreamRef) bool
 
@@ -9841,7 +9056,6 @@ func CFWriteStreamCanAcceptBytes(stream CFWriteStreamRef) bool {
 	return _cFWriteStreamCanAcceptBytes(stream)
 }
 
-
 var _cFWriteStreamClose func(stream CFWriteStreamRef)
 
 // CFWriteStreamClose closes a writable stream.
@@ -9853,7 +9067,6 @@ func CFWriteStreamClose(stream CFWriteStreamRef) {
 	}
 	_cFWriteStreamClose(stream)
 }
-
 
 var _cFWriteStreamCopyDispatchQueue func(stream CFWriteStreamRef) uintptr
 
@@ -9867,7 +9080,6 @@ func CFWriteStreamCopyDispatchQueue(stream CFWriteStreamRef) dispatch.Queue {
 	return dispatch.QueueFromHandle(_cFWriteStreamCopyDispatchQueue(stream))
 }
 
-
 var _cFWriteStreamCopyError func(stream CFWriteStreamRef) CFErrorRef
 
 // CFWriteStreamCopyError returns the error associated with a stream.
@@ -9879,7 +9091,6 @@ func CFWriteStreamCopyError(stream CFWriteStreamRef) CFErrorRef {
 	}
 	return _cFWriteStreamCopyError(stream)
 }
-
 
 var _cFWriteStreamCopyProperty func(stream CFWriteStreamRef, propertyName CFStreamPropertyKey) CFTypeRef
 
@@ -9893,7 +9104,6 @@ func CFWriteStreamCopyProperty(stream CFWriteStreamRef, propertyName CFStreamPro
 	return _cFWriteStreamCopyProperty(stream, propertyName)
 }
 
-
 var _cFWriteStreamCreateWithAllocatedBuffers func(alloc CFAllocatorRef, bufferAllocator CFAllocatorRef) CFWriteStreamRef
 
 // CFWriteStreamCreateWithAllocatedBuffers creates a writable stream for a growable block of memory.
@@ -9905,7 +9115,6 @@ func CFWriteStreamCreateWithAllocatedBuffers(alloc CFAllocatorRef, bufferAllocat
 	}
 	return _cFWriteStreamCreateWithAllocatedBuffers(alloc, bufferAllocator)
 }
-
 
 var _cFWriteStreamCreateWithBuffer func(alloc CFAllocatorRef, buffer *uint8, bufferCapacity int) CFWriteStreamRef
 
@@ -9919,7 +9128,6 @@ func CFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer *uint8, bufferCa
 	return _cFWriteStreamCreateWithBuffer(alloc, buffer, bufferCapacity)
 }
 
-
 var _cFWriteStreamCreateWithFile func(alloc CFAllocatorRef, fileURL CFURLRef) CFWriteStreamRef
 
 // CFWriteStreamCreateWithFile creates a writable stream for a file.
@@ -9931,7 +9139,6 @@ func CFWriteStreamCreateWithFile(alloc CFAllocatorRef, fileURL CFURLRef) CFWrite
 	}
 	return _cFWriteStreamCreateWithFile(alloc, fileURL)
 }
-
 
 var _cFWriteStreamGetError func(stream CFWriteStreamRef) CFStreamError
 
@@ -9947,7 +9154,6 @@ func CFWriteStreamGetError(stream CFWriteStreamRef) CFStreamError {
 	return _cFWriteStreamGetError(stream)
 }
 
-
 var _cFWriteStreamGetStatus func(stream CFWriteStreamRef) CFStreamStatus
 
 // CFWriteStreamGetStatus returns the current state of a stream.
@@ -9959,7 +9165,6 @@ func CFWriteStreamGetStatus(stream CFWriteStreamRef) CFStreamStatus {
 	}
 	return _cFWriteStreamGetStatus(stream)
 }
-
 
 var _cFWriteStreamGetTypeID func() uint
 
@@ -9973,7 +9178,6 @@ func CFWriteStreamGetTypeID() uint {
 	return _cFWriteStreamGetTypeID()
 }
 
-
 var _cFWriteStreamOpen func(stream CFWriteStreamRef) bool
 
 // CFWriteStreamOpen opens a stream for writing.
@@ -9985,7 +9189,6 @@ func CFWriteStreamOpen(stream CFWriteStreamRef) bool {
 	}
 	return _cFWriteStreamOpen(stream)
 }
-
 
 var _cFWriteStreamScheduleWithRunLoop func(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
@@ -9999,7 +9202,6 @@ func CFWriteStreamScheduleWithRunLoop(stream CFWriteStreamRef, runLoop CFRunLoop
 	_cFWriteStreamScheduleWithRunLoop(stream, runLoop, runLoopMode)
 }
 
-
 var _cFWriteStreamSetClient func(stream CFWriteStreamRef, streamEvents uint64, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) bool
 
 // CFWriteStreamSetClient assigns a client to a stream, which receives callbacks when certain events occur.
@@ -10011,7 +9213,6 @@ func CFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents uint64, client
 	}
 	return _cFWriteStreamSetClient(stream, streamEvents, clientCB, clientContext)
 }
-
 
 var _cFWriteStreamSetDispatchQueue func(stream CFWriteStreamRef, q uintptr)
 
@@ -10025,7 +9226,6 @@ func CFWriteStreamSetDispatchQueue(stream CFWriteStreamRef, q dispatch.Queue) {
 	_cFWriteStreamSetDispatchQueue(stream, uintptr(q.Handle()))
 }
 
-
 var _cFWriteStreamSetProperty func(stream CFWriteStreamRef, propertyName CFStreamPropertyKey, propertyValue CFTypeRef) bool
 
 // CFWriteStreamSetProperty sets the value of a property for a stream.
@@ -10037,7 +9237,6 @@ func CFWriteStreamSetProperty(stream CFWriteStreamRef, propertyName CFStreamProp
 	}
 	return _cFWriteStreamSetProperty(stream, propertyName, propertyValue)
 }
-
 
 var _cFWriteStreamUnscheduleFromRunLoop func(stream CFWriteStreamRef, runLoop CFRunLoopRef, runLoopMode CFRunLoopMode)
 
@@ -10051,7 +9250,6 @@ func CFWriteStreamUnscheduleFromRunLoop(stream CFWriteStreamRef, runLoop CFRunLo
 	_cFWriteStreamUnscheduleFromRunLoop(stream, runLoop, runLoopMode)
 }
 
-
 var _cFWriteStreamWrite func(stream CFWriteStreamRef, buffer *uint8, bufferLength int) int
 
 // CFWriteStreamWrite writes data to a writable stream.
@@ -10063,7 +9261,6 @@ func CFWriteStreamWrite(stream CFWriteStreamRef, buffer *uint8, bufferLength int
 	}
 	return _cFWriteStreamWrite(stream, buffer, bufferLength)
 }
-
 
 var _cFXMLCreateStringByEscapingEntities func(allocator CFAllocatorRef, string_ CFStringRef, entitiesDictionary CFDictionaryRef) CFStringRef
 
@@ -10077,7 +9274,6 @@ func CFXMLCreateStringByEscapingEntities(allocator CFAllocatorRef, string_ CFStr
 	return _cFXMLCreateStringByEscapingEntities(allocator, string_, entitiesDictionary)
 }
 
-
 var _cFXMLCreateStringByUnescapingEntities func(allocator CFAllocatorRef, string_ CFStringRef, entitiesDictionary CFDictionaryRef) CFStringRef
 
 // CFXMLCreateStringByUnescapingEntities given a CFString object containing XML source with escaped entities, returns a string with specified XML entities unescaped.
@@ -10089,7 +9285,6 @@ func CFXMLCreateStringByUnescapingEntities(allocator CFAllocatorRef, string_ CFS
 	}
 	return _cFXMLCreateStringByUnescapingEntities(allocator, string_, entitiesDictionary)
 }
-
 
 var _cFXMLNodeCreate func(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version int) unsafe.Pointer
 
@@ -10103,7 +9298,6 @@ func CFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRe
 	return _cFXMLNodeCreate(alloc, xmlType, dataString, additionalInfoPtr, version)
 }
 
-
 var _cFXMLNodeCreateCopy func(alloc CFAllocatorRef, origNode unsafe.Pointer) unsafe.Pointer
 
 // CFXMLNodeCreateCopy creates a copy of a CFXMLNode object.
@@ -10115,7 +9309,6 @@ func CFXMLNodeCreateCopy(alloc CFAllocatorRef, origNode unsafe.Pointer) unsafe.P
 	}
 	return _cFXMLNodeCreateCopy(alloc, origNode)
 }
-
 
 var _cFXMLNodeGetInfoPtr func(node unsafe.Pointer) unsafe.Pointer
 
@@ -10129,7 +9322,6 @@ func CFXMLNodeGetInfoPtr(node unsafe.Pointer) unsafe.Pointer {
 	return _cFXMLNodeGetInfoPtr(node)
 }
 
-
 var _cFXMLNodeGetString func(node unsafe.Pointer) CFStringRef
 
 // CFXMLNodeGetString returns the data string from a CFXMLNode.
@@ -10141,7 +9333,6 @@ func CFXMLNodeGetString(node unsafe.Pointer) CFStringRef {
 	}
 	return _cFXMLNodeGetString(node)
 }
-
 
 var _cFXMLNodeGetTypeCode func(node unsafe.Pointer) uint32
 
@@ -10155,7 +9346,6 @@ func CFXMLNodeGetTypeCode(node unsafe.Pointer) uint32 {
 	return _cFXMLNodeGetTypeCode(node)
 }
 
-
 var _cFXMLNodeGetTypeID func() uint
 
 // CFXMLNodeGetTypeID returns the type identifier code for the CFXMLNode opaque type.
@@ -10167,7 +9357,6 @@ func CFXMLNodeGetTypeID() uint {
 	}
 	return _cFXMLNodeGetTypeID()
 }
-
 
 var _cFXMLNodeGetVersion func(node unsafe.Pointer) int
 
@@ -10181,7 +9370,6 @@ func CFXMLNodeGetVersion(node unsafe.Pointer) int {
 	return _cFXMLNodeGetVersion(node)
 }
 
-
 var _cFXMLParserAbort func(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef)
 
 // CFXMLParserAbort causes a parser to abort with the given error code and description.
@@ -10193,7 +9381,6 @@ func CFXMLParserAbort(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, er
 	}
 	_cFXMLParserAbort(parser, errorCode, errorDescription)
 }
-
 
 var _cFXMLParserCopyErrorDescription func(parser CFXMLParserRef) CFStringRef
 
@@ -10207,7 +9394,6 @@ func CFXMLParserCopyErrorDescription(parser CFXMLParserRef) CFStringRef {
 	return _cFXMLParserCopyErrorDescription(parser)
 }
 
-
 var _cFXMLParserCreate func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
 
 // CFXMLParserCreate creates a new XML parser for the specified XML data.
@@ -10219,7 +9405,6 @@ func CFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource C
 	}
 	return _cFXMLParserCreate(allocator, xmlData, dataSource, parseOptions, versionOfNodes, callBacks, context)
 }
-
 
 var _cFXMLParserCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
 
@@ -10233,7 +9418,6 @@ func CFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURL
 	return _cFXMLParserCreateWithDataFromURL(allocator, dataSource, parseOptions, versionOfNodes, callBacks, context)
 }
 
-
 var _cFXMLParserGetCallBacks func(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks)
 
 // CFXMLParserGetCallBacks returns the callbacks associated with an XML parser when it was created.
@@ -10245,7 +9429,6 @@ func CFXMLParserGetCallBacks(parser CFXMLParserRef, callBacks *CFXMLParserCallBa
 	}
 	_cFXMLParserGetCallBacks(parser, callBacks)
 }
-
 
 var _cFXMLParserGetContext func(parser CFXMLParserRef, context *CFXMLParserContext)
 
@@ -10259,7 +9442,6 @@ func CFXMLParserGetContext(parser CFXMLParserRef, context *CFXMLParserContext) {
 	_cFXMLParserGetContext(parser, context)
 }
 
-
 var _cFXMLParserGetDocument func(parser CFXMLParserRef) unsafe.Pointer
 
 // CFXMLParserGetDocument returns the top-most object returned by the create XML structure callback.
@@ -10271,7 +9453,6 @@ func CFXMLParserGetDocument(parser CFXMLParserRef) unsafe.Pointer {
 	}
 	return _cFXMLParserGetDocument(parser)
 }
-
 
 var _cFXMLParserGetLineNumber func(parser CFXMLParserRef) int
 
@@ -10285,7 +9466,6 @@ func CFXMLParserGetLineNumber(parser CFXMLParserRef) int {
 	return _cFXMLParserGetLineNumber(parser)
 }
 
-
 var _cFXMLParserGetLocation func(parser CFXMLParserRef) int
 
 // CFXMLParserGetLocation returns the character index of the current parse location.
@@ -10297,7 +9477,6 @@ func CFXMLParserGetLocation(parser CFXMLParserRef) int {
 	}
 	return _cFXMLParserGetLocation(parser)
 }
-
 
 var _cFXMLParserGetSourceURL func(parser CFXMLParserRef) CFURLRef
 
@@ -10311,7 +9490,6 @@ func CFXMLParserGetSourceURL(parser CFXMLParserRef) CFURLRef {
 	return _cFXMLParserGetSourceURL(parser)
 }
 
-
 var _cFXMLParserGetStatusCode func(parser CFXMLParserRef) CFXMLParserStatusCode
 
 // CFXMLParserGetStatusCode returns a numeric code indicating the current status of the parser.
@@ -10323,7 +9501,6 @@ func CFXMLParserGetStatusCode(parser CFXMLParserRef) CFXMLParserStatusCode {
 	}
 	return _cFXMLParserGetStatusCode(parser)
 }
-
 
 var _cFXMLParserGetTypeID func() uint
 
@@ -10337,7 +9514,6 @@ func CFXMLParserGetTypeID() uint {
 	return _cFXMLParserGetTypeID()
 }
 
-
 var _cFXMLParserParse func(parser CFXMLParserRef) bool
 
 // CFXMLParserParse begins a parse of the XML data that was associated with the parser when it was created.
@@ -10349,7 +9525,6 @@ func CFXMLParserParse(parser CFXMLParserRef) bool {
 	}
 	return _cFXMLParserParse(parser)
 }
-
 
 var _cFXMLTreeCreateFromData func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef
 
@@ -10363,7 +9538,6 @@ func CFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSo
 	return _cFXMLTreeCreateFromData(allocator, xmlData, dataSource, parseOptions, versionOfNodes)
 }
 
-
 var _cFXMLTreeCreateFromDataWithError func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) CFXMLTreeRef
 
 // CFXMLTreeCreateFromDataWithError parses the given XML data and returns the resulting CFXMLTree object and any error information.
@@ -10375,7 +9549,6 @@ func CFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRe
 	}
 	return _cFXMLTreeCreateFromDataWithError(allocator, xmlData, dataSource, parseOptions, versionOfNodes, errorDict)
 }
-
 
 var _cFXMLTreeCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef
 
@@ -10389,7 +9562,6 @@ func CFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRe
 	return _cFXMLTreeCreateWithDataFromURL(allocator, dataSource, parseOptions, versionOfNodes)
 }
 
-
 var _cFXMLTreeCreateWithNode func(allocator CFAllocatorRef, node unsafe.Pointer) CFXMLTreeRef
 
 // CFXMLTreeCreateWithNode creates a childless, parentless CFXMLTree object node for a CFXMLNode object.
@@ -10401,7 +9573,6 @@ func CFXMLTreeCreateWithNode(allocator CFAllocatorRef, node unsafe.Pointer) CFXM
 	}
 	return _cFXMLTreeCreateWithNode(allocator, node)
 }
-
 
 var _cFXMLTreeCreateXMLData func(allocator CFAllocatorRef, xmlTree CFXMLTreeRef) CFDataRef
 
@@ -10415,7 +9586,6 @@ func CFXMLTreeCreateXMLData(allocator CFAllocatorRef, xmlTree CFXMLTreeRef) CFDa
 	return _cFXMLTreeCreateXMLData(allocator, xmlTree)
 }
 
-
 var _cFXMLTreeGetNode func(xmlTree CFXMLTreeRef) unsafe.Pointer
 
 // CFXMLTreeGetNode returns the node of a CFXMLTree object.
@@ -10427,8 +9597,6 @@ func CFXMLTreeGetNode(xmlTree CFXMLTreeRef) unsafe.Pointer {
 	}
 	return _cFXMLTreeGetNode(xmlTree)
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -11231,5 +10399,4 @@ func init() {
 		registerFunc(&_cFXMLTreeCreateXMLData, frameworkHandle, "CFXMLTreeCreateXMLData")
 		registerFunc(&_cFXMLTreeGetNode, frameworkHandle, "CFXMLTreeGetNode")
 	}
-
 

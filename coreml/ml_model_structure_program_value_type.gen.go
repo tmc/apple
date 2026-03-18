@@ -36,12 +36,6 @@ func (mc MLModelStructureProgramValueTypeClass) Alloc() MLModelStructureProgramV
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing the type of a value or a variable in the Program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramValueType
@@ -53,14 +47,10 @@ type MLModelStructureProgramValueType struct {
 //
 // A class representing the type of a value or a variable in the Program.
 func MLModelStructureProgramValueTypeFromID(id objc.ID) MLModelStructureProgramValueType {
-	return MLModelStructureProgramValueType{objectivec.Object{id}}
+	return MLModelStructureProgramValueType{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramValueType implements IMLModelStructureProgramValueType.
 var _ IMLModelStructureProgramValueType = MLModelStructureProgramValueType{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramValueType] class.
 //
@@ -68,10 +58,6 @@ var _ IMLModelStructureProgramValueType = MLModelStructureProgramValueType{}
 type IMLModelStructureProgramValueType interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLModelStructureProgramValueType) Init() MLModelStructureProgramValueType {
@@ -91,38 +77,4 @@ func NewMLModelStructureProgramValueType() MLModelStructureProgramValueType {
 	rv := objc.Send[MLModelStructureProgramValueType](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

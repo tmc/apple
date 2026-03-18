@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>) objects.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSSoundDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSSoundDelegateObject wraps an existing Objective-C object that conforms to the NSSoundDelegate protocol.
 type NSSoundDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSSoundDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSoundDelegateObjectFromID constructs a [NSSoundDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
@@ -37,9 +31,6 @@ func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // This delegate method is called when an [NSSound] instance has completed
 // playback of its sound data.
@@ -57,10 +48,6 @@ func (o NSSoundDelegateObject) SoundDidFinishPlaying(sound INSSound, flag bool) 
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, flag)
 	}
-
-
-
-
 
 // NSSoundDelegateConfig holds optional typed callbacks for [NSSoundDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -122,8 +109,4 @@ func NewNSSoundDelegate(config NSSoundDelegateConfig) NSSoundDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSoundDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -16,8 +16,6 @@ type NSCollectionViewElement interface {
 	NSUserInterfaceItemIdentification
 }
 
-
-
 // NSCollectionViewElementObject wraps an existing Objective-C object that conforms to the NSCollectionViewElement protocol.
 type NSCollectionViewElementObject struct {
 	objectivec.Object
@@ -26,8 +24,6 @@ func (o NSCollectionViewElementObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCollectionViewElementObjectFromID constructs a [NSCollectionViewElementObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionViewElementObjectFromID(id objc.ID) NSCollectionViewElementObject {
@@ -35,9 +31,6 @@ func NSCollectionViewElementObjectFromID(id objc.ID) NSCollectionViewElementObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Performs any necessary cleanup to prepare the element for use again.
 //
@@ -175,14 +168,7 @@ func (o NSCollectionViewElementObject) Identifier() NSUserInterfaceItemIdentifie
 	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
 	}
 
-
-
-
 func (o NSCollectionViewElementObject) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
-
-
-
 

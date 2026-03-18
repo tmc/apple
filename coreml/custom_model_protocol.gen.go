@@ -19,8 +19,6 @@ type MLCustomModel interface {
 	PredictionFromFeaturesOptionsError(input MLFeatureProvider, options IMLPredictionOptions) (MLFeatureProvider, error)
 }
 
-
-
 // MLCustomModelObject wraps an existing Objective-C object that conforms to the MLCustomModel protocol.
 type MLCustomModelObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o MLCustomModelObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MLCustomModelObjectFromID constructs a [MLCustomModelObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MLCustomModelObjectFromID(id objc.ID) MLCustomModelObject {
@@ -38,9 +34,6 @@ func MLCustomModelObjectFromID(id objc.ID) MLCustomModelObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Predicts output values from the given input features.
 //
@@ -84,10 +77,4 @@ func (o MLCustomModelObject) PredictionsFromBatchOptionsError(inputBatch MLBatch
 	}
 	return MLBatchProviderObjectFromID(rv), nil
 	}
-
-
-
-
-
-
 

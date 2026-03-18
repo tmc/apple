@@ -36,12 +36,6 @@ func (mc MLModelStructurePipelineClass) Alloc() MLModelStructurePipeline {
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing the structure of a Pipeline model.
 //
 // # Accessing the models and model names
@@ -58,14 +52,10 @@ type MLModelStructurePipeline struct {
 //
 // A class representing the structure of a Pipeline model.
 func MLModelStructurePipelineFromID(id objc.ID) MLModelStructurePipeline {
-	return MLModelStructurePipeline{objectivec.Object{id}}
+	return MLModelStructurePipeline{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructurePipeline implements IMLModelStructurePipeline.
 var _ IMLModelStructurePipeline = MLModelStructurePipeline{}
-
-
-
-
 
 // An interface definition for the [MLModelStructurePipeline] class.
 //
@@ -86,10 +76,6 @@ type IMLModelStructurePipeline interface {
 	SubModels() []MLModelStructure
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructurePipeline) Init() MLModelStructurePipeline {
 	rv := objc.Send[MLModelStructurePipeline](m.ID, objc.Sel("init"))
@@ -109,26 +95,6 @@ func NewMLModelStructurePipeline() MLModelStructurePipeline {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The names of the sub models in the pipeline.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/subModelNames
@@ -136,8 +102,6 @@ func (m MLModelStructurePipeline) SubModelNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("subModelNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The structure of the sub models in the pipeline.
 //
@@ -148,20 +112,4 @@ func (m MLModelStructurePipeline) SubModels() []MLModelStructure {
 		return MLModelStructureFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

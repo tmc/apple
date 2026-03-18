@@ -39,12 +39,6 @@ func (nc NSMatrixClass) Alloc() NSMatrix {
 	return rv
 }
 
-
-
-
-
-
-
 // A legacy interface for grouping radio buttons or other types of cells
 // together.
 //
@@ -219,10 +213,6 @@ func NSMatrixFromID(id objc.ID) NSMatrix {
 }
 // NOTE: NSMatrix adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMatrix] class.
 //
@@ -413,7 +403,7 @@ type INSMatrix interface {
 	CellSize() corefoundation.CGSize
 	SetCellSize(value corefoundation.CGSize)
 	// Obtains the number of rows and columns in the receiver.
-	GetNumberOfRowsColumns(rowCount int, colCount int)
+	GetNumberOfRowsColumns(rowCount unsafe.Pointer, colCount unsafe.Pointer)
 	// Inserts a new column of cells at the specified location.
 	InsertColumn(column int)
 	// Inserts a new column of cells before the specified column, using the given cells.
@@ -453,9 +443,9 @@ type INSMatrix interface {
 	// Topic: Finding Matrix Coordinates
 
 	// Indicates whether the specified point lies within one of the cells of the matrix and returns the location of the cell within which the point lies.
-	GetRowColumnForPoint(row int, col int, point corefoundation.CGPoint) bool
+	GetRowColumnForPoint(point corefoundation.CGPoint) (int, int, bool)
 	// Searches the receiver for the specified cell and returns the row and column of the cell
-	GetRowColumnOfCell(row int, col int, cell INSCell) bool
+	GetRowColumnOfCell(cell NSCell) (int, int, bool)
 
 	// Topic: Managing Attributes of Individual Cells
 
@@ -581,13 +571,7 @@ type INSMatrix interface {
 
 	// The flags in effect at the mouse-down event that started the current tracking session.
 	MouseDownFlags() int
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMatrix) Init() NSMatrix {
@@ -608,11 +592,6 @@ func NewNSMatrix() NSMatrix {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -621,7 +600,6 @@ func NewMatrixWithCoder(coder foundation.INSCoder) NSMatrix {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMatrixFromID(rv)
 }
-
 
 // Initializes a newly allocated matrix with the specified frame.
 //
@@ -643,7 +621,6 @@ func NewMatrixWithFrame(frameRect corefoundation.CGRect) NSMatrix {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSMatrixFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated matrix of the specified size
 // using cells of the given class.
@@ -679,7 +656,6 @@ func NewMatrixWithFrameModeCellClassNumberOfRowsNumberOfColumns(frameRect corefo
 	return NSMatrixFromID(rv)
 }
 
-
 // Initializes and returns a newly allocated matrix of the specified size
 // using the given cell as a prototype.
 //
@@ -708,12 +684,6 @@ func NewMatrixWithFrameModePrototypeNumberOfRowsNumberOfColumns(frameRect corefo
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:mode:prototype:numberOfRows:numberOfColumns:"), frameRect, mode, cell, rowsHigh, colsWide)
 	return NSMatrixFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a newly allocated matrix of the specified size
 // using cells of the given class.
@@ -886,7 +856,7 @@ func (m NSMatrix) CellFrameAtRowColumn(row int, col int) corefoundation.CGRect {
 // colCount: On return, the number of columns in the matrix.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/getNumberOfRows(_:columns:)
-func (m NSMatrix) GetNumberOfRowsColumns(rowCount int, colCount int) {
+func (m NSMatrix) GetNumberOfRowsColumns(rowCount unsafe.Pointer, colCount unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("getNumberOfRows:columns:"), rowCount, colCount)
 }
 
@@ -1138,9 +1108,11 @@ func (m NSMatrix) SortUsingSelector(comparator objc.SEL) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/getRow(_:column:for:)
-func (m NSMatrix) GetRowColumnForPoint(row int, col int, point corefoundation.CGPoint) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("getRow:column:forPoint:"), row, col, point)
-	return rv
+func (m NSMatrix) GetRowColumnForPoint(point corefoundation.CGPoint) (int, int, bool) {
+	var row int
+	var col int
+	rv := objc.Send[bool](m.ID, objc.Sel("getRow:column:forPoint:"), unsafe.Pointer(&row), unsafe.Pointer(&col), point)
+	return row, col, rv
 }
 
 // Searches the receiver for the specified cell and returns the row and column
@@ -1164,9 +1136,11 @@ func (m NSMatrix) GetRowColumnForPoint(row int, col int, point corefoundation.CG
 // .
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/getRow(_:column:of:)
-func (m NSMatrix) GetRowColumnOfCell(row int, col int, cell INSCell) bool {
-	rv := objc.Send[bool](m.ID, objc.Sel("getRow:column:ofCell:"), row, col, cell)
-	return rv
+func (m NSMatrix) GetRowColumnOfCell(cell NSCell) (int, int, bool) {
+	var row int
+	var col int
+	rv := objc.Send[bool](m.ID, objc.Sel("getRow:column:ofCell:"), unsafe.Pointer(&row), unsafe.Pointer(&col), cell)
+	return row, col, rv
 }
 
 // Sets the state of the cell at specified location.
@@ -1724,20 +1698,6 @@ func (m NSMatrix) ViewStringForToolTipPointUserData(view INSView, tag objectivec
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("view:stringForToolTip:point:userData:"), view, tag, point, data)
 	return foundation.NSStringFromID(rv).String()
 }
-func (m NSMatrix) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The selection mode of the receiver.
 //
@@ -1755,8 +1715,6 @@ func (m NSMatrix) Mode() NSMatrixMode {
 func (m NSMatrix) SetMode(value NSMatrixMode) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMode:"), value)
 }
-
-
 
 // A Boolean that indicates whether a radio-mode matrix supports an empty
 // selection.
@@ -1778,8 +1736,6 @@ func (m NSMatrix) AllowsEmptySelection() bool {
 func (m NSMatrix) SetAllowsEmptySelection(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowsEmptySelection:"), value)
 }
-
-
 
 // A Boolean that indicates whether the user can select a rectangle of cells
 // in the receiver by dragging the cursor.
@@ -1803,8 +1759,6 @@ func (m NSMatrix) SetSelectionByRect(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSelectionByRect:"), value)
 }
 
-
-
 // The prototype cell that’s copied whenever the matrix creates a new cell.
 //
 // # Discussion
@@ -1819,8 +1773,6 @@ func (m NSMatrix) Prototype() INSCell {
 func (m NSMatrix) SetPrototype(value INSCell) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrototype:"), value)
 }
-
-
 
 // The size of each cell in the matrix.
 //
@@ -1838,8 +1790,6 @@ func (m NSMatrix) SetCellSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCellSize:"), value)
 }
 
-
-
 // The vertical and horizontal spacing between cells in the matrix.
 //
 // # Discussion
@@ -1855,8 +1805,6 @@ func (m NSMatrix) SetIntercellSpacing(value corefoundation.CGSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIntercellSpacing:"), value)
 }
 
-
-
 // The number of columns in the matrix.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/numberOfColumns
@@ -1865,8 +1813,6 @@ func (m NSMatrix) NumberOfColumns() int {
 	return rv
 }
 
-
-
 // The number of rows in the matrix.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/numberOfRows
@@ -1874,8 +1820,6 @@ func (m NSMatrix) NumberOfRows() int {
 	rv := objc.Send[int](m.ID, objc.Sel("numberOfRows"))
 	return rv
 }
-
-
 
 // A Boolean that indicates whether the matrix auto-recalculates its cell
 // size.
@@ -1903,8 +1847,6 @@ func (m NSMatrix) SetAutorecalculatesCellSize(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAutorecalculatesCellSize:"), value)
 }
 
-
-
 // The cell that will be clicked when the user presses the Space bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/keyCell
@@ -1915,8 +1857,6 @@ func (m NSMatrix) KeyCell() INSCell {
 func (m NSMatrix) SetKeyCell(value INSCell) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKeyCell:"), value)
 }
-
-
 
 // An array containing all of the matrix’s highlighted cells plus its
 // selected cell.
@@ -1939,8 +1879,6 @@ func (m NSMatrix) SelectedCells() []NSCell {
 	})
 }
 
-
-
 // The column number of the selected cell.
 //
 // # Discussion
@@ -1954,8 +1892,6 @@ func (m NSMatrix) SelectedColumn() int {
 	rv := objc.Send[int](m.ID, objc.Sel("selectedColumn"))
 	return rv
 }
-
-
 
 // The row number of the selected cell.
 //
@@ -1971,8 +1907,6 @@ func (m NSMatrix) SelectedRow() int {
 	return rv
 }
 
-
-
 // An array containing the cells of the matrix.
 //
 // # Discussion
@@ -1987,8 +1921,6 @@ func (m NSMatrix) Cells() []NSCell {
 		return NSCellFromID(id)
 	})
 }
-
-
 
 // The background color of the matrix (the space between the cells).
 //
@@ -2010,8 +1942,6 @@ func (m NSMatrix) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
-
-
 // The background color of the matrix’s cells.
 //
 // # Discussion
@@ -2031,8 +1961,6 @@ func (m NSMatrix) SetCellBackgroundColor(value INSColor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCellBackgroundColor:"), value)
 }
 
-
-
 // A Boolean that indicates whether the matrix draws its background.
 //
 // # Discussion
@@ -2050,8 +1978,6 @@ func (m NSMatrix) DrawsBackground() bool {
 func (m NSMatrix) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDrawsBackground:"), value)
 }
-
-
 
 // A Boolean that indicates whether the matrix draws the background within
 // each of its cells.
@@ -2071,8 +1997,6 @@ func (m NSMatrix) DrawsCellBackground() bool {
 func (m NSMatrix) SetDrawsCellBackground(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDrawsCellBackground:"), value)
 }
-
-
 
 // A Boolean that indicates whether pressing the Tab key advances the key cell
 // to the next selectable cell.
@@ -2102,8 +2026,6 @@ func (m NSMatrix) SetTabKeyTraversesCells(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTabKeyTraversesCells:"), value)
 }
 
-
-
 // The delegate for messages from the field editor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/delegate
@@ -2114,8 +2036,6 @@ func (m NSMatrix) Delegate() NSMatrixDelegate {
 func (m NSMatrix) SetDelegate(value NSMatrixDelegate) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean that indicates whether the cell sizes change when the receiver is
 // resized.
@@ -2141,8 +2061,6 @@ func (m NSMatrix) SetAutosizesCells(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAutosizesCells:"), value)
 }
 
-
-
 // The action sent to the target of the receiver when the user double-clicks a
 // cell.
 //
@@ -2167,8 +2085,6 @@ func (m NSMatrix) SetDoubleAction(value objc.SEL) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDoubleAction:"), value)
 }
 
-
-
 // The flags in effect at the mouse-down event that started the current
 // tracking session.
 //
@@ -2187,49 +2103,9 @@ func (m NSMatrix) MouseDownFlags() int {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
 
-
-
-
 			// Protocol methods for NSViewToolTipOwner
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

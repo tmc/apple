@@ -39,12 +39,6 @@ func (mc MLModelAssetClass) Alloc() MLModelAsset {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstraction of a compiled Core ML model asset.
 //
 // # Overview
@@ -74,14 +68,10 @@ type MLModelAsset struct {
 //
 // An abstraction of a compiled Core ML model asset.
 func MLModelAssetFromID(id objc.ID) MLModelAsset {
-	return MLModelAsset{objectivec.Object{id}}
+	return MLModelAsset{objectivec.Object{ID: id}}
 }
 // NOTE: MLModelAsset adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLModelAsset] class.
 //
@@ -111,10 +101,6 @@ type IMLModelAsset interface {
 	ModelDescriptionOfFunctionNamedCompletionHandler(functionName string, handler MLModelDescriptionErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelAsset) Init() MLModelAsset {
 	rv := objc.Send[MLModelAsset](m.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewMLModelAsset() MLModelAsset {
 	rv := objc.Send[MLModelAsset](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Construct a model asset from an ML Program specification by replacing blob
 // file references with corresponding in-memory blobs.
@@ -165,7 +146,6 @@ func NewModelAssetWithSpecificationDataBlobMappingError(specificationData founda
 	return MLModelAssetFromID(rv), nil
 }
 
-
 // Creates a model asset from an in-memory model specification.
 //
 // specificationData: The contents of a `XCUIElementTypeMlmodel` as a data blob.
@@ -180,7 +160,6 @@ func NewModelAssetWithSpecificationDataError(specificationData foundation.INSDat
 	}
 	return MLModelAssetFromID(rv), nil
 }
-
 
 // Constructs a ModelAsset from a compiled model URL.
 //
@@ -201,12 +180,6 @@ func NewModelAssetWithURLError(compiledModelURL foundation.INSURL) (MLModelAsset
 	return MLModelAssetFromID(rv), nil
 }
 
-
-
-
-
-
-
 // The list of function names in the model asset.
 //
 // # Discussion
@@ -219,9 +192,9 @@ func NewModelAssetWithURLError(compiledModelURL foundation.INSURL) (MLModelAsset
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/functionNames(completionHandler:)
 func (m MLModelAsset) FunctionNamesWithCompletionHandler(handler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
 }
 
 // The default model descripton.
@@ -237,9 +210,9 @@ func (m MLModelAsset) FunctionNamesWithCompletionHandler(handler ErrorHandler) {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelDescription(completionHandler:)
 func (m MLModelAsset) ModelDescriptionWithCompletionHandler(handler MLModelDescriptionErrorHandler) {
-		_block0, _cleanup0 := NewMLModelDescriptionErrorBlock(handler)
+_block0, _cleanup0 := NewMLModelDescriptionErrorBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
 }
 
 // The model descripton for a specified function.
@@ -251,36 +224,10 @@ func (m MLModelAsset) ModelDescriptionWithCompletionHandler(handler MLModelDescr
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelDescription(ofFunctionNamed:completionHandler:)
 func (m MLModelAsset) ModelDescriptionOfFunctionNamedCompletionHandler(functionName string, handler MLModelDescriptionErrorHandler) {
-		_block1, _cleanup1 := NewMLModelDescriptionErrorBlock(handler)
+_block1, _cleanup1 := NewMLModelDescriptionErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:completionHandler:"), objc.String(functionName), _block1)
+	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:completionHandler:"), objc.String(functionName), _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // FunctionNames is a synchronous wrapper around [MLModelAsset.FunctionNamesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -334,9 +281,4 @@ func (m MLModelAsset) ModelDescriptionOfFunctionNamed(ctx context.Context, funct
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

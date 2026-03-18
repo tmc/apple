@@ -37,12 +37,6 @@ func (nc NSSplitViewItemClass) Alloc() NSSplitViewItem {
 	return rv
 }
 
-
-
-
-
-
-
 // An item in a split view controller.
 //
 // # Overview
@@ -127,14 +121,10 @@ type NSSplitViewItem struct {
 //
 // An item in a split view controller.
 func NSSplitViewItemFromID(id objc.ID) NSSplitViewItem {
-	return NSSplitViewItem{objectivec.Object{id}}
+	return NSSplitViewItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSSplitViewItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSplitViewItem] class.
 //
@@ -286,10 +276,6 @@ type INSSplitViewItem interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSplitViewItem) Init() NSSplitViewItem {
 	rv := objc.Send[NSSplitViewItem](s.ID, objc.Sel("init"))
@@ -308,11 +294,6 @@ func NewNSSplitViewItem() NSSplitViewItem {
 	rv := objc.Send[NSSplitViewItem](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a split view item that represents a content list for the specified
 // view controller.
@@ -335,14 +316,12 @@ func NewSplitViewItemContentListWithViewController(viewController INSViewControl
 	return NSSplitViewItemFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(inspectorWithViewController:)
 func NewSplitViewItemInspectorWithViewController(viewController INSViewController) NSSplitViewItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSSplitViewItemClass().class), objc.Sel("inspectorWithViewController:"), viewController)
 	return NSSplitViewItemFromID(rv)
 }
-
 
 // Creates a split view item that represents a sidebar for the specified view
 // controller.
@@ -372,7 +351,6 @@ func NewSplitViewItemSidebarWithViewController(viewController INSViewController)
 	return NSSplitViewItemFromID(rv)
 }
 
-
 // Creates a split view item that represents the specified view controller.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/init(viewController:)
@@ -380,12 +358,6 @@ func NewSplitViewItemWithViewController(viewController INSViewController) NSSpli
 	rv := objc.Send[objc.ID](objc.ID(getNSSplitViewItemClass().class), objc.Sel("splitViewItemWithViewController:"), viewController)
 	return NSSplitViewItemFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/addTopAlignedAccessoryViewController(_:)
@@ -487,10 +459,6 @@ func (s NSSplitViewItem) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns the default animation that should be performed for the specified
 // key.
 //
@@ -532,13 +500,6 @@ func (_NSSplitViewItemClass NSSplitViewItemClass) DefaultAnimationForKey(key NSA
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // The maximum thickness of the split view item when it resizes due to
 // automatic sizing.
 //
@@ -563,8 +524,6 @@ func (s NSSplitViewItem) AutomaticMaximumThickness() float64 {
 func (s NSSplitViewItem) SetAutomaticMaximumThickness(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutomaticMaximumThickness:"), value)
 }
-
-
 
 // The preferred thickness of the split view item relative to the split view.
 //
@@ -591,8 +550,6 @@ func (s NSSplitViewItem) SetPreferredThicknessFraction(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredThicknessFraction:"), value)
 }
 
-
-
 // The minimum thickness of the split view item.
 //
 // # Discussion
@@ -615,8 +572,6 @@ func (s NSSplitViewItem) MinimumThickness() float64 {
 func (s NSSplitViewItem) SetMinimumThickness(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumThickness:"), value)
 }
-
-
 
 // The maximum thickness of the split view item.
 //
@@ -641,8 +596,6 @@ func (s NSSplitViewItem) SetMaximumThickness(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumThickness:"), value)
 }
 
-
-
 // The priority for a split view item to hold its size.
 //
 // # Discussion
@@ -665,8 +618,6 @@ func (s NSSplitViewItem) SetHoldingPriority(value NSLayoutPriority) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHoldingPriority:"), value)
 }
 
-
-
 // When YES, other items such as sidebars or inspectors may appear overlaid on
 // top of this item’s `viewController` and this item’s `safeAreaInsets`
 // will be adjusted with respect to overlaid content. Defaults to [NO].
@@ -680,8 +631,6 @@ func (s NSSplitViewItem) SetAutomaticallyAdjustsSafeAreaInsets(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutomaticallyAdjustsSafeAreaInsets:"), value)
 }
 
-
-
 // The standard behavior type of the split view item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/behavior-swift.property
@@ -689,8 +638,6 @@ func (s NSSplitViewItem) Behavior() NSSplitViewItemBehavior {
 	rv := objc.Send[NSSplitViewItemBehavior](s.ID, objc.Sel("behavior"))
 	return NSSplitViewItemBehavior(rv)
 }
-
-
 
 // A Boolean value that determines whether the child view controller that
 // corresponds to the split view item is in a collapsed state in the split
@@ -711,8 +658,6 @@ func (s NSSplitViewItem) SetCollapsed(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCollapsed:"), value)
 }
 
-
-
 // A Boolean value that determines whether a user interaction can collapse the
 // child view controller that corresponds to the split view item.
 //
@@ -731,8 +676,6 @@ func (s NSSplitViewItem) SetCanCollapse(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanCollapse:"), value)
 }
 
-
-
 // The resizing behavior when the split view item toggles its collapsed state.
 //
 // # Discussion
@@ -750,8 +693,6 @@ func (s NSSplitViewItem) CollapseBehavior() NSSplitViewItemCollapseBehavior {
 func (s NSSplitViewItem) SetCollapseBehavior(value NSSplitViewItemCollapseBehavior) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCollapseBehavior:"), value)
 }
-
-
 
 // A Boolean value that determines whether the split view item can temporarily
 // expand during a drag.
@@ -776,8 +717,6 @@ func (s NSSplitViewItem) SetSpringLoaded(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpringLoaded:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/canCollapseFromWindowResize
 func (s NSSplitViewItem) CanCollapseFromWindowResize() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("canCollapseFromWindowResize"))
@@ -786,8 +725,6 @@ func (s NSSplitViewItem) CanCollapseFromWindowResize() bool {
 func (s NSSplitViewItem) SetCanCollapseFromWindowResize(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanCollapseFromWindowResize:"), value)
 }
-
-
 
 // A Boolean value that indicates whether full-height sidebars appear in the
 // window after you set a style mask.
@@ -810,8 +747,6 @@ func (s NSSplitViewItem) SetAllowsFullHeightLayout(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsFullHeightLayout:"), value)
 }
 
-
-
 // The type of separator that the app displays between the title bar and
 // content of a window.
 //
@@ -833,8 +768,6 @@ func (s NSSplitViewItem) SetTitlebarSeparatorStyle(value NSTitlebarSeparatorStyl
 	objc.Send[struct{}](s.ID, objc.Sel("setTitlebarSeparatorStyle:"), value)
 }
 
-
-
 // The following methods allow you to add accessory views to the top/bottom of
 // this splitViewItem. See [NSSplitViewItemAccessoryViewController] for more
 // details.
@@ -850,8 +783,6 @@ func (s NSSplitViewItem) SetTopAlignedAccessoryViewControllers(value []NSSplitVi
 	objc.Send[struct{}](s.ID, objc.Sel("setTopAlignedAccessoryViewControllers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/bottomAlignedAccessoryViewControllers
 func (s NSSplitViewItem) BottomAlignedAccessoryViewControllers() []NSSplitViewItemAccessoryViewController {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("bottomAlignedAccessoryViewControllers"))
@@ -862,8 +793,6 @@ func (s NSSplitViewItem) BottomAlignedAccessoryViewControllers() []NSSplitViewIt
 func (s NSSplitViewItem) SetBottomAlignedAccessoryViewControllers(value []NSSplitViewItemAccessoryViewController) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBottomAlignedAccessoryViewControllers:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The view controller that the split view item represents.
 //
@@ -881,8 +810,6 @@ func (s NSSplitViewItem) SetViewController(value INSViewController) {
 	objc.Send[struct{}](s.ID, objc.Sel("setViewController:"), value)
 }
 
-
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -894,28 +821,4 @@ func (s NSSplitViewItem) Animations() foundation.INSDictionary {
 func (s NSSplitViewItem) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAnimations:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

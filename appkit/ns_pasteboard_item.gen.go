@@ -37,12 +37,6 @@ func (nc NSPasteboardItemClass) Alloc() NSPasteboardItem {
 	return rv
 }
 
-
-
-
-
-
-
 // An item on a pasteboard.
 //
 // # Overview
@@ -112,14 +106,10 @@ type NSPasteboardItem struct {
 //
 // An item on a pasteboard.
 func NSPasteboardItemFromID(id objc.ID) NSPasteboardItem {
-	return NSPasteboardItem{objectivec.Object{id}}
+	return NSPasteboardItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSPasteboardItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPasteboardItem] class.
 //
@@ -197,10 +187,6 @@ type INSPasteboardItem interface {
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSPasteboardItem
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPasteboardItem) Init() NSPasteboardItem {
 	rv := objc.Send[NSPasteboardItem](p.ID, objc.Sel("init"))
@@ -219,11 +205,6 @@ func NewNSPasteboardItem() NSPasteboardItem {
 	rv := objc.Send[NSPasteboardItem](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an instance with a property list object and a type string.
 //
@@ -256,12 +237,6 @@ func NewPasteboardItemWithPasteboardPropertyListOfType(propertyList objectivec.I
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return NSPasteboardItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns from a given array of types the first type within the pasteboard
 // item, according to the ordering of types.
@@ -525,10 +500,6 @@ func (p NSPasteboardItem) WritingOptionsForTypePasteboard(type_ NSPasteboardType
 	return NSPasteboardWritingOptions(rv)
 }
 
-
-
-
-
 // Returns an array of uniform type identifier strings of data types the
 // receiver can read from the pasteboard and initialize from.
 //
@@ -586,13 +557,6 @@ func (_NSPasteboardItemClass NSPasteboardItemClass) ReadingOptionsForTypePastebo
 	return NSPasteboardReadingOptions(rv)
 }
 
-
-
-
-
-
-
-
 // An array of uniform type identifier strings of the data types that the
 // receiver supports.
 //
@@ -601,8 +565,6 @@ func (p NSPasteboardItem) Types() []string {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("types"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A model object you use for conveying data during a collaboration.
 //
@@ -615,8 +577,6 @@ func (p NSPasteboardItem) SetCollaborationMetadata(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollaborationMetadata:"), value)
 }
 
-
-
 // An array that contains all the items held by the pasteboard.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/pasteboarditems
@@ -628,32 +588,6 @@ func (p NSPasteboardItem) SetPasteboardItems(value INSPasteboardItem) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPasteboardItems:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSPasteboardWriting
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

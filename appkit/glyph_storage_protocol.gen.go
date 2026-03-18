@@ -35,8 +35,6 @@ type NSGlyphStorage interface {
 	SetIntAttributeValueForGlyphAtIndex(attributeTag int, val int, glyphIndex uint)
 }
 
-
-
 // NSGlyphStorageObject wraps an existing Objective-C object that conforms to the NSGlyphStorage protocol.
 type NSGlyphStorageObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o NSGlyphStorageObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSGlyphStorageObjectFromID constructs a [NSGlyphStorageObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSGlyphStorageObjectFromID(id objc.ID) NSGlyphStorageObject {
@@ -54,9 +50,6 @@ func NSGlyphStorageObjectFromID(id objc.ID) NSGlyphStorageObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the text storage object from which the [NSGlyphGenerator] object
 // procures characters for glyph generation.
@@ -131,10 +124,4 @@ func (o NSGlyphStorageObject) SetIntAttributeValueForGlyphAtIndex(attributeTag i
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setIntAttribute:value:forGlyphAtIndex:"), attributeTag, val, glyphIndex)
 	}
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSCustomImageRepClass) Alloc() NSCustomImageRep {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that uses a delegate object to render an image from a custom
 // format.
 //
@@ -83,10 +77,6 @@ func NSCustomImageRepFromID(id objc.ID) NSCustomImageRep {
 // NOTE: NSCustomImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCustomImageRep] class.
 //
 // # Creating Representations of Images in Custom Formats
@@ -125,13 +115,7 @@ type INSCustomImageRep interface {
 	Delegate() objectivec.IObject
 	// The selector for the delegate’s drawing method.
 	DrawSelector() objc.SEL
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCustomImageRep) Init() NSCustomImageRep {
@@ -152,11 +136,6 @@ func NewNSCustomImageRep() NSCustomImageRep {
 	return rv
 }
 
-
-
-
-
-
 // Creates and returns an image representation object from data in an
 // unarchiver.
 //
@@ -166,7 +145,6 @@ func NewCustomImageRepWithCoder(coder foundation.INSCoder) NSCustomImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCustomImageRepFromID(rv)
 }
-
 
 // Returns a representation of an image initialized with the specified
 // delegate information.
@@ -195,7 +173,6 @@ func NewCustomImageRepWithDrawSelectorDelegate(selector objc.SEL, delegate objec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDrawSelector:delegate:"), selector, delegate)
 	return NSCustomImageRepFromID(rv)
 }
-
 
 // Initializes a representation of an image of the specified size and flipped
 // status, using a block to draw its content.
@@ -242,12 +219,6 @@ func NewCustomImageRepWithSizeFlippedDrawingHandler(size corefoundation.CGSize, 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, drawingHandlerShouldBeCalledWithFlippedContext, drawingHandler)
 	return NSCustomImageRepFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a representation of an image initialized with the specified
 // delegate information.
@@ -317,27 +288,13 @@ func (c NSCustomImageRep) InitWithDrawSelectorDelegate(selector objc.SEL, delega
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/init(size:flipped:drawingHandler:)
 func (c NSCustomImageRep) InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler ErrorHandler) NSCustomImageRep {
-		_block1, _cleanup1 := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
+_block1, _cleanup1 := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
 	defer _cleanup1()
 	_block2, _cleanup2 := NewErrorBlock(drawingHandler)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, _block1, _block2)
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, _block1, _block2)
 	return NSCustomImageRepFromID(rv)
 }
-func (c NSCustomImageRep) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The destination rectangle of the drawing handler block.
 //
@@ -348,8 +305,6 @@ func (c NSCustomImageRep) DrawingHandler() structCGRectHandler {
 	return nil
 }
 
-
-
 // The delegate object that renders the image for the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/delegate
@@ -358,8 +313,6 @@ func (c NSCustomImageRep) Delegate() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The selector for the delegate’s drawing method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/drawSelector
@@ -367,30 +320,4 @@ func (c NSCustomImageRep) DrawSelector() objc.SEL {
 	rv := objc.Send[objc.SEL](c.ID, objc.Sel("drawSelector"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

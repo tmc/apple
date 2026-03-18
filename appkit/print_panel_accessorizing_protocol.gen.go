@@ -20,8 +20,6 @@ type NSPrintPanelAccessorizing interface {
 	LocalizedSummaryItems() foundation.INSDictionary
 }
 
-
-
 // NSPrintPanelAccessorizingObject wraps an existing Objective-C object that conforms to the NSPrintPanelAccessorizing protocol.
 type NSPrintPanelAccessorizingObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o NSPrintPanelAccessorizingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPrintPanelAccessorizingObjectFromID constructs a [NSPrintPanelAccessorizingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPrintPanelAccessorizingObjectFromID(id objc.ID) NSPrintPanelAccessorizingObject {
@@ -39,9 +35,6 @@ func NSPrintPanelAccessorizingObjectFromID(id objc.ID) NSPrintPanelAccessorizing
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns an array of dictionaries containing the localized user setting
 // summary strings.
@@ -112,10 +105,4 @@ func (o NSPrintPanelAccessorizingObject) KeyPathsForValuesAffectingPreview() fou
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("keyPathsForValuesAffectingPreview"))
 	return foundation.NSSetFromID(rv)
 	}
-
-
-
-
-
-
 

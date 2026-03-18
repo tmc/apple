@@ -37,12 +37,6 @@ func (mc MLModelStructureProgramOperationClass) Alloc() MLModelStructureProgramO
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing an Operation in a Program.
 //
 // # Accessing the program operation properties
@@ -61,14 +55,10 @@ type MLModelStructureProgramOperation struct {
 //
 // A class representing an Operation in a Program.
 func MLModelStructureProgramOperationFromID(id objc.ID) MLModelStructureProgramOperation {
-	return MLModelStructureProgramOperation{objectivec.Object{id}}
+	return MLModelStructureProgramOperation{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramOperation implements IMLModelStructureProgramOperation.
 var _ IMLModelStructureProgramOperation = MLModelStructureProgramOperation{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramOperation] class.
 //
@@ -95,10 +85,6 @@ type IMLModelStructureProgramOperation interface {
 	Outputs() []MLModelStructureProgramNamedValueType
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructureProgramOperation) Init() MLModelStructureProgramOperation {
 	rv := objc.Send[MLModelStructureProgramOperation](m.ID, objc.Sel("init"))
@@ -118,26 +104,6 @@ func NewMLModelStructureProgramOperation() MLModelStructureProgramOperation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Nested blocks for loops and conditionals, e.g., a conditional block will
 // have two entries here.
 //
@@ -149,8 +115,6 @@ func (m MLModelStructureProgramOperation) Blocks() []MLModelStructureProgramBloc
 	})
 }
 
-
-
 // The arguments to the Operation.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/inputs
@@ -159,8 +123,6 @@ func (m MLModelStructureProgramOperation) Inputs() foundation.INSDictionary {
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The name of the operator, e.g., “conv”, “pool”, “softmax”, etc.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/operatorName
@@ -168,8 +130,6 @@ func (m MLModelStructureProgramOperation) OperatorName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("operatorName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The outputs of the Operation.
 //
@@ -180,20 +140,4 @@ func (m MLModelStructureProgramOperation) Outputs() []MLModelStructureProgramNam
 		return MLModelStructureProgramNamedValueTypeFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

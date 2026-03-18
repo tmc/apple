@@ -17,8 +17,6 @@ type NSAccessibilityGroup interface {
 	NSAccessibilityElementProtocol
 }
 
-
-
 // NSAccessibilityGroupObject wraps an existing Objective-C object that conforms to the NSAccessibilityGroup protocol.
 type NSAccessibilityGroupObject struct {
 	objectivec.Object
@@ -27,8 +25,6 @@ func (o NSAccessibilityGroupObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityGroupObjectFromID constructs a [NSAccessibilityGroupObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityGroupObjectFromID(id objc.ID) NSAccessibilityGroupObject {
@@ -36,9 +32,6 @@ func NSAccessibilityGroupObjectFromID(id objc.ID) NSAccessibilityGroupObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the accessibility element’s frame in screen coordinates.
 //
@@ -132,10 +125,4 @@ func (o NSAccessibilityGroupObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

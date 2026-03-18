@@ -37,12 +37,6 @@ func (nc NSMutableFontCollectionClass) Alloc() NSMutableFontCollection {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable collection of font descriptors taken together as a single object.
 //
 // # Overview
@@ -69,10 +63,6 @@ func NSMutableFontCollectionFromID(id objc.ID) NSMutableFontCollection {
 // NOTE: NSMutableFontCollection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableFontCollection] class.
 //
 // # Getting the Font Descriptors
@@ -90,13 +80,7 @@ type INSMutableFontCollection interface {
 	AddQueryForDescriptors(descriptors []NSFontDescriptor)
 	// Edits the query and exclusion arrays by removing the specified font descriptors.
 	RemoveQueryForDescriptors(descriptors []NSFontDescriptor)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMutableFontCollection) Init() NSMutableFontCollection {
@@ -117,11 +101,6 @@ func NewNSMutableFontCollection() NSMutableFontCollection {
 	return rv
 }
 
-
-
-
-
-
 // Creates a mutable font collection containing the fonts that match the
 // specified font descriptors.
 //
@@ -138,7 +117,6 @@ func NewMutableFontCollectionWithDescriptors(queryDescriptors []NSFontDescriptor
 	return NSMutableFontCollectionFromID(rv)
 }
 
-
 // Creates a mutable font collection containing fonts suitable for the
 // specified locale.
 //
@@ -154,7 +132,6 @@ func NewMutableFontCollectionWithLocale(locale foundation.NSLocale) NSMutableFon
 	return NSMutableFontCollectionFromID(rv)
 }
 
-
 // Creates a mutable named font collection object.
 //
 // name: The name to apply to the font collection.
@@ -168,7 +145,6 @@ func NewMutableFontCollectionWithName(name NSFontCollectionName) NSMutableFontCo
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableFontCollectionClass().class), objc.Sel("fontCollectionWithName:"), objc.String(string(name)))
 	return NSMutableFontCollectionFromID(rv)
 }
-
 
 // Creates a mutable font collection with the specified name and font
 // visibility.
@@ -186,12 +162,6 @@ func NewMutableFontCollectionWithNameVisibility(name NSFontCollectionName, visib
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableFontCollectionClass().class), objc.Sel("fontCollectionWithName:visibility:"), objc.String(string(name)), visibility)
 	return NSMutableFontCollectionFromID(rv)
 }
-
-
-
-
-
-
 
 // Edits the query and exclusion arrays by adding the specified font
 // descriptors.
@@ -212,43 +182,4 @@ func (m NSMutableFontCollection) AddQueryForDescriptors(descriptors []NSFontDesc
 func (m NSMutableFontCollection) RemoveQueryForDescriptors(descriptors []NSFontDescriptor) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeQueryForDescriptors:"), objectivec.IObjectSliceToNSArray(descriptors))
 }
-func (m NSMutableFontCollection) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

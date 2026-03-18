@@ -38,12 +38,6 @@ func (nc NSColorWellClass) Alloc() NSColorWell {
 	return rv
 }
 
-
-
-
-
-
-
 // A control that displays a color value and lets the user change that color
 // value.
 //
@@ -117,10 +111,6 @@ func NSColorWellFromID(id objc.ID) NSColorWell {
 }
 // NOTE: NSColorWell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSColorWell] class.
 //
@@ -218,13 +208,7 @@ type INSColorWell interface {
 	// The target object that defines the action you want to perform when someone interacts with the color well.
 	PulldownTarget() objectivec.IObject
 	SetPulldownTarget(value objectivec.IObject)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSColorWell) Init() NSColorWell {
@@ -245,11 +229,6 @@ func NewNSColorWell() NSColorWell {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -258,7 +237,6 @@ func NewColorWellWithCoder(coder foundation.INSCoder) NSColorWell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSColorWellFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -286,7 +264,6 @@ func NewColorWellWithFrame(frameRect corefoundation.CGRect) NSColorWell {
 	return NSColorWellFromID(rv)
 }
 
-
 // Creates a color well that adopts the specified appearance style.
 //
 // style: The style to use to configure the color well control. For a list of
@@ -303,12 +280,6 @@ func NewColorWellWithStyle(style NSColorWellStyle) NSColorWell {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorWellClass().class), objc.Sel("colorWellWithStyle:"), style)
 	return NSColorWellFromID(rv)
 }
-
-
-
-
-
-
 
 // Changes the currently selected color to the color of the specified object.
 //
@@ -373,20 +344,6 @@ func (c NSColorWell) Deactivate() {
 func (c NSColorWell) DrawWellInside(insideRect corefoundation.CGRect) {
 	objc.Send[objc.ID](c.ID, objc.Sel("drawWellInside:"), insideRect)
 }
-func (c NSColorWell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The currently selected color for the color well.
 //
@@ -403,8 +360,6 @@ func (c NSColorWell) Color() INSColor {
 func (c NSColorWell) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
-
-
 
 // A Boolean value that determines whether the color picker supports alpha
 // values.
@@ -433,8 +388,6 @@ func (c NSColorWell) SetSupportsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSupportsAlpha:"), value)
 }
 
-
-
 // The maximum linear exposure a color in this color well can be set to.
 // Defaults to 1 and ignores any value less than 1. If set to a value >= 2,
 // the color picked for this well may have a linear exposure applied to it.
@@ -447,8 +400,6 @@ func (c NSColorWell) MaximumLinearExposure() float64 {
 func (c NSColorWell) SetMaximumLinearExposure(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumLinearExposure:"), value)
 }
-
-
 
 // The appearance and interaction style to apply to the color well.
 //
@@ -468,8 +419,6 @@ func (c NSColorWell) SetColorWellStyle(value NSColorWellStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColorWellStyle:"), value)
 }
 
-
-
 // The image to display on the button portion of a color well that adopts the
 // expanded style.
 //
@@ -488,8 +437,6 @@ func (c NSColorWell) Image() INSImage {
 func (c NSColorWell) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
-
-
 
 // A Boolean value that determines whether the color well has a border.
 //
@@ -514,8 +461,6 @@ func (c NSColorWell) SetBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBordered:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the color well is currently active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/isActive
@@ -523,8 +468,6 @@ func (c NSColorWell) Active() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }
-
-
 
 // The action to perform when someone clicks in the color area of the color
 // well.
@@ -550,8 +493,6 @@ func (c NSColorWell) SetPulldownAction(value objc.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPulldownAction:"), value)
 }
 
-
-
 // The target object that defines the action you want to perform when someone
 // interacts with the color well.
 //
@@ -575,38 +516,4 @@ func (c NSColorWell) PulldownTarget() objectivec.IObject {
 func (c NSColorWell) SetPulldownTarget(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPulldownTarget:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 	return rv
 }
 
-
-
-
-
-
-
 // A view that arranges an array of views horizontally or vertically and
 // updates their placement and sizing when the window size changes.
 //
@@ -202,10 +196,6 @@ func NSStackViewFromID(id objc.ID) NSStackView {
 // NOTE: NSStackView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSStackView] class.
 //
 // # Responding to Stack-Related Changes
@@ -347,12 +337,7 @@ type INSStackView interface {
 
 	// A required constraint.
 	Required() NSLayoutPriority
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSStackView) Init() NSStackView {
@@ -373,11 +358,6 @@ func NewNSStackView() NSStackView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -392,7 +372,6 @@ func NewStackViewWithCoder(coder foundation.INSCoder) NSStackView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSStackViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -415,7 +394,6 @@ func NewStackViewWithFrame(frameRect corefoundation.CGRect) NSStackView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSStackViewFromID(rv)
 }
-
 
 // Creates and returns a stack view with a specified array of views.
 //
@@ -440,12 +418,6 @@ func NewStackViewWithViews(views []NSView) NSStackView {
 	rv := objc.Send[objc.ID](objc.ID(getNSStackViewClass().class), objc.Sel("stackViewWithViews:"), objectivec.IObjectSliceToNSArray(views))
 	return NSStackViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds a view to the end of the stack view gravity area.
 //
@@ -935,20 +907,6 @@ func (s NSStackView) SetClippingResistancePriorityForOrientation(clippingResista
 func (s NSStackView) SetHuggingPriorityForOrientation(huggingPriority NSLayoutPriority, orientation NSLayoutConstraintOrientation) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setHuggingPriority:forOrientation:"), huggingPriority, orientation)
 }
-func (s NSStackView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The delegate object for the stack view.
 //
@@ -967,8 +925,6 @@ func (s NSStackView) SetDelegate(value NSStackViewDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The array of views arranged by the stack view.
 //
 // # Discussion
@@ -985,8 +941,6 @@ func (s NSStackView) ArrangedSubviews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
-
 
 // The array of views owned by the stack view.
 //
@@ -1006,8 +960,6 @@ func (s NSStackView) Views() []NSView {
 	})
 }
 
-
-
 // An array that contains the detached views from all the stack view’s
 // gravity areas.
 //
@@ -1023,8 +975,6 @@ func (s NSStackView) DetachedViews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
-
 
 // The horizontal or vertical layout direction of the stack view.
 //
@@ -1044,8 +994,6 @@ func (s NSStackView) Orientation() NSUserInterfaceLayoutOrientation {
 func (s NSStackView) SetOrientation(value NSUserInterfaceLayoutOrientation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOrientation:"), value)
 }
-
-
 
 // The view alignment within the stack view.
 //
@@ -1074,8 +1022,6 @@ func (s NSStackView) Alignment() NSLayoutAttribute {
 func (s NSStackView) SetAlignment(value NSLayoutAttribute) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAlignment:"), value)
 }
-
-
 
 // The minimum spacing, in points, between adjacent views in the stack view.
 //
@@ -1131,8 +1077,6 @@ func (s NSStackView) SetSpacing(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpacing:"), value)
 }
 
-
-
 // The geometric padding, in points, inside the stack view, surrounding its
 // views.
 //
@@ -1153,8 +1097,6 @@ func (s NSStackView) SetEdgeInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEdgeInsets:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/distribution-swift.property
 func (s NSStackView) Distribution() NSStackViewDistribution {
 	rv := objc.Send[NSStackViewDistribution](s.ID, objc.Sel("distribution"))
@@ -1163,8 +1105,6 @@ func (s NSStackView) Distribution() NSStackViewDistribution {
 func (s NSStackView) SetDistribution(value NSStackViewDistribution) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDistribution:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the stack view removes hidden views
 // from its view hierarchy.
@@ -1192,8 +1132,6 @@ func (s NSStackView) SetDetachesHiddenViews(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDetachesHiddenViews:"), value)
 }
 
-
-
 // A required constraint.
 //
 // See: https://developer.apple.com/documentation/appkit/nslayoutconstraint/priority-swift.struct/required
@@ -1201,38 +1139,4 @@ func (s NSStackView) Required() NSLayoutPriority {
 	rv := objc.Send[NSLayoutPriority](s.ID, objc.Sel("NSLayoutPriorityRequired"))
 	return NSLayoutPriority(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

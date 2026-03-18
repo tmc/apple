@@ -4,14 +4,13 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that you use to manage the behavior of a collection view.
 //
@@ -19,8 +18,6 @@ var _ = fmt.Sprintf
 type NSCollectionViewDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSCollectionViewDelegateObject wraps an existing Objective-C object that conforms to the NSCollectionViewDelegate protocol.
 type NSCollectionViewDelegateObject struct {
@@ -30,8 +27,6 @@ func (o NSCollectionViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCollectionViewDelegateObjectFromID constructs a [NSCollectionViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionViewDelegateObjectFromID(id objc.ID) NSCollectionViewDelegateObject {
@@ -39,9 +34,6 @@ func NSCollectionViewDelegateObjectFromID(id objc.ID) NSCollectionViewDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate to approve the pending selection of items.
 //
@@ -844,7 +836,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionWillBeginAt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndex:dropOperation:)
 
-func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex int, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
+func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex unsafe.Pointer, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndex:dropOperation:"), collectionView, draggingInfo, proposedDropIndex, proposedDropOperation)
 	return rv
@@ -886,10 +878,6 @@ func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexDropOperati
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:acceptDrop:index:dropOperation:"), collectionView, draggingInfo, index, dropOperation)
 	return rv
 	}
-
-
-
-
 
 // NSCollectionViewDelegateConfig holds optional typed callbacks for [NSCollectionViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -1161,8 +1149,4 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSCollectionViewDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -5,7 +5,6 @@ package appkit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [NSTextTableBlock] class.
@@ -35,12 +34,6 @@ func (nc NSTextTableBlockClass) Alloc() NSTextTableBlock {
 	rv := objc.Send[NSTextTableBlock](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A text block that appears as a cell in a text table.
 //
@@ -72,10 +65,6 @@ func NSTextTableBlockFromID(id objc.ID) NSTextTableBlock {
 }
 // NOTE: NSTextTableBlock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextTableBlock] class.
 //
@@ -118,13 +107,7 @@ type INSTextTableBlock interface {
 	StartingColumn() int
 	// Returns the number of table columns spanned by this text table block.
 	ColumnSpan() int
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextTableBlock) Init() NSTextTableBlock {
@@ -144,11 +127,6 @@ func NewNSTextTableBlock() NSTextTableBlock {
 	rv := objc.Send[NSTextTableBlock](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an initialized text table block.
 //
@@ -173,12 +151,6 @@ func NewTextTableBlockWithTableStartingRowRowSpanStartingColumnColumnSpan(table 
 	return NSTextTableBlockFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns an initialized text table block.
 //
 // table: The text table containing this text table block.
@@ -200,20 +172,6 @@ func (t NSTextTableBlock) InitWithTableStartingRowRowSpanStartingColumnColumnSpa
 	rv := objc.Send[NSTextTableBlock](t.ID, objc.Sel("initWithTable:startingRow:rowSpan:startingColumn:columnSpan:"), table, row, rowSpan, col, colSpan)
 	return rv
 }
-func (t NSTextTableBlock) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns the table containing this text table block.
 //
@@ -227,8 +185,6 @@ func (t NSTextTableBlock) Table() INSTextTable {
 	return NSTextTableFromID(objc.ID(rv))
 }
 
-
-
 // Returns the table row at which this text table block starts.
 //
 // # Return Value
@@ -240,8 +196,6 @@ func (t NSTextTableBlock) StartingRow() int {
 	rv := objc.Send[int](t.ID, objc.Sel("startingRow"))
 	return rv
 }
-
-
 
 // Returns the number of table rows spanned by this text table block.
 //
@@ -255,8 +209,6 @@ func (t NSTextTableBlock) RowSpan() int {
 	return rv
 }
 
-
-
 // Returns the table column at which this text table block starts.
 //
 // # Return Value
@@ -269,8 +221,6 @@ func (t NSTextTableBlock) StartingColumn() int {
 	return rv
 }
 
-
-
 // Returns the number of table columns spanned by this text table block.
 //
 // # Return Value
@@ -282,31 +232,4 @@ func (t NSTextTableBlock) ColumnSpan() int {
 	rv := objc.Send[int](t.ID, objc.Sel("columnSpan"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -14,8 +14,6 @@ type NSEditorRegistration interface {
 	objectivec.IObject
 }
 
-
-
 // NSEditorRegistrationObject wraps an existing Objective-C object that conforms to the NSEditorRegistration protocol.
 type NSEditorRegistrationObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSEditorRegistrationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSEditorRegistrationObjectFromID constructs a [NSEditorRegistrationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSEditorRegistrationObjectFromID(id objc.ID) NSEditorRegistrationObject {
@@ -33,9 +29,6 @@ func NSEditorRegistrationObjectFromID(id objc.ID) NSEditorRegistrationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidBeginEditing(_:)
@@ -52,10 +45,4 @@ func (o NSEditorRegistrationObject) ObjectDidEndEditing(editor NSEditor) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("objectDidEndEditing:"), editor)
 	}
-
-
-
-
-
-
 

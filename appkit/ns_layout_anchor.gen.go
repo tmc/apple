@@ -37,12 +37,6 @@ func (nc NSLayoutAnchorClass) Alloc() NSLayoutAnchor {
 	return rv
 }
 
-
-
-
-
-
-
 // A factory class for creating layout constraint objects using a fluent API.
 //
 // # Overview
@@ -94,14 +88,10 @@ type NSLayoutAnchor struct {
 //
 // A factory class for creating layout constraint objects using a fluent API.
 func NSLayoutAnchorFromID(id objc.ID) NSLayoutAnchor {
-	return NSLayoutAnchor{objectivec.Object{id}}
+	return NSLayoutAnchor{objectivec.Object{ID: id}}
 }
 // NOTE: NSLayoutAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSLayoutAnchor] class.
 //
@@ -163,10 +153,6 @@ type INSLayoutAnchor interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l NSLayoutAnchor) Init() NSLayoutAnchor {
 	rv := objc.Send[NSLayoutAnchor](l.ID, objc.Sel("init"))
@@ -185,15 +171,6 @@ func NewNSLayoutAnchor() NSLayoutAnchor {
 	rv := objc.Send[NSLayoutAnchor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a constraint that defines one item’s attribute as equal to
 // another.
@@ -437,17 +414,6 @@ func (l NSLayoutAnchor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The constraints that impact the layout of the anchor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/constraintsAffectingLayout
@@ -458,8 +424,6 @@ func (l NSLayoutAnchor) ConstraintsAffectingLayout() []NSLayoutConstraint {
 	})
 }
 
-
-
 // A Boolean value indicating whether the constraints impacting the anchor
 // specify its location ambiguously.
 //
@@ -469,8 +433,6 @@ func (l NSLayoutAnchor) HasAmbiguousLayout() bool {
 	return rv
 }
 
-
-
 // The name assigned to the anchor for debugging purposes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/name
@@ -479,8 +441,6 @@ func (l NSLayoutAnchor) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The layout item used to calculate the anchor’s position.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/item
@@ -488,8 +448,6 @@ func (l NSLayoutAnchor) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // A layout anchor representing the bottom edge of the view’s frame.
 //
@@ -502,8 +460,6 @@ func (l NSLayoutAnchor) SetBottomAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBottomAnchor:"), value)
 }
 
-
-
 // A layout anchor representing the leading edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leadinganchor
@@ -515,8 +471,6 @@ func (l NSLayoutAnchor) SetLeadingAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLeadingAnchor:"), value)
 }
 
-
-
 // A layout anchor representing the left edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leftanchor
@@ -527,28 +481,4 @@ func (l NSLayoutAnchor) LeftAnchor() INSLayoutXAxisAnchor {
 func (l NSLayoutAnchor) SetLeftAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLeftAnchor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

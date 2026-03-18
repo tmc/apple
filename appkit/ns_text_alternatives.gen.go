@@ -37,12 +37,6 @@ func (nc NSTextAlternativesClass) Alloc() NSTextAlternatives {
 	return rv
 }
 
-
-
-
-
-
-
 // A list of alternative strings for a piece of text.
 //
 // # Overview
@@ -83,14 +77,10 @@ type NSTextAlternatives struct {
 //
 // A list of alternative strings for a piece of text.
 func NSTextAlternativesFromID(id objc.ID) NSTextAlternatives {
-	return NSTextAlternatives{objectivec.Object{id}}
+	return NSTextAlternatives{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextAlternatives adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextAlternatives] class.
 //
@@ -131,10 +121,6 @@ type INSTextAlternatives interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextAlternatives) Init() NSTextAlternatives {
 	rv := objc.Send[NSTextAlternatives](t.ID, objc.Sel("init"))
@@ -154,11 +140,6 @@ func NewNSTextAlternatives() NSTextAlternatives {
 	return rv
 }
 
-
-
-
-
-
 // Initializes an [NSTextAlternatives] instance.
 //
 // primaryString: The string that is initially chosen as the input string.
@@ -176,12 +157,6 @@ func NewTextAlternativesWithPrimaryStringAlternativeStrings(primaryString string
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPrimaryString:alternativeStrings:"), objc.String(primaryString), objectivec.StringSliceToNSArray(alternativeStrings))
 	return NSTextAlternativesFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an [NSTextAlternatives] instance.
 //
@@ -221,17 +196,6 @@ func (t NSTextAlternatives) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The text that was initially chosen as the input string.
 //
 // # Discussion
@@ -244,8 +208,6 @@ func (t NSTextAlternatives) PrimaryString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("primaryString"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // An array of alternative possible interpretations that the user might
 // select.
@@ -260,28 +222,4 @@ func (t NSTextAlternatives) AlternativeStrings() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("alternativeStrings"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

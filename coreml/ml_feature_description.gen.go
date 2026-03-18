@@ -37,12 +37,6 @@ func (mc MLFeatureDescriptionClass) Alloc() MLFeatureDescription {
 	return rv
 }
 
-
-
-
-
-
-
 // The name, type, and constraints of an input or output feature.
 //
 // # Overview
@@ -95,14 +89,10 @@ type MLFeatureDescription struct {
 //
 // The name, type, and constraints of an input or output feature.
 func MLFeatureDescriptionFromID(id objc.ID) MLFeatureDescription {
-	return MLFeatureDescription{objectivec.Object{id}}
+	return MLFeatureDescription{objectivec.Object{ID: id}}
 }
 // NOTE: MLFeatureDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLFeatureDescription] class.
 //
@@ -167,10 +157,6 @@ type IMLFeatureDescription interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MLFeatureDescription) Init() MLFeatureDescription {
 	rv := objc.Send[MLFeatureDescription](f.ID, objc.Sel("init"))
@@ -189,15 +175,6 @@ func NewMLFeatureDescription() MLFeatureDescription {
 	rv := objc.Send[MLFeatureDescription](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Checks whether the model will accept an input feature value.
 //
@@ -218,17 +195,6 @@ func (f MLFeatureDescription) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of this feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/name
@@ -237,8 +203,6 @@ func (f MLFeatureDescription) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The type of this feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/type
@@ -246,8 +210,6 @@ func (f MLFeatureDescription) Type() MLFeatureType {
 	rv := objc.Send[MLFeatureType](f.ID, objc.Sel("type"))
 	return MLFeatureType(rv)
 }
-
-
 
 // A Boolean value that indicates whether this feature is optional.
 //
@@ -262,8 +224,6 @@ func (f MLFeatureDescription) Optional() bool {
 	return rv
 }
 
-
-
 // The state feature value constraint.
 //
 // # Discussion
@@ -276,8 +236,6 @@ func (f MLFeatureDescription) StateConstraint() IMLStateConstraint {
 	return MLStateConstraintFromID(objc.ID(rv))
 }
 
-
-
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/imageConstraint
@@ -285,8 +243,6 @@ func (f MLFeatureDescription) ImageConstraint() IMLImageConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("imageConstraint"))
 	return MLImageConstraintFromID(objc.ID(rv))
 }
-
-
 
 // The constraint for a dictionary feature.
 //
@@ -296,8 +252,6 @@ func (f MLFeatureDescription) DictionaryConstraint() IMLDictionaryConstraint {
 	return MLDictionaryConstraintFromID(objc.ID(rv))
 }
 
-
-
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/multiArrayConstraint
@@ -306,8 +260,6 @@ func (f MLFeatureDescription) MultiArrayConstraint() IMLMultiArrayConstraint {
 	return MLMultiArrayConstraintFromID(objc.ID(rv))
 }
 
-
-
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/sequenceConstraint
@@ -315,8 +267,6 @@ func (f MLFeatureDescription) SequenceConstraint() IMLSequenceConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sequenceConstraint"))
 	return MLSequenceConstraintFromID(objc.ID(rv))
 }
-
-
 
 // A dictionary of input feature descriptions, which the model keys by the
 // input’s name.
@@ -330,8 +280,6 @@ func (f MLFeatureDescription) SetInputDescriptionsByName(value IMLFeatureDescrip
 	objc.Send[struct{}](f.ID, objc.Sel("setInputDescriptionsByName:"), value)
 }
 
-
-
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -344,8 +292,6 @@ func (f MLFeatureDescription) SetOutputDescriptionsByName(value IMLFeatureDescri
 	objc.Send[struct{}](f.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
 
-
-
 // Description of the state features.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodeldescription/statedescriptionsbyname
@@ -356,29 +302,4 @@ func (f MLFeatureDescription) StateDescriptionsByName() IMLFeatureDescription {
 func (f MLFeatureDescription) SetStateDescriptionsByName(value IMLFeatureDescription) {
 	objc.Send[struct{}](f.ID, objc.Sel("setStateDescriptionsByName:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

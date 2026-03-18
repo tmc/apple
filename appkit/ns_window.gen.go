@@ -40,12 +40,6 @@ func (nc NSWindowClass) Alloc() NSWindow {
 	return rv
 }
 
-
-
-
-
-
-
 // A window that an app displays on the screen.
 //
 // # Overview
@@ -536,10 +530,6 @@ func NSWindowFromID(id objc.ID) NSWindow {
 }
 // NOTE: NSWindow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSWindow] class.
 //
@@ -1751,12 +1741,7 @@ type INSWindow interface {
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSWindow
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (w NSWindow) Init() NSWindow {
@@ -1777,11 +1762,6 @@ func NewNSWindow() NSWindow {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -1792,7 +1772,6 @@ func NewWindowWithCoder(coder foundation.INSCoder) NSWindow {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSWindowFromID(rv)
 }
-
 
 // Initializes the window with the specified values.
 //
@@ -1843,7 +1822,6 @@ func NewWindowWithContentRectStyleMaskBackingDefer(contentRect corefoundation.CG
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
 	return NSWindowFromID(rv)
 }
-
 
 // Initializes an allocated window with the specified values.
 //
@@ -1899,7 +1877,6 @@ func NewWindowWithContentRectStyleMaskBackingDeferScreen(contentRect corefoundat
 	return NSWindowFromID(rv)
 }
 
-
 // Creates a titled window that contains the specified content view
 // controller.
 //
@@ -1932,7 +1909,6 @@ func NewWindowWithContentViewController(contentViewController INSViewController)
 	return NSWindowFromID(rv)
 }
 
-
 // Returns a Cocoa window created from a Carbon window.
 //
 // windowRef: The Carbon [WindowRef] object to use to create the Cocoa window.
@@ -1960,12 +1936,6 @@ func NewWindowWithWindowRef(windowRef WindowRef) NSWindow {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithWindowRef:"), windowRef)
 	return NSWindowFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the window with the specified values.
 //
@@ -2281,9 +2251,9 @@ func (w NSWindow) FrameRectForContentRect(contentRect corefoundation.CGRect) cor
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/beginSheet(_:completionHandler:)
 func (w NSWindow) BeginSheetCompletionHandler(sheetWindow INSWindow, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](w.ID, objc.Sel("beginSheet:completionHandler:"), sheetWindow, _block1)
+	objc.Send[objc.ID](w.ID, objc.Sel("beginSheet:completionHandler:"), sheetWindow, _block1)
 }
 
 // Starts a document-modal session and presents the specified critical sheet.
@@ -2308,9 +2278,9 @@ func (w NSWindow) BeginSheetCompletionHandler(sheetWindow INSWindow, handler Err
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/beginCriticalSheet(_:completionHandler:)
 func (w NSWindow) BeginCriticalSheetCompletionHandler(sheetWindow INSWindow, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](w.ID, objc.Sel("beginCriticalSheet:completionHandler:"), sheetWindow, _block1)
+	objc.Send[objc.ID](w.ID, objc.Sel("beginCriticalSheet:completionHandler:"), sheetWindow, _block1)
 }
 
 // Ends a document-modal session and dismisses the specified sheet.
@@ -3482,9 +3452,9 @@ func (w NSWindow) RecalculateKeyViewLoop() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/transferWindowSharing(to:completionHandler:)
 func (w NSWindow) TransferWindowSharingToWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](w.ID, objc.Sel("transferWindowSharingToWindow:completionHandler:"), window, _block1)
+	objc.Send[objc.ID](w.ID, objc.Sel("transferWindowSharingToWindow:completionHandler:"), window, _block1)
 }
 
 // Tracks events that match the specified mask using the specified tracking
@@ -3522,9 +3492,9 @@ func (w NSWindow) TransferWindowSharingToWindowCompletionHandler(window INSWindo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/trackEvents(matching:timeout:mode:handler:)
 func (w NSWindow) TrackEventsMatchingMaskTimeoutModeHandler(mask NSEventMask, timeout float64, mode foundation.NSString, trackingHandler ErrorHandler) {
-		_block3, _cleanup3 := NewErrorBlock(trackingHandler)
+_block3, _cleanup3 := NewErrorBlock(trackingHandler)
 	defer _cleanup3()
-		objc.Send[objc.ID](w.ID, objc.Sel("trackEventsMatchingMask:timeout:mode:handler:"), mask, timeout, mode, _block3)
+	objc.Send[objc.ID](w.ID, objc.Sel("trackEventsMatchingMask:timeout:mode:handler:"), mask, timeout, mode, _block3)
 }
 
 // Starts a window drag based on the specified mouse-down event.
@@ -4193,9 +4163,9 @@ func (w NSWindow) BeginDraggingSessionWithItemsEventSource(items []NSDraggingIte
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/requestSharingOfWindow(_:completionHandler:)
 func (w NSWindow) RequestSharingOfWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindow:completionHandler:"), window, _block1)
+	objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindow:completionHandler:"), window, _block1)
 }
 
 //
@@ -4219,9 +4189,9 @@ func (w NSWindow) RequestSharingOfWindowCompletionHandler(window INSWindow, comp
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/requestSharingOfWindow(usingPreview:title:completionHandler:)
 func (w NSWindow) RequestSharingOfWindowUsingPreviewTitleCompletionHandler(image INSImage, title string, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindowUsingPreview:title:completionHandler:"), image, objc.String(title), _block2)
+	objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindowUsingPreview:title:completionHandler:"), image, objc.String(title), _block2)
 }
 
 // Returns the animation that should be performed for the specified key.
@@ -4332,13 +4302,6 @@ func (w NSWindow) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) b
 	rv := objc.Send[bool](w.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-func (w NSWindow) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](w.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Returns the window numbers for all visible windows satisfying the specified
 // options.
@@ -4535,13 +4498,6 @@ func (_NSWindowClass NSWindowClass) DefaultAnimationForKey(key NSAnimatablePrope
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // The window’s delegate.
 //
 // # Discussion
@@ -4561,8 +4517,6 @@ func (w NSWindow) Delegate() NSWindowDelegate {
 func (w NSWindow) SetDelegate(value NSWindowDelegate) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // The main content view controller for the window.
 //
@@ -4592,8 +4546,6 @@ func (w NSWindow) SetContentViewController(value INSViewController) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentViewController:"), value)
 }
 
-
-
 // The window’s content view, the highest accessible view object in the
 // window’s view hierarchy.
 //
@@ -4618,8 +4570,6 @@ func (w NSWindow) SetContentView(value INSView) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentView:"), value)
 }
 
-
-
 // Flags that describe the window’s current style, such as if it’s
 // resizable or in full-screen mode.
 //
@@ -4638,8 +4588,6 @@ func (w NSWindow) StyleMask() NSWindowStyleMask {
 func (w NSWindow) SetStyleMask(value NSWindowStyleMask) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStyleMask:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window is able to receive
 // keyboard and mouse events even when some other window is being run modally.
@@ -4660,8 +4608,6 @@ func (w NSWindow) WorksWhenModal() bool {
 	return rv
 }
 
-
-
 // The window’s alpha value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/alphaValue
@@ -4673,8 +4619,6 @@ func (w NSWindow) SetAlphaValue(value float64) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAlphaValue:"), value)
 }
 
-
-
 // The color of the window’s background.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/backgroundColor
@@ -4685,8 +4629,6 @@ func (w NSWindow) BackgroundColor() INSColor {
 func (w NSWindow) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](w.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // The window’s color space.
 //
@@ -4703,8 +4645,6 @@ func (w NSWindow) ColorSpace() INSColorSpace {
 func (w NSWindow) SetColorSpace(value INSColorSpace) {
 	objc.Send[struct{}](w.ID, objc.Sel("setColorSpace:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window can hide when its
 // application becomes hidden.
@@ -4728,8 +4668,6 @@ func (w NSWindow) SetCanHide(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setCanHide:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is on the currently
 // active space.
 //
@@ -4749,8 +4687,6 @@ func (w NSWindow) OnActiveSpace() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOnActiveSpace"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the window is removed from the
 // screen when its application becomes inactive.
@@ -4774,8 +4710,6 @@ func (w NSWindow) SetHidesOnDeactivate(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setHidesOnDeactivate:"), value)
 }
 
-
-
 // A value that identifies the window’s behavior in window collections.
 //
 // # Discussion
@@ -4793,8 +4727,6 @@ func (w NSWindow) CollectionBehavior() NSWindowCollectionBehavior {
 func (w NSWindow) SetCollectionBehavior(value NSWindowCollectionBehavior) {
 	objc.Send[struct{}](w.ID, objc.Sel("setCollectionBehavior:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window is opaque.
 //
@@ -4815,8 +4747,6 @@ func (w NSWindow) SetOpaque(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setOpaque:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window has a shadow.
 //
 // # Discussion
@@ -4836,8 +4766,6 @@ func (w NSWindow) HasShadow() bool {
 func (w NSWindow) SetHasShadow(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setHasShadow:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window prevents application
 // termination when modal.
@@ -4866,8 +4794,6 @@ func (w NSWindow) SetPreventsApplicationTerminationWhenModal(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPreventsApplicationTerminationWhenModal:"), value)
 }
 
-
-
 // An object that the window inherits its appearance from.
 //
 // # Discussion
@@ -4887,8 +4813,6 @@ func (w NSWindow) AppearanceSource() objectivec.Object {
 func (w NSWindow) SetAppearanceSource(value objectivec.Object) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAppearanceSource:"), value)
 }
-
-
 
 // The depth limit of the window.
 //
@@ -4917,8 +4841,6 @@ func (w NSWindow) SetDepthLimit(value NSWindowDepth) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDepthLimit:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window’s depth limit can
 // change to match the depth of the screen it’s on.
 //
@@ -4939,8 +4861,6 @@ func (w NSWindow) HasDynamicDepthLimit() bool {
 	return rv
 }
 
-
-
 // The window number of the window’s window device.
 //
 // # Discussion
@@ -4960,8 +4880,6 @@ func (w NSWindow) WindowNumber() int {
 	return rv
 }
 
-
-
 // A dictionary containing information about the window’s resolution, such
 // as color, depth, and so on.
 //
@@ -4976,8 +4894,6 @@ func (w NSWindow) DeviceDescription() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deviceDescription"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the window can be displayed at the
 // login window.
@@ -4999,8 +4915,6 @@ func (w NSWindow) SetCanBecomeVisibleWithoutLogin(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setCanBecomeVisibleWithoutLogin:"), value)
 }
 
-
-
 // A Boolean value that indicates the level of access other processes have to
 // the window’s content.
 //
@@ -5019,8 +4933,6 @@ func (w NSWindow) SharingType() NSWindowSharingType {
 func (w NSWindow) SetSharingType(value NSWindowSharingType) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSharingType:"), value)
 }
-
-
 
 // The window’s backing store type.
 //
@@ -5043,8 +4955,6 @@ func (w NSWindow) SetBackingType(value NSBackingStoreType) {
 	objc.Send[struct{}](w.ID, objc.Sel("setBackingType:"), value)
 }
 
-
-
 // The window’s window controller.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/windowController
@@ -5055,8 +4965,6 @@ func (w NSWindow) WindowController() INSWindowController {
 func (w NSWindow) SetWindowController(value INSWindowController) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindowController:"), value)
 }
-
-
 
 // The sheet attached to the window.
 //
@@ -5070,8 +4978,6 @@ func (w NSWindow) AttachedSheet() INSWindow {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("attachedSheet"))
 	return NSWindowFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the window has ever run as a modal
 // sheet.
@@ -5089,8 +4995,6 @@ func (w NSWindow) Sheet() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isSheet"))
 	return rv
 }
-
-
 
 // The window to which the sheet is attached.
 //
@@ -5111,8 +5015,6 @@ func (w NSWindow) SheetParent() INSWindow {
 	return NSWindowFromID(objc.ID(rv))
 }
 
-
-
 // An array of the sheets currently attached to the window.
 //
 // # Discussion
@@ -5130,8 +5032,6 @@ func (w NSWindow) Sheets() []NSWindow {
 	})
 }
 
-
-
 // The window’s frame rectangle in screen coordinates, including the title
 // bar.
 //
@@ -5140,8 +5040,6 @@ func (w NSWindow) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](w.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The window’s aspect ratio, which constrains the size of its frame
 // rectangle to integral multiples of this ratio when the user resizes it.
@@ -5169,8 +5067,6 @@ func (w NSWindow) SetAspectRatio(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAspectRatio:"), value)
 }
 
-
-
 // The minimum size to which the window’s frame (including its title bar)
 // can be sized.
 //
@@ -5190,8 +5086,6 @@ func (w NSWindow) MinSize() corefoundation.CGSize {
 func (w NSWindow) SetMinSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMinSize:"), value)
 }
-
-
 
 // The maximum size to which the window’s frame (including its title bar)
 // can be sized.
@@ -5218,8 +5112,6 @@ func (w NSWindow) MaxSize() corefoundation.CGSize {
 func (w NSWindow) SetMaxSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMaxSize:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window is in a zoomed state.
 //
@@ -5251,8 +5143,6 @@ func (w NSWindow) Zoomed() bool {
 	return rv
 }
 
-
-
 // The flags field of the event record for the mouse-down event that initiated
 // the resizing session.
 //
@@ -5272,8 +5162,6 @@ func (w NSWindow) ResizeFlags() NSEventModifierFlags {
 	rv := objc.Send[NSEventModifierFlags](w.ID, objc.Sel("resizeFlags"))
 	return NSEventModifierFlags(rv)
 }
-
-
 
 // The window’s resizing increments.
 //
@@ -5300,8 +5188,6 @@ func (w NSWindow) ResizeIncrements() corefoundation.CGSize {
 func (w NSWindow) SetResizeIncrements(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setResizeIncrements:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window tries to optimize
 // user-initiated resize operations by preserving the content of views that
@@ -5336,8 +5222,6 @@ func (w NSWindow) SetPreservesContentDuringLiveResize(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPreservesContentDuringLiveResize:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is being resized by the
 // user.
 //
@@ -5354,8 +5238,6 @@ func (w NSWindow) InLiveResize() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("inLiveResize"))
 	return rv
 }
-
-
 
 // The window’s content aspect ratio.
 //
@@ -5377,8 +5259,6 @@ func (w NSWindow) SetContentAspectRatio(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentAspectRatio:"), value)
 }
 
-
-
 // The minimum size of the window’s content view in the window’s base
 // coordinate system.
 //
@@ -5398,8 +5278,6 @@ func (w NSWindow) SetContentMinSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentMinSize:"), value)
 }
 
-
-
 // The maximum size of the window’s content view in the window’s base
 // coordinate system.
 //
@@ -5418,8 +5296,6 @@ func (w NSWindow) ContentMaxSize() corefoundation.CGSize {
 func (w NSWindow) SetContentMaxSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentMaxSize:"), value)
 }
-
-
 
 // The window’s content-view resizing increments.
 //
@@ -5442,8 +5318,6 @@ func (w NSWindow) SetContentResizeIncrements(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentResizeIncrements:"), value)
 }
 
-
-
 // A value used by Auto Layout constraints to automatically bind to the value
 // of [ContentLayoutRect].
 //
@@ -5452,8 +5326,6 @@ func (w NSWindow) ContentLayoutGuide() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("contentLayoutGuide"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The area inside the window that is for non-obscured content, in window
 // coordinates.
@@ -5474,8 +5346,6 @@ func (w NSWindow) ContentLayoutRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](w.ID, objc.Sel("contentLayoutRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // A maximum size that is used to determine if a window can fit when it is in
 // full screen in a tile.
@@ -5502,8 +5372,6 @@ func (w NSWindow) SetMaxFullScreenContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMaxFullScreenContentSize:"), value)
 }
 
-
-
 // A minimum size that is used to determine if a window can fit when it is in
 // full screen in a tile.
 //
@@ -5529,8 +5397,6 @@ func (w NSWindow) SetMinFullScreenContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMinFullScreenContentSize:"), value)
 }
 
-
-
 // The window level of the window.
 //
 // # Discussion
@@ -5551,8 +5417,6 @@ func (w NSWindow) SetLevel(value NSWindowLevel) {
 	objc.Send[struct{}](w.ID, objc.Sel("setLevel:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is visible onscreen (even
 // when it’s obscured by other windows).
 //
@@ -5570,8 +5434,6 @@ func (w NSWindow) Visible() bool {
 	return rv
 }
 
-
-
 // The occlusion state of the window.
 //
 // # Discussion
@@ -5584,8 +5446,6 @@ func (w NSWindow) OcclusionState() NSWindowOcclusionState {
 	rv := objc.Send[NSWindowOcclusionState](w.ID, objc.Sel("occlusionState"))
 	return NSWindowOcclusionState(rv)
 }
-
-
 
 // The name used to automatically save the window’s frame rectangle data in
 // the defaults system.
@@ -5601,8 +5461,6 @@ func (w NSWindow) FrameAutosaveName() NSWindowFrameAutosaveName {
 	return NSWindowFrameAutosaveName(foundation.NSStringFromID(rv).String())
 }
 
-
-
 // A string representation of the window’s frame rectangle.
 //
 // # Discussion
@@ -5615,8 +5473,6 @@ func (w NSWindow) StringWithSavedFrame() NSWindowPersistableFrameDescriptor {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("stringWithSavedFrame"))
 	return NSWindowPersistableFrameDescriptor(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // A Boolean value that indicates whether the window is the key window for the
 // application.
@@ -5634,8 +5490,6 @@ func (w NSWindow) KeyWindow() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isKeyWindow"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the window can become the key
 // window.
@@ -5658,8 +5512,6 @@ func (w NSWindow) CanBecomeKeyWindow() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the window is the application’s
 // main window.
 //
@@ -5676,8 +5528,6 @@ func (w NSWindow) MainWindow() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMainWindow"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the window can become the
 // application’s main window.
@@ -5701,8 +5551,6 @@ func (w NSWindow) CanBecomeMainWindow() bool {
 	return rv
 }
 
-
-
 // The window’s toolbar.
 //
 // # Discussion
@@ -5718,8 +5566,6 @@ func (w NSWindow) SetToolbar(value INSToolbar) {
 	objc.Send[struct{}](w.ID, objc.Sel("setToolbar:"), value)
 }
 
-
-
 // An array of the window’s attached child windows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/childWindows
@@ -5729,8 +5575,6 @@ func (w NSWindow) ChildWindows() []NSWindow {
 		return NSWindowFromID(id)
 	})
 }
-
-
 
 // The parent window to which the window is attached as a child.
 //
@@ -5750,8 +5594,6 @@ func (w NSWindow) ParentWindow() INSWindow {
 func (w NSWindow) SetParentWindow(value INSWindow) {
 	objc.Send[struct{}](w.ID, objc.Sel("setParentWindow:"), value)
 }
-
-
 
 // The button cell that performs as if clicked when the window receives a
 // Return (or Enter) key event.
@@ -5775,8 +5617,6 @@ func (w NSWindow) SetDefaultButtonCell(value INSButtonCell) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDefaultButtonCell:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is excluded from the
 // application’s Windows menu.
 //
@@ -5797,8 +5637,6 @@ func (w NSWindow) SetExcludedFromWindowsMenu(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setExcludedFromWindowsMenu:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window’s cursor rectangles are
 // enabled.
 //
@@ -5815,8 +5653,6 @@ func (w NSWindow) AreCursorRectsEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("areCursorRectsEnabled"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the toolbar control button is
 // currently displayed.
@@ -5841,8 +5677,6 @@ func (w NSWindow) SetShowsToolbarButton(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setShowsToolbarButton:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the title bar draws its background.
 //
 // # Discussion
@@ -5864,8 +5698,6 @@ func (w NSWindow) SetTitlebarAppearsTransparent(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTitlebarAppearsTransparent:"), value)
 }
 
-
-
 // The style that determines the appearance and location of the toolbar in
 // relation to the title bar.
 //
@@ -5883,8 +5715,6 @@ func (w NSWindow) ToolbarStyle() NSWindowToolbarStyle {
 func (w NSWindow) SetToolbarStyle(value NSWindowToolbarStyle) {
 	objc.Send[struct{}](w.ID, objc.Sel("setToolbarStyle:"), value)
 }
-
-
 
 // The type of separator that the app displays between the title bar and
 // content of a window.
@@ -5904,8 +5734,6 @@ func (w NSWindow) TitlebarSeparatorStyle() NSTitlebarSeparatorStyle {
 func (w NSWindow) SetTitlebarSeparatorStyle(value NSTitlebarSeparatorStyle) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTitlebarSeparatorStyle:"), value)
 }
-
-
 
 // The direction the window’s title bar lays text out, either left to right
 // or right to left.
@@ -5928,8 +5756,6 @@ func (w NSWindow) WindowTitlebarLayoutDirection() NSUserInterfaceLayoutDirection
 	return NSUserInterfaceLayoutDirection(rv)
 }
 
-
-
 // An array of title bar accessory view controllers that are currently added
 // to the window.
 //
@@ -5944,8 +5770,6 @@ func (w NSWindow) SetTitlebarAccessoryViewControllers(value []NSTitlebarAccessor
 	objc.Send[struct{}](w.ID, objc.Sel("setTitlebarAccessoryViewControllers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // An object that represents information about a window when it displays as a
 // tab.
 //
@@ -5954,8 +5778,6 @@ func (w NSWindow) Tab() INSWindowTab {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("tab"))
 	return NSWindowTabFromID(objc.ID(rv))
 }
-
-
 
 // A value that allows a group of related windows.
 //
@@ -5974,8 +5796,6 @@ func (w NSWindow) TabbingIdentifier() NSWindowTabbingIdentifier {
 func (w NSWindow) SetTabbingIdentifier(value NSWindowTabbingIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTabbingIdentifier:"), objc.String(string(value)))
 }
-
-
 
 // A value that indicates when a window displays tabs.
 //
@@ -6000,8 +5820,6 @@ func (w NSWindow) SetTabbingMode(value NSWindowTabbingMode) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTabbingMode:"), value)
 }
 
-
-
 // An array of windows that display as tabs.
 //
 // # Discussion
@@ -6016,8 +5834,6 @@ func (w NSWindow) TabbedWindows() []NSWindow {
 	})
 }
 
-
-
 // A group of windows that display together as a tab group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/tabGroup
@@ -6025,8 +5841,6 @@ func (w NSWindow) TabGroup() INSWindowTabGroup {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("tabGroup"))
 	return NSWindowTabGroupFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the window can display tooltips even
 // when the application is in the background.
@@ -6050,8 +5864,6 @@ func (w NSWindow) SetAllowsToolTipsWhenApplicationIsInactive(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAllowsToolTipsWhenApplicationIsInactive:"), value)
 }
 
-
-
 // The event currently being processed by the application.
 //
 // # Discussion
@@ -6065,8 +5877,6 @@ func (w NSWindow) CurrentEvent() INSEvent {
 	return NSEventFromID(objc.ID(rv))
 }
 
-
-
 // The view that’s made first responder (also called the key view) the first
 // time the window is placed onscreen.
 //
@@ -6078,8 +5888,6 @@ func (w NSWindow) InitialFirstResponder() INSView {
 func (w NSWindow) SetInitialFirstResponder(value INSView) {
 	objc.Send[struct{}](w.ID, objc.Sel("setInitialFirstResponder:"), value)
 }
-
-
 
 // The window’s first responder.
 //
@@ -6104,8 +5912,6 @@ func (w NSWindow) FirstResponder() INSResponder {
 	return NSResponderFromID(objc.ID(rv))
 }
 
-
-
 // The direction the window is currently using to change the key view.
 //
 // # Discussion
@@ -6120,8 +5926,6 @@ func (w NSWindow) KeyViewSelectionDirection() NSSelectionDirection {
 	rv := objc.Send[NSSelectionDirection](w.ID, objc.Sel("keyViewSelectionDirection"))
 	return NSSelectionDirection(rv)
 }
-
-
 
 // A Boolean value that indicates whether the window automatically
 // recalculates the key view loop when views are added.
@@ -6146,15 +5950,11 @@ func (w NSWindow) SetAutorecalculatesKeyViewLoop(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAutorecalculatesKeyViewLoop:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/hasActiveWindowSharingSession
 func (w NSWindow) HasActiveWindowSharingSession() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("hasActiveWindowSharingSession"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the window accepts mouse-moved
 // events.
@@ -6177,8 +5977,6 @@ func (w NSWindow) SetAcceptsMouseMovedEvents(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAcceptsMouseMovedEvents:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is transparent to mouse
 // events.
 //
@@ -6199,8 +5997,6 @@ func (w NSWindow) SetIgnoresMouseEvents(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setIgnoresMouseEvents:"), value)
 }
 
-
-
 // The current location of the pointer reckoned in the window’s base
 // coordinate system, regardless of the current event being handled or of any
 // events pending.
@@ -6215,8 +6011,6 @@ func (w NSWindow) MouseLocationOutsideOfEventStream() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](w.ID, objc.Sel("mouseLocationOutsideOfEventStream"))
 	return corefoundation.CGPoint(rv)
 }
-
-
 
 // A Boolean value indicating whether the window configuration is preserved
 // between application launches.
@@ -6250,8 +6044,6 @@ func (w NSWindow) Restorable() bool {
 func (w NSWindow) SetRestorable(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRestorable:"), value)
 }
-
-
 
 // The restoration class associated with the window.
 //
@@ -6288,8 +6080,6 @@ func (w NSWindow) SetRestorationClass(value objc.Class) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRestorationClass:"), value)
 }
 
-
-
 // A Boolean value that indicates whether any of the window’s views need to
 // be displayed.
 //
@@ -6313,8 +6103,6 @@ func (w NSWindow) SetViewsNeedDisplay(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setViewsNeedDisplay:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window allows multithreaded view
 // drawing.
 //
@@ -6334,8 +6122,6 @@ func (w NSWindow) AllowsConcurrentViewDrawing() bool {
 func (w NSWindow) SetAllowsConcurrentViewDrawing(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAllowsConcurrentViewDrawing:"), value)
 }
-
-
 
 // The window’s automatic animation behavior.
 //
@@ -6372,8 +6158,6 @@ func (w NSWindow) SetAnimationBehavior(value NSWindowAnimationBehavior) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAnimationBehavior:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window’s document has been
 // edited.
 //
@@ -6402,8 +6186,6 @@ func (w NSWindow) SetDocumentEdited(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDocumentEdited:"), value)
 }
 
-
-
 // The backing scale factor.
 //
 // # Discussion
@@ -6427,8 +6209,6 @@ func (w NSWindow) BackingScaleFactor() float64 {
 	return rv
 }
 
-
-
 // The string that appears in the title bar of the window or the path to the
 // represented file.
 //
@@ -6447,8 +6227,6 @@ func (w NSWindow) SetTitle(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTitle:"), objc.String(value))
 }
 
-
-
 // A secondary line of text that appears in the title bar of the window.
 //
 // # Discussion
@@ -6464,8 +6242,6 @@ func (w NSWindow) Subtitle() string {
 func (w NSWindow) SetSubtitle(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSubtitle:"), objc.String(value))
 }
-
-
 
 // A value that indicates the visibility of the window’s title and title bar
 // buttons.
@@ -6486,8 +6262,6 @@ func (w NSWindow) SetTitleVisibility(value NSWindowTitleVisibility) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTitleVisibility:"), value)
 }
 
-
-
 // The path to the file of the window’s represented file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/representedFilename
@@ -6498,8 +6272,6 @@ func (w NSWindow) RepresentedFilename() string {
 func (w NSWindow) SetRepresentedFilename(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRepresentedFilename:"), objc.String(value))
 }
-
-
 
 // The URL of the file the window represents.
 //
@@ -6526,8 +6298,6 @@ func (w NSWindow) SetRepresentedURL(value foundation.INSURL) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRepresentedURL:"), value)
 }
 
-
-
 // The screen the window is on.
 //
 // # Discussion
@@ -6541,8 +6311,6 @@ func (w NSWindow) Screen() INSScreen {
 	return NSScreenFromID(objc.ID(rv))
 }
 
-
-
 // The deepest screen the window is on (it may be split over several screens).
 //
 // # Discussion
@@ -6554,8 +6322,6 @@ func (w NSWindow) DeepestScreen() INSScreen {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("deepestScreen"))
 	return NSScreenFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the window context should be updated
 // when the screen profile changes or when the window moves to a different
@@ -6586,8 +6352,6 @@ func (w NSWindow) SetDisplaysWhenScreenProfileChanges(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDisplaysWhenScreenProfileChanges:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is movable by clicking
 // and dragging anywhere in its background.
 //
@@ -6611,8 +6375,6 @@ func (w NSWindow) MovableByWindowBackground() bool {
 func (w NSWindow) SetMovableByWindowBackground(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMovableByWindowBackground:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window can be dragged by
 // clicking in its title bar or background.
@@ -6646,8 +6408,6 @@ func (w NSWindow) SetMovable(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMovable:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is released when it
 // receives the `close` message.
 //
@@ -6674,8 +6434,6 @@ func (w NSWindow) SetReleasedWhenClosed(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setReleasedWhenClosed:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window is minimized.
 //
 // # Discussion
@@ -6692,8 +6450,6 @@ func (w NSWindow) Miniaturized() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMiniaturized"))
 	return rv
 }
-
-
 
 // The custom miniaturized window image of the window.
 //
@@ -6732,8 +6488,6 @@ func (w NSWindow) SetMiniwindowImage(value INSImage) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMiniwindowImage:"), value)
 }
 
-
-
 // The title displayed in the window’s minimized window.
 //
 // # Discussion
@@ -6754,8 +6508,6 @@ func (w NSWindow) SetMiniwindowTitle(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setMiniwindowTitle:"), objc.String(value))
 }
 
-
-
 // The application’s Dock tile.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/dockTile
@@ -6763,8 +6515,6 @@ func (w NSWindow) DockTile() INSDockTile {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("dockTile"))
 	return NSDockTileFromID(objc.ID(rv))
 }
-
-
 
 // Returns the bits per pixel for the specified window depth.
 //
@@ -6777,8 +6527,6 @@ func (w NSWindow) SetBitsPerPixel(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNSBitsPerPixelFromDepth:"), value)
 }
 
-
-
 // Returns the bits per sample for the specified window depth.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/depth/bitspersample
@@ -6789,8 +6537,6 @@ func (w NSWindow) BitsPerSample() int {
 func (w NSWindow) SetBitsPerSample(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNSBitsPerSampleFromDepth:"), value)
 }
-
-
 
 // Returns the name of the color space corresponding to the passed window
 // depth.
@@ -6804,8 +6550,6 @@ func (w NSWindow) SetColorSpaceName(value NSColorSpaceName) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNSColorSpaceFromDepth:"), objc.String(string(value)))
 }
 
-
-
 // Returns the number of color components in the specified color space.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolorspacename/numberofcolorcomponents
@@ -6816,8 +6560,6 @@ func (w NSWindow) NumberOfColorComponents() int {
 func (w NSWindow) SetNumberOfColorComponents(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNSNumberOfColorComponents:"), value)
 }
-
-
 
 // Returns whether the specified window depth is planar.
 //
@@ -6830,8 +6572,6 @@ func (w NSWindow) SetIsPlanar(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setNSPlanarFromDepth:"), value)
 }
 
-
-
 // A Boolean value that indicates if the window has a close box.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/hasCloseBox
@@ -6840,8 +6580,6 @@ func (w NSWindow) HasCloseBox() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates if the window has a title bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/hasTitleBar
@@ -6849,8 +6587,6 @@ func (w NSWindow) HasTitleBar() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("hasTitleBar"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the window is a modal panel.
 //
@@ -6864,8 +6600,6 @@ func (w NSWindow) ModalPanel() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the window is a floating panel.
 //
 // # Discussion
@@ -6877,8 +6611,6 @@ func (w NSWindow) FloatingPanel() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isFloatingPanel"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the window allows zooming.
 //
@@ -6892,8 +6624,6 @@ func (w NSWindow) Zoomable() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates if the user can resize the window.
 //
 // # Discussion
@@ -6906,8 +6636,6 @@ func (w NSWindow) Resizable() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the window can minimize.
 //
 // # Discussion
@@ -6919,8 +6647,6 @@ func (w NSWindow) Miniaturizable() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isMiniaturizable"))
 	return rv
 }
-
-
 
 // The zero-based position of the window, based on its order from front to
 // back among all visible application windows.
@@ -6939,8 +6665,6 @@ func (w NSWindow) SetOrderedIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setOrderedIndex:"), value)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -6954,8 +6678,6 @@ func (w NSWindow) CascadingReferenceFrame() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -6967,8 +6689,6 @@ func (w NSWindow) Animations() foundation.INSDictionary {
 func (w NSWindow) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAnimations:"), value)
 }
-
-
 
 // The appearance of the receiver, in an [NSAppearance] object.
 //
@@ -6988,8 +6708,6 @@ func (w NSWindow) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAppearance:"), value)
 }
 
-
-
 // The location of the window’s backing store.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/backinglocation-swift.property
@@ -7001,8 +6719,6 @@ func (w NSWindow) SetBackingLocation(value objectivec.IObject) {
 	objc.Send[struct{}](w.ID, objc.Sel("setBackingLocation:"), value)
 }
 
-
-
 // The collection of drawers associated with the window.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/drawers
@@ -7013,8 +6729,6 @@ func (w NSWindow) Drawers() objc.ID {
 func (w NSWindow) SetDrawers(value objc.ID) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDrawers:"), value)
 }
-
-
 
 // The appearance that will be used when the receiver is drawn onscreen, in an
 // [NSAppearance] object. (read-only)
@@ -7033,8 +6747,6 @@ func (w NSWindow) EffectiveAppearance() INSAppearance {
 	return NSAppearanceFromID(objc.ID(rv))
 }
 
-
-
 // The graphics context associated with the window for the current thread.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/graphicscontext
@@ -7045,8 +6757,6 @@ func (w NSWindow) GraphicsContext() INSGraphicsContext {
 func (w NSWindow) SetGraphicsContext(value INSGraphicsContext) {
 	objc.Send[struct{}](w.ID, objc.Sel("setGraphicsContext:"), value)
 }
-
-
 
 // A string that identifies the user interface item.
 //
@@ -7086,8 +6796,6 @@ func (w NSWindow) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
 
-
-
 // Name of an exception that occurs when you pass an invalid argument to a
 // method, such as a `nil` pointer where a non-`nil` object is required.
 //
@@ -7096,8 +6804,6 @@ func (w NSWindow) InvalidArgumentException() foundation.NSString {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("invalidArgumentException"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the window automatically displays
 // views that need to be displayed.
@@ -7111,8 +6817,6 @@ func (w NSWindow) SetIsAutodisplay(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAutodisplay:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the window’s flushing ability is
 // disabled.
 //
@@ -7124,8 +6828,6 @@ func (w NSWindow) IsFlushWindowDisabled() bool {
 func (w NSWindow) SetIsFlushWindowDisabled(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setFlushWindowDisabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window device the window manages
 // is freed when it’s removed from the screen list.
@@ -7139,8 +6841,6 @@ func (w NSWindow) SetIsOneShot(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setOneShot:"), value)
 }
 
-
-
 // A Boolean value that indicates the preferred location for the window’s
 // backing store.
 //
@@ -7152,8 +6852,6 @@ func (w NSWindow) PreferredBackingLocation() objectivec.IObject {
 func (w NSWindow) SetPreferredBackingLocation(value objectivec.IObject) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPreferredBackingLocation:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the window’s resize indicator is
 // visible.
@@ -7167,8 +6865,6 @@ func (w NSWindow) SetShowsResizeIndicator(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setShowsResizeIndicator:"), value)
 }
 
-
-
 // The Carbon window reference associated with the window, creating one if
 // necessary.
 //
@@ -7180,12 +6876,6 @@ func (w NSWindow) WindowRef() WindowRef {
 func (w NSWindow) SetWindowRef(value WindowRef) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindowRef:"), value)
 }
-
-
-
-
-
-
 
 // Returns the default depth limit for instances of [NSWindow].
 //
@@ -7206,8 +6896,6 @@ func (_NSWindowClass NSWindowClass) DefaultDepthLimit() NSWindowDepth {
 	return NSWindowDepth(rv)
 }
 
-
-
 // A Boolean value that indicates whether the app can automatically organize
 // windows into tabs.
 //
@@ -7219,8 +6907,6 @@ func (_NSWindowClass NSWindowClass) AllowsAutomaticWindowTabbing() bool {
 func (_NSWindowClass NSWindowClass) SetAllowsAutomaticWindowTabbing(value bool) {
 	objc.Send[struct{}](objc.ID(_NSWindowClass.class), objc.Sel("setAllowsAutomaticWindowTabbing:"), value)
 }
-
-
 
 // A value that indicates the user’s preference for window tabbing.
 //
@@ -7238,8 +6924,6 @@ func (_NSWindowClass NSWindowClass) UserTabbingPreference() NSWindowUserTabbingP
 	return NSWindowUserTabbingPreference(rv)
 }
 
-
-
 // The longest time duration possible.
 //
 // See: https://developer.apple.com/documentation/appkit/nsevent/foreverduration
@@ -7247,8 +6931,6 @@ func (_NSWindowClass NSWindowClass) ForeverDuration() float64 {
 	rv := objc.Send[float64](objc.ID(_NSWindowClass.class), objc.Sel("NSEventDurationForever"))
 	return rv
 }
-
-
 
 // An
 //
@@ -7258,8 +6940,6 @@ func (_NSWindowClass NSWindowClass) OldColorSpaceUserInfoKey() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // An NSNumber containing the old scale factor.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/oldscalefactoruserinfokey
@@ -7267,14 +6947,6 @@ func (_NSWindowClass NSWindowClass) OldScaleFactorUserInfoKey() string {
 	rv := objc.Send[objc.ID](objc.ID(_NSWindowClass.class), objc.Sel("NSBackingPropertyOldScaleFactorKey"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -7371,9 +7043,6 @@ func (o NSWindow) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -10289,44 +9958,17 @@ func (o NSWindow) SetAccessibilityUserInputLabels(accessibilityUserInputLabels f
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
 
-
-
-
-
 			// Protocol methods for NSAppearanceCustomization
 			
-
-
-
-
 
 			// Protocol methods for NSMenuItemValidation
 			
 
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceItemIdentification
 			
 
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
-
-
-
-
-
-
-
-
-
 
 // TransferWindowSharingToWindow is a synchronous wrapper around [NSWindow.TransferWindowSharingToWindowCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -10372,9 +10014,4 @@ func (w NSWindow) RequestSharingOfWindowUsingPreviewTitle(ctx context.Context, i
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

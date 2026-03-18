@@ -5,15 +5,5 @@ package coreml
 
 type MLFeatureValueImageOption = string
 
-
-
-
-
-
-
 type MLModelMetadataKey = string
-
-
-
-
 

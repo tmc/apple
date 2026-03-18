@@ -39,12 +39,6 @@ func (nc NSTextPreviewClass) Alloc() NSTextPreview {
 	return rv
 }
 
-
-
-
-
-
-
 // A snapshot of the text in your view, which the system uses to create
 // user-visible effects.
 //
@@ -88,14 +82,10 @@ type NSTextPreview struct {
 // A snapshot of the text in your view, which the system uses to create
 // user-visible effects.
 func NSTextPreviewFromID(id objc.ID) NSTextPreview {
-	return NSTextPreview{objectivec.Object{id}}
+	return NSTextPreview{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextPreview adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextPreview] class.
 //
@@ -131,10 +121,6 @@ type INSTextPreview interface {
 	CandidateRects() []foundation.NSValue
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextPreview) Init() NSTextPreview {
 	rv := objc.Send[NSTextPreview](t.ID, objc.Sel("init"))
@@ -154,11 +140,6 @@ func NewNSTextPreview() NSTextPreview {
 	return rv
 }
 
-
-
-
-
-
 // Creates a text preview using the specified image.
 //
 // snapshotImage: An image that contains the requested text from your view. Create the image
@@ -176,7 +157,6 @@ func NewTextPreviewWithSnapshotImagePresentationFrame(snapshotImage coregraphics
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSnapshotImage:presentationFrame:"), snapshotImage, presentationFrame)
 	return NSTextPreviewFromID(rv)
 }
-
 
 // Creates a text preview using the specified image and rectangles that
 // indicate the portions of text to highlight.
@@ -205,12 +185,6 @@ func NewTextPreviewWithSnapshotImagePresentationFrameCandidateRects(snapshotImag
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSnapshotImage:presentationFrame:candidateRects:"), snapshotImage, presentationFrame, objectivec.IObjectSliceToNSArray(candidateRects))
 	return NSTextPreviewFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a text preview using the specified image.
 //
@@ -256,17 +230,6 @@ func (t NSTextPreview) InitWithSnapshotImagePresentationFrameCandidateRects(snap
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The image that contains the requested text from your view.
 //
 // # Discussion
@@ -280,8 +243,6 @@ func (t NSTextPreview) PreviewImage() coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](t.ID, objc.Sel("previewImage"))
 	return coregraphics.CGImageRef(rv)
 }
-
-
 
 // The frame rectangle that places the preview image directly over the
 // matching text.
@@ -297,8 +258,6 @@ func (t NSTextPreview) PresentationFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("presentationFrame"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // Rectangles that define the specific portions of text to highlight.
 //
@@ -320,27 +279,4 @@ func (t NSTextPreview) CandidateRects() []foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

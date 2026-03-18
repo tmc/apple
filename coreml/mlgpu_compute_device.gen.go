@@ -36,12 +36,6 @@ func (mc MLGPUComputeDeviceClass) Alloc() MLGPUComputeDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a GPU compute device.
 //
 // # Getting the metal device
@@ -57,14 +51,10 @@ type MLGPUComputeDevice struct {
 //
 // An object that represents a GPU compute device.
 func MLGPUComputeDeviceFromID(id objc.ID) MLGPUComputeDevice {
-	return MLGPUComputeDevice{objectivec.Object{id}}
+	return MLGPUComputeDevice{objectivec.Object{ID: id}}
 }
 // NOTE: MLGPUComputeDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLGPUComputeDevice] class.
 //
@@ -82,10 +72,6 @@ type IMLGPUComputeDevice interface {
 	// The device that represents the underlying metal device.
 	MetalDevice() objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g MLGPUComputeDevice) Init() MLGPUComputeDevice {
@@ -106,26 +92,6 @@ func NewMLGPUComputeDevice() MLGPUComputeDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The device that represents the underlying metal device.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/metalDevice
@@ -134,33 +100,6 @@ func (g MLGPUComputeDevice) MetalDevice() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MLComputeDeviceProtocol
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

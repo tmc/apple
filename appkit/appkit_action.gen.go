@@ -49,4 +49,3 @@ func SetActionHandlerFor[T Actionable](ctrl T, fn func(T)) {
 	ctrl.SetAction(sel)
 }
 
-

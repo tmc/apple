@@ -648,21 +648,15 @@ var URLVolumeURLKey string
 
 var URLVolumeUUIDStringKey string
 
-var UserNotificationAlertAccessibilityIdentifierKey string
-
 var UserNotificationAlertHeaderKey string
 
 var UserNotificationAlertMessageKey string
 
 var UserNotificationAlertTopMostKey string
 
-var UserNotificationAlternateButtonAccessibilityIdentifierKey string
-
 var UserNotificationAlternateButtonTitleKey string
 
 var UserNotificationCheckBoxTitlesKey string
-
-var UserNotificationDefaultButtonAccessibilityIdentifierKey string
 
 var UserNotificationDefaultButtonTitleKey string
 
@@ -671,8 +665,6 @@ var UserNotificationIconURLKey string
 var UserNotificationKeyboardTypesKey string
 
 var UserNotificationLocalizationURLKey string
-
-var UserNotificationOtherButtonAccessibilityIdentifierKey string
 
 var UserNotificationOtherButtonTitleKey string
 
@@ -704,7 +696,6 @@ func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorDefault"); err == nil && ptr != 0 {
 		AllocatorDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
@@ -747,7 +738,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleDevelopmentRegionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -757,7 +748,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleExecutableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -767,7 +758,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -777,7 +768,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleInfoDictionaryVersionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -787,7 +778,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleLocalizationsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -797,7 +788,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -807,7 +798,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleVersionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -941,7 +932,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDescriptionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -967,7 +958,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorFilePathKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -977,7 +968,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorLocalizedDescriptionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -987,7 +978,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorLocalizedFailureKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -997,7 +988,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorLocalizedFailureReasonKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1007,7 +998,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorLocalizedRecoverySuggestionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1017,7 +1008,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1027,7 +1018,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorUnderlyingErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1353,7 +1344,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInDynamicRegisterFunctionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1363,7 +1354,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInDynamicRegistrationKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1373,7 +1364,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInFactoriesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1383,7 +1374,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInTypesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1393,7 +1384,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInUnloadFunctionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1403,7 +1394,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPreferencesAnyApplication"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1413,7 +1404,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPreferencesAnyHost"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1423,7 +1414,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPreferencesAnyUser"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1433,7 +1424,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPreferencesCurrentApplication"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1443,7 +1434,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPreferencesCurrentHost"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1453,7 +1444,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPreferencesCurrentUser"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1475,7 +1466,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketCommandKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1485,7 +1476,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1495,7 +1486,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1505,7 +1496,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketRegisterCommand"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1515,7 +1506,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketResultKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1525,7 +1516,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketRetrieveCommand"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1535,7 +1526,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketValueKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1557,7 +1548,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSPassword"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1567,7 +1558,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSProxy"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1577,7 +1568,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSProxyHost"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1587,7 +1578,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSProxyPort"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1597,7 +1588,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSUser"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1607,7 +1598,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSVersion"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1617,7 +1608,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyShouldCloseNativeSocket"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1639,7 +1630,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketSecurityLevel"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1649,7 +1640,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamSocketSOCKSVersion4"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1659,7 +1650,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamSocketSOCKSVersion5"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1669,7 +1660,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamSocketSecurityLevelNegotiatedSSL"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1679,7 +1670,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamSocketSecurityLevelNone"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1689,7 +1680,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamSocketSecurityLevelTLSv1"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1699,7 +1690,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformFullwidthHalfwidth"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1709,7 +1700,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformHiraganaKatakana"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1719,7 +1710,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinArabic"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1729,7 +1720,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinCyrillic"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1739,7 +1730,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinGreek"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1749,7 +1740,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinHangul"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1759,7 +1750,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinHebrew"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1769,7 +1760,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinHiragana"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1779,7 +1770,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinKatakana"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1789,7 +1780,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformLatinThai"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1799,7 +1790,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformMandarinLatin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1809,7 +1800,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformStripCombiningMarks"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1819,7 +1810,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformStripDiacritics"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1829,7 +1820,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformToLatin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1839,7 +1830,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformToUnicodeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1849,7 +1840,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformToXMLHex"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1871,7 +1862,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLAddedToDirectoryDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1881,7 +1872,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLApplicationIsScriptableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1891,7 +1882,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLAttributeModificationDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1901,7 +1892,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLCanonicalPathKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1911,7 +1902,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLContentAccessDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1921,7 +1912,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLContentModificationDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1931,7 +1922,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLCreationDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1941,7 +1932,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLDirectoryEntryCountKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1951,7 +1942,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLDocumentIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1961,7 +1952,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileAllocatedSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1971,7 +1962,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileContentIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1981,7 +1972,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1991,7 +1982,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2001,7 +1992,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeBlockSpecial"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2011,7 +2002,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeCharacterSpecial"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2021,7 +2012,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeDirectory"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2031,7 +2022,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2041,7 +2032,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeNamedPipe"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2051,7 +2042,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeRegular"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2061,7 +2052,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeSocket"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2071,7 +2062,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeSymbolicLink"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2081,7 +2072,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileResourceTypeUnknown"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2091,7 +2082,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileSecurityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2101,7 +2092,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLFileSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2111,7 +2102,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLGenerationIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2121,7 +2112,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLHasHiddenExtensionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2131,7 +2122,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsAliasFileKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2141,7 +2132,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsApplicationKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2151,7 +2142,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsDirectoryKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2161,7 +2152,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsExcludedFromBackupKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2171,7 +2162,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsExecutableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2181,7 +2172,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsHiddenKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2191,7 +2182,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsMountTriggerKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2201,7 +2192,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsPackageKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2211,7 +2202,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsPurgeableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2221,7 +2212,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsReadableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2231,7 +2222,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsRegularFileKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2241,7 +2232,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsSparseKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2251,7 +2242,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsSymbolicLinkKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2261,7 +2252,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsSystemImmutableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2271,7 +2262,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsUbiquitousItemKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2281,7 +2272,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsUserImmutableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2291,7 +2282,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsVolumeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2301,7 +2292,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLIsWritableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2311,7 +2302,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLKeysOfUnsetValuesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2321,7 +2312,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLLabelNumberKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2331,7 +2322,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLLinkCountKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2341,7 +2332,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLLocalizedLabelKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2351,7 +2342,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLLocalizedNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2361,7 +2352,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLLocalizedTypeDescriptionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2371,7 +2362,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLMayHaveExtendedAttributesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2381,7 +2372,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLMayShareFileContentKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2391,7 +2382,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2401,7 +2392,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLParentDirectoryURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2411,7 +2402,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLPathKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2421,7 +2412,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLPreferredIOBlockSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2431,7 +2422,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLQuarantinePropertiesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2441,7 +2432,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLTagNamesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2451,7 +2442,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLTotalFileAllocatedSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2461,7 +2452,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLTotalFileSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2471,7 +2462,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLTypeIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2481,7 +2472,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemDownloadingErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2491,7 +2482,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemDownloadingStatusCurrent"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2501,7 +2492,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemDownloadingStatusDownloaded"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2511,7 +2502,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemDownloadingStatusKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2521,7 +2512,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemDownloadingStatusNotDownloaded"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2531,7 +2522,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemHasUnresolvedConflictsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2541,7 +2532,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemIsDownloadingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2551,7 +2542,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemIsExcludedFromSyncKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2561,7 +2552,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemIsSyncPausedKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2571,7 +2562,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemIsUploadedKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2581,7 +2572,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemIsUploadingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2591,7 +2582,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemSupportedSyncControlsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2601,7 +2592,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLUbiquitousItemUploadingErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2611,7 +2602,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeAvailableCapacityForImportantUsageKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2621,7 +2612,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeAvailableCapacityForOpportunisticUsageKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2631,7 +2622,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeAvailableCapacityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2641,7 +2632,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeCreationDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2651,7 +2642,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2661,7 +2652,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsAutomountedKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2671,7 +2662,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsBrowsableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2681,7 +2672,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsEjectableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2691,7 +2682,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsEncryptedKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2701,7 +2692,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsInternalKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2711,7 +2702,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsJournalingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2721,7 +2712,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsLocalKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2731,7 +2722,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsReadOnlyKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2741,7 +2732,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsRemovableKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2751,7 +2742,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeIsRootFileSystemKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2761,7 +2752,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeLocalizedFormatDescriptionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2771,7 +2762,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeLocalizedNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2781,7 +2772,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeMaximumFileSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2791,7 +2782,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeMountFromLocationKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2801,7 +2792,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2811,7 +2802,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeResourceCountKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2821,7 +2812,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSubtypeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2831,7 +2822,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsAccessPermissionsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2841,7 +2832,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsAdvisoryFileLockingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2851,7 +2842,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsCasePreservedNamesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2861,7 +2852,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsCaseSensitiveNamesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2871,7 +2862,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsCompressionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2881,7 +2872,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsExclusiveRenamingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2891,7 +2882,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsExtendedSecurityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2901,7 +2892,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsFileCloningKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2911,7 +2902,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsFileProtectionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2921,7 +2912,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsHardLinksKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2931,7 +2922,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsImmutableFilesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2941,7 +2932,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsJournalingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2951,7 +2942,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsPersistentIDsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2961,7 +2952,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsRenamingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2971,7 +2962,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsRootDirectoryDatesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2981,7 +2972,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsSparseFilesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2991,7 +2982,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsSwapRenamingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3001,7 +2992,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsSymbolicLinksKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3011,7 +3002,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsVolumeSizesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3021,7 +3012,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeSupportsZeroRunsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3031,7 +3022,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeTotalCapacityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3041,7 +3032,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeTypeNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3051,7 +3042,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeURLForRemountingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3061,7 +3052,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3071,7 +3062,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLVolumeUUIDStringKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3080,18 +3071,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationAlertAccessibilityIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				UserNotificationAlertAccessibilityIdentifierKey = objc.GoString(cstr)
-			}
-		}
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationAlertHeaderKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3101,7 +3082,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationAlertMessageKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3111,7 +3092,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationAlertTopMostKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3120,18 +3101,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationAlternateButtonAccessibilityIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				UserNotificationAlternateButtonAccessibilityIdentifierKey = objc.GoString(cstr)
-			}
-		}
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationAlternateButtonTitleKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3141,7 +3112,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationCheckBoxTitlesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3150,18 +3121,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationDefaultButtonAccessibilityIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				UserNotificationDefaultButtonAccessibilityIdentifierKey = objc.GoString(cstr)
-			}
-		}
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationDefaultButtonTitleKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3171,7 +3132,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationIconURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3181,7 +3142,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationKeyboardTypesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3191,7 +3152,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationLocalizationURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3200,18 +3161,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationOtherButtonAccessibilityIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
-		if nsStringID != 0 {
-			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
-			if cstr != nil {
-				UserNotificationOtherButtonAccessibilityIdentifierKey = objc.GoString(cstr)
-			}
-		}
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationOtherButtonTitleKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3221,7 +3172,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationPopUpSelectionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3231,7 +3182,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationPopUpTitlesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3241,7 +3192,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationProgressIndicatorValueKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3251,7 +3202,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationSoundURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3261,7 +3212,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationTextFieldTitlesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3271,7 +3222,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFUserNotificationTextFieldValuesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3289,7 +3240,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFXMLTreeErrorDescription"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3299,7 +3250,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFXMLTreeErrorLineNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3309,7 +3260,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFXMLTreeErrorLocation"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3319,7 +3270,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFXMLTreeErrorStatusCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {

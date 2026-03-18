@@ -39,12 +39,6 @@ func (nc NSStepperTouchBarItemClass) Alloc() NSStepperTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that provides a stepper control for incrementing or decrementing
 // a value.
 //
@@ -80,10 +74,6 @@ func NSStepperTouchBarItemFromID(id objc.ID) NSStepperTouchBarItem {
 }
 // NOTE: NSStepperTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSStepperTouchBarItem] class.
 //
@@ -126,13 +116,7 @@ type INSStepperTouchBarItem interface {
 	SetMinValue(value float64)
 	Increment() float64
 	SetIncrement(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSStepperTouchBarItem) Init() NSStepperTouchBarItem {
@@ -153,11 +137,6 @@ func NewNSStepperTouchBarItem() NSStepperTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -166,7 +145,6 @@ func NewStepperTouchBarItemWithCoder(coder foundation.INSCoder) NSStepperTouchBa
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSStepperTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -182,7 +160,6 @@ func NewStepperTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) N
 	return NSStepperTouchBarItemFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:formatter:)
 func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIdentifier, formatter foundation.NSFormatter) NSStepperTouchBarItem {
@@ -190,34 +167,14 @@ func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIden
 	return NSStepperTouchBarItemFromID(rv)
 }
 
-
-
-
-
-
-func (s NSStepperTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:drawingHandler:)
 func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler RectHandler) NSStepperTouchBarItem {
-		_block1, _cleanup1 := NewRectBlock(drawingHandler)
+_block1, _cleanup1 := NewRectBlock(drawingHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, _block1)
+	rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, _block1)
 	return NSStepperTouchBarItemFromID(rv)
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/target
 func (s NSStepperTouchBarItem) Target() objectivec.IObject {
@@ -228,8 +185,6 @@ func (s NSStepperTouchBarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTarget:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/action
 func (s NSStepperTouchBarItem) Action() objc.SEL {
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("action"))
@@ -238,8 +193,6 @@ func (s NSStepperTouchBarItem) Action() objc.SEL {
 func (s NSStepperTouchBarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAction:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/value
 func (s NSStepperTouchBarItem) Value() float64 {
@@ -250,8 +203,6 @@ func (s NSStepperTouchBarItem) SetValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setValue:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/maxValue
 func (s NSStepperTouchBarItem) MaxValue() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("maxValue"))
@@ -260,8 +211,6 @@ func (s NSStepperTouchBarItem) MaxValue() float64 {
 func (s NSStepperTouchBarItem) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/minValue
 func (s NSStepperTouchBarItem) MinValue() float64 {
@@ -272,8 +221,6 @@ func (s NSStepperTouchBarItem) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/increment
 func (s NSStepperTouchBarItem) Increment() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("increment"))
@@ -282,26 +229,6 @@ func (s NSStepperTouchBarItem) Increment() float64 {
 func (s NSStepperTouchBarItem) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // StepperTouchBarItemWithIdentifierDrawingHandlerSync is a synchronous wrapper around [NSStepperTouchBarItem.StepperTouchBarItemWithIdentifierDrawingHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -317,9 +244,4 @@ func (sc NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHan
 		return corefoundation.CGRect{}, ctx.Err()
 	}
 }
-
-
-
-
-
 

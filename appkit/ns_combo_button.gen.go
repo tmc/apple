@@ -38,12 +38,6 @@ func (nc NSComboButtonClass) Alloc() NSComboButton {
 	return rv
 }
 
-
-
-
-
-
-
 // A button with a pull-down menu and a default action.
 //
 // # Overview
@@ -93,10 +87,6 @@ func NSComboButtonFromID(id objc.ID) NSComboButton {
 // NOTE: NSComboButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSComboButton] class.
 //
 // # Configuring the Button Appearance
@@ -128,13 +118,7 @@ type INSComboButton interface {
 	// The scaling behavior to apply to the button’s image.
 	ImageScaling() NSImageScaling
 	SetImageScaling(value NSImageScaling)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSComboButton) Init() NSComboButton {
@@ -155,11 +139,6 @@ func NewNSComboButton() NSComboButton {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -168,7 +147,6 @@ func NewComboButtonWithCoder(coder foundation.INSCoder) NSComboButton {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSComboButtonFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -196,7 +174,6 @@ func NewComboButtonWithFrame(frameRect corefoundation.CGRect) NSComboButton {
 	return NSComboButtonFromID(rv)
 }
 
-
 // Creates a combo button that displays an image.
 //
 // image: The image to display in the button.
@@ -222,7 +199,6 @@ func NewComboButtonWithImageMenuTargetAction(image INSImage, menu INSMenu, targe
 	return NSComboButtonFromID(rv)
 }
 
-
 // Creates a combo button that displays both a title and image.
 //
 // title: The localized string to display in the button. Use the inherited
@@ -246,7 +222,6 @@ func NewComboButtonWithTitleImageMenuTargetAction(title string, image INSImage, 
 	rv := objc.Send[objc.ID](objc.ID(getNSComboButtonClass().class), objc.Sel("comboButtonWithTitle:image:menu:target:action:"), objc.String(title), image, menu, target, action)
 	return NSComboButtonFromID(rv)
 }
-
 
 // Creates a combo button that displays a title.
 //
@@ -274,26 +249,6 @@ func NewComboButtonWithTitleMenuTargetAction(title string, menu INSMenu, target 
 	return NSComboButtonFromID(rv)
 }
 
-
-
-
-
-
-func (c NSComboButton) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The appearance setting that determines how the button presents its menu .
 //
 // # Discussion
@@ -311,8 +266,6 @@ func (c NSComboButton) SetStyle(value NSComboButtonStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStyle:"), value)
 }
 
-
-
 // The localized string that the button displays.
 //
 // # Discussion
@@ -328,8 +281,6 @@ func (c NSComboButton) Title() string {
 func (c NSComboButton) SetTitle(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The image that the button displays.
 //
@@ -348,8 +299,6 @@ func (c NSComboButton) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
 
-
-
 // The scaling behavior to apply to the button’s image.
 //
 // # Discussion
@@ -367,38 +316,4 @@ func (c NSComboButton) ImageScaling() NSImageScaling {
 func (c NSComboButton) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImageScaling:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

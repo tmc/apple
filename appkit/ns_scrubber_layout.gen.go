@@ -38,12 +38,6 @@ func (nc NSScrubberLayoutClass) Alloc() NSScrubberLayout {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that describes the layout of items within a scrubber
 // control.
 //
@@ -84,14 +78,10 @@ type NSScrubberLayout struct {
 // An abstract class that describes the layout of items within a scrubber
 // control.
 func NSScrubberLayoutFromID(id objc.ID) NSScrubberLayout {
-	return NSScrubberLayout{objectivec.Object{id}}
+	return NSScrubberLayout{objectivec.Object{ID: id}}
 }
 // NOTE: NSScrubberLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScrubberLayout] class.
 //
@@ -156,10 +146,6 @@ type INSScrubberLayout interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScrubberLayout) Init() NSScrubberLayout {
 	rv := objc.Send[NSScrubberLayout](s.ID, objc.Sel("init"))
@@ -179,11 +165,6 @@ func NewNSScrubberLayout() NSScrubberLayout {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a newly allocated scrubber layout object from a
 // storyboard or nib file.
 //
@@ -197,12 +178,6 @@ func NewScrubberLayoutWithCoder(coder foundation.INSCoder) NSScrubberLayout {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberLayoutFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a newly allocated scrubber layout object from a
 // storyboard or nib file.
@@ -292,17 +267,6 @@ func (s NSScrubberLayout) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The scrubber control that this layout is assigned to.
 //
 // # Discussion
@@ -315,8 +279,6 @@ func (s NSScrubberLayout) Scrubber() INSScrubber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("scrubber"))
 	return NSScrubberFromID(objc.ID(rv))
 }
-
-
 
 // The currently visible rectangle, in the coordinate space of the scrubber
 // content.
@@ -334,8 +296,6 @@ func (s NSScrubberLayout) VisibleRect() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The size required to contain all elements within the scrubber.
 //
 // # Discussion
@@ -347,8 +307,6 @@ func (s NSScrubberLayout) ScrubberContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("scrubberContentSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // Determines whether the scrubber should refresh its layout when the
 // selection changes.
@@ -370,8 +328,6 @@ func (s NSScrubberLayout) ShouldInvalidateLayoutForSelectionChange() bool {
 	return rv
 }
 
-
-
 // Determines whether the scrubber should refresh its layout when an item is
 // highlighted.
 //
@@ -391,8 +347,6 @@ func (s NSScrubberLayout) ShouldInvalidateLayoutForHighlightChange() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("shouldInvalidateLayoutForHighlightChange"))
 	return rv
 }
-
-
 
 // Determines whether the scrubber mirrors its layout for right-to-left
 // layouts.
@@ -415,12 +369,6 @@ func (s NSScrubberLayout) AutomaticallyMirrorsInRightToLeftLayout() bool {
 	return rv
 }
 
-
-
-
-
-
-
 // A property containing a class that describes layout attributes.
 //
 // # Return Value
@@ -437,24 +385,4 @@ func (_NSScrubberLayoutClass NSScrubberLayoutClass) LayoutAttributesClass() objc
 	rv := objc.Send[objc.Class](objc.ID(_NSScrubberLayoutClass.class), objc.Sel("layoutAttributesClass"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

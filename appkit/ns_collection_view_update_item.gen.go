@@ -36,12 +36,6 @@ func (nc NSCollectionViewUpdateItemClass) Alloc() NSCollectionViewUpdateItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a single change to make to an item in a collection view.
 //
 // # Overview
@@ -66,14 +60,10 @@ type NSCollectionViewUpdateItem struct {
 //
 // A description of a single change to make to an item in a collection view.
 func NSCollectionViewUpdateItemFromID(id objc.ID) NSCollectionViewUpdateItem {
-	return NSCollectionViewUpdateItem{objectivec.Object{id}}
+	return NSCollectionViewUpdateItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionViewUpdateItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewUpdateItem] class.
 //
@@ -97,10 +87,6 @@ type INSCollectionViewUpdateItem interface {
 	UpdateAction() NSCollectionUpdateAction
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewUpdateItem) Init() NSCollectionViewUpdateItem {
 	rv := objc.Send[NSCollectionViewUpdateItem](c.ID, objc.Sel("init"))
@@ -120,26 +106,6 @@ func NewNSCollectionViewUpdateItem() NSCollectionViewUpdateItem {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The index path of the item before the update.
 //
 // # Discussion
@@ -154,8 +120,6 @@ func (c NSCollectionViewUpdateItem) IndexPathBeforeUpdate() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathBeforeUpdate"))
 	return rv
 }
-
-
 
 // The index path of the item after the update.
 //
@@ -172,8 +136,6 @@ func (c NSCollectionViewUpdateItem) IndexPathAfterUpdate() objc.ID {
 	return rv
 }
 
-
-
 // The action being performed on the item.
 //
 // # Discussion
@@ -187,27 +149,4 @@ func (c NSCollectionViewUpdateItem) UpdateAction() NSCollectionUpdateAction {
 	rv := objc.Send[NSCollectionUpdateAction](c.ID, objc.Sel("updateAction"))
 	return NSCollectionUpdateAction(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

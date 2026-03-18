@@ -37,12 +37,6 @@ func (nc NSGlassEffectContainerViewClass) Alloc() NSGlassEffectContainerView {
 	return rv
 }
 
-
-
-
-
-
-
 // A view that efficiently merges descendant glass effect views together when
 // they are within a specified proximity to each other.
 //
@@ -70,10 +64,6 @@ func NSGlassEffectContainerViewFromID(id objc.ID) NSGlassEffectContainerView {
 // NOTE: NSGlassEffectContainerView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSGlassEffectContainerView] class.
 //
 // # Instance Properties
@@ -95,13 +85,7 @@ type INSGlassEffectContainerView interface {
 	// The proximity at which the glass effect container view begins merging eligible descendent glass effect views.
 	Spacing() float64
 	SetSpacing(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g NSGlassEffectContainerView) Init() NSGlassEffectContainerView {
@@ -122,11 +106,6 @@ func NewNSGlassEffectContainerView() NSGlassEffectContainerView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -141,7 +120,6 @@ func NewGlassEffectContainerViewWithCoder(coder foundation.INSCoder) NSGlassEffe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSGlassEffectContainerViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -165,26 +143,6 @@ func NewGlassEffectContainerViewWithFrame(frameRect corefoundation.CGRect) NSGla
 	return NSGlassEffectContainerViewFromID(rv)
 }
 
-
-
-
-
-
-func (g NSGlassEffectContainerView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The view that contains descendant views to merge together when in proximity
 // to each other.
 //
@@ -206,8 +164,6 @@ func (g NSGlassEffectContainerView) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
 
-
-
 // The proximity at which the glass effect container view begins merging
 // eligible descendent glass effect views.
 //
@@ -225,38 +181,4 @@ func (g NSGlassEffectContainerView) Spacing() float64 {
 func (g NSGlassEffectContainerView) SetSpacing(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setSpacing:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

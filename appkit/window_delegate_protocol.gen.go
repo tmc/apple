@@ -9,9 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods that a window’s delegate can implement to respond to events, such as window resizing, moving, exposing, and minimizing.
 //
@@ -19,8 +17,6 @@ var _ = fmt.Sprintf
 type NSWindowDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSWindowDelegateObject wraps an existing Objective-C object that conforms to the NSWindowDelegate protocol.
 type NSWindowDelegateObject struct {
@@ -30,8 +26,6 @@ func (o NSWindowDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSWindowDelegateObjectFromID constructs a [NSWindowDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSWindowDelegateObjectFromID(id objc.ID) NSWindowDelegateObject {
@@ -39,9 +33,6 @@ func NSWindowDelegateObjectFromID(id objc.ID) NSWindowDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the window is about to show a sheet at the
 // specified location, giving it the opportunity to return a custom location
@@ -1195,10 +1186,6 @@ func (o NSWindowDelegateObject) WindowForSharingRequestFromWindow(window INSWind
 	return NSWindowFromID(rv)
 	}
 
-
-
-
-
 // NSWindowDelegateConfig holds optional typed callbacks for [NSWindowDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -1815,8 +1802,4 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSWindowDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSGroupTouchBarItemClass) Alloc() NSGroupTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that provides a bar to contain other items.
 //
 // # Configuring groups
@@ -76,10 +70,6 @@ func NSGroupTouchBarItemFromID(id objc.ID) NSGroupTouchBarItem {
 }
 // NOTE: NSGroupTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSGroupTouchBarItem] class.
 //
@@ -127,13 +117,7 @@ type INSGroupTouchBarItem interface {
 	// The allowed compression options, in the order they should be applied.
 	PrioritizedCompressionOptions() []NSUserInterfaceCompressionOptions
 	SetPrioritizedCompressionOptions(value []NSUserInterfaceCompressionOptions)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g NSGroupTouchBarItem) Init() NSGroupTouchBarItem {
@@ -154,11 +138,6 @@ func NewNSGroupTouchBarItem() NSGroupTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a group item configured to match system alerts.
 //
 // # Discussion
@@ -177,7 +156,6 @@ func NewGroupTouchBarItemAlertStyleGroupItemWithIdentifier(identifier NSTouchBar
 	return NSGroupTouchBarItemFromID(rv)
 }
 
-
 // Initializes and returns a group item whose bar is constructed from the
 // supplied items.
 //
@@ -186,7 +164,6 @@ func NewGroupTouchBarItemGroupItemWithIdentifierItems(identifier NSTouchBarItemI
 	rv := objc.Send[objc.ID](objc.ID(getNSGroupTouchBarItemClass().class), objc.Sel("groupItemWithIdentifier:items:"), objc.String(string(identifier)), objectivec.IObjectSliceToNSArray(items))
 	return NSGroupTouchBarItemFromID(rv)
 }
-
 
 // Initializes and returns a group item whose bar is constructed from the
 // supplied items, and with the specified compression options.
@@ -206,7 +183,6 @@ func NewGroupTouchBarItemGroupItemWithIdentifierItemsAllowedCompressionOptions(i
 	return NSGroupTouchBarItemFromID(rv)
 }
 
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -215,7 +191,6 @@ func NewGroupTouchBarItemWithCoder(coder foundation.INSCoder) NSGroupTouchBarIte
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSGroupTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -230,26 +205,6 @@ func NewGroupTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NSG
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSGroupTouchBarItemFromID(rv)
 }
-
-
-
-
-
-
-func (g NSGroupTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The user interface direction that controls the layout order of the items.
 //
@@ -271,8 +226,6 @@ func (g NSGroupTouchBarItem) GroupUserInterfaceLayoutDirection() NSUserInterface
 func (g NSGroupTouchBarItem) SetGroupUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGroupUserInterfaceLayoutDirection:"), value)
 }
-
-
 
 // A Boolean value that specifies that items should have equal widths when
 // possible.
@@ -296,8 +249,6 @@ func (g NSGroupTouchBarItem) SetPrefersEqualWidths(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPrefersEqualWidths:"), value)
 }
 
-
-
 // The preferred width for items in the group.
 //
 // # Discussion
@@ -320,8 +271,6 @@ func (g NSGroupTouchBarItem) SetPreferredItemWidth(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPreferredItemWidth:"), value)
 }
 
-
-
 // The compression options that are currently active on the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/effectiveCompressionOptions
@@ -329,8 +278,6 @@ func (g NSGroupTouchBarItem) EffectiveCompressionOptions() INSUserInterfaceCompr
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("effectiveCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
-
-
 
 // The allowed compression options, in the order they should be applied.
 //
@@ -352,29 +299,4 @@ func (g NSGroupTouchBarItem) PrioritizedCompressionOptions() []NSUserInterfaceCo
 func (g NSGroupTouchBarItem) SetPrioritizedCompressionOptions(value []NSUserInterfaceCompressionOptions) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPrioritizedCompressionOptions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

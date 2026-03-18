@@ -37,12 +37,6 @@ func (nc NSSplitViewClass) Alloc() NSSplitView {
 	return rv
 }
 
-
-
-
-
-
-
 // A view that arranges two or more views in a linear stack running
 // horizontally or vertically.
 //
@@ -119,10 +113,6 @@ func NSSplitViewFromID(id objc.ID) NSSplitView {
 }
 // NOTE: NSSplitView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSplitView] class.
 //
@@ -238,13 +228,7 @@ type INSSplitView interface {
 	MaxPossiblePositionOfDividerAtIndex(dividerIndex int) float64
 	// Updates the location of a divider you specify by index.
 	SetPositionOfDividerAtIndex(position float64, dividerIndex int)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSplitView) Init() NSSplitView {
@@ -265,11 +249,6 @@ func NewNSSplitView() NSSplitView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -284,7 +263,6 @@ func NewSplitViewWithCoder(coder foundation.INSCoder) NSSplitView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSplitViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -307,12 +285,6 @@ func NewSplitViewWithFrame(frameRect corefoundation.CGRect) NSSplitView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSSplitViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds a view as an arranged split pane.
 //
@@ -556,20 +528,6 @@ func (s NSSplitView) MaxPossiblePositionOfDividerAtIndex(dividerIndex int) float
 func (s NSSplitView) SetPositionOfDividerAtIndex(position float64, dividerIndex int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setPosition:ofDividerAtIndex:"), position, dividerIndex)
 }
-func (s NSSplitView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The split view’s delegate.
 //
@@ -581,8 +539,6 @@ func (s NSSplitView) Delegate() NSSplitViewDelegate {
 func (s NSSplitView) SetDelegate(value NSSplitViewDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean value that determines whether the split view arranges all of its
 // subviews as split panes.
@@ -617,8 +573,6 @@ func (s NSSplitView) SetArrangesAllSubviews(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setArrangesAllSubviews:"), value)
 }
 
-
-
 // The array of views that the split view arranges as its split panes.
 //
 // # Discussion
@@ -640,8 +594,6 @@ func (s NSSplitView) ArrangedSubviews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
-
 
 // A Boolean value that determines the geometric orientation of the split
 // view’s dividers.
@@ -668,8 +620,6 @@ func (s NSSplitView) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
 
-
-
 // The style of divider between views.
 //
 // # Discussion
@@ -686,8 +636,6 @@ func (s NSSplitView) DividerStyle() NSSplitViewDividerStyle {
 func (s NSSplitView) SetDividerStyle(value NSSplitViewDividerStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDividerStyle:"), value)
 }
-
-
 
 // The color of the dividers that the split view draws between subviews.
 //
@@ -712,8 +660,6 @@ func (s NSSplitView) DividerColor() INSColor {
 	return NSColorFromID(objc.ID(rv))
 }
 
-
-
 // The thickness of the dividers for the split view.
 //
 // # Discussion
@@ -726,8 +672,6 @@ func (s NSSplitView) DividerThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("dividerThickness"))
 	return rv
 }
-
-
 
 // The name to use when the system automatically saves the split view’s
 // divider configuration.
@@ -744,38 +688,4 @@ func (s NSSplitView) AutosaveName() NSSplitViewAutosaveName {
 func (s NSSplitView) SetAutosaveName(value NSSplitViewAutosaveName) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutosaveName:"), objc.String(string(value)))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

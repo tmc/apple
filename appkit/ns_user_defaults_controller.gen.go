@@ -37,12 +37,6 @@ func (nc NSUserDefaultsControllerClass) Alloc() NSUserDefaultsController {
 	return rv
 }
 
-
-
-
-
-
-
 // A controller that accesses user preference information for your app from
 // the user’s defaults database.
 //
@@ -85,10 +79,6 @@ func NSUserDefaultsControllerFromID(id objc.ID) NSUserDefaultsController {
 }
 // NOTE: NSUserDefaultsController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSUserDefaultsController] class.
 //
@@ -138,13 +128,7 @@ type INSUserDefaultsController interface {
 	RevertToInitialValues(sender objectivec.IObject)
 	// Saves the values of the receiver’s user default properties.
 	Save(sender objectivec.IObject)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u NSUserDefaultsController) Init() NSUserDefaultsController {
@@ -165,11 +149,6 @@ func NewNSUserDefaultsController() NSUserDefaultsController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/init(coder:)
 func NewUserDefaultsControllerWithCoder(coder foundation.INSCoder) NSUserDefaultsController {
@@ -177,7 +156,6 @@ func NewUserDefaultsControllerWithCoder(coder foundation.INSCoder) NSUserDefault
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSUserDefaultsControllerFromID(rv)
 }
-
 
 // Returns an initialized NSUserDefaultsController object using the
 // NSUserDefaults instance specified in `defaults` and the initial default
@@ -196,12 +174,6 @@ func NewUserDefaultsControllerWithDefaultsInitialValues(defaults foundation.NSUs
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDefaults:initialValues:"), defaults, initialValues)
 	return NSUserDefaultsControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an initialized NSUserDefaultsController object using the
 // NSUserDefaults instance specified in `defaults` and the initial default
@@ -267,20 +239,6 @@ func (u NSUserDefaultsController) RevertToInitialValues(sender objectivec.IObjec
 func (u NSUserDefaultsController) Save(sender objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("save:"), sender)
 }
-func (u NSUserDefaultsController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns the instance of NSUserDefaults in use by the receiver.
 //
@@ -293,8 +251,6 @@ func (u NSUserDefaultsController) Defaults() foundation.NSUserDefaults {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("defaults"))
 	return foundation.NSUserDefaultsFromID(objc.ID(rv))
 }
-
-
 
 // Returns a dictionary containing the receiver’s initial default values.
 //
@@ -314,8 +270,6 @@ func (u NSUserDefaultsController) SetInitialValues(value foundation.INSDictionar
 	objc.Send[struct{}](u.ID, objc.Sel("setInitialValues:"), value)
 }
 
-
-
 // Returns whether the receiver has user default values that have not been
 // saved to NSUserDefaults.
 //
@@ -328,8 +282,6 @@ func (u NSUserDefaultsController) HasUnappliedChanges() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("hasUnappliedChanges"))
 	return rv
 }
-
-
 
 // Returns whether any changes made to bound user default properties are saved
 // immediately.
@@ -351,8 +303,6 @@ func (u NSUserDefaultsController) SetAppliesImmediately(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAppliesImmediately:"), value)
 }
 
-
-
 // Returns a key value coding compliant object that is used to access the user
 // default properties.
 //
@@ -369,12 +319,6 @@ func (u NSUserDefaultsController) Values() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
 // Returns the shared instance of NSUserDefaultsController, creating it if
 // necessary.
 //
@@ -389,27 +333,4 @@ func (_NSUserDefaultsControllerClass NSUserDefaultsControllerClass) SharedUserDe
 	rv := objc.Send[objc.ID](objc.ID(_NSUserDefaultsControllerClass.class), objc.Sel("sharedUserDefaultsController"))
 	return NSUserDefaultsControllerFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

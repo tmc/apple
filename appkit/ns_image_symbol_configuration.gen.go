@@ -37,12 +37,6 @@ func (nc NSImageSymbolConfigurationClass) Alloc() NSImageSymbolConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that contains the specific font, style, and weight attributes to
 // apply to a symbol image.
 //
@@ -80,14 +74,10 @@ type NSImageSymbolConfiguration struct {
 // An object that contains the specific font, style, and weight attributes to
 // apply to a symbol image.
 func NSImageSymbolConfigurationFromID(id objc.ID) NSImageSymbolConfiguration {
-	return NSImageSymbolConfiguration{objectivec.Object{id}}
+	return NSImageSymbolConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: NSImageSymbolConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSImageSymbolConfiguration] class.
 //
@@ -109,10 +99,6 @@ type INSImageSymbolConfiguration interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSImageSymbolConfiguration) Init() NSImageSymbolConfiguration {
 	rv := objc.Send[NSImageSymbolConfiguration](i.ID, objc.Sel("init"))
@@ -132,11 +118,6 @@ func NewNSImageSymbolConfiguration() NSImageSymbolConfiguration {
 	return rv
 }
 
-
-
-
-
-
 // Create a configuration with a specific color rendering mode.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/init(colorRenderingMode:)
@@ -144,7 +125,6 @@ func NewImageSymbolConfigurationWithColorRenderingMode(mode NSImageSymbolColorRe
 	rv := objc.Send[objc.ID](objc.ID(getNSImageSymbolConfigurationClass().class), objc.Sel("configurationWithColorRenderingMode:"), mode)
 	return NSImageSymbolConfigurationFromID(rv)
 }
-
 
 // Creates a hierarchical color configuration using the color you specify.
 //
@@ -173,7 +153,6 @@ func NewImageSymbolConfigurationWithHierarchicalColor(hierarchicalColor INSColor
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
-
 // Creates a color configuration by specifying a palette of colors.
 //
 // paletteColors: The colors to apply to the symbol.
@@ -201,7 +180,6 @@ func NewImageSymbolConfigurationWithPaletteColors(paletteColors []NSColor) NSIma
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
-
 // Creates a symbol configuration with the specified point size and font
 // weight.
 //
@@ -211,7 +189,6 @@ func NewImageSymbolConfigurationWithPointSizeWeight(pointSize float64, weight NS
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
-
 // Creates a symbol configuration with the specified point size, font weight,
 // and symbol scale.
 //
@@ -220,7 +197,6 @@ func NewImageSymbolConfigurationWithPointSizeWeightScale(pointSize float64, weig
 	rv := objc.Send[objc.ID](objc.ID(getNSImageSymbolConfigurationClass().class), objc.Sel("configurationWithPointSize:weight:scale:"), pointSize, weight, scale)
 	return NSImageSymbolConfigurationFromID(rv)
 }
-
 
 // Creates a symbol configuration using the scale you specify.
 //
@@ -236,7 +212,6 @@ func NewImageSymbolConfigurationWithScale(scale NSImageSymbolScale) NSImageSymbo
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
-
 // Creates a symbol configuration with the specified text style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/init(textStyle:)
@@ -244,7 +219,6 @@ func NewImageSymbolConfigurationWithTextStyle(style NSFontTextStyle) NSImageSymb
 	rv := objc.Send[objc.ID](objc.ID(getNSImageSymbolConfigurationClass().class), objc.Sel("configurationWithTextStyle:"), objc.String(string(style)))
 	return NSImageSymbolConfigurationFromID(rv)
 }
-
 
 // Creates a symbol configuration with the specified text style and symbol
 // scale.
@@ -255,7 +229,6 @@ func NewImageSymbolConfigurationWithTextStyleScale(style NSFontTextStyle, scale 
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
-
 // Create a configuration with a specified variable value mode.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/init(variableValueMode:)
@@ -263,12 +236,6 @@ func NewImageSymbolConfigurationWithVariableValueMode(variableValueMode NSImageS
 	rv := objc.Send[objc.ID](objc.ID(getNSImageSymbolConfigurationClass().class), objc.Sel("configurationWithVariableValueMode:"), variableValueMode)
 	return NSImageSymbolConfigurationFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a configuration object by applying the values from the
 // configuration you specify.
@@ -288,10 +255,6 @@ func (i NSImageSymbolConfiguration) ConfigurationByApplyingConfiguration(configu
 func (i NSImageSymbolConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // Creates a configuration that specifies that the symbol should prefer its
 // multicolor variant if one exists.
@@ -327,13 +290,6 @@ func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) Configur
 	return NSImageSymbolConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/appkit/nsimageview/symbolconfiguration
 func (i NSImageSymbolConfiguration) SymbolConfiguration() INSImageSymbolConfiguration {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("symbolConfiguration"))
@@ -342,29 +298,4 @@ func (i NSImageSymbolConfiguration) SymbolConfiguration() INSImageSymbolConfigur
 func (i NSImageSymbolConfiguration) SetSymbolConfiguration(value INSImageSymbolConfiguration) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSymbolConfiguration:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

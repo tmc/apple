@@ -30,8 +30,6 @@ type NSPreviewRepresentableActivityItem interface {
 	IconProvider() foundation.NSItemProvider
 }
 
-
-
 // NSPreviewRepresentableActivityItemObject wraps an existing Objective-C object that conforms to the NSPreviewRepresentableActivityItem protocol.
 type NSPreviewRepresentableActivityItemObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o NSPreviewRepresentableActivityItemObject) BaseObject() objectivec.Object
 	return o.Object
 }
 
-
-
 // NSPreviewRepresentableActivityItemObjectFromID constructs a [NSPreviewRepresentableActivityItemObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPreviewRepresentableActivityItemObjectFromID(id objc.ID) NSPreviewRepresentableActivityItemObject {
@@ -49,9 +45,6 @@ func NSPreviewRepresentableActivityItemObjectFromID(id objc.ID) NSPreviewReprese
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The app-specific item you want to share.
 //
@@ -92,18 +85,4 @@ func (o NSPreviewRepresentableActivityItemObject) IconProvider() foundation.NSIt
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("iconProvider"))
 	return foundation.NSItemProviderFromID(rv)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

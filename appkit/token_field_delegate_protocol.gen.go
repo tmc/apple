@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSTokenField](<doc://com.apple.appkit/documentation/AppKit/NSTokenField>) objects.
 //
@@ -21,8 +20,6 @@ type NSTokenFieldDelegate interface {
 	NSTextFieldDelegate
 }
 
-
-
 // NSTokenFieldDelegateObject wraps an existing Objective-C object that conforms to the NSTokenFieldDelegate protocol.
 type NSTokenFieldDelegateObject struct {
 	objectivec.Object
@@ -31,8 +28,6 @@ func (o NSTokenFieldDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTokenFieldDelegateObjectFromID constructs a [NSTokenFieldDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTokenFieldDelegateObjectFromID(id objc.ID) NSTokenFieldDelegateObject {
@@ -40,9 +35,6 @@ func NSTokenFieldDelegateObjectFromID(id objc.ID) NSTokenFieldDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Allows the delegate to provide a string to be displayed as a proxy for the
 // given represented object.
@@ -120,7 +112,7 @@ func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenFie
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
 
-func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenField INSTokenField, substring string, tokenIndex int, selectedIndex int) foundation.INSArray {
+func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenField INSTokenField, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenField, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
@@ -483,7 +475,7 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSContr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -601,10 +593,6 @@ func (o NSTokenFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtInde
 	return rv
 	}
 
-
-
-
-
 // NSTokenFieldDelegateConfig holds optional typed callbacks for [NSTokenFieldDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -695,8 +683,4 @@ func NewNSTokenFieldDelegate(config NSTokenFieldDelegateConfig) NSTokenFieldDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTokenFieldDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSCollectionLayoutSupplementaryItemClass) Alloc() NSCollectionLayoutSup
 	return rv
 }
 
-
-
-
-
-
-
 // An object used to add an extra visual decoration to an item in a collection
 // view.
 //
@@ -91,10 +85,6 @@ func NSCollectionLayoutSupplementaryItemFromID(id objc.ID) NSCollectionLayoutSup
 // NOTE: NSCollectionLayoutSupplementaryItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionLayoutSupplementaryItem] class.
 //
 // # Getting the anchors
@@ -134,10 +124,6 @@ type INSCollectionLayoutSupplementaryItem interface {
 	SetZIndex(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutSupplementaryItem) Init() NSCollectionLayoutSupplementaryItem {
 	rv := objc.Send[NSCollectionLayoutSupplementaryItem](c.ID, objc.Sel("init"))
@@ -157,11 +143,6 @@ func NewNSCollectionLayoutSupplementaryItem() NSCollectionLayoutSupplementaryIte
 	return rv
 }
 
-
-
-
-
-
 // Creates an item of the specified size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/init(layoutSize:)
@@ -169,7 +150,6 @@ func NewCollectionLayoutSupplementaryItemWithLayoutSize(layoutSize INSCollection
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutSupplementaryItemClass().class), objc.Sel("itemWithLayoutSize:"), layoutSize)
 	return NSCollectionLayoutSupplementaryItemFromID(rv)
 }
-
 
 // Creates a supplementary item of the specified size and element kind, with
 // an anchor relative to a container.
@@ -180,7 +160,6 @@ func NewCollectionLayoutSupplementaryItemWithLayoutSizeElementKindContainerAncho
 	return NSCollectionLayoutSupplementaryItemFromID(rv)
 }
 
-
 // Creates a supplementary item of the specified size and element kind, an
 // anchor relative to a container, and an anchor relative to an item.
 //
@@ -189,7 +168,6 @@ func NewCollectionLayoutSupplementaryItemWithLayoutSizeElementKindContainerAncho
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutSupplementaryItemClass().class), objc.Sel("supplementaryItemWithLayoutSize:elementKind:containerAnchor:itemAnchor:"), layoutSize, objc.String(elementKind), containerAnchor, itemAnchor)
 	return NSCollectionLayoutSupplementaryItemFromID(rv)
 }
-
 
 // Creates an item of the specified size with an array of supplementary items
 // to attach to the item.
@@ -200,23 +178,6 @@ func NewCollectionLayoutSupplementaryItemWithLayoutSizeSupplementaryItems(layout
 	return NSCollectionLayoutSupplementaryItemFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The anchor between the supplementary item and the item it’s attached to.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSupplementaryItem/itemAnchor
@@ -224,8 +185,6 @@ func (c NSCollectionLayoutSupplementaryItem) ItemAnchor() INSCollectionLayoutAnc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemAnchor"))
 	return NSCollectionLayoutAnchorFromID(objc.ID(rv))
 }
-
-
 
 // The anchor between the supplementary item and the container it’s attached
 // to.
@@ -236,8 +195,6 @@ func (c NSCollectionLayoutSupplementaryItem) ContainerAnchor() INSCollectionLayo
 	return NSCollectionLayoutAnchorFromID(objc.ID(rv))
 }
 
-
-
 // A string that identifies the type of supplementary item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSupplementaryItem/elementKind
@@ -245,8 +202,6 @@ func (c NSCollectionLayoutSupplementaryItem) ElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("elementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The vertical stacking order of the supplementary item in relation to other
 // items in the section.
@@ -259,27 +214,4 @@ func (c NSCollectionLayoutSupplementaryItem) ZIndex() int {
 func (c NSCollectionLayoutSupplementaryItem) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

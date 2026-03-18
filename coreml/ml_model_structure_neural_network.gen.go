@@ -36,12 +36,6 @@ func (mc MLModelStructureNeuralNetworkClass) Alloc() MLModelStructureNeuralNetwo
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing the structure of a NeuralNetwork model.
 //
 // # Accessing the layers
@@ -57,14 +51,10 @@ type MLModelStructureNeuralNetwork struct {
 //
 // A class representing the structure of a NeuralNetwork model.
 func MLModelStructureNeuralNetworkFromID(id objc.ID) MLModelStructureNeuralNetwork {
-	return MLModelStructureNeuralNetwork{objectivec.Object{id}}
+	return MLModelStructureNeuralNetwork{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureNeuralNetwork implements IMLModelStructureNeuralNetwork.
 var _ IMLModelStructureNeuralNetwork = MLModelStructureNeuralNetwork{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureNeuralNetwork] class.
 //
@@ -81,10 +71,6 @@ type IMLModelStructureNeuralNetwork interface {
 	// The topologically sorted layers in the NeuralNetwork.
 	Layers() []MLModelStructureNeuralNetworkLayer
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLModelStructureNeuralNetwork) Init() MLModelStructureNeuralNetwork {
@@ -105,26 +91,6 @@ func NewMLModelStructureNeuralNetwork() MLModelStructureNeuralNetwork {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The topologically sorted layers in the NeuralNetwork.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetwork/layers
@@ -134,20 +100,4 @@ func (m MLModelStructureNeuralNetwork) Layers() []MLModelStructureNeuralNetworkL
 		return MLModelStructureNeuralNetworkLayerFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSFontAssetRequestClass) Alloc() NSFontAssetRequest {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Creating a Font Asset Request
 //
@@ -64,14 +58,10 @@ type NSFontAssetRequest struct {
 
 // NSFontAssetRequestFromID constructs a [NSFontAssetRequest] from an objc.ID.
 func NSFontAssetRequestFromID(id objc.ID) NSFontAssetRequest {
-	return NSFontAssetRequest{objectivec.Object{id}}
+	return NSFontAssetRequest{objectivec.Object{ID: id}}
 }
 // NOTE: NSFontAssetRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFontAssetRequest] class.
 //
@@ -106,10 +96,6 @@ type INSFontAssetRequest interface {
 	Progress() foundation.NSProgress
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFontAssetRequest) Init() NSFontAssetRequest {
 	rv := objc.Send[NSFontAssetRequest](f.ID, objc.Sel("init"))
@@ -129,11 +115,6 @@ func NewNSFontAssetRequest() NSFontAssetRequest {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/init(fontDescriptors:options:)
 func NewFontAssetRequestWithFontDescriptorsOptions(fontDescriptors []NSFontDescriptor, options NSFontAssetRequestOptions) NSFontAssetRequest {
@@ -141,12 +122,6 @@ func NewFontAssetRequestWithFontDescriptorsOptions(fontDescriptors []NSFontDescr
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFontDescriptors:options:"), objectivec.IObjectSliceToNSArray(fontDescriptors), options)
 	return NSFontAssetRequestFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/init(fontDescriptors:options:)
@@ -158,21 +133,10 @@ func (f NSFontAssetRequest) InitWithFontDescriptorsOptions(fontDescriptors []NSF
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/download(withCompletionHandler:)
 func (f NSFontAssetRequest) DownloadFontAssetsWithCompletionHandler(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](f.ID, objc.Sel("downloadFontAssetsWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](f.ID, objc.Sel("downloadFontAssetsWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/downloadedFontDescriptors
 func (f NSFontAssetRequest) DownloadedFontDescriptors() []NSFontDescriptor {
@@ -182,31 +146,11 @@ func (f NSFontAssetRequest) DownloadedFontDescriptors() []NSFontDescriptor {
 	})
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/progress
 func (f NSFontAssetRequest) Progress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))
 	return foundation.NSProgressFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // DownloadFontAssets is a synchronous wrapper around [NSFontAssetRequest.DownloadFontAssetsWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -222,9 +166,4 @@ func (f NSFontAssetRequest) DownloadFontAssets(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

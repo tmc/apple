@@ -76,8 +76,6 @@ type NSTextInputClient interface {
 	SupportsAdaptiveImageGlyph() bool
 }
 
-
-
 // NSTextInputClientObject wraps an existing Objective-C object that conforms to the NSTextInputClient protocol.
 type NSTextInputClientObject struct {
 	objectivec.Object
@@ -86,8 +84,6 @@ func (o NSTextInputClientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextInputClientObjectFromID constructs a [NSTextInputClientObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextInputClientObjectFromID(id objc.ID) NSTextInputClientObject {
@@ -95,9 +91,6 @@ func NSTextInputClientObjectFromID(id objc.ID) NSTextInputClientObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value indicating whether the receiver has marked text.
 //
@@ -526,16 +519,4 @@ func (o NSTextInputClientObject) InsertAdaptiveImageGlyphReplacementRange(adapti
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertAdaptiveImageGlyph:replacementRange:"), adaptiveImageGlyph, replacementRange)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

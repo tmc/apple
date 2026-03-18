@@ -38,12 +38,6 @@ func (nc NSTabViewItemClass) Alloc() NSTabViewItem {
 	return rv
 }
 
-
-
-
-
-
-
 // An item in a tab view.
 //
 // # Overview
@@ -114,14 +108,10 @@ type NSTabViewItem struct {
 //
 // An item in a tab view.
 func NSTabViewItemFromID(id objc.ID) NSTabViewItem {
-	return NSTabViewItem{objectivec.Object{id}}
+	return NSTabViewItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSTabViewItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTabViewItem] class.
 //
@@ -245,10 +235,6 @@ type INSTabViewItem interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTabViewItem) Init() NSTabViewItem {
 	rv := objc.Send[NSTabViewItem](t.ID, objc.Sel("init"))
@@ -268,11 +254,6 @@ func NewNSTabViewItem() NSTabViewItem {
 	return rv
 }
 
-
-
-
-
-
 // Performs default initialization for the receiver.
 //
 // # Discussion
@@ -287,19 +268,12 @@ func NewTabViewItemWithIdentifier(identifier objectivec.IObject) NSTabViewItem {
 	return NSTabViewItemFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/init(viewController:)
 func NewTabViewItemWithViewController(viewController INSViewController) NSTabViewItem {
 	rv := objc.Send[objc.ID](objc.ID(getNSTabViewItemClass().class), objc.Sel("tabViewItemWithViewController:"), viewController)
 	return NSTabViewItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Performs default initialization for the receiver.
 //
@@ -356,17 +330,6 @@ func (t NSTabViewItem) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Sets the label text for the receiver to `label`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/label
@@ -377,8 +340,6 @@ func (t NSTabViewItem) Label() string {
 func (t NSTabViewItem) SetLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // Returns the current display state of the tab associated with the receiver.
 //
@@ -392,8 +353,6 @@ func (t NSTabViewItem) TabState() NSTabState {
 	rv := objc.Send[NSTabState](t.ID, objc.Sel("tabState"))
 	return NSTabState(rv)
 }
-
-
 
 // Sets the receiver’s optional identifier object to `identifier`.
 //
@@ -411,8 +370,6 @@ func (t NSTabViewItem) SetIdentifier(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), value)
 }
 
-
-
 // Sets the background color for content in the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/color
@@ -423,8 +380,6 @@ func (t NSTabViewItem) Color() INSColor {
 func (t NSTabViewItem) SetColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setColor:"), value)
 }
-
-
 
 // Sets the view associated with the receiver to `view`.
 //
@@ -442,8 +397,6 @@ func (t NSTabViewItem) SetView(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setView:"), value)
 }
 
-
-
 // Sets the initial first responder for the view associated with the receiver
 // (the view that is displayed when a user clicks on the tab) to `view`.
 //
@@ -455,8 +408,6 @@ func (t NSTabViewItem) InitialFirstResponder() INSView {
 func (t NSTabViewItem) SetInitialFirstResponder(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInitialFirstResponder:"), value)
 }
-
-
 
 // Returns the parent tab view for the receiver.
 //
@@ -476,8 +427,6 @@ func (t NSTabViewItem) TabView() INSTabView {
 	return NSTabViewFromID(objc.ID(rv))
 }
 
-
-
 // Sets the tooltip displayed for the tab view item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/toolTip
@@ -489,8 +438,6 @@ func (t NSTabViewItem) SetToolTip(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/image
 func (t NSTabViewItem) Image() INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("image"))
@@ -500,8 +447,6 @@ func (t NSTabViewItem) SetImage(value INSImage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImage:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/viewController
 func (t NSTabViewItem) ViewController() INSViewController {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("viewController"))
@@ -510,27 +455,4 @@ func (t NSTabViewItem) ViewController() INSViewController {
 func (t NSTabViewItem) SetViewController(value INSViewController) {
 	objc.Send[struct{}](t.ID, objc.Sel("setViewController:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

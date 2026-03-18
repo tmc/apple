@@ -35,8 +35,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // MLComputePlanErrorHandler handles When the compute plan is constructed successfully or unsuccessfully, the completion handler is invoked with a valid MLComputePlan instance or NSError object.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -68,8 +66,6 @@ func NewMLComputePlanErrorBlock(handler MLComputePlanErrorHandler) (objc.ID, fun
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // MLModelDescriptionErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -100,8 +96,6 @@ func NewMLModelDescriptionErrorBlock(handler MLModelDescriptionErrorHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // MLModelErrorHandler handles The completion handler invoked when the load completes.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -130,8 +124,6 @@ func NewMLModelErrorBlock(handler MLModelErrorHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // MLModelStructureErrorHandler handles When the model structure is constructed successfully or unsuccessfully, the completion handler is invoked with a valid MLModelStructure instance or NSError object.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -164,8 +156,6 @@ func NewMLModelStructureErrorBlock(handler MLModelStructureErrorHandler) (objc.I
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // MLUpdateContextHandler handles The closure an update task uses to notify your app.
 //
 // Used by:
@@ -193,8 +183,6 @@ func NewMLUpdateContextBlock(handler MLUpdateContextHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // VoidHandler handles In Swift, a closure the multiarray calls in its deinitializer.
 //
 // Used by:
@@ -212,7 +200,4 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
-
 

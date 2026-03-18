@@ -9,9 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The [NSPageControllerDelegate] protocol allows you to customize the behavior of instances of the NSPageController class.
 //
@@ -19,8 +17,6 @@ var _ = fmt.Sprintf
 type NSPageControllerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSPageControllerDelegateObject wraps an existing Objective-C object that conforms to the NSPageControllerDelegate protocol.
 type NSPageControllerDelegateObject struct {
@@ -30,8 +26,6 @@ func (o NSPageControllerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPageControllerDelegateObjectFromID constructs a [NSPageControllerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPageControllerDelegateObjectFromID(id objc.ID) NSPageControllerDelegateObject {
@@ -39,9 +33,6 @@ func NSPageControllerDelegateObjectFromID(id objc.ID) NSPageControllerDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // This message is sent when the user begins a transition.
 //
@@ -210,10 +201,6 @@ func (o NSPageControllerDelegateObject) PageControllerFrameForObject(pageControl
 	return rv
 	}
 
-
-
-
-
 // NSPageControllerDelegateConfig holds optional typed callbacks for [NSPageControllerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -303,8 +290,4 @@ func NewNSPageControllerDelegate(config NSPageControllerDelegateConfig) NSPageCo
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSPageControllerDelegateObjectFromID(instance)
 }
-
-
-
-
 

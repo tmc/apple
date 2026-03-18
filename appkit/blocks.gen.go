@@ -34,8 +34,6 @@ func NewAnimationContextBlock(handler AnimationContextHandler) (objc.ID, func())
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // AppearanceHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -58,8 +56,6 @@ func NewAppearanceBlock(handler AppearanceHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // ArrayHandler handles The completion handler that is called when the user clicks the OK or Cancel button in the open panel.
 //   - items: The items to add to the results array. The `handleMatchedItems` block can be invoked from any thread desired.  If it is called more than once the additional results will be appended after previous items until the maximum is reached.
@@ -103,8 +99,6 @@ func NewArrayBlock(handler ArrayHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // AttributedStringHandler handles A completion handler to execute with the results of the operation.
 //
 // Used by:
@@ -127,8 +121,6 @@ func NewAttributedStringBlock(handler AttributedStringHandler) (objc.ID, func())
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // CGRectTextContainerHandler handles A closure you provide to determine if the enumeration finishes early.
 //
@@ -158,8 +150,6 @@ func NewCGRectTextContainerBlock(handler CGRectTextContainerHandler) (objc.ID, f
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // ColorHandler handles The handler block for processing the user-selected color.
 //   - selectedColor: The selected color.
 //
@@ -184,8 +174,6 @@ func NewColorBlock(handler ColorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // DictionaryErrorHandler handles The completion handler block object to call when the operation completes.
 //   - newURLs: A dictionary parameter whose keys and values are [NSURL](<doc://com.apple.documentation/documentation/Foundation/NSURL>) objects. Each key is a URL from the [URLs] parameter. The value of each key is a URL representing the location of the duplicated file. If this method could not duplicate a file, the corresponding URL is not included in the dictionary.
 //   - error: If the operation succeeded for every file, this parameter is `nil`. If the operation failed for one or more files, the parameter contains an error object describing the overall result of the operation in a manner suitable for presentation to the user.
@@ -194,8 +182,6 @@ func NewColorBlock(handler ColorHandler) (objc.ID, func()) {
 //   - [NSWorkspace.DuplicateURLsCompletionHandler]
 //   - [NSWorkspace.RecycleURLsCompletionHandler]
 type DictionaryErrorHandler = func(*foundation.INSDictionary, error)
-
-
 
 // DocumentErrorHandler handles The completion handler block object passed in to be called at some point in the future, perhaps after the method invocation has returned.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -227,8 +213,6 @@ func NewDocumentErrorBlock(handler DocumentErrorHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // ErrorHandler handles The completion handler block object passed in to be invoked at some point in the future, perhaps after the method invocation has returned.
 //   - success: A Boolean value indicating whether the sharing attempt was successful. The value is [true](<doc://com.apple.documentation/documentation/Swift/true>) if sharing succeeded, or [false](<doc://com.apple.documentation/documentation/Swift/false>) if it didn’t.
@@ -341,8 +325,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // EventHandler handles The event handler block object.
 //
 // Used by:
@@ -368,8 +350,6 @@ func NewEventBlock(handler EventHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // ObjectHandler handles completion with a primitive value.
 type ObjectHandler = func(objectivec.IObject)
 
@@ -386,8 +366,6 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // RangeHandler handles The originProvider block object should return the baseline origin for the first character at the adjusted range.
 //   - adjustedRange: The adjusted range.
@@ -408,8 +386,6 @@ func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // RectHandler handles completion with a primitive value.
 //
 // Used by:
@@ -427,8 +403,6 @@ func NewRectBlock(handler RectHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // RunningApplicationErrorHandler handles The completion handler block to call asynchronously with the results.
 //   - app: On success, this parameter contains a reference to the app that opened the URL. If the app didn’t open the URL successfully, this parameter is `nil`.
@@ -465,8 +439,6 @@ func NewRunningApplicationErrorBlock(handler RunningApplicationErrorHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // SliderAccessoryHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -490,16 +462,12 @@ func NewSliderAccessoryBlock(handler SliderAccessoryHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // StringHandler handles The Block called when a the correction indicator is dismissed.
 //   - acceptedString: The correction string the user excepted. If the user does not select a correction string nil is returned.
 //
 // Used by:
 //   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]
 type StringHandler = func(*string)
-
-
 
 // TextElementHandler handles A block you use to evaluate whether to continue the enumeration or tell the method to stop.
 //
@@ -528,8 +496,6 @@ func NewTextElementBlock(handler TextElementHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // TextLayoutFragmentHandler handles A closure you provide that determines if the enumeration finishes early.
 //
 // Used by:
@@ -553,8 +519,6 @@ func NewTextLayoutFragmentBlock(handler TextLayoutFragmentHandler) (objc.ID, fun
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // TextLayoutManagerTextLayoutFragmentHandler is the signature for a completion handler block.
 type TextLayoutManagerTextLayoutFragmentHandler = func(*NSTextLayoutManager, *NSTextLayoutFragment)
 
@@ -576,8 +540,6 @@ func NewTextLayoutManagerTextLayoutFragmentBlock(handler TextLayoutManagerTextLa
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // TextPreviewHandler handles A completion handler to execute when you are done.
 //
@@ -601,8 +563,6 @@ func NewTextPreviewBlock(handler TextPreviewHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // URLErrorHandler handles A block to be called on the supplied operationQueue when the promised file is ready to be read.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -633,8 +593,6 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // UUIDHandler handles A handler to execute with the required information.
 //
 // Used by:
@@ -658,8 +616,6 @@ func NewUUIDBlock(handler UUIDHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // ViewHandler handles A completion handler to execute when you are done.
 //
 // Used by:
@@ -682,8 +638,6 @@ func NewViewBlock(handler ViewHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // VoidHandler handles The completion handler block to call when the Versions browser is fully dismissed.
 //
@@ -753,8 +707,6 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // WindowErrorHandler handles A block object to execute with the results of creating the window.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -790,8 +742,6 @@ func NewWindowErrorBlock(handler WindowErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // WorkspaceAuthorizationErrorHandler handles The completion handler to call when the authorization request is completed.
 //   - authorization: The authorization granted for this app. Use it when creating a new [FileManager](<doc://com.apple.documentation/documentation/Foundation/FileManager>) with [init(authorization:)](<doc://com.apple.documentation/documentation/Foundation/FileManager/init(authorization:)>).
 //   - error: `nil` if the app is authorized; otherwise, a pointer to the authorization error.
@@ -823,8 +773,6 @@ func NewWorkspaceAuthorizationErrorBlock(handler WorkspaceAuthorizationErrorHand
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // structCGRectHandler handles completion with a primitive value.
 type structCGRectHandler = func(corefoundation.CGRect)
 
@@ -836,6 +784,4 @@ func NewstructCGRectBlock(handler structCGRectHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 

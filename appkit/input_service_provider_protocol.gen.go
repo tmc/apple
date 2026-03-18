@@ -14,8 +14,6 @@ type NSInputServiceProvider interface {
 	objectivec.IObject
 }
 
-
-
 // NSInputServiceProviderObject wraps an existing Objective-C object that conforms to the NSInputServiceProvider protocol.
 type NSInputServiceProviderObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSInputServiceProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSInputServiceProviderObjectFromID constructs a [NSInputServiceProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSInputServiceProviderObjectFromID(id objc.ID) NSInputServiceProviderObject {
@@ -33,13 +29,4 @@ func NSInputServiceProviderObjectFromID(id objc.ID) NSInputServiceProviderObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

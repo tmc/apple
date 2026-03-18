@@ -5,7 +5,6 @@ package coreml
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [MLMetricKey] class.
@@ -36,12 +35,6 @@ func (mc MLMetricKeyClass) Alloc() MLMetricKey {
 	return rv
 }
 
-
-
-
-
-
-
 // A key for the metrics dictionary in an update context.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey
@@ -58,10 +51,6 @@ func MLMetricKeyFromID(id objc.ID) MLMetricKey {
 // NOTE: MLMetricKey adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MLMetricKey] class.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMetricKey
@@ -71,12 +60,7 @@ type IMLMetricKey interface {
 	// The training metrics of the model for the update task, contained in a dictionary.
 	Metrics() IMLMetricKey
 	SetMetrics(value IMLMetricKey)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLMetricKey) Init() MLMetricKey {
@@ -97,29 +81,6 @@ func NewMLMetricKey() MLMetricKey {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (m MLMetricKey) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The training metrics of the model for the update task, contained in a
 // dictionary.
 //
@@ -131,12 +92,6 @@ func (m MLMetricKey) Metrics() IMLMetricKey {
 func (m MLMetricKey) SetMetrics(value IMLMetricKey) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMetrics:"), value)
 }
-
-
-
-
-
-
 
 // The key you use to access the current loss (a `float` value).
 //
@@ -150,8 +105,6 @@ func (_MLMetricKeyClass MLMetricKeyClass) LossValue() MLMetricKey {
 	return MLMetricKeyFromID(objc.ID(rv))
 }
 
-
-
 // The key you use to access the epoch index (an [Int64] value).
 //
 // # Discussion
@@ -163,8 +116,6 @@ func (_MLMetricKeyClass MLMetricKeyClass) EpochIndex() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("epochIndex"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
-
-
 
 // The key you use to access the mini-batch index (an [Int64] value) within an
 // epoch.
@@ -179,25 +130,4 @@ func (_MLMetricKeyClass MLMetricKeyClass) MiniBatchIndex() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("miniBatchIndex"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

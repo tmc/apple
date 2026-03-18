@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods for fine-tuning a gesture recognizer’s behavior.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSGestureRecognizerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSGestureRecognizerDelegateObject wraps an existing Objective-C object that conforms to the NSGestureRecognizerDelegate protocol.
 type NSGestureRecognizerDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSGestureRecognizerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSGestureRecognizerDelegateObjectFromID constructs a [NSGestureRecognizerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSGestureRecognizerDelegateObjectFromID(id objc.ID) NSGestureRecognizerDelegateObject {
@@ -37,9 +31,6 @@ func NSGestureRecognizerDelegateObjectFromID(id objc.ID) NSGestureRecognizerDele
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate if a gesture recognizer should attempt to recognize
 // gestures for a particular event.
@@ -248,10 +239,6 @@ func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldReceiveTouch(g
 	return rv
 	}
 
-
-
-
-
 // NSGestureRecognizerDelegateConfig holds optional typed callbacks for [NSGestureRecognizerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -384,8 +371,4 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSGestureRecognizerDelegateObjectFromID(instance)
 }
-
-
-
-
 

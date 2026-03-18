@@ -14,8 +14,6 @@ type NSStackViewDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSStackViewDelegateObject wraps an existing Objective-C object that conforms to the NSStackViewDelegate protocol.
 type NSStackViewDelegateObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSStackViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSStackViewDelegateObjectFromID constructs a [NSStackViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSStackViewDelegateObjectFromID(id objc.ID) NSStackViewDelegateObject {
@@ -33,9 +29,6 @@ func NSStackViewDelegateObjectFromID(id objc.ID) NSStackViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Called when the stack view has automatically reattached one or more
 // previously-detached views.
@@ -80,10 +73,4 @@ func (o NSStackViewDelegateObject) StackViewWillDetachViews(stackView INSStackVi
 	
 	objc.Send[struct{}](o.ID, objc.Sel("stackView:willDetachViews:"), stackView, objectivec.IObjectSliceToNSArray(views))
 	}
-
-
-
-
-
-
 

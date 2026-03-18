@@ -27,8 +27,6 @@ type NSCollectionViewSectionHeaderView interface {
 	SetSectionCollapseButton(value INSButton)
 }
 
-
-
 // NSCollectionViewSectionHeaderViewObject wraps an existing Objective-C object that conforms to the NSCollectionViewSectionHeaderView protocol.
 type NSCollectionViewSectionHeaderViewObject struct {
 	objectivec.Object
@@ -37,8 +35,6 @@ func (o NSCollectionViewSectionHeaderViewObject) BaseObject() objectivec.Object 
 	return o.Object
 }
 
-
-
 // NSCollectionViewSectionHeaderViewObjectFromID constructs a [NSCollectionViewSectionHeaderViewObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionViewSectionHeaderViewObjectFromID(id objc.ID) NSCollectionViewSectionHeaderViewObject {
@@ -46,9 +42,6 @@ func NSCollectionViewSectionHeaderViewObjectFromID(id objc.ID) NSCollectionViewS
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A control that lets users collapse and open a collection view section.
 //
@@ -196,19 +189,11 @@ func (o NSCollectionViewSectionHeaderViewObject) Identifier() NSUserInterfaceIte
 	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
 	}
 
-
-
-
 func (o NSCollectionViewSectionHeaderViewObject) SetSectionCollapseButton(value INSButton) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSectionCollapseButton:"), value)
 }
 
-
 func (o NSCollectionViewSectionHeaderViewObject) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
-
-
-
 

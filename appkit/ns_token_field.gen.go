@@ -37,12 +37,6 @@ func (nc NSTokenFieldClass) Alloc() NSTokenField {
 	return rv
 }
 
-
-
-
-
-
-
 // A text field that converts text into visually distinct tokens.
 //
 // # Overview
@@ -86,10 +80,6 @@ func NSTokenFieldFromID(id objc.ID) NSTokenField {
 // NOTE: NSTokenField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTokenField] class.
 //
 // # Configuring the Token Style
@@ -128,13 +118,7 @@ type INSTokenField interface {
 	// The receiver’s completion delay.
 	CompletionDelay() float64
 	SetCompletionDelay(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTokenField) Init() NSTokenField {
@@ -154,11 +138,6 @@ func NewNSTokenField() NSTokenField {
 	rv := objc.Send[NSTokenField](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a text field for use as a static label that displays styled text,
 // doesn’t wrap, and doesn’t have selectable text.
@@ -181,7 +160,6 @@ func NewTokenFieldLabelWithAttributedString(attributedStringValue foundation.NSA
 	return NSTokenFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a static label that uses the system
 // default font, doesn’t wrap, and doesn’t have selectable text.
 //
@@ -196,7 +174,6 @@ func NewTokenFieldLabelWithString(stringValue string) NSTokenField {
 	rv := objc.Send[objc.ID](objc.ID(getNSTokenFieldClass().class), objc.Sel("labelWithString:"), objc.String(stringValue))
 	return NSTokenFieldFromID(rv)
 }
-
 
 // Initializes a single-line editable text field for user input using the
 // system default font and standard visual appearance.
@@ -213,7 +190,6 @@ func NewTokenFieldTextFieldWithString(stringValue string) NSTokenField {
 	return NSTokenFieldFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -222,7 +198,6 @@ func NewTokenFieldWithCoder(coder foundation.INSCoder) NSTokenField {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTokenFieldFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -250,7 +225,6 @@ func NewTokenFieldWithFrame(frameRect corefoundation.CGRect) NSTokenField {
 	return NSTokenFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a multiline static label with
 // selectable text that uses the system default font.
 //
@@ -266,26 +240,6 @@ func NewTokenFieldWrappingLabelWithString(stringValue string) NSTokenField {
 	return NSTokenFieldFromID(rv)
 }
 
-
-
-
-
-
-func (t NSTokenField) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The token style of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/tokenStyle-swift.property
@@ -296,8 +250,6 @@ func (t NSTokenField) TokenStyle() NSTokenStyle {
 func (t NSTokenField) SetTokenStyle(value NSTokenStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenStyle:"), value)
 }
-
-
 
 // The recevier’s tokenizing character set to `characterSet`.
 //
@@ -310,8 +262,6 @@ func (t NSTokenField) SetTokenizingCharacterSet(value foundation.NSCharacterSet)
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenizingCharacterSet:"), value)
 }
 
-
-
 // The receiver’s completion delay.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/completionDelay
@@ -322,12 +272,6 @@ func (t NSTokenField) CompletionDelay() float64 {
 func (t NSTokenField) SetCompletionDelay(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompletionDelay:"), value)
 }
-
-
-
-
-
-
 
 // Returns the default tokenizing character set.
 //
@@ -341,8 +285,6 @@ func (_NSTokenFieldClass NSTokenFieldClass) DefaultTokenizingCharacterSet() foun
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // Returns the default completion delay.
 //
 // # Discussion
@@ -354,38 +296,4 @@ func (_NSTokenFieldClass NSTokenFieldClass) DefaultCompletionDelay() float64 {
 	rv := objc.Send[float64](objc.ID(_NSTokenFieldClass.class), objc.Sel("defaultCompletionDelay"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,7 +38,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _nSAccessibilityActionDescription func(action NSAccessibilityActionName) foundation.NSString
 
 // NSAccessibilityActionDescription returns a standard description for an action.
@@ -50,7 +49,6 @@ func NSAccessibilityActionDescription(action NSAccessibilityActionName) foundati
 	}
 	return _nSAccessibilityActionDescription(action)
 }
-
 
 var _nSAccessibilityFrameInView func(parentView *NSView, frame corefoundation.CGRect) corefoundation.CGRect
 
@@ -64,7 +62,6 @@ func NSAccessibilityFrameInView(parentView *NSView, frame corefoundation.CGRect)
 	return _nSAccessibilityFrameInView(parentView, frame)
 }
 
-
 var _nSAccessibilityPointInView func(parentView *NSView, point corefoundation.CGPoint) corefoundation.CGPoint
 
 // NSAccessibilityPointInView returns the point in screen coordinates.
@@ -76,7 +73,6 @@ func NSAccessibilityPointInView(parentView *NSView, point corefoundation.CGPoint
 	}
 	return _nSAccessibilityPointInView(parentView, point)
 }
-
 
 var _nSAccessibilityPostNotification func(element objectivec.Object, notification NSAccessibilityNotificationName)
 
@@ -90,7 +86,17 @@ func NSAccessibilityPostNotification(element objectivec.Object, notification NSA
 	_nSAccessibilityPostNotification(element, notification)
 }
 
+var _nSAccessibilityPostNotificationWithUserInfo func(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr)
 
+// NSAccessibilityPostNotificationWithUserInfo sends a notification and an optional user info dictionary to any observing assistive apps.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/post(element:notification:userInfo:)
+func NSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) {
+	if _nSAccessibilityPostNotificationWithUserInfo == nil {
+		panic("AppKit: symbol NSAccessibilityPostNotificationWithUserInfo not loaded")
+	}
+	_nSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo)
+}
 
 var _nSAccessibilityRoleDescription func(role NSAccessibilityRole, subrole NSAccessibilitySubrole) foundation.NSString
 
@@ -104,7 +110,6 @@ func NSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAccessib
 	return _nSAccessibilityRoleDescription(role, subrole)
 }
 
-
 var _nSAccessibilityRoleDescriptionForUIElement func(element objectivec.Object) foundation.NSString
 
 // NSAccessibilityRoleDescriptionForUIElement returns a standard role description for a user interface element.
@@ -116,7 +121,6 @@ func NSAccessibilityRoleDescriptionForUIElement(element objectivec.Object) found
 	}
 	return _nSAccessibilityRoleDescriptionForUIElement(element)
 }
-
 
 var _nSAccessibilitySetMayContainProtectedContent func(flag bool) bool
 
@@ -130,7 +134,6 @@ func NSAccessibilitySetMayContainProtectedContent(flag bool) bool {
 	return _nSAccessibilitySetMayContainProtectedContent(flag)
 }
 
-
 var _nSAccessibilityUnignoredAncestor func(element objectivec.Object) objectivec.Object
 
 // NSAccessibilityUnignoredAncestor returns an unignored accessibility object, ascending the hierarchy, if necessary.
@@ -142,7 +145,6 @@ func NSAccessibilityUnignoredAncestor(element objectivec.Object) objectivec.Obje
 	}
 	return _nSAccessibilityUnignoredAncestor(element)
 }
-
 
 var _nSAccessibilityUnignoredChildren func(originalChildren foundation.NSArray) foundation.NSArray
 
@@ -156,7 +158,6 @@ func NSAccessibilityUnignoredChildren(originalChildren foundation.NSArray) found
 	return _nSAccessibilityUnignoredChildren(originalChildren)
 }
 
-
 var _nSAccessibilityUnignoredChildrenForOnlyChild func(originalChild objectivec.Object) foundation.NSArray
 
 // NSAccessibilityUnignoredChildrenForOnlyChild returns a list of unignored accessibility objects, descending the hierarchy, if necessary.
@@ -168,7 +169,6 @@ func NSAccessibilityUnignoredChildrenForOnlyChild(originalChild objectivec.Objec
 	}
 	return _nSAccessibilityUnignoredChildrenForOnlyChild(originalChild)
 }
-
 
 var _nSAccessibilityUnignoredDescendant func(element objectivec.Object) objectivec.Object
 
@@ -182,7 +182,6 @@ func NSAccessibilityUnignoredDescendant(element objectivec.Object) objectivec.Ob
 	return _nSAccessibilityUnignoredDescendant(element)
 }
 
-
 var _nSApplicationLoad func() bool
 
 // NSApplicationLoad startup function to call when running Cocoa code from a Carbon application.
@@ -194,7 +193,6 @@ func NSApplicationLoad() bool {
 	}
 	return _nSApplicationLoad()
 }
-
 
 var _nSApplicationMain func(argc int, argv *byte) int
 
@@ -208,7 +206,6 @@ func NSApplicationMain(argc int, argv *byte) int {
 	return _nSApplicationMain(argc, argv)
 }
 
-
 var _nSAvailableWindowDepths func() *NSWindowDepth
 
 // NSAvailableWindowDepths returns the available window depth values.
@@ -220,7 +217,6 @@ func NSAvailableWindowDepths() *NSWindowDepth {
 	}
 	return _nSAvailableWindowDepths()
 }
-
 
 var _nSBeep func()
 
@@ -234,7 +230,6 @@ func NSBeep() {
 	_nSBeep()
 }
 
-
 var _nSBestDepth func(colorSpace NSColorSpaceName, bps int, bpp int, planar bool, exactMatch *bool) NSWindowDepth
 
 // NSBestDepth attempts to return a window depth adequate for the specified parameters.
@@ -246,7 +241,6 @@ func NSBestDepth(colorSpace NSColorSpaceName, bps int, bpp int, planar bool, exa
 	}
 	return _nSBestDepth(colorSpace, bps, bpp, planar, exactMatch)
 }
-
 
 var _nSBitsPerPixelFromDepth func(depth NSWindowDepth) int
 
@@ -260,7 +254,6 @@ func NSBitsPerPixelFromDepth(depth NSWindowDepth) int {
 	return _nSBitsPerPixelFromDepth(depth)
 }
 
-
 var _nSBitsPerSampleFromDepth func(depth NSWindowDepth) int
 
 // NSBitsPerSampleFromDepth returns the bits per sample for the specified window depth.
@@ -272,7 +265,6 @@ func NSBitsPerSampleFromDepth(depth NSWindowDepth) int {
 	}
 	return _nSBitsPerSampleFromDepth(depth)
 }
-
 
 var _nSColorSpaceFromDepth func(depth NSWindowDepth) NSColorSpaceName
 
@@ -286,7 +278,6 @@ func NSColorSpaceFromDepth(depth NSWindowDepth) NSColorSpaceName {
 	return _nSColorSpaceFromDepth(depth)
 }
 
-
 var _nSConvertGlyphsToPackedGlyphs func(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs *byte) int
 
 // NSConvertGlyphsToPackedGlyphs prepares a set of glyphs for processing by character-based routines.
@@ -298,7 +289,6 @@ func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyt
 	}
 	return _nSConvertGlyphsToPackedGlyphs(glBuf, count, packing, packedGlyphs)
 }
-
 
 var _nSCopyBits func(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint)
 
@@ -312,7 +302,6 @@ func NSCopyBits(srcGState int, srcRect corefoundation.CGRect, destPoint corefoun
 	_nSCopyBits(srcGState, srcRect, destPoint)
 }
 
-
 var _nSCountWindows func(count *int)
 
 // NSCountWindows counts the number of onscreen windows.
@@ -325,7 +314,6 @@ func NSCountWindows(count *int) {
 	_nSCountWindows(count)
 }
 
-
 var _nSCountWindowsForContext func(context int, count *int)
 
 // NSCountWindowsForContext counts the number of onscreen windows belonging to a particular application.
@@ -337,7 +325,6 @@ func NSCountWindowsForContext(context int, count *int) {
 	}
 	_nSCountWindowsForContext(context, count)
 }
-
 
 var _nSCreateFileContentsPboardType func(fileType foundation.NSString) NSPasteboardType
 
@@ -353,7 +340,6 @@ func NSCreateFileContentsPboardType(fileType foundation.NSString) NSPasteboardTy
 	return _nSCreateFileContentsPboardType(fileType)
 }
 
-
 var _nSCreateFilenamePboardType func(fileType foundation.NSString) NSPasteboardType
 
 // NSCreateFilenamePboardType returns a pasteboard type based on the passed file type.
@@ -368,8 +354,6 @@ func NSCreateFilenamePboardType(fileType foundation.NSString) NSPasteboardType {
 	return _nSCreateFilenamePboardType(fileType)
 }
 
-
-
 var _nSDottedFrameRect func(rect corefoundation.CGRect)
 
 // NSDottedFrameRect draws a bordered rectangle.
@@ -381,7 +365,6 @@ func NSDottedFrameRect(rect corefoundation.CGRect) {
 	}
 	_nSDottedFrameRect(rect)
 }
-
 
 var _nSDrawBitmap func(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte)
 
@@ -395,7 +378,6 @@ func NSDrawBitmap(rect corefoundation.CGRect, width int, height int, bps int, sp
 	_nSDrawBitmap(rect, width, height, bps, spp, bpp, bpr, isPlanar, hasAlpha, colorSpaceName, data)
 }
 
-
 var _nSDrawButton func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawButton draws a gray-filled rectangle representing a user-interface button.
@@ -407,7 +389,6 @@ func NSDrawButton(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	}
 	_nSDrawButton(rect, clipRect)
 }
-
 
 var _nSDrawColorTiledRects func(boundsRect corefoundation.CGRect, clipRect corefoundation.CGRect, sides *foundation.NSRectEdge, colors *NSColor, count int) corefoundation.CGRect
 
@@ -421,7 +402,6 @@ func NSDrawColorTiledRects(boundsRect corefoundation.CGRect, clipRect corefounda
 	return _nSDrawColorTiledRects(boundsRect, clipRect, sides, colors, count)
 }
 
-
 var _nSDrawDarkBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawDarkBezel draws a dark gray-filled rectangle with a bezel border.
@@ -433,7 +413,6 @@ func NSDrawDarkBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 	}
 	_nSDrawDarkBezel(rect, clipRect)
 }
-
 
 var _nSDrawGrayBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
@@ -447,7 +426,6 @@ func NSDrawGrayBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 	_nSDrawGrayBezel(rect, clipRect)
 }
 
-
 var _nSDrawGroove func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
 // NSDrawGroove draws a gray-filled rectangle with a groove border.
@@ -459,7 +437,6 @@ func NSDrawGroove(rect corefoundation.CGRect, clipRect corefoundation.CGRect) {
 	}
 	_nSDrawGroove(rect, clipRect)
 }
-
 
 var _nSDrawLightBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
@@ -473,7 +450,6 @@ func NSDrawLightBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect
 	_nSDrawLightBezel(rect, clipRect)
 }
 
-
 var _nSDrawNinePartImage func(frame corefoundation.CGRect, topLeftCorner *NSImage, topEdgeFill *NSImage, topRightCorner *NSImage, leftEdgeFill *NSImage, centerFill *NSImage, rightEdgeFill *NSImage, bottomLeftCorner *NSImage, bottomEdgeFill *NSImage, bottomRightCorner *NSImage, op NSCompositingOperation, alphaFraction float64, flipped bool)
 
 // NSDrawNinePartImage draws a nine-part tiled image.
@@ -485,7 +461,6 @@ func NSDrawNinePartImage(frame corefoundation.CGRect, topLeftCorner *NSImage, to
 	}
 	_nSDrawNinePartImage(frame, topLeftCorner, topEdgeFill, topRightCorner, leftEdgeFill, centerFill, rightEdgeFill, bottomLeftCorner, bottomEdgeFill, bottomRightCorner, op, alphaFraction, flipped)
 }
-
 
 var _nSDrawThreePartImage func(frame corefoundation.CGRect, startCap *NSImage, centerFill *NSImage, endCap *NSImage, vertical bool, op NSCompositingOperation, alphaFraction float64, flipped bool)
 
@@ -499,7 +474,6 @@ func NSDrawThreePartImage(frame corefoundation.CGRect, startCap *NSImage, center
 	_nSDrawThreePartImage(frame, startCap, centerFill, endCap, vertical, op, alphaFraction, flipped)
 }
 
-
 var _nSDrawTiledRects func(boundsRect corefoundation.CGRect, clipRect corefoundation.CGRect, sides *foundation.NSRectEdge, grays *float64, count int) corefoundation.CGRect
 
 // NSDrawTiledRects draws rectangles with borders.
@@ -511,7 +485,6 @@ func NSDrawTiledRects(boundsRect corefoundation.CGRect, clipRect corefoundation.
 	}
 	return _nSDrawTiledRects(boundsRect, clipRect, sides, grays, count)
 }
-
 
 var _nSDrawWhiteBezel func(rect corefoundation.CGRect, clipRect corefoundation.CGRect)
 
@@ -525,7 +498,6 @@ func NSDrawWhiteBezel(rect corefoundation.CGRect, clipRect corefoundation.CGRect
 	_nSDrawWhiteBezel(rect, clipRect)
 }
 
-
 var _nSDrawWindowBackground func(rect corefoundation.CGRect)
 
 // NSDrawWindowBackground draws the window’s default background pattern into the specified rectangle of the currently focused view.
@@ -537,7 +509,6 @@ func NSDrawWindowBackground(rect corefoundation.CGRect) {
 	}
 	_nSDrawWindowBackground(rect)
 }
-
 
 var _nSEraseRect func(rect corefoundation.CGRect)
 
@@ -551,8 +522,6 @@ func NSEraseRect(rect corefoundation.CGRect) {
 	_nSEraseRect(rect)
 }
 
-
-
 var _nSFrameRect func(rect corefoundation.CGRect)
 
 // NSFrameRect draws a bordered rectangle.
@@ -564,7 +533,6 @@ func NSFrameRect(rect corefoundation.CGRect) {
 	}
 	_nSFrameRect(rect)
 }
-
 
 var _nSFrameRectWithWidth func(rect corefoundation.CGRect, frameWidth float64)
 
@@ -578,7 +546,6 @@ func NSFrameRectWithWidth(rect corefoundation.CGRect, frameWidth float64) {
 	_nSFrameRectWithWidth(rect, frameWidth)
 }
 
-
 var _nSFrameRectWithWidthUsingOperation func(rect corefoundation.CGRect, frameWidth float64, op NSCompositingOperation)
 
 // NSFrameRectWithWidthUsingOperation draws a bordered rectangle using the specified compositing operation.
@@ -590,7 +557,6 @@ func NSFrameRectWithWidthUsingOperation(rect corefoundation.CGRect, frameWidth f
 	}
 	_nSFrameRectWithWidthUsingOperation(rect, frameWidth, op)
 }
-
 
 var _nSGetFileType func(pboardType NSPasteboardType) foundation.NSString
 
@@ -606,7 +572,6 @@ func NSGetFileType(pboardType NSPasteboardType) foundation.NSString {
 	return _nSGetFileType(pboardType)
 }
 
-
 var _nSGetFileTypes func(pboardTypes *foundation.NSString) []foundation.NSString
 
 // NSGetFileTypes returns an array of file types based on the passed pasteboard types.
@@ -621,7 +586,6 @@ func NSGetFileTypes(pboardTypes []foundation.NSString) []foundation.NSString {
 	return _nSGetFileTypes(unsafe.SliceData(pboardTypes))
 }
 
-
 var _nSHighlightRect func(rect corefoundation.CGRect)
 
 // NSHighlightRect highlights the specified rect by filling it with white.
@@ -633,7 +597,6 @@ func NSHighlightRect(rect corefoundation.CGRect) {
 	}
 	_nSHighlightRect(rect)
 }
-
 
 var _nSInterfaceStyleForKey func(key foundation.NSString, responder *NSResponder) unsafe.Pointer
 
@@ -647,7 +610,6 @@ func NSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) uns
 	return _nSInterfaceStyleForKey(key, responder)
 }
 
-
 var _nSIsControllerMarker func(object objectivec.Object) bool
 
 // NSIsControllerMarker tests whether a given object is special marker object used for indicating the state of a selection in relation to a key.
@@ -659,7 +621,6 @@ func NSIsControllerMarker(object objectivec.Object) bool {
 	}
 	return _nSIsControllerMarker(object)
 }
-
 
 var _nSNumberOfColorComponents func(colorSpaceName NSColorSpaceName) int
 
@@ -673,7 +634,6 @@ func NSNumberOfColorComponents(colorSpaceName NSColorSpaceName) int {
 	return _nSNumberOfColorComponents(colorSpaceName)
 }
 
-
 var _nSPerformService func(itemName foundation.NSString, pboard *NSPasteboard) bool
 
 // NSPerformService programmatically invokes a Services menu service.
@@ -685,7 +645,6 @@ func NSPerformService(itemName foundation.NSString, pboard *NSPasteboard) bool {
 	}
 	return _nSPerformService(itemName, pboard)
 }
-
 
 var _nSPlanarFromDepth func(depth NSWindowDepth) bool
 
@@ -699,7 +658,6 @@ func NSPlanarFromDepth(depth NSWindowDepth) bool {
 	return _nSPlanarFromDepth(depth)
 }
 
-
 var _nSRectClip func(rect corefoundation.CGRect)
 
 // NSRectClip modifies the current clipping path by intersecting it with the passed rect.
@@ -711,7 +669,6 @@ func NSRectClip(rect corefoundation.CGRect) {
 	}
 	_nSRectClip(rect)
 }
-
 
 var _nSRectClipList func(rects *corefoundation.CGRect, count int)
 
@@ -725,7 +682,6 @@ func NSRectClipList(rects *corefoundation.CGRect, count int) {
 	_nSRectClipList(rects, count)
 }
 
-
 var _nSRectFill func(rect corefoundation.CGRect)
 
 // NSRectFill fills the passed rectangle with the current color.
@@ -737,7 +693,6 @@ func NSRectFill(rect corefoundation.CGRect) {
 	}
 	_nSRectFill(rect)
 }
-
 
 var _nSRectFillList func(rects *corefoundation.CGRect, count int)
 
@@ -751,7 +706,6 @@ func NSRectFillList(rects *corefoundation.CGRect, count int) {
 	_nSRectFillList(rects, count)
 }
 
-
 var _nSRectFillListUsingOperation func(rects *corefoundation.CGRect, count int, op NSCompositingOperation)
 
 // NSRectFillListUsingOperation fills the rectangles in a list using the current fill color and specified compositing operation.
@@ -763,7 +717,6 @@ func NSRectFillListUsingOperation(rects *corefoundation.CGRect, count int, op NS
 	}
 	_nSRectFillListUsingOperation(rects, count, op)
 }
-
 
 var _nSRectFillListWithColors func(rects *corefoundation.CGRect, colors NSColor, num int)
 
@@ -777,7 +730,6 @@ func NSRectFillListWithColors(rects *corefoundation.CGRect, colors NSColor, num 
 	_nSRectFillListWithColors(rects, colors, num)
 }
 
-
 var _nSRectFillListWithColorsUsingOperation func(rects *corefoundation.CGRect, colors NSColor, num int, op NSCompositingOperation)
 
 // NSRectFillListWithColorsUsingOperation fills the rectangles in a list using the specified colors and compositing operation.
@@ -789,7 +741,6 @@ func NSRectFillListWithColorsUsingOperation(rects *corefoundation.CGRect, colors
 	}
 	_nSRectFillListWithColorsUsingOperation(rects, colors, num, op)
 }
-
 
 var _nSRectFillListWithGrays func(rects *corefoundation.CGRect, grays *float64, num int)
 
@@ -803,7 +754,6 @@ func NSRectFillListWithGrays(rects *corefoundation.CGRect, grays *float64, num i
 	_nSRectFillListWithGrays(rects, grays, num)
 }
 
-
 var _nSRectFillUsingOperation func(rect corefoundation.CGRect, op NSCompositingOperation)
 
 // NSRectFillUsingOperation fills a rectangle using the current fill color and the specified compositing operation.
@@ -815,7 +765,6 @@ func NSRectFillUsingOperation(rect corefoundation.CGRect, op NSCompositingOperat
 	}
 	_nSRectFillUsingOperation(rect, op)
 }
-
 
 var _nSRegisterServicesProvider func(provider objectivec.Object, name NSServiceProviderName)
 
@@ -829,7 +778,6 @@ func NSRegisterServicesProvider(provider objectivec.Object, name NSServiceProvid
 	_nSRegisterServicesProvider(provider, name)
 }
 
-
 var _nSRunAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
 
 // NSRunAlertPanelRelativeToWindow.
@@ -841,7 +789,6 @@ func NSRunAlertPanelRelativeToWindow(title foundation.NSString, msgFormat founda
 	}
 	return _nSRunAlertPanelRelativeToWindow(title, msgFormat, defaultButton, alternateButton, otherButton, docWindow)
 }
-
 
 var _nSRunCriticalAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
 
@@ -855,7 +802,6 @@ func NSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgForma
 	return _nSRunCriticalAlertPanelRelativeToWindow(title, msgFormat, defaultButton, alternateButton, otherButton, docWindow)
 }
 
-
 var _nSRunInformationalAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
 
 // NSRunInformationalAlertPanelRelativeToWindow.
@@ -868,7 +814,6 @@ func NSRunInformationalAlertPanelRelativeToWindow(title foundation.NSString, msg
 	return _nSRunInformationalAlertPanelRelativeToWindow(title, msgFormat, defaultButton, alternateButton, otherButton, docWindow)
 }
 
-
 var _nSSetShowsServicesMenuItem func(itemName foundation.NSString, enabled bool) int
 
 // NSSetShowsServicesMenuItem specifies whether an item should be included in Services menus.
@@ -880,7 +825,6 @@ func NSSetShowsServicesMenuItem(itemName foundation.NSString, enabled bool) int 
 	}
 	return _nSSetShowsServicesMenuItem(itemName, enabled)
 }
-
 
 var _nSShowAnimationEffect func(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objectivec.SEL, contextInfo uintptr)
 
@@ -896,7 +840,6 @@ func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation cor
 	_nSShowAnimationEffect(animationEffect, centerLocation, size, animationDelegate, didEndSelector, contextInfo)
 }
 
-
 var _nSShowsServicesMenuItem func(itemName foundation.NSString) bool
 
 // NSShowsServicesMenuItem specifies whether a Services menu item is currently enabled.
@@ -908,8 +851,6 @@ func NSShowsServicesMenuItem(itemName foundation.NSString) bool {
 	}
 	return _nSShowsServicesMenuItem(itemName)
 }
-
-
 
 var _nSUnregisterServicesProvider func(name NSServiceProviderName)
 
@@ -923,7 +864,6 @@ func NSUnregisterServicesProvider(name NSServiceProviderName) {
 	_nSUnregisterServicesProvider(name)
 }
 
-
 var _nSUpdateDynamicServices func()
 
 // NSUpdateDynamicServices causes the services information for the system to be updated.
@@ -935,7 +875,6 @@ func NSUpdateDynamicServices() {
 	}
 	_nSUpdateDynamicServices()
 }
-
 
 var _nSWindowList func(size int, list int)
 
@@ -949,7 +888,6 @@ func NSWindowList(size int, list int) {
 	_nSWindowList(size, list)
 }
 
-
 var _nSWindowListForContext func(context int, size int, list int)
 
 // NSWindowListForContext gets information about an application’s onscreen windows.
@@ -962,8 +900,6 @@ func NSWindowListForContext(context int, size int, list int) {
 	_nSWindowListForContext(context, size, list)
 }
 
-
-
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -972,6 +908,7 @@ func init() {
 		registerFunc(&_nSAccessibilityFrameInView, frameworkHandle, "NSAccessibilityFrameInView")
 		registerFunc(&_nSAccessibilityPointInView, frameworkHandle, "NSAccessibilityPointInView")
 		registerFunc(&_nSAccessibilityPostNotification, frameworkHandle, "NSAccessibilityPostNotification")
+		registerFunc(&_nSAccessibilityPostNotificationWithUserInfo, frameworkHandle, "NSAccessibilityPostNotificationWithUserInfo")
 		registerFunc(&_nSAccessibilityRoleDescription, frameworkHandle, "NSAccessibilityRoleDescription")
 		registerFunc(&_nSAccessibilityRoleDescriptionForUIElement, frameworkHandle, "NSAccessibilityRoleDescriptionForUIElement")
 		registerFunc(&_nSAccessibilitySetMayContainProtectedContent, frameworkHandle, "NSAccessibilitySetMayContainProtectedContent")
@@ -1039,5 +976,4 @@ func init() {
 		registerFunc(&_nSWindowList, frameworkHandle, "NSWindowList")
 		registerFunc(&_nSWindowListForContext, frameworkHandle, "NSWindowListForContext")
 	}
-
 

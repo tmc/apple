@@ -9,9 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods for responding to the life cycle events of the cloud-sharing service.
 //
@@ -21,8 +19,6 @@ type NSCloudSharingServiceDelegate interface {
 	NSSharingServiceDelegate
 }
 
-
-
 // NSCloudSharingServiceDelegateObject wraps an existing Objective-C object that conforms to the NSCloudSharingServiceDelegate protocol.
 type NSCloudSharingServiceDelegateObject struct {
 	objectivec.Object
@@ -31,8 +27,6 @@ func (o NSCloudSharingServiceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCloudSharingServiceDelegateObjectFromID constructs a [NSCloudSharingServiceDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCloudSharingServiceDelegateObjectFromID(id objc.ID) NSCloudSharingServiceDelegateObject {
@@ -40,9 +34,6 @@ func NSCloudSharingServiceDelegateObjectFromID(id objc.ID) NSCloudSharingService
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate when the cloud-sharing service completes.
 //
@@ -220,7 +211,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenFo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:transitionImageForShareItem:contentRect:)
 
-func (o NSCloudSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect corefoundation.CGRect) INSImage {
+func (o NSCloudSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect *corefoundation.CGRect) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, contentRect)
 	return NSImageFromID(rv)
@@ -261,15 +252,11 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceWindowForShareI
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/anchoringView(for:showRelativeTo:preferredEdge:)
 
-func (o NSCloudSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
+func (o NSCloudSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, positioningRect, preferredEdge)
 	return NSViewFromID(rv)
 	}
-
-
-
-
 
 // NSCloudSharingServiceDelegateConfig holds optional typed callbacks for [NSCloudSharingServiceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -349,8 +336,4 @@ func NewNSCloudSharingServiceDelegate(config NSCloudSharingServiceDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSCloudSharingServiceDelegateObjectFromID(instance)
 }
-
-
-
-
 

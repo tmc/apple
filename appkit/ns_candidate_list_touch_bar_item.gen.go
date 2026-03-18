@@ -37,12 +37,6 @@ func (nc NSCandidateListTouchBarItemClass) Alloc() NSCandidateListTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that, along with its delegate, provides a list of textual
 // suggestions for the current text view.
 //
@@ -88,10 +82,6 @@ func NSCandidateListTouchBarItemFromID(id objc.ID) NSCandidateListTouchBarItem {
 }
 // NOTE: NSCandidateListTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCandidateListTouchBarItem] class.
 //
@@ -164,13 +154,7 @@ type INSCandidateListTouchBarItem interface {
 	CandidateListVisible() bool
 	// Updates the candidate list visibility configuration based on the client’s insertion point state.
 	UpdateWithInsertionPointVisibility(isVisible bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCandidateListTouchBarItem) Init() NSCandidateListTouchBarItem {
@@ -191,11 +175,6 @@ func NewNSCandidateListTouchBarItem() NSCandidateListTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -204,7 +183,6 @@ func NewCandidateListTouchBarItemWithCoder(coder foundation.INSCoder) NSCandidat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCandidateListTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -219,12 +197,6 @@ func NewCandidateListTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentif
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSCandidateListTouchBarItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets an array of candidate objects to be displayed in the candidate list
 // bar item.
@@ -261,20 +233,6 @@ func (c NSCandidateListTouchBarItem) SetCandidatesForSelectedRangeInString(candi
 func (c NSCandidateListTouchBarItem) UpdateWithInsertionPointVisibility(isVisible bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("updateWithInsertionPointVisibility:"), isVisible)
 }
-func (c NSCandidateListTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The client object for the candidate list item.
 //
@@ -296,8 +254,6 @@ func (c NSCandidateListTouchBarItem) SetClient(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setClient:"), value)
 }
 
-
-
 // The delegate of the candidate list item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/delegate
@@ -309,8 +265,6 @@ func (c NSCandidateListTouchBarItem) SetDelegate(value NSCandidateListTouchBarIt
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The array of candidate objects previously set by
 // [SetCandidatesForSelectedRangeInString].
 //
@@ -321,8 +275,6 @@ func (c NSCandidateListTouchBarItem) Candidates() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
 
 // A block that converts a candidate object into an attributed string for
 // display in the candidate list item.
@@ -355,8 +307,6 @@ func (c NSCandidateListTouchBarItem) SetAttributedStringForCandidate(value Objec
 	objc.Send[struct{}](c.ID, objc.Sel("setAttributedStringForCandidate:"), block)
 }
 
-
-
 // A Boolean value that specifies whether a candidate list item displays
 // candidates from text input providers.
 //
@@ -379,8 +329,6 @@ func (c NSCandidateListTouchBarItem) SetAllowsTextInputContextCandidates(value b
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsTextInputContextCandidates:"), value)
 }
 
-
-
 // A Boolean value that specifies whether the item can be collapsed.
 //
 // # Discussion
@@ -401,8 +349,6 @@ func (c NSCandidateListTouchBarItem) SetAllowsCollapsing(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsCollapsing:"), value)
 }
 
-
-
 // A Boolean value that controls the visibility of the candidate list.
 //
 // # Discussion
@@ -421,8 +367,6 @@ func (c NSCandidateListTouchBarItem) Collapsed() bool {
 func (c NSCandidateListTouchBarItem) SetCollapsed(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCollapsed:"), value)
 }
-
-
 
 // A Boolean value that represents the visibility of this item’s candidate
 // list.
@@ -445,29 +389,4 @@ func (c NSCandidateListTouchBarItem) CandidateListVisible() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCandidateListVisible"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

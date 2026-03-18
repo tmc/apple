@@ -36,12 +36,6 @@ func (nc NSCollectionLayoutSpacingClass) Alloc() NSCollectionLayoutSpacing {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines the space between or around items in a collection
 // view.
 //
@@ -79,14 +73,10 @@ type NSCollectionLayoutSpacing struct {
 // An object that defines the space between or around items in a collection
 // view.
 func NSCollectionLayoutSpacingFromID(id objc.ID) NSCollectionLayoutSpacing {
-	return NSCollectionLayoutSpacing{objectivec.Object{id}}
+	return NSCollectionLayoutSpacing{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutSpacing adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutSpacing] class.
 //
@@ -116,10 +106,6 @@ type INSCollectionLayoutSpacing interface {
 	IsFlexibleSpacing() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutSpacing) Init() NSCollectionLayoutSpacing {
 	rv := objc.Send[NSCollectionLayoutSpacing](c.ID, objc.Sel("init"))
@@ -139,19 +125,6 @@ func NewNSCollectionLayoutSpacing() NSCollectionLayoutSpacing {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a space equivalent to the specified number of points.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSpacing/fixed(_:)
@@ -169,13 +142,6 @@ func (_NSCollectionLayoutSpacingClass NSCollectionLayoutSpacingClass) FlexibleSp
 	return NSCollectionLayoutSpacingFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The floating-point value of the space.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSpacing/spacing
@@ -183,8 +149,6 @@ func (c NSCollectionLayoutSpacing) Spacing() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("spacing"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the space is fixed to a specific
 // number of points.
@@ -195,8 +159,6 @@ func (c NSCollectionLayoutSpacing) IsFixedSpacing() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the space is flexible.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSpacing/isFlexible
@@ -204,28 +166,4 @@ func (c NSCollectionLayoutSpacing) IsFlexibleSpacing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFlexibleSpacing"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

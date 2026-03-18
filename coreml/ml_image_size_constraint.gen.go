@@ -37,12 +37,6 @@ func (mc MLImageSizeConstraintClass) Alloc() MLImageSizeConstraint {
 	return rv
 }
 
-
-
-
-
-
-
 // A list or range of sizes that augment an image constraint’s default size.
 //
 // # Overview
@@ -92,14 +86,10 @@ type MLImageSizeConstraint struct {
 //
 // A list or range of sizes that augment an image constraint’s default size.
 func MLImageSizeConstraintFromID(id objc.ID) MLImageSizeConstraint {
-	return MLImageSizeConstraint{objectivec.Object{id}}
+	return MLImageSizeConstraint{objectivec.Object{ID: id}}
 }
 // NOTE: MLImageSizeConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLImageSizeConstraint] class.
 //
@@ -149,10 +139,6 @@ type IMLImageSizeConstraint interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i MLImageSizeConstraint) Init() MLImageSizeConstraint {
 	rv := objc.Send[MLImageSizeConstraint](i.ID, objc.Sel("init"))
@@ -172,28 +158,9 @@ func NewMLImageSizeConstraint() MLImageSizeConstraint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (i MLImageSizeConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Indicator of which properties to inspect for this image size constraint.
 //
@@ -202,8 +169,6 @@ func (i MLImageSizeConstraint) Type() MLImageSizeConstraintType {
 	rv := objc.Send[MLImageSizeConstraintType](i.ID, objc.Sel("type"))
 	return MLImageSizeConstraintType(rv)
 }
-
-
 
 // The range of widths a model’s image feature accepts as input or produces
 // as output.
@@ -214,8 +179,6 @@ func (i MLImageSizeConstraint) PixelsWideRange() foundation.NSRange {
 	return foundation.NSRange(rv)
 }
 
-
-
 // The range of heights a model’s image feature accepts as input or produces
 // as output.
 //
@@ -224,8 +187,6 @@ func (i MLImageSizeConstraint) PixelsHighRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](i.ID, objc.Sel("pixelsHighRange"))
 	return foundation.NSRange(rv)
 }
-
-
 
 // An array of image sizes a model’s image feature accepts as input or
 // produces as output.
@@ -238,8 +199,6 @@ func (i MLImageSizeConstraint) EnumeratedImageSizes() []MLImageSize {
 	})
 }
 
-
-
 // The model’s default height for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlimageconstraint/pixelshigh
@@ -250,8 +209,6 @@ func (i MLImageSizeConstraint) PixelsHigh() int {
 func (i MLImageSizeConstraint) SetPixelsHigh(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPixelsHigh:"), value)
 }
-
-
 
 // The model’s default width for an image feature.
 //
@@ -264,8 +221,6 @@ func (i MLImageSizeConstraint) SetPixelsWide(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPixelsWide:"), value)
 }
 
-
-
 // Additional sizes this image feature supports.
 //
 // See: https://developer.apple.com/documentation/coreml/mlimageconstraint/sizeconstraint
@@ -276,28 +231,4 @@ func (i MLImageSizeConstraint) SizeConstraint() IMLImageSizeConstraint {
 func (i MLImageSizeConstraint) SetSizeConstraint(value IMLImageSizeConstraint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSizeConstraint:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

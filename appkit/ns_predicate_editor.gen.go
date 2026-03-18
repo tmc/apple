@@ -38,12 +38,6 @@ func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 	return rv
 }
 
-
-
-
-
-
-
 // A defined set of rules that allows the editing of predicate objects.
 //
 // # Overview
@@ -86,10 +80,6 @@ func NSPredicateEditorFromID(id objc.ID) NSPredicateEditor {
 // NOTE: NSPredicateEditor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPredicateEditor] class.
 //
 // # Managing Row Templates
@@ -106,13 +96,7 @@ type INSPredicateEditor interface {
 	// The row templates for the receiver.
 	RowTemplates() []NSPredicateEditorRowTemplate
 	SetRowTemplates(value []NSPredicateEditorRowTemplate)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPredicateEditor) Init() NSPredicateEditor {
@@ -133,11 +117,6 @@ func NewNSPredicateEditor() NSPredicateEditor {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -146,7 +125,6 @@ func NewPredicateEditorWithCoder(coder foundation.INSCoder) NSPredicateEditor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPredicateEditorFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -174,26 +152,6 @@ func NewPredicateEditorWithFrame(frameRect corefoundation.CGRect) NSPredicateEdi
 	return NSPredicateEditorFromID(rv)
 }
 
-
-
-
-
-
-func (p NSPredicateEditor) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The row templates for the receiver.
 //
 // # Discussion
@@ -211,38 +169,4 @@ func (p NSPredicateEditor) RowTemplates() []NSPredicateEditorRowTemplate {
 func (p NSPredicateEditor) SetRowTemplates(value []NSPredicateEditorRowTemplate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRowTemplates:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A delegate for a custom rotor that finds the next item result after performing a search with the specified search parameters.
 //
@@ -23,8 +21,6 @@ type NSAccessibilityCustomRotorItemSearchDelegate interface {
 	RotorResultForSearchParameters(rotor INSAccessibilityCustomRotor, searchParameters INSAccessibilityCustomRotorSearchParameters) INSAccessibilityCustomRotorItemResult
 }
 
-
-
 // NSAccessibilityCustomRotorItemSearchDelegateObject wraps an existing Objective-C object that conforms to the NSAccessibilityCustomRotorItemSearchDelegate protocol.
 type NSAccessibilityCustomRotorItemSearchDelegateObject struct {
 	objectivec.Object
@@ -33,8 +29,6 @@ func (o NSAccessibilityCustomRotorItemSearchDelegateObject) BaseObject() objecti
 	return o.Object
 }
 
-
-
 // NSAccessibilityCustomRotorItemSearchDelegateObjectFromID constructs a [NSAccessibilityCustomRotorItemSearchDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityCustomRotorItemSearchDelegateObjectFromID(id objc.ID) NSAccessibilityCustomRotorItemSearchDelegateObject {
@@ -42,9 +36,6 @@ func NSAccessibilityCustomRotorItemSearchDelegateObjectFromID(id objc.ID) NSAcce
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Performs a search with the specified search parameters and returns the item
 // result.
@@ -56,10 +47,6 @@ func (o NSAccessibilityCustomRotorItemSearchDelegateObject) RotorResultForSearch
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("rotor:resultForSearchParameters:"), rotor, searchParameters)
 	return NSAccessibilityCustomRotorItemResultFromID(rv)
 	}
-
-
-
-
 
 // NSAccessibilityCustomRotorItemSearchDelegateConfig holds optional typed callbacks for [NSAccessibilityCustomRotorItemSearchDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -122,8 +109,4 @@ func NewNSAccessibilityCustomRotorItemSearchDelegate(config NSAccessibilityCusto
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSAccessibilityCustomRotorItemSearchDelegateObjectFromID(instance)
 }
-
-
-
-
 

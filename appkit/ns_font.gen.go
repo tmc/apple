@@ -40,12 +40,6 @@ func (nc NSFontClass) Alloc() NSFont {
 	return rv
 }
 
-
-
-
-
-
-
 // The representation of a font in an app.
 //
 // # Overview
@@ -127,14 +121,10 @@ type NSFont struct {
 //
 // The representation of a font in an app.
 func NSFontFromID(id objc.ID) NSFont {
-	return NSFont{objectivec.Object{id}}
+	return NSFont{objectivec.Object{ID: id}}
 }
 // NOTE: NSFont adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFont] class.
 //
@@ -312,10 +302,6 @@ type INSFont interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFont) Init() NSFont {
 	rv := objc.Send[NSFont](f.ID, objc.Sel("init"))
@@ -334,11 +320,6 @@ func NewNSFont() NSFont {
 	rv := objc.Send[NSFont](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns a font object for the specified font descriptor and font size.
 //
@@ -361,7 +342,6 @@ func NewFontWithDescriptorSize(fontDescriptor INSFontDescriptor, fontSize float6
 	return NSFontFromID(rv)
 }
 
-
 // Returns a font object for the specified font descriptor and text transform.
 //
 // fontDescriptor: The font descriptor object describing the font to return.
@@ -383,7 +363,6 @@ func NewFontWithDescriptorTextTransform(fontDescriptor INSFontDescriptor, textTr
 	rv := objc.Send[objc.ID](objc.ID(getNSFontClass().class), objc.Sel("fontWithDescriptor:textTransform:"), fontDescriptor, textTransform)
 	return NSFontFromID(rv)
 }
-
 
 // Returns a font object for the specified font name and matrix.
 //
@@ -409,11 +388,10 @@ func NewFontWithDescriptorTextTransform(fontDescriptor INSFontDescriptor, textTr
 // automatically flip themselves in flipped views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/init(name:matrix:)
-func NewFontWithNameMatrix(fontName string, fontMatrix float64) NSFont {
+func NewFontWithNameMatrix(fontName string, fontMatrix unsafe.Pointer) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(getNSFontClass().class), objc.Sel("fontWithName:matrix:"), objc.String(fontName), fontMatrix)
 	return NSFontFromID(rv)
 }
-
 
 // Creates a font object for the specified font name and font size.
 //
@@ -444,12 +422,6 @@ func NewFontWithNameSize(fontName string, fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(getNSFontClass().class), objc.Sel("fontWithName:size:"), objc.String(fontName), fontSize)
 	return NSFontFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets this font as the font for the current graphics context.
 //
@@ -678,10 +650,6 @@ func (f NSFont) GetBoundingRectsForCGGlyphsCount(bounds foundation.NSRect, glyph
 func (f NSFont) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // Returns the font used by default for documents and other text under the
 // user’s control (that is, text whose font the user can normally change),
@@ -1089,13 +1057,6 @@ func (_NSFontClass NSFontClass) SystemFontOfSizeWeightWidth(fontSize float64, we
 	return NSFontFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The point size of the font.
 //
 // # Discussion
@@ -1108,8 +1069,6 @@ func (f NSFont) PointSize() float64 {
 	rv := objc.Send[float64](f.ID, objc.Sel("pointSize"))
 	return rv
 }
-
-
 
 // The character set containing all of the nominal characters that the font
 // can render.
@@ -1138,8 +1097,6 @@ func (f NSFont) CoveredCharacterSet() foundation.NSCharacterSet {
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // The font descriptor object for the font.
 //
 // # Discussion
@@ -1153,8 +1110,6 @@ func (f NSFont) FontDescriptor() INSFontDescriptor {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontDescriptor"))
 	return NSFontDescriptorFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value indicating whether all glyphs in the font have the same
 // advancement.
@@ -1176,8 +1131,6 @@ func (f NSFont) FixedPitch() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isFixedPitch"))
 	return rv
 }
-
-
 
 // The string encoding that works best with the font.
 //
@@ -1205,8 +1158,6 @@ func (f NSFont) MostCompatibleStringEncoding() uint {
 	return rv
 }
 
-
-
 // The number of glyphs in the font.
 //
 // # Discussion
@@ -1219,8 +1170,6 @@ func (f NSFont) NumberOfGlyphs() uint {
 	return rv
 }
 
-
-
 // The reserved code for a control glyph.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrolglyph
@@ -1232,8 +1181,6 @@ func (f NSFont) SetNSControlGlyph(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSControlGlyph:"), value)
 }
 
-
-
 // The reserved code for a null glyph.
 //
 // See: https://developer.apple.com/documentation/appkit/nsnullglyph
@@ -1244,8 +1191,6 @@ func (f NSFont) NSNullGlyph() int {
 func (f NSFont) SetNSNullGlyph(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSNullGlyph:"), value)
 }
-
-
 
 // The name of the font, including family and face names, to use when
 // displaying the font information to the user.
@@ -1259,8 +1204,6 @@ func (f NSFont) DisplayName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("displayName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The family name of the font—for example, “Times” or “Helvetica.”
 //
@@ -1279,8 +1222,6 @@ func (f NSFont) FamilyName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The full name of the font, as used in PostScript language code—for
 // example, “Times-Roman” or “Helvetica-Oblique.”
 //
@@ -1295,8 +1236,6 @@ func (f NSFont) FontName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // A Boolean value indicating whether the font is a vertical font.
 //
@@ -1313,8 +1252,6 @@ func (f NSFont) Vertical() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isVertical"))
 	return rv
 }
-
-
 
 // A vertical version of the font.
 //
@@ -1334,8 +1271,6 @@ func (f NSFont) VerticalFont() NSFont {
 	return NSFontFromID(objc.ID(rv))
 }
 
-
-
 // The scalable PostScript font corresponding to current font.
 //
 // # Discussion
@@ -1350,8 +1285,6 @@ func (f NSFont) PrinterFont() NSFont {
 	return NSFontFromID(objc.ID(rv))
 }
 
-
-
 // The rendering mode of the font.
 //
 // # Discussion
@@ -1365,8 +1298,6 @@ func (f NSFont) RenderingMode() NSFontRenderingMode {
 	rv := objc.Send[NSFontRenderingMode](f.ID, objc.Sel("renderingMode"))
 	return NSFontRenderingMode(rv)
 }
-
-
 
 // The bitmapped screen font for the current font.
 //
@@ -1388,8 +1319,6 @@ func (f NSFont) ScreenFont() NSFont {
 	return NSFontFromID(objc.ID(rv))
 }
 
-
-
 // The top y-coordinate, offset from the baseline, of the font’s longest
 // ascender.
 //
@@ -1402,8 +1331,6 @@ func (f NSFont) SetAscender(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAscender:"), value)
 }
 
-
-
 // The font’s bounding rectangle, scaled to the font’s size.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/boundingrectforfont
@@ -1415,8 +1342,6 @@ func (f NSFont) SetBoundingRectForFont(value corefoundation.CGRect) {
 	objc.Send[struct{}](f.ID, objc.Sel("setBoundingRectForFont:"), value)
 }
 
-
-
 // The cap height of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/capheight
@@ -1427,8 +1352,6 @@ func (f NSFont) CapHeight() float64 {
 func (f NSFont) SetCapHeight(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setCapHeight:"), value)
 }
-
-
 
 // The bottom y-coordinate, offset from the baseline, of the font’s longest
 // descender.
@@ -1442,8 +1365,6 @@ func (f NSFont) SetDescender(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDescender:"), value)
 }
 
-
-
 // The number of degrees that the font is slanted counterclockwise from the
 // vertical.
 //
@@ -1456,8 +1377,6 @@ func (f NSFont) SetItalicAngle(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setItalicAngle:"), value)
 }
 
-
-
 // The leading value of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/leading
@@ -1468,8 +1387,6 @@ func (f NSFont) Leading() float64 {
 func (f NSFont) SetLeading(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLeading:"), value)
 }
-
-
 
 // The transformation matrix associated with the font.
 //
@@ -1482,8 +1399,6 @@ func (f NSFont) SetMatrix(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMatrix:"), value)
 }
 
-
-
 // The maximum advance of any of the font’s glyphs.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/maximumadvancement
@@ -1494,8 +1409,6 @@ func (f NSFont) MaximumAdvancement() corefoundation.CGSize {
 func (f NSFont) SetMaximumAdvancement(value corefoundation.CGSize) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMaximumAdvancement:"), value)
 }
-
-
 
 // The current transformation matrix of the font.
 //
@@ -1508,8 +1421,6 @@ func (f NSFont) SetTextTransform(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTextTransform:"), value)
 }
 
-
-
 // The baseline offset to use when drawing underlines with the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/underlineposition
@@ -1520,8 +1431,6 @@ func (f NSFont) UnderlinePosition() float64 {
 func (f NSFont) SetUnderlinePosition(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setUnderlinePosition:"), value)
 }
-
-
 
 // The thickness to use when drawing underlines with the font.
 //
@@ -1534,8 +1443,6 @@ func (f NSFont) SetUnderlineThickness(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setUnderlineThickness:"), value)
 }
 
-
-
 // The x-height of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/xheight
@@ -1546,12 +1453,6 @@ func (f NSFont) XHeight() float64 {
 func (f NSFont) SetXHeight(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setXHeight:"), value)
 }
-
-
-
-
-
-
 
 // Returns the size of the standard system font.
 //
@@ -1565,8 +1466,6 @@ func (_NSFontClass NSFontClass) SystemFontSize() float64 {
 	return rv
 }
 
-
-
 // Returns the size of the standard small system font.
 //
 // # Return Value
@@ -1578,8 +1477,6 @@ func (_NSFontClass NSFontClass) SmallSystemFontSize() float64 {
 	rv := objc.Send[float64](objc.ID(_NSFontClass.class), objc.Sel("smallSystemFontSize"))
 	return rv
 }
-
-
 
 // Returns the size of the standard label font.
 //
@@ -1602,8 +1499,6 @@ func (_NSFontClass NSFontClass) LabelFontSize() float64 {
 	return rv
 }
 
-
-
 // Posted after the threshold for antialiasing changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/antialiasthresholdchangednotification
@@ -1611,25 +1506,4 @@ func (_NSFontClass NSFontClass) AntialiasThresholdChangedNotification() foundati
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("NSAntialiasThresholdChangedNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

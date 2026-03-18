@@ -37,12 +37,6 @@ func (mc MLModelStructureProgramClass) Alloc() MLModelStructureProgram {
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing the structure of an ML Program model.
 //
 // # Accessing the program functions
@@ -58,14 +52,10 @@ type MLModelStructureProgram struct {
 //
 // A class representing the structure of an ML Program model.
 func MLModelStructureProgramFromID(id objc.ID) MLModelStructureProgram {
-	return MLModelStructureProgram{objectivec.Object{id}}
+	return MLModelStructureProgram{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgram implements IMLModelStructureProgram.
 var _ IMLModelStructureProgram = MLModelStructureProgram{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgram] class.
 //
@@ -82,10 +72,6 @@ type IMLModelStructureProgram interface {
 	// The functions in the program.
 	Functions() foundation.INSDictionary
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLModelStructureProgram) Init() MLModelStructureProgram {
@@ -106,26 +92,6 @@ func NewMLModelStructureProgram() MLModelStructureProgram {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The functions in the program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgram/functions
@@ -133,20 +99,4 @@ func (m MLModelStructureProgram) Functions() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("functions"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

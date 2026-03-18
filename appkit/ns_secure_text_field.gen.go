@@ -37,12 +37,6 @@ func (nc NSSecureTextFieldClass) Alloc() NSSecureTextField {
 	return rv
 }
 
-
-
-
-
-
-
 // A text field that hides the typed text.
 //
 // # Overview
@@ -65,22 +59,12 @@ func NSSecureTextFieldFromID(id objc.ID) NSSecureTextField {
 // NOTE: NSSecureTextField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSecureTextField] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSecureTextField
 type INSSecureTextField interface {
 	INSTextField
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSecureTextField) Init() NSSecureTextField {
@@ -100,11 +84,6 @@ func NewNSSecureTextField() NSSecureTextField {
 	rv := objc.Send[NSSecureTextField](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a text field for use as a static label that displays styled text,
 // doesn’t wrap, and doesn’t have selectable text.
@@ -127,7 +106,6 @@ func NewSecureTextFieldLabelWithAttributedString(attributedStringValue foundatio
 	return NSSecureTextFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a static label that uses the system
 // default font, doesn’t wrap, and doesn’t have selectable text.
 //
@@ -143,7 +121,6 @@ func NewSecureTextFieldLabelWithString(stringValue string) NSSecureTextField {
 	return NSSecureTextFieldFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -152,7 +129,6 @@ func NewSecureTextFieldWithCoder(coder foundation.INSCoder) NSSecureTextField {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSecureTextFieldFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -180,7 +156,6 @@ func NewSecureTextFieldWithFrame(frameRect corefoundation.CGRect) NSSecureTextFi
 	return NSSecureTextFieldFromID(rv)
 }
 
-
 // Initializes a single-line editable text field for user input using the
 // system default font and standard visual appearance.
 //
@@ -196,7 +171,6 @@ func NewSecureTextFieldWithString(stringValue string) NSSecureTextField {
 	return NSSecureTextFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a multiline static label with
 // selectable text that uses the system default font.
 //
@@ -211,60 +185,4 @@ func NewSecureTextFieldWrappingLabelWithString(stringValue string) NSSecureTextF
 	rv := objc.Send[objc.ID](objc.ID(getNSSecureTextFieldClass().class), objc.Sel("wrappingLabelWithString:"), objc.String(stringValue))
 	return NSSecureTextFieldFromID(rv)
 }
-
-
-
-
-
-
-func (s NSSecureTextField) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

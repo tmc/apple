@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -17,8 +18,6 @@ type NSCollectionViewDelegateFlowLayout interface {
 	NSCollectionViewDelegate
 }
 
-
-
 // NSCollectionViewDelegateFlowLayoutObject wraps an existing Objective-C object that conforms to the NSCollectionViewDelegateFlowLayout protocol.
 type NSCollectionViewDelegateFlowLayoutObject struct {
 	objectivec.Object
@@ -27,8 +26,6 @@ func (o NSCollectionViewDelegateFlowLayoutObject) BaseObject() objectivec.Object
 	return o.Object
 }
 
-
-
 // NSCollectionViewDelegateFlowLayoutObjectFromID constructs a [NSCollectionViewDelegateFlowLayoutObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionViewDelegateFlowLayoutObjectFromID(id objc.ID) NSCollectionViewDelegateFlowLayoutObject {
@@ -36,9 +33,6 @@ func NSCollectionViewDelegateFlowLayoutObjectFromID(id objc.ID) NSCollectionView
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate for the size of the specified item.
 //
@@ -1066,7 +1060,7 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewDraggingSessionW
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndex:dropOperation:)
 
-func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex int, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
+func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex unsafe.Pointer, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndex:dropOperation:"), collectionView, draggingInfo, proposedDropIndex, proposedDropOperation)
 	return rv
@@ -1108,10 +1102,4 @@ func (o NSCollectionViewDelegateFlowLayoutObject) CollectionViewAcceptDropIndexD
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:acceptDrop:index:dropOperation:"), collectionView, draggingInfo, index, dropOperation)
 	return rv
 	}
-
-
-
-
-
-
 

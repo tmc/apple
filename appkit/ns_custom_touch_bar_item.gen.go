@@ -36,12 +36,6 @@ func (nc NSCustomTouchBarItemClass) Alloc() NSCustomTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that contains a responder of your choice, such as a view, a
 // button, or a scrubber.
 //
@@ -60,22 +54,12 @@ func NSCustomTouchBarItemFromID(id objc.ID) NSCustomTouchBarItem {
 // NOTE: NSCustomTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCustomTouchBarItem] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomTouchBarItem
 type INSCustomTouchBarItem interface {
 	INSTouchBarItem
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCustomTouchBarItem) Init() NSCustomTouchBarItem {
@@ -96,11 +80,6 @@ func NewNSCustomTouchBarItem() NSCustomTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -109,7 +88,6 @@ func NewCustomTouchBarItemWithCoder(coder foundation.INSCoder) NSCustomTouchBarI
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCustomTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -124,47 +102,4 @@ func NewCustomTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSCustomTouchBarItemFromID(rv)
 }
-
-
-
-
-
-
-func (c NSCustomTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,7 +38,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _bLASGetThreading func() BLAS_THREADING
 
 // BLASGetThreading returns the current BLAS and LAPACK threading model.
@@ -51,7 +50,6 @@ func BLASGetThreading() BLAS_THREADING {
 	return _bLASGetThreading()
 }
 
-
 var _bLASSetThreading func(threading BLAS_THREADING) int
 
 // BLASSetThreading sets the BLAS and LAPACK threading model.
@@ -63,7 +61,6 @@ func BLASSetThreading(threading BLAS_THREADING) int {
 	}
 	return _bLASSetThreading(threading)
 }
-
 
 var _bNNSApplyMultiheadAttention func(F BNNSFilter, batch_size uintptr, query unsafe.Pointer, query_stride uintptr, key unsafe.Pointer, key_stride uintptr, key_mask *BNNSNDArrayDescriptor, key_mask_stride uintptr, value unsafe.Pointer, value_stride uintptr, output unsafe.Pointer, output_stride uintptr, add_to_attention *BNNSNDArrayDescriptor, backprop_cache_size *uintptr, backprop_cache unsafe.Pointer, workspace_size *uintptr, workspace unsafe.Pointer) int
 
@@ -79,7 +76,6 @@ func BNNSApplyMultiheadAttention(F BNNSFilter, batch_size uintptr, query unsafe.
 	return _bNNSApplyMultiheadAttention(F, batch_size, query, query_stride, key, key_stride, key_mask, key_mask_stride, value, value_stride, output, output_stride, add_to_attention, backprop_cache_size, backprop_cache, workspace_size, workspace)
 }
 
-
 var _bNNSApplyMultiheadAttentionBackward func(F BNNSFilter, batch_size uintptr, query unsafe.Pointer, query_stride uintptr, query_param_delta *BNNSMHAProjectionParameters, key unsafe.Pointer, key_stride uintptr, key_mask *BNNSNDArrayDescriptor, key_mask_stride uintptr, key_param_delta *BNNSMHAProjectionParameters, value unsafe.Pointer, value_stride uintptr, value_param_delta *BNNSMHAProjectionParameters, add_to_attention *BNNSNDArrayDescriptor, key_attn_bias_delta *BNNSNDArrayDescriptor, value_attn_bias_delta *BNNSNDArrayDescriptor, output unsafe.Pointer, output_stride uintptr, output_param_delta *BNNSMHAProjectionParameters, backprop_cache_size uintptr, backprop_cache unsafe.Pointer, workspace_size *uintptr, workspace unsafe.Pointer) int
 
 // BNNSApplyMultiheadAttentionBackward applies a multihead attention filter backward to generate gradients.
@@ -93,7 +89,6 @@ func BNNSApplyMultiheadAttentionBackward(F BNNSFilter, batch_size uintptr, query
 	}
 	return _bNNSApplyMultiheadAttentionBackward(F, batch_size, query, query_stride, query_param_delta, key, key_stride, key_mask, key_mask_stride, key_param_delta, value, value_stride, value_param_delta, add_to_attention, key_attn_bias_delta, value_attn_bias_delta, output, output_stride, output_param_delta, backprop_cache_size, backprop_cache, workspace_size, workspace)
 }
-
 
 var _bNNSArithmeticFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, number_of_inputs uintptr, in unsafe.Pointer, in_stride *uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride *uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr) int
 
@@ -109,7 +104,6 @@ func BNNSArithmeticFilterApplyBackwardBatch(filter BNNSFilter, batch_size uintpt
 	return _bNNSArithmeticFilterApplyBackwardBatch(filter, batch_size, number_of_inputs, in, in_stride, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride)
 }
 
-
 var _bNNSArithmeticFilterApplyBatch func(filter BNNSFilter, batch_size uintptr, number_of_inputs uintptr, in unsafe.Pointer, in_stride *uintptr, out unsafe.Pointer, out_stride uintptr) int
 
 // BNNSArithmeticFilterApplyBatch applies an arithmetic filter to a set of input objects, writing the result to a set of output objects.
@@ -123,7 +117,6 @@ func BNNSArithmeticFilterApplyBatch(filter BNNSFilter, batch_size uintptr, numbe
 	}
 	return _bNNSArithmeticFilterApplyBatch(filter, batch_size, number_of_inputs, in, in_stride, out, out_stride)
 }
-
 
 var _bNNSBandPart func(num_lower int, num_upper int, input *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -139,7 +132,6 @@ func BNNSBandPart(num_lower int, num_upper int, input *BNNSNDArrayDescriptor, ou
 	return _bNNSBandPart(num_lower, num_upper, input, output, filter_params)
 }
 
-
 var _bNNSClipByGlobalNorm func(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, count uintptr, max_norm float32, use_norm float32) int
 
 // BNNSClipByGlobalNorm clips a tensor’s values to a maximum global Euclidean norm.
@@ -153,7 +145,6 @@ func BNNSClipByGlobalNorm(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescripto
 	}
 	return _bNNSClipByGlobalNorm(dest, src, count, max_norm, use_norm)
 }
-
 
 var _bNNSClipByNorm func(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, max_norm float32, axis_flags uint32) int
 
@@ -169,7 +160,6 @@ func BNNSClipByNorm(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, max
 	return _bNNSClipByNorm(dest, src, max_norm, axis_flags)
 }
 
-
 var _bNNSClipByValue func(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, min_val float32, max_val float32) int
 
 // BNNSClipByValue clips a tensor’s values to the specified minimum and maximum values.
@@ -183,7 +173,6 @@ func BNNSClipByValue(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, mi
 	}
 	return _bNNSClipByValue(dest, src, min_val, max_val)
 }
-
 
 var _bNNSCompareTensor func(in0 *BNNSNDArrayDescriptor, in1 *BNNSNDArrayDescriptor, op unsafe.Pointer, out *BNNSNDArrayDescriptor) int
 
@@ -199,7 +188,6 @@ func BNNSCompareTensor(in0 *BNNSNDArrayDescriptor, in1 *BNNSNDArrayDescriptor, o
 	return _bNNSCompareTensor(in0, in1, op, out)
 }
 
-
 var _bNNSComputeLSTMTrainingCacheCapacity func(layer_params *BNNSLayerParametersLSTM) uintptr
 
 // BNNSComputeLSTMTrainingCacheCapacity returns the minimum bytes capacity of the training cache buffer a long short-term memory (LSTM) layer uses when it’s applied.
@@ -213,7 +201,6 @@ func BNNSComputeLSTMTrainingCacheCapacity(layer_params *BNNSLayerParametersLSTM)
 	}
 	return _bNNSComputeLSTMTrainingCacheCapacity(layer_params)
 }
-
 
 var _bNNSComputeNorm func(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, norm_type unsafe.Pointer, axis_flags uint32) int
 
@@ -229,7 +216,6 @@ func BNNSComputeNorm(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, no
 	return _bNNSComputeNorm(dest, src, norm_type, axis_flags)
 }
 
-
 var _bNNSComputeNormBackward func(in unsafe.Pointer, in_delta *BNNSNDArrayDescriptor, out unsafe.Pointer, out_delta *BNNSNDArrayDescriptor, norm_type unsafe.Pointer, axis_flags uint32) int
 
 // BNNSComputeNormBackward backpropogates gradients for the compute norm function.
@@ -244,7 +230,6 @@ func BNNSComputeNormBackward(in unsafe.Pointer, in_delta *BNNSNDArrayDescriptor,
 	return _bNNSComputeNormBackward(in, in_delta, out, out_delta, norm_type, axis_flags)
 }
 
-
 var _bNNSCopy func(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
 // BNNSCopy copies the contents of an n-dimensional array descriptor to another of the same shape.
@@ -256,7 +241,6 @@ func BNNSCopy(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, filter_pa
 	}
 	return _bNNSCopy(dest, src, filter_params)
 }
-
 
 var _bNNSCreateNearestNeighbors func(max_n_samples uint, n_features uint, n_neighbors uint, data_type unsafe.Pointer, filter_params *BNNSFilterParameters) BNNSNearestNeighbors
 
@@ -270,7 +254,6 @@ func BNNSCreateNearestNeighbors(max_n_samples uint, n_features uint, n_neighbors
 	return _bNNSCreateNearestNeighbors(max_n_samples, n_features, n_neighbors, data_type, filter_params)
 }
 
-
 var _bNNSCreateRandomGenerator func(method unsafe.Pointer, filter_params *BNNSFilterParameters) BNNSRandomGenerator
 
 // BNNSCreateRandomGenerator returns a new random number generator using an internally generated random seed.
@@ -283,7 +266,6 @@ func BNNSCreateRandomGenerator(method unsafe.Pointer, filter_params *BNNSFilterP
 	return _bNNSCreateRandomGenerator(method, filter_params)
 }
 
-
 var _bNNSCreateRandomGeneratorWithSeed func(method unsafe.Pointer, seed uint64, filter_params *BNNSFilterParameters) BNNSRandomGenerator
 
 // BNNSCreateRandomGeneratorWithSeed returns a new random number generator using the specified seed.
@@ -295,7 +277,6 @@ func BNNSCreateRandomGeneratorWithSeed(method unsafe.Pointer, seed uint64, filte
 	}
 	return _bNNSCreateRandomGeneratorWithSeed(method, seed, filter_params)
 }
-
 
 var _bNNSCropResize func(layer_params *BNNSLayerParametersCropResize, input *BNNSNDArrayDescriptor, roi *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -311,7 +292,6 @@ func BNNSCropResize(layer_params *BNNSLayerParametersCropResize, input *BNNSNDAr
 	return _bNNSCropResize(layer_params, input, roi, output, filter_params)
 }
 
-
 var _bNNSCropResizeBackward func(layer_params *BNNSLayerParametersCropResize, in_delta *BNNSNDArrayDescriptor, roi *BNNSNDArrayDescriptor, out_delta *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
 // BNNSCropResizeBackward applies a crop-resize filter backward to generate gradients.
@@ -326,7 +306,6 @@ func BNNSCropResizeBackward(layer_params *BNNSLayerParametersCropResize, in_delt
 	return _bNNSCropResizeBackward(layer_params, in_delta, roi, out_delta, filter_params)
 }
 
-
 var _bNNSDataLayoutGetRank func(layout unsafe.Pointer) uintptr
 
 // BNNSDataLayoutGetRank.
@@ -338,7 +317,6 @@ func BNNSDataLayoutGetRank(layout unsafe.Pointer) uintptr {
 	}
 	return _bNNSDataLayoutGetRank(layout)
 }
-
 
 var _bNNSDestroyNearestNeighbors func(knn BNNSNearestNeighbors)
 
@@ -352,7 +330,6 @@ func BNNSDestroyNearestNeighbors(knn BNNSNearestNeighbors) {
 	_bNNSDestroyNearestNeighbors(knn)
 }
 
-
 var _bNNSDestroyRandomGenerator func(generator BNNSRandomGenerator)
 
 // BNNSDestroyRandomGenerator destroys a random number generator.
@@ -364,7 +341,6 @@ func BNNSDestroyRandomGenerator(generator BNNSRandomGenerator) {
 	}
 	_bNNSDestroyRandomGenerator(generator)
 }
-
 
 var _bNNSDirectApplyActivationBatch func(layer_params *BNNSLayerParametersActivation, filter_params *BNNSFilterParameters, batch_size uintptr, in_stride uintptr, out_stride uintptr) int
 
@@ -380,7 +356,6 @@ func BNNSDirectApplyActivationBatch(layer_params *BNNSLayerParametersActivation,
 	return _bNNSDirectApplyActivationBatch(layer_params, filter_params, batch_size, in_stride, out_stride)
 }
 
-
 var _bNNSDirectApplyInTopK func(K uintptr, axis uintptr, batch_size uintptr, input *BNNSNDArrayDescriptor, input_batch_stride uintptr, test_indices *BNNSNDArrayDescriptor, test_indices_batch_stride uintptr, output *BNNSNDArrayDescriptor, output_batch_stride uintptr, filter_params *BNNSFilterParameters) int
 
 // BNNSDirectApplyInTopK applies an in-top-k filter directly to an input.
@@ -392,7 +367,6 @@ func BNNSDirectApplyInTopK(K uintptr, axis uintptr, batch_size uintptr, input *B
 	}
 	return _bNNSDirectApplyInTopK(K, axis, batch_size, input, input_batch_stride, test_indices, test_indices_batch_stride, output, output_batch_stride, filter_params)
 }
-
 
 var _bNNSDirectApplyLSTMBatchBackward func(layer_params *BNNSLayerParametersLSTM, layer_delta_params *BNNSLayerParametersLSTM, filter_params *BNNSFilterParameters, training_cache_ptr unsafe.Pointer, training_cache_capacity uintptr) int
 
@@ -408,7 +382,6 @@ func BNNSDirectApplyLSTMBatchBackward(layer_params *BNNSLayerParametersLSTM, lay
 	return _bNNSDirectApplyLSTMBatchBackward(layer_params, layer_delta_params, filter_params, training_cache_ptr, training_cache_capacity)
 }
 
-
 var _bNNSDirectApplyLSTMBatchTrainingCaching func(layer_params *BNNSLayerParametersLSTM, filter_params *BNNSFilterParameters, training_cache_ptr unsafe.Pointer, training_cache_capacity uintptr) int
 
 // BNNSDirectApplyLSTMBatchTrainingCaching applies a long short-term memory (LSTM) layer directly to an input.
@@ -422,7 +395,6 @@ func BNNSDirectApplyLSTMBatchTrainingCaching(layer_params *BNNSLayerParametersLS
 	}
 	return _bNNSDirectApplyLSTMBatchTrainingCaching(layer_params, filter_params, training_cache_ptr, training_cache_capacity)
 }
-
 
 var _bNNSDirectApplyQuantizer func(layer_params *BNNSLayerParametersQuantization, filter_params *BNNSFilterParameters, batch_size uintptr, input_stride uintptr, output_stride uintptr) int
 
@@ -438,7 +410,6 @@ func BNNSDirectApplyQuantizer(layer_params *BNNSLayerParametersQuantization, fil
 	return _bNNSDirectApplyQuantizer(layer_params, filter_params, batch_size, input_stride, output_stride)
 }
 
-
 var _bNNSDirectApplyReduction func(layer_params *BNNSLayerParametersReduction, filter_params *BNNSFilterParameters) int
 
 // BNNSDirectApplyReduction applies a reduction operation directly to an input tensor.
@@ -451,7 +422,6 @@ func BNNSDirectApplyReduction(layer_params *BNNSLayerParametersReduction, filter
 	return _bNNSDirectApplyReduction(layer_params, filter_params)
 }
 
-
 var _bNNSDirectApplyTopK func(K uintptr, axis uintptr, batch_size uintptr, input *BNNSNDArrayDescriptor, input_batch_stride uintptr, best_values *BNNSNDArrayDescriptor, best_values_batch_stride uintptr, best_indices *BNNSNDArrayDescriptor, best_indices_batch_stride uintptr, filter_params *BNNSFilterParameters) int
 
 // BNNSDirectApplyTopK applies a top-k filter directly to an input.
@@ -463,7 +433,6 @@ func BNNSDirectApplyTopK(K uintptr, axis uintptr, batch_size uintptr, input *BNN
 	}
 	return _bNNSDirectApplyTopK(K, axis, batch_size, input, input_batch_stride, best_values, best_values_batch_stride, best_indices, best_indices_batch_stride, filter_params)
 }
-
 
 var _bNNSFilterApply func(filter BNNSFilter, in unsafe.Pointer, out unsafe.Pointer) int
 
@@ -479,7 +448,6 @@ func BNNSFilterApply(filter BNNSFilter, in unsafe.Pointer, out unsafe.Pointer) i
 	return _bNNSFilterApply(filter, in, out)
 }
 
-
 var _bNNSFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, weights_delta *BNNSNDArrayDescriptor, bias_delta *BNNSNDArrayDescriptor) int
 
 // BNNSFilterApplyBackwardBatch applies a filter backward to generate input delta, weights delta and bias delta.
@@ -493,7 +461,6 @@ func BNNSFilterApplyBackwardBatch(filter BNNSFilter, batch_size uintptr, in unsa
 	}
 	return _bNNSFilterApplyBackwardBatch(filter, batch_size, in, in_stride, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride, weights_delta, bias_delta)
 }
-
 
 var _bNNSFilterApplyBackwardTwoInputBatch func(filter BNNSFilter, batch_size uintptr, inA unsafe.Pointer, inA_stride uintptr, inA_delta *BNNSNDArrayDescriptor, inA_delta_stride uintptr, inB unsafe.Pointer, inB_stride uintptr, inB_delta *BNNSNDArrayDescriptor, inB_delta_stride uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, weights_delta *BNNSNDArrayDescriptor, bias_delta *BNNSNDArrayDescriptor) int
 
@@ -509,7 +476,6 @@ func BNNSFilterApplyBackwardTwoInputBatch(filter BNNSFilter, batch_size uintptr,
 	return _bNNSFilterApplyBackwardTwoInputBatch(filter, batch_size, inA, inA_stride, inA_delta, inA_delta_stride, inB, inB_stride, inB_delta, inB_delta_stride, out, out_stride, out_delta, out_delta_stride, weights_delta, bias_delta)
 }
 
-
 var _bNNSFilterApplyBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, out unsafe.Pointer, out_stride uintptr) int
 
 // BNNSFilterApplyBatch applies a filter to a set of input objects, writing the result to a set of output objects.
@@ -523,7 +489,6 @@ func BNNSFilterApplyBatch(filter BNNSFilter, batch_size uintptr, in unsafe.Point
 	}
 	return _bNNSFilterApplyBatch(filter, batch_size, in, in_stride, out, out_stride)
 }
-
 
 var _bNNSFilterApplyTwoInput func(filter BNNSFilter, inA unsafe.Pointer, inB unsafe.Pointer, out unsafe.Pointer) int
 
@@ -539,7 +504,6 @@ func BNNSFilterApplyTwoInput(filter BNNSFilter, inA unsafe.Pointer, inB unsafe.P
 	return _bNNSFilterApplyTwoInput(filter, inA, inB, out)
 }
 
-
 var _bNNSFilterApplyTwoInputBatch func(filter BNNSFilter, batch_size uintptr, inA unsafe.Pointer, inA_stride uintptr, inB unsafe.Pointer, inB_stride uintptr, out unsafe.Pointer, out_stride uintptr) int
 
 // BNNSFilterApplyTwoInputBatch applies a filter to a set of input object pairs, writing the result to a set of output objects.
@@ -553,7 +517,6 @@ func BNNSFilterApplyTwoInputBatch(filter BNNSFilter, batch_size uintptr, inA uns
 	}
 	return _bNNSFilterApplyTwoInputBatch(filter, batch_size, inA, inA_stride, inB, inB_stride, out, out_stride)
 }
-
 
 var _bNNSFilterCreateFusedLayer func(number_of_fused_filters uintptr, filter_type *uintptr, layer_params unsafe.Pointer, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -569,7 +532,6 @@ func BNNSFilterCreateFusedLayer(number_of_fused_filters uintptr, filter_type *ui
 	return _bNNSFilterCreateFusedLayer(number_of_fused_filters, filter_type, layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerActivation func(layer_params *BNNSLayerParametersActivation, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerActivation returns a new activation layer.
@@ -583,7 +545,6 @@ func BNNSFilterCreateLayerActivation(layer_params *BNNSLayerParametersActivation
 	}
 	return _bNNSFilterCreateLayerActivation(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerArithmetic func(layer_params *BNNSLayerParametersArithmetic, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -599,7 +560,6 @@ func BNNSFilterCreateLayerArithmetic(layer_params *BNNSLayerParametersArithmetic
 	return _bNNSFilterCreateLayerArithmetic(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerBroadcastMatMul func(layer_params *BNNSLayerParametersBroadcastMatMul, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerBroadcastMatMul returns a new broadcast matrix multiply layer.
@@ -613,7 +573,6 @@ func BNNSFilterCreateLayerBroadcastMatMul(layer_params *BNNSLayerParametersBroad
 	}
 	return _bNNSFilterCreateLayerBroadcastMatMul(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerConvolution func(layer_params *BNNSLayerParametersConvolution, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -629,7 +588,6 @@ func BNNSFilterCreateLayerConvolution(layer_params *BNNSLayerParametersConvoluti
 	return _bNNSFilterCreateLayerConvolution(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerDropout func(layer_params *BNNSLayerParametersDropout, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerDropout returns a new dropout layer.
@@ -643,7 +601,6 @@ func BNNSFilterCreateLayerDropout(layer_params *BNNSLayerParametersDropout, filt
 	}
 	return _bNNSFilterCreateLayerDropout(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerEmbedding func(layer_params *BNNSLayerParametersEmbedding, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -659,7 +616,6 @@ func BNNSFilterCreateLayerEmbedding(layer_params *BNNSLayerParametersEmbedding, 
 	return _bNNSFilterCreateLayerEmbedding(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerFullyConnected func(layer_params *BNNSLayerParametersFullyConnected, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerFullyConnected returns a new fully connected layer.
@@ -673,7 +629,6 @@ func BNNSFilterCreateLayerFullyConnected(layer_params *BNNSLayerParametersFullyC
 	}
 	return _bNNSFilterCreateLayerFullyConnected(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerGram func(layer_params *BNNSLayerParametersGram, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -689,7 +644,6 @@ func BNNSFilterCreateLayerGram(layer_params *BNNSLayerParametersGram, filter_par
 	return _bNNSFilterCreateLayerGram(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerLoss func(layer_params unsafe.Pointer, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerLoss returns a new loss layer.
@@ -703,7 +657,6 @@ func BNNSFilterCreateLayerLoss(layer_params unsafe.Pointer, filter_params *BNNSF
 	}
 	return _bNNSFilterCreateLayerLoss(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerMultiheadAttention func(layer_params *BNNSLayerParametersMultiheadAttention, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -719,7 +672,6 @@ func BNNSFilterCreateLayerMultiheadAttention(layer_params *BNNSLayerParametersMu
 	return _bNNSFilterCreateLayerMultiheadAttention(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerNormalization func(normType unsafe.Pointer, layer_params *BNNSLayerParametersNormalization, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerNormalization returns a new normalization layer.
@@ -733,7 +685,6 @@ func BNNSFilterCreateLayerNormalization(normType unsafe.Pointer, layer_params *B
 	}
 	return _bNNSFilterCreateLayerNormalization(normType, layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerPadding func(layer_params *BNNSLayerParametersPadding, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -749,7 +700,6 @@ func BNNSFilterCreateLayerPadding(layer_params *BNNSLayerParametersPadding, filt
 	return _bNNSFilterCreateLayerPadding(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerPermute func(layer_params *BNNSLayerParametersPermute, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerPermute returns a new permute layer.
@@ -763,7 +713,6 @@ func BNNSFilterCreateLayerPermute(layer_params *BNNSLayerParametersPermute, filt
 	}
 	return _bNNSFilterCreateLayerPermute(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerPooling func(layer_params *BNNSLayerParametersPooling, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -779,7 +728,6 @@ func BNNSFilterCreateLayerPooling(layer_params *BNNSLayerParametersPooling, filt
 	return _bNNSFilterCreateLayerPooling(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerReduction func(layer_params *BNNSLayerParametersReduction, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerReduction returns a new reduction layer.
@@ -793,7 +741,6 @@ func BNNSFilterCreateLayerReduction(layer_params *BNNSLayerParametersReduction, 
 	}
 	return _bNNSFilterCreateLayerReduction(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerResize func(layer_params *BNNSLayerParametersResize, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -809,7 +756,6 @@ func BNNSFilterCreateLayerResize(layer_params *BNNSLayerParametersResize, filter
 	return _bNNSFilterCreateLayerResize(layer_params, filter_params)
 }
 
-
 var _bNNSFilterCreateLayerTensorContraction func(layer_params *BNNSLayerParametersTensorContraction, filter_params *BNNSFilterParameters) BNNSFilter
 
 // BNNSFilterCreateLayerTensorContraction returns a new tensor-contraction layer.
@@ -823,7 +769,6 @@ func BNNSFilterCreateLayerTensorContraction(layer_params *BNNSLayerParametersTen
 	}
 	return _bNNSFilterCreateLayerTensorContraction(layer_params, filter_params)
 }
-
 
 var _bNNSFilterCreateLayerTransposedConvolution func(layer_params *BNNSLayerParametersConvolution, filter_params *BNNSFilterParameters) BNNSFilter
 
@@ -839,7 +784,6 @@ func BNNSFilterCreateLayerTransposedConvolution(layer_params *BNNSLayerParameter
 	return _bNNSFilterCreateLayerTransposedConvolution(layer_params, filter_params)
 }
 
-
 var _bNNSFilterDestroy func(filter BNNSFilter)
 
 // BNNSFilterDestroy destroys the specified filter, releasing all resources allocated for it.
@@ -853,7 +797,6 @@ func BNNSFilterDestroy(filter BNNSFilter) {
 	}
 	_bNNSFilterDestroy(filter)
 }
-
 
 var _bNNSFusedFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, delta_parameters *BNNSNDArrayDescriptor) int
 
@@ -869,7 +812,6 @@ func BNNSFusedFilterApplyBackwardBatch(filter BNNSFilter, batch_size uintptr, in
 	return _bNNSFusedFilterApplyBackwardBatch(filter, batch_size, in, in_stride, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride, delta_parameters)
 }
 
-
 var _bNNSFusedFilterApplyBackwardMultiInputBatch func(filter BNNSFilter, batch_size uintptr, number_of_inputs uintptr, in unsafe.Pointer, in_stride *uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride *uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, delta_parameters *BNNSNDArrayDescriptor) int
 
 // BNNSFusedFilterApplyBackwardMultiInputBatch applies a multiple-input fused filter backward to generate input gradients.
@@ -883,7 +825,6 @@ func BNNSFusedFilterApplyBackwardMultiInputBatch(filter BNNSFilter, batch_size u
 	}
 	return _bNNSFusedFilterApplyBackwardMultiInputBatch(filter, batch_size, number_of_inputs, in, in_stride, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride, delta_parameters)
 }
-
 
 var _bNNSFusedFilterApplyBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, out unsafe.Pointer, out_stride uintptr, training bool) int
 
@@ -899,7 +840,6 @@ func BNNSFusedFilterApplyBatch(filter BNNSFilter, batch_size uintptr, in unsafe.
 	return _bNNSFusedFilterApplyBatch(filter, batch_size, in, in_stride, out, out_stride, training)
 }
 
-
 var _bNNSFusedFilterApplyMultiInputBatch func(filter BNNSFilter, batch_size uintptr, number_of_inputs uintptr, in unsafe.Pointer, in_stride *uintptr, out unsafe.Pointer, out_stride uintptr, training bool) int
 
 // BNNSFusedFilterApplyMultiInputBatch applies a multiple-input fused filter to a set of input objects, writing the result to a set of output objects.
@@ -913,7 +853,6 @@ func BNNSFusedFilterApplyMultiInputBatch(filter BNNSFilter, batch_size uintptr, 
 	}
 	return _bNNSFusedFilterApplyMultiInputBatch(filter, batch_size, number_of_inputs, in, in_stride, out, out_stride, training)
 }
-
 
 var _bNNSGather func(axis uintptr, input *BNNSNDArrayDescriptor, indices *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -929,7 +868,6 @@ func BNNSGather(axis uintptr, input *BNNSNDArrayDescriptor, indices *BNNSNDArray
 	return _bNNSGather(axis, input, indices, output, filter_params)
 }
 
-
 var _bNNSGatherND func(input *BNNSNDArrayDescriptor, indices *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
 // BNNSGatherND gathers the slices of a tensor.
@@ -943,7 +881,6 @@ func BNNSGatherND(input *BNNSNDArrayDescriptor, indices *BNNSNDArrayDescriptor, 
 	}
 	return _bNNSGatherND(input, indices, output, filter_params)
 }
-
 
 var _bNNSGetPointer func(filter BNNSFilter, target unsafe.Pointer) BNNSNDArrayDescriptor
 
@@ -959,7 +896,6 @@ func BNNSGetPointer(filter BNNSFilter, target unsafe.Pointer) BNNSNDArrayDescrip
 	return _bNNSGetPointer(filter, target)
 }
 
-
 var _bNNSGraphCompileFromFile func(filename *byte, function *byte, options Bnns_graph_compile_options_t) Bnns_graph_t
 
 // BNNSGraphCompileFromFile compiles a source mlmodelc file to a graph object.
@@ -971,7 +907,6 @@ func BNNSGraphCompileFromFile(filename *byte, function *byte, options Bnns_graph
 	}
 	return _bNNSGraphCompileFromFile(filename, function, options)
 }
-
 
 var _bNNSGraphCompileOptionsDestroy func(options Bnns_graph_compile_options_t)
 
@@ -985,7 +920,6 @@ func BNNSGraphCompileOptionsDestroy(options Bnns_graph_compile_options_t) {
 	_bNNSGraphCompileOptionsDestroy(options)
 }
 
-
 var _bNNSGraphCompileOptionsGetGenerateDebugInfo func(options Bnns_graph_compile_options_t) bool
 
 // BNNSGraphCompileOptionsGetGenerateDebugInfo returns the option for the compiled graph to include debugging information.
@@ -997,7 +931,6 @@ func BNNSGraphCompileOptionsGetGenerateDebugInfo(options Bnns_graph_compile_opti
 	}
 	return _bNNSGraphCompileOptionsGetGenerateDebugInfo(options)
 }
-
 
 var _bNNSGraphCompileOptionsGetOptimizationPreference func(options Bnns_graph_compile_options_t) unsafe.Pointer
 
@@ -1011,7 +944,6 @@ func BNNSGraphCompileOptionsGetOptimizationPreference(options Bnns_graph_compile
 	return _bNNSGraphCompileOptionsGetOptimizationPreference(options)
 }
 
-
 var _bNNSGraphCompileOptionsGetOutputFD func(options Bnns_graph_compile_options_t) int
 
 // BNNSGraphCompileOptionsGetOutputFD returns the option for the compiled graph’s output file descriptor.
@@ -1023,7 +955,6 @@ func BNNSGraphCompileOptionsGetOutputFD(options Bnns_graph_compile_options_t) in
 	}
 	return _bNNSGraphCompileOptionsGetOutputFD(options)
 }
-
 
 var _bNNSGraphCompileOptionsGetOutputPath func(options Bnns_graph_compile_options_t) *byte
 
@@ -1037,7 +968,6 @@ func BNNSGraphCompileOptionsGetOutputPath(options Bnns_graph_compile_options_t) 
 	return _bNNSGraphCompileOptionsGetOutputPath(options)
 }
 
-
 var _bNNSGraphCompileOptionsGetTargetSingleThread func(options Bnns_graph_compile_options_t) bool
 
 // BNNSGraphCompileOptionsGetTargetSingleThread returns the option for the compiled graph to execute on a single thread.
@@ -1049,7 +979,6 @@ func BNNSGraphCompileOptionsGetTargetSingleThread(options Bnns_graph_compile_opt
 	}
 	return _bNNSGraphCompileOptionsGetTargetSingleThread(options)
 }
-
 
 var _bNNSGraphCompileOptionsMakeDefault func() Bnns_graph_compile_options_t
 
@@ -1063,7 +992,6 @@ func BNNSGraphCompileOptionsMakeDefault() Bnns_graph_compile_options_t {
 	return _bNNSGraphCompileOptionsMakeDefault()
 }
 
-
 var _bNNSGraphCompileOptionsSetGenerateDebugInfo func(options Bnns_graph_compile_options_t, value bool)
 
 // BNNSGraphCompileOptionsSetGenerateDebugInfo sets the option for the compiled graph to include debugging information.
@@ -1075,7 +1003,6 @@ func BNNSGraphCompileOptionsSetGenerateDebugInfo(options Bnns_graph_compile_opti
 	}
 	_bNNSGraphCompileOptionsSetGenerateDebugInfo(options, value)
 }
-
 
 var _bNNSGraphCompileOptionsSetMessageLogCallback func(options Bnns_graph_compile_options_t, log_callback Bnns_graph_compile_message_fn_t, additional_logging_arguments *Bnns_user_message_data_t)
 
@@ -1089,7 +1016,6 @@ func BNNSGraphCompileOptionsSetMessageLogCallback(options Bnns_graph_compile_opt
 	_bNNSGraphCompileOptionsSetMessageLogCallback(options, log_callback, additional_logging_arguments)
 }
 
-
 var _bNNSGraphCompileOptionsSetMessageLogMask func(options Bnns_graph_compile_options_t, log_level_mask uint32)
 
 // BNNSGraphCompileOptionsSetMessageLogMask sets the mask for compile-time messages.
@@ -1101,7 +1027,6 @@ func BNNSGraphCompileOptionsSetMessageLogMask(options Bnns_graph_compile_options
 	}
 	_bNNSGraphCompileOptionsSetMessageLogMask(options, log_level_mask)
 }
-
 
 var _bNNSGraphCompileOptionsSetOptimizationPreference func(options Bnns_graph_compile_options_t, preference unsafe.Pointer)
 
@@ -1115,7 +1040,6 @@ func BNNSGraphCompileOptionsSetOptimizationPreference(options Bnns_graph_compile
 	_bNNSGraphCompileOptionsSetOptimizationPreference(options, preference)
 }
 
-
 var _bNNSGraphCompileOptionsSetOutputFD func(options Bnns_graph_compile_options_t, fd int)
 
 // BNNSGraphCompileOptionsSetOutputFD sets the option for graph compilation to generate the graph object directly to the specified file descriptor.
@@ -1127,7 +1051,6 @@ func BNNSGraphCompileOptionsSetOutputFD(options Bnns_graph_compile_options_t, fd
 	}
 	_bNNSGraphCompileOptionsSetOutputFD(options, fd)
 }
-
 
 var _bNNSGraphCompileOptionsSetOutputPath func(options Bnns_graph_compile_options_t, path *byte)
 
@@ -1141,7 +1064,6 @@ func BNNSGraphCompileOptionsSetOutputPath(options Bnns_graph_compile_options_t, 
 	_bNNSGraphCompileOptionsSetOutputPath(options, path)
 }
 
-
 var _bNNSGraphCompileOptionsSetTargetSingleThread func(options Bnns_graph_compile_options_t, value bool)
 
 // BNNSGraphCompileOptionsSetTargetSingleThread sets the option for the compiled graph to execute on a single thread.
@@ -1153,7 +1075,6 @@ func BNNSGraphCompileOptionsSetTargetSingleThread(options Bnns_graph_compile_opt
 	}
 	_bNNSGraphCompileOptionsSetTargetSingleThread(options, value)
 }
-
 
 var _bNNSGraphContextDestroy func(context Bnns_graph_context_t)
 
@@ -1167,7 +1088,6 @@ func BNNSGraphContextDestroy(context Bnns_graph_context_t) {
 	_bNNSGraphContextDestroy(context)
 }
 
-
 var _bNNSGraphContextEnableNanAndInfChecks func(context Bnns_graph_context_t, enable_check_for_nans_inf bool)
 
 // BNNSGraphContextEnableNanAndInfChecks specifies that the context checks intermediate tensors for NaNs and infinities.
@@ -1179,7 +1099,6 @@ func BNNSGraphContextEnableNanAndInfChecks(context Bnns_graph_context_t, enable_
 	}
 	_bNNSGraphContextEnableNanAndInfChecks(context, enable_check_for_nans_inf)
 }
-
 
 var _bNNSGraphContextExecute func(context Bnns_graph_context_t, function *byte, argument_count uintptr, arguments *Bnns_graph_argument_t, workspace_size uintptr, workspace *byte) int
 
@@ -1193,7 +1112,6 @@ func BNNSGraphContextExecute(context Bnns_graph_context_t, function *byte, argum
 	return _bNNSGraphContextExecute(context, function, argument_count, arguments, workspace_size, workspace)
 }
 
-
 var _bNNSGraphContextGetTensor func(context Bnns_graph_context_t, function *byte, argument *byte, fill_known_dynamic_shapes bool, tensor *BNNSTensor) int
 
 // BNNSGraphContextGetTensor sets the properties of a tensor for the specified function argument.
@@ -1205,7 +1123,6 @@ func BNNSGraphContextGetTensor(context Bnns_graph_context_t, function *byte, arg
 	}
 	return _bNNSGraphContextGetTensor(context, function, argument, fill_known_dynamic_shapes, tensor)
 }
-
 
 var _bNNSGraphContextGetWorkspaceSize func(context Bnns_graph_context_t, function *byte) uintptr
 
@@ -1219,7 +1136,6 @@ func BNNSGraphContextGetWorkspaceSize(context Bnns_graph_context_t, function *by
 	return _bNNSGraphContextGetWorkspaceSize(context, function)
 }
 
-
 var _bNNSGraphContextMake func(graph Bnns_graph_t) Bnns_graph_context_t
 
 // BNNSGraphContextMake returns an allocated and initialized graph context from the specified graph.
@@ -1231,7 +1147,6 @@ func BNNSGraphContextMake(graph Bnns_graph_t) Bnns_graph_context_t {
 	}
 	return _bNNSGraphContextMake(graph)
 }
-
 
 var _bNNSGraphContextMakeStreaming func(graph Bnns_graph_t, function *byte, initial_states_count uintptr, initial_states *BNNSTensor) Bnns_graph_context_t
 
@@ -1245,7 +1160,6 @@ func BNNSGraphContextMakeStreaming(graph Bnns_graph_t, function *byte, initial_s
 	return _bNNSGraphContextMakeStreaming(graph, function, initial_states_count, initial_states)
 }
 
-
 var _bNNSGraphContextSetArgumentType func(context Bnns_graph_context_t, argument_type unsafe.Pointer) int
 
 // BNNSGraphContextSetArgumentType specifies the argument type for a graph context.
@@ -1257,7 +1171,6 @@ func BNNSGraphContextSetArgumentType(context Bnns_graph_context_t, argument_type
 	}
 	return _bNNSGraphContextSetArgumentType(context, argument_type)
 }
-
 
 var _bNNSGraphContextSetDynamicShapes func(context Bnns_graph_context_t, function *byte, shapes_count uintptr, shapes *Bnns_graph_shape_t) int
 
@@ -1271,7 +1184,6 @@ func BNNSGraphContextSetDynamicShapes(context Bnns_graph_context_t, function *by
 	return _bNNSGraphContextSetDynamicShapes(context, function, shapes_count, shapes)
 }
 
-
 var _bNNSGraphContextSetMessageLogCallback func(context Bnns_graph_context_t, log_callback_fn Bnns_graph_execute_message_fn_t, additional_logging_arguments *Bnns_user_message_data_t) int
 
 // BNNSGraphContextSetMessageLogCallback specifies a customized callback function that reports execution-time messages.
@@ -1283,7 +1195,6 @@ func BNNSGraphContextSetMessageLogCallback(context Bnns_graph_context_t, log_cal
 	}
 	return _bNNSGraphContextSetMessageLogCallback(context, log_callback_fn, additional_logging_arguments)
 }
-
 
 var _bNNSGraphContextSetMessageLogMask func(context Bnns_graph_context_t, log_level_mask uint32) int
 
@@ -1297,7 +1208,6 @@ func BNNSGraphContextSetMessageLogMask(context Bnns_graph_context_t, log_level_m
 	return _bNNSGraphContextSetMessageLogMask(context, log_level_mask)
 }
 
-
 var _bNNSGraphContextSetStreamingAdvanceCount func(context Bnns_graph_context_t, advance_count uintptr) int
 
 // BNNSGraphContextSetStreamingAdvanceCount sets the streaming advancement amount for cases with dynamically shaped inputs.
@@ -1309,7 +1219,6 @@ func BNNSGraphContextSetStreamingAdvanceCount(context Bnns_graph_context_t, adva
 	}
 	return _bNNSGraphContextSetStreamingAdvanceCount(context, advance_count)
 }
-
 
 var _bNNSGraphGetArgumentCount func(graph Bnns_graph_t, function *byte) uintptr
 
@@ -1323,7 +1232,6 @@ func BNNSGraphGetArgumentCount(graph Bnns_graph_t, function *byte) uintptr {
 	return _bNNSGraphGetArgumentCount(graph, function)
 }
 
-
 var _bNNSGraphGetArgumentIntents func(graph Bnns_graph_t, function *byte, argument_intents_count uintptr, argument_intents *uintptr) int
 
 // BNNSGraphGetArgumentIntents extracts the intents of arguments for the given function argument.
@@ -1335,7 +1243,6 @@ func BNNSGraphGetArgumentIntents(graph Bnns_graph_t, function *byte, argument_in
 	}
 	return _bNNSGraphGetArgumentIntents(graph, function, argument_intents_count, argument_intents)
 }
-
 
 var _bNNSGraphGetArgumentInterleaveFactors func(graph Bnns_graph_t, function *byte, argument_count uintptr, argument_interleave *uint16, argument_interleave_counts *uintptr) int
 
@@ -1349,7 +1256,6 @@ func BNNSGraphGetArgumentInterleaveFactors(graph Bnns_graph_t, function *byte, a
 	return _bNNSGraphGetArgumentInterleaveFactors(graph, function, argument_count, argument_interleave, argument_interleave_counts)
 }
 
-
 var _bNNSGraphGetArgumentNames func(graph Bnns_graph_t, function *byte, argument_names_count uintptr, argument_names *byte) int
 
 // BNNSGraphGetArgumentNames extracts the names of arguments for the given function argument.
@@ -1361,7 +1267,6 @@ func BNNSGraphGetArgumentNames(graph Bnns_graph_t, function *byte, argument_name
 	}
 	return _bNNSGraphGetArgumentNames(graph, function, argument_names_count, argument_names)
 }
-
 
 var _bNNSGraphGetArgumentPosition func(graph Bnns_graph_t, function *byte, argument *byte) uintptr
 
@@ -1375,7 +1280,6 @@ func BNNSGraphGetArgumentPosition(graph Bnns_graph_t, function *byte, argument *
 	return _bNNSGraphGetArgumentPosition(graph, function, argument)
 }
 
-
 var _bNNSGraphGetFunctionCount func(graph Bnns_graph_t) uintptr
 
 // BNNSGraphGetFunctionCount returns the number of callable functions in the specified graph.
@@ -1387,7 +1291,6 @@ func BNNSGraphGetFunctionCount(graph Bnns_graph_t) uintptr {
 	}
 	return _bNNSGraphGetFunctionCount(graph)
 }
-
 
 var _bNNSGraphGetFunctionNames func(graph Bnns_graph_t, function_name_count uintptr, function_names *byte) int
 
@@ -1401,7 +1304,6 @@ func BNNSGraphGetFunctionNames(graph Bnns_graph_t, function_name_count uintptr, 
 	return _bNNSGraphGetFunctionNames(graph, function_name_count, function_names)
 }
 
-
 var _bNNSGraphGetInputCount func(graph Bnns_graph_t, function *byte) uintptr
 
 // BNNSGraphGetInputCount returns the number of input arguments for the given function argument.
@@ -1413,7 +1315,6 @@ func BNNSGraphGetInputCount(graph Bnns_graph_t, function *byte) uintptr {
 	}
 	return _bNNSGraphGetInputCount(graph, function)
 }
-
 
 var _bNNSGraphGetInputNames func(graph Bnns_graph_t, function *byte, input_names_count uintptr, input_names *byte) int
 
@@ -1427,7 +1328,6 @@ func BNNSGraphGetInputNames(graph Bnns_graph_t, function *byte, input_names_coun
 	return _bNNSGraphGetInputNames(graph, function, input_names_count, input_names)
 }
 
-
 var _bNNSGraphGetOutputCount func(graph Bnns_graph_t, function *byte) uintptr
 
 // BNNSGraphGetOutputCount returns the number of output arguments for the given function argument.
@@ -1439,7 +1339,6 @@ func BNNSGraphGetOutputCount(graph Bnns_graph_t, function *byte) uintptr {
 	}
 	return _bNNSGraphGetOutputCount(graph, function)
 }
-
 
 var _bNNSGraphGetOutputNames func(graph Bnns_graph_t, function *byte, output_names_count uintptr, output_names *byte) int
 
@@ -1453,7 +1352,6 @@ func BNNSGraphGetOutputNames(graph Bnns_graph_t, function *byte, output_names_co
 	return _bNNSGraphGetOutputNames(graph, function, output_names_count, output_names)
 }
 
-
 var _bNNSGraphTensorFillStrides func(graph Bnns_graph_t, function *byte, argument *byte, tensor *BNNSTensor) int
 
 // BNNSGraphTensorFillStrides sets the stride of the specifed tensor for compatibility with the given model’s input or output argument based on its current shape.
@@ -1465,7 +1363,6 @@ func BNNSGraphTensorFillStrides(graph Bnns_graph_t, function *byte, argument *by
 	}
 	return _bNNSGraphTensorFillStrides(graph, function, argument, tensor)
 }
-
 
 var _bNNSLossFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, labels unsafe.Pointer, labels_stride uintptr, weights unsafe.Pointer, weights_size uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr) int
 
@@ -1481,7 +1378,6 @@ func BNNSLossFilterApplyBackwardBatch(filter BNNSFilter, batch_size uintptr, in 
 	return _bNNSLossFilterApplyBackwardBatch(filter, batch_size, in, in_stride, in_delta, in_delta_stride, labels, labels_stride, weights, weights_size, out_delta, out_delta_stride)
 }
 
-
 var _bNNSLossFilterApplyBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, labels unsafe.Pointer, labels_stride uintptr, weights unsafe.Pointer, weights_size uintptr, out unsafe.Pointer, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr) int
 
 // BNNSLossFilterApplyBatch applies a loss filter to a set of input objects, writing the result to a set of output objects.
@@ -1495,7 +1391,6 @@ func BNNSLossFilterApplyBatch(filter BNNSFilter, batch_size uintptr, in unsafe.P
 	}
 	return _bNNSLossFilterApplyBatch(filter, batch_size, in, in_stride, labels, labels_stride, weights, weights_size, out, in_delta, in_delta_stride)
 }
-
 
 var _bNNSMatMul func(transA bool, transB bool, alpha float32, inputA *BNNSNDArrayDescriptor, inputB *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, workspace unsafe.Pointer, filter_params *BNNSFilterParameters) int
 
@@ -1511,7 +1406,6 @@ func BNNSMatMul(transA bool, transB bool, alpha float32, inputA *BNNSNDArrayDesc
 	return _bNNSMatMul(transA, transB, alpha, inputA, inputB, output, workspace, filter_params)
 }
 
-
 var _bNNSMatMulWorkspaceSize func(transA bool, transB bool, alpha float32, inputA *BNNSNDArrayDescriptor, inputB *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
 // BNNSMatMulWorkspaceSize returns the workspace size that a matrix multiply operation requires.
@@ -1525,7 +1419,6 @@ func BNNSMatMulWorkspaceSize(transA bool, transB bool, alpha float32, inputA *BN
 	}
 	return _bNNSMatMulWorkspaceSize(transA, transB, alpha, inputA, inputB, output, filter_params)
 }
-
 
 var _bNNSNDArrayFullyConnectedSparsifySparseCOO func(in_dense_shape *BNNSNDArrayDescriptor, in_indices *BNNSNDArrayDescriptor, in_values *BNNSNDArrayDescriptor, out *BNNSNDArrayDescriptor, sparse_params *BNNSSparsityParameters, batch_size uintptr, workspace unsafe.Pointer, workspace_size uintptr, filter_params *BNNSFilterParameters) int
 
@@ -1541,7 +1434,6 @@ func BNNSNDArrayFullyConnectedSparsifySparseCOO(in_dense_shape *BNNSNDArrayDescr
 	return _bNNSNDArrayFullyConnectedSparsifySparseCOO(in_dense_shape, in_indices, in_values, out, sparse_params, batch_size, workspace, workspace_size, filter_params)
 }
 
-
 var _bNNSNDArrayFullyConnectedSparsifySparseCSR func(in_dense_shape *BNNSNDArrayDescriptor, in_column_indices *BNNSNDArrayDescriptor, in_row_starts *BNNSNDArrayDescriptor, in_values *BNNSNDArrayDescriptor, out *BNNSNDArrayDescriptor, sparse_params *BNNSSparsityParameters, batch_size uintptr, workspace unsafe.Pointer, workspace_size uintptr, filter_params *BNNSFilterParameters) int
 
 // BNNSNDArrayFullyConnectedSparsifySparseCSR converts a sparse tensor from the standardized compressed sparse row (CSR) layout to a device-specific sparse layout that BNNS fully connected layers use.
@@ -1556,7 +1448,6 @@ func BNNSNDArrayFullyConnectedSparsifySparseCSR(in_dense_shape *BNNSNDArrayDescr
 	return _bNNSNDArrayFullyConnectedSparsifySparseCSR(in_dense_shape, in_column_indices, in_row_starts, in_values, out, sparse_params, batch_size, workspace, workspace_size, filter_params)
 }
 
-
 var _bNNSNDArrayGetDataSize func(array *BNNSNDArrayDescriptor) uintptr
 
 // BNNSNDArrayGetDataSize returns the size, in bytes, that an array descriptor requires.
@@ -1568,7 +1459,6 @@ func BNNSNDArrayGetDataSize(array *BNNSNDArrayDescriptor) uintptr {
 	}
 	return _bNNSNDArrayGetDataSize(array)
 }
-
 
 var _bNNSNearestNeighborsGetInfo func(knn BNNSNearestNeighbors, sample_number int, indices *int, distances unsafe.Pointer) int
 
@@ -1582,7 +1472,6 @@ func BNNSNearestNeighborsGetInfo(knn BNNSNearestNeighbors, sample_number int, in
 	return _bNNSNearestNeighborsGetInfo(knn, sample_number, unsafe.SliceData(indices), distances)
 }
 
-
 var _bNNSNearestNeighborsLoad func(knn BNNSNearestNeighbors, n_new_samples uint, data_ptr unsafe.Pointer) int
 
 // BNNSNearestNeighborsLoad adds new sample data to a k-nearest neighbors object.
@@ -1594,7 +1483,6 @@ func BNNSNearestNeighborsLoad(knn BNNSNearestNeighbors, n_new_samples uint, data
 	}
 	return _bNNSNearestNeighborsLoad(knn, n_new_samples, data_ptr)
 }
-
 
 var _bNNSNormalizationFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, beta_delta *BNNSNDArrayDescriptor, gamma_delta *BNNSNDArrayDescriptor) int
 
@@ -1610,7 +1498,6 @@ func BNNSNormalizationFilterApplyBackwardBatch(filter BNNSFilter, batch_size uin
 	return _bNNSNormalizationFilterApplyBackwardBatch(filter, batch_size, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride, beta_delta, gamma_delta)
 }
 
-
 var _bNNSNormalizationFilterApplyBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, out unsafe.Pointer, out_stride uintptr, training bool) int
 
 // BNNSNormalizationFilterApplyBatch applies a normalization filter to a set of input objects, writing the result to a set of output objects.
@@ -1624,7 +1511,6 @@ func BNNSNormalizationFilterApplyBatch(filter BNNSFilter, batch_size uintptr, in
 	}
 	return _bNNSNormalizationFilterApplyBatch(filter, batch_size, in, in_stride, out, out_stride, training)
 }
-
 
 var _bNNSOptimizerStep func(function unsafe.Pointer, OptimizerAlgFields unsafe.Pointer, number_of_parameters uintptr, parameters *BNNSNDArrayDescriptor, gradients *BNNSNDArrayDescriptor, accumulators *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -1640,7 +1526,6 @@ func BNNSOptimizerStep(function unsafe.Pointer, OptimizerAlgFields unsafe.Pointe
 	return _bNNSOptimizerStep(function, OptimizerAlgFields, number_of_parameters, parameters, gradients, accumulators, filter_params)
 }
 
-
 var _bNNSPermuteFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr) int
 
 // BNNSPermuteFilterApplyBackwardBatch applies a permute filter backward to generate gradients.
@@ -1654,7 +1539,6 @@ func BNNSPermuteFilterApplyBackwardBatch(filter BNNSFilter, batch_size uintptr, 
 	}
 	return _bNNSPermuteFilterApplyBackwardBatch(filter, batch_size, in_delta, in_delta_stride, out_delta, out_delta_stride)
 }
-
 
 var _bNNSPoolingFilterApplyBackwardBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, bias_delta *BNNSNDArrayDescriptor, indices *uintptr, idx_stride uintptr) int
 
@@ -1670,7 +1554,6 @@ func BNNSPoolingFilterApplyBackwardBatch(filter BNNSFilter, batch_size uintptr, 
 	return _bNNSPoolingFilterApplyBackwardBatch(filter, batch_size, in, in_stride, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride, bias_delta, indices, idx_stride)
 }
 
-
 var _bNNSPoolingFilterApplyBackwardBatchEx func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, in_delta *BNNSNDArrayDescriptor, in_delta_stride uintptr, out unsafe.Pointer, out_stride uintptr, out_delta *BNNSNDArrayDescriptor, out_delta_stride uintptr, bias_delta *BNNSNDArrayDescriptor, indices_data_type unsafe.Pointer, indices unsafe.Pointer, idx_stride uintptr) int
 
 // BNNSPoolingFilterApplyBackwardBatchEx applies a pooling filter backward to generate gradients with support for multiple data types for indices.
@@ -1684,7 +1567,6 @@ func BNNSPoolingFilterApplyBackwardBatchEx(filter BNNSFilter, batch_size uintptr
 	}
 	return _bNNSPoolingFilterApplyBackwardBatchEx(filter, batch_size, in, in_stride, in_delta, in_delta_stride, out, out_stride, out_delta, out_delta_stride, bias_delta, indices_data_type, indices, idx_stride)
 }
-
 
 var _bNNSPoolingFilterApplyBatch func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, out unsafe.Pointer, out_stride uintptr, indices *uintptr, idx_stride uintptr) int
 
@@ -1700,7 +1582,6 @@ func BNNSPoolingFilterApplyBatch(filter BNNSFilter, batch_size uintptr, in unsaf
 	return _bNNSPoolingFilterApplyBatch(filter, batch_size, in, in_stride, out, out_stride, indices, idx_stride)
 }
 
-
 var _bNNSPoolingFilterApplyBatchEx func(filter BNNSFilter, batch_size uintptr, in unsafe.Pointer, in_stride uintptr, out unsafe.Pointer, out_stride uintptr, indices_data_type unsafe.Pointer, indices unsafe.Pointer, idx_stride uintptr) int
 
 // BNNSPoolingFilterApplyBatchEx applies a pooling filter to a set of input objects with support for multiple data types for indices.
@@ -1715,7 +1596,6 @@ func BNNSPoolingFilterApplyBatchEx(filter BNNSFilter, batch_size uintptr, in uns
 	return _bNNSPoolingFilterApplyBatchEx(filter, batch_size, in, in_stride, out, out_stride, indices_data_type, indices, idx_stride)
 }
 
-
 var _bNNSRandomFillCategoricalFloat func(generator BNNSRandomGenerator, desc *BNNSNDArrayDescriptor, probabilities *BNNSNDArrayDescriptor, log_probabilities bool) int
 
 // BNNSRandomFillCategoricalFloat fills the specified tensor with random values from the categorical distributions with the given event probabilities.
@@ -1727,7 +1607,6 @@ func BNNSRandomFillCategoricalFloat(generator BNNSRandomGenerator, desc *BNNSNDA
 	}
 	return _bNNSRandomFillCategoricalFloat(generator, desc, probabilities, log_probabilities)
 }
-
 
 var _bNNSRandomFillNormalFloat func(generator BNNSRandomGenerator, desc *BNNSNDArrayDescriptor, mean float32, stddev float32) int
 
@@ -1741,7 +1620,6 @@ func BNNSRandomFillNormalFloat(generator BNNSRandomGenerator, desc *BNNSNDArrayD
 	return _bNNSRandomFillNormalFloat(generator, desc, mean, stddev)
 }
 
-
 var _bNNSRandomFillUniformFloat func(generator BNNSRandomGenerator, desc *BNNSNDArrayDescriptor, a float32, b float32) int
 
 // BNNSRandomFillUniformFloat fills the specified tensor with random floating-point values from the continuous uniform distribution within a range.
@@ -1753,7 +1631,6 @@ func BNNSRandomFillUniformFloat(generator BNNSRandomGenerator, desc *BNNSNDArray
 	}
 	return _bNNSRandomFillUniformFloat(generator, desc, a, b)
 }
-
 
 var _bNNSRandomFillUniformInt func(generator BNNSRandomGenerator, desc *BNNSNDArrayDescriptor, a int64, b int64) int
 
@@ -1767,7 +1644,6 @@ func BNNSRandomFillUniformInt(generator BNNSRandomGenerator, desc *BNNSNDArrayDe
 	return _bNNSRandomFillUniformInt(generator, desc, a, b)
 }
 
-
 var _bNNSRandomGeneratorGetState func(generator BNNSRandomGenerator, state_size uintptr, state unsafe.Pointer) int
 
 // BNNSRandomGeneratorGetState returns the state of a random number generator.
@@ -1779,7 +1655,6 @@ func BNNSRandomGeneratorGetState(generator BNNSRandomGenerator, state_size uintp
 	}
 	return _bNNSRandomGeneratorGetState(generator, state_size, state)
 }
-
 
 var _bNNSRandomGeneratorSetState func(generator BNNSRandomGenerator, state_size uintptr, state unsafe.Pointer) int
 
@@ -1793,7 +1668,6 @@ func BNNSRandomGeneratorSetState(generator BNNSRandomGenerator, state_size uintp
 	return _bNNSRandomGeneratorSetState(generator, state_size, state)
 }
 
-
 var _bNNSRandomGeneratorStateSize func(generator BNNSRandomGenerator) uintptr
 
 // BNNSRandomGeneratorStateSize returns the state size, in bytes, of a random number generator.
@@ -1805,7 +1679,6 @@ func BNNSRandomGeneratorStateSize(generator BNNSRandomGenerator) uintptr {
 	}
 	return _bNNSRandomGeneratorStateSize(generator)
 }
-
 
 var _bNNSScatter func(axis uintptr, op unsafe.Pointer, input *BNNSNDArrayDescriptor, indices *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -1821,7 +1694,6 @@ func BNNSScatter(axis uintptr, op unsafe.Pointer, input *BNNSNDArrayDescriptor, 
 	return _bNNSScatter(axis, op, input, indices, output, filter_params)
 }
 
-
 var _bNNSScatterND func(op unsafe.Pointer, input *BNNSNDArrayDescriptor, indices *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
 // BNNSScatterND scatters the slices of a tensor.
@@ -1835,7 +1707,6 @@ func BNNSScatterND(op unsafe.Pointer, input *BNNSNDArrayDescriptor, indices *BNN
 	}
 	return _bNNSScatterND(op, input, indices, output, filter_params)
 }
-
 
 var _bNNSShuffle func(type_ unsafe.Pointer, input *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -1851,7 +1722,6 @@ func BNNSShuffle(type_ unsafe.Pointer, input *BNNSNDArrayDescriptor, output *BNN
 	return _bNNSShuffle(type_, input, output, filter_params)
 }
 
-
 var _bNNSTensorGetAllocationSize func(tensor *BNNSTensor) uintptr
 
 // BNNSTensorGetAllocationSize returns the minimum allocation size, in bytes, of the specified tensor.
@@ -1863,7 +1733,6 @@ func BNNSTensorGetAllocationSize(tensor *BNNSTensor) uintptr {
 	}
 	return _bNNSTensorGetAllocationSize(tensor)
 }
-
 
 var _bNNSTile func(input *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
@@ -1879,7 +1748,6 @@ func BNNSTile(input *BNNSNDArrayDescriptor, output *BNNSNDArrayDescriptor, filte
 	return _bNNSTile(input, output, filter_params)
 }
 
-
 var _bNNSTileBackward func(in_delta *BNNSNDArrayDescriptor, out_delta *BNNSNDArrayDescriptor, filter_params *BNNSFilterParameters) int
 
 // BNNSTileBackward applies a tile filter backward to generate an input gradient.
@@ -1894,7 +1762,6 @@ func BNNSTileBackward(in_delta *BNNSNDArrayDescriptor, out_delta *BNNSNDArrayDes
 	return _bNNSTileBackward(in_delta, out_delta, filter_params)
 }
 
-
 var _bNNSTranspose func(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, axis0 uintptr, axis1 uintptr, filter_params *BNNSFilterParameters) int
 
 // BNNSTranspose transposes a tensor by swapping two of its dimensions.
@@ -1906,7 +1773,6 @@ func BNNSTranspose(dest *BNNSNDArrayDescriptor, src *BNNSNDArrayDescriptor, axis
 	}
 	return _bNNSTranspose(dest, src, axis0, axis1, filter_params)
 }
-
 
 var _setBLASParamErrorProc func(__ErrorProc BLASParamErrorProc)
 
@@ -1920,29 +1786,6 @@ func SetBLASParamErrorProc(__ErrorProc BLASParamErrorProc) {
 	_setBLASParamErrorProc(__ErrorProc)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _appleblas_dgeadd func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A *float64, LDA int, BETA float64, B *float64, LDB int, C *float64, LDC int)
 
 // Appleblas_dgeadd.
@@ -1954,7 +1797,6 @@ func Appleblas_dgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TR
 	}
 	_appleblas_dgeadd(ORDER, TRANSA, TRANSB, M, N, ALPHA, unsafe.SliceData(A), LDA, BETA, unsafe.SliceData(B), LDB, unsafe.SliceData(C), LDC)
 }
-
 
 var _appleblas_sgeadd func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A *float32, LDA int, BETA float32, B *float32, LDB int, C *float32, LDC int)
 
@@ -1968,7 +1810,6 @@ func Appleblas_sgeadd(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TR
 	_appleblas_sgeadd(ORDER, TRANSA, TRANSB, M, N, ALPHA, unsafe.SliceData(A), LDA, BETA, unsafe.SliceData(B), LDB, unsafe.SliceData(C), LDC)
 }
 
-
 var _catlas_caxpby func(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Catlas_caxpby computes the product of two vectors, scaling each one separately (single-precision complex).
@@ -1980,7 +1821,6 @@ func Catlas_caxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y ui
 	}
 	_catlas_caxpby(N, ALPHA, X, INCX, BETA, Y, INCY)
 }
-
 
 var _catlas_cset func(N int, ALPHA uintptr, X uintptr, INCX int)
 
@@ -1994,7 +1834,6 @@ func Catlas_cset(N int, ALPHA uintptr, X uintptr, INCX int) {
 	_catlas_cset(N, ALPHA, X, INCX)
 }
 
-
 var _catlas_daxpby func(N int, ALPHA float64, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Catlas_daxpby computes the sum of two vectors, scaling each one separately (double-precision).
@@ -2006,7 +1845,6 @@ func Catlas_daxpby(N int, ALPHA float64, X []float64, INCX int, BETA float64, Y 
 	}
 	_catlas_daxpby(N, ALPHA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
-
 
 var _catlas_dset func(N int, ALPHA float64, X *float64, INCX int)
 
@@ -2020,7 +1858,6 @@ func Catlas_dset(N int, ALPHA float64, X []float64, INCX int) {
 	_catlas_dset(N, ALPHA, unsafe.SliceData(X), INCX)
 }
 
-
 var _catlas_saxpby func(N int, ALPHA float32, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Catlas_saxpby computes the sum of two vectors, scaling each one separately (single-precision).
@@ -2032,7 +1869,6 @@ func Catlas_saxpby(N int, ALPHA float32, X []float32, INCX int, BETA float32, Y 
 	}
 	_catlas_saxpby(N, ALPHA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
-
 
 var _catlas_sset func(N int, ALPHA float32, X *float32, INCX int)
 
@@ -2046,7 +1882,6 @@ func Catlas_sset(N int, ALPHA float32, X []float32, INCX int) {
 	_catlas_sset(N, ALPHA, unsafe.SliceData(X), INCX)
 }
 
-
 var _catlas_zaxpby func(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Catlas_zaxpby computes the sum of two vectors, scaling each one separately (double-precision complex).
@@ -2058,7 +1893,6 @@ func Catlas_zaxpby(N int, ALPHA uintptr, X uintptr, INCX int, BETA uintptr, Y ui
 	}
 	_catlas_zaxpby(N, ALPHA, X, INCX, BETA, Y, INCY)
 }
-
 
 var _catlas_zset func(N int, ALPHA uintptr, X uintptr, INCX int)
 
@@ -2072,9 +1906,6 @@ func Catlas_zset(N int, ALPHA uintptr, X uintptr, INCX int) {
 	_catlas_zset(N, ALPHA, X, INCX)
 }
 
-
-
-
 var _cblas_caxpy func(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
 
 // Cblas_caxpy computes a constant times a vector plus a vector (single-precision complex).
@@ -2086,7 +1917,6 @@ func Cblas_caxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
 	}
 	_cblas_caxpy(N, ALPHA, X, INCX, Y, INCY)
 }
-
 
 var _cblas_ccopy func(N int, X uintptr, INCX int, Y uintptr, INCY int)
 
@@ -2100,7 +1930,6 @@ func Cblas_ccopy(N int, X uintptr, INCX int, Y uintptr, INCY int) {
 	_cblas_ccopy(N, X, INCX, Y, INCY)
 }
 
-
 var _cblas_cdotc_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr)
 
 // Cblas_cdotc_sub calculates the dot product of the complex conjugate of a single-precision complex vector with a second single-precision complex vector.
@@ -2112,7 +1941,6 @@ func Cblas_cdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintp
 	}
 	_cblas_cdotc_sub(N, X, INCX, Y, INCY, DOTC)
 }
-
 
 var _cblas_cdotu_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr)
 
@@ -2126,7 +1954,6 @@ func Cblas_cdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintp
 	_cblas_cdotu_sub(N, X, INCX, Y, INCY, DOTU)
 }
 
-
 var _cblas_cgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Cblas_cgbmv scales a general band matrix, then multiplies by a vector, then adds a vector (single-precision complex).
@@ -2138,7 +1965,6 @@ func Cblas_cgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int
 	}
 	_cblas_cgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
-
 
 var _cblas_cgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
@@ -2152,7 +1978,6 @@ func Cblas_cgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPO
 	_cblas_cgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
 
-
 var _cblas_cgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Cblas_cgemv multiplies a matrix by a vector (single-precision complex).
@@ -2164,7 +1989,6 @@ func Cblas_cgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA 
 	}
 	_cblas_cgemv(ORDER, TRANSA, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
-
 
 var _cblas_cgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
 
@@ -2178,7 +2002,6 @@ func Cblas_cgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX
 	_cblas_cgerc(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
 }
 
-
 var _cblas_cgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
 
 // Cblas_cgeru multiplies vector X by the transpose of vector Y, then adds matrix A (single-precision complex).
@@ -2190,7 +2013,6 @@ func Cblas_cgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX
 	}
 	_cblas_cgeru(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
 }
-
 
 var _cblas_chbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
@@ -2204,7 +2026,6 @@ func Cblas_chbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr
 	_cblas_chbmv(ORDER, UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
 
-
 var _cblas_chemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
 // Cblas_chemm multiplies two Hermitian matrices (single-precision complex), then adds a third (with scaling).
@@ -2216,7 +2037,6 @@ func Cblas_chemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 	}
 	_cblas_chemm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
-
 
 var _cblas_chemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
@@ -2230,7 +2050,6 @@ func Cblas_chemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uin
 	_cblas_chemv(ORDER, UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
 
-
 var _cblas_cher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr, LDA int)
 
 // Cblas_cher hermitian rank 1 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of [X] to matrix [A].
@@ -2242,7 +2061,6 @@ func Cblas_cher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uint
 	}
 	_cblas_cher(ORDER, UPLO, N, ALPHA, X, INCX, A, LDA)
 }
-
 
 var _cblas_cher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
 
@@ -2256,7 +2074,6 @@ func Cblas_cher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uin
 	_cblas_cher2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, A, LDA)
 }
 
-
 var _cblas_cher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float32, C uintptr, LDC int)
 
 // Cblas_cher2k performs a rank-2k update of a complex Hermitian matrix (single-precision complex).
@@ -2268,7 +2085,6 @@ func Cblas_cher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 	}
 	_cblas_cher2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
-
 
 var _cblas_cherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A uintptr, LDA int, BETA float32, C uintptr, LDC int)
 
@@ -2282,7 +2098,6 @@ func Cblas_cherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 	_cblas_cherk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
 }
 
-
 var _cblas_chpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Cblas_chpmv scales a packed hermitian matrix, multiplies it by a vector, and adds a scaled vector.
@@ -2294,7 +2109,6 @@ func Cblas_chpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP ui
 	}
 	_cblas_chpmv(ORDER, UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY)
 }
-
 
 var _cblas_chpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uintptr, INCX int, A uintptr)
 
@@ -2308,7 +2122,6 @@ func Cblas_chpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X uint
 	_cblas_chpr(ORDER, UPLO, N, ALPHA, X, INCX, A)
 }
 
-
 var _cblas_chpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr)
 
 // Cblas_chpr2 multiplies a vector times the conjugate transpose of a second vector and vice-versa, sums the results, and adds a matrix.
@@ -2320,7 +2133,6 @@ func Cblas_chpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uin
 	}
 	_cblas_chpr2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, AP)
 }
-
 
 var _cblas_crotg func(A uintptr, B uintptr, C *float32, S uintptr)
 
@@ -2334,7 +2146,6 @@ func Cblas_crotg(A uintptr, B uintptr, C []float32, S uintptr) {
 	_cblas_crotg(A, B, unsafe.SliceData(C), S)
 }
 
-
 var _cblas_cscal func(N int, ALPHA uintptr, X uintptr, INCX int)
 
 // Cblas_cscal multiplies each element of a vector by a constant (single-precision complex).
@@ -2346,7 +2157,6 @@ func Cblas_cscal(N int, ALPHA uintptr, X uintptr, INCX int) {
 	}
 	_cblas_cscal(N, ALPHA, X, INCX)
 }
-
 
 var _cblas_csrot func(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S float32)
 
@@ -2360,7 +2170,6 @@ func Cblas_csrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float32, S f
 	_cblas_csrot(N, X, INCX, Y, INCY, C, S)
 }
 
-
 var _cblas_csscal func(N int, ALPHA float32, X uintptr, INCX int)
 
 // Cblas_csscal multiplies each element of a vector by a constant (single-precision complex).
@@ -2372,7 +2181,6 @@ func Cblas_csscal(N int, ALPHA float32, X uintptr, INCX int) {
 	}
 	_cblas_csscal(N, ALPHA, X, INCX)
 }
-
 
 var _cblas_cswap func(N int, X uintptr, INCX int, Y uintptr, INCY int)
 
@@ -2386,7 +2194,6 @@ func Cblas_cswap(N int, X uintptr, INCX int, Y uintptr, INCY int) {
 	_cblas_cswap(N, X, INCX, Y, INCY)
 }
 
-
 var _cblas_csymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
 // Cblas_csymm multiplies a matrix by a symmetric matrix (single-precision complex).
@@ -2398,7 +2205,6 @@ func Cblas_csymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 	}
 	_cblas_csymm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
-
 
 var _cblas_csyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
@@ -2412,7 +2218,6 @@ func Cblas_csyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 	_cblas_csyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
 
-
 var _cblas_csyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int)
 
 // Cblas_csyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (single-precision complex).
@@ -2424,7 +2229,6 @@ func Cblas_csyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 	}
 	_cblas_csyrk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
 }
-
 
 var _cblas_ctbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
 
@@ -2438,7 +2242,6 @@ func Cblas_ctbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_ctbmv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
 }
 
-
 var _cblas_ctbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
 
 // Cblas_ctbsv solves a triangular banded system of equations.
@@ -2450,7 +2253,6 @@ func Cblas_ctbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_ctbsv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
 }
-
 
 var _cblas_ctpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
 
@@ -2464,7 +2266,6 @@ func Cblas_ctpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_ctpmv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
 }
 
-
 var _cblas_ctpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
 
 // Cblas_ctpsv solves a packed triangular system of equations.
@@ -2476,7 +2277,6 @@ func Cblas_ctpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_ctpsv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
 }
-
 
 var _cblas_ctrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
 
@@ -2490,7 +2290,6 @@ func Cblas_ctrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	_cblas_ctrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
 }
 
-
 var _cblas_ctrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
 
 // Cblas_ctrmv multiplies a triangular matrix by a vector.
@@ -2502,7 +2301,6 @@ func Cblas_ctrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_ctrmv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
 }
-
 
 var _cblas_ctrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
 
@@ -2516,7 +2314,6 @@ func Cblas_ctrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	_cblas_ctrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
 }
 
-
 var _cblas_ctrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
 
 // Cblas_ctrsv solves a triangular system of equations with a single value for the right side.
@@ -2528,7 +2325,6 @@ func Cblas_ctrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_ctrsv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
 }
-
 
 var _cblas_dasum func(N int, X *float64, INCX int) float64
 
@@ -2542,7 +2338,6 @@ func Cblas_dasum(N int, X []float64, INCX int) float64 {
 	return _cblas_dasum(N, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_daxpy func(N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int)
 
 // Cblas_daxpy computes a constant times a vector plus a vector (double-precision).
@@ -2554,7 +2349,6 @@ func Cblas_daxpy(N int, ALPHA float64, X []float64, INCX int, Y []float64, INCY 
 	}
 	_cblas_daxpy(N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_dcopy func(N int, X *float64, INCX int, Y *float64, INCY int)
 
@@ -2568,7 +2362,6 @@ func Cblas_dcopy(N int, X []float64, INCX int, Y []float64, INCY int) {
 	_cblas_dcopy(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_ddot func(N int, X *float64, INCX int, Y *float64, INCY int) float64
 
 // Cblas_ddot computes the dot product of two vectors (double-precision).
@@ -2580,7 +2373,6 @@ func Cblas_ddot(N int, X []float64, INCX int, Y []float64, INCY int) float64 {
 	}
 	return _cblas_ddot(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_dgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
@@ -2594,7 +2386,6 @@ func Cblas_dgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int
 	_cblas_dgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_dgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int)
 
 // Cblas_dgemm multiplies two matrices (double-precision).
@@ -2606,7 +2397,6 @@ func Cblas_dgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPO
 	}
 	_cblas_dgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB, BETA, unsafe.SliceData(C), LDC)
 }
-
 
 var _cblas_dgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
@@ -2620,7 +2410,6 @@ func Cblas_dgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA 
 	_cblas_dgemv(ORDER, TRANSA, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_dger func(ORDER CBLAS_ORDER, M int, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64, LDA int)
 
 // Cblas_dger multiplies vector X by the transpose of vector Y, then adds matrix A (double precison).
@@ -2632,7 +2421,6 @@ func Cblas_dger(ORDER CBLAS_ORDER, M int, N int, ALPHA float64, X []float64, INC
 	}
 	_cblas_dger(ORDER, M, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(A), LDA)
 }
-
 
 var _cblas_dnrm2 func(N int, X *float64, INCX int) float64
 
@@ -2646,7 +2434,6 @@ func Cblas_dnrm2(N int, X []float64, INCX int) float64 {
 	return _cblas_dnrm2(N, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_drot func(N int, X *float64, INCX int, Y *float64, INCY int, C float64, S float64)
 
 // Cblas_drot applies a Givens rotation matrix to a pair of vectors.
@@ -2658,7 +2445,6 @@ func Cblas_drot(N int, X []float64, INCX int, Y []float64, INCY int, C float64, 
 	}
 	_cblas_drot(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, C, S)
 }
-
 
 var _cblas_drotg func(A *float64, B *float64, C *float64, S *float64)
 
@@ -2672,7 +2458,6 @@ func Cblas_drotg(A []float64, B []float64, C []float64, S []float64) {
 	_cblas_drotg(unsafe.SliceData(A), unsafe.SliceData(B), unsafe.SliceData(C), unsafe.SliceData(S))
 }
 
-
 var _cblas_drotm func(N int, X *float64, INCX int, Y *float64, INCY int, P *float64)
 
 // Cblas_drotm applies a modified Givens transformation (single precision).
@@ -2684,7 +2469,6 @@ func Cblas_drotm(N int, X []float64, INCX int, Y []float64, INCY int, P []float6
 	}
 	_cblas_drotm(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(P))
 }
-
 
 var _cblas_drotmg func(D1 *float64, D2 *float64, B1 *float64, B2 float64, P *float64)
 
@@ -2698,7 +2482,6 @@ func Cblas_drotmg(D1 []float64, D2 []float64, B1 []float64, B2 float64, P []floa
 	_cblas_drotmg(unsafe.SliceData(D1), unsafe.SliceData(D2), unsafe.SliceData(B1), B2, unsafe.SliceData(P))
 }
 
-
 var _cblas_dsbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dsbmv scales a symmetric band matrix, then multiplies by a vector, then adds a vector (double precision).
@@ -2710,7 +2493,6 @@ func Cblas_dsbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float64
 	}
 	_cblas_dsbmv(ORDER, UPLO, N, K, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_dscal func(N int, ALPHA float64, X *float64, INCX int)
 
@@ -2724,7 +2506,6 @@ func Cblas_dscal(N int, ALPHA float64, X []float64, INCX int) {
 	_cblas_dscal(N, ALPHA, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_dsdot func(N int, X *float32, INCX int, Y *float32, INCY int) float64
 
 // Cblas_dsdot computes the double-precision dot product of a pair of single-precision vectors.
@@ -2736,7 +2517,6 @@ func Cblas_dsdot(N int, X []float32, INCX int, Y []float32, INCY int) float64 {
 	}
 	return _cblas_dsdot(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_dspmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP *float64, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
@@ -2750,7 +2530,6 @@ func Cblas_dspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, AP []
 	_cblas_dspmv(ORDER, UPLO, N, ALPHA, unsafe.SliceData(AP), unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_dspr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, AP *float64)
 
 // Cblas_dspr rank one update: adds a packed symmetric matrix to the product of a scaling factor, a vector, and its transpose (double precision).
@@ -2762,7 +2541,6 @@ func Cblas_dspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []fl
 	}
 	_cblas_dspr(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(AP))
 }
-
 
 var _cblas_dspr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64)
 
@@ -2776,7 +2554,6 @@ func Cblas_dspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []f
 	_cblas_dspr2(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(A))
 }
 
-
 var _cblas_dswap func(N int, X *float64, INCX int, Y *float64, INCY int)
 
 // Cblas_dswap exchanges the elements of two vectors (double precision).
@@ -2788,7 +2565,6 @@ func Cblas_dswap(N int, X []float64, INCX int, Y []float64, INCY int) {
 	}
 	_cblas_dswap(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_dsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int)
 
@@ -2802,7 +2578,6 @@ func Cblas_dsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 	_cblas_dsymm(ORDER, SIDE, UPLO, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB, BETA, unsafe.SliceData(C), LDC)
 }
 
-
 var _cblas_dsymv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A *float64, LDA int, X *float64, INCX int, BETA float64, Y *float64, INCY int)
 
 // Cblas_dsymv scales a symmetric matrix, multiplies by a vector, then scales and adds another vector (single precision).
@@ -2814,7 +2589,6 @@ func Cblas_dsymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, A []f
 	}
 	_cblas_dsymv(ORDER, UPLO, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_dsyr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, A *float64, LDA int)
 
@@ -2828,7 +2602,6 @@ func Cblas_dsyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []fl
 	_cblas_dsyr(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(A), LDA)
 }
 
-
 var _cblas_dsyr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X *float64, INCX int, Y *float64, INCY int, A *float64, LDA int)
 
 // Cblas_dsyr2 rank two update of a symmetric matrix using two vectors (single precision).
@@ -2840,7 +2613,6 @@ func Cblas_dsyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X []f
 	}
 	_cblas_dsyr2(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(A), LDA)
 }
-
 
 var _cblas_dsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A *float64, LDA int, B *float64, LDB int, BETA float64, C *float64, LDC int)
 
@@ -2854,7 +2626,6 @@ func Cblas_dsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 	_cblas_dsyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB, BETA, unsafe.SliceData(C), LDC)
 }
 
-
 var _cblas_dsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A *float64, LDA int, BETA float64, C *float64, LDC int)
 
 // Cblas_dsyrk rank-k update—multiplies a symmetric matrix by its transpose and adds a second matrix (double precision).
@@ -2866,7 +2637,6 @@ func Cblas_dsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 	}
 	_cblas_dsyrk(ORDER, UPLO, TRANS, N, K, ALPHA, unsafe.SliceData(A), LDA, BETA, unsafe.SliceData(C), LDC)
 }
-
 
 var _cblas_dtbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float64, LDA int, X *float64, INCX int)
 
@@ -2880,7 +2650,6 @@ func Cblas_dtbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_dtbmv(ORDER, UPLO, TRANSA, DIAG, N, K, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_dtbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtbsv solves a triangular banded system of equations.
@@ -2892,7 +2661,6 @@ func Cblas_dtbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_dtbsv(ORDER, UPLO, TRANSA, DIAG, N, K, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_dtpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float64, X *float64, INCX int)
 
@@ -2906,7 +2674,6 @@ func Cblas_dtpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_dtpmv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(AP), unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_dtpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float64, X *float64, INCX int)
 
 // Cblas_dtpsv solves a packed triangular system of equations.
@@ -2918,7 +2685,6 @@ func Cblas_dtpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_dtpsv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(AP), unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_dtrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int)
 
@@ -2932,7 +2698,6 @@ func Cblas_dtrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	_cblas_dtrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB)
 }
 
-
 var _cblas_dtrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtrmv multiplies a triangular matrix by a vector.
@@ -2944,7 +2709,6 @@ func Cblas_dtrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_dtrmv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_dtrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float64, A *float64, LDA int, B *float64, LDB int)
 
@@ -2958,7 +2722,6 @@ func Cblas_dtrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	_cblas_dtrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB)
 }
 
-
 var _cblas_dtrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float64, LDA int, X *float64, INCX int)
 
 // Cblas_dtrsv solves a triangular system of equations with a single value for the right side.
@@ -2970,7 +2733,6 @@ func Cblas_dtrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_dtrsv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_dzasum func(N int, X uintptr, INCX int) float64
 
@@ -2984,7 +2746,6 @@ func Cblas_dzasum(N int, X uintptr, INCX int) float64 {
 	return _cblas_dzasum(N, X, INCX)
 }
 
-
 var _cblas_dznrm2 func(N int, X uintptr, INCX int) float64
 
 // Cblas_dznrm2 computes the unitary norm of a vector (double-precision complex).
@@ -2996,7 +2757,6 @@ func Cblas_dznrm2(N int, X uintptr, INCX int) float64 {
 	}
 	return _cblas_dznrm2(N, X, INCX)
 }
-
 
 var _cblas_errprn func(ierr int, info int, form *byte) int
 
@@ -3010,7 +2770,6 @@ func Cblas_errprn(ierr int, info int, form *byte) int {
 	return _cblas_errprn(ierr, info, form)
 }
 
-
 var _cblas_icamax func(N int, X uintptr, INCX int) int
 
 // Cblas_icamax returns the index of the element with the largest absolute value in a vector (single-precision complex).
@@ -3022,7 +2781,6 @@ func Cblas_icamax(N int, X uintptr, INCX int) int {
 	}
 	return _cblas_icamax(N, X, INCX)
 }
-
 
 var _cblas_idamax func(N int, X *float64, INCX int) int
 
@@ -3036,7 +2794,6 @@ func Cblas_idamax(N int, X []float64, INCX int) int {
 	return _cblas_idamax(N, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_isamax func(N int, X *float32, INCX int) int
 
 // Cblas_isamax returns the index of the element with the largest absolute value in a vector (single-precision).
@@ -3048,7 +2805,6 @@ func Cblas_isamax(N int, X []float32, INCX int) int {
 	}
 	return _cblas_isamax(N, unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_izamax func(N int, X uintptr, INCX int) int
 
@@ -3062,7 +2818,6 @@ func Cblas_izamax(N int, X uintptr, INCX int) int {
 	return _cblas_izamax(N, X, INCX)
 }
 
-
 var _cblas_sasum func(N int, X *float32, INCX int) float32
 
 // Cblas_sasum computes the sum of the absolute values of elements in a vector (single-precision).
@@ -3074,7 +2829,6 @@ func Cblas_sasum(N int, X []float32, INCX int) float32 {
 	}
 	return _cblas_sasum(N, unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_saxpy func(N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int)
 
@@ -3088,7 +2842,6 @@ func Cblas_saxpy(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY 
 	_cblas_saxpy(N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_scasum func(N int, X uintptr, INCX int) float32
 
 // Cblas_scasum computes the sum of the absolute values of real and imaginary parts of elements in a vector (single-precision complex).
@@ -3100,7 +2853,6 @@ func Cblas_scasum(N int, X uintptr, INCX int) float32 {
 	}
 	return _cblas_scasum(N, X, INCX)
 }
-
 
 var _cblas_scnrm2 func(N int, X uintptr, INCX int) float32
 
@@ -3114,7 +2866,6 @@ func Cblas_scnrm2(N int, X uintptr, INCX int) float32 {
 	return _cblas_scnrm2(N, X, INCX)
 }
 
-
 var _cblas_scopy func(N int, X *float32, INCX int, Y *float32, INCY int)
 
 // Cblas_scopy copies a vector to another vector (single-precision).
@@ -3126,7 +2877,6 @@ func Cblas_scopy(N int, X []float32, INCX int, Y []float32, INCY int) {
 	}
 	_cblas_scopy(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_sdot func(N int, X *float32, INCX int, Y *float32, INCY int) float32
 
@@ -3140,7 +2890,6 @@ func Cblas_sdot(N int, X []float32, INCX int, Y []float32, INCY int) float32 {
 	return _cblas_sdot(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_sdsdot func(N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int) float32
 
 // Cblas_sdsdot computes the dot product of two single-precision vectors plus an initial single-precision value.
@@ -3152,7 +2901,6 @@ func Cblas_sdsdot(N int, ALPHA float32, X []float32, INCX int, Y []float32, INCY
 	}
 	return _cblas_sdsdot(N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_sgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
@@ -3166,7 +2914,6 @@ func Cblas_sgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int
 	_cblas_sgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_sgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int)
 
 // Cblas_sgemm multiplies two matrices (single-precision).
@@ -3178,7 +2925,6 @@ func Cblas_sgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPO
 	}
 	_cblas_sgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB, BETA, unsafe.SliceData(C), LDC)
 }
-
 
 var _cblas_sgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
@@ -3192,7 +2938,6 @@ func Cblas_sgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA 
 	_cblas_sgemv(ORDER, TRANSA, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_sger func(ORDER CBLAS_ORDER, M int, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32, LDA int)
 
 // Cblas_sger multiplies vector X by the transpose of vector Y, then adds matrix A (single precison).
@@ -3204,7 +2949,6 @@ func Cblas_sger(ORDER CBLAS_ORDER, M int, N int, ALPHA float32, X []float32, INC
 	}
 	_cblas_sger(ORDER, M, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(A), LDA)
 }
-
 
 var _cblas_snrm2 func(N int, X *float32, INCX int) float32
 
@@ -3218,7 +2962,6 @@ func Cblas_snrm2(N int, X []float32, INCX int) float32 {
 	return _cblas_snrm2(N, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_srot func(N int, X *float32, INCX int, Y *float32, INCY int, C float32, S float32)
 
 // Cblas_srot applies a Givens rotation matrix to a pair of vectors.
@@ -3230,7 +2973,6 @@ func Cblas_srot(N int, X []float32, INCX int, Y []float32, INCY int, C float32, 
 	}
 	_cblas_srot(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, C, S)
 }
-
 
 var _cblas_srotg func(A *float32, B *float32, C *float32, S *float32)
 
@@ -3244,7 +2986,6 @@ func Cblas_srotg(A []float32, B []float32, C []float32, S []float32) {
 	_cblas_srotg(unsafe.SliceData(A), unsafe.SliceData(B), unsafe.SliceData(C), unsafe.SliceData(S))
 }
 
-
 var _cblas_srotm func(N int, X *float32, INCX int, Y *float32, INCY int, P *float32)
 
 // Cblas_srotm applies a modified Givens transformation (single precision).
@@ -3256,7 +2997,6 @@ func Cblas_srotm(N int, X []float32, INCX int, Y []float32, INCY int, P []float3
 	}
 	_cblas_srotm(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(P))
 }
-
 
 var _cblas_srotmg func(D1 *float32, D2 *float32, B1 *float32, B2 float32, P *float32)
 
@@ -3270,7 +3010,6 @@ func Cblas_srotmg(D1 []float32, D2 []float32, B1 []float32, B2 float32, P []floa
 	_cblas_srotmg(unsafe.SliceData(D1), unsafe.SliceData(D2), unsafe.SliceData(B1), B2, unsafe.SliceData(P))
 }
 
-
 var _cblas_ssbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_ssbmv scales a symmetric band matrix, then multiplies by a vector, then adds a vector (single-precision).
@@ -3282,7 +3021,6 @@ func Cblas_ssbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA float32
 	}
 	_cblas_ssbmv(ORDER, UPLO, N, K, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_sscal func(N int, ALPHA float32, X *float32, INCX int)
 
@@ -3296,7 +3034,6 @@ func Cblas_sscal(N int, ALPHA float32, X []float32, INCX int) {
 	_cblas_sscal(N, ALPHA, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_sspmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP *float32, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
 // Cblas_sspmv scales a packed symmetric matrix, then multiplies by a vector, then scales and adds another vector (single precision).
@@ -3308,7 +3045,6 @@ func Cblas_sspmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, AP []
 	}
 	_cblas_sspmv(ORDER, UPLO, N, ALPHA, unsafe.SliceData(AP), unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
-
 
 var _cblas_sspr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, AP *float32)
 
@@ -3322,7 +3058,6 @@ func Cblas_sspr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []fl
 	_cblas_sspr(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(AP))
 }
 
-
 var _cblas_sspr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32)
 
 // Cblas_sspr2 rank two update of a packed symmetric matrix using two vectors (single precision).
@@ -3334,7 +3069,6 @@ func Cblas_sspr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []f
 	}
 	_cblas_sspr2(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(A))
 }
-
 
 var _cblas_sswap func(N int, X *float32, INCX int, Y *float32, INCY int)
 
@@ -3348,7 +3082,6 @@ func Cblas_sswap(N int, X []float32, INCX int, Y []float32, INCY int) {
 	_cblas_sswap(N, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_ssymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int)
 
 // Cblas_ssymm multiplies a matrix by a symmetric matrix (single-precision).
@@ -3360,7 +3093,6 @@ func Cblas_ssymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 	}
 	_cblas_ssymm(ORDER, SIDE, UPLO, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB, BETA, unsafe.SliceData(C), LDC)
 }
-
 
 var _cblas_ssymv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A *float32, LDA int, X *float32, INCX int, BETA float32, Y *float32, INCY int)
 
@@ -3374,7 +3106,6 @@ func Cblas_ssymv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, A []f
 	_cblas_ssymv(ORDER, UPLO, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX, BETA, unsafe.SliceData(Y), INCY)
 }
 
-
 var _cblas_ssyr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, A *float32, LDA int)
 
 // Cblas_ssyr rank one update: adds a symmetric matrix to the product of a scaling factor, a vector, and its transpose (single precision).
@@ -3386,7 +3117,6 @@ func Cblas_ssyr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []fl
 	}
 	_cblas_ssyr(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(A), LDA)
 }
-
 
 var _cblas_ssyr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X *float32, INCX int, Y *float32, INCY int, A *float32, LDA int)
 
@@ -3400,7 +3130,6 @@ func Cblas_ssyr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float32, X []f
 	_cblas_ssyr2(ORDER, UPLO, N, ALPHA, unsafe.SliceData(X), INCX, unsafe.SliceData(Y), INCY, unsafe.SliceData(A), LDA)
 }
 
-
 var _cblas_ssyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A *float32, LDA int, B *float32, LDB int, BETA float32, C *float32, LDC int)
 
 // Cblas_ssyr2k performs a rank-2k update of a symmetric matrix (single precision).
@@ -3412,7 +3141,6 @@ func Cblas_ssyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 	}
 	_cblas_ssyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB, BETA, unsafe.SliceData(C), LDC)
 }
-
 
 var _cblas_ssyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float32, A *float32, LDA int, BETA float32, C *float32, LDC int)
 
@@ -3426,7 +3154,6 @@ func Cblas_ssyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 	_cblas_ssyrk(ORDER, UPLO, TRANS, N, K, ALPHA, unsafe.SliceData(A), LDA, BETA, unsafe.SliceData(C), LDC)
 }
 
-
 var _cblas_stbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float32, LDA int, X *float32, INCX int)
 
 // Cblas_stbmv scales a triangular band matrix, then multiplies by a vector (single precision).
@@ -3438,7 +3165,6 @@ func Cblas_stbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_stbmv(ORDER, UPLO, TRANSA, DIAG, N, K, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_stbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A *float32, LDA int, X *float32, INCX int)
 
@@ -3452,7 +3178,6 @@ func Cblas_stbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_stbsv(ORDER, UPLO, TRANSA, DIAG, N, K, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_stpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float32, X *float32, INCX int)
 
 // Cblas_stpmv multiplies a triangular matrix by a vector, then adds a vector (single precision).
@@ -3464,7 +3189,6 @@ func Cblas_stpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_stpmv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(AP), unsafe.SliceData(X), INCX)
 }
-
 
 var _cblas_stpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP *float32, X *float32, INCX int)
 
@@ -3478,7 +3202,6 @@ func Cblas_stpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_stpsv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(AP), unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_strmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int)
 
 // Cblas_strmm scales a triangular matrix and multiplies it by a matrix.
@@ -3490,7 +3213,6 @@ func Cblas_strmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	}
 	_cblas_strmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB)
 }
-
 
 var _cblas_strmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float32, LDA int, X *float32, INCX int)
 
@@ -3504,7 +3226,6 @@ func Cblas_strmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_strmv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_strsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA float32, A *float32, LDA int, B *float32, LDB int)
 
 // Cblas_strsm solves a triangular system of equations with multiple values for the right side.
@@ -3516,7 +3237,6 @@ func Cblas_strsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	}
 	_cblas_strsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, unsafe.SliceData(A), LDA, unsafe.SliceData(B), LDB)
 }
-
 
 var _cblas_strsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A *float32, LDA int, X *float32, INCX int)
 
@@ -3530,7 +3250,6 @@ func Cblas_strsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_strsv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
 
-
 var _cblas_xerbla func(p int, rout *byte, form *byte)
 
 // Cblas_xerbla the default error handler for BLAS routines.
@@ -3542,7 +3261,6 @@ func Cblas_xerbla(p int, rout *byte, form *byte) {
 	}
 	_cblas_xerbla(p, rout, form)
 }
-
 
 var _cblas_zaxpy func(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
 
@@ -3556,7 +3274,6 @@ func Cblas_zaxpy(N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int)
 	_cblas_zaxpy(N, ALPHA, X, INCX, Y, INCY)
 }
 
-
 var _cblas_zcopy func(N int, X uintptr, INCX int, Y uintptr, INCY int)
 
 // Cblas_zcopy copies a vector to another vector (double-precision complex).
@@ -3568,7 +3285,6 @@ func Cblas_zcopy(N int, X uintptr, INCX int, Y uintptr, INCY int) {
 	}
 	_cblas_zcopy(N, X, INCX, Y, INCY)
 }
-
 
 var _cblas_zdotc_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintptr)
 
@@ -3582,7 +3298,6 @@ func Cblas_zdotc_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTC uintp
 	_cblas_zdotc_sub(N, X, INCX, Y, INCY, DOTC)
 }
 
-
 var _cblas_zdotu_sub func(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintptr)
 
 // Cblas_zdotu_sub computes the dot product of two double-precision complex vectors.
@@ -3594,7 +3309,6 @@ func Cblas_zdotu_sub(N int, X uintptr, INCX int, Y uintptr, INCY int, DOTU uintp
 	}
 	_cblas_zdotu_sub(N, X, INCX, Y, INCY, DOTU)
 }
-
 
 var _cblas_zdrot func(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S float64)
 
@@ -3608,7 +3322,6 @@ func Cblas_zdrot(N int, X uintptr, INCX int, Y uintptr, INCY int, C float64, S f
 	_cblas_zdrot(N, X, INCX, Y, INCY, C, S)
 }
 
-
 var _cblas_zdscal func(N int, ALPHA float64, X uintptr, INCX int)
 
 // Cblas_zdscal multiplies each element of a vector by a constant (double-precision complex).
@@ -3620,7 +3333,6 @@ func Cblas_zdscal(N int, ALPHA float64, X uintptr, INCX int) {
 	}
 	_cblas_zdscal(N, ALPHA, X, INCX)
 }
-
 
 var _cblas_zgbmv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int, KU int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
@@ -3634,7 +3346,6 @@ func Cblas_zgbmv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, KL int
 	_cblas_zgbmv(ORDER, TRANSA, M, N, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
 
-
 var _cblas_zgemm func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPOSE, M int, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
 // Cblas_zgemm multiplies two matrices (double-precision complex).
@@ -3646,7 +3357,6 @@ func Cblas_zgemm(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, TRANSB CBLAS_TRANSPO
 	}
 	_cblas_zgemm(ORDER, TRANSA, TRANSB, M, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
-
 
 var _cblas_zgemv func(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
@@ -3660,7 +3370,6 @@ func Cblas_zgemv(ORDER CBLAS_ORDER, TRANSA CBLAS_TRANSPOSE, M int, N int, ALPHA 
 	_cblas_zgemv(ORDER, TRANSA, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
 
-
 var _cblas_zgerc func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
 
 // Cblas_zgerc multiplies vector X by the conjugate transpose of vector Y, then adds matrix A (double-precision complex).
@@ -3672,7 +3381,6 @@ func Cblas_zgerc(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX
 	}
 	_cblas_zgerc(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
 }
-
 
 var _cblas_zgeru func(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
 
@@ -3686,7 +3394,6 @@ func Cblas_zgeru(ORDER CBLAS_ORDER, M int, N int, ALPHA uintptr, X uintptr, INCX
 	_cblas_zgeru(ORDER, M, N, ALPHA, X, INCX, Y, INCY, A, LDA)
 }
 
-
 var _cblas_zhbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Cblas_zhbmv scales a Hermitian band matrix, then multiplies by a vector, then adds a vector (double-precision complex).
@@ -3698,7 +3405,6 @@ func Cblas_zhbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, K int, ALPHA uintptr
 	}
 	_cblas_zhbmv(ORDER, UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
-
 
 var _cblas_zhemm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
@@ -3712,7 +3418,6 @@ func Cblas_zhemm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 	_cblas_zhemm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
 
-
 var _cblas_zhemv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uintptr, LDA int, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
 // Cblas_zhemv scales and multiplies a Hermitian matrix by a vector, then adds a second (scaled) vector.
@@ -3724,7 +3429,6 @@ func Cblas_zhemv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, A uin
 	}
 	_cblas_zhemv(ORDER, UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY)
 }
-
 
 var _cblas_zher func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr, LDA int)
 
@@ -3738,7 +3442,6 @@ func Cblas_zher(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uint
 	_cblas_zher(ORDER, UPLO, N, ALPHA, X, INCX, A, LDA)
 }
 
-
 var _cblas_zher2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, A uintptr, LDA int)
 
 // Cblas_zher2 hermitian rank 2 update: adds the product of a scaling factor, vector [X], and the conjugate transpose of vector [Y] to the product of the conjugate of the scaling factor, vector [Y], and the conjugate transpose of vector [X], and adds the result to matrix [A].
@@ -3750,7 +3453,6 @@ func Cblas_zher2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uin
 	}
 	_cblas_zher2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, A, LDA)
 }
-
 
 var _cblas_zher2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA float64, C uintptr, LDC int)
 
@@ -3764,7 +3466,6 @@ func Cblas_zher2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 	_cblas_zher2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
 
-
 var _cblas_zherk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA float64, A uintptr, LDA int, BETA float64, C uintptr, LDC int)
 
 // Cblas_zherk rank-k update—multiplies a Hermitian matrix by its transpose and adds a second matrix (single precision).
@@ -3776,7 +3477,6 @@ func Cblas_zherk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 	}
 	_cblas_zherk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
 }
-
 
 var _cblas_zhpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP uintptr, X uintptr, INCX int, BETA uintptr, Y uintptr, INCY int)
 
@@ -3790,7 +3490,6 @@ func Cblas_zhpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, AP ui
 	_cblas_zhpmv(ORDER, UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY)
 }
 
-
 var _cblas_zhpr func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uintptr, INCX int, A uintptr)
 
 // Cblas_zhpr scales and multiplies a vector times its conjugate transpose, then adds a matrix.
@@ -3802,7 +3501,6 @@ func Cblas_zhpr(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA float64, X uint
 	}
 	_cblas_zhpr(ORDER, UPLO, N, ALPHA, X, INCX, A)
 }
-
 
 var _cblas_zhpr2 func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uintptr, INCX int, Y uintptr, INCY int, AP uintptr)
 
@@ -3816,7 +3514,6 @@ func Cblas_zhpr2(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, N int, ALPHA uintptr, X uin
 	_cblas_zhpr2(ORDER, UPLO, N, ALPHA, X, INCX, Y, INCY, AP)
 }
 
-
 var _cblas_zrotg func(A uintptr, B uintptr, C *float64, S uintptr)
 
 // Cblas_zrotg constructs a complex Givens rotation.
@@ -3828,7 +3525,6 @@ func Cblas_zrotg(A uintptr, B uintptr, C []float64, S uintptr) {
 	}
 	_cblas_zrotg(A, B, unsafe.SliceData(C), S)
 }
-
 
 var _cblas_zscal func(N int, ALPHA uintptr, X uintptr, INCX int)
 
@@ -3842,7 +3538,6 @@ func Cblas_zscal(N int, ALPHA uintptr, X uintptr, INCX int) {
 	_cblas_zscal(N, ALPHA, X, INCX)
 }
 
-
 var _cblas_zswap func(N int, X uintptr, INCX int, Y uintptr, INCY int)
 
 // Cblas_zswap exchanges the elements of two vectors (double-precision complex).
@@ -3854,7 +3549,6 @@ func Cblas_zswap(N int, X uintptr, INCX int, Y uintptr, INCY int) {
 	}
 	_cblas_zswap(N, X, INCX, Y, INCY)
 }
-
 
 var _cblas_zsymm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
@@ -3868,7 +3562,6 @@ func Cblas_zsymm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, M int, N i
 	_cblas_zsymm(ORDER, SIDE, UPLO, M, N, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
 
-
 var _cblas_zsyr2k func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int, BETA uintptr, C uintptr, LDC int)
 
 // Cblas_zsyr2k performs a rank-2k update of a symmetric matrix (double-precision complex).
@@ -3880,7 +3573,6 @@ func Cblas_zsyr2k(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N i
 	}
 	_cblas_zsyr2k(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, B, LDB, BETA, C, LDC)
 }
-
 
 var _cblas_zsyrk func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N int, K int, ALPHA uintptr, A uintptr, LDA int, BETA uintptr, C uintptr, LDC int)
 
@@ -3894,7 +3586,6 @@ func Cblas_zsyrk(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANS CBLAS_TRANSPOSE, N in
 	_cblas_zsyrk(ORDER, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C, LDC)
 }
 
-
 var _cblas_ztbmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
 
 // Cblas_ztbmv scales a triangular band matrix, then multiplies by a vector (double-precision complex).
@@ -3906,7 +3597,6 @@ func Cblas_ztbmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_ztbmv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
 }
-
 
 var _cblas_ztbsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, K int, A uintptr, LDA int, X uintptr, INCX int)
 
@@ -3920,7 +3610,6 @@ func Cblas_ztbsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_ztbsv(ORDER, UPLO, TRANSA, DIAG, N, K, A, LDA, X, INCX)
 }
 
-
 var _cblas_ztpmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
 
 // Cblas_ztpmv multiplies a triangular matrix by a vector, then adds a vector (double-precision compex).
@@ -3932,7 +3621,6 @@ func Cblas_ztpmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	}
 	_cblas_ztpmv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
 }
-
 
 var _cblas_ztpsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, AP uintptr, X uintptr, INCX int)
 
@@ -3946,7 +3634,6 @@ func Cblas_ztpsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_ztpsv(ORDER, UPLO, TRANSA, DIAG, N, AP, X, INCX)
 }
 
-
 var _cblas_ztrmm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
 
 // Cblas_ztrmm scales a triangular matrix and multiplies it by a matrix.
@@ -3958,7 +3645,6 @@ func Cblas_ztrmm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	}
 	_cblas_ztrmm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
 }
-
 
 var _cblas_ztrmv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
 
@@ -3972,7 +3658,6 @@ func Cblas_ztrmv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_ztrmv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
 }
 
-
 var _cblas_ztrsm func(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, M int, N int, ALPHA uintptr, A uintptr, LDA int, B uintptr, LDB int)
 
 // Cblas_ztrsm solves a triangular system of equations with multiple values for the right side.
@@ -3984,7 +3669,6 @@ func Cblas_ztrsm(ORDER CBLAS_ORDER, SIDE CBLAS_SIDE, UPLO CBLAS_UPLO, TRANSA CBL
 	}
 	_cblas_ztrsm(ORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, A, LDA, B, LDB)
 }
-
 
 var _cblas_ztrsv func(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIAG CBLAS_DIAG, N int, A uintptr, LDA int, X uintptr, INCX int)
 
@@ -3998,824 +3682,6 @@ func Cblas_ztrsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_ztrsv(ORDER, UPLO, TRANSA, DIAG, N, A, LDA, X, INCX)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _quadrature_integrate func(__f *Quadrature_integrate_function, __a float64, __b float64, options *Quadrature_integrate_options, status uintptr, abs_error *float64, workspace_size uintptr, workspace uintptr) float64
 
 // Quadrature_integrate computes an approximation to the definite integral of a function on a specified interval.
@@ -4827,270 +3693,6 @@ func Quadrature_integrate(__f *Quadrature_integrate_function, __a float64, __b f
 	}
 	return _quadrature_integrate(__f, __a, __b, options, status, unsafe.SliceData(abs_error), workspace_size, workspace)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var _sparse_commit func(A unsafe.Pointer) unsafe.Pointer
 
@@ -5104,7 +3706,6 @@ func Sparse_commit(A unsafe.Pointer) unsafe.Pointer {
 	return _sparse_commit(A)
 }
 
-
 var _sparse_elementwise_norm_double func(A Sparse_matrix_double, norm unsafe.Pointer) float64
 
 // Sparse_elementwise_norm_double computes the specified element-wise norm of the double-precision sparse matrix .
@@ -5116,7 +3717,6 @@ func Sparse_elementwise_norm_double(A Sparse_matrix_double, norm unsafe.Pointer)
 	}
 	return _sparse_elementwise_norm_double(A, norm)
 }
-
 
 var _sparse_elementwise_norm_double_complex func(A Sparse_matrix_double_complex, norm unsafe.Pointer) float64
 
@@ -5130,7 +3730,6 @@ func Sparse_elementwise_norm_double_complex(A Sparse_matrix_double_complex, norm
 	return _sparse_elementwise_norm_double_complex(A, norm)
 }
 
-
 var _sparse_elementwise_norm_float func(A Sparse_matrix_float, norm unsafe.Pointer) float32
 
 // Sparse_elementwise_norm_float computes the specified element-wise norm of the single-precision sparse matrix .
@@ -5142,7 +3741,6 @@ func Sparse_elementwise_norm_float(A Sparse_matrix_float, norm unsafe.Pointer) f
 	}
 	return _sparse_elementwise_norm_float(A, norm)
 }
-
 
 var _sparse_elementwise_norm_float_complex func(A Sparse_matrix_float_complex, norm unsafe.Pointer) float32
 
@@ -5156,7 +3754,6 @@ func Sparse_elementwise_norm_float_complex(A Sparse_matrix_float_complex, norm u
 	return _sparse_elementwise_norm_float_complex(A, norm)
 }
 
-
 var _sparse_extract_block_double func(A Sparse_matrix_double, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) unsafe.Pointer
 
 // Sparse_extract_block_double extracts values from a specified block of a double-precision matrix.
@@ -5169,19 +3766,17 @@ func Sparse_extract_block_double(A Sparse_matrix_double, bi Sparse_index, bj Spa
 	return _sparse_extract_block_double(A, bi, bj, row_stride, col_stride, val)
 }
 
-
-var _sparse_extract_block_double_complex func(A Sparse_matrix_double_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer
+var _sparse_extract_block_double_complex func(A Sparse_matrix_double_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val *uintptr) unsafe.Pointer
 
 // Sparse_extract_block_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_double_complex(_:_:_:_:_:_:)
-func Sparse_extract_block_double_complex(A Sparse_matrix_double_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer {
+func Sparse_extract_block_double_complex(A Sparse_matrix_double_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val *uintptr) unsafe.Pointer {
 	if _sparse_extract_block_double_complex == nil {
 		panic("Accelerate: symbol sparse_extract_block_double_complex not loaded")
 	}
 	return _sparse_extract_block_double_complex(A, bi, bj, row_stride, col_stride, val)
 }
-
 
 var _sparse_extract_block_float func(A Sparse_matrix_float, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val uintptr) unsafe.Pointer
 
@@ -5195,19 +3790,17 @@ func Sparse_extract_block_float(A Sparse_matrix_float, bi Sparse_index, bj Spars
 	return _sparse_extract_block_float(A, bi, bj, row_stride, col_stride, val)
 }
 
-
-var _sparse_extract_block_float_complex func(A Sparse_matrix_float_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer
+var _sparse_extract_block_float_complex func(A Sparse_matrix_float_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val *uintptr) unsafe.Pointer
 
 // Sparse_extract_block_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_block_float_complex(_:_:_:_:_:_:)
-func Sparse_extract_block_float_complex(A Sparse_matrix_float_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val unsafe.Pointer) unsafe.Pointer {
+func Sparse_extract_block_float_complex(A Sparse_matrix_float_complex, bi Sparse_index, bj Sparse_index, row_stride Sparse_dimension, col_stride Sparse_dimension, val *uintptr) unsafe.Pointer {
 	if _sparse_extract_block_float_complex == nil {
 		panic("Accelerate: symbol sparse_extract_block_float_complex not loaded")
 	}
 	return _sparse_extract_block_float_complex(A, bi, bj, row_stride, col_stride, val)
 }
-
 
 var _sparse_extract_sparse_column_double func(A Sparse_matrix_double, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
 
@@ -5221,19 +3814,17 @@ func Sparse_extract_sparse_column_double(A Sparse_matrix_double, column Sparse_i
 	return _sparse_extract_sparse_column_double(A, column, row_start, row_end, nz, val, indx)
 }
 
-
-var _sparse_extract_sparse_column_double_complex func(A Sparse_matrix_double_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+var _sparse_extract_sparse_column_double_complex func(A Sparse_matrix_double_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer
 
 // Sparse_extract_sparse_column_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_double_complex(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_column_double_complex(A Sparse_matrix_double_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+func Sparse_extract_sparse_column_double_complex(A Sparse_matrix_double_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer {
 	if _sparse_extract_sparse_column_double_complex == nil {
 		panic("Accelerate: symbol sparse_extract_sparse_column_double_complex not loaded")
 	}
 	return _sparse_extract_sparse_column_double_complex(A, column, row_start, row_end, nz, val, indx)
 }
-
 
 var _sparse_extract_sparse_column_float func(A Sparse_matrix_float, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
 
@@ -5247,19 +3838,17 @@ func Sparse_extract_sparse_column_float(A Sparse_matrix_float, column Sparse_ind
 	return _sparse_extract_sparse_column_float(A, column, row_start, row_end, nz, val, indx)
 }
 
-
-var _sparse_extract_sparse_column_float_complex func(A Sparse_matrix_float_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+var _sparse_extract_sparse_column_float_complex func(A Sparse_matrix_float_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer
 
 // Sparse_extract_sparse_column_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_column_float_complex(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_column_float_complex(A Sparse_matrix_float_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+func Sparse_extract_sparse_column_float_complex(A Sparse_matrix_float_complex, column Sparse_index, row_start Sparse_index, row_end *Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer {
 	if _sparse_extract_sparse_column_float_complex == nil {
 		panic("Accelerate: symbol sparse_extract_sparse_column_float_complex not loaded")
 	}
 	return _sparse_extract_sparse_column_float_complex(A, column, row_start, row_end, nz, val, indx)
 }
-
 
 var _sparse_extract_sparse_row_double func(A Sparse_matrix_double, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
 
@@ -5273,19 +3862,17 @@ func Sparse_extract_sparse_row_double(A Sparse_matrix_double, row Sparse_index, 
 	return _sparse_extract_sparse_row_double(A, row, column_start, column_end, nz, val, jndx)
 }
 
-
-var _sparse_extract_sparse_row_double_complex func(A Sparse_matrix_double_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+var _sparse_extract_sparse_row_double_complex func(A Sparse_matrix_double_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer
 
 // Sparse_extract_sparse_row_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_double_complex(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_row_double_complex(A Sparse_matrix_double_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+func Sparse_extract_sparse_row_double_complex(A Sparse_matrix_double_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer {
 	if _sparse_extract_sparse_row_double_complex == nil {
 		panic("Accelerate: symbol sparse_extract_sparse_row_double_complex not loaded")
 	}
 	return _sparse_extract_sparse_row_double_complex(A, row, column_start, column_end, nz, val, jndx)
 }
-
 
 var _sparse_extract_sparse_row_float func(A Sparse_matrix_float, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
 
@@ -5299,19 +3886,17 @@ func Sparse_extract_sparse_row_float(A Sparse_matrix_float, row Sparse_index, co
 	return _sparse_extract_sparse_row_float(A, row, column_start, column_end, nz, val, jndx)
 }
 
-
-var _sparse_extract_sparse_row_float_complex func(A Sparse_matrix_float_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+var _sparse_extract_sparse_row_float_complex func(A Sparse_matrix_float_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer
 
 // Sparse_extract_sparse_row_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_extract_sparse_row_float_complex(_:_:_:_:_:_:_:)
-func Sparse_extract_sparse_row_float_complex(A Sparse_matrix_float_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+func Sparse_extract_sparse_row_float_complex(A Sparse_matrix_float_complex, row Sparse_index, column_start Sparse_index, column_end *Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer {
 	if _sparse_extract_sparse_row_float_complex == nil {
 		panic("Accelerate: symbol sparse_extract_sparse_row_float_complex not loaded")
 	}
 	return _sparse_extract_sparse_row_float_complex(A, row, column_start, column_end, nz, val, jndx)
 }
-
 
 var _sparse_get_block_dimension_for_col func(A unsafe.Pointer, j Sparse_index) int
 
@@ -5325,7 +3910,6 @@ func Sparse_get_block_dimension_for_col(A unsafe.Pointer, j Sparse_index) int {
 	return _sparse_get_block_dimension_for_col(A, j)
 }
 
-
 var _sparse_get_block_dimension_for_row func(A unsafe.Pointer, i Sparse_index) int
 
 // Sparse_get_block_dimension_for_row returns the dimension of the block for a specified row of a double-precision matrix.
@@ -5337,7 +3921,6 @@ func Sparse_get_block_dimension_for_row(A unsafe.Pointer, i Sparse_index) int {
 	}
 	return _sparse_get_block_dimension_for_row(A, i)
 }
-
 
 var _sparse_get_matrix_nonzero_count func(A unsafe.Pointer) int
 
@@ -5351,7 +3934,6 @@ func Sparse_get_matrix_nonzero_count(A unsafe.Pointer) int {
 	return _sparse_get_matrix_nonzero_count(A)
 }
 
-
 var _sparse_get_matrix_nonzero_count_for_column func(A unsafe.Pointer, j Sparse_index) int
 
 // Sparse_get_matrix_nonzero_count_for_column returns the number of nonzero values in a column of a matrix.
@@ -5363,7 +3945,6 @@ func Sparse_get_matrix_nonzero_count_for_column(A unsafe.Pointer, j Sparse_index
 	}
 	return _sparse_get_matrix_nonzero_count_for_column(A, j)
 }
-
 
 var _sparse_get_matrix_nonzero_count_for_row func(A unsafe.Pointer, i Sparse_index) int
 
@@ -5377,7 +3958,6 @@ func Sparse_get_matrix_nonzero_count_for_row(A unsafe.Pointer, i Sparse_index) i
 	return _sparse_get_matrix_nonzero_count_for_row(A, i)
 }
 
-
 var _sparse_get_matrix_number_of_columns func(A unsafe.Pointer) Sparse_dimension
 
 // Sparse_get_matrix_number_of_columns returns the number of columns of a matrix.
@@ -5389,7 +3969,6 @@ func Sparse_get_matrix_number_of_columns(A unsafe.Pointer) Sparse_dimension {
 	}
 	return _sparse_get_matrix_number_of_columns(A)
 }
-
 
 var _sparse_get_matrix_number_of_rows func(A unsafe.Pointer) Sparse_dimension
 
@@ -5403,7 +3982,6 @@ func Sparse_get_matrix_number_of_rows(A unsafe.Pointer) Sparse_dimension {
 	return _sparse_get_matrix_number_of_rows(A)
 }
 
-
 var _sparse_get_matrix_property func(A unsafe.Pointer, pname unsafe.Pointer) int
 
 // Sparse_get_matrix_property returns the value of the given property name.
@@ -5415,7 +3993,6 @@ func Sparse_get_matrix_property(A unsafe.Pointer, pname unsafe.Pointer) int {
 	}
 	return _sparse_get_matrix_property(A, pname)
 }
-
 
 var _sparse_get_vector_nonzero_count_double func(N Sparse_dimension, x uintptr, incx Sparse_stride) int
 
@@ -5429,19 +4006,17 @@ func Sparse_get_vector_nonzero_count_double(N Sparse_dimension, x uintptr, incx 
 	return _sparse_get_vector_nonzero_count_double(N, x, incx)
 }
 
-
-var _sparse_get_vector_nonzero_count_double_complex func(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int
+var _sparse_get_vector_nonzero_count_double_complex func(N Sparse_dimension, x *uintptr, incx Sparse_stride) int
 
 // Sparse_get_vector_nonzero_count_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_double_complex(_:_:_:)
-func Sparse_get_vector_nonzero_count_double_complex(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int {
+func Sparse_get_vector_nonzero_count_double_complex(N Sparse_dimension, x *uintptr, incx Sparse_stride) int {
 	if _sparse_get_vector_nonzero_count_double_complex == nil {
 		panic("Accelerate: symbol sparse_get_vector_nonzero_count_double_complex not loaded")
 	}
 	return _sparse_get_vector_nonzero_count_double_complex(N, x, incx)
 }
-
 
 var _sparse_get_vector_nonzero_count_float func(N Sparse_dimension, x uintptr, incx Sparse_stride) int
 
@@ -5455,19 +4030,17 @@ func Sparse_get_vector_nonzero_count_float(N Sparse_dimension, x uintptr, incx S
 	return _sparse_get_vector_nonzero_count_float(N, x, incx)
 }
 
-
-var _sparse_get_vector_nonzero_count_float_complex func(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int
+var _sparse_get_vector_nonzero_count_float_complex func(N Sparse_dimension, x *uintptr, incx Sparse_stride) int
 
 // Sparse_get_vector_nonzero_count_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_get_vector_nonzero_count_float_complex(_:_:_:)
-func Sparse_get_vector_nonzero_count_float_complex(N Sparse_dimension, x unsafe.Pointer, incx Sparse_stride) int {
+func Sparse_get_vector_nonzero_count_float_complex(N Sparse_dimension, x *uintptr, incx Sparse_stride) int {
 	if _sparse_get_vector_nonzero_count_float_complex == nil {
 		panic("Accelerate: symbol sparse_get_vector_nonzero_count_float_complex not loaded")
 	}
 	return _sparse_get_vector_nonzero_count_float_complex(N, x, incx)
 }
-
 
 var _sparse_inner_product_dense_double func(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float64
 
@@ -5481,19 +4054,17 @@ func Sparse_inner_product_dense_double(nz Sparse_dimension, x uintptr, indx *Spa
 	return _sparse_inner_product_dense_double(nz, x, indx, y, incy)
 }
 
-
-var _sparse_inner_product_dense_double_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+var _sparse_inner_product_dense_double_complex func(nz Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) unsafe.Pointer
 
 // Sparse_inner_product_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_double_complex
-func Sparse_inner_product_dense_double_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+func Sparse_inner_product_dense_double_complex(nz Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) unsafe.Pointer {
 	if _sparse_inner_product_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_inner_product_dense_double_complex not loaded")
 	}
 	return _sparse_inner_product_dense_double_complex(nz, x, indx, y, incy)
 }
-
 
 var _sparse_inner_product_dense_float func(nz Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride) float32
 
@@ -5507,19 +4078,17 @@ func Sparse_inner_product_dense_float(nz Sparse_dimension, x uintptr, indx *Spar
 	return _sparse_inner_product_dense_float(nz, x, indx, y, incy)
 }
 
-
-var _sparse_inner_product_dense_float_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+var _sparse_inner_product_dense_float_complex func(nz Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) unsafe.Pointer
 
 // Sparse_inner_product_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_dense_float_complex
-func Sparse_inner_product_dense_float_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+func Sparse_inner_product_dense_float_complex(nz Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) unsafe.Pointer {
 	if _sparse_inner_product_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_inner_product_dense_float_complex not loaded")
 	}
 	return _sparse_inner_product_dense_float_complex(nz, x, indx, y, incy)
 }
-
 
 var _sparse_inner_product_sparse_double func(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float64
 
@@ -5533,19 +4102,17 @@ func Sparse_inner_product_sparse_double(nzx Sparse_dimension, nzy Sparse_dimensi
 	return _sparse_inner_product_sparse_double(nzx, nzy, x, indx, y, indy)
 }
 
-
-var _sparse_inner_product_sparse_double_complex func(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer
+var _sparse_inner_product_sparse_double_complex func(nzx Sparse_dimension, nzy Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, indy *Sparse_index) unsafe.Pointer
 
 // Sparse_inner_product_sparse_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_double_complex
-func Sparse_inner_product_sparse_double_complex(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer {
+func Sparse_inner_product_sparse_double_complex(nzx Sparse_dimension, nzy Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, indy *Sparse_index) unsafe.Pointer {
 	if _sparse_inner_product_sparse_double_complex == nil {
 		panic("Accelerate: symbol sparse_inner_product_sparse_double_complex not loaded")
 	}
 	return _sparse_inner_product_sparse_double_complex(nzx, nzy, x, indx, y, indy)
 }
-
 
 var _sparse_inner_product_sparse_float func(nzx Sparse_dimension, nzy Sparse_dimension, x uintptr, indx *Sparse_index, y uintptr, indy *Sparse_index) float32
 
@@ -5559,19 +4126,17 @@ func Sparse_inner_product_sparse_float(nzx Sparse_dimension, nzy Sparse_dimensio
 	return _sparse_inner_product_sparse_float(nzx, nzy, x, indx, y, indy)
 }
 
-
-var _sparse_inner_product_sparse_float_complex func(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer
+var _sparse_inner_product_sparse_float_complex func(nzx Sparse_dimension, nzy Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, indy *Sparse_index) unsafe.Pointer
 
 // Sparse_inner_product_sparse_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_inner_product_sparse_float_complex
-func Sparse_inner_product_sparse_float_complex(nzx Sparse_dimension, nzy Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, indy *Sparse_index) unsafe.Pointer {
+func Sparse_inner_product_sparse_float_complex(nzx Sparse_dimension, nzy Sparse_dimension, x *uintptr, indx *Sparse_index, y *uintptr, indy *Sparse_index) unsafe.Pointer {
 	if _sparse_inner_product_sparse_float_complex == nil {
 		panic("Accelerate: symbol sparse_inner_product_sparse_float_complex not loaded")
 	}
 	return _sparse_inner_product_sparse_float_complex(nzx, nzy, x, indx, y, indy)
 }
-
 
 var _sparse_insert_block_double func(A Sparse_matrix_double, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
 
@@ -5585,19 +4150,17 @@ func Sparse_insert_block_double(A Sparse_matrix_double, val uintptr, row_stride 
 	return _sparse_insert_block_double(A, val, row_stride, col_stride, bi, bj)
 }
 
-
-var _sparse_insert_block_double_complex func(A Sparse_matrix_double_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
+var _sparse_insert_block_double_complex func(A Sparse_matrix_double_complex, val *uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
 
 // Sparse_insert_block_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_double_complex(_:_:_:_:_:_:)
-func Sparse_insert_block_double_complex(A Sparse_matrix_double_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
+func Sparse_insert_block_double_complex(A Sparse_matrix_double_complex, val *uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
 	if _sparse_insert_block_double_complex == nil {
 		panic("Accelerate: symbol sparse_insert_block_double_complex not loaded")
 	}
 	return _sparse_insert_block_double_complex(A, val, row_stride, col_stride, bi, bj)
 }
-
 
 var _sparse_insert_block_float func(A Sparse_matrix_float, val uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
 
@@ -5611,19 +4174,17 @@ func Sparse_insert_block_float(A Sparse_matrix_float, val uintptr, row_stride Sp
 	return _sparse_insert_block_float(A, val, row_stride, col_stride, bi, bj)
 }
 
-
-var _sparse_insert_block_float_complex func(A Sparse_matrix_float_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
+var _sparse_insert_block_float_complex func(A Sparse_matrix_float_complex, val *uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer
 
 // Sparse_insert_block_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_block_float_complex(_:_:_:_:_:_:)
-func Sparse_insert_block_float_complex(A Sparse_matrix_float_complex, val unsafe.Pointer, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
+func Sparse_insert_block_float_complex(A Sparse_matrix_float_complex, val *uintptr, row_stride Sparse_dimension, col_stride Sparse_dimension, bi Sparse_index, bj Sparse_index) unsafe.Pointer {
 	if _sparse_insert_block_float_complex == nil {
 		panic("Accelerate: symbol sparse_insert_block_float_complex not loaded")
 	}
 	return _sparse_insert_block_float_complex(A, val, row_stride, col_stride, bi, bj)
 }
-
 
 var _sparse_insert_col_double func(A Sparse_matrix_double, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
 
@@ -5637,19 +4198,17 @@ func Sparse_insert_col_double(A Sparse_matrix_double, j Sparse_index, nz Sparse_
 	return _sparse_insert_col_double(A, j, nz, val, indx)
 }
 
-
-var _sparse_insert_col_double_complex func(A Sparse_matrix_double_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+var _sparse_insert_col_double_complex func(A Sparse_matrix_double_complex, j Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer
 
 // Sparse_insert_col_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_double_complex(_:_:_:_:_:)
-func Sparse_insert_col_double_complex(A Sparse_matrix_double_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+func Sparse_insert_col_double_complex(A Sparse_matrix_double_complex, j Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer {
 	if _sparse_insert_col_double_complex == nil {
 		panic("Accelerate: symbol sparse_insert_col_double_complex not loaded")
 	}
 	return _sparse_insert_col_double_complex(A, j, nz, val, indx)
 }
-
 
 var _sparse_insert_col_float func(A Sparse_matrix_float, j Sparse_index, nz Sparse_dimension, val uintptr, indx *Sparse_index) unsafe.Pointer
 
@@ -5663,19 +4222,17 @@ func Sparse_insert_col_float(A Sparse_matrix_float, j Sparse_index, nz Sparse_di
 	return _sparse_insert_col_float(A, j, nz, val, indx)
 }
 
-
-var _sparse_insert_col_float_complex func(A Sparse_matrix_float_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer
+var _sparse_insert_col_float_complex func(A Sparse_matrix_float_complex, j Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer
 
 // Sparse_insert_col_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_col_float_complex(_:_:_:_:_:)
-func Sparse_insert_col_float_complex(A Sparse_matrix_float_complex, j Sparse_index, nz Sparse_dimension, val unsafe.Pointer, indx *Sparse_index) unsafe.Pointer {
+func Sparse_insert_col_float_complex(A Sparse_matrix_float_complex, j Sparse_index, nz Sparse_dimension, val *uintptr, indx *Sparse_index) unsafe.Pointer {
 	if _sparse_insert_col_float_complex == nil {
 		panic("Accelerate: symbol sparse_insert_col_float_complex not loaded")
 	}
 	return _sparse_insert_col_float_complex(A, j, nz, val, indx)
 }
-
 
 var _sparse_insert_entries_double func(A Sparse_matrix_double, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
 
@@ -5689,19 +4246,17 @@ func Sparse_insert_entries_double(A Sparse_matrix_double, N Sparse_dimension, va
 	return _sparse_insert_entries_double(A, N, val, indx, jndx)
 }
 
-
-var _sparse_insert_entries_double_complex func(A Sparse_matrix_double_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
+var _sparse_insert_entries_double_complex func(A Sparse_matrix_double_complex, N Sparse_dimension, val *uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
 
 // Sparse_insert_entries_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_double_complex(_:_:_:_:_:)
-func Sparse_insert_entries_double_complex(A Sparse_matrix_double_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
+func Sparse_insert_entries_double_complex(A Sparse_matrix_double_complex, N Sparse_dimension, val *uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
 	if _sparse_insert_entries_double_complex == nil {
 		panic("Accelerate: symbol sparse_insert_entries_double_complex not loaded")
 	}
 	return _sparse_insert_entries_double_complex(A, N, val, indx, jndx)
 }
-
 
 var _sparse_insert_entries_float func(A Sparse_matrix_float, N Sparse_dimension, val uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
 
@@ -5715,19 +4270,17 @@ func Sparse_insert_entries_float(A Sparse_matrix_float, N Sparse_dimension, val 
 	return _sparse_insert_entries_float(A, N, val, indx, jndx)
 }
 
-
-var _sparse_insert_entries_float_complex func(A Sparse_matrix_float_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
+var _sparse_insert_entries_float_complex func(A Sparse_matrix_float_complex, N Sparse_dimension, val *uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer
 
 // Sparse_insert_entries_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_entries_float_complex(_:_:_:_:_:)
-func Sparse_insert_entries_float_complex(A Sparse_matrix_float_complex, N Sparse_dimension, val unsafe.Pointer, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
+func Sparse_insert_entries_float_complex(A Sparse_matrix_float_complex, N Sparse_dimension, val *uintptr, indx *Sparse_index, jndx *Sparse_index) unsafe.Pointer {
 	if _sparse_insert_entries_float_complex == nil {
 		panic("Accelerate: symbol sparse_insert_entries_float_complex not loaded")
 	}
 	return _sparse_insert_entries_float_complex(A, N, val, indx, jndx)
 }
-
 
 var _sparse_insert_entry_double func(A Sparse_matrix_double, val float64, i Sparse_index, j Sparse_index) unsafe.Pointer
 
@@ -5741,7 +4294,6 @@ func Sparse_insert_entry_double(A Sparse_matrix_double, val float64, i Sparse_in
 	return _sparse_insert_entry_double(A, val, i, j)
 }
 
-
 var _sparse_insert_entry_double_complex func(A Sparse_matrix_double_complex, val unsafe.Pointer, i Sparse_index, j Sparse_index) unsafe.Pointer
 
 // Sparse_insert_entry_double_complex.
@@ -5753,7 +4305,6 @@ func Sparse_insert_entry_double_complex(A Sparse_matrix_double_complex, val unsa
 	}
 	return _sparse_insert_entry_double_complex(A, val, i, j)
 }
-
 
 var _sparse_insert_entry_float func(A Sparse_matrix_float, val float32, i Sparse_index, j Sparse_index) unsafe.Pointer
 
@@ -5767,7 +4318,6 @@ func Sparse_insert_entry_float(A Sparse_matrix_float, val float32, i Sparse_inde
 	return _sparse_insert_entry_float(A, val, i, j)
 }
 
-
 var _sparse_insert_entry_float_complex func(A Sparse_matrix_float_complex, val unsafe.Pointer, i Sparse_index, j Sparse_index) unsafe.Pointer
 
 // Sparse_insert_entry_float_complex.
@@ -5779,7 +4329,6 @@ func Sparse_insert_entry_float_complex(A Sparse_matrix_float_complex, val unsafe
 	}
 	return _sparse_insert_entry_float_complex(A, val, i, j)
 }
-
 
 var _sparse_insert_row_double func(A Sparse_matrix_double, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
 
@@ -5793,19 +4342,17 @@ func Sparse_insert_row_double(A Sparse_matrix_double, i Sparse_index, nz Sparse_
 	return _sparse_insert_row_double(A, i, nz, val, jndx)
 }
 
-
-var _sparse_insert_row_double_complex func(A Sparse_matrix_double_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+var _sparse_insert_row_double_complex func(A Sparse_matrix_double_complex, i Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer
 
 // Sparse_insert_row_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_double_complex(_:_:_:_:_:)
-func Sparse_insert_row_double_complex(A Sparse_matrix_double_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+func Sparse_insert_row_double_complex(A Sparse_matrix_double_complex, i Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer {
 	if _sparse_insert_row_double_complex == nil {
 		panic("Accelerate: symbol sparse_insert_row_double_complex not loaded")
 	}
 	return _sparse_insert_row_double_complex(A, i, nz, val, jndx)
 }
-
 
 var _sparse_insert_row_float func(A Sparse_matrix_float, i Sparse_index, nz Sparse_dimension, val uintptr, jndx *Sparse_index) unsafe.Pointer
 
@@ -5819,19 +4366,17 @@ func Sparse_insert_row_float(A Sparse_matrix_float, i Sparse_index, nz Sparse_di
 	return _sparse_insert_row_float(A, i, nz, val, jndx)
 }
 
-
-var _sparse_insert_row_float_complex func(A Sparse_matrix_float_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer
+var _sparse_insert_row_float_complex func(A Sparse_matrix_float_complex, i Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer
 
 // Sparse_insert_row_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_insert_row_float_complex(_:_:_:_:_:)
-func Sparse_insert_row_float_complex(A Sparse_matrix_float_complex, i Sparse_index, nz Sparse_dimension, val unsafe.Pointer, jndx *Sparse_index) unsafe.Pointer {
+func Sparse_insert_row_float_complex(A Sparse_matrix_float_complex, i Sparse_index, nz Sparse_dimension, val *uintptr, jndx *Sparse_index) unsafe.Pointer {
 	if _sparse_insert_row_float_complex == nil {
 		panic("Accelerate: symbol sparse_insert_row_float_complex not loaded")
 	}
 	return _sparse_insert_row_float_complex(A, i, nz, val, jndx)
 }
-
 
 var _sparse_matrix_block_create_double func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_double
 
@@ -5845,7 +4390,6 @@ func Sparse_matrix_block_create_double(Mb Sparse_dimension, Nb Sparse_dimension,
 	return _sparse_matrix_block_create_double(Mb, Nb, k, l)
 }
 
-
 var _sparse_matrix_block_create_double_complex func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_double_complex
 
 // Sparse_matrix_block_create_double_complex.
@@ -5857,7 +4401,6 @@ func Sparse_matrix_block_create_double_complex(Mb Sparse_dimension, Nb Sparse_di
 	}
 	return _sparse_matrix_block_create_double_complex(Mb, Nb, k, l)
 }
-
 
 var _sparse_matrix_block_create_float func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_float
 
@@ -5871,7 +4414,6 @@ func Sparse_matrix_block_create_float(Mb Sparse_dimension, Nb Sparse_dimension, 
 	return _sparse_matrix_block_create_float(Mb, Nb, k, l)
 }
 
-
 var _sparse_matrix_block_create_float_complex func(Mb Sparse_dimension, Nb Sparse_dimension, k Sparse_dimension, l Sparse_dimension) Sparse_matrix_float_complex
 
 // Sparse_matrix_block_create_float_complex.
@@ -5883,7 +4425,6 @@ func Sparse_matrix_block_create_float_complex(Mb Sparse_dimension, Nb Sparse_dim
 	}
 	return _sparse_matrix_block_create_float_complex(Mb, Nb, k, l)
 }
-
 
 var _sparse_matrix_create_double func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_double
 
@@ -5897,7 +4438,6 @@ func Sparse_matrix_create_double(M Sparse_dimension, N Sparse_dimension) Sparse_
 	return _sparse_matrix_create_double(M, N)
 }
 
-
 var _sparse_matrix_create_double_complex func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_double_complex
 
 // Sparse_matrix_create_double_complex.
@@ -5909,7 +4449,6 @@ func Sparse_matrix_create_double_complex(M Sparse_dimension, N Sparse_dimension)
 	}
 	return _sparse_matrix_create_double_complex(M, N)
 }
-
 
 var _sparse_matrix_create_float func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_float
 
@@ -5923,7 +4462,6 @@ func Sparse_matrix_create_float(M Sparse_dimension, N Sparse_dimension) Sparse_m
 	return _sparse_matrix_create_float(M, N)
 }
 
-
 var _sparse_matrix_create_float_complex func(M Sparse_dimension, N Sparse_dimension) Sparse_matrix_float_complex
 
 // Sparse_matrix_create_float_complex.
@@ -5935,7 +4473,6 @@ func Sparse_matrix_create_float_complex(M Sparse_dimension, N Sparse_dimension) 
 	}
 	return _sparse_matrix_create_float_complex(M, N)
 }
-
 
 var _sparse_matrix_destroy func(A unsafe.Pointer) unsafe.Pointer
 
@@ -5949,7 +4486,6 @@ func Sparse_matrix_destroy(A unsafe.Pointer) unsafe.Pointer {
 	return _sparse_matrix_destroy(A)
 }
 
-
 var _sparse_matrix_product_dense_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float64, A Sparse_matrix_double, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_product_dense_double multiplies the dense matrix by the sparse matrix and adds the result to the dense matrix , all with double-precision values.
@@ -5962,19 +4498,17 @@ func Sparse_matrix_product_dense_double(order CBLAS_ORDER, transa CBLAS_TRANSPOS
 	return _sparse_matrix_product_dense_double(order, transa, n, alpha, A, B, ldb, C, ldc)
 }
 
-
-var _sparse_matrix_product_dense_double_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+var _sparse_matrix_product_dense_double_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B *uintptr, ldb Sparse_dimension, C *uintptr, ldc Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_product_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_double_complex
-func Sparse_matrix_product_dense_double_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+func Sparse_matrix_product_dense_double_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B *uintptr, ldb Sparse_dimension, C *uintptr, ldc Sparse_dimension) unsafe.Pointer {
 	if _sparse_matrix_product_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_product_dense_double_complex not loaded")
 	}
 	return _sparse_matrix_product_dense_double_complex(order, transa, n, alpha, A, B, ldb, C, ldc)
 }
-
 
 var _sparse_matrix_product_dense_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha float32, A Sparse_matrix_float, B uintptr, ldb Sparse_dimension, C uintptr, ldc Sparse_dimension) unsafe.Pointer
 
@@ -5988,19 +4522,17 @@ func Sparse_matrix_product_dense_float(order CBLAS_ORDER, transa CBLAS_TRANSPOSE
 	return _sparse_matrix_product_dense_float(order, transa, n, alpha, A, B, ldb, C, ldc)
 }
 
-
-var _sparse_matrix_product_dense_float_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+var _sparse_matrix_product_dense_float_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B *uintptr, ldb Sparse_dimension, C *uintptr, ldc Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_product_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_dense_float_complex
-func Sparse_matrix_product_dense_float_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+func Sparse_matrix_product_dense_float_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, n Sparse_dimension, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B *uintptr, ldb Sparse_dimension, C *uintptr, ldc Sparse_dimension) unsafe.Pointer {
 	if _sparse_matrix_product_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_product_dense_float_complex not loaded")
 	}
 	return _sparse_matrix_product_dense_float_complex(order, transa, n, alpha, A, B, ldb, C, ldc)
 }
-
 
 var _sparse_matrix_product_sparse_double func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, B Sparse_matrix_double, C uintptr, ldc Sparse_dimension) unsafe.Pointer
 
@@ -6014,19 +4546,17 @@ func Sparse_matrix_product_sparse_double(order CBLAS_ORDER, transa CBLAS_TRANSPO
 	return _sparse_matrix_product_sparse_double(order, transa, alpha, A, B, C, ldc)
 }
 
-
-var _sparse_matrix_product_sparse_double_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B Sparse_matrix_double_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+var _sparse_matrix_product_sparse_double_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B Sparse_matrix_double_complex, C *uintptr, ldc Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_product_sparse_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_double_complex
-func Sparse_matrix_product_sparse_double_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B Sparse_matrix_double_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+func Sparse_matrix_product_sparse_double_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, B Sparse_matrix_double_complex, C *uintptr, ldc Sparse_dimension) unsafe.Pointer {
 	if _sparse_matrix_product_sparse_double_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_product_sparse_double_complex not loaded")
 	}
 	return _sparse_matrix_product_sparse_double_complex(order, transa, alpha, A, B, C, ldc)
 }
-
 
 var _sparse_matrix_product_sparse_float func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, B Sparse_matrix_float, C uintptr, ldc Sparse_dimension) unsafe.Pointer
 
@@ -6040,19 +4570,17 @@ func Sparse_matrix_product_sparse_float(order CBLAS_ORDER, transa CBLAS_TRANSPOS
 	return _sparse_matrix_product_sparse_float(order, transa, alpha, A, B, C, ldc)
 }
 
-
-var _sparse_matrix_product_sparse_float_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B Sparse_matrix_float_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer
+var _sparse_matrix_product_sparse_float_complex func(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B Sparse_matrix_float_complex, C *uintptr, ldc Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_product_sparse_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_product_sparse_float_complex
-func Sparse_matrix_product_sparse_float_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B Sparse_matrix_float_complex, C unsafe.Pointer, ldc Sparse_dimension) unsafe.Pointer {
+func Sparse_matrix_product_sparse_float_complex(order CBLAS_ORDER, transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, B Sparse_matrix_float_complex, C *uintptr, ldc Sparse_dimension) unsafe.Pointer {
 	if _sparse_matrix_product_sparse_float_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_product_sparse_float_complex not loaded")
 	}
 	return _sparse_matrix_product_sparse_float_complex(order, transa, alpha, A, B, C, ldc)
 }
-
 
 var _sparse_matrix_trace_double func(A Sparse_matrix_double, offset Sparse_index) float64
 
@@ -6066,7 +4594,6 @@ func Sparse_matrix_trace_double(A Sparse_matrix_double, offset Sparse_index) flo
 	return _sparse_matrix_trace_double(A, offset)
 }
 
-
 var _sparse_matrix_trace_double_complex func(A Sparse_matrix_double_complex, offset Sparse_index) unsafe.Pointer
 
 // Sparse_matrix_trace_double_complex.
@@ -6078,7 +4605,6 @@ func Sparse_matrix_trace_double_complex(A Sparse_matrix_double_complex, offset S
 	}
 	return _sparse_matrix_trace_double_complex(A, offset)
 }
-
 
 var _sparse_matrix_trace_float func(A Sparse_matrix_float, offset Sparse_index) float32
 
@@ -6092,7 +4618,6 @@ func Sparse_matrix_trace_float(A Sparse_matrix_float, offset Sparse_index) float
 	return _sparse_matrix_trace_float(A, offset)
 }
 
-
 var _sparse_matrix_trace_float_complex func(A Sparse_matrix_float_complex, offset Sparse_index) unsafe.Pointer
 
 // Sparse_matrix_trace_float_complex.
@@ -6104,7 +4629,6 @@ func Sparse_matrix_trace_float_complex(A Sparse_matrix_float_complex, offset Spa
 	}
 	return _sparse_matrix_trace_float_complex(A, offset)
 }
-
 
 var _sparse_matrix_triangular_solve_dense_double func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float64, T Sparse_matrix_double, B uintptr, ldb Sparse_dimension) unsafe.Pointer
 
@@ -6118,19 +4642,17 @@ func Sparse_matrix_triangular_solve_dense_double(order CBLAS_ORDER, transt CBLAS
 	return _sparse_matrix_triangular_solve_dense_double(order, transt, nrhs, alpha, T, B, ldb)
 }
 
-
-var _sparse_matrix_triangular_solve_dense_double_complex func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer
+var _sparse_matrix_triangular_solve_dense_double_complex func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_double_complex, B *uintptr, ldb Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_triangular_solve_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_double_complex
-func Sparse_matrix_triangular_solve_dense_double_complex(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_double_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer {
+func Sparse_matrix_triangular_solve_dense_double_complex(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_double_complex, B *uintptr, ldb Sparse_dimension) unsafe.Pointer {
 	if _sparse_matrix_triangular_solve_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_triangular_solve_dense_double_complex not loaded")
 	}
 	return _sparse_matrix_triangular_solve_dense_double_complex(order, transt, nrhs, alpha, T, B, ldb)
 }
-
 
 var _sparse_matrix_triangular_solve_dense_float func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha float32, T Sparse_matrix_float, B uintptr, ldb Sparse_dimension) unsafe.Pointer
 
@@ -6144,19 +4666,17 @@ func Sparse_matrix_triangular_solve_dense_float(order CBLAS_ORDER, transt CBLAS_
 	return _sparse_matrix_triangular_solve_dense_float(order, transt, nrhs, alpha, T, B, ldb)
 }
 
-
-var _sparse_matrix_triangular_solve_dense_float_complex func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer
+var _sparse_matrix_triangular_solve_dense_float_complex func(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_float_complex, B *uintptr, ldb Sparse_dimension) unsafe.Pointer
 
 // Sparse_matrix_triangular_solve_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_triangular_solve_dense_float_complex
-func Sparse_matrix_triangular_solve_dense_float_complex(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_float_complex, B unsafe.Pointer, ldb Sparse_dimension) unsafe.Pointer {
+func Sparse_matrix_triangular_solve_dense_float_complex(order CBLAS_ORDER, transt CBLAS_TRANSPOSE, nrhs Sparse_dimension, alpha unsafe.Pointer, T Sparse_matrix_float_complex, B *uintptr, ldb Sparse_dimension) unsafe.Pointer {
 	if _sparse_matrix_triangular_solve_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_triangular_solve_dense_float_complex not loaded")
 	}
 	return _sparse_matrix_triangular_solve_dense_float_complex(order, transt, nrhs, alpha, T, B, ldb)
 }
-
 
 var _sparse_matrix_variable_block_create_double func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_double
 
@@ -6170,7 +4690,6 @@ func Sparse_matrix_variable_block_create_double(Mb Sparse_dimension, Nb Sparse_d
 	return _sparse_matrix_variable_block_create_double(Mb, Nb, K, L)
 }
 
-
 var _sparse_matrix_variable_block_create_double_complex func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_double_complex
 
 // Sparse_matrix_variable_block_create_double_complex.
@@ -6182,7 +4701,6 @@ func Sparse_matrix_variable_block_create_double_complex(Mb Sparse_dimension, Nb 
 	}
 	return _sparse_matrix_variable_block_create_double_complex(Mb, Nb, K, L)
 }
-
 
 var _sparse_matrix_variable_block_create_float func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_float
 
@@ -6196,7 +4714,6 @@ func Sparse_matrix_variable_block_create_float(Mb Sparse_dimension, Nb Sparse_di
 	return _sparse_matrix_variable_block_create_float(Mb, Nb, K, L)
 }
 
-
 var _sparse_matrix_variable_block_create_float_complex func(Mb Sparse_dimension, Nb Sparse_dimension, K *Sparse_dimension, L *Sparse_dimension) Sparse_matrix_float_complex
 
 // Sparse_matrix_variable_block_create_float_complex.
@@ -6208,7 +4725,6 @@ func Sparse_matrix_variable_block_create_float_complex(Mb Sparse_dimension, Nb S
 	}
 	return _sparse_matrix_variable_block_create_float_complex(Mb, Nb, K, L)
 }
-
 
 var _sparse_matrix_vector_product_dense_double func(transa CBLAS_TRANSPOSE, alpha float64, A Sparse_matrix_double, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) unsafe.Pointer
 
@@ -6222,19 +4738,17 @@ func Sparse_matrix_vector_product_dense_double(transa CBLAS_TRANSPOSE, alpha flo
 	return _sparse_matrix_vector_product_dense_double(transa, alpha, A, x, incx, y, incy)
 }
 
-
-var _sparse_matrix_vector_product_dense_double_complex func(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+var _sparse_matrix_vector_product_dense_double_complex func(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, x *uintptr, incx Sparse_stride, y *uintptr, incy Sparse_stride) unsafe.Pointer
 
 // Sparse_matrix_vector_product_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_double_complex
-func Sparse_matrix_vector_product_dense_double_complex(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+func Sparse_matrix_vector_product_dense_double_complex(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_double_complex, x *uintptr, incx Sparse_stride, y *uintptr, incy Sparse_stride) unsafe.Pointer {
 	if _sparse_matrix_vector_product_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_vector_product_dense_double_complex not loaded")
 	}
 	return _sparse_matrix_vector_product_dense_double_complex(transa, alpha, A, x, incx, y, incy)
 }
-
 
 var _sparse_matrix_vector_product_dense_float func(transa CBLAS_TRANSPOSE, alpha float32, A Sparse_matrix_float, x uintptr, incx Sparse_stride, y uintptr, incy Sparse_stride) unsafe.Pointer
 
@@ -6248,19 +4762,17 @@ func Sparse_matrix_vector_product_dense_float(transa CBLAS_TRANSPOSE, alpha floa
 	return _sparse_matrix_vector_product_dense_float(transa, alpha, A, x, incx, y, incy)
 }
 
-
-var _sparse_matrix_vector_product_dense_float_complex func(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer
+var _sparse_matrix_vector_product_dense_float_complex func(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, x *uintptr, incx Sparse_stride, y *uintptr, incy Sparse_stride) unsafe.Pointer
 
 // Sparse_matrix_vector_product_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_vector_product_dense_float_complex
-func Sparse_matrix_vector_product_dense_float_complex(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, incy Sparse_stride) unsafe.Pointer {
+func Sparse_matrix_vector_product_dense_float_complex(transa CBLAS_TRANSPOSE, alpha unsafe.Pointer, A Sparse_matrix_float_complex, x *uintptr, incx Sparse_stride, y *uintptr, incy Sparse_stride) unsafe.Pointer {
 	if _sparse_matrix_vector_product_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_matrix_vector_product_dense_float_complex not loaded")
 	}
 	return _sparse_matrix_vector_product_dense_float_complex(transa, alpha, A, x, incx, y, incy)
 }
-
 
 var _sparse_outer_product_dense_double func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float64, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_double) unsafe.Pointer
 
@@ -6274,19 +4786,17 @@ func Sparse_outer_product_dense_double(M Sparse_dimension, N Sparse_dimension, n
 	return _sparse_outer_product_dense_double(M, N, nz, alpha, x, incx, y, indy, C)
 }
 
-
-var _sparse_outer_product_dense_double_complex func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double_complex) unsafe.Pointer
+var _sparse_outer_product_dense_double_complex func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index, C *Sparse_matrix_double_complex) unsafe.Pointer
 
 // Sparse_outer_product_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_double_complex
-func Sparse_outer_product_dense_double_complex(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_double_complex) unsafe.Pointer {
+func Sparse_outer_product_dense_double_complex(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index, C *Sparse_matrix_double_complex) unsafe.Pointer {
 	if _sparse_outer_product_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_outer_product_dense_double_complex not loaded")
 	}
 	return _sparse_outer_product_dense_double_complex(M, N, nz, alpha, x, incx, y, indy, C)
 }
-
 
 var _sparse_outer_product_dense_float func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha float32, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index, C *Sparse_matrix_float) unsafe.Pointer
 
@@ -6300,19 +4810,17 @@ func Sparse_outer_product_dense_float(M Sparse_dimension, N Sparse_dimension, nz
 	return _sparse_outer_product_dense_float(M, N, nz, alpha, x, incx, y, indy, C)
 }
 
-
-var _sparse_outer_product_dense_float_complex func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float_complex) unsafe.Pointer
+var _sparse_outer_product_dense_float_complex func(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index, C *Sparse_matrix_float_complex) unsafe.Pointer
 
 // Sparse_outer_product_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_outer_product_dense_float_complex
-func Sparse_outer_product_dense_float_complex(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index, C *Sparse_matrix_float_complex) unsafe.Pointer {
+func Sparse_outer_product_dense_float_complex(M Sparse_dimension, N Sparse_dimension, nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index, C *Sparse_matrix_float_complex) unsafe.Pointer {
 	if _sparse_outer_product_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_outer_product_dense_float_complex not loaded")
 	}
 	return _sparse_outer_product_dense_float_complex(M, N, nz, alpha, x, incx, y, indy, C)
 }
-
 
 var _sparse_pack_vector_double func(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int
 
@@ -6326,19 +4834,17 @@ func Sparse_pack_vector_double(N Sparse_dimension, nz Sparse_dimension, x uintpt
 	return _sparse_pack_vector_double(N, nz, x, incx, y, indy)
 }
 
-
-var _sparse_pack_vector_double_complex func(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int
+var _sparse_pack_vector_double_complex func(N Sparse_dimension, nz Sparse_dimension, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index) int
 
 // Sparse_pack_vector_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_double_complex(_:_:_:_:_:_:)
-func Sparse_pack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int {
+func Sparse_pack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index) int {
 	if _sparse_pack_vector_double_complex == nil {
 		panic("Accelerate: symbol sparse_pack_vector_double_complex not loaded")
 	}
 	return _sparse_pack_vector_double_complex(N, nz, x, incx, y, indy)
 }
-
 
 var _sparse_pack_vector_float func(N Sparse_dimension, nz Sparse_dimension, x uintptr, incx Sparse_stride, y uintptr, indy *Sparse_index) int
 
@@ -6352,19 +4858,17 @@ func Sparse_pack_vector_float(N Sparse_dimension, nz Sparse_dimension, x uintptr
 	return _sparse_pack_vector_float(N, nz, x, incx, y, indy)
 }
 
-
-var _sparse_pack_vector_float_complex func(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int
+var _sparse_pack_vector_float_complex func(N Sparse_dimension, nz Sparse_dimension, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index) int
 
 // Sparse_pack_vector_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_pack_vector_float_complex(_:_:_:_:_:_:)
-func Sparse_pack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension, x unsafe.Pointer, incx Sparse_stride, y unsafe.Pointer, indy *Sparse_index) int {
+func Sparse_pack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension, x *uintptr, incx Sparse_stride, y *uintptr, indy *Sparse_index) int {
 	if _sparse_pack_vector_float_complex == nil {
 		panic("Accelerate: symbol sparse_pack_vector_float_complex not loaded")
 	}
 	return _sparse_pack_vector_float_complex(N, nz, x, incx, y, indy)
 }
-
 
 var _sparse_permute_cols_double func(A Sparse_matrix_double, perm *Sparse_index) unsafe.Pointer
 
@@ -6378,7 +4882,6 @@ func Sparse_permute_cols_double(A Sparse_matrix_double, perm *Sparse_index) unsa
 	return _sparse_permute_cols_double(A, perm)
 }
 
-
 var _sparse_permute_cols_double_complex func(A Sparse_matrix_double_complex, perm *Sparse_index) unsafe.Pointer
 
 // Sparse_permute_cols_double_complex.
@@ -6390,7 +4893,6 @@ func Sparse_permute_cols_double_complex(A Sparse_matrix_double_complex, perm *Sp
 	}
 	return _sparse_permute_cols_double_complex(A, perm)
 }
-
 
 var _sparse_permute_cols_float func(A Sparse_matrix_float, perm *Sparse_index) unsafe.Pointer
 
@@ -6404,7 +4906,6 @@ func Sparse_permute_cols_float(A Sparse_matrix_float, perm *Sparse_index) unsafe
 	return _sparse_permute_cols_float(A, perm)
 }
 
-
 var _sparse_permute_cols_float_complex func(A Sparse_matrix_float_complex, perm *Sparse_index) unsafe.Pointer
 
 // Sparse_permute_cols_float_complex.
@@ -6416,7 +4917,6 @@ func Sparse_permute_cols_float_complex(A Sparse_matrix_float_complex, perm *Spar
 	}
 	return _sparse_permute_cols_float_complex(A, perm)
 }
-
 
 var _sparse_permute_rows_double func(A Sparse_matrix_double, perm *Sparse_index) unsafe.Pointer
 
@@ -6430,7 +4930,6 @@ func Sparse_permute_rows_double(A Sparse_matrix_double, perm *Sparse_index) unsa
 	return _sparse_permute_rows_double(A, perm)
 }
 
-
 var _sparse_permute_rows_double_complex func(A Sparse_matrix_double_complex, perm *Sparse_index) unsafe.Pointer
 
 // Sparse_permute_rows_double_complex.
@@ -6442,7 +4941,6 @@ func Sparse_permute_rows_double_complex(A Sparse_matrix_double_complex, perm *Sp
 	}
 	return _sparse_permute_rows_double_complex(A, perm)
 }
-
 
 var _sparse_permute_rows_float func(A Sparse_matrix_float, perm *Sparse_index) unsafe.Pointer
 
@@ -6456,7 +4954,6 @@ func Sparse_permute_rows_float(A Sparse_matrix_float, perm *Sparse_index) unsafe
 	return _sparse_permute_rows_float(A, perm)
 }
 
-
 var _sparse_permute_rows_float_complex func(A Sparse_matrix_float_complex, perm *Sparse_index) unsafe.Pointer
 
 // Sparse_permute_rows_float_complex.
@@ -6468,7 +4965,6 @@ func Sparse_permute_rows_float_complex(A Sparse_matrix_float_complex, perm *Spar
 	}
 	return _sparse_permute_rows_float_complex(A, perm)
 }
-
 
 var _sparse_set_matrix_property func(A unsafe.Pointer, pname unsafe.Pointer) unsafe.Pointer
 
@@ -6482,7 +4978,6 @@ func Sparse_set_matrix_property(A unsafe.Pointer, pname unsafe.Pointer) unsafe.P
 	return _sparse_set_matrix_property(A, pname)
 }
 
-
 var _sparse_unpack_vector_double func(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
 
 // Sparse_unpack_vector_double extracts elements from the sparse vector into the corresponding location in the dense vector , with both vectors containing double-precision values.
@@ -6495,19 +4990,17 @@ func Sparse_unpack_vector_double(N Sparse_dimension, nz Sparse_dimension, zero b
 	_sparse_unpack_vector_double(N, nz, zero, x, indx, y, incy)
 }
 
-
-var _sparse_unpack_vector_double_complex func(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+var _sparse_unpack_vector_double_complex func(N Sparse_dimension, nz Sparse_dimension, zero bool, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride)
 
 // Sparse_unpack_vector_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_double_complex(_:_:_:_:_:_:_:)
-func Sparse_unpack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+func Sparse_unpack_vector_double_complex(N Sparse_dimension, nz Sparse_dimension, zero bool, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) {
 	if _sparse_unpack_vector_double_complex == nil {
 		panic("Accelerate: symbol sparse_unpack_vector_double_complex not loaded")
 	}
 	_sparse_unpack_vector_double_complex(N, nz, zero, x, indx, y, incy)
 }
-
 
 var _sparse_unpack_vector_float func(N Sparse_dimension, nz Sparse_dimension, zero bool, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
 
@@ -6521,19 +5014,17 @@ func Sparse_unpack_vector_float(N Sparse_dimension, nz Sparse_dimension, zero bo
 	_sparse_unpack_vector_float(N, nz, zero, x, indx, y, incy)
 }
 
-
-var _sparse_unpack_vector_float_complex func(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+var _sparse_unpack_vector_float_complex func(N Sparse_dimension, nz Sparse_dimension, zero bool, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride)
 
 // Sparse_unpack_vector_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_unpack_vector_float_complex(_:_:_:_:_:_:_:)
-func Sparse_unpack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension, zero bool, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+func Sparse_unpack_vector_float_complex(N Sparse_dimension, nz Sparse_dimension, zero bool, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) {
 	if _sparse_unpack_vector_float_complex == nil {
 		panic("Accelerate: symbol sparse_unpack_vector_float_complex not loaded")
 	}
 	_sparse_unpack_vector_float_complex(N, nz, zero, x, indx, y, incy)
 }
-
 
 var _sparse_vector_add_with_scale_dense_double func(nz Sparse_dimension, alpha float64, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
 
@@ -6547,19 +5038,17 @@ func Sparse_vector_add_with_scale_dense_double(nz Sparse_dimension, alpha float6
 	_sparse_vector_add_with_scale_dense_double(nz, alpha, x, indx, y, incy)
 }
 
-
-var _sparse_vector_add_with_scale_dense_double_complex func(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+var _sparse_vector_add_with_scale_dense_double_complex func(nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride)
 
 // Sparse_vector_add_with_scale_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_double_complex
-func Sparse_vector_add_with_scale_dense_double_complex(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+func Sparse_vector_add_with_scale_dense_double_complex(nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) {
 	if _sparse_vector_add_with_scale_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_vector_add_with_scale_dense_double_complex not loaded")
 	}
 	_sparse_vector_add_with_scale_dense_double_complex(nz, alpha, x, indx, y, incy)
 }
-
 
 var _sparse_vector_add_with_scale_dense_float func(nz Sparse_dimension, alpha float32, x uintptr, indx *Sparse_index, y uintptr, incy Sparse_stride)
 
@@ -6573,19 +5062,17 @@ func Sparse_vector_add_with_scale_dense_float(nz Sparse_dimension, alpha float32
 	_sparse_vector_add_with_scale_dense_float(nz, alpha, x, indx, y, incy)
 }
 
-
-var _sparse_vector_add_with_scale_dense_float_complex func(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride)
+var _sparse_vector_add_with_scale_dense_float_complex func(nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride)
 
 // Sparse_vector_add_with_scale_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_add_with_scale_dense_float_complex
-func Sparse_vector_add_with_scale_dense_float_complex(nz Sparse_dimension, alpha unsafe.Pointer, x unsafe.Pointer, indx *Sparse_index, y unsafe.Pointer, incy Sparse_stride) {
+func Sparse_vector_add_with_scale_dense_float_complex(nz Sparse_dimension, alpha unsafe.Pointer, x *uintptr, indx *Sparse_index, y *uintptr, incy Sparse_stride) {
 	if _sparse_vector_add_with_scale_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_vector_add_with_scale_dense_float_complex not loaded")
 	}
 	_sparse_vector_add_with_scale_dense_float_complex(nz, alpha, x, indx, y, incy)
 }
-
 
 var _sparse_vector_norm_double func(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm unsafe.Pointer) float64
 
@@ -6599,19 +5086,17 @@ func Sparse_vector_norm_double(nz Sparse_dimension, x uintptr, indx *Sparse_inde
 	return _sparse_vector_norm_double(nz, x, indx, norm)
 }
 
-
-var _sparse_vector_norm_double_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float64
+var _sparse_vector_norm_double_complex func(nz Sparse_dimension, x *uintptr, indx *Sparse_index, norm unsafe.Pointer) float64
 
 // Sparse_vector_norm_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_double_complex(_:_:_:_:)
-func Sparse_vector_norm_double_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float64 {
+func Sparse_vector_norm_double_complex(nz Sparse_dimension, x *uintptr, indx *Sparse_index, norm unsafe.Pointer) float64 {
 	if _sparse_vector_norm_double_complex == nil {
 		panic("Accelerate: symbol sparse_vector_norm_double_complex not loaded")
 	}
 	return _sparse_vector_norm_double_complex(nz, x, indx, norm)
 }
-
 
 var _sparse_vector_norm_float func(nz Sparse_dimension, x uintptr, indx *Sparse_index, norm unsafe.Pointer) float32
 
@@ -6625,19 +5110,17 @@ func Sparse_vector_norm_float(nz Sparse_dimension, x uintptr, indx *Sparse_index
 	return _sparse_vector_norm_float(nz, x, indx, norm)
 }
 
-
-var _sparse_vector_norm_float_complex func(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float32
+var _sparse_vector_norm_float_complex func(nz Sparse_dimension, x *uintptr, indx *Sparse_index, norm unsafe.Pointer) float32
 
 // Sparse_vector_norm_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_norm_float_complex(_:_:_:_:)
-func Sparse_vector_norm_float_complex(nz Sparse_dimension, x unsafe.Pointer, indx *Sparse_index, norm unsafe.Pointer) float32 {
+func Sparse_vector_norm_float_complex(nz Sparse_dimension, x *uintptr, indx *Sparse_index, norm unsafe.Pointer) float32 {
 	if _sparse_vector_norm_float_complex == nil {
 		panic("Accelerate: symbol sparse_vector_norm_float_complex not loaded")
 	}
 	return _sparse_vector_norm_float_complex(nz, x, indx, norm)
 }
-
 
 var _sparse_vector_triangular_solve_dense_double func(transt CBLAS_TRANSPOSE, alpha float64, T Sparse_matrix_double, x uintptr, incx Sparse_stride) unsafe.Pointer
 
@@ -6651,19 +5134,17 @@ func Sparse_vector_triangular_solve_dense_double(transt CBLAS_TRANSPOSE, alpha f
 	return _sparse_vector_triangular_solve_dense_double(transt, alpha, T, x, incx)
 }
 
-
-var _sparse_vector_triangular_solve_dense_double_complex func(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer
+var _sparse_vector_triangular_solve_dense_double_complex func(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_double_complex, x *uintptr, incx Sparse_stride) unsafe.Pointer
 
 // Sparse_vector_triangular_solve_dense_double_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_double_complex
-func Sparse_vector_triangular_solve_dense_double_complex(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_double_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer {
+func Sparse_vector_triangular_solve_dense_double_complex(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_double_complex, x *uintptr, incx Sparse_stride) unsafe.Pointer {
 	if _sparse_vector_triangular_solve_dense_double_complex == nil {
 		panic("Accelerate: symbol sparse_vector_triangular_solve_dense_double_complex not loaded")
 	}
 	return _sparse_vector_triangular_solve_dense_double_complex(transt, alpha, T, x, incx)
 }
-
 
 var _sparse_vector_triangular_solve_dense_float func(transt CBLAS_TRANSPOSE, alpha float32, T Sparse_matrix_float, x uintptr, incx Sparse_stride) unsafe.Pointer
 
@@ -6677,174 +5158,17 @@ func Sparse_vector_triangular_solve_dense_float(transt CBLAS_TRANSPOSE, alpha fl
 	return _sparse_vector_triangular_solve_dense_float(transt, alpha, T, x, incx)
 }
 
-
-var _sparse_vector_triangular_solve_dense_float_complex func(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer
+var _sparse_vector_triangular_solve_dense_float_complex func(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_float_complex, x *uintptr, incx Sparse_stride) unsafe.Pointer
 
 // Sparse_vector_triangular_solve_dense_float_complex.
 //
 // See: https://developer.apple.com/documentation/Accelerate/sparse_vector_triangular_solve_dense_float_complex
-func Sparse_vector_triangular_solve_dense_float_complex(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_float_complex, x unsafe.Pointer, incx Sparse_stride) unsafe.Pointer {
+func Sparse_vector_triangular_solve_dense_float_complex(transt CBLAS_TRANSPOSE, alpha unsafe.Pointer, T Sparse_matrix_float_complex, x *uintptr, incx Sparse_stride) unsafe.Pointer {
 	if _sparse_vector_triangular_solve_dense_float_complex == nil {
 		panic("Accelerate: symbol sparse_vector_triangular_solve_dense_float_complex not loaded")
 	}
 	return _sparse_vector_triangular_solve_dense_float_complex(transt, alpha, T, x, incx)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var _vA1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
@@ -6858,7 +5182,6 @@ func VA1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	_vA1024Shift(a, shiftAmount, result)
 }
 
-
 var _vA128Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
 // VA128Shift 128-bit arithmetic (signed) shift.
@@ -6870,7 +5193,6 @@ func VA128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	}
 	return _vA128Shift(vA, vShiftFactor)
 }
-
 
 var _vA256Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
@@ -6884,7 +5206,6 @@ func VA256Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	_vA256Shift(a, shiftAmount, result)
 }
 
-
 var _vA512Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
 // VA512Shift 512-bit arithmetic shift.
@@ -6896,7 +5217,6 @@ func VA512Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	}
 	_vA512Shift(a, shiftAmount, result)
 }
-
 
 var _vA64Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
@@ -6910,7 +5230,6 @@ func VA64Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return _vA64Shift(vA, vShiftFactor)
 }
 
-
 var _vA64Shift2 func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
 // VA64Shift2 64-bit arithmetic (signed) shift with two shift factors.
@@ -6922,8 +5241,6 @@ func VA64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	}
 	return _vA64Shift2(vA, vShiftFactor)
 }
-
-
 
 var _vDSP_DCT_Execute func(__Setup uintptr, __Input *float32, __Output *float32)
 
@@ -6937,7 +5254,6 @@ func VDSP_DCT_Execute(__Setup uintptr, __Input []float32, __Output []float32) {
 	_vDSP_DCT_Execute(__Setup, unsafe.SliceData(__Input), unsafe.SliceData(__Output))
 }
 
-
 var _vDSP_DFT_CreateSetup func(__Previous VDSP_DFT_Setup, __Length VDSP_Length) VDSP_DFT_Setup
 
 // VDSP_DFT_CreateSetup.
@@ -6949,7 +5265,6 @@ func VDSP_DFT_CreateSetup(__Previous VDSP_DFT_Setup, __Length VDSP_Length) VDSP_
 	}
 	return _vDSP_DFT_CreateSetup(__Previous, __Length)
 }
-
 
 var _vDSP_DFT_DestroySetup func(__Setup VDSP_DFT_Setup)
 
@@ -6963,7 +5278,6 @@ func VDSP_DFT_DestroySetup(__Setup VDSP_DFT_Setup) {
 	_vDSP_DFT_DestroySetup(__Setup)
 }
 
-
 var _vDSP_DFT_DestroySetupD func(__Setup VDSP_DFT_SetupD)
 
 // VDSP_DFT_DestroySetupD releases a double-precision setup structure.
@@ -6975,7 +5289,6 @@ func VDSP_DFT_DestroySetupD(__Setup VDSP_DFT_SetupD) {
 	}
 	_vDSP_DFT_DestroySetupD(__Setup)
 }
-
 
 var _vDSP_DFT_Execute func(__Setup uintptr, __Ir *float32, __Ii *float32, __Or *float32, __Oi *float32)
 
@@ -6989,7 +5302,6 @@ func VDSP_DFT_Execute(__Setup uintptr, __Ir []float32, __Ii []float32, __Or []fl
 	_vDSP_DFT_Execute(__Setup, unsafe.SliceData(__Ir), unsafe.SliceData(__Ii), unsafe.SliceData(__Or), unsafe.SliceData(__Oi))
 }
 
-
 var _vDSP_DFT_ExecuteD func(__Setup uintptr, __Ir *float64, __Ii *float64, __Or *float64, __Oi *float64)
 
 // VDSP_DFT_ExecuteD calculates the discrete double-precision Fourier transform for a vector.
@@ -7001,9 +5313,6 @@ func VDSP_DFT_ExecuteD(__Setup uintptr, __Ir []float64, __Ii []float64, __Or []f
 	}
 	_vDSP_DFT_ExecuteD(__Setup, unsafe.SliceData(__Ir), unsafe.SliceData(__Ii), unsafe.SliceData(__Or), unsafe.SliceData(__Oi))
 }
-
-
-
 
 var _vDSP_DFT_Interleaved_DestroySetup func(Setup VDSP_DFT_Interleaved_Setup)
 
@@ -7017,7 +5326,6 @@ func VDSP_DFT_Interleaved_DestroySetup(Setup VDSP_DFT_Interleaved_Setup) {
 	_vDSP_DFT_Interleaved_DestroySetup(Setup)
 }
 
-
 var _vDSP_DFT_Interleaved_DestroySetupD func(Setup VDSP_DFT_Interleaved_SetupD)
 
 // VDSP_DFT_Interleaved_DestroySetupD releases a double-precision discrete Fourier transform (DFT) setup structure.
@@ -7029,7 +5337,6 @@ func VDSP_DFT_Interleaved_DestroySetupD(Setup VDSP_DFT_Interleaved_SetupD) {
 	}
 	_vDSP_DFT_Interleaved_DestroySetupD(Setup)
 }
-
 
 var _vDSP_DFT_Interleaved_Execute func(Setup VDSP_DFT_Interleaved_Setup, Iri *DSPComplex, Ori *DSPComplex)
 
@@ -7043,7 +5350,6 @@ func VDSP_DFT_Interleaved_Execute(Setup VDSP_DFT_Interleaved_Setup, Iri *DSPComp
 	_vDSP_DFT_Interleaved_Execute(Setup, Iri, Ori)
 }
 
-
 var _vDSP_DFT_Interleaved_ExecuteD func(Setup VDSP_DFT_Interleaved_SetupD, Iri *DSPDoubleComplex, Ori *DSPDoubleComplex)
 
 // VDSP_DFT_Interleaved_ExecuteD calculates the double-precision discrete Fourier transform (DFT) for a vector of interleaved complex values.
@@ -7055,12 +5361,6 @@ func VDSP_DFT_Interleaved_ExecuteD(Setup VDSP_DFT_Interleaved_SetupD, Iri *DSPDo
 	}
 	_vDSP_DFT_Interleaved_ExecuteD(Setup, Iri, Ori)
 }
-
-
-
-
-
-
 
 var _vDSP_FFT16_copv func(__Output *float32, __Input *float32, __Direction FFTDirection)
 
@@ -7074,7 +5374,6 @@ func VDSP_FFT16_copv(__Output []float32, __Input []float32, __Direction FFTDirec
 	_vDSP_FFT16_copv(unsafe.SliceData(__Output), unsafe.SliceData(__Input), __Direction)
 }
 
-
 var _vDSP_FFT16_zopv func(__Or *float32, __Oi *float32, __Ir *float32, __Ii *float32, __Direction FFTDirection)
 
 // VDSP_FFT16_zopv performs a 16-element FFT on split-complex data.
@@ -7086,7 +5385,6 @@ func VDSP_FFT16_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []floa
 	}
 	_vDSP_FFT16_zopv(unsafe.SliceData(__Or), unsafe.SliceData(__Oi), unsafe.SliceData(__Ir), unsafe.SliceData(__Ii), __Direction)
 }
-
 
 var _vDSP_FFT32_copv func(__Output *float32, __Input *float32, __Direction FFTDirection)
 
@@ -7100,7 +5398,6 @@ func VDSP_FFT32_copv(__Output []float32, __Input []float32, __Direction FFTDirec
 	_vDSP_FFT32_copv(unsafe.SliceData(__Output), unsafe.SliceData(__Input), __Direction)
 }
 
-
 var _vDSP_FFT32_zopv func(__Or *float32, __Oi *float32, __Ir *float32, __Ii *float32, __Direction FFTDirection)
 
 // VDSP_FFT32_zopv performs a 32-element FFT on split-complex data.
@@ -7112,7 +5409,6 @@ func VDSP_FFT32_zopv(__Or []float32, __Oi []float32, __Ir []float32, __Ii []floa
 	}
 	_vDSP_FFT32_zopv(unsafe.SliceData(__Or), unsafe.SliceData(__Oi), unsafe.SliceData(__Ir), unsafe.SliceData(__Ii), __Direction)
 }
-
 
 var _vDSP_biquad func(__Setup uintptr, __Delay *float32, __X *float32, __IX VDSP_Stride, __Y *float32, __IY VDSP_Stride, __N VDSP_Length)
 
@@ -7126,7 +5422,6 @@ func VDSP_biquad(__Setup uintptr, __Delay []float32, __X []float32, __IX VDSP_St
 	_vDSP_biquad(__Setup, unsafe.SliceData(__Delay), unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
 }
 
-
 var _vDSP_biquadD func(__Setup uintptr, __Delay *float64, __X *float64, __IX VDSP_Stride, __Y *float64, __IY VDSP_Stride, __N VDSP_Length)
 
 // VDSP_biquadD applies a double-precision single-channel biquadratic IIR filter.
@@ -7138,7 +5433,6 @@ func VDSP_biquadD(__Setup uintptr, __Delay []float64, __X []float64, __IX VDSP_S
 	}
 	_vDSP_biquadD(__Setup, unsafe.SliceData(__Delay), unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
 }
-
 
 var _vDSP_biquad_CreateSetup func(__Coefficients *float64, __M VDSP_Length) VDSP_biquad_Setup
 
@@ -7152,7 +5446,6 @@ func VDSP_biquad_CreateSetup(__Coefficients []float64, __M VDSP_Length) VDSP_biq
 	return _vDSP_biquad_CreateSetup(unsafe.SliceData(__Coefficients), __M)
 }
 
-
 var _vDSP_biquad_CreateSetupD func(__Coefficients *float64, __M VDSP_Length) VDSP_biquad_SetupD
 
 // VDSP_biquad_CreateSetupD builds a data structure that contains precalculated data for use by a double-precision cascaded biquadratic filter function.
@@ -7164,7 +5457,6 @@ func VDSP_biquad_CreateSetupD(__Coefficients []float64, __M VDSP_Length) VDSP_bi
 	}
 	return _vDSP_biquad_CreateSetupD(unsafe.SliceData(__Coefficients), __M)
 }
-
 
 var _vDSP_biquad_DestroySetup func(__setup VDSP_biquad_Setup)
 
@@ -7178,7 +5470,6 @@ func VDSP_biquad_DestroySetup(__setup VDSP_biquad_Setup) {
 	_vDSP_biquad_DestroySetup(__setup)
 }
 
-
 var _vDSP_biquad_DestroySetupD func(__setup VDSP_biquad_SetupD)
 
 // VDSP_biquad_DestroySetupD destroys a double-precision biquadratic filter setup object.
@@ -7190,7 +5481,6 @@ func VDSP_biquad_DestroySetupD(__setup VDSP_biquad_SetupD) {
 	}
 	_vDSP_biquad_DestroySetupD(__setup)
 }
-
 
 var _vDSP_biquad_SetCoefficientsDouble func(__setup VDSP_biquad_Setup, __coeffs *float64, __start_sec VDSP_Length, __nsec VDSP_Length)
 
@@ -7204,7 +5494,6 @@ func VDSP_biquad_SetCoefficientsDouble(__setup VDSP_biquad_Setup, __coeffs []flo
 	_vDSP_biquad_SetCoefficientsDouble(__setup, unsafe.SliceData(__coeffs), __start_sec, __nsec)
 }
 
-
 var _vDSP_biquad_SetCoefficientsSingle func(__setup VDSP_biquad_Setup, __coeffs *float32, __start_sec VDSP_Length, __nsec VDSP_Length)
 
 // VDSP_biquad_SetCoefficientsSingle sets single-precision coefficients of the specified single-channel biquadratic filter setup object.
@@ -7216,7 +5505,6 @@ func VDSP_biquad_SetCoefficientsSingle(__setup VDSP_biquad_Setup, __coeffs []flo
 	}
 	_vDSP_biquad_SetCoefficientsSingle(__setup, unsafe.SliceData(__coeffs), __start_sec, __nsec)
 }
-
 
 var _vDSP_biquadm func(__Setup VDSP_biquadm_Setup, __X *float32, __IX VDSP_Stride, __Y *float32, __IY VDSP_Stride, __N VDSP_Length)
 
@@ -7230,7 +5518,6 @@ func VDSP_biquadm(__Setup VDSP_biquadm_Setup, __X []float32, __IX VDSP_Stride, _
 	_vDSP_biquadm(__Setup, unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
 }
 
-
 var _vDSP_biquadmD func(__Setup VDSP_biquadm_SetupD, __X *float64, __IX VDSP_Stride, __Y *float64, __IY VDSP_Stride, __N VDSP_Length)
 
 // VDSP_biquadmD applies a double-precision multichannel biquadratic IIR filter.
@@ -7242,7 +5529,6 @@ func VDSP_biquadmD(__Setup VDSP_biquadm_SetupD, __X []float64, __IX VDSP_Stride,
 	}
 	_vDSP_biquadmD(__Setup, unsafe.SliceData(__X), __IX, unsafe.SliceData(__Y), __IY, __N)
 }
-
 
 var _vDSP_biquadm_CopyState func(__dest VDSP_biquadm_Setup, __src uintptr)
 
@@ -7256,7 +5542,6 @@ func VDSP_biquadm_CopyState(__dest VDSP_biquadm_Setup, __src uintptr) {
 	_vDSP_biquadm_CopyState(__dest, __src)
 }
 
-
 var _vDSP_biquadm_CopyStateD func(__dest VDSP_biquadm_SetupD, __src uintptr)
 
 // VDSP_biquadm_CopyStateD copies the filter state from one double-precision multichannel biquadratic IIR filter object to another.
@@ -7268,7 +5553,6 @@ func VDSP_biquadm_CopyStateD(__dest VDSP_biquadm_SetupD, __src uintptr) {
 	}
 	_vDSP_biquadm_CopyStateD(__dest, __src)
 }
-
 
 var _vDSP_biquadm_CreateSetup func(__coeffs *float64, __M VDSP_Length, __N VDSP_Length) VDSP_biquadm_Setup
 
@@ -7282,7 +5566,6 @@ func VDSP_biquadm_CreateSetup(__coeffs []float64, __M VDSP_Length, __N VDSP_Leng
 	return _vDSP_biquadm_CreateSetup(unsafe.SliceData(__coeffs), __M, __N)
 }
 
-
 var _vDSP_biquadm_CreateSetupD func(__coeffs *float64, __M VDSP_Length, __N VDSP_Length) VDSP_biquadm_SetupD
 
 // VDSP_biquadm_CreateSetupD builds a data structure that contains precalculated data for use by a double-precision, multichannel cascaded biquadratic filter function.
@@ -7294,7 +5577,6 @@ func VDSP_biquadm_CreateSetupD(__coeffs []float64, __M VDSP_Length, __N VDSP_Len
 	}
 	return _vDSP_biquadm_CreateSetupD(unsafe.SliceData(__coeffs), __M, __N)
 }
-
 
 var _vDSP_biquadm_DestroySetup func(__setup VDSP_biquadm_Setup)
 
@@ -7308,7 +5590,6 @@ func VDSP_biquadm_DestroySetup(__setup VDSP_biquadm_Setup) {
 	_vDSP_biquadm_DestroySetup(__setup)
 }
 
-
 var _vDSP_biquadm_DestroySetupD func(__setup VDSP_biquadm_SetupD)
 
 // VDSP_biquadm_DestroySetupD destroys a double-precision multichannel biquadratic filter setup object.
@@ -7320,7 +5601,6 @@ func VDSP_biquadm_DestroySetupD(__setup VDSP_biquadm_SetupD) {
 	}
 	_vDSP_biquadm_DestroySetupD(__setup)
 }
-
 
 var _vDSP_biquadm_ResetState func(__setup VDSP_biquadm_Setup)
 
@@ -7334,7 +5614,6 @@ func VDSP_biquadm_ResetState(__setup VDSP_biquadm_Setup) {
 	_vDSP_biquadm_ResetState(__setup)
 }
 
-
 var _vDSP_biquadm_ResetStateD func(__setup VDSP_biquadm_SetupD)
 
 // VDSP_biquadm_ResetStateD resets the filter state of a double-precision multichannel biquadratic IIR filter object.
@@ -7346,7 +5625,6 @@ func VDSP_biquadm_ResetStateD(__setup VDSP_biquadm_SetupD) {
 	}
 	_vDSP_biquadm_ResetStateD(__setup)
 }
-
 
 var _vDSP_biquadm_SetActiveFilters func(__setup VDSP_biquadm_Setup, __filter_states bool)
 
@@ -7360,7 +5638,6 @@ func VDSP_biquadm_SetActiveFilters(__setup VDSP_biquadm_Setup, __filter_states b
 	_vDSP_biquadm_SetActiveFilters(__setup, __filter_states)
 }
 
-
 var _vDSP_biquadm_SetActiveFiltersD func(__setup VDSP_biquadm_SetupD, __filter_states bool)
 
 // VDSP_biquadm_SetActiveFiltersD activates or deactivates individual sections in a double-precision, multichannel biquadratic filter.
@@ -7372,7 +5649,6 @@ func VDSP_biquadm_SetActiveFiltersD(__setup VDSP_biquadm_SetupD, __filter_states
 	}
 	_vDSP_biquadm_SetActiveFiltersD(__setup, __filter_states)
 }
-
 
 var _vDSP_biquadm_SetCoefficientsDouble func(__setup VDSP_biquadm_Setup, __coeffs *float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
@@ -7386,7 +5662,6 @@ func VDSP_biquadm_SetCoefficientsDouble(__setup VDSP_biquadm_Setup, __coeffs []f
 	_vDSP_biquadm_SetCoefficientsDouble(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
 }
 
-
 var _vDSP_biquadm_SetCoefficientsDoubleD func(__setup VDSP_biquadm_SetupD, __coeffs *float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
 // VDSP_biquadm_SetCoefficientsDoubleD sets the double-precision coefficients of the specified double-precision, multichannel biquadratic filter setup object.
@@ -7398,7 +5673,6 @@ func VDSP_biquadm_SetCoefficientsDoubleD(__setup VDSP_biquadm_SetupD, __coeffs [
 	}
 	_vDSP_biquadm_SetCoefficientsDoubleD(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
 }
-
 
 var _vDSP_biquadm_SetCoefficientsSingle func(__setup VDSP_biquadm_Setup, __coeffs *float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
@@ -7412,7 +5686,6 @@ func VDSP_biquadm_SetCoefficientsSingle(__setup VDSP_biquadm_Setup, __coeffs []f
 	_vDSP_biquadm_SetCoefficientsSingle(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
 }
 
-
 var _vDSP_biquadm_SetCoefficientsSingleD func(__setup VDSP_biquadm_SetupD, __coeffs *float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
 // VDSP_biquadm_SetCoefficientsSingleD sets the single-precision coefficients of the specified double-precision, multichannel biquadratic filter setup object.
@@ -7424,7 +5697,6 @@ func VDSP_biquadm_SetCoefficientsSingleD(__setup VDSP_biquadm_SetupD, __coeffs [
 	}
 	_vDSP_biquadm_SetCoefficientsSingleD(__setup, unsafe.SliceData(__coeffs), __start_sec, __start_chn, __nsec, __nchn)
 }
-
 
 var _vDSP_biquadm_SetTargetsDouble func(__setup VDSP_biquadm_Setup, __targets *float64, __interp_rate float32, __interp_threshold float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
@@ -7438,7 +5710,6 @@ func VDSP_biquadm_SetTargetsDouble(__setup VDSP_biquadm_Setup, __targets []float
 	_vDSP_biquadm_SetTargetsDouble(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
 }
 
-
 var _vDSP_biquadm_SetTargetsDoubleD func(__setup VDSP_biquadm_SetupD, __targets *float64, __interp_rate float64, __interp_threshold float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
 // VDSP_biquadm_SetTargetsDoubleD sets the double-precision coefficient target values of the specified double-precision, multichannel biquadratic filter setup object.
@@ -7450,7 +5721,6 @@ func VDSP_biquadm_SetTargetsDoubleD(__setup VDSP_biquadm_SetupD, __targets []flo
 	}
 	_vDSP_biquadm_SetTargetsDoubleD(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
 }
-
 
 var _vDSP_biquadm_SetTargetsSingle func(__setup VDSP_biquadm_Setup, __targets *float32, __interp_rate float32, __interp_threshold float32, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
@@ -7464,7 +5734,6 @@ func VDSP_biquadm_SetTargetsSingle(__setup VDSP_biquadm_Setup, __targets []float
 	_vDSP_biquadm_SetTargetsSingle(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
 }
 
-
 var _vDSP_biquadm_SetTargetsSingleD func(__setup VDSP_biquadm_SetupD, __targets *float32, __interp_rate float64, __interp_threshold float64, __start_sec VDSP_Length, __start_chn VDSP_Length, __nsec VDSP_Length, __nchn VDSP_Length)
 
 // VDSP_biquadm_SetTargetsSingleD sets the single-precision coefficient target values of the specified double-precision, multichannel biquadratic filter setup object.
@@ -7476,7 +5745,6 @@ func VDSP_biquadm_SetTargetsSingleD(__setup VDSP_biquadm_SetupD, __targets []flo
 	}
 	_vDSP_biquadm_SetTargetsSingleD(__setup, unsafe.SliceData(__targets), __interp_rate, __interp_threshold, __start_sec, __start_chn, __nsec, __nchn)
 }
-
 
 var _vDSP_blkman_window func(__C *float32, __N VDSP_Length, __Flag int)
 
@@ -7490,7 +5758,6 @@ func VDSP_blkman_window(__C []float32, __N VDSP_Length, __Flag int) {
 	_vDSP_blkman_window(unsafe.SliceData(__C), __N, __Flag)
 }
 
-
 var _vDSP_blkman_windowD func(__C *float64, __N VDSP_Length, __Flag int)
 
 // VDSP_blkman_windowD creates a double-precision Blackman window.
@@ -7502,7 +5769,6 @@ func VDSP_blkman_windowD(__C []float64, __N VDSP_Length, __Flag int) {
 	}
 	_vDSP_blkman_windowD(unsafe.SliceData(__C), __N, __Flag)
 }
-
 
 var _vDSP_conv func(__A *float32, __IA VDSP_Stride, __F *float32, __IF VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
@@ -7516,7 +5782,6 @@ func VDSP_conv(__A []float32, __IA VDSP_Stride, __F []float32, __IF VDSP_Stride,
 	_vDSP_conv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__F), __IF, unsafe.SliceData(__C), __IC, __N, __P)
 }
 
-
 var _vDSP_convD func(__A *float64, __IA VDSP_Stride, __F *float64, __IF VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_convD performs either correlation or convolution on two real double-precision vectors.
@@ -7528,7 +5793,6 @@ func VDSP_convD(__A []float64, __IA VDSP_Stride, __F []float64, __IF VDSP_Stride
 	}
 	_vDSP_convD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__F), __IF, unsafe.SliceData(__C), __IC, __N, __P)
 }
-
 
 var _vDSP_create_fftsetup func(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetup
 
@@ -7542,7 +5806,6 @@ func VDSP_create_fftsetup(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetup {
 	return _vDSP_create_fftsetup(__Log2n, __Radix)
 }
 
-
 var _vDSP_create_fftsetupD func(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetupD
 
 // VDSP_create_fftsetupD returns a setup structure that contains precalculated data for double-precision FFT functions.
@@ -7554,7 +5817,6 @@ func VDSP_create_fftsetupD(__Log2n VDSP_Length, __Radix FFTRadix) FFTSetupD {
 	}
 	return _vDSP_create_fftsetupD(__Log2n, __Radix)
 }
-
 
 var _vDSP_ctoz func(__C *DSPComplex, __IC VDSP_Stride, __Z *DSPSplitComplex, __IZ VDSP_Stride, __N VDSP_Length)
 
@@ -7568,7 +5830,6 @@ func VDSP_ctoz(__C *DSPComplex, __IC VDSP_Stride, __Z *DSPSplitComplex, __IZ VDS
 	_vDSP_ctoz(__C, __IC, __Z, __IZ, __N)
 }
 
-
 var _vDSP_ctozD func(__C *DSPDoubleComplex, __IC VDSP_Stride, __Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __N VDSP_Length)
 
 // VDSP_ctozD copies the contents of an interleaved double-precision complex vector to a split complex vector.
@@ -7580,7 +5841,6 @@ func VDSP_ctozD(__C *DSPDoubleComplex, __IC VDSP_Stride, __Z *DSPDoubleSplitComp
 	}
 	_vDSP_ctozD(__C, __IC, __Z, __IZ, __N)
 }
-
 
 var _vDSP_deq22 func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -7594,7 +5854,6 @@ func VDSP_deq22(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	_vDSP_deq22(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_deq22D func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_deq22D performs two-pole two-zero recursive filtering on a double-precision vector.
@@ -7606,7 +5865,6 @@ func VDSP_deq22D(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	}
 	_vDSP_deq22D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_desamp func(__A *float32, __DF VDSP_Stride, __F *float32, __C *float32, __N VDSP_Length, __P VDSP_Length)
 
@@ -7620,7 +5878,6 @@ func VDSP_desamp(__A []float32, __DF VDSP_Stride, __F []float32, __C []float32, 
 	_vDSP_desamp(unsafe.SliceData(__A), __DF, unsafe.SliceData(__F), unsafe.SliceData(__C), __N, __P)
 }
 
-
 var _vDSP_desampD func(__A *float64, __DF VDSP_Stride, __F *float64, __C *float64, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_desampD performs double-precision FIR filtering with decimation and antialiasing.
@@ -7632,7 +5889,6 @@ func VDSP_desampD(__A []float64, __DF VDSP_Stride, __F []float64, __C []float64,
 	}
 	_vDSP_desampD(unsafe.SliceData(__A), __DF, unsafe.SliceData(__F), unsafe.SliceData(__C), __N, __P)
 }
-
 
 var _vDSP_destroy_fftsetup func(__setup FFTSetup)
 
@@ -7646,7 +5902,6 @@ func VDSP_destroy_fftsetup(__setup FFTSetup) {
 	_vDSP_destroy_fftsetup(__setup)
 }
 
-
 var _vDSP_destroy_fftsetupD func(__setup FFTSetupD)
 
 // VDSP_destroy_fftsetupD deallocates an existing double-precision FFT setup structure.
@@ -7658,7 +5913,6 @@ func VDSP_destroy_fftsetupD(__setup FFTSetupD) {
 	}
 	_vDSP_destroy_fftsetupD(__setup)
 }
-
 
 var _vDSP_distancesq func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -7672,7 +5926,6 @@ func VDSP_distancesq(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_S
 	_vDSP_distancesq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_distancesqD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_distancesqD calculates the double-precision distance squared between two points in n-dimensional space.
@@ -7684,7 +5937,6 @@ func VDSP_distancesqD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_
 	}
 	_vDSP_distancesqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_dotpr func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -7698,7 +5950,6 @@ func VDSP_dotpr(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_dotpr(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_dotpr2 func(__A0 *float32, __IA0 VDSP_Stride, __A1 *float32, __IA1 VDSP_Stride, __B *float32, __IB VDSP_Stride, __C0 *float32, __C1 *float32, __N VDSP_Length)
 
 // VDSP_dotpr2 calculates the stereo dot product of two single-precision vectors.
@@ -7710,7 +5961,6 @@ func VDSP_dotpr2(__A0 []float32, __IA0 VDSP_Stride, __A1 []float32, __IA1 VDSP_S
 	}
 	_vDSP_dotpr2(unsafe.SliceData(__A0), __IA0, unsafe.SliceData(__A1), __IA1, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C0), unsafe.SliceData(__C1), __N)
 }
-
 
 var _vDSP_dotpr2D func(__A0 *float64, __IA0 VDSP_Stride, __A1 *float64, __IA1 VDSP_Stride, __B *float64, __IB VDSP_Stride, __C0 *float64, __C1 *float64, __N VDSP_Length)
 
@@ -7724,7 +5974,6 @@ func VDSP_dotpr2D(__A0 []float64, __IA0 VDSP_Stride, __A1 []float64, __IA1 VDSP_
 	_vDSP_dotpr2D(unsafe.SliceData(__A0), __IA0, unsafe.SliceData(__A1), __IA1, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C0), unsafe.SliceData(__C1), __N)
 }
 
-
 var _vDSP_dotpr2_s1_15 func(__A0 *int16, __IA0 VDSP_Stride, __A1 *int16, __IA1 VDSP_Stride, __B *int16, __IB VDSP_Stride, __C0 *int16, __C1 *int16, __N VDSP_Length)
 
 // VDSP_dotpr2_s1_15 calculates the stereo dot product of two fixed-point 1.15 format vectors.
@@ -7736,7 +5985,6 @@ func VDSP_dotpr2_s1_15(__A0 *int16, __IA0 VDSP_Stride, __A1 *int16, __IA1 VDSP_S
 	}
 	_vDSP_dotpr2_s1_15(__A0, __IA0, __A1, __IA1, __B, __IB, __C0, __C1, __N)
 }
-
 
 var _vDSP_dotpr2_s8_24 func(__A0 *int, __IA0 VDSP_Stride, __A1 *int, __IA1 VDSP_Stride, __B *int, __IB VDSP_Stride, __C0 *int, __C1 *int, __N VDSP_Length)
 
@@ -7750,7 +5998,6 @@ func VDSP_dotpr2_s8_24(__A0 []int, __IA0 VDSP_Stride, __A1 []int, __IA1 VDSP_Str
 	_vDSP_dotpr2_s8_24(unsafe.SliceData(__A0), __IA0, unsafe.SliceData(__A1), __IA1, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C0), unsafe.SliceData(__C1), __N)
 }
 
-
 var _vDSP_dotprD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_dotprD calculates the dot product of two double-precision vectors.
@@ -7762,7 +6009,6 @@ func VDSP_dotprD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_dotprD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_dotpr_s1_15 func(__A *int16, __IA VDSP_Stride, __B *int16, __IB VDSP_Stride, __C *int16, __N VDSP_Length)
 
@@ -7776,7 +6022,6 @@ func VDSP_dotpr_s1_15(__A *int16, __IA VDSP_Stride, __B *int16, __IB VDSP_Stride
 	_vDSP_dotpr_s1_15(__A, __IA, __B, __IB, __C, __N)
 }
 
-
 var _vDSP_dotpr_s8_24 func(__A *int, __IA VDSP_Stride, __B *int, __IB VDSP_Stride, __C *int, __N VDSP_Length)
 
 // VDSP_dotpr_s8_24 calculates the dot product of two fixed-point 8.24 format vectors.
@@ -7788,7 +6033,6 @@ func VDSP_dotpr_s8_24(__A []int, __IA VDSP_Stride, __B []int, __IB VDSP_Stride, 
 	}
 	_vDSP_dotpr_s8_24(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_f3x3 func(__A *float32, __NR VDSP_Length, __NC VDSP_Length, __F *float32, __C *float32)
 
@@ -7802,7 +6046,6 @@ func VDSP_f3x3(__A []float32, __NR VDSP_Length, __NC VDSP_Length, __F []float32,
 	_vDSP_f3x3(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
 }
 
-
 var _vDSP_f3x3D func(__A *float64, __NR VDSP_Length, __NC VDSP_Length, __F *float64, __C *float64)
 
 // VDSP_f3x3D filters a double-precision image by performing a 2D convolution with a 3 x 3 kernel.
@@ -7814,7 +6057,6 @@ func VDSP_f3x3D(__A []float64, __NR VDSP_Length, __NC VDSP_Length, __F []float64
 	}
 	_vDSP_f3x3D(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
 }
-
 
 var _vDSP_f5x5 func(__A *float32, __NR VDSP_Length, __NC VDSP_Length, __F *float32, __C *float32)
 
@@ -7828,7 +6070,6 @@ func VDSP_f5x5(__A []float32, __NR VDSP_Length, __NC VDSP_Length, __F []float32,
 	_vDSP_f5x5(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
 }
 
-
 var _vDSP_f5x5D func(__A *float64, __NR VDSP_Length, __NC VDSP_Length, __F *float64, __C *float64)
 
 // VDSP_f5x5D filters a double-precision image by performing a 2D convolution with a 5 x 5 kernel.
@@ -7840,7 +6081,6 @@ func VDSP_f5x5D(__A []float64, __NR VDSP_Length, __NC VDSP_Length, __F []float64
 	}
 	_vDSP_f5x5D(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C))
 }
-
 
 var _vDSP_fft2d_zip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -7854,7 +6094,6 @@ func VDSP_fft2d_zip(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, _
 	_vDSP_fft2d_zip(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zipD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft2d_zipD computes a 2D forward or inverse in-place, double-precision complex FFT.
@@ -7866,7 +6105,6 @@ func VDSP_fft2d_zipD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_S
 	}
 	_vDSP_fft2d_zipD(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
-
 
 var _vDSP_fft2d_zipt func(__Setup FFTSetup, __C *DSPSplitComplex, __IC1 VDSP_Stride, __IC0 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -7880,7 +6118,6 @@ func VDSP_fft2d_zipt(__Setup FFTSetup, __C *DSPSplitComplex, __IC1 VDSP_Stride, 
 	_vDSP_fft2d_zipt(__Setup, __C, __IC1, __IC0, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_ziptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft2d_ziptD computes a 2D forward or inverse in-place, double-precision complex FFT using a temporary buffer.
@@ -7892,7 +6129,6 @@ func VDSP_fft2d_ziptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_
 	}
 	_vDSP_fft2d_ziptD(__Setup, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
-
 
 var _vDSP_fft2d_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -7906,7 +6142,6 @@ func VDSP_fft2d_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, _
 	_vDSP_fft2d_zop(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft2d_zopD computes a 2D forward or inverse out-of-place, double-precision complex FFT.
@@ -7918,7 +6153,6 @@ func VDSP_fft2d_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_S
 	}
 	_vDSP_fft2d_zopD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
-
 
 var _vDSP_fft2d_zopt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -7932,7 +6166,6 @@ func VDSP_fft2d_zopt(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, 
 	_vDSP_fft2d_zopt(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zoptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft2d_zoptD computes a 2D forward or inverse out-of-place, double-precision complex FFT using a temporary buffer.
@@ -7944,7 +6177,6 @@ func VDSP_fft2d_zoptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_
 	}
 	_vDSP_fft2d_zoptD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
-
 
 var _vDSP_fft2d_zrip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -7958,7 +6190,6 @@ func VDSP_fft2d_zrip(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, 
 	_vDSP_fft2d_zrip(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zripD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __flag FFTDirection)
 
 // VDSP_fft2d_zripD computes a 2D forward or inverse in-place, double-precision real FFT.
@@ -7970,7 +6201,6 @@ func VDSP_fft2d_zripD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_
 	}
 	_vDSP_fft2d_zripD(__Setup, __C, __IC0, __IC1, __Log2N0, __Log2N1, __flag)
 }
-
 
 var _vDSP_fft2d_zript func(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -7984,7 +6214,6 @@ func VDSP_fft2d_zript(__Setup FFTSetup, __C *DSPSplitComplex, __IC0 VDSP_Stride,
 	_vDSP_fft2d_zript(__Setup, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zriptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __flag FFTDirection)
 
 // VDSP_fft2d_zriptD computes a 2D forward or inverse in-place, double-precision real FFT using a temporary buffer.
@@ -7996,7 +6225,6 @@ func VDSP_fft2d_zriptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC0 VDSP
 	}
 	_vDSP_fft2d_zriptD(__Setup, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __flag)
 }
-
 
 var _vDSP_fft2d_zrop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -8010,7 +6238,6 @@ func VDSP_fft2d_zrop(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, 
 	_vDSP_fft2d_zrop(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zropD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft2d_zropD computes a 2D forward or inverse out-of-place, double-precision real FFT.
@@ -8022,7 +6249,6 @@ func VDSP_fft2d_zropD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_
 	}
 	_vDSP_fft2d_zropD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Log2N0, __Log2N1, __Direction)
 }
-
 
 var _vDSP_fft2d_zropt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
@@ -8036,7 +6262,6 @@ func VDSP_fft2d_zropt(__Setup FFTSetup, __A *DSPSplitComplex, __IA0 VDSP_Stride,
 	_vDSP_fft2d_zropt(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
 
-
 var _vDSP_fft2d_zroptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP_Stride, __IA1 VDSP_Stride, __C *DSPDoubleSplitComplex, __IC0 VDSP_Stride, __IC1 VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N0 VDSP_Length, __Log2N1 VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft2d_zroptD computes a 2D forward or inverse out-of-place, double-precision real FFT using a temporary buffer.
@@ -8048,7 +6273,6 @@ func VDSP_fft2d_zroptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA0 VDSP
 	}
 	_vDSP_fft2d_zroptD(__Setup, __A, __IA0, __IA1, __C, __IC0, __IC1, __Buffer, __Log2N0, __Log2N1, __Direction)
 }
-
 
 var _vDSP_fft3_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8062,7 +6286,6 @@ func VDSP_fft3_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C
 	_vDSP_fft3_zop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft3_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft3_zopD computes a double-precision out-of-place radix-3 complex FFT, either forward or inverse.
@@ -8074,7 +6297,6 @@ func VDSP_fft3_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Str
 	}
 	_vDSP_fft3_zopD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft5_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8088,7 +6310,6 @@ func VDSP_fft5_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C
 	_vDSP_fft5_zop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft5_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft5_zopD computes a double-precision out-of-place radix-5 complex FFT, either forward or inverse.
@@ -8100,7 +6321,6 @@ func VDSP_fft5_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Str
 	}
 	_vDSP_fft5_zopD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8114,7 +6334,6 @@ func VDSP_fft_zip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Lo
 	_vDSP_fft_zip(__Setup, __C, __IC, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zipD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zipD computes a forward or inverse in-place, double-precision complex FFT.
@@ -8126,7 +6345,6 @@ func VDSP_fft_zipD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stri
 	}
 	_vDSP_fft_zipD(__Setup, __C, __IC, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zipt func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8140,7 +6358,6 @@ func VDSP_fft_zipt(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __B
 	_vDSP_fft_zipt(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_ziptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_ziptD computes a forward or inverse in-place, double-precision complex FFT using a temporary buffer.
@@ -8152,7 +6369,6 @@ func VDSP_fft_ziptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Str
 	}
 	_vDSP_fft_ziptD(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8166,7 +6382,6 @@ func VDSP_fft_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C 
 	_vDSP_fft_zop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zopD computes a forward or inverse out-of-place, double-precision complex FFT.
@@ -8178,7 +6393,6 @@ func VDSP_fft_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stri
 	}
 	_vDSP_fft_zopD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zopt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8192,7 +6406,6 @@ func VDSP_fft_zopt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C
 	_vDSP_fft_zopt(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zoptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zoptD computes a forward or inverse out-of-place, double-precision complex FFT using a temporary buffer.
@@ -8204,7 +6417,6 @@ func VDSP_fft_zoptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Str
 	}
 	_vDSP_fft_zoptD(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zrip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8218,7 +6430,6 @@ func VDSP_fft_zrip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __L
 	_vDSP_fft_zrip(__Setup, __C, __IC, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zripD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zripD computes a forward or inverse in-place, double-precision real FFT.
@@ -8230,7 +6441,6 @@ func VDSP_fft_zripD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Str
 	}
 	_vDSP_fft_zripD(__Setup, __C, __IC, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zript func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8244,7 +6454,6 @@ func VDSP_fft_zript(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __
 	_vDSP_fft_zript(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zriptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zriptD computes a forward or inverse in-place, double-precision real FFT using a temporary buffer.
@@ -8256,7 +6465,6 @@ func VDSP_fft_zriptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_St
 	}
 	_vDSP_fft_zriptD(__Setup, __C, __IC, __Buffer, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zrop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8270,7 +6478,6 @@ func VDSP_fft_zrop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C
 	_vDSP_fft_zrop(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zropD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zropD computes a forward or inverse out-of-place, double-precision real FFT.
@@ -8282,7 +6489,6 @@ func VDSP_fft_zropD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Str
 	}
 	_vDSP_fft_zropD(__Setup, __A, __IA, __C, __IC, __Log2N, __Direction)
 }
-
 
 var _vDSP_fft_zropt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
@@ -8296,7 +6502,6 @@ func VDSP_fft_zropt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __
 	_vDSP_fft_zropt(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
 }
 
-
 var _vDSP_fft_zroptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft_zroptD computes a forward or inverse out-of-place, double-precision real FFT using a temporary buffer.
@@ -8308,7 +6513,6 @@ func VDSP_fft_zroptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_St
 	}
 	_vDSP_fft_zroptD(__Setup, __A, __IA, __C, __IC, __Buffer, __Log2N, __Direction)
 }
-
 
 var _vDSP_fftm_zip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8322,7 +6526,6 @@ func VDSP_fftm_zip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __I
 	_vDSP_fftm_zip(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zipD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zipD computes a forward or inverse in-place, double-precision complex FFT on multiple signals.
@@ -8334,7 +6537,6 @@ func VDSP_fftm_zipD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Str
 	}
 	_vDSP_fftm_zipD(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zipt func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8348,7 +6550,6 @@ func VDSP_fftm_zipt(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __
 	_vDSP_fftm_zipt(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_ziptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_ziptD computes a forward or inverse in-place, double-precision complex FFT on multiple signals using a temporary buffer.
@@ -8360,7 +6561,6 @@ func VDSP_fftm_ziptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_St
 	}
 	_vDSP_fftm_ziptD(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8374,7 +6574,6 @@ func VDSP_fftm_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __I
 	_vDSP_fftm_zop(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zopD computes a forward or inverse out-of-place, double-precision complex FFT on multiple signals.
@@ -8386,7 +6585,6 @@ func VDSP_fftm_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Str
 	}
 	_vDSP_fftm_zopD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zopt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8400,7 +6598,6 @@ func VDSP_fftm_zopt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __
 	_vDSP_fftm_zopt(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zoptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zoptD computes a forward or inverse out-of-place, double-precision complex FFT on multiple signals using a temporary buffer.
@@ -8412,7 +6609,6 @@ func VDSP_fftm_zoptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_St
 	}
 	_vDSP_fftm_zoptD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zrip func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8426,7 +6622,6 @@ func VDSP_fftm_zrip(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __
 	_vDSP_fftm_zrip(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zripD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zripD computes a forward or inverse in-place, double-precision real FFT on multiple signals.
@@ -8438,7 +6633,6 @@ func VDSP_fftm_zripD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_St
 	}
 	_vDSP_fftm_zripD(__Setup, __C, __IC, __IM, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zript func(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8452,7 +6646,6 @@ func VDSP_fftm_zript(__Setup FFTSetup, __C *DSPSplitComplex, __IC VDSP_Stride, _
 	_vDSP_fftm_zript(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zriptD func(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IM VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zriptD computes a forward or inverse in-place, double-precision real FFT on multiple signals using a temporary buffer.
@@ -8464,7 +6657,6 @@ func VDSP_fftm_zriptD(__Setup FFTSetupD, __C *DSPDoubleSplitComplex, __IC VDSP_S
 	}
 	_vDSP_fftm_zriptD(__Setup, __C, __IC, __IM, __Buffer, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zrop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8478,7 +6670,6 @@ func VDSP_fftm_zrop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __
 	_vDSP_fftm_zrop(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zropD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zropD computes a forward or inverse out-of-place, double-precision real FFT on multiple signals.
@@ -8490,7 +6681,6 @@ func VDSP_fftm_zropD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_St
 	}
 	_vDSP_fftm_zropD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_fftm_zropt func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
@@ -8504,7 +6694,6 @@ func VDSP_fftm_zropt(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, _
 	_vDSP_fftm_zropt(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
 }
 
-
 var _vDSP_fftm_zroptD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __IMA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __IMC VDSP_Stride, __Buffer *DSPDoubleSplitComplex, __Log2N VDSP_Length, __M VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fftm_zroptD computes a forward or inverse out-of-place, double-precision real FFT on multiple signals using a temporary buffer.
@@ -8516,7 +6705,6 @@ func VDSP_fftm_zroptD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_S
 	}
 	_vDSP_fftm_zroptD(__Setup, __A, __IA, __IMA, __C, __IC, __IMC, __Buffer, __Log2N, __M, __Direction)
 }
-
 
 var _vDSP_hamm_window func(__C *float32, __N VDSP_Length, __Flag int)
 
@@ -8530,7 +6718,6 @@ func VDSP_hamm_window(__C []float32, __N VDSP_Length, __Flag int) {
 	_vDSP_hamm_window(unsafe.SliceData(__C), __N, __Flag)
 }
 
-
 var _vDSP_hamm_windowD func(__C *float64, __N VDSP_Length, __Flag int)
 
 // VDSP_hamm_windowD creates a double-precision Hamming window.
@@ -8542,7 +6729,6 @@ func VDSP_hamm_windowD(__C []float64, __N VDSP_Length, __Flag int) {
 	}
 	_vDSP_hamm_windowD(unsafe.SliceData(__C), __N, __Flag)
 }
-
 
 var _vDSP_hann_window func(__C *float32, __N VDSP_Length, __Flag int)
 
@@ -8556,7 +6742,6 @@ func VDSP_hann_window(__C []float32, __N VDSP_Length, __Flag int) {
 	_vDSP_hann_window(unsafe.SliceData(__C), __N, __Flag)
 }
 
-
 var _vDSP_hann_windowD func(__C *float64, __N VDSP_Length, __Flag int)
 
 // VDSP_hann_windowD creates a double-precision Hann window.
@@ -8568,7 +6753,6 @@ func VDSP_hann_windowD(__C []float64, __N VDSP_Length, __Flag int) {
 	}
 	_vDSP_hann_windowD(unsafe.SliceData(__C), __N, __Flag)
 }
-
 
 var _vDSP_imgfir func(__A *float32, __NR VDSP_Length, __NC VDSP_Length, __F *float32, __C *float32, __P VDSP_Length, __Q VDSP_Length)
 
@@ -8582,7 +6766,6 @@ func VDSP_imgfir(__A []float32, __NR VDSP_Length, __NC VDSP_Length, __F []float3
 	_vDSP_imgfir(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C), __P, __Q)
 }
 
-
 var _vDSP_imgfirD func(__A *float64, __NR VDSP_Length, __NC VDSP_Length, __F *float64, __C *float64, __P VDSP_Length, __Q VDSP_Length)
 
 // VDSP_imgfirD filters a double-precision image by performing a 2D convolution with an arbitrarily sized kernel.
@@ -8594,7 +6777,6 @@ func VDSP_imgfirD(__A []float64, __NR VDSP_Length, __NC VDSP_Length, __F []float
 	}
 	_vDSP_imgfirD(unsafe.SliceData(__A), __NR, __NC, unsafe.SliceData(__F), unsafe.SliceData(__C), __P, __Q)
 }
-
 
 var _vDSP_maxmgv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8608,7 +6790,6 @@ func VDSP_maxmgv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length
 	_vDSP_maxmgv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_maxmgvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_maxmgvD calculates the double-precision maximum magnitude of a vector.
@@ -8620,7 +6801,6 @@ func VDSP_maxmgvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Lengt
 	}
 	_vDSP_maxmgvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_maxmgvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
 
@@ -8634,7 +6814,6 @@ func VDSP_maxmgvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Leng
 	_vDSP_maxmgvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
 
-
 var _vDSP_maxmgviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
 
 // VDSP_maxmgviD calculates the maximum magnitude and corresponding index in a double-precision vector.
@@ -8646,7 +6825,6 @@ func VDSP_maxmgviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Len
 	}
 	_vDSP_maxmgviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
-
 
 var _vDSP_maxv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8660,7 +6838,6 @@ func VDSP_maxv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) 
 	_vDSP_maxv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_maxvD func(__A *float64, __I VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_maxvD calculates the double-precision maximum value of a vector.
@@ -8672,7 +6849,6 @@ func VDSP_maxvD(__A []float64, __I VDSP_Stride, __C []float64, __N VDSP_Length) 
 	}
 	_vDSP_maxvD(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_maxvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
 
@@ -8686,7 +6862,6 @@ func VDSP_maxvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Length
 	_vDSP_maxvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
 
-
 var _vDSP_maxviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
 
 // VDSP_maxviD calculates the maximum value and corresponding index in a double-precision vector.
@@ -8698,7 +6873,6 @@ func VDSP_maxviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Lengt
 	}
 	_vDSP_maxviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
-
 
 var _vDSP_meamgv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8712,7 +6886,6 @@ func VDSP_meamgv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length
 	_vDSP_meamgv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_meamgvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_meamgvD calculates the mean of magnitudes of a double-precision vector.
@@ -8724,7 +6897,6 @@ func VDSP_meamgvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Lengt
 	}
 	_vDSP_meamgvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_meanv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8738,7 +6910,6 @@ func VDSP_meanv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length)
 	_vDSP_meanv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_meanvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_meanvD calculates the mean value of a double-precision vector.
@@ -8750,7 +6921,6 @@ func VDSP_meanvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length
 	}
 	_vDSP_meanvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_measqv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8764,7 +6934,6 @@ func VDSP_measqv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length
 	_vDSP_measqv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_measqvD func(__A *float64, __I VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_measqvD calculates the mean of squares of a double-precision vector.
@@ -8776,7 +6945,6 @@ func VDSP_measqvD(__A []float64, __I VDSP_Stride, __C []float64, __N VDSP_Length
 	}
 	_vDSP_measqvD(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_minmgv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8790,7 +6958,6 @@ func VDSP_minmgv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length
 	_vDSP_minmgv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_minmgvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_minmgvD calculates the double-precision minimum magnitude of a vector.
@@ -8802,7 +6969,6 @@ func VDSP_minmgvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Lengt
 	}
 	_vDSP_minmgvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_minmgvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
 
@@ -8816,7 +6982,6 @@ func VDSP_minmgvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Leng
 	_vDSP_minmgvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
 
-
 var _vDSP_minmgviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
 
 // VDSP_minmgviD calculates the minimum magnitude and corresponding index in a double-precision vector.
@@ -8828,7 +6993,6 @@ func VDSP_minmgviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Len
 	}
 	_vDSP_minmgviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
-
 
 var _vDSP_minv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8842,7 +7006,6 @@ func VDSP_minv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) 
 	_vDSP_minv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_minvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_minvD calculates the double-precision minimum value of a vector.
@@ -8854,7 +7017,6 @@ func VDSP_minvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length)
 	}
 	_vDSP_minvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_minvi func(__A *float32, __IA VDSP_Stride, __C *float32, __I *VDSP_Length, __N VDSP_Length)
 
@@ -8868,7 +7030,6 @@ func VDSP_minvi(__A []float32, __IA VDSP_Stride, __C []float32, __I *VDSP_Length
 	_vDSP_minvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
 
-
 var _vDSP_minviD func(__A *float64, __IA VDSP_Stride, __C *float64, __I *VDSP_Length, __N VDSP_Length)
 
 // VDSP_minviD calculates the minimum value and corresponding index in a double-precision vector.
@@ -8880,7 +7041,6 @@ func VDSP_minviD(__A []float64, __IA VDSP_Stride, __C []float64, __I *VDSP_Lengt
 	}
 	_vDSP_minviD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __I, __N)
 }
-
 
 var _vDSP_mmov func(__A *float32, __C *float32, __M VDSP_Length, __N VDSP_Length, __TA VDSP_Length, __TC VDSP_Length)
 
@@ -8894,7 +7054,6 @@ func VDSP_mmov(__A []float32, __C []float32, __M VDSP_Length, __N VDSP_Length, _
 	_vDSP_mmov(unsafe.SliceData(__A), unsafe.SliceData(__C), __M, __N, __TA, __TC)
 }
 
-
 var _vDSP_mmovD func(__A *float64, __C *float64, __M VDSP_Length, __N VDSP_Length, __TA VDSP_Length, __TC VDSP_Length)
 
 // VDSP_mmovD copies the contents of a double-precision submatrix to another double-precision matrix.
@@ -8906,7 +7065,6 @@ func VDSP_mmovD(__A []float64, __C []float64, __M VDSP_Length, __N VDSP_Length, 
 	}
 	_vDSP_mmovD(unsafe.SliceData(__A), unsafe.SliceData(__C), __M, __N, __TA, __TC)
 }
-
 
 var _vDSP_mmul func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
@@ -8920,7 +7078,6 @@ func VDSP_mmul(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_mmul(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __M, __N, __P)
 }
 
-
 var _vDSP_mmulD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_mmulD performs an out-of-place multiplication of two double-precision real matrices.
@@ -8932,7 +7089,6 @@ func VDSP_mmulD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_mmulD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __M, __N, __P)
 }
-
 
 var _vDSP_mtrans func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length)
 
@@ -8946,7 +7102,6 @@ func VDSP_mtrans(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Strid
 	_vDSP_mtrans(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __M, __N)
 }
 
-
 var _vDSP_mtransD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length)
 
 // VDSP_mtransD transposes a double-precision matrix.
@@ -8958,7 +7113,6 @@ func VDSP_mtransD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stri
 	}
 	_vDSP_mtransD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __M, __N)
 }
-
 
 var _vDSP_mvessq func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -8972,7 +7126,6 @@ func VDSP_mvessq(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length
 	_vDSP_mvessq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_mvessqD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_mvessqD calculates the mean of signed squares of a double-precision vector.
@@ -8984,7 +7137,6 @@ func VDSP_mvessqD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Lengt
 	}
 	_vDSP_mvessqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_normalize func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __Mean *float32, __StandardDeviation *float32, __N VDSP_Length)
 
@@ -8998,7 +7150,6 @@ func VDSP_normalize(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_St
 	_vDSP_normalize(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, unsafe.SliceData(__Mean), unsafe.SliceData(__StandardDeviation), __N)
 }
 
-
 var _vDSP_normalizeD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __Mean *float64, __StandardDeviation *float64, __N VDSP_Length)
 
 // VDSP_normalizeD computes double-precision mean and standard deviation, and then calculates new elements to have a zero mean and a unit standard deviation.
@@ -9010,7 +7161,6 @@ func VDSP_normalizeD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_S
 	}
 	_vDSP_normalizeD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, unsafe.SliceData(__Mean), unsafe.SliceData(__StandardDeviation), __N)
 }
-
 
 var _vDSP_nzcros func(__A *float32, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Length, __D *VDSP_Length, __N VDSP_Length)
 
@@ -9024,7 +7174,6 @@ func VDSP_nzcros(__A []float32, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Len
 	_vDSP_nzcros(unsafe.SliceData(__A), __IA, __B, __C, __D, __N)
 }
 
-
 var _vDSP_nzcrosD func(__A *float64, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Length, __D *VDSP_Length, __N VDSP_Length)
 
 // VDSP_nzcrosD counts and finds the zero crossings in a double-precision vector.
@@ -9036,7 +7185,6 @@ func VDSP_nzcrosD(__A []float64, __IA VDSP_Stride, __B VDSP_Length, __C *VDSP_Le
 	}
 	_vDSP_nzcrosD(unsafe.SliceData(__A), __IA, __B, __C, __D, __N)
 }
-
 
 var _vDSP_polar func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9050,7 +7198,6 @@ func VDSP_polar(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride
 	_vDSP_polar(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_polarD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_polarD converts double-precision rectangular coordinates to polar coordinates, using the specified stride.
@@ -9062,7 +7209,6 @@ func VDSP_polarD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Strid
 	}
 	_vDSP_polarD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_rect func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9076,7 +7222,6 @@ func VDSP_rect(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride,
 	_vDSP_rect(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_rectD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_rectD converts double-precision polar coordinates to rectangular coordinates, using the specified stride.
@@ -9088,7 +7233,6 @@ func VDSP_rectD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride
 	}
 	_vDSP_rectD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_rmsqv func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -9102,7 +7246,6 @@ func VDSP_rmsqv(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length)
 	_vDSP_rmsqv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_rmsqvD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_rmsqvD calculates the root mean square of a double-precision vector.
@@ -9114,7 +7257,6 @@ func VDSP_rmsqvD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length
 	}
 	_vDSP_rmsqvD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_svdiv func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9128,7 +7270,6 @@ func VDSP_svdiv(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, _
 	_vDSP_svdiv(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_svdivD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_svdivD calculates the double-precision element-wise division of a scalar value and a vector, using the specified stride.
@@ -9140,7 +7281,6 @@ func VDSP_svdivD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, 
 	}
 	_vDSP_svdivD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_sve func(__A *float32, __I VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -9154,7 +7294,6 @@ func VDSP_sve(__A []float32, __I VDSP_Stride, __C []float32, __N VDSP_Length) {
 	_vDSP_sve(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_sveD func(__A *float64, __I VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_sveD calculates the sum of values in a double-precision vector.
@@ -9166,7 +7305,6 @@ func VDSP_sveD(__A []float64, __I VDSP_Stride, __C []float64, __N VDSP_Length) {
 	}
 	_vDSP_sveD(unsafe.SliceData(__A), __I, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_sve_svesq func(__A *float32, __IA VDSP_Stride, __Sum *float32, __SumOfSquares *float32, __N VDSP_Length)
 
@@ -9180,7 +7318,6 @@ func VDSP_sve_svesq(__A []float32, __IA VDSP_Stride, __Sum []float32, __SumOfSqu
 	_vDSP_sve_svesq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__Sum), unsafe.SliceData(__SumOfSquares), __N)
 }
 
-
 var _vDSP_sve_svesqD func(__A *float64, __IA VDSP_Stride, __Sum *float64, __SumOfSquares *float64, __N VDSP_Length)
 
 // VDSP_sve_svesqD calculates the sum of values and the sum of squares in a double-precision vector.
@@ -9192,7 +7329,6 @@ func VDSP_sve_svesqD(__A []float64, __IA VDSP_Stride, __Sum []float64, __SumOfSq
 	}
 	_vDSP_sve_svesqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__Sum), unsafe.SliceData(__SumOfSquares), __N)
 }
-
 
 var _vDSP_svemg func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -9206,7 +7342,6 @@ func VDSP_svemg(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length)
 	_vDSP_svemg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_svemgD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_svemgD calculates the sum of magnitudes in a double-precision vector.
@@ -9218,7 +7353,6 @@ func VDSP_svemgD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length
 	}
 	_vDSP_svemgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_svesq func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -9232,7 +7366,6 @@ func VDSP_svesq(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length)
 	_vDSP_svesq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_svesqD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_svesqD calculates the sum of squares in a double-precision vector.
@@ -9244,7 +7377,6 @@ func VDSP_svesqD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length
 	}
 	_vDSP_svesqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_svs func(__A *float32, __IA VDSP_Stride, __C *float32, __N VDSP_Length)
 
@@ -9258,7 +7390,6 @@ func VDSP_svs(__A []float32, __IA VDSP_Stride, __C []float32, __N VDSP_Length) {
 	_vDSP_svs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_svsD func(__A *float64, __IA VDSP_Stride, __C *float64, __N VDSP_Length)
 
 // VDSP_svsD calculates the sum of signed squares in a double-precision vector.
@@ -9270,7 +7401,6 @@ func VDSP_svsD(__A []float64, __IA VDSP_Stride, __C []float64, __N VDSP_Length) 
 	}
 	_vDSP_svsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_vaam func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -9284,7 +7414,6 @@ func VDSP_vaam(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vaam(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vaamD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vaamD calculates the double-precision element-wise product of the sums of two pairs of vectors, using the specified stride.
@@ -9296,7 +7425,6 @@ func VDSP_vaamD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vaamD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vabs func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9310,7 +7438,6 @@ func VDSP_vabs(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride,
 	_vDSP_vabs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vabsD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vabsD calculates the absolute value of each element in the supplied double-precision vector using the specified stride.
@@ -9322,7 +7449,6 @@ func VDSP_vabsD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride
 	}
 	_vDSP_vabsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vabsi func(__A *int, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9336,7 +7462,6 @@ func VDSP_vabsi(__A []int, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, __N VD
 	_vDSP_vabsi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vadd func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vadd calculates the single-precision element-wise sum of two vectors, using the specified stride.
@@ -9348,7 +7473,6 @@ func VDSP_vadd(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	}
 	_vDSP_vadd(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vaddD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9362,7 +7486,6 @@ func VDSP_vaddD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	_vDSP_vaddD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vaddi func(__A *int, __IA VDSP_Stride, __B *int, __IB VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vaddi adds two integer vectors.
@@ -9374,7 +7497,6 @@ func VDSP_vaddi(__A []int, __IA VDSP_Stride, __B []int, __IB VDSP_Stride, __C []
 	}
 	_vDSP_vaddi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vaddsub func(__I0 *float32, __I0S VDSP_Stride, __I1 *float32, __I1S VDSP_Stride, __O0 *float32, __O0S VDSP_Stride, __O1 *float32, __O1S VDSP_Stride, __N VDSP_Length)
 
@@ -9388,7 +7510,6 @@ func VDSP_vaddsub(__I0 []float32, __I0S VDSP_Stride, __I1 []float32, __I1S VDSP_
 	_vDSP_vaddsub(unsafe.SliceData(__I0), __I0S, unsafe.SliceData(__I1), __I1S, unsafe.SliceData(__O0), __O0S, unsafe.SliceData(__O1), __O1S, __N)
 }
 
-
 var _vDSP_vaddsubD func(__I0 *float64, __I0S VDSP_Stride, __I1 *float64, __I1S VDSP_Stride, __O0 *float64, __O0S VDSP_Stride, __O1 *float64, __O1S VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vaddsubD calculates the double-precision element-wise sum and subtraction of two vectors, using the specified stride.
@@ -9400,7 +7521,6 @@ func VDSP_vaddsubD(__I0 []float64, __I0S VDSP_Stride, __I1 []float64, __I1S VDSP
 	}
 	_vDSP_vaddsubD(unsafe.SliceData(__I0), __I0S, unsafe.SliceData(__I1), __I1S, unsafe.SliceData(__O0), __O0S, unsafe.SliceData(__O1), __O1S, __N)
 }
-
 
 var _vDSP_vam func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -9414,7 +7534,6 @@ func VDSP_vam(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, 
 	_vDSP_vam(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vamD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __IDD VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vamD calculates the double-precision element-wise product of a vector and the sum of two vectors, using the specified stride.
@@ -9426,7 +7545,6 @@ func VDSP_vamD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride,
 	}
 	_vDSP_vamD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __IDD, __N)
 }
-
 
 var _vDSP_vasbm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -9440,7 +7558,6 @@ func VDSP_vasbm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_vasbm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vasbmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vasbmD calculates the double-precision element-wise product of the sum of two vectors and the difference of two vectors, using the specified stride.
@@ -9452,7 +7569,6 @@ func VDSP_vasbmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_vasbmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vasm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -9466,7 +7582,6 @@ func VDSP_vasm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vasm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vasmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vasmD calculates the double-precision element-wise product of the sum of two vectors and a scalar value, using the specified stride.
@@ -9478,7 +7593,6 @@ func VDSP_vasmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vasmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vavlin func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9492,7 +7606,6 @@ func VDSP_vavlin(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	_vDSP_vavlin(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vavlinD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vavlinD recalculates the element-wise double-precision linear average of an existing vector to include a second vector.
@@ -9504,7 +7617,6 @@ func VDSP_vavlinD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	}
 	_vDSP_vavlinD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vclip func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -9518,7 +7630,6 @@ func VDSP_vclip(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	_vDSP_vclip(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vclipD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vclipD calculates the elements of a double-precision vector clipped to the specified range.
@@ -9530,7 +7641,6 @@ func VDSP_vclipD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	}
 	_vDSP_vclipD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vclipc func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length, __NLow *VDSP_Length, __NHigh *VDSP_Length)
 
@@ -9544,7 +7654,6 @@ func VDSP_vclipc(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	_vDSP_vclipc(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N, __NLow, __NHigh)
 }
 
-
 var _vDSP_vclipcD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length, __NLow *VDSP_Length, __NHigh *VDSP_Length)
 
 // VDSP_vclipcD calculates and counts the elements of a double-precision vector clipped to the specified range.
@@ -9556,7 +7665,6 @@ func VDSP_vclipcD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	}
 	_vDSP_vclipcD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N, __NLow, __NHigh)
 }
-
 
 var _vDSP_vclr func(__C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9570,7 +7678,6 @@ func VDSP_vclr(__C []float32, __IC VDSP_Stride, __N VDSP_Length) {
 	_vDSP_vclr(unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vclrD func(__C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vclrD populates a double-precision vector with zeros.
@@ -9582,7 +7689,6 @@ func VDSP_vclrD(__C []float64, __IC VDSP_Stride, __N VDSP_Length) {
 	}
 	_vDSP_vclrD(unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vcmprs func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9596,7 +7702,6 @@ func VDSP_vcmprs(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	_vDSP_vcmprs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vcmprsD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vcmprsD generates a compressed copy of the specified double-precision vector using the nonzero values in a gating vector.
@@ -9608,7 +7713,6 @@ func VDSP_vcmprsD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	}
 	_vDSP_vcmprsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vdbcon func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __F uint)
 
@@ -9622,7 +7726,6 @@ func VDSP_vdbcon(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	_vDSP_vdbcon(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N, __F)
 }
 
-
 var _vDSP_vdbconD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __F uint)
 
 // VDSP_vdbconD converts single-precision power or amplitude values to decibel values.
@@ -9634,7 +7737,6 @@ func VDSP_vdbconD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	}
 	_vDSP_vdbconD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N, __F)
 }
-
 
 var _vDSP_vdist func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9648,7 +7750,6 @@ func VDSP_vdist(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_vdist(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vdistD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vdistD calculates the double-precision hypotenuses of right triangles with legs that are the lengths of corresponding elements of two pairs of vectors.
@@ -9660,7 +7761,6 @@ func VDSP_vdistD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_vdistD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vdiv func(__B *float32, __IB VDSP_Stride, __A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9674,7 +7774,6 @@ func VDSP_vdiv(__B []float32, __IB VDSP_Stride, __A []float32, __IA VDSP_Stride,
 	_vDSP_vdiv(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vdivD func(__B *float64, __IB VDSP_Stride, __A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vdivD calculates the double-precision element-wise division of two vectors, using the specified stride.
@@ -9686,7 +7785,6 @@ func VDSP_vdivD(__B []float64, __IB VDSP_Stride, __A []float64, __IA VDSP_Stride
 	}
 	_vDSP_vdivD(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vdivi func(__B *int, __IB VDSP_Stride, __A *int, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9700,7 +7798,6 @@ func VDSP_vdivi(__B []int, __IB VDSP_Stride, __A []int, __IA VDSP_Stride, __C []
 	_vDSP_vdivi(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vdpsp func(__A *float64, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vdpsp converts a double-precision vector to a single-precision vector.
@@ -9712,7 +7809,6 @@ func VDSP_vdpsp(__A []float64, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride
 	}
 	_vDSP_vdpsp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_venvlp func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -9726,7 +7822,6 @@ func VDSP_venvlp(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	_vDSP_venvlp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_venvlpD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_venvlpD calculates whether each element in a double-precision vector falls within a specified range.
@@ -9738,7 +7833,6 @@ func VDSP_venvlpD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	}
 	_vDSP_venvlpD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_veqvi func(__A *int, __IA VDSP_Stride, __B *int, __IB VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9752,7 +7846,6 @@ func VDSP_veqvi(__A []int, __IA VDSP_Stride, __B []int, __IB VDSP_Stride, __C []
 	_vDSP_veqvi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfill func(__A *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfill populates a single-precision vector with a specified scalar value.
@@ -9764,7 +7857,6 @@ func VDSP_vfill(__A []float32, __C []float32, __IC VDSP_Stride, __N VDSP_Length)
 	}
 	_vDSP_vfill(unsafe.SliceData(__A), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfillD func(__A *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9778,7 +7870,6 @@ func VDSP_vfillD(__A []float64, __C []float64, __IC VDSP_Stride, __N VDSP_Length
 	_vDSP_vfillD(unsafe.SliceData(__A), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfilli func(__A *int, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfilli populates an integer vector with a specified scalar value.
@@ -9790,7 +7881,6 @@ func VDSP_vfilli(__A []int, __C []int, __IC VDSP_Stride, __N VDSP_Length) {
 	}
 	_vDSP_vfilli(unsafe.SliceData(__A), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfix16 func(__A *float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9804,7 +7894,6 @@ func VDSP_vfix16(__A []float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, 
 	_vDSP_vfix16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfix16D func(__A *float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfix16D converts a vector of double-precision floating-point values to signed 16-bit integer values, and rounds towards zero.
@@ -9816,7 +7905,6 @@ func VDSP_vfix16D(__A []float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride,
 	}
 	_vDSP_vfix16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfix32 func(__A *float32, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9830,7 +7918,6 @@ func VDSP_vfix32(__A []float32, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, _
 	_vDSP_vfix32(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfix32D func(__A *float64, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfix32D converts a vector of double-precision floating-point values to signed 32-bit integer values, and rounds towards zero.
@@ -9842,7 +7929,6 @@ func VDSP_vfix32D(__A []float64, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, 
 	}
 	_vDSP_vfix32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfix8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9856,7 +7942,6 @@ func VDSP_vfix8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __
 	_vDSP_vfix8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfix8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfix8D converts a vector of double-precision floating-point values to signed 8-bit integer values, and rounds towards zero.
@@ -9868,7 +7953,6 @@ func VDSP_vfix8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, _
 	}
 	_vDSP_vfix8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixr16 func(__A *float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9882,7 +7966,6 @@ func VDSP_vfixr16(__A []float32, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride,
 	_vDSP_vfixr16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixr16D func(__A *float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixr16D converts a vector of double-precision floating-point values to signed 16-bit integer values, and rounds towards the nearest integer.
@@ -9894,7 +7977,6 @@ func VDSP_vfixr16D(__A []float64, __IA VDSP_Stride, __C *int16, __IC VDSP_Stride
 	}
 	_vDSP_vfixr16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixr32 func(__A *float32, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9908,7 +7990,6 @@ func VDSP_vfixr32(__A []float32, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, 
 	_vDSP_vfixr32(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfixr32D func(__A *float64, __IA VDSP_Stride, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixr32D converts a vector of double-precision floating-point values to signed 32-bit integer values, and rounds towards the nearest integer.
@@ -9920,7 +8001,6 @@ func VDSP_vfixr32D(__A []float64, __IA VDSP_Stride, __C []int, __IC VDSP_Stride,
 	}
 	_vDSP_vfixr32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfixr8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9934,7 +8014,6 @@ func VDSP_vfixr8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, _
 	_vDSP_vfixr8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixr8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixr8D converts a vector of double-precision floating-point values to signed 8-bit integer values, and rounds towards the nearest integer.
@@ -9946,7 +8025,6 @@ func VDSP_vfixr8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, 
 	}
 	_vDSP_vfixr8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixru16 func(__A *float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9960,7 +8038,6 @@ func VDSP_vfixru16(__A []float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Strid
 	_vDSP_vfixru16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixru16D func(__A *float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixru16D converts a vector of double-precision floating-point values to unsigned 16-bit integer values, and rounds towards the nearest integer.
@@ -9972,7 +8049,6 @@ func VDSP_vfixru16D(__A []float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stri
 	}
 	_vDSP_vfixru16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixru32 func(__A *float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -9986,7 +8062,6 @@ func VDSP_vfixru32(__A []float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride,
 	_vDSP_vfixru32(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixru32D func(__A *float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixru32D converts a vector of double-precision floating-point values to unsigned 32-bit integer values, and rounds towards the nearest integer.
@@ -9998,7 +8073,6 @@ func VDSP_vfixru32D(__A []float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride
 	}
 	_vDSP_vfixru32D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixru8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10012,7 +8086,6 @@ func VDSP_vfixru8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, 
 	_vDSP_vfixru8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixru8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixru8D converts a vector of double-precision floating-point values to unsigned 8-bit integer values, and rounds towards the nearest integer.
@@ -10024,7 +8097,6 @@ func VDSP_vfixru8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride,
 	}
 	_vDSP_vfixru8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixu16 func(__A *float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10038,7 +8110,6 @@ func VDSP_vfixu16(__A []float32, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride
 	_vDSP_vfixu16(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixu16D func(__A *float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixu16D converts a vector of double-precision floating-point values to unsigned 16-bit integer values, and rounds towards zero.
@@ -10050,7 +8121,6 @@ func VDSP_vfixu16D(__A []float64, __IA VDSP_Stride, __C *uint16, __IC VDSP_Strid
 	}
 	_vDSP_vfixu16D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixu32 func(__A *float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10064,7 +8134,6 @@ func VDSP_vfixu32(__A []float32, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, 
 	_vDSP_vfixu32(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixu32D func(__A *float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixu32D converts a vector of double-precision floating-point values to unsigned 32-bit integer values, and rounds towards zero.
@@ -10076,7 +8145,6 @@ func VDSP_vfixu32D(__A []float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride,
 	}
 	_vDSP_vfixu32D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vfixu8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10090,7 +8158,6 @@ func VDSP_vfixu8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, _
 	_vDSP_vfixu8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_vfixu8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixu8D converts a vector of double-precision floating-point values to unsigned 8-bit integer values, and rounds towards zero.
@@ -10102,7 +8169,6 @@ func VDSP_vfixu8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, 
 	}
 	_vDSP_vfixu8D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_vflt16 func(__A *int16, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10116,7 +8182,6 @@ func VDSP_vflt16(__A *int16, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, 
 	_vDSP_vflt16(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vflt16D func(__A *int16, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vflt16D converts a vector of signed 16-bit integers to double-precision floating-point values.
@@ -10128,7 +8193,6 @@ func VDSP_vflt16D(__A *int16, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride,
 	}
 	_vDSP_vflt16D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vflt24 func(__A *VDSP_int24, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10142,7 +8206,6 @@ func VDSP_vflt24(__A *VDSP_int24, __IA VDSP_Stride, __C []float32, __IC VDSP_Str
 	_vDSP_vflt24(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vflt32 func(__A *int, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vflt32 converts a vector of signed 32-bit integers to single-precision floating-point values.
@@ -10154,7 +8217,6 @@ func VDSP_vflt32(__A []int, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, _
 	}
 	_vDSP_vflt32(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vflt32D func(__A *int, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10168,7 +8230,6 @@ func VDSP_vflt32D(__A []int, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, 
 	_vDSP_vflt32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vflt8 func(__A *byte, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vflt8 converts a vector of signed 8-bit integers to single-precision floating-point values.
@@ -10180,7 +8241,6 @@ func VDSP_vflt8(__A *byte, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __
 	}
 	_vDSP_vflt8(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vflt8D func(__A *byte, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10194,7 +8254,6 @@ func VDSP_vflt8D(__A *byte, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, _
 	_vDSP_vflt8D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfltsm24 func(__A *VDSP_int24, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltsm24 converts and scales a vector of signed 24-bit integers to single-precision floating-point values.
@@ -10206,7 +8265,6 @@ func VDSP_vfltsm24(__A *VDSP_int24, __IA VDSP_Stride, __B []float32, __C []float
 	}
 	_vDSP_vfltsm24(__A, __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfltsmu24 func(__A *VDSP_uint24, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10220,7 +8278,6 @@ func VDSP_vfltsmu24(__A *VDSP_uint24, __IA VDSP_Stride, __B []float32, __C []flo
 	_vDSP_vfltsmu24(__A, __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfltu16 func(__A *uint16, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltu16 converts an array of unsigned 16-bit integers to single-precision floating-point values.
@@ -10232,7 +8289,6 @@ func VDSP_vfltu16(__A *uint16, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride
 	}
 	_vDSP_vfltu16(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfltu16D func(__A *uint16, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10246,7 +8302,6 @@ func VDSP_vfltu16D(__A *uint16, __IA VDSP_Stride, __C []float64, __IC VDSP_Strid
 	_vDSP_vfltu16D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfltu24 func(__A *VDSP_uint24, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltu24 converts a vector of unsigned 24-bit integers to single-precision floating-point values.
@@ -10258,7 +8313,6 @@ func VDSP_vfltu24(__A *VDSP_uint24, __IA VDSP_Stride, __C []float32, __IC VDSP_S
 	}
 	_vDSP_vfltu24(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfltu32 func(__A *uint, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10272,7 +8326,6 @@ func VDSP_vfltu32(__A *uint, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, 
 	_vDSP_vfltu32(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfltu32D func(__A *uint, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltu32D converts an array of unsigned 32-bit integers to double-precision floating-point values.
@@ -10284,7 +8337,6 @@ func VDSP_vfltu32D(__A *uint, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride,
 	}
 	_vDSP_vfltu32D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfltu8 func(__A *byte, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10298,7 +8350,6 @@ func VDSP_vfltu8(__A *byte, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, _
 	_vDSP_vfltu8(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfltu8D func(__A *byte, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltu8D converts an array of unsigned 8-bit integers to double-precision floating-point values.
@@ -10310,7 +8361,6 @@ func VDSP_vfltu8D(__A *byte, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, 
 	}
 	_vDSP_vfltu8D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vfrac func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10324,7 +8374,6 @@ func VDSP_vfrac(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride
 	_vDSP_vfrac(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vfracD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfracD truncates the elements of a double-precision vector to fractions.
@@ -10336,7 +8385,6 @@ func VDSP_vfracD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Strid
 	}
 	_vDSP_vfracD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vgathr func(__A *float32, __B *VDSP_Length, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10350,7 +8398,6 @@ func VDSP_vgathr(__A []float32, __B *VDSP_Length, __IB VDSP_Stride, __C []float3
 	_vDSP_vgathr(unsafe.SliceData(__A), __B, __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vgathrD func(__A *float64, __B *VDSP_Length, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vgathrD generates a gathered copy of the specified double-precision vector using a vector that defines the one-based indices to keep.
@@ -10362,7 +8409,6 @@ func VDSP_vgathrD(__A []float64, __B *VDSP_Length, __IB VDSP_Stride, __C []float
 	}
 	_vDSP_vgathrD(unsafe.SliceData(__A), __B, __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vgathra func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10376,7 +8422,6 @@ func VDSP_vgathra(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stri
 	_vDSP_vgathra(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vgathraD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vgathraD generates a gathered copy of the specified double-precision vector using a vector that defines the pointers to the values to keep.
@@ -10388,7 +8433,6 @@ func VDSP_vgathraD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Str
 	}
 	_vDSP_vgathraD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vgen func(__A *float32, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10402,7 +8446,6 @@ func VDSP_vgen(__A []float32, __B []float32, __C []float32, __IC VDSP_Stride, __
 	_vDSP_vgen(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vgenD func(__A *float64, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vgenD generates a double-precision vector that contains monotonically incrementing or decrementing values within a range.
@@ -10414,7 +8457,6 @@ func VDSP_vgenD(__A []float64, __B []float64, __C []float64, __IC VDSP_Stride, _
 	}
 	_vDSP_vgenD(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vgenp func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
 
@@ -10428,7 +8470,6 @@ func VDSP_vgenp(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_vgenp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
 }
 
-
 var _vDSP_vgenpD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
 
 // VDSP_vgenpD generates the double-precision linearly interpolated values of a vector at the specified indices.
@@ -10440,7 +8481,6 @@ func VDSP_vgenpD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_vgenpD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
 }
-
 
 var _vDSP_viclip func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -10454,7 +8494,6 @@ func VDSP_viclip(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	_vDSP_viclip(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_viclipD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_viclipD calculates the elements of a double-precision vector inverted-clipped to the specified range using the specified stride.
@@ -10466,7 +8505,6 @@ func VDSP_viclipD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	}
 	_vDSP_viclipD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vindex func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10480,7 +8518,6 @@ func VDSP_vindex(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, 
 	_vDSP_vindex(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vindexD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vindexD generates a gathered copy of the specified double-precision vector using a vector that defines the zero-based indices to keep.
@@ -10492,7 +8529,6 @@ func VDSP_vindexD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64,
 	}
 	_vDSP_vindexD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vintb func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -10506,7 +8542,6 @@ func VDSP_vintb(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_vintb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vintbD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vintbD calculates the linear interpolation between the supplied double-precision vectors using the specified stride.
@@ -10518,7 +8553,6 @@ func VDSP_vintbD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_vintbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vlim func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -10532,7 +8566,6 @@ func VDSP_vlim(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __
 	_vDSP_vlim(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vlimD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vlimD calculates the double-precision vector test limit using the specified stride.
@@ -10544,7 +8577,6 @@ func VDSP_vlimD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, _
 	}
 	_vDSP_vlimD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vlint func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
 
@@ -10558,7 +8590,6 @@ func VDSP_vlint(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, _
 	_vDSP_vlint(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
 }
 
-
 var _vDSP_vlintD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
 
 // VDSP_vlintD calculates the interpolation between the neighboring elements of a double-precision vector using the specified stride.
@@ -10570,7 +8601,6 @@ func VDSP_vlintD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, 
 	}
 	_vDSP_vlintD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
 }
-
 
 var _vDSP_vma func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -10584,7 +8614,6 @@ func VDSP_vma(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride, 
 	_vDSP_vma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmaD calculates the double-precision element-wise sum of a vector and the product of two vectors, using the specified stride.
@@ -10596,7 +8625,6 @@ func VDSP_vmaD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride,
 	}
 	_vDSP_vmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vmax func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10610,7 +8638,6 @@ func VDSP_vmax(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vmax(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vmaxD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmaxD calculates the double-precision maximum of the corresponding values of two vectors using specified strides.
@@ -10622,7 +8649,6 @@ func VDSP_vmaxD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vmaxD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vmaxmg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10636,7 +8662,6 @@ func VDSP_vmaxmg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	_vDSP_vmaxmg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vmaxmgD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmaxmgD calculates the double-precision maximum magnitude of the corresponding values of two vectors using specified strides.
@@ -10648,7 +8673,6 @@ func VDSP_vmaxmgD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	}
 	_vDSP_vmaxmgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vmin func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10662,7 +8686,6 @@ func VDSP_vmin(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vmin(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vminD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vminD calculates the double-precision minimum of the corresponding values of two vectors using specified strides.
@@ -10674,7 +8697,6 @@ func VDSP_vminD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vminD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vminmg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10688,7 +8710,6 @@ func VDSP_vminmg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	_vDSP_vminmg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vminmgD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vminmgD calculates the double-precision minimum magnitude of the corresponding values of two vectors using specified strides.
@@ -10700,7 +8721,6 @@ func VDSP_vminmgD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	}
 	_vDSP_vminmgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vmma func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -10714,7 +8734,6 @@ func VDSP_vmma(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vmma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vmmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmmaD calculates the double-precision element-wise sum of the products of two pairs of vectors, using the specified stride.
@@ -10726,7 +8745,6 @@ func VDSP_vmmaD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vmmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vmmsb func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -10740,7 +8758,6 @@ func VDSP_vmmsb(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_vmmsb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vmmsbD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmmsbD calculates the double-precision element-wise difference of the products of two pairs of vectors, using the specified stride.
@@ -10752,7 +8769,6 @@ func VDSP_vmmsbD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_vmmsbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vmsa func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -10766,7 +8782,6 @@ func VDSP_vmsa(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vmsa(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vmsaD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmsaD calculates the double-precision element-wise sum of the product of two vectors, and a scalar value, using the specified stride.
@@ -10778,7 +8793,6 @@ func VDSP_vmsaD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vmsaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vmsb func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -10792,7 +8806,6 @@ func VDSP_vmsb(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vmsb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vmsbD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmsbD calculates the double-precision element-wise difference of a vector and the product of two vectors, using the specified stride.
@@ -10804,7 +8817,6 @@ func VDSP_vmsbD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vmsbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vmul func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10818,7 +8830,6 @@ func VDSP_vmul(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	_vDSP_vmul(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vmulD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vmulD calculates the double-precision element-wise product of two vectors, using the specified stride.
@@ -10830,7 +8841,6 @@ func VDSP_vmulD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	}
 	_vDSP_vmulD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vnabs func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10844,7 +8854,6 @@ func VDSP_vnabs(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride
 	_vDSP_vnabs(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vnabsD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vnabsD calculates the negative absolute value of each element in the supplied double-precision vector using the specified stride.
@@ -10856,7 +8865,6 @@ func VDSP_vnabsD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Strid
 	}
 	_vDSP_vnabsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vneg func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10870,7 +8878,6 @@ func VDSP_vneg(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride,
 	_vDSP_vneg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vnegD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vnegD calculates the negative value of each element in the supplied double-precision vector using specified stride.
@@ -10882,7 +8889,6 @@ func VDSP_vnegD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride
 	}
 	_vDSP_vnegD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vpoly func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
@@ -10896,7 +8902,6 @@ func VDSP_vpoly(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	_vDSP_vpoly(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __P)
 }
 
-
 var _vDSP_vpolyD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_vpolyD evaluates a double-precision polynomial using specified coefficients, variables, and strides.
@@ -10908,7 +8913,6 @@ func VDSP_vpolyD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	}
 	_vDSP_vpolyD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __P)
 }
-
 
 var _vDSP_vpythg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -10922,7 +8926,6 @@ func VDSP_vpythg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	_vDSP_vpythg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vpythgD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vpythgD calculates the double-precision hypotenuses of right triangles with legs that are the differences of corresponding elements of two pairs of vectors.
@@ -10934,7 +8937,6 @@ func VDSP_vpythgD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	}
 	_vDSP_vpythgD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vqint func(__A *float32, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
 
@@ -10948,7 +8950,6 @@ func VDSP_vqint(__A []float32, __B []float32, __IB VDSP_Stride, __C []float32, _
 	_vDSP_vqint(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
 }
 
-
 var _vDSP_vqintD func(__A *float64, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __M VDSP_Length)
 
 // VDSP_vqintD calculates double-precision vector quadratic interpolation.
@@ -10960,7 +8961,6 @@ func VDSP_vqintD(__A []float64, __B []float64, __IB VDSP_Stride, __C []float64, 
 	}
 	_vDSP_vqintD(unsafe.SliceData(__A), unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N, __M)
 }
-
 
 var _vDSP_vramp func(__A *float32, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -10974,7 +8974,6 @@ func VDSP_vramp(__A []float32, __B []float32, __C []float32, __IC VDSP_Stride, _
 	_vDSP_vramp(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vrampD func(__A *float64, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampD generates a double-precision vector with monotonically incrementing or decrementing values using an initial value and increment.
@@ -10986,7 +8985,6 @@ func VDSP_vrampD(__A []float64, __B []float64, __C []float64, __IC VDSP_Stride, 
 	}
 	_vDSP_vrampD(unsafe.SliceData(__A), unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vrampmul func(__I *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O *float32, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11000,7 +8998,6 @@ func VDSP_vrampmul(__I []float32, __IS VDSP_Stride, __Start []float32, __Step []
 	_vDSP_vrampmul(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
 }
 
-
 var _vDSP_vrampmul2 func(__I0 *float32, __I1 *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O0 *float32, __O1 *float32, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmul2 generates a single-precision, stereo ramped vector and multiplies that vector by an input vector.
@@ -11012,7 +9009,6 @@ func VDSP_vrampmul2(__I0 []float32, __I1 []float32, __IS VDSP_Stride, __Start []
 	}
 	_vDSP_vrampmul2(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
 }
-
 
 var _vDSP_vrampmul2D func(__I0 *float64, __I1 *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O0 *float64, __O1 *float64, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11026,7 +9022,6 @@ func VDSP_vrampmul2D(__I0 []float64, __I1 []float64, __IS VDSP_Stride, __Start [
 	_vDSP_vrampmul2D(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
 }
 
-
 var _vDSP_vrampmul2_s1_15 func(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O0 *int16, __O1 *int16, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmul2_s1_15 generates a fixed-point, 1.15 format, stereo ramped vector and multiplies that vector by an input vector.
@@ -11038,7 +9033,6 @@ func VDSP_vrampmul2_s1_15(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *i
 	}
 	_vDSP_vrampmul2_s1_15(__I0, __I1, __IS, __Start, __Step, __O0, __O1, __OS, __N)
 }
-
 
 var _vDSP_vrampmul2_s8_24 func(__I0 *int, __I1 *int, __IS VDSP_Stride, __Start *int, __Step *int, __O0 *int, __O1 *int, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11052,7 +9046,6 @@ func VDSP_vrampmul2_s8_24(__I0 []int, __I1 []int, __IS VDSP_Stride, __Start []in
 	_vDSP_vrampmul2_s8_24(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
 }
 
-
 var _vDSP_vrampmulD func(__I *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O *float64, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmulD generates a double-precision vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
@@ -11064,7 +9057,6 @@ func VDSP_vrampmulD(__I []float64, __IS VDSP_Stride, __Start []float64, __Step [
 	}
 	_vDSP_vrampmulD(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
 }
-
 
 var _vDSP_vrampmul_s1_15 func(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O *int16, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11078,7 +9070,6 @@ func VDSP_vrampmul_s1_15(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *i
 	_vDSP_vrampmul_s1_15(__I, __IS, __Start, __Step, __O, __OS, __N)
 }
 
-
 var _vDSP_vrampmul_s8_24 func(__I *int, __IS VDSP_Stride, __Start *int, __Step *int, __O *int, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmul_s8_24 generates a fixed-point 8.24 format vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
@@ -11090,7 +9081,6 @@ func VDSP_vrampmul_s8_24(__I []int, __IS VDSP_Stride, __Start []int, __Step []in
 	}
 	_vDSP_vrampmul_s8_24(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
 }
-
 
 var _vDSP_vrampmuladd func(__I *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O *float32, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11104,7 +9094,6 @@ func VDSP_vrampmuladd(__I []float32, __IS VDSP_Stride, __Start []float32, __Step
 	_vDSP_vrampmuladd(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
 }
 
-
 var _vDSP_vrampmuladd2 func(__I0 *float32, __I1 *float32, __IS VDSP_Stride, __Start *float32, __Step *float32, __O0 *float32, __O1 *float32, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmuladd2 multiplies a single-precision, stereo input vector by a value that ramps up on successive calls, and cumulatively adds the result to the output vector.
@@ -11116,7 +9105,6 @@ func VDSP_vrampmuladd2(__I0 []float32, __I1 []float32, __IS VDSP_Stride, __Start
 	}
 	_vDSP_vrampmuladd2(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
 }
-
 
 var _vDSP_vrampmuladd2D func(__I0 *float64, __I1 *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O0 *float64, __O1 *float64, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11130,7 +9118,6 @@ func VDSP_vrampmuladd2D(__I0 []float64, __I1 []float64, __IS VDSP_Stride, __Star
 	_vDSP_vrampmuladd2D(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
 }
 
-
 var _vDSP_vrampmuladd2_s1_15 func(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O0 *int16, __O1 *int16, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmuladd2_s1_15 multiplies a fixed-point, 1.15 format, stereo input vector by a value that ramps on successive calls, and adds the result to the output vector.
@@ -11142,7 +9129,6 @@ func VDSP_vrampmuladd2_s1_15(__I0 *int16, __I1 *int16, __IS VDSP_Stride, __Start
 	}
 	_vDSP_vrampmuladd2_s1_15(__I0, __I1, __IS, __Start, __Step, __O0, __O1, __OS, __N)
 }
-
 
 var _vDSP_vrampmuladd2_s8_24 func(__I0 *int, __I1 *int, __IS VDSP_Stride, __Start *int, __Step *int, __O0 *int, __O1 *int, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11156,7 +9142,6 @@ func VDSP_vrampmuladd2_s8_24(__I0 []int, __I1 []int, __IS VDSP_Stride, __Start [
 	_vDSP_vrampmuladd2_s8_24(unsafe.SliceData(__I0), unsafe.SliceData(__I1), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O0), unsafe.SliceData(__O1), __OS, __N)
 }
 
-
 var _vDSP_vrampmuladdD func(__I *float64, __IS VDSP_Stride, __Start *float64, __Step *float64, __O *float64, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmuladdD adds a double-precision vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
@@ -11168,7 +9153,6 @@ func VDSP_vrampmuladdD(__I []float64, __IS VDSP_Stride, __Start []float64, __Ste
 	}
 	_vDSP_vrampmuladdD(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
 }
-
 
 var _vDSP_vrampmuladd_s1_15 func(__I *int16, __IS VDSP_Stride, __Start *int16, __Step *int16, __O *int16, __OS VDSP_Stride, __N VDSP_Length)
 
@@ -11182,7 +9166,6 @@ func VDSP_vrampmuladd_s1_15(__I *int16, __IS VDSP_Stride, __Start *int16, __Step
 	_vDSP_vrampmuladd_s1_15(__I, __IS, __Start, __Step, __O, __OS, __N)
 }
 
-
 var _vDSP_vrampmuladd_s8_24 func(__I *int, __IS VDSP_Stride, __Start *int, __Step *int, __O *int, __OS VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrampmuladd_s8_24 adds a fixed-point 8.24 format vector that contains monotonically incrementing or decrementing values, and multiplies that vector by a source vector.
@@ -11194,7 +9177,6 @@ func VDSP_vrampmuladd_s8_24(__I []int, __IS VDSP_Stride, __Start []int, __Step [
 	}
 	_vDSP_vrampmuladd_s8_24(unsafe.SliceData(__I), __IS, unsafe.SliceData(__Start), unsafe.SliceData(__Step), unsafe.SliceData(__O), __OS, __N)
 }
-
 
 var _vDSP_vrsum func(__A *float32, __IA VDSP_Stride, __S *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11208,7 +9190,6 @@ func VDSP_vrsum(__A []float32, __IA VDSP_Stride, __S []float32, __C []float32, _
 	_vDSP_vrsum(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vrsumD func(__A *float64, __IA VDSP_Stride, __S *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrsumD performs running sum integration over a double-precision vector.
@@ -11220,7 +9201,6 @@ func VDSP_vrsumD(__A []float64, __IA VDSP_Stride, __S []float64, __C []float64, 
 	}
 	_vDSP_vrsumD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vrvrs func(__C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11234,7 +9214,6 @@ func VDSP_vrvrs(__C []float32, __IC VDSP_Stride, __N VDSP_Length) {
 	_vDSP_vrvrs(unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vrvrsD func(__C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vrvrsD performs an in-place reversal of a double-precision vector.
@@ -11246,7 +9225,6 @@ func VDSP_vrvrsD(__C []float64, __IC VDSP_Stride, __N VDSP_Length) {
 	}
 	_vDSP_vrvrsD(unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsadd func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11260,7 +9238,6 @@ func VDSP_vsadd(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	_vDSP_vsadd(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsaddD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsaddD calculates the double-precision element-wise sum of a vector and a scalar value, using the specified stride.
@@ -11272,7 +9249,6 @@ func VDSP_vsaddD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	}
 	_vDSP_vsaddD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsaddi func(__A *int, __IA VDSP_Stride, __B *int, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11286,7 +9262,6 @@ func VDSP_vsaddi(__A []int, __IA VDSP_Stride, __B []int, __C []int, __IC VDSP_St
 	_vDSP_vsaddi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsbm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsbm calculates the single-precision element-wise product of a vector and the differences of two vectors, using the specified stride.
@@ -11298,7 +9273,6 @@ func VDSP_vsbm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride,
 	}
 	_vDSP_vsbm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vsbmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11312,7 +9286,6 @@ func VDSP_vsbmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stride
 	_vDSP_vsbmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vsbsbm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsbsbm calculates the single-precision element-wise product of the differences of two pairs of vectors, using the specified stride.
@@ -11324,7 +9297,6 @@ func VDSP_vsbsbm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	}
 	_vDSP_vsbsbm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vsbsbmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -11338,7 +9310,6 @@ func VDSP_vsbsbmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	_vDSP_vsbsbmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vsbsm func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsbsm calculates the single-precision element-wise product of the difference of two vectors and a scalar value, using the specified stride.
@@ -11350,7 +9321,6 @@ func VDSP_vsbsm(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	}
 	_vDSP_vsbsm(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vsbsmD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11364,7 +9334,6 @@ func VDSP_vsbsmD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	_vDSP_vsbsmD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vsdiv func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsdiv calculates the single-precision element-wise division of a vector and a scalar value, using the specified stride.
@@ -11376,7 +9345,6 @@ func VDSP_vsdiv(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	}
 	_vDSP_vsdiv(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsdivD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11390,7 +9358,6 @@ func VDSP_vsdivD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	_vDSP_vsdivD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsdivi func(__A *int, __IA VDSP_Stride, __B *int, __C *int, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsdivi calculates the integer element-wise division of a vector and a scalar value, using the specified stride.
@@ -11402,7 +9369,6 @@ func VDSP_vsdivi(__A []int, __IA VDSP_Stride, __B []int, __C []int, __IC VDSP_St
 	}
 	_vDSP_vsdivi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsimps func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11416,7 +9382,6 @@ func VDSP_vsimps(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	_vDSP_vsimps(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsimpsD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsimpsD performs Simpson integration over a double-precision vector.
@@ -11428,7 +9393,6 @@ func VDSP_vsimpsD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	}
 	_vDSP_vsimpsD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsma func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11442,7 +9406,6 @@ func VDSP_vsma(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __
 	_vDSP_vsma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vsmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsmaD calculates the double-precision element-wise addition of the product of a vector and a scalar value, and a vector, using the specified stride.
@@ -11454,7 +9417,6 @@ func VDSP_vsmaD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, _
 	}
 	_vDSP_vsmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vsmfix24 func(__A *float32, __IA VDSP_Stride, __B *float32, __C *VDSP_int24, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11468,7 +9430,6 @@ func VDSP_vsmfix24(__A []float32, __IA VDSP_Stride, __B []float32, __C *VDSP_int
 	_vDSP_vsmfix24(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __C, __IC, __N)
 }
 
-
 var _vDSP_vsmfixu24 func(__A *float32, __IA VDSP_Stride, __B *float32, __C *VDSP_uint24, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsmfixu24 converts a vector of single-precision floating-point values to signed 24-bit integer values, and rounds towards the nearest integer.
@@ -11480,7 +9441,6 @@ func VDSP_vsmfixu24(__A []float32, __IA VDSP_Stride, __B []float32, __C *VDSP_ui
 	}
 	_vDSP_vsmfixu24(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __C, __IC, __N)
 }
-
 
 var _vDSP_vsmsa func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11494,7 +9454,6 @@ func VDSP_vsmsa(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	_vDSP_vsmsa(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vsmsaD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsmsaD calculates the double-precision element-wise addition of the product of a vector and a scalar value, and a scalar value, using the specified stride.
@@ -11506,7 +9465,6 @@ func VDSP_vsmsaD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	}
 	_vDSP_vsmsaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vsmsb func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11520,7 +9478,6 @@ func VDSP_vsmsb(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	_vDSP_vsmsb(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vsmsbD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsmsbD calculates the double-precision element-wise difference of the product of a vector and a scalar value, and a vector, using the specified stride.
@@ -11532,7 +9489,6 @@ func VDSP_vsmsbD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	}
 	_vDSP_vsmsbD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vsmsma func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __D *float32, __E *float32, __IE VDSP_Stride, __N VDSP_Length)
 
@@ -11546,7 +9502,6 @@ func VDSP_vsmsma(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	_vDSP_vsmsma(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), unsafe.SliceData(__E), __IE, __N)
 }
 
-
 var _vDSP_vsmsmaD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __D *float64, __E *float64, __IE VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsmsmaD calculates the double-precision element-wise addition of two vector-scalar products, using the specified stride.
@@ -11558,7 +9513,6 @@ func VDSP_vsmsmaD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	}
 	_vDSP_vsmsmaD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, unsafe.SliceData(__D), unsafe.SliceData(__E), __IE, __N)
 }
-
 
 var _vDSP_vsmul func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11572,7 +9526,6 @@ func VDSP_vsmul(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, _
 	_vDSP_vsmul(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsmulD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsmulD calculates the double-precision element-wise product of a vector and a scalar value, using the specified stride.
@@ -11584,7 +9537,6 @@ func VDSP_vsmulD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, 
 	}
 	_vDSP_vsmulD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsort func(__C *float32, __N VDSP_Length, __Order int)
 
@@ -11598,7 +9550,6 @@ func VDSP_vsort(__C []float32, __N VDSP_Length, __Order int) {
 	_vDSP_vsort(unsafe.SliceData(__C), __N, __Order)
 }
 
-
 var _vDSP_vsortD func(__C *float64, __N VDSP_Length, __Order int)
 
 // VDSP_vsortD performs an in-place sort of a double-precision vector.
@@ -11610,7 +9561,6 @@ func VDSP_vsortD(__C []float64, __N VDSP_Length, __Order int) {
 	}
 	_vDSP_vsortD(unsafe.SliceData(__C), __N, __Order)
 }
-
 
 var _vDSP_vsorti func(__C *float32, __I *VDSP_Length, __Temporary *VDSP_Length, __N VDSP_Length, __Order int)
 
@@ -11624,7 +9574,6 @@ func VDSP_vsorti(__C []float32, __I *VDSP_Length, __Temporary *VDSP_Length, __N 
 	_vDSP_vsorti(unsafe.SliceData(__C), __I, __Temporary, __N, __Order)
 }
 
-
 var _vDSP_vsortiD func(__C *float64, __I *VDSP_Length, __Temporary *VDSP_Length, __N VDSP_Length, __Order int)
 
 // VDSP_vsortiD performs an in-place sort of the indices into a double-precision vector.
@@ -11636,7 +9585,6 @@ func VDSP_vsortiD(__C []float64, __I *VDSP_Length, __Temporary *VDSP_Length, __N
 	}
 	_vDSP_vsortiD(unsafe.SliceData(__C), __I, __Temporary, __N, __Order)
 }
-
 
 var _vDSP_vspdp func(__A *float32, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11650,7 +9598,6 @@ func VDSP_vspdp(__A []float32, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride
 	_vDSP_vspdp(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsq func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsq computes the squared value of each element in the supplied single-precision vector.
@@ -11662,7 +9609,6 @@ func VDSP_vsq(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, 
 	}
 	_vDSP_vsq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsqD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11676,7 +9622,6 @@ func VDSP_vsqD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride,
 	_vDSP_vsqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vssq func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vssq computes the signed squared value of each element in the supplied single-precision vector.
@@ -11688,7 +9633,6 @@ func VDSP_vssq(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride,
 	}
 	_vDSP_vssq(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vssqD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11702,7 +9646,6 @@ func VDSP_vssqD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride
 	_vDSP_vssqD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vsub func(__B *float32, __IB VDSP_Stride, __A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vsub calculates the single-precision element-wise subtraction of two vectors, using the specified stride.
@@ -11714,7 +9657,6 @@ func VDSP_vsub(__B []float32, __IB VDSP_Stride, __A []float32, __IA VDSP_Stride,
 	}
 	_vDSP_vsub(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vsubD func(__B *float64, __IB VDSP_Stride, __A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11728,7 +9670,6 @@ func VDSP_vsubD(__B []float64, __IB VDSP_Stride, __A []float64, __IA VDSP_Stride
 	_vDSP_vsubD(unsafe.SliceData(__B), __IB, unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vswap func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vswap swaps the elements of two single-precision vectors using the specified stride.
@@ -11740,7 +9681,6 @@ func VDSP_vswap(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Stride
 	}
 	_vDSP_vswap(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, __N)
 }
-
 
 var _vDSP_vswapD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __N VDSP_Length)
 
@@ -11754,7 +9694,6 @@ func VDSP_vswapD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Strid
 	_vDSP_vswapD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, __N)
 }
 
-
 var _vDSP_vswmax func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __WindowLength VDSP_Length)
 
 // VDSP_vswmax finds the maximum value in a sliding window at each possible position in a single-precision input vector.
@@ -11766,7 +9705,6 @@ func VDSP_vswmax(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Strid
 	}
 	_vDSP_vswmax(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __WindowLength)
 }
-
 
 var _vDSP_vswmaxD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __WindowLength VDSP_Length)
 
@@ -11780,7 +9718,6 @@ func VDSP_vswmaxD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stri
 	_vDSP_vswmaxD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __WindowLength)
 }
 
-
 var _vDSP_vswsum func(__A *float32, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_vswsum finds the sum of values in a sliding window at each possible position in a single-precision input vector.
@@ -11792,7 +9729,6 @@ func VDSP_vswsum(__A []float32, __IA VDSP_Stride, __C []float32, __IC VDSP_Strid
 	}
 	_vDSP_vswsum(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __P)
 }
-
 
 var _vDSP_vswsumD func(__A *float64, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
@@ -11806,7 +9742,6 @@ func VDSP_vswsumD(__A []float64, __IA VDSP_Stride, __C []float64, __IC VDSP_Stri
 	_vDSP_vswsumD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N, __P)
 }
 
-
 var _vDSP_vtabi func(__A *float32, __IA VDSP_Stride, __S1 *float32, __S2 *float32, __C *float32, __M VDSP_Length, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vtabi generates a single-precision vector by interpolating values from a lookup table.
@@ -11818,7 +9753,6 @@ func VDSP_vtabi(__A []float32, __IA VDSP_Stride, __S1 []float32, __S2 []float32,
 	}
 	_vDSP_vtabi(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S1), unsafe.SliceData(__S2), unsafe.SliceData(__C), __M, unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vtabiD func(__A *float64, __IA VDSP_Stride, __S1 *float64, __S2 *float64, __C *float64, __M VDSP_Length, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11832,7 +9766,6 @@ func VDSP_vtabiD(__A []float64, __IA VDSP_Stride, __S1 []float64, __S2 []float64
 	_vDSP_vtabiD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__S1), unsafe.SliceData(__S2), unsafe.SliceData(__C), __M, unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vthr func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vthr calculates single-precision vector threshold to the specified range.
@@ -11844,7 +9777,6 @@ func VDSP_vthr(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, __
 	}
 	_vDSP_vthr(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vthrD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11858,7 +9790,6 @@ func VDSP_vthrD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64, _
 	_vDSP_vthrD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vthres func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vthres calculates single-precision vector threshold with zero fill to the specified range.
@@ -11870,7 +9801,6 @@ func VDSP_vthres(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	}
 	_vDSP_vthres(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vthresD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11884,7 +9814,6 @@ func VDSP_vthresD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	_vDSP_vthresD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vthrsc func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __D *float32, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vthrsc calculates single-precision vector threshold with signed constant to the specified range.
@@ -11896,7 +9825,6 @@ func VDSP_vthrsc(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	}
 	_vDSP_vthrsc(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
-
 
 var _vDSP_vthrscD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __D *float64, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -11910,7 +9838,6 @@ func VDSP_vthrscD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	_vDSP_vthrscD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), unsafe.SliceData(__D), __ID, __N)
 }
 
-
 var _vDSP_vtmerg func(__A *float32, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vtmerg performs a tapered merge between two single-precision vectors.
@@ -11922,7 +9849,6 @@ func VDSP_vtmerg(__A []float32, __IA VDSP_Stride, __B []float32, __IB VDSP_Strid
 	}
 	_vDSP_vtmerg(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vtmergD func(__A *float64, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11936,7 +9862,6 @@ func VDSP_vtmergD(__A []float64, __IA VDSP_Stride, __B []float64, __IB VDSP_Stri
 	_vDSP_vtmergD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_vtrapz func(__A *float32, __IA VDSP_Stride, __B *float32, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vtrapz performs trapezoidal integration over a single-precision vector.
@@ -11948,7 +9873,6 @@ func VDSP_vtrapz(__A []float32, __IA VDSP_Stride, __B []float32, __C []float32, 
 	}
 	_vDSP_vtrapz(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_vtrapzD func(__A *float64, __IA VDSP_Stride, __B *float64, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -11962,7 +9886,6 @@ func VDSP_vtrapzD(__A []float64, __IA VDSP_Stride, __B []float64, __C []float64,
 	_vDSP_vtrapzD(unsafe.SliceData(__A), __IA, unsafe.SliceData(__B), unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_wiener func(__L VDSP_Length, __A *float32, __C *float32, __F *float32, __P *float32, __Flag int, __Error *int)
 
 // VDSP_wiener solves a system of linear equations for a single-precision symmetric Toeplitz coefficient matrix.
@@ -11974,7 +9897,6 @@ func VDSP_wiener(__L VDSP_Length, __A []float32, __C []float32, __F []float32, _
 	}
 	_vDSP_wiener(__L, unsafe.SliceData(__A), unsafe.SliceData(__C), unsafe.SliceData(__F), unsafe.SliceData(__P), __Flag, unsafe.SliceData(__Error))
 }
-
 
 var _vDSP_wienerD func(__L VDSP_Length, __A *float64, __C *float64, __F *float64, __P *float64, __Flag int, __Error *int)
 
@@ -11988,7 +9910,6 @@ func VDSP_wienerD(__L VDSP_Length, __A []float64, __C []float64, __F []float64, 
 	_vDSP_wienerD(__L, unsafe.SliceData(__A), unsafe.SliceData(__C), unsafe.SliceData(__F), unsafe.SliceData(__P), __Flag, unsafe.SliceData(__Error))
 }
 
-
 var _vDSP_zaspec func(__A *DSPSplitComplex, __C *float32, __N VDSP_Length)
 
 // VDSP_zaspec computes the autospectrum of a complex single-precision vector.
@@ -12000,7 +9921,6 @@ func VDSP_zaspec(__A *DSPSplitComplex, __C []float32, __N VDSP_Length) {
 	}
 	_vDSP_zaspec(__A, unsafe.SliceData(__C), __N)
 }
-
 
 var _vDSP_zaspecD func(__A *DSPDoubleSplitComplex, __C *float64, __N VDSP_Length)
 
@@ -12014,7 +9934,6 @@ func VDSP_zaspecD(__A *DSPDoubleSplitComplex, __C []float64, __N VDSP_Length) {
 	_vDSP_zaspecD(__A, unsafe.SliceData(__C), __N)
 }
 
-
 var _vDSP_zcoher func(__A *float32, __B *float32, __C *DSPSplitComplex, __D *float32, __N VDSP_Length)
 
 // VDSP_zcoher computes the coherence function of two single-precision vectors.
@@ -12026,7 +9945,6 @@ func VDSP_zcoher(__A []float32, __B []float32, __C *DSPSplitComplex, __D []float
 	}
 	_vDSP_zcoher(unsafe.SliceData(__A), unsafe.SliceData(__B), __C, unsafe.SliceData(__D), __N)
 }
-
 
 var _vDSP_zcoherD func(__A *float64, __B *float64, __C *DSPDoubleSplitComplex, __D *float64, __N VDSP_Length)
 
@@ -12040,7 +9958,6 @@ func VDSP_zcoherD(__A []float64, __B []float64, __C *DSPDoubleSplitComplex, __D 
 	_vDSP_zcoherD(unsafe.SliceData(__A), unsafe.SliceData(__B), __C, unsafe.SliceData(__D), __N)
 }
 
-
 var _vDSP_zconv func(__A *DSPSplitComplex, __IA VDSP_Stride, __F *DSPSplitComplex, __IF VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_zconv performs either correlation or convolution on two complex single-precision vectors.
@@ -12052,7 +9969,6 @@ func VDSP_zconv(__A *DSPSplitComplex, __IA VDSP_Stride, __F *DSPSplitComplex, __
 	}
 	_vDSP_zconv(__A, __IA, __F, __IF, __C, __IC, __N, __P)
 }
-
 
 var _vDSP_zconvD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __F *DSPDoubleSplitComplex, __IF VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __P VDSP_Length)
 
@@ -12066,7 +9982,6 @@ func VDSP_zconvD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __F *DSPDoubleSpl
 	_vDSP_zconvD(__A, __IA, __F, __IF, __C, __IC, __N, __P)
 }
 
-
 var _vDSP_zcspec func(__A *DSPSplitComplex, __B *DSPSplitComplex, __C *DSPSplitComplex, __N VDSP_Length)
 
 // VDSP_zcspec computes the cross-spectrum of two complex single-precision vectors.
@@ -12078,7 +9993,6 @@ func VDSP_zcspec(__A *DSPSplitComplex, __B *DSPSplitComplex, __C *DSPSplitComple
 	}
 	_vDSP_zcspec(__A, __B, __C, __N)
 }
-
 
 var _vDSP_zcspecD func(__A *DSPDoubleSplitComplex, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __N VDSP_Length)
 
@@ -12092,7 +10006,6 @@ func VDSP_zcspecD(__A *DSPDoubleSplitComplex, __B *DSPDoubleSplitComplex, __C *D
 	_vDSP_zcspecD(__A, __B, __C, __N)
 }
 
-
 var _vDSP_zdotpr func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length)
 
 // VDSP_zdotpr calculates the dot product of two single-precision complex vectors.
@@ -12104,7 +10017,6 @@ func VDSP_zdotpr(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, _
 	}
 	_vDSP_zdotpr(__A, __IA, __B, __IB, __C, __N)
 }
-
 
 var _vDSP_zdotprD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length)
 
@@ -12118,7 +10030,6 @@ func VDSP_zdotprD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSp
 	_vDSP_zdotprD(__A, __IA, __B, __IB, __C, __N)
 }
 
-
 var _vDSP_zidotpr func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length)
 
 // VDSP_zidotpr calculates the inner product of two single-precision complex vectors.
@@ -12130,7 +10041,6 @@ func VDSP_zidotpr(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, 
 	}
 	_vDSP_zidotpr(__A, __IA, __B, __IB, __C, __N)
 }
-
 
 var _vDSP_zidotprD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length)
 
@@ -12144,7 +10054,6 @@ func VDSP_zidotprD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleS
 	_vDSP_zidotprD(__A, __IA, __B, __IB, __C, __N)
 }
 
-
 var _vDSP_zmma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_zmma adds a single-precision complex matrix to the product of two single-precision complex matrices.
@@ -12156,7 +10065,6 @@ func VDSP_zmma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __I
 	}
 	_vDSP_zmma(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
 }
-
 
 var _vDSP_zmmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
@@ -12170,7 +10078,6 @@ func VDSP_zmmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpli
 	_vDSP_zmmaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
 }
 
-
 var _vDSP_zmms func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_zmms subtracts a single-precision complex matrix from the product of two single-precision complex matrices.
@@ -12182,7 +10089,6 @@ func VDSP_zmms(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __I
 	}
 	_vDSP_zmms(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
 }
-
 
 var _vDSP_zmmsD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
@@ -12196,7 +10102,6 @@ func VDSP_zmmsD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpli
 	_vDSP_zmmsD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
 }
 
-
 var _vDSP_zmmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_zmmul performs an out-of-place multiplication of two single-precision complex matrices.
@@ -12208,7 +10113,6 @@ func VDSP_zmmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __
 	}
 	_vDSP_zmmul(__A, __IA, __B, __IB, __C, __IC, __M, __N, __P)
 }
-
 
 var _vDSP_zmmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
@@ -12222,7 +10126,6 @@ func VDSP_zmmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpl
 	_vDSP_zmmulD(__A, __IA, __B, __IB, __C, __IC, __M, __N, __P)
 }
 
-
 var _vDSP_zmsm func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_zmsm subtracts the product of two single-precision complex matrices from a single-precision complex matrix.
@@ -12234,7 +10137,6 @@ func VDSP_zmsm(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __I
 	}
 	_vDSP_zmsm(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
 }
-
 
 var _vDSP_zmsmD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __M VDSP_Length, __N VDSP_Length, __P VDSP_Length)
 
@@ -12248,7 +10150,6 @@ func VDSP_zmsmD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpli
 	_vDSP_zmsmD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __M, __N, __P)
 }
 
-
 var _vDSP_zrdesamp func(__A *DSPSplitComplex, __DF VDSP_Stride, __F *float32, __C *DSPSplitComplex, __N VDSP_Length, __P VDSP_Length)
 
 // VDSP_zrdesamp performs complex-real single-precision FIR filtering with decimation and antialiasing.
@@ -12260,7 +10161,6 @@ func VDSP_zrdesamp(__A *DSPSplitComplex, __DF VDSP_Stride, __F []float32, __C *D
 	}
 	_vDSP_zrdesamp(__A, __DF, unsafe.SliceData(__F), __C, __N, __P)
 }
-
 
 var _vDSP_zrdesampD func(__A *DSPDoubleSplitComplex, __DF VDSP_Stride, __F *float64, __C *DSPDoubleSplitComplex, __N VDSP_Length, __P VDSP_Length)
 
@@ -12274,7 +10174,6 @@ func VDSP_zrdesampD(__A *DSPDoubleSplitComplex, __DF VDSP_Stride, __F []float64,
 	_vDSP_zrdesampD(__A, __DF, unsafe.SliceData(__F), __C, __N, __P)
 }
 
-
 var _vDSP_zrdotpr func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __N VDSP_Length)
 
 // VDSP_zrdotpr calculates the single-precision dot product of a complex vector and a real vector.
@@ -12286,7 +10185,6 @@ func VDSP_zrdotpr(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VD
 	}
 	_vDSP_zrdotpr(__A, __IA, unsafe.SliceData(__B), __IB, __C, __N)
 }
-
 
 var _vDSP_zrdotprD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __N VDSP_Length)
 
@@ -12300,7 +10198,6 @@ func VDSP_zrdotprD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, 
 	_vDSP_zrdotprD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __N)
 }
 
-
 var _vDSP_zrvadd func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zrvadd adds a single-precision complex vector to a single-precision real vector.
@@ -12312,7 +10209,6 @@ func VDSP_zrvadd(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDS
 	}
 	_vDSP_zrvadd(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zrvaddD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12326,7 +10222,6 @@ func VDSP_zrvaddD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, _
 	_vDSP_zrvaddD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
 
-
 var _vDSP_zrvdiv func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zrvdiv divides a single-precision complex vector by a single-precision real vector.
@@ -12338,7 +10233,6 @@ func VDSP_zrvdiv(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDS
 	}
 	_vDSP_zrvdiv(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zrvdivD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12352,7 +10246,6 @@ func VDSP_zrvdivD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, _
 	_vDSP_zrvdivD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
 
-
 var _vDSP_zrvmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zrvmul multiplies a single-precision complex vector by a single-precision real vector.
@@ -12364,7 +10257,6 @@ func VDSP_zrvmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDS
 	}
 	_vDSP_zrvmul(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zrvmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12378,7 +10270,6 @@ func VDSP_zrvmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, _
 	_vDSP_zrvmulD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
 
-
 var _vDSP_zrvsub func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zrvsub subtracts a single-precision real vector from a single-precision complex vector.
@@ -12390,7 +10281,6 @@ func VDSP_zrvsub(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDS
 	}
 	_vDSP_zrvsub(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zrvsubD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12404,7 +10294,6 @@ func VDSP_zrvsubD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, _
 	_vDSP_zrvsubD(__A, __IA, unsafe.SliceData(__B), __IB, __C, __IC, __N)
 }
 
-
 var _vDSP_ztoc func(__Z *DSPSplitComplex, __IZ VDSP_Stride, __C *DSPComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_ztoc copies the contents of a split single-precision complex vector to an interleaved vector.
@@ -12416,7 +10305,6 @@ func VDSP_ztoc(__Z *DSPSplitComplex, __IZ VDSP_Stride, __C *DSPComplex, __IC VDS
 	}
 	_vDSP_ztoc(__Z, __IZ, __C, __IC, __N)
 }
-
 
 var _vDSP_ztocD func(__Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __C *DSPDoubleComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12430,7 +10318,6 @@ func VDSP_ztocD(__Z *DSPDoubleSplitComplex, __IZ VDSP_Stride, __C *DSPDoubleComp
 	_vDSP_ztocD(__Z, __IZ, __C, __IC, __N)
 }
 
-
 var _vDSP_ztrans func(__A *float32, __B *DSPSplitComplex, __C *DSPSplitComplex, __N VDSP_Length)
 
 // VDSP_ztrans divides a complex single-precision vector by a real single-precision vector.
@@ -12442,7 +10329,6 @@ func VDSP_ztrans(__A []float32, __B *DSPSplitComplex, __C *DSPSplitComplex, __N 
 	}
 	_vDSP_ztrans(unsafe.SliceData(__A), __B, __C, __N)
 }
-
 
 var _vDSP_ztransD func(__A *float64, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __N VDSP_Length)
 
@@ -12456,7 +10342,6 @@ func VDSP_ztransD(__A []float64, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplit
 	_vDSP_ztransD(unsafe.SliceData(__A), __B, __C, __N)
 }
 
-
 var _vDSP_zvabs func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvabs calculates the absolute value of each element in the supplied single-precision complex vector using the specified stride.
@@ -12468,7 +10353,6 @@ func VDSP_zvabs(__A *DSPSplitComplex, __IA VDSP_Stride, __C []float32, __IC VDSP
 	}
 	_vDSP_zvabs(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_zvabsD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12482,7 +10366,6 @@ func VDSP_zvabsD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C []float64, __
 	_vDSP_zvabsD(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_zvadd func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvadd adds two single-precision complex vectors.
@@ -12494,7 +10377,6 @@ func VDSP_zvadd(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __
 	}
 	_vDSP_zvadd(__A, __IA, __B, __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zvaddD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12508,7 +10390,6 @@ func VDSP_zvaddD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpl
 	_vDSP_zvaddD(__A, __IA, __B, __IB, __C, __IC, __N)
 }
 
-
 var _vDSP_zvcma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvcma adds a single-precision complex vector to the product of a single-precision complex vector and the conjugate of another complex single-precision vector.
@@ -12520,7 +10401,6 @@ func VDSP_zvcma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __
 	}
 	_vDSP_zvcma(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
 }
-
 
 var _vDSP_zvcmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -12534,7 +10414,6 @@ func VDSP_zvcmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpl
 	_vDSP_zvcmaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
 }
 
-
 var _vDSP_zvcmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvcmul multiplies a single-precision complex vector by the conjugate of another single-precision complex vector.
@@ -12546,7 +10425,6 @@ func VDSP_zvcmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, _
 	}
 	_vDSP_zvcmul(__A, __IA, __B, __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zvcmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __iC VDSP_Stride, __N VDSP_Length)
 
@@ -12560,7 +10438,6 @@ func VDSP_zvcmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSp
 	_vDSP_zvcmulD(__A, __IA, __B, __IB, __C, __iC, __N)
 }
 
-
 var _vDSP_zvconj func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvconj calculates the complex conjugate of the values in a single-precision vector using the specified stride.
@@ -12572,7 +10449,6 @@ func VDSP_zvconj(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, _
 	}
 	_vDSP_zvconj(__A, __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_zvconjD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12586,7 +10462,6 @@ func VDSP_zvconjD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSp
 	_vDSP_zvconjD(__A, __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_zvdiv func(__B *DSPSplitComplex, __IB VDSP_Stride, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvdiv divides two complex single-precision vectors.
@@ -12598,7 +10473,6 @@ func VDSP_zvdiv(__B *DSPSplitComplex, __IB VDSP_Stride, __A *DSPSplitComplex, __
 	}
 	_vDSP_zvdiv(__B, __IB, __A, __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_zvdivD func(__B *DSPDoubleSplitComplex, __IB VDSP_Stride, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12612,7 +10486,6 @@ func VDSP_zvdivD(__B *DSPDoubleSplitComplex, __IB VDSP_Stride, __A *DSPDoubleSpl
 	_vDSP_zvdivD(__B, __IB, __A, __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_zvfill func(__A *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvfill populates a complex single-precision vector with a specified scalar value.
@@ -12624,7 +10497,6 @@ func VDSP_zvfill(__A *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, _
 	}
 	_vDSP_zvfill(__A, __C, __IC, __N)
 }
-
 
 var _vDSP_zvfillD func(__A *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12638,7 +10510,6 @@ func VDSP_zvfillD(__A *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC V
 	_vDSP_zvfillD(__A, __C, __IC, __N)
 }
 
-
 var _vDSP_zvma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvma adds a single-precision complex vector to the product of two single-precision complex vectors.
@@ -12650,7 +10521,6 @@ func VDSP_zvma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __I
 	}
 	_vDSP_zvma(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
 }
-
 
 var _vDSP_zvmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -12664,7 +10534,6 @@ func VDSP_zvmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpli
 	_vDSP_zvmaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __N)
 }
 
-
 var _vDSP_zvmags func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvmags computes the squared magnitude value of each element in the supplied complex single-precision vector.
@@ -12676,7 +10545,6 @@ func VDSP_zvmags(__A *DSPSplitComplex, __IA VDSP_Stride, __C []float32, __IC VDS
 	}
 	_vDSP_zvmags(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_zvmagsD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12690,7 +10558,6 @@ func VDSP_zvmagsD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C []float64, _
 	_vDSP_zvmagsD(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_zvmgsa func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *float32, __IB VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvmgsa complex vector magnitudes square and add; single precision.
@@ -12702,7 +10569,6 @@ func VDSP_zvmgsa(__A *DSPSplitComplex, __IA VDSP_Stride, __B []float32, __IB VDS
 	}
 	_vDSP_zvmgsa(__A, __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_zvmgsaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *float64, __IB VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12716,7 +10582,6 @@ func VDSP_zvmgsaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B []float64, _
 	_vDSP_zvmgsaD(__A, __IA, unsafe.SliceData(__B), __IB, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_zvmmaa func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __E *DSPSplitComplex, __IE VDSP_Stride, __F *DSPSplitComplex, __IF VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvmmaa adds a single-precision complex vector to the sum of the product of two single-precision complex vectors and a second product of two single-precision complex vectors.
@@ -12728,7 +10593,6 @@ func VDSP_zvmmaa(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, _
 	}
 	_vDSP_zvmmaa(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __E, __IE, __F, __IF, __N)
 }
-
 
 var _vDSP_zvmmaaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __E *DSPDoubleSplitComplex, __IE VDSP_Stride, __F *DSPDoubleSplitComplex, __IF VDSP_Stride, __N VDSP_Length)
 
@@ -12742,7 +10606,6 @@ func VDSP_zvmmaaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSp
 	_vDSP_zvmmaaD(__A, __IA, __B, __IB, __C, __IC, __D, __ID, __E, __IE, __F, __IF, __N)
 }
 
-
 var _vDSP_zvmov func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvmov moves a complex single-precision vector.
@@ -12754,7 +10617,6 @@ func VDSP_zvmov(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __
 	}
 	_vDSP_zvmov(__A, __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_zvmovD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12768,7 +10630,6 @@ func VDSP_zvmovD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSpl
 	_vDSP_zvmovD(__A, __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_zvmul func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __Conjugate int)
 
 // VDSP_zvmul multiplies a single-precision complex vector by the optionally conjugate of another single-precision complex vector.
@@ -12780,7 +10641,6 @@ func VDSP_zvmul(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __
 	}
 	_vDSP_zvmul(__A, __IA, __B, __IB, __C, __IC, __N, __Conjugate)
 }
-
 
 var _vDSP_zvmulD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length, __Conjugate int)
 
@@ -12794,7 +10654,6 @@ func VDSP_zvmulD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpl
 	_vDSP_zvmulD(__A, __IA, __B, __IB, __C, __IC, __N, __Conjugate)
 }
 
-
 var _vDSP_zvneg func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvneg calculates the negative value of each element in the supplied complex single-precision vector.
@@ -12806,7 +10665,6 @@ func VDSP_zvneg(__A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __
 	}
 	_vDSP_zvneg(__A, __IA, __C, __IC, __N)
 }
-
 
 var _vDSP_zvnegD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12820,7 +10678,6 @@ func VDSP_zvnegD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSpl
 	_vDSP_zvnegD(__A, __IA, __C, __IC, __N)
 }
 
-
 var _vDSP_zvphas func(__A *DSPSplitComplex, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvphas calculates the single-precision element-wise phase values, in radians, of the supplied complex vector using the specified stride.
@@ -12832,7 +10689,6 @@ func VDSP_zvphas(__A *DSPSplitComplex, __IA VDSP_Stride, __C []float32, __IC VDS
 	}
 	_vDSP_zvphas(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
-
 
 var _vDSP_zvphasD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12846,7 +10702,6 @@ func VDSP_zvphasD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C []float64, _
 	_vDSP_zvphasD(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-
 var _vDSP_zvsma func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __D *DSPSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvsma.
@@ -12858,7 +10713,6 @@ func VDSP_zvsma(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __
 	}
 	_vDSP_zvsma(__A, __IA, __B, __C, __IC, __D, __ID, __N)
 }
-
 
 var _vDSP_zvsmaD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __D *DSPDoubleSplitComplex, __ID VDSP_Stride, __N VDSP_Length)
 
@@ -12872,7 +10726,6 @@ func VDSP_zvsmaD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpl
 	_vDSP_zvsmaD(__A, __IA, __B, __C, __IC, __D, __ID, __N)
 }
 
-
 var _vDSP_zvsub func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __IB VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvsub subtracts two single-precision complex vectors.
@@ -12884,7 +10737,6 @@ func VDSP_zvsub(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __
 	}
 	_vDSP_zvsub(__A, __IA, __B, __IB, __C, __IC, __N)
 }
-
 
 var _vDSP_zvsubD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __IB VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12898,7 +10750,6 @@ func VDSP_zvsubD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSpl
 	_vDSP_zvsubD(__A, __IA, __B, __IB, __C, __IC, __N)
 }
 
-
 var _vDSP_zvzsml func(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, __C *DSPSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_zvzsml.
@@ -12910,7 +10761,6 @@ func VDSP_zvzsml(__A *DSPSplitComplex, __IA VDSP_Stride, __B *DSPSplitComplex, _
 	}
 	_vDSP_zvzsml(__A, __IA, __B, __C, __IC, __N)
 }
-
 
 var _vDSP_zvzsmlD func(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSplitComplex, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __N VDSP_Length)
 
@@ -12924,7 +10774,6 @@ func VDSP_zvzsmlD(__A *DSPDoubleSplitComplex, __IA VDSP_Stride, __B *DSPDoubleSp
 	_vDSP_zvzsmlD(__A, __IA, __B, __C, __IC, __N)
 }
 
-
 var _vImageAffineWarpCG_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_ARGB_16S, flags uint32) int
 
 // VImageAffineWarpCG_ARGB16S applies a Core Graphics affine transformation to an ARGB16S source image.
@@ -12936,7 +10785,6 @@ func VImageAffineWarpCG_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageAffineWarpCG_ARGB16S(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpCG_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_ARGB_16U, flags uint32) int
 
@@ -12950,7 +10798,6 @@ func VImageAffineWarpCG_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	return _vImageAffineWarpCG_ARGB16U(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpCG_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_8888, flags uint32) int
 
 // VImageAffineWarpCG_ARGB8888 applies a Core Graphics affine transformation to an ARGB8888 source image.
@@ -12962,7 +10809,6 @@ func VImageAffineWarpCG_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	}
 	return _vImageAffineWarpCG_ARGB8888(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpCG_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_FFFF, flags uint32) int
 
@@ -12976,7 +10822,6 @@ func VImageAffineWarpCG_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	return _vImageAffineWarpCG_ARGBFFFF(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpCG_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_8, flags uint32) int
 
 // VImageAffineWarpCG_Planar8 applies a Core Graphics affine transformation to a Planar8 source image.
@@ -12988,7 +10833,6 @@ func VImageAffineWarpCG_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageAffineWarpCG_Planar8(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpCG_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_CGAffineTransform, backColor Pixel_F, flags uint32) int
 
@@ -13002,7 +10846,6 @@ func VImageAffineWarpCG_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	return _vImageAffineWarpCG_PlanarF(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpD_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_ARGB_16F, flags uint32) int
 
 // VImageAffineWarpD_ARGB16F applies a double-precision affine transformation to a floating-point 16-bit-per-channel, 4-channel interleaved image.
@@ -13014,7 +10857,6 @@ func VImageAffineWarpD_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	}
 	return _vImageAffineWarpD_ARGB16F(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpD_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_ARGB_16S, flags uint32) int
 
@@ -13028,7 +10870,6 @@ func VImageAffineWarpD_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageAffineWarpD_ARGB16S(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpD_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_ARGB_16U, flags uint32) int
 
 // VImageAffineWarpD_ARGB16U applies a double-precision affine transformation to an unsigned 16-bit-per-channel, 4-channel interleaved image.
@@ -13040,7 +10881,6 @@ func VImageAffineWarpD_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	}
 	return _vImageAffineWarpD_ARGB16U(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpD_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_8888, flags uint32) int
 
@@ -13054,7 +10894,6 @@ func VImageAffineWarpD_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	return _vImageAffineWarpD_ARGB8888(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpD_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_FFFF, flags uint32) int
 
 // VImageAffineWarpD_ARGBFFFF applies a double-precision affine transformation to a 32-bit-per-channel, 4-channel interleaved image.
@@ -13066,7 +10905,6 @@ func VImageAffineWarpD_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageAffineWarpD_ARGBFFFF(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpD_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_16F16F, flags uint32) int
 
@@ -13080,7 +10918,6 @@ func VImageAffineWarpD_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageAffineWarpD_CbCr16F(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpD_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_16F, flags uint32) int
 
 // VImageAffineWarpD_Planar16F applies a double-precision affine transformation to a floating-point 16-bit planar image.
@@ -13092,7 +10929,6 @@ func VImageAffineWarpD_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	}
 	return _vImageAffineWarpD_Planar16F(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarpD_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_8, flags uint32) int
 
@@ -13106,7 +10942,6 @@ func VImageAffineWarpD_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageAffineWarpD_Planar8(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarpD_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform_Double, backColor Pixel_F, flags uint32) int
 
 // VImageAffineWarpD_PlanarF applies a double-precision affine transformation to a 32-bit planar image.
@@ -13118,7 +10953,6 @@ func VImageAffineWarpD_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	}
 	return _vImageAffineWarpD_PlanarF(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarp_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_ARGB_16F, flags uint32) int
 
@@ -13132,7 +10966,6 @@ func VImageAffineWarp_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	return _vImageAffineWarp_ARGB16F(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarp_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_ARGB_16S, flags uint32) int
 
 // VImageAffineWarp_ARGB16S applies a single-precision affine transformation to a signed 16-bit-per-channel, 4-channel interleaved image.
@@ -13144,7 +10977,6 @@ func VImageAffineWarp_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	}
 	return _vImageAffineWarp_ARGB16S(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarp_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_ARGB_16U, flags uint32) int
 
@@ -13158,7 +10990,6 @@ func VImageAffineWarp_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	return _vImageAffineWarp_ARGB16U(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarp_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_8888, flags uint32) int
 
 // VImageAffineWarp_ARGB8888 applies a single-precision affine transformation to an 8-bit-per-channel, 4-channel interleaved image.
@@ -13170,7 +11001,6 @@ func VImageAffineWarp_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	}
 	return _vImageAffineWarp_ARGB8888(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarp_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_FFFF, flags uint32) int
 
@@ -13184,7 +11014,6 @@ func VImageAffineWarp_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageAffineWarp_ARGBFFFF(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarp_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_16F16F, flags uint32) int
 
 // VImageAffineWarp_CbCr16F.
@@ -13196,7 +11025,6 @@ func VImageAffineWarp_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	}
 	return _vImageAffineWarp_CbCr16F(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarp_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_16F, flags uint32) int
 
@@ -13210,7 +11038,6 @@ func VImageAffineWarp_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	return _vImageAffineWarp_Planar16F(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAffineWarp_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_8, flags uint32) int
 
 // VImageAffineWarp_Planar8 applies a single-precision affine transformation to an 8-bit planar image.
@@ -13222,7 +11049,6 @@ func VImageAffineWarp_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	}
 	return _vImageAffineWarp_Planar8(src, dest, tempBuffer, transform, backColor, flags)
 }
-
 
 var _vImageAffineWarp_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_AffineTransform, backColor Pixel_F, flags uint32) int
 
@@ -13236,7 +11062,6 @@ func VImageAffineWarp_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	return _vImageAffineWarp_PlanarF(src, dest, tempBuffer, transform, backColor, flags)
 }
 
-
 var _vImageAlphaBlend_ARGB8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageAlphaBlend_ARGB8888 performs nonpremultiplied alpha compositing of two 8-bit-per-channel, 4-channel ARGB buffers.
@@ -13248,7 +11073,6 @@ func VImageAlphaBlend_ARGB8888(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, 
 	}
 	return _vImageAlphaBlend_ARGB8888(srcTop, srcBottom, dest, flags)
 }
-
 
 var _vImageAlphaBlend_ARGBFFFF func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13262,7 +11086,6 @@ func VImageAlphaBlend_ARGBFFFF(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, 
 	return _vImageAlphaBlend_ARGBFFFF(srcTop, srcBottom, dest, flags)
 }
 
-
 var _vImageAlphaBlend_NonpremultipliedToPremultiplied_ARGB8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageAlphaBlend_NonpremultipliedToPremultiplied_ARGB8888 composites a nonpremultiplied 8-bit-per-channel, ARGB buffer over a premultiplied ARGB buffer and generates a premultiplied result.
@@ -13274,7 +11097,6 @@ func VImageAlphaBlend_NonpremultipliedToPremultiplied_ARGB8888(srcTop unsafe.Poi
 	}
 	return _vImageAlphaBlend_NonpremultipliedToPremultiplied_ARGB8888(srcTop, srcBottom, dest, flags)
 }
-
 
 var _vImageAlphaBlend_NonpremultipliedToPremultiplied_ARGBFFFF func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13288,7 +11110,6 @@ func VImageAlphaBlend_NonpremultipliedToPremultiplied_ARGBFFFF(srcTop unsafe.Poi
 	return _vImageAlphaBlend_NonpremultipliedToPremultiplied_ARGBFFFF(srcTop, srcBottom, dest, flags)
 }
 
-
 var _vImageAlphaBlend_NonpremultipliedToPremultiplied_Planar8 func(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageAlphaBlend_NonpremultipliedToPremultiplied_Planar8 composites a nonpremultiplied 8-bit planar buffer over a premultiplied 8-bit planar buffer and generates a premultiplied result.
@@ -13300,7 +11121,6 @@ func VImageAlphaBlend_NonpremultipliedToPremultiplied_Planar8(srcTop unsafe.Poin
 	}
 	return _vImageAlphaBlend_NonpremultipliedToPremultiplied_Planar8(srcTop, srcTopAlpha, srcBottom, dest, flags)
 }
-
 
 var _vImageAlphaBlend_NonpremultipliedToPremultiplied_PlanarF func(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13314,7 +11134,6 @@ func VImageAlphaBlend_NonpremultipliedToPremultiplied_PlanarF(srcTop unsafe.Poin
 	return _vImageAlphaBlend_NonpremultipliedToPremultiplied_PlanarF(srcTop, srcTopAlpha, srcBottom, dest, flags)
 }
 
-
 var _vImageAlphaBlend_Planar8 func(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, srcBottomAlpha unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageAlphaBlend_Planar8 performs nonpremultiplied alpha compositing of two 8-bit planar buffers.
@@ -13326,7 +11145,6 @@ func VImageAlphaBlend_Planar8(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer,
 	}
 	return _vImageAlphaBlend_Planar8(srcTop, srcTopAlpha, srcBottom, srcBottomAlpha, alpha, dest, flags)
 }
-
 
 var _vImageAlphaBlend_PlanarF func(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, srcBottomAlpha unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13340,7 +11158,6 @@ func VImageAlphaBlend_PlanarF(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer,
 	return _vImageAlphaBlend_PlanarF(srcTop, srcTopAlpha, srcBottom, srcBottomAlpha, alpha, dest, flags)
 }
 
-
 var _vImageBoxConvolve_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_8888, flags uint32) int
 
 // VImageBoxConvolve_ARGB8888 applies a box filter to an 8-bit-per-channel, 4-channel interleaved source image.
@@ -13352,7 +11169,6 @@ func VImageBoxConvolve_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageBoxConvolve_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, backgroundColor, flags)
 }
-
 
 var _vImageBoxConvolve_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_8, flags uint32) int
 
@@ -13366,7 +11182,6 @@ func VImageBoxConvolve_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageBoxConvolve_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, backgroundColor, flags)
 }
 
-
 var _vImageBufferFill_ARGB16F func(dest unsafe.Pointer, color Pixel_ARGB_16F, flags uint32) int
 
 // VImageBufferFill_ARGB16F fills a floating-point 16-bit-per-channel, 4-channel interleaved buffer with a specified color.
@@ -13378,7 +11193,6 @@ func VImageBufferFill_ARGB16F(dest unsafe.Pointer, color Pixel_ARGB_16F, flags u
 	}
 	return _vImageBufferFill_ARGB16F(dest, color, flags)
 }
-
 
 var _vImageBufferFill_ARGB16S func(dest unsafe.Pointer, color Pixel_ARGB_16S, flags uint32) int
 
@@ -13392,7 +11206,6 @@ func VImageBufferFill_ARGB16S(dest unsafe.Pointer, color Pixel_ARGB_16S, flags u
 	return _vImageBufferFill_ARGB16S(dest, color, flags)
 }
 
-
 var _vImageBufferFill_ARGB16U func(dest unsafe.Pointer, color Pixel_ARGB_16U, flags uint32) int
 
 // VImageBufferFill_ARGB16U fills an unsigned 16-bit-per-channel, 4-channel interleaved buffer with a specified color.
@@ -13404,7 +11217,6 @@ func VImageBufferFill_ARGB16U(dest unsafe.Pointer, color Pixel_ARGB_16U, flags u
 	}
 	return _vImageBufferFill_ARGB16U(dest, color, flags)
 }
-
 
 var _vImageBufferFill_ARGB8888 func(dest unsafe.Pointer, color Pixel_8888, flags uint32) int
 
@@ -13418,7 +11230,6 @@ func VImageBufferFill_ARGB8888(dest unsafe.Pointer, color Pixel_8888, flags uint
 	return _vImageBufferFill_ARGB8888(dest, color, flags)
 }
 
-
 var _vImageBufferFill_ARGBFFFF func(dest unsafe.Pointer, color Pixel_FFFF, flags uint32) int
 
 // VImageBufferFill_ARGBFFFF fills a floating-point 32-bit-per-channel, 4-channel interleaved buffer with a specified color.
@@ -13430,7 +11241,6 @@ func VImageBufferFill_ARGBFFFF(dest unsafe.Pointer, color Pixel_FFFF, flags uint
 	}
 	return _vImageBufferFill_ARGBFFFF(dest, color, flags)
 }
-
 
 var _vImageBufferFill_CbCr16S func(dest unsafe.Pointer, color Pixel_16S16S, flags uint32) int
 
@@ -13444,7 +11254,6 @@ func VImageBufferFill_CbCr16S(dest unsafe.Pointer, color Pixel_16S16S, flags uin
 	return _vImageBufferFill_CbCr16S(dest, color, flags)
 }
 
-
 var _vImageBufferFill_CbCr16U func(dest unsafe.Pointer, color Pixel_16U16U, flags uint32) int
 
 // VImageBufferFill_CbCr16U fills an unsigned 16-bit-per-channel, 2-channel interleaved buffer with a specified color.
@@ -13456,7 +11265,6 @@ func VImageBufferFill_CbCr16U(dest unsafe.Pointer, color Pixel_16U16U, flags uin
 	}
 	return _vImageBufferFill_CbCr16U(dest, color, flags)
 }
-
 
 var _vImageBufferFill_CbCr8 func(dest unsafe.Pointer, color Pixel_88, flags uint32) int
 
@@ -13470,7 +11278,6 @@ func VImageBufferFill_CbCr8(dest unsafe.Pointer, color Pixel_88, flags uint32) i
 	return _vImageBufferFill_CbCr8(dest, color, flags)
 }
 
-
 var _vImageBuffer_CopyToCVPixelBuffer func(buffer unsafe.Pointer, bufferFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32) int
 
 // VImageBuffer_CopyToCVPixelBuffer copies the contents of a vImage buffer to a Core Video pixel buffer.
@@ -13482,7 +11289,6 @@ func VImageBuffer_CopyToCVPixelBuffer(buffer unsafe.Pointer, bufferFormat *VImag
 	}
 	return _vImageBuffer_CopyToCVPixelBuffer(buffer, bufferFormat, cvPixelBuffer, cvImageFormat, backgroundColor, flags)
 }
-
 
 var _vImageBuffer_GetSize func(buf unsafe.Pointer) corefoundation.CGSize
 
@@ -13496,7 +11302,6 @@ func VImageBuffer_GetSize(buf unsafe.Pointer) corefoundation.CGSize {
 	return _vImageBuffer_GetSize(buf)
 }
 
-
 var _vImageBuffer_Init func(buf unsafe.Pointer, height uint, width uint, pixelBits uint32, flags uint32) int
 
 // VImageBuffer_Init initializes a vImage buffer with a specified width, height, and bits per pixel.
@@ -13508,7 +11313,6 @@ func VImageBuffer_Init(buf unsafe.Pointer, height uint, width uint, pixelBits ui
 	}
 	return _vImageBuffer_Init(buf, height, width, pixelBits, flags)
 }
-
 
 var _vImageBuffer_InitForCopyFromCVPixelBuffer func(buffers unsafe.Pointer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int
 
@@ -13522,7 +11326,6 @@ func VImageBuffer_InitForCopyFromCVPixelBuffer(buffers unsafe.Pointer, converter
 	return _vImageBuffer_InitForCopyFromCVPixelBuffer(buffers, converter, pixelBuffer, flags)
 }
 
-
 var _vImageBuffer_InitForCopyToCVPixelBuffer func(buffers unsafe.Pointer, converter unsafe.Pointer, pixelBuffer corevideo.CVPixelBufferRef, flags uint32) int
 
 // VImageBuffer_InitForCopyToCVPixelBuffer initializes an array of vImage buffers in the order necessary to copy to a Core Video pixel buffer.
@@ -13534,7 +11337,6 @@ func VImageBuffer_InitForCopyToCVPixelBuffer(buffers unsafe.Pointer, converter u
 	}
 	return _vImageBuffer_InitForCopyToCVPixelBuffer(buffers, converter, pixelBuffer, flags)
 }
-
 
 var _vImageBuffer_InitWithCGImage func(buf unsafe.Pointer, format *VImage_CGImageFormat, backgroundColor *float64, image coregraphics.CGImageRef, flags uint32) int
 
@@ -13548,7 +11350,6 @@ func VImageBuffer_InitWithCGImage(buf unsafe.Pointer, format *VImage_CGImageForm
 	return _vImageBuffer_InitWithCGImage(buf, format, backgroundColor, image, flags)
 }
 
-
 var _vImageBuffer_InitWithCVPixelBuffer func(buffer unsafe.Pointer, desiredFormat *VImage_CGImageFormat, cvPixelBuffer corevideo.CVPixelBufferRef, cvImageFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32) int
 
 // VImageBuffer_InitWithCVPixelBuffer initializes a vImage buffer with a copy of the contents of a Core Video pixel buffer.
@@ -13560,7 +11361,6 @@ func VImageBuffer_InitWithCVPixelBuffer(buffer unsafe.Pointer, desiredFormat *VI
 	}
 	return _vImageBuffer_InitWithCVPixelBuffer(buffer, desiredFormat, cvPixelBuffer, cvImageFormat, backgroundColor, flags)
 }
-
 
 var _vImageByteSwap_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13574,7 +11374,6 @@ func VImageByteSwap_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, flags uin
 	return _vImageByteSwap_Planar16U(src, dest, flags)
 }
 
-
 var _vImageCGImageFormat_GetComponentCount func(format *VImage_CGImageFormat) uint32
 
 // VImageCGImageFormat_GetComponentCount calculates the number of color and alpha channels for a specified image format.
@@ -13586,7 +11385,6 @@ func VImageCGImageFormat_GetComponentCount(format *VImage_CGImageFormat) uint32 
 	}
 	return _vImageCGImageFormat_GetComponentCount(format)
 }
-
 
 var _vImageCGImageFormat_IsEqual func(f1 *VImage_CGImageFormat, f2 *VImage_CGImageFormat) bool
 
@@ -13600,7 +11398,6 @@ func VImageCGImageFormat_IsEqual(f1 *VImage_CGImageFormat, f2 *VImage_CGImageFor
 	return _vImageCGImageFormat_IsEqual(f1, f2)
 }
 
-
 var _vImageCVImageFormat_Copy func(format unsafe.Pointer) VImageCVImageFormatRef
 
 // VImageCVImageFormat_Copy returns a mutable copy of an immutable Core Video image format.
@@ -13612,7 +11409,6 @@ func VImageCVImageFormat_Copy(format unsafe.Pointer) VImageCVImageFormatRef {
 	}
 	return _vImageCVImageFormat_Copy(format)
 }
-
 
 var _vImageCVImageFormat_CopyChannelDescription func(format VImageCVImageFormatRef, desc *VImageChannelDescription, type_ VImageBufferTypeCode) int
 
@@ -13626,7 +11422,6 @@ func VImageCVImageFormat_CopyChannelDescription(format VImageCVImageFormatRef, d
 	return _vImageCVImageFormat_CopyChannelDescription(format, desc, type_)
 }
 
-
 var _vImageCVImageFormat_CopyConversionMatrix func(format VImageCVImageFormatRef, matrix unsafe.Pointer, inType VImageMatrixType) int
 
 // VImageCVImageFormat_CopyConversionMatrix copies an RGB-to-YpCbCr conversion matrix to an image format’s internal matrix.
@@ -13638,7 +11433,6 @@ func VImageCVImageFormat_CopyConversionMatrix(format VImageCVImageFormatRef, mat
 	}
 	return _vImageCVImageFormat_CopyConversionMatrix(format, matrix, inType)
 }
-
 
 var _vImageCVImageFormat_Create func(imageFormatType uint32, matrix *VImage_ARGBToYpCbCrMatrix, cvImageBufferChromaLocation corefoundation.CFStringRef, baseColorspace coregraphics.CGColorSpaceRef, alphaIsOneHint int) VImageCVImageFormatRef
 
@@ -13652,7 +11446,6 @@ func VImageCVImageFormat_Create(imageFormatType uint32, matrix *VImage_ARGBToYpC
 	return _vImageCVImageFormat_Create(imageFormatType, matrix, cvImageBufferChromaLocation, baseColorspace, alphaIsOneHint)
 }
 
-
 var _vImageCVImageFormat_CreateWithCVPixelBuffer func(buffer corevideo.CVPixelBufferRef) VImageCVImageFormatRef
 
 // VImageCVImageFormat_CreateWithCVPixelBuffer creates the description of the image encoding in an existing Core Video pixel buffer.
@@ -13664,7 +11457,6 @@ func VImageCVImageFormat_CreateWithCVPixelBuffer(buffer corevideo.CVPixelBufferR
 	}
 	return _vImageCVImageFormat_CreateWithCVPixelBuffer(buffer)
 }
-
 
 var _vImageCVImageFormat_GetAlphaHint func(format unsafe.Pointer) int
 
@@ -13678,7 +11470,6 @@ func VImageCVImageFormat_GetAlphaHint(format unsafe.Pointer) int {
 	return _vImageCVImageFormat_GetAlphaHint(format)
 }
 
-
 var _vImageCVImageFormat_GetChannelCount func(format unsafe.Pointer) uint32
 
 // VImageCVImageFormat_GetChannelCount returns the number of channels, including alpha, for the Core Video image format.
@@ -13690,7 +11481,6 @@ func VImageCVImageFormat_GetChannelCount(format unsafe.Pointer) uint32 {
 	}
 	return _vImageCVImageFormat_GetChannelCount(format)
 }
-
 
 var _vImageCVImageFormat_GetChannelDescription func(format unsafe.Pointer, type_ VImageBufferTypeCode) *VImageChannelDescription
 
@@ -13704,7 +11494,6 @@ func VImageCVImageFormat_GetChannelDescription(format unsafe.Pointer, type_ VIma
 	return _vImageCVImageFormat_GetChannelDescription(format, type_)
 }
 
-
 var _vImageCVImageFormat_GetChannelNames func(format unsafe.Pointer) *VImageBufferTypeCode
 
 // VImageCVImageFormat_GetChannelNames returns the names of the channels of a Core Video image format.
@@ -13716,7 +11505,6 @@ func VImageCVImageFormat_GetChannelNames(format unsafe.Pointer) *VImageBufferTyp
 	}
 	return _vImageCVImageFormat_GetChannelNames(format)
 }
-
 
 var _vImageCVImageFormat_GetChromaSiting func(format unsafe.Pointer) corefoundation.CFStringRef
 
@@ -13730,7 +11518,6 @@ func VImageCVImageFormat_GetChromaSiting(format unsafe.Pointer) corefoundation.C
 	return _vImageCVImageFormat_GetChromaSiting(format)
 }
 
-
 var _vImageCVImageFormat_GetColorSpace func(format unsafe.Pointer) coregraphics.CGColorSpaceRef
 
 // VImageCVImageFormat_GetColorSpace returns the color space of a Core Video image format.
@@ -13742,7 +11529,6 @@ func VImageCVImageFormat_GetColorSpace(format unsafe.Pointer) coregraphics.CGCol
 	}
 	return _vImageCVImageFormat_GetColorSpace(format)
 }
-
 
 var _vImageCVImageFormat_GetConversionMatrix func(format unsafe.Pointer, outType *VImageMatrixType) unsafe.Pointer
 
@@ -13756,7 +11542,6 @@ func VImageCVImageFormat_GetConversionMatrix(format unsafe.Pointer, outType *VIm
 	return _vImageCVImageFormat_GetConversionMatrix(format, outType)
 }
 
-
 var _vImageCVImageFormat_GetFormatCode func(format unsafe.Pointer) uint32
 
 // VImageCVImageFormat_GetFormatCode returns the four-character code that encodes the pixel format of a Core Video image format.
@@ -13768,7 +11553,6 @@ func VImageCVImageFormat_GetFormatCode(format unsafe.Pointer) uint32 {
 	}
 	return _vImageCVImageFormat_GetFormatCode(format)
 }
-
 
 var _vImageCVImageFormat_GetUserData func(format unsafe.Pointer) unsafe.Pointer
 
@@ -13782,7 +11566,6 @@ func VImageCVImageFormat_GetUserData(format unsafe.Pointer) unsafe.Pointer {
 	return _vImageCVImageFormat_GetUserData(format)
 }
 
-
 var _vImageCVImageFormat_Release func(fmt VImageCVImageFormatRef)
 
 // VImageCVImageFormat_Release releases a Core Video image format.
@@ -13794,7 +11577,6 @@ func VImageCVImageFormat_Release(fmt VImageCVImageFormatRef) {
 	}
 	_vImageCVImageFormat_Release(fmt)
 }
-
 
 var _vImageCVImageFormat_Retain func(fmt VImageCVImageFormatRef)
 
@@ -13808,7 +11590,6 @@ func VImageCVImageFormat_Retain(fmt VImageCVImageFormatRef) {
 	_vImageCVImageFormat_Retain(fmt)
 }
 
-
 var _vImageCVImageFormat_SetAlphaHint func(format VImageCVImageFormatRef, alphaIsOne int) int
 
 // VImageCVImageFormat_SetAlphaHint sets the alpha hint of a Core Video image format.
@@ -13820,7 +11601,6 @@ func VImageCVImageFormat_SetAlphaHint(format VImageCVImageFormatRef, alphaIsOne 
 	}
 	return _vImageCVImageFormat_SetAlphaHint(format, alphaIsOne)
 }
-
 
 var _vImageCVImageFormat_SetChromaSiting func(format VImageCVImageFormatRef, siting corefoundation.CFStringRef) int
 
@@ -13834,7 +11614,6 @@ func VImageCVImageFormat_SetChromaSiting(format VImageCVImageFormatRef, siting c
 	return _vImageCVImageFormat_SetChromaSiting(format, siting)
 }
 
-
 var _vImageCVImageFormat_SetColorSpace func(format VImageCVImageFormatRef, colorspace coregraphics.CGColorSpaceRef) int
 
 // VImageCVImageFormat_SetColorSpace sets the color space of a Core Video image format.
@@ -13846,7 +11625,6 @@ func VImageCVImageFormat_SetColorSpace(format VImageCVImageFormatRef, colorspace
 	}
 	return _vImageCVImageFormat_SetColorSpace(format, colorspace)
 }
-
 
 var _vImageCVImageFormat_SetUserData func(format VImageCVImageFormatRef, userData unsafe.Pointer) int
 
@@ -13860,7 +11638,6 @@ func VImageCVImageFormat_SetUserData(format VImageCVImageFormatRef, userData uns
 	return _vImageCVImageFormat_SetUserData(format, userData)
 }
 
-
 var _vImageClipToAlpha_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageClipToAlpha_ARGB8888 clamps the values of an 8-bit-per-channel, 4-channel ARGB buffer to the corresponding alpha values.
@@ -13872,7 +11649,6 @@ func VImageClipToAlpha_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	}
 	return _vImageClipToAlpha_ARGB8888(src, dest, flags)
 }
-
 
 var _vImageClipToAlpha_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13886,7 +11662,6 @@ func VImageClipToAlpha_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	return _vImageClipToAlpha_ARGBFFFF(src, dest, flags)
 }
 
-
 var _vImageClipToAlpha_Planar8 func(src unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageClipToAlpha_Planar8 clamps the values of an 8-bit planar buffer to the corresponding alpha values.
@@ -13898,7 +11673,6 @@ func VImageClipToAlpha_Planar8(src unsafe.Pointer, alpha unsafe.Pointer, dest un
 	}
 	return _vImageClipToAlpha_Planar8(src, alpha, dest, flags)
 }
-
 
 var _vImageClipToAlpha_PlanarF func(src unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13912,7 +11686,6 @@ func VImageClipToAlpha_PlanarF(src unsafe.Pointer, alpha unsafe.Pointer, dest un
 	return _vImageClipToAlpha_PlanarF(src, alpha, dest, flags)
 }
 
-
 var _vImageClipToAlpha_RGBA8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageClipToAlpha_RGBA8888 clamps the values of an 8-bit-per-channel, 4-channel RGBA buffer to the corresponding alpha values.
@@ -13924,7 +11697,6 @@ func VImageClipToAlpha_RGBA8888(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	}
 	return _vImageClipToAlpha_RGBA8888(src, dest, flags)
 }
-
 
 var _vImageClipToAlpha_RGBAFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13938,7 +11710,6 @@ func VImageClipToAlpha_RGBAFFFF(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	return _vImageClipToAlpha_RGBAFFFF(src, dest, flags)
 }
 
-
 var _vImageClip_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_F, minFloat Pixel_F, flags uint32) int
 
 // VImageClip_PlanarF clips the values in a floating-point 32-bit planar buffer to the specified minimum and maximum values.
@@ -13950,7 +11721,6 @@ func VImageClip_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_
 	}
 	return _vImageClip_PlanarF(src, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageContrastStretch_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13964,7 +11734,6 @@ func VImageContrastStretch_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageContrastStretch_ARGB8888(src, dest, flags)
 }
 
-
 var _vImageContrastStretch_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
 // VImageContrastStretch_ARGBFFFF performs contrast stretching on a 32-bit-per-channel, 4-channel interleaved buffer.
@@ -13976,7 +11745,6 @@ func VImageContrastStretch_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tem
 	}
 	return _vImageContrastStretch_ARGBFFFF(src, dest, tempBuffer, histogram_entries, minVal, maxVal, flags)
 }
-
 
 var _vImageContrastStretch_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -13990,7 +11758,6 @@ func VImageContrastStretch_Planar8(src unsafe.Pointer, dest unsafe.Pointer, flag
 	return _vImageContrastStretch_Planar8(src, dest, flags)
 }
 
-
 var _vImageContrastStretch_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
 // VImageContrastStretch_PlanarF performs contrast stretching on a 32-bit planar buffer.
@@ -14002,7 +11769,6 @@ func VImageContrastStretch_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, temp
 	}
 	return _vImageContrastStretch_PlanarF(src, dest, tempBuffer, histogram_entries, minVal, maxVal, flags)
 }
-
 
 var _vImageConvert_12UTo16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14016,7 +11782,6 @@ func VImageConvert_12UTo16U(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	return _vImageConvert_12UTo16U(src, dest, flags)
 }
 
-
 var _vImageConvert_16Fto16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_16Fto16Q12 converts a floating-point 16-bit planar buffer to a fixed-point 16-bit planar buffer.
@@ -14028,7 +11793,6 @@ func VImageConvert_16Fto16Q12(src unsafe.Pointer, dest unsafe.Pointer, flags uin
 	}
 	return _vImageConvert_16Fto16Q12(src, dest, flags)
 }
-
 
 var _vImageConvert_16Fto16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14042,7 +11806,6 @@ func VImageConvert_16Fto16U(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	return _vImageConvert_16Fto16U(src, dest, flags)
 }
 
-
 var _vImageConvert_16Q12to16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_16Q12to16F converts a fixed-point 16-bit planar buffer to a floating-point 16-bit planar buffer.
@@ -14054,7 +11817,6 @@ func VImageConvert_16Q12to16F(src unsafe.Pointer, dest unsafe.Pointer, flags uin
 	}
 	return _vImageConvert_16Q12to16F(src, dest, flags)
 }
-
 
 var _vImageConvert_16Q12to16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14068,7 +11830,6 @@ func VImageConvert_16Q12to16U(src unsafe.Pointer, dest unsafe.Pointer, flags uin
 	return _vImageConvert_16Q12to16U(src, dest, flags)
 }
 
-
 var _vImageConvert_16Q12to8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_16Q12to8 converts a fixed-point 16-bit planar buffer to an 8-bit planar buffer.
@@ -14080,7 +11841,6 @@ func VImageConvert_16Q12to8(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	}
 	return _vImageConvert_16Q12to8(src, dest, flags)
 }
-
 
 var _vImageConvert_16Q12toF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14094,7 +11854,6 @@ func VImageConvert_16Q12toF(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	return _vImageConvert_16Q12toF(src, dest, flags)
 }
 
-
 var _vImageConvert_16SToF func(src unsafe.Pointer, dest unsafe.Pointer, offset float32, scale float32, flags uint32) int
 
 // VImageConvert_16SToF converts a signed 16-bit planar buffer to a floating-point 32-bit planar buffer.
@@ -14106,7 +11865,6 @@ func VImageConvert_16SToF(src unsafe.Pointer, dest unsafe.Pointer, offset float3
 	}
 	return _vImageConvert_16SToF(src, dest, offset, scale, flags)
 }
-
 
 var _vImageConvert_16UTo12U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14120,7 +11878,6 @@ func VImageConvert_16UTo12U(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	return _vImageConvert_16UTo12U(src, dest, flags)
 }
 
-
 var _vImageConvert_16UToF func(src unsafe.Pointer, dest unsafe.Pointer, offset float32, scale float32, flags uint32) int
 
 // VImageConvert_16UToF converts an unsigned 16-bit planar buffer to a floating-point 32-bit planar buffer.
@@ -14132,7 +11889,6 @@ func VImageConvert_16UToF(src unsafe.Pointer, dest unsafe.Pointer, offset float3
 	}
 	return _vImageConvert_16UToF(src, dest, offset, scale, flags)
 }
-
 
 var _vImageConvert_16UToPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14146,7 +11902,6 @@ func VImageConvert_16UToPlanar8(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	return _vImageConvert_16UToPlanar8(src, dest, flags)
 }
 
-
 var _vImageConvert_16Uto16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_16Uto16F converts an unsigned 16-bit planar buffer to a floating-point 16-bit planar buffer.
@@ -14158,7 +11913,6 @@ func VImageConvert_16Uto16F(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	}
 	return _vImageConvert_16Uto16F(src, dest, flags)
 }
-
 
 var _vImageConvert_16Uto16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14172,7 +11926,6 @@ func VImageConvert_16Uto16Q12(src unsafe.Pointer, dest unsafe.Pointer, flags uin
 	return _vImageConvert_16Uto16Q12(src, dest, flags)
 }
 
-
 var _vImageConvert_420Yp8_Cb8_Cr8ToARGB8888 func(srcYp unsafe.Pointer, srcCb unsafe.Pointer, srcCr unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
 // VImageConvert_420Yp8_Cb8_Cr8ToARGB8888 converts planar Yp, Cb, and Cr buffers to an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -14184,7 +11937,6 @@ func VImageConvert_420Yp8_Cb8_Cr8ToARGB8888(srcYp unsafe.Pointer, srcCb unsafe.P
 	}
 	return _vImageConvert_420Yp8_Cb8_Cr8ToARGB8888(srcYp, srcCb, srcCr, dest, info, permuteMap, alpha, flags)
 }
-
 
 var _vImageConvert_420Yp8_CbCr8ToARGB8888 func(srcYp unsafe.Pointer, srcCbCr unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
@@ -14198,7 +11950,6 @@ func VImageConvert_420Yp8_CbCr8ToARGB8888(srcYp unsafe.Pointer, srcCbCr unsafe.P
 	return _vImageConvert_420Yp8_CbCr8ToARGB8888(srcYp, srcCbCr, dest, info, permuteMap, alpha, flags)
 }
 
-
 var _vImageConvert_422CbYpCrYp16ToARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint16, flags uint32) int
 
 // VImageConvert_422CbYpCrYp16ToARGB16U converts a 16-bit-per-channel 4:2:2 CbYpCrYp buffer to an unsigned 16-bit-per-channel, 4-channel ARGB buffer.
@@ -14210,7 +11961,6 @@ func VImageConvert_422CbYpCrYp16ToARGB16U(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_422CbYpCrYp16ToARGB16U(src, dest, info, permuteMap, alpha, flags)
 }
-
 
 var _vImageConvert_422CbYpCrYp16ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
@@ -14224,7 +11974,6 @@ func VImageConvert_422CbYpCrYp16ToARGB8888(src unsafe.Pointer, dest unsafe.Point
 	return _vImageConvert_422CbYpCrYp16ToARGB8888(src, dest, info, permuteMap, alpha, flags)
 }
 
-
 var _vImageConvert_422CbYpCrYp8ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
 // VImageConvert_422CbYpCrYp8ToARGB8888 converts an 8-bit-per-channel 4:2:2 CbYpCrYp buffer to an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -14236,7 +11985,6 @@ func VImageConvert_422CbYpCrYp8ToARGB8888(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_422CbYpCrYp8ToARGB8888(src, dest, info, permuteMap, alpha, flags)
 }
-
 
 var _vImageConvert_422CbYpCrYp8_AA8ToARGB8888 func(src unsafe.Pointer, srcA unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, flags uint32) int
 
@@ -14250,7 +11998,6 @@ func VImageConvert_422CbYpCrYp8_AA8ToARGB8888(src unsafe.Pointer, srcA unsafe.Po
 	return _vImageConvert_422CbYpCrYp8_AA8ToARGB8888(src, srcA, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha Pixel_16Q12, flags uint32) int
 
 // VImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB16Q12 converts a 10-bit-per-channel 4:2:2 CrYpCbYpCbYpCbYpCrYpCrYp buffer to a fixed-point 16-bit-per-channel, 4-channel ARGB buffer.
@@ -14262,7 +12009,6 @@ func VImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB16Q12(src unsafe.Pointer, 
 	}
 	return _vImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB16Q12(src, dest, info, permuteMap, alpha, flags)
 }
-
 
 var _vImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
@@ -14276,7 +12022,6 @@ func VImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB8888(src unsafe.Pointer, d
 	return _vImageConvert_422CrYpCbYpCbYpCbYpCrYpCrYp10ToARGB8888(src, dest, info, permuteMap, alpha, flags)
 }
 
-
 var _vImageConvert_422YpCbYpCr8ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
 // VImageConvert_422YpCbYpCr8ToARGB8888 converts an 8-bit-per-channel 4:2:2 YpCbYpCr buffer to an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -14288,7 +12033,6 @@ func VImageConvert_422YpCbYpCr8ToARGB8888(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_422YpCbYpCr8ToARGB8888(src, dest, info, permuteMap, alpha, flags)
 }
-
 
 var _vImageConvert_444AYpCbCr16ToARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, flags uint32) int
 
@@ -14302,7 +12046,6 @@ func VImageConvert_444AYpCbCr16ToARGB16U(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_444AYpCbCr16ToARGB16U(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_444AYpCbCr16ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, flags uint32) int
 
 // VImageConvert_444AYpCbCr16ToARGB8888 converts an 16-bit-per-channel 4:4:4 YpCbCr buffer to an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -14314,7 +12057,6 @@ func VImageConvert_444AYpCbCr16ToARGB8888(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_444AYpCbCr16ToARGB8888(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_444AYpCbCr8ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, flags uint32) int
 
@@ -14328,7 +12070,6 @@ func VImageConvert_444AYpCbCr8ToARGB8888(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_444AYpCbCr8ToARGB8888(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_444CbYpCrA8ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, flags uint32) int
 
 // VImageConvert_444CbYpCrA8ToARGB8888 converts an 8-bit-per-channel 4:4:4 CbYpCrA buffer to an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -14340,7 +12081,6 @@ func VImageConvert_444CbYpCrA8ToARGB8888(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_444CbYpCrA8ToARGB8888(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_444CrYpCb10ToARGB16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha Pixel_16Q12, flags uint32) int
 
@@ -14354,7 +12094,6 @@ func VImageConvert_444CrYpCb10ToARGB16Q12(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageConvert_444CrYpCb10ToARGB16Q12(src, dest, info, permuteMap, alpha, flags)
 }
 
-
 var _vImageConvert_444CrYpCb10ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
 // VImageConvert_444CrYpCb10ToARGB8888 converts an 10-bit-per-channel 4:4:4 CrYpCb buffer to an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -14366,7 +12105,6 @@ func VImageConvert_444CrYpCb10ToARGB8888(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_444CrYpCb10ToARGB8888(src, dest, info, permuteMap, alpha, flags)
 }
-
 
 var _vImageConvert_444CrYpCb8ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_YpCbCrToARGB, permuteMap uint8, alpha uint8, flags uint32) int
 
@@ -14380,7 +12118,6 @@ func VImageConvert_444CrYpCb8ToARGB8888(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvert_444CrYpCb8ToARGB8888(src, dest, info, permuteMap, alpha, flags)
 }
 
-
 var _vImageConvert_8to16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_8to16Q12 converts an 8-bit planar buffer to a fixed-point 16-bit planar buffer.
@@ -14392,7 +12129,6 @@ func VImageConvert_8to16Q12(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	}
 	return _vImageConvert_8to16Q12(src, dest, flags)
 }
-
 
 var _vImageConvert_ARGB1555toARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14406,7 +12142,6 @@ func VImageConvert_ARGB1555toARGB8888(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageConvert_ARGB1555toARGB8888(src, dest, flags)
 }
 
-
 var _vImageConvert_ARGB1555toPlanar8 func(src unsafe.Pointer, destA unsafe.Pointer, destR unsafe.Pointer, destG unsafe.Pointer, destB unsafe.Pointer, flags uint32) int
 
 // VImageConvert_ARGB1555toPlanar8 deinterleaves an ARGB1555 4-channel interleaved buffer into four 8-bit planar buffers.
@@ -14418,7 +12153,6 @@ func VImageConvert_ARGB1555toPlanar8(src unsafe.Pointer, destA unsafe.Pointer, d
 	}
 	return _vImageConvert_ARGB1555toPlanar8(src, destA, destR, destG, destB, flags)
 }
-
 
 var _vImageConvert_ARGB1555toRGB565 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14432,7 +12166,6 @@ func VImageConvert_ARGB1555toRGB565(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageConvert_ARGB1555toRGB565(src, dest, flags)
 }
 
-
 var _vImageConvert_ARGB16Q12To422CrYpCbYpCbYpCbYpCrYpCrYp10 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB16Q12To422CrYpCbYpCbYpCbYpCrYpCrYp10 converts a fixed-point 16-bit-per-channel, 4-channel ARGB buffer to a 10-bit-per-channel 4:2:2 CrYpCbYpCbYpCbYpCrYpCrYp buffer.
@@ -14444,7 +12177,6 @@ func VImageConvert_ARGB16Q12To422CrYpCbYpCbYpCbYpCrYpCrYp10(src unsafe.Pointer, 
 	}
 	return _vImageConvert_ARGB16Q12To422CrYpCbYpCbYpCbYpCrYpCrYp10(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB16Q12To444CrYpCb10 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14458,7 +12190,6 @@ func VImageConvert_ARGB16Q12To444CrYpCb10(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageConvert_ARGB16Q12To444CrYpCb10(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB16Q12ToARGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, RGB101010Min int32, RGB101010Max int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB16Q12ToARGB2101010 converts a fixed-point 16-bit-per-channel, 4-channel interleaved buffer to an ARGB2101010 32-bit, 4-channel buffer with permutation.
@@ -14470,7 +12201,6 @@ func VImageConvert_ARGB16Q12ToARGB2101010(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_ARGB16Q12ToARGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, RGB101010Min, RGB101010Max, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB16Q12ToRGBA1010102 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, RGB101010Min int32, RGB101010Max int32, permuteMap uint8, flags uint32) int
 
@@ -14484,7 +12214,6 @@ func VImageConvert_ARGB16Q12ToRGBA1010102(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageConvert_ARGB16Q12ToRGBA1010102(src, dest, RGB101010RangeMin, RGB101010RangeMax, RGB101010Min, RGB101010Max, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB16Q12ToXRGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, RGB101010Min int32, RGB101010Max int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB16Q12ToXRGB2101010 converts a fixed-point 16-bit-per-channel, 4-channel interleaved buffer to an XRGB2101010 32-bit, 4-channel buffer with permutation.
@@ -14496,7 +12225,6 @@ func VImageConvert_ARGB16Q12ToXRGB2101010(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_ARGB16Q12ToXRGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, RGB101010Min, RGB101010Max, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB16UTo422CbYpCrYp16 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14510,7 +12238,6 @@ func VImageConvert_ARGB16UTo422CbYpCrYp16(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageConvert_ARGB16UTo422CbYpCrYp16(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB16UTo444AYpCbCr16 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB16UTo444AYpCbCr16 converts an unsigned 16-bit-per-channel, 4-channel ARGB buffer to an 16-bit-per-channel 4:4:4 AYpCbCr buffer.
@@ -14522,7 +12249,6 @@ func VImageConvert_ARGB16UTo444AYpCbCr16(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_ARGB16UTo444AYpCbCr16(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB16UToARGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -14536,7 +12262,6 @@ func VImageConvert_ARGB16UToARGB2101010(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvert_ARGB16UToARGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB16UToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_8888, flags uint32) int
 
 // VImageConvert_ARGB16UToARGB8888 converts an unsigned 16-bit-per-channel, 4-channel interleaved buffer to an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -14548,7 +12273,6 @@ func VImageConvert_ARGB16UToARGB8888(src unsafe.Pointer, dest unsafe.Pointer, pe
 	}
 	return _vImageConvert_ARGB16UToARGB8888(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
-
 
 var _vImageConvert_ARGB16UToRGBA1010102 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -14562,7 +12286,6 @@ func VImageConvert_ARGB16UToRGBA1010102(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvert_ARGB16UToRGBA1010102(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB16UToXRGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB16UToXRGB2101010 converts an unsigned 16-bit-per-channel, 4-channel interleaved buffer to an XRGB2101010 32-bit, 4-channel buffer with permutation.
@@ -14574,7 +12297,6 @@ func VImageConvert_ARGB16UToXRGB2101010(src unsafe.Pointer, dest unsafe.Pointer,
 	}
 	return _vImageConvert_ARGB16UToXRGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB16UtoARGB8888_dithered func(src unsafe.Pointer, dest unsafe.Pointer, dither int, permuteMap uint8, flags uint32) int
 
@@ -14588,7 +12310,6 @@ func VImageConvert_ARGB16UtoARGB8888_dithered(src unsafe.Pointer, dest unsafe.Po
 	return _vImageConvert_ARGB16UtoARGB8888_dithered(src, dest, dither, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB16UtoPlanar16U func(argbSrc unsafe.Pointer, aDest unsafe.Pointer, rDest unsafe.Pointer, gDest unsafe.Pointer, bDest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_ARGB16UtoPlanar16U deinterleaves an unsigned 16-bit-per-channel, 4-channel interleaved buffer into four unsigned 16-bit planar buffers.
@@ -14600,7 +12321,6 @@ func VImageConvert_ARGB16UtoPlanar16U(argbSrc unsafe.Pointer, aDest unsafe.Point
 	}
 	return _vImageConvert_ARGB16UtoPlanar16U(argbSrc, aDest, rDest, gDest, bDest, flags)
 }
-
 
 var _vImageConvert_ARGB16UtoRGB16U func(argbSrc unsafe.Pointer, rgbDest unsafe.Pointer, flags uint32) int
 
@@ -14614,7 +12334,6 @@ func VImageConvert_ARGB16UtoRGB16U(argbSrc unsafe.Pointer, rgbDest unsafe.Pointe
 	return _vImageConvert_ARGB16UtoRGB16U(argbSrc, rgbDest, flags)
 }
 
-
 var _vImageConvert_ARGB2101010ToARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB2101010ToARGB16F converts an ARGB2101010 32-bit, 4-channel interleaved buffer to a floating-point 16-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -14626,7 +12345,6 @@ func VImageConvert_ARGB2101010ToARGB16F(src unsafe.Pointer, dest unsafe.Pointer,
 	}
 	return _vImageConvert_ARGB2101010ToARGB16F(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB2101010ToARGB16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -14640,7 +12358,6 @@ func VImageConvert_ARGB2101010ToARGB16Q12(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageConvert_ARGB2101010ToARGB16Q12(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB2101010ToARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB2101010ToARGB16U converts an ARGB2101010 32-bit, 4-channel interleaved buffer to an unsigned 16-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -14652,7 +12369,6 @@ func VImageConvert_ARGB2101010ToARGB16U(src unsafe.Pointer, dest unsafe.Pointer,
 	}
 	return _vImageConvert_ARGB2101010ToARGB16U(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB2101010ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -14666,7 +12382,6 @@ func VImageConvert_ARGB2101010ToARGB8888(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_ARGB2101010ToARGB8888(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB2101010ToARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB2101010ToARGBFFFF converts an ARGB2101010 32-bit, 4-channel interleaved buffer to a floating-point 32-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -14678,7 +12393,6 @@ func VImageConvert_ARGB2101010ToARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_ARGB2101010ToARGBFFFF(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888To420Yp8_Cb8_Cr8 func(src unsafe.Pointer, destYp unsafe.Pointer, destCb unsafe.Pointer, destCr unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14692,7 +12406,6 @@ func VImageConvert_ARGB8888To420Yp8_Cb8_Cr8(src unsafe.Pointer, destYp unsafe.Po
 	return _vImageConvert_ARGB8888To420Yp8_Cb8_Cr8(src, destYp, destCb, destCr, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888To420Yp8_CbCr8 func(src unsafe.Pointer, destYp unsafe.Pointer, destCbCr unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888To420Yp8_CbCr8 converts an 8-bit-per-channel, 4-channel ARGB buffer to a planar Yp buffer and a 2-channel CbCr buffer.
@@ -14704,7 +12417,6 @@ func VImageConvert_ARGB8888To420Yp8_CbCr8(src unsafe.Pointer, destYp unsafe.Poin
 	}
 	return _vImageConvert_ARGB8888To420Yp8_CbCr8(src, destYp, destCbCr, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888To422CbYpCrYp16 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14718,7 +12430,6 @@ func VImageConvert_ARGB8888To422CbYpCrYp16(src unsafe.Pointer, dest unsafe.Point
 	return _vImageConvert_ARGB8888To422CbYpCrYp16(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888To422CbYpCrYp8 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888To422CbYpCrYp8 converts an 8-bit-per-channel, 4-channel ARGB buffer to an 8-bit-per-channel 4:2:2 CbCrYp buffer.
@@ -14730,7 +12441,6 @@ func VImageConvert_ARGB8888To422CbYpCrYp8(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_ARGB8888To422CbYpCrYp8(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888To422CbYpCrYp8_AA8 func(src unsafe.Pointer, dest unsafe.Pointer, destA unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14744,7 +12454,6 @@ func VImageConvert_ARGB8888To422CbYpCrYp8_AA8(src unsafe.Pointer, dest unsafe.Po
 	return _vImageConvert_ARGB8888To422CbYpCrYp8_AA8(src, dest, destA, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888To422CrYpCbYpCbYpCbYpCrYpCrYp10 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888To422CrYpCbYpCbYpCbYpCrYpCrYp10 converts an 8-bit-per-channel, 4-channel ARGB buffer to a 10-bit-per-channel 4:2:2 CrYpCbYpCbYpCbYpCrYpCrYp buffer.
@@ -14756,7 +12465,6 @@ func VImageConvert_ARGB8888To422CrYpCbYpCbYpCbYpCrYpCrYp10(src unsafe.Pointer, d
 	}
 	return _vImageConvert_ARGB8888To422CrYpCbYpCbYpCbYpCrYpCrYp10(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888To422YpCbYpCr8 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14770,7 +12478,6 @@ func VImageConvert_ARGB8888To422YpCbYpCr8(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageConvert_ARGB8888To422YpCbYpCr8(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888To444AYpCbCr16 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888To444AYpCbCr16 converts an 8-bit-per-channel, 4-channel ARGB buffer to an 16-bit-per-channel 4:4:4 YpCbCr buffer.
@@ -14782,7 +12489,6 @@ func VImageConvert_ARGB8888To444AYpCbCr16(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_ARGB8888To444AYpCbCr16(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888To444AYpCbCr8 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14796,7 +12502,6 @@ func VImageConvert_ARGB8888To444AYpCbCr8(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_ARGB8888To444AYpCbCr8(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888To444CbYpCrA8 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888To444CbYpCrA8 converts an 8-bit-per-channel, 4-channel ARGB buffer to an 8-bit-per-channel 4:4:4 CrYpCbA buffer.
@@ -14808,7 +12513,6 @@ func VImageConvert_ARGB8888To444CbYpCrA8(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_ARGB8888To444CbYpCrA8(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888To444CrYpCb10 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
@@ -14822,7 +12526,6 @@ func VImageConvert_ARGB8888To444CrYpCb10(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_ARGB8888To444CrYpCb10(src, dest, info, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888To444CrYpCb8 func(src unsafe.Pointer, dest unsafe.Pointer, info *VImage_ARGBToYpCbCr, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888To444CrYpCb8 converts an 8-bit-per-channel, 4-channel ARGB buffer to an 8-bit-per-channel 4:4:4 CrYpCb buffer.
@@ -14834,7 +12537,6 @@ func VImageConvert_ARGB8888To444CrYpCb8(src unsafe.Pointer, dest unsafe.Pointer,
 	}
 	return _vImageConvert_ARGB8888To444CrYpCb8(src, dest, info, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888ToARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_ARGB_16U, flags uint32) int
 
@@ -14848,7 +12550,6 @@ func VImageConvert_ARGB8888ToARGB16U(src unsafe.Pointer, dest unsafe.Pointer, pe
 	return _vImageConvert_ARGB8888ToARGB16U(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
 
-
 var _vImageConvert_ARGB8888ToARGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888ToARGB2101010 converts an 8-bit-per-channel, 4-channel interleaved buffer to an ARGB2101010 32-bit, 4-channel buffer with permutation.
@@ -14860,7 +12561,6 @@ func VImageConvert_ARGB8888ToARGB2101010(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_ARGB8888ToARGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888ToRGB16U func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_16U, flags uint32) int
 
@@ -14874,7 +12574,6 @@ func VImageConvert_ARGB8888ToRGB16U(src unsafe.Pointer, dest unsafe.Pointer, per
 	return _vImageConvert_ARGB8888ToRGB16U(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
 
-
 var _vImageConvert_ARGB8888ToRGBA1010102 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGB8888ToRGBA1010102 converts an 8-bit-per-channel, 4-channel interleaved buffer to an RGBA1010102 32-bit, 4-channel buffer with permutation.
@@ -14886,7 +12585,6 @@ func VImageConvert_ARGB8888ToRGBA1010102(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_ARGB8888ToRGBA1010102(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGB8888ToXRGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -14900,7 +12598,6 @@ func VImageConvert_ARGB8888ToXRGB2101010(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_ARGB8888ToXRGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGB8888toARGB1555 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_ARGB8888toARGB1555 converts an 8-bit-per-channel, 4-channel interleaved buffer to an ARGB1555 4-channel interleaved buffer.
@@ -14912,7 +12609,6 @@ func VImageConvert_ARGB8888toARGB1555(src unsafe.Pointer, dest unsafe.Pointer, f
 	}
 	return _vImageConvert_ARGB8888toARGB1555(src, dest, flags)
 }
-
 
 var _vImageConvert_ARGB8888toARGB1555_dithered func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
@@ -14926,7 +12622,6 @@ func VImageConvert_ARGB8888toARGB1555_dithered(src unsafe.Pointer, dest unsafe.P
 	return _vImageConvert_ARGB8888toARGB1555_dithered(src, dest, tempBuffer, dither, flags)
 }
 
-
 var _vImageConvert_ARGB8888toPlanar16Q12 func(src unsafe.Pointer, alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, flags uint32) int
 
 // VImageConvert_ARGB8888toPlanar16Q12 deinterleaves an 8-bit-per-channel, 4-channel interleaved buffer into four fixed-point 16-bit planar buffers.
@@ -14938,7 +12633,6 @@ func VImageConvert_ARGB8888toPlanar16Q12(src unsafe.Pointer, alpha unsafe.Pointe
 	}
 	return _vImageConvert_ARGB8888toPlanar16Q12(src, alpha, red, green, blue, flags)
 }
-
 
 var _vImageConvert_ARGB8888toPlanar8 func(srcARGB unsafe.Pointer, destA unsafe.Pointer, destR unsafe.Pointer, destG unsafe.Pointer, destB unsafe.Pointer, flags uint32) int
 
@@ -14952,7 +12646,6 @@ func VImageConvert_ARGB8888toPlanar8(srcARGB unsafe.Pointer, destA unsafe.Pointe
 	return _vImageConvert_ARGB8888toPlanar8(srcARGB, destA, destR, destG, destB, flags)
 }
 
-
 var _vImageConvert_ARGB8888toPlanarF func(src unsafe.Pointer, alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
 // VImageConvert_ARGB8888toPlanarF deinterleaves an 8-bit-per-channel, 4-channel interleaved buffer into four floating-point 32-bit planar buffers.
@@ -14964,7 +12657,6 @@ func VImageConvert_ARGB8888toPlanarF(src unsafe.Pointer, alpha unsafe.Pointer, r
 	}
 	return _vImageConvert_ARGB8888toPlanarF(src, alpha, red, green, blue, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_ARGB8888toRGB565 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -14978,7 +12670,6 @@ func VImageConvert_ARGB8888toRGB565(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageConvert_ARGB8888toRGB565(src, dest, flags)
 }
 
-
 var _vImageConvert_ARGB8888toRGB565_dithered func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_ARGB8888toRGB565_dithered removes the alpha channel from an 8-bit-per-channel ARGB buffer using the specified dithering algorithm to produce an RGB565 result.
@@ -14990,7 +12681,6 @@ func VImageConvert_ARGB8888toRGB565_dithered(src unsafe.Pointer, dest unsafe.Poi
 	}
 	return _vImageConvert_ARGB8888toRGB565_dithered(src, dest, tempBuffer, dither, flags)
 }
-
 
 var _vImageConvert_ARGB8888toRGB888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint32) int
 
@@ -15004,7 +12694,6 @@ func VImageConvert_ARGB8888toRGB888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageConvert_ARGB8888toRGB888(arg0, arg1, arg2)
 }
 
-
 var _vImageConvert_ARGBFFFFToARGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGBFFFFToARGB2101010 converts a floating-point 32-bit-per-channel, 4-channel interleaved buffer to an ARGB2101010 32-bit, 4-channel buffer with permutation.
@@ -15016,7 +12705,6 @@ func VImageConvert_ARGBFFFFToARGB2101010(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_ARGBFFFFToARGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGBFFFFToXRGB2101010 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -15030,7 +12718,6 @@ func VImageConvert_ARGBFFFFToXRGB2101010(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageConvert_ARGBFFFFToXRGB2101010(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_ARGBFFFFtoARGB8888_dithered func(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, dither int, permuteMap uint8, flags uint32) int
 
 // VImageConvert_ARGBFFFFtoARGB8888_dithered converts a floating-point 32-bit-per-channel, 4-channel buffer to an 8-bit-per-channel, 4-channel buffer using the specified dithering algorithm.
@@ -15042,7 +12729,6 @@ func VImageConvert_ARGBFFFFtoARGB8888_dithered(src unsafe.Pointer, dest unsafe.P
 	}
 	return _vImageConvert_ARGBFFFFtoARGB8888_dithered(src, dest, maxFloat, minFloat, dither, permuteMap, flags)
 }
-
 
 var _vImageConvert_ARGBFFFFtoPlanar8 func(src unsafe.Pointer, alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
@@ -15056,7 +12742,6 @@ func VImageConvert_ARGBFFFFtoPlanar8(src unsafe.Pointer, alpha unsafe.Pointer, r
 	return _vImageConvert_ARGBFFFFtoPlanar8(src, alpha, red, green, blue, maxFloat, minFloat, flags)
 }
 
-
 var _vImageConvert_ARGBFFFFtoPlanarF func(srcARGB unsafe.Pointer, destA unsafe.Pointer, destR unsafe.Pointer, destG unsafe.Pointer, destB unsafe.Pointer, flags uint32) int
 
 // VImageConvert_ARGBFFFFtoPlanarF deinterleaves a floating-point 32-bit-per-channel, 4-channel interleaved buffer into four floating-point 38-bit planar buffers.
@@ -15068,7 +12753,6 @@ func VImageConvert_ARGBFFFFtoPlanarF(srcARGB unsafe.Pointer, destA unsafe.Pointe
 	}
 	return _vImageConvert_ARGBFFFFtoPlanarF(srcARGB, destA, destR, destG, destB, flags)
 }
-
 
 var _vImageConvert_ARGBFFFFtoRGBFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15082,7 +12766,6 @@ func VImageConvert_ARGBFFFFtoRGBFFF(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageConvert_ARGBFFFFtoRGBFFF(src, dest, flags)
 }
 
-
 var _vImageConvert_ARGBToYpCbCr_GenerateConversion func(matrix *VImage_ARGBToYpCbCrMatrix, pixelRange *VImage_YpCbCrPixelRange, outInfo *VImage_ARGBToYpCbCr, inARGBType unsafe.Pointer, outYpCbCrType unsafe.Pointer, flags uint32) int
 
 // VImageConvert_ARGBToYpCbCr_GenerateConversion generates the information that describes the conversion from ARGB to YpCbCr.
@@ -15094,7 +12777,6 @@ func VImageConvert_ARGBToYpCbCr_GenerateConversion(matrix *VImage_ARGBToYpCbCrMa
 	}
 	return _vImageConvert_ARGBToYpCbCr_GenerateConversion(matrix, pixelRange, outInfo, inARGBType, outYpCbCrType, flags)
 }
-
 
 var _vImageConvert_AnyToAny func(converter unsafe.Pointer, srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -15108,7 +12790,6 @@ func VImageConvert_AnyToAny(converter unsafe.Pointer, srcs unsafe.Pointer, dests
 	return _vImageConvert_AnyToAny(converter, srcs, dests, tempBuffer, flags)
 }
 
-
 var _vImageConvert_BGRA16UtoRGB16U func(bgraSrc unsafe.Pointer, rgbDest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_BGRA16UtoRGB16U removes the alpha channel from an unsigned 16-bit-per-channel BGRA buffer to produce an unsigned 16-bit-per-channel RGB result.
@@ -15120,7 +12801,6 @@ func VImageConvert_BGRA16UtoRGB16U(bgraSrc unsafe.Pointer, rgbDest unsafe.Pointe
 	}
 	return _vImageConvert_BGRA16UtoRGB16U(bgraSrc, rgbDest, flags)
 }
-
 
 var _vImageConvert_BGRA8888toRGB565 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15134,7 +12814,6 @@ func VImageConvert_BGRA8888toRGB565(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageConvert_BGRA8888toRGB565(src, dest, flags)
 }
 
-
 var _vImageConvert_BGRA8888toRGB565_dithered func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_BGRA8888toRGB565_dithered removes the alpha channel from an 8-bit-per-channel BGRA buffer using the specified dithering algorithm to produce an RGB565 result.
@@ -15146,7 +12825,6 @@ func VImageConvert_BGRA8888toRGB565_dithered(src unsafe.Pointer, dest unsafe.Poi
 	}
 	return _vImageConvert_BGRA8888toRGB565_dithered(src, dest, tempBuffer, dither, flags)
 }
-
 
 var _vImageConvert_BGRA8888toRGB888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint32) int
 
@@ -15160,7 +12838,6 @@ func VImageConvert_BGRA8888toRGB888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageConvert_BGRA8888toRGB888(arg0, arg1, arg2)
 }
 
-
 var _vImageConvert_BGRAFFFFtoRGBFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_BGRAFFFFtoRGBFFF removes the alpha channel from a floating-point 32-bit-per-channel BGRA buffer to produce a floating-point 32-bit-per-channel RGB result.
@@ -15172,7 +12849,6 @@ func VImageConvert_BGRAFFFFtoRGBFFF(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImageConvert_BGRAFFFFtoRGBFFF(src, dest, flags)
 }
-
 
 var _vImageConvert_BGRX8888ToPlanar8 func(src unsafe.Pointer, blue unsafe.Pointer, green unsafe.Pointer, red unsafe.Pointer, flags uint32) int
 
@@ -15186,7 +12862,6 @@ func VImageConvert_BGRX8888ToPlanar8(src unsafe.Pointer, blue unsafe.Pointer, gr
 	return _vImageConvert_BGRX8888ToPlanar8(src, blue, green, red, flags)
 }
 
-
 var _vImageConvert_BGRXFFFFToPlanarF func(src unsafe.Pointer, blue unsafe.Pointer, green unsafe.Pointer, red unsafe.Pointer, flags uint32) int
 
 // VImageConvert_BGRXFFFFToPlanarF deinterleaves a floating-point 32-bit-per-channel, 4-channel interleaved buffer into three floating-point 32-bit planar buffers and discards the last channel.
@@ -15198,7 +12873,6 @@ func VImageConvert_BGRXFFFFToPlanarF(src unsafe.Pointer, blue unsafe.Pointer, gr
 	}
 	return _vImageConvert_BGRXFFFFToPlanarF(src, blue, green, red, flags)
 }
-
 
 var _vImageConvert_ChunkyToPlanar8 func(srcChannels unsafe.Pointer, destPlanarBuffers unsafe.Pointer, channelCount uint, srcStrideBytes uintptr, srcWidth uint, srcHeight uint, srcRowBytes uintptr, flags uint32) int
 
@@ -15212,7 +12886,6 @@ func VImageConvert_ChunkyToPlanar8(srcChannels unsafe.Pointer, destPlanarBuffers
 	return _vImageConvert_ChunkyToPlanar8(srcChannels, destPlanarBuffers, channelCount, srcStrideBytes, srcWidth, srcHeight, srcRowBytes, flags)
 }
 
-
 var _vImageConvert_ChunkyToPlanarF func(srcChannels unsafe.Pointer, destPlanarBuffers unsafe.Pointer, channelCount uint, srcStrideBytes uintptr, srcWidth uint, srcHeight uint, srcRowBytes uintptr, flags uint32) int
 
 // VImageConvert_ChunkyToPlanarF deinterleaves a floating-point 32-bit-per-channel interleaved buffer with an arbitrary number of channels into the corresponding number of 32-bit planar buffers.
@@ -15224,7 +12897,6 @@ func VImageConvert_ChunkyToPlanarF(srcChannels unsafe.Pointer, destPlanarBuffers
 	}
 	return _vImageConvert_ChunkyToPlanarF(srcChannels, destPlanarBuffers, channelCount, srcStrideBytes, srcWidth, srcHeight, srcRowBytes, flags)
 }
-
 
 var _vImageConvert_FTo16S func(src unsafe.Pointer, dest unsafe.Pointer, offset float32, scale float32, flags uint32) int
 
@@ -15238,7 +12910,6 @@ func VImageConvert_FTo16S(src unsafe.Pointer, dest unsafe.Pointer, offset float3
 	return _vImageConvert_FTo16S(src, dest, offset, scale, flags)
 }
 
-
 var _vImageConvert_FTo16U func(src unsafe.Pointer, dest unsafe.Pointer, offset float32, scale float32, flags uint32) int
 
 // VImageConvert_FTo16U converts a floating-point 32-bit planar buffer to an unsigned 16-bit planar buffer.
@@ -15250,7 +12921,6 @@ func VImageConvert_FTo16U(src unsafe.Pointer, dest unsafe.Pointer, offset float3
 	}
 	return _vImageConvert_FTo16U(src, dest, offset, scale, flags)
 }
-
 
 var _vImageConvert_Fto16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15264,7 +12934,6 @@ func VImageConvert_Fto16Q12(src unsafe.Pointer, dest unsafe.Pointer, flags uint3
 	return _vImageConvert_Fto16Q12(src, dest, flags)
 }
 
-
 var _vImageConvert_Indexed1toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, colors Pixel_8, flags uint32) int
 
 // VImageConvert_Indexed1toPlanar8 converts an indexed 1-bit planar buffer to an 8-bit planar buffer.
@@ -15276,7 +12945,6 @@ func VImageConvert_Indexed1toPlanar8(src unsafe.Pointer, dest unsafe.Pointer, co
 	}
 	return _vImageConvert_Indexed1toPlanar8(src, dest, colors, flags)
 }
-
 
 var _vImageConvert_Indexed2toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, colors Pixel_8, flags uint32) int
 
@@ -15290,7 +12958,6 @@ func VImageConvert_Indexed2toPlanar8(src unsafe.Pointer, dest unsafe.Pointer, co
 	return _vImageConvert_Indexed2toPlanar8(src, dest, colors, flags)
 }
 
-
 var _vImageConvert_Indexed4toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, colors Pixel_8, flags uint32) int
 
 // VImageConvert_Indexed4toPlanar8 converts an indexed 4-bit planar buffer to an 8-bit planar buffer.
@@ -15302,7 +12969,6 @@ func VImageConvert_Indexed4toPlanar8(src unsafe.Pointer, dest unsafe.Pointer, co
 	}
 	return _vImageConvert_Indexed4toPlanar8(src, dest, colors, flags)
 }
-
 
 var _vImageConvert_Planar16FtoPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15316,7 +12982,6 @@ func VImageConvert_Planar16FtoPlanar8(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageConvert_Planar16FtoPlanar8(src, dest, flags)
 }
 
-
 var _vImageConvert_Planar16FtoPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar16FtoPlanarF converts a floating-point 16-bit planar buffer to a floating-point 32-bit planar buffer.
@@ -15328,7 +12993,6 @@ func VImageConvert_Planar16FtoPlanarF(src unsafe.Pointer, dest unsafe.Pointer, f
 	}
 	return _vImageConvert_Planar16FtoPlanarF(src, dest, flags)
 }
-
 
 var _vImageConvert_Planar16Q12toARGB16F func(alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15342,7 +13006,6 @@ func VImageConvert_Planar16Q12toARGB16F(alpha unsafe.Pointer, red unsafe.Pointer
 	return _vImageConvert_Planar16Q12toARGB16F(alpha, red, green, blue, dest, flags)
 }
 
-
 var _vImageConvert_Planar16Q12toARGB8888 func(alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar16Q12toARGB8888 interleaves four fixed-point 16-bit planar buffers into an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -15354,7 +13017,6 @@ func VImageConvert_Planar16Q12toARGB8888(alpha unsafe.Pointer, red unsafe.Pointe
 	}
 	return _vImageConvert_Planar16Q12toARGB8888(alpha, red, green, blue, dest, flags)
 }
-
 
 var _vImageConvert_Planar16Q12toRGB16F func(red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15368,7 +13030,6 @@ func VImageConvert_Planar16Q12toRGB16F(red unsafe.Pointer, green unsafe.Pointer,
 	return _vImageConvert_Planar16Q12toRGB16F(red, green, blue, dest, flags)
 }
 
-
 var _vImageConvert_Planar16Q12toRGB888 func(red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar16Q12toRGB888 interleaves three fixed-point 16-bit planar buffers into an 8-bit-per-channel, 3-channel interleaved buffer.
@@ -15380,7 +13041,6 @@ func VImageConvert_Planar16Q12toRGB888(red unsafe.Pointer, green unsafe.Pointer,
 	}
 	return _vImageConvert_Planar16Q12toRGB888(red, green, blue, dest, flags)
 }
-
 
 var _vImageConvert_Planar16UtoARGB16U func(aSrc unsafe.Pointer, rSrc unsafe.Pointer, gSrc unsafe.Pointer, bSrc unsafe.Pointer, argbDest unsafe.Pointer, flags uint32) int
 
@@ -15394,7 +13054,6 @@ func VImageConvert_Planar16UtoARGB16U(aSrc unsafe.Pointer, rSrc unsafe.Pointer, 
 	return _vImageConvert_Planar16UtoARGB16U(aSrc, rSrc, gSrc, bSrc, argbDest, flags)
 }
 
-
 var _vImageConvert_Planar16UtoPlanar8_dithered func(src unsafe.Pointer, dest unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_Planar16UtoPlanar8_dithered converts an unsigned 16-bit planar buffer to an 8-bit planar buffer using the specified dithering algorithm.
@@ -15406,7 +13065,6 @@ func VImageConvert_Planar16UtoPlanar8_dithered(src unsafe.Pointer, dest unsafe.P
 	}
 	return _vImageConvert_Planar16UtoPlanar8_dithered(src, dest, dither, flags)
 }
-
 
 var _vImageConvert_Planar16UtoRGB16U func(rSrc unsafe.Pointer, gSrc unsafe.Pointer, bSrc unsafe.Pointer, rgbDest unsafe.Pointer, flags uint32) int
 
@@ -15420,7 +13078,6 @@ func VImageConvert_Planar16UtoRGB16U(rSrc unsafe.Pointer, gSrc unsafe.Pointer, b
 	return _vImageConvert_Planar16UtoRGB16U(rSrc, gSrc, bSrc, rgbDest, flags)
 }
 
-
 var _vImageConvert_Planar1toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar1toPlanar8 converts a 1-bit planar buffer to an 8-bit planar buffer.
@@ -15432,7 +13089,6 @@ func VImageConvert_Planar1toPlanar8(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImageConvert_Planar1toPlanar8(src, dest, flags)
 }
-
 
 var _vImageConvert_Planar2toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15446,7 +13102,6 @@ func VImageConvert_Planar2toPlanar8(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageConvert_Planar2toPlanar8(src, dest, flags)
 }
 
-
 var _vImageConvert_Planar4toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar4toPlanar8 converts a 4-bit planar buffer to an 8-bit planar buffer.
@@ -15458,7 +13113,6 @@ func VImageConvert_Planar4toPlanar8(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImageConvert_Planar4toPlanar8(src, dest, flags)
 }
-
 
 var _vImageConvert_Planar8To16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15472,7 +13126,6 @@ func VImageConvert_Planar8To16U(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	return _vImageConvert_Planar8To16U(src, dest, flags)
 }
 
-
 var _vImageConvert_Planar8ToARGBFFFF func(alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
 // VImageConvert_Planar8ToARGBFFFF interleaves four 8-bit planar buffers into a floating-point 32-bit-per-channel, 4-channel interleaved ARGB buffer.
@@ -15484,7 +13137,6 @@ func VImageConvert_Planar8ToARGBFFFF(alpha unsafe.Pointer, red unsafe.Pointer, g
 	}
 	return _vImageConvert_Planar8ToARGBFFFF(alpha, red, green, blue, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_Planar8ToBGRX8888 func(blue unsafe.Pointer, green unsafe.Pointer, red unsafe.Pointer, alpha Pixel_8, dest unsafe.Pointer, flags uint32) int
 
@@ -15498,7 +13150,6 @@ func VImageConvert_Planar8ToBGRX8888(blue unsafe.Pointer, green unsafe.Pointer, 
 	return _vImageConvert_Planar8ToBGRX8888(blue, green, red, alpha, dest, flags)
 }
 
-
 var _vImageConvert_Planar8ToBGRXFFFF func(blue unsafe.Pointer, green unsafe.Pointer, red unsafe.Pointer, alpha Pixel_F, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
 // VImageConvert_Planar8ToBGRXFFFF interleaves three 8-bit planar buffers into a floating-point 32-bit-per-channel, 4-channel interleaved BGRX buffer with the specified constant alpha value.
@@ -15510,7 +13161,6 @@ func VImageConvert_Planar8ToBGRXFFFF(blue unsafe.Pointer, green unsafe.Pointer, 
 	}
 	return _vImageConvert_Planar8ToBGRXFFFF(blue, green, red, alpha, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_Planar8ToXRGB8888 func(alpha Pixel_8, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15524,7 +13174,6 @@ func VImageConvert_Planar8ToXRGB8888(alpha Pixel_8, red unsafe.Pointer, green un
 	return _vImageConvert_Planar8ToXRGB8888(alpha, red, green, blue, dest, flags)
 }
 
-
 var _vImageConvert_Planar8ToXRGBFFFF func(alpha Pixel_F, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
 // VImageConvert_Planar8ToXRGBFFFF interleaves three 8-bit planar buffers into a floating-point 32-bit-per-channel, 4-channel interleaved XRGB buffer with the specified constant alpha value.
@@ -15536,7 +13185,6 @@ func VImageConvert_Planar8ToXRGBFFFF(alpha Pixel_F, red unsafe.Pointer, green un
 	}
 	return _vImageConvert_Planar8ToXRGBFFFF(alpha, red, green, blue, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_Planar8toARGB1555 func(srcA unsafe.Pointer, srcR unsafe.Pointer, srcG unsafe.Pointer, srcB unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15550,7 +13198,6 @@ func VImageConvert_Planar8toARGB1555(srcA unsafe.Pointer, srcR unsafe.Pointer, s
 	return _vImageConvert_Planar8toARGB1555(srcA, srcR, srcG, srcB, dest, flags)
 }
 
-
 var _vImageConvert_Planar8toARGB8888 func(srcA unsafe.Pointer, srcR unsafe.Pointer, srcG unsafe.Pointer, srcB unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar8toARGB8888 interleaves four 8-bit planar buffers into an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -15562,7 +13209,6 @@ func VImageConvert_Planar8toARGB8888(srcA unsafe.Pointer, srcR unsafe.Pointer, s
 	}
 	return _vImageConvert_Planar8toARGB8888(srcA, srcR, srcG, srcB, dest, flags)
 }
-
 
 var _vImageConvert_Planar8toIndexed1 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, colors Pixel_8, dither int, flags uint32) int
 
@@ -15576,7 +13222,6 @@ func VImageConvert_Planar8toIndexed1(src unsafe.Pointer, dest unsafe.Pointer, te
 	return _vImageConvert_Planar8toIndexed1(src, dest, tempBuffer, colors, dither, flags)
 }
 
-
 var _vImageConvert_Planar8toIndexed2 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, colors Pixel_8, dither int, flags uint32) int
 
 // VImageConvert_Planar8toIndexed2 converts an 8-bit planar buffer to an indexed 2-bit planar buffer.
@@ -15588,7 +13233,6 @@ func VImageConvert_Planar8toIndexed2(src unsafe.Pointer, dest unsafe.Pointer, te
 	}
 	return _vImageConvert_Planar8toIndexed2(src, dest, tempBuffer, colors, dither, flags)
 }
-
 
 var _vImageConvert_Planar8toIndexed4 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, colors Pixel_8, dither int, flags uint32) int
 
@@ -15602,7 +13246,6 @@ func VImageConvert_Planar8toIndexed4(src unsafe.Pointer, dest unsafe.Pointer, te
 	return _vImageConvert_Planar8toIndexed4(src, dest, tempBuffer, colors, dither, flags)
 }
 
-
 var _vImageConvert_Planar8toPlanar1 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_Planar8toPlanar1 converts an 8-bit planar buffer to a 1-bit planar buffer.
@@ -15614,7 +13257,6 @@ func VImageConvert_Planar8toPlanar1(src unsafe.Pointer, dest unsafe.Pointer, tem
 	}
 	return _vImageConvert_Planar8toPlanar1(src, dest, tempBuffer, dither, flags)
 }
-
 
 var _vImageConvert_Planar8toPlanar16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15628,7 +13270,6 @@ func VImageConvert_Planar8toPlanar16F(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageConvert_Planar8toPlanar16F(src, dest, flags)
 }
 
-
 var _vImageConvert_Planar8toPlanar2 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_Planar8toPlanar2 converts an 8-bit planar buffer to a 2-bit planar buffer.
@@ -15640,7 +13281,6 @@ func VImageConvert_Planar8toPlanar2(src unsafe.Pointer, dest unsafe.Pointer, tem
 	}
 	return _vImageConvert_Planar8toPlanar2(src, dest, tempBuffer, dither, flags)
 }
-
 
 var _vImageConvert_Planar8toPlanar4 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
@@ -15654,7 +13294,6 @@ func VImageConvert_Planar8toPlanar4(src unsafe.Pointer, dest unsafe.Pointer, tem
 	return _vImageConvert_Planar8toPlanar4(src, dest, tempBuffer, dither, flags)
 }
 
-
 var _vImageConvert_Planar8toPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_F, minFloat Pixel_F, flags uint32) int
 
 // VImageConvert_Planar8toPlanarF converts an 8-bit planar buffer to a floating-point 32-bit planar buffer.
@@ -15666,7 +13305,6 @@ func VImageConvert_Planar8toPlanarF(src unsafe.Pointer, dest unsafe.Pointer, max
 	}
 	return _vImageConvert_Planar8toPlanarF(src, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_Planar8toRGB565 func(srcR unsafe.Pointer, srcG unsafe.Pointer, srcB unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15680,7 +13318,6 @@ func VImageConvert_Planar8toRGB565(srcR unsafe.Pointer, srcG unsafe.Pointer, src
 	return _vImageConvert_Planar8toRGB565(srcR, srcG, srcB, dest, flags)
 }
 
-
 var _vImageConvert_Planar8toRGB888 func(planarRed unsafe.Pointer, planarGreen unsafe.Pointer, planarBlue unsafe.Pointer, rgbDest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_Planar8toRGB888 interleaves three 8-bit planar buffers into an 8-bit-per-channel, 3-channel interleaved buffer.
@@ -15692,7 +13329,6 @@ func VImageConvert_Planar8toRGB888(planarRed unsafe.Pointer, planarGreen unsafe.
 	}
 	return _vImageConvert_Planar8toRGB888(planarRed, planarGreen, planarBlue, rgbDest, flags)
 }
-
 
 var _vImageConvert_PlanarFToARGB8888 func(alpha unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
@@ -15706,7 +13342,6 @@ func VImageConvert_PlanarFToARGB8888(alpha unsafe.Pointer, red unsafe.Pointer, g
 	return _vImageConvert_PlanarFToARGB8888(alpha, red, green, blue, dest, maxFloat, minFloat, flags)
 }
 
-
 var _vImageConvert_PlanarFToBGRX8888 func(blue unsafe.Pointer, green unsafe.Pointer, red unsafe.Pointer, alpha Pixel_8, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
 // VImageConvert_PlanarFToBGRX8888 interleaves three 32-bit planar buffers into an 8-bit-per-channel, 4-channel interleaved BGRX buffer with the specified constant alpha value.
@@ -15718,7 +13353,6 @@ func VImageConvert_PlanarFToBGRX8888(blue unsafe.Pointer, green unsafe.Pointer, 
 	}
 	return _vImageConvert_PlanarFToBGRX8888(blue, green, red, alpha, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_PlanarFToBGRXFFFF func(blue unsafe.Pointer, green unsafe.Pointer, red unsafe.Pointer, alpha Pixel_F, dest unsafe.Pointer, flags uint32) int
 
@@ -15732,7 +13366,6 @@ func VImageConvert_PlanarFToBGRXFFFF(blue unsafe.Pointer, green unsafe.Pointer, 
 	return _vImageConvert_PlanarFToBGRXFFFF(blue, green, red, alpha, dest, flags)
 }
 
-
 var _vImageConvert_PlanarFToXRGB8888 func(alpha Pixel_8, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_FFFF, minFloat Pixel_FFFF, flags uint32) int
 
 // VImageConvert_PlanarFToXRGB8888 interleaves three 32-bit planar buffers into an 8-bit-per-channel, 4-channel interleaved XRGB buffer with the specified constant alpha value.
@@ -15744,7 +13377,6 @@ func VImageConvert_PlanarFToXRGB8888(alpha Pixel_8, red unsafe.Pointer, green un
 	}
 	return _vImageConvert_PlanarFToXRGB8888(alpha, red, green, blue, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_PlanarFToXRGBFFFF func(alpha Pixel_F, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15758,7 +13390,6 @@ func VImageConvert_PlanarFToXRGBFFFF(alpha Pixel_F, red unsafe.Pointer, green un
 	return _vImageConvert_PlanarFToXRGBFFFF(alpha, red, green, blue, dest, flags)
 }
 
-
 var _vImageConvert_PlanarFtoARGBFFFF func(srcA unsafe.Pointer, srcR unsafe.Pointer, srcG unsafe.Pointer, srcB unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_PlanarFtoARGBFFFF interleaves four floating-point 32-bit planar buffers into a floating-point 32-bit-per-channel, 4-channel ARGB interleaved buffer.
@@ -15770,7 +13401,6 @@ func VImageConvert_PlanarFtoARGBFFFF(srcA unsafe.Pointer, srcR unsafe.Pointer, s
 	}
 	return _vImageConvert_PlanarFtoARGBFFFF(srcA, srcR, srcG, srcB, dest, flags)
 }
-
 
 var _vImageConvert_PlanarFtoPlanar16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15784,7 +13414,6 @@ func VImageConvert_PlanarFtoPlanar16F(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageConvert_PlanarFtoPlanar16F(src, dest, flags)
 }
 
-
 var _vImageConvert_PlanarFtoPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_F, minFloat Pixel_F, flags uint32) int
 
 // VImageConvert_PlanarFtoPlanar8 converts a floating-point 32-bit planar buffer to an 8-bit planar buffer.
@@ -15796,7 +13425,6 @@ func VImageConvert_PlanarFtoPlanar8(src unsafe.Pointer, dest unsafe.Pointer, max
 	}
 	return _vImageConvert_PlanarFtoPlanar8(src, dest, maxFloat, minFloat, flags)
 }
-
 
 var _vImageConvert_PlanarFtoPlanar8_dithered func(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_F, minFloat Pixel_F, dither int, flags uint32) int
 
@@ -15810,7 +13438,6 @@ func VImageConvert_PlanarFtoPlanar8_dithered(src unsafe.Pointer, dest unsafe.Poi
 	return _vImageConvert_PlanarFtoPlanar8_dithered(src, dest, maxFloat, minFloat, dither, flags)
 }
 
-
 var _vImageConvert_PlanarFtoRGBFFF func(planarRed unsafe.Pointer, planarGreen unsafe.Pointer, planarBlue unsafe.Pointer, rgbDest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_PlanarFtoRGBFFF interleaves three floating-point 32-bit planar buffers into a floating-point 32-bit-per-channel, 3-channel interleaved buffer.
@@ -15822,7 +13449,6 @@ func VImageConvert_PlanarFtoRGBFFF(planarRed unsafe.Pointer, planarGreen unsafe.
 	}
 	return _vImageConvert_PlanarFtoRGBFFF(planarRed, planarGreen, planarBlue, rgbDest, flags)
 }
-
 
 var _vImageConvert_PlanarToChunky8 func(srcPlanarBuffers unsafe.Pointer, destChannels unsafe.Pointer, channelCount uint, destStrideBytes uintptr, destWidth uint, destHeight uint, destRowBytes uintptr, flags uint32) int
 
@@ -15836,7 +13462,6 @@ func VImageConvert_PlanarToChunky8(srcPlanarBuffers unsafe.Pointer, destChannels
 	return _vImageConvert_PlanarToChunky8(srcPlanarBuffers, destChannels, channelCount, destStrideBytes, destWidth, destHeight, destRowBytes, flags)
 }
 
-
 var _vImageConvert_PlanarToChunkyF func(srcPlanarBuffers unsafe.Pointer, destChannels unsafe.Pointer, channelCount uint, destStrideBytes uintptr, destWidth uint, destHeight uint, destRowBytes uintptr, flags uint32) int
 
 // VImageConvert_PlanarToChunkyF interleaves the specifed number of floating-point 32-bit planar buffers into a floating-point 32 -bit-per-channel interleaved buffer.
@@ -15848,7 +13473,6 @@ func VImageConvert_PlanarToChunkyF(srcPlanarBuffers unsafe.Pointer, destChannels
 	}
 	return _vImageConvert_PlanarToChunkyF(srcPlanarBuffers, destChannels, channelCount, destStrideBytes, destWidth, destHeight, destRowBytes, flags)
 }
-
 
 var _vImageConvert_RGB16UToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_8888, flags uint32) int
 
@@ -15862,7 +13486,6 @@ func VImageConvert_RGB16UToARGB8888(src unsafe.Pointer, dest unsafe.Pointer, per
 	return _vImageConvert_RGB16UToARGB8888(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
 
-
 var _vImageConvert_RGB16UtoARGB16U func(rgbSrc unsafe.Pointer, aSrc unsafe.Pointer, alpha Pixel_16U, argbDest unsafe.Pointer, premultiply bool, flags uint32) int
 
 // VImageConvert_RGB16UtoARGB16U combines an unsigned 16-bit-per-channel, 3-channel RGB buffer and either an unsigned 16-bit alpha buffer or constant alpha value to produce an ARGB result.
@@ -15874,7 +13497,6 @@ func VImageConvert_RGB16UtoARGB16U(rgbSrc unsafe.Pointer, aSrc unsafe.Pointer, a
 	}
 	return _vImageConvert_RGB16UtoARGB16U(rgbSrc, aSrc, alpha, argbDest, premultiply, flags)
 }
-
 
 var _vImageConvert_RGB16UtoBGRA16U func(rgbSrc unsafe.Pointer, aSrc unsafe.Pointer, alpha Pixel_16U, bgraDest unsafe.Pointer, premultiply bool, flags uint32) int
 
@@ -15888,7 +13510,6 @@ func VImageConvert_RGB16UtoBGRA16U(rgbSrc unsafe.Pointer, aSrc unsafe.Pointer, a
 	return _vImageConvert_RGB16UtoBGRA16U(rgbSrc, aSrc, alpha, bgraDest, premultiply, flags)
 }
 
-
 var _vImageConvert_RGB16UtoPlanar16U func(rgbSrc unsafe.Pointer, rDest unsafe.Pointer, gDest unsafe.Pointer, bDest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGB16UtoPlanar16U deinterleaves an unsigned 16-bit-per-channel, 3-channel interleaved buffer into three unsigned 16-bit planar buffers.
@@ -15900,7 +13521,6 @@ func VImageConvert_RGB16UtoPlanar16U(rgbSrc unsafe.Pointer, rDest unsafe.Pointer
 	}
 	return _vImageConvert_RGB16UtoPlanar16U(rgbSrc, rDest, gDest, bDest, flags)
 }
-
 
 var _vImageConvert_RGB16UtoRGB888_dithered func(src unsafe.Pointer, dest unsafe.Pointer, dither int, flags uint32) int
 
@@ -15914,7 +13534,6 @@ func VImageConvert_RGB16UtoRGB888_dithered(src unsafe.Pointer, dest unsafe.Point
 	return _vImageConvert_RGB16UtoRGB888_dithered(src, dest, dither, flags)
 }
 
-
 var _vImageConvert_RGB16UtoRGBA16U func(rgbSrc unsafe.Pointer, aSrc unsafe.Pointer, alpha Pixel_16U, rgbaDest unsafe.Pointer, premultiply bool, flags uint32) int
 
 // VImageConvert_RGB16UtoRGBA16U combines an unsigned 16-bit-per-channel, 3-channel RGB buffer and either an unsigned 16-bit alpha buffer or constant alpha value to produce an RGBA result.
@@ -15926,7 +13545,6 @@ func VImageConvert_RGB16UtoRGBA16U(rgbSrc unsafe.Pointer, aSrc unsafe.Pointer, a
 	}
 	return _vImageConvert_RGB16UtoRGBA16U(rgbSrc, aSrc, alpha, rgbaDest, premultiply, flags)
 }
-
 
 var _vImageConvert_RGB565toARGB1555 func(src unsafe.Pointer, dest unsafe.Pointer, dither int, flags uint32) int
 
@@ -15940,7 +13558,6 @@ func VImageConvert_RGB565toARGB1555(src unsafe.Pointer, dest unsafe.Pointer, dit
 	return _vImageConvert_RGB565toARGB1555(src, dest, dither, flags)
 }
 
-
 var _vImageConvert_RGB565toARGB8888 func(alpha Pixel_8, src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGB565toARGB8888 combines an RGB565 3-channel RGB buffer and a constant alpha value to produce an 8-bit-per-channel, 4-channel ARGB buffer.
@@ -15952,7 +13569,6 @@ func VImageConvert_RGB565toARGB8888(alpha Pixel_8, src unsafe.Pointer, dest unsa
 	}
 	return _vImageConvert_RGB565toARGB8888(alpha, src, dest, flags)
 }
-
 
 var _vImageConvert_RGB565toBGRA8888 func(alpha Pixel_8, src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15966,7 +13582,6 @@ func VImageConvert_RGB565toBGRA8888(alpha Pixel_8, src unsafe.Pointer, dest unsa
 	return _vImageConvert_RGB565toBGRA8888(alpha, src, dest, flags)
 }
 
-
 var _vImageConvert_RGB565toPlanar8 func(src unsafe.Pointer, destR unsafe.Pointer, destG unsafe.Pointer, destB unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGB565toPlanar8 deinterleaves an RGB565 3-channel interleaved buffer into three 8-bit planar buffers.
@@ -15978,7 +13593,6 @@ func VImageConvert_RGB565toPlanar8(src unsafe.Pointer, destR unsafe.Pointer, des
 	}
 	return _vImageConvert_RGB565toPlanar8(src, destR, destG, destB, flags)
 }
-
 
 var _vImageConvert_RGB565toRGB888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -15992,7 +13606,6 @@ func VImageConvert_RGB565toRGB888(src unsafe.Pointer, dest unsafe.Pointer, flags
 	return _vImageConvert_RGB565toRGB888(src, dest, flags)
 }
 
-
 var _vImageConvert_RGB565toRGBA5551 func(src unsafe.Pointer, dest unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_RGB565toRGBA5551 combines an RGB565 3-channel RGB buffer and a constant alpha value to produce a 4-channel RGBA5551 buffer.
@@ -16004,7 +13617,6 @@ func VImageConvert_RGB565toRGBA5551(src unsafe.Pointer, dest unsafe.Pointer, dit
 	}
 	return _vImageConvert_RGB565toRGBA5551(src, dest, dither, flags)
 }
-
 
 var _vImageConvert_RGB565toRGBA8888 func(alpha Pixel_8, src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -16018,7 +13630,6 @@ func VImageConvert_RGB565toRGBA8888(alpha Pixel_8, src unsafe.Pointer, dest unsa
 	return _vImageConvert_RGB565toRGBA8888(alpha, src, dest, flags)
 }
 
-
 var _vImageConvert_RGB888toARGB8888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_8, arg3 unsafe.Pointer, arg4 bool, arg5 uint32) int
 
 // VImageConvert_RGB888toARGB8888 combines an 8-bit-per-channel, 3-channel RGB buffer and either an 8-bit alpha buffer or constant alpha value to produce an ARGB result.
@@ -16030,7 +13641,6 @@ func VImageConvert_RGB888toARGB8888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	}
 	return _vImageConvert_RGB888toARGB8888(arg0, arg1, arg2, arg3, arg4, arg5)
 }
-
 
 var _vImageConvert_RGB888toBGRA8888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_8, arg3 unsafe.Pointer, arg4 bool, arg5 uint32) int
 
@@ -16044,7 +13654,6 @@ func VImageConvert_RGB888toBGRA8888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageConvert_RGB888toBGRA8888(arg0, arg1, arg2, arg3, arg4, arg5)
 }
 
-
 var _vImageConvert_RGB888toPlanar16Q12 func(src unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGB888toPlanar16Q12 deinterleaves an 8-bit-per-channel, 3-channel interleaved buffer into three fixed-point 16-bit planar buffers.
@@ -16056,7 +13665,6 @@ func VImageConvert_RGB888toPlanar16Q12(src unsafe.Pointer, red unsafe.Pointer, g
 	}
 	return _vImageConvert_RGB888toPlanar16Q12(src, red, green, blue, flags)
 }
-
 
 var _vImageConvert_RGB888toPlanar8 func(rgbSrc unsafe.Pointer, redDest unsafe.Pointer, greenDest unsafe.Pointer, blueDest unsafe.Pointer, flags uint32) int
 
@@ -16070,7 +13678,6 @@ func VImageConvert_RGB888toPlanar8(rgbSrc unsafe.Pointer, redDest unsafe.Pointer
 	return _vImageConvert_RGB888toPlanar8(rgbSrc, redDest, greenDest, blueDest, flags)
 }
 
-
 var _vImageConvert_RGB888toRGB565_dithered func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_RGB888toRGB565_dithered converts an 8-bit-per-channel, 3-channel interleaved buffer to an RGB565 3-channel interleaved buffer using the specified dithering algorithm.
@@ -16082,7 +13689,6 @@ func VImageConvert_RGB888toRGB565_dithered(src unsafe.Pointer, dest unsafe.Point
 	}
 	return _vImageConvert_RGB888toRGB565_dithered(src, dest, tempBuffer, dither, flags)
 }
-
 
 var _vImageConvert_RGB888toRGBA8888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_8, arg3 unsafe.Pointer, arg4 bool, arg5 uint32) int
 
@@ -16096,7 +13702,6 @@ func VImageConvert_RGB888toRGBA8888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageConvert_RGB888toRGBA8888(arg0, arg1, arg2, arg3, arg4, arg5)
 }
 
-
 var _vImageConvert_RGBA1010102ToARGB16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_RGBA1010102ToARGB16Q12 converts an RGBA1010102 32-bit, 4-channel interleaved buffer to a fixed-point 16-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -16108,7 +13713,6 @@ func VImageConvert_RGBA1010102ToARGB16Q12(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageConvert_RGBA1010102ToARGB16Q12(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_RGBA1010102ToARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -16122,7 +13726,6 @@ func VImageConvert_RGBA1010102ToARGB16U(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvert_RGBA1010102ToARGB16U(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_RGBA1010102ToARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_RGBA1010102ToARGB8888 converts an RGBA1010102 32-bit, 4-channel interleaved buffer to an 8-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -16134,7 +13737,6 @@ func VImageConvert_RGBA1010102ToARGB8888(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageConvert_RGBA1010102ToARGB8888(src, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_RGBA16UtoRGB16U func(rgbaSrc unsafe.Pointer, rgbDest unsafe.Pointer, flags uint32) int
 
@@ -16148,7 +13750,6 @@ func VImageConvert_RGBA16UtoRGB16U(rgbaSrc unsafe.Pointer, rgbDest unsafe.Pointe
 	return _vImageConvert_RGBA16UtoRGB16U(rgbaSrc, rgbDest, flags)
 }
 
-
 var _vImageConvert_RGBA5551toRGB565 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGBA5551toRGB565 removes the alpha channel from an RGBA5551 buffer to produce an RGB565 result.
@@ -16160,7 +13761,6 @@ func VImageConvert_RGBA5551toRGB565(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImageConvert_RGBA5551toRGB565(src, dest, flags)
 }
-
 
 var _vImageConvert_RGBA5551toRGBA8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -16174,7 +13774,6 @@ func VImageConvert_RGBA5551toRGBA8888(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageConvert_RGBA5551toRGBA8888(src, dest, flags)
 }
 
-
 var _vImageConvert_RGBA8888toRGB565 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGBA8888toRGB565 removes the alpha channel from an 8-bit-per-channel RGBA buffer to produce an RGB565 result.
@@ -16186,7 +13785,6 @@ func VImageConvert_RGBA8888toRGB565(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImageConvert_RGBA8888toRGB565(src, dest, flags)
 }
-
 
 var _vImageConvert_RGBA8888toRGB565_dithered func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
@@ -16200,7 +13798,6 @@ func VImageConvert_RGBA8888toRGB565_dithered(src unsafe.Pointer, dest unsafe.Poi
 	return _vImageConvert_RGBA8888toRGB565_dithered(src, dest, tempBuffer, dither, flags)
 }
 
-
 var _vImageConvert_RGBA8888toRGB888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 uint32) int
 
 // VImageConvert_RGBA8888toRGB888 removes the alpha channel from an 8-bit-per-channel RGBA buffer to produce an 8-bit-per-channel RGB result.
@@ -16212,7 +13809,6 @@ func VImageConvert_RGBA8888toRGB888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	}
 	return _vImageConvert_RGBA8888toRGB888(arg0, arg1, arg2)
 }
-
 
 var _vImageConvert_RGBA8888toRGBA5551 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -16226,7 +13822,6 @@ func VImageConvert_RGBA8888toRGBA5551(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageConvert_RGBA8888toRGBA5551(src, dest, flags)
 }
 
-
 var _vImageConvert_RGBA8888toRGBA5551_dithered func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, dither int, flags uint32) int
 
 // VImageConvert_RGBA8888toRGBA5551_dithered converts an 8-bit-per-channel, 4-channel interleaved buffer to an RGBA5551 4-channel interleaved buffer usng the specified dithering algorithm.
@@ -16238,7 +13833,6 @@ func VImageConvert_RGBA8888toRGBA5551_dithered(src unsafe.Pointer, dest unsafe.P
 	}
 	return _vImageConvert_RGBA8888toRGBA5551_dithered(src, dest, tempBuffer, dither, flags)
 }
-
 
 var _vImageConvert_RGBAFFFFtoRGBFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -16252,7 +13846,6 @@ func VImageConvert_RGBAFFFFtoRGBFFF(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageConvert_RGBAFFFFtoRGBFFF(src, dest, flags)
 }
 
-
 var _vImageConvert_RGBFFFtoARGBFFFF func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_F, arg3 unsafe.Pointer, arg4 bool, flags uint32) int
 
 // VImageConvert_RGBFFFtoARGBFFFF combines a floating-point 32-bit-per-channel, 3-channel RGB buffer and either an 32-bit alpha buffer or constant alpha value to produce an ARGB result.
@@ -16264,7 +13857,6 @@ func VImageConvert_RGBFFFtoARGBFFFF(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	}
 	return _vImageConvert_RGBFFFtoARGBFFFF(arg0, arg1, arg2, arg3, arg4, flags)
 }
-
 
 var _vImageConvert_RGBFFFtoBGRAFFFF func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_F, arg3 unsafe.Pointer, arg4 bool, flags uint32) int
 
@@ -16278,7 +13870,6 @@ func VImageConvert_RGBFFFtoBGRAFFFF(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageConvert_RGBFFFtoBGRAFFFF(arg0, arg1, arg2, arg3, arg4, flags)
 }
 
-
 var _vImageConvert_RGBFFFtoPlanarF func(rgbSrc unsafe.Pointer, redDest unsafe.Pointer, greenDest unsafe.Pointer, blueDest unsafe.Pointer, flags uint32) int
 
 // VImageConvert_RGBFFFtoPlanarF deinterleaves a floating-point 32-bit-per-channel, 3-channel interleaved buffer into three floating-point 32-bit planar buffers.
@@ -16290,7 +13881,6 @@ func VImageConvert_RGBFFFtoPlanarF(rgbSrc unsafe.Pointer, redDest unsafe.Pointer
 	}
 	return _vImageConvert_RGBFFFtoPlanarF(rgbSrc, redDest, greenDest, blueDest, flags)
 }
-
 
 var _vImageConvert_RGBFFFtoRGB888_dithered func(src unsafe.Pointer, dest unsafe.Pointer, maxFloat Pixel_F, minFloat Pixel_F, dither int, flags uint32) int
 
@@ -16304,7 +13894,6 @@ func VImageConvert_RGBFFFtoRGB888_dithered(src unsafe.Pointer, dest unsafe.Point
 	return _vImageConvert_RGBFFFtoRGB888_dithered(src, dest, maxFloat, minFloat, dither, flags)
 }
 
-
 var _vImageConvert_RGBFFFtoRGBAFFFF func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_F, arg3 unsafe.Pointer, arg4 bool, flags uint32) int
 
 // VImageConvert_RGBFFFtoRGBAFFFF combines a floating-point 32-bit-per-channel, 3-channel RGB buffer and either an 32-bit alpha buffer or constant alpha value to produce an RGBA result.
@@ -16316,7 +13905,6 @@ func VImageConvert_RGBFFFtoRGBAFFFF(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	}
 	return _vImageConvert_RGBFFFtoRGBAFFFF(arg0, arg1, arg2, arg3, arg4, flags)
 }
-
 
 var _vImageConvert_XRGB2101010ToARGB16F func(src unsafe.Pointer, alpha Pixel_F, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -16330,7 +13918,6 @@ func VImageConvert_XRGB2101010ToARGB16F(src unsafe.Pointer, alpha Pixel_F, dest 
 	return _vImageConvert_XRGB2101010ToARGB16F(src, alpha, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_XRGB2101010ToARGB16Q12 func(src unsafe.Pointer, alpha Pixel_16Q12, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_XRGB2101010ToARGB16Q12 converts an XRGB2101010 32-bit, 4-channel interleaved buffer to a fixed-point 16-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -16342,7 +13929,6 @@ func VImageConvert_XRGB2101010ToARGB16Q12(src unsafe.Pointer, alpha Pixel_16Q12,
 	}
 	return _vImageConvert_XRGB2101010ToARGB16Q12(src, alpha, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_XRGB2101010ToARGB16U func(src unsafe.Pointer, alpha uint16, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -16356,7 +13942,6 @@ func VImageConvert_XRGB2101010ToARGB16U(src unsafe.Pointer, alpha uint16, dest u
 	return _vImageConvert_XRGB2101010ToARGB16U(src, alpha, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_XRGB2101010ToARGB8888 func(src unsafe.Pointer, alpha Pixel_8, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
 // VImageConvert_XRGB2101010ToARGB8888 converts an XRGB2101010 32-bit, 4-channel interleaved buffer to an 8-bit-per-channel, 4-channel interleaved buffer with permutation.
@@ -16368,7 +13953,6 @@ func VImageConvert_XRGB2101010ToARGB8888(src unsafe.Pointer, alpha Pixel_8, dest
 	}
 	return _vImageConvert_XRGB2101010ToARGB8888(src, alpha, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
-
 
 var _vImageConvert_XRGB2101010ToARGBFFFF func(src unsafe.Pointer, alpha Pixel_F, dest unsafe.Pointer, RGB101010RangeMin int32, RGB101010RangeMax int32, permuteMap uint8, flags uint32) int
 
@@ -16382,7 +13966,6 @@ func VImageConvert_XRGB2101010ToARGBFFFF(src unsafe.Pointer, alpha Pixel_F, dest
 	return _vImageConvert_XRGB2101010ToARGBFFFF(src, alpha, dest, RGB101010RangeMin, RGB101010RangeMax, permuteMap, flags)
 }
 
-
 var _vImageConvert_XRGB8888ToPlanar8 func(src unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, flags uint32) int
 
 // VImageConvert_XRGB8888ToPlanar8 deinterleaves an 8-bit-per-channel, 4-channel interleaved buffer into three 8-bit planar buffers and discards the first channel.
@@ -16394,7 +13977,6 @@ func VImageConvert_XRGB8888ToPlanar8(src unsafe.Pointer, red unsafe.Pointer, gre
 	}
 	return _vImageConvert_XRGB8888ToPlanar8(src, red, green, blue, flags)
 }
-
 
 var _vImageConvert_XRGBFFFFToPlanarF func(src unsafe.Pointer, red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, flags uint32) int
 
@@ -16408,7 +13990,6 @@ func VImageConvert_XRGBFFFFToPlanarF(src unsafe.Pointer, red unsafe.Pointer, gre
 	return _vImageConvert_XRGBFFFFToPlanarF(src, red, green, blue, flags)
 }
 
-
 var _vImageConvert_YpCbCrToARGB_GenerateConversion func(matrix *VImage_YpCbCrToARGBMatrix, pixelRange *VImage_YpCbCrPixelRange, outInfo *VImage_YpCbCrToARGB, inYpCbCrType unsafe.Pointer, outARGBType unsafe.Pointer, flags uint32) int
 
 // VImageConvert_YpCbCrToARGB_GenerateConversion generates the information that describes the conversion from YpCbCr to ARGB.
@@ -16420,7 +14001,6 @@ func VImageConvert_YpCbCrToARGB_GenerateConversion(matrix *VImage_YpCbCrToARGBMa
 	}
 	return _vImageConvert_YpCbCrToARGB_GenerateConversion(matrix, pixelRange, outInfo, inYpCbCrType, outARGBType, flags)
 }
-
 
 var _vImageConverter_CreateForCGToCVImageFormat func(srcFormat *VImage_CGImageFormat, destFormat VImageCVImageFormatRef, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
 
@@ -16434,7 +14014,6 @@ func VImageConverter_CreateForCGToCVImageFormat(srcFormat *VImage_CGImageFormat,
 	return _vImageConverter_CreateForCGToCVImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
 }
 
-
 var _vImageConverter_CreateForCVToCGImageFormat func(srcFormat VImageCVImageFormatRef, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
 
 // VImageConverter_CreateForCVToCGImageFormat creates a vImage converter that converts a Core Video-formatted image to a Core Graphics-formatted image.
@@ -16446,7 +14025,6 @@ func VImageConverter_CreateForCVToCGImageFormat(srcFormat VImageCVImageFormatRef
 	}
 	return _vImageConverter_CreateForCVToCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
 }
-
 
 var _vImageConverter_CreateWithCGColorConversionInfo func(colorConversionInfoRef coregraphics.CGColorConversionInfoRef, sFormat *VImage_CGImageFormat, dFormat *VImage_CGImageFormat, bg *float64, flags uint32, err *int) unsafe.Pointer
 
@@ -16460,7 +14038,6 @@ func VImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef core
 	return _vImageConverter_CreateWithCGColorConversionInfo(colorConversionInfoRef, sFormat, dFormat, bg, flags, err)
 }
 
-
 var _vImageConverter_CreateWithCGImageFormat func(srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
 
 // VImageConverter_CreateWithCGImageFormat creates a vImage converter that converts from one vImage Core Graphics image format to another.
@@ -16472,7 +14049,6 @@ func VImageConverter_CreateWithCGImageFormat(srcFormat *VImage_CGImageFormat, de
 	}
 	return _vImageConverter_CreateWithCGImageFormat(srcFormat, destFormat, backgroundColor, flags, err)
 }
-
 
 var _vImageConverter_CreateWithColorSyncCodeFragment func(codeFragment corefoundation.CFTypeRef, srcFormat *VImage_CGImageFormat, destFormat *VImage_CGImageFormat, backgroundColor *float64, flags uint32, err *int) unsafe.Pointer
 
@@ -16486,7 +14062,6 @@ func VImageConverter_CreateWithColorSyncCodeFragment(codeFragment corefoundation
 	return _vImageConverter_CreateWithColorSyncCodeFragment(codeFragment, srcFormat, destFormat, backgroundColor, flags, err)
 }
 
-
 var _vImageConverter_GetDestinationBufferOrder func(converter unsafe.Pointer) *VImageBufferTypeCode
 
 // VImageConverter_GetDestinationBufferOrder returns a list of vImage destination buffer channel names, specifying the order of planes.
@@ -16498,7 +14073,6 @@ func VImageConverter_GetDestinationBufferOrder(converter unsafe.Pointer) *VImage
 	}
 	return _vImageConverter_GetDestinationBufferOrder(converter)
 }
-
 
 var _vImageConverter_GetNumberOfDestinationBuffers func(converter unsafe.Pointer) uint
 
@@ -16512,7 +14086,6 @@ func VImageConverter_GetNumberOfDestinationBuffers(converter unsafe.Pointer) uin
 	return _vImageConverter_GetNumberOfDestinationBuffers(converter)
 }
 
-
 var _vImageConverter_GetNumberOfSourceBuffers func(converter unsafe.Pointer) uint
 
 // VImageConverter_GetNumberOfSourceBuffers returns the number of source buffers consumed by the converter.
@@ -16524,7 +14097,6 @@ func VImageConverter_GetNumberOfSourceBuffers(converter unsafe.Pointer) uint {
 	}
 	return _vImageConverter_GetNumberOfSourceBuffers(converter)
 }
-
 
 var _vImageConverter_GetSourceBufferOrder func(converter unsafe.Pointer) *VImageBufferTypeCode
 
@@ -16538,7 +14110,6 @@ func VImageConverter_GetSourceBufferOrder(converter unsafe.Pointer) *VImageBuffe
 	return _vImageConverter_GetSourceBufferOrder(converter)
 }
 
-
 var _vImageConverter_MustOperateOutOfPlace func(converter unsafe.Pointer, srcs unsafe.Pointer, dests unsafe.Pointer, flags uint32) int
 
 // VImageConverter_MustOperateOutOfPlace determines whether a converter is capable of operating in place.
@@ -16550,7 +14121,6 @@ func VImageConverter_MustOperateOutOfPlace(converter unsafe.Pointer, srcs unsafe
 	}
 	return _vImageConverter_MustOperateOutOfPlace(converter, srcs, dests, flags)
 }
-
 
 var _vImageConverter_Release func(converter unsafe.Pointer)
 
@@ -16564,7 +14134,6 @@ func VImageConverter_Release(converter unsafe.Pointer) {
 	_vImageConverter_Release(converter)
 }
 
-
 var _vImageConverter_Retain func(converter unsafe.Pointer)
 
 // VImageConverter_Retain retains a vImage converter.
@@ -16576,7 +14145,6 @@ func VImageConverter_Retain(converter unsafe.Pointer) {
 	}
 	_vImageConverter_Retain(converter)
 }
-
 
 var _vImageConvolveFloatKernel_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernelHeight uint32, kernelWidth uint32, bias float32, backgroundColor Pixel_8888, flags uint32) int
 
@@ -16590,7 +14158,6 @@ func VImageConvolveFloatKernel_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvolveFloatKernel_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernelHeight, kernelWidth, bias, backgroundColor, flags)
 }
 
-
 var _vImageConvolveMultiKernel_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels *int16, kernel_height uint32, kernel_width uint32, divisors int32, biases int32, backgroundColor Pixel_8888, flags uint32) int
 
 // VImageConvolveMultiKernel_ARGB8888 convolves each channel of an 8-bit-per-channel, 4-channel interleaved image by one of the four 2D kernels.
@@ -16602,7 +14169,6 @@ func VImageConvolveMultiKernel_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer,
 	}
 	return _vImageConvolveMultiKernel_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernels, kernel_height, kernel_width, divisors, biases, backgroundColor, flags)
 }
-
 
 var _vImageConvolveMultiKernel_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernels uintptr, kernel_height uint32, kernel_width uint32, biases unsafe.Pointer, backgroundColor Pixel_FFFF, flags uint32) int
 
@@ -16616,7 +14182,6 @@ func VImageConvolveMultiKernel_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageConvolveMultiKernel_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernels, kernel_height, kernel_width, biases, backgroundColor, flags)
 }
 
-
 var _vImageConvolveWithBias_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, bias float32, backgroundColor Pixel_ARGB_16F, flags uint32) int
 
 // VImageConvolveWithBias_ARGB16F convolves a floating-point 16-bit-per-channel, 4-channel interleaved image by a 2D kernel and adds a bias.
@@ -16628,7 +14193,6 @@ func VImageConvolveWithBias_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tem
 	}
 	return _vImageConvolveWithBias_ARGB16F(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, bias, backgroundColor, flags)
 }
-
 
 var _vImageConvolveWithBias_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *int16, kernel_height uint32, kernel_width uint32, divisor int32, bias int32, backgroundColor Pixel_8888, flags uint32) int
 
@@ -16642,7 +14206,6 @@ func VImageConvolveWithBias_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, te
 	return _vImageConvolveWithBias_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, divisor, bias, backgroundColor, flags)
 }
 
-
 var _vImageConvolveWithBias_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, bias float32, backgroundColor Pixel_FFFF, flags uint32) int
 
 // VImageConvolveWithBias_ARGBFFFF convolves a floating-point 32-bit-per-channel, 4-channel interleaved image by a 2D kernel and adds a bias.
@@ -16654,7 +14217,6 @@ func VImageConvolveWithBias_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, te
 	}
 	return _vImageConvolveWithBias_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, bias, backgroundColor, flags)
 }
-
 
 var _vImageConvolveWithBias_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, bias float32, backgroundColor Pixel_16F, flags uint32) int
 
@@ -16668,7 +14230,6 @@ func VImageConvolveWithBias_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, t
 	return _vImageConvolveWithBias_Planar16F(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, bias, backgroundColor, flags)
 }
 
-
 var _vImageConvolveWithBias_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *int16, kernel_height uint32, kernel_width uint32, divisor int32, bias int32, backgroundColor Pixel_8, flags uint32) int
 
 // VImageConvolveWithBias_Planar8 convolves an 8-bit planar image by a 2D kernel and adds a bias.
@@ -16680,7 +14241,6 @@ func VImageConvolveWithBias_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tem
 	}
 	return _vImageConvolveWithBias_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, divisor, bias, backgroundColor, flags)
 }
-
 
 var _vImageConvolveWithBias_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, bias float32, backgroundColor Pixel_F, flags uint32) int
 
@@ -16694,7 +14254,6 @@ func VImageConvolveWithBias_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tem
 	return _vImageConvolveWithBias_PlanarF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, bias, backgroundColor, flags)
 }
 
-
 var _vImageConvolve_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_ARGB_16F, flags uint32) int
 
 // VImageConvolve_ARGB16F convolves a floating-point 16-bit-per-channel, 4-channel interleaved image by a 2D kernel, then divides the pixel values by a divisor.
@@ -16706,7 +14265,6 @@ func VImageConvolve_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer 
 	}
 	return _vImageConvolve_ARGB16F(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, backgroundColor, flags)
 }
-
 
 var _vImageConvolve_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *int16, kernel_height uint32, kernel_width uint32, divisor int32, backgroundColor Pixel_8888, flags uint32) int
 
@@ -16720,7 +14278,6 @@ func VImageConvolve_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer
 	return _vImageConvolve_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, divisor, backgroundColor, flags)
 }
 
-
 var _vImageConvolve_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_FFFF, flags uint32) int
 
 // VImageConvolve_ARGBFFFF convolves a floating-point 32-bit-per-channel, 4-channel interleaved image by a 2D kernel, then divides the pixel values by a divisor.
@@ -16732,7 +14289,6 @@ func VImageConvolve_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer
 	}
 	return _vImageConvolve_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, backgroundColor, flags)
 }
-
 
 var _vImageConvolve_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_16F, flags uint32) int
 
@@ -16746,7 +14302,6 @@ func VImageConvolve_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	return _vImageConvolve_Planar16F(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, backgroundColor, flags)
 }
 
-
 var _vImageConvolve_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *int16, kernel_height uint32, kernel_width uint32, divisor int32, backgroundColor Pixel_8, flags uint32) int
 
 // VImageConvolve_Planar8 convolves an 8-bit planar image by a 2D kernel and divides the pixel values by a divisor.
@@ -16758,7 +14313,6 @@ func VImageConvolve_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer 
 	}
 	return _vImageConvolve_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, divisor, backgroundColor, flags)
 }
-
 
 var _vImageConvolve_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_F, flags uint32) int
 
@@ -16772,7 +14326,6 @@ func VImageConvolve_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer 
 	return _vImageConvolve_PlanarF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, backgroundColor, flags)
 }
 
-
 var _vImageCopyBuffer func(src unsafe.Pointer, dest unsafe.Pointer, pixelSize uintptr, flags uint32) int
 
 // VImageCopyBuffer copies the contents of a vImage buffer to a destination buffer.
@@ -16784,7 +14337,6 @@ func VImageCopyBuffer(src unsafe.Pointer, dest unsafe.Pointer, pixelSize uintptr
 	}
 	return _vImageCopyBuffer(src, dest, pixelSize, flags)
 }
-
 
 var _vImageCreateCGImageFromBuffer func(buf unsafe.Pointer, format *VImage_CGImageFormat, userData unsafe.Pointer, flags uint32, err *int) coregraphics.CGImageRef
 
@@ -16798,7 +14350,6 @@ func VImageCreateCGImageFromBuffer(buf unsafe.Pointer, format *VImage_CGImageFor
 	return _vImageCreateCGImageFromBuffer(buf, format, userData, flags, err)
 }
 
-
 var _vImageCreateGammaFunction func(gamma float32, gamma_type int, flags uint32) GammaFunction
 
 // VImageCreateGammaFunction returns a gamma function object.
@@ -16810,7 +14361,6 @@ func VImageCreateGammaFunction(gamma float32, gamma_type int, flags uint32) Gamm
 	}
 	return _vImageCreateGammaFunction(gamma, gamma_type, flags)
 }
-
 
 var _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction func(whitePoint *VImageWhitePoint, tf *VImageTransferFunction, intent coregraphics.CGColorRenderingIntent, flags uint32, err *int) coregraphics.CGColorSpaceRef
 
@@ -16824,7 +14374,6 @@ func VImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction(whitePoin
 	return _vImageCreateMonochromeColorSpaceWithWhitePointAndTransferFunction(whitePoint, tf, intent, flags, err)
 }
 
-
 var _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunction func(primaries *VImageRGBPrimaries, tf *VImageTransferFunction, intent coregraphics.CGColorRenderingIntent, flags uint32, err *int) coregraphics.CGColorSpaceRef
 
 // VImageCreateRGBColorSpaceWithPrimariesAndTransferFunction creates an RGB color space based on primitives from Y’CbCr specifications.
@@ -16836,7 +14385,6 @@ func VImageCreateRGBColorSpaceWithPrimariesAndTransferFunction(primaries *VImage
 	}
 	return _vImageCreateRGBColorSpaceWithPrimariesAndTransferFunction(primaries, tf, intent, flags, err)
 }
-
 
 var _vImageDestroyGammaFunction func(f GammaFunction)
 
@@ -16850,7 +14398,6 @@ func VImageDestroyGammaFunction(f GammaFunction) {
 	_vImageDestroyGammaFunction(f)
 }
 
-
 var _vImageDestroyResamplingFilter func(filter ResamplingFilter)
 
 // VImageDestroyResamplingFilter disposes of a resampling filter object.
@@ -16862,7 +14409,6 @@ func VImageDestroyResamplingFilter(filter ResamplingFilter) {
 	}
 	_vImageDestroyResamplingFilter(filter)
 }
-
 
 var _vImageDilate_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -16876,7 +14422,6 @@ func VImageDilate_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToR
 	return _vImageDilate_ARGB8888(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageDilate_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageDilate_ARGBFFFF dilates a 32-bit-per-channel, 4-channel interleaved buffer.
@@ -16888,7 +14433,6 @@ func VImageDilate_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToR
 	}
 	return _vImageDilate_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, flags)
 }
-
 
 var _vImageDilate_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -16902,7 +14446,6 @@ func VImageDilate_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToRO
 	return _vImageDilate_Planar8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageDilate_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageDilate_PlanarF dilates a 32-bit planar buffer.
@@ -16914,7 +14457,6 @@ func VImageDilate_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToRO
 	}
 	return _vImageDilate_PlanarF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, flags)
 }
-
 
 var _vImageEndsInContrastStretch_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, percent_low unsafe.Pointer, percent_high unsafe.Pointer, flags uint32) int
 
@@ -16928,7 +14470,6 @@ func VImageEndsInContrastStretch_ARGB8888(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageEndsInContrastStretch_ARGB8888(src, dest, percent_low, percent_high, flags)
 }
 
-
 var _vImageEndsInContrastStretch_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, percent_low unsafe.Pointer, percent_high unsafe.Pointer, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
 // VImageEndsInContrastStretch_ARGBFFFF performs ends-in contrast stretching on a 32-bit-per-channel, 4-channel interleaved buffer.
@@ -16940,7 +14481,6 @@ func VImageEndsInContrastStretch_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageEndsInContrastStretch_ARGBFFFF(src, dest, tempBuffer, percent_low, percent_high, histogram_entries, minVal, maxVal, flags)
 }
-
 
 var _vImageEndsInContrastStretch_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, percent_low uint, percent_high uint, flags uint32) int
 
@@ -16954,7 +14494,6 @@ func VImageEndsInContrastStretch_Planar8(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageEndsInContrastStretch_Planar8(src, dest, percent_low, percent_high, flags)
 }
 
-
 var _vImageEndsInContrastStretch_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, percent_low uint, percent_high uint, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
 // VImageEndsInContrastStretch_PlanarF performs ends-in contrast stretching on a 32-bit planar buffer.
@@ -16966,7 +14505,6 @@ func VImageEndsInContrastStretch_PlanarF(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageEndsInContrastStretch_PlanarF(src, dest, tempBuffer, percent_low, percent_high, histogram_entries, minVal, maxVal, flags)
 }
-
 
 var _vImageEqualization_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -16980,7 +14518,6 @@ func VImageEqualization_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, flags 
 	return _vImageEqualization_ARGB8888(src, dest, flags)
 }
 
-
 var _vImageEqualization_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
 // VImageEqualization_ARGBFFFF performs histogram equalization on a 32-bit-per-channel, 4-channel interleaved buffer.
@@ -16992,7 +14529,6 @@ func VImageEqualization_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	}
 	return _vImageEqualization_ARGBFFFF(src, dest, tempBuffer, histogram_entries, minVal, maxVal, flags)
 }
-
 
 var _vImageEqualization_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -17006,7 +14542,6 @@ func VImageEqualization_Planar8(src unsafe.Pointer, dest unsafe.Pointer, flags u
 	return _vImageEqualization_Planar8(src, dest, flags)
 }
 
-
 var _vImageEqualization_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
 // VImageEqualization_PlanarF performs histogram equalization on a 32-bit planar buffer.
@@ -17018,7 +14553,6 @@ func VImageEqualization_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageEqualization_PlanarF(src, dest, tempBuffer, histogram_entries, minVal, maxVal, flags)
 }
-
 
 var _vImageErode_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -17032,7 +14566,6 @@ func VImageErode_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToRO
 	return _vImageErode_ARGB8888(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageErode_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageErode_ARGBFFFF erodes a 32-bit-per-channel, 4-channel interleaved buffer.
@@ -17044,7 +14577,6 @@ func VImageErode_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToRO
 	}
 	return _vImageErode_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, flags)
 }
-
 
 var _vImageErode_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -17058,7 +14590,6 @@ func VImageErode_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI
 	return _vImageErode_Planar8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageErode_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageErode_PlanarF erodes a 32-bit planar buffer.
@@ -17070,7 +14601,6 @@ func VImageErode_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI
 	}
 	return _vImageErode_PlanarF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, flags)
 }
-
 
 var _vImageExtractChannel_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, channelIndex int, flags uint32) int
 
@@ -17084,7 +14614,6 @@ func VImageExtractChannel_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, chann
 	return _vImageExtractChannel_ARGB16U(src, dest, channelIndex, flags)
 }
 
-
 var _vImageExtractChannel_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, channelIndex int, flags uint32) int
 
 // VImageExtractChannel_ARGB8888 extracts a single channel from an 8-bit-per-channel, 4-channel interleaved buffer and writes the result to an 8-bit planar buffer.
@@ -17096,7 +14625,6 @@ func VImageExtractChannel_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, chan
 	}
 	return _vImageExtractChannel_ARGB8888(src, dest, channelIndex, flags)
 }
-
 
 var _vImageExtractChannel_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, channelIndex int, flags uint32) int
 
@@ -17110,7 +14638,6 @@ func VImageExtractChannel_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, chan
 	return _vImageExtractChannel_ARGBFFFF(src, dest, channelIndex, flags)
 }
 
-
 var _vImageFlatten_ARGB16Q12 func(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argbBackgroundColorPtr Pixel_ARGB_16S, isImagePremultiplied bool, flags uint32) int
 
 // VImageFlatten_ARGB16Q12 performs an alpha composite of a fixed-point 16-bit-per-channel, 4-channel ARGB buffer over a solid background color.
@@ -17122,7 +14649,6 @@ func VImageFlatten_ARGB16Q12(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, arg
 	}
 	return _vImageFlatten_ARGB16Q12(argbSrc, argbDst, argbBackgroundColorPtr, isImagePremultiplied, flags)
 }
-
 
 var _vImageFlatten_ARGB16U func(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argbBackgroundColorPtr Pixel_ARGB_16U, isImagePremultiplied bool, flags uint32) int
 
@@ -17136,7 +14662,6 @@ func VImageFlatten_ARGB16U(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argbB
 	return _vImageFlatten_ARGB16U(argbSrc, argbDst, argbBackgroundColorPtr, isImagePremultiplied, flags)
 }
 
-
 var _vImageFlatten_ARGB8888 func(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argbBackgroundColorPtr Pixel_8888, isImagePremultiplied bool, flags uint32) int
 
 // VImageFlatten_ARGB8888 performs an alpha composite of an 8-bit-per-channel, 4-channel ARGB buffer over a solid background color.
@@ -17148,7 +14673,6 @@ func VImageFlatten_ARGB8888(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argb
 	}
 	return _vImageFlatten_ARGB8888(argbSrc, argbDst, argbBackgroundColorPtr, isImagePremultiplied, flags)
 }
-
 
 var _vImageFlatten_ARGB8888ToRGB888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_8888, arg3 bool, arg4 uint32) int
 
@@ -17162,7 +14686,6 @@ func VImageFlatten_ARGB8888ToRGB888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageFlatten_ARGB8888ToRGB888(arg0, arg1, arg2, arg3, arg4)
 }
 
-
 var _vImageFlatten_ARGBFFFF func(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argbBackgroundColorPtr Pixel_FFFF, isImagePremultiplied bool, flags uint32) int
 
 // VImageFlatten_ARGBFFFF performs an alpha composite of a 32-bit-per-channel, 4-channel ARGB buffer over a solid background color.
@@ -17174,7 +14697,6 @@ func VImageFlatten_ARGBFFFF(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argb
 	}
 	return _vImageFlatten_ARGBFFFF(argbSrc, argbDst, argbBackgroundColorPtr, isImagePremultiplied, flags)
 }
-
 
 var _vImageFlatten_ARGBFFFFToRGBFFF func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_FFFF, arg3 bool, arg4 uint32) int
 
@@ -17188,7 +14710,6 @@ func VImageFlatten_ARGBFFFFToRGBFFF(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageFlatten_ARGBFFFFToRGBFFF(arg0, arg1, arg2, arg3, arg4)
 }
 
-
 var _vImageFlatten_BGRA8888ToRGB888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_8888, arg3 bool, arg4 uint32) int
 
 // VImageFlatten_BGRA8888ToRGB888 flattens an 8-bit-per-channel BGRA buffer against a solid background to produce an 8-bit-per-channel RGB result.
@@ -17200,7 +14721,6 @@ func VImageFlatten_BGRA8888ToRGB888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	}
 	return _vImageFlatten_BGRA8888ToRGB888(arg0, arg1, arg2, arg3, arg4)
 }
-
 
 var _vImageFlatten_BGRAFFFFToRGBFFF func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_FFFF, arg3 bool, arg4 uint32) int
 
@@ -17214,7 +14734,6 @@ func VImageFlatten_BGRAFFFFToRGBFFF(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageFlatten_BGRAFFFFToRGBFFF(arg0, arg1, arg2, arg3, arg4)
 }
 
-
 var _vImageFlatten_RGBA16Q12 func(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, argbBackgroundColorPtr Pixel_ARGB_16S, isImagePremultiplied bool, flags uint32) int
 
 // VImageFlatten_RGBA16Q12 performs an alpha composite of a fixed-point 16-bit-per-channel, 4-channel RGBA buffer over a solid background color.
@@ -17226,7 +14745,6 @@ func VImageFlatten_RGBA16Q12(argbSrc unsafe.Pointer, argbDst unsafe.Pointer, arg
 	}
 	return _vImageFlatten_RGBA16Q12(argbSrc, argbDst, argbBackgroundColorPtr, isImagePremultiplied, flags)
 }
-
 
 var _vImageFlatten_RGBA16U func(rgbaSrc unsafe.Pointer, rgbaDst unsafe.Pointer, rgbaBackgroundColorPtr Pixel_ARGB_16U, isImagePremultiplied bool, flags uint32) int
 
@@ -17240,7 +14758,6 @@ func VImageFlatten_RGBA16U(rgbaSrc unsafe.Pointer, rgbaDst unsafe.Pointer, rgbaB
 	return _vImageFlatten_RGBA16U(rgbaSrc, rgbaDst, rgbaBackgroundColorPtr, isImagePremultiplied, flags)
 }
 
-
 var _vImageFlatten_RGBA8888 func(rgbaSrc unsafe.Pointer, rgbaDst unsafe.Pointer, rgbaBackgroundColorPtr Pixel_8888, isImagePremultiplied bool, flags uint32) int
 
 // VImageFlatten_RGBA8888 performs an alpha composite of an 8-bit-per-channel, 4-channel RGBA buffer over a solid background color.
@@ -17252,7 +14769,6 @@ func VImageFlatten_RGBA8888(rgbaSrc unsafe.Pointer, rgbaDst unsafe.Pointer, rgba
 	}
 	return _vImageFlatten_RGBA8888(rgbaSrc, rgbaDst, rgbaBackgroundColorPtr, isImagePremultiplied, flags)
 }
-
 
 var _vImageFlatten_RGBA8888ToRGB888 func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_8888, arg3 bool, arg4 uint32) int
 
@@ -17266,7 +14782,6 @@ func VImageFlatten_RGBA8888ToRGB888(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageFlatten_RGBA8888ToRGB888(arg0, arg1, arg2, arg3, arg4)
 }
 
-
 var _vImageFlatten_RGBAFFFF func(rgbaSrc unsafe.Pointer, rgbaDst unsafe.Pointer, rgbaBackgroundColorPtr Pixel_FFFF, isImagePremultiplied bool, flags uint32) int
 
 // VImageFlatten_RGBAFFFF performs an alpha composite of a 32-bit-per-channel, 4-channel RGBA buffer over a solid background color.
@@ -17278,7 +14793,6 @@ func VImageFlatten_RGBAFFFF(rgbaSrc unsafe.Pointer, rgbaDst unsafe.Pointer, rgba
 	}
 	return _vImageFlatten_RGBAFFFF(rgbaSrc, rgbaDst, rgbaBackgroundColorPtr, isImagePremultiplied, flags)
 }
-
 
 var _vImageFlatten_RGBAFFFFToRGBFFF func(arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 Pixel_FFFF, arg3 bool, arg4 uint32) int
 
@@ -17292,7 +14806,6 @@ func VImageFlatten_RGBAFFFFToRGBFFF(arg0 unsafe.Pointer, arg1 unsafe.Pointer, ar
 	return _vImageFlatten_RGBAFFFFToRGBFFF(arg0, arg1, arg2, arg3, arg4)
 }
 
-
 var _vImageFloodFill_ARGB16U func(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer, seedX uint, seedY uint, newValue Pixel_ARGB_16U, connectivity int, flags uint32) int
 
 // VImageFloodFill_ARGB16U applies a flood-fill operation to an unsigned 16-bit-per-channel, four-channel interleaved image.
@@ -17304,7 +14817,6 @@ func VImageFloodFill_ARGB16U(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer, 
 	}
 	return _vImageFloodFill_ARGB16U(srcDest, tempBuffer, seedX, seedY, newValue, connectivity, flags)
 }
-
 
 var _vImageFloodFill_ARGB8888 func(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer, seedX uint, seedY uint, newValue Pixel_8888, connectivity int, flags uint32) int
 
@@ -17318,7 +14830,6 @@ func VImageFloodFill_ARGB8888(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer,
 	return _vImageFloodFill_ARGB8888(srcDest, tempBuffer, seedX, seedY, newValue, connectivity, flags)
 }
 
-
 var _vImageFloodFill_Planar16U func(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer, seedX uint, seedY uint, newValue Pixel_16U, connectivity int, flags uint32) int
 
 // VImageFloodFill_Planar16U applies a flood fill-operation to an unsigned 16-bit planar image.
@@ -17330,7 +14841,6 @@ func VImageFloodFill_Planar16U(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer
 	}
 	return _vImageFloodFill_Planar16U(srcDest, tempBuffer, seedX, seedY, newValue, connectivity, flags)
 }
-
 
 var _vImageFloodFill_Planar8 func(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer, seedX uint, seedY uint, newValue Pixel_8, connectivity int, flags uint32) int
 
@@ -17344,7 +14854,6 @@ func VImageFloodFill_Planar8(srcDest unsafe.Pointer, tempBuffer unsafe.Pointer, 
 	return _vImageFloodFill_Planar8(srcDest, tempBuffer, seedX, seedY, newValue, connectivity, flags)
 }
 
-
 var _vImageGamma_Planar8toPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, gamma GammaFunction, flags uint32) int
 
 // VImageGamma_Planar8toPlanarF applies a gamma function to an 8-bit planar image to produce a 32-bit planar image.
@@ -17356,7 +14865,6 @@ func VImageGamma_Planar8toPlanarF(src unsafe.Pointer, dest unsafe.Pointer, gamma
 	}
 	return _vImageGamma_Planar8toPlanarF(src, dest, gamma, flags)
 }
-
 
 var _vImageGamma_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, gamma GammaFunction, flags uint32) int
 
@@ -17370,7 +14878,6 @@ func VImageGamma_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, gamma GammaFun
 	return _vImageGamma_PlanarF(src, dest, gamma, flags)
 }
 
-
 var _vImageGamma_PlanarFtoPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, gamma GammaFunction, flags uint32) int
 
 // VImageGamma_PlanarFtoPlanar8 applies a gamma function to a 32-bit planar image to produce an 8-bit planar image.
@@ -17382,7 +14889,6 @@ func VImageGamma_PlanarFtoPlanar8(src unsafe.Pointer, dest unsafe.Pointer, gamma
 	}
 	return _vImageGamma_PlanarFtoPlanar8(src, dest, gamma, flags)
 }
-
 
 var _vImageGetPerspectiveWarp func(srcPoints unsafe.Pointer, destPoints unsafe.Pointer, transform *VImage_PerpsectiveTransform, flags uint32) int
 
@@ -17396,7 +14902,6 @@ func VImageGetPerspectiveWarp(srcPoints unsafe.Pointer, destPoints unsafe.Pointe
 	return _vImageGetPerspectiveWarp(srcPoints, destPoints, transform, flags)
 }
 
-
 var _vImageGetResamplingFilterExtent func(filter ResamplingFilter, flags uint32) uint
 
 // VImageGetResamplingFilterExtent returns the maximum sampling radius for a resampling filter.
@@ -17408,7 +14913,6 @@ func VImageGetResamplingFilterExtent(filter ResamplingFilter, flags uint32) uint
 	}
 	return _vImageGetResamplingFilterExtent(filter, flags)
 }
-
 
 var _vImageGetResamplingFilterSize func(scale float32, kernelWidth float32, flags uint32) uintptr
 
@@ -17422,7 +14926,6 @@ func VImageGetResamplingFilterSize(scale float32, kernelWidth float32, flags uin
 	return _vImageGetResamplingFilterSize(scale, kernelWidth, flags)
 }
 
-
 var _vImageHistogramCalculation_ARGB8888 func(src unsafe.Pointer, histogram *uint, flags uint32) int
 
 // VImageHistogramCalculation_ARGB8888 calculates the histogram of an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -17434,7 +14937,6 @@ func VImageHistogramCalculation_ARGB8888(src unsafe.Pointer, histogram *uint, fl
 	}
 	return _vImageHistogramCalculation_ARGB8888(src, histogram, flags)
 }
-
 
 var _vImageHistogramCalculation_ARGBFFFF func(src unsafe.Pointer, histogram *uint, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
@@ -17448,7 +14950,6 @@ func VImageHistogramCalculation_ARGBFFFF(src unsafe.Pointer, histogram *uint, hi
 	return _vImageHistogramCalculation_ARGBFFFF(src, histogram, histogram_entries, minVal, maxVal, flags)
 }
 
-
 var _vImageHistogramCalculation_Planar8 func(src unsafe.Pointer, histogram *uint, flags uint32) int
 
 // VImageHistogramCalculation_Planar8 calculates the histogram of an 8-bit planar buffer.
@@ -17460,7 +14961,6 @@ func VImageHistogramCalculation_Planar8(src unsafe.Pointer, histogram *uint, fla
 	}
 	return _vImageHistogramCalculation_Planar8(src, histogram, flags)
 }
-
 
 var _vImageHistogramCalculation_PlanarF func(src unsafe.Pointer, histogram *uint, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
@@ -17474,7 +14974,6 @@ func VImageHistogramCalculation_PlanarF(src unsafe.Pointer, histogram *uint, his
 	return _vImageHistogramCalculation_PlanarF(src, histogram, histogram_entries, minVal, maxVal, flags)
 }
 
-
 var _vImageHistogramSpecification_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, desired_histogram *uint, flags uint32) int
 
 // VImageHistogramSpecification_ARGB8888 specifies the histogram of an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -17486,7 +14985,6 @@ func VImageHistogramSpecification_ARGB8888(src unsafe.Pointer, dest unsafe.Point
 	}
 	return _vImageHistogramSpecification_ARGB8888(src, dest, desired_histogram, flags)
 }
-
 
 var _vImageHistogramSpecification_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, desired_histogram *uint, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
@@ -17500,7 +14998,6 @@ func VImageHistogramSpecification_ARGBFFFF(src unsafe.Pointer, dest unsafe.Point
 	return _vImageHistogramSpecification_ARGBFFFF(src, dest, tempBuffer, desired_histogram, histogram_entries, minVal, maxVal, flags)
 }
 
-
 var _vImageHistogramSpecification_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, desired_histogram *uint, flags uint32) int
 
 // VImageHistogramSpecification_Planar8 specifies the histogram of an 8-bit planar buffer.
@@ -17512,7 +15009,6 @@ func VImageHistogramSpecification_Planar8(src unsafe.Pointer, dest unsafe.Pointe
 	}
 	return _vImageHistogramSpecification_Planar8(src, dest, desired_histogram, flags)
 }
-
 
 var _vImageHistogramSpecification_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, desired_histogram *uint, histogram_entries uint, minVal Pixel_F, maxVal Pixel_F, flags uint32) int
 
@@ -17526,7 +15022,6 @@ func VImageHistogramSpecification_PlanarF(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageHistogramSpecification_PlanarF(src, dest, tempBuffer, desired_histogram, histogram_entries, minVal, maxVal, flags)
 }
 
-
 var _vImageHorizontalReflect_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageHorizontalReflect_ARGB16F reflects a floating-point 16-bit-per-channel, 4-channel interleaved image horizontally across the center vertical line.
@@ -17538,7 +15033,6 @@ func VImageHorizontalReflect_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, fl
 	}
 	return _vImageHorizontalReflect_ARGB16F(src, dest, flags)
 }
-
 
 var _vImageHorizontalReflect_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -17552,7 +15046,6 @@ func VImageHorizontalReflect_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImageHorizontalReflect_ARGB16S(src, dest, flags)
 }
 
-
 var _vImageHorizontalReflect_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageHorizontalReflect_ARGB16U reflects an unsigned 16-bit-per-channel, 4-channel interleaved image horizontally across the center vertical line.
@@ -17564,7 +15057,6 @@ func VImageHorizontalReflect_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, fl
 	}
 	return _vImageHorizontalReflect_ARGB16U(src, dest, flags)
 }
-
 
 var _vImageHorizontalReflect_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -17578,7 +15070,6 @@ func VImageHorizontalReflect_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageHorizontalReflect_ARGB8888(src, dest, flags)
 }
 
-
 var _vImageHorizontalReflect_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageHorizontalReflect_ARGBFFFF reflects a 32-bit-per-channel, 4-channel interleaved image horizontally across the center vertical line.
@@ -17590,7 +15081,6 @@ func VImageHorizontalReflect_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, f
 	}
 	return _vImageHorizontalReflect_ARGBFFFF(src, dest, flags)
 }
-
 
 var _vImageHorizontalReflect_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -17604,7 +15094,6 @@ func VImageHorizontalReflect_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImageHorizontalReflect_CbCr16F(src, dest, flags)
 }
 
-
 var _vImageHorizontalReflect_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageHorizontalReflect_Planar16F reflects a floating-point 16-bit planar image horizontally across the center vertical line.
@@ -17616,7 +15105,6 @@ func VImageHorizontalReflect_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, 
 	}
 	return _vImageHorizontalReflect_Planar16F(src, dest, flags)
 }
-
 
 var _vImageHorizontalReflect_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -17630,7 +15118,6 @@ func VImageHorizontalReflect_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, 
 	return _vImageHorizontalReflect_Planar16U(src, dest, flags)
 }
 
-
 var _vImageHorizontalReflect_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageHorizontalReflect_Planar8 reflects an 8-bit planar image horizontally across the center vertical line.
@@ -17642,7 +15129,6 @@ func VImageHorizontalReflect_Planar8(src unsafe.Pointer, dest unsafe.Pointer, fl
 	}
 	return _vImageHorizontalReflect_Planar8(src, dest, flags)
 }
-
 
 var _vImageHorizontalReflect_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -17656,7 +15142,6 @@ func VImageHorizontalReflect_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImageHorizontalReflect_PlanarF(src, dest, flags)
 }
 
-
 var _vImageHorizontalShearD_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_ARGB_16F, flags uint32) int
 
 // VImageHorizontalShearD_ARGB16F performs a double-precision horizontal shear on a region of interest within a floating-point 16-bit-per-channel, 4-channel interleaved image.
@@ -17668,7 +15153,6 @@ func VImageHorizontalShearD_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, src
 	}
 	return _vImageHorizontalShearD_ARGB16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShearD_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_ARGB_16S, flags uint32) int
 
@@ -17682,7 +15166,6 @@ func VImageHorizontalShearD_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, src
 	return _vImageHorizontalShearD_ARGB16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShearD_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_ARGB_16U, flags uint32) int
 
 // VImageHorizontalShearD_ARGB16U performs a double-precision horizontal shear on a region of interest within an unsigned 16-bit-per-channel, 4-channel interleaved image.
@@ -17694,7 +15177,6 @@ func VImageHorizontalShearD_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, src
 	}
 	return _vImageHorizontalShearD_ARGB16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShearD_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_8888, flags uint32) int
 
@@ -17708,7 +15190,6 @@ func VImageHorizontalShearD_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, sr
 	return _vImageHorizontalShearD_ARGB8888(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShearD_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_FFFF, flags uint32) int
 
 // VImageHorizontalShearD_ARGBFFFF performs a double-precision horizontal shear on a region of interest within a 32-bit-per-channel, 4-channel interleaved image.
@@ -17720,7 +15201,6 @@ func VImageHorizontalShearD_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, sr
 	}
 	return _vImageHorizontalShearD_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShearD_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16F16F, flags uint32) int
 
@@ -17734,7 +15214,6 @@ func VImageHorizontalShearD_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, src
 	return _vImageHorizontalShearD_CbCr16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShearD_CbCr16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16S16S, flags uint32) int
 
 // VImageHorizontalShearD_CbCr16S.
@@ -17746,7 +15225,6 @@ func VImageHorizontalShearD_CbCr16S(src unsafe.Pointer, dest unsafe.Pointer, src
 	}
 	return _vImageHorizontalShearD_CbCr16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShearD_CbCr16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16U16U, flags uint32) int
 
@@ -17760,7 +15238,6 @@ func VImageHorizontalShearD_CbCr16U(src unsafe.Pointer, dest unsafe.Pointer, src
 	return _vImageHorizontalShearD_CbCr16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShearD_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16F, flags uint32) int
 
 // VImageHorizontalShearD_Planar16F performs a double-precision horizontal shear on a region of interest within a floating-point 16-bit planar image.
@@ -17772,7 +15249,6 @@ func VImageHorizontalShearD_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, s
 	}
 	return _vImageHorizontalShearD_Planar16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShearD_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_8, flags uint32) int
 
@@ -17786,7 +15262,6 @@ func VImageHorizontalShearD_Planar8(src unsafe.Pointer, dest unsafe.Pointer, src
 	return _vImageHorizontalShearD_Planar8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShearD_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_F, flags uint32) int
 
 // VImageHorizontalShearD_PlanarF performs a double-precision horizontal shear on a region of interest within a 32-bit planar image.
@@ -17798,7 +15273,6 @@ func VImageHorizontalShearD_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, src
 	}
 	return _vImageHorizontalShearD_PlanarF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_ARGB_16F, flags uint32) int
 
@@ -17812,7 +15286,6 @@ func VImageHorizontalShear_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	return _vImageHorizontalShear_ARGB16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_ARGB_16S, flags uint32) int
 
 // VImageHorizontalShear_ARGB16S performs a single-precision horizontal shear on a region of interest within a signed 16-bit-per-channel, 4-channel interleaved image.
@@ -17824,7 +15297,6 @@ func VImageHorizontalShear_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageHorizontalShear_ARGB16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_ARGB_16U, flags uint32) int
 
@@ -17838,7 +15310,6 @@ func VImageHorizontalShear_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	return _vImageHorizontalShear_ARGB16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_8888, flags uint32) int
 
 // VImageHorizontalShear_ARGB8888 performs a single-precision horizontal shear on a region of interest within an 8-bit-per-channel, 4-channel interleaved image.
@@ -17850,7 +15321,6 @@ func VImageHorizontalShear_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, src
 	}
 	return _vImageHorizontalShear_ARGB8888(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_FFFF, flags uint32) int
 
@@ -17864,7 +15334,6 @@ func VImageHorizontalShear_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, src
 	return _vImageHorizontalShear_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16F16F, flags uint32) int
 
 // VImageHorizontalShear_CbCr16F performs a single-precision horizontal shear on a region of interest within a flloating-point 16-bit-per-channel, 2-channel interleaved image.
@@ -17876,7 +15345,6 @@ func VImageHorizontalShear_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageHorizontalShear_CbCr16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_CbCr16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16S16S, flags uint32) int
 
@@ -17890,7 +15358,6 @@ func VImageHorizontalShear_CbCr16S(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	return _vImageHorizontalShear_CbCr16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_CbCr16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16U16U, flags uint32) int
 
 // VImageHorizontalShear_CbCr16U performs a single-precision horizontal shear on a region of interest within an unsigned 16-bit-per-channel, 2-channel interleaved image.
@@ -17902,7 +15369,6 @@ func VImageHorizontalShear_CbCr16U(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageHorizontalShear_CbCr16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_CbCr8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_88, flags uint32) int
 
@@ -17916,7 +15382,6 @@ func VImageHorizontalShear_CbCr8(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	return _vImageHorizontalShear_CbCr8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16F, flags uint32) int
 
 // VImageHorizontalShear_Planar16F performs a single-precision horizontal shear on a region of interest within a floating-point 16-bit planar image.
@@ -17928,7 +15393,6 @@ func VImageHorizontalShear_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, sr
 	}
 	return _vImageHorizontalShear_Planar16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_Planar16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16S, flags uint32) int
 
@@ -17942,7 +15406,6 @@ func VImageHorizontalShear_Planar16S(src unsafe.Pointer, dest unsafe.Pointer, sr
 	return _vImageHorizontalShear_Planar16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16U, flags uint32) int
 
 // VImageHorizontalShear_Planar16U performs a single-precision horizontal shear on a region of interest within an unsigned 16-bit planar image.
@@ -17954,7 +15417,6 @@ func VImageHorizontalShear_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, sr
 	}
 	return _vImageHorizontalShear_Planar16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_8, flags uint32) int
 
@@ -17968,7 +15430,6 @@ func VImageHorizontalShear_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	return _vImageHorizontalShear_Planar8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageHorizontalShear_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_F, flags uint32) int
 
 // VImageHorizontalShear_PlanarF performs a single-precision horizontal shear on a region of interest within a 32-bit planar image.
@@ -17980,7 +15441,6 @@ func VImageHorizontalShear_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageHorizontalShear_PlanarF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageHorizontalShear_XRGB2101010W func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, xTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_32U, flags uint32) int
 
@@ -17994,7 +15454,6 @@ func VImageHorizontalShear_XRGB2101010W(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageHorizontalShear_XRGB2101010W(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, xTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageInterpolatedLookupTable_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, table *Pixel_F, tableEntries uint, maxFloat float32, minFloat float32, flags uint32) int
 
 // VImageInterpolatedLookupTable_PlanarF uses an interpolated lookup table to transform a 32-bit planar image.
@@ -18006,7 +15465,6 @@ func VImageInterpolatedLookupTable_PlanarF(src unsafe.Pointer, dest unsafe.Point
 	}
 	return _vImageInterpolatedLookupTable_PlanarF(src, dest, table, tableEntries, maxFloat, minFloat, flags)
 }
-
 
 var _vImageLookupTable_8to64U func(src unsafe.Pointer, dest unsafe.Pointer, LUT uint64, flags uint32) int
 
@@ -18020,7 +15478,6 @@ func VImageLookupTable_8to64U(src unsafe.Pointer, dest unsafe.Pointer, LUT uint6
 	return _vImageLookupTable_8to64U(src, dest, LUT, flags)
 }
 
-
 var _vImageLookupTable_Planar16 func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_16U, flags uint32) int
 
 // VImageLookupTable_Planar16 uses a lookup table to transform a 16-bit planar image.
@@ -18032,7 +15489,6 @@ func VImageLookupTable_Planar16(src unsafe.Pointer, dest unsafe.Pointer, table P
 	}
 	return _vImageLookupTable_Planar16(src, dest, table, flags)
 }
-
 
 var _vImageLookupTable_Planar8toPlanar128 func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_FFFF, flags uint32) int
 
@@ -18046,7 +15502,6 @@ func VImageLookupTable_Planar8toPlanar128(src unsafe.Pointer, dest unsafe.Pointe
 	return _vImageLookupTable_Planar8toPlanar128(src, dest, table, flags)
 }
 
-
 var _vImageLookupTable_Planar8toPlanar16 func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_16U, flags uint32) int
 
 // VImageLookupTable_Planar8toPlanar16 uses a lookup table to transform an 8-bit planar image to an unsigned 16-bit planar image.
@@ -18058,7 +15513,6 @@ func VImageLookupTable_Planar8toPlanar16(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageLookupTable_Planar8toPlanar16(src, dest, table, flags)
 }
-
 
 var _vImageLookupTable_Planar8toPlanar24 func(src unsafe.Pointer, dest unsafe.Pointer, table uint32, flags uint32) int
 
@@ -18072,7 +15526,6 @@ func VImageLookupTable_Planar8toPlanar24(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageLookupTable_Planar8toPlanar24(src, dest, table, flags)
 }
 
-
 var _vImageLookupTable_Planar8toPlanar48 func(src unsafe.Pointer, dest unsafe.Pointer, table uint64, flags uint32) int
 
 // VImageLookupTable_Planar8toPlanar48 uses a lookup table to transform an 8-bit planar image to a 16-bit-per-channel, three-channel interleaved image.
@@ -18084,7 +15537,6 @@ func VImageLookupTable_Planar8toPlanar48(src unsafe.Pointer, dest unsafe.Pointer
 	}
 	return _vImageLookupTable_Planar8toPlanar48(src, dest, table, flags)
 }
-
 
 var _vImageLookupTable_Planar8toPlanar96 func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_FFFF, flags uint32) int
 
@@ -18098,7 +15550,6 @@ func VImageLookupTable_Planar8toPlanar96(src unsafe.Pointer, dest unsafe.Pointer
 	return _vImageLookupTable_Planar8toPlanar96(src, dest, table, flags)
 }
 
-
 var _vImageLookupTable_Planar8toPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_F, flags uint32) int
 
 // VImageLookupTable_Planar8toPlanarF uses a lookup table to transform an 8-bit planar image to a 32-bit planar image.
@@ -18110,7 +15561,6 @@ func VImageLookupTable_Planar8toPlanarF(src unsafe.Pointer, dest unsafe.Pointer,
 	}
 	return _vImageLookupTable_Planar8toPlanarF(src, dest, table, flags)
 }
-
 
 var _vImageLookupTable_PlanarFtoPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_8, flags uint32) int
 
@@ -18124,7 +15574,6 @@ func VImageLookupTable_PlanarFtoPlanar8(src unsafe.Pointer, dest unsafe.Pointer,
 	return _vImageLookupTable_PlanarFtoPlanar8(src, dest, table, flags)
 }
 
-
 var _vImageMatrixMultiply_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, matrix int16, divisor int32, pre_bias *int16, post_bias *int32, flags uint32) int
 
 // VImageMatrixMultiply_ARGB8888 multiplies each pixel in an interleaved four-channel, 8-bit source image by a matrix to produce an interleaved four-channel, 8-bit destination image.
@@ -18136,7 +15585,6 @@ func VImageMatrixMultiply_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, matr
 	}
 	return _vImageMatrixMultiply_ARGB8888(src, dest, matrix, divisor, pre_bias, post_bias, flags)
 }
-
 
 var _vImageMatrixMultiply_ARGB8888ToPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, matrix int16, divisor int32, pre_bias int16, post_bias int32, flags uint32) int
 
@@ -18150,7 +15598,6 @@ func VImageMatrixMultiply_ARGB8888ToPlanar8(src unsafe.Pointer, dest unsafe.Poin
 	return _vImageMatrixMultiply_ARGB8888ToPlanar8(src, dest, matrix, divisor, pre_bias, post_bias, flags)
 }
 
-
 var _vImageMatrixMultiply_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, matrix unsafe.Pointer, pre_bias *float32, post_bias *float32, flags uint32) int
 
 // VImageMatrixMultiply_ARGBFFFF multiplies each pixel in an interleaved four-channel, 32-bit source image by a matrix to produce an interleaved four-channel, 32-bit destination image.
@@ -18162,7 +15609,6 @@ func VImageMatrixMultiply_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, matr
 	}
 	return _vImageMatrixMultiply_ARGBFFFF(src, dest, matrix, unsafe.SliceData(pre_bias), unsafe.SliceData(post_bias), flags)
 }
-
 
 var _vImageMatrixMultiply_ARGBFFFFToPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, matrix unsafe.Pointer, pre_bias unsafe.Pointer, post_bias float32, flags uint32) int
 
@@ -18176,7 +15622,6 @@ func VImageMatrixMultiply_ARGBFFFFToPlanarF(src unsafe.Pointer, dest unsafe.Poin
 	return _vImageMatrixMultiply_ARGBFFFFToPlanarF(src, dest, matrix, pre_bias, post_bias, flags)
 }
 
-
 var _vImageMatrixMultiply_Planar16S func(srcs unsafe.Pointer, dests unsafe.Pointer, src_planes uint32, dest_planes uint32, matrix int16, divisor int32, pre_bias *int16, post_bias *int32, flags uint32) int
 
 // VImageMatrixMultiply_Planar16S multiplies each pixel in a set of 16-bit source image planes by a matrix to produce a set of 8-bit destination image planes.
@@ -18188,7 +15633,6 @@ func VImageMatrixMultiply_Planar16S(srcs unsafe.Pointer, dests unsafe.Pointer, s
 	}
 	return _vImageMatrixMultiply_Planar16S(srcs, dests, src_planes, dest_planes, matrix, divisor, pre_bias, post_bias, flags)
 }
-
 
 var _vImageMatrixMultiply_Planar8 func(srcs unsafe.Pointer, dests unsafe.Pointer, src_planes uint32, dest_planes uint32, matrix int16, divisor int32, pre_bias *int16, post_bias *int32, flags uint32) int
 
@@ -18202,7 +15646,6 @@ func VImageMatrixMultiply_Planar8(srcs unsafe.Pointer, dests unsafe.Pointer, src
 	return _vImageMatrixMultiply_Planar8(srcs, dests, src_planes, dest_planes, matrix, divisor, pre_bias, post_bias, flags)
 }
 
-
 var _vImageMatrixMultiply_PlanarF func(srcs unsafe.Pointer, dests unsafe.Pointer, src_planes uint32, dest_planes uint32, matrix float32, pre_bias *float32, post_bias *float32, flags uint32) int
 
 // VImageMatrixMultiply_PlanarF multiplies each pixel in a set of 32-bit source image planes by a matrix to produce a set of 32-bit destination image planes.
@@ -18214,7 +15657,6 @@ func VImageMatrixMultiply_PlanarF(srcs unsafe.Pointer, dests unsafe.Pointer, src
 	}
 	return _vImageMatrixMultiply_PlanarF(srcs, dests, src_planes, dest_planes, matrix, unsafe.SliceData(pre_bias), unsafe.SliceData(post_bias), flags)
 }
-
 
 var _vImageMax_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -18228,7 +15670,6 @@ func VImageMax_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsa
 	return _vImageMax_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageMax_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageMax_ARGBFFFF maximizes a 32-bit-per-channel, 4-channel interleaved buffer.
@@ -18240,7 +15681,6 @@ func VImageMax_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsa
 	}
 	return _vImageMax_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
-
 
 var _vImageMax_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -18254,7 +15694,6 @@ func VImageMax_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsaf
 	return _vImageMax_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageMax_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageMax_PlanarF maximizes a 32-bit planar buffer.
@@ -18266,7 +15705,6 @@ func VImageMax_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsaf
 	}
 	return _vImageMax_PlanarF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
-
 
 var _vImageMin_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -18280,7 +15718,6 @@ func VImageMin_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsa
 	return _vImageMin_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageMin_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageMin_ARGBFFFF minimizes an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -18292,7 +15729,6 @@ func VImageMin_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsa
 	}
 	return _vImageMin_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
-
 
 var _vImageMin_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
@@ -18306,7 +15742,6 @@ func VImageMin_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsaf
 	return _vImageMin_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
 
-
 var _vImageMin_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageMin_PlanarF minimizes a 32-bit planar buffer.
@@ -18318,7 +15753,6 @@ func VImageMin_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsaf
 	}
 	return _vImageMin_PlanarF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, flags)
 }
-
 
 var _vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12 func(srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, table VImage_MultidimensionalTable, method unsafe.Pointer, flags uint32) int
 
@@ -18332,7 +15766,6 @@ func VImageMultiDimensionalInterpolatedLookupTable_Planar16Q12(srcs unsafe.Point
 	return _vImageMultiDimensionalInterpolatedLookupTable_Planar16Q12(srcs, dests, tempBuffer, table, method, flags)
 }
 
-
 var _vImageMultiDimensionalInterpolatedLookupTable_PlanarF func(srcs unsafe.Pointer, dests unsafe.Pointer, tempBuffer unsafe.Pointer, table VImage_MultidimensionalTable, method unsafe.Pointer, flags uint32) int
 
 // VImageMultiDimensionalInterpolatedLookupTable_PlanarF uses a multidimensional lookup table to transform a 32-bit planar image.
@@ -18344,7 +15777,6 @@ func VImageMultiDimensionalInterpolatedLookupTable_PlanarF(srcs unsafe.Pointer, 
 	}
 	return _vImageMultiDimensionalInterpolatedLookupTable_PlanarF(srcs, dests, tempBuffer, table, method, flags)
 }
-
 
 var _vImageMultidimensionalTable_Create func(tableData *uint16, numSrcChannels uint32, numDestChannels uint32, table_entries_per_dimension uint8, hint unsafe.Pointer, flags uint32, err *int) VImage_MultidimensionalTable
 
@@ -18358,7 +15790,6 @@ func VImageMultidimensionalTable_Create(tableData *uint16, numSrcChannels uint32
 	return _vImageMultidimensionalTable_Create(tableData, numSrcChannels, numDestChannels, table_entries_per_dimension, hint, flags, err)
 }
 
-
 var _vImageMultidimensionalTable_Release func(table VImage_MultidimensionalTable) int
 
 // VImageMultidimensionalTable_Release releases a multidimensional table.
@@ -18370,7 +15801,6 @@ func VImageMultidimensionalTable_Release(table VImage_MultidimensionalTable) int
 	}
 	return _vImageMultidimensionalTable_Release(table)
 }
-
 
 var _vImageMultidimensionalTable_Retain func(table VImage_MultidimensionalTable) int
 
@@ -18384,7 +15814,6 @@ func VImageMultidimensionalTable_Retain(table VImage_MultidimensionalTable) int 
 	return _vImageMultidimensionalTable_Retain(table)
 }
 
-
 var _vImageNewResamplingFilter func(scale float32, flags uint32) ResamplingFilter
 
 // VImageNewResamplingFilter creates a resampling filter object that corresponds to the default kernel supplied by the vImage framework.
@@ -18396,7 +15825,6 @@ func VImageNewResamplingFilter(scale float32, flags uint32) ResamplingFilter {
 	}
 	return _vImageNewResamplingFilter(scale, flags)
 }
-
 
 var _vImageNewResamplingFilterForFunctionUsingBuffer func(filter ResamplingFilter, scale float32, kernelWidth float32, userData unsafe.Pointer, flags uint32) int
 
@@ -18410,7 +15838,6 @@ func VImageNewResamplingFilterForFunctionUsingBuffer(filter ResamplingFilter, sc
 	return _vImageNewResamplingFilterForFunctionUsingBuffer(filter, scale, kernelWidth, userData, flags)
 }
 
-
 var _vImageOverwriteChannelsWithPixel_ARGB16U func(the_pixel Pixel_ARGB_16U, src unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
 // VImageOverwriteChannelsWithPixel_ARGB16U overwrites the channels of an unsigned 16-bit-per-channel, 4-channel interleaved buffer with the specified channels of a pixel value.
@@ -18422,7 +15849,6 @@ func VImageOverwriteChannelsWithPixel_ARGB16U(the_pixel Pixel_ARGB_16U, src unsa
 	}
 	return _vImageOverwriteChannelsWithPixel_ARGB16U(the_pixel, src, dest, copyMask, flags)
 }
-
 
 var _vImageOverwriteChannelsWithPixel_ARGB8888 func(the_pixel Pixel_8888, src unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
@@ -18436,7 +15862,6 @@ func VImageOverwriteChannelsWithPixel_ARGB8888(the_pixel Pixel_8888, src unsafe.
 	return _vImageOverwriteChannelsWithPixel_ARGB8888(the_pixel, src, dest, copyMask, flags)
 }
 
-
 var _vImageOverwriteChannelsWithPixel_ARGBFFFF func(the_pixel Pixel_FFFF, src unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
 // VImageOverwriteChannelsWithPixel_ARGBFFFF overwrites the channels of a floating-point 32-bit-per-channel, 4-channel interleaved buffer with the specified channels of a pixel value.
@@ -18448,7 +15873,6 @@ func VImageOverwriteChannelsWithPixel_ARGBFFFF(the_pixel Pixel_FFFF, src unsafe.
 	}
 	return _vImageOverwriteChannelsWithPixel_ARGBFFFF(the_pixel, src, dest, copyMask, flags)
 }
-
 
 var _vImageOverwriteChannelsWithScalar_ARGB8888 func(scalar Pixel_8, src unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
@@ -18462,7 +15886,6 @@ func VImageOverwriteChannelsWithScalar_ARGB8888(scalar Pixel_8, src unsafe.Point
 	return _vImageOverwriteChannelsWithScalar_ARGB8888(scalar, src, dest, copyMask, flags)
 }
 
-
 var _vImageOverwriteChannelsWithScalar_ARGBFFFF func(scalar Pixel_F, src unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
 // VImageOverwriteChannelsWithScalar_ARGBFFFF overwrites the selected channels of a 32-bit-per-channel, 4-channel interleaved buffer with the specified scalar value.
@@ -18474,7 +15897,6 @@ func VImageOverwriteChannelsWithScalar_ARGBFFFF(scalar Pixel_F, src unsafe.Point
 	}
 	return _vImageOverwriteChannelsWithScalar_ARGBFFFF(scalar, src, dest, copyMask, flags)
 }
-
 
 var _vImageOverwriteChannelsWithScalar_Planar16F func(scalar Pixel_16F, dest unsafe.Pointer, flags uint32) int
 
@@ -18488,7 +15910,6 @@ func VImageOverwriteChannelsWithScalar_Planar16F(scalar Pixel_16F, dest unsafe.P
 	return _vImageOverwriteChannelsWithScalar_Planar16F(scalar, dest, flags)
 }
 
-
 var _vImageOverwriteChannelsWithScalar_Planar16S func(scalar Pixel_16S, dest unsafe.Pointer, flags uint32) int
 
 // VImageOverwriteChannelsWithScalar_Planar16S overwrites a signed 16-bit planar buffer with the specified scalar value in place.
@@ -18500,7 +15921,6 @@ func VImageOverwriteChannelsWithScalar_Planar16S(scalar Pixel_16S, dest unsafe.P
 	}
 	return _vImageOverwriteChannelsWithScalar_Planar16S(scalar, dest, flags)
 }
-
 
 var _vImageOverwriteChannelsWithScalar_Planar16U func(scalar Pixel_16U, dest unsafe.Pointer, flags uint32) int
 
@@ -18514,7 +15934,6 @@ func VImageOverwriteChannelsWithScalar_Planar16U(scalar Pixel_16U, dest unsafe.P
 	return _vImageOverwriteChannelsWithScalar_Planar16U(scalar, dest, flags)
 }
 
-
 var _vImageOverwriteChannelsWithScalar_Planar8 func(scalar Pixel_8, dest unsafe.Pointer, flags uint32) int
 
 // VImageOverwriteChannelsWithScalar_Planar8 overwrites an 8-bit planar buffer with the specified scalar value in place.
@@ -18526,7 +15945,6 @@ func VImageOverwriteChannelsWithScalar_Planar8(scalar Pixel_8, dest unsafe.Point
 	}
 	return _vImageOverwriteChannelsWithScalar_Planar8(scalar, dest, flags)
 }
-
 
 var _vImageOverwriteChannelsWithScalar_PlanarF func(scalar Pixel_F, dest unsafe.Pointer, flags uint32) int
 
@@ -18540,7 +15958,6 @@ func VImageOverwriteChannelsWithScalar_PlanarF(scalar Pixel_F, dest unsafe.Point
 	return _vImageOverwriteChannelsWithScalar_PlanarF(scalar, dest, flags)
 }
 
-
 var _vImageOverwriteChannels_ARGB8888 func(newSrc unsafe.Pointer, origSrc unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
 // VImageOverwriteChannels_ARGB8888 overwrites the channels of an 8-bit-per-channel, 4-channel interleaved buffer with the corresponding pixels of a planar buffer.
@@ -18552,7 +15969,6 @@ func VImageOverwriteChannels_ARGB8888(newSrc unsafe.Pointer, origSrc unsafe.Poin
 	}
 	return _vImageOverwriteChannels_ARGB8888(newSrc, origSrc, dest, copyMask, flags)
 }
-
 
 var _vImageOverwriteChannels_ARGBFFFF func(newSrc unsafe.Pointer, origSrc unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
@@ -18566,7 +15982,6 @@ func VImageOverwriteChannels_ARGBFFFF(newSrc unsafe.Pointer, origSrc unsafe.Poin
 	return _vImageOverwriteChannels_ARGBFFFF(newSrc, origSrc, dest, copyMask, flags)
 }
 
-
 var _vImagePNGDecompressionFilter func(buffer unsafe.Pointer, startScanline uint, scanlineCount uint, bitsPerPixel uint32, filterMethodNumber uint32, filterType uint32, flags uint32) int
 
 // VImagePNGDecompressionFilter performs PNG decompression filtering.
@@ -18578,7 +15993,6 @@ func VImagePNGDecompressionFilter(buffer unsafe.Pointer, startScanline uint, sca
 	}
 	return _vImagePNGDecompressionFilter(buffer, startScanline, scanlineCount, bitsPerPixel, filterMethodNumber, filterType, flags)
 }
-
 
 var _vImagePermuteChannelsWithMaskedInsert_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_ARGB_16U, flags uint32) int
 
@@ -18592,7 +16006,6 @@ func VImagePermuteChannelsWithMaskedInsert_ARGB16U(src unsafe.Pointer, dest unsa
 	return _vImagePermuteChannelsWithMaskedInsert_ARGB16U(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
 
-
 var _vImagePermuteChannelsWithMaskedInsert_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_8888, flags uint32) int
 
 // VImagePermuteChannelsWithMaskedInsert_ARGB8888 permutes and overwrites the channels of an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -18604,7 +16017,6 @@ func VImagePermuteChannelsWithMaskedInsert_ARGB8888(src unsafe.Pointer, dest uns
 	}
 	return _vImagePermuteChannelsWithMaskedInsert_ARGB8888(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
-
 
 var _vImagePermuteChannelsWithMaskedInsert_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, copyMask uint8, backgroundColor Pixel_FFFF, flags uint32) int
 
@@ -18618,7 +16030,6 @@ func VImagePermuteChannelsWithMaskedInsert_ARGBFFFF(src unsafe.Pointer, dest uns
 	return _vImagePermuteChannelsWithMaskedInsert_ARGBFFFF(src, dest, permuteMap, copyMask, backgroundColor, flags)
 }
 
-
 var _vImagePermuteChannels_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, flags uint32) int
 
 // VImagePermuteChannels_ARGB16F permutes the channels of a floating-point 16-bit-per-channel, 4-channel interleaved buffer.
@@ -18630,7 +16041,6 @@ func VImagePermuteChannels_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, perm
 	}
 	return _vImagePermuteChannels_ARGB16F(src, dest, permuteMap, flags)
 }
-
 
 var _vImagePermuteChannels_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, flags uint32) int
 
@@ -18644,7 +16054,6 @@ func VImagePermuteChannels_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, perm
 	return _vImagePermuteChannels_ARGB16U(src, dest, permuteMap, flags)
 }
 
-
 var _vImagePermuteChannels_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, flags uint32) int
 
 // VImagePermuteChannels_ARGB8888 permutes the channels of an 8-bit-per-channel, 4-channel interleaved buffer.
@@ -18656,7 +16065,6 @@ func VImagePermuteChannels_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, per
 	}
 	return _vImagePermuteChannels_ARGB8888(src, dest, permuteMap, flags)
 }
-
 
 var _vImagePermuteChannels_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, flags uint32) int
 
@@ -18670,7 +16078,6 @@ func VImagePermuteChannels_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, per
 	return _vImagePermuteChannels_ARGBFFFF(src, dest, permuteMap, flags)
 }
 
-
 var _vImagePermuteChannels_RGB888 func(src unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, flags uint32) int
 
 // VImagePermuteChannels_RGB888 permutes the channels of an 8-bit-per-channel, 3-channel interleaved buffer.
@@ -18682,7 +16089,6 @@ func VImagePermuteChannels_RGB888(src unsafe.Pointer, dest unsafe.Pointer, permu
 	}
 	return _vImagePermuteChannels_RGB888(src, dest, permuteMap, flags)
 }
-
 
 var _vImagePerspectiveWarp_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_ARGB_16F, flags uint32) int
 
@@ -18696,7 +16102,6 @@ func VImagePerspectiveWarp_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, temp
 	return _vImagePerspectiveWarp_ARGB16F(src, dest, tempBuffer, transform, interpolation, backColor, flags)
 }
 
-
 var _vImagePerspectiveWarp_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_ARGB_16U, flags uint32) int
 
 // VImagePerspectiveWarp_ARGB16U applies a perspective warp to an unsigned 16-bit , four-channel interleaved image.
@@ -18708,7 +16113,6 @@ func VImagePerspectiveWarp_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, temp
 	}
 	return _vImagePerspectiveWarp_ARGB16U(src, dest, tempBuffer, transform, interpolation, backColor, flags)
 }
-
 
 var _vImagePerspectiveWarp_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_8888, flags uint32) int
 
@@ -18722,7 +16126,6 @@ func VImagePerspectiveWarp_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tem
 	return _vImagePerspectiveWarp_ARGB8888(src, dest, tempBuffer, transform, interpolation, backColor, flags)
 }
 
-
 var _vImagePerspectiveWarp_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_16F, flags uint32) int
 
 // VImagePerspectiveWarp_Planar16F applies a perspective warp to a floating-point 16-bit planar image.
@@ -18734,7 +16137,6 @@ func VImagePerspectiveWarp_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, te
 	}
 	return _vImagePerspectiveWarp_Planar16F(src, dest, tempBuffer, transform, interpolation, backColor, flags)
 }
-
 
 var _vImagePerspectiveWarp_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_16U, flags uint32) int
 
@@ -18748,7 +16150,6 @@ func VImagePerspectiveWarp_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, te
 	return _vImagePerspectiveWarp_Planar16U(src, dest, tempBuffer, transform, interpolation, backColor, flags)
 }
 
-
 var _vImagePerspectiveWarp_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, transform *VImage_PerpsectiveTransform, interpolation VImage_WarpInterpolation, backColor Pixel_8, flags uint32) int
 
 // VImagePerspectiveWarp_Planar8 applies a perspective warp to an 8-bit planar image.
@@ -18760,7 +16161,6 @@ func VImagePerspectiveWarp_Planar8(src unsafe.Pointer, dest unsafe.Pointer, temp
 	}
 	return _vImagePerspectiveWarp_Planar8(src, dest, tempBuffer, transform, interpolation, backColor, flags)
 }
-
 
 var _vImagePiecewiseGamma_Planar16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_16S, flags uint32) int
 
@@ -18774,7 +16174,6 @@ func VImagePiecewiseGamma_Planar16Q12(src unsafe.Pointer, dest unsafe.Pointer, e
 	return _vImagePiecewiseGamma_Planar16Q12(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
 
-
 var _vImagePiecewiseGamma_Planar16Q12toPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_16S, flags uint32) int
 
 // VImagePiecewiseGamma_Planar16Q12toPlanar8 applies a piecewise gamma function to transform a 16Q12 planar image to an 8-bit planar image.
@@ -18786,7 +16185,6 @@ func VImagePiecewiseGamma_Planar16Q12toPlanar8(src unsafe.Pointer, dest unsafe.P
 	}
 	return _vImagePiecewiseGamma_Planar16Q12toPlanar8(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
-
 
 var _vImagePiecewiseGamma_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_8, flags uint32) int
 
@@ -18800,7 +16198,6 @@ func VImagePiecewiseGamma_Planar8(src unsafe.Pointer, dest unsafe.Pointer, expon
 	return _vImagePiecewiseGamma_Planar8(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
 
-
 var _vImagePiecewiseGamma_Planar8toPlanar16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_8, flags uint32) int
 
 // VImagePiecewiseGamma_Planar8toPlanar16Q12 applies a piecewise gamma function to transform an 8-bit planar image to a 16Q12 planar image.
@@ -18812,7 +16209,6 @@ func VImagePiecewiseGamma_Planar8toPlanar16Q12(src unsafe.Pointer, dest unsafe.P
 	}
 	return _vImagePiecewiseGamma_Planar8toPlanar16Q12(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
-
 
 var _vImagePiecewiseGamma_Planar8toPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_8, flags uint32) int
 
@@ -18826,7 +16222,6 @@ func VImagePiecewiseGamma_Planar8toPlanarF(src unsafe.Pointer, dest unsafe.Point
 	return _vImagePiecewiseGamma_Planar8toPlanarF(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
 
-
 var _vImagePiecewiseGamma_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary float32, flags uint32) int
 
 // VImagePiecewiseGamma_PlanarF applies a piecewise gamma function to transform a 32-bit planar image.
@@ -18838,7 +16233,6 @@ func VImagePiecewiseGamma_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, expon
 	}
 	return _vImagePiecewiseGamma_PlanarF(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
-
 
 var _vImagePiecewiseGamma_PlanarFtoPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary float32, flags uint32) int
 
@@ -18852,7 +16246,6 @@ func VImagePiecewiseGamma_PlanarFtoPlanar8(src unsafe.Pointer, dest unsafe.Point
 	return _vImagePiecewiseGamma_PlanarFtoPlanar8(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
 
-
 var _vImagePiecewisePolynomial_Planar8toPlanarF func(src unsafe.Pointer, dest unsafe.Pointer, coefficients *float32, boundaries *float32, order uint32, log2segments uint32, flags uint32) int
 
 // VImagePiecewisePolynomial_Planar8toPlanarF applies a set of piecewise polynomials to transform an 8-bit planar image to a 32-bit planar image.
@@ -18864,7 +16257,6 @@ func VImagePiecewisePolynomial_Planar8toPlanarF(src unsafe.Pointer, dest unsafe.
 	}
 	return _vImagePiecewisePolynomial_Planar8toPlanarF(src, dest, unsafe.SliceData(coefficients), unsafe.SliceData(boundaries), order, log2segments, flags)
 }
-
 
 var _vImagePiecewisePolynomial_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, coefficients *float32, boundaries *float32, order uint32, log2segments uint32, flags uint32) int
 
@@ -18878,7 +16270,6 @@ func VImagePiecewisePolynomial_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, 
 	return _vImagePiecewisePolynomial_PlanarF(src, dest, unsafe.SliceData(coefficients), unsafe.SliceData(boundaries), order, log2segments, flags)
 }
 
-
 var _vImagePiecewisePolynomial_PlanarFtoPlanar8 func(src unsafe.Pointer, dest unsafe.Pointer, coefficients *float32, boundaries *float32, order uint32, log2segments uint32, flags uint32) int
 
 // VImagePiecewisePolynomial_PlanarFtoPlanar8 applies a set of piecewise polynomials to transform a 32-bit planar image to an 8-bit planar image.
@@ -18890,7 +16281,6 @@ func VImagePiecewisePolynomial_PlanarFtoPlanar8(src unsafe.Pointer, dest unsafe.
 	}
 	return _vImagePiecewisePolynomial_PlanarFtoPlanar8(src, dest, unsafe.SliceData(coefficients), unsafe.SliceData(boundaries), order, log2segments, flags)
 }
-
 
 var _vImagePiecewiseRational_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, topCoefficients *float32, bottomCoefficients *float32, boundaries *float32, topOrder uint32, bottomOrder uint32, log2segments uint32, flags uint32) int
 
@@ -18904,7 +16294,6 @@ func VImagePiecewiseRational_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, to
 	return _vImagePiecewiseRational_PlanarF(src, dest, unsafe.SliceData(topCoefficients), unsafe.SliceData(bottomCoefficients), unsafe.SliceData(boundaries), topOrder, bottomOrder, log2segments, flags)
 }
 
-
 var _vImagePremultipliedAlphaBlendDarken_RGBA8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedAlphaBlendDarken_RGBA8888 performs alpha compositing of two 8-bit-per-channel, 4-channel BGRA buffers using the darken blend mode.
@@ -18916,7 +16305,6 @@ func VImagePremultipliedAlphaBlendDarken_RGBA8888(srcTop unsafe.Pointer, srcBott
 	}
 	return _vImagePremultipliedAlphaBlendDarken_RGBA8888(srcTop, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedAlphaBlendLighten_RGBA8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -18930,7 +16318,6 @@ func VImagePremultipliedAlphaBlendLighten_RGBA8888(srcTop unsafe.Pointer, srcBot
 	return _vImagePremultipliedAlphaBlendLighten_RGBA8888(srcTop, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultipliedAlphaBlendMultiply_RGBA8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedAlphaBlendMultiply_RGBA8888 performs alpha compositing of two 8-bit-per-channel, 4-channel BGRA buffers using the multiply blend mode.
@@ -18942,7 +16329,6 @@ func VImagePremultipliedAlphaBlendMultiply_RGBA8888(srcTop unsafe.Pointer, srcBo
 	}
 	return _vImagePremultipliedAlphaBlendMultiply_RGBA8888(srcTop, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedAlphaBlendScreen_RGBA8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -18956,7 +16342,6 @@ func VImagePremultipliedAlphaBlendScreen_RGBA8888(srcTop unsafe.Pointer, srcBott
 	return _vImagePremultipliedAlphaBlendScreen_RGBA8888(srcTop, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultipliedAlphaBlendWithPermute_ARGB8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, makeDestAlphaOpaque bool, flags uint32) int
 
 // VImagePremultipliedAlphaBlendWithPermute_ARGB8888 permutes the top 8-bit, 4-channel premultiplied buffer, and composites with the bottom buffer.
@@ -18968,7 +16353,6 @@ func VImagePremultipliedAlphaBlendWithPermute_ARGB8888(srcTop unsafe.Pointer, sr
 	}
 	return _vImagePremultipliedAlphaBlendWithPermute_ARGB8888(srcTop, srcBottom, dest, permuteMap, makeDestAlphaOpaque, flags)
 }
-
 
 var _vImagePremultipliedAlphaBlendWithPermute_RGBA8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, permuteMap uint8, makeDestAlphaOpaque bool, flags uint32) int
 
@@ -18982,7 +16366,6 @@ func VImagePremultipliedAlphaBlendWithPermute_RGBA8888(srcTop unsafe.Pointer, sr
 	return _vImagePremultipliedAlphaBlendWithPermute_RGBA8888(srcTop, srcBottom, dest, permuteMap, makeDestAlphaOpaque, flags)
 }
 
-
 var _vImagePremultipliedAlphaBlend_ARGB8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedAlphaBlend_ARGB8888 performs premultiplied alpha compositing of two 8-bit-per-channel, 4-channel ARGB buffers.
@@ -18994,7 +16377,6 @@ func VImagePremultipliedAlphaBlend_ARGB8888(srcTop unsafe.Pointer, srcBottom uns
 	}
 	return _vImagePremultipliedAlphaBlend_ARGB8888(srcTop, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedAlphaBlend_ARGBFFFF func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19008,7 +16390,6 @@ func VImagePremultipliedAlphaBlend_ARGBFFFF(srcTop unsafe.Pointer, srcBottom uns
 	return _vImagePremultipliedAlphaBlend_ARGBFFFF(srcTop, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultipliedAlphaBlend_BGRA8888 func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedAlphaBlend_BGRA8888 performs premultiplied alpha compositing of two 8-bit-per-channel, 4-channel BGRA buffers.
@@ -19020,7 +16401,6 @@ func VImagePremultipliedAlphaBlend_BGRA8888(srcTop unsafe.Pointer, srcBottom uns
 	}
 	return _vImagePremultipliedAlphaBlend_BGRA8888(srcTop, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedAlphaBlend_BGRAFFFF func(srcTop unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19034,7 +16414,6 @@ func VImagePremultipliedAlphaBlend_BGRAFFFF(srcTop unsafe.Pointer, srcBottom uns
 	return _vImagePremultipliedAlphaBlend_BGRAFFFF(srcTop, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultipliedAlphaBlend_Planar8 func(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedAlphaBlend_Planar8 performs premultiplied alpha compositing of two 8-bit planar buffers.
@@ -19046,7 +16425,6 @@ func VImagePremultipliedAlphaBlend_Planar8(srcTop unsafe.Pointer, srcTopAlpha un
 	}
 	return _vImagePremultipliedAlphaBlend_Planar8(srcTop, srcTopAlpha, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedAlphaBlend_PlanarF func(srcTop unsafe.Pointer, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19060,7 +16438,6 @@ func VImagePremultipliedAlphaBlend_PlanarF(srcTop unsafe.Pointer, srcTopAlpha un
 	return _vImagePremultipliedAlphaBlend_PlanarF(srcTop, srcTopAlpha, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultipliedConstAlphaBlend_ARGB8888 func(srcTop unsafe.Pointer, constAlpha Pixel_8, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedConstAlphaBlend_ARGB8888 performs premultiplied alpha compositing of two 8-bit-per-channel, 4-channel interleaved buffers and applies an extra alpha value to the top buffer.
@@ -19072,7 +16449,6 @@ func VImagePremultipliedConstAlphaBlend_ARGB8888(srcTop unsafe.Pointer, constAlp
 	}
 	return _vImagePremultipliedConstAlphaBlend_ARGB8888(srcTop, constAlpha, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedConstAlphaBlend_ARGBFFFF func(srcTop unsafe.Pointer, constAlpha Pixel_F, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19086,7 +16462,6 @@ func VImagePremultipliedConstAlphaBlend_ARGBFFFF(srcTop unsafe.Pointer, constAlp
 	return _vImagePremultipliedConstAlphaBlend_ARGBFFFF(srcTop, constAlpha, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultipliedConstAlphaBlend_Planar8 func(srcTop unsafe.Pointer, constAlpha Pixel_8, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultipliedConstAlphaBlend_Planar8 performs premultiplied alpha compositing of two 8-bit planar buffers and applies an extra alpha value to the top buffer.
@@ -19098,7 +16473,6 @@ func VImagePremultipliedConstAlphaBlend_Planar8(srcTop unsafe.Pointer, constAlph
 	}
 	return _vImagePremultipliedConstAlphaBlend_Planar8(srcTop, constAlpha, srcTopAlpha, srcBottom, dest, flags)
 }
-
 
 var _vImagePremultipliedConstAlphaBlend_PlanarF func(srcTop unsafe.Pointer, constAlpha Pixel_F, srcTopAlpha unsafe.Pointer, srcBottom unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19112,7 +16486,6 @@ func VImagePremultipliedConstAlphaBlend_PlanarF(srcTop unsafe.Pointer, constAlph
 	return _vImagePremultipliedConstAlphaBlend_PlanarF(srcTop, constAlpha, srcTopAlpha, srcBottom, dest, flags)
 }
 
-
 var _vImagePremultiplyData_ARGB16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultiplyData_ARGB16Q12 transforms a fixed-point 16-bit-per-channel, 4-channel ARGB buffer from nonpremultiplied alpha format to premultiplied alpha format.
@@ -19124,7 +16497,6 @@ func VImagePremultiplyData_ARGB16Q12(src unsafe.Pointer, dest unsafe.Pointer, fl
 	}
 	return _vImagePremultiplyData_ARGB16Q12(src, dest, flags)
 }
-
 
 var _vImagePremultiplyData_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19138,7 +16510,6 @@ func VImagePremultiplyData_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, flag
 	return _vImagePremultiplyData_ARGB16U(src, dest, flags)
 }
 
-
 var _vImagePremultiplyData_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultiplyData_ARGB8888 transforms an 8-bit-per-channel, 4-channel ARGB buffer from nonpremultiplied alpha format to premultiplied alpha format.
@@ -19150,7 +16521,6 @@ func VImagePremultiplyData_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImagePremultiplyData_ARGB8888(src, dest, flags)
 }
-
 
 var _vImagePremultiplyData_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19164,7 +16534,6 @@ func VImagePremultiplyData_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImagePremultiplyData_ARGBFFFF(src, dest, flags)
 }
 
-
 var _vImagePremultiplyData_Planar8 func(src unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultiplyData_Planar8 transforms an 8-bit planar buffer from nonpremultiplied alpha format to premultiplied alpha format.
@@ -19176,7 +16545,6 @@ func VImagePremultiplyData_Planar8(src unsafe.Pointer, alpha unsafe.Pointer, des
 	}
 	return _vImagePremultiplyData_Planar8(src, alpha, dest, flags)
 }
-
 
 var _vImagePremultiplyData_PlanarF func(src unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19190,7 +16558,6 @@ func VImagePremultiplyData_PlanarF(src unsafe.Pointer, alpha unsafe.Pointer, des
 	return _vImagePremultiplyData_PlanarF(src, alpha, dest, flags)
 }
 
-
 var _vImagePremultiplyData_RGBA16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultiplyData_RGBA16F transforms a floating-point 16-bit-per-channel, 4-channel RGBA buffer from nonpremultiplied alpha format to premultiplied alpha format.
@@ -19202,7 +16569,6 @@ func VImagePremultiplyData_RGBA16F(src unsafe.Pointer, dest unsafe.Pointer, flag
 	}
 	return _vImagePremultiplyData_RGBA16F(src, dest, flags)
 }
-
 
 var _vImagePremultiplyData_RGBA16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19216,7 +16582,6 @@ func VImagePremultiplyData_RGBA16Q12(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImagePremultiplyData_RGBA16Q12(src, dest, flags)
 }
 
-
 var _vImagePremultiplyData_RGBA16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultiplyData_RGBA16U transforms an unsigned 16-bit-per-channel, 4-channel RGBA buffer from nonpremultiplied alpha format to premultiplied alpha format.
@@ -19228,7 +16593,6 @@ func VImagePremultiplyData_RGBA16U(src unsafe.Pointer, dest unsafe.Pointer, flag
 	}
 	return _vImagePremultiplyData_RGBA16U(src, dest, flags)
 }
-
 
 var _vImagePremultiplyData_RGBA8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19242,7 +16606,6 @@ func VImagePremultiplyData_RGBA8888(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImagePremultiplyData_RGBA8888(src, dest, flags)
 }
 
-
 var _vImagePremultiplyData_RGBAFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImagePremultiplyData_RGBAFFFF transforms a floating-point 32-bit-per-channel, 4-channel ARGB buffer from nonpremultiplied alpha format to premultiplied alpha format.
@@ -19254,7 +16617,6 @@ func VImagePremultiplyData_RGBAFFFF(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImagePremultiplyData_RGBAFFFF(src, dest, flags)
 }
-
 
 var _vImageRichardsonLucyDeConvolve_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *int16, kernel2 *int16, kernel_height uint32, kernel_width uint32, kernel_height2 uint32, kernel_width2 uint32, divisor int32, divisor2 int32, backgroundColor Pixel_8888, iterationCount uint32, flags uint32) int
 
@@ -19268,7 +16630,6 @@ func VImageRichardsonLucyDeConvolve_ARGB8888(src unsafe.Pointer, dest unsafe.Poi
 	return _vImageRichardsonLucyDeConvolve_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel2, kernel_height, kernel_width, kernel_height2, kernel_width2, divisor, divisor2, backgroundColor, iterationCount, flags)
 }
 
-
 var _vImageRichardsonLucyDeConvolve_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel2 *float32, kernel_height uint32, kernel_width uint32, kernel_height2 uint32, kernel_width2 uint32, backgroundColor Pixel_FFFF, iterationCount uint32, flags uint32) int
 
 // VImageRichardsonLucyDeConvolve_ARGBFFFF deconvolves a floating-point 32-bit-per-channel, 4-channel interleaved image.
@@ -19280,7 +16641,6 @@ func VImageRichardsonLucyDeConvolve_ARGBFFFF(src unsafe.Pointer, dest unsafe.Poi
 	}
 	return _vImageRichardsonLucyDeConvolve_ARGBFFFF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), unsafe.SliceData(kernel2), kernel_height, kernel_width, kernel_height2, kernel_width2, backgroundColor, iterationCount, flags)
 }
-
 
 var _vImageRichardsonLucyDeConvolve_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *int16, kernel2 *int16, kernel_height uint32, kernel_width uint32, kernel_height2 uint32, kernel_width2 uint32, divisor int32, divisor2 int32, backgroundColor Pixel_8, iterationCount uint32, flags uint32) int
 
@@ -19294,7 +16654,6 @@ func VImageRichardsonLucyDeConvolve_Planar8(src unsafe.Pointer, dest unsafe.Poin
 	return _vImageRichardsonLucyDeConvolve_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel, kernel2, kernel_height, kernel_width, kernel_height2, kernel_width2, divisor, divisor2, backgroundColor, iterationCount, flags)
 }
 
-
 var _vImageRichardsonLucyDeConvolve_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *float32, kernel2 *float32, kernel_height uint32, kernel_width uint32, kernel_height2 uint32, kernel_width2 uint32, backgroundColor Pixel_F, iterationCount uint32, flags uint32) int
 
 // VImageRichardsonLucyDeConvolve_PlanarF deconvolves a floating-point 32-bit planar image.
@@ -19306,7 +16665,6 @@ func VImageRichardsonLucyDeConvolve_PlanarF(src unsafe.Pointer, dest unsafe.Poin
 	}
 	return _vImageRichardsonLucyDeConvolve_PlanarF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), unsafe.SliceData(kernel2), kernel_height, kernel_width, kernel_height2, kernel_width2, backgroundColor, iterationCount, flags)
 }
-
 
 var _vImageRotate90_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_ARGB_16F, flags uint32) int
 
@@ -19320,7 +16678,6 @@ func VImageRotate90_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, rotationCon
 	return _vImageRotate90_ARGB16F(src, dest, rotationConstant, backColor, flags)
 }
 
-
 var _vImageRotate90_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_ARGB_16S, flags uint32) int
 
 // VImageRotate90_ARGB16S rotates a signed 16-bit-per-channel, 4-channel interleaved image by a multiple of 90°.
@@ -19332,7 +16689,6 @@ func VImageRotate90_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, rotationCon
 	}
 	return _vImageRotate90_ARGB16S(src, dest, rotationConstant, backColor, flags)
 }
-
 
 var _vImageRotate90_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_ARGB_16U, flags uint32) int
 
@@ -19346,7 +16702,6 @@ func VImageRotate90_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, rotationCon
 	return _vImageRotate90_ARGB16U(src, dest, rotationConstant, backColor, flags)
 }
 
-
 var _vImageRotate90_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_8888, flags uint32) int
 
 // VImageRotate90_ARGB8888 rotates an 8-bit-per-channel, 4-channel interleaved image by a multiple of 90°.
@@ -19358,7 +16713,6 @@ func VImageRotate90_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, rotationCo
 	}
 	return _vImageRotate90_ARGB8888(src, dest, rotationConstant, backColor, flags)
 }
-
 
 var _vImageRotate90_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_FFFF, flags uint32) int
 
@@ -19372,7 +16726,6 @@ func VImageRotate90_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, rotationCo
 	return _vImageRotate90_ARGBFFFF(src, dest, rotationConstant, backColor, flags)
 }
 
-
 var _vImageRotate90_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_16F16F, flags uint32) int
 
 // VImageRotate90_CbCr16F rotates a floating-point 16-bit-per-channel, 2-channel interleaved image by a multiple of 90°.
@@ -19384,7 +16737,6 @@ func VImageRotate90_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, rotationCon
 	}
 	return _vImageRotate90_CbCr16F(src, dest, rotationConstant, backColor, flags)
 }
-
 
 var _vImageRotate90_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_16F, flags uint32) int
 
@@ -19398,7 +16750,6 @@ func VImageRotate90_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, rotationC
 	return _vImageRotate90_Planar16F(src, dest, rotationConstant, backColor, flags)
 }
 
-
 var _vImageRotate90_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_16U, flags uint32) int
 
 // VImageRotate90_Planar16U rotates an unsigned 16-bit planar image by a multiple of 90°.
@@ -19410,7 +16761,6 @@ func VImageRotate90_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, rotationC
 	}
 	return _vImageRotate90_Planar16U(src, dest, rotationConstant, backColor, flags)
 }
-
 
 var _vImageRotate90_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_8, flags uint32) int
 
@@ -19424,7 +16774,6 @@ func VImageRotate90_Planar8(src unsafe.Pointer, dest unsafe.Pointer, rotationCon
 	return _vImageRotate90_Planar8(src, dest, rotationConstant, backColor, flags)
 }
 
-
 var _vImageRotate90_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, rotationConstant uint8, backColor Pixel_F, flags uint32) int
 
 // VImageRotate90_PlanarF rotates a 32-bit planar image by a multiple of 90°.
@@ -19436,7 +16785,6 @@ func VImageRotate90_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, rotationCon
 	}
 	return _vImageRotate90_PlanarF(src, dest, rotationConstant, backColor, flags)
 }
-
 
 var _vImageRotate_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_ARGB_16F, flags uint32) int
 
@@ -19450,7 +16798,6 @@ func VImageRotate_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	return _vImageRotate_ARGB16F(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
 
-
 var _vImageRotate_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_ARGB_16S, flags uint32) int
 
 // VImageRotate_ARGB16S rotates a signed 16-bit-per-channel, 4-channel interleaved image by any angle, which you specify in radians.
@@ -19462,7 +16809,6 @@ func VImageRotate_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	}
 	return _vImageRotate_ARGB16S(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
-
 
 var _vImageRotate_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_ARGB_16U, flags uint32) int
 
@@ -19476,7 +16822,6 @@ func VImageRotate_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	return _vImageRotate_ARGB16U(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
 
-
 var _vImageRotate_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_8888, flags uint32) int
 
 // VImageRotate_ARGB8888 rotates an 8-bit-per-channel, 4-channel interleaved image by any angle, which you specify in radians.
@@ -19488,7 +16833,6 @@ func VImageRotate_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer u
 	}
 	return _vImageRotate_ARGB8888(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
-
 
 var _vImageRotate_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_FFFF, flags uint32) int
 
@@ -19502,7 +16846,6 @@ func VImageRotate_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer u
 	return _vImageRotate_ARGBFFFF(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
 
-
 var _vImageRotate_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_16F16F, flags uint32) int
 
 // VImageRotate_CbCr16F rotates a floating-point 16-bit-per-channel, 2-channel interleaved image by any angle, which you specify in radians.
@@ -19514,7 +16857,6 @@ func VImageRotate_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	}
 	return _vImageRotate_CbCr16F(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
-
 
 var _vImageRotate_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_16F, flags uint32) int
 
@@ -19528,7 +16870,6 @@ func VImageRotate_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer 
 	return _vImageRotate_Planar16F(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
 
-
 var _vImageRotate_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_8, flags uint32) int
 
 // VImageRotate_Planar8 rotates an 8-bit planar image by any angle, which you specify in radians.
@@ -19540,7 +16881,6 @@ func VImageRotate_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	}
 	return _vImageRotate_Planar8(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
-
 
 var _vImageRotate_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, angleInRadians float32, backColor Pixel_F, flags uint32) int
 
@@ -19554,7 +16894,6 @@ func VImageRotate_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	return _vImageRotate_PlanarF(src, dest, tempBuffer, angleInRadians, backColor, flags)
 }
 
-
 var _vImageScale_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_ARGB16F scales a floating-point 16-bit-per-channel, 4-channel interleaved image to fit a destination buffer.
@@ -19566,7 +16905,6 @@ func VImageScale_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	}
 	return _vImageScale_ARGB16F(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19580,7 +16918,6 @@ func VImageScale_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	return _vImageScale_ARGB16S(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageScale_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_ARGB16U scales an unsigned 16-bit-per-channel, 4-channel interleaved image to fit a destination buffer.
@@ -19592,7 +16929,6 @@ func VImageScale_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	}
 	return _vImageScale_ARGB16U(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19606,7 +16942,6 @@ func VImageScale_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	return _vImageScale_ARGB8888(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageScale_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_ARGBFFFF scales a 32-bit-per-channel, 4-channel interleaved image to fit a destination buffer.
@@ -19618,7 +16953,6 @@ func VImageScale_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer un
 	}
 	return _vImageScale_ARGBFFFF(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19632,7 +16966,6 @@ func VImageScale_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	return _vImageScale_CbCr16F(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageScale_CbCr16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_CbCr16U scales an unsigned 16-bit-per-channel, 2-channel interleaved image to fit a destination buffer.
@@ -19644,7 +16977,6 @@ func VImageScale_CbCr16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	}
 	return _vImageScale_CbCr16U(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_CbCr8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19658,7 +16990,6 @@ func VImageScale_CbCr8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsaf
 	return _vImageScale_CbCr8(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageScale_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_Planar16F scales a floating-point 16-bit planar image to fit a destination buffer.
@@ -19670,7 +17001,6 @@ func VImageScale_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer u
 	}
 	return _vImageScale_Planar16F(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_Planar16S func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19684,7 +17014,6 @@ func VImageScale_Planar16S(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer u
 	return _vImageScale_Planar16S(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageScale_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_Planar16U scales an unsigned 16-bit planar image to fit a destination buffer.
@@ -19696,7 +17025,6 @@ func VImageScale_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer u
 	}
 	return _vImageScale_Planar16U(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19710,7 +17038,6 @@ func VImageScale_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	return _vImageScale_Planar8(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageScale_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
 // VImageScale_PlanarF scales a 32-bit planar image to fit a destination buffer.
@@ -19722,7 +17049,6 @@ func VImageScale_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer uns
 	}
 	return _vImageScale_PlanarF(src, dest, tempBuffer, flags)
 }
-
 
 var _vImageScale_XRGB2101010W func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, flags uint32) int
 
@@ -19736,7 +17062,6 @@ func VImageScale_XRGB2101010W(src unsafe.Pointer, dest unsafe.Pointer, tempBuffe
 	return _vImageScale_XRGB2101010W(src, dest, tempBuffer, flags)
 }
 
-
 var _vImageSelectChannels_ARGB8888 func(newSrc unsafe.Pointer, origSrc unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
 // VImageSelectChannels_ARGB8888 overwrites the channels of an 8-bit-per-channel, 4-channel interleaved buffer with the specified channels of the corresponding pixels of a second buffer.
@@ -19748,7 +17073,6 @@ func VImageSelectChannels_ARGB8888(newSrc unsafe.Pointer, origSrc unsafe.Pointer
 	}
 	return _vImageSelectChannels_ARGB8888(newSrc, origSrc, dest, copyMask, flags)
 }
-
 
 var _vImageSelectChannels_ARGBFFFF func(newSrc unsafe.Pointer, origSrc unsafe.Pointer, dest unsafe.Pointer, copyMask uint8, flags uint32) int
 
@@ -19762,7 +17086,6 @@ func VImageSelectChannels_ARGBFFFF(newSrc unsafe.Pointer, origSrc unsafe.Pointer
 	return _vImageSelectChannels_ARGBFFFF(newSrc, origSrc, dest, copyMask, flags)
 }
 
-
 var _vImageSepConvolve_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernelX *float32, kernelX_width uint32, kernelY *float32, kernelY_width uint32, bias float32, backgroundColor Pixel_8888, flags uint32) int
 
 // VImageSepConvolve_ARGB8888 convolves an 8-bit-per-channel, 4-channel interleaved image by separate horizontal and vertical separable kernels.
@@ -19774,7 +17097,6 @@ func VImageSepConvolve_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageSepConvolve_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernelX), kernelX_width, unsafe.SliceData(kernelY), kernelY_width, bias, backgroundColor, flags)
 }
-
 
 var _vImageSepConvolve_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernelX *float32, kernelX_width uint32, kernelY *float32, kernelY_width uint32, bias float32, backgroundColor Pixel_16F, flags uint32) int
 
@@ -19788,7 +17110,6 @@ func VImageSepConvolve_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	return _vImageSepConvolve_Planar16F(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernelX), kernelX_width, unsafe.SliceData(kernelY), kernelY_width, bias, backgroundColor, flags)
 }
 
-
 var _vImageSepConvolve_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernelX *float32, kernelX_width uint32, kernelY *float32, kernelY_width uint32, bias float32, backgroundColor Pixel_16U, flags uint32) int
 
 // VImageSepConvolve_Planar16U convolves an unsigned 16-bit planar image by separate horizontal and vertical separable kernels.
@@ -19800,7 +17121,6 @@ func VImageSepConvolve_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	}
 	return _vImageSepConvolve_Planar16U(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernelX), kernelX_width, unsafe.SliceData(kernelY), kernelY_width, bias, backgroundColor, flags)
 }
-
 
 var _vImageSepConvolve_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernelX *float32, kernelX_width uint32, kernelY *float32, kernelY_width uint32, bias float32, backgroundColor Pixel_16U, flags uint32) int
 
@@ -19814,7 +17134,6 @@ func VImageSepConvolve_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageSepConvolve_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernelX), kernelX_width, unsafe.SliceData(kernelY), kernelY_width, bias, backgroundColor, flags)
 }
 
-
 var _vImageSepConvolve_Planar8to16U func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernelX *float32, kernelX_width uint32, kernelY *float32, kernelY_width uint32, scale float32, bias float32, backgroundColor Pixel_8, flags uint32) int
 
 // VImageSepConvolve_Planar8to16U convolves an 8-bit planar image by separate horizontal and vertical separable kernels, and writes the result to an unsigned 16-bit planar destination.
@@ -19826,7 +17145,6 @@ func VImageSepConvolve_Planar8to16U(src unsafe.Pointer, dest unsafe.Pointer, tem
 	}
 	return _vImageSepConvolve_Planar8to16U(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernelX), kernelX_width, unsafe.SliceData(kernelY), kernelY_width, scale, bias, backgroundColor, flags)
 }
-
 
 var _vImageSepConvolve_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernelX *float32, kernelX_width uint32, kernelY *float32, kernelY_width uint32, bias float32, backgroundColor Pixel_F, flags uint32) int
 
@@ -19840,7 +17158,6 @@ func VImageSepConvolve_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuff
 	return _vImageSepConvolve_PlanarF(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernelX), kernelX_width, unsafe.SliceData(kernelY), kernelY_width, bias, backgroundColor, flags)
 }
 
-
 var _vImageSymmetricPiecewiseGamma_Planar16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary Pixel_16S, flags uint32) int
 
 // VImageSymmetricPiecewiseGamma_Planar16Q12 applies a symmetric piecewise gamma function to transform a 16Q12 planar image to an 8-bit planar image.
@@ -19852,7 +17169,6 @@ func VImageSymmetricPiecewiseGamma_Planar16Q12(src unsafe.Pointer, dest unsafe.P
 	}
 	return _vImageSymmetricPiecewiseGamma_Planar16Q12(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
-
 
 var _vImageSymmetricPiecewiseGamma_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, exponentialCoeffs unsafe.Pointer, gamma float32, linearCoeffs unsafe.Pointer, boundary float32, flags uint32) int
 
@@ -19866,7 +17182,6 @@ func VImageSymmetricPiecewiseGamma_PlanarF(src unsafe.Pointer, dest unsafe.Point
 	return _vImageSymmetricPiecewiseGamma_PlanarF(src, dest, exponentialCoeffs, gamma, linearCoeffs, boundary, flags)
 }
 
-
 var _vImageSymmetricPiecewisePolynomial_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, coefficients *float32, boundaries *float32, order uint32, log2segments uint32, flags uint32) int
 
 // VImageSymmetricPiecewisePolynomial_PlanarF applies a set of symmetric piecewise polynomials to transform a 32-bit planar image.
@@ -19878,7 +17193,6 @@ func VImageSymmetricPiecewisePolynomial_PlanarF(src unsafe.Pointer, dest unsafe.
 	}
 	return _vImageSymmetricPiecewisePolynomial_PlanarF(src, dest, unsafe.SliceData(coefficients), unsafe.SliceData(boundaries), order, log2segments, flags)
 }
-
 
 var _vImageTableLookUp_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, alphaTable Pixel_8, redTable Pixel_8, greenTable Pixel_8, blueTable Pixel_8, flags uint32) int
 
@@ -19892,7 +17206,6 @@ func VImageTableLookUp_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, alphaTa
 	return _vImageTableLookUp_ARGB8888(src, dest, alphaTable, redTable, greenTable, blueTable, flags)
 }
 
-
 var _vImageTableLookUp_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, table Pixel_8, flags uint32) int
 
 // VImageTableLookUp_Planar8 uses a lookup table to transform an 8-bit planar image to an 8-bit planar image.
@@ -19904,7 +17217,6 @@ func VImageTableLookUp_Planar8(src unsafe.Pointer, dest unsafe.Pointer, table Pi
 	}
 	return _vImageTableLookUp_Planar8(src, dest, table, flags)
 }
-
 
 var _vImageTentConvolve_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_8888, flags uint32) int
 
@@ -19918,7 +17230,6 @@ func VImageTentConvolve_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, tempBu
 	return _vImageTentConvolve_ARGB8888(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, backgroundColor, flags)
 }
 
-
 var _vImageTentConvolve_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, tempBuffer unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel_height uint32, kernel_width uint32, backgroundColor Pixel_8, flags uint32) int
 
 // VImageTentConvolve_Planar8 applies a tent filter to an 8-bit planar source image.
@@ -19930,7 +17241,6 @@ func VImageTentConvolve_Planar8(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	}
 	return _vImageTentConvolve_Planar8(src, dest, tempBuffer, srcOffsetToROI_X, srcOffsetToROI_Y, kernel_height, kernel_width, backgroundColor, flags)
 }
-
 
 var _vImageUnpremultiplyData_ARGB16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19944,7 +17254,6 @@ func VImageUnpremultiplyData_ARGB16Q12(src unsafe.Pointer, dest unsafe.Pointer, 
 	return _vImageUnpremultiplyData_ARGB16Q12(src, dest, flags)
 }
 
-
 var _vImageUnpremultiplyData_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageUnpremultiplyData_ARGB16U transforms an unsigned 16-bit-per-channel, 4-channel ARGB buffer from premultiplied alpha format to nonpremultiplied alpha format.
@@ -19956,7 +17265,6 @@ func VImageUnpremultiplyData_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, fl
 	}
 	return _vImageUnpremultiplyData_ARGB16U(src, dest, flags)
 }
-
 
 var _vImageUnpremultiplyData_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19970,7 +17278,6 @@ func VImageUnpremultiplyData_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageUnpremultiplyData_ARGB8888(src, dest, flags)
 }
 
-
 var _vImageUnpremultiplyData_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageUnpremultiplyData_ARGBFFFF transforms a 32-bit-per-channel, 4-channel ARGB buffer from premultiplied alpha format to nonpremultiplied alpha format.
@@ -19982,7 +17289,6 @@ func VImageUnpremultiplyData_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, f
 	}
 	return _vImageUnpremultiplyData_ARGBFFFF(src, dest, flags)
 }
-
 
 var _vImageUnpremultiplyData_Planar8 func(src unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -19996,7 +17302,6 @@ func VImageUnpremultiplyData_Planar8(src unsafe.Pointer, alpha unsafe.Pointer, d
 	return _vImageUnpremultiplyData_Planar8(src, alpha, dest, flags)
 }
 
-
 var _vImageUnpremultiplyData_PlanarF func(src unsafe.Pointer, alpha unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageUnpremultiplyData_PlanarF transforms a 32-bit planar buffer from premultiplied alpha format to nonpremultiplied alpha format.
@@ -20008,7 +17313,6 @@ func VImageUnpremultiplyData_PlanarF(src unsafe.Pointer, alpha unsafe.Pointer, d
 	}
 	return _vImageUnpremultiplyData_PlanarF(src, alpha, dest, flags)
 }
-
 
 var _vImageUnpremultiplyData_RGBA16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20022,7 +17326,6 @@ func VImageUnpremultiplyData_RGBA16F(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImageUnpremultiplyData_RGBA16F(src, dest, flags)
 }
 
-
 var _vImageUnpremultiplyData_RGBA16Q12 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageUnpremultiplyData_RGBA16Q12 transforms a fixed-point 16-bit-per-channel, 4-channel RGBA buffer from premultiplied alpha format to nonpremultiplied alpha format.
@@ -20034,7 +17337,6 @@ func VImageUnpremultiplyData_RGBA16Q12(src unsafe.Pointer, dest unsafe.Pointer, 
 	}
 	return _vImageUnpremultiplyData_RGBA16Q12(src, dest, flags)
 }
-
 
 var _vImageUnpremultiplyData_RGBA16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20048,7 +17350,6 @@ func VImageUnpremultiplyData_RGBA16U(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImageUnpremultiplyData_RGBA16U(src, dest, flags)
 }
 
-
 var _vImageUnpremultiplyData_RGBA8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageUnpremultiplyData_RGBA8888 transforms an 8-bit-per-channel, 4-channel RGBA buffer from premultiplied alpha format to nonpremultiplied alpha format.
@@ -20060,7 +17361,6 @@ func VImageUnpremultiplyData_RGBA8888(src unsafe.Pointer, dest unsafe.Pointer, f
 	}
 	return _vImageUnpremultiplyData_RGBA8888(src, dest, flags)
 }
-
 
 var _vImageUnpremultiplyData_RGBAFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20074,7 +17374,6 @@ func VImageUnpremultiplyData_RGBAFFFF(src unsafe.Pointer, dest unsafe.Pointer, f
 	return _vImageUnpremultiplyData_RGBAFFFF(src, dest, flags)
 }
 
-
 var _vImageVerticalReflect_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageVerticalReflect_ARGB16F reflects a floating-point 16-bit-per-channel, 4-channel interleaved image vertically across the center horizontal line.
@@ -20086,7 +17385,6 @@ func VImageVerticalReflect_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, flag
 	}
 	return _vImageVerticalReflect_ARGB16F(src, dest, flags)
 }
-
 
 var _vImageVerticalReflect_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20100,7 +17398,6 @@ func VImageVerticalReflect_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, flag
 	return _vImageVerticalReflect_ARGB16S(src, dest, flags)
 }
 
-
 var _vImageVerticalReflect_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageVerticalReflect_ARGB16U reflects an unsigned 16-bit-per-channel, 4-channel interleaved image vertically across the center horizontal line.
@@ -20112,7 +17409,6 @@ func VImageVerticalReflect_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, flag
 	}
 	return _vImageVerticalReflect_ARGB16U(src, dest, flags)
 }
-
 
 var _vImageVerticalReflect_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20126,7 +17422,6 @@ func VImageVerticalReflect_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, fla
 	return _vImageVerticalReflect_ARGB8888(src, dest, flags)
 }
 
-
 var _vImageVerticalReflect_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageVerticalReflect_ARGBFFFF reflects a 32-bit-per-channel, 4-channel interleaved image vertically across the center horizontal line.
@@ -20138,7 +17433,6 @@ func VImageVerticalReflect_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, fla
 	}
 	return _vImageVerticalReflect_ARGBFFFF(src, dest, flags)
 }
-
 
 var _vImageVerticalReflect_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20152,7 +17446,6 @@ func VImageVerticalReflect_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, flag
 	return _vImageVerticalReflect_CbCr16F(src, dest, flags)
 }
 
-
 var _vImageVerticalReflect_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageVerticalReflect_Planar16F reflects a floating-point 16-bit planar image vertically across the center horizontal line.
@@ -20164,7 +17457,6 @@ func VImageVerticalReflect_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, fl
 	}
 	return _vImageVerticalReflect_Planar16F(src, dest, flags)
 }
-
 
 var _vImageVerticalReflect_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20178,7 +17470,6 @@ func VImageVerticalReflect_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, fl
 	return _vImageVerticalReflect_Planar16U(src, dest, flags)
 }
 
-
 var _vImageVerticalReflect_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
 // VImageVerticalReflect_Planar8 reflects an 8-bit planar image vertically across the center horizontal line.
@@ -20190,7 +17481,6 @@ func VImageVerticalReflect_Planar8(src unsafe.Pointer, dest unsafe.Pointer, flag
 	}
 	return _vImageVerticalReflect_Planar8(src, dest, flags)
 }
-
 
 var _vImageVerticalReflect_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, flags uint32) int
 
@@ -20204,7 +17494,6 @@ func VImageVerticalReflect_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, flag
 	return _vImageVerticalReflect_PlanarF(src, dest, flags)
 }
 
-
 var _vImageVerticalShearD_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_ARGB_16F, flags uint32) int
 
 // VImageVerticalShearD_ARGB16F performs a double-precision vertical shear on a region of interest within a floating-point 16-bit-per-channel, 4-channel interleaved image.
@@ -20216,7 +17505,6 @@ func VImageVerticalShearD_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	}
 	return _vImageVerticalShearD_ARGB16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShearD_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_ARGB_16S, flags uint32) int
 
@@ -20230,7 +17518,6 @@ func VImageVerticalShearD_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	return _vImageVerticalShearD_ARGB16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShearD_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_ARGB_16U, flags uint32) int
 
 // VImageVerticalShearD_ARGB16U performs a double-precision vertical shear on a region of interest within an unsigned 16-bit-per-channel, 4-channel interleaved image.
@@ -20242,7 +17529,6 @@ func VImageVerticalShearD_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	}
 	return _vImageVerticalShearD_ARGB16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShearD_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_8888, flags uint32) int
 
@@ -20256,7 +17542,6 @@ func VImageVerticalShearD_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	return _vImageVerticalShearD_ARGB8888(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShearD_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_FFFF, flags uint32) int
 
 // VImageVerticalShearD_ARGBFFFF performs a double-precision vertical shear on a region of interest within a 32-bit-per-channel, 4-channel interleaved image.
@@ -20268,7 +17553,6 @@ func VImageVerticalShearD_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageVerticalShearD_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShearD_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16F16F, flags uint32) int
 
@@ -20282,7 +17566,6 @@ func VImageVerticalShearD_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	return _vImageVerticalShearD_CbCr16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShearD_CbCr16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16S16S, flags uint32) int
 
 // VImageVerticalShearD_CbCr16S.
@@ -20294,7 +17577,6 @@ func VImageVerticalShearD_CbCr16S(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	}
 	return _vImageVerticalShearD_CbCr16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShearD_CbCr16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16U16U, flags uint32) int
 
@@ -20308,7 +17590,6 @@ func VImageVerticalShearD_CbCr16U(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	return _vImageVerticalShearD_CbCr16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShearD_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_16F, flags uint32) int
 
 // VImageVerticalShearD_Planar16F performs a double-precision vertical shear on a region of interest within a floating-point 16-bit planar image.
@@ -20320,7 +17601,6 @@ func VImageVerticalShearD_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, src
 	}
 	return _vImageVerticalShearD_Planar16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShearD_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_8, flags uint32) int
 
@@ -20334,7 +17614,6 @@ func VImageVerticalShearD_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	return _vImageVerticalShearD_Planar8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShearD_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float64, shearSlope float64, filter ResamplingFilter, backColor Pixel_F, flags uint32) int
 
 // VImageVerticalShearD_PlanarF performs a double-precision vertical shear on a region of interest within a 32-bit planar image.
@@ -20346,7 +17625,6 @@ func VImageVerticalShearD_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	}
 	return _vImageVerticalShearD_PlanarF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_ARGB16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_ARGB_16F, flags uint32) int
 
@@ -20360,7 +17638,6 @@ func VImageVerticalShear_ARGB16F(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	return _vImageVerticalShear_ARGB16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_ARGB16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_ARGB_16S, flags uint32) int
 
 // VImageVerticalShear_ARGB16S performs a single-precision vertical shear on a region of interest within a signed 16-bit-per-channel, 4-channel interleaved image.
@@ -20372,7 +17649,6 @@ func VImageVerticalShear_ARGB16S(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	}
 	return _vImageVerticalShear_ARGB16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_ARGB16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_ARGB_16U, flags uint32) int
 
@@ -20386,7 +17662,6 @@ func VImageVerticalShear_ARGB16U(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	return _vImageVerticalShear_ARGB16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_8888, flags uint32) int
 
 // VImageVerticalShear_ARGB8888 performs a single-precision vertical shear on a region of interest within an 8-bit-per-channel, 4-channel interleaved image.
@@ -20398,7 +17673,6 @@ func VImageVerticalShear_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	}
 	return _vImageVerticalShear_ARGB8888(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_ARGBFFFF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_FFFF, flags uint32) int
 
@@ -20412,7 +17686,6 @@ func VImageVerticalShear_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, srcOf
 	return _vImageVerticalShear_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_CbCr16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16F16F, flags uint32) int
 
 // VImageVerticalShear_CbCr16F performs a single-precision vertical shear on a region of interest within a floating-point 16-bit-per-channel, 2-channel interleaved image.
@@ -20424,7 +17697,6 @@ func VImageVerticalShear_CbCr16F(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	}
 	return _vImageVerticalShear_CbCr16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_CbCr16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16S16S, flags uint32) int
 
@@ -20438,7 +17710,6 @@ func VImageVerticalShear_CbCr16S(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	return _vImageVerticalShear_CbCr16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_CbCr16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16U16U, flags uint32) int
 
 // VImageVerticalShear_CbCr16U performs a single-precision vertical shear on a region of interest within an unsigned 16-bit-per-channel, 2-channel interleaved image.
@@ -20450,7 +17721,6 @@ func VImageVerticalShear_CbCr16U(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	}
 	return _vImageVerticalShear_CbCr16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_CbCr8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_88, flags uint32) int
 
@@ -20464,7 +17734,6 @@ func VImageVerticalShear_CbCr8(src unsafe.Pointer, dest unsafe.Pointer, srcOffse
 	return _vImageVerticalShear_CbCr8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_Planar16F func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16F, flags uint32) int
 
 // VImageVerticalShear_Planar16F performs a single-precision vertical shear on a region of interest within a floating-point 16-bit planar image.
@@ -20476,7 +17745,6 @@ func VImageVerticalShear_Planar16F(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageVerticalShear_Planar16F(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_Planar16S func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16S, flags uint32) int
 
@@ -20490,7 +17758,6 @@ func VImageVerticalShear_Planar16S(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	return _vImageVerticalShear_Planar16S(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_Planar16U func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_16U, flags uint32) int
 
 // VImageVerticalShear_Planar16U performs a single-precision vertical shear on a region of interest within an unsigned 16-bit planar image.
@@ -20502,7 +17769,6 @@ func VImageVerticalShear_Planar16U(src unsafe.Pointer, dest unsafe.Pointer, srcO
 	}
 	return _vImageVerticalShear_Planar16U(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_8, flags uint32) int
 
@@ -20516,7 +17782,6 @@ func VImageVerticalShear_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	return _vImageVerticalShear_Planar8(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vImageVerticalShear_PlanarF func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_F, flags uint32) int
 
 // VImageVerticalShear_PlanarF performs a single-precision vertical shear on a region of interest within a 32-bit planar image.
@@ -20528,7 +17793,6 @@ func VImageVerticalShear_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, srcOff
 	}
 	return _vImageVerticalShear_PlanarF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
-
 
 var _vImageVerticalShear_XRGB2101010W func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, yTranslate float32, shearSlope float32, filter ResamplingFilter, backColor Pixel_32U, flags uint32) int
 
@@ -20542,7 +17806,6 @@ func VImageVerticalShear_XRGB2101010W(src unsafe.Pointer, dest unsafe.Pointer, s
 	return _vImageVerticalShear_XRGB2101010W(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, yTranslate, shearSlope, filter, backColor, flags)
 }
 
-
 var _vL1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
 // VL1024Rotate 1024-bit left rotate.
@@ -20554,7 +17817,6 @@ func VL1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	}
 	_vL1024Rotate(a, rotateAmount, result)
 }
-
 
 var _vL128Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
 
@@ -20568,7 +17830,6 @@ func VL128Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return _vL128Rotate(vA, vRotateFactor)
 }
 
-
 var _vL256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
 // VL256Rotate 256-bit left rotate.
@@ -20580,7 +17841,6 @@ func VL256Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	}
 	_vL256Rotate(a, rotateAmount, result)
 }
-
 
 var _vL512Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
@@ -20594,7 +17854,6 @@ func VL512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	_vL512Rotate(a, rotateAmount, result)
 }
 
-
 var _vL64Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
 
 // VL64Rotate 64-bit left rotate.
@@ -20606,7 +17865,6 @@ func VL64Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	}
 	return _vL64Rotate(vA, vRotateFactor)
 }
-
 
 var _vL64Rotate2 func(vA VUInt32, vRotateFactor VUInt8) VUInt32
 
@@ -20620,7 +17878,6 @@ func VL64Rotate2(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return _vL64Rotate2(vA, vRotateFactor)
 }
 
-
 var _vLL1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
 // VLL1024Shift 1024-bit logical left shift.
@@ -20632,7 +17889,6 @@ func VLL1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	}
 	_vLL1024Shift(a, shiftAmount, result)
 }
-
 
 var _vLL128Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
@@ -20646,7 +17902,6 @@ func VLL128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return _vLL128Shift(vA, vShiftFactor)
 }
 
-
 var _vLL256Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
 // VLL256Shift 256-bit logical left shift.
@@ -20658,7 +17913,6 @@ func VLL256Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	}
 	_vLL256Shift(a, shiftAmount, result)
 }
-
 
 var _vLL512Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
@@ -20672,7 +17926,6 @@ func VLL512Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	_vLL512Shift(a, shiftAmount, result)
 }
 
-
 var _vLL64Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
 // VLL64Shift 64-bit logical left shift.
@@ -20684,7 +17937,6 @@ func VLL64Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	}
 	return _vLL64Shift(vA, vShiftFactor)
 }
-
 
 var _vLL64Shift2 func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
@@ -20698,7 +17950,6 @@ func VLL64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return _vLL64Shift2(vA, vShiftFactor)
 }
 
-
 var _vLR1024Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
 // VLR1024Shift 1024-bit logical right shift .
@@ -20710,7 +17961,6 @@ func VLR1024Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	}
 	_vLR1024Shift(a, shiftAmount, result)
 }
-
 
 var _vLR128Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
@@ -20724,7 +17974,6 @@ func VLR128Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return _vLR128Shift(vA, vShiftFactor)
 }
 
-
 var _vLR256Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
 // VLR256Shift 256-bit logical right shift.
@@ -20736,7 +17985,6 @@ func VLR256Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	}
 	_vLR256Shift(a, shiftAmount, result)
 }
-
 
 var _vLR512Shift func(a uintptr, shiftAmount uint32, result uintptr)
 
@@ -20750,7 +17998,6 @@ func VLR512Shift(a uintptr, shiftAmount uint32, result uintptr) {
 	_vLR512Shift(a, shiftAmount, result)
 }
 
-
 var _vLR64Shift func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
 // VLR64Shift 64-bit logical right shift.
@@ -20762,7 +18009,6 @@ func VLR64Shift(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	}
 	return _vLR64Shift(vA, vShiftFactor)
 }
-
 
 var _vLR64Shift2 func(vA VUInt32, vShiftFactor VUInt8) VUInt32
 
@@ -20776,7 +18022,6 @@ func VLR64Shift2(vA VUInt32, vShiftFactor VUInt8) VUInt32 {
 	return _vLR64Shift2(vA, vShiftFactor)
 }
 
-
 var _vR1024Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
 // VR1024Rotate 1024-bit right rotate.
@@ -20788,7 +18033,6 @@ func VR1024Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	}
 	_vR1024Rotate(a, rotateAmount, result)
 }
-
 
 var _vR128Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
 
@@ -20802,7 +18046,6 @@ func VR128Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return _vR128Rotate(vA, vRotateFactor)
 }
 
-
 var _vR256Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
 // VR256Rotate 256-bit right rotate.
@@ -20814,7 +18057,6 @@ func VR256Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	}
 	_vR256Rotate(a, rotateAmount, result)
 }
-
 
 var _vR512Rotate func(a uintptr, rotateAmount uint32, result uintptr)
 
@@ -20828,7 +18070,6 @@ func VR512Rotate(a uintptr, rotateAmount uint32, result uintptr) {
 	_vR512Rotate(a, rotateAmount, result)
 }
 
-
 var _vR64Rotate func(vA VUInt32, vRotateFactor VUInt8) VUInt32
 
 // VR64Rotate 64-bit right rotate.
@@ -20840,7 +18081,6 @@ func VR64Rotate(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	}
 	return _vR64Rotate(vA, vRotateFactor)
 }
-
 
 var _vR64Rotate2 func(vA VUInt32, vRotateFactor VUInt8) VUInt32
 
@@ -20854,7 +18094,6 @@ func VR64Rotate2(vA VUInt32, vRotateFactor VUInt8) VUInt32 {
 	return _vR64Rotate2(vA, vRotateFactor)
 }
 
-
 var _vS1024Add func(a uintptr, b uintptr, result uintptr)
 
 // VS1024Add signed 1024-bit addition (modular arithmetic).
@@ -20866,7 +18105,6 @@ func VS1024Add(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS1024Add(a, b, result)
 }
-
 
 var _vS1024AddS func(a uintptr, b uintptr, result uintptr)
 
@@ -20880,7 +18118,6 @@ func VS1024AddS(a uintptr, b uintptr, result uintptr) {
 	_vS1024AddS(a, b, result)
 }
 
-
 var _vS1024Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
 // VS1024Divide signed 1024-bit division.
@@ -20892,7 +18129,6 @@ func VS1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder 
 	}
 	_vS1024Divide(numerator, divisor, result, remainder)
 }
-
 
 var _vS1024HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -20906,7 +18142,6 @@ func VS1024HalfMultiply(a uintptr, b uintptr, result uintptr) {
 	_vS1024HalfMultiply(a, b, result)
 }
 
-
 var _vS1024Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
 // VS1024Mod signed 256-bit Mod.
@@ -20918,7 +18153,6 @@ func VS1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
 	}
 	_vS1024Mod(numerator, divisor, remainder)
 }
-
 
 var _vS1024Neg func(a uintptr, result uintptr)
 
@@ -20932,7 +18166,6 @@ func VS1024Neg(a uintptr, result uintptr) {
 	_vS1024Neg(a, result)
 }
 
-
 var _vS1024Sub func(a uintptr, b uintptr, result uintptr)
 
 // VS1024Sub signed 1024-bit subtraction (modular arithmetic).
@@ -20944,7 +18177,6 @@ func VS1024Sub(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS1024Sub(a, b, result)
 }
-
 
 var _vS1024SubS func(a uintptr, b uintptr, result uintptr)
 
@@ -20958,7 +18190,6 @@ func VS1024SubS(a uintptr, b uintptr, result uintptr) {
 	_vS1024SubS(a, b, result)
 }
 
-
 var _vS128Add func(vA VSInt32, vB VSInt32) VSInt32
 
 // VS128Add signed 128-bit addition (modular arithmetic).
@@ -20970,7 +18201,6 @@ func VS128Add(vA VSInt32, vB VSInt32) VSInt32 {
 	}
 	return _vS128Add(vA, vB)
 }
-
 
 var _vS128AddS func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -20984,7 +18214,6 @@ func VS128AddS(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS128AddS(vA, vB)
 }
 
-
 var _vS128Divide func(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32
 
 // VS128Divide signed 128-bit division.
@@ -20996,7 +18225,6 @@ func VS128Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
 	}
 	return _vS128Divide(vN, vD, vRemainder)
 }
-
 
 var _vS128FullMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21010,7 +18238,6 @@ func VS128FullMultiply(a uintptr, b uintptr, result uintptr) {
 	_vS128FullMultiply(a, b, result)
 }
 
-
 var _vS128HalfMultiply func(vA VSInt32, vB VSInt32) VSInt32
 
 // VS128HalfMultiply signed 128-bit multiplication; results are same width as multiplicands.
@@ -21022,7 +18249,6 @@ func VS128HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
 	}
 	return _vS128HalfMultiply(vA, vB)
 }
-
 
 var _vS128Neg func(vA VSInt32) VSInt32
 
@@ -21036,7 +18262,6 @@ func VS128Neg(vA VSInt32) VSInt32 {
 	return _vS128Neg(vA)
 }
 
-
 var _vS128Sub func(vA VSInt32, vB VSInt32) VSInt32
 
 // VS128Sub signed 128-bit subtraction (modular arithmetic).
@@ -21048,7 +18273,6 @@ func VS128Sub(vA VSInt32, vB VSInt32) VSInt32 {
 	}
 	return _vS128Sub(vA, vB)
 }
-
 
 var _vS128SubS func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21062,7 +18286,6 @@ func VS128SubS(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS128SubS(vA, vB)
 }
 
-
 var _vS16Divide func(vN VSInt16, vD VSInt16, vRemainder *VSInt16) VSInt16
 
 // VS16Divide signed 16-bit division.
@@ -21074,8 +18297,6 @@ func VS16Divide(vN VSInt16, vD VSInt16, vRemainder *VSInt16) VSInt16 {
 	}
 	return _vS16Divide(vN, vD, vRemainder)
 }
-
-
 
 var _vS256Add func(a uintptr, b uintptr, result uintptr)
 
@@ -21089,7 +18310,6 @@ func VS256Add(a uintptr, b uintptr, result uintptr) {
 	_vS256Add(a, b, result)
 }
 
-
 var _vS256AddS func(a uintptr, b uintptr, result uintptr)
 
 // VS256AddS signed 256-bit addition with saturation (clipping).
@@ -21101,7 +18321,6 @@ func VS256AddS(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS256AddS(a, b, result)
 }
-
 
 var _vS256Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
@@ -21115,7 +18334,6 @@ func VS256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder u
 	_vS256Divide(numerator, divisor, result, remainder)
 }
 
-
 var _vS256FullMultiply func(a uintptr, b uintptr, result uintptr)
 
 // VS256FullMultiply signed 256-bit multiplication; result is twice as wide as multiplicands.
@@ -21127,7 +18345,6 @@ func VS256FullMultiply(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS256FullMultiply(a, b, result)
 }
-
 
 var _vS256HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21141,7 +18358,6 @@ func VS256HalfMultiply(a uintptr, b uintptr, result uintptr) {
 	_vS256HalfMultiply(a, b, result)
 }
 
-
 var _vS256Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
 // VS256Mod signed 256-bit mod.
@@ -21153,7 +18369,6 @@ func VS256Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
 	}
 	_vS256Mod(numerator, divisor, remainder)
 }
-
 
 var _vS256Neg func(a uintptr, result uintptr)
 
@@ -21167,7 +18382,6 @@ func VS256Neg(a uintptr, result uintptr) {
 	_vS256Neg(a, result)
 }
 
-
 var _vS256Sub func(a uintptr, b uintptr, result uintptr)
 
 // VS256Sub signed 256-bit subtraction (modular arithmetic).
@@ -21179,7 +18393,6 @@ func VS256Sub(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS256Sub(a, b, result)
 }
-
 
 var _vS256SubS func(a uintptr, b uintptr, result uintptr)
 
@@ -21193,7 +18406,6 @@ func VS256SubS(a uintptr, b uintptr, result uintptr) {
 	_vS256SubS(a, b, result)
 }
 
-
 var _vS32Divide func(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32
 
 // VS32Divide signed 32-bit division.
@@ -21205,7 +18417,6 @@ func VS32Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
 	}
 	return _vS32Divide(vN, vD, vRemainder)
 }
-
 
 var _vS32FullMulEven func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21219,7 +18430,6 @@ func VS32FullMulEven(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS32FullMulEven(vA, vB)
 }
 
-
 var _vS32FullMulOdd func(vA VSInt32, vB VSInt32) VSInt32
 
 // VS32FullMulOdd signed 32-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
@@ -21231,7 +18441,6 @@ func VS32FullMulOdd(vA VSInt32, vB VSInt32) VSInt32 {
 	}
 	return _vS32FullMulOdd(vA, vB)
 }
-
 
 var _vS32HalfMultiply func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21245,7 +18454,6 @@ func VS32HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS32HalfMultiply(vA, vB)
 }
 
-
 var _vS512Add func(a uintptr, b uintptr, result uintptr)
 
 // VS512Add signed 512-bit addition (modular arithmetic).
@@ -21257,7 +18465,6 @@ func VS512Add(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS512Add(a, b, result)
 }
-
 
 var _vS512AddS func(a uintptr, b uintptr, result uintptr)
 
@@ -21271,7 +18478,6 @@ func VS512AddS(a uintptr, b uintptr, result uintptr) {
 	_vS512AddS(a, b, result)
 }
 
-
 var _vS512Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
 // VS512Divide signed 512-bit division.
@@ -21283,7 +18489,6 @@ func VS512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder u
 	}
 	_vS512Divide(numerator, divisor, result, remainder)
 }
-
 
 var _vS512FullMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21297,7 +18502,6 @@ func VS512FullMultiply(a uintptr, b uintptr, result uintptr) {
 	_vS512FullMultiply(a, b, result)
 }
 
-
 var _vS512HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
 // VS512HalfMultiply signed 512-bit multiplication; result is the same width as multiplicands.
@@ -21309,7 +18513,6 @@ func VS512HalfMultiply(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS512HalfMultiply(a, b, result)
 }
-
 
 var _vS512Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
@@ -21323,7 +18526,6 @@ func VS512Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
 	_vS512Mod(numerator, divisor, remainder)
 }
 
-
 var _vS512Neg func(a uintptr, result uintptr)
 
 // VS512Neg signed 512-bit negation.
@@ -21335,7 +18537,6 @@ func VS512Neg(a uintptr, result uintptr) {
 	}
 	_vS512Neg(a, result)
 }
-
 
 var _vS512Sub func(a uintptr, b uintptr, result uintptr)
 
@@ -21349,7 +18550,6 @@ func VS512Sub(a uintptr, b uintptr, result uintptr) {
 	_vS512Sub(a, b, result)
 }
 
-
 var _vS512SubS func(a uintptr, b uintptr, result uintptr)
 
 // VS512SubS signed 512-bit subtraction with saturation (clipping).
@@ -21361,8 +18561,6 @@ func VS512SubS(a uintptr, b uintptr, result uintptr) {
 	}
 	_vS512SubS(a, b, result)
 }
-
-
 
 var _vS64AddS func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21376,7 +18574,6 @@ func VS64AddS(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS64AddS(vA, vB)
 }
 
-
 var _vS64Divide func(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32
 
 // VS64Divide signed 64-bit division.
@@ -21388,7 +18585,6 @@ func VS64Divide(vN VSInt32, vD VSInt32, vRemainder *VSInt32) VSInt32 {
 	}
 	return _vS64Divide(vN, vD, vRemainder)
 }
-
 
 var _vS64FullMulEven func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21402,7 +18598,6 @@ func VS64FullMulEven(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS64FullMulEven(vA, vB)
 }
 
-
 var _vS64FullMulOdd func(vA VSInt32, vB VSInt32) VSInt32
 
 // VS64FullMulOdd signed 64-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
@@ -21414,7 +18609,6 @@ func VS64FullMulOdd(vA VSInt32, vB VSInt32) VSInt32 {
 	}
 	return _vS64FullMulOdd(vA, vB)
 }
-
 
 var _vS64HalfMultiply func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21428,7 +18622,6 @@ func VS64HalfMultiply(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS64HalfMultiply(vA, vB)
 }
 
-
 var _vS64Neg func(vA VSInt32) VSInt32
 
 // VS64Neg signed 64-bit negation.
@@ -21440,8 +18633,6 @@ func VS64Neg(vA VSInt32) VSInt32 {
 	}
 	return _vS64Neg(vA)
 }
-
-
 
 var _vS64SubS func(vA VSInt32, vB VSInt32) VSInt32
 
@@ -21455,7 +18646,6 @@ func VS64SubS(vA VSInt32, vB VSInt32) VSInt32 {
 	return _vS64SubS(vA, vB)
 }
 
-
 var _vS8Divide func(vN VSInt8, vD VSInt8, vRemainder *VSInt8) VSInt8
 
 // VS8Divide signed 8-bit division.
@@ -21467,7 +18657,6 @@ func VS8Divide(vN VSInt8, vD VSInt8, vRemainder *VSInt8) VSInt8 {
 	}
 	return _vS8Divide(vN, vD, vRemainder)
 }
-
 
 var _vS8HalfMultiply func(vA VSInt8, vB VSInt8) VSInt8
 
@@ -21481,7 +18670,6 @@ func VS8HalfMultiply(vA VSInt8, vB VSInt8) VSInt8 {
 	return _vS8HalfMultiply(vA, vB)
 }
 
-
 var _vU1024Add func(a uintptr, b uintptr, result uintptr)
 
 // VU1024Add unsigned 1024-bit addition (modular arithmetic).
@@ -21493,7 +18681,6 @@ func VU1024Add(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU1024Add(a, b, result)
 }
-
 
 var _vU1024AddS func(a uintptr, b uintptr, result uintptr)
 
@@ -21507,7 +18694,6 @@ func VU1024AddS(a uintptr, b uintptr, result uintptr) {
 	_vU1024AddS(a, b, result)
 }
 
-
 var _vU1024Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
 // VU1024Divide unsigned 1024-bit division.
@@ -21519,7 +18705,6 @@ func VU1024Divide(numerator uintptr, divisor uintptr, result uintptr, remainder 
 	}
 	_vU1024Divide(numerator, divisor, result, remainder)
 }
-
 
 var _vU1024HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21533,7 +18718,6 @@ func VU1024HalfMultiply(a uintptr, b uintptr, result uintptr) {
 	_vU1024HalfMultiply(a, b, result)
 }
 
-
 var _vU1024Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
 // VU1024Mod unsigned 1024-bit mod.
@@ -21545,7 +18729,6 @@ func VU1024Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
 	}
 	_vU1024Mod(numerator, divisor, remainder)
 }
-
 
 var _vU1024Neg func(a uintptr, result uintptr)
 
@@ -21559,7 +18742,6 @@ func VU1024Neg(a uintptr, result uintptr) {
 	_vU1024Neg(a, result)
 }
 
-
 var _vU1024Sub func(a uintptr, b uintptr, result uintptr)
 
 // VU1024Sub unsigned 1024-bit subtraction (modular arithmetic).
@@ -21571,7 +18753,6 @@ func VU1024Sub(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU1024Sub(a, b, result)
 }
-
 
 var _vU1024SubS func(a uintptr, b uintptr, result uintptr)
 
@@ -21585,7 +18766,6 @@ func VU1024SubS(a uintptr, b uintptr, result uintptr) {
 	_vU1024SubS(a, b, result)
 }
 
-
 var _vU128Add func(vA VUInt32, vB VUInt32) VUInt32
 
 // VU128Add unsigned 128-bit addition (modular arithmetic).
@@ -21597,7 +18777,6 @@ func VU128Add(vA VUInt32, vB VUInt32) VUInt32 {
 	}
 	return _vU128Add(vA, vB)
 }
-
 
 var _vU128AddS func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -21611,7 +18790,6 @@ func VU128AddS(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU128AddS(vA, vB)
 }
 
-
 var _vU128Divide func(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32
 
 // VU128Divide unsigned 128-bit division.
@@ -21623,7 +18801,6 @@ func VU128Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
 	}
 	return _vU128Divide(vN, vD, vRemainder)
 }
-
 
 var _vU128FullMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21637,7 +18814,6 @@ func VU128FullMultiply(a uintptr, b uintptr, result uintptr) {
 	_vU128FullMultiply(a, b, result)
 }
 
-
 var _vU128HalfMultiply func(vA VUInt32, vB VUInt32) VUInt32
 
 // VU128HalfMultiply unsigned 128-bit multiplication; results are same width as multiplicands.
@@ -21649,7 +18825,6 @@ func VU128HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
 	}
 	return _vU128HalfMultiply(vA, vB)
 }
-
 
 var _vU128Neg func(vA VUInt32) VUInt32
 
@@ -21663,7 +18838,6 @@ func VU128Neg(vA VUInt32) VUInt32 {
 	return _vU128Neg(vA)
 }
 
-
 var _vU128Sub func(vA VUInt32, vB VUInt32) VUInt32
 
 // VU128Sub unsigned 128-bit subtraction (modular arithmetic).
@@ -21675,7 +18849,6 @@ func VU128Sub(vA VUInt32, vB VUInt32) VUInt32 {
 	}
 	return _vU128Sub(vA, vB)
 }
-
 
 var _vU128SubS func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -21689,7 +18862,6 @@ func VU128SubS(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU128SubS(vA, vB)
 }
 
-
 var _vU16Divide func(vN VUInt16, vD VUInt16, vRemainder *VUInt16) VUInt16
 
 // VU16Divide unsigned 16-bit division.
@@ -21701,8 +18873,6 @@ func VU16Divide(vN VUInt16, vD VUInt16, vRemainder *VUInt16) VUInt16 {
 	}
 	return _vU16Divide(vN, vD, vRemainder)
 }
-
-
 
 var _vU256Add func(a uintptr, b uintptr, result uintptr)
 
@@ -21716,7 +18886,6 @@ func VU256Add(a uintptr, b uintptr, result uintptr) {
 	_vU256Add(a, b, result)
 }
 
-
 var _vU256AddS func(a uintptr, b uintptr, result uintptr)
 
 // VU256AddS unsigned 256-bit addition with saturation (clipping).
@@ -21728,7 +18897,6 @@ func VU256AddS(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU256AddS(a, b, result)
 }
-
 
 var _vU256Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
@@ -21742,7 +18910,6 @@ func VU256Divide(numerator uintptr, divisor uintptr, result uintptr, remainder u
 	_vU256Divide(numerator, divisor, result, remainder)
 }
 
-
 var _vU256FullMultiply func(a uintptr, b uintptr, result uintptr)
 
 // VU256FullMultiply unsigned 256-bit multiplication; result is twice as wide as multiplicands.
@@ -21754,7 +18921,6 @@ func VU256FullMultiply(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU256FullMultiply(a, b, result)
 }
-
 
 var _vU256HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21768,7 +18934,6 @@ func VU256HalfMultiply(a uintptr, b uintptr, result uintptr) {
 	_vU256HalfMultiply(a, b, result)
 }
 
-
 var _vU256Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
 // VU256Mod unsigned 256-bit mod.
@@ -21780,7 +18945,6 @@ func VU256Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
 	}
 	_vU256Mod(numerator, divisor, remainder)
 }
-
 
 var _vU256Neg func(a uintptr, result uintptr)
 
@@ -21794,7 +18958,6 @@ func VU256Neg(a uintptr, result uintptr) {
 	_vU256Neg(a, result)
 }
 
-
 var _vU256Sub func(a uintptr, b uintptr, result uintptr)
 
 // VU256Sub unsigned 256-bit subtraction (modular arithmetic).
@@ -21806,7 +18969,6 @@ func VU256Sub(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU256Sub(a, b, result)
 }
-
 
 var _vU256SubS func(a uintptr, b uintptr, result uintptr)
 
@@ -21820,7 +18982,6 @@ func VU256SubS(a uintptr, b uintptr, result uintptr) {
 	_vU256SubS(a, b, result)
 }
 
-
 var _vU32Divide func(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32
 
 // VU32Divide unsigned 32-bit division.
@@ -21832,7 +18993,6 @@ func VU32Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
 	}
 	return _vU32Divide(vN, vD, vRemainder)
 }
-
 
 var _vU32FullMulEven func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -21846,7 +19006,6 @@ func VU32FullMulEven(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU32FullMulEven(vA, vB)
 }
 
-
 var _vU32FullMulOdd func(vA VUInt32, vB VUInt32) VUInt32
 
 // VU32FullMulOdd unsigned 32-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
@@ -21858,7 +19017,6 @@ func VU32FullMulOdd(vA VUInt32, vB VUInt32) VUInt32 {
 	}
 	return _vU32FullMulOdd(vA, vB)
 }
-
 
 var _vU32HalfMultiply func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -21872,7 +19030,6 @@ func VU32HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU32HalfMultiply(vA, vB)
 }
 
-
 var _vU512Add func(a uintptr, b uintptr, result uintptr)
 
 // VU512Add unsigned 512-bit addition (modular arithmetic).
@@ -21884,7 +19041,6 @@ func VU512Add(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU512Add(a, b, result)
 }
-
 
 var _vU512AddS func(a uintptr, b uintptr, result uintptr)
 
@@ -21898,7 +19054,6 @@ func VU512AddS(a uintptr, b uintptr, result uintptr) {
 	_vU512AddS(a, b, result)
 }
 
-
 var _vU512Divide func(numerator uintptr, divisor uintptr, result uintptr, remainder uintptr)
 
 // VU512Divide computes the unsigned 512-bit division.
@@ -21910,7 +19065,6 @@ func VU512Divide(numerator uintptr, divisor uintptr, result uintptr, remainder u
 	}
 	_vU512Divide(numerator, divisor, result, remainder)
 }
-
 
 var _vU512FullMultiply func(a uintptr, b uintptr, result uintptr)
 
@@ -21924,7 +19078,6 @@ func VU512FullMultiply(a uintptr, b uintptr, result uintptr) {
 	_vU512FullMultiply(a, b, result)
 }
 
-
 var _vU512HalfMultiply func(a uintptr, b uintptr, result uintptr)
 
 // VU512HalfMultiply unsigned 512-bit multiplication; result is the same width as multiplicands.
@@ -21936,7 +19089,6 @@ func VU512HalfMultiply(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU512HalfMultiply(a, b, result)
 }
-
 
 var _vU512Mod func(numerator uintptr, divisor uintptr, remainder uintptr)
 
@@ -21950,7 +19102,6 @@ func VU512Mod(numerator uintptr, divisor uintptr, remainder uintptr) {
 	_vU512Mod(numerator, divisor, remainder)
 }
 
-
 var _vU512Neg func(a uintptr, result uintptr)
 
 // VU512Neg unsigned 512-bit negation.
@@ -21962,7 +19113,6 @@ func VU512Neg(a uintptr, result uintptr) {
 	}
 	_vU512Neg(a, result)
 }
-
 
 var _vU512Sub func(a uintptr, b uintptr, result uintptr)
 
@@ -21976,7 +19126,6 @@ func VU512Sub(a uintptr, b uintptr, result uintptr) {
 	_vU512Sub(a, b, result)
 }
 
-
 var _vU512SubS func(a uintptr, b uintptr, result uintptr)
 
 // VU512SubS unsigned 512-bit subtraction with saturation (clipping).
@@ -21988,8 +19137,6 @@ func VU512SubS(a uintptr, b uintptr, result uintptr) {
 	}
 	_vU512SubS(a, b, result)
 }
-
-
 
 var _vU64AddS func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -22003,7 +19150,6 @@ func VU64AddS(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU64AddS(vA, vB)
 }
 
-
 var _vU64Divide func(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32
 
 // VU64Divide unsigned 64-bit division.
@@ -22015,7 +19161,6 @@ func VU64Divide(vN VUInt32, vD VUInt32, vRemainder *VUInt32) VUInt32 {
 	}
 	return _vU64Divide(vN, vD, vRemainder)
 }
-
 
 var _vU64FullMulEven func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -22029,7 +19174,6 @@ func VU64FullMulEven(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU64FullMulEven(vA, vB)
 }
 
-
 var _vU64FullMulOdd func(vA VUInt32, vB VUInt32) VUInt32
 
 // VU64FullMulOdd unsigned 64-bit multiplication; results are twice as wide as multiplicands, odd-numbered elements of multiplicand vectors are used.
@@ -22041,7 +19185,6 @@ func VU64FullMulOdd(vA VUInt32, vB VUInt32) VUInt32 {
 	}
 	return _vU64FullMulOdd(vA, vB)
 }
-
 
 var _vU64HalfMultiply func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -22055,7 +19198,6 @@ func VU64HalfMultiply(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU64HalfMultiply(vA, vB)
 }
 
-
 var _vU64Neg func(vA VUInt32) VUInt32
 
 // VU64Neg unsigned 64-bit negation.
@@ -22067,8 +19209,6 @@ func VU64Neg(vA VUInt32) VUInt32 {
 	}
 	return _vU64Neg(vA)
 }
-
-
 
 var _vU64SubS func(vA VUInt32, vB VUInt32) VUInt32
 
@@ -22082,7 +19222,6 @@ func VU64SubS(vA VUInt32, vB VUInt32) VUInt32 {
 	return _vU64SubS(vA, vB)
 }
 
-
 var _vU8Divide func(vN VUInt8, vD VUInt8, vRemainder *VUInt8) VUInt8
 
 // VU8Divide unsigned 8-bit division.
@@ -22094,7 +19233,6 @@ func VU8Divide(vN VUInt8, vD VUInt8, vRemainder *VUInt8) VUInt8 {
 	}
 	return _vU8Divide(vN, vD, vRemainder)
 }
-
 
 var _vU8HalfMultiply func(vA VUInt8, vB VUInt8) VUInt8
 
@@ -22108,7 +19246,6 @@ func VU8HalfMultiply(vA VUInt8, vB VUInt8) VUInt8 {
 	return _vU8HalfMultiply(vA, vB)
 }
 
-
 var _vacosf func(arg0 VFloat) VFloat
 
 // Vacosf for each vector element, calculates the arccosine.
@@ -22120,7 +19257,6 @@ func Vacosf(arg0 VFloat) VFloat {
 	}
 	return _vacosf(arg0)
 }
-
 
 var _vacoshf func(arg0 VFloat) VFloat
 
@@ -22134,7 +19270,6 @@ func Vacoshf(arg0 VFloat) VFloat {
 	return _vacoshf(arg0)
 }
 
-
 var _vasinf func(arg0 VFloat) VFloat
 
 // Vasinf for each vector element, calculates the arcsine.
@@ -22146,7 +19281,6 @@ func Vasinf(arg0 VFloat) VFloat {
 	}
 	return _vasinf(arg0)
 }
-
 
 var _vasinhf func(arg0 VFloat) VFloat
 
@@ -22160,7 +19294,6 @@ func Vasinhf(arg0 VFloat) VFloat {
 	return _vasinhf(arg0)
 }
 
-
 var _vatan2f func(arg0 VFloat, arg1 VFloat) VFloat
 
 // Vatan2f for each vector element, calculates the arctangent of `arg2`/`arg1` in the interval [-pi,pi] using the sign of both arguments to determine the quadrant of the computed value.
@@ -22172,7 +19305,6 @@ func Vatan2f(arg0 VFloat, arg1 VFloat) VFloat {
 	}
 	return _vatan2f(arg0, arg1)
 }
-
 
 var _vatanf func(arg0 VFloat) VFloat
 
@@ -22186,7 +19318,6 @@ func Vatanf(arg0 VFloat) VFloat {
 	return _vatanf(arg0)
 }
 
-
 var _vatanhf func(arg0 VFloat) VFloat
 
 // Vatanhf for each vector element, calculates the inverse hyperbolic tangent of [X].
@@ -22198,7 +19329,6 @@ func Vatanhf(arg0 VFloat) VFloat {
 	}
 	return _vatanhf(arg0)
 }
-
 
 var _vceilf func(arg0 VFloat) VFloat
 
@@ -22212,7 +19342,6 @@ func Vceilf(arg0 VFloat) VFloat {
 	return _vceilf(arg0)
 }
 
-
 var _vclassifyf func(arg0 VFloat) VUInt32
 
 // Vclassifyf for each vector element, returns the class of the argument (one of the FP_ … constants defined in math.h).
@@ -22224,7 +19353,6 @@ func Vclassifyf(arg0 VFloat) VUInt32 {
 	}
 	return _vclassifyf(arg0)
 }
-
 
 var _vcopysignf func(arg0 VFloat, arg1 VFloat) VFloat
 
@@ -22238,7 +19366,6 @@ func Vcopysignf(arg0 VFloat, arg1 VFloat) VFloat {
 	return _vcopysignf(arg0, arg1)
 }
 
-
 var _vcosf func(arg0 VFloat) VFloat
 
 // Vcosf for each vector element, calculates the cosine.
@@ -22250,7 +19377,6 @@ func Vcosf(arg0 VFloat) VFloat {
 	}
 	return _vcosf(arg0)
 }
-
 
 var _vcoshf func(arg0 VFloat) VFloat
 
@@ -22264,7 +19390,6 @@ func Vcoshf(arg0 VFloat) VFloat {
 	return _vcoshf(arg0)
 }
 
-
 var _vcospif func(arg0 VFloat) VFloat
 
 // Vcospif.
@@ -22276,7 +19401,6 @@ func Vcospif(arg0 VFloat) VFloat {
 	}
 	return _vcospif(arg0)
 }
-
 
 var _vdivf func(arg0 VFloat, arg1 VFloat) VFloat
 
@@ -22290,7 +19414,6 @@ func Vdivf(arg0 VFloat, arg1 VFloat) VFloat {
 	return _vdivf(arg0, arg1)
 }
 
-
 var _vexp2f func(arg0 VFloat) VFloat
 
 // Vexp2f.
@@ -22302,7 +19425,6 @@ func Vexp2f(arg0 VFloat) VFloat {
 	}
 	return _vexp2f(arg0)
 }
-
 
 var _vexpf func(arg0 VFloat) VFloat
 
@@ -22316,7 +19438,6 @@ func Vexpf(arg0 VFloat) VFloat {
 	return _vexpf(arg0)
 }
 
-
 var _vexpm1f func(arg0 VFloat) VFloat
 
 // Vexpm1f for each vector element, calculates ExpM1(x) = Exp(x) - 1.
@@ -22328,7 +19449,6 @@ func Vexpm1f(arg0 VFloat) VFloat {
 	}
 	return _vexpm1f(arg0)
 }
-
 
 var _vfabf func(arg0 VFloat) VFloat
 
@@ -22342,7 +19462,6 @@ func Vfabf(arg0 VFloat) VFloat {
 	return _vfabf(arg0)
 }
 
-
 var _vfabsf func(arg0 VFloat) VFloat
 
 // Vfabsf.
@@ -22354,7 +19473,6 @@ func Vfabsf(arg0 VFloat) VFloat {
 	}
 	return _vfabsf(arg0)
 }
-
 
 var _vfloorf func(arg0 VFloat) VFloat
 
@@ -22368,7 +19486,6 @@ func Vfloorf(arg0 VFloat) VFloat {
 	return _vfloorf(arg0)
 }
 
-
 var _vfmodf func(arg0 VFloat, arg1 VFloat) VFloat
 
 // Vfmodf for each vector element, calculates [X] modulo [Y].
@@ -22380,7 +19497,6 @@ func Vfmodf(arg0 VFloat, arg1 VFloat) VFloat {
 	}
 	return _vfmodf(arg0, arg1)
 }
-
 
 var _vintf func(arg0 VFloat) VFloat
 
@@ -22394,7 +19510,6 @@ func Vintf(arg0 VFloat) VFloat {
 	return _vintf(arg0)
 }
 
-
 var _vipowf func(arg0 VFloat, arg1 VSInt32) VFloat
 
 // Vipowf for each vector element, calculates [X] to the integer power of [Y].
@@ -22406,7 +19521,6 @@ func Vipowf(arg0 VFloat, arg1 VSInt32) VFloat {
 	}
 	return _vipowf(arg0, arg1)
 }
-
 
 var _vlog10f func(arg0 VFloat) VFloat
 
@@ -22420,7 +19534,6 @@ func Vlog10f(arg0 VFloat) VFloat {
 	return _vlog10f(arg0)
 }
 
-
 var _vlog1pf func(arg0 VFloat) VFloat
 
 // Vlog1pf for each vector element, calculates Log1P = Log(1 + x).
@@ -22432,7 +19545,6 @@ func Vlog1pf(arg0 VFloat) VFloat {
 	}
 	return _vlog1pf(arg0)
 }
-
 
 var _vlog2f func(arg0 VFloat) VFloat
 
@@ -22446,7 +19558,6 @@ func Vlog2f(arg0 VFloat) VFloat {
 	return _vlog2f(arg0)
 }
 
-
 var _vlogbf func(arg0 VFloat) VFloat
 
 // Vlogbf for each vector element, extracts the exponent of [X], as a signed integral value.
@@ -22458,7 +19569,6 @@ func Vlogbf(arg0 VFloat) VFloat {
 	}
 	return _vlogbf(arg0)
 }
-
 
 var _vlogf func(arg0 VFloat) VFloat
 
@@ -22472,7 +19582,6 @@ func Vlogf(arg0 VFloat) VFloat {
 	return _vlogf(arg0)
 }
 
-
 var _vnextafterf func(arg0 VFloat, arg1 VFloat) VFloat
 
 // Vnextafterf for each vector element, calculates the next representable value after `x` in the direction of `y`.
@@ -22484,7 +19593,6 @@ func Vnextafterf(arg0 VFloat, arg1 VFloat) VFloat {
 	}
 	return _vnextafterf(arg0, arg1)
 }
-
 
 var _vnintf func(arg0 VFloat) VFloat
 
@@ -22498,7 +19606,6 @@ func Vnintf(arg0 VFloat) VFloat {
 	return _vnintf(arg0)
 }
 
-
 var _vpowf func(arg0 VFloat, arg1 VFloat) VFloat
 
 // Vpowf for each vector element, calculates [X] to the floating-point power of [Y].
@@ -22510,7 +19617,6 @@ func Vpowf(arg0 VFloat, arg1 VFloat) VFloat {
 	}
 	return _vpowf(arg0, arg1)
 }
-
 
 var _vrecf func(arg0 VFloat) VFloat
 
@@ -22524,7 +19630,6 @@ func Vrecf(arg0 VFloat) VFloat {
 	return _vrecf(arg0)
 }
 
-
 var _vremainderf func(arg0 VFloat, arg1 VFloat) VFloat
 
 // Vremainderf for each vector element, calculates the remainder of [X]/[Y], according to the IEEE 754 floating-point standard.
@@ -22536,7 +19641,6 @@ func Vremainderf(arg0 VFloat, arg1 VFloat) VFloat {
 	}
 	return _vremainderf(arg0, arg1)
 }
-
 
 var _vremquof func(arg0 VFloat, arg1 VFloat, arg2 *VUInt32) VFloat
 
@@ -22550,7 +19654,6 @@ func Vremquof(arg0 VFloat, arg1 VFloat, arg2 *VUInt32) VFloat {
 	return _vremquof(arg0, arg1, arg2)
 }
 
-
 var _vrsqrtf func(arg0 VFloat) VFloat
 
 // Vrsqrtf for each vector element, calculates the inverse of the square root of [X].
@@ -22562,7 +19665,6 @@ func Vrsqrtf(arg0 VFloat) VFloat {
 	}
 	return _vrsqrtf(arg0)
 }
-
 
 var _vscalbf func(arg0 VFloat, arg1 VSInt32) VFloat
 
@@ -22576,7 +19678,6 @@ func Vscalbf(arg0 VFloat, arg1 VSInt32) VFloat {
 	return _vscalbf(arg0, arg1)
 }
 
-
 var _vsignbitf func(arg0 VFloat) VUInt32
 
 // Vsignbitf for each vector element, returns a non-zero value if and only if the sign of `arg` is negative.
@@ -22588,7 +19689,6 @@ func Vsignbitf(arg0 VFloat) VUInt32 {
 	}
 	return _vsignbitf(arg0)
 }
-
 
 var _vsincosf func(arg0 VFloat, arg1 *VFloat) VFloat
 
@@ -22602,7 +19702,6 @@ func Vsincosf(arg0 VFloat, arg1 *VFloat) VFloat {
 	return _vsincosf(arg0, arg1)
 }
 
-
 var _vsinf func(arg0 VFloat) VFloat
 
 // Vsinf for each vector element, calculates the sine.
@@ -22614,7 +19713,6 @@ func Vsinf(arg0 VFloat) VFloat {
 	}
 	return _vsinf(arg0)
 }
-
 
 var _vsinhf func(arg0 VFloat) VFloat
 
@@ -22628,7 +19726,6 @@ func Vsinhf(arg0 VFloat) VFloat {
 	return _vsinhf(arg0)
 }
 
-
 var _vsinpif func(arg0 VFloat) VFloat
 
 // Vsinpif.
@@ -22640,7 +19737,6 @@ func Vsinpif(arg0 VFloat) VFloat {
 	}
 	return _vsinpif(arg0)
 }
-
 
 var _vsqrtf func(arg0 VFloat) VFloat
 
@@ -22654,7 +19750,6 @@ func Vsqrtf(arg0 VFloat) VFloat {
 	return _vsqrtf(arg0)
 }
 
-
 var _vtablelookup func(arg0 VSInt32, arg1 *uint32) VUInt32
 
 // Vtablelookup for each vector element of `Index_Vect`, returns the corresponding value from [Table].
@@ -22666,7 +19761,6 @@ func Vtablelookup(arg0 VSInt32, arg1 *uint32) VUInt32 {
 	}
 	return _vtablelookup(arg0, arg1)
 }
-
 
 var _vtanf func(arg0 VFloat) VFloat
 
@@ -22680,7 +19774,6 @@ func Vtanf(arg0 VFloat) VFloat {
 	return _vtanf(arg0)
 }
 
-
 var _vtanhf func(arg0 VFloat) VFloat
 
 // Vtanhf for each vector element, calculates the hyperbolic tangent of [X].
@@ -22692,7 +19785,6 @@ func Vtanhf(arg0 VFloat) VFloat {
 	}
 	return _vtanhf(arg0)
 }
-
 
 var _vtanpif func(arg0 VFloat) VFloat
 
@@ -22706,7 +19798,6 @@ func Vtanpif(arg0 VFloat) VFloat {
 	return _vtanpif(arg0)
 }
 
-
 var _vtruncf func(arg0 VFloat) VFloat
 
 // Vtruncf.
@@ -22718,7 +19809,6 @@ func Vtruncf(arg0 VFloat) VFloat {
 	}
 	return _vtruncf(arg0)
 }
-
 
 var _vvacos func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22732,7 +19822,6 @@ func Vvacos(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvacos(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvacosf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvacosf calculates the arccosine of each element in an array of single-precision values.
@@ -22744,7 +19833,6 @@ func Vvacosf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvacosf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvacosh func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22758,7 +19846,6 @@ func Vvacosh(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvacosh(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvacoshf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvacoshf calculates the inverse hyperbolic cosine of each element in an array of single-precision values.
@@ -22770,7 +19857,6 @@ func Vvacoshf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvacoshf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvasin func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22784,7 +19870,6 @@ func Vvasin(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvasin(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvasinf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvasinf calculates the arcsine of each element in an array of single-precision values.
@@ -22796,7 +19881,6 @@ func Vvasinf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvasinf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvasinh func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22810,7 +19894,6 @@ func Vvasinh(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvasinh(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvasinhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvasinhf calculates the inverse hyperbolic sine of each element in an array of single-precision values.
@@ -22822,7 +19905,6 @@ func Vvasinhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvasinhf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvatan func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22836,7 +19918,6 @@ func Vvatan(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvatan(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvatan2 func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvatan2 calculates the arctangent of each pair of elements in two arrays of double-precision values.
@@ -22848,7 +19929,6 @@ func Vvatan2(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	}
 	_vvatan2(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvatan2f func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
@@ -22862,7 +19942,6 @@ func Vvatan2f(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	_vvatan2f(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvatanf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvatanf calculates the arctangent of each element in an array of single-precision values.
@@ -22874,7 +19953,6 @@ func Vvatanf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvatanf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvatanh func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22888,7 +19966,6 @@ func Vvatanh(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvatanh(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvatanhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvatanhf calculates the inverse hyperbolic tangent of each element in an array of single-precision values.
@@ -22900,7 +19977,6 @@ func Vvatanhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvatanhf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvcbrt func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22914,7 +19990,6 @@ func Vvcbrt(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvcbrt(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvcbrtf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcbrtf calculates the cube root for each element of a vector.
@@ -22926,7 +20001,6 @@ func Vvcbrtf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvcbrtf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvceil func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22940,7 +20014,6 @@ func Vvceil(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvceil(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvceilf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvceilf calculates the ceiling of each element in an array of single-precision values.
@@ -22952,7 +20025,6 @@ func Vvceilf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvceilf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvcopysign func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -22966,7 +20038,6 @@ func Vvcopysign(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvcopysign(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvcopysignf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvcopysignf copies an array, setting the sign of each element based on a second array of single-precision values.
@@ -22978,7 +20049,6 @@ func Vvcopysignf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvcopysignf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvcos func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -22992,7 +20062,6 @@ func Vvcos(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvcos(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvcosf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcosf calculates the cosine of each element in an array of single-precision values.
@@ -23004,7 +20073,6 @@ func Vvcosf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvcosf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvcosh func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23018,7 +20086,6 @@ func Vvcosh(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvcosh(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvcoshf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcoshf calculates the hyperbolic cosine of each element in an array of single-precision values.
@@ -23030,7 +20097,6 @@ func Vvcoshf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvcoshf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvcosisin func(arg0 uintptr, arg1 *float64, arg2 *int)
 
@@ -23044,7 +20110,6 @@ func Vvcosisin(arg0 uintptr, arg1 []float64, arg2 []int) {
 	_vvcosisin(arg0, unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvcosisinf func(arg0 uintptr, arg1 *float32, arg2 *int)
 
 // Vvcosisinf calculates the cosine and sine of each element in an array of single-precision values.
@@ -23056,7 +20121,6 @@ func Vvcosisinf(arg0 uintptr, arg1 []float32, arg2 []int) {
 	}
 	_vvcosisinf(arg0, unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvcospi func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23070,7 +20134,6 @@ func Vvcospi(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvcospi(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvcospif func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvcospif calculates the cosine of pi multiplied by each element in an array of single-precision values.
@@ -23082,7 +20145,6 @@ func Vvcospif(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvcospif(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvdiv func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -23096,7 +20158,6 @@ func Vvdiv(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvdiv(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvdivf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvdivf divides each element in an array by the corresponding value in a second array of single-precision values.
@@ -23108,7 +20169,6 @@ func Vvdivf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvdivf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvexp func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23122,7 +20182,6 @@ func Vvexp(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvexp(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvexp2 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvexp2 calculates 2 raised to the power of each element in an array of double-precision values.
@@ -23134,7 +20193,6 @@ func Vvexp2(arg0 []float64, arg1 []float64, arg2 []int) {
 	}
 	_vvexp2(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvexp2f func(arg0 *float32, arg1 *float32, arg2 *int)
 
@@ -23148,7 +20206,6 @@ func Vvexp2f(arg0 []float32, arg1 []float32, arg2 []int) {
 	_vvexp2f(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvexpf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvexpf calculates raised to the power of each element in an array of single-precision values.
@@ -23160,7 +20217,6 @@ func Vvexpf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvexpf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvexpm1 func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23174,7 +20230,6 @@ func Vvexpm1(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvexpm1(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvexpm1f func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvexpm1f calculates for each element in an array of single-precision values.
@@ -23186,7 +20241,6 @@ func Vvexpm1f(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvexpm1f(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvfabs func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23200,7 +20254,6 @@ func Vvfabs(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvfabs(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvfabsf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvfabsf calculates the absolute value for each element in an array of single-precision values.
@@ -23212,7 +20265,6 @@ func Vvfabsf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvfabsf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvfloor func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23226,7 +20278,6 @@ func Vvfloor(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvfloor(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvfloorf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvfloorf calculates the floor of each element in an array of single-precision values.
@@ -23238,7 +20289,6 @@ func Vvfloorf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvfloorf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvfmod func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -23252,7 +20302,6 @@ func Vvfmod(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvfmod(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvfmodf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvfmodf calculates the modulus after dividing each element in an array by the corresponding element in a second array of single-precision values.
@@ -23264,7 +20313,6 @@ func Vvfmodf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvfmodf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvint func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23278,7 +20326,6 @@ func Vvint(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvint(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvintf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvintf calculates the integer truncation for each element in an array of single-precision values.
@@ -23290,7 +20337,6 @@ func Vvintf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvintf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvlog func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23304,7 +20350,6 @@ func Vvlog(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvlog(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvlog10 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog10 calculates the base 10 logarithm of each element in an array of double-precision values.
@@ -23316,7 +20361,6 @@ func Vvlog10(arg0 []float64, arg1 []float64, arg2 []int) {
 	}
 	_vvlog10(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvlog10f func(arg0 *float32, arg1 *float32, arg2 *int)
 
@@ -23330,7 +20374,6 @@ func Vvlog10f(arg0 []float32, arg1 []float32, arg2 []int) {
 	_vvlog10f(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvlog1p func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog1p calculates for each element in an array of double-precision values.
@@ -23342,7 +20385,6 @@ func Vvlog1p(arg0 []float64, arg1 []float64, arg2 []int) {
 	}
 	_vvlog1p(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvlog1pf func(arg0 *float32, arg1 *float32, arg2 *int)
 
@@ -23356,7 +20398,6 @@ func Vvlog1pf(arg0 []float32, arg1 []float32, arg2 []int) {
 	_vvlog1pf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvlog2 func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlog2 calculates the base 2 logarithm of each element in an array of double-precision values.
@@ -23368,7 +20409,6 @@ func Vvlog2(arg0 []float64, arg1 []float64, arg2 []int) {
 	}
 	_vvlog2(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvlog2f func(arg0 *float32, arg1 *float32, arg2 *int)
 
@@ -23382,7 +20422,6 @@ func Vvlog2f(arg0 []float32, arg1 []float32, arg2 []int) {
 	_vvlog2f(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvlogb func(arg0 *float64, arg1 *float64, arg2 *int)
 
 // Vvlogb calculates the unbiased exponent of each element in an array of double-precision values.
@@ -23394,7 +20433,6 @@ func Vvlogb(arg0 []float64, arg1 []float64, arg2 []int) {
 	}
 	_vvlogb(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvlogbf func(arg0 *float32, arg1 *float32, arg2 *int)
 
@@ -23408,7 +20446,6 @@ func Vvlogbf(arg0 []float32, arg1 []float32, arg2 []int) {
 	_vvlogbf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvlogf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvlogf calculates the natural logarithm for each element in an array of single-precision values.
@@ -23420,7 +20457,6 @@ func Vvlogf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvlogf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvnextafter func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -23434,7 +20470,6 @@ func Vvnextafter(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvnextafter(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvnextafterf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvnextafterf calculates the next machine-representable value for each element in an array of single-precision values.
@@ -23446,7 +20481,6 @@ func Vvnextafterf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvnextafterf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvnint func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23460,7 +20494,6 @@ func Vvnint(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvnint(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvnintf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvnintf calculates the nearest integer for each element in an array of single-precision values.
@@ -23472,7 +20505,6 @@ func Vvnintf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvnintf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvpow func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -23486,7 +20518,6 @@ func Vvpow(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvpow(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvpowf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvpowf raises each element in an array to the power of the corresponding element in a second array of single-precision values.
@@ -23498,7 +20529,6 @@ func Vvpowf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvpowf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvpows func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -23512,7 +20542,6 @@ func Vvpows(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvpows(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvpowsf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvpowsf calculates, elementwise, x**y for a vector x and a scalar y.
@@ -23524,7 +20553,6 @@ func Vvpowsf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvpowsf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvrec func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23538,7 +20566,6 @@ func Vvrec(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvrec(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvrecf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvrecf calculates the reciprocal of each element in an array of single-precision values.
@@ -23550,7 +20577,6 @@ func Vvrecf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvrecf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvremainder func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
@@ -23564,7 +20590,6 @@ func Vvremainder(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	_vvremainder(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvremainderf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
 // Vvremainderf calculates the remainder after dividing each element in an array by the corresponding element in a second array of single-precision values.
@@ -23576,7 +20601,6 @@ func Vvremainderf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	}
 	_vvremainderf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvrsqrt func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23590,7 +20614,6 @@ func Vvrsqrt(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvrsqrt(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvrsqrtf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvrsqrtf calculates the reciprocal square root of each element in an array of single-precision values.
@@ -23602,7 +20625,6 @@ func Vvrsqrtf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvrsqrtf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvsin func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23616,7 +20638,6 @@ func Vvsin(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvsin(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvsincos func(arg0 *float64, arg1 *float64, arg2 *float64, arg3 *int)
 
 // Vvsincos calculates the cosine and sine of each element in an array of double-precision values.
@@ -23628,7 +20649,6 @@ func Vvsincos(arg0 []float64, arg1 []float64, arg2 []float64, arg3 []int) {
 	}
 	_vvsincos(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
-
 
 var _vvsincosf func(arg0 *float32, arg1 *float32, arg2 *float32, arg3 *int)
 
@@ -23642,7 +20662,6 @@ func Vvsincosf(arg0 []float32, arg1 []float32, arg2 []float32, arg3 []int) {
 	_vvsincosf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2), unsafe.SliceData(arg3))
 }
 
-
 var _vvsinf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsinf calculates the sine of each element in an array of single-precision values.
@@ -23654,7 +20673,6 @@ func Vvsinf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvsinf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvsinh func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23668,7 +20686,6 @@ func Vvsinh(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvsinh(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvsinhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsinhf calculates the hyperbolic sine of each element in an array of single-precision values.
@@ -23680,7 +20697,6 @@ func Vvsinhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvsinhf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvsinpi func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23694,7 +20710,6 @@ func Vvsinpi(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvsinpi(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvsinpif func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsinpif calculates the sine of pi multiplied by each element in an array of single-precision values.
@@ -23706,7 +20721,6 @@ func Vvsinpif(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvsinpif(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvsqrt func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23720,7 +20734,6 @@ func Vvsqrt(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvsqrt(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvsqrtf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvsqrtf calculates the square root of each element in an array of single-precision values.
@@ -23732,7 +20745,6 @@ func Vvsqrtf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvsqrtf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvtan func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23746,7 +20758,6 @@ func Vvtan(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvtan(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvtanf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvtanf calculates the tangent of each element in an array of single-precision values.
@@ -23758,7 +20769,6 @@ func Vvtanf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvtanf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvtanh func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23772,7 +20782,6 @@ func Vvtanh(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvtanh(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvtanhf func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvtanhf calculates the hyperbolic tangent of each element in an array of single-precision values.
@@ -23784,7 +20793,6 @@ func Vvtanhf(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvtanhf(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
 
 var _vvtanpi func(arg0 *float64, arg1 *float64, arg2 *int)
 
@@ -23798,7 +20806,6 @@ func Vvtanpi(arg0 []float64, arg1 []float64, arg2 []int) {
 	_vvtanpi(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
 
-
 var _vvtanpif func(arg0 *float32, arg1 *float32, arg2 *int)
 
 // Vvtanpif calculates the tangent of pi multiplied by each element in an array of single-precision values.
@@ -23810,387 +20817,6 @@ func Vvtanpif(arg0 []float32, arg1 []float32, arg2 []int) {
 	}
 	_vvtanpif(unsafe.SliceData(arg0), unsafe.SliceData(arg1), unsafe.SliceData(arg2))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -25917,8 +22543,4 @@ func init() {
 		registerFunc(&_vvtanpi, frameworkHandle, "vvtanpi")
 		registerFunc(&_vvtanpif, frameworkHandle, "vvtanpif")
 	}
-
-
-
-
 

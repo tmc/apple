@@ -19,8 +19,6 @@ type NSPasteboardTypeOwner interface {
 	PasteboardProvideDataForType(sender INSPasteboard, type_ NSPasteboardType)
 }
 
-
-
 // NSPasteboardTypeOwnerObject wraps an existing Objective-C object that conforms to the NSPasteboardTypeOwner protocol.
 type NSPasteboardTypeOwnerObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSPasteboardTypeOwnerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPasteboardTypeOwnerObjectFromID constructs a [NSPasteboardTypeOwnerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPasteboardTypeOwnerObjectFromID(id objc.ID) NSPasteboardTypeOwnerObject {
@@ -38,9 +34,6 @@ func NSPasteboardTypeOwnerObjectFromID(id objc.ID) NSPasteboardTypeOwnerObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Requests that the object provide data for the data type to the pasteboard.
 //
@@ -65,10 +58,4 @@ func (o NSPasteboardTypeOwnerObject) PasteboardChangedOwner(sender INSPasteboard
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboardChangedOwner:"), sender)
 	}
-
-
-
-
-
-
 

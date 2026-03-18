@@ -38,12 +38,6 @@ func (nc NSPrinterClass) Alloc() NSPrinter {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that describes a printer’s capabilities.
 //
 // # Overview
@@ -78,14 +72,10 @@ type NSPrinter struct {
 //
 // An object that describes a printer’s capabilities.
 func NSPrinterFromID(id objc.ID) NSPrinter {
-	return NSPrinter{objectivec.Object{id}}
+	return NSPrinter{objectivec.Object{ID: id}}
 }
 // NOTE: NSPrinter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPrinter] class.
 //
@@ -129,10 +119,6 @@ type INSPrinter interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPrinter) Init() NSPrinter {
 	rv := objc.Send[NSPrinter](p.ID, objc.Sel("init"))
@@ -152,11 +138,6 @@ func NewNSPrinter() NSPrinter {
 	return rv
 }
 
-
-
-
-
-
 // Creates and returns a printer object initialized with the specified printer
 // name.
 //
@@ -172,7 +153,6 @@ func NewPrinterWithName(name string) NSPrinter {
 	rv := objc.Send[objc.ID](objc.ID(getNSPrinterClass().class), objc.Sel("printerWithName:"), objc.String(name))
 	return NSPrinterFromID(rv)
 }
-
 
 // Creates and returns a printer object initialized to the first available
 // printer with the specified make and model information.
@@ -190,12 +170,6 @@ func NewPrinterWithType(type_ NSPrinterTypeName) NSPrinter {
 	rv := objc.Send[objc.ID](objc.ID(getNSPrinterClass().class), objc.Sel("printerWithType:"), objc.String(string(type_)))
 	return NSPrinterFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the size of the page for the specified paper type.
 //
@@ -217,17 +191,6 @@ func (p NSPrinter) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The printer’s name.
 //
 // # Return Value
@@ -240,8 +203,6 @@ func (p NSPrinter) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // A description of the printer’s make and model.
 //
 // # Return Value
@@ -253,8 +214,6 @@ func (p NSPrinter) Type() NSPrinterTypeName {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("type"))
 	return NSPrinterTypeName(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // The PostScript language level recognized by the printer.
 //
@@ -269,8 +228,6 @@ func (p NSPrinter) LanguageLevel() int {
 	return rv
 }
 
-
-
 // A dictionary of keys and values that describe the device.
 //
 // # Return Value
@@ -283,12 +240,6 @@ func (p NSPrinter) DeviceDescription() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("deviceDescription"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
 
 // Returns the names of all available printers.
 //
@@ -309,8 +260,6 @@ func (_NSPrinterClass NSPrinterClass) PrinterNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // Returns descriptions of the makes and models of all available printers.
 //
 // # Return Value
@@ -323,24 +272,4 @@ func (_NSPrinterClass NSPrinterClass) PrinterTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSPrinterClass.class), objc.Sel("printerTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -39,12 +39,6 @@ func (nc NSPersistentDocumentClass) Alloc() NSPersistentDocument {
 	return rv
 }
 
-
-
-
-
-
-
 // A document object that can integrate with Core Data.
 //
 // # Overview
@@ -116,10 +110,6 @@ func NSPersistentDocumentFromID(id objc.ID) NSPersistentDocument {
 // NOTE: NSPersistentDocument adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPersistentDocument] class.
 //
 // # Managing the Persistence Objects
@@ -151,10 +141,6 @@ type INSPersistentDocument interface {
 	SetIsDocumentEdited(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPersistentDocument) Init() NSPersistentDocument {
 	rv := objc.Send[NSPersistentDocument](p.ID, objc.Sel("init"))
@@ -173,11 +159,6 @@ func NewNSPersistentDocument() NSPersistentDocument {
 	rv := objc.Send[NSPersistentDocument](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a document with the specified contents, and places the
 // resulting document’s file at the designated location.
@@ -218,7 +199,6 @@ func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation
 	}
 	return NSPersistentDocumentFromID(rv), nil
 }
-
 
 // Initializes a document located by a URL of a specified type.
 //
@@ -262,7 +242,6 @@ func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, ty
 	return NSPersistentDocumentFromID(rv), nil
 }
 
-
 // Initializes a document of a specified type.
 //
 // typeName: The string that identifies the document type.
@@ -295,12 +274,6 @@ func NewPersistentDocumentWithTypeError(typeName string) (NSPersistentDocument, 
 	return NSPersistentDocumentFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Configures the receiver’s persistent store coordinator with the
 // appropriate stores for a given URL.
 //
@@ -331,7 +304,7 @@ func NewPersistentDocumentWithTypeError(typeName string) (NSPersistentDocument, 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/configurePersistentStoreCoordinator(for:ofType:modelConfiguration:storeOptions:)
 func (p NSPersistentDocument) ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.INSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](p.ID, objc.Sel("configurePersistentStoreCoordinatorForURL:ofType:modelConfiguration:storeOptions:error:"), url, objc.String(fileType), objc.String(configuration), storeOptions, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -366,17 +339,6 @@ func (p NSPersistentDocument) PersistentStoreTypeForFileType(fileType string) st
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The managed object context for the document.
 //
 // # Discussion
@@ -394,8 +356,6 @@ func (p NSPersistentDocument) ManagedObjectContext() objectivec.IObject {
 func (p NSPersistentDocument) SetManagedObjectContext(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
-
-
 
 // The managed object model of the document.
 //
@@ -419,8 +379,6 @@ func (p NSPersistentDocument) ManagedObjectModel() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // A Boolean value that indicates whether the document has unsaved changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsdocument/isdocumentedited
@@ -431,31 +389,4 @@ func (p NSPersistentDocument) IsDocumentEdited() bool {
 func (p NSPersistentDocument) SetIsDocumentEdited(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDocumentEdited:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

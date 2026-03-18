@@ -36,12 +36,6 @@ func (mc MLComputePlanCostClass) Alloc() MLComputePlanCost {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents the estimated cost of executing a layer or
 // operation.
 //
@@ -59,14 +53,10 @@ type MLComputePlanCost struct {
 // A class that represents the estimated cost of executing a layer or
 // operation.
 func MLComputePlanCostFromID(id objc.ID) MLComputePlanCost {
-	return MLComputePlanCost{objectivec.Object{id}}
+	return MLComputePlanCost{objectivec.Object{ID: id}}
 }
 // Ensure MLComputePlanCost implements IMLComputePlanCost.
 var _ IMLComputePlanCost = MLComputePlanCost{}
-
-
-
-
 
 // An interface definition for the [MLComputePlanCost] class.
 //
@@ -83,10 +73,6 @@ type IMLComputePlanCost interface {
 	// The estimated workload of executing the operation over the total model execution. The value is between [0.0, 1.0].
 	Weight() float64
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c MLComputePlanCost) Init() MLComputePlanCost {
@@ -107,26 +93,6 @@ func NewMLComputePlanCost() MLComputePlanCost {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The estimated workload of executing the operation over the total model
 // execution. The value is between [0.0, 1.0].
 //
@@ -135,20 +101,4 @@ func (c MLComputePlanCost) Weight() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("weight"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

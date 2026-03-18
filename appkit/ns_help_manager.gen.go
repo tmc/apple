@@ -38,12 +38,6 @@ func (nc NSHelpManagerClass) Alloc() NSHelpManager {
 	return rv
 }
 
-
-
-
-
-
-
 // An object for displaying online help for an app.
 //
 // # Overview
@@ -79,14 +73,10 @@ type NSHelpManager struct {
 //
 // An object for displaying online help for an app.
 func NSHelpManagerFromID(id objc.ID) NSHelpManager {
-	return NSHelpManager{objectivec.Object{id}}
+	return NSHelpManager{objectivec.Object{ID: id}}
 }
 // NOTE: NSHelpManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSHelpManager] class.
 //
@@ -140,10 +130,6 @@ type INSHelpManager interface {
 	ShowContextHelpForObjectLocationHint(object objectivec.IObject, pt corefoundation.CGPoint) bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (h NSHelpManager) Init() NSHelpManager {
 	rv := objc.Send[NSHelpManager](h.ID, objc.Sel("init"))
@@ -162,15 +148,6 @@ func NewNSHelpManager() NSHelpManager {
 	rv := objc.Send[NSHelpManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Performs a search for the specified string in the specified book.
 //
@@ -309,21 +286,6 @@ func (h NSHelpManager) ShowContextHelpForObjectLocationHint(object objectivec.IO
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns the shared [NSHelpManager] instance, creating it if it does not
 // already exist.
 //
@@ -337,8 +299,6 @@ func (_NSHelpManagerClass NSHelpManagerClass) SharedHelpManager() NSHelpManager 
 	return NSHelpManagerFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSHelpManager/isContextHelpModeActive
 func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeActive() bool {
 	rv := objc.Send[bool](objc.ID(_NSHelpManagerClass.class), objc.Sel("isContextHelpModeActive"))
@@ -347,8 +307,6 @@ func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeActive() bool {
 func (_NSHelpManagerClass NSHelpManagerClass) SetContextHelpModeActive(value bool) {
 	objc.Send[struct{}](objc.ID(_NSHelpManagerClass.class), objc.Sel("setContextHelpModeActive:"), value)
 }
-
-
 
 // Posted when the application enters context-sensitive help mode. This
 // typically happens when the user holds down the Help key.
@@ -359,8 +317,6 @@ func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeDidActivateNotifica
 	return foundation.NSStringFromID(objc.ID(rv))
 }
 
-
-
 // Posted when the application exits context-sensitive help mode. This happens
 // when the user clicks the mouse button while the cursor is anywhere on the
 // screen after displaying a context-sensitive help topic.
@@ -370,23 +326,4 @@ func (_NSHelpManagerClass NSHelpManagerClass) ContextHelpModeDidDeactivateNotifi
 	rv := objc.Send[objc.ID](objc.ID(_NSHelpManagerClass.class), objc.Sel("NSContextHelpModeDidDeactivateNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSCollectionViewDiffableDataSourceClass) Alloc() NSCollectionViewDiffab
 	return rv
 }
 
-
-
-
-
-
-
 // The object you use to manage data and provide items for a collection view.
 //
 // # Overview
@@ -96,14 +90,10 @@ type NSCollectionViewDiffableDataSource struct {
 //
 // The object you use to manage data and provide items for a collection view.
 func NSCollectionViewDiffableDataSourceFromID(id objc.ID) NSCollectionViewDiffableDataSource {
-	return NSCollectionViewDiffableDataSource{objectivec.Object{id}}
+	return NSCollectionViewDiffableDataSource{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionViewDiffableDataSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewDiffableDataSource] class.
 //
@@ -157,10 +147,6 @@ type INSCollectionViewDiffableDataSource interface {
 	ApplySnapshotAnimatingDifferences(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewDiffableDataSource) Init() NSCollectionViewDiffableDataSource {
 	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("init"))
@@ -180,11 +166,6 @@ func NewNSCollectionViewDiffableDataSource() NSCollectionViewDiffableDataSource 
 	return rv
 }
 
-
-
-
-
-
 // Creates a diffable data source with the specified item provider, and
 // connects it to the specified collection view.
 //
@@ -200,12 +181,6 @@ func NewCollectionViewDiffableDataSourceWithCollectionViewItemProvider(collectio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, itemProvider)
 	return NSCollectionViewDiffableDataSourceFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a diffable data source with the specified item provider, and
 // connects it to the specified collection view.
@@ -425,17 +400,6 @@ func (c NSCollectionViewDiffableDataSource) NumberOfSectionsInCollectionView(col
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The closure that configures and returns the collection view’s
 // supplementary views, such as headers and footers, from the diffable data
 // source.
@@ -449,31 +413,6 @@ func (c NSCollectionViewDiffableDataSource) SetSupplementaryViewProvider(value N
 	objc.Send[struct{}](c.ID, objc.Sel("setSupplementaryViewProvider:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCollectionViewDataSource
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

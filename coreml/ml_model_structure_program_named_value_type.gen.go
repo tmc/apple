@@ -37,12 +37,6 @@ func (mc MLModelStructureProgramNamedValueTypeClass) Alloc() MLModelStructurePro
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing a named value type in a Program.
 //
 // # Accessing the value type properties
@@ -59,14 +53,10 @@ type MLModelStructureProgramNamedValueType struct {
 //
 // A class representing a named value type in a Program.
 func MLModelStructureProgramNamedValueTypeFromID(id objc.ID) MLModelStructureProgramNamedValueType {
-	return MLModelStructureProgramNamedValueType{objectivec.Object{id}}
+	return MLModelStructureProgramNamedValueType{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramNamedValueType implements IMLModelStructureProgramNamedValueType.
 var _ IMLModelStructureProgramNamedValueType = MLModelStructureProgramNamedValueType{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramNamedValueType] class.
 //
@@ -87,10 +77,6 @@ type IMLModelStructureProgramNamedValueType interface {
 	Type() IMLModelStructureProgramValueType
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructureProgramNamedValueType) Init() MLModelStructureProgramNamedValueType {
 	rv := objc.Send[MLModelStructureProgramNamedValueType](m.ID, objc.Sel("init"))
@@ -110,26 +96,6 @@ func NewMLModelStructureProgramNamedValueType() MLModelStructureProgramNamedValu
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The name of the parameter.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/name
@@ -138,8 +104,6 @@ func (m MLModelStructureProgramNamedValueType) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The type of the parameter.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/type
@@ -147,20 +111,4 @@ func (m MLModelStructureProgramNamedValueType) Type() IMLModelStructureProgramVa
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
 	return MLModelStructureProgramValueTypeFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

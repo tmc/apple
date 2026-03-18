@@ -38,12 +38,6 @@ func (nc NSTextContentManagerClass) Alloc() NSTextContentManager {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that defines the interface and a default implementation
 // for managing the text document contents.
 //
@@ -92,14 +86,10 @@ type NSTextContentManager struct {
 // An abstract class that defines the interface and a default implementation
 // for managing the text document contents.
 func NSTextContentManagerFromID(id objc.ID) NSTextContentManager {
-	return NSTextContentManager{objectivec.Object{id}}
+	return NSTextContentManager{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextContentManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextContentManager] class.
 //
@@ -194,10 +184,6 @@ type INSTextContentManager interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextContentManager) Init() NSTextContentManager {
 	rv := objc.Send[NSTextContentManager](t.ID, objc.Sel("init"))
@@ -217,11 +203,6 @@ func NewNSTextContentManager() NSTextContentManager {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new content manager object from data in an unarchiver.
 //
 // coder: An unachiver that conforms to the [NSCoder] class.
@@ -234,12 +215,6 @@ func NewTextContentManagerWithCoder(coder foundation.INSCoder) NSTextContentMana
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextContentManagerFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new content manager object from data in an unarchiver.
 //
@@ -266,9 +241,9 @@ func (t NSTextContentManager) InitWithCoder(coder foundation.INSCoder) NSTextCon
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/performEditingTransaction(_:)
 func (t NSTextContentManager) PerformEditingTransactionUsingBlock(transaction VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(transaction)
+_block0, _cleanup0 := NewVoidBlock(transaction)
 	defer _cleanup0()
-		objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionUsingBlock:"), _block0)
+	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionUsingBlock:"), _block0)
 }
 
 // Records information about an edit action to the transaction.
@@ -317,9 +292,9 @@ func (t NSTextContentManager) RemoveTextLayoutManager(textLayoutManager INSTextL
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/synchronizeTextLayoutManagers(_:)
 func (t NSTextContentManager) SynchronizeTextLayoutManagers(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](t.ID, objc.Sel("synchronizeTextLayoutManagers:"), _block0)
+	objc.Send[objc.ID](t.ID, objc.Sel("synchronizeTextLayoutManagers:"), _block0)
 }
 
 // Returns an array of text elements that intersect with the range you
@@ -395,9 +370,9 @@ func (t NSTextContentManager) AdjustedRangeFromRangeForEditingTextSelection(text
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
 func (t NSTextContentManager) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation {
-		_block2, _cleanup2 := NewTextElementBlock(block)
+_block2, _cleanup2 := NewTextElementBlock(block)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, _block2)
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }
 
@@ -476,24 +451,13 @@ func (t NSTextContentManager) ReplaceContentsInRangeWithTextElements(range_ INST
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/synchronizeToBackingStore(_:)
 func (t NSTextContentManager) SynchronizeToBackingStore(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](t.ID, objc.Sel("synchronizeToBackingStore:"), _block0)
+	objc.Send[objc.ID](t.ID, objc.Sel("synchronizeToBackingStore:"), _block0)
 }
 func (t NSTextContentManager) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Determines whether to automatically synchronize with the backing store when
 // an editing transaction finishes.
@@ -506,8 +470,6 @@ func (t NSTextContentManager) AutomaticallySynchronizesToBackingStore() bool {
 func (t NSTextContentManager) SetAutomaticallySynchronizesToBackingStore(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallySynchronizesToBackingStore:"), value)
 }
-
-
 
 // Indicates there’s an active editing transaction from the primary text
 // layout manager.
@@ -527,8 +489,6 @@ func (t NSTextContentManager) HasEditingTransaction() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("hasEditingTransaction"))
 	return rv
 }
-
-
 
 // The primary text layout manager for this content.
 //
@@ -550,8 +510,6 @@ func (t NSTextContentManager) SetPrimaryTextLayoutManager(value INSTextLayoutMan
 	objc.Send[struct{}](t.ID, objc.Sel("setPrimaryTextLayoutManager:"), value)
 }
 
-
-
 // The array of text layout managers associated with this text content
 // manager.
 //
@@ -567,8 +525,6 @@ func (t NSTextContentManager) TextLayoutManagers() []NSTextLayoutManager {
 	})
 }
 
-
-
 // Determines if the framework should automatically synchronize all text
 // layout managers when exiting an editing transaction.
 //
@@ -581,8 +537,6 @@ func (t NSTextContentManager) SetAutomaticallySynchronizesTextLayoutManagers(val
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallySynchronizesTextLayoutManagers:"), value)
 }
 
-
-
 // The delegate for the content manager object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/delegate
@@ -593,8 +547,6 @@ func (t NSTextContentManager) Delegate() NSTextContentManagerDelegate {
 func (t NSTextContentManager) SetDelegate(value NSTextContentManagerDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // Describes the starting and ending locations for the document.
 //
@@ -609,30 +561,8 @@ func (t NSTextContentManager) DocumentRange() INSTextRange {
 	return NSTextRangeFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSTextElementProvider
 			
-
-
-
-
-
-
-
 
 // PerformEditingTransactionUsingBlockSync is a synchronous wrapper around [NSTextContentManager.PerformEditingTransactionUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -693,9 +623,4 @@ func (t NSTextContentManager) SynchronizeToBackingStoreSync(ctx context.Context)
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

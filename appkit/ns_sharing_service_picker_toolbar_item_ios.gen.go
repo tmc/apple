@@ -31,10 +31,3 @@ func (s NSSharingServicePickerToolbarItem) SetActivityItemsConfiguration(value o
 objc.Send[struct{}](s.ID, objc.Sel("setActivityItemsConfiguration:"), value)
 }
 
-
-
-
-
-
-
-

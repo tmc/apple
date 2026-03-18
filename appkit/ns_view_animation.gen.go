@@ -36,12 +36,6 @@ func (nc NSViewAnimationClass) Alloc() NSViewAnimation {
 	return rv
 }
 
-
-
-
-
-
-
 // An animation of an app’s views, limited to changes in frame location and
 // size, and to fade-in and fade-out effects.
 //
@@ -86,10 +80,6 @@ func NSViewAnimationFromID(id objc.ID) NSViewAnimation {
 // NOTE: NSViewAnimation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSViewAnimation] class.
 //
 // # Initializing an NSViewAnimation object
@@ -115,13 +105,7 @@ type INSViewAnimation interface {
 	// The dictionaries defining the objects to animate.
 	ViewAnimations() foundation.INSDictionary
 	SetViewAnimations(value foundation.INSDictionary)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v NSViewAnimation) Init() NSViewAnimation {
@@ -142,11 +126,6 @@ func NewNSViewAnimation() NSViewAnimation {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(coder:)
 func NewViewAnimationWithCoder(coder foundation.INSCoder) NSViewAnimation {
@@ -154,7 +133,6 @@ func NewViewAnimationWithCoder(coder foundation.INSCoder) NSViewAnimation {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSViewAnimationFromID(rv)
 }
-
 
 // Returns an [NSAnimation] object initialized with the specified duration and
 // animation-curve values.
@@ -184,7 +162,6 @@ func NewViewAnimationWithDurationAnimationCurve(duration float64, animationCurve
 	return NSViewAnimationFromID(rv)
 }
 
-
 // Returns an [NSViewAnimation] object initialized with the supplied
 // information.
 //
@@ -209,12 +186,6 @@ func NewViewAnimationWithViewAnimations(viewAnimations foundation.INSDictionary)
 	return NSViewAnimationFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns an [NSViewAnimation] object initialized with the supplied
 // information.
 //
@@ -237,20 +208,6 @@ func (v NSViewAnimation) InitWithViewAnimations(viewAnimations foundation.INSDic
 	rv := objc.Send[NSViewAnimation](v.ID, objc.Sel("initWithViewAnimations:"), viewAnimations)
 	return rv
 }
-func (v NSViewAnimation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The dictionaries defining the objects to animate.
 //
@@ -262,30 +219,4 @@ func (v NSViewAnimation) ViewAnimations() foundation.INSDictionary {
 func (v NSViewAnimation) SetViewAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setViewAnimations:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

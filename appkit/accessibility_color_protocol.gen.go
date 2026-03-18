@@ -20,8 +20,6 @@ type NSAccessibilityColor interface {
 	AccessibilityName() string
 }
 
-
-
 // NSAccessibilityColorObject wraps an existing Objective-C object that conforms to the NSAccessibilityColor protocol.
 type NSAccessibilityColorObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o NSAccessibilityColorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityColorObjectFromID constructs a [NSAccessibilityColorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityColorObjectFromID(id objc.ID) NSAccessibilityColorObject {
@@ -39,9 +35,6 @@ func NSAccessibilityColorObjectFromID(id objc.ID) NSAccessibilityColorObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a localized description of the color for use in accessibility
 // attributes.
@@ -53,12 +46,4 @@ func (o NSAccessibilityColorObject) AccessibilityName() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityName"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
-
-
-
-
-
-
-
 

@@ -39,12 +39,6 @@ func (nc NSMenuItemClass) Alloc() NSMenuItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A command item in an app menu.
 //
 // # Overview
@@ -183,14 +177,10 @@ type NSMenuItem struct {
 //
 // A command item in an app menu.
 func NSMenuItemFromID(id objc.ID) NSMenuItem {
-	return NSMenuItem{objectivec.Object{id}}
+	return NSMenuItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSMenuItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMenuItem] class.
 //
@@ -474,10 +464,6 @@ type INSMenuItem interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMenuItem) Init() NSMenuItem {
 	rv := objc.Send[NSMenuItem](m.ID, objc.Sel("init"))
@@ -497,11 +483,6 @@ func NewNSMenuItem() NSMenuItem {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/init(coder:)
 func NewMenuItemWithCoder(coder foundation.INSCoder) NSMenuItem {
@@ -509,7 +490,6 @@ func NewMenuItemWithCoder(coder foundation.INSCoder) NSMenuItem {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMenuItemFromID(rv)
 }
-
 
 // Returns an initialized instance of [NSMenuItem].
 //
@@ -539,12 +519,6 @@ func NewMenuItemWithTitleActionKeyEquivalent(string_ string, selector objc.SEL, 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTitle:action:keyEquivalent:"), objc.String(string_), selector, objc.String(charCode))
 	return NSMenuItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an initialized instance of [NSMenuItem].
 //
@@ -584,10 +558,6 @@ func (m NSMenuItem) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns a menu item that is used to separate logical groups of menu
 // commands.
 //
@@ -604,13 +574,6 @@ func (_NSMenuItemClass NSMenuItemClass) SeparatorItem() NSMenuItem {
 	rv := objc.Send[objc.ID](objc.ID(_NSMenuItemClass.class), objc.Sel("separatorItem"))
 	return NSMenuItemFromID(rv)
 }
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the menu item is enabled.
 //
@@ -630,8 +593,6 @@ func (m NSMenuItem) SetEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setEnabled:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the menu item is hidden.
 //
 // # Discussion
@@ -648,8 +609,6 @@ func (m NSMenuItem) SetHidden(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHidden:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the menu item or any of its
 // superitems is hidden.
 //
@@ -658,8 +617,6 @@ func (m NSMenuItem) HiddenOrHasHiddenAncestor() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isHiddenOrHasHiddenAncestor"))
 	return rv
 }
-
-
 
 // The menu item’s target.
 //
@@ -679,8 +636,6 @@ func (m NSMenuItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTarget:"), value)
 }
 
-
-
 // The menu item’s action-method selector.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/action
@@ -692,8 +647,6 @@ func (m NSMenuItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAction:"), value)
 }
 
-
-
 // The menu item’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/title
@@ -704,8 +657,6 @@ func (m NSMenuItem) Title() string {
 func (m NSMenuItem) SetTitle(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // A custom string for a menu item.
 //
@@ -722,8 +673,6 @@ func (m NSMenuItem) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAttributedTitle:"), value)
 }
 
-
-
 // The menu item’s tag.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/tag
@@ -734,8 +683,6 @@ func (m NSMenuItem) Tag() int {
 func (m NSMenuItem) SetTag(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTag:"), value)
 }
-
-
 
 // The state of the menu item.
 //
@@ -753,8 +700,6 @@ func (m NSMenuItem) SetState(value NSControlStateValue) {
 	objc.Send[struct{}](m.ID, objc.Sel("setState:"), value)
 }
 
-
-
 // The menu item’s image.
 //
 // # Discussion
@@ -770,8 +715,6 @@ func (m NSMenuItem) SetImage(value INSImage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setImage:"), value)
 }
 
-
-
 // The image of the menu item that indicates an “on” state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/onStateImage
@@ -782,8 +725,6 @@ func (m NSMenuItem) OnStateImage() INSImage {
 func (m NSMenuItem) SetOnStateImage(value INSImage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOnStateImage:"), value)
 }
-
-
 
 // The image of the menu item that indicates an “off” state.
 //
@@ -799,8 +740,6 @@ func (m NSMenuItem) OffStateImage() INSImage {
 func (m NSMenuItem) SetOffStateImage(value INSImage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOffStateImage:"), value)
 }
-
-
 
 // The image of the menu item that indicates a “mixed” state, that is, a
 // state neither “on” nor “off.”
@@ -821,8 +760,6 @@ func (m NSMenuItem) SetMixedStateImage(value INSImage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMixedStateImage:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/badge
 func (m NSMenuItem) Badge() INSMenuItemBadge {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("badge"))
@@ -832,8 +769,6 @@ func (m NSMenuItem) SetBadge(value INSMenuItemBadge) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBadge:"), value)
 }
 
-
-
 // A Boolean value indicating whether the menu item is a section header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/isSectionHeader
@@ -841,8 +776,6 @@ func (m NSMenuItem) SectionHeader() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSectionHeader"))
 	return rv
 }
-
-
 
 // The submenu of the menu item.
 //
@@ -860,8 +793,6 @@ func (m NSMenuItem) SetSubmenu(value INSMenu) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSubmenu:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the menu item has a submenu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/hasSubmenu
@@ -870,8 +801,6 @@ func (m NSMenuItem) HasSubmenu() bool {
 	return rv
 }
 
-
-
 // The menu item whose submenu contains the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/parent
@@ -879,8 +808,6 @@ func (m NSMenuItem) ParentItem() INSMenuItem {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("parentItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value indicating whether the menu item is a separator item.
 //
@@ -894,8 +821,6 @@ func (m NSMenuItem) SeparatorItem() bool {
 	return rv
 }
 
-
-
 // The menu item’s menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/menu
@@ -906,8 +831,6 @@ func (m NSMenuItem) Menu() INSMenu {
 func (m NSMenuItem) SetMenu(value INSMenu) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMenu:"), value)
 }
-
-
 
 // The menu item’s unmodified key equivalent.
 //
@@ -928,8 +851,6 @@ func (m NSMenuItem) KeyEquivalent() string {
 func (m NSMenuItem) SetKeyEquivalent(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKeyEquivalent:"), objc.String(value))
 }
-
-
 
 // The menu item’s keyboard equivalent modifiers.
 //
@@ -955,8 +876,6 @@ func (m NSMenuItem) SetKeyEquivalentModifierMask(value NSEventModifierFlags) {
 	objc.Send[struct{}](m.ID, objc.Sel("setKeyEquivalentModifierMask:"), value)
 }
 
-
-
 // The user-assigned key equivalent for the menu item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/userKeyEquivalent
@@ -964,8 +883,6 @@ func (m NSMenuItem) UserKeyEquivalent() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("userKeyEquivalent"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // A Boolean value that determines whether the system automatically remaps the
 // keyboard shortcut to support localized keyboards.
@@ -1011,8 +928,6 @@ func (m NSMenuItem) SetAllowsAutomaticKeyEquivalentLocalization(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowsAutomaticKeyEquivalentLocalization:"), value)
 }
 
-
-
 // A Boolean value that determines whether the system automatically swaps
 // input strings for some keyboard shortcuts when the interface direction
 // changes.
@@ -1053,8 +968,6 @@ func (m NSMenuItem) SetAllowsAutomaticKeyEquivalentMirroring(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowsAutomaticKeyEquivalentMirroring:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/allowsKeyEquivalentWhenHidden
 func (m NSMenuItem) AllowsKeyEquivalentWhenHidden() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("allowsKeyEquivalentWhenHidden"))
@@ -1063,8 +976,6 @@ func (m NSMenuItem) AllowsKeyEquivalentWhenHidden() bool {
 func (m NSMenuItem) SetAllowsKeyEquivalentWhenHidden(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowsKeyEquivalentWhenHidden:"), value)
 }
-
-
 
 // A Boolean value that marks the menu item as an alternate to the previous
 // menu item.
@@ -1077,8 +988,6 @@ func (m NSMenuItem) Alternate() bool {
 func (m NSMenuItem) SetAlternate(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlternate:"), value)
 }
-
-
 
 // The menu item indentation level for the menu item.
 //
@@ -1097,8 +1006,6 @@ func (m NSMenuItem) SetIndentationLevel(value int) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndentationLevel:"), value)
 }
 
-
-
 // A help tag for the menu item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItem/toolTip
@@ -1109,8 +1016,6 @@ func (m NSMenuItem) ToolTip() string {
 func (m NSMenuItem) SetToolTip(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
-
-
 
 // The object represented by the menu item.
 //
@@ -1129,8 +1034,6 @@ func (m NSMenuItem) RepresentedObject() objectivec.IObject {
 func (m NSMenuItem) SetRepresentedObject(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRepresentedObject:"), value)
 }
-
-
 
 // The content view for the menu item.
 //
@@ -1155,8 +1058,6 @@ func (m NSMenuItem) SetView(value INSView) {
 	objc.Send[struct{}](m.ID, objc.Sel("setView:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the menu item should be drawn
 // highlighted.
 //
@@ -1165,8 +1066,6 @@ func (m NSMenuItem) Highlighted() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isHighlighted"))
 	return rv
 }
-
-
 
 //
 // # Discussion
@@ -1183,8 +1082,6 @@ func (m NSMenuItem) Subtitle() string {
 func (m NSMenuItem) SetSubtitle(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSubtitle:"), objc.String(value))
 }
-
-
 
 // A string that identifies the user interface item.
 //
@@ -1224,12 +1121,6 @@ func (m NSMenuItem) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
 
-
-
-
-
-
-
 // Returns a Boolean value that indicates whether menu items conform to user
 // preferences for key equivalents.
 //
@@ -1250,8 +1141,6 @@ func (_NSMenuItemClass NSMenuItemClass) SetUsesUserKeyEquivalents(value bool) {
 	objc.Send[struct{}](objc.ID(_NSMenuItemClass.class), objc.Sel("setUsesUserKeyEquivalents:"), value)
 }
 
-
-
 // An array of standard menu items related to Writing Tools. Each call to this
 // method returns an array of newly allocated instances of NSMenuItem.
 //
@@ -1262,14 +1151,6 @@ func (_NSMenuItemClass NSMenuItemClass) WritingToolsItems() []NSMenuItem {
 		return NSMenuItemFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -1366,9 +1247,6 @@ func (o NSMenuItem) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -4284,30 +4162,9 @@ func (o NSMenuItem) SetAccessibilityUserInputLabels(accessibilityUserInputLabels
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
 
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceItemIdentification
 			
 
-
-
-
 			// Protocol methods for NSValidatedUserInterfaceItem
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

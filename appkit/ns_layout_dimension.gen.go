@@ -5,7 +5,6 @@ package appkit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [NSLayoutDimension] class.
@@ -35,12 +34,6 @@ func (nc NSLayoutDimensionClass) Alloc() NSLayoutDimension {
 	rv := objc.Send[NSLayoutDimension](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A factory class for creating size-based layout constraint objects using a
 // fluent API.
@@ -83,10 +76,6 @@ func NSLayoutDimensionFromID(id objc.ID) NSLayoutDimension {
 // NOTE: NSLayoutDimension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSLayoutDimension] class.
 //
 // # Building constraints
@@ -125,13 +114,7 @@ type INSLayoutDimension interface {
 	ConstraintLessThanOrEqualToAnchorMultiplierConstant(anchor INSLayoutDimension, m float64, c float64) INSLayoutConstraint
 	// Returns a constraint that defines the maximum size for the anchor’s size attribute.
 	ConstraintLessThanOrEqualToConstant(c float64) INSLayoutConstraint
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l NSLayoutDimension) Init() NSLayoutDimension {
@@ -151,15 +134,6 @@ func NewNSLayoutDimension() NSLayoutDimension {
 	rv := objc.Send[NSLayoutDimension](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a constraint that defines the anchor’s size attribute as equal to
 // the specified anchor multiplied by the constant.
@@ -413,42 +387,4 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToConstant(c float64) INSLay
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToConstant:"), c)
 	return NSLayoutConstraintFromID(rv)
 }
-func (l NSLayoutDimension) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSScrubberSelectionStyleClass) Alloc() NSScrubberSelectionStyle {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that provides decorative accessory views for selected and
 // highlighted items within a scrubber control.
 //
@@ -67,14 +61,10 @@ type NSScrubberSelectionStyle struct {
 // An abstract class that provides decorative accessory views for selected and
 // highlighted items within a scrubber control.
 func NSScrubberSelectionStyleFromID(id objc.ID) NSScrubberSelectionStyle {
-	return NSScrubberSelectionStyle{objectivec.Object{id}}
+	return NSScrubberSelectionStyle{objectivec.Object{ID: id}}
 }
 // NOTE: NSScrubberSelectionStyle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScrubberSelectionStyle] class.
 //
@@ -97,10 +87,6 @@ type INSScrubberSelectionStyle interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScrubberSelectionStyle) Init() NSScrubberSelectionStyle {
 	rv := objc.Send[NSScrubberSelectionStyle](s.ID, objc.Sel("init"))
@@ -120,11 +106,6 @@ func NewNSScrubberSelectionStyle() NSScrubberSelectionStyle {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a scrubber selection style when included from a nib or
 // Storyboard.
 //
@@ -138,12 +119,6 @@ func NewScrubberSelectionStyleWithCoder(coder foundation.INSCoder) NSScrubberSel
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberSelectionStyleFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a scrubber selection style when included from a nib or
 // Storyboard.
@@ -179,21 +154,6 @@ func (s NSScrubberSelectionStyle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A built-in selection style that draws the outline of the scrubber item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberSelectionStyle/outlineOverlay
@@ -201,8 +161,6 @@ func (_NSScrubberSelectionStyleClass NSScrubberSelectionStyleClass) OutlineOverl
 	rv := objc.Send[objc.ID](objc.ID(_NSScrubberSelectionStyleClass.class), objc.Sel("outlineOverlayStyle"))
 	return NSScrubberSelectionStyleFromID(objc.ID(rv))
 }
-
-
 
 // A built-in selection style that draws a rounded rectangle as the background
 // of the scrubber item.
@@ -212,24 +170,4 @@ func (_NSScrubberSelectionStyleClass NSScrubberSelectionStyleClass) RoundedBackg
 	rv := objc.Send[objc.ID](objc.ID(_NSScrubberSelectionStyleClass.class), objc.Sel("roundedBackgroundStyle"))
 	return NSScrubberSelectionStyleFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

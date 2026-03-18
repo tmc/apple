@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -36,12 +37,6 @@ func (nc NSGlyphGeneratorClass) Alloc() NSGlyphGenerator {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that performs the initial, nominal glyph generation phase in the
 // layout process.
 //
@@ -69,14 +64,10 @@ type NSGlyphGenerator struct {
 // An object that performs the initial, nominal glyph generation phase in the
 // layout process.
 func NSGlyphGeneratorFromID(id objc.ID) NSGlyphGenerator {
-	return NSGlyphGenerator{objectivec.Object{id}}
+	return NSGlyphGenerator{objectivec.Object{ID: id}}
 }
 // NOTE: NSGlyphGenerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSGlyphGenerator] class.
 //
@@ -91,12 +82,8 @@ type INSGlyphGenerator interface {
 	// Topic: Generating glyphs
 
 	// Generates glyphs for the specified glyph storage object ([NSLayoutManager] by default).
-	GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex uint, charIndex uint)
+	GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex unsafe.Pointer, charIndex unsafe.Pointer)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g NSGlyphGenerator) Init() NSGlyphGenerator {
@@ -117,15 +104,6 @@ func NewNSGlyphGenerator() NSGlyphGenerator {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Generates glyphs for the specified glyph storage object ([NSLayoutManager]
 // by default).
 //
@@ -137,24 +115,9 @@ func NewNSGlyphGenerator() NSGlyphGenerator {
 // generated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphGenerator/generateGlyphs(for:desiredNumberOfCharacters:glyphIndex:characterIndex:)
-func (g NSGlyphGenerator) GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex uint, charIndex uint) {
+func (g NSGlyphGenerator) GenerateGlyphsForGlyphStorageDesiredNumberOfCharactersGlyphIndexCharacterIndex(glyphStorage NSGlyphStorage, nChars uint, glyphIndex unsafe.Pointer, charIndex unsafe.Pointer) {
 	objc.Send[objc.ID](g.ID, objc.Sel("generateGlyphsForGlyphStorage:desiredNumberOfCharacters:glyphIndex:characterIndex:"), glyphStorage, nChars, glyphIndex, charIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns a shared instance of [NSGlyphGenerator].
 //
@@ -163,22 +126,4 @@ func (_NSGlyphGeneratorClass NSGlyphGeneratorClass) SharedGlyphGenerator() NSGly
 	rv := objc.Send[objc.ID](objc.ID(_NSGlyphGeneratorClass.class), objc.Sel("sharedGlyphGenerator"))
 	return NSGlyphGeneratorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

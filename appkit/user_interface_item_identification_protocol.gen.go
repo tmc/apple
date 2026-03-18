@@ -25,8 +25,6 @@ type NSUserInterfaceItemIdentification interface {
 	SetIdentifier(value NSUserInterfaceItemIdentifier)
 }
 
-
-
 // NSUserInterfaceItemIdentificationObject wraps an existing Objective-C object that conforms to the NSUserInterfaceItemIdentification protocol.
 type NSUserInterfaceItemIdentificationObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o NSUserInterfaceItemIdentificationObject) BaseObject() objectivec.Object 
 	return o.Object
 }
 
-
-
 // NSUserInterfaceItemIdentificationObjectFromID constructs a [NSUserInterfaceItemIdentificationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSUserInterfaceItemIdentificationObjectFromID(id objc.ID) NSUserInterfaceItemIdentificationObject {
@@ -44,9 +40,6 @@ func NSUserInterfaceItemIdentificationObjectFromID(id objc.ID) NSUserInterfaceIt
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A string that identifies the user interface item.
 //
@@ -58,14 +51,7 @@ func (o NSUserInterfaceItemIdentificationObject) Identifier() NSUserInterfaceIte
 	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
 	}
 
-
-
-
 func (o NSUserInterfaceItemIdentificationObject) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
-
-
-
 

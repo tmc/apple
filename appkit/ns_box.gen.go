@@ -38,12 +38,6 @@ func (nc NSBoxClass) Alloc() NSBox {
 	return rv
 }
 
-
-
-
-
-
-
 // A stylized rectangular box with an optional title.
 //
 // # Overview
@@ -141,10 +135,6 @@ func NSBoxFromID(id objc.ID) NSBox {
 }
 // NOTE: NSBox adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSBox] class.
 //
@@ -245,13 +235,7 @@ type INSBox interface {
 	SetFrameFromContentFrame(contentFrame corefoundation.CGRect)
 	// Resizes and moves the receiver’s content view so it just encloses its subviews.
 	SizeToFit()
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b NSBox) Init() NSBox {
@@ -272,11 +256,6 @@ func NewNSBox() NSBox {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -291,7 +270,6 @@ func NewBoxWithCoder(coder foundation.INSCoder) NSBox {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSBoxFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -314,12 +292,6 @@ func NewBoxWithFrame(frameRect corefoundation.CGRect) NSBox {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSBoxFromID(rv)
 }
-
-
-
-
-
-
 
 // Places the receiver so its content view lies on the specified frame.
 //
@@ -355,20 +327,6 @@ func (b NSBox) SetFrameFromContentFrame(contentFrame corefoundation.CGRect) {
 func (b NSBox) SizeToFit() {
 	objc.Send[objc.ID](b.ID, objc.Sel("sizeToFit"))
 }
-func (b NSBox) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The rectangle in which the receiver’s border is drawn.
 //
@@ -377,8 +335,6 @@ func (b NSBox) BorderRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("borderRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The receiver’s box type.
 //
@@ -398,8 +354,6 @@ func (b NSBox) SetBoxType(value NSBoxType) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBoxType:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver is transparent.
 //
 // # Discussion
@@ -418,8 +372,6 @@ func (b NSBox) SetTransparent(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTransparent:"), value)
 }
 
-
-
 // The receiver’s title.
 //
 // # Discussion
@@ -436,8 +388,6 @@ func (b NSBox) Title() string {
 func (b NSBox) SetTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The font object used to draw the receiver’s title.
 //
@@ -456,8 +406,6 @@ func (b NSBox) TitleFont() NSFont {
 func (b NSBox) SetTitleFont(value NSFont) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitleFont:"), value)
 }
-
-
 
 // A constant representing the title position.
 //
@@ -480,8 +428,6 @@ func (b NSBox) SetTitlePosition(value NSTitlePosition) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitlePosition:"), value)
 }
 
-
-
 // The cell used to display the receiver’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/titleCell
@@ -490,8 +436,6 @@ func (b NSBox) TitleCell() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The rectangle in which the receiver’s title is drawn.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/titleRect
@@ -499,8 +443,6 @@ func (b NSBox) TitleRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("titleRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The color of the receiver’s border when the receiver is a custom box with
 // a simple line border.
@@ -529,8 +471,6 @@ func (b NSBox) SetBorderColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBorderColor:"), value)
 }
 
-
-
 // The width of the receiver’s border when the receiver is a custom box with
 // a simple line border.
 //
@@ -557,8 +497,6 @@ func (b NSBox) BorderWidth() float64 {
 func (b NSBox) SetBorderWidth(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBorderWidth:"), value)
 }
-
-
 
 // The radius of the receiver’s corners when the receiver is a custom box
 // with a simple line border.
@@ -587,8 +525,6 @@ func (b NSBox) SetCornerRadius(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCornerRadius:"), value)
 }
 
-
-
 // The color of the receiver’s background when the receiver is a custom box
 // with a simple line border.
 //
@@ -616,8 +552,6 @@ func (b NSBox) SetFillColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFillColor:"), value)
 }
 
-
-
 // The receiver’s content view.
 //
 // # Discussion
@@ -635,8 +569,6 @@ func (b NSBox) ContentView() INSView {
 func (b NSBox) SetContentView(value INSView) {
 	objc.Send[struct{}](b.ID, objc.Sel("setContentView:"), value)
 }
-
-
 
 // The distances between the border and the content view.
 //
@@ -662,38 +594,4 @@ func (b NSBox) ContentViewMargins() corefoundation.CGSize {
 func (b NSBox) SetContentViewMargins(value corefoundation.CGSize) {
 	objc.Send[struct{}](b.ID, objc.Sel("setContentViewMargins:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

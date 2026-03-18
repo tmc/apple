@@ -37,12 +37,6 @@ func (nc NSTextTabClass) Alloc() NSTextTab {
 	return rv
 }
 
-
-
-
-
-
-
 // A tab in a paragraph.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSTextTab struct {
 //
 // A tab in a paragraph.
 func NSTextTabFromID(id objc.ID) NSTextTab {
-	return NSTextTab{objectivec.Object{id}}
+	return NSTextTab{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextTab adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextTab] class.
 //
@@ -147,10 +137,6 @@ type INSTextTab interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextTab) Init() NSTextTab {
 	rv := objc.Send[NSTextTab](t.ID, objc.Sel("init"))
@@ -169,11 +155,6 @@ func NewNSTextTab() NSTextTab {
 	rv := objc.Send[NSTextTab](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a text tab with the specified text alignment, location, and
 // options.
@@ -203,7 +184,6 @@ func NewTextTabWithTextAlignmentLocationOptions(alignment NSTextAlignment, loc f
 	return NSTextTabFromID(rv)
 }
 
-
 // Initializes a newly allocated text tab with the specified alignment and
 // location.
 //
@@ -221,12 +201,6 @@ func NewTextTabWithTypeLocation(type_ NSTextTabType, loc float64) NSTextTab {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:location:"), type_, loc)
 	return NSTextTabFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a text tab with the specified text alignment, location, and
 // options.
@@ -275,10 +249,6 @@ func (t NSTextTab) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns the column terminators for the specified locale.
 //
 // aLocale: The locale to use when determining the terminators. Specify `nil` to use
@@ -305,13 +275,6 @@ func (_NSTextTabClass NSTextTabClass) ColumnTerminatorsForLocale(aLocale foundat
 	return foundation.NSCharacterSetFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The text tab’s ruler location relative to the back margin.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/location
@@ -319,8 +282,6 @@ func (t NSTextTab) Location() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("location"))
 	return rv
 }
-
-
 
 // The text alignment of the text tab.
 //
@@ -330,8 +291,6 @@ func (t NSTextTab) Alignment() NSTextAlignment {
 	return NSTextAlignment(rv)
 }
 
-
-
 // The dictionary of attributes for the text tab.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/options
@@ -339,8 +298,6 @@ func (t NSTextTab) Options() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("options"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The text tab’s type of tab stop.
 //
@@ -355,29 +312,4 @@ func (t NSTextTab) TabStopType() NSTextTabType {
 	rv := objc.Send[NSTextTabType](t.ID, objc.Sel("tabStopType"))
 	return NSTextTabType(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

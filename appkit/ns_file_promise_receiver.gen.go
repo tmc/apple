@@ -38,12 +38,6 @@ func (nc NSFilePromiseReceiverClass) Alloc() NSFilePromiseReceiver {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that receives a file promise from the pasteboard.
 //
 // # Overview
@@ -71,14 +65,10 @@ type NSFilePromiseReceiver struct {
 //
 // An object that receives a file promise from the pasteboard.
 func NSFilePromiseReceiverFromID(id objc.ID) NSFilePromiseReceiver {
-	return NSFilePromiseReceiver{objectivec.Object{id}}
+	return NSFilePromiseReceiver{objectivec.Object{ID: id}}
 }
 // NOTE: NSFilePromiseReceiver adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFilePromiseReceiver] class.
 //
@@ -111,10 +101,6 @@ type INSFilePromiseReceiver interface {
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSFilePromiseReceiver
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFilePromiseReceiver) Init() NSFilePromiseReceiver {
 	rv := objc.Send[NSFilePromiseReceiver](f.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewNSFilePromiseReceiver() NSFilePromiseReceiver {
 	rv := objc.Send[NSFilePromiseReceiver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an instance with a property list object and a type string.
 //
@@ -171,12 +152,6 @@ func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objecti
 	return NSFilePromiseReceiverFromID(rv)
 }
 
-
-
-
-
-
-
 // Fulfills the promises at the specified destination.
 //
 // destinationDir: The destination location URL of the file promise.
@@ -203,9 +178,9 @@ func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objecti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/receivePromisedFiles(atDestination:options:operationQueue:reader:)
 func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue, reader URLErrorHandler) {
-		_block3, _cleanup3 := NewURLErrorBlock(reader)
+_block3, _cleanup3 := NewURLErrorBlock(reader)
 	defer _cleanup3()
-		objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
+	objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
 }
 
 // Initializes an instance with a property list object and a type string.
@@ -238,10 +213,6 @@ func (f NSFilePromiseReceiver) InitWithPasteboardPropertyListOfType(propertyList
 	rv := objc.Send[NSFilePromiseReceiver](f.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
 }
-
-
-
-
 
 // Returns an array of uniform type identifier strings of data types the
 // receiver can read from the pasteboard and initialize from.
@@ -300,13 +271,6 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadingOptionsForT
 	return NSPasteboardReadingOptions(rv)
 }
 
-
-
-
-
-
-
-
 // An array containing names of the promised files being written to the
 // destination location.
 //
@@ -320,8 +284,6 @@ func (f NSFilePromiseReceiver) FileNames() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("fileNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // An array containing types of the promised files being written to the
 // destination location.
@@ -338,12 +300,6 @@ func (f NSFilePromiseReceiver) FileTypes() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("fileTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
 
 // An array containing dragged file types that are readable.
 //
@@ -363,20 +319,6 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableDraggedTyp
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync is a synchronous wrapper around [NSFilePromiseReceiver.ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
 // It blocks until the completion handler fires or the context is cancelled.
 func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue) (*foundation.NSURL, error) {
@@ -395,9 +337,4 @@ func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperation
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

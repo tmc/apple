@@ -38,12 +38,6 @@ func (nc NSCollectionViewLayoutClass) Alloc() NSCollectionViewLayout {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class that you subclass and use to generate layout
 // information for a collection view.
 //
@@ -308,14 +302,10 @@ type NSCollectionViewLayout struct {
 // An abstract base class that you subclass and use to generate layout
 // information for a collection view.
 func NSCollectionViewLayoutFromID(id objc.ID) NSCollectionViewLayout {
-	return NSCollectionViewLayout{objectivec.Object{id}}
+	return NSCollectionViewLayout{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionViewLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewLayout] class.
 //
@@ -479,10 +469,6 @@ type INSCollectionViewLayout interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewLayout) Init() NSCollectionViewLayout {
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("init"))
@@ -501,16 +487,6 @@ func NewNSCollectionViewLayout() NSCollectionViewLayout {
 	rv := objc.Send[NSCollectionViewLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
 
 // Prepares the layout object to begin laying out content.
 //
@@ -1510,17 +1486,6 @@ func (c NSCollectionViewLayout) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The collection view object currently using this layout.
 //
 // # Discussion
@@ -1533,8 +1498,6 @@ func (c NSCollectionViewLayout) CollectionView() INSCollectionView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView"))
 	return NSCollectionViewFromID(objc.ID(rv))
 }
-
-
 
 // The width and height of the collection view’s contents.
 //
@@ -1557,8 +1520,6 @@ func (c NSCollectionViewLayout) CollectionViewContentSize() corefoundation.CGSiz
 	return corefoundation.CGSize(rv)
 }
 
-
-
 // The layout object used to organize the collection view’s content.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/collectionviewlayout
@@ -1569,12 +1530,6 @@ func (c NSCollectionViewLayout) CollectionViewLayout() INSCollectionViewLayout {
 func (c NSCollectionViewLayout) SetCollectionViewLayout(value INSCollectionViewLayout) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCollectionViewLayout:"), value)
 }
-
-
-
-
-
-
 
 // Returns the class to use for layout attribute objects
 //
@@ -1597,8 +1552,6 @@ func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) LayoutAttributes
 	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("layoutAttributesClass"))
 	return rv
 }
-
-
 
 // Returns the class to use when creating an invalidation context object for
 // the layout.
@@ -1623,24 +1576,4 @@ func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) InvalidationCont
 	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("invalidationContextClass"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The optional methods that delegates of content manager objects implement for customizing or validating text elements.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSTextContentManagerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSTextContentManagerDelegateObject wraps an existing Objective-C object that conforms to the NSTextContentManagerDelegate protocol.
 type NSTextContentManagerDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSTextContentManagerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextContentManagerDelegateObjectFromID constructs a [NSTextContentManagerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextContentManagerDelegateObjectFromID(id objc.ID) NSTextContentManagerDelegateObject {
@@ -37,9 +31,6 @@ func NSTextContentManagerDelegateObjectFromID(id objc.ID) NSTextContentManagerDe
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method the framework calls to return the text element at a specific
 // location.
@@ -87,10 +78,6 @@ func (o NSTextContentManagerDelegateObject) TextContentManagerShouldEnumerateTex
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)
 	return rv
 	}
-
-
-
-
 
 // NSTextContentManagerDelegateConfig holds optional typed callbacks for [NSTextContentManagerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -153,8 +140,4 @@ func NewNSTextContentManagerDelegate(config NSTextContentManagerDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextContentManagerDelegateObjectFromID(instance)
 }
-
-
-
-
 

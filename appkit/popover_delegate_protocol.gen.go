@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods that a popover delegate can implement to provide additional or custom functionality.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSPopoverDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSPopoverDelegateObject wraps an existing Objective-C object that conforms to the NSPopoverDelegate protocol.
 type NSPopoverDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSPopoverDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPopoverDelegateObjectFromID constructs a [NSPopoverDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPopoverDelegateObjectFromID(id objc.ID) NSPopoverDelegateObject {
@@ -38,9 +32,6 @@ func NSPopoverDelegateObjectFromID(id objc.ID) NSPopoverDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Detaches the popover creating a window containing the content.
 //
@@ -232,10 +223,6 @@ func (o NSPopoverDelegateObject) PopoverShouldDetach(popover INSPopover) bool {
 	return rv
 	}
 
-
-
-
-
 // NSPopoverDelegateConfig holds optional typed callbacks for [NSPopoverDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -389,8 +376,4 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSPopoverDelegateObjectFromID(instance)
 }
-
-
-
-
 

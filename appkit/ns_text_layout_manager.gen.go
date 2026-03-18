@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"context"
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -38,12 +39,6 @@ func (nc NSTextLayoutManagerClass) Alloc() NSTextLayoutManager {
 	rv := objc.Send[NSTextLayoutManager](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // The primary class that you use to manage text layout and presentation for
 // custom text displays.
@@ -127,14 +122,10 @@ type NSTextLayoutManager struct {
 // The primary class that you use to manage text layout and presentation for
 // custom text displays.
 func NSTextLayoutManagerFromID(id objc.ID) NSTextLayoutManager {
-	return NSTextLayoutManager{objectivec.Object{id}}
+	return NSTextLayoutManager{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextLayoutManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextLayoutManager] class.
 //
@@ -298,10 +289,6 @@ type INSTextLayoutManager interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextLayoutManager) Init() NSTextLayoutManager {
 	rv := objc.Send[NSTextLayoutManager](t.ID, objc.Sel("init"))
@@ -321,11 +308,6 @@ func NewNSTextLayoutManager() NSTextLayoutManager {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new text layout manager with the coder you provide.
 //
 // coder: A coder that implements [NSCoder].
@@ -338,12 +320,6 @@ func NewTextLayoutManagerWithCoder(coder foundation.INSCoder) NSTextLayoutManage
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextLayoutManagerFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new text layout manager with the coder you provide.
 //
@@ -381,9 +357,9 @@ func (t NSTextLayoutManager) InitWithCoder(coder foundation.INSCoder) NSTextLayo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateTextSegments(in:type:options:using:)
 func (t NSTextLayoutManager) EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block CGRectTextContainerHandler) {
-		_block3, _cleanup3 := NewCGRectTextContainerBlock(block)
+_block3, _cleanup3 := NewCGRectTextContainerBlock(block)
 	defer _cleanup3()
-		objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextSegmentsInRange:type:options:usingBlock:"), textRange, type_, options, _block3)
+	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextSegmentsInRange:type:options:usingBlock:"), textRange, type_, options, _block3)
 }
 
 // Replaces the current text content manager with a new one you provide.
@@ -462,9 +438,9 @@ func (t NSTextLayoutManager) AddRenderingAttributeValueForTextRange(renderingAtt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateRenderingAttributes(from:reverse:using:)
 func (t NSTextLayoutManager) EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(block)
+_block2, _cleanup2 := NewVoidBlock(block)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("enumerateRenderingAttributesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("enumerateRenderingAttributesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
 }
 
 // Returns a dictionary of rendering attributes for rendering a link.
@@ -620,9 +596,9 @@ func (t NSTextLayoutManager) EnsureLayoutForRange(range_ INSTextRange) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateTextLayoutFragments(from:options:using:)
 func (t NSTextLayoutManager) EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions, block TextLayoutFragmentHandler) NSTextLocation {
-		_block2, _cleanup2 := NewTextLayoutFragmentBlock(block)
+_block2, _cleanup2 := NewTextLayoutFragmentBlock(block)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextLayoutFragmentsFromLocation:options:usingBlock:"), location, options, _block2)
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextLayoutFragmentsFromLocation:options:usingBlock:"), location, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }
 
@@ -659,7 +635,7 @@ func (t NSTextLayoutManager) BaseWritingDirectionAtLocation(location NSTextLocat
 // the left, and on the right for right-to-left characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
-func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block bool) {
+func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block unsafe.Pointer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, block)
 }
 
@@ -681,7 +657,7 @@ func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingB
 // this layout functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
-func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block bool) {
+func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block unsafe.Pointer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, block)
 }
 
@@ -700,7 +676,7 @@ func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsin
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateSubstrings(from:options:using:)
-func (t NSTextLayoutManager) EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block bool) {
+func (t NSTextLayoutManager) EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateSubstringsFromLocation:options:usingBlock:"), location, options, block)
 }
 
@@ -796,17 +772,6 @@ func (t NSTextLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The queue that the framework dispatches layout operations on.
 //
 // # Discussion
@@ -822,8 +787,6 @@ func (t NSTextLayoutManager) LayoutQueue() foundation.NSOperationQueue {
 func (t NSTextLayoutManager) SetLayoutQueue(value foundation.NSOperationQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutQueue:"), value)
 }
-
-
 
 // A callback block that the framework invokes whenever the text layout
 // manager needs to validate the rendering attributes for the range.
@@ -845,8 +808,6 @@ func (t NSTextLayoutManager) SetRenderingAttributesValidator(value TextLayoutMan
 	objc.Send[struct{}](t.ID, objc.Sel("setRenderingAttributesValidator:"), block)
 }
 
-
-
 // A Boolean value that controls whether the framework uses the leading
 // information specified by the font when laying out text.
 //
@@ -864,8 +825,6 @@ func (t NSTextLayoutManager) SetUsesFontLeading(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesFontLeading:"), value)
 }
 
-
-
 // A Boolean values that controls whether the text layout manager attempts to
 // hyphenate when wrapping lines.
 //
@@ -881,8 +840,6 @@ func (t NSTextLayoutManager) UsesHyphenation() bool {
 func (t NSTextLayoutManager) SetUsesHyphenation(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesHyphenation:"), value)
 }
-
-
 
 // A Boolean value that controls internal security analysis for malicious
 // inputs and activates defensive behaviors.
@@ -902,8 +859,6 @@ func (t NSTextLayoutManager) SetLimitsLayoutForSuspiciousContents(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLimitsLayoutForSuspiciousContents:"), value)
 }
 
-
-
 // The delegate for the text layout manager object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/delegate
@@ -915,8 +870,6 @@ func (t NSTextLayoutManager) SetDelegate(value NSTextLayoutManagerDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // Returns the text content manager associated with this text layout manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/textContentManager
@@ -924,8 +877,6 @@ func (t NSTextLayoutManager) TextContentManager() INSTextContentManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textContentManager"))
 	return NSTextContentManagerFromID(objc.ID(rv))
 }
-
-
 
 // The text container object that provides geometric information for the
 // layout destination.
@@ -939,8 +890,6 @@ func (t NSTextLayoutManager) SetTextContainer(value INSTextContainer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextContainer:"), value)
 }
 
-
-
 // Returns a text selection manager configured to have the text layout manager
 // as its data source.
 //
@@ -952,8 +901,6 @@ func (t NSTextLayoutManager) TextSelectionNavigation() INSTextSelectionNavigatio
 func (t NSTextLayoutManager) SetTextSelectionNavigation(value INSTextSelectionNavigation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextSelectionNavigation:"), value)
 }
-
-
 
 // An array of text selections associated by the text layout manager.
 //
@@ -974,8 +921,6 @@ func (t NSTextLayoutManager) SetTextSelections(value []NSTextSelection) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextSelections:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Returns the usage bounds for the text container.
 //
 // # Discussion
@@ -992,8 +937,6 @@ func (t NSTextLayoutManager) UsageBoundsForTextContainer() corefoundation.CGRect
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The text viewport layout controller associated with the layout manager’s
 // text container.
 //
@@ -1007,8 +950,6 @@ func (t NSTextLayoutManager) TextViewportLayoutController() INSTextViewportLayou
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textViewportLayoutController"))
 	return NSTextViewportLayoutControllerFromID(objc.ID(rv))
 }
-
-
 
 // Specifies the behavior for resolving `NSTextAlignment.Natural()` to the
 // visual alignment.
@@ -1028,8 +969,6 @@ func (t NSTextLayoutManager) SetResolvesNaturalAlignmentWithBaseWritingDirection
 	objc.Send[struct{}](t.ID, objc.Sel("setResolvesNaturalAlignmentWithBaseWritingDirection:"), value)
 }
 
-
-
 // Returns the starting and ending locations for the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
@@ -1037,12 +976,6 @@ func (t NSTextLayoutManager) DocumentRange() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("documentRange"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
-
-
-
-
-
-
 
 // Returns the default set of attributes for rendering a link.
 //
@@ -1061,26 +994,8 @@ func (_NSTextLayoutManagerClass NSTextLayoutManagerClass) LinkRenderingAttribute
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSTextSelectionDataSource
 			
-
-
-
-
-
-
-
 
 // EnumerateRenderingAttributesFromLocationReverseUsingBlockSync is a synchronous wrapper around [NSTextLayoutManager.EnumerateRenderingAttributesFromLocationReverseUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1111,9 +1026,4 @@ func (t NSTextLayoutManager) EnumerateTextLayoutFragmentsFromLocationOptionsUsin
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

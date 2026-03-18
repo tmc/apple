@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that provides the name of the promised file and writes the file to the destination directory when the file promise is fulfilled.
 //
@@ -29,8 +27,6 @@ type NSFilePromiseProviderDelegate interface {
 	FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.INSURL, completionHandler ErrorHandler)
 }
 
-
-
 // NSFilePromiseProviderDelegateObject wraps an existing Objective-C object that conforms to the NSFilePromiseProviderDelegate protocol.
 type NSFilePromiseProviderDelegateObject struct {
 	objectivec.Object
@@ -39,8 +35,6 @@ func (o NSFilePromiseProviderDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSFilePromiseProviderDelegateObjectFromID constructs a [NSFilePromiseProviderDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSFilePromiseProviderDelegateObjectFromID(id objc.ID) NSFilePromiseProviderDelegateObject {
@@ -48,9 +42,6 @@ func NSFilePromiseProviderDelegateObjectFromID(id objc.ID) NSFilePromiseProvider
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Provides the drag destination file’s name.
 //
@@ -115,10 +106,6 @@ func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvide
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("operationQueueForFilePromiseProvider:"), filePromiseProvider)
 	return foundation.NSOperationQueueFromID(rv)
 	}
-
-
-
-
 
 // NSFilePromiseProviderDelegateConfig holds optional typed callbacks for [NSFilePromiseProviderDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -195,8 +182,4 @@ func NewNSFilePromiseProviderDelegate(config NSFilePromiseProviderDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSFilePromiseProviderDelegateObjectFromID(instance)
 }
-
-
-
-
 

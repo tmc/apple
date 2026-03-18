@@ -37,12 +37,6 @@ func (nc NSDictionaryControllerClass) Alloc() NSDictionaryController {
 	return rv
 }
 
-
-
-
-
-
-
 // A bindings-compatible controller that manages the display and editing of a
 // dictionary of key-value pairs.
 //
@@ -146,10 +140,6 @@ func NSDictionaryControllerFromID(id objc.ID) NSDictionaryController {
 // NOTE: NSDictionaryController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSDictionaryController] class.
 //
 // # Localizing Key Names
@@ -206,12 +196,7 @@ type INSDictionaryController interface {
 
 	// A constant that identifies a content dictionary binding.
 	ContentDictionary() NSBindingName
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDictionaryController) Init() NSDictionaryController {
@@ -232,11 +217,6 @@ func NewNSDictionaryController() NSDictionaryController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewDictionaryControllerWithCoder(coder foundation.INSCoder) NSDictionaryController {
@@ -244,7 +224,6 @@ func NewDictionaryControllerWithCoder(coder foundation.INSCoder) NSDictionaryCon
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDictionaryControllerFromID(rv)
 }
-
 
 // Initializes and returns an [NSObjectController] object with the given
 // content.
@@ -263,26 +242,6 @@ func NewDictionaryControllerWithContent(content objectivec.IObject) NSDictionary
 	return NSDictionaryControllerFromID(rv)
 }
 
-
-
-
-
-
-func (d NSDictionaryController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The localized key names that are displayed by the receiver in place of the
 // key names.
 //
@@ -300,8 +259,6 @@ func (d NSDictionaryController) SetLocalizedKeyDictionary(value foundation.INSDi
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKeyDictionary:"), value)
 }
 
-
-
 // the strings file used to localize key names.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/localizedKeyTable
@@ -312,8 +269,6 @@ func (d NSDictionaryController) LocalizedKeyTable() string {
 func (d NSDictionaryController) SetLocalizedKeyTable(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKeyTable:"), objc.String(value))
 }
-
-
 
 // The key names that are represented by a key-value pair, even if they are
 // not present in the receiver’s content dictionary.
@@ -327,8 +282,6 @@ func (d NSDictionaryController) SetIncludedKeys(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludedKeys:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The key names that are never displayed in the user interface items bound to
 // the receiver.
 //
@@ -341,8 +294,6 @@ func (d NSDictionaryController) SetExcludedKeys(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setExcludedKeys:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The string used as the initial key name for a newly inserted item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/initialKey
@@ -353,8 +304,6 @@ func (d NSDictionaryController) InitialKey() string {
 func (d NSDictionaryController) SetInitialKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInitialKey:"), objc.String(value))
 }
-
-
 
 // The string used as the initial value for a newly inserted item.
 //
@@ -367,8 +316,6 @@ func (d NSDictionaryController) SetInitialValue(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInitialValue:"), value)
 }
 
-
-
 // A constant that identifies a content dictionary binding.
 //
 // See: https://developer.apple.com/documentation/appkit/nsbindingname/contentdictionary
@@ -376,31 +323,4 @@ func (d NSDictionaryController) ContentDictionary() NSBindingName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("NSContentDictionaryBinding"))
 	return NSBindingName(foundation.NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

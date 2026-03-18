@@ -37,12 +37,6 @@ func (nc NSStringDrawingContextClass) Alloc() NSStringDrawingContext {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages metrics for drawing attributed strings.
 //
 // # Overview
@@ -79,14 +73,10 @@ type NSStringDrawingContext struct {
 //
 // An object that manages metrics for drawing attributed strings.
 func NSStringDrawingContextFromID(id objc.ID) NSStringDrawingContext {
-	return NSStringDrawingContext{objectivec.Object{id}}
+	return NSStringDrawingContext{objectivec.Object{ID: id}}
 }
 // NOTE: NSStringDrawingContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSStringDrawingContext] class.
 //
@@ -118,10 +108,6 @@ type INSStringDrawingContext interface {
 	TotalBounds() corefoundation.CGRect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSStringDrawingContext) Init() NSStringDrawingContext {
 	rv := objc.Send[NSStringDrawingContext](s.ID, objc.Sel("init"))
@@ -140,26 +126,6 @@ func NewNSStringDrawingContext() NSStringDrawingContext {
 	rv := objc.Send[NSStringDrawingContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The scale factor that determines the smallest font size to use during
 // drawing.
@@ -184,8 +150,6 @@ func (s NSStringDrawingContext) SetMinimumScaleFactor(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumScaleFactor:"), value)
 }
 
-
-
 // The actual scale factor that the system applied to the font during drawing.
 //
 // # Discussion
@@ -199,8 +163,6 @@ func (s NSStringDrawingContext) ActualScaleFactor() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("actualScaleFactor"))
 	return rv
 }
-
-
 
 // The most recent bounding rectangle that the system used to draw the string.
 //
@@ -220,26 +182,4 @@ func (s NSStringDrawingContext) TotalBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("totalBounds"))
 	return corefoundation.CGRect(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

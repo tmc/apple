@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods you use to configure the toolbar and respond to changes.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSToolbarDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSToolbarDelegateObject wraps an existing Objective-C object that conforms to the NSToolbarDelegate protocol.
 type NSToolbarDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSToolbarDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSToolbarDelegateObjectFromID constructs a [NSToolbarDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSToolbarDelegateObjectFromID(id objc.ID) NSToolbarDelegateObject {
@@ -38,9 +32,6 @@ func NSToolbarDelegateObjectFromID(id objc.ID) NSToolbarDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate for the toolbar item associated with the specified
 // identifier.
@@ -256,10 +247,6 @@ func (o NSToolbarDelegateObject) ToolbarItemIdentifierCanBeInsertedAtIndex(toolb
 	return rv
 	}
 
-
-
-
-
 // NSToolbarDelegateConfig holds optional typed callbacks for [NSToolbarDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -378,8 +365,4 @@ func NewNSToolbarDelegate(config NSToolbarDelegateConfig) NSToolbarDelegateObjec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSToolbarDelegateObjectFromID(instance)
 }
-
-
-
-
 

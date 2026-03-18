@@ -36,12 +36,6 @@ func (nc NSStatusBarClass) Alloc() NSStatusBar {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages a collection of status items displayed within the
 // system-wide menu bar.
 //
@@ -77,14 +71,10 @@ type NSStatusBar struct {
 // An object that manages a collection of status items displayed within the
 // system-wide menu bar.
 func NSStatusBarFromID(id objc.ID) NSStatusBar {
-	return NSStatusBar{objectivec.Object{id}}
+	return NSStatusBar{objectivec.Object{ID: id}}
 }
 // NOTE: NSStatusBar adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSStatusBar] class.
 //
@@ -117,10 +107,6 @@ type INSStatusBar interface {
 	Thickness() float64
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSStatusBar) Init() NSStatusBar {
 	rv := objc.Send[NSStatusBar](s.ID, objc.Sel("init"))
@@ -139,15 +125,6 @@ func NewNSStatusBar() NSStatusBar {
 	rv := objc.Send[NSStatusBar](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a newly created status item that has been allotted a specified
 // space within the status bar.
@@ -188,17 +165,6 @@ func (s NSStatusBar) RemoveStatusItem(item INSStatusItem) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeStatusItem:"), item)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value indicating whether the status bar has a vertical
 // orientation.
 //
@@ -217,8 +183,6 @@ func (s NSStatusBar) Vertical() bool {
 	return rv
 }
 
-
-
 // The thickness of the status bar, in pixels.
 //
 // # Discussion
@@ -232,12 +196,6 @@ func (s NSStatusBar) Thickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("thickness"))
 	return rv
 }
-
-
-
-
-
-
 
 // Returns the system-wide status bar located in the menu bar.
 //
@@ -256,22 +214,4 @@ func (_NSStatusBarClass NSStatusBarClass) SystemStatusBar() NSStatusBar {
 	rv := objc.Send[objc.ID](objc.ID(_NSStatusBarClass.class), objc.Sel("systemStatusBar"))
 	return NSStatusBarFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

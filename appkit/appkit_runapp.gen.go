@@ -26,4 +26,3 @@ func RunApp(setupFn func(app NSApplication, delegate NSApplicationDelegateObject
 	app.Run()
 }
 
-

@@ -36,12 +36,6 @@ func (nc NSCollectionLayoutSectionClass) Alloc() NSCollectionLayoutSection {
 	return rv
 }
 
-
-
-
-
-
-
 // A container that combines a set of groups into distinct visual groupings.
 //
 // # Overview
@@ -101,14 +95,10 @@ type NSCollectionLayoutSection struct {
 //
 // A container that combines a set of groups into distinct visual groupings.
 func NSCollectionLayoutSectionFromID(id objc.ID) NSCollectionLayoutSection {
-	return NSCollectionLayoutSection{objectivec.Object{id}}
+	return NSCollectionLayoutSection{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutSection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutSection] class.
 //
@@ -182,10 +172,6 @@ type INSCollectionLayoutSection interface {
 	SetSupplementariesFollowContentInsets(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutSection) Init() NSCollectionLayoutSection {
 	rv := objc.Send[NSCollectionLayoutSection](c.ID, objc.Sel("init"))
@@ -205,11 +191,6 @@ func NewNSCollectionLayoutSection() NSCollectionLayoutSection {
 	return rv
 }
 
-
-
-
-
-
 // Creates a section containing the specified group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSection/init(group:)
@@ -217,23 +198,6 @@ func NewCollectionLayoutSectionWithGroup(group INSCollectionLayoutGroup) NSColle
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutSectionClass().class), objc.Sel("sectionWithGroup:"), group)
 	return NSCollectionLayoutSectionFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The section’s scrolling behavior in relation to the main layout axis.
 //
@@ -258,8 +222,6 @@ func (c NSCollectionLayoutSection) SetOrthogonalScrollingBehavior(value NSCollec
 	objc.Send[struct{}](c.ID, objc.Sel("setOrthogonalScrollingBehavior:"), value)
 }
 
-
-
 // The amount of space between the groups in the section.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSection/interGroupSpacing
@@ -271,8 +233,6 @@ func (c NSCollectionLayoutSection) SetInterGroupSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInterGroupSpacing:"), value)
 }
 
-
-
 // The amount of space between the content of the section and its boundaries.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSection/contentInsets
@@ -283,8 +243,6 @@ func (c NSCollectionLayoutSection) ContentInsets() NSDirectionalEdgeInsets {
 func (c NSCollectionLayoutSection) SetContentInsets(value NSDirectionalEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentInsets:"), value)
 }
-
-
 
 // An array of the supplementary items that are associated with the boundary
 // edges of the section, such as headers and footers.
@@ -300,8 +258,6 @@ func (c NSCollectionLayoutSection) SetBoundarySupplementaryItems(value []NSColle
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // An array of the decoration items that are anchored to the section, such as
 // background decoration views.
 //
@@ -316,8 +272,6 @@ func (c NSCollectionLayoutSection) SetDecorationItems(value []NSCollectionLayout
 	objc.Send[struct{}](c.ID, objc.Sel("setDecorationItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // A closure called before each layout cycle to allow modification of the
 // items in the section immediately before they’re displayed.
 //
@@ -329,8 +283,6 @@ func (c NSCollectionLayoutSection) VisibleItemsInvalidationHandler() NSCollectio
 func (c NSCollectionLayoutSection) SetVisibleItemsInvalidationHandler(value NSCollectionLayoutSectionVisibleItemsInvalidationHandler) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVisibleItemsInvalidationHandler:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the section’s supplementary items
 // follow the specified content insets for the section.
@@ -349,28 +301,4 @@ func (c NSCollectionLayoutSection) SupplementariesFollowContentInsets() bool {
 func (c NSCollectionLayoutSection) SetSupplementariesFollowContentInsets(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSupplementariesFollowContentInsets:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

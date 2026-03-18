@@ -37,12 +37,6 @@ func (nc NSItemBadgeClass) Alloc() NSItemBadge {
 	return rv
 }
 
-
-
-
-
-
-
 // [NSItemBadge] represents a badge that can be attached to an
 // [NSToolbarItem].
 //
@@ -67,14 +61,10 @@ type NSItemBadge struct {
 // [NSItemBadge] represents a badge that can be attached to an
 // [NSToolbarItem].
 func NSItemBadgeFromID(id objc.ID) NSItemBadge {
-	return NSItemBadge{objectivec.Object{id}}
+	return NSItemBadge{objectivec.Object{ID: id}}
 }
 // Ensure NSItemBadge implements INSItemBadge.
 var _ INSItemBadge = NSItemBadge{}
-
-
-
-
 
 // An interface definition for the [NSItemBadge] class.
 //
@@ -116,10 +106,6 @@ type INSItemBadge interface {
 	SetVisibilityPriority(value NSToolbarItemVisibilityPriority)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSItemBadge) Init() NSItemBadge {
 	rv := objc.Send[NSItemBadge](i.ID, objc.Sel("init"))
@@ -138,19 +124,6 @@ func NewNSItemBadge() NSItemBadge {
 	rv := objc.Send[NSItemBadge](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Creates a badge displaying a localized numerical count.
 //
@@ -193,13 +166,6 @@ func (_NSItemBadgeClass NSItemBadgeClass) IndicatorBadge() NSItemBadge {
 	return NSItemBadgeFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The text to be displayed within the badge.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSItemBadge-c.class/text
@@ -207,8 +173,6 @@ func (i NSItemBadge) Text() string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // A Boolean value that indicates whether the toolbar item has a bordered
 // style.
@@ -222,8 +186,6 @@ func (i NSItemBadge) SetIsBordered(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBordered:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the item is enabled.
 //
 // See: https://developer.apple.com/documentation/appkit/nstoolbaritem/isenabled
@@ -235,8 +197,6 @@ func (i NSItemBadge) SetIsEnabled(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setEnabled:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/appkit/nstoolbaritem/ishidden
 func (i NSItemBadge) IsHidden() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("hidden"))
@@ -245,8 +205,6 @@ func (i NSItemBadge) IsHidden() bool {
 func (i NSItemBadge) SetIsHidden(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setHidden:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the item behaves as a navigation
 // item in the toolbar.
@@ -260,8 +218,6 @@ func (i NSItemBadge) SetIsNavigational(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setNavigational:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the item is currently visible in the
 // toolbar, and not in the overflow menu.
 //
@@ -274,8 +230,6 @@ func (i NSItemBadge) SetIsVisible(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setVisible:"), value)
 }
 
-
-
 // Defines the toolbar item’s appearance. The default style is plain.
 //
 // See: https://developer.apple.com/documentation/appkit/nstoolbaritem/style-swift.property
@@ -286,8 +240,6 @@ func (i NSItemBadge) Style() NSToolbarItemStyle {
 func (i NSItemBadge) SetStyle(value NSToolbarItemStyle) {
 	objc.Send[struct{}](i.ID, objc.Sel("setStyle:"), value)
 }
-
-
 
 // An integer tag you can use to identify the toolbar item.
 //
@@ -300,8 +252,6 @@ func (i NSItemBadge) SetTag(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTag:"), value)
 }
 
-
-
 // The display priority associated with the toolbar item.
 //
 // See: https://developer.apple.com/documentation/appkit/nstoolbaritem/visibilitypriority-swift.property
@@ -312,20 +262,4 @@ func (i NSItemBadge) VisibilityPriority() NSToolbarItemVisibilityPriority {
 func (i NSItemBadge) SetVisibilityPriority(value NSToolbarItemVisibilityPriority) {
 	objc.Send[struct{}](i.ID, objc.Sel("setVisibilityPriority:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

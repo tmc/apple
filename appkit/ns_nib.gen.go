@@ -37,12 +37,6 @@ func (nc NSNibClass) Alloc() NSNib {
 	return rv
 }
 
-
-
-
-
-
-
 // An object wrapper, or container, for an Interface Builder nib file.
 //
 // # Overview
@@ -115,14 +109,10 @@ type NSNib struct {
 //
 // An object wrapper, or container, for an Interface Builder nib file.
 func NSNibFromID(id objc.ID) NSNib {
-	return NSNib{objectivec.Object{id}}
+	return NSNib{objectivec.Object{ID: id}}
 }
 // NOTE: NSNib adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSNib] class.
 //
@@ -154,10 +144,6 @@ type INSNib interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NSNib) Init() NSNib {
 	rv := objc.Send[NSNib](n.ID, objc.Sel("init"))
@@ -176,11 +162,6 @@ func NewNSNib() NSNib {
 	rv := objc.Send[NSNib](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an instance with nib data and specified bundle for locating
 // resources.
@@ -201,7 +182,6 @@ func NewNibWithNibDataBundle(nibData foundation.INSData, bundle foundation.NSBun
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibData:bundle:"), nibData, bundle)
 	return NSNibFromID(rv)
 }
-
 
 // Returns an [NSNib] object initialized to the nib file in the specified
 // bundle.
@@ -236,12 +216,6 @@ func NewNibWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBundle) NSN
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibNamed:bundle:"), objc.String(string(nibName)), bundle)
 	return NSNibFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSNib] object initialized to the nib file in the specified
 // bundle.
@@ -325,36 +299,4 @@ func (n NSNib) InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, top
 func (n NSNib) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

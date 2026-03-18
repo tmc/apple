@@ -38,12 +38,6 @@ func (nc NSDockTileClass) Alloc() NSDockTile {
 	return rv
 }
 
-
-
-
-
-
-
 // The visual representation of your app’s miniaturized windows and app icon
 // as they appear in the Dock.
 //
@@ -113,14 +107,10 @@ type NSDockTile struct {
 // The visual representation of your app’s miniaturized windows and app icon
 // as they appear in the Dock.
 func NSDockTileFromID(id objc.ID) NSDockTile {
-	return NSDockTile{objectivec.Object{id}}
+	return NSDockTile{objectivec.Object{ID: id}}
 }
 // NOTE: NSDockTile adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDockTile] class.
 //
@@ -184,10 +174,6 @@ type INSDockTile interface {
 	SetDockTile(value INSDockTile)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDockTile) Init() NSDockTile {
 	rv := objc.Send[NSDockTile](d.ID, objc.Sel("init"))
@@ -206,15 +192,6 @@ func NewNSDockTile() NSDockTile {
 	rv := objc.Send[NSDockTile](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Redraws the dock tile’s content.
 //
@@ -240,17 +217,6 @@ func (d NSDockTile) Display() {
 	objc.Send[objc.ID](d.ID, objc.Sel("display"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The view to use for drawing the dock tile contents.
 //
 // # Discussion
@@ -273,8 +239,6 @@ func (d NSDockTile) SetContentView(value INSView) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContentView:"), value)
 }
 
-
-
 // The size of the tile.
 //
 // # Discussion
@@ -288,8 +252,6 @@ func (d NSDockTile) Size() corefoundation.CGSize {
 	return corefoundation.CGSize(rv)
 }
 
-
-
 // The object represented by the dock tile.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTile/owner
@@ -297,8 +259,6 @@ func (d NSDockTile) Owner() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("owner"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // A Boolean showing whether the tile is badged with the application’s icon
 //
@@ -321,8 +281,6 @@ func (d NSDockTile) SetShowsApplicationBadge(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShowsApplicationBadge:"), value)
 }
 
-
-
 // The string to be displayed in the tile’s badging area.
 //
 // # Discussion
@@ -338,8 +296,6 @@ func (d NSDockTile) SetBadgeLabel(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBadgeLabel:"), objc.String(value))
 }
 
-
-
 // The image used for the app’s icon.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/applicationiconimage
@@ -351,8 +307,6 @@ func (d NSDockTile) SetApplicationIconImage(value INSImage) {
 	objc.Send[struct{}](d.ID, objc.Sel("setApplicationIconImage:"), value)
 }
 
-
-
 // The application’s Dock tile.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/docktile
@@ -363,26 +317,4 @@ func (d NSDockTile) DockTile() INSDockTile {
 func (d NSDockTile) SetDockTile(value INSDockTile) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDockTile:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

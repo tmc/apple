@@ -38,12 +38,6 @@ func (mc MLModelStructureClass) Alloc() MLModelStructure {
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing the structure of a model.
 //
 // # Overview
@@ -63,14 +57,10 @@ type MLModelStructure struct {
 //
 // A class representing the structure of a model.
 func MLModelStructureFromID(id objc.ID) MLModelStructure {
-	return MLModelStructure{objectivec.Object{id}}
+	return MLModelStructure{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructure implements IMLModelStructure.
 var _ IMLModelStructure = MLModelStructure{}
-
-
-
-
 
 // An interface definition for the [MLModelStructure] class.
 //
@@ -94,10 +84,6 @@ type IMLModelStructure interface {
 	Program() IMLModelStructureProgram
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructure) Init() MLModelStructure {
 	rv := objc.Send[MLModelStructure](m.ID, objc.Sel("init"))
@@ -117,19 +103,6 @@ func NewMLModelStructure() MLModelStructure {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Construct the model structure asynchronously given the location of its
 // on-disk representation.
 //
@@ -141,9 +114,9 @@ func NewMLModelStructure() MLModelStructure {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadContentsOfURL:completionHandler:
 func (_MLModelStructureClass MLModelStructureClass) LoadContentsOfURLCompletionHandler(url foundation.INSURL, handler MLModelStructureErrorHandler) {
-		_block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
+_block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadContentsOfURL:completionHandler:"), url, _block1)
+	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadContentsOfURL:completionHandler:"), url, _block1)
 }
 
 // Construct the model structure asynchronously given the model asset.
@@ -156,17 +129,10 @@ func (_MLModelStructureClass MLModelStructureClass) LoadContentsOfURLCompletionH
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadModelAsset:completionHandler:
 func (_MLModelStructureClass MLModelStructureClass) LoadModelAssetCompletionHandler(asset IMLModelAsset, handler MLModelStructureErrorHandler) {
-		_block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
+_block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadModelAsset:completionHandler:"), asset, _block1)
+	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadModelAsset:completionHandler:"), asset, _block1)
 }
-
-
-
-
-
-
-
 
 // If the model is of NeuralNetwork type then it is the structure of the
 // NeuralNetwork otherwise `nil`.
@@ -177,8 +143,6 @@ func (m MLModelStructure) NeuralNetwork() IMLModelStructureNeuralNetwork {
 	return MLModelStructureNeuralNetworkFromID(objc.ID(rv))
 }
 
-
-
 // If the model is of Pipeline type then it is the structure of the Pipeline
 // otherwise `nil`.
 //
@@ -188,8 +152,6 @@ func (m MLModelStructure) Pipeline() IMLModelStructurePipeline {
 	return MLModelStructurePipelineFromID(objc.ID(rv))
 }
 
-
-
 // If the model is of ML Program type then it is the structure of the ML
 // Program otherwise `nil`.
 //
@@ -198,17 +160,6 @@ func (m MLModelStructure) Program() IMLModelStructureProgram {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("program"))
 	return MLModelStructureProgramFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // LoadContentsOfURL is a synchronous wrapper around [MLModelStructure.LoadContentsOfURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -247,9 +198,4 @@ func (mc MLModelStructureClass) LoadModelAsset(ctx context.Context, asset IMLMod
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

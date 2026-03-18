@@ -36,12 +36,6 @@ func (mc MLNeuralEngineComputeDeviceClass) Alloc() MLNeuralEngineComputeDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a Neural Engine compute device.
 //
 // # Getting the Total Core Count
@@ -57,14 +51,10 @@ type MLNeuralEngineComputeDevice struct {
 //
 // An object that represents a Neural Engine compute device.
 func MLNeuralEngineComputeDeviceFromID(id objc.ID) MLNeuralEngineComputeDevice {
-	return MLNeuralEngineComputeDevice{objectivec.Object{id}}
+	return MLNeuralEngineComputeDevice{objectivec.Object{ID: id}}
 }
 // NOTE: MLNeuralEngineComputeDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLNeuralEngineComputeDevice] class.
 //
@@ -82,10 +72,6 @@ type IMLNeuralEngineComputeDevice interface {
 	// The total number of cores in the Neural Engine.
 	TotalCoreCount() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n MLNeuralEngineComputeDevice) Init() MLNeuralEngineComputeDevice {
@@ -106,26 +92,6 @@ func NewMLNeuralEngineComputeDevice() MLNeuralEngineComputeDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The total number of cores in the Neural Engine.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNeuralEngineComputeDevice/totalCoreCount
@@ -134,33 +100,6 @@ func (n MLNeuralEngineComputeDevice) TotalCoreCount() int {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MLComputeDeviceProtocol
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

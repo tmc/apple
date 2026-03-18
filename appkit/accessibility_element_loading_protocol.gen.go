@@ -20,8 +20,6 @@ type NSAccessibilityElementLoading interface {
 	AccessibilityElementWithToken(token NSAccessibilityLoadingToken) NSAccessibilityElement
 }
 
-
-
 // NSAccessibilityElementLoadingObject wraps an existing Objective-C object that conforms to the NSAccessibilityElementLoading protocol.
 type NSAccessibilityElementLoadingObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o NSAccessibilityElementLoadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityElementLoadingObjectFromID constructs a [NSAccessibilityElementLoadingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityElementLoadingObjectFromID(id objc.ID) NSAccessibilityElementLoadingObject {
@@ -39,9 +35,6 @@ func NSAccessibilityElementLoadingObjectFromID(id objc.ID) NSAccessibilityElemen
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Loads the target accessibility element with the specified load token.
 //
@@ -63,10 +56,4 @@ func (o NSAccessibilityElementLoadingObject) AccessibilityRangeInTargetElementWi
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeInTargetElementWithToken:"), token)
 	return rv
 	}
-
-
-
-
-
-
 

@@ -29,8 +29,6 @@ type NSEditor interface {
 	DiscardEditing()
 }
 
-
-
 // NSEditorObject wraps an existing Objective-C object that conforms to the NSEditor protocol.
 type NSEditorObject struct {
 	objectivec.Object
@@ -39,8 +37,6 @@ func (o NSEditorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSEditorObjectFromID constructs a [NSEditorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSEditorObjectFromID(id objc.ID) NSEditorObject {
@@ -48,9 +44,6 @@ func NSEditorObjectFromID(id objc.ID) NSEditorObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditing()
 
@@ -86,10 +79,4 @@ func (o NSEditorObject) DiscardEditing() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("discardEditing"))
 	}
-
-
-
-
-
-
 

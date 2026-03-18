@@ -24,8 +24,6 @@ type NSViewControllerPresentationAnimator interface {
 	AnimateDismissalOfViewControllerFromViewController(viewController INSViewController, fromViewController INSViewController)
 }
 
-
-
 // NSViewControllerPresentationAnimatorObject wraps an existing Objective-C object that conforms to the NSViewControllerPresentationAnimator protocol.
 type NSViewControllerPresentationAnimatorObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSViewControllerPresentationAnimatorObject) BaseObject() objectivec.Obje
 	return o.Object
 }
 
-
-
 // NSViewControllerPresentationAnimatorObjectFromID constructs a [NSViewControllerPresentationAnimatorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSViewControllerPresentationAnimatorObjectFromID(id objc.ID) NSViewControllerPresentationAnimatorObject {
@@ -43,9 +39,6 @@ func NSViewControllerPresentationAnimatorObjectFromID(id objc.ID) NSViewControll
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Called when the specified view controller is about to be presented.
 //
@@ -85,10 +78,4 @@ func (o NSViewControllerPresentationAnimatorObject) AnimateDismissalOfViewContro
 	
 	objc.Send[struct{}](o.ID, objc.Sel("animateDismissalOfViewController:fromViewController:"), viewController, fromViewController)
 	}
-
-
-
-
-
-
 

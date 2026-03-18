@@ -36,12 +36,6 @@ func (nc NSTokenFieldCellClass) Alloc() NSTokenFieldCell {
 	return rv
 }
 
-
-
-
-
-
-
 // A text field cell subclass that enables tokenized editing of an array of
 // objects.
 //
@@ -87,10 +81,6 @@ func NSTokenFieldCellFromID(id objc.ID) NSTokenFieldCell {
 }
 // NOTE: NSTokenFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTokenFieldCell] class.
 //
@@ -141,13 +131,7 @@ type INSTokenFieldCell interface {
 	// The receiver’s delegate.
 	Delegate() NSTokenFieldCellDelegate
 	SetDelegate(value NSTokenFieldCellDelegate)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTokenFieldCell) Init() NSTokenFieldCell {
@@ -167,11 +151,6 @@ func NewNSTokenFieldCell() NSTokenFieldCell {
 	rv := objc.Send[NSTokenFieldCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -195,7 +174,6 @@ func NewTokenFieldCellImageCell(image INSImage) NSTokenFieldCell {
 	return NSTokenFieldCellFromID(rv)
 }
 
-
 // Initializes a text field cell that displays the specified string.
 //
 // string: The string that the text field cell displays.
@@ -211,7 +189,6 @@ func NewTokenFieldCellTextCell(string_ string) NSTokenFieldCell {
 	return NSTokenFieldCellFromID(rv)
 }
 
-
 // Initializes a text field cell from data in the provided unarchiver.
 //
 // coder: An unarchiver object.
@@ -226,26 +203,6 @@ func NewTokenFieldCellWithCoder(coder foundation.INSCoder) NSTokenFieldCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTokenFieldCellFromID(rv)
 }
-
-
-
-
-
-
-func (t NSTokenFieldCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The token style of the receiver.
 //
@@ -264,8 +221,6 @@ func (t NSTokenFieldCell) SetTokenStyle(value NSTokenStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenStyle:"), value)
 }
 
-
-
 // The receiver’s tokenizing character set to a given character set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/tokenizingCharacterSet
@@ -276,8 +231,6 @@ func (t NSTokenFieldCell) TokenizingCharacterSet() foundation.NSCharacterSet {
 func (t NSTokenFieldCell) SetTokenizingCharacterSet(value foundation.NSCharacterSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenizingCharacterSet:"), value)
 }
-
-
 
 // The receiver’s completion delay to a given delay.
 //
@@ -290,8 +243,6 @@ func (t NSTokenFieldCell) SetCompletionDelay(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompletionDelay:"), value)
 }
 
-
-
 // The receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCell/delegate
@@ -302,12 +253,6 @@ func (t NSTokenFieldCell) Delegate() NSTokenFieldCellDelegate {
 func (t NSTokenFieldCell) SetDelegate(value NSTokenFieldCellDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
 
 // Returns the default tokenizing character set.
 //
@@ -326,8 +271,6 @@ func (_NSTokenFieldCellClass NSTokenFieldCellClass) DefaultTokenizingCharacterSe
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // Returns the default completion delay.
 //
 // # Return Value
@@ -343,29 +286,4 @@ func (_NSTokenFieldCellClass NSTokenFieldCellClass) DefaultCompletionDelay() flo
 	rv := objc.Send[float64](objc.ID(_NSTokenFieldCellClass.class), objc.Sel("defaultCompletionDelay"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

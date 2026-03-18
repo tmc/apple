@@ -9,49 +9,6 @@ import (
 	"github.com/tmc/apple/foundation"
 )
 
-const (
-
-	AlertFirstButtonReturn NSModalResponse = 1000
-
-	AlertSecondButtonReturn NSModalResponse = 1001
-
-	AlertThirdButtonReturn NSModalResponse = 1002
-
-	EventDurationForever float64 = 1.7976931348623157
-
-	FloatingWindowLevel NSWindowLevel = 3
-
-	MainMenuWindowLevel NSWindowLevel = 24
-
-	ModalPanelWindowLevel NSWindowLevel = 8
-
-	NormalWindowLevel NSWindowLevel = 0
-
-	PopUpMenuWindowLevel NSWindowLevel = 101
-
-	ScreenSaverWindowLevel NSWindowLevel = 1000
-
-	SearchFieldClearRecentsMenuItemTag int = 1002
-
-	SearchFieldNoRecentsMenuItemTag int = 1003
-
-	SearchFieldRecentsMenuItemTag int = 1001
-
-	SearchFieldRecentsTitleMenuItemTag int = 1000
-
-	SquareStatusItemLength float64 = -2.0
-
-	StackViewSpacingUseDefault float64 = 3.40282347
-
-	StatusWindowLevel NSWindowLevel = 25
-
-	SubmenuWindowLevel NSWindowLevel = 3
-
-	TornOffMenuWindowLevel NSWindowLevel = 3
-
-	VariableStatusItemLength float64 = -1.0
-)
-
 var AbortModalException foundation.NSExceptionName
 
 var AbortPrintingException foundation.NSExceptionName
@@ -814,9 +771,6 @@ var AccessibilityZoomButtonSubrole NSAccessibilitySubrole
 
 var AdaptiveImageGlyphAttributeName foundation.NSAttributedStringKey
 
-
-
-
 var AlignmentBinding string
 
 var AllRomanInputSourcesLocaleIdentifier string
@@ -849,102 +803,11 @@ var App NSApplication
 
 var AppKitIgnoredException foundation.NSExceptionName
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var AppKitVersionNumber NSAppKitVersion
 
 var AppKitVirtualMemoryException foundation.NSExceptionName
 
 var AppearanceDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-
-
-
-
-
-
-
 
 var ApplicationDidBecomeActiveNotification foundation.NSNotificationName
 
@@ -1094,9 +957,6 @@ var ContextHelpModeDidDeactivateNotification foundation.NSNotificationName
 
 var ContinuouslyUpdatesValueBindingOption NSBindingOption
 
-
-
-
 var ControlTextDidBeginEditingNotification foundation.NSNotificationName
 
 var ControlTextDidChangeNotification foundation.NSNotificationName
@@ -1183,7 +1043,6 @@ var EditorDocumentAttribute NSAttributedStringDocumentAttributeKey
 
 var EnabledBinding string
 
-
 var EventTrackingRunLoopMode foundation.NSRunLoopMode
 
 var ExcludedElementsDocumentAttribute NSAttributedStringDocumentAttributeKey
@@ -1205,7 +1064,6 @@ var FindPanelCaseInsensitiveSearch NSPasteboardTypeFindPanelSearchOptionKey
 var FindPanelSearchOptionsPboardType NSPasteboardType
 
 var FindPanelSubstringMatch NSPasteboardTypeFindPanelSearchOptionKey
-
 
 var FontAttributeName foundation.NSAttributedStringKey
 
@@ -1247,10 +1105,6 @@ var FontCollectionWasRenamed NSFontCollectionActionTypeKey
 
 var FontCollectionWasShown NSFontCollectionActionTypeKey
 
-
-
-
-
 var FontFaceAttribute NSFontDescriptorAttributeName
 
 var FontFamilyAttribute NSFontDescriptorAttributeName
@@ -1285,17 +1139,6 @@ var FontSlantTrait NSFontDescriptorTraitKey
 
 var FontSymbolicTrait NSFontDescriptorTraitKey
 
-
-
-
-
-
-
-
-
-
-
-
 var FontTraitsAttribute NSFontDescriptorAttributeName
 
 var FontUnavailableException foundation.NSExceptionName
@@ -1314,26 +1157,11 @@ var FontVariationAxisNameKey NSFontDescriptorVariationKey
 
 var FontVisibleNameAttribute NSFontDescriptorAttributeName
 
-
-
-
-
-
-
-
-
 var FontWeightTrait NSFontDescriptorTraitKey
-
-
-
-
-
 
 var FontWidthTrait NSFontDescriptorTraitKey
 
 var ForegroundColorAttributeName foundation.NSAttributedStringKey
-
-var NSGestureRecognizerStateRecognized NSGestureRecognizer
 
 var GlyphInfoAttributeName foundation.NSAttributedStringKey
 
@@ -1395,82 +1223,6 @@ var ImageInterlaced NSBitmapImageRepPropertyKey
 
 var ImageLoopCount NSBitmapImageRepPropertyKey
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var ImageProgressive NSBitmapImageRepPropertyKey
 
 var ImageRGBColorTable NSBitmapImageRepPropertyKey
@@ -1495,13 +1247,6 @@ var KeywordsDocumentAttribute NSAttributedStringDocumentAttributeKey
 
 var LabelBinding string
 
-
-
-
-
-
-
-
 var LeftMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
 
 var LigatureAttributeName foundation.NSAttributedStringKey
@@ -1513,7 +1258,6 @@ var LinkAttributeName foundation.NSAttributedStringKey
 var LocalizedKeyDictionaryBinding string
 
 var MacSimpleTextDocumentType NSAttributedStringDocumentType
-
 
 var ManagedObjectContextBinding string
 
@@ -1551,12 +1295,6 @@ var MixedStateImageBinding string
 
 var ModalPanelRunLoopMode foundation.NSRunLoopMode
 
-
-
-
-
-
-
 var ModificationTimeDocumentAttribute NSAttributedStringDocumentAttributeKey
 
 var MultipleValuesPlaceholderBindingOption NSBindingOption
@@ -1566,7 +1304,6 @@ var NamedColorSpace NSColorSpaceName
 var NibLoadingException foundation.NSExceptionName
 
 var NoSelectionPlaceholderBindingOption NSBindingOption
-
 
 var NotApplicablePlaceholderBindingOption NSBindingOption
 
@@ -1616,41 +1353,7 @@ var ParagraphStyleAttributeName foundation.NSAttributedStringKey
 
 var PasteboardCommunicationException foundation.NSExceptionName
 
-
-
-
-
-
-
-
-
-
-
-
 var PasteboardMetadataTypeContentType NSPasteboardMetadataType
-
-
-
-
-
-
-var PasteboardTypeCollaborationMetadata NSPasteboard
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var PasteboardURLReadingContentsConformToTypesKey NSPasteboardReadingOptionKey
 
@@ -1663,7 +1366,6 @@ var PlainTextDocumentType NSAttributedStringDocumentType
 var PopUpButtonCellWillPopUpNotification foundation.NSNotificationName
 
 var PopUpButtonWillPopUpNotification foundation.NSNotificationName
-
 
 var PopoverCloseReasonDetachToWindow NSPopoverCloseReasonValue
 
@@ -1817,7 +1519,6 @@ var RulerViewUnitPoints NSRulerViewUnitName
 
 var ScreenColorSpaceDidChangeNotification foundation.NSNotificationName
 
-
 var ScrollViewDidEndLiveMagnifyNotification foundation.NSNotificationName
 
 var ScrollViewDidEndLiveScrollNotification foundation.NSNotificationName
@@ -1827,10 +1528,6 @@ var ScrollViewDidLiveScrollNotification foundation.NSNotificationName
 var ScrollViewWillStartLiveMagnifyNotification foundation.NSNotificationName
 
 var ScrollViewWillStartLiveScrollNotification foundation.NSNotificationName
-
-
-
-
 
 var SelectedIdentifierBinding string
 
@@ -1857,16 +1554,6 @@ var SelectorNameBindingOption NSBindingOption
 var SelectsAllWhenSettingContentBindingOption NSBindingOption
 
 var ShadowAttributeName foundation.NSAttributedStringKey
-
-
-
-
-
-
-
-
-
-
 
 var SortDescriptorsBinding string
 
@@ -1911,10 +1598,6 @@ var SpeechErrorOldestCode NSSpeechErrorKey
 var SpeechErrorsProperty NSSpeechPropertyKey
 
 var SpeechInputModeProperty NSSpeechPropertyKey
-
-
-
-
 
 var SpeechNumberModeProperty NSSpeechPropertyKey
 
@@ -1986,12 +1669,6 @@ var SplitViewItemUnspecifiedDimension float64
 
 var SplitViewWillResizeSubviewsNotification foundation.NSNotificationName
 
-
-
-
-
-
-
 var StrikethroughColorAttributeName foundation.NSAttributedStringKey
 
 var StrikethroughStyleAttributeName foundation.NSAttributedStringKey
@@ -2001,7 +1678,6 @@ var StrokeColorAttributeName foundation.NSAttributedStringKey
 var StrokeWidthAttributeName foundation.NSAttributedStringKey
 
 var SubjectDocumentAttribute NSAttributedStringDocumentAttributeKey
-
 
 var SuperscriptAttributeName foundation.NSAttributedStringKey
 
@@ -2055,49 +1731,6 @@ var TextColorBinding string
 
 var TextContentStorageUnsupportedAttributeAddedNotification foundation.NSNotificationName
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var TextDidBeginEditingNotification foundation.NSNotificationName
 
 var TextDidChangeNotification foundation.NSNotificationName
@@ -2117,12 +1750,6 @@ var TextFinderCaseInsensitiveKey NSPasteboardTypeTextFinderOptionKey
 var TextFinderMatchingTypeKey NSPasteboardTypeTextFinderOptionKey
 
 var TextHighlightColorSchemeAttributeName foundation.NSAttributedStringKey
-
-
-
-
-
-
 
 var TextHighlightStyleAttributeName foundation.NSAttributedStringKey
 
@@ -2220,10 +1847,6 @@ var ToolbarInspectorTrackingSeparatorItemIdentifier NSToolbarItemIdentifier
 
 var ToolbarItemKey NSToolbarUserInfoKey
 
-
-
-
-
 var ToolbarNewIndexKey NSToolbarUserInfoKey
 
 var ToolbarPrintItemIdentifier NSToolbarItemIdentifier
@@ -2244,21 +1867,6 @@ var ToolbarWillAddItemNotification foundation.NSNotificationName
 
 var TopMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var TrackingAttributeName foundation.NSAttributedStringKey
 
 var TransparentBinding string
@@ -2273,19 +1881,7 @@ var TypeIdentifierTransitInformationText string
 
 var TypedStreamVersionException foundation.NSExceptionName
 
-var UnderlineByWord NSUnderlineStyle
-
 var UnderlineColorAttributeName foundation.NSAttributedStringKey
-
-var UnderlinePatternDash NSUnderlineStyle
-
-var UnderlinePatternDashDot NSUnderlineStyle
-
-var UnderlinePatternDashDotDot NSUnderlineStyle
-
-var UnderlinePatternDot NSUnderlineStyle
-
-var UnderlinePatternSolid NSUnderlineStyle
 
 var UnderlineStyleAttributeName foundation.NSAttributedStringKey
 
@@ -2302,7 +1898,6 @@ var ValueTransformerBindingOption NSBindingOption
 var ValueTransformerNameBindingOption NSBindingOption
 
 var ValueURLBinding string
-
 
 var VerticalGlyphFormAttributeName foundation.NSAttributedStringKey
 
@@ -2519,9 +2114,8 @@ func init() {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAbortModalException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2531,7 +2125,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAbortPrintingException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2541,7 +2135,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityActivationPointAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2551,7 +2145,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAlternateUIVisibleAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2561,7 +2155,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnotationElement"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2571,7 +2165,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnotationLabel"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2581,7 +2175,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnotationLocation"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2591,7 +2185,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnotationTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2601,7 +2195,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnouncementKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2611,7 +2205,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnnouncementRequestedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2621,7 +2215,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAnyTypeSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2631,7 +2225,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityApplicationActivatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2641,7 +2235,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityApplicationDeactivatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2651,7 +2245,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityApplicationHiddenNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2661,7 +2255,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityApplicationRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2671,7 +2265,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityApplicationShownNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2681,7 +2275,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityArticleSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2691,7 +2285,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAttributedStringForRangeParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2701,7 +2295,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAutoInteractableAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2711,7 +2305,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAutocorrectedTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2721,7 +2315,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityAutocorrectionOccurredNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2731,7 +2325,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBackgroundColorTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2741,7 +2335,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBlockQuoteLevelAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2751,7 +2345,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBlockquoteSameLevelSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2761,7 +2355,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBlockquoteSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2771,7 +2365,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBoldFontSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2781,7 +2375,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBoundsForRangeParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2791,7 +2385,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBrowserRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2801,7 +2395,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityBusyIndicatorRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2811,7 +2405,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityButtonRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2821,7 +2415,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityButtonSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2831,7 +2425,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCancelAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2841,7 +2435,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCancelButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2851,7 +2445,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCellRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2861,7 +2455,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCenterTabStopMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2871,7 +2465,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCentimetersUnitValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2881,7 +2475,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCheckBoxRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2891,7 +2485,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCheckBoxSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2901,7 +2495,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityChildrenInNavigationOrderAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2911,7 +2505,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCloseButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2921,7 +2515,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCollectionListSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2931,7 +2525,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityColorWellRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2941,7 +2535,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityColumnHeaderUIElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2951,7 +2545,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityColumnIndexRangeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2961,7 +2555,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityColumnRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2971,7 +2565,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityColumnTitlesAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2981,7 +2575,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityColumnsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -2991,7 +2585,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityComboBoxRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3001,7 +2595,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityContainsProtectedContentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3011,7 +2605,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityContentListSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3021,7 +2615,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityContentsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3031,7 +2625,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityControlSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3041,7 +2635,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCreatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3051,7 +2645,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCriticalValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3061,7 +2655,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityCustomTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3071,7 +2665,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDateTimeAreaRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3081,7 +2675,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDateTimeComponentsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3091,7 +2685,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDecimalTabStopMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3101,7 +2695,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDecrementAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3111,7 +2705,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDecrementArrowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3121,7 +2715,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDecrementButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3131,7 +2725,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDecrementPageSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3141,7 +2735,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDefaultButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3151,7 +2745,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDefinitionListSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3161,7 +2755,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDeleteAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3171,7 +2765,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDescendingSortDirectionValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3181,7 +2775,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3191,7 +2785,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDescriptionListSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3201,7 +2795,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDialogSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3211,7 +2805,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDifferentTypeSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3221,7 +2815,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDisclosedRowsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3231,7 +2825,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDisclosingAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3241,7 +2835,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDisclosureLevelAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3251,7 +2845,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDisclosureTriangleRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3261,7 +2855,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3271,7 +2865,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDraggingDestinationDragAcceptedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3281,7 +2875,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDraggingDestinationDragNotAcceptedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3291,7 +2885,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDraggingDestinationDropAllowedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3301,7 +2895,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDraggingDestinationDropNotAllowedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3311,7 +2905,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDraggingSourceDragBeganNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3321,7 +2915,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDraggingSourceDragEndedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3331,7 +2925,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDrawerCreatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3341,7 +2935,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityDrawerRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3351,7 +2945,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityEditedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3361,7 +2955,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityEmbeddedImageDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3371,7 +2965,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityEnabledAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3381,7 +2975,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityErrorCodeExceptionInfo"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3391,7 +2985,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityExpandedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3401,7 +2995,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityExtrasMenuBarAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3411,7 +3005,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFilenameAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3421,7 +3015,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFirstLineIndentMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3431,7 +3025,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFloatingWindowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3441,7 +3035,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFocusedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3451,7 +3045,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFocusedUIElementChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3461,7 +3055,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFocusedWindowAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3471,7 +3065,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFocusedWindowChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3481,7 +3075,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontBoldAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3491,7 +3085,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontChangeSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3501,7 +3095,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontColorChangeSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3511,7 +3105,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontFamilyKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3521,7 +3115,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontItalicAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3531,7 +3125,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3541,7 +3135,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontSizeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3551,7 +3145,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFontTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3561,7 +3155,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityForegroundColorTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3571,7 +3165,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFrameSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3581,7 +3175,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFrontmostAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3591,7 +3185,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFullScreenButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3601,7 +3195,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityFullScreenButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3611,7 +3205,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityGraphicSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3621,7 +3215,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityGridRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3631,7 +3225,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityGroupRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3641,7 +3235,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityGrowAreaAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3651,7 +3245,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityGrowAreaRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3661,7 +3255,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHandleRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3671,7 +3265,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadIndentMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3681,7 +3275,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeaderAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3691,7 +3285,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevel1SearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3701,7 +3295,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevel2SearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3711,7 +3305,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevel3SearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3721,7 +3315,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevel4SearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3731,7 +3325,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevel5SearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3741,7 +3335,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevel6SearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3751,7 +3345,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingLevelAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3761,7 +3355,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3771,7 +3365,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingSameLevelSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3781,7 +3375,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHeadingSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3791,7 +3385,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHelpAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3801,7 +3395,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHelpTagCreatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3811,7 +3405,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHelpTagRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3821,7 +3415,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHiddenAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3831,7 +3425,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHorizontalScrollBarAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3841,7 +3435,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityHorizontalUnitDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3851,7 +3445,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIdentifierAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3861,7 +3455,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityImageRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3871,7 +3465,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIncrementAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3881,7 +3475,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIncrementArrowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3891,7 +3485,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIncrementButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3901,7 +3495,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIncrementPageSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3911,7 +3505,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIncrementorRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3921,7 +3515,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIndexForChildUIElementAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3931,7 +3525,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIndexForChildUIElementInNavigationOrderAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3941,7 +3535,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityItalicFontSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3951,7 +3545,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityKeyboardFocusableSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3961,7 +3555,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLabelUIElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3971,7 +3565,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLabelValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3981,7 +3575,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLandmarkSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -3991,7 +3585,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLanguageAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4001,7 +3595,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLanguageTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4011,7 +3605,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLayoutAreaRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4021,7 +3615,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLayoutChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4031,7 +3625,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLayoutItemRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4041,7 +3635,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLayoutSizeForScreenSizeParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4051,7 +3645,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLevelIndicatorRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4061,7 +3655,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLinkRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4071,7 +3665,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLinkSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4081,7 +3675,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLinkTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4091,7 +3685,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListItemIndexTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4101,7 +3695,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListItemLevelTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4111,7 +3705,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListItemPrefixTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4121,7 +3715,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListMarkerRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4131,7 +3725,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4141,7 +3735,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityListSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4151,7 +3745,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityLiveRegionSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4161,7 +3755,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMainAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4171,7 +3765,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMainWindowAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4181,7 +3775,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMainWindowChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4191,7 +3785,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMarkedMisspelledTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4201,7 +3795,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMarkerTypeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4211,7 +3805,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMarkerTypeDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4221,7 +3815,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMarkerUIElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4231,7 +3825,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMarkerValuesAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4241,7 +3835,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMatteRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4251,7 +3845,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMaxValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4261,7 +3855,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMenuBarAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4271,7 +3865,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMenuBarItemRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4281,7 +3875,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMenuBarRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4291,7 +3885,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMenuButtonRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4301,7 +3895,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMenuItemRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4311,7 +3905,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMenuRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4321,7 +3915,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMinValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4331,7 +3925,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMinimizeButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4341,7 +3935,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMinimizeButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4351,7 +3945,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMinimizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4361,7 +3955,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMisspelledTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4371,7 +3965,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMisspelledWordSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4381,7 +3975,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityModalAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4391,7 +3985,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityMovedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4401,7 +3995,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityNextContentsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4411,7 +4005,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityNumberOfCharactersAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4421,7 +4015,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityOrderedByRowAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4431,7 +4025,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityOrientationAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4441,7 +4035,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityOutlineRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4451,7 +4045,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityOutlineRowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4461,7 +4055,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityOutlineSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4471,7 +4065,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityOverflowButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4481,7 +4075,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPageRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4491,7 +4085,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityParentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4501,7 +4095,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPathAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4511,7 +4105,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPicasUnitValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4521,7 +4115,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPickAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4531,7 +4125,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPlaceholderValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4541,7 +4135,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPlainTextSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4551,7 +4145,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPointsUnitValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4561,7 +4155,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPopUpButtonRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4571,7 +4165,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPopoverRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4581,7 +4175,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPositionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4591,7 +4185,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPressAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4601,7 +4195,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPreviousContentsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4611,7 +4205,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityPriorityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4621,7 +4215,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityProgressIndicatorRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4631,7 +4225,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityProxyAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4641,7 +4235,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRTFForRangeParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4651,7 +4245,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRadioButtonRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4661,7 +4255,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRadioGroupRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4671,7 +4265,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRadioGroupSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4681,7 +4275,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRaiseAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4691,7 +4285,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRangeForIndexParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4701,7 +4295,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRangeForLineParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4711,7 +4305,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRangeForPositionParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4721,7 +4315,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRatingIndicatorSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4731,7 +4325,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRelevanceIndicatorRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4741,7 +4335,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRequiredAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4751,7 +4345,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityResizedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4761,7 +4355,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityResultsForSearchPredicateParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4771,7 +4365,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRightTabStopMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4781,7 +4375,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRoleAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4791,7 +4385,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRoleDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4801,7 +4395,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowCollapsedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4811,7 +4405,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowCountAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4821,7 +4415,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowCountChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4831,7 +4425,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowExpandedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4841,7 +4435,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowHeaderUIElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4851,7 +4445,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4861,7 +4455,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRowsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4871,7 +4465,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRulerMarkerRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4881,7 +4475,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityRulerRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4891,7 +4485,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySameTypeSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4901,7 +4495,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityScreenPointForLayoutPointParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4911,7 +4505,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityScreenSizeForLayoutSizeParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4921,7 +4515,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityScrollAreaRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4931,7 +4525,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityScrollBarRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4941,7 +4535,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityScrollToVisibleAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4951,7 +4545,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4961,7 +4555,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchCurrentElementKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4971,7 +4565,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchCurrentRangeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4981,7 +4575,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchDirectionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -4991,7 +4585,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchDirectionNext"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5001,7 +4595,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchDirectionPrevious"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5011,7 +4605,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchFieldSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5021,7 +4615,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchIdentifiersKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5031,7 +4625,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchMenuAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5041,7 +4635,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchResultDescriptionOverrideKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5051,7 +4645,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchResultElementKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5061,7 +4655,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchResultLoaderKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5071,7 +4665,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchResultRangeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5081,7 +4675,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchResultsLimitKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5091,7 +4685,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySearchTextKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5101,7 +4695,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySectionListSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5111,7 +4705,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySecureTextFieldSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5121,7 +4715,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5131,7 +4725,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedCellsChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5141,7 +4735,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedChildrenAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5151,7 +4745,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedChildrenChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5161,7 +4755,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedChildrenMovedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5171,7 +4765,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedColumnsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5181,7 +4775,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedColumnsChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5191,7 +4785,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedRowsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5201,7 +4795,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedRowsChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5211,7 +4805,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5221,7 +4815,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedTextChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5231,7 +4825,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedTextRangeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5241,7 +4835,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySelectedTextRangesAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5251,7 +4845,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityServesAsTitleForUIElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5261,7 +4855,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityShadowTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5271,7 +4865,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySharedCharacterRangeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5281,7 +4875,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySharedFocusElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5291,7 +4885,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySharedTextUIElementsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5301,7 +4895,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySheetCreatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5311,7 +4905,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySheetRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5321,7 +4915,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityShowAlternateUIAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5331,7 +4925,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityShowDefaultUIAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5341,7 +4935,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityShowMenuAction"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5351,7 +4945,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityShownMenuAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5361,7 +4955,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySizeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5371,7 +4965,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySliderRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5381,7 +4975,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySortButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5391,7 +4985,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySortDirectionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5401,7 +4995,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySplitGroupRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5411,7 +5005,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySplitterRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5421,7 +5015,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySplittersAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5431,7 +5025,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStandardWindowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5441,7 +5035,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStaticTextRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5451,7 +5045,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStaticTextSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5461,7 +5055,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStrikethroughColorTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5471,7 +5065,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStrikethroughTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5481,7 +5075,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStringForRangeParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5491,7 +5085,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStyleChangeSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5501,7 +5095,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityStyleRangeForIndexParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5511,7 +5105,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySubroleAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5521,7 +5115,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySuggestionSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5531,7 +5125,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySuperscriptTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5541,7 +5135,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySwitchSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5551,7 +5145,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySystemDialogSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5561,7 +5155,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySystemFloatingWindowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5571,7 +5165,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilitySystemWideRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5581,7 +5175,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTabButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5591,7 +5185,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTabGroupRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5601,7 +5195,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTableRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5611,7 +5205,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTableRowSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5621,7 +5215,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTableSameLevelSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5631,7 +5225,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTableSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5641,7 +5235,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTabsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5651,7 +5245,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTailIndentMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5661,7 +5255,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextAlignmentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5671,7 +5265,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextAreaRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5681,7 +5275,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextAttachmentSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5691,7 +5285,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextCompletionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5701,7 +5295,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextFieldRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5711,7 +5305,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextFieldSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5721,7 +5315,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextInputMarkedRangeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5731,7 +5325,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextInputMarkingSessionBeganNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5741,7 +5335,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextInputMarkingSessionEndedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5751,7 +5345,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextLinkSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5761,7 +5355,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextStateChangeTypeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5771,7 +5365,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTextStateSyncKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5781,7 +5375,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTimelineSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5791,7 +5385,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTitleAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5801,7 +5395,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTitleChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5811,7 +5405,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTitleUIElementAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5821,7 +5415,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityToggleSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5831,7 +5425,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityToolbarButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5841,7 +5435,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityToolbarButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5851,7 +5445,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityToolbarRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5861,7 +5455,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityTopLevelUIElementAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5871,7 +5465,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUIElementDestroyedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5881,7 +5475,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUIElementsForSearchPredicateParameterizedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5891,7 +5485,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUIElementsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5901,7 +5495,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityURLAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5911,7 +5505,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnderlineColorTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5921,7 +5515,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnderlineSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5931,7 +5525,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnderlineTextAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5941,7 +5535,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnitDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5951,7 +5545,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnitsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5961,7 +5555,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnitsChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5971,7 +5565,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnknownMarkerTypeValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5981,7 +5575,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnknownOrientationValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -5991,7 +5585,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnknownRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6001,7 +5595,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnknownSortDirectionValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6011,7 +5605,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnknownSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6021,7 +5615,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnknownUnitValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6031,7 +5625,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityUnvisitedLinkSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6041,7 +5635,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6051,7 +5645,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityValueChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6061,7 +5655,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityValueDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6071,7 +5665,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityValueIndicatorRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6081,7 +5675,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVerticalOrientationValue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6091,7 +5685,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVerticalScrollBarAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6101,7 +5695,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVerticalUnitDescriptionAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6111,7 +5705,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVerticalUnitsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6121,7 +5715,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisibleCellsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6131,7 +5725,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisibleCharacterRangeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6141,7 +5735,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisibleChildrenAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6151,7 +5745,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisibleColumnsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6161,7 +5755,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisibleNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6171,7 +5765,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisibleRowsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6181,7 +5775,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisitedAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6191,7 +5785,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityVisitedLinkSearchKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6201,7 +5795,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWarningValueAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6211,7 +5805,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWebAreaRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6221,7 +5815,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6231,7 +5825,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowCreatedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6241,7 +5835,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowDeminiaturizedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6251,7 +5845,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowMiniaturizedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6261,7 +5855,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowMovedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6271,7 +5865,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowResizedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6281,7 +5875,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowRole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6291,7 +5885,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityWindowsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6301,7 +5895,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityZoomButtonAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6311,7 +5905,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityZoomButtonSubrole"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6321,7 +5915,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAdaptiveImageGlyphAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6330,11 +5924,8 @@ func init() {
 		}
 	}
 
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAlignmentBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6344,7 +5935,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAllRomanInputSourcesLocaleIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6354,7 +5945,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAllowsEditingMultipleValuesSelectionBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6364,7 +5955,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAllowsNullArgumentBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6374,7 +5965,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAlternateImageBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6384,7 +5975,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAlternateTitleBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6394,7 +5985,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAlwaysPresentsApplicationModalAlertsBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6404,7 +5995,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimateBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6414,7 +6005,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimationDelayBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6428,7 +6019,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimationProgressMarkNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6438,7 +6029,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimationTriggerOrderIn"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6448,7 +6039,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAnimationTriggerOrderOut"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6458,7 +6049,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAntialiasThresholdChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6472,7 +6063,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitIgnoredException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6482,95 +6073,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVersionNumber"); err == nil && ptr != 0 {
-		NSAppKitVersions.Number = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
+		AppKitVersionNumber = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVirtualMemoryException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6580,7 +6087,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6590,7 +6097,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameAccessibilityHighContrastAqua"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6600,7 +6107,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameAccessibilityHighContrastDarkAqua"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6610,7 +6117,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameAccessibilityHighContrastVibrantDark"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6620,7 +6127,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameAccessibilityHighContrastVibrantLight"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6630,7 +6137,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameAqua"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6640,7 +6147,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameDarkAqua"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6650,7 +6157,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameVibrantDark"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6660,7 +6167,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppearanceNameVibrantLight"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6670,7 +6177,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidBecomeActiveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6680,7 +6187,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidChangeOcclusionStateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6690,7 +6197,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidChangeScreenParametersNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6700,7 +6207,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidFinishLaunchingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6710,7 +6217,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidFinishRestoringWindowsNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6720,7 +6227,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidHideNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6730,7 +6237,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidResignActiveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6740,7 +6247,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidUnhideNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6750,7 +6257,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationDidUpdateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6760,7 +6267,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationProtectedDataDidBecomeAvailableNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6770,7 +6277,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationProtectedDataWillBecomeUnavailableNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6780,7 +6287,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationShouldBeginSuppressingHighDynamicRangeContentNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6790,7 +6297,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationShouldEndSuppressingHighDynamicRangeContentNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6800,7 +6307,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillBecomeActiveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6810,7 +6317,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillFinishLaunchingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6820,7 +6327,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillHideNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6830,7 +6337,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillResignActiveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6840,7 +6347,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillTerminateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6850,7 +6357,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillUnhideNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6860,7 +6367,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApplicationWillUpdateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6870,7 +6377,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSArgumentBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6880,7 +6387,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAttachmentAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6890,7 +6397,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAttributedStringBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6900,7 +6407,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAuthorDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6910,7 +6417,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBackgroundColorAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6920,7 +6427,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBackgroundColorDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6930,7 +6437,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadBitmapParametersException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6940,7 +6447,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadComparisonException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6950,7 +6457,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFColorTableException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6960,7 +6467,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFDirectiveException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6970,7 +6477,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFFontTableException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6980,7 +6487,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBadRTFStyleSheetException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -6990,7 +6497,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBaseURLDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7000,7 +6507,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBaselineOffsetAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7014,7 +6521,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBottomMarginDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7024,7 +6531,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBrowserColumnConfigurationDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7034,7 +6541,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBrowserIllegalDelegateException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7044,7 +6551,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalibratedRGBColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7054,7 +6561,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCalibratedWhiteColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7064,7 +6571,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCategoryDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7074,7 +6581,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCharacterEncodingDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7084,7 +6591,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCharacterEncodingDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7094,7 +6601,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCocoaVersionDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7104,7 +6611,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCollectionElementKindInterItemGapIndicator"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7114,7 +6621,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCollectionElementKindSectionFooter"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7124,7 +6631,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCollectionElementKindSectionHeader"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7134,7 +6641,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSColorListDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7144,7 +6651,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSColorListIOException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7154,7 +6661,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSColorListNotEditableException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7164,7 +6671,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSColorPanelColorDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7174,7 +6681,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSComboBoxSelectionDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7184,7 +6691,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSComboBoxSelectionIsChangingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7194,7 +6701,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSComboBoxWillDismissNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7204,7 +6711,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSComboBoxWillPopUpNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7214,7 +6721,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCommentDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7224,7 +6731,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCompanyDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7234,7 +6741,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSConditionallySetsEditableBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7244,7 +6751,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSConditionallySetsEnabledBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7254,7 +6761,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSConditionallySetsHiddenBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7264,7 +6771,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentArrayBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7274,7 +6781,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentArrayForMultipleSelectionBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7284,7 +6791,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7294,7 +6801,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentDictionaryBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7304,7 +6811,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentHeightBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7314,7 +6821,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentObjectBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7324,7 +6831,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentObjectsBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7334,7 +6841,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentPlacementTagBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7344,7 +6851,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentSetBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7354,7 +6861,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentValuesBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7364,7 +6871,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContentWidthBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7374,7 +6881,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContextHelpModeDidActivateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7384,7 +6891,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContextHelpModeDidDeactivateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7394,7 +6901,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSContinuouslyUpdatesValueBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7403,11 +6910,8 @@ func init() {
 		}
 	}
 
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSControlTextDidBeginEditingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7417,7 +6921,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSControlTextDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7427,7 +6931,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSControlTextDidEndEditingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7437,7 +6941,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSConvertedDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7447,7 +6951,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCopyrightDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7457,7 +6961,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCreatesSortDescriptorBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7467,7 +6971,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCreationTimeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7477,7 +6981,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCriticalValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7487,7 +6991,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCursorAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7497,7 +7001,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSCustomColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7511,7 +7015,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDataBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7521,7 +7025,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultAttributesDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7531,7 +7035,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultAttributesDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7541,7 +7045,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultFontExcludedDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7551,7 +7055,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDefaultTabIntervalDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7561,7 +7065,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeletesObjectsOnRemoveBindingsOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7571,7 +7075,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceBitsPerSample"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7581,7 +7085,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceCMYKColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7591,7 +7095,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceColorSpaceName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7601,7 +7105,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceIsPrinter"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7611,7 +7115,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceIsScreen"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7621,7 +7125,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceRGBColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7631,7 +7135,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceResolution"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7641,7 +7145,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceSize"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7651,7 +7155,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceWhiteColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7665,7 +7169,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDisplayNameBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7675,7 +7179,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDisplayPatternBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7685,7 +7189,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDisplayPatternTitleBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7695,7 +7199,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDisplayPatternValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7705,7 +7209,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocFormatTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7715,7 +7219,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocumentEditedBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7725,7 +7229,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocumentTypeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7735,7 +7239,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDocumentTypeDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7745,7 +7249,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDoubleClickArgumentBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7755,7 +7259,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDoubleClickTargetBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7765,7 +7269,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDraggingException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7775,7 +7279,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDraggingImageComponentIconKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7785,7 +7289,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDraggingImageComponentLabelKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7795,7 +7299,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSEditableBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7805,7 +7309,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSEditorDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7815,7 +7319,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSEnabledBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7824,9 +7328,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSEventTrackingRunLoopMode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7836,7 +7339,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSExcludedElementsDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7846,7 +7349,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSExcludedKeysBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7856,7 +7359,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSExpansionAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7866,7 +7369,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileContentsPboardType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7876,7 +7379,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7886,7 +7389,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFileTypeDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7896,7 +7399,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFilterPredicateBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7906,7 +7409,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFindPanelCaseInsensitiveSearch"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7916,7 +7419,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFindPanelSearchOptionsPboardType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7926,7 +7429,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFindPanelSubstringMatch"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7935,9 +7438,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7947,7 +7449,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7957,7 +7459,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontBoldBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7967,7 +7469,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCascadeListAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7977,7 +7479,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCharacterSetAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7987,7 +7489,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionActionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -7997,7 +7499,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionAllFonts"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8007,7 +7509,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8017,7 +7519,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionDisallowAutoActivationOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8027,7 +7529,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionFavorites"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8037,7 +7539,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionIncludeDisabledFontsOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8047,7 +7549,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8057,7 +7559,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionOldNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8067,7 +7569,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionRecentlyUsed"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8077,7 +7579,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionRemoveDuplicatesOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8087,7 +7589,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionUser"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8097,7 +7599,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionVisibilityKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8107,7 +7609,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionWasHidden"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8117,7 +7619,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionWasRenamed"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8127,7 +7629,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontCollectionWasShown"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8137,7 +7639,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontDescriptorSystemDesignDefault"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8147,7 +7649,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontDescriptorSystemDesignMonospaced"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8157,7 +7659,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontDescriptorSystemDesignRounded"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8167,7 +7669,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontDescriptorSystemDesignSerif"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8177,7 +7679,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFaceAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8187,7 +7689,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFamilyAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8197,7 +7699,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFamilyNameBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8207,7 +7709,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFeatureSelectorIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8217,7 +7719,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFeatureSettingsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8227,7 +7729,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFeatureTypeIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8237,7 +7739,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontFixedAdvanceAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8251,7 +7753,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontItalicBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8261,7 +7763,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontMatrixAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8271,7 +7773,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontNameAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8281,7 +7783,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontNameBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8291,7 +7793,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontSetChangedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8301,7 +7803,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontSizeAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8311,7 +7813,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontSizeBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8321,7 +7823,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontSlantTrait"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8331,7 +7833,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontSymbolicTrait"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8341,7 +7843,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleBody"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8351,7 +7853,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleCallout"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8361,7 +7863,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleCaption1"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8371,7 +7873,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleCaption2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8381,7 +7883,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleFootnote"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8391,7 +7893,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleHeadline"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8401,7 +7903,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleLargeTitle"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8411,7 +7913,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleSubheadline"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8421,7 +7923,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleTitle1"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8431,7 +7933,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleTitle2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8441,7 +7943,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTextStyleTitle3"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8451,7 +7953,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontTraitsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8461,7 +7963,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontUnavailableException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8471,7 +7973,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVariationAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8481,7 +7983,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVariationAxisDefaultValueKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8491,7 +7993,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVariationAxisIdentifierKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8501,7 +8003,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVariationAxisMaximumValueKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8511,7 +8013,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVariationAxisMinimumValueKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8521,7 +8023,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVariationAxisNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8531,7 +8033,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontVisibleNameAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8573,7 +8075,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightTrait"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8603,7 +8105,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthTrait"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8613,7 +8115,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSForegroundColorAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8622,12 +8124,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSGestureRecognizerStateRecognized"); err == nil && ptr != 0 {
-		NSGestureRecognizerStateRecognized = *(*NSGestureRecognizer)(unsafe.Pointer(ptr))
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGlyphInfoAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8637,7 +8135,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGraphicsContextDestinationAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8647,7 +8145,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGraphicsContextPDFFormat"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8657,7 +8155,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGraphicsContextPSFormat"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8667,7 +8165,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGraphicsContextRepresentationFormatAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8681,7 +8179,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTMLTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8691,7 +8189,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSHandlesContentAsCompoundValueBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8701,7 +8199,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSHeaderTitleBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8711,7 +8209,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSHiddenBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8721,7 +8219,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSHyphenationFactorDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8731,7 +8229,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSIllegalSelectorException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8741,7 +8239,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8751,7 +8249,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageCacheException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8761,7 +8259,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageColorSyncProfileData"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8771,7 +8269,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageCompressionFactor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8781,7 +8279,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageCompressionMethod"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8791,7 +8289,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageCurrentFrame"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8801,7 +8299,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageCurrentFrameDuration"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8811,7 +8309,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageDitherTransparency"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8821,7 +8319,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageEXIFData"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8831,7 +8329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageFallbackBackgroundColor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8841,7 +8339,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageFrameCount"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8851,7 +8349,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageGamma"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8861,7 +8359,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageHintCTM"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8871,7 +8369,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageHintInterpolation"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8881,7 +8379,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageHintUserInterfaceLayoutDirection"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8891,7 +8389,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageIPTCData"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8901,7 +8399,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageInterlaced"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8911,7 +8409,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageLoopCount"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8921,7 +8419,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAddDetailTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8931,7 +8429,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAddTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8941,7 +8439,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAlarmTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8951,7 +8449,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioInputMuteTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8961,7 +8459,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioInputTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8971,7 +8469,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioOutputMuteTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8981,7 +8479,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioOutputVolumeHighTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -8991,7 +8489,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioOutputVolumeLowTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9001,7 +8499,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioOutputVolumeMediumTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9011,7 +8509,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAudioOutputVolumeOffTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9021,7 +8519,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarBookmarksTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9031,7 +8529,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarColorPickerFill"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9041,7 +8539,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarColorPickerFont"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9051,7 +8549,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarColorPickerStroke"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9061,7 +8559,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarCommunicationAudioTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9071,7 +8569,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarCommunicationVideoTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9081,7 +8579,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarComposeTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9091,7 +8589,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarDeleteTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9101,7 +8599,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarDownloadTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9111,7 +8609,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarEnterFullScreenTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9121,7 +8619,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarExitFullScreenTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9131,7 +8629,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarFastForwardTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9141,7 +8639,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarFolderCopyToTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9151,7 +8649,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarFolderMoveToTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9161,7 +8659,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarFolderTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9171,7 +8669,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarGetInfoTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9181,7 +8679,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarGoBackTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9191,7 +8689,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarGoDownTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9201,7 +8699,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarGoForwardTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9211,7 +8709,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarGoUpTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9221,7 +8719,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarHistoryTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9231,7 +8729,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarIconViewTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9241,7 +8739,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarListViewTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9251,7 +8749,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarMailTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9261,7 +8759,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarNewFolderTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9271,7 +8769,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarNewMessageTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9281,7 +8779,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarOpenInBrowserTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9291,7 +8789,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarPauseTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9301,7 +8799,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarPlayPauseTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9311,7 +8809,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarPlayTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9321,7 +8819,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarPlayheadTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9331,7 +8829,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarQuickLookTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9341,7 +8839,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRecordStartTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9351,7 +8849,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRecordStopTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9361,7 +8859,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRefreshTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9371,7 +8869,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRewindTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9381,7 +8879,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRotateLeftTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9391,7 +8889,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRotateRightTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9401,7 +8899,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSearchTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9411,7 +8909,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarShareTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9421,7 +8919,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSidebarTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9431,7 +8929,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipAhead15SecondsTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9441,7 +8939,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipAhead30SecondsTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9451,7 +8949,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipAheadTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9461,7 +8959,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipBack15SecondsTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9471,7 +8969,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipBack30SecondsTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9481,7 +8979,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipBackTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9491,7 +8989,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipToEndTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9501,7 +8999,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSkipToStartTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9511,7 +9009,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarSlideshowTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9521,7 +9019,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTagIconTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9531,7 +9029,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextBoldTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9541,7 +9039,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextBoxTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9551,7 +9049,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextCenterAlignTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9561,7 +9059,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextItalicTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9571,7 +9069,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextJustifiedAlignTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9581,7 +9079,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextLeftAlignTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9591,7 +9089,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextListTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9601,7 +9099,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextRightAlignTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9611,7 +9109,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextStrikethroughTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9621,7 +9119,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarTextUnderlineTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9631,7 +9129,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarUserAddTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9641,7 +9139,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarUserGroupTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9651,7 +9149,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarUserTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9661,7 +9159,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarVolumeDownTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9671,7 +9169,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarVolumeUpTemplate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9681,7 +9179,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageProgressive"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9691,7 +9189,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageRGBColorTable"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9701,7 +9199,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageRepRegistryDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9711,7 +9209,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSIncludedKeysBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9721,7 +9219,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSInitialKeyBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9731,7 +9229,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSInitialValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9741,7 +9239,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSInsertsNullPlaceholderBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9751,7 +9249,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSInvokesSeparatelyWithArrayObjectsBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9761,7 +9259,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSIsIndeterminateBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9771,7 +9269,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSKernAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9781,7 +9279,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeywordsDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9791,7 +9289,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLabelBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9800,15 +9298,8 @@ func init() {
 		}
 	}
 
-
-
-
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLeftMarginDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9818,7 +9309,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLigatureAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9832,7 +9323,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinkAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9842,7 +9333,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLocalizedKeyDictionaryBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9852,7 +9343,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMacSimpleTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9861,9 +9352,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagedObjectContextBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9873,7 +9363,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSManagerDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9883,7 +9373,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMarkedClauseSegmentAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9893,7 +9383,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMaxValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9903,7 +9393,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMaxWidthBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9913,7 +9403,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMaximumRecentsBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9923,7 +9413,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuDidAddItemNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9933,7 +9423,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuDidBeginTrackingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9943,7 +9433,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuDidChangeItemNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9953,7 +9443,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuDidEndTrackingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9963,7 +9453,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuDidRemoveItemNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9973,7 +9463,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuDidSendActionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9983,7 +9473,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuItemImportFromDeviceIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -9993,7 +9483,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMenuWillSendActionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10003,7 +9493,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMinValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10013,7 +9503,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMinWidthBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10023,7 +9513,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMixedStateImageBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10033,7 +9523,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSModalPanelRunLoopMode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10042,14 +9532,8 @@ func init() {
 		}
 	}
 
-
-
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSModificationTimeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10059,7 +9543,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSMultipleValuesPlaceholderBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10069,7 +9553,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNamedColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10079,7 +9563,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNibLoadingException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10089,7 +9573,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNoSelectionPlaceholderBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10098,9 +9582,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNotApplicablePlaceholderBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10110,7 +9593,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNullPlaceholderBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10120,7 +9603,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSObliquenessAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10130,7 +9613,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOffStateImageBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10140,7 +9623,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOfficeOpenXMLTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10150,7 +9633,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOnStateImageBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10160,7 +9643,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOpenDocumentTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10170,7 +9653,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewColumnDidMoveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10180,7 +9663,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewColumnDidResizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10190,7 +9673,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewDisclosureButtonKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10200,7 +9683,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewItemDidCollapseNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10210,7 +9693,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewItemDidExpandNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10220,7 +9703,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewItemWillCollapseNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10230,7 +9713,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewItemWillExpandNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10240,7 +9723,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewSelectionDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10250,7 +9733,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewSelectionIsChangingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10260,7 +9743,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOutlineViewShowHideButtonKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10270,7 +9753,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDIncludeNotFoundException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10280,7 +9763,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDIncludeStackOverflowException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10290,7 +9773,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDIncludeStackUnderflowException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10300,7 +9783,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPPDParseException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10310,7 +9793,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPaperSizeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10320,7 +9803,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSParagraphStyleAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10330,7 +9813,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardCommunicationException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10340,7 +9823,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternCalendarEvent"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10350,7 +9833,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternEmailAddress"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10360,7 +9843,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternFlightNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10370,7 +9853,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternLink"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10380,7 +9863,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternMoneyAmount"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10390,7 +9873,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10400,7 +9883,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternPhoneNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10410,7 +9893,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternPostalAddress"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10420,7 +9903,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternProbableWebSearch"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10430,7 +9913,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternProbableWebURL"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10440,7 +9923,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardDetectionPatternShipmentTrackingNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10450,7 +9933,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardMetadataTypeContentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10460,7 +9943,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardNameDrag"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10470,7 +9953,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardNameFind"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10480,7 +9963,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardNameFont"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10490,7 +9973,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardNameGeneral"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10500,7 +9983,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardNameRuler"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10509,12 +9992,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeCollaborationMetadata"); err == nil && ptr != 0 {
-		PasteboardTypeCollaborationMetadata = *(*NSPasteboard)(unsafe.Pointer(ptr))
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeColor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10524,7 +10003,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeFileURL"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10534,7 +10013,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeFont"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10544,7 +10023,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeHTML"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10554,7 +10033,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeMultipleTextSelection"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10564,7 +10043,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypePDF"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10574,7 +10053,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypePNG"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10584,7 +10063,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeRTF"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10594,7 +10073,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeRTFD"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10604,7 +10083,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeRuler"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10614,7 +10093,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeSound"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10624,7 +10103,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeString"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10634,7 +10113,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeTIFF"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10644,7 +10123,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeTabularText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10654,7 +10133,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeTextFinderOptions"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10664,7 +10143,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardTypeURL"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10674,7 +10153,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardURLReadingContentsConformToTypesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10684,7 +10163,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPasteboardURLReadingFileURLsOnlyKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10694,7 +10173,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPatternColorSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10704,7 +10183,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPlainTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10714,7 +10193,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopUpButtonCellWillPopUpNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10724,7 +10203,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopUpButtonWillPopUpNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10733,9 +10212,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverCloseReasonDetachToWindow"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10745,7 +10223,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverCloseReasonKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10755,7 +10233,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverCloseReasonStandard"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10765,7 +10243,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverDidCloseNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10775,7 +10253,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverDidShowNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10785,7 +10263,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverWillCloseNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10795,7 +10273,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPopoverWillShowNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10805,7 +10283,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPositioningRectBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10815,7 +10293,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPredicateBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10825,7 +10303,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPredicateFormatBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10835,7 +10313,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPreferredScrollerStyleDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10845,7 +10323,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrefixSpacesDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10855,7 +10333,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintAllPages"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10865,7 +10343,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintAllPresetsJobStyleHint"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10875,7 +10353,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintBottomMargin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10885,7 +10363,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintCancelJob"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10895,7 +10373,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintCopies"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10905,7 +10383,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintDetailedErrorReporting"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10915,7 +10393,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintFaxNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10925,7 +10403,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintFirstPage"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10935,7 +10413,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintHeaderAndFooter"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10945,7 +10423,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintHorizontalPagination"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10955,7 +10433,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintHorizontallyCentered"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10965,7 +10443,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintJobDisposition"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10975,7 +10453,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintJobSavingFileNameExtensionHidden"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10985,7 +10463,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintJobSavingURL"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -10995,7 +10473,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintLastPage"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11005,7 +10483,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintLeftMargin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11015,7 +10493,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintMustCollate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11025,7 +10503,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintNoPresetsJobStyleHint"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11035,7 +10513,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintOperationExistsException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11045,7 +10523,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintOrientation"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11055,7 +10533,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPackageException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11065,7 +10543,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPagesAcross"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11075,7 +10553,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPagesDown"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11085,7 +10563,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPanelAccessorySummaryItemDescriptionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11095,7 +10573,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPanelAccessorySummaryItemNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11105,7 +10583,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPaperName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11115,7 +10593,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPaperSize"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11125,7 +10603,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPhotoJobStyleHint"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11135,7 +10613,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPreviewJob"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11145,7 +10623,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPrinter"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11155,7 +10633,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintPrinterName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11165,7 +10643,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintReversePageOrder"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11175,7 +10653,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintRightMargin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11185,7 +10663,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintSaveJob"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11195,7 +10673,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintScalingFactor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11205,7 +10683,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintSelectionOnly"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11215,7 +10693,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintSpoolJob"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11225,7 +10703,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintTime"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11235,7 +10713,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintTopMargin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11245,7 +10723,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintVerticalPagination"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11255,7 +10733,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintVerticallyCentered"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11265,7 +10743,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPrintingCommunicationException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11275,7 +10753,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRTFDTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11285,7 +10763,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRTFPropertyStackOverflowException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11295,7 +10773,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRTFTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11305,7 +10783,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRaisesForNotApplicableKeysBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11315,7 +10793,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSReadOnlyDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11325,7 +10803,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRecentSearchesBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11335,7 +10813,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRepresentedFilenameBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11345,7 +10823,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRightMarginDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11355,7 +10833,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRowHeightBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11365,7 +10843,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateComparisonModifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11375,7 +10853,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateCompoundType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11385,7 +10863,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateCustomSelector"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11395,7 +10873,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateLeftExpression"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11405,7 +10883,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateOperatorType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11415,7 +10893,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateOptions"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11425,7 +10903,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorPredicateRightExpression"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11435,7 +10913,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRuleEditorRowsDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11445,7 +10923,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRulerViewUnitCentimeters"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11455,7 +10933,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRulerViewUnitInches"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11465,7 +10943,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRulerViewUnitPicas"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11475,7 +10953,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSRulerViewUnitPoints"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11485,7 +10963,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSScreenColorSpaceDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11494,9 +10972,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSScrollViewDidEndLiveMagnifyNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11506,7 +10983,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSScrollViewDidEndLiveScrollNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11516,7 +10993,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSScrollViewDidLiveScrollNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11526,7 +11003,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSScrollViewWillStartLiveMagnifyNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11536,7 +11013,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSScrollViewWillStartLiveScrollNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11545,12 +11022,8 @@ func init() {
 		}
 	}
 
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedIdentifierBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11560,7 +11033,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedIndexBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11570,7 +11043,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedLabelBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11580,7 +11053,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedObjectBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11590,7 +11063,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedObjectsBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11600,7 +11073,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedTagBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11610,7 +11083,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11620,7 +11093,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectedValuesBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11630,7 +11103,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectionIndexPathsBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11640,7 +11113,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectionIndexesBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11650,7 +11123,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectorNameBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11660,7 +11133,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSelectsAllWhenSettingContentBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11670,7 +11143,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSShadowAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11680,7 +11153,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameAddToAperture"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11690,7 +11163,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameAddToIPhoto"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11700,7 +11173,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameAddToSafariReadingList"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11710,7 +11183,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameCloudSharing"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11720,7 +11193,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameComposeEmail"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11730,7 +11203,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameComposeMessage"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11740,7 +11213,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameSendViaAirDrop"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11750,7 +11223,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSharingServiceNameUseAsDesktopPicture"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11768,7 +11241,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSortDescriptorsBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11778,7 +11251,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSoundPboardType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11788,7 +11261,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSourceTextScalingDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11798,7 +11271,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSourceTextScalingDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11808,7 +11281,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechCharacterModeProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11818,7 +11291,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechCommandDelimiterProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11828,7 +11301,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechCommandPrefix"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11838,7 +11311,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechCommandSuffix"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11848,7 +11321,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechCurrentVoiceProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11858,7 +11331,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechDictionaryAbbreviations"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11868,7 +11341,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechDictionaryEntryPhonemes"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11878,7 +11351,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechDictionaryEntrySpelling"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11888,7 +11361,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechDictionaryLocaleIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11898,7 +11371,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechDictionaryModificationDate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11908,7 +11381,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechDictionaryPronunciations"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11918,7 +11391,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechErrorCount"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11928,7 +11401,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechErrorNewestCharacterOffset"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11938,7 +11411,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechErrorNewestCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11948,7 +11421,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechErrorOldestCharacterOffset"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11958,7 +11431,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechErrorOldestCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11968,7 +11441,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechErrorsProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11978,7 +11451,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechInputModeProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11988,7 +11461,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechModeLiteral"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -11998,7 +11471,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechModeNormal"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12008,7 +11481,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechModePhoneme"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12018,7 +11491,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechModeText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12028,7 +11501,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechNumberModeProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12038,7 +11511,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechOutputToFileURLProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12048,7 +11521,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPhonemeInfoExample"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12058,7 +11531,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPhonemeInfoHiliteEnd"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12068,7 +11541,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPhonemeInfoHiliteStart"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12078,7 +11551,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPhonemeInfoOpcode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12088,7 +11561,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPhonemeInfoSymbol"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12098,7 +11571,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPhonemeSymbolsProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12108,7 +11581,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPitchBaseProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12118,7 +11591,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechPitchModProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12128,7 +11601,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechRateProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12138,7 +11611,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechRecentSyncProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12148,7 +11621,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechResetProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12158,7 +11631,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechStatusNumberOfCharactersLeft"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12168,7 +11641,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechStatusOutputBusy"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12178,7 +11651,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechStatusOutputPaused"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12188,7 +11661,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechStatusPhonemeCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12198,7 +11671,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechStatusProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12208,7 +11681,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechSynthesizerInfoIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12218,7 +11691,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechSynthesizerInfoProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12228,7 +11701,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechSynthesizerInfoVersion"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12238,7 +11711,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpeechVolumeProperty"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12248,7 +11721,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticCapitalizationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12258,7 +11731,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticDashSubstitutionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12268,7 +11741,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticInlinePredictionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12278,7 +11751,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticPeriodSubstitutionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12288,7 +11761,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticQuoteSubstitutionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12298,7 +11771,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12308,7 +11781,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticTextCompletionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12318,7 +11791,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellCheckerDidChangeAutomaticTextReplacementNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12328,7 +11801,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSpellingStateAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12342,7 +11815,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSplitViewDidResizeSubviewsNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12356,7 +11829,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSplitViewWillResizeSubviewsNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12365,14 +11838,8 @@ func init() {
 		}
 	}
 
-
-
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrikethroughColorAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12382,7 +11849,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrikethroughStyleAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12392,7 +11859,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrokeColorAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12402,7 +11869,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSStrokeWidthAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12412,7 +11879,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSubjectDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12421,9 +11888,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSuperscriptAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12433,7 +11899,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSystemColorsDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12443,7 +11909,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTIFFException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12453,7 +11919,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTabColumnTerminatorsAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12463,7 +11929,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTableViewColumnDidMoveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12473,7 +11939,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTableViewColumnDidResizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12483,7 +11949,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTableViewRowViewKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12493,7 +11959,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTableViewSelectionDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12503,7 +11969,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTableViewSelectionIsChangingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12513,7 +11979,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTargetBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12523,7 +11989,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTargetTextScalingDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12533,7 +11999,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextAlternativesAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12543,7 +12009,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextAlternativesSelectedAlternativeStringNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12553,7 +12019,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingDocumentAuthorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12563,7 +12029,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingDocumentTitleKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12573,7 +12039,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingDocumentURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12583,7 +12049,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingGenerateInlinePredictionsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12593,7 +12059,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingOrthographyKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12603,7 +12069,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingQuotesKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12613,7 +12079,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingReferenceDateKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12623,7 +12089,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingReferenceTimeZoneKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12633,7 +12099,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingRegularExpressionsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12643,7 +12109,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingReplacementsKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12653,7 +12119,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextCheckingSelectedRangeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12663,7 +12129,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextColorBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12673,7 +12139,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentStorageUnsupportedAttributeAddedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12683,7 +12149,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeAddressCity"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12693,7 +12159,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeAddressCityAndState"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12703,7 +12169,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeAddressState"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12713,7 +12179,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeBirthdate"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12723,7 +12189,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeBirthdateDay"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12733,7 +12199,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeBirthdateMonth"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12743,7 +12209,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeBirthdateYear"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12753,7 +12219,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCountryName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12763,7 +12229,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardExpiration"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12773,7 +12239,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardExpirationMonth"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12783,7 +12249,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardExpirationYear"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12793,7 +12259,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardFamilyName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12803,7 +12269,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardGivenName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12813,7 +12279,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardMiddleName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12823,7 +12289,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12833,7 +12299,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12843,7 +12309,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardSecurityCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12853,7 +12319,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeCreditCardType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12863,7 +12329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeDateTime"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12873,7 +12339,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeEmailAddress"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12883,7 +12349,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeFamilyName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12893,7 +12359,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeFlightNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12903,7 +12369,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeFullStreetAddress"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12913,7 +12379,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeGivenName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12923,7 +12389,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeJobTitle"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12933,7 +12399,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeLocation"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12943,7 +12409,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeMiddleName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12953,7 +12419,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12963,7 +12429,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeNamePrefix"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12973,7 +12439,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeNameSuffix"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12983,7 +12449,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeNewPassword"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -12993,7 +12459,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeNickname"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13003,7 +12469,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeOneTimeCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13013,7 +12479,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeOrganizationName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13023,7 +12489,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypePassword"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13033,7 +12499,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypePostalCode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13043,7 +12509,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeShipmentTrackingNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13053,7 +12519,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeStreetAddressLine1"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13063,7 +12529,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeStreetAddressLine2"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13073,7 +12539,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeSublocality"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13083,7 +12549,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeTelephoneNumber"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13093,7 +12559,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeURL"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13103,7 +12569,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextContentTypeUsername"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13113,7 +12579,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextDidBeginEditingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13123,7 +12589,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13133,7 +12599,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextDidEndEditingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13143,7 +12609,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEffectAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13153,7 +12619,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEffectLetterpressStyle"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13163,7 +12629,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEncodingNameDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13173,7 +12639,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextEncodingNameDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13183,7 +12649,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextFinderCaseInsensitiveKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13193,7 +12659,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextFinderMatchingTypeKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13203,7 +12669,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13213,7 +12679,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeBlue"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13223,7 +12689,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeDefault"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13233,7 +12699,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeMint"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13243,7 +12709,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemeOrange"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13253,7 +12719,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemePink"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13263,7 +12729,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightColorSchemePurple"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13273,7 +12739,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightStyleAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13283,7 +12749,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextHighlightStyleDefault"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13293,7 +12759,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextInputContextKeyboardSelectionDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13303,7 +12769,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextKit1ListMarkerFormatDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13313,7 +12779,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLayoutSectionOrientation"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13323,7 +12789,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLayoutSectionRange"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13333,7 +12799,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLayoutSectionsAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13343,7 +12809,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextLineTooLongException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13353,7 +12819,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerBox"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13363,7 +12829,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerCheck"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13373,7 +12839,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerCircle"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13383,7 +12849,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerDecimal"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13393,7 +12859,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerDiamond"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13403,7 +12869,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerDisc"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13413,7 +12879,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerHyphen"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13423,7 +12889,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerLowercaseAlpha"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13433,7 +12899,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerLowercaseHexadecimal"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13443,7 +12909,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerLowercaseLatin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13453,7 +12919,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerLowercaseRoman"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13463,7 +12929,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerOctal"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13473,7 +12939,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerSquare"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13483,7 +12949,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerUppercaseAlpha"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13493,7 +12959,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerUppercaseHexadecimal"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13503,7 +12969,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerUppercaseLatin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13513,7 +12979,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextListMarkerUppercaseRoman"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13523,7 +12989,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextMovementUserInfoKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13533,7 +12999,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextNoSelectionException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13543,7 +13009,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextReadException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13553,7 +13019,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextScalingDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13563,7 +13029,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextSizeMultiplierDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13573,7 +13039,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextStorageDidProcessEditingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13583,7 +13049,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextStorageWillProcessEditingNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13593,7 +13059,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextViewDidChangeSelectionNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13603,7 +13069,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextViewDidChangeTypingAttributesNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13613,7 +13079,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextViewDidSwitchToNSLayoutManagerNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13623,7 +13089,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextViewWillChangeNotifyingTextViewNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13633,7 +13099,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextViewWillSwitchToNSLayoutManagerNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13643,7 +13109,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTextWriteException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13653,7 +13119,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTimeoutDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13663,7 +13129,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTitleBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13673,7 +13139,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTitleDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13683,7 +13149,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolTipAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13693,7 +13159,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolTipBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13703,7 +13169,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarCloudSharingItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13713,7 +13179,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarDidRemoveItemNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13723,7 +13189,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarFlexibleSpaceItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13733,7 +13199,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarInspectorTrackingSeparatorItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13743,7 +13209,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarItemKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13752,12 +13218,8 @@ func init() {
 		}
 	}
 
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarNewIndexKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13767,7 +13229,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarPrintItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13777,7 +13239,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarShowColorsItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13787,7 +13249,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarShowFontsItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13797,7 +13259,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarSidebarTrackingSeparatorItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13807,7 +13269,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarSpaceItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13817,7 +13279,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarToggleInspectorItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13827,7 +13289,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarToggleSidebarItemIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13837,7 +13299,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSToolbarWillAddItemNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13847,7 +13309,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTopMarginDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13856,9 +13318,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierCandidateList"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13868,7 +13329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierCharacterPicker"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13878,7 +13339,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierFixedSpaceLarge"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13888,7 +13349,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierFixedSpaceSmall"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13898,7 +13359,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierFlexibleSpace"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13908,7 +13369,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierOtherItemsProxy"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13918,7 +13379,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierTextAlignment"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13928,7 +13389,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierTextColorPicker"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13938,7 +13399,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierTextFormat"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13948,7 +13409,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierTextList"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13958,7 +13419,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTouchBarItemIdentifierTextStyle"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13967,11 +13428,8 @@ func init() {
 		}
 	}
 
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTrackingAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13981,7 +13439,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTransparentBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -13991,7 +13449,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTypeIdentifierAddressText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14001,7 +13459,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTypeIdentifierDateText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14011,7 +13469,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTypeIdentifierPhoneNumberText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14021,7 +13479,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTypeIdentifierTransitInformationText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14031,7 +13489,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSTypedStreamVersionException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14040,12 +13498,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlineByWord"); err == nil && ptr != 0 {
-		UnderlineByWord = *(*NSUnderlineStyle)(unsafe.Pointer(ptr))
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlineColorAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14054,28 +13508,8 @@ func init() {
 		}
 	}
 
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlinePatternDash"); err == nil && ptr != 0 {
-		UnderlinePatternDash = *(*NSUnderlineStyle)(unsafe.Pointer(ptr))
-	}
-
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlinePatternDashDot"); err == nil && ptr != 0 {
-		UnderlinePatternDashDot = *(*NSUnderlineStyle)(unsafe.Pointer(ptr))
-	}
-
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlinePatternDashDotDot"); err == nil && ptr != 0 {
-		UnderlinePatternDashDotDot = *(*NSUnderlineStyle)(unsafe.Pointer(ptr))
-	}
-
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlinePatternDot"); err == nil && ptr != 0 {
-		UnderlinePatternDot = *(*NSUnderlineStyle)(unsafe.Pointer(ptr))
-	}
-
-	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlinePatternSolid"); err == nil && ptr != 0 {
-		UnderlinePatternSolid = *(*NSUnderlineStyle)(unsafe.Pointer(ptr))
-	}
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSUnderlineStyleAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14085,7 +13519,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSUserActivityDocumentURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14095,7 +13529,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSValidatesImmediatelyBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14105,7 +13539,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14115,7 +13549,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSValuePathBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14125,7 +13559,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSValueTransformerBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14135,7 +13569,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSValueTransformerNameBindingOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14145,7 +13579,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSValueURLBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14154,9 +13588,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVerticalGlyphFormAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14166,7 +13599,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewAnimationEffectKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14176,7 +13609,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewAnimationEndFrameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14186,7 +13619,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewAnimationFadeInEffect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14196,7 +13629,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewAnimationFadeOutEffect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14206,7 +13639,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewAnimationStartFrameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14216,7 +13649,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewAnimationTargetKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14226,7 +13659,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewBoundsDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14236,7 +13669,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewDidUpdateTrackingAreasNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14246,7 +13679,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewFrameDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14256,7 +13689,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewModeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14270,7 +13703,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewSizeDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14280,7 +13713,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewZoomDocumentAttribute"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14290,7 +13723,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVisibleBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14300,7 +13733,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceAge"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14310,7 +13743,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceDemoText"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14320,7 +13753,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceGender"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14330,7 +13763,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceGenderFemale"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14340,7 +13773,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceGenderMale"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14350,7 +13783,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceGenderNeuter"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14360,7 +13793,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceGenderNeutral"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14370,7 +13803,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14380,7 +13813,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceIndividuallySpokenCharacters"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14390,7 +13823,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceLocaleIdentifier"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14400,7 +13833,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14410,7 +13843,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSVoiceSupportedCharacters"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14420,7 +13853,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWarningValueBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14430,7 +13863,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWebArchiveTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14440,7 +13873,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWebPreferencesDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14450,7 +13883,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWebResourceLoadDelegateDocumentOption"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14464,7 +13897,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWidthBinding"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14474,7 +13907,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidBecomeKeyNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14484,7 +13917,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidBecomeMainNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14494,7 +13927,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidChangeBackingPropertiesNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14504,7 +13937,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidChangeOcclusionStateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14514,7 +13947,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidChangeScreenNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14524,7 +13957,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidChangeScreenProfileNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14534,7 +13967,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidDeminiaturizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14544,7 +13977,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidEndLiveResizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14554,7 +13987,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidEndSheetNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14564,7 +13997,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidEnterFullScreenNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14574,7 +14007,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidEnterVersionBrowserNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14584,7 +14017,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidExitFullScreenNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14594,7 +14027,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidExitVersionBrowserNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14604,7 +14037,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidExposeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14614,7 +14047,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidMiniaturizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14624,7 +14057,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidMoveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14634,7 +14067,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidResignKeyNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14644,7 +14077,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidResignMainNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14654,7 +14087,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidResizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14664,7 +14097,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowDidUpdateNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14674,7 +14107,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowServerCommunicationException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14684,7 +14117,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillBeginSheetNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14694,7 +14127,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillCloseNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14704,7 +14137,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillEnterFullScreenNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14714,7 +14147,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillEnterVersionBrowserNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14724,7 +14157,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillExitFullScreenNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14734,7 +14167,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillExitVersionBrowserNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14744,7 +14177,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillMiniaturizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14754,7 +14187,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillMoveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14764,7 +14197,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWindowWillStartLiveResizeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14774,7 +14207,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWordMLTextDocumentType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14784,7 +14217,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWordTablesReadException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14794,7 +14227,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWordTablesWriteException"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14804,7 +14237,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14814,7 +14247,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceActiveSpaceDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14828,7 +14261,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDesktopImageAllowClippingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14838,7 +14271,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDesktopImageFillColorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14848,7 +14281,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDesktopImageScalingKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14858,7 +14291,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidActivateApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14868,7 +14301,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidChangeFileLabelsNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14878,7 +14311,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidDeactivateApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14888,7 +14321,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidHideApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14898,7 +14331,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidLaunchApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14908,7 +14341,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidMountNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14918,7 +14351,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidRenameVolumeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14928,7 +14361,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidTerminateApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14938,7 +14371,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidUnhideApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14948,7 +14381,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidUnmountNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14958,7 +14391,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceDidWakeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14968,7 +14401,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceScreensDidSleepNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14978,7 +14411,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceScreensDidWakeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14988,7 +14421,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceSessionDidBecomeActiveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -14998,7 +14431,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceSessionDidResignActiveNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15008,7 +14441,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceVolumeLocalizedNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15018,7 +14451,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceVolumeOldLocalizedNameKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15028,7 +14461,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceVolumeOldURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15038,7 +14471,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceVolumeURLKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15048,7 +14481,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceWillLaunchApplicationNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15058,7 +14491,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceWillPowerOffNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15068,7 +14501,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceWillSleepNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15078,7 +14511,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWorkspaceWillUnmountNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15088,7 +14521,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWritingDirectionAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15098,7 +14531,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWritingToolsExclusionAttributeName"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -15107,128 +14540,6 @@ func init() {
 		}
 	}
 
-}
-
-// NSAppKitVersions provides typed accessors for [NSAppKitVersion] constants.
-var NSAppKitVersions struct {
-	// Number: The most recent version of AppKit.
-	Number NSAppKitVersion
-	// Number10_0: The AppKit framework included in OS X v10.0.
-	Number10_0 NSAppKitVersion
-	// Number10_1: The AppKit framework included in OS X v10.1.
-	Number10_1 NSAppKitVersion
-	Number10_10 NSAppKitVersion
-	Number10_10_2 NSAppKitVersion
-	Number10_10_3 NSAppKitVersion
-	Number10_10_4 NSAppKitVersion
-	Number10_10_5 NSAppKitVersion
-	Number10_10_Max NSAppKitVersion
-	Number10_11 NSAppKitVersion
-	Number10_11_1 NSAppKitVersion
-	Number10_11_2 NSAppKitVersion
-	Number10_11_3 NSAppKitVersion
-	Number10_12 NSAppKitVersion
-	Number10_12_1 NSAppKitVersion
-	Number10_12_2 NSAppKitVersion
-	Number10_13 NSAppKitVersion
-	Number10_13_1 NSAppKitVersion
-	Number10_13_2 NSAppKitVersion
-	Number10_13_4 NSAppKitVersion
-	Number10_14 NSAppKitVersion
-	Number10_14_1 NSAppKitVersion
-	Number10_14_2 NSAppKitVersion
-	Number10_14_3 NSAppKitVersion
-	Number10_14_4 NSAppKitVersion
-	Number10_14_5 NSAppKitVersion
-	Number10_15 NSAppKitVersion
-	Number10_15_1 NSAppKitVersion
-	Number10_15_2 NSAppKitVersion
-	Number10_15_3 NSAppKitVersion
-	Number10_15_4 NSAppKitVersion
-	Number10_15_5 NSAppKitVersion
-	Number10_15_6 NSAppKitVersion
-	// Number10_2: The AppKit framework included in OS X v10.2.
-	Number10_2 NSAppKitVersion
-	// Number10_2_3: The AppKit framework included in OS X v10.2.3.
-	Number10_2_3 NSAppKitVersion
-	// Number10_3: The AppKit framework included in OS X v10.3.
-	Number10_3 NSAppKitVersion
-	// Number10_3_2: The AppKit framework included in OS X v10.3.2.
-	Number10_3_2 NSAppKitVersion
-	// Number10_3_3: The AppKit framework included in OS X v10.3.3.
-	Number10_3_3 NSAppKitVersion
-	// Number10_3_5: The AppKit framework included in OS X v10.3.5.
-	Number10_3_5 NSAppKitVersion
-	// Number10_3_7: The AppKit framework included in OS X v10.3.7.
-	Number10_3_7 NSAppKitVersion
-	// Number10_3_9: The AppKit framework included in OS X v10.3.9.
-	Number10_3_9 NSAppKitVersion
-	// Number10_4: The AppKit framework included in OS X v10.4.
-	Number10_4 NSAppKitVersion
-	// Number10_4_1: The AppKit framework included in OS X v10.4.1.
-	Number10_4_1 NSAppKitVersion
-	// Number10_4_3: The AppKit framework included in OS X v10.4.3.
-	Number10_4_3 NSAppKitVersion
-	// Number10_4_4: The AppKit framework included in OS X v10.4.4.
-	Number10_4_4 NSAppKitVersion
-	// Number10_4_7: The AppKit framework included in OS X v10.4.7.
-	Number10_4_7 NSAppKitVersion
-	// Number10_5: The AppKit framework included in OS X v10.5.
-	Number10_5 NSAppKitVersion
-	// Number10_5_2: The AppKit framework included in OS X v10.5.2.
-	Number10_5_2 NSAppKitVersion
-	// Number10_5_3: The AppKit framework included in OS X v10.5.3.
-	Number10_5_3 NSAppKitVersion
-	// Number10_6: The AppKit framework included in OS X v10.6.
-	Number10_6 NSAppKitVersion
-	// Number10_7: The AppKit framework included in OS X v10.7.
-	Number10_7 NSAppKitVersion
-	// Number10_7_2: The AppKit framework included in OS X v10.7.2.
-	Number10_7_2 NSAppKitVersion
-	// Number10_7_3: The AppKit framework included in OS X v10.7.3.
-	Number10_7_3 NSAppKitVersion
-	// Number10_7_4: The AppKit framework included in OS X v10.7.4.
-	Number10_7_4 NSAppKitVersion
-	// Number10_8: The AppKit framework included in OS X v10.8.
-	Number10_8 NSAppKitVersion
-	Number10_9 NSAppKitVersion
-	Number11_0 NSAppKitVersion
-	Number11_1 NSAppKitVersion
-	Number11_2 NSAppKitVersion
-	Number11_3 NSAppKitVersion
-	Number11_4 NSAppKitVersion
-	Number11_5 NSAppKitVersion
-	Number12_0 NSAppKitVersion
-	Number12_1 NSAppKitVersion
-	Number12_2 NSAppKitVersion
-	Number12_3 NSAppKitVersion
-	Number12_4 NSAppKitVersion
-	Number12_5 NSAppKitVersion
-	Number13_0 NSAppKitVersion
-	Number13_1 NSAppKitVersion
-	Number13_2 NSAppKitVersion
-	Number13_3 NSAppKitVersion
-	Number13_4 NSAppKitVersion
-	Number13_5 NSAppKitVersion
-	Number13_6 NSAppKitVersion
-	Number14_0 NSAppKitVersion
-	Number14_1 NSAppKitVersion
-	// NumberWithColumnResizingBrowser: The specific version of the AppKit framework that introduced support for resizing individual browser columns.
-	NumberWithColumnResizingBrowser NSAppKitVersion
-	// NumberWithContinuousScrollingBrowser: The specific version of the AppKit framework that introduced support the continuous scrolling in a browser view.
-	NumberWithContinuousScrollingBrowser NSAppKitVersion
-	// NumberWithCursorSizeSupport: The specific version of the AppKit framework that introduced support for cursors larger than 16 x 16 pixels in size.
-	NumberWithCursorSizeSupport NSAppKitVersion
-	// NumberWithCustomSheetPosition: The specific version of the AppKit framework that introduced custom sheet positioning.
-	NumberWithCustomSheetPosition NSAppKitVersion
-	// NumberWithDeferredWindowDisplaySupport: The specific version of the AppKit framework that introduced support for deferred window display.
-	NumberWithDeferredWindowDisplaySupport NSAppKitVersion
-	// NumberWithDirectionalTabs: The specific version of the AppKit framework that introduced support for directional tab items.
-	NumberWithDirectionalTabs NSAppKitVersion
-	// NumberWithDockTilePlugInSupport: The specific version of the AppKit framework that introduced support for dock tile plug-ins.
-	NumberWithDockTilePlugInSupport NSAppKitVersion
-	// NumberWithPatternColorLeakFix: The specific version of the AppKit framework from OS X 10.1 that correctly autoreleases color objects.
-	NumberWithPatternColorLeakFix NSAppKitVersion
 }
 
 // NSAppearanceNames provides typed accessors for [NSAppearanceName] constants.
@@ -15249,16 +14560,6 @@ var NSAppearanceNames struct {
 	VibrantDark NSAppearanceName
 	// VibrantLight: The light vibrant appearance, available only in visual effect views.
 	VibrantLight NSAppearanceName
-}
-
-// NSControlStateValues provides typed accessors for [NSControlStateValue] constants.
-var NSControlStateValues struct {
-	// Mixed: A constant value that indicates a control is in a mixed state, neither on nor off.
-	Mixed NSControlStateValue
-	// Off: A constant value that indicates a control is off or unselected.
-	Off NSControlStateValue
-	// On: A constant value that indicates a control is on or selected.
-	On NSControlStateValue
 }
 
 // NSFontDescriptorSystemDesigns provides typed accessors for [NSFontDescriptorSystemDesign] constants.
@@ -15485,38 +14786,6 @@ var NSImageNames struct {
 	TouchBarVolumeUpTemplate NSImageName
 }
 
-// NSLayoutPrioritys provides typed accessors for [NSLayoutPriority] constants.
-var NSLayoutPrioritys struct {
-	// DefaultHigh: Priority level with which a button resists compressing its content.
-	DefaultHigh NSLayoutPriority
-	// DefaultLow: Priority level at which a button hugs its contents horizontally.
-	DefaultLow NSLayoutPriority
-	// DragThatCanResizeWindow: Appropriate priority level for a drag that may end up resizing the window.
-	DragThatCanResizeWindow NSLayoutPriority
-	// DragThatCannotResizeWindow: Priority level at which a split view divider, say, is dragged.
-	DragThatCannotResizeWindow NSLayoutPriority
-	// FittingSizeCompression: When you send a [fittingSize](<doc://com.apple.appkit/documentation/AppKit/NSView/fittingSize>) message to a view, the smallest size that is large enough for the view’s contents is computed.
-	FittingSizeCompression NSLayoutPriority
-	// Required: A required constraint.
-	Required NSLayoutPriority
-	// WindowSizeStayPut: Priority level for the window’s current size.
-	WindowSizeStayPut NSLayoutPriority
-}
-
-// NSModalResponses provides typed accessors for [NSModalResponse] constants.
-var NSModalResponses struct {
-	// Abort: Modal session was broken with [abortModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/abortModal()>).
-	Abort NSModalResponse
-	// Cancel: The presentation or dismissal of the sheet has been canceled.
-	Cancel NSModalResponse
-	// Continue: Modal session is continuing (returned by [runModalSession(_:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModalSession(_:)>) only).
-	Continue NSModalResponse
-	// OK: The presentation or dismissal of the sheet has finished.
-	OK NSModalResponse
-	// Stop: Modal session was broken with [stopModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/stopModal()>).
-	Stop NSModalResponse
-}
-
 // NSPasteboardDetectionPatterns provides typed accessors for [NSPasteboardDetectionPattern] constants.
 var NSPasteboardDetectionPatterns struct {
 	// CalendarEvent: A pattern that indicates the pasteboard detects a string that contains a calendar event.
@@ -15631,16 +14900,6 @@ var NSSpeechModes struct {
 	Text NSSpeechMode
 }
 
-// NSStackViewVisibilityPrioritys provides typed accessors for [NSStackViewVisibilityPriority] constants.
-var NSStackViewVisibilityPrioritys struct {
-	// DetachOnlyIfNecessary: The Auto Layout priority that results in detachment of a view when there is insufficient space in the stack view to display it fully.
-	DetachOnlyIfNecessary NSStackViewVisibilityPriority
-	// MustHold: The default value, and maximum Auto Layout priority, that results in a view never detaching from the stack view.
-	MustHold NSStackViewVisibilityPriority
-	// NotVisible: The minimum Auto Layout priority that forces a view to detach from the stack view.
-	NotVisible NSStackViewVisibilityPriority
-}
-
 // NSTextContentTypes provides typed accessors for [NSTextContentType] constants.
 var NSTextContentTypes struct {
 	// AddressCity: A property that defines the content in a text input area as a city name.
@@ -15747,18 +15006,6 @@ var NSTextHighlightColorSchemes struct {
 	Purple NSTextHighlightColorScheme
 }
 
-// NSToolbarItemVisibilityPrioritys provides typed accessors for [NSToolbarItemVisibilityPriority] constants.
-var NSToolbarItemVisibilityPrioritys struct {
-	// High: A high priority that makes it less likely for the toolbar item to move to the overflow item.
-	High NSToolbarItemVisibilityPriority
-	// Low: The lowest-priority for a toolbar item.
-	Low NSToolbarItemVisibilityPriority
-	// Standard: The default visibility priority.
-	Standard NSToolbarItemVisibilityPriority
-	// User: The highest priority for items in the toolbar.
-	User NSToolbarItemVisibilityPriority
-}
-
 // NSTouchBarItemIdentifiers provides typed accessors for [NSTouchBarItemIdentifier] constants.
 var NSTouchBarItemIdentifiers struct {
 	// CandidateList: The standard identifier for a candidate list bar item.
@@ -15783,15 +15030,5 @@ var NSTouchBarItemIdentifiers struct {
 	TextList NSTouchBarItemIdentifier
 	// TextStyle: The identifier for a Touch Bar item used to control the text style.
 	TextStyle NSTouchBarItemIdentifier
-}
-
-// NSTouchBarItemPrioritys provides typed accessors for [NSTouchBarItemPriority] constants.
-var NSTouchBarItemPrioritys struct {
-	// High: A constant indicating a high visibility priority.
-	High NSTouchBarItemPriority
-	// Low: A constant indicating a low visibility priority.
-	Low NSTouchBarItemPriority
-	// Normal: A constant indicating a normal visibility priority.
-	Normal NSTouchBarItemPriority
 }
 

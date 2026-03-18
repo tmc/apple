@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -16,8 +17,6 @@ type NSMatrixDelegate interface {
 	NSControlTextEditingDelegate
 }
 
-
-
 // NSMatrixDelegateObject wraps an existing Objective-C object that conforms to the NSMatrixDelegate protocol.
 type NSMatrixDelegateObject struct {
 	objectivec.Object
@@ -26,8 +25,6 @@ func (o NSMatrixDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSMatrixDelegateObjectFromID constructs a [NSMatrixDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSMatrixDelegateObjectFromID(id objc.ID) NSMatrixDelegateObject {
@@ -35,9 +32,6 @@ func NSMatrixDelegateObjectFromID(id objc.ID) NSMatrixDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked when the insertion point leaves a cell belonging to the specified
 // control, but before the value of the cell’s object is displayed.
@@ -228,7 +222,7 @@ func (o NSMatrixDelegateObject) ControlTextShouldEndEditing(control INSControl, 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSMatrixDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSMatrixDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -327,10 +321,4 @@ func (o NSMatrixDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotifi
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
-
-
-
-
-
-
 

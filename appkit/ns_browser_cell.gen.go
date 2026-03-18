@@ -36,12 +36,6 @@ func (nc NSBrowserCellClass) Alloc() NSBrowserCell {
 	return rv
 }
 
-
-
-
-
-
-
 // The user interface of a browser.
 //
 // # Overview
@@ -78,10 +72,6 @@ func NSBrowserCellFromID(id objc.ID) NSBrowserCell {
 }
 // NOTE: NSBrowserCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSBrowserCell] class.
 //
@@ -124,13 +114,7 @@ type INSBrowserCell interface {
 	SetLoaded(value bool)
 	// Returns the highlight color that the receiver wants to display.
 	HighlightColorInView(controlView INSView) INSColor
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b NSBrowserCell) Init() NSBrowserCell {
@@ -151,11 +135,6 @@ func NewNSBrowserCell() NSBrowserCell {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/init(imageCell:)
 func NewBrowserCellImageCell(image INSImage) NSBrowserCell {
@@ -163,7 +142,6 @@ func NewBrowserCellImageCell(image INSImage) NSBrowserCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSBrowserCellFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/init(textCell:)
@@ -173,7 +151,6 @@ func NewBrowserCellTextCell(string_ string) NSBrowserCell {
 	return NSBrowserCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/init(coder:)
 func NewBrowserCellWithCoder(coder foundation.INSCoder) NSBrowserCell {
@@ -181,12 +158,6 @@ func NewBrowserCellWithCoder(coder foundation.INSCoder) NSBrowserCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSBrowserCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Unhighlights the receiver and unsets its state.
 //
@@ -215,20 +186,6 @@ func (b NSBrowserCell) HighlightColorInView(controlView INSView) INSColor {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("highlightColorInView:"), controlView)
 	return NSColorFromID(rv)
 }
-func (b NSBrowserCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The browser cell’s image for the highlighted state.
 //
@@ -253,8 +210,6 @@ func (b NSBrowserCell) AlternateImage() INSImage {
 func (b NSBrowserCell) SetAlternateImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateImage:"), value)
 }
-
-
 
 // A Boolean that indicates whether the browser cell is a leaf or a branch
 // cell.
@@ -281,8 +236,6 @@ func (b NSBrowserCell) SetLeaf(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLeaf:"), value)
 }
 
-
-
 // A Boolean that indicates whether the cell is ready to display.
 //
 // # Discussion
@@ -300,12 +253,6 @@ func (b NSBrowserCell) Loaded() bool {
 func (b NSBrowserCell) SetLoaded(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLoaded:"), value)
 }
-
-
-
-
-
-
 
 // Returns the default image for branch cells in a browser.
 //
@@ -326,8 +273,6 @@ func (_NSBrowserCellClass NSBrowserCellClass) BranchImage() NSImage {
 	return NSImageFromID(objc.ID(rv))
 }
 
-
-
 // Returns the default image for branch browser cells that are highlighted.
 //
 // # Return Value
@@ -345,29 +290,4 @@ func (_NSBrowserCellClass NSBrowserCellClass) HighlightedBranchImage() NSImage {
 	rv := objc.Send[objc.ID](objc.ID(_NSBrowserCellClass.class), objc.Sel("highlightedBranchImage"))
 	return NSImageFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

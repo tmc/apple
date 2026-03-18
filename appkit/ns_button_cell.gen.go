@@ -37,12 +37,6 @@ func (nc NSButtonCellClass) Alloc() NSButtonCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines the user interface of a button or other clickable
 // region of a view.
 //
@@ -165,10 +159,6 @@ func NSButtonCellFromID(id objc.ID) NSButtonCell {
 }
 // NOTE: NSButtonCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSButtonCell] class.
 //
@@ -325,13 +315,7 @@ type INSButtonCell interface {
 	DrawImageWithFrameInView(image INSImage, frame corefoundation.CGRect, controlView INSView)
 	// Draws the button’s title centered vertically in a specified rectangle.
 	DrawTitleWithFrameInView(title foundation.NSAttributedString, frame corefoundation.CGRect, controlView INSView) corefoundation.CGRect
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b NSButtonCell) Init() NSButtonCell {
@@ -352,11 +336,6 @@ func NewNSButtonCell() NSButtonCell {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(imageCell:)
 func NewButtonCellImageCell(image INSImage) NSButtonCell {
@@ -364,7 +343,6 @@ func NewButtonCellImageCell(image INSImage) NSButtonCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSButtonCellFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(textCell:)
@@ -374,7 +352,6 @@ func NewButtonCellTextCell(string_ string) NSButtonCell {
 	return NSButtonCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(coder:)
 func NewButtonCellWithCoder(coder foundation.INSCoder) NSButtonCell {
@@ -382,12 +359,6 @@ func NewButtonCellWithCoder(coder foundation.INSCoder) NSButtonCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSButtonCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets the message delay and interval for the button.
 //
@@ -527,20 +498,6 @@ func (b NSButtonCell) DrawTitleWithFrameInView(title foundation.NSAttributedStri
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("drawTitle:withFrame:inView:"), title, frame, controlView)
 	return corefoundation.CGRect(rv)
 }
-func (b NSButtonCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The string displayed by the button when it’s in its alternate state.
 //
@@ -559,8 +516,6 @@ func (b NSButtonCell) AlternateTitle() string {
 func (b NSButtonCell) SetAlternateTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateTitle:"), objc.String(value))
 }
-
-
 
 // The title displayed by the button when it’s in its alternate state, as an
 // attributed string.
@@ -585,8 +540,6 @@ func (b NSButtonCell) AttributedAlternateTitle() foundation.NSAttributedString {
 func (b NSButtonCell) SetAttributedAlternateTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttributedAlternateTitle:"), value)
 }
-
-
 
 // The title displayed by the button when it’s in its normal state as an
 // attributed string.
@@ -614,8 +567,6 @@ func (b NSButtonCell) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttributedTitle:"), value)
 }
 
-
-
 // The image the button displays in its alternate state.
 //
 // # Discussion
@@ -635,8 +586,6 @@ func (b NSButtonCell) SetAlternateImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateImage:"), value)
 }
 
-
-
 // The position of the button’s image relative to its title.
 //
 // # Discussion
@@ -655,8 +604,6 @@ func (b NSButtonCell) SetImagePosition(value NSCellImagePosition) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImagePosition:"), value)
 }
 
-
-
 // The scale factor for the button’s image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/imageScaling
@@ -667,8 +614,6 @@ func (b NSButtonCell) ImageScaling() NSImageScaling {
 func (b NSButtonCell) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageScaling:"), value)
 }
-
-
 
 // The mask that identifies the modifier keys for the button’s key
 // equivalent.
@@ -690,8 +635,6 @@ func (b NSButtonCell) SetKeyEquivalentModifierMask(value NSEventModifierFlags) {
 	objc.Send[struct{}](b.ID, objc.Sel("setKeyEquivalentModifierMask:"), value)
 }
 
-
-
 // The background color of the button.
 //
 // # Discussion
@@ -706,8 +649,6 @@ func (b NSButtonCell) BackgroundColor() INSColor {
 func (b NSButtonCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // The appearance of the button’s border, if it has one.
 //
@@ -731,8 +672,6 @@ func (b NSButtonCell) BezelStyle() NSBezelStyle {
 func (b NSButtonCell) SetBezelStyle(value NSBezelStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBezelStyle:"), value)
 }
-
-
 
 // A Boolean value that indicates if the button’s image and text appear
 // “dim” when the button is disabled.
@@ -764,8 +703,6 @@ func (b NSButtonCell) SetImageDimsWhenDisabled(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setImageDimsWhenDisabled:"), value)
 }
 
-
-
 // A Boolean value that indicates if the button is transparent.
 //
 // # Discussion
@@ -790,8 +727,6 @@ func (b NSButtonCell) SetTransparent(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTransparent:"), value)
 }
 
-
-
 // A Boolean value that indicates if the button displays its border only when
 // the pointer is over it.
 //
@@ -813,8 +748,6 @@ func (b NSButtonCell) ShowsBorderOnlyWhileMouseInside() bool {
 func (b NSButtonCell) SetShowsBorderOnlyWhileMouseInside(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setShowsBorderOnlyWhileMouseInside:"), value)
 }
-
-
 
 // A set of flags that indicate how the button highlights when it receives a
 // mouse-down event (that is, when the button is pressed).
@@ -841,8 +774,6 @@ func (b NSButtonCell) SetHighlightsBy(value NSCellStyleMask) {
 	objc.Send[struct{}](b.ID, objc.Sel("setHighlightsBy:"), value)
 }
 
-
-
 // The flags that indicate how the button cell shows its alternate state.
 //
 // # Discussion
@@ -867,8 +798,6 @@ func (b NSButtonCell) SetShowsStateBy(value NSCellStyleMask) {
 	objc.Send[struct{}](b.ID, objc.Sel("setShowsStateBy:"), value)
 }
 
-
-
 // The sound that’s played when the user presses the button (that is during
 // a mouse-down event).
 //
@@ -880,33 +809,4 @@ func (b NSButtonCell) Sound() INSSound {
 func (b NSButtonCell) SetSound(value INSSound) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSound:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

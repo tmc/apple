@@ -23,8 +23,6 @@ type NSAccessibilityRadioButton interface {
 	AccessibilityValue() foundation.NSNumber
 }
 
-
-
 // NSAccessibilityRadioButtonObject wraps an existing Objective-C object that conforms to the NSAccessibilityRadioButton protocol.
 type NSAccessibilityRadioButtonObject struct {
 	objectivec.Object
@@ -33,8 +31,6 @@ func (o NSAccessibilityRadioButtonObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityRadioButtonObjectFromID constructs a [NSAccessibilityRadioButtonObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityRadioButtonObjectFromID(id objc.ID) NSAccessibilityRadioButtonObject {
@@ -42,9 +38,6 @@ func NSAccessibilityRadioButtonObjectFromID(id objc.ID) NSAccessibilityRadioButt
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the radio button’s value.
 //
@@ -205,10 +198,4 @@ func (o NSAccessibilityRadioButtonObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

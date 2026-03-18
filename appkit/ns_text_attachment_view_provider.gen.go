@@ -38,12 +38,6 @@ func (nc NSTextAttachmentViewProviderClass) Alloc() NSTextAttachmentViewProvider
 	return rv
 }
 
-
-
-
-
-
-
 // A container object that associates a text attachment at a particular
 // document location with a view object.
 //
@@ -88,14 +82,10 @@ type NSTextAttachmentViewProvider struct {
 // A container object that associates a text attachment at a particular
 // document location with a view object.
 func NSTextAttachmentViewProviderFromID(id objc.ID) NSTextAttachmentViewProvider {
-	return NSTextAttachmentViewProvider{objectivec.Object{id}}
+	return NSTextAttachmentViewProvider{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextAttachmentViewProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextAttachmentViewProvider] class.
 //
@@ -156,10 +146,6 @@ type INSTextAttachmentViewProvider interface {
 	AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition(attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer, proposedLineFragment corefoundation.CGRect, position corefoundation.CGPoint) corefoundation.CGRect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextAttachmentViewProvider) Init() NSTextAttachmentViewProvider {
 	rv := objc.Send[NSTextAttachmentViewProvider](t.ID, objc.Sel("init"))
@@ -179,11 +165,6 @@ func NewNSTextAttachmentViewProvider() NSTextAttachmentViewProvider {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new text attachment view whose content starts at the location you
 // provide.
 //
@@ -201,12 +182,6 @@ func NewTextAttachmentViewProviderWithTextAttachmentParentViewTextLayoutManagerL
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTextAttachment:parentView:textLayoutManager:location:"), textAttachment, parentView, textLayoutManager, location)
 	return NSTextAttachmentViewProviderFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new text attachment view whose content starts at the location you
 // provide.
@@ -268,17 +243,6 @@ func (t NSTextAttachmentViewProvider) AttachmentBoundsForAttributesLocationTextC
 	return corefoundation.CGRect(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The location that indicates the start of the text attachment.
 //
 // # Discussion
@@ -291,8 +255,6 @@ func (t NSTextAttachmentViewProvider) Location() NSTextLocation {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("location"))
 	return NSTextLocationObjectFromID(rv)
 }
-
-
 
 // The text attachment for this view.
 //
@@ -307,8 +269,6 @@ func (t NSTextAttachmentViewProvider) TextAttachment() INSTextAttachment {
 	return NSTextAttachmentFromID(objc.ID(rv))
 }
 
-
-
 // The text layout manager for this view.
 //
 // # Discussion
@@ -321,8 +281,6 @@ func (t NSTextAttachmentViewProvider) TextLayoutManager() INSTextLayoutManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that determines the text attachment’s bounds policy.
 //
@@ -343,8 +301,6 @@ func (t NSTextAttachmentViewProvider) SetTracksTextAttachmentViewBounds(value bo
 	objc.Send[struct{}](t.ID, objc.Sel("setTracksTextAttachmentViewBounds:"), value)
 }
 
-
-
 // The text attachment’s view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentViewProvider/view
@@ -355,26 +311,4 @@ func (t NSTextAttachmentViewProvider) View() INSView {
 func (t NSTextAttachmentViewProvider) SetView(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setView:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

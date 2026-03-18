@@ -36,12 +36,6 @@ func (nc NSCollectionLayoutSizeClass) Alloc() NSCollectionLayoutSize {
 	return rv
 }
 
-
-
-
-
-
-
 // The width and the height of an item in a collection view.
 //
 // # Overview
@@ -64,14 +58,10 @@ type NSCollectionLayoutSize struct {
 //
 // The width and the height of an item in a collection view.
 func NSCollectionLayoutSizeFromID(id objc.ID) NSCollectionLayoutSize {
-	return NSCollectionLayoutSize{objectivec.Object{id}}
+	return NSCollectionLayoutSize{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutSize adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutSize] class.
 //
@@ -92,10 +82,6 @@ type INSCollectionLayoutSize interface {
 	HeightDimension() INSCollectionLayoutDimension
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutSize) Init() NSCollectionLayoutSize {
 	rv := objc.Send[NSCollectionLayoutSize](c.ID, objc.Sel("init"))
@@ -115,11 +101,6 @@ func NewNSCollectionLayoutSize() NSCollectionLayoutSize {
 	return rv
 }
 
-
-
-
-
-
 // Creates a size with the specified width and height dimensions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSize/init(widthDimension:heightDimension:)
@@ -127,23 +108,6 @@ func NewCollectionLayoutSizeWithWidthDimensionHeightDimension(width INSCollectio
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutSizeClass().class), objc.Sel("sizeWithWidthDimension:heightDimension:"), width, height)
 	return NSCollectionLayoutSizeFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The width dimension of an item in a collection view layout.
 //
@@ -153,8 +117,6 @@ func (c NSCollectionLayoutSize) WidthDimension() INSCollectionLayoutDimension {
 	return NSCollectionLayoutDimensionFromID(objc.ID(rv))
 }
 
-
-
 // The height dimension of an item in a collection view layout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSize/heightDimension
@@ -162,28 +124,4 @@ func (c NSCollectionLayoutSize) HeightDimension() INSCollectionLayoutDimension {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("heightDimension"))
 	return NSCollectionLayoutDimensionFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

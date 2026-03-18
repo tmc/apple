@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of combo box objects.
 //
@@ -21,8 +20,6 @@ type NSComboBoxDelegate interface {
 	NSTextFieldDelegate
 }
 
-
-
 // NSComboBoxDelegateObject wraps an existing Objective-C object that conforms to the NSComboBoxDelegate protocol.
 type NSComboBoxDelegateObject struct {
 	objectivec.Object
@@ -31,8 +28,6 @@ func (o NSComboBoxDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSComboBoxDelegateObjectFromID constructs a [NSComboBoxDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSComboBoxDelegateObjectFromID(id objc.ID) NSComboBoxDelegateObject {
@@ -40,9 +35,6 @@ func NSComboBoxDelegateObjectFromID(id objc.ID) NSComboBoxDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Informs the delegate that the pop-up list selection has finished changing.
 //
@@ -285,7 +277,7 @@ func (o NSComboBoxDelegateObject) ControlTextShouldEndEditing(control INSControl
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSComboBoxDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSComboBoxDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -403,10 +395,6 @@ func (o NSComboBoxDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex(
 	return rv
 	}
 
-
-
-
-
 // NSComboBoxDelegateConfig holds optional typed callbacks for [NSComboBoxDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -506,8 +494,4 @@ func NewNSComboBoxDelegate(config NSComboBoxDelegateConfig) NSComboBoxDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSComboBoxDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MLModelStructureProgramArgumentClass) Alloc() MLModelStructureProgramAr
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing an argument in the Program.
 //
 // # Accessing the bindings
@@ -57,14 +51,10 @@ type MLModelStructureProgramArgument struct {
 //
 // A class representing an argument in the Program.
 func MLModelStructureProgramArgumentFromID(id objc.ID) MLModelStructureProgramArgument {
-	return MLModelStructureProgramArgument{objectivec.Object{id}}
+	return MLModelStructureProgramArgument{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramArgument implements IMLModelStructureProgramArgument.
 var _ IMLModelStructureProgramArgument = MLModelStructureProgramArgument{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramArgument] class.
 //
@@ -81,10 +71,6 @@ type IMLModelStructureProgramArgument interface {
 	// The array of bindings.
 	Bindings() []MLModelStructureProgramBinding
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLModelStructureProgramArgument) Init() MLModelStructureProgramArgument {
@@ -105,26 +91,6 @@ func NewMLModelStructureProgramArgument() MLModelStructureProgramArgument {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The array of bindings.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramArgument/bindings
@@ -134,20 +100,4 @@ func (m MLModelStructureProgramArgument) Bindings() []MLModelStructureProgramBin
 		return MLModelStructureProgramBindingFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSPageLayoutClass) Alloc() NSPageLayout {
 	return rv
 }
 
-
-
-
-
-
-
 // A panel that queries the user for information such as paper type and
 // orientation.
 //
@@ -84,14 +78,10 @@ type NSPageLayout struct {
 // A panel that queries the user for information such as paper type and
 // orientation.
 func NSPageLayoutFromID(id objc.ID) NSPageLayout {
-	return NSPageLayout{objectivec.Object{id}}
+	return NSPageLayout{objectivec.Object{ID: id}}
 }
 // NOTE: NSPageLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPageLayout] class.
 //
@@ -138,10 +128,6 @@ type INSPageLayout interface {
 	PrintInfo() INSPrintInfo
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPageLayout) Init() NSPageLayout {
 	rv := objc.Send[NSPageLayout](p.ID, objc.Sel("init"))
@@ -161,21 +147,12 @@ func NewNSPageLayout() NSPageLayout {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/beginSheet(using:on:completionHandler:)
 func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(handler)
+_block2, _cleanup2 := NewErrorBlock(handler)
 	defer _cleanup2()
-		objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
+	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
 }
 
 // Displays the page layout panel and begins the modal loop using the shared
@@ -235,17 +212,6 @@ func (p NSPageLayout) RemoveAccessoryController(accessoryController INSViewContr
 	objc.Send[objc.ID](p.ID, objc.Sel("removeAccessoryController:"), accessoryController)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An array of accessory view controllers belonging to the page layout panel.
 //
 // # Discussion
@@ -261,8 +227,6 @@ func (p NSPageLayout) AccessoryControllers() []NSViewController {
 	})
 }
 
-
-
 // The printing information object used when the page layout panel is run.
 //
 // # Discussion
@@ -277,27 +241,4 @@ func (p NSPageLayout) PrintInfo() INSPrintInfo {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("printInfo"))
 	return NSPrintInfoFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

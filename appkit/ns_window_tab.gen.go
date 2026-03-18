@@ -37,12 +37,6 @@ func (nc NSWindowTabClass) Alloc() NSWindowTab {
 	return rv
 }
 
-
-
-
-
-
-
 // A tab associated with a window that is part of a tabbing group.
 //
 // # Overview
@@ -81,14 +75,10 @@ type NSWindowTab struct {
 //
 // A tab associated with a window that is part of a tabbing group.
 func NSWindowTabFromID(id objc.ID) NSWindowTab {
-	return NSWindowTab{objectivec.Object{id}}
+	return NSWindowTab{objectivec.Object{ID: id}}
 }
 // NOTE: NSWindowTab adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSWindowTab] class.
 //
@@ -142,10 +132,6 @@ type INSWindowTab interface {
 	SetTabbingIdentifier(value NSWindowTabbingIdentifier)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (w NSWindowTab) Init() NSWindowTab {
 	rv := objc.Send[NSWindowTab](w.ID, objc.Sel("init"))
@@ -164,26 +150,6 @@ func NewNSWindowTab() NSWindowTab {
 	rv := objc.Send[NSWindowTab](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The title for the window tab.
 //
@@ -207,8 +173,6 @@ func (w NSWindowTab) Title() string {
 func (w NSWindowTab) SetTitle(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The title for the window tab, specified as an attributed string.
 //
@@ -234,8 +198,6 @@ func (w NSWindowTab) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAttributedTitle:"), value)
 }
 
-
-
 // The tooltip for this window tab.
 //
 // # Discussion
@@ -254,8 +216,6 @@ func (w NSWindowTab) ToolTip() string {
 func (w NSWindowTab) SetToolTip(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
-
-
 
 // An optional accessory view for the tab.
 //
@@ -282,8 +242,6 @@ func (w NSWindowTab) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAccessoryView:"), value)
 }
 
-
-
 // An object that represents information about a window when it displays as a
 // tab.
 //
@@ -296,8 +254,6 @@ func (w NSWindowTab) SetTab(value INSWindowTab) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTab:"), value)
 }
 
-
-
 // A value that allows a group of related windows.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/tabbingidentifier-swift.property
@@ -308,26 +264,4 @@ func (w NSWindowTab) TabbingIdentifier() NSWindowTabbingIdentifier {
 func (w NSWindowTab) SetTabbingIdentifier(value NSWindowTabbingIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTabbingIdentifier:"), objc.String(string(value)))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

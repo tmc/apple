@@ -31,8 +31,6 @@ type MLCustomLayer interface {
 	EvaluateOnCPUWithInputsOutputsError(inputs []MLMultiArray, outputs []MLMultiArray) (bool, error)
 }
 
-
-
 // MLCustomLayerObject wraps an existing Objective-C object that conforms to the MLCustomLayer protocol.
 type MLCustomLayerObject struct {
 	objectivec.Object
@@ -41,8 +39,6 @@ func (o MLCustomLayerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MLCustomLayerObjectFromID constructs a [MLCustomLayerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MLCustomLayerObjectFromID(id objc.ID) MLCustomLayerObject {
@@ -50,9 +46,6 @@ func MLCustomLayerObjectFromID(id objc.ID) MLCustomLayerObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Assigns the weights for the connections within the layer.
 //
@@ -191,10 +184,4 @@ func (o MLCustomLayerObject) EncodeToCommandBufferInputsOutputsError(commandBuff
 	}
 	return rv, nil
 	}
-
-
-
-
-
-
 

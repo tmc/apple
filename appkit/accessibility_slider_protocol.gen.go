@@ -32,8 +32,6 @@ type NSAccessibilitySlider interface {
 	AccessibilityPerformIncrement() bool
 }
 
-
-
 // NSAccessibilitySliderObject wraps an existing Objective-C object that conforms to the NSAccessibilitySlider protocol.
 type NSAccessibilitySliderObject struct {
 	objectivec.Object
@@ -42,8 +40,6 @@ func (o NSAccessibilitySliderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilitySliderObjectFromID constructs a [NSAccessibilitySliderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilitySliderObjectFromID(id objc.ID) NSAccessibilitySliderObject {
@@ -51,9 +47,6 @@ func NSAccessibilitySliderObjectFromID(id objc.ID) NSAccessibilitySliderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a short description of the slider.
 //
@@ -247,10 +240,4 @@ func (o NSAccessibilitySliderObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

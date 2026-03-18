@@ -39,12 +39,6 @@ func (nc NSImageClass) Alloc() NSImage {
 	return rv
 }
 
-
-
-
-
-
-
 // A high-level interface for manipulating image data.
 //
 // # Overview
@@ -233,14 +227,10 @@ type NSImage struct {
 //
 // A high-level interface for manipulating image data.
 func NSImageFromID(id objc.ID) NSImage {
-	return NSImage{objectivec.Object{id}}
+	return NSImage{objectivec.Object{ID: id}}
 }
 // NOTE: NSImage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSImage] class.
 //
@@ -509,7 +499,7 @@ type INSImage interface {
 	// Topic: Producing Core Graphics Images
 
 	// Returns a Core Graphics image based on the contents of the current image object.
-	CGImageForProposedRectContextHints(proposedDestRect corefoundation.CGRect, referenceContext INSGraphicsContext, hints foundation.INSDictionary) coregraphics.CGImageRef
+	CGImageForProposedRectContextHints(proposedDestRect *corefoundation.CGRect, referenceContext INSGraphicsContext, hints foundation.INSDictionary) coregraphics.CGImageRef
 
 	// Topic: Hit-Testing Images
 
@@ -557,10 +547,6 @@ type INSImage interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSImage) Init() NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("init"))
@@ -579,11 +565,6 @@ func NewNSImage() NSImage {
 	rv := objc.Send[NSImage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns an image object using the specified file.
 //
@@ -632,7 +613,6 @@ func NewImageByReferencingFile(fileName string) NSImage {
 	return NSImageFromID(rv)
 }
 
-
 // Initializes and returns an image object using the specified URL.
 //
 // url: The URL identifying the image.
@@ -671,7 +651,6 @@ func NewImageByReferencingURL(url foundation.INSURL) NSImage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initByReferencingURL:"), url)
 	return NSImageFromID(rv)
 }
-
 
 // Returns the image object associated with the specified name.
 //
@@ -735,7 +714,6 @@ func NewImageNamed(name NSImageName) NSImage {
 	return NSImageFromID(rv)
 }
 
-
 // Creates a new image using the contents of the provided image.
 //
 // cgImage: The source image.
@@ -759,7 +737,6 @@ func NewImageWithCGImageSize(cgImage coregraphics.CGImageRef, size corefoundatio
 	return NSImageFromID(rv)
 }
 
-
 // Initializes and returns an image object from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(coder:)
@@ -768,7 +745,6 @@ func NewImageWithCoder(coder foundation.INSCoder) NSImage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSImageFromID(rv)
 }
-
 
 // Initializes and returns an image object with the contents of the specified
 // file.
@@ -798,7 +774,6 @@ func NewImageWithContentsOfFile(fileName string) NSImage {
 	return NSImageFromID(rv)
 }
 
-
 // Initializes and returns an image object with the contents of the specified
 // URL.
 //
@@ -815,7 +790,6 @@ func NewImageWithContentsOfURL(url foundation.INSURL) NSImage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSImageFromID(rv)
 }
-
 
 // Initializes and returns an image object using the provided image data.
 //
@@ -842,7 +816,6 @@ func NewImageWithData(data foundation.INSData) NSImage {
 	return NSImageFromID(rv)
 }
 
-
 // Initializes and returns an image object using the provided image data and
 // ignoring the EXIF orientation tags.
 //
@@ -861,7 +834,6 @@ func NewImageWithDataIgnoringOrientation(data foundation.INSData) NSImage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDataIgnoringOrientation:"), data)
 	return NSImageFromID(rv)
 }
-
 
 // Initializes and returns an image object with data from the specified
 // pasteboard.
@@ -898,7 +870,6 @@ func NewImageWithPasteboard(pasteboard INSPasteboard) NSImage {
 	return NSImageFromID(rv)
 }
 
-
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
@@ -931,7 +902,6 @@ func NewImageWithPasteboardPropertyListOfType(propertyList objectivec.IObject, t
 	return NSImageFromID(rv)
 }
 
-
 // Initializes and returns an image object with the specified dimensions.
 //
 // size: The size of the image, measured in points.
@@ -958,7 +928,6 @@ func NewImageWithSize(size corefoundation.CGSize) NSImage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:"), size)
 	return NSImageFromID(rv)
 }
-
 
 // Creates and returns an image object whose contents are drawn using the
 // specified block.
@@ -1024,14 +993,12 @@ func NewImageWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHa
 	return NSImageFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(symbolName:bundle:variableValue:)
 func NewImageWithSymbolNameBundleVariableValue(name string, bundle foundation.NSBundle, value float64) NSImage {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageClass().class), objc.Sel("imageWithSymbolName:bundle:variableValue:"), objc.String(name), bundle, value)
 	return NSImageFromID(rv)
 }
-
 
 // Creates a symbol image with the symbol name and variable value you specify.
 //
@@ -1049,7 +1016,6 @@ func NewImageWithSymbolNameVariableValue(name string, value float64) NSImage {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageClass().class), objc.Sel("imageWithSymbolName:variableValue:"), objc.String(name), value)
 	return NSImageFromID(rv)
 }
-
 
 // Creates a symbol image with the system symbol name and accessibility
 // description you specify.
@@ -1076,7 +1042,6 @@ func NewImageWithSystemSymbolNameAccessibilityDescription(name string, descripti
 	return NSImageFromID(rv)
 }
 
-
 // Creates a symbol image with the system symbol name and variable value you
 // specify.
 //
@@ -1101,12 +1066,6 @@ func NewImageWithSystemSymbolNameVariableValueAccessibilityDescription(name stri
 	rv := objc.Send[objc.ID](objc.ID(getNSImageClass().class), objc.Sel("imageWithSystemSymbolName:variableValue:accessibilityDescription:"), objc.String(name), value, objc.String(description))
 	return NSImageFromID(rv)
 }
-
-
-
-
-
-
 
 // Registers the image object under the specified name.
 //
@@ -1761,7 +1720,7 @@ func (i NSImage) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/cgImage(forProposedRect:context:hints:)
-func (i NSImage) CGImageForProposedRectContextHints(proposedDestRect corefoundation.CGRect, referenceContext INSGraphicsContext, hints foundation.INSDictionary) coregraphics.CGImageRef {
+func (i NSImage) CGImageForProposedRectContextHints(proposedDestRect *corefoundation.CGRect, referenceContext INSGraphicsContext, hints foundation.INSDictionary) coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), proposedDestRect, referenceContext, hints)
 	return coregraphics.CGImageRef(rv)
 }
@@ -1977,10 +1936,6 @@ func (i NSImage) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Tests whether the image can create an instance of itself using pasteboard
 // data.
 //
@@ -2067,13 +2022,6 @@ func (_NSImageClass NSImageClass) ReadingOptionsForTypePasteboard(type_ NSPasteb
 	return NSPasteboardReadingOptions(rv)
 }
 
-
-
-
-
-
-
-
 // The configuration details for a symbol image.
 //
 // # Discussion
@@ -2095,8 +2043,6 @@ func (i NSImage) SymbolConfiguration() INSImageSymbolConfiguration {
 	return NSImageSymbolConfigurationFromID(objc.ID(rv))
 }
 
-
-
 // The image’s delegate object.
 //
 // # Discussion
@@ -2111,8 +2057,6 @@ func (i NSImage) Delegate() NSImageDelegate {
 func (i NSImage) SetDelegate(value NSImageDelegate) {
 	objc.Send[struct{}](i.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // The size of the image.
 //
@@ -2138,8 +2082,6 @@ func (i NSImage) Size() corefoundation.CGSize {
 func (i NSImage) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSize:"), value)
 }
-
-
 
 // A Boolean value that determines whether the image represents a template
 // image.
@@ -2169,8 +2111,6 @@ func (i NSImage) SetTemplate(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTemplate:"), value)
 }
 
-
-
 // An array containing all of the image object’s image representations.
 //
 // # Discussion
@@ -2184,8 +2124,6 @@ func (i NSImage) Representations() []NSImageRep {
 		return NSImageRepFromID(id)
 	})
 }
-
-
 
 // A Boolean value that indicates whether the image prefers to choose image
 // representations using color-matching or resolution-matching.
@@ -2211,8 +2149,6 @@ func (i NSImage) SetPrefersColorMatch(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPrefersColorMatch:"), value)
 }
 
-
-
 // A Boolean value that indicates whether EPS representations are preferred
 // when no other representations match the resolution of the device.
 //
@@ -2230,8 +2166,6 @@ func (i NSImage) UsesEPSOnResolutionMismatch() bool {
 func (i NSImage) SetUsesEPSOnResolutionMismatch(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setUsesEPSOnResolutionMismatch:"), value)
 }
-
-
 
 // A Boolean value that indicates whether image representations whose
 // resolution is an integral multiple of the device resolution are a match.
@@ -2258,8 +2192,6 @@ func (i NSImage) SetMatchesOnMultipleResolution(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMatchesOnMultipleResolution:"), value)
 }
 
-
-
 // A Boolean value that indicates whether it is possible to draw an image
 // representation.
 //
@@ -2280,8 +2212,6 @@ func (i NSImage) Valid() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isValid"))
 	return rv
 }
-
-
 
 // The background color for the image.
 //
@@ -2307,8 +2237,6 @@ func (i NSImage) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
-
-
 // The cap insets for the image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/capInsets
@@ -2320,8 +2248,6 @@ func (i NSImage) SetCapInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](i.ID, objc.Sel("setCapInsets:"), value)
 }
 
-
-
 // The resizing mode for the image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/resizingMode-swift.property
@@ -2332,8 +2258,6 @@ func (i NSImage) ResizingMode() NSImageResizingMode {
 func (i NSImage) SetResizingMode(value NSImageResizingMode) {
 	objc.Send[struct{}](i.ID, objc.Sel("setResizingMode:"), value)
 }
-
-
 
 // A rectangle that you can use to position the image during layout.
 //
@@ -2360,8 +2284,6 @@ func (i NSImage) AlignmentRect() corefoundation.CGRect {
 func (i NSImage) SetAlignmentRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAlignmentRect:"), value)
 }
-
-
 
 // The image’s caching mode.
 //
@@ -2393,8 +2315,6 @@ func (i NSImage) SetCacheMode(value NSImageCacheMode) {
 	objc.Send[struct{}](i.ID, objc.Sel("setCacheMode:"), value)
 }
 
-
-
 // A data object containing TIFF data for all of the image representations in
 // the image.
 //
@@ -2419,8 +2339,6 @@ func (i NSImage) TIFFRepresentation() foundation.INSData {
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 
-
-
 // The image’s accessibility description.
 //
 // # Discussion
@@ -2438,8 +2356,6 @@ func (i NSImage) AccessibilityDescription() string {
 func (i NSImage) SetAccessibilityDescription(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAccessibilityDescription:"), objc.String(value))
 }
-
-
 
 // A Boolean value that indicates whether the image matches only on the best
 // fitting axis.
@@ -2470,15 +2386,11 @@ func (i NSImage) SetMatchesOnlyOnBestFittingAxis(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMatchesOnlyOnBestFittingAxis:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSImage/locale
 func (i NSImage) Locale() foundation.NSLocale {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("locale"))
 	return foundation.NSLocaleFromID(objc.ID(rv))
 }
-
-
 
 // An object that provides the contents of the layer. Animatable.
 //
@@ -2490,8 +2402,6 @@ func (i NSImage) Contents() objectivec.IObject {
 func (i NSImage) SetContents(value objectivec.IObject) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContents:"), value)
 }
-
-
 
 // A constant that specifies how the layer’s contents are positioned or
 // scaled within its bounds.
@@ -2505,8 +2415,6 @@ func (i NSImage) SetContentsGravity(value foundation.NSString) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContentsGravity:"), value)
 }
 
-
-
 // The content is resized to fit the entire bounds rectangle.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resize
@@ -2514,8 +2422,6 @@ func (i NSImage) Resize() foundation.NSString {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("resize"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
 
 // The content is resized to fit the bounds rectangle, preserving the aspect
 // of the content. If the content does not completely fill the bounds
@@ -2527,8 +2433,6 @@ func (i NSImage) ResizeAspect() foundation.NSString {
 	return foundation.NSStringFromID(objc.ID(rv))
 }
 
-
-
 // The content is resized to completely fill the bounds rectangle, while still
 // preserving the aspect of the content. The content is centered in the axis
 // it exceeds.
@@ -2538,12 +2442,6 @@ func (i NSImage) ResizeAspectFill() foundation.NSString {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("resizeAspectFill"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
 
 // Returns an array of UTI strings identifying the image types supported by
 // the registered image representation objects, either directly or through a
@@ -2573,8 +2471,6 @@ func (_NSImageClass NSImageClass) ImageTypes() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // Returns an array of UTI strings identifying the image types supported
 // directly by the registered image representation objects.
 //
@@ -2602,37 +2498,6 @@ func (_NSImageClass NSImageClass) ImageUnfilteredTypes() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSPasteboardWriting
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

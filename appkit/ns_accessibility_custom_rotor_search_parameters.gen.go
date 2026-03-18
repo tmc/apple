@@ -37,12 +37,6 @@ func (nc NSAccessibilityCustomRotorSearchParametersClass) Alloc() NSAccessibilit
 	return rv
 }
 
-
-
-
-
-
-
 // Search parameters for a custom rotor.
 //
 // # Overview
@@ -74,14 +68,10 @@ type NSAccessibilityCustomRotorSearchParameters struct {
 //
 // Search parameters for a custom rotor.
 func NSAccessibilityCustomRotorSearchParametersFromID(id objc.ID) NSAccessibilityCustomRotorSearchParameters {
-	return NSAccessibilityCustomRotorSearchParameters{objectivec.Object{id}}
+	return NSAccessibilityCustomRotorSearchParameters{objectivec.Object{ID: id}}
 }
 // NOTE: NSAccessibilityCustomRotorSearchParameters adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAccessibilityCustomRotorSearchParameters] class.
 //
@@ -123,10 +113,6 @@ type INSAccessibilityCustomRotorSearchParameters interface {
 	SetSearchDirection(value NSAccessibilityCustomRotorSearchDirection)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAccessibilityCustomRotorSearchParameters) Init() NSAccessibilityCustomRotorSearchParameters {
 	rv := objc.Send[NSAccessibilityCustomRotorSearchParameters](a.ID, objc.Sel("init"))
@@ -145,26 +131,6 @@ func NewNSAccessibilityCustomRotorSearchParameters() NSAccessibilityCustomRotorS
 	rv := objc.Send[NSAccessibilityCustomRotorSearchParameters](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The current item that determines where the search starts.
 //
@@ -188,8 +154,6 @@ func (a NSAccessibilityCustomRotorSearchParameters) SetCurrentItem(value INSAcce
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentItem:"), value)
 }
 
-
-
 // A string of text to filter the results against.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/filterString
@@ -201,8 +165,6 @@ func (a NSAccessibilityCustomRotorSearchParameters) SetFilterString(value string
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterString:"), objc.String(value))
 }
 
-
-
 // The direction to search for an item result.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/searchDirection
@@ -213,26 +175,4 @@ func (a NSAccessibilityCustomRotorSearchParameters) SearchDirection() NSAccessib
 func (a NSAccessibilityCustomRotorSearchParameters) SetSearchDirection(value NSAccessibilityCustomRotorSearchDirection) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSearchDirection:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

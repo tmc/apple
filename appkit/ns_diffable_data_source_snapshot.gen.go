@@ -36,12 +36,6 @@ func (nc NSDiffableDataSourceSnapshotClass) Alloc() NSDiffableDataSourceSnapshot
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of the state of the data in a view at a specific point in
 // time.
 //
@@ -142,14 +136,10 @@ type NSDiffableDataSourceSnapshot struct {
 // A representation of the state of the data in a view at a specific point in
 // time.
 func NSDiffableDataSourceSnapshotFromID(id objc.ID) NSDiffableDataSourceSnapshot {
-	return NSDiffableDataSourceSnapshot{objectivec.Object{id}}
+	return NSDiffableDataSourceSnapshot{objectivec.Object{ID: id}}
 }
 // NOTE: NSDiffableDataSourceSnapshot adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDiffableDataSourceSnapshot] class.
 //
@@ -275,10 +265,6 @@ type INSDiffableDataSourceSnapshot interface {
 	ReloadSectionsWithIdentifiers(sectionIdentifiers []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDiffableDataSourceSnapshot) Init() NSDiffableDataSourceSnapshot {
 	rv := objc.Send[NSDiffableDataSourceSnapshot](d.ID, objc.Sel("init"))
@@ -297,15 +283,6 @@ func NewNSDiffableDataSourceSnapshot() NSDiffableDataSourceSnapshot {
 	rv := objc.Send[NSDiffableDataSourceSnapshot](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds the sections with the specified identifiers to the snapshot.
 //
@@ -570,17 +547,6 @@ func (d NSDiffableDataSourceSnapshot) ReloadSectionsWithIdentifiers(sectionIdent
 	objc.Send[objc.ID](d.ID, objc.Sel("reloadSectionsWithIdentifiers:"), objectivec.IObjectSliceToNSArray(sectionIdentifiers))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The number of items in the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/numberOfItems
@@ -589,8 +555,6 @@ func (d NSDiffableDataSourceSnapshot) NumberOfItems() int {
 	return rv
 }
 
-
-
 // The number of sections in the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/numberOfSections
@@ -598,8 +562,6 @@ func (d NSDiffableDataSourceSnapshot) NumberOfSections() int {
 	rv := objc.Send[int](d.ID, objc.Sel("numberOfSections"))
 	return rv
 }
-
-
 
 // The identifiers of all of the items in the snapshot.
 //
@@ -611,8 +573,6 @@ func (d NSDiffableDataSourceSnapshot) ItemIdentifiers() []objectivec.IObject {
 	})
 }
 
-
-
 // The identifiers of all of the sections in the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/sectionIdentifiers
@@ -622,27 +582,4 @@ func (d NSDiffableDataSourceSnapshot) SectionIdentifiers() []objectivec.IObject 
 		return objectivec.Object{ID: id}
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

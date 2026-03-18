@@ -14,8 +14,6 @@ type NSAlignmentFeedbackToken interface {
 	objectivec.IObject
 }
 
-
-
 // NSAlignmentFeedbackTokenObject wraps an existing Objective-C object that conforms to the NSAlignmentFeedbackToken protocol.
 type NSAlignmentFeedbackTokenObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSAlignmentFeedbackTokenObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAlignmentFeedbackTokenObjectFromID constructs a [NSAlignmentFeedbackTokenObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAlignmentFeedbackTokenObjectFromID(id objc.ID) NSAlignmentFeedbackTokenObject {
@@ -33,13 +29,4 @@ func NSAlignmentFeedbackTokenObjectFromID(id objc.ID) NSAlignmentFeedbackTokenOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

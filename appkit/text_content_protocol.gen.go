@@ -25,8 +25,6 @@ type NSTextContent interface {
 	SetContentType(value NSTextContentType)
 }
 
-
-
 // NSTextContentObject wraps an existing Objective-C object that conforms to the NSTextContent protocol.
 type NSTextContentObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o NSTextContentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextContentObjectFromID constructs a [NSTextContentObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextContentObjectFromID(id objc.ID) NSTextContentObject {
@@ -44,9 +40,6 @@ func NSTextContentObjectFromID(id objc.ID) NSTextContentObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The semantic meaning for a text input area.
 //
@@ -58,14 +51,7 @@ func (o NSTextContentObject) ContentType() NSTextContentType {
 	return NSTextContentType(foundation.NSStringFromID(rv).String())
 	}
 
-
-
-
 func (o NSTextContentObject) SetContentType(value NSTextContentType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContentType:"), objc.String(string(value)))
 }
-
-
-
-
 

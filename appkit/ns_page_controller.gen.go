@@ -37,12 +37,6 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that controls swipe navigation and animations between views or
 // view content.
 //
@@ -258,10 +252,6 @@ func NSPageControllerFromID(id objc.ID) NSPageController {
 // NOTE: NSPageController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPageController] class.
 //
 // # Customizing the Paged Interface Behavior
@@ -346,12 +336,7 @@ type INSPageController interface {
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSPageController
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPageController) Init() NSPageController {
@@ -372,11 +357,6 @@ func NewNSPageController() NSPageController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
@@ -384,7 +364,6 @@ func NewPageControllerWithCoder(coder foundation.INSCoder) NSPageController {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPageControllerFromID(rv)
 }
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -418,12 +397,6 @@ func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSPageControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Navigates to the specific object.
 //
@@ -564,13 +537,6 @@ func (p NSPageController) Animator() INSPageController {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("animator"))
 	return NSPageControllerFromID(rv)
 }
-func (p NSPageController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Returns the default animation that should be performed for the specified
 // key.
@@ -613,13 +579,6 @@ func (_NSPageControllerClass NSPageControllerClass) DefaultAnimationForKey(key N
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // The page controller’s delegate object.
 //
 // # Discussion
@@ -634,8 +593,6 @@ func (p NSPageController) Delegate() NSPageControllerDelegate {
 func (p NSPageController) SetDelegate(value NSPageControllerDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // An array containing the objects displayed in the page controller’s view.
 //
@@ -657,8 +614,6 @@ func (p NSPageController) SetArrangedObjects(value foundation.INSArray) {
 	objc.Send[struct{}](p.ID, objc.Sel("setArrangedObjects:"), value)
 }
 
-
-
 // The currently selected object in the arranged objects array.
 //
 // # Discussion
@@ -676,8 +631,6 @@ func (p NSPageController) SelectedIndex() int {
 func (p NSPageController) SetSelectedIndex(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectedIndex:"), value)
 }
-
-
 
 // The transition style the page controller uses when changing pages.
 //
@@ -700,8 +653,6 @@ func (p NSPageController) SetTransitionStyle(value NSPageControllerTransitionSty
 	objc.Send[struct{}](p.ID, objc.Sel("setTransitionStyle:"), value)
 }
 
-
-
 // The view controller associated with the selected object..
 //
 // # Discussion
@@ -717,8 +668,6 @@ func (p NSPageController) SelectedViewController() INSViewController {
 	return NSViewControllerFromID(objc.ID(rv))
 }
 
-
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -730,37 +679,4 @@ func (p NSPageController) Animations() foundation.INSDictionary {
 func (p NSPageController) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAnimations:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

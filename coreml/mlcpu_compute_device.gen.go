@@ -36,12 +36,6 @@ func (mc MLCPUComputeDeviceClass) Alloc() MLCPUComputeDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a CPU compute device.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCPUComputeDevice
@@ -53,14 +47,10 @@ type MLCPUComputeDevice struct {
 //
 // An object that represents a CPU compute device.
 func MLCPUComputeDeviceFromID(id objc.ID) MLCPUComputeDevice {
-	return MLCPUComputeDevice{objectivec.Object{id}}
+	return MLCPUComputeDevice{objectivec.Object{ID: id}}
 }
 // NOTE: MLCPUComputeDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLCPUComputeDevice] class.
 //
@@ -69,10 +59,6 @@ type IMLCPUComputeDevice interface {
 	objectivec.IObject
 	MLComputeDeviceProtocol
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c MLCPUComputeDevice) Init() MLCPUComputeDevice {
@@ -93,51 +79,6 @@ func NewMLCPUComputeDevice() MLCPUComputeDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MLComputeDeviceProtocol
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

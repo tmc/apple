@@ -37,12 +37,6 @@ func (mc MLImageSizeClass) Alloc() MLImageSize {
 	return rv
 }
 
-
-
-
-
-
-
 // The width and height of an image feature size.
 //
 // # Accessing an image size
@@ -59,14 +53,10 @@ type MLImageSize struct {
 //
 // The width and height of an image feature size.
 func MLImageSizeFromID(id objc.ID) MLImageSize {
-	return MLImageSize{objectivec.Object{id}}
+	return MLImageSize{objectivec.Object{ID: id}}
 }
 // NOTE: MLImageSize adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLImageSize] class.
 //
@@ -92,10 +82,6 @@ type IMLImageSize interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i MLImageSize) Init() MLImageSize {
 	rv := objc.Send[MLImageSize](i.ID, objc.Sel("init"))
@@ -115,28 +101,9 @@ func NewMLImageSize() MLImageSize {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (i MLImageSize) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The height of an image feature in pixels.
 //
@@ -146,8 +113,6 @@ func (i MLImageSize) PixelsHigh() int {
 	return rv
 }
 
-
-
 // The width of an image feature in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/pixelsWide
@@ -155,8 +120,6 @@ func (i MLImageSize) PixelsWide() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsWide"))
 	return rv
 }
-
-
 
 // An array of image sizes a model’s image feature accepts as input or
 // produces as output.
@@ -169,28 +132,4 @@ func (i MLImageSize) EnumeratedImageSizes() IMLImageSize {
 func (i MLImageSize) SetEnumeratedImageSizes(value IMLImageSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setEnumeratedImageSizes:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

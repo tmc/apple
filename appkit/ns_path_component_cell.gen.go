@@ -36,12 +36,6 @@ func (nc NSPathComponentCellClass) Alloc() NSPathComponentCell {
 	return rv
 }
 
-
-
-
-
-
-
 // A component of a path.
 //
 // # Overview
@@ -69,10 +63,6 @@ func NSPathComponentCellFromID(id objc.ID) NSPathComponentCell {
 // NOTE: NSPathComponentCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPathComponentCell] class.
 //
 // # Setting the Path
@@ -89,13 +79,7 @@ type INSPathComponentCell interface {
 	// The portion of the path from the root through the component represented by the receiver.
 	URL() foundation.INSURL
 	SetURL(value foundation.INSURL)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPathComponentCell) Init() NSPathComponentCell {
@@ -115,11 +99,6 @@ func NewNSPathComponentCell() NSPathComponentCell {
 	rv := objc.Send[NSPathComponentCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -143,7 +122,6 @@ func NewPathComponentCellImageCell(image INSImage) NSPathComponentCell {
 	return NSPathComponentCellFromID(rv)
 }
 
-
 // Initializes a text field cell that displays the specified string.
 //
 // string: The string that the text field cell displays.
@@ -158,7 +136,6 @@ func NewPathComponentCellTextCell(string_ string) NSPathComponentCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initTextCell:"), objc.String(string_))
 	return NSPathComponentCellFromID(rv)
 }
-
 
 // Initializes a text field cell from data in the provided unarchiver.
 //
@@ -175,26 +152,6 @@ func NewPathComponentCellWithCoder(coder foundation.INSCoder) NSPathComponentCel
 	return NSPathComponentCellFromID(rv)
 }
 
-
-
-
-
-
-func (p NSPathComponentCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The portion of the path from the root through the component represented by
 // the receiver.
 //
@@ -206,33 +163,4 @@ func (p NSPathComponentCell) URL() foundation.INSURL {
 func (p NSPathComponentCell) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

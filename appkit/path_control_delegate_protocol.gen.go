@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that can be implemented by the delegate of a path control object to support dragging to and from the control.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSPathControlDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSPathControlDelegateObject wraps an existing Objective-C object that conforms to the NSPathControlDelegate protocol.
 type NSPathControlDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSPathControlDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPathControlDelegateObjectFromID constructs a [NSPathControlDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPathControlDelegateObjectFromID(id objc.ID) NSPathControlDelegateObject {
@@ -37,9 +31,6 @@ func NSPathControlDelegateObjectFromID(id objc.ID) NSPathControlDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Implement this method to enable dragging from the control.
 //
@@ -176,10 +167,6 @@ func (o NSPathControlDelegateObject) PathControlShouldDragItemWithPasteboard(pat
 	return rv
 	}
 
-
-
-
-
 // NSPathControlDelegateConfig holds optional typed callbacks for [NSPathControlDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -284,8 +271,4 @@ func NewNSPathControlDelegate(config NSPathControlDelegateConfig) NSPathControlD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSPathControlDelegateObjectFromID(instance)
 }
-
-
-
-
 

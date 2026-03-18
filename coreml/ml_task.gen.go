@@ -37,12 +37,6 @@ func (mc MLTaskClass) Alloc() MLTask {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class for machine learning tasks.
 //
 // # Overview
@@ -73,14 +67,10 @@ type MLTask struct {
 //
 // An abstract base class for machine learning tasks.
 func MLTaskFromID(id objc.ID) MLTask {
-	return MLTask{objectivec.Object{id}}
+	return MLTask{objectivec.Object{ID: id}}
 }
 // NOTE: MLTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLTask] class.
 //
@@ -122,10 +112,6 @@ type IMLTask interface {
 	Error() foundation.INSError
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MLTask) Init() MLTask {
 	rv := objc.Send[MLTask](t.ID, objc.Sel("init"))
@@ -144,15 +130,6 @@ func NewMLTask() MLTask {
 	rv := objc.Send[MLTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Begins or resumes a machine learning task.
 //
@@ -174,17 +151,6 @@ func (t MLTask) Cancel() {
 	objc.Send[objc.ID](t.ID, objc.Sel("cancel"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A unique name of the task to distinguish it from all other tasks at
 // runtime.
 //
@@ -194,8 +160,6 @@ func (t MLTask) TaskIdentifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The current state of the machine learning task.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/state
@@ -204,8 +168,6 @@ func (t MLTask) State() MLTaskState {
 	return MLTaskState(rv)
 }
 
-
-
 // The underlying error if the task is in a failed state.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/error
@@ -213,26 +175,4 @@ func (t MLTask) Error() foundation.INSError {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

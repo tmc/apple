@@ -38,12 +38,6 @@ func (nc NSSliderAccessoryBehaviorClass) Alloc() NSSliderAccessoryBehavior {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Methods
 //
@@ -55,14 +49,10 @@ type NSSliderAccessoryBehavior struct {
 
 // NSSliderAccessoryBehaviorFromID constructs a [NSSliderAccessoryBehavior] from an objc.ID.
 func NSSliderAccessoryBehaviorFromID(id objc.ID) NSSliderAccessoryBehavior {
-	return NSSliderAccessoryBehavior{objectivec.Object{id}}
+	return NSSliderAccessoryBehavior{objectivec.Object{ID: id}}
 }
 // NOTE: NSSliderAccessoryBehavior adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSliderAccessoryBehavior] class.
 //
@@ -80,10 +70,6 @@ type INSSliderAccessoryBehavior interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSliderAccessoryBehavior) Init() NSSliderAccessoryBehavior {
@@ -104,23 +90,12 @@ func NewNSSliderAccessoryBehavior() NSSliderAccessoryBehavior {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(target:action:)
 func NewSliderAccessoryBehaviorWithTargetAction(target objectivec.IObject, action objc.SEL) NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(getNSSliderAccessoryBehaviorClass().class), objc.Sel("behaviorWithTarget:action:"), target, action)
 	return NSSliderAccessoryBehaviorFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/handleAction(_:)
@@ -131,29 +106,14 @@ func (s NSSliderAccessoryBehavior) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(handler:)
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) BehaviorWithHandler(handler SliderAccessoryHandler) NSSliderAccessoryBehavior {
-		_block0, _cleanup0 := NewSliderAccessoryBlock(handler)
+_block0, _cleanup0 := NewSliderAccessoryBlock(handler)
 	defer _cleanup0()
-		rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("behaviorWithHandler:"), _block0)
+	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("behaviorWithHandler:"), _block0)
 	return NSSliderAccessoryBehaviorFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/automatic
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) AutomaticBehavior() NSSliderAccessoryBehavior {
@@ -161,37 +121,17 @@ func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) AutomaticB
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/valueReset
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) ValueResetBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("valueResetBehavior"))
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/valueStep
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) ValueStepBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("valueStepBehavior"))
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // BehaviorWithHandlerSync is a synchronous wrapper around [NSSliderAccessoryBehavior.BehaviorWithHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -207,9 +147,4 @@ func (sc NSSliderAccessoryBehaviorClass) BehaviorWithHandlerSync(ctx context.Con
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

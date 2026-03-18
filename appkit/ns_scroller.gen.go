@@ -37,12 +37,6 @@ func (nc NSScrollerClass) Alloc() NSScroller {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that controls scrolling of a document view within a scroll view
 // or other type of container view.
 //
@@ -107,10 +101,6 @@ func NSScrollerFromID(id objc.ID) NSScroller {
 }
 // NOTE: NSScroller adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScroller] class.
 //
@@ -186,13 +176,7 @@ type INSScroller interface {
 	// The scroller’s knob style.
 	KnobStyle() NSScrollerKnobStyle
 	SetKnobStyle(value NSScrollerKnobStyle)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScroller) Init() NSScroller {
@@ -213,11 +197,6 @@ func NewNSScroller() NSScroller {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -226,7 +205,6 @@ func NewScrollerWithCoder(coder foundation.INSCoder) NSScroller {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrollerFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -253,12 +231,6 @@ func NewScrollerWithFrame(frameRect corefoundation.CGRect) NSScroller {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSScrollerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the rectangle occupied by `aPart`, which for this method is
 // interpreted literally rather than as an indicator of scrolling direction.
@@ -364,13 +336,6 @@ func (s NSScroller) DrawKnob() {
 func (s NSScroller) TrackKnob(event INSEvent) {
 	objc.Send[objc.ID](s.ID, objc.Sel("trackKnob:"), event)
 }
-func (s NSScroller) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Returns the width for scrollers of the receiving class for a given control
 // size and scroller style.
@@ -402,13 +367,6 @@ func (_NSScrollerClass NSScrollerClass) ScrollerWidthForControlSizeScrollerStyle
 	return rv
 }
 
-
-
-
-
-
-
-
 // A value that indicates which parts of the receiver are displayed and
 // usable.
 //
@@ -423,8 +381,6 @@ func (s NSScroller) UsableParts() NSUsableScrollerParts {
 	rv := objc.Send[NSUsableScrollerParts](s.ID, objc.Sel("usableParts"))
 	return NSUsableScrollerParts(rv)
 }
-
-
 
 // A part code indicating the manner in which the scrolling should be
 // performed.
@@ -449,8 +405,6 @@ func (s NSScroller) HitPart() NSScrollerPart {
 	return NSScrollerPart(rv)
 }
 
-
-
 // The scroller style for this scroller.
 //
 // # Discussion
@@ -472,8 +426,6 @@ func (s NSScroller) ScrollerStyle() NSScrollerStyle {
 func (s NSScroller) SetScrollerStyle(value NSScrollerStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollerStyle:"), value)
 }
-
-
 
 // The scroller’s knob style.
 //
@@ -498,8 +450,6 @@ func (s NSScroller) SetKnobStyle(value NSScrollerKnobStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setKnobStyle:"), value)
 }
 
-
-
 // The proportion of the knob slot that the knob should fill.
 //
 // # Discussion
@@ -515,12 +465,6 @@ func (s NSScroller) KnobProportion() float64 {
 func (s NSScroller) SetKnobProportion(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setKnobProportion:"), value)
 }
-
-
-
-
-
-
 
 // Returns the style of scrollers that applications should use wherever
 // possible.
@@ -562,8 +506,6 @@ func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyle() NSScrollerStyle
 	return NSScrollerStyle(rv)
 }
 
-
-
 // Posted if the preferred scroller style changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscroller/preferredscrollerstyledidchangenotification
@@ -572,41 +514,9 @@ func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyleDidChangeNotificat
 	return foundation.NSStringFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/isCompatibleWithOverlayScrollers
 func (_NSScrollerClass NSScrollerClass) CompatibleWithOverlayScrollers() bool {
 	rv := objc.Send[bool](objc.ID(_NSScrollerClass.class), objc.Sel("isCompatibleWithOverlayScrollers"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

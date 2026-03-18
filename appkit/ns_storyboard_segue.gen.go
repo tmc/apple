@@ -38,12 +38,6 @@ func (nc NSStoryboardSegueClass) Alloc() NSStoryboardSegue {
 	return rv
 }
 
-
-
-
-
-
-
 // A transition or containment relationship between two scenes in a
 // storyboard.
 //
@@ -87,14 +81,10 @@ type NSStoryboardSegue struct {
 // A transition or containment relationship between two scenes in a
 // storyboard.
 func NSStoryboardSegueFromID(id objc.ID) NSStoryboardSegue {
-	return NSStoryboardSegue{objectivec.Object{id}}
+	return NSStoryboardSegue{objectivec.Object{ID: id}}
 }
 // NOTE: NSStoryboardSegue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSStoryboardSegue] class.
 //
@@ -130,10 +120,6 @@ type INSStoryboardSegue interface {
 	Perform()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSStoryboardSegue) Init() NSStoryboardSegue {
 	rv := objc.Send[NSStoryboardSegue](s.ID, objc.Sel("init"))
@@ -152,11 +138,6 @@ func NewNSStoryboardSegue() NSStoryboardSegue {
 	rv := objc.Send[NSStoryboardSegue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // The designated initializer for a storyboard segue.
 //
@@ -187,12 +168,6 @@ func NewStoryboardSegueWithIdentifierSourceDestination(identifier NSStoryboardSe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:source:destination:"), objc.String(string(identifier)), sourceController, destinationController)
 	return NSStoryboardSegueFromID(rv)
 }
-
-
-
-
-
-
 
 // The designated initializer for a storyboard segue.
 //
@@ -245,10 +220,6 @@ func (s NSStoryboardSegue) Perform() {
 	objc.Send[objc.ID](s.ID, objc.Sel("perform"))
 }
 
-
-
-
-
 // Creates a storyboard segue and a block used when the segue is performed.
 //
 // identifier: The unique identifier for the storyboard segue. See the [Identifier]
@@ -274,18 +245,11 @@ func (s NSStoryboardSegue) Perform() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:performHandler:)
 func (_NSStoryboardSegueClass NSStoryboardSegueClass) SegueWithIdentifierSourceDestinationPerformHandler(identifier NSStoryboardSegueIdentifier, sourceController objectivec.IObject, destinationController objectivec.IObject, performHandler VoidHandler) NSStoryboardSegue {
-		_block3, _cleanup3 := NewVoidBlock(performHandler)
+_block3, _cleanup3 := NewVoidBlock(performHandler)
 	defer _cleanup3()
-		rv := objc.Send[objc.ID](objc.ID(_NSStoryboardSegueClass.class), objc.Sel("segueWithIdentifier:source:destination:performHandler:"), identifier, sourceController, destinationController, _block3)
+	rv := objc.Send[objc.ID](objc.ID(_NSStoryboardSegueClass.class), objc.Sel("segueWithIdentifier:source:destination:performHandler:"), identifier, sourceController, destinationController, _block3)
 	return NSStoryboardSegueFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The starting/containing view controller or window controller for the
 // storyboard segue.
@@ -300,8 +264,6 @@ func (s NSStoryboardSegue) SourceController() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sourceController"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The ending/contained view controller or window controller for the
 // storyboard segue.
@@ -320,8 +282,6 @@ func (s NSStoryboardSegue) DestinationController() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // An optional, unique identifier for the storyboard segue that you can
 // specify using the Identity inspector in Interface Builder.
 //
@@ -335,23 +295,6 @@ func (s NSStoryboardSegue) Identifier() NSStoryboardSegueIdentifier {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("identifier"))
 	return NSStoryboardSegueIdentifier(foundation.NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // SegueWithIdentifierSourceDestinationPerformHandlerSync is a synchronous wrapper around [NSStoryboardSegue.SegueWithIdentifierSourceDestinationPerformHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -367,9 +310,4 @@ func (sc NSStoryboardSegueClass) SegueWithIdentifierSourceDestinationPerformHand
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

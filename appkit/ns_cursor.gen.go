@@ -38,12 +38,6 @@ func (nc NSCursorClass) Alloc() NSCursor {
 	return rv
 }
 
-
-
-
-
-
-
 // A pointer (also called a cursor).
 //
 // # Overview
@@ -111,14 +105,10 @@ type NSCursor struct {
 //
 // A pointer (also called a cursor).
 func NSCursorFromID(id objc.ID) NSCursor {
-	return NSCursor{objectivec.Object{id}}
+	return NSCursor{objectivec.Object{ID: id}}
 }
 // NOTE: NSCursor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCursor] class.
 //
@@ -164,10 +154,6 @@ type INSCursor interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCursor) Init() NSCursor {
 	rv := objc.Send[NSCursor](c.ID, objc.Sel("init"))
@@ -187,11 +173,6 @@ func NewNSCursor() NSCursor {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCursor/init(coder:)
 func NewCursorWithCoder(coder foundation.INSCoder) NSCursor {
@@ -199,12 +180,6 @@ func NewCursorWithCoder(coder foundation.INSCoder) NSCursor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCursorFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a cursor with the given image and hot spot.
 //
@@ -250,10 +225,6 @@ func (c NSCursor) Set() {
 func (c NSCursor) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // Makes the current cursor invisible.
 //
@@ -316,13 +287,6 @@ func (_NSCursorClass NSCursorClass) Pop() {
 	objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("pop"))
 }
 
-
-
-
-
-
-
-
 // The cursor’s image.
 //
 // # Discussion
@@ -336,8 +300,6 @@ func (c NSCursor) Image() objectivec.Object {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("image"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
-
 
 // The position of the click location within the cursor.
 //
@@ -362,12 +324,6 @@ func (c NSCursor) HotSpot() corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-
-
-
-
-
-
 // Returns the application’s current cursor.
 //
 // # Return Value
@@ -387,8 +343,6 @@ func (_NSCursorClass NSCursorClass) CurrentCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("currentCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns the current system cursor.
 //
@@ -411,8 +365,6 @@ func (_NSCursorClass NSCursorClass) CurrentSystemCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the default cursor, the arrow cursor.
 //
 // # Return Value
@@ -427,8 +379,6 @@ func (_NSCursorClass NSCursorClass) ArrowCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the contextual menu system cursor.
 //
 // # Return Value
@@ -440,8 +390,6 @@ func (_NSCursorClass NSCursorClass) ContextualMenuCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("contextualMenuCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns the closed-hand system cursor.
 //
@@ -455,8 +403,6 @@ func (_NSCursorClass NSCursorClass) ClosedHandCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the cross-hair system cursor.
 //
 // # Return Value
@@ -469,8 +415,6 @@ func (_NSCursorClass NSCursorClass) CrosshairCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("crosshairCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns a cursor indicating that the current operation will result in a
 // disappearing item.
@@ -487,8 +431,6 @@ func (_NSCursorClass NSCursorClass) DisappearingItemCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns a cursor indicating that the current operation will result in a
 // copy action.
 //
@@ -502,8 +444,6 @@ func (_NSCursorClass NSCursorClass) DragCopyCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns a cursor indicating that the current operation will result in a
 // link action.
 //
@@ -516,8 +456,6 @@ func (_NSCursorClass NSCursorClass) DragLinkCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("dragLinkCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns a cursor that looks like a capital I with a tiny crossbeam at its
 // middle.
@@ -534,8 +472,6 @@ func (_NSCursorClass NSCursorClass) IBeamCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the cursor for editing vertical layout text.
 //
 // # Return Value
@@ -549,8 +485,6 @@ func (_NSCursorClass NSCursorClass) IBeamCursorForVerticalLayout() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the open-hand system cursor.
 //
 // # Return Value
@@ -562,8 +496,6 @@ func (_NSCursorClass NSCursorClass) OpenHandCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("openHandCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns the operation not allowed cursor.
 //
@@ -582,8 +514,6 @@ func (_NSCursorClass NSCursorClass) OperationNotAllowedCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the pointing-hand system cursor.
 //
 // # Return Value
@@ -596,8 +526,6 @@ func (_NSCursorClass NSCursorClass) PointingHandCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the zoom-in cursor.
 //
 // # Discussion
@@ -608,8 +536,6 @@ func (_NSCursorClass NSCursorClass) ZoomInCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the zoom-out cursor.
 //
 // # Discussion
@@ -619,8 +545,6 @@ func (_NSCursorClass NSCursorClass) ZoomOutCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("zoomOutCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns the resize-down system cursor.
 //
@@ -635,8 +559,6 @@ func (_NSCursorClass NSCursorClass) ResizeDownCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the resize-left system cursor.
 //
 // # Return Value
@@ -649,8 +571,6 @@ func (_NSCursorClass NSCursorClass) ResizeLeftCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("resizeLeftCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns the resize-left-and-right system cursor.
 //
@@ -665,8 +585,6 @@ func (_NSCursorClass NSCursorClass) ResizeLeftRightCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the resize-right system cursor.
 //
 // # Return Value
@@ -679,8 +597,6 @@ func (_NSCursorClass NSCursorClass) ResizeRightCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("resizeRightCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
 
 // Returns the resize-up system cursor.
 //
@@ -695,8 +611,6 @@ func (_NSCursorClass NSCursorClass) ResizeUpCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the resize-up-and-down system cursor.
 //
 // # Return Value
@@ -710,8 +624,6 @@ func (_NSCursorClass NSCursorClass) ResizeUpDownCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the cursor for resizing a column (vertical divider) in either
 // direction.
 //
@@ -721,8 +633,6 @@ func (_NSCursorClass NSCursorClass) ColumnResizeCursor() NSCursor {
 	return NSCursorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the cursor for resizing a row (horizontal divider) in either
 // direction.
 //
@@ -731,25 +641,4 @@ func (_NSCursorClass NSCursorClass) RowResizeCursor() NSCursor {
 	rv := objc.Send[objc.ID](objc.ID(_NSCursorClass.class), objc.Sel("rowResizeCursor"))
 	return NSCursorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

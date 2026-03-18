@@ -35,12 +35,6 @@ func (nc NSSharingServicePickerToolbarItemClass) Alloc() NSSharingServicePickerT
 	return rv
 }
 
-
-
-
-
-
-
 // A toolbar item that displays the macOS share sheet.
 //
 // # Overview
@@ -75,10 +69,6 @@ func NSSharingServicePickerToolbarItemFromID(id objc.ID) NSSharingServicePickerT
 // NOTE: NSSharingServicePickerToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSharingServicePickerToolbarItem] class.
 //
 // # Getting the Toolbar Items
@@ -96,10 +86,6 @@ type INSSharingServicePickerToolbarItem interface {
 	Delegate() NSSharingServicePickerToolbarItemDelegate
 	SetDelegate(value NSSharingServicePickerToolbarItemDelegate)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSharingServicePickerToolbarItem) Init() NSSharingServicePickerToolbarItem {
@@ -120,11 +106,6 @@ func NewNSSharingServicePickerToolbarItem() NSSharingServicePickerToolbarItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates a toolbar item with the specified identifier.
 //
 // itemIdentifier: The identifier for the toolbar item. You use this value to identify the
@@ -142,23 +123,6 @@ func NewSharingServicePickerToolbarItemWithItemIdentifier(itemIdentifier NSToolb
 	return NSSharingServicePickerToolbarItemFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The custom object from your app that provides the items to share.
 //
 // # Discussion
@@ -174,30 +138,4 @@ func (s NSSharingServicePickerToolbarItem) Delegate() NSSharingServicePickerTool
 func (s NSSharingServicePickerToolbarItem) SetDelegate(value NSSharingServicePickerToolbarItemDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -30,8 +30,6 @@ type NSUserInterfaceCompression interface {
 	ActiveCompressionOptions() INSUserInterfaceCompressionOptions
 }
 
-
-
 // NSUserInterfaceCompressionObject wraps an existing Objective-C object that conforms to the NSUserInterfaceCompression protocol.
 type NSUserInterfaceCompressionObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o NSUserInterfaceCompressionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSUserInterfaceCompressionObjectFromID constructs a [NSUserInterfaceCompressionObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSUserInterfaceCompressionObjectFromID(id objc.ID) NSUserInterfaceCompressionObject {
@@ -49,9 +45,6 @@ func NSUserInterfaceCompressionObjectFromID(id objc.ID) NSUserInterfaceCompressi
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Compress the view by applying the specified compression options.
 //
@@ -105,12 +98,4 @@ func (o NSUserInterfaceCompressionObject) ActiveCompressionOptions() INSUserInte
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("activeCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(rv)
 	}
-
-
-
-
-
-
-
-
 

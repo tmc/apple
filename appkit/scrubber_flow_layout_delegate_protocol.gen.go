@@ -17,8 +17,6 @@ type NSScrubberFlowLayoutDelegate interface {
 	NSScrubberDelegate
 }
 
-
-
 // NSScrubberFlowLayoutDelegateObject wraps an existing Objective-C object that conforms to the NSScrubberFlowLayoutDelegate protocol.
 type NSScrubberFlowLayoutDelegateObject struct {
 	objectivec.Object
@@ -27,8 +25,6 @@ func (o NSScrubberFlowLayoutDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSScrubberFlowLayoutDelegateObjectFromID constructs a [NSScrubberFlowLayoutDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSScrubberFlowLayoutDelegateObjectFromID(id objc.ID) NSScrubberFlowLayoutDelegateObject {
@@ -36,9 +32,6 @@ func NSScrubberFlowLayoutDelegateObjectFromID(id objc.ID) NSScrubberFlowLayoutDe
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate for the size of each item in a scrubber whose items are
 // arranged in a flow layout.
@@ -136,10 +129,4 @@ func (o NSScrubberFlowLayoutDelegateObject) DidCancelInteractingWithScrubber(scr
 	
 	objc.Send[struct{}](o.ID, objc.Sel("didCancelInteractingWithScrubber:"), scrubber)
 	}
-
-
-
-
-
-
 

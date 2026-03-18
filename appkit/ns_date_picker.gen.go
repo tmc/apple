@@ -37,12 +37,6 @@ func (nc NSDatePickerClass) Alloc() NSDatePicker {
 	return rv
 }
 
-
-
-
-
-
-
 // A display of a calendar date with controls for editing the date value.
 //
 // # Overview
@@ -110,10 +104,6 @@ func NSDatePickerFromID(id objc.ID) NSDatePicker {
 }
 // NOTE: NSDatePicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDatePicker] class.
 //
@@ -229,13 +219,7 @@ type INSDatePicker interface {
 	// The date picker’s maximum date value.
 	MaxDate() foundation.INSDate
 	SetMaxDate(value foundation.INSDate)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDatePicker) Init() NSDatePicker {
@@ -256,11 +240,6 @@ func NewNSDatePicker() NSDatePicker {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -269,7 +248,6 @@ func NewDatePickerWithCoder(coder foundation.INSCoder) NSDatePicker {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDatePickerFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -297,26 +275,6 @@ func NewDatePickerWithFrame(frameRect corefoundation.CGRect) NSDatePicker {
 	return NSDatePickerFromID(rv)
 }
 
-
-
-
-
-
-func (d NSDatePicker) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the date picker draws a bezeled
 // border.
 //
@@ -337,8 +295,6 @@ func (d NSDatePicker) SetBezeled(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBezeled:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the date picker has a plain border.
 //
 // # Discussion
@@ -358,8 +314,6 @@ func (d NSDatePicker) SetBordered(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBordered:"), value)
 }
 
-
-
 // The date picker’s background color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/backgroundColor
@@ -370,8 +324,6 @@ func (d NSDatePicker) BackgroundColor() INSColor {
 func (d NSDatePicker) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the date picker draws the
 // background.
@@ -385,8 +337,6 @@ func (d NSDatePicker) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDrawsBackground:"), value)
 }
 
-
-
 // The date picker’s text color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/textColor
@@ -398,8 +348,6 @@ func (d NSDatePicker) SetTextColor(value INSColor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTextColor:"), value)
 }
 
-
-
 // The date picker’s style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/datePickerStyle
@@ -410,8 +358,6 @@ func (d NSDatePicker) DatePickerStyle() NSDatePickerStyle {
 func (d NSDatePicker) SetDatePickerStyle(value NSDatePickerStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerStyle:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to present a graphical calendar
 // overlay when editing a calendar element within a text-field style date
@@ -432,8 +378,6 @@ func (d NSDatePicker) SetPresentsCalendarOverlay(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPresentsCalendarOverlay:"), value)
 }
 
-
-
 // A delegate for the date picker’s cell
 //
 // # Discussion
@@ -449,8 +393,6 @@ func (d NSDatePicker) Delegate() NSDatePickerCellDelegate {
 func (d NSDatePicker) SetDelegate(value NSDatePickerCellDelegate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A bitmask that indicates which visual elements of the date picker are
 // currently shown, and which won’t be usable because they are hidden.
@@ -469,8 +411,6 @@ func (d NSDatePicker) SetDatePickerElements(value NSDatePickerElementFlags) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerElements:"), value)
 }
 
-
-
 // The calendar used by the date picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/calendar
@@ -481,8 +421,6 @@ func (d NSDatePicker) Calendar() foundation.NSCalendar {
 func (d NSDatePicker) SetCalendar(value foundation.NSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
-
 
 // The date picker’s locale.
 //
@@ -495,8 +433,6 @@ func (d NSDatePicker) SetLocale(value foundation.NSLocale) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocale:"), value)
 }
 
-
-
 // The date picker’s mode.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/datePickerMode
@@ -508,8 +444,6 @@ func (d NSDatePicker) SetDatePickerMode(value NSDatePickerMode) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDatePickerMode:"), value)
 }
 
-
-
 // The time zone for the date picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/timeZone
@@ -520,8 +454,6 @@ func (d NSDatePicker) TimeZone() foundation.NSTimeZone {
 func (d NSDatePicker) SetTimeZone(value foundation.NSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
-
-
 
 // The date selected by the date picker.
 //
@@ -538,8 +470,6 @@ func (d NSDatePicker) DateValue() foundation.INSDate {
 func (d NSDatePicker) SetDateValue(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateValue:"), value)
 }
-
-
 
 // The time interval selected by the date picker.
 //
@@ -558,8 +488,6 @@ func (d NSDatePicker) SetTimeInterval(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeInterval:"), value)
 }
 
-
-
 // The date picker’s minimum date value.
 //
 // # Discussion
@@ -576,8 +504,6 @@ func (d NSDatePicker) SetMinDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinDate:"), value)
 }
 
-
-
 // The date picker’s maximum date value.
 //
 // # Discussion
@@ -593,38 +519,4 @@ func (d NSDatePicker) MaxDate() foundation.INSDate {
 func (d NSDatePicker) SetMaxDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaxDate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

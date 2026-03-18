@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -37,12 +38,6 @@ func (nc NSTextViewClass) Alloc() NSTextView {
 	rv := objc.Send[NSTextView](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A view that draws text and handles user interactions with that text.
 //
@@ -394,10 +389,6 @@ func NSTextViewFromID(id objc.ID) NSTextView {
 }
 // NOTE: NSTextView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextView] class.
 //
@@ -996,7 +987,7 @@ type INSTextView interface {
 	// Topic: Performing text completion
 
 	// Returns an array of potential completions, in the order to be presented, representing possible word completions available from a partial word.
-	CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index int) []string
+	CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index unsafe.Pointer) []string
 	// Inserts the selected completion into the text at the appropriate location.
 	InsertCompletionForPartialWordRangeMovementIsFinal(word string, charRange foundation.NSRange, movement int, flag bool)
 	// The partial range from the most recent beginning of a word up to the insertion point.
@@ -1094,12 +1085,7 @@ type INSTextView interface {
 
 	// Type for the find panel metadata property list.
 	FindPanelSearchOptions() NSPasteboardType
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextView) Init() NSTextView {
@@ -1120,11 +1106,6 @@ func NewNSTextView() NSTextView {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/init(usingTextLayoutManager:)
 func NewTextViewUsingTextLayoutManager(usingTextLayoutManager bool) NSTextView {
@@ -1132,7 +1113,6 @@ func NewTextViewUsingTextLayoutManager(usingTextLayoutManager bool) NSTextView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initUsingTextLayoutManager:"), usingTextLayoutManager)
 	return NSTextViewFromID(rv)
 }
-
 
 // Initializes a text view with data in an unarchiver.
 //
@@ -1142,7 +1122,6 @@ func NewTextViewWithCoder(coder foundation.INSCoder) NSTextView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextViewFromID(rv)
 }
-
 
 // Initializes a text view.
 //
@@ -1167,7 +1146,6 @@ func NewTextViewWithFrame(frameRect corefoundation.CGRect) NSTextView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSTextViewFromID(rv)
 }
-
 
 // Initializes a text view.
 //
@@ -1209,12 +1187,6 @@ func NewTextViewWithFrameTextContainer(frameRect corefoundation.CGRect, containe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:textContainer:"), frameRect, container)
 	return NSTextViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a text view.
 //
@@ -2572,7 +2544,7 @@ func (t NSTextView) OrderFrontSubstitutionsPanel(sender objectivec.IObject) {
 // implements such a method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/completions(forPartialWordRange:indexOfSelectedItem:)
-func (t NSTextView) CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index int) []string {
+func (t NSTextView) CompletionsForPartialWordRangeIndexOfSelectedItem(charRange foundation.NSRange, index unsafe.Pointer) []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("completionsForPartialWordRange:indexOfSelectedItem:"), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }
@@ -3550,13 +3522,6 @@ func (t NSTextView) WindowLevel() int {
 	rv := objc.Send[int](t.ID, objc.Sel("windowLevel"))
 	return rv
 }
-func (t NSTextView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Registers send and return types for the Services facility.
 //
@@ -3592,13 +3557,6 @@ func (_NSTextViewClass NSTextViewClass) ScrollableTextView() NSScrollView {
 	return NSScrollViewFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The receiver’s text container.
 //
 // # Discussion
@@ -3613,8 +3571,6 @@ func (t NSTextView) TextContainer() INSTextContainer {
 func (t NSTextView) SetTextContainer(value INSTextContainer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextContainer:"), value)
 }
-
-
 
 // The empty space the receiver leaves around its associated text container.
 //
@@ -3638,8 +3594,6 @@ func (t NSTextView) SetTextContainerInset(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextContainerInset:"), value)
 }
 
-
-
 // The origin of the receiver’s text container.
 //
 // # Discussion
@@ -3653,8 +3607,6 @@ func (t NSTextView) TextContainerOrigin() corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-
-
 // The manager that lays out text for the receiver’s text container.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/textLayoutManager
@@ -3662,8 +3614,6 @@ func (t NSTextView) TextLayoutManager() INSTextLayoutManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
-
 
 // The layout manager that lays out text for the receiver’s text container.
 //
@@ -3673,8 +3623,6 @@ func (t NSTextView) LayoutManager() INSLayoutManager {
 	return NSLayoutManagerFromID(objc.ID(rv))
 }
 
-
-
 // The receiver’s text storage object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/textContentStorage
@@ -3683,8 +3631,6 @@ func (t NSTextView) TextContentStorage() INSTextContentStorage {
 	return NSTextContentStorageFromID(objc.ID(rv))
 }
 
-
-
 // The receiver’s text storage object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/textStorage
@@ -3692,8 +3638,6 @@ func (t NSTextView) TextStorage() NSTextStorage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textStorage"))
 	return NSTextStorageFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the receiver allows its background
 // color to change.
@@ -3715,8 +3659,6 @@ func (t NSTextView) SetAllowsDocumentBackgroundColorChange(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsDocumentBackgroundColorChange:"), value)
 }
 
-
-
 // A Boolean value that determines whether the receiver should draw its
 // insertion point.
 //
@@ -3732,8 +3674,6 @@ func (t NSTextView) ShouldDrawInsertionPoint() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("shouldDrawInsertionPoint"))
 	return rv
 }
-
-
 
 // An array of locale identifiers representing input sources that are allowed
 // to be enabled when the receiver has the keyboard focus.
@@ -3755,8 +3695,6 @@ func (t NSTextView) SetAllowedInputSourceLocales(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedInputSourceLocales:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // A Boolean value that indicates whether the receiver allows undo.
 //
 // # Discussion
@@ -3775,8 +3713,6 @@ func (t NSTextView) SetAllowsUndo(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsUndo:"), value)
 }
 
-
-
 // The receiver’s default paragraph style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/defaultParagraphStyle
@@ -3787,8 +3723,6 @@ func (t NSTextView) DefaultParagraphStyle() INSParagraphStyle {
 func (t NSTextView) SetDefaultParagraphStyle(value INSParagraphStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDefaultParagraphStyle:"), value)
 }
-
-
 
 // Indicates whether image attachments should permit editing of their images.
 //
@@ -3810,8 +3744,6 @@ func (t NSTextView) AllowsImageEditing() bool {
 func (t NSTextView) SetAllowsImageEditing(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsImageEditing:"), value)
 }
-
-
 
 // A Boolean value that enables and disables automatic quotation mark
 // substitution.
@@ -3837,8 +3769,6 @@ func (t NSTextView) SetAutomaticQuoteSubstitutionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticQuoteSubstitutionEnabled:"), value)
 }
 
-
-
 // A Boolean value that enables or disables automatic link detection.
 //
 // # Discussion
@@ -3859,8 +3789,6 @@ func (t NSTextView) AutomaticLinkDetectionEnabled() bool {
 func (t NSTextView) SetAutomaticLinkDetectionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticLinkDetectionEnabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the text view automatically supplies
 // the destination of a link as a tooltip for text that has a link attribute.
@@ -3884,8 +3812,6 @@ func (t NSTextView) SetDisplaysLinkToolTips(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDisplaysLinkToolTips:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the text view supplies
 // autocompletion suggestions as the user types.
 //
@@ -3897,8 +3823,6 @@ func (t NSTextView) AutomaticTextCompletionEnabled() bool {
 func (t NSTextView) SetAutomaticTextCompletionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticTextCompletionEnabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the framework should use adaptive
 // color mapping for dark appearance.
@@ -3912,8 +3836,6 @@ func (t NSTextView) SetUsesAdaptiveColorMappingForDarkAppearance(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesAdaptiveColorMappingForDarkAppearance:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/usesRolloverButtonForSelection
 func (t NSTextView) UsesRolloverButtonForSelection() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("usesRolloverButtonForSelection"))
@@ -3922,8 +3844,6 @@ func (t NSTextView) UsesRolloverButtonForSelection() bool {
 func (t NSTextView) SetUsesRolloverButtonForSelection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesRolloverButtonForSelection:"), value)
 }
-
-
 
 // A Boolean value that controls whether the text views sharing the
 // receiver’s layout manager use a ruler.
@@ -3947,8 +3867,6 @@ func (t NSTextView) SetUsesRuler(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesRuler:"), value)
 }
 
-
-
 // A Boolean value that indicates whether this text view uses the inspector
 // bar.
 //
@@ -3966,8 +3884,6 @@ func (t NSTextView) UsesInspectorBar() bool {
 func (t NSTextView) SetUsesInspectorBar(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesInspectorBar:"), value)
 }
-
-
 
 // An array containing the ranges of characters selected in the receiver’s
 // layout manager.
@@ -3988,8 +3904,6 @@ func (t NSTextView) SetSelectedRanges(value []foundation.NSValue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedRanges:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The preferred direction of selection.
 //
 // # Discussion
@@ -4003,8 +3917,6 @@ func (t NSTextView) SelectionAffinity() NSSelectionAffinity {
 	rv := objc.Send[NSSelectionAffinity](t.ID, objc.Sel("selectionAffinity"))
 	return NSSelectionAffinity(rv)
 }
-
-
 
 // The selection granularity for subsequent extension of a selection.
 //
@@ -4029,8 +3941,6 @@ func (t NSTextView) SetSelectionGranularity(value NSSelectionGranularity) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectionGranularity:"), value)
 }
 
-
-
 // The color of the insertion point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/insertionPointColor
@@ -4041,8 +3951,6 @@ func (t NSTextView) InsertionPointColor() INSColor {
 func (t NSTextView) SetInsertionPointColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInsertionPointColor:"), value)
 }
-
-
 
 // The attributes used to indicate the selection.
 //
@@ -4060,8 +3968,6 @@ func (t NSTextView) SetSelectedTextAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedTextAttributes:"), value)
 }
 
-
-
 // The attributes used to draw marked text.
 //
 // # Discussion
@@ -4077,8 +3983,6 @@ func (t NSTextView) MarkedTextAttributes() foundation.INSDictionary {
 func (t NSTextView) SetMarkedTextAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMarkedTextAttributes:"), value)
 }
-
-
 
 // The attributes used to draw the onscreen presentation of link text.
 //
@@ -4097,8 +4001,6 @@ func (t NSTextView) SetLinkTextAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLinkTextAttributes:"), value)
 }
 
-
-
 // The types this text view can read immediately from the pasteboard.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/readablePasteboardTypes
@@ -4106,8 +4008,6 @@ func (t NSTextView) ReadablePasteboardTypes() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("readablePasteboardTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The pasteboard types that can be provided from the current selection.
 //
@@ -4124,8 +4024,6 @@ func (t NSTextView) WritablePasteboardTypes() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("writablePasteboardTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The receiver’s typing attributes.
 //
@@ -4147,8 +4045,6 @@ func (t NSTextView) SetTypingAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTypingAttributes:"), value)
 }
 
-
-
 // A Boolean value that indicates whether undo coalescing is in progress.
 //
 // # Discussion
@@ -4163,8 +4059,6 @@ func (t NSTextView) CoalescingUndo() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isCoalescingUndo"))
 	return rv
 }
-
-
 
 // The data types that the receiver accepts as the destination view of a
 // dragging operation.
@@ -4184,8 +4078,6 @@ func (t NSTextView) AcceptableDragTypes() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The range of characters affected by an action method that changes character
 // (not paragraph) attributes.
 //
@@ -4203,8 +4095,6 @@ func (t NSTextView) RangeForUserCharacterAttributeChange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("rangeForUserCharacterAttributeChange"))
 	return foundation.NSRange(rv)
 }
-
-
 
 // An array containing the ranges of characters affected by an action method
 // that changes character (not paragraph) attributes.
@@ -4225,8 +4115,6 @@ func (t NSTextView) RangesForUserCharacterAttributeChange() []foundation.NSValue
 	})
 }
 
-
-
 // The range of characters affected by an action method that changes paragraph
 // (not character) attributes.
 //
@@ -4245,8 +4133,6 @@ func (t NSTextView) RangeForUserParagraphAttributeChange() foundation.NSRange {
 	return foundation.NSRange(rv)
 }
 
-
-
 // An array containing the ranges of characters affected by a method that
 // changes paragraph (not character) attributes.
 //
@@ -4264,8 +4150,6 @@ func (t NSTextView) RangesForUserParagraphAttributeChange() []foundation.NSValue
 	})
 }
 
-
-
 // The range of characters affected by a method that changes characters (as
 // opposed to attributes).
 //
@@ -4279,8 +4163,6 @@ func (t NSTextView) RangeForUserTextChange() foundation.NSRange {
 	return foundation.NSRange(rv)
 }
 
-
-
 // An array containing the ranges of characters affected by a method that
 // changes characters (as opposed to attributes).
 //
@@ -4291,8 +4173,6 @@ func (t NSTextView) RangesForUserTextChange() []foundation.NSValue {
 		return foundation.NSValueFromID(id)
 	})
 }
-
-
 
 // A Boolean value that controls whether the receiver inserts or deletes space
 // around selected words so as to preserve proper spacing and punctuation.
@@ -4315,8 +4195,6 @@ func (t NSTextView) SetSmartInsertDeleteEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSmartInsertDeleteEnabled:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver has continuous spell
 // checking enabled.
 //
@@ -4328,8 +4206,6 @@ func (t NSTextView) ContinuousSpellCheckingEnabled() bool {
 func (t NSTextView) SetContinuousSpellCheckingEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContinuousSpellCheckingEnabled:"), value)
 }
-
-
 
 // A tag identifying the text view’s text as a document for the spell
 // checker server.
@@ -4349,8 +4225,6 @@ func (t NSTextView) SpellCheckerDocumentTag() int {
 	return rv
 }
 
-
-
 // Enables and disables grammar checking.
 //
 // # Discussion
@@ -4368,8 +4242,6 @@ func (t NSTextView) GrammarCheckingEnabled() bool {
 func (t NSTextView) SetGrammarCheckingEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGrammarCheckingEnabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the receiver accepts the glyph info
 // attribute.
@@ -4392,8 +4264,6 @@ func (t NSTextView) SetAcceptsGlyphInfo(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAcceptsGlyphInfo:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver allows for a find
 // panel.
 //
@@ -4415,8 +4285,6 @@ func (t NSTextView) SetUsesFindPanel(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesFindPanel:"), value)
 }
 
-
-
 // The partial range from the most recent beginning of a word up to the
 // insertion point.
 //
@@ -4432,8 +4300,6 @@ func (t NSTextView) RangeForUserCompletion() foundation.NSRange {
 	return foundation.NSRange(rv)
 }
 
-
-
 // The default text checking types.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/enabledTextCheckingTypes
@@ -4444,8 +4310,6 @@ func (t NSTextView) EnabledTextCheckingTypes() uint64 {
 func (t NSTextView) SetEnabledTextCheckingTypes(value uint64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnabledTextCheckingTypes:"), value)
 }
-
-
 
 // A Boolean value that indicates whether automatic dash substitution is
 // enabled.
@@ -4469,8 +4333,6 @@ func (t NSTextView) SetAutomaticDashSubstitutionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticDashSubstitutionEnabled:"), value)
 }
 
-
-
 // A Boolean value that indicates whether automatic data detection is enabled.
 //
 // # Discussion
@@ -4486,8 +4348,6 @@ func (t NSTextView) AutomaticDataDetectionEnabled() bool {
 func (t NSTextView) SetAutomaticDataDetectionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticDataDetectionEnabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether automatic spelling correction is
 // enabled.
@@ -4507,8 +4367,6 @@ func (t NSTextView) AutomaticSpellingCorrectionEnabled() bool {
 func (t NSTextView) SetAutomaticSpellingCorrectionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticSpellingCorrectionEnabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether automatic text replacement is
 // enabled.
@@ -4532,15 +4390,11 @@ func (t NSTextView) SetAutomaticTextReplacementEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticTextReplacementEnabled:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/isWritingToolsActive
 func (t NSTextView) WritingToolsActive() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isWritingToolsActive"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether to use the find bar for this text
 // view.
@@ -4566,8 +4420,6 @@ func (t NSTextView) SetUsesFindBar(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesFindBar:"), value)
 }
 
-
-
 // A Boolean value that indicates whether incremental searching is enabled.
 //
 // # Discussion
@@ -4583,8 +4435,6 @@ func (t NSTextView) SetIncrementalSearchingEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncrementalSearchingEnabled:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/allowsCharacterPickerTouchBarItem
 func (t NSTextView) AllowsCharacterPickerTouchBarItem() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("allowsCharacterPickerTouchBarItem"))
@@ -4593,8 +4443,6 @@ func (t NSTextView) AllowsCharacterPickerTouchBarItem() bool {
 func (t NSTextView) SetAllowsCharacterPickerTouchBarItem(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsCharacterPickerTouchBarItem:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/allowedWritingToolsResultOptions
 func (t NSTextView) AllowedWritingToolsResultOptions() NSWritingToolsResultOptions {
@@ -4605,8 +4453,6 @@ func (t NSTextView) SetAllowedWritingToolsResultOptions(value NSWritingToolsResu
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedWritingToolsResultOptions:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/inlinePredictionType
 func (t NSTextView) InlinePredictionType() NSTextInputTraitType {
 	rv := objc.Send[NSTextInputTraitType](t.ID, objc.Sel("inlinePredictionType"))
@@ -4616,8 +4462,6 @@ func (t NSTextView) SetInlinePredictionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInlinePredictionType:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/mathExpressionCompletionType
 func (t NSTextView) MathExpressionCompletionType() NSTextInputTraitType {
 	rv := objc.Send[NSTextInputTraitType](t.ID, objc.Sel("mathExpressionCompletionType"))
@@ -4626,8 +4470,6 @@ func (t NSTextView) MathExpressionCompletionType() NSTextInputTraitType {
 func (t NSTextView) SetMathExpressionCompletionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMathExpressionCompletionType:"), value)
 }
-
-
 
 // ************************* Text Highlight support **************************
 //
@@ -4640,8 +4482,6 @@ func (t NSTextView) SetTextHighlightAttributes(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextHighlightAttributes:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/writingToolsBehavior
 func (t NSTextView) WritingToolsBehavior() NSWritingToolsBehavior {
 	rv := objc.Send[NSWritingToolsBehavior](t.ID, objc.Sel("writingToolsBehavior"))
@@ -4650,8 +4490,6 @@ func (t NSTextView) WritingToolsBehavior() NSWritingToolsBehavior {
 func (t NSTextView) SetWritingToolsBehavior(value NSWritingToolsBehavior) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWritingToolsBehavior:"), value)
 }
-
-
 
 // The semantic meaning for a text input area.
 //
@@ -4676,15 +4514,11 @@ func (t NSTextView) SetContentType(value NSTextContentType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContentType:"), objc.String(string(value)))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
 func (t NSTextView) DocumentVisibleRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("documentVisibleRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // Type for the find panel metadata property list.
 //
@@ -4693,8 +4527,6 @@ func (t NSTextView) FindPanelSearchOptions() NSPasteboardType {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSFindPanelSearchOptionsPboardType"))
 	return NSPasteboardType(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // The default layout orientation.
 //
@@ -4713,8 +4545,6 @@ func (t NSTextView) LayoutOrientation() NSTextLayoutOrientation {
 	rv := objc.Send[NSTextLayoutOrientation](t.ID, objc.Sel("layoutOrientation"))
 	return NSTextLayoutOrientation(rv)
 }
-
-
 
 // A Boolean value that indicates whether the document supports adaptive
 // images in the input.
@@ -4735,27 +4565,17 @@ func (t NSTextView) SupportsAdaptiveImageGlyph() bool {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
 func (t NSTextView) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("unionRectInVisibleSelectedRange"))
 	return corefoundation.CGRect(rv)
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/stronglyReferencesTextStorage
 func (_NSTextViewClass NSTextViewClass) StronglyReferencesTextStorage() bool {
 	rv := objc.Send[bool](objc.ID(_NSTextViewClass.class), objc.Sel("stronglyReferencesTextStorage"))
 	return rv
 }
-
-
 
 // Posted when focus leaves an
 //
@@ -4764,16 +4584,6 @@ func (_NSTextViewClass NSTextViewClass) DidEndEditingNotification() foundation.N
 	rv := objc.Send[objc.ID](objc.ID(_NSTextViewClass.class), objc.Sel("NSTextDidEndEditingNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityNavigableStaticText
 			
@@ -4871,85 +4681,30 @@ func (o NSTextView) IsAccessibilityFocused() bool {
 	return rv
 	}
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCandidateListTouchBarItemDelegate
 			
-
-
-
-
-
-
-
 
 			// Protocol methods for NSDraggingSource
 			
 
-
-
-
-
 			// Protocol methods for NSMenuItemValidation
 			
-
-
-
-
-
 
 			// Protocol methods for NSTextContent
 			
 
-
-
-
 			// Protocol methods for NSTextInput
 			
-
-
-
 
 			// Protocol methods for NSTextInputClient
 			
 
-
-
-
 			// Protocol methods for NSTextLayoutOrientationProvider
 			
-
-
-
 
 			// Protocol methods for NSTouchBarDelegate
 			
 
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSArrayControllerClass) Alloc() NSArrayController {
 	return rv
 }
 
-
-
-
-
-
-
 // A bindings-compatible controller that manages a collection of objects.
 //
 // # Overview
@@ -130,10 +124,6 @@ func NSArrayControllerFromID(id objc.ID) NSArrayController {
 }
 // NOTE: NSArrayController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSArrayController] class.
 //
@@ -297,13 +287,7 @@ type INSArrayController interface {
 	AutomaticRearrangementKeyPaths() []string
 	// Invoked when any criteria for arranging objects change.
 	DidChangeArrangementCriteria()
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSArrayController) Init() NSArrayController {
@@ -324,11 +308,6 @@ func NewNSArrayController() NSArrayController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/init(coder:)
 func NewArrayControllerWithCoder(coder foundation.INSCoder) NSArrayController {
@@ -336,7 +315,6 @@ func NewArrayControllerWithCoder(coder foundation.INSCoder) NSArrayController {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSArrayControllerFromID(rv)
 }
-
 
 // Initializes and returns an [NSObjectController] object with the given
 // content.
@@ -354,12 +332,6 @@ func NewArrayControllerWithContent(content objectivec.IObject) NSArrayController
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContent:"), content)
 	return NSArrayControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a given array, appropriately sorted and filtered.
 //
@@ -693,20 +665,6 @@ func (a NSArrayController) RemoveObjects(objects foundation.INSArray) {
 func (a NSArrayController) DidChangeArrangementCriteria() {
 	objc.Send[objc.ID](a.ID, objc.Sel("didChangeArrangementCriteria"))
 }
-func (a NSArrayController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // An array of sort descriptor objects, used by the receiver to arrange its
 // content.
@@ -726,8 +684,6 @@ func (a NSArrayController) SetSortDescriptors(value []foundation.NSSortDescripto
 	objc.Send[struct{}](a.ID, objc.Sel("setSortDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // An array containing the receiver’s content objects arranged using
 // [ArrangeObjects].
 //
@@ -740,8 +696,6 @@ func (a NSArrayController) ArrangedObjects() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("arrangedObjects"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // A Boolean value that indicates whether the receiver requires that the
 // content array attempt to maintain a selection
@@ -762,8 +716,6 @@ func (a NSArrayController) SetAvoidsEmptySelection(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAvoidsEmptySelection:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver will attempt to
 // preserve the current selection when the content changes
 //
@@ -782,8 +734,6 @@ func (a NSArrayController) PreservesSelection() bool {
 func (a NSArrayController) SetPreservesSelection(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreservesSelection:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the receiver always returns the
 // multiple values marker when multiple objects are selected
@@ -806,8 +756,6 @@ func (a NSArrayController) SetAlwaysUsesMultipleValuesMarker(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAlwaysUsesMultipleValuesMarker:"), value)
 }
 
-
-
 // The index of the first object in the receiver’s selection
 //
 // # Discussion
@@ -819,8 +767,6 @@ func (a NSArrayController) SelectionIndex() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("selectionIndex"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the receiver automatically selects
 // inserted objects
@@ -841,8 +787,6 @@ func (a NSArrayController) SetSelectsInsertedObjects(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSelectsInsertedObjects:"), value)
 }
 
-
-
 // An index set containing the indexes of the receiver’s currently selected
 // objects in the content array
 //
@@ -855,8 +799,6 @@ func (a NSArrayController) SelectionIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("selectionIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value indicating whether the next object, relative to the current
 // selection, in the receiver’s content array can be selected
@@ -872,8 +814,6 @@ func (a NSArrayController) CanSelectNext() bool {
 	return rv
 }
 
-
-
 // A Boolean value indicating whether the previous object, relative to the
 // current selection, in the receiver’s content array can be selected
 //
@@ -887,8 +827,6 @@ func (a NSArrayController) CanSelectPrevious() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("canSelectPrevious"))
 	return rv
 }
-
-
 
 // Returns a Boolean value that indicates whether an object can be inserted
 // into the receiver’s content collection.
@@ -914,8 +852,6 @@ func (a NSArrayController) CanInsert() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the receiver automatically clears an
 // existing filter predicate when new items are inserted or added to the
 // content
@@ -936,8 +872,6 @@ func (a NSArrayController) SetClearsFilterPredicateOnInsertion(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setClearsFilterPredicateOnInsertion:"), value)
 }
 
-
-
 // A predicate used by the receiver to filter the array controller contents
 //
 // # Discussion
@@ -952,8 +886,6 @@ func (a NSArrayController) FilterPredicate() foundation.INSPredicate {
 func (a NSArrayController) SetFilterPredicate(value foundation.INSPredicate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterPredicate:"), value)
 }
-
-
 
 // A Boolean that indicates if the receiver automatically rearranges its
 // content to correspond to the current sort descriptors and filter predicates
@@ -973,8 +905,6 @@ func (a NSArrayController) SetAutomaticallyRearrangesObjects(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAutomaticallyRearrangesObjects:"), value)
 }
 
-
-
 // An array of key paths that trigger automatic content sorting or filtering
 //
 // # Discussion
@@ -989,31 +919,4 @@ func (a NSArrayController) AutomaticRearrangementKeyPaths() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("automaticRearrangementKeyPaths"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

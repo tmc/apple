@@ -23,16 +23,13 @@ var MLModelLicenseKey MLModelMetadataKey
 
 var MLModelVersionStringKey MLModelMetadataKey
 
-
-
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLFeatureValueImageOptionCropAndScale"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -42,7 +39,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLFeatureValueImageOptionCropRect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -52,7 +49,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelAuthorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -66,7 +63,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelCreatorDefinedKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -76,7 +73,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelDescriptionKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -86,7 +83,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -96,7 +93,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelLicenseKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -106,21 +103,13 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelVersionStringKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				MLModelVersionStringKey = MLModelMetadataKey(objc.GoString(cstr))
 			}
 		}
-	}
-
-	if ptr, err := purego.Dlsym(frameworkHandle, "MLMultiArrayDataTypeFloat"); err == nil && ptr != 0 {
-		MLMultiArrayDataTypes.Float = *(*MLMultiArrayDataType)(unsafe.Pointer(ptr))
-	}
-
-	if ptr, err := purego.Dlsym(frameworkHandle, "MLMultiArrayDataTypeFloat64"); err == nil && ptr != 0 {
-		MLMultiArrayDataTypes.Float64 = *(*MLMultiArrayDataType)(unsafe.Pointer(ptr))
 	}
 
 }
@@ -131,13 +120,5 @@ var MLFeatureValueImageOptions struct {
 	CropAndScale MLFeatureValueImageOption
 	// CropRect: The option you use to crop an image when creating an image feature value.
 	CropRect MLFeatureValueImageOption
-}
-
-// MLMultiArrayDataTypes provides typed accessors for [MLMultiArrayDataType] constants.
-var MLMultiArrayDataTypes struct {
-	// Float: Designates the multiarray’s elements as floats.
-	Float MLMultiArrayDataType
-	// Float64: Designates the multiarray’s elements as 64-bit floats.
-	Float64 MLMultiArrayDataType
 }
 

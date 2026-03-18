@@ -38,12 +38,6 @@ func (mc MLComputePlanClass) Alloc() MLComputePlan {
 	return rv
 }
 
-
-
-
-
-
-
 // A class describing the plan for executing a model.
 //
 // # Overview
@@ -73,14 +67,10 @@ type MLComputePlan struct {
 //
 // A class describing the plan for executing a model.
 func MLComputePlanFromID(id objc.ID) MLComputePlan {
-	return MLComputePlan{objectivec.Object{id}}
+	return MLComputePlan{objectivec.Object{ID: id}}
 }
 // Ensure MLComputePlan implements IMLComputePlan.
 var _ IMLComputePlan = MLComputePlan{}
-
-
-
-
 
 // An interface definition for the [MLComputePlan] class.
 //
@@ -119,10 +109,6 @@ type IMLComputePlan interface {
 	EstimatedCostOfMLProgramOperation(operation IMLModelStructureProgramOperation) IMLComputePlanCost
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MLComputePlan) Init() MLComputePlan {
 	rv := objc.Send[MLComputePlan](c.ID, objc.Sel("init"))
@@ -141,15 +127,6 @@ func NewMLComputePlan() MLComputePlan {
 	rv := objc.Send[MLComputePlan](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns The anticipated compute devices that would be used for executing an
 // ML Program operation.
@@ -198,10 +175,6 @@ func (c MLComputePlan) EstimatedCostOfMLProgramOperation(operation IMLModelStruc
 	return MLComputePlanCostFromID(rv)
 }
 
-
-
-
-
 // Construct the compute plan of a model asynchronously given the location of
 // its on-disk representation.
 //
@@ -215,9 +188,9 @@ func (c MLComputePlan) EstimatedCostOfMLProgramOperation(operation IMLModelStruc
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadContentsOfURL:configuration:completionHandler:
 func (_MLComputePlanClass MLComputePlanClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.INSURL, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
-		_block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
+_block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
+	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
 }
 
 // Construct the compute plan of a model asynchronously given the model asset.
@@ -232,17 +205,10 @@ func (_MLComputePlanClass MLComputePlanClass) LoadContentsOfURLConfigurationComp
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadModelAsset:configuration:completionHandler:
 func (_MLComputePlanClass MLComputePlanClass) LoadModelAssetConfigurationCompletionHandler(asset IMLModelAsset, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
-		_block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
+_block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
+	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
-
-
-
-
-
-
-
 
 // The model structure.
 //
@@ -251,17 +217,6 @@ func (c MLComputePlan) ModelStructure() IMLModelStructure {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("modelStructure"))
 	return MLModelStructureFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // LoadContentsOfURLConfiguration is a synchronous wrapper around [MLComputePlan.LoadContentsOfURLConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -300,9 +255,4 @@ func (cc MLComputePlanClass) LoadModelAssetConfiguration(ctx context.Context, as
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

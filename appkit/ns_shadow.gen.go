@@ -38,12 +38,6 @@ func (nc NSShadowClass) Alloc() NSShadow {
 	return rv
 }
 
-
-
-
-
-
-
 // An object you use to specify attributes to create and style a drop shadow
 // during drawing operations.
 //
@@ -100,14 +94,10 @@ type NSShadow struct {
 // An object you use to specify attributes to create and style a drop shadow
 // during drawing operations.
 func NSShadowFromID(id objc.ID) NSShadow {
-	return NSShadow{objectivec.Object{id}}
+	return NSShadow{objectivec.Object{ID: id}}
 }
 // NOTE: NSShadow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSShadow] class.
 //
@@ -150,10 +140,6 @@ type INSShadow interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSShadow) Init() NSShadow {
 	rv := objc.Send[NSShadow](s.ID, objc.Sel("init"))
@@ -173,16 +159,6 @@ func NewNSShadow() NSShadow {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
 // Sets the shadow of subsequent drawing operations to the current shadow.
 //
 // # Discussion
@@ -197,17 +173,6 @@ func (s NSShadow) Set() {
 func (s NSShadow) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The shadow’s relative position, which you specify with horizontal and
 // vertical offset values.
@@ -229,8 +194,6 @@ func (s NSShadow) SetShadowOffset(value corefoundation.CGSize) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowOffset:"), value)
 }
 
-
-
 // The blur radius of the shadow.
 //
 // # Discussion
@@ -249,8 +212,6 @@ func (s NSShadow) SetShadowBlurRadius(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowBlurRadius:"), value)
 }
 
-
-
 // The color of the shadow.
 //
 // # Discussion
@@ -268,8 +229,6 @@ func (s NSShadow) SetShadowColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowColor:"), value)
 }
 
-
-
 // The shadow of the text.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/shadow
@@ -277,31 +236,4 @@ func (s NSShadow) Shadow() foundation.NSString {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("shadow"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

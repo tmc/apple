@@ -38,12 +38,6 @@ func (nc NSOutlineViewClass) Alloc() NSOutlineView {
 	return rv
 }
 
-
-
-
-
-
-
 // A view that uses a row-and-column format to display hierarchical data like
 // directories and files that can be expanded and collapsed.
 //
@@ -164,10 +158,6 @@ func NSOutlineViewFromID(id objc.ID) NSOutlineView {
 }
 // NOTE: NSOutlineView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSOutlineView] class.
 //
@@ -343,13 +333,7 @@ type INSOutlineView interface {
 	MoveItemAtIndexInParentToIndexInParent(fromIndex int, oldParent objectivec.IObject, toIndex int, newParent objectivec.IObject)
 	// Removes items at the given indexes in the given parent with the specified optional animations.
 	RemoveItemsAtIndexesInParentWithAnimation(indexes foundation.NSIndexSet, parent objectivec.IObject, animationOptions NSTableViewAnimationOptions)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (o NSOutlineView) Init() NSOutlineView {
@@ -370,11 +354,6 @@ func NewNSOutlineView() NSOutlineView {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/init(coder:)
 func NewOutlineViewWithCoder(coder foundation.INSCoder) NSOutlineView {
@@ -383,7 +362,6 @@ func NewOutlineViewWithCoder(coder foundation.INSCoder) NSOutlineView {
 	return NSOutlineViewFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/init(frame:)
 func NewOutlineViewWithFrame(frameRect corefoundation.CGRect) NSOutlineView {
@@ -391,12 +369,6 @@ func NewOutlineViewWithFrame(frameRect corefoundation.CGRect) NSOutlineView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSOutlineViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether a given item is expandable.
 //
@@ -865,20 +837,6 @@ func (o NSOutlineView) MoveItemAtIndexInParentToIndexInParent(fromIndex int, old
 func (o NSOutlineView) RemoveItemsAtIndexesInParentWithAnimation(indexes foundation.NSIndexSet, parent objectivec.IObject, animationOptions NSTableViewAnimationOptions) {
 	objc.Send[objc.ID](o.ID, objc.Sel("removeItemsAtIndexes:inParent:withAnimation:"), indexes, parent, animationOptions)
 }
-func (o NSOutlineView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the outline view retains and
 // releases the objects returned from its data source.
@@ -907,8 +865,6 @@ func (o NSOutlineView) SetStronglyReferencesItems(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStronglyReferencesItems:"), value)
 }
 
-
-
 // The table column in which hierarchical data is displayed.
 //
 // # Discussion
@@ -929,8 +885,6 @@ func (o NSOutlineView) OutlineTableColumn() INSTableColumn {
 func (o NSOutlineView) SetOutlineTableColumn(value INSTableColumn) {
 	objc.Send[struct{}](o.ID, objc.Sel("setOutlineTableColumn:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the outline view resizes its outline
 // column when the user expands or collapses items.
@@ -957,8 +911,6 @@ func (o NSOutlineView) SetAutoresizesOutlineColumn(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutoresizesOutlineColumn:"), value)
 }
 
-
-
 // The per-level indentation, measured in points.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/indentationPerLevel
@@ -969,8 +921,6 @@ func (o NSOutlineView) IndentationPerLevel() float64 {
 func (o NSOutlineView) SetIndentationPerLevel(value float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIndentationPerLevel:"), value)
 }
-
-
 
 // A Boolean value indicating whether the indentation marker symbol displayed
 // in the outline column should be indented along with the cell contents.
@@ -993,8 +943,6 @@ func (o NSOutlineView) IndentationMarkerFollowsCell() bool {
 func (o NSOutlineView) SetIndentationMarkerFollowsCell(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIndentationMarkerFollowsCell:"), value)
 }
-
-
 
 // A Boolean value indicating whether the expanded items are automatically
 // saved across launches of the app.
@@ -1026,20 +974,6 @@ func (o NSOutlineView) AutosaveExpandedItems() bool {
 func (o NSOutlineView) SetAutosaveExpandedItems(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutosaveExpandedItems:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityOutline
 			
@@ -1136,33 +1070,4 @@ func (o NSOutlineView) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

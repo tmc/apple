@@ -37,12 +37,6 @@ func (nc NSScrubberImageItemViewClass) Alloc() NSScrubberImageItemView {
 	return rv
 }
 
-
-
-
-
-
-
 // A concrete view subclass for displaying images in a scrubber items.
 //
 // # Overview
@@ -80,10 +74,6 @@ func NSScrubberImageItemViewFromID(id objc.ID) NSScrubberImageItemView {
 // NOTE: NSScrubberImageItemView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSScrubberImageItemView] class.
 //
 // # Providing image content
@@ -114,13 +104,7 @@ type INSScrubberImageItemView interface {
 	// The alignment of the image within the scrubber item.
 	ImageAlignment() NSImageAlignment
 	SetImageAlignment(value NSImageAlignment)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberImageItemView) Init() NSScrubberImageItemView {
@@ -141,11 +125,6 @@ func NewNSScrubberImageItemView() NSScrubberImageItemView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -160,7 +139,6 @@ func NewScrubberImageItemViewWithCoder(coder foundation.INSCoder) NSScrubberImag
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberImageItemViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -184,26 +162,6 @@ func NewScrubberImageItemViewWithFrame(frameRect corefoundation.CGRect) NSScrubb
 	return NSScrubberImageItemViewFromID(rv)
 }
 
-
-
-
-
-
-func (s NSScrubberImageItemView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The image displayed by the scrubber item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberImageItemView/image
@@ -214,8 +172,6 @@ func (s NSScrubberImageItemView) Image() INSImage {
 func (s NSScrubberImageItemView) SetImage(value INSImage) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImage:"), value)
 }
-
-
 
 // The image view that the scrubber item uses to display its image.
 //
@@ -229,8 +185,6 @@ func (s NSScrubberImageItemView) ImageView() INSImageView {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("imageView"))
 	return NSImageViewFromID(objc.ID(rv))
 }
-
-
 
 // The alignment of the image within the scrubber item.
 //
@@ -251,38 +205,4 @@ func (s NSScrubberImageItemView) ImageAlignment() NSImageAlignment {
 func (s NSScrubberImageItemView) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageAlignment:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

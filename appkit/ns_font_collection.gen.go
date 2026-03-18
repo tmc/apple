@@ -39,12 +39,6 @@ func (nc NSFontCollectionClass) Alloc() NSFontCollection {
 	return rv
 }
 
-
-
-
-
-
-
 // A font collection, which is a group of font descriptors taken together as a
 // single object.
 //
@@ -74,14 +68,10 @@ type NSFontCollection struct {
 // A font collection, which is a group of font descriptors taken together as a
 // single object.
 func NSFontCollectionFromID(id objc.ID) NSFontCollection {
-	return NSFontCollection{objectivec.Object{id}}
+	return NSFontCollection{objectivec.Object{ID: id}}
 }
 // NOTE: NSFontCollection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFontCollection] class.
 //
@@ -116,10 +106,6 @@ type INSFontCollection interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFontCollection) Init() NSFontCollection {
 	rv := objc.Send[NSFontCollection](f.ID, objc.Sel("init"))
@@ -139,11 +125,6 @@ func NewNSFontCollection() NSFontCollection {
 	return rv
 }
 
-
-
-
-
-
 // Returns a font collection matching the given descriptors.
 //
 // queryDescriptors: The descriptors used to match the returned collection.
@@ -157,7 +138,6 @@ func NewFontCollectionWithDescriptors(queryDescriptors []NSFontDescriptor) NSFon
 	rv := objc.Send[objc.ID](objc.ID(getNSFontCollectionClass().class), objc.Sel("fontCollectionWithDescriptors:"), objectivec.IObjectSliceToNSArray(queryDescriptors))
 	return NSFontCollectionFromID(rv)
 }
-
 
 // Returns a collection of fonts matching the given locale.
 //
@@ -173,7 +153,6 @@ func NewFontCollectionWithLocale(locale foundation.NSLocale) NSFontCollection {
 	return NSFontCollectionFromID(rv)
 }
 
-
 // Creates a named font collection object.
 //
 // name: The name of the collection.
@@ -187,7 +166,6 @@ func NewFontCollectionWithName(name NSFontCollectionName) NSFontCollection {
 	rv := objc.Send[objc.ID](objc.ID(getNSFontCollectionClass().class), objc.Sel("fontCollectionWithName:"), objc.String(string(name)))
 	return NSFontCollectionFromID(rv)
 }
-
 
 // Creates a font collection with the specified name and font visibility.
 //
@@ -204,12 +182,6 @@ func NewFontCollectionWithNameVisibility(name NSFontCollectionName, visibility N
 	rv := objc.Send[objc.ID](objc.ID(getNSFontCollectionClass().class), objc.Sel("fontCollectionWithName:visibility:"), objc.String(string(name)), visibility)
 	return NSFontCollectionFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an array of font descriptors matching the logical descriptors for
 // the given font family.
@@ -269,10 +241,6 @@ func (f NSFontCollection) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Renames the font collection with the specified name and visibility to the
 // second name specified.
 //
@@ -290,7 +258,7 @@ func (f NSFontCollection) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/rename(fromName:visibility:toName:)
 func (_NSFontCollectionClass NSFontCollectionClass) RenameFontCollectionWithNameVisibilityToNameError(oldName NSFontCollectionName, visibility NSFontCollectionVisibility, newName NSFontCollectionName) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_NSFontCollectionClass.class), objc.Sel("renameFontCollectionWithName:visibility:toName:error:"), objc.String(string(oldName)), visibility, objc.String(string(newName)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -319,7 +287,7 @@ func (_NSFontCollectionClass NSFontCollectionClass) RenameFontCollectionWithName
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/show(_:withName:visibility:)
 func (_NSFontCollectionClass NSFontCollectionClass) ShowFontCollectionWithNameVisibilityError(collection INSFontCollection, name NSFontCollectionName, visibility NSFontCollectionVisibility) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_NSFontCollectionClass.class), objc.Sel("showFontCollection:withName:visibility:error:"), collection, objc.String(string(name)), visibility, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -345,7 +313,7 @@ func (_NSFontCollectionClass NSFontCollectionClass) ShowFontCollectionWithNameVi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/hide(withName:visibility:)
 func (_NSFontCollectionClass NSFontCollectionClass) HideFontCollectionWithNameVisibilityError(name NSFontCollectionName, visibility NSFontCollectionVisibility) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_NSFontCollectionClass.class), objc.Sel("hideFontCollectionWithName:visibility:error:"), objc.String(string(name)), visibility, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -358,13 +326,6 @@ func (_NSFontCollectionClass NSFontCollectionClass) HideFontCollectionWithNameVi
 
 }
 
-
-
-
-
-
-
-
 // An array of font descriptors matching the logical descriptors.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/matchingDescriptors
@@ -374,8 +335,6 @@ func (f NSFontCollection) MatchingDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
-
-
 
 // An array of font descriptors whose matching results produce the
 // collection’s matching descriptors.
@@ -393,8 +352,6 @@ func (f NSFontCollection) QueryDescriptors() []NSFontDescriptor {
 	})
 }
 
-
-
 // A list of query font descriptors whose matching results are excluded from
 // the list of matching descriptors.
 //
@@ -405,12 +362,6 @@ func (f NSFontCollection) ExclusionDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
-
-
-
-
-
-
 
 // The font collection that matches all registered fonts.
 //
@@ -424,8 +375,6 @@ func (_NSFontCollectionClass NSFontCollectionClass) FontCollectionWithAllAvailab
 	return NSFontCollectionFromID(objc.ID(rv))
 }
 
-
-
 // Returns all named collections visible to this process.
 //
 // # Return Value
@@ -437,25 +386,4 @@ func (_NSFontCollectionClass NSFontCollectionClass) AllFontCollectionNames() []s
 	rv := objc.Send[[]objc.ID](objc.ID(_NSFontCollectionClass.class), objc.Sel("allFontCollectionNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

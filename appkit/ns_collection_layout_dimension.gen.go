@@ -36,12 +36,6 @@ func (nc NSCollectionLayoutDimensionClass) Alloc() NSCollectionLayoutDimension {
 	return rv
 }
 
-
-
-
-
-
-
 // An individual dimension representing an item’s width or height in a
 // collection view.
 //
@@ -87,14 +81,10 @@ type NSCollectionLayoutDimension struct {
 // An individual dimension representing an item’s width or height in a
 // collection view.
 func NSCollectionLayoutDimensionFromID(id objc.ID) NSCollectionLayoutDimension {
-	return NSCollectionLayoutDimension{objectivec.Object{id}}
+	return NSCollectionLayoutDimension{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutDimension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutDimension] class.
 //
@@ -130,10 +120,6 @@ type INSCollectionLayoutDimension interface {
 	IsFractionalWidth() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutDimension) Init() NSCollectionLayoutDimension {
 	rv := objc.Send[NSCollectionLayoutDimension](c.ID, objc.Sel("init"))
@@ -152,19 +138,6 @@ func NewNSCollectionLayoutDimension() NSCollectionLayoutDimension {
 	rv := objc.Send[NSCollectionLayoutDimension](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Creates a dimension with an absolute point value.
 //
@@ -204,13 +177,6 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Fracti
 	return NSCollectionLayoutDimensionFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The floating-point value of the dimension.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutDimension/dimension
@@ -218,8 +184,6 @@ func (c NSCollectionLayoutDimension) Dimension() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("dimension"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the dimension is expressed as an
 // absolute value.
@@ -230,8 +194,6 @@ func (c NSCollectionLayoutDimension) IsAbsolute() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the dimension is expressed as an
 // estimated value.
 //
@@ -240,8 +202,6 @@ func (c NSCollectionLayoutDimension) IsEstimated() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEstimated"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the dimension is expressed as a
 // fraction of its container’s height.
@@ -252,8 +212,6 @@ func (c NSCollectionLayoutDimension) IsFractionalHeight() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the dimension is expressed as a
 // fraction of its container’s width.
 //
@@ -262,28 +220,4 @@ func (c NSCollectionLayoutDimension) IsFractionalWidth() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFractionalWidth"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

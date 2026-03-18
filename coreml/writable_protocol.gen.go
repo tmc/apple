@@ -20,8 +20,6 @@ type MLWritable interface {
 	WriteToURLError(url foundation.INSURL) (bool, error)
 }
 
-
-
 // MLWritableObject wraps an existing Objective-C object that conforms to the MLWritable protocol.
 type MLWritableObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o MLWritableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MLWritableObjectFromID constructs a [MLWritableObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MLWritableObjectFromID(id objc.ID) MLWritableObject {
@@ -39,9 +35,6 @@ func MLWritableObjectFromID(id objc.ID) MLWritableObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Exports a machine learning file to the file system.
 //
@@ -57,11 +50,4 @@ func (o MLWritableObject) WriteToURLError(url foundation.INSURL) (bool, error) {
 	}
 	return rv, nil
 	}
-
-
-
-
-
-
-
 

@@ -5,7 +5,6 @@ package appkit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [NSLayoutXAxisAnchor] class.
@@ -35,12 +34,6 @@ func (nc NSLayoutXAxisAnchorClass) Alloc() NSLayoutXAxisAnchor {
 	rv := objc.Send[NSLayoutXAxisAnchor](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A factory class for creating horizontal layout constraint objects using a
 // fluent API.
@@ -78,10 +71,6 @@ func NSLayoutXAxisAnchorFromID(id objc.ID) NSLayoutXAxisAnchor {
 // NOTE: NSLayoutXAxisAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSLayoutXAxisAnchor] class.
 //
 // # Building system spacing constraints
@@ -111,13 +100,7 @@ type INSLayoutXAxisAnchor interface {
 
 	// Creates a layout dimension object from two anchors.
 	AnchorWithOffsetToAnchor(otherAnchor INSLayoutXAxisAnchor) INSLayoutDimension
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l NSLayoutXAxisAnchor) Init() NSLayoutXAxisAnchor {
@@ -137,15 +120,6 @@ func NewNSLayoutXAxisAnchor() NSLayoutXAxisAnchor {
 	rv := objc.Send[NSLayoutXAxisAnchor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a constraint that defines by how much the current anchor trails the
 // specified anchor.
@@ -257,42 +231,4 @@ func (l NSLayoutXAxisAnchor) AnchorWithOffsetToAnchor(otherAnchor INSLayoutXAxis
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("anchorWithOffsetToAnchor:"), otherAnchor)
 	return NSLayoutDimensionFromID(rv)
 }
-func (l NSLayoutXAxisAnchor) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

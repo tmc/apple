@@ -35,12 +35,6 @@ func (nc NSCollectionViewFlowLayoutInvalidationContextClass) Alloc() NSCollectio
 	return rv
 }
 
-
-
-
-
-
-
 // An object that identifies the portions of a flow layout object that need to
 // be updated.
 //
@@ -81,10 +75,6 @@ func NSCollectionViewFlowLayoutInvalidationContextFromID(id objc.ID) NSCollectio
 // NOTE: NSCollectionViewFlowLayoutInvalidationContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionViewFlowLayoutInvalidationContext] class.
 //
 // # Invalidating the Flow Layout
@@ -108,10 +98,6 @@ type INSCollectionViewFlowLayoutInvalidationContext interface {
 	SetInvalidateFlowLayoutDelegateMetrics(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewFlowLayoutInvalidationContext) Init() NSCollectionViewFlowLayoutInvalidationContext {
 	rv := objc.Send[NSCollectionViewFlowLayoutInvalidationContext](c.ID, objc.Sel("init"))
@@ -130,26 +116,6 @@ func NewNSCollectionViewFlowLayoutInvalidationContext() NSCollectionViewFlowLayo
 	rv := objc.Send[NSCollectionViewFlowLayoutInvalidationContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value indicating whether the flow layout object should invalidate
 // its current attributes.
@@ -176,8 +142,6 @@ func (c NSCollectionViewFlowLayoutInvalidationContext) InvalidateFlowLayoutAttri
 func (c NSCollectionViewFlowLayoutInvalidationContext) SetInvalidateFlowLayoutAttributes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInvalidateFlowLayoutAttributes:"), value)
 }
-
-
 
 // A Boolean value indicating whether the flow layout object should fetch new
 // size information from its delegate.
@@ -208,12 +172,6 @@ func (c NSCollectionViewFlowLayoutInvalidationContext) SetInvalidateFlowLayoutDe
 	objc.Send[struct{}](c.ID, objc.Sel("setInvalidateFlowLayoutDelegateMetrics:"), value)
 }
 
-
-
-
-
-
-
 // Returns the class to use when creating an invalidation context object for
 // the layout.
 //
@@ -225,24 +183,4 @@ func (_NSCollectionViewFlowLayoutInvalidationContextClass NSCollectionViewFlowLa
 func (_NSCollectionViewFlowLayoutInvalidationContextClass NSCollectionViewFlowLayoutInvalidationContextClass) SetInvalidationContextClass(value objc.Class) {
 	objc.Send[struct{}](objc.ID(_NSCollectionViewFlowLayoutInvalidationContextClass.class), objc.Sel("setInvalidationContextClass:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -58,8 +58,6 @@ type NSTextCheckingClient interface {
 	ViewForRangeFirstRectActualRange(range_ foundation.NSRange, firstRect foundation.NSRect, actualRange foundation.NSRange) INSView
 }
 
-
-
 // NSTextCheckingClientObject wraps an existing Objective-C object that conforms to the NSTextCheckingClient protocol.
 type NSTextCheckingClientObject struct {
 	objectivec.Object
@@ -68,8 +66,6 @@ func (o NSTextCheckingClientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextCheckingClientObjectFromID constructs a [NSTextCheckingClientObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextCheckingClientObjectFromID(id objc.ID) NSTextCheckingClientObject {
@@ -77,9 +73,6 @@ func NSTextCheckingClientObjectFromID(id objc.ID) NSTextCheckingClientObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/addAnnotations(_:range:)
@@ -687,85 +680,59 @@ func (o NSTextCheckingClientObject) WritingToolsBehavior() NSWritingToolsBehavio
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
 func (o NSTextCheckingClientObject) SetAutocorrectionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutocorrectionType:"), value)
 }
-
 
 func (o NSTextCheckingClientObject) SetDataDetectionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setDataDetectionType:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetGrammarCheckingType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setGrammarCheckingType:"), value)
 }
-
 
 func (o NSTextCheckingClientObject) SetInlinePredictionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInlinePredictionType:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetLinkDetectionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLinkDetectionType:"), value)
 }
-
 
 func (o NSTextCheckingClientObject) SetSmartDashesType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmartDashesType:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetSmartInsertDeleteType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmartInsertDeleteType:"), value)
 }
-
 
 func (o NSTextCheckingClientObject) SetSmartQuotesType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSmartQuotesType:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetSpellCheckingType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSpellCheckingType:"), value)
 }
-
 
 func (o NSTextCheckingClientObject) SetTextCompletionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextCompletionType:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetTextReplacementType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setTextReplacementType:"), value)
 }
-
 
 func (o NSTextCheckingClientObject) SetAllowedWritingToolsResultOptions(value NSWritingToolsResultOptions) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAllowedWritingToolsResultOptions:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetMathExpressionCompletionType(value NSTextInputTraitType) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMathExpressionCompletionType:"), value)
 }
 
-
 func (o NSTextCheckingClientObject) SetWritingToolsBehavior(value NSWritingToolsBehavior) {
 	objc.Send[struct{}](o.ID, objc.Sel("setWritingToolsBehavior:"), value)
 }
-
-
-
-
 

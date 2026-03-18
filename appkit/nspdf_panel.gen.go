@@ -37,12 +37,6 @@ func (nc NSPDFPanelClass) Alloc() NSPDFPanel {
 	return rv
 }
 
-
-
-
-
-
-
 // A Save or Export as PDF panel that’s consistent with the macOS user
 // interface.
 //
@@ -76,14 +70,10 @@ type NSPDFPanel struct {
 // A Save or Export as PDF panel that’s consistent with the macOS user
 // interface.
 func NSPDFPanelFromID(id objc.ID) NSPDFPanel {
-	return NSPDFPanel{objectivec.Object{id}}
+	return NSPDFPanel{objectivec.Object{ID: id}}
 }
 // NOTE: NSPDFPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPDFPanel] class.
 //
@@ -122,10 +112,6 @@ type INSPDFPanel interface {
 	BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler ErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPDFPanel) Init() NSPDFPanel {
 	rv := objc.Send[NSPDFPanel](p.ID, objc.Sel("init"))
@@ -145,15 +131,6 @@ func NewNSPDFPanel() NSPDFPanel {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Presents a document-modal PDF panel.
 //
 // pdfInfo: The [NSPDFInfo] object describing the parameters to be used when creating
@@ -172,21 +149,10 @@ func NewNSPDFPanel() NSPDFPanel {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFPanel/beginSheet(with:modalFor:completionHandler:)
 func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](p.ID, objc.Sel("beginSheetWithPDFInfo:modalForWindow:completionHandler:"), pdfInfo, docWindow, _block2)
+	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetWithPDFInfo:modalForWindow:completionHandler:"), pdfInfo, docWindow, _block2)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A view controller for the accessory view that the panel can present.
 //
@@ -205,8 +171,6 @@ func (p NSPDFPanel) AccessoryController() INSViewController {
 func (p NSPDFPanel) SetAccessoryController(value INSViewController) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAccessoryController:"), value)
 }
-
-
 
 // A set of configuration options that determine the accessory views the PDF
 // panel should display.
@@ -227,8 +191,6 @@ func (p NSPDFPanel) SetOptions(value NSPDFPanelOptions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOptions:"), value)
 }
 
-
-
 // The initial value for the user-editable filename shown in the name field of
 // the PDF panel.
 //
@@ -246,27 +208,4 @@ func (p NSPDFPanel) DefaultFileName() string {
 func (p NSPDFPanel) SetDefaultFileName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDefaultFileName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

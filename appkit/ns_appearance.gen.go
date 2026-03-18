@@ -38,12 +38,6 @@ func (nc NSAppearanceClass) Alloc() NSAppearance {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages standard appearance attributes for UI elements in an
 // app.
 //
@@ -102,14 +96,10 @@ type NSAppearance struct {
 // An object that manages standard appearance attributes for UI elements in an
 // app.
 func NSAppearanceFromID(id objc.ID) NSAppearance {
-	return NSAppearance{objectivec.Object{id}}
+	return NSAppearance{objectivec.Object{ID: id}}
 }
 // NOTE: NSAppearance adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAppearance] class.
 //
@@ -170,10 +160,6 @@ type INSAppearance interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAppearance) Init() NSAppearance {
 	rv := objc.Send[NSAppearance](a.ID, objc.Sel("init"))
@@ -192,11 +178,6 @@ func NewNSAppearance() NSAppearance {
 	rv := objc.Send[NSAppearance](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates an appearance object based on the name of one of the standard
 // system appearances.
@@ -221,7 +202,6 @@ func NewAppearanceNamed(name NSAppearanceName) NSAppearance {
 	return NSAppearanceFromID(rv)
 }
 
-
 // Creates an appearance object from the named appearance file located in the
 // specified bundle.
 //
@@ -242,7 +222,6 @@ func NewAppearanceWithAppearanceNamedBundle(name NSAppearanceName, bundle founda
 	return NSAppearanceFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(coder:)
 func NewAppearanceWithCoder(coder foundation.INSCoder) NSAppearance {
@@ -250,12 +229,6 @@ func NewAppearanceWithCoder(coder foundation.INSCoder) NSAppearance {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSAppearanceFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates an appearance object from the named appearance file located in the
 // specified bundle.
@@ -320,17 +293,13 @@ func (a NSAppearance) BestMatchFromAppearancesWithNames(appearances []string) NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/performAsCurrentDrawingAppearance(_:)
 func (a NSAppearance) PerformAsCurrentDrawingAppearance(block VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		objc.Send[objc.ID](a.ID, objc.Sel("performAsCurrentDrawingAppearance:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("performAsCurrentDrawingAppearance:"), _block0)
 }
 func (a NSAppearance) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // The appearance that the system uses for color and asset resolution, and
 // that’s active for drawing, usually from locking focus on a view.
@@ -345,13 +314,6 @@ func (_NSAppearanceClass NSAppearanceClass) CurrentDrawingAppearance() NSAppeara
 	return NSAppearanceFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The name of the appearance.
 //
 // # Discussion
@@ -364,8 +326,6 @@ func (a NSAppearance) Name() NSAppearanceName {
 	return NSAppearanceName(foundation.NSStringFromID(rv).String())
 }
 
-
-
 // Specifies whether the current appearance allows vibrancy.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/allowsVibrancy
@@ -373,8 +333,6 @@ func (a NSAppearance) AllowsVibrancy() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("allowsVibrancy"))
 	return rv
 }
-
-
 
 // The appearance of the receiver, in an
 //
@@ -386,25 +344,6 @@ func (a NSAppearance) Appearance() INSAppearance {
 func (a NSAppearance) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAppearance:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // PerformAsCurrentDrawingAppearanceSync is a synchronous wrapper around [NSAppearance.PerformAsCurrentDrawingAppearance].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -420,9 +359,4 @@ func (a NSAppearance) PerformAsCurrentDrawingAppearanceSync(ctx context.Context)
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

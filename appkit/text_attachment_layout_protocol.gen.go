@@ -31,8 +31,6 @@ type NSTextAttachmentLayout interface {
 	ViewProviderForParentViewLocationTextContainer(parentView INSView, location NSTextLocation, textContainer INSTextContainer) INSTextAttachmentViewProvider
 }
 
-
-
 // NSTextAttachmentLayoutObject wraps an existing Objective-C object that conforms to the NSTextAttachmentLayout protocol.
 type NSTextAttachmentLayoutObject struct {
 	objectivec.Object
@@ -41,8 +39,6 @@ func (o NSTextAttachmentLayoutObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextAttachmentLayoutObjectFromID constructs a [NSTextAttachmentLayoutObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextAttachmentLayoutObjectFromID(id objc.ID) NSTextAttachmentLayoutObject {
@@ -50,9 +46,6 @@ func NSTextAttachmentLayoutObjectFromID(id objc.ID) NSTextAttachmentLayoutObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the layout bounds of the attachment you specify.
 //
@@ -159,10 +152,4 @@ func (o NSTextAttachmentLayoutObject) ViewProviderForParentViewLocationTextConta
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("viewProviderForParentView:location:textContainer:"), parentView, location, textContainer)
 	return NSTextAttachmentViewProviderFromID(rv)
 	}
-
-
-
-
-
-
 

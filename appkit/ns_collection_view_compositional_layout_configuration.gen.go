@@ -36,12 +36,6 @@ func (nc NSCollectionViewCompositionalLayoutConfigurationClass) Alloc() NSCollec
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines scroll direction, section spacing, and headers or
 // footers for the layout.
 //
@@ -82,14 +76,10 @@ type NSCollectionViewCompositionalLayoutConfiguration struct {
 // An object that defines scroll direction, section spacing, and headers or
 // footers for the layout.
 func NSCollectionViewCompositionalLayoutConfigurationFromID(id objc.ID) NSCollectionViewCompositionalLayoutConfiguration {
-	return NSCollectionViewCompositionalLayoutConfiguration{objectivec.Object{id}}
+	return NSCollectionViewCompositionalLayoutConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionViewCompositionalLayoutConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewCompositionalLayoutConfiguration] class.
 //
@@ -135,10 +125,6 @@ type INSCollectionViewCompositionalLayoutConfiguration interface {
 	SetConfiguration(value INSCollectionViewCompositionalLayoutConfiguration)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewCompositionalLayoutConfiguration) Init() NSCollectionViewCompositionalLayoutConfiguration {
 	rv := objc.Send[NSCollectionViewCompositionalLayoutConfiguration](c.ID, objc.Sel("init"))
@@ -158,26 +144,6 @@ func NewNSCollectionViewCompositionalLayoutConfiguration() NSCollectionViewCompo
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The axis that the content in the collection view layout scrolls along.
 //
 // # Discussion
@@ -196,8 +162,6 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) SetScrollDirection(val
 	objc.Send[struct{}](c.ID, objc.Sel("setScrollDirection:"), value)
 }
 
-
-
 // The amount of space between the sections in the layout.
 //
 // # Discussion
@@ -213,8 +177,6 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) SetInterSectionSpacing
 	objc.Send[struct{}](c.ID, objc.Sel("setInterSectionSpacing:"), value)
 }
 
-
-
 // An array of the supplementary items that are associated with the boundary
 // edges of the entire layout, such as global headers and footers.
 //
@@ -229,8 +191,6 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) SetBoundarySupplementa
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The layout’s configuration, such as its scroll direction and section
 // spacing.
 //
@@ -242,28 +202,4 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) Configuration() INSCol
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetConfiguration(value INSCollectionViewCompositionalLayoutConfiguration) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

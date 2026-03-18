@@ -14,8 +14,6 @@ type MLComputeDeviceProtocol interface {
 	objectivec.IObject
 }
 
-
-
 // MLComputeDeviceProtocolObject wraps an existing Objective-C object that conforms to the MLComputeDeviceProtocol protocol.
 type MLComputeDeviceProtocolObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o MLComputeDeviceProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MLComputeDeviceProtocolObjectFromID constructs a [MLComputeDeviceProtocolObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MLComputeDeviceProtocolObjectFromID(id objc.ID) MLComputeDeviceProtocolObject {
@@ -33,13 +29,4 @@ func MLComputeDeviceProtocolObjectFromID(id objc.ID) MLComputeDeviceProtocolObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

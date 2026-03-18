@@ -36,12 +36,6 @@ func (nc NSHapticFeedbackManagerClass) Alloc() NSHapticFeedbackManager {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that provides access to the haptic feedback management attributes
 // on a system with a Force Touch trackpad.
 //
@@ -55,14 +49,10 @@ type NSHapticFeedbackManager struct {
 // An object that provides access to the haptic feedback management attributes
 // on a system with a Force Touch trackpad.
 func NSHapticFeedbackManagerFromID(id objc.ID) NSHapticFeedbackManager {
-	return NSHapticFeedbackManager{objectivec.Object{id}}
+	return NSHapticFeedbackManager{objectivec.Object{ID: id}}
 }
 // NOTE: NSHapticFeedbackManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSHapticFeedbackManager] class.
 //
@@ -70,10 +60,6 @@ func NSHapticFeedbackManagerFromID(id objc.ID) NSHapticFeedbackManager {
 type INSHapticFeedbackManager interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h NSHapticFeedbackManager) Init() NSHapticFeedbackManager {
@@ -94,30 +80,6 @@ func NewNSHapticFeedbackManager() NSHapticFeedbackManager {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Requests a haptic feedback performer object that is based on the current
 // input device, accessibility settings, and user preferences.
 //
@@ -134,22 +96,4 @@ func (_NSHapticFeedbackManagerClass NSHapticFeedbackManagerClass) DefaultPerform
 	rv := objc.Send[objc.ID](objc.ID(_NSHapticFeedbackManagerClass.class), objc.Sel("defaultPerformer"))
 	return NSHapticFeedbackPerformerObjectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

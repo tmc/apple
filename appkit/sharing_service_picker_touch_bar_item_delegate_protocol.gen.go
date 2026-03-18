@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that a sharing service picker item delegate uses to provide a list of items eligible for sharing.
 //
@@ -25,8 +23,6 @@ type NSSharingServicePickerTouchBarItemDelegate interface {
 	ItemsForSharingServicePickerTouchBarItem(pickerTouchBarItem INSSharingServicePickerTouchBarItem) foundation.INSArray
 }
 
-
-
 // NSSharingServicePickerTouchBarItemDelegateObject wraps an existing Objective-C object that conforms to the NSSharingServicePickerTouchBarItemDelegate protocol.
 type NSSharingServicePickerTouchBarItemDelegateObject struct {
 	objectivec.Object
@@ -35,8 +31,6 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) BaseObject() objective
 	return o.Object
 }
 
-
-
 // NSSharingServicePickerTouchBarItemDelegateObjectFromID constructs a [NSSharingServicePickerTouchBarItemDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSharingServicePickerTouchBarItemDelegateObjectFromID(id objc.ID) NSSharingServicePickerTouchBarItemDelegateObject {
@@ -44,9 +38,6 @@ func NSSharingServicePickerTouchBarItemDelegateObjectFromID(id objc.ID) NSSharin
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate for items that represent the objects to be shared.
 //
@@ -159,10 +150,6 @@ func (o NSSharingServicePickerTouchBarItemDelegateObject) SharingServicePickerCo
 	})
 	}
 
-
-
-
-
 // NSSharingServicePickerTouchBarItemDelegateConfig holds optional typed callbacks for [NSSharingServicePickerTouchBarItemDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -223,8 +210,4 @@ func NewNSSharingServicePickerTouchBarItemDelegate(config NSSharingServicePicker
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSharingServicePickerTouchBarItemDelegateObjectFromID(instance)
 }
-
-
-
-
 

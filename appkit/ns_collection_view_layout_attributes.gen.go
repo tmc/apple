@@ -38,12 +38,6 @@ func (nc NSCollectionViewLayoutAttributesClass) Alloc() NSCollectionViewLayoutAt
 	return rv
 }
 
-
-
-
-
-
-
 // An object that contains layout-related attributes for an element in a
 // collection view.
 //
@@ -123,14 +117,10 @@ type NSCollectionViewLayoutAttributes struct {
 // An object that contains layout-related attributes for an element in a
 // collection view.
 func NSCollectionViewLayoutAttributesFromID(id objc.ID) NSCollectionViewLayoutAttributes {
-	return NSCollectionViewLayoutAttributes{objectivec.Object{id}}
+	return NSCollectionViewLayoutAttributes{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionViewLayoutAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewLayoutAttributes] class.
 //
@@ -187,10 +177,6 @@ type INSCollectionViewLayoutAttributes interface {
 	SetZIndex(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionViewLayoutAttributes) Init() NSCollectionViewLayoutAttributes {
 	rv := objc.Send[NSCollectionViewLayoutAttributes](c.ID, objc.Sel("init"))
@@ -209,11 +195,6 @@ func NewNSCollectionViewLayoutAttributes() NSCollectionViewLayoutAttributes {
 	rv := objc.Send[NSCollectionViewLayoutAttributes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates and returns a layout attributes object for a decoration view based
 // on the specified information.
@@ -245,7 +226,6 @@ func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decor
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
 
-
 // Creates and returns a layout attributes object for an inter-item gap view
 // at the specified index path.
 //
@@ -275,7 +255,6 @@ func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath o
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
 
-
 // Creates and returns a layout attributes object for the item at the
 // specified index path.
 //
@@ -301,7 +280,6 @@ func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath objectivec.
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionViewLayoutAttributesClass().class), objc.Sel("layoutAttributesForItemWithIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 
 // Creates and returns a layout attributes object for a supplementary view
 // based on the specified information.
@@ -335,23 +313,6 @@ func NewCollectionViewLayoutAttributesForSupplementaryViewOfKindWithIndexPath(el
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The type of the element.
 //
 // # Discussion
@@ -365,8 +326,6 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementCategory() NSCollect
 	rv := objc.Send[NSCollectionElementCategory](c.ID, objc.Sel("representedElementCategory"))
 	return NSCollectionElementCategory(rv)
 }
-
-
 
 // The index path of the element.
 //
@@ -384,8 +343,6 @@ func (c NSCollectionViewLayoutAttributes) IndexPath() objc.ID {
 func (c NSCollectionViewLayoutAttributes) SetIndexPath(value objc.ID) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIndexPath:"), value)
 }
-
-
 
 // The identifier for specific elements of your collection view interface.
 //
@@ -406,8 +363,6 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementKind() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The frame rectangle of the element.
 //
 // # Discussion
@@ -425,8 +380,6 @@ func (c NSCollectionViewLayoutAttributes) SetFrame(value corefoundation.CGRect) 
 	objc.Send[struct{}](c.ID, objc.Sel("setFrame:"), value)
 }
 
-
-
 // The size of the element.
 //
 // # Discussion
@@ -442,8 +395,6 @@ func (c NSCollectionViewLayoutAttributes) Size() corefoundation.CGSize {
 func (c NSCollectionViewLayoutAttributes) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSize:"), value)
 }
-
-
 
 // The transparency of the element.
 //
@@ -463,8 +414,6 @@ func (c NSCollectionViewLayoutAttributes) Alpha() float64 {
 func (c NSCollectionViewLayoutAttributes) SetAlpha(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAlpha:"), value)
 }
-
-
 
 // A Boolean value indicating whether the element is hidden.
 //
@@ -487,8 +436,6 @@ func (c NSCollectionViewLayoutAttributes) SetHidden(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHidden:"), value)
 }
 
-
-
 // The element’s position on the z axis.
 //
 // # Discussion
@@ -508,12 +455,6 @@ func (c NSCollectionViewLayoutAttributes) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
 }
 
-
-
-
-
-
-
 // The element kind string assigned to the attributes object when it
 // represents an inter-item gap.
 //
@@ -523,8 +464,6 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // A supplementary view that acts as a footer for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
@@ -533,8 +472,6 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // A supplementary view that acts as a header for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
@@ -542,8 +479,6 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionHeader"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // Returns the class to use for layout attribute objects
 //
@@ -555,24 +490,4 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesClass) SetLayoutAttributesClass(value objc.Class) {
 	objc.Send[struct{}](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("setLayoutAttributesClass:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

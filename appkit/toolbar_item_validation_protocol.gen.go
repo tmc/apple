@@ -19,8 +19,6 @@ type NSToolbarItemValidation interface {
 	ValidateToolbarItem(item INSToolbarItem) bool
 }
 
-
-
 // NSToolbarItemValidationObject wraps an existing Objective-C object that conforms to the NSToolbarItemValidation protocol.
 type NSToolbarItemValidationObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSToolbarItemValidationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSToolbarItemValidationObjectFromID constructs a [NSToolbarItemValidationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSToolbarItemValidationObjectFromID(id objc.ID) NSToolbarItemValidationObject {
@@ -38,9 +34,6 @@ func NSToolbarItemValidationObjectFromID(id objc.ID) NSToolbarItemValidationObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Determines whether to enable or disable the toolbar item.
 //
@@ -65,10 +58,4 @@ func (o NSToolbarItemValidationObject) ValidateToolbarItem(item INSToolbarItem) 
 	rv := objc.Send[bool](o.ID, objc.Sel("validateToolbarItem:"), item)
 	return rv
 	}
-
-
-
-
-
-
 

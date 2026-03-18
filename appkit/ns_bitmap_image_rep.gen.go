@@ -39,12 +39,6 @@ func (nc NSBitmapImageRepClass) Alloc() NSBitmapImageRep {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that renders an image from bitmap data.
 //
 // # Overview
@@ -150,10 +144,6 @@ func NSBitmapImageRepFromID(id objc.ID) NSBitmapImageRep {
 }
 // NOTE: NSBitmapImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSBitmapImageRep] class.
 //
@@ -313,13 +303,7 @@ type INSBitmapImageRep interface {
 	BitmapImageRepByRetaggingWithColorSpace(newSpace INSColorSpace) INSBitmapImageRep
 	// The color space of the bitmap.
 	ColorSpace() INSColorSpace
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b NSBitmapImageRep) Init() NSBitmapImageRep {
@@ -340,11 +324,6 @@ func NewNSBitmapImageRep() NSBitmapImageRep {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a newly allocated bitmap image representation for incremental
 // loading.
 //
@@ -360,7 +339,6 @@ func NewBitmapImageRepForIncrementalLoad() NSBitmapImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForIncrementalLoad"))
 	return NSBitmapImageRepFromID(rv)
 }
-
 
 // Initializes a newly allocated bitmap image representation so it can render
 // the specified image.
@@ -484,7 +462,6 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 	return NSBitmapImageRepFromID(rv)
 }
 
-
 // Initializes a newly allocated bitmap image representation so it can render
 // the specified image.
 //
@@ -600,7 +577,6 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 	return NSBitmapImageRepFromID(rv)
 }
 
-
 // Returns a bitmap image representation from a Core Graphics image object.
 //
 // cgImage: A Core Graphics image object (an opaque type) from which to create the
@@ -625,7 +601,6 @@ func NewBitmapImageRepWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImage
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImage:"), cgImage)
 	return NSBitmapImageRepFromID(rv)
 }
-
 
 // Returns a bitmap image representation from a Core Image object.
 //
@@ -669,7 +644,6 @@ func NewBitmapImageRepWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
 	return NSBitmapImageRepFromID(rv)
 }
 
-
 // Creates and returns an image representation object from data in an
 // unarchiver.
 //
@@ -679,7 +653,6 @@ func NewBitmapImageRepWithCoder(coder foundation.INSCoder) NSBitmapImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSBitmapImageRepFromID(rv)
 }
-
 
 // Initializes a newly allocated bitmap image representation from the
 // specified data.
@@ -700,12 +673,6 @@ func NewBitmapImageRepWithData(data foundation.INSData) NSBitmapImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return NSBitmapImageRepFromID(rv)
 }
-
-
-
-
-
-
 
 // Colorizes a grayscale image.
 //
@@ -1487,13 +1454,6 @@ func (b NSBitmapImageRep) BitmapImageRepByRetaggingWithColorSpace(newSpace INSCo
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bitmapImageRepByRetaggingWithColorSpace:"), newSpace)
 	return NSBitmapImageRepFromID(rv)
 }
-func (b NSBitmapImageRep) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Creates and returns an array of bitmap image representation objects that
 // correspond to the images in the specified data.
@@ -1624,7 +1584,7 @@ func (_NSBitmapImageRepClass NSBitmapImageRepClass) RepresentationOfImageRepsInA
 // [NSBitmapImageRep.TIFFCompression.next]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/TIFFCompression/next
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/getTIFFCompressionTypes(_:count:)
-func (_NSBitmapImageRepClass NSBitmapImageRepClass) GetTIFFCompressionTypesCount(list []NSTIFFCompression, numTypes int) {
+func (_NSBitmapImageRepClass NSBitmapImageRepClass) GetTIFFCompressionTypesCount(list []NSTIFFCompression, numTypes unsafe.Pointer) {
 	objc.Send[objc.ID](objc.ID(_NSBitmapImageRepClass.class), objc.Sel("getTIFFCompressionTypes:count:"), objc.CArray(list), numTypes)
 }
 
@@ -1654,13 +1614,6 @@ func (_NSBitmapImageRepClass NSBitmapImageRepClass) LocalizedNameForTIFFCompress
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 // The format of the bitmap image representation.
 //
 // # Discussion
@@ -1675,8 +1628,6 @@ func (b NSBitmapImageRep) BitmapFormat() NSBitmapFormat {
 	rv := objc.Send[NSBitmapFormat](b.ID, objc.Sel("bitmapFormat"))
 	return NSBitmapFormat(rv)
 }
-
-
 
 // The number of bits allocated for each pixel in each plane of data.
 //
@@ -1695,8 +1646,6 @@ func (b NSBitmapImageRep) BitsPerPixel() int {
 	return rv
 }
 
-
-
 // The number of bytes in each plane or channel of data.
 //
 // # Discussion
@@ -1709,8 +1658,6 @@ func (b NSBitmapImageRep) BytesPerPlane() int {
 	rv := objc.Send[int](b.ID, objc.Sel("bytesPerPlane"))
 	return rv
 }
-
-
 
 // The minimum number of bytes required to specify a scan line in each data
 // plane.
@@ -1730,8 +1677,6 @@ func (b NSBitmapImageRep) BytesPerRow() int {
 	rv := objc.Send[int](b.ID, objc.Sel("bytesPerRow"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the image data is in a planar
 // configuration.
@@ -1753,8 +1698,6 @@ func (b NSBitmapImageRep) Planar() bool {
 	return rv
 }
 
-
-
 // The number of separate planes into which the image data is organized.
 //
 // # Discussion
@@ -1771,8 +1714,6 @@ func (b NSBitmapImageRep) NumberOfPlanes() int {
 	return rv
 }
 
-
-
 // The number of components for each pixel.
 //
 // # Discussion
@@ -1786,8 +1727,6 @@ func (b NSBitmapImageRep) SamplesPerPixel() int {
 	return rv
 }
 
-
-
 // A pointer to the bitmap data.
 //
 // # Discussion
@@ -1799,8 +1738,6 @@ func (b NSBitmapImageRep) BitmapData() string {
 	rv := objc.Send[*byte](b.ID, objc.Sel("bitmapData"))
 	return objc.GoString(rv)
 }
-
-
 
 // A TIFF representation of the bitmap image data.
 //
@@ -1830,8 +1767,6 @@ func (b NSBitmapImageRep) TIFFRepresentation() foundation.INSData {
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 
-
-
 // A Core Graphics image object based on the bitmap image representation’s
 // data.
 //
@@ -1852,8 +1787,6 @@ func (b NSBitmapImageRep) CGImage() coregraphics.CGImageRef {
 	return coregraphics.CGImageRef(rv)
 }
 
-
-
 // The color space of the bitmap.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/colorSpace
@@ -1861,31 +1794,4 @@ func (b NSBitmapImageRep) ColorSpace() INSColorSpace {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("colorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

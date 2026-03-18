@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSDatePickerCell](<doc://com.apple.appkit/documentation/AppKit/NSDatePickerCell>) objects.
 //
@@ -18,8 +17,6 @@ var _ = fmt.Sprintf
 type NSDatePickerCellDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSDatePickerCellDelegateObject wraps an existing Objective-C object that conforms to the NSDatePickerCellDelegate protocol.
 type NSDatePickerCellDelegateObject struct {
@@ -29,8 +26,6 @@ func (o NSDatePickerCellDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDatePickerCellDelegateObjectFromID constructs a [NSDatePickerCellDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateObject {
@@ -38,9 +33,6 @@ func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The delegate receives this message each time the user attempts to change
 // the receiver’s value, allowing the delegate the opportunity to override
@@ -67,14 +59,10 @@ func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateOb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCellDelegate/datePickerCell(_:validateProposedDateValue:timeInterval:)
 
-func (o NSDatePickerCellDelegateObject) DatePickerCellValidateProposedDateValueTimeInterval(datePickerCell INSDatePickerCell, proposedDateValue foundation.INSDate, proposedTimeInterval float64) {
+func (o NSDatePickerCellDelegateObject) DatePickerCellValidateProposedDateValueTimeInterval(datePickerCell INSDatePickerCell, proposedDateValue foundation.INSDate, proposedTimeInterval unsafe.Pointer) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("datePickerCell:validateProposedDateValue:timeInterval:"), datePickerCell, proposedDateValue, proposedTimeInterval)
 	}
-
-
-
-
 
 // NSDatePickerCellDelegateConfig holds optional typed callbacks for [NSDatePickerCellDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -88,7 +76,7 @@ type NSDatePickerCellDelegateConfig struct {
 
 	// Content Validation
 	// DatePickerCellValidateProposedDateValueTimeInterval — The delegate receives this message each time the user attempts to change the receiver’s value, allowing the delegate the opportunity to override the change.
-	DatePickerCellValidateProposedDateValueTimeInterval func(datePickerCell NSDatePickerCell, proposedDateValue foundation.NSDate, proposedTimeInterval float64)
+	DatePickerCellValidateProposedDateValueTimeInterval func(datePickerCell NSDatePickerCell, proposedDateValue foundation.NSDate, proposedTimeInterval *float64)
 }
 
 // NewNSDatePickerCellDelegate creates an Objective-C object implementing the [NSDatePickerCellDelegate] protocol.
@@ -113,7 +101,7 @@ func NewNSDatePickerCellDelegate(config NSDatePickerCellDelegateConfig) NSDatePi
 		fn := config.DatePickerCellValidateProposedDateValueTimeInterval
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("datePickerCell:validateProposedDateValue:timeInterval:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, datePickerCellID objc.ID, proposedDateValueID objc.ID, proposedTimeInterval float64) {
+			Fn: func(self objc.ID, _cmd objc.SEL, datePickerCellID objc.ID, proposedDateValueID objc.ID, proposedTimeInterval *float64) {
 				datePickerCell := NSDatePickerCellFromID(datePickerCellID)
 				proposedDateValue := foundation.NSDateFromID(proposedDateValueID)
 				fn(datePickerCell, proposedDateValue, proposedTimeInterval)
@@ -137,8 +125,4 @@ func NewNSDatePickerCellDelegate(config NSDatePickerCellDelegateConfig) NSDatePi
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSDatePickerCellDelegateObjectFromID(instance)
 }
-
-
-
-
 

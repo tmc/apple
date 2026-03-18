@@ -36,12 +36,6 @@ func (nc NSCollectionViewItemClass) Alloc() NSCollectionViewItem {
 	return rv
 }
 
-
-
-
-
-
-
 // The visual representation for a single data element in a collection view.
 //
 // # Overview
@@ -172,10 +166,6 @@ func NSCollectionViewItemFromID(id objc.ID) NSCollectionViewItem {
 // NOTE: NSCollectionViewItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionViewItem] class.
 //
 // # Getting and Setting Image and Text Fields
@@ -236,12 +226,7 @@ type INSCollectionViewItem interface {
 	// The receiver’s collection view item prototype.
 	ItemPrototype() INSCollectionViewItem
 	SetItemPrototype(value INSCollectionViewItem)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCollectionViewItem) Init() NSCollectionViewItem {
@@ -262,11 +247,6 @@ func NewNSCollectionViewItem() NSCollectionViewItem {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewCollectionViewItemWithCoder(coder foundation.INSCoder) NSCollectionViewItem {
@@ -274,7 +254,6 @@ func NewCollectionViewItemWithCoder(coder foundation.INSCoder) NSCollectionViewI
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCollectionViewItemFromID(rv)
 }
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -308,12 +287,6 @@ func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrN
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSCollectionViewItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Applies the specified layout attributes to the element.
 //
@@ -430,20 +403,6 @@ func (c NSCollectionViewItem) PrepareForReuse() {
 func (c NSCollectionViewItem) WillTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
 	objc.Send[objc.ID](c.ID, objc.Sel("willTransitionFromLayout:toLayout:"), oldLayout, newLayout)
 }
-func (c NSCollectionViewItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // An image view outlet that you can use to display images.
 //
@@ -462,8 +421,6 @@ func (c NSCollectionViewItem) SetImageView(value INSImageView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImageView:"), value)
 }
 
-
-
 // A text field outlet that you can use to display a string.
 //
 // # Discussion
@@ -480,8 +437,6 @@ func (c NSCollectionViewItem) TextField() INSTextField {
 func (c NSCollectionViewItem) SetTextField(value INSTextField) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTextField:"), value)
 }
-
-
 
 // A Boolean indicating whether the item is currently selected.
 //
@@ -501,8 +456,6 @@ func (c NSCollectionViewItem) Selected() bool {
 func (c NSCollectionViewItem) SetSelected(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelected:"), value)
 }
-
-
 
 // The highlight state currently applied to the item.
 //
@@ -530,8 +483,6 @@ func (c NSCollectionViewItem) SetHighlightState(value NSCollectionViewItemHighli
 	objc.Send[struct{}](c.ID, objc.Sel("setHighlightState:"), value)
 }
 
-
-
 // The collection view that owns the item.
 //
 // # Discussion
@@ -544,8 +495,6 @@ func (c NSCollectionViewItem) CollectionView() INSCollectionView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView"))
 	return NSCollectionViewFromID(objc.ID(rv))
 }
-
-
 
 // Dragging images for multi-image drag and drop support.
 //
@@ -570,8 +519,6 @@ func (c NSCollectionViewItem) DraggingImageComponents() []NSDraggingImageCompone
 	})
 }
 
-
-
 // The receiver’s collection view item prototype.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/itemprototype
@@ -583,42 +530,6 @@ func (c NSCollectionViewItem) SetItemPrototype(value INSCollectionViewItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setItemPrototype:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCollectionViewElement
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

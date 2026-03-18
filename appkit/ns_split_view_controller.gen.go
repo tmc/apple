@@ -38,12 +38,6 @@ func (nc NSSplitViewControllerClass) Alloc() NSSplitViewController {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages an array of adjacent child views, and has a split
 // view object for managing dividers between those views.
 //
@@ -121,10 +115,6 @@ func NSSplitViewControllerFromID(id objc.ID) NSSplitViewController {
 // NOTE: NSSplitViewController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSplitViewController] class.
 //
 // # Configuring and Managing a Split View Controller
@@ -192,12 +182,7 @@ type INSSplitViewController interface {
 	// A Boolean value that determines the geometric orientation of the split view’s dividers.
 	IsVertical() bool
 	SetIsVertical(value bool)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSplitViewController) Init() NSSplitViewController {
@@ -218,11 +203,6 @@ func NewNSSplitViewController() NSSplitViewController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewSplitViewControllerWithCoder(coder foundation.INSCoder) NSSplitViewController {
@@ -230,7 +210,6 @@ func NewSplitViewControllerWithCoder(coder foundation.INSCoder) NSSplitViewContr
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSplitViewControllerFromID(rv)
 }
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -264,12 +243,6 @@ func NewSplitViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOr
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSSplitViewControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the corresponding split view item for the specified child view
 // controller of the split view controller.
@@ -608,20 +581,6 @@ func (s NSSplitViewController) ValidateUserInterfaceItem(item NSValidatedUserInt
 	rv := objc.Send[bool](s.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-func (s NSSplitViewController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The split view that the split view controller manages.
 //
@@ -657,8 +616,6 @@ func (s NSSplitViewController) SetSplitView(value INSSplitView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSplitView:"), value)
 }
 
-
-
 // The array of split view items that correspond to the split view
 // controller’s child view controllers.
 //
@@ -685,8 +642,6 @@ func (s NSSplitViewController) SplitViewItems() []NSSplitViewItem {
 func (s NSSplitViewController) SetSplitViewItems(value []NSSplitViewItem) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSplitViewItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The minimum thickness for a sidebar before it automatically collapses.
 //
@@ -722,8 +677,6 @@ func (s NSSplitViewController) SetMinimumThicknessForInlineSidebars(value float6
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumThicknessForInlineSidebars:"), value)
 }
 
-
-
 // A Boolean value that determines the geometric orientation of the split
 // view’s dividers.
 //
@@ -736,47 +689,9 @@ func (s NSSplitViewController) SetIsVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSSplitViewDelegate
 			
 
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

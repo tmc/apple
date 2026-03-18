@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that a text field delegate can use to control its field editor action menu.
 //
@@ -20,8 +19,6 @@ type NSTextFieldDelegate interface {
 	NSControlTextEditingDelegate
 }
 
-
-
 // NSTextFieldDelegateObject wraps an existing Objective-C object that conforms to the NSTextFieldDelegate protocol.
 type NSTextFieldDelegateObject struct {
 	objectivec.Object
@@ -30,8 +27,6 @@ func (o NSTextFieldDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextFieldDelegateObjectFromID constructs a [NSTextFieldDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextFieldDelegateObjectFromID(id objc.ID) NSTextFieldDelegateObject {
@@ -39,9 +34,6 @@ func NSTextFieldDelegateObjectFromID(id objc.ID) NSTextFieldDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidatesForSelectedRange:)
@@ -250,7 +242,7 @@ func (o NSTextFieldDelegateObject) ControlTextShouldEndEditing(control INSContro
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSTextFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSTextFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -350,10 +342,6 @@ func (o NSTextFieldDelegateObject) ControlTextDidEndEditing(obj foundation.NSNot
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
 
-
-
-
-
 // NSTextFieldDelegateConfig holds optional typed callbacks for [NSTextFieldDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -429,8 +417,4 @@ func NewNSTextFieldDelegate(config NSTextFieldDelegateConfig) NSTextFieldDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextFieldDelegateObjectFromID(instance)
 }
-
-
-
-
 

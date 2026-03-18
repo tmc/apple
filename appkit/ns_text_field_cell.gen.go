@@ -37,12 +37,6 @@ func (nc NSTextFieldCellClass) Alloc() NSTextFieldCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that enhances the text display capabilities of a cell.
 //
 // # Overview
@@ -109,10 +103,6 @@ func NSTextFieldCellFromID(id objc.ID) NSTextFieldCell {
 }
 // NOTE: NSTextFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextFieldCell] class.
 //
@@ -184,13 +174,7 @@ type INSTextFieldCell interface {
 	// An array of locale identifiers that represent the allowed input sources when the text field has the keyboard focus.
 	AllowedInputSourceLocales() []string
 	SetAllowedInputSourceLocales(value []string)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextFieldCell) Init() NSTextFieldCell {
@@ -210,11 +194,6 @@ func NewNSTextFieldCell() NSTextFieldCell {
 	rv := objc.Send[NSTextFieldCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -238,7 +217,6 @@ func NewTextFieldCellImageCell(image INSImage) NSTextFieldCell {
 	return NSTextFieldCellFromID(rv)
 }
 
-
 // Initializes a text field cell that displays the specified string.
 //
 // string: The string that the text field cell displays.
@@ -253,7 +231,6 @@ func NewTextFieldCellTextCell(string_ string) NSTextFieldCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initTextCell:"), objc.String(string_))
 	return NSTextFieldCellFromID(rv)
 }
-
 
 // Initializes a text field cell from data in the provided unarchiver.
 //
@@ -270,26 +247,6 @@ func NewTextFieldCellWithCoder(coder foundation.INSCoder) NSTextFieldCell {
 	return NSTextFieldCellFromID(rv)
 }
 
-
-
-
-
-
-func (t NSTextFieldCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The color to use to draw the cell’s text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldCell/textColor
@@ -300,8 +257,6 @@ func (t NSTextFieldCell) TextColor() INSColor {
 func (t NSTextFieldCell) SetTextColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextColor:"), value)
 }
-
-
 
 // The bezel style to use when drawing the text field.
 //
@@ -323,8 +278,6 @@ func (t NSTextFieldCell) SetBezelStyle(value NSTextFieldBezelStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBezelStyle:"), value)
 }
 
-
-
 // The color of the cell’s background.
 //
 // # Discussion
@@ -339,8 +292,6 @@ func (t NSTextFieldCell) BackgroundColor() INSColor {
 func (t NSTextFieldCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the cell draws its background color.
 //
@@ -361,8 +312,6 @@ func (t NSTextFieldCell) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
 
-
-
 // The placeholder text for the cell, specified as a plain text string.
 //
 // # Discussion
@@ -379,8 +328,6 @@ func (t NSTextFieldCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
 
-
-
 // The placeholder text for the cell, specified as an attributed string.
 //
 // # Discussion
@@ -396,8 +343,6 @@ func (t NSTextFieldCell) PlaceholderAttributedString() foundation.NSAttributedSt
 func (t NSTextFieldCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
-
-
 
 // An array of locale identifiers that represent the allowed input sources
 // when the text field has the keyboard focus.
@@ -420,33 +365,4 @@ func (t NSTextFieldCell) AllowedInputSourceLocales() []string {
 func (t NSTextFieldCell) SetAllowedInputSourceLocales(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedInputSourceLocales:"), objectivec.StringSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

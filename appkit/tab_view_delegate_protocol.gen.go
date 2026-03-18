@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The [NSTabViewDelegate] protocol defines the optional methods implemented by delegates of [NSTabView] objects.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSTabViewDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSTabViewDelegateObject wraps an existing Objective-C object that conforms to the NSTabViewDelegate protocol.
 type NSTabViewDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSTabViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTabViewDelegateObjectFromID constructs a [NSTabViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTabViewDelegateObjectFromID(id objc.ID) NSTabViewDelegateObject {
@@ -37,9 +31,6 @@ func NSTabViewDelegateObjectFromID(id objc.ID) NSTabViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Informs the delegate that the number of tab view items in `tabView` has
 // changed.
@@ -99,10 +90,6 @@ func (o NSTabViewDelegateObject) TabViewDidSelectTabViewItem(tabView INSTabView,
 	
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:didSelectTabViewItem:"), tabView, tabViewItem)
 	}
-
-
-
-
 
 // NSTabViewDelegateConfig holds optional typed callbacks for [NSTabViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -208,8 +195,4 @@ func NewNSTabViewDelegate(config NSTabViewDelegateConfig) NSTabViewDelegateObjec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTabViewDelegateObjectFromID(instance)
 }
-
-
-
-
 

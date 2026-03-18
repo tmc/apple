@@ -39,12 +39,6 @@ func (nc NSMenuClass) Alloc() NSMenu {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages an app’s menus.
 //
 // # Managing the Menu Bar
@@ -185,14 +179,10 @@ type NSMenu struct {
 //
 // An object that manages an app’s menus.
 func NSMenuFromID(id objc.ID) NSMenu {
-	return NSMenu{objectivec.Object{id}}
+	return NSMenu{objectivec.Object{ID: id}}
 }
 // NOTE: NSMenu adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMenu] class.
 //
@@ -509,10 +499,6 @@ type INSMenu interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMenu) Init() NSMenu {
 	rv := objc.Send[NSMenu](m.ID, objc.Sel("init"))
@@ -532,11 +518,6 @@ func NewNSMenu() NSMenu {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenu/init(coder:)
 func NewMenuWithCoder(coder foundation.INSCoder) NSMenu {
@@ -544,7 +525,6 @@ func NewMenuWithCoder(coder foundation.INSCoder) NSMenu {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMenuFromID(rv)
 }
-
 
 // Initializes and returns a menu having the specified title and with
 // autoenabling of menu items turned on.
@@ -566,12 +546,6 @@ func NewMenuWithTitle(title string) NSMenu {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTitle:"), objc.String(title))
 	return NSMenuFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a menu having the specified title and with
 // autoenabling of menu items turned on.
@@ -1027,10 +1001,6 @@ func (m NSMenu) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns a Boolean value that indicates whether the menu bar is visible.
 //
 // # Return Value
@@ -1093,13 +1063,6 @@ func (_NSMenuClass NSMenuClass) PopUpContextMenuWithEventForViewWithFont(menu IN
 	objc.Send[objc.ID](objc.ID(_NSMenuClass.class), objc.Sel("popUpContextMenu:withEvent:forView:withFont:"), menu, event, view, font)
 }
 
-
-
-
-
-
-
-
 // The menu bar height for the main menu in pixels.
 //
 // # Discussion
@@ -1117,8 +1080,6 @@ func (m NSMenu) MenuBarHeight() float64 {
 	return rv
 }
 
-
-
 // The number of menu items in the menu, including separator items.
 //
 // # Discussion
@@ -1131,8 +1092,6 @@ func (m NSMenu) NumberOfItems() int {
 	rv := objc.Send[int](m.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
-
 
 // An array containing the menu items in the menu.
 //
@@ -1150,8 +1109,6 @@ func (m NSMenu) ItemArray() []NSMenuItem {
 func (m NSMenu) SetItemArray(value []NSMenuItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setItemArray:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The parent menu that contains the menu as a submenu.
 //
@@ -1175,8 +1132,6 @@ func (m NSMenu) SetSupermenu(value INSMenu) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupermenu:"), value)
 }
 
-
-
 // Indicates whether the menu automatically enables and disables its menu
 // items.
 //
@@ -1199,8 +1154,6 @@ func (m NSMenu) SetAutoenablesItems(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAutoenablesItems:"), value)
 }
 
-
-
 // The font of the menu and its submenus.
 //
 // # Discussion
@@ -1216,8 +1169,6 @@ func (m NSMenu) Font() NSFont {
 func (m NSMenu) SetFont(value NSFont) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFont:"), value)
 }
-
-
 
 // The title of the menu.
 //
@@ -1235,8 +1186,6 @@ func (m NSMenu) Title() string {
 func (m NSMenu) SetTitle(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The menu items that are currently selected.
 //
@@ -1262,8 +1211,6 @@ func (m NSMenu) SetSelectedItems(value []NSMenuItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSelectedItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The selection mode of the menu.
 //
 // # Discussion
@@ -1280,8 +1227,6 @@ func (m NSMenu) SelectionMode() NSMenuSelectionMode {
 func (m NSMenu) SetSelectionMode(value NSMenuSelectionMode) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSelectionMode:"), value)
 }
-
-
 
 // The minimum width of the menu in screen coordinates.
 //
@@ -1302,8 +1247,6 @@ func (m NSMenu) SetMinimumWidth(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMinimumWidth:"), value)
 }
 
-
-
 // The size of the menu in screen coordinates
 //
 // # Discussion
@@ -1319,8 +1262,6 @@ func (m NSMenu) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](m.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // The available properties for the menu.
 //
@@ -1354,8 +1295,6 @@ func (m NSMenu) PropertiesToUpdate() NSMenuProperties {
 	return NSMenuProperties(rv)
 }
 
-
-
 // The presentation style of the menu.
 //
 // # Discussion
@@ -1370,8 +1309,6 @@ func (m NSMenu) PresentationStyle() NSMenuPresentationStyle {
 func (m NSMenu) SetPresentationStyle(value NSMenuPresentationStyle) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPresentationStyle:"), value)
 }
-
-
 
 // Indicates whether the pop-up menu allows appending of contextual menu
 // plug-in items.
@@ -1404,8 +1341,6 @@ func (m NSMenu) SetAllowsContextMenuPlugIns(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowsContextMenuPlugIns:"), value)
 }
 
-
-
 // Indicates whether the menu displays the state column.
 //
 // # Discussion
@@ -1424,8 +1359,6 @@ func (m NSMenu) SetShowsStateColumn(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShowsStateColumn:"), value)
 }
 
-
-
 // Indicates the currently highlighted item in the menu.
 //
 // # Discussion
@@ -1438,8 +1371,6 @@ func (m NSMenu) HighlightedItem() INSMenuItem {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("highlightedItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
-
-
 
 // Configures the layout direction of menu items in the menu.
 //
@@ -1462,8 +1393,6 @@ func (m NSMenu) SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirec
 	objc.Send[struct{}](m.ID, objc.Sel("setUserInterfaceLayoutDirection:"), value)
 }
 
-
-
 // The delegate of the menu.
 //
 // # Discussion
@@ -1482,8 +1411,6 @@ func (m NSMenu) SetDelegate(value NSMenuDelegate) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSMenu/automaticallyInsertsWritingToolsItems
 func (m NSMenu) AutomaticallyInsertsWritingToolsItems() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("automaticallyInsertsWritingToolsItems"))
@@ -1492,8 +1419,6 @@ func (m NSMenu) AutomaticallyInsertsWritingToolsItems() bool {
 func (m NSMenu) SetAutomaticallyInsertsWritingToolsItems(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAutomaticallyInsertsWritingToolsItems:"), value)
 }
-
-
 
 // The appearance of the receiver, in an [NSAppearance] object.
 //
@@ -1513,8 +1438,6 @@ func (m NSMenu) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAppearance:"), value)
 }
 
-
-
 // The appearance that will be used when the receiver is drawn onscreen, in an
 // [NSAppearance] object. (read-only)
 //
@@ -1531,8 +1454,6 @@ func (m NSMenu) EffectiveAppearance() INSAppearance {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("effectiveAppearance"))
 	return NSAppearanceFromID(objc.ID(rv))
 }
-
-
 
 // A string that identifies the user interface item.
 //
@@ -1571,18 +1492,6 @@ func (m NSMenu) Identifier() NSUserInterfaceItemIdentifier {
 func (m NSMenu) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -1679,9 +1588,6 @@ func (o NSMenu) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -4597,30 +4503,9 @@ func (o NSMenu) SetAccessibilityUserInputLabels(accessibilityUserInputLabels fou
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
 
-
-
-
 			// Protocol methods for NSAppearanceCustomization
 			
 
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceItemIdentification
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

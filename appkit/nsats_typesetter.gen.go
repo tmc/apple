@@ -35,12 +35,6 @@ func (nc NSATSTypesetterClass) Alloc() NSATSTypesetter {
 	return rv
 }
 
-
-
-
-
-
-
 // A concrete typesetter object that places glyphs during the text layout
 // process.
 //
@@ -68,20 +62,12 @@ func NSATSTypesetterFromID(id objc.ID) NSATSTypesetter {
 // NOTE: NSATSTypesetter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSATSTypesetter] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSATSTypesetter
 type INSATSTypesetter interface {
 	INSTypesetter
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSATSTypesetter) Init() NSATSTypesetter {
@@ -102,30 +88,6 @@ func NewNSATSTypesetter() NSATSTypesetter {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a shared instance of the typesetter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSATSTypesetter/shared
@@ -133,24 +95,4 @@ func (_NSATSTypesetterClass NSATSTypesetterClass) SharedTypesetter() NSATSTypese
 	rv := objc.Send[objc.ID](objc.ID(_NSATSTypesetterClass.class), objc.Sel("sharedTypesetter"))
 	return NSATSTypesetterFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

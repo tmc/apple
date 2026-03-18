@@ -16,8 +16,6 @@ type NSOpenSavePanelDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSOpenSavePanelDelegateObject wraps an existing Objective-C object that conforms to the NSOpenSavePanelDelegate protocol.
 type NSOpenSavePanelDelegateObject struct {
 	objectivec.Object
@@ -26,8 +24,6 @@ func (o NSOpenSavePanelDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSOpenSavePanelDelegateObjectFromID constructs a [NSOpenSavePanelDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSOpenSavePanelDelegateObjectFromID(id objc.ID) NSOpenSavePanelDelegateObject {
@@ -35,9 +31,6 @@ func NSOpenSavePanelDelegateObjectFromID(id objc.ID) NSOpenSavePanelDelegateObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the user confirmed a filename choice by clicking
 // Save in a Save panel.
@@ -207,10 +200,4 @@ func (o NSOpenSavePanelDelegateObject) PanelDisplayNameForType(sender objectivec
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("panel:displayNameForType:"), sender, type_)
 	return foundation.NSStringFromID(rv).String()
 	}
-
-
-
-
-
-
 

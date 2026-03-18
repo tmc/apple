@@ -36,12 +36,6 @@ func (mc MLModelStructureProgramBlockClass) Alloc() MLModelStructureProgramBlock
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing a block in the Program.
 //
 // # Accessing the program block properties
@@ -59,14 +53,10 @@ type MLModelStructureProgramBlock struct {
 //
 // A class representing a block in the Program.
 func MLModelStructureProgramBlockFromID(id objc.ID) MLModelStructureProgramBlock {
-	return MLModelStructureProgramBlock{objectivec.Object{id}}
+	return MLModelStructureProgramBlock{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramBlock implements IMLModelStructureProgramBlock.
 var _ IMLModelStructureProgramBlock = MLModelStructureProgramBlock{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramBlock] class.
 //
@@ -90,10 +80,6 @@ type IMLModelStructureProgramBlock interface {
 	OutputNames() []string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructureProgramBlock) Init() MLModelStructureProgramBlock {
 	rv := objc.Send[MLModelStructureProgramBlock](m.ID, objc.Sel("init"))
@@ -113,26 +99,6 @@ func NewMLModelStructureProgramBlock() MLModelStructureProgramBlock {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The named inputs to the block.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/inputs
@@ -142,8 +108,6 @@ func (m MLModelStructureProgramBlock) Inputs() []MLModelStructureProgramNamedVal
 		return MLModelStructureProgramNamedValueTypeFromID(id)
 	})
 }
-
-
 
 // The list of topologically sorted operations in the block.
 //
@@ -155,8 +119,6 @@ func (m MLModelStructureProgramBlock) Operations() []MLModelStructureProgramOper
 	})
 }
 
-
-
 // The output names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/outputNames
@@ -164,20 +126,4 @@ func (m MLModelStructureProgramBlock) OutputNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("outputNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

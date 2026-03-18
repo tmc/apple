@@ -37,12 +37,6 @@ func (nc NSTitlebarAccessoryViewControllerClass) Alloc() NSTitlebarAccessoryView
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages a custom view—known as an accessory view—in the
 // title bar–toolbar area of a window.
 //
@@ -103,10 +97,6 @@ func NSTitlebarAccessoryViewControllerFromID(id objc.ID) NSTitlebarAccessoryView
 // NOTE: NSTitlebarAccessoryViewController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTitlebarAccessoryViewController] class.
 //
 // # Configuring a title bar accessory view controller
@@ -162,12 +152,7 @@ type INSTitlebarAccessoryViewController interface {
 	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	Animator() INSTitlebarAccessoryViewController
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTitlebarAccessoryViewController) Init() NSTitlebarAccessoryViewController {
@@ -188,11 +173,6 @@ func NewNSTitlebarAccessoryViewController() NSTitlebarAccessoryViewController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewTitlebarAccessoryViewControllerWithCoder(coder foundation.INSCoder) NSTitlebarAccessoryViewController {
@@ -200,7 +180,6 @@ func NewTitlebarAccessoryViewControllerWithCoder(coder foundation.INSCoder) NSTi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTitlebarAccessoryViewControllerFromID(rv)
 }
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -234,12 +213,6 @@ func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSTitlebarAccessoryViewControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Sent to the delegate when the specified animation completes its run.
 //
@@ -405,13 +378,6 @@ func (t NSTitlebarAccessoryViewController) Animator() INSTitlebarAccessoryViewCo
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("animator"))
 	return NSTitlebarAccessoryViewControllerFromID(rv)
 }
-func (t NSTitlebarAccessoryViewController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Returns the default animation that should be performed for the specified
 // key.
@@ -454,13 +420,6 @@ func (_NSTitlebarAccessoryViewControllerClass NSTitlebarAccessoryViewControllerC
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
 // The visual minimum height of an accessory view that displays below the
 // title bar when the window is in full screen mode.
 //
@@ -494,8 +453,6 @@ func (t NSTitlebarAccessoryViewController) SetFullScreenMinHeight(value float64)
 	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenMinHeight:"), value)
 }
 
-
-
 // The location of the accessory view, in relation to the window’s title
 // bar.
 //
@@ -521,8 +478,6 @@ func (t NSTitlebarAccessoryViewController) SetLayoutAttribute(value NSLayoutAttr
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutAttribute:"), value)
 }
 
-
-
 // The titlebar accessory’s preferred effect for content scrolling behind
 // it.
 //
@@ -539,8 +494,6 @@ func (t NSTitlebarAccessoryViewController) SetPreferredScrollEdgeEffectStyle(val
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredScrollEdgeEffectStyle:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/automaticallyAdjustsSize
 func (t NSTitlebarAccessoryViewController) AutomaticallyAdjustsSize() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("automaticallyAdjustsSize"))
@@ -550,8 +503,6 @@ func (t NSTitlebarAccessoryViewController) SetAutomaticallyAdjustsSize(value boo
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallyAdjustsSize:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/isHidden
 func (t NSTitlebarAccessoryViewController) Hidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
@@ -560,8 +511,6 @@ func (t NSTitlebarAccessoryViewController) Hidden() bool {
 func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
-
-
 
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
@@ -575,8 +524,6 @@ func (t NSTitlebarAccessoryViewController) SetAnimations(value foundation.INSDic
 	objc.Send[struct{}](t.ID, objc.Sel("setAnimations:"), value)
 }
 
-
-
 // The toolbar’s full screen accessory view.
 //
 // See: https://developer.apple.com/documentation/appkit/nstoolbar/fullscreenaccessoryview
@@ -588,42 +535,6 @@ func (t NSTitlebarAccessoryViewController) SetFullScreenAccessoryView(value INSV
 	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenAccessoryView:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSAnimationDelegate
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

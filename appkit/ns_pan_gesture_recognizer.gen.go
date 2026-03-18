@@ -38,12 +38,6 @@ func (nc NSPanGestureRecognizerClass) Alloc() NSPanGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
-
 // A continuous gesture recognizer for panning gestures.
 //
 // # Overview
@@ -91,10 +85,6 @@ func NSPanGestureRecognizerFromID(id objc.ID) NSPanGestureRecognizer {
 // NOTE: NSPanGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPanGestureRecognizer] class.
 //
 // # Configuring the Gesture Recognizer
@@ -131,13 +121,7 @@ type INSPanGestureRecognizer interface {
 	SetTranslationInView(translation corefoundation.CGPoint, view INSView)
 	// The velocity of the pan, measured in points per second.
 	VelocityInView(view INSView) corefoundation.CGPoint
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPanGestureRecognizer) Init() NSPanGestureRecognizer {
@@ -158,11 +142,6 @@ func NewNSPanGestureRecognizer() NSPanGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewPanGestureRecognizerWithCoder(coder foundation.INSCoder) NSPanGestureRecognizer {
@@ -170,7 +149,6 @@ func NewPanGestureRecognizerWithCoder(coder foundation.INSCoder) NSPanGestureRec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPanGestureRecognizerFromID(rv)
 }
-
 
 // Initializes the gesture recognizer with the specified target and action
 // information.
@@ -203,12 +181,6 @@ func NewPanGestureRecognizerWithTargetAction(target objectivec.IObject, action o
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:action:"), target, action)
 	return NSPanGestureRecognizerFromID(rv)
 }
-
-
-
-
-
-
 
 // The distance traveled by the mouse during the gesture.
 //
@@ -269,20 +241,6 @@ func (p NSPanGestureRecognizer) VelocityInView(view INSView) corefoundation.CGPo
 	rv := objc.Send[corefoundation.CGPoint](p.ID, objc.Sel("velocityInView:"), view)
 	return corefoundation.CGPoint(rv)
 }
-func (p NSPanGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A bit mask of the button (or buttons) required to recognize this gesture.
 //
@@ -309,8 +267,6 @@ func (p NSPanGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setButtonMask:"), value)
 }
 
-
-
 // The number of necessary touches on a Touch Bar for the gesture recognizer
 // to match.
 //
@@ -322,29 +278,4 @@ func (p NSPanGestureRecognizer) NumberOfTouchesRequired() int {
 func (p NSPanGestureRecognizer) SetNumberOfTouchesRequired(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNumberOfTouchesRequired:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

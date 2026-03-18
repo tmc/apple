@@ -37,12 +37,6 @@ func (nc NSBackgroundExtensionViewClass) Alloc() NSBackgroundExtensionView {
 	return rv
 }
 
-
-
-
-
-
-
 // A view that extends content to fill its own bounds.
 //
 // # Overview
@@ -73,10 +67,6 @@ func NSBackgroundExtensionViewFromID(id objc.ID) NSBackgroundExtensionView {
 // NOTE: NSBackgroundExtensionView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSBackgroundExtensionView] class.
 //
 // # Instance Properties
@@ -98,13 +88,7 @@ type INSBackgroundExtensionView interface {
 	// The content view to extend to fill the [NSBackgroundExtensionView].
 	ContentView() INSView
 	SetContentView(value INSView)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b NSBackgroundExtensionView) Init() NSBackgroundExtensionView {
@@ -125,11 +109,6 @@ func NewNSBackgroundExtensionView() NSBackgroundExtensionView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -144,7 +123,6 @@ func NewBackgroundExtensionViewWithCoder(coder foundation.INSCoder) NSBackground
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSBackgroundExtensionViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -168,26 +146,6 @@ func NewBackgroundExtensionViewWithFrame(frameRect corefoundation.CGRect) NSBack
 	return NSBackgroundExtensionViewFromID(rv)
 }
 
-
-
-
-
-
-func (b NSBackgroundExtensionView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // Controls the automatic safe area placement of the `contentView` within the
 // container.
 //
@@ -208,8 +166,6 @@ func (b NSBackgroundExtensionView) SetAutomaticallyPlacesContentView(value bool)
 	objc.Send[struct{}](b.ID, objc.Sel("setAutomaticallyPlacesContentView:"), value)
 }
 
-
-
 // The content view to extend to fill the [NSBackgroundExtensionView].
 //
 // # Discussion
@@ -226,38 +182,4 @@ func (b NSBackgroundExtensionView) ContentView() INSView {
 func (b NSBackgroundExtensionView) SetContentView(value INSView) {
 	objc.Send[struct{}](b.ID, objc.Sel("setContentView:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

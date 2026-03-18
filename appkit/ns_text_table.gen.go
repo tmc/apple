@@ -37,12 +37,6 @@ func (nc NSTextTableClass) Alloc() NSTextTable {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a text table as a whole.
 //
 // # Overview
@@ -92,10 +86,6 @@ func NSTextTableFromID(id objc.ID) NSTextTable {
 }
 // NOTE: NSTextTable adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextTable] class.
 //
@@ -167,13 +157,7 @@ type INSTextTable interface {
 
 	// Draws any colors and other decorations for a text table block.
 	DrawBackgroundForBlockWithFrameInViewCharacterRangeLayoutManager(block INSTextTableBlock, frameRect corefoundation.CGRect, controlView INSView, charRange foundation.NSRange, layoutManager INSLayoutManager)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextTable) Init() NSTextTable {
@@ -193,16 +177,6 @@ func NewNSTextTable() NSTextTable {
 	rv := objc.Send[NSTextTable](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
 
 // Returns the rectangle within which glyphs should be laid out for a text
 // table block.
@@ -286,20 +260,6 @@ func (t NSTextTable) BoundsRectForBlockContentRectInRectTextContainerCharacterRa
 func (t NSTextTable) DrawBackgroundForBlockWithFrameInViewCharacterRangeLayoutManager(block INSTextTableBlock, frameRect corefoundation.CGRect, controlView INSView, charRange foundation.NSRange, layoutManager INSLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawBackgroundForBlock:withFrame:inView:characterRange:layoutManager:"), block, frameRect, controlView, charRange, layoutManager)
 }
-func (t NSTextTable) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The number of columns in the text table.
 //
@@ -312,8 +272,6 @@ func (t NSTextTable) SetNumberOfColumns(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNumberOfColumns:"), value)
 }
 
-
-
 // The text table layout algorithm.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTable/layoutAlgorithm-swift.property
@@ -324,8 +282,6 @@ func (t NSTextTable) LayoutAlgorithm() NSTextTableLayoutAlgorithm {
 func (t NSTextTable) SetLayoutAlgorithm(value NSTextTableLayoutAlgorithm) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutAlgorithm:"), value)
 }
-
-
 
 // A Boolean value indicating whether the text table borders are collapsible.
 //
@@ -345,8 +301,6 @@ func (t NSTextTable) SetCollapsesBorders(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCollapsesBorders:"), value)
 }
 
-
-
 // A Boolean value indicating whether the text table hides empty cells.
 //
 // # Discussion
@@ -365,31 +319,4 @@ func (t NSTextTable) HidesEmptyCells() bool {
 func (t NSTextTable) SetHidesEmptyCells(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidesEmptyCells:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

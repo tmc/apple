@@ -38,12 +38,6 @@ func (nc NSControlClass) Alloc() NSControl {
 	return rv
 }
 
-
-
-
-
-
-
 // A specialized view, such as a button or text field, that notifies your app
 // of relevant events using the target-action design pattern.
 //
@@ -202,10 +196,6 @@ func NSControlFromID(id objc.ID) NSControl {
 }
 // NOTE: NSControl adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSControl] class.
 //
@@ -472,12 +462,7 @@ type INSControl interface {
 	UpdateCell(cell INSCell)
 	// Marks the inside of the specified cell as in need of redrawing.
 	UpdateCellInside(cell INSCell)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSControl) Init() NSControl {
@@ -498,11 +483,6 @@ func NewNSControl() NSControl {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -511,7 +491,6 @@ func NewControlWithCoder(coder foundation.INSCoder) NSControl {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSControlFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -538,12 +517,6 @@ func NewControlWithFrame(frameRect corefoundation.CGRect) NSControl {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSControlFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets the value of the receiver’s cell to a double-precision
 // floating-point value obtained from the specified object.
@@ -1086,20 +1059,6 @@ func (c NSControl) UpdateCell(cell INSCell) {
 func (c NSControl) UpdateCellInside(cell INSCell) {
 	objc.Send[objc.ID](c.ID, objc.Sel("updateCellInside:"), cell)
 }
-func (c NSControl) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the receiver reacts to mouse events.
 //
@@ -1119,8 +1078,6 @@ func (c NSControl) Enabled() bool {
 func (c NSControl) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
-
-
 
 // The value of the receiver’s cell as a double-precision floating-point
 // number.
@@ -1146,8 +1103,6 @@ func (c NSControl) SetDoubleValue(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDoubleValue:"), value)
 }
 
-
-
 // The value of the receiver’s cell as a single-precision floating-point
 // number.
 //
@@ -1172,8 +1127,6 @@ func (c NSControl) SetFloatValue(value float32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFloatValue:"), value)
 }
 
-
-
 // The value of the receiver’s cell as an integer.
 //
 // # Discussion
@@ -1196,8 +1149,6 @@ func (c NSControl) IntValue() int {
 func (c NSControl) SetIntValue(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntValue:"), value)
 }
-
-
 
 // The value of the receiver’s cell as an integer value.
 //
@@ -1222,8 +1173,6 @@ func (c NSControl) SetIntegerValue(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntegerValue:"), value)
 }
 
-
-
 // The value of the receiver’s cell as an Objective-C object.
 //
 // # Discussion
@@ -1246,8 +1195,6 @@ func (c NSControl) ObjectValue() objectivec.IObject {
 func (c NSControl) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setObjectValue:"), value)
 }
-
-
 
 // The value of the receiver’s cell as an [NSString] object.
 //
@@ -1272,8 +1219,6 @@ func (c NSControl) SetStringValue(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStringValue:"), objc.String(value))
 }
 
-
-
 // The value of the receiver’s cell as an attributed string.
 //
 // # Discussion
@@ -1297,8 +1242,6 @@ func (c NSControl) SetAttributedStringValue(value foundation.NSAttributedString)
 	objc.Send[struct{}](c.ID, objc.Sel("setAttributedStringValue:"), value)
 }
 
-
-
 // The alignment mode of the text in the receiver’s cell.
 //
 // # Discussion
@@ -1318,8 +1261,6 @@ func (c NSControl) SetAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAlignment:"), value)
 }
 
-
-
 // The font used to draw text in the receiver’s cell.
 //
 // # Discussion
@@ -1336,8 +1277,6 @@ func (c NSControl) Font() NSFont {
 func (c NSControl) SetFont(value NSFont) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFont:"), value)
 }
-
-
 
 // The line break mode to use for text in the control’s cell.
 //
@@ -1356,8 +1295,6 @@ func (c NSControl) SetLineBreakMode(value NSLineBreakMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLineBreakMode:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the text in the control’s cell
 // uses single line mode.
 //
@@ -1374,8 +1311,6 @@ func (c NSControl) SetUsesSingleLineMode(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUsesSingleLineMode:"), value)
 }
 
-
-
 // The receiver’s formatter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/formatter
@@ -1386,8 +1321,6 @@ func (c NSControl) Formatter() foundation.NSFormatter {
 func (c NSControl) SetFormatter(value foundation.NSFormatter) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatter:"), value)
 }
-
-
 
 // The initial writing direction used to determine the actual writing
 // direction for text.
@@ -1411,8 +1344,6 @@ func (c NSControl) BaseWritingDirection() NSWritingDirection {
 func (c NSControl) SetBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBaseWritingDirection:"), value)
 }
-
-
 
 // A Boolean value that indicates whether expansion tool tips are shown when
 // the control is hovered over.
@@ -1444,8 +1375,6 @@ func (c NSControl) SetAllowsExpansionToolTips(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsExpansionToolTips:"), value)
 }
 
-
-
 // The size of the control.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/controlSize-swift.property
@@ -1457,8 +1386,6 @@ func (c NSControl) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setControlSize:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the cell is highlighted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/isHighlighted
@@ -1469,8 +1396,6 @@ func (c NSControl) Highlighted() bool {
 func (c NSControl) SetHighlighted(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHighlighted:"), value)
 }
-
-
 
 // The default action-message selector associated with the control.
 //
@@ -1495,8 +1420,6 @@ func (c NSControl) SetAction(value objc.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAction:"), value)
 }
 
-
-
 // The target object that receives action messages from the cell.
 //
 // # Discussion
@@ -1513,8 +1436,6 @@ func (c NSControl) Target() objectivec.IObject {
 func (c NSControl) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTarget:"), value)
 }
-
-
 
 // A Boolean value indicating whether the receiver’s cell sends its action
 // message continuously to its target during mouse tracking.
@@ -1536,8 +1457,6 @@ func (c NSControl) SetContinuous(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContinuous:"), value)
 }
 
-
-
 // A Boolean value indicating whether the receiver refuses the first responder
 // role.
 //
@@ -1557,8 +1476,6 @@ func (c NSControl) RefusesFirstResponder() bool {
 func (c NSControl) SetRefusesFirstResponder(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRefusesFirstResponder:"), value)
 }
-
-
 
 // A Boolean value indicating whether the receiver ignores multiple clicks
 // made in rapid succession.
@@ -1586,8 +1503,6 @@ func (c NSControl) SetIgnoresMultiClick(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIgnoresMultiClick:"), value)
 }
 
-
-
 // The receiver’s cell object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/cell
@@ -1599,12 +1514,6 @@ func (c NSControl) SetCell(value INSCell) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCell:"), value)
 }
 
-
-
-
-
-
-
 // Returns the type of cell used by the receiver.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/cellclass
@@ -1615,34 +1524,4 @@ func (_NSControlClass NSControlClass) CellClass() objc.Class {
 func (_NSControlClass NSControlClass) SetCellClass(value objc.Class) {
 	objc.Send[struct{}](objc.ID(_NSControlClass.class), objc.Sel("setCellClass:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -39,12 +39,6 @@ func (nc NSCellClass) Alloc() NSCell {
 	return rv
 }
 
-
-
-
-
-
-
 // A mechanism for displaying text or images in a view object without the
 // overhead of a full [NSView] subclass.
 //
@@ -289,14 +283,10 @@ type NSCell struct {
 // A mechanism for displaying text or images in a view object without the
 // overhead of a full [NSView] subclass.
 func NSCellFromID(id objc.ID) NSCell {
-	return NSCell{objectivec.Object{id}}
+	return NSCell{objectivec.Object{ID: id}}
 }
 // NOTE: NSCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCell] class.
 //
@@ -844,10 +834,6 @@ type INSCell interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCell) Init() NSCell {
 	rv := objc.Send[NSCell](c.ID, objc.Sel("init"))
@@ -866,11 +852,6 @@ func NewNSCell() NSCell {
 	rv := objc.Send[NSCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -893,7 +874,6 @@ func NewCellImageCell(image INSImage) NSCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -920,7 +900,6 @@ func NewCellTextCell(string_ string) NSCell {
 	return NSCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewCellWithCoder(coder foundation.INSCoder) NSCell {
@@ -928,12 +907,6 @@ func NewCellWithCoder(coder foundation.INSCoder) NSCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -1923,17 +1896,6 @@ func (c NSCell) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The cell’s value as an Objective-C object.
 //
 // # Discussion
@@ -1950,8 +1912,6 @@ func (c NSCell) ObjectValue() objectivec.IObject {
 func (c NSCell) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setObjectValue:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the cell has a valid object value.
 //
@@ -1973,8 +1933,6 @@ func (c NSCell) HasValidObjectValue() bool {
 	return rv
 }
 
-
-
 // The cell’s value as an integer.
 //
 // # Discussion
@@ -1989,8 +1947,6 @@ func (c NSCell) IntValue() int {
 func (c NSCell) SetIntValue(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntValue:"), value)
 }
-
-
 
 // The cell’s value as an integer value.
 //
@@ -2008,8 +1964,6 @@ func (c NSCell) IntegerValue() int {
 func (c NSCell) SetIntegerValue(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntegerValue:"), value)
 }
-
-
 
 // The cell’s value as a string.
 //
@@ -2037,8 +1991,6 @@ func (c NSCell) SetStringValue(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStringValue:"), objc.String(value))
 }
 
-
-
 // The cell’s value as a double-precision floating-point number.
 //
 // # Discussion
@@ -2056,8 +2008,6 @@ func (c NSCell) SetDoubleValue(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDoubleValue:"), value)
 }
 
-
-
 // The cell’s value as a single-precision floating-point number.
 //
 // # Discussion
@@ -2074,8 +2024,6 @@ func (c NSCell) FloatValue() float32 {
 func (c NSCell) SetFloatValue(value float32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFloatValue:"), value)
 }
-
-
 
 // The type of the cell.
 //
@@ -2102,8 +2050,6 @@ func (c NSCell) SetType(value NSCellType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setType:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell is currently enabled.
 //
 // # Discussion
@@ -2126,8 +2072,6 @@ func (c NSCell) Enabled() bool {
 func (c NSCell) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell assumes responsibility for undo
 // operations.
@@ -2154,8 +2098,6 @@ func (c NSCell) SetAllowsUndo(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsUndo:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell has a bezeled border.
 //
 // # Discussion
@@ -2178,8 +2120,6 @@ func (c NSCell) Bezeled() bool {
 func (c NSCell) SetBezeled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBezeled:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell draws itself outlined with a
 // plain border.
@@ -2205,8 +2145,6 @@ func (c NSCell) SetBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBordered:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell is completely opaque.
 //
 // # Discussion
@@ -2222,8 +2160,6 @@ func (c NSCell) Opaque() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isOpaque"))
 	return rv
 }
-
-
 
 // The cell’s background style.
 //
@@ -2248,8 +2184,6 @@ func (c NSCell) SetBackgroundStyle(value NSBackgroundStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundStyle:"), value)
 }
 
-
-
 // The cell’s interior background style.
 //
 // # Discussion
@@ -2269,8 +2203,6 @@ func (c NSCell) InteriorBackgroundStyle() NSBackgroundStyle {
 	rv := objc.Send[NSBackgroundStyle](c.ID, objc.Sel("interiorBackgroundStyle"))
 	return NSBackgroundStyle(rv)
 }
-
-
 
 // A Boolean value indicating whether the cell supports three states instead
 // of two.
@@ -2293,8 +2225,6 @@ func (c NSCell) SetAllowsMixedState(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsMixedState:"), value)
 }
 
-
-
 // The cell’s next state.
 //
 // # Discussion
@@ -2313,8 +2243,6 @@ func (c NSCell) NextState() int {
 	rv := objc.Send[int](c.ID, objc.Sel("nextState"))
 	return rv
 }
-
-
 
 // The cell’s current state.
 //
@@ -2345,8 +2273,6 @@ func (c NSCell) SetState(value NSControlStateValue) {
 	objc.Send[struct{}](c.ID, objc.Sel("setState:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell is editable.
 //
 // # Discussion
@@ -2367,8 +2293,6 @@ func (c NSCell) Editable() bool {
 func (c NSCell) SetEditable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEditable:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell’s text can be selected.
 //
@@ -2391,8 +2315,6 @@ func (c NSCell) SetSelectable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelectable:"), value)
 }
 
-
-
 // A Boolean value indicating whether excess text scrolls past the cell’s
 // bounds.
 //
@@ -2413,8 +2335,6 @@ func (c NSCell) SetScrollable(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setScrollable:"), value)
 }
 
-
-
 // The alignment of the cell’s text.
 //
 // # Discussion
@@ -2433,8 +2353,6 @@ func (c NSCell) SetAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAlignment:"), value)
 }
 
-
-
 // The font that the cell uses to display text.
 //
 // # Discussion
@@ -2452,8 +2370,6 @@ func (c NSCell) SetFont(value NSFont) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFont:"), value)
 }
 
-
-
 // The line break mode to use when drawing text in the cell.
 //
 // # Discussion
@@ -2470,8 +2386,6 @@ func (c NSCell) LineBreakMode() NSLineBreakMode {
 func (c NSCell) SetLineBreakMode(value NSLineBreakMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLineBreakMode:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell truncates text that does not
 // fit within the cell’s bounds.
@@ -2497,8 +2411,6 @@ func (c NSCell) SetTruncatesLastVisibleLine(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTruncatesLastVisibleLine:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell wraps text whose length that
 // exceeds the cell’s frame.
 //
@@ -2522,8 +2434,6 @@ func (c NSCell) SetWraps(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setWraps:"), value)
 }
 
-
-
 // The initial writing direction used to determine the actual writing
 // direction for text.
 //
@@ -2545,8 +2455,6 @@ func (c NSCell) BaseWritingDirection() NSWritingDirection {
 func (c NSCell) SetBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBaseWritingDirection:"), value)
 }
-
-
 
 // The cell’s value as an attributed string.
 //
@@ -2575,8 +2483,6 @@ func (c NSCell) SetAttributedStringValue(value foundation.NSAttributedString) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAttributedStringValue:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell allows the editing of its
 // content’s text attributes by the user.
 //
@@ -2599,8 +2505,6 @@ func (c NSCell) SetAllowsEditingTextAttributes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsEditingTextAttributes:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell supports the importation of
 // images into its text.
 //
@@ -2620,8 +2524,6 @@ func (c NSCell) SetImportsGraphics(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImportsGraphics:"), value)
 }
 
-
-
 // The cell’s title text.
 //
 // # Discussion
@@ -2637,8 +2539,6 @@ func (c NSCell) Title() string {
 func (c NSCell) SetTitle(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The action performed by the cell.
 //
@@ -2664,8 +2564,6 @@ func (c NSCell) SetAction(value objc.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAction:"), value)
 }
 
-
-
 // The object that receives the cell’s action messages.
 //
 // # Discussion
@@ -2690,8 +2588,6 @@ func (c NSCell) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTarget:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell sends its action message
 // continuously during mouse tracking.
 //
@@ -2713,8 +2609,6 @@ func (c NSCell) SetContinuous(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContinuous:"), value)
 }
 
-
-
 // The image displayed by the cell, if any.
 //
 // # Discussion
@@ -2731,8 +2625,6 @@ func (c NSCell) Image() INSImage {
 func (c NSCell) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
-
-
 
 // A tag for identifying the cell.
 //
@@ -2760,8 +2652,6 @@ func (c NSCell) SetTag(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTag:"), value)
 }
 
-
-
 // The cell’s formatter object.
 //
 // # Discussion
@@ -2783,8 +2673,6 @@ func (c NSCell) SetFormatter(value foundation.NSFormatter) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFormatter:"), value)
 }
 
-
-
 // The cell’s contextual menu.
 //
 // # Discussion
@@ -2802,8 +2690,6 @@ func (c NSCell) SetMenu(value INSMenu) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMenu:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell accepts first responder status.
 //
 // # Discussion
@@ -2820,8 +2706,6 @@ func (c NSCell) AcceptsFirstResponder() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("acceptsFirstResponder"))
 	return rv
 }
-
-
 
 // A Boolean value indicating whether the cell provides a visual indication
 // that it is the first responder.
@@ -2845,8 +2729,6 @@ func (c NSCell) SetShowsFirstResponder(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShowsFirstResponder:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell refuses the first responder
 // status.
 //
@@ -2866,8 +2748,6 @@ func (c NSCell) RefusesFirstResponder() bool {
 func (c NSCell) SetRefusesFirstResponder(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRefusesFirstResponder:"), value)
 }
-
-
 
 // The object represented by the cell.
 //
@@ -2891,8 +2771,6 @@ func (c NSCell) SetRepresentedObject(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRepresentedObject:"), value)
 }
 
-
-
 // The modifier flags for the last (left) mouse-down event.
 //
 // # Discussion
@@ -2908,8 +2786,6 @@ func (c NSCell) MouseDownFlags() int {
 	return rv
 }
 
-
-
 // The key equivalent associated with clicking the cell.
 //
 // # Discussion
@@ -2923,8 +2799,6 @@ func (c NSCell) KeyEquivalent() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("keyEquivalent"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The type of focus ring to use with the associated view.
 //
@@ -2946,8 +2820,6 @@ func (c NSCell) SetFocusRingType(value NSFocusRingType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFocusRingType:"), value)
 }
 
-
-
 // The minimum size needed to display the cell.
 //
 // # Discussion
@@ -2964,8 +2836,6 @@ func (c NSCell) CellSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("cellSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // The size of the cell.
 //
@@ -2989,8 +2859,6 @@ func (c NSCell) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setControlSize:"), value)
 }
 
-
-
 // The view associated with the cell.
 //
 // # Discussion
@@ -3007,8 +2875,6 @@ func (c NSCell) ControlView() INSView {
 func (c NSCell) SetControlView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setControlView:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell has a highlighted appearance.
 //
@@ -3040,8 +2906,6 @@ func (c NSCell) SetHighlighted(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHighlighted:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell’s control object sends its
 // action message when the user finishes editing the cell’s text.
 //
@@ -3069,8 +2933,6 @@ func (c NSCell) SetSendsActionOnEndEditing(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSendsActionOnEndEditing:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell’s field editor should post
 // text change notifications.
 //
@@ -3092,8 +2954,6 @@ func (c NSCell) WantsNotificationForMarkedText() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("wantsNotificationForMarkedText"))
 	return rv
 }
-
-
 
 // A Boolean value indicating whether the cell restricts layout and rendering
 // of text to a single line.
@@ -3126,8 +2986,6 @@ func (c NSCell) SetUsesSingleLineMode(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUsesSingleLineMode:"), value)
 }
 
-
-
 // The layout direction of the user interface.
 //
 // # Discussion
@@ -3145,8 +3003,6 @@ func (c NSCell) UserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection {
 func (c NSCell) SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUserInterfaceLayoutDirection:"), value)
 }
-
-
 
 // A string that identifies the user interface item.
 //
@@ -3186,12 +3042,6 @@ func (c NSCell) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
 
-
-
-
-
-
-
 // Returns the default menu for instances of the cell.
 //
 // # Return Value
@@ -3203,8 +3053,6 @@ func (_NSCellClass NSCellClass) DefaultMenu() NSMenu {
 	rv := objc.Send[objc.ID](objc.ID(_NSCellClass.class), objc.Sel("defaultMenu"))
 	return NSMenuFromID(objc.ID(rv))
 }
-
-
 
 // Returns a Boolean value that indicates whether tracking stops when the
 // cursor leaves the cell.
@@ -3228,8 +3076,6 @@ func (_NSCellClass NSCellClass) PrefersTrackingUntilMouseUp() bool {
 	return rv
 }
 
-
-
 // Returns the default type of focus ring for the receiver.
 //
 // # Return Value
@@ -3245,8 +3091,6 @@ func (_NSCellClass NSCellClass) DefaultFocusRingType() NSFocusRingType {
 	return NSFocusRingType(rv)
 }
 
-
-
 // Sent after the user changes control tint preference.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/currentcontroltintdidchangenotification
@@ -3254,14 +3098,6 @@ func (_NSCellClass NSCellClass) CurrentControlTintDidChangeNotification() founda
 	rv := objc.Send[objc.ID](objc.ID(_NSCellClass.class), objc.Sel("NSControlTintDidChangeNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -3358,9 +3194,6 @@ func (o NSCell) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -6276,25 +6109,6 @@ func (o NSCell) SetAccessibilityUserInputLabels(accessibilityUserInputLabels fou
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
 
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceItemIdentification
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -5,7 +5,6 @@ package appkit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [NSLayoutYAxisAnchor] class.
@@ -35,12 +34,6 @@ func (nc NSLayoutYAxisAnchorClass) Alloc() NSLayoutYAxisAnchor {
 	rv := objc.Send[NSLayoutYAxisAnchor](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A factory class for creating vertical layout constraint objects using a
 // fluent API.
@@ -78,10 +71,6 @@ func NSLayoutYAxisAnchorFromID(id objc.ID) NSLayoutYAxisAnchor {
 // NOTE: NSLayoutYAxisAnchor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSLayoutYAxisAnchor] class.
 //
 // # Building system spacing constraints
@@ -111,13 +100,7 @@ type INSLayoutYAxisAnchor interface {
 
 	// Creates a layout dimension object from two anchors.
 	AnchorWithOffsetToAnchor(otherAnchor INSLayoutYAxisAnchor) INSLayoutDimension
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l NSLayoutYAxisAnchor) Init() NSLayoutYAxisAnchor {
@@ -137,15 +120,6 @@ func NewNSLayoutYAxisAnchor() NSLayoutYAxisAnchor {
 	rv := objc.Send[NSLayoutYAxisAnchor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a constraint that defines the specific distance at which the
 // current anchor is positioned below the specified anchor.
@@ -252,42 +226,4 @@ func (l NSLayoutYAxisAnchor) AnchorWithOffsetToAnchor(otherAnchor INSLayoutYAxis
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("anchorWithOffsetToAnchor:"), otherAnchor)
 	return NSLayoutDimensionFromID(rv)
 }
-func (l NSLayoutYAxisAnchor) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

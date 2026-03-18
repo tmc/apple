@@ -40,12 +40,6 @@ func (nc NSApplicationClass) Alloc() NSApplication {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages an app’s main event loop and resources used by all
 // of that app’s objects.
 //
@@ -340,10 +334,6 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 }
 // NOTE: NSApplication adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSApplication] class.
 //
@@ -688,7 +678,7 @@ type INSApplication interface {
 	// Finishes a modal session.
 	EndModalSession(session objectivec.IObject)
 	// Executes a block for each of the app’s windows.
-	EnumerateWindowsWithOptionsUsingBlock(options uint, block bool)
+	EnumerateWindowsWithOptionsUsingBlock(options uint, block unsafe.Pointer)
 	// Allows an app to extend its state restoration period.
 	ExtendStateRestoration()
 	// Hides all the receiver’s windows, and the next app in line is activated.
@@ -733,12 +723,7 @@ type INSApplication interface {
 	UpdateWindowsItem(win INSWindow)
 	// Returns the window corresponding to the specified window number.
 	WindowWithWindowNumber(windowNum int) INSWindow
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSApplication) Init() NSApplication {
@@ -759,11 +744,6 @@ func NewNSApplication() NSApplication {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -774,12 +754,6 @@ func NewApplicationWithCoder(coder foundation.INSCoder) NSApplication {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSApplicationFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the next event matching a given mask, or `nil` if no such event is
 // found before a specified expiration date.
@@ -1374,9 +1348,9 @@ func (a NSApplication) ReplyToOpenOrPrint(reply NSApplicationDelegateReply) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/registerUserInterfaceItemSearchHandler(_:)
 func (a NSApplication) RegisterUserInterfaceItemSearchHandler(handler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](a.ID, objc.Sel("registerUserInterfaceItemSearchHandler:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("registerUserInterfaceItemSearchHandler:"), _block0)
 }
 
 // Searches for the string in the user interface.
@@ -1420,9 +1394,9 @@ func (a NSApplication) SearchStringInUserInterfaceItemStringSearchRangeFoundRang
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/unregisterUserInterfaceItemSearchHandler(_:)
 func (a NSApplication) UnregisterUserInterfaceItemSearchHandler(handler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](a.ID, objc.Sel("unregisterUserInterfaceItemSearchHandler:"), _block0)
+	objc.Send[objc.ID](a.ID, objc.Sel("unregisterUserInterfaceItemSearchHandler:"), _block0)
 }
 
 // If your project is properly registered, and the necessary keys have been
@@ -1674,7 +1648,7 @@ func (a NSApplication) EndModalSession(session objectivec.IObject) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/enumerateWindows(options:using:)
-func (a NSApplication) EnumerateWindowsWithOptionsUsingBlock(options uint, block bool) {
+func (a NSApplication) EnumerateWindowsWithOptionsUsingBlock(options uint, block unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateWindowsWithOptions:usingBlock:"), options, block)
 }
 
@@ -1901,9 +1875,9 @@ func (a NSApplication) RemoveWindowsItem(win INSWindow) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/restoreWindow(withIdentifier:state:completionHandler:)
 func (a NSApplication) RestoreWindowWithIdentifierStateCompletionHandler(identifier NSUserInterfaceItemIdentifier, state foundation.INSCoder, completionHandler WindowErrorHandler) bool {
-		_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
+_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
 	defer _cleanup2()
-		rv := objc.Send[bool](a.ID, objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
+	rv := objc.Send[bool](a.ID, objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 	return rv
 }
 
@@ -2208,13 +2182,6 @@ func (a NSApplication) WindowWithWindowNumber(windowNum int) INSWindow {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("windowWithWindowNumber:"), windowNum)
 	return NSWindowFromID(rv)
 }
-func (a NSApplication) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Creates and executes a new thread based on the specified target and
 // selector.
@@ -2240,13 +2207,6 @@ func (_NSApplicationClass NSApplicationClass) DetachDrawingThreadToTargetWithObj
 	objc.Send[objc.ID](objc.ID(_NSApplicationClass.class), objc.Sel("detachDrawingThread:toTarget:withObject:"), selector, target, argument)
 }
 
-
-
-
-
-
-
-
 // The global variable for the shared app instance.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapp
@@ -2257,8 +2217,6 @@ func (a NSApplication) NSApp() INSApplication {
 func (a NSApplication) SetNSApp(value INSApplication) {
 	objc.Send[struct{}](a.ID, objc.Sel("setNSApp:"), value)
 }
-
-
 
 // The app delegate object.
 //
@@ -2277,8 +2235,6 @@ func (a NSApplication) SetDelegate(value NSApplicationDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The last event object that the app retrieved from the event queue.
 //
 // # Discussion
@@ -2293,8 +2249,6 @@ func (a NSApplication) CurrentEvent() INSEvent {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentEvent"))
 	return NSEventFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value indicating whether the main event loop is running.
 //
@@ -2313,8 +2267,6 @@ func (a NSApplication) Running() bool {
 	return rv
 }
 
-
-
 // A Boolean value indicating whether this is the active app.
 //
 // # Discussion
@@ -2330,8 +2282,6 @@ func (a NSApplication) Active() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isActive"))
 	return rv
 }
-
-
 
 // The types of push notifications that the app accepts.
 //
@@ -2359,8 +2309,6 @@ func (a NSApplication) EnabledRemoteNotificationTypes() NSRemoteNotificationType
 	return NSRemoteNotificationType(rv)
 }
 
-
-
 // A Boolean value indicating whether the app is registered with Apple Push
 // Notification service (APNs).
 //
@@ -2369,8 +2317,6 @@ func (a NSApplication) RegisteredForRemoteNotifications() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRegisteredForRemoteNotifications"))
 	return rv
 }
-
-
 
 // The appearance associated with the app’s windows.
 //
@@ -2394,8 +2340,6 @@ func (a NSApplication) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAppearance:"), value)
 }
 
-
-
 // The appearance that AppKit uses to draw the app’s interface.
 //
 // # Discussion
@@ -2410,8 +2354,6 @@ func (a NSApplication) EffectiveAppearance() INSAppearance {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("effectiveAppearance"))
 	return NSAppearanceFromID(objc.ID(rv))
 }
-
-
 
 // The set of app presentation options that are currently in effect for the
 // system.
@@ -2445,8 +2387,6 @@ func (a NSApplication) CurrentSystemPresentationOptions() NSApplicationPresentat
 	return NSApplicationPresentationOptions(rv)
 }
 
-
-
 // The presentation options that should be in effect for the system when this
 // app is active.
 //
@@ -2468,8 +2408,6 @@ func (a NSApplication) SetPresentationOptions(value NSApplicationPresentationOpt
 	objc.Send[struct{}](a.ID, objc.Sel("setPresentationOptions:"), value)
 }
 
-
-
 // The layout direction of the user interface.
 //
 // # Discussion
@@ -2485,8 +2423,6 @@ func (a NSApplication) UserInterfaceLayoutDirection() NSUserInterfaceLayoutDirec
 	return NSUserInterfaceLayoutDirection(rv)
 }
 
-
-
 // The app’s Dock tile.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/dockTile
@@ -2494,8 +2430,6 @@ func (a NSApplication) DockTile() INSDockTile {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dockTile"))
 	return NSDockTileFromID(objc.ID(rv))
 }
-
-
 
 // The image used for the app’s icon.
 //
@@ -2515,8 +2449,6 @@ func (a NSApplication) SetApplicationIconImage(value INSImage) {
 	objc.Send[struct{}](a.ID, objc.Sel("setApplicationIconImage:"), value)
 }
 
-
-
 // The help menu used by the app.
 //
 // # Discussion
@@ -2535,8 +2467,6 @@ func (a NSApplication) HelpMenu() INSMenu {
 func (a NSApplication) SetHelpMenu(value INSMenu) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHelpMenu:"), value)
 }
-
-
 
 // The object that provides the services the current app advertises in the
 // Services menu of other apps.
@@ -2562,8 +2492,6 @@ func (a NSApplication) SetServicesProvider(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setServicesProvider:"), value)
 }
 
-
-
 // A Boolean value indicating whether Full Keyboard Access is enabled in the
 // Keyboard preference pane.
 //
@@ -2586,8 +2514,6 @@ func (a NSApplication) FullKeyboardAccessEnabled() bool {
 	return rv
 }
 
-
-
 // An array of document objects arranged according to the front-to-back
 // ordering of their associated windows.
 //
@@ -2598,8 +2524,6 @@ func (a NSApplication) OrderedDocuments() []NSDocument {
 		return NSDocumentFromID(id)
 	})
 }
-
-
 
 // An array of window objects arranged according to their front-to-back
 // ordering on the screen.
@@ -2623,8 +2547,6 @@ func (a NSApplication) OrderedWindows() []NSWindow {
 	})
 }
 
-
-
 // A boolean value indicating whether your application should suppress HDR
 // content based on established policy. Built-in AppKit components such as
 // NSImageView will automatically behave correctly with HDR content. You
@@ -2639,8 +2561,6 @@ func (a NSApplication) ApplicationShouldSuppressHighDynamicRangeContent() bool {
 	return rv
 }
 
-
-
 // Indicates the activation policy of the application.
 //
 // See: https://developer.apple.com/documentation/appkit/nsrunningapplication/activationpolicy
@@ -2652,8 +2572,6 @@ func (a NSApplication) SetActivationPolicy(value NSApplicationActivationPolicy) 
 	objc.Send[struct{}](a.ID, objc.Sel("setActivationPolicy:"), value)
 }
 
-
-
 // The graphics context associated with the app.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/context
@@ -2664,8 +2582,6 @@ func (a NSApplication) Context() INSGraphicsContext {
 func (a NSApplication) SetContext(value INSGraphicsContext) {
 	objc.Send[struct{}](a.ID, objc.Sel("setContext:"), value)
 }
-
-
 
 // A Boolean value indicating whether the main menu contains an item for
 // customizing the contents of the Touch Bar.
@@ -2679,8 +2595,6 @@ func (a NSApplication) SetIsAutomaticCustomizeTouchBarMenuItemEnabled(value bool
 	objc.Send[struct{}](a.ID, objc.Sel("setAutomaticCustomizeTouchBarMenuItemEnabled:"), value)
 }
 
-
-
 // A Boolean value indicating whether the app is hidden.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/ishidden
@@ -2692,8 +2606,6 @@ func (a NSApplication) SetIsHidden(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHidden:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/appkit/nsapplication/isprotecteddataavailable
 func (a NSApplication) IsProtectedDataAvailable() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("protectedDataAvailable"))
@@ -2702,8 +2614,6 @@ func (a NSApplication) IsProtectedDataAvailable() bool {
 func (a NSApplication) SetIsProtectedDataAvailable(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setProtectedDataAvailable:"), value)
 }
-
-
 
 // The window that currently receives keyboard events.
 //
@@ -2716,8 +2626,6 @@ func (a NSApplication) SetKeyWindow(value INSWindow) {
 	objc.Send[struct{}](a.ID, objc.Sel("setKeyWindow:"), value)
 }
 
-
-
 // The app’s main menu bar.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/mainmenu
@@ -2728,8 +2636,6 @@ func (a NSApplication) MainMenu() INSMenu {
 func (a NSApplication) SetMainMenu(value INSMenu) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMainMenu:"), value)
 }
-
-
 
 // The app’s main window.
 //
@@ -2742,8 +2648,6 @@ func (a NSApplication) SetMainWindow(value INSWindow) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMainWindow:"), value)
 }
 
-
-
 // The modal window displayed by the app.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/modalwindow
@@ -2754,8 +2658,6 @@ func (a NSApplication) ModalWindow() INSWindow {
 func (a NSApplication) SetModalWindow(value INSWindow) {
 	objc.Send[struct{}](a.ID, objc.Sel("setModalWindow:"), value)
 }
-
-
 
 // The occlusion state of the app.
 //
@@ -2768,8 +2670,6 @@ func (a NSApplication) SetOcclusionState(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOcclusionState:"), value)
 }
 
-
-
 // The app’s Services menu.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/servicesmenu
@@ -2780,8 +2680,6 @@ func (a NSApplication) ServicesMenu() INSMenu {
 func (a NSApplication) SetServicesMenu(value INSMenu) {
 	objc.Send[struct{}](a.ID, objc.Sel("setServicesMenu:"), value)
 }
-
-
 
 // An array of the app’s window objects.
 //
@@ -2794,8 +2692,6 @@ func (a NSApplication) SetWindows(value INSWindow) {
 	objc.Send[struct{}](a.ID, objc.Sel("setWindows:"), value)
 }
 
-
-
 // The Window menu of the app.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/windowsmenu
@@ -2806,12 +2702,6 @@ func (a NSApplication) WindowsMenu() INSMenu {
 func (a NSApplication) SetWindowsMenu(value INSMenu) {
 	objc.Send[struct{}](a.ID, objc.Sel("setWindowsMenu:"), value)
 }
-
-
-
-
-
-
 
 // Returns the application instance, creating it if it doesn’t exist yet.
 //
@@ -2835,8 +2725,6 @@ func (_NSApplicationClass NSApplicationClass) SharedApplication() NSApplication 
 	return NSApplicationFromID(objc.ID(rv))
 }
 
-
-
 // The priority at which windows are displayed.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/displaywindowrunloopordering
@@ -2847,8 +2735,6 @@ func (_NSApplicationClass NSApplicationClass) DisplayWindowRunLoopOrdering() int
 func (_NSApplicationClass NSApplicationClass) SetDisplayWindowRunLoopOrdering(value int) {
 	objc.Send[struct{}](objc.ID(_NSApplicationClass.class), objc.Sel("setNSDisplayWindowRunLoopOrdering:"), value)
 }
-
-
 
 // The priority at which cursor rects are reset.
 //
@@ -2861,8 +2747,6 @@ func (_NSApplicationClass NSApplicationClass) SetResetCursorRectsRunLoopOrdering
 	objc.Send[struct{}](objc.ID(_NSApplicationClass.class), objc.Sel("setNSResetCursorRectsRunLoopOrdering:"), value)
 }
 
-
-
 // Run-loop message priority for handling window updates.
 //
 // See: https://developer.apple.com/documentation/appkit/nsapplication/updatewindowsrunloopordering
@@ -2873,15 +2757,6 @@ func (_NSApplicationClass NSApplicationClass) UpdateWindowsRunLoopOrdering() int
 func (_NSApplicationClass NSApplicationClass) SetUpdateWindowsRunLoopOrdering(value int) {
 	objc.Send[struct{}](objc.ID(_NSApplicationClass.class), objc.Sel("setNSUpdateWindowsRunLoopOrdering:"), value)
 }
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -2978,9 +2853,6 @@ func (o NSApplication) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -5896,37 +5768,14 @@ func (o NSApplication) SetAccessibilityUserInputLabels(accessibilityUserInputLab
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
 
-
-
-
 			// Protocol methods for NSAppearanceCustomization
 			
-
-
-
-
 
 			// Protocol methods for NSMenuItemValidation
 			
 
-
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
-
-
-
-
-
-
-
-
-
 
 // RestoreWindowWithIdentifierState is a synchronous wrapper around [NSApplication.RestoreWindowWithIdentifierStateCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -5946,9 +5795,4 @@ func (a NSApplication) RestoreWindowWithIdentifierState(ctx context.Context, ide
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

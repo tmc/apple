@@ -36,12 +36,6 @@ func (nc NSScrollEdgeEffectStyleClass) Alloc() NSScrollEdgeEffectStyle {
 	return rv
 }
 
-
-
-
-
-
-
 // Styles for a scroll view’s edge effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollEdgeEffectStyle
@@ -53,14 +47,10 @@ type NSScrollEdgeEffectStyle struct {
 //
 // Styles for a scroll view’s edge effect.
 func NSScrollEdgeEffectStyleFromID(id objc.ID) NSScrollEdgeEffectStyle {
-	return NSScrollEdgeEffectStyle{objectivec.Object{id}}
+	return NSScrollEdgeEffectStyle{objectivec.Object{ID: id}}
 }
 // NOTE: NSScrollEdgeEffectStyle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScrollEdgeEffectStyle] class.
 //
@@ -72,10 +62,6 @@ type INSScrollEdgeEffectStyle interface {
 	PreferredScrollEdgeEffectStyle() INSScrollEdgeEffectStyle
 	SetPreferredScrollEdgeEffectStyle(value INSScrollEdgeEffectStyle)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrollEdgeEffectStyle) Init() NSScrollEdgeEffectStyle {
@@ -96,26 +82,6 @@ func NewNSScrollEdgeEffectStyle() NSScrollEdgeEffectStyle {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The titlebar accessory’s preferred effect for content scrolling behind
 // it.
 //
@@ -128,12 +94,6 @@ func (s NSScrollEdgeEffectStyle) SetPreferredScrollEdgeEffectStyle(value INSScro
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredScrollEdgeEffectStyle:"), value)
 }
 
-
-
-
-
-
-
 // The automatic scroll edge effect style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollEdgeEffectStyle/automatic
@@ -141,8 +101,6 @@ func (_NSScrollEdgeEffectStyleClass NSScrollEdgeEffectStyleClass) AutomaticStyle
 	rv := objc.Send[objc.ID](objc.ID(_NSScrollEdgeEffectStyleClass.class), objc.Sel("automaticStyle"))
 	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
 }
-
-
 
 // A scroll edge effect with a hard cutoff.
 //
@@ -152,8 +110,6 @@ func (_NSScrollEdgeEffectStyleClass NSScrollEdgeEffectStyleClass) HardStyle() NS
 	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
 }
 
-
-
 // A scroll edge effect with a soft edge.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollEdgeEffectStyle/soft
@@ -161,23 +117,4 @@ func (_NSScrollEdgeEffectStyleClass NSScrollEdgeEffectStyleClass) SoftStyle() NS
 	rv := objc.Send[objc.ID](objc.ID(_NSScrollEdgeEffectStyleClass.class), objc.Sel("softStyle"))
 	return NSScrollEdgeEffectStyleFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

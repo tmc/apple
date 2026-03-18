@@ -37,12 +37,6 @@ func (mc MLNumericConstraintClass) Alloc() MLNumericConstraint {
 	return rv
 }
 
-
-
-
-
-
-
 // The value limitations of a number.
 //
 // # Numeric Constraints
@@ -60,14 +54,10 @@ type MLNumericConstraint struct {
 //
 // The value limitations of a number.
 func MLNumericConstraintFromID(id objc.ID) MLNumericConstraint {
-	return MLNumericConstraint{objectivec.Object{id}}
+	return MLNumericConstraint{objectivec.Object{ID: id}}
 }
 // NOTE: MLNumericConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLNumericConstraint] class.
 //
@@ -96,10 +86,6 @@ type IMLNumericConstraint interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n MLNumericConstraint) Init() MLNumericConstraint {
 	rv := objc.Send[MLNumericConstraint](n.ID, objc.Sel("init"))
@@ -119,28 +105,9 @@ func NewMLNumericConstraint() MLNumericConstraint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (n MLNumericConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The smallest numerical value allowed by this constraint.
 //
@@ -150,8 +117,6 @@ func (n MLNumericConstraint) MinNumber() foundation.NSNumber {
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // The largest numerical value allowed by this constraint.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/maxNumber
@@ -160,8 +125,6 @@ func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // A set of the numbers allowed in this constraint.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/enumeratedNumbers
@@ -169,8 +132,6 @@ func (n MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("enumeratedNumbers"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
-
 
 // The constraints of this paramter description value, if and only if the
 // value is numerical.
@@ -183,28 +144,4 @@ func (n MLNumericConstraint) NumericConstraint() IMLNumericConstraint {
 func (n MLNumericConstraint) SetNumericConstraint(value IMLNumericConstraint) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNumericConstraint:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

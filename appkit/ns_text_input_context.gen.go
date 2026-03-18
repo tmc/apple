@@ -37,12 +37,6 @@ func (nc NSTextInputContextClass) Alloc() NSTextInputContext {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents the Cocoa text input system.
 //
 // # Overview
@@ -95,14 +89,10 @@ type NSTextInputContext struct {
 //
 // An object that represents the Cocoa text input system.
 func NSTextInputContextFromID(id objc.ID) NSTextInputContext {
-	return NSTextInputContext{objectivec.Object{id}}
+	return NSTextInputContext{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextInputContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextInputContext] class.
 //
@@ -194,10 +184,6 @@ type INSTextInputContext interface {
 	TextInputClientDidUpdateSelection()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextInputContext) Init() NSTextInputContext {
 	rv := objc.Send[NSTextInputContext](t.ID, objc.Sel("init"))
@@ -217,11 +203,6 @@ func NewNSTextInputContext() NSTextInputContext {
 	return rv
 }
 
-
-
-
-
-
 // The designated initializer
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/init(client:)
@@ -230,12 +211,6 @@ func NewTextInputContextWithClient(client NSTextInputClient) NSTextInputContext 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithClient:"), client)
 	return NSTextInputContextFromID(rv)
 }
-
-
-
-
-
-
 
 // The designated initializer
 //
@@ -326,10 +301,6 @@ func (t NSTextInputContext) TextInputClientDidUpdateSelection() {
 	objc.Send[objc.ID](t.ID, objc.Sel("textInputClientDidUpdateSelection"))
 }
 
-
-
-
-
 // Returns the display name for the given text input source identifier.
 //
 // inputSourceIdentifier: The text input source identifier.
@@ -344,13 +315,6 @@ func (_NSTextInputContextClass NSTextInputContextClass) LocalizedNameForInputSou
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 // The owner of this input context. (read-only)
 //
 // # Discussion
@@ -364,8 +328,6 @@ func (t NSTextInputContext) Client() NSTextInputClient {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("client"))
 	return NSTextInputClientObjectFromID(rv)
 }
-
-
 
 // A Boolean value that indicates whether the client handles
 // [NSGlyphInfoAttributeName] or not.
@@ -384,8 +346,6 @@ func (t NSTextInputContext) SetAcceptsGlyphInfo(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAcceptsGlyphInfo:"), value)
 }
 
-
-
 // The set of keyboard input source locales allowed when this input context is
 // active.
 //
@@ -402,8 +362,6 @@ func (t NSTextInputContext) AllowedInputSourceLocales() []string {
 func (t NSTextInputContext) SetAllowedInputSourceLocales(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedInputSourceLocales:"), objectivec.StringSliceToNSArray(value))
 }
-
-
 
 // The array of keyboard text input source identifier strings available to the
 // receiver. (read-only)
@@ -425,8 +383,6 @@ func (t NSTextInputContext) KeyboardInputSources() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The identifier string for the selected keyboard text input source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/selectedKeyboardInputSource
@@ -438,12 +394,6 @@ func (t NSTextInputContext) SetSelectedKeyboardInputSource(value NSTextInputSour
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedKeyboardInputSource:"), objc.String(string(value)))
 }
 
-
-
-
-
-
-
 // Returns the current, activated, text input context object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/current
@@ -451,22 +401,4 @@ func (_NSTextInputContextClass NSTextInputContextClass) CurrentInputContext() NS
 	rv := objc.Send[objc.ID](objc.ID(_NSTextInputContextClass.class), objc.Sel("currentInputContext"))
 	return NSTextInputContextFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

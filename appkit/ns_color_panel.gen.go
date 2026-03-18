@@ -38,12 +38,6 @@ func (nc NSColorPanelClass) Alloc() NSColorPanel {
 	return rv
 }
 
-
-
-
-
-
-
 // A standard user interface for selecting color in an app.
 //
 // # Overview
@@ -101,10 +95,6 @@ func NSColorPanelFromID(id objc.ID) NSColorPanel {
 }
 // NOTE: NSColorPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSColorPanel] class.
 //
@@ -192,13 +182,7 @@ type INSColorPanel interface {
 
 	// The receiver’s current alpha value based on its opacity slider.
 	Alpha() float64
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSColorPanel) Init() NSColorPanel {
@@ -218,11 +202,6 @@ func NewNSColorPanel() NSColorPanel {
 	rv := objc.Send[NSColorPanel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a titled window that contains the specified content view
 // controller.
@@ -256,7 +235,6 @@ func NewColorPanelWindowWithContentViewController(contentViewController INSViewC
 	return NSColorPanelFromID(rv)
 }
 
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -267,7 +245,6 @@ func NewColorPanelWithCoder(coder foundation.INSCoder) NSColorPanel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSColorPanelFromID(rv)
 }
-
 
 // Initializes the window with the specified values.
 //
@@ -318,7 +295,6 @@ func NewColorPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundatio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
 	return NSColorPanelFromID(rv)
 }
-
 
 // Initializes an allocated window with the specified values.
 //
@@ -373,12 +349,6 @@ func NewColorPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefou
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:screen:"), contentRect, style, backingStoreType, flag, screen)
 	return NSColorPanelFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets the color panel’s action message.
 //
@@ -440,13 +410,6 @@ func (c NSColorPanel) AttachColorList(colorList INSColorList) {
 func (c NSColorPanel) DetachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("detachColorList:"), colorList)
 }
-func (c NSColorPanel) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Specifies the color panel’s initial picker.
 //
@@ -514,13 +477,6 @@ func (_NSColorPanelClass NSColorPanelClass) DragColorWithEventFromView(color INS
 	return rv
 }
 
-
-
-
-
-
-
-
 // The mode of the receiver the mode is one of the modes allowed by the color
 // mask.
 //
@@ -533,8 +489,6 @@ func (c NSColorPanel) SetMode(value NSColorPanelMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMode:"), value)
 }
 
-
-
 // The accessory view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/accessoryView
@@ -545,8 +499,6 @@ func (c NSColorPanel) AccessoryView() INSView {
 func (c NSColorPanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAccessoryView:"), value)
 }
-
-
 
 // A Boolean value indicating whether the receiver continuously sends the
 // action message to the target.
@@ -560,8 +512,6 @@ func (c NSColorPanel) SetContinuous(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContinuous:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver shows alpha values and
 // an opacity slider.
 //
@@ -574,8 +524,6 @@ func (c NSColorPanel) SetShowsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShowsAlpha:"), value)
 }
 
-
-
 // The color of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/color
@@ -586,8 +534,6 @@ func (c NSColorPanel) Color() INSColor {
 func (c NSColorPanel) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
-
-
 
 // The maximum linear exposure that can be set on a color picked in the color
 // panel. Defaults to 1 and ignores any value less than 1. If set to a value
@@ -603,8 +549,6 @@ func (c NSColorPanel) SetMaximumLinearExposure(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumLinearExposure:"), value)
 }
 
-
-
 // The receiver’s current alpha value based on its opacity slider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/alpha
@@ -612,12 +556,6 @@ func (c NSColorPanel) Alpha() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("alpha"))
 	return rv
 }
-
-
-
-
-
-
 
 // Returns the shared [NSColorPanel] instance, creating it if necessary.
 //
@@ -630,8 +568,6 @@ func (_NSColorPanelClass NSColorPanelClass) SharedColorPanel() NSColorPanel {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("sharedColorPanel"))
 	return NSColorPanelFromID(objc.ID(rv))
 }
-
-
 
 // Returns a Boolean value indicating whether the [NSColorPanel] has been
 // created already.
@@ -648,35 +584,4 @@ func (_NSColorPanelClass NSColorPanelClass) SharedColorPanelExists() bool {
 	rv := objc.Send[bool](objc.ID(_NSColorPanelClass.class), objc.Sel("sharedColorPanelExists"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

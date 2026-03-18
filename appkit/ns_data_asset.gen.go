@@ -37,12 +37,6 @@ func (nc NSDataAssetClass) Alloc() NSDataAsset {
 	return rv
 }
 
-
-
-
-
-
-
 // An object from a data set type stored in an asset catalog.
 //
 // # Overview
@@ -106,14 +100,10 @@ type NSDataAsset struct {
 //
 // An object from a data set type stored in an asset catalog.
 func NSDataAssetFromID(id objc.ID) NSDataAsset {
-	return NSDataAsset{objectivec.Object{id}}
+	return NSDataAsset{objectivec.Object{ID: id}}
 }
 // NOTE: NSDataAsset adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDataAsset] class.
 //
@@ -155,10 +145,6 @@ type INSDataAsset interface {
 	TypeIdentifier() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDataAsset) Init() NSDataAsset {
 	rv := objc.Send[NSDataAsset](d.ID, objc.Sel("init"))
@@ -177,11 +163,6 @@ func NewNSDataAsset() NSDataAsset {
 	rv := objc.Send[NSDataAsset](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns an object with a reference to the named data asset
 // in an asset catalog.
@@ -208,7 +189,6 @@ func NewDataAssetWithName(name NSDataAssetName) NSDataAsset {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:"), objc.String(string(name)))
 	return NSDataAssetFromID(rv)
 }
-
 
 // Initializes and returns an object with a reference to the named data asset
 // that’s in an asset catalog in the specified bundle.
@@ -238,12 +218,6 @@ func NewDataAssetWithNameBundle(name NSDataAssetName, bundle foundation.NSBundle
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:bundle:"), objc.String(string(name)), bundle)
 	return NSDataAssetFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns an object with a reference to the named data asset
 // in an asset catalog.
@@ -298,17 +272,6 @@ func (d NSDataAsset) InitWithNameBundle(name NSDataAssetName, bundle foundation.
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The raw data values in the data asset.
 //
 // # Discussion
@@ -321,8 +284,6 @@ func (d NSDataAsset) Data() foundation.INSData {
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 
-
-
 // The name of the data set in the asset catalog.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDataAsset/name-swift.property
@@ -330,8 +291,6 @@ func (d NSDataAsset) Name() NSDataAssetName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("name"))
 	return NSDataAssetName(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // The uniform type identifier for the data asset.
 //
@@ -348,27 +307,4 @@ func (d NSDataAsset) TypeIdentifier() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("typeIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

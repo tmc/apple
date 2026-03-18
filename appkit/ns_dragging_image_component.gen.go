@@ -38,12 +38,6 @@ func (nc NSDraggingImageComponentClass) Alloc() NSDraggingImageComponent {
 	return rv
 }
 
-
-
-
-
-
-
 // A single object in a dragging item.
 //
 // # Overview
@@ -78,14 +72,10 @@ type NSDraggingImageComponent struct {
 //
 // A single object in a dragging item.
 func NSDraggingImageComponentFromID(id objc.ID) NSDraggingImageComponent {
-	return NSDraggingImageComponent{objectivec.Object{id}}
+	return NSDraggingImageComponent{objectivec.Object{ID: id}}
 }
 // NOTE: NSDraggingImageComponent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDraggingImageComponent] class.
 //
@@ -130,10 +120,6 @@ type INSDraggingImageComponent interface {
 	SetFrame(value corefoundation.CGRect)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDraggingImageComponent) Init() NSDraggingImageComponent {
 	rv := objc.Send[NSDraggingImageComponent](d.ID, objc.Sel("init"))
@@ -152,11 +138,6 @@ func NewNSDraggingImageComponent() NSDraggingImageComponent {
 	rv := objc.Send[NSDraggingImageComponent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns a dragging image component with the specified key.
 //
@@ -177,12 +158,6 @@ func NewDraggingImageComponentWithKey(key NSDraggingImageComponentKey) NSDraggin
 	return NSDraggingImageComponentFromID(rv)
 }
 
-
-
-
-
-
-
 // Initializes and returns a dragging image component with the specified key.
 //
 // key: The key.
@@ -200,17 +175,6 @@ func (d NSDraggingImageComponent) InitWithKey(key NSDraggingImageComponentKey) N
 	rv := objc.Send[NSDraggingImageComponent](d.ID, objc.Sel("initWithKey:"), objc.String(string(key)))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The unique name of this image component instance.
 //
@@ -235,8 +199,6 @@ func (d NSDraggingImageComponent) SetKey(value NSDraggingImageComponentKey) {
 	objc.Send[struct{}](d.ID, objc.Sel("setKey:"), objc.String(string(value)))
 }
 
-
-
 // An object providing the image contents of the component.
 //
 // # Discussion
@@ -253,8 +215,6 @@ func (d NSDraggingImageComponent) Contents() objectivec.IObject {
 func (d NSDraggingImageComponent) SetContents(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContents:"), value)
 }
-
-
 
 // The coordinate space is the bounds of the parent dragging item.
 //
@@ -274,26 +234,4 @@ func (d NSDraggingImageComponent) Frame() corefoundation.CGRect {
 func (d NSDraggingImageComponent) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFrame:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

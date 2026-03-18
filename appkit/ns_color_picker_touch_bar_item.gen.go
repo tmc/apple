@@ -37,12 +37,6 @@ func (nc NSColorPickerTouchBarItemClass) Alloc() NSColorPickerTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that provides a system-defined color picker.
 //
 // # Overview
@@ -84,10 +78,6 @@ func NSColorPickerTouchBarItemFromID(id objc.ID) NSColorPickerTouchBarItem {
 }
 // NOTE: NSColorPickerTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSColorPickerTouchBarItem] class.
 //
@@ -141,13 +131,7 @@ type INSColorPickerTouchBarItem interface {
 	// The selector on the target object that is invoked when a user interacts with the color picker.
 	Action() objc.SEL
 	SetAction(value objc.SEL)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSColorPickerTouchBarItem) Init() NSColorPickerTouchBarItem {
@@ -168,11 +152,6 @@ func NewNSColorPickerTouchBarItem() NSColorPickerTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -181,7 +160,6 @@ func NewColorPickerTouchBarItemWithCoder(coder foundation.INSCoder) NSColorPicke
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSColorPickerTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -196,19 +174,6 @@ func NewColorPickerTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifie
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSColorPickerTouchBarItemFromID(rv)
 }
-
-
-
-
-
-
-func (c NSColorPickerTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
 
 // Creates a bar item with the standard color picker icon.
 //
@@ -242,13 +207,6 @@ func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) ColorPicke
 	return NSColorPickerTouchBarItemFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The list of colors displayed in the color picker.
 //
 // # Discussion
@@ -266,8 +224,6 @@ func (c NSColorPickerTouchBarItem) ColorList() INSColorList {
 func (c NSColorPickerTouchBarItem) SetColorList(value INSColorList) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColorList:"), value)
 }
-
-
 
 // Controls the color spaces that the color picker can produce.
 //
@@ -290,8 +246,6 @@ func (c NSColorPickerTouchBarItem) SetAllowedColorSpaces(value []NSColorSpace) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowedColorSpaces:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // A Boolean value that controls whether the color picker allows picking of
 // colors with alpha values other than `1.0`.
 //
@@ -303,8 +257,6 @@ func (c NSColorPickerTouchBarItem) ShowsAlpha() bool {
 func (c NSColorPickerTouchBarItem) SetShowsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShowsAlpha:"), value)
 }
-
-
 
 // A Boolean value that determines whether the color picker is enabled.
 //
@@ -324,8 +276,6 @@ func (c NSColorPickerTouchBarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
 
-
-
 // The picker’s currently selected color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/color
@@ -336,8 +286,6 @@ func (c NSColorPickerTouchBarItem) Color() objectivec.Object {
 func (c NSColorPickerTouchBarItem) SetColor(value objectivec.Object) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
-
-
 
 // An object that is notified when a user interacts with the color picker.
 //
@@ -350,8 +298,6 @@ func (c NSColorPickerTouchBarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTarget:"), value)
 }
 
-
-
 // The selector on the target object that is invoked when a user interacts
 // with the color picker.
 //
@@ -363,29 +309,4 @@ func (c NSColorPickerTouchBarItem) Action() objc.SEL {
 func (c NSColorPickerTouchBarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAction:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

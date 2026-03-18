@@ -37,12 +37,6 @@ func (nc NSTextListElementClass) Alloc() NSTextListElement {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a text list node.
 //
 // # Create a text list element
@@ -74,10 +68,6 @@ func NSTextListElementFromID(id objc.ID) NSTextListElement {
 }
 // NOTE: NSTextListElement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextListElement] class.
 //
@@ -122,10 +112,6 @@ type INSTextListElement interface {
 	Contents() foundation.NSAttributedString
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextListElement) Init() NSTextListElement {
 	rv := objc.Send[NSTextListElement](t.ID, objc.Sel("init"))
@@ -145,11 +131,6 @@ func NewNSTextListElement() NSTextListElement {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new paragraph with the attributed string you provide.
 //
 // attributedString: An [NSAttributedString].
@@ -162,7 +143,6 @@ func NewTextListElementWithAttributedString(attributedString foundation.NSAttrib
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAttributedString:"), attributedString)
 	return NSTextListElementFromID(rv)
 }
-
 
 // Creates a text list element with the list elements and nesting level you
 // provide.
@@ -178,7 +158,6 @@ func NewTextListElementWithChildElementsTextListNestingLevel(children []NSTextLi
 	rv := objc.Send[objc.ID](objc.ID(getNSTextListElementClass().class), objc.Sel("textListElementWithChildElements:textList:nestingLevel:"), objectivec.IObjectSliceToNSArray(children), textList, nestingLevel)
 	return NSTextListElementFromID(rv)
 }
-
 
 // Creates a text list element with the list elements, nesting level, and
 // marker attributes you provide.
@@ -202,7 +181,6 @@ func NewTextListElementWithContentsMarkerAttributesTextListChildElements(content
 	rv := objc.Send[objc.ID](objc.ID(getNSTextListElementClass().class), objc.Sel("textListElementWithContents:markerAttributes:textList:childElements:"), contents, markerAttributes, textList, objectivec.IObjectSliceToNSArray(children))
 	return NSTextListElementFromID(rv)
 }
-
 
 // Creates a text list element with the parent, list elements, nesting level,
 // and marker attributes you provide.
@@ -230,7 +208,6 @@ func NewTextListElementWithParentElementTextListContentsMarkerAttributesChildEle
 	return NSTextListElementFromID(rv)
 }
 
-
 // Creates a new text element with the content manager you provide.
 //
 // textContentManager: The [NSTextContentManager] to apply to this text element.
@@ -241,12 +218,6 @@ func NewTextListElementWithTextContentManager(textContentManager INSTextContentM
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTextContentManager:"), textContentManager)
 	return NSTextListElementFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a text list element with the parent, list elements, nesting level,
 // and marker attributes you provide.
@@ -273,17 +244,6 @@ func (t NSTextListElement) InitWithParentElementTextListContentsMarkerAttributes
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The value that represents the text list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/textList
@@ -291,8 +251,6 @@ func (t NSTextListElement) TextList() INSTextList {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textList"))
 	return NSTextListFromID(objc.ID(rv))
 }
-
-
 
 // A dictionary of attributed string keys and IDs that represent the list’s
 // marker attributes.
@@ -303,8 +261,6 @@ func (t NSTextListElement) MarkerAttributes() foundation.INSDictionary {
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The text list element contents without markers and formatting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/contents
@@ -312,28 +268,4 @@ func (t NSTextListElement) Contents() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("contents"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

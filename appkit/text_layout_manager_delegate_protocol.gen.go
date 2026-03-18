@@ -15,8 +15,6 @@ type NSTextLayoutManagerDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSTextLayoutManagerDelegateObject wraps an existing Objective-C object that conforms to the NSTextLayoutManagerDelegate protocol.
 type NSTextLayoutManagerDelegateObject struct {
 	objectivec.Object
@@ -25,8 +23,6 @@ func (o NSTextLayoutManagerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextLayoutManagerDelegateObjectFromID constructs a [NSTextLayoutManagerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextLayoutManagerDelegateObjectFromID(id objc.ID) NSTextLayoutManagerDelegateObject {
@@ -34,9 +30,6 @@ func NSTextLayoutManagerDelegateObjectFromID(id objc.ID) NSTextLayoutManagerDele
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method the framework calls to return a dictionary of attributes for
 // rendering a link attribute name.
@@ -116,10 +109,4 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerTextLayoutFragmentFo
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:textLayoutFragmentForLocation:inTextElement:"), textLayoutManager, location, textElement)
 	return NSTextLayoutFragmentFromID(rv)
 	}
-
-
-
-
-
-
 

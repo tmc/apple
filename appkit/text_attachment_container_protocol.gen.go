@@ -25,8 +25,6 @@ type NSTextAttachmentContainer interface {
 	ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage
 }
 
-
-
 // NSTextAttachmentContainerObject wraps an existing Objective-C object that conforms to the NSTextAttachmentContainer protocol.
 type NSTextAttachmentContainerObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o NSTextAttachmentContainerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextAttachmentContainerObjectFromID constructs a [NSTextAttachmentContainerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextAttachmentContainerObjectFromID(id objc.ID) NSTextAttachmentContainerObject {
@@ -44,9 +40,6 @@ func NSTextAttachmentContainerObjectFromID(id objc.ID) NSTextAttachmentContainer
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the layout bounds of the text attachment to the layout manager.
 //
@@ -112,10 +105,4 @@ func (o NSTextAttachmentContainerObject) ImageForBoundsTextContainerCharacterInd
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:textContainer:characterIndex:"), imageBounds, textContainer, charIndex)
 	return NSImageFromID(rv)
 	}
-
-
-
-
-
-
 

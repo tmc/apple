@@ -19,8 +19,6 @@ type NSHapticFeedbackPerformer interface {
 	PerformFeedbackPatternPerformanceTime(pattern NSHapticFeedbackPattern, performanceTime NSHapticFeedbackPerformanceTime)
 }
 
-
-
 // NSHapticFeedbackPerformerObject wraps an existing Objective-C object that conforms to the NSHapticFeedbackPerformer protocol.
 type NSHapticFeedbackPerformerObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSHapticFeedbackPerformerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSHapticFeedbackPerformerObjectFromID constructs a [NSHapticFeedbackPerformerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSHapticFeedbackPerformerObjectFromID(id objc.ID) NSHapticFeedbackPerformerObject {
@@ -38,9 +34,6 @@ func NSHapticFeedbackPerformerObjectFromID(id objc.ID) NSHapticFeedbackPerformer
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Initiates a specific pattern of haptic feedback to the user.
 //
@@ -66,10 +59,4 @@ func (o NSHapticFeedbackPerformerObject) PerformFeedbackPatternPerformanceTime(p
 	
 	objc.Send[struct{}](o.ID, objc.Sel("performFeedbackPattern:performanceTime:"), pattern, performanceTime)
 	}
-
-
-
-
-
-
 

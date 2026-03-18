@@ -38,12 +38,6 @@ func (nc NSPopUpButtonCellClass) Alloc() NSPopUpButtonCell {
 	return rv
 }
 
-
-
-
-
-
-
 // The [NSPopUpButtonCell] class defines the visual appearance of pop-up
 // buttons that display pop-up or pull-down menus. Pop-up menus present the
 // user with a set of choices, much the way radio buttons do, but using much
@@ -140,10 +134,6 @@ func NSPopUpButtonCellFromID(id objc.ID) NSPopUpButtonCell {
 }
 // NOTE: NSPopUpButtonCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPopUpButtonCell] class.
 //
@@ -313,13 +303,7 @@ type INSPopUpButtonCell interface {
 	DismissPopUp()
 	// Displays the receiver’s menu and track mouse events in it.
 	PerformClickWithFrameInView(frame corefoundation.CGRect, controlView INSView)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPopUpButtonCell) Init() NSPopUpButtonCell {
@@ -340,11 +324,6 @@ func NewNSPopUpButtonCell() NSPopUpButtonCell {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(imageCell:)
 func NewPopUpButtonCellImageCell(image INSImage) NSPopUpButtonCell {
@@ -353,7 +332,6 @@ func NewPopUpButtonCellImageCell(image INSImage) NSPopUpButtonCell {
 	return NSPopUpButtonCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/init(textCell:)
 func NewPopUpButtonCellTextCell(string_ string) NSPopUpButtonCell {
@@ -361,7 +339,6 @@ func NewPopUpButtonCellTextCell(string_ string) NSPopUpButtonCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initTextCell:"), objc.String(string_))
 	return NSPopUpButtonCellFromID(rv)
 }
-
 
 // Returns an [NSPopUpButtonCell] object initialized with the specified title.
 //
@@ -394,7 +371,6 @@ func NewPopUpButtonCellTextCellPullsDown(stringValue string, pullDown bool) NSPo
 	return NSPopUpButtonCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/init(coder:)
 func NewPopUpButtonCellWithCoder(coder foundation.INSCoder) NSPopUpButtonCell {
@@ -402,12 +378,6 @@ func NewPopUpButtonCellWithCoder(coder foundation.INSCoder) NSPopUpButtonCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPopUpButtonCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSPopUpButtonCell] object initialized with the specified title.
 //
@@ -878,20 +848,6 @@ func (p NSPopUpButtonCell) ValidateMenuItem(menuItem INSMenuItem) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
 }
-func (p NSPopUpButtonCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates the behavior of the button’s menu.
 //
@@ -917,8 +873,6 @@ func (p NSPopUpButtonCell) SetPullsDown(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPullsDown:"), value)
 }
 
-
-
 // A Boolean value that indicates if the button automatically enables and
 // disables its items every time a user event occurs.
 //
@@ -938,8 +892,6 @@ func (p NSPopUpButtonCell) AutoenablesItems() bool {
 func (p NSPopUpButtonCell) SetAutoenablesItems(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAutoenablesItems:"), value)
 }
-
-
 
 // The edge of the cell from which the menu should pop out when screen
 // conditions are restrictive.
@@ -984,8 +936,6 @@ func (p NSPopUpButtonCell) SetPreferredEdge(value foundation.NSRectEdge) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPreferredEdge:"), value)
 }
 
-
-
 // A Boolean value that indicates if the control uses an item from the menu
 // for its own title.
 //
@@ -1008,8 +958,6 @@ func (p NSPopUpButtonCell) UsesItemFromMenu() bool {
 func (p NSPopUpButtonCell) SetUsesItemFromMenu(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesItemFromMenu:"), value)
 }
-
-
 
 // A Boolean value that indicates if the pop-up button links the state of the
 // selected menu item to the current selection.
@@ -1038,8 +986,6 @@ func (p NSPopUpButtonCell) SetAltersStateOfSelectedItem(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAltersStateOfSelectedItem:"), value)
 }
 
-
-
 // The position of the arrow displayed on the button.
 //
 // # Discussion
@@ -1066,8 +1012,6 @@ func (p NSPopUpButtonCell) SetArrowPosition(value NSPopUpArrowPosition) {
 	objc.Send[struct{}](p.ID, objc.Sel("setArrowPosition:"), value)
 }
 
-
-
 // An array of [NSMenuItem] objects that represent the items in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/itemArray
@@ -1078,8 +1022,6 @@ func (p NSPopUpButtonCell) ItemArray() []NSMenuItem {
 	})
 }
 
-
-
 // The number of items in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/numberOfItems
@@ -1088,8 +1030,6 @@ func (p NSPopUpButtonCell) NumberOfItems() int {
 	return rv
 }
 
-
-
 // The last item in the menu.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/lastItem
@@ -1097,8 +1037,6 @@ func (p NSPopUpButtonCell) LastItem() INSMenuItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("lastItem"))
 	return NSMenuItemFromID(objc.ID(rv))
 }
-
-
 
 // The menu item last selected by the user.
 //
@@ -1115,8 +1053,6 @@ func (p NSPopUpButtonCell) SelectedItem() INSMenuItem {
 	return NSMenuItemFromID(objc.ID(rv))
 }
 
-
-
 // The index of the item last selected by the user.
 //
 // # Discussion
@@ -1129,8 +1065,6 @@ func (p NSPopUpButtonCell) IndexOfSelectedItem() int {
 	rv := objc.Send[int](p.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
-
-
 
 // An array of [NSString] objects containing the titles of every item in the
 // menu.
@@ -1147,8 +1081,6 @@ func (p NSPopUpButtonCell) ItemTitles() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The title of the item last selected by the user.
 //
 // # Discussion
@@ -1162,38 +1094,6 @@ func (p NSPopUpButtonCell) TitleOfSelectedItem() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSMenuItemValidation
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

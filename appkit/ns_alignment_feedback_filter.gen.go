@@ -37,12 +37,6 @@ func (nc NSAlignmentFeedbackFilterClass) Alloc() NSAlignmentFeedbackFilter {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that can filter the movement of an object and provides haptic
 // feedback when alignment occurs.
 //
@@ -125,14 +119,10 @@ type NSAlignmentFeedbackFilter struct {
 // An object that can filter the movement of an object and provides haptic
 // feedback when alignment occurs.
 func NSAlignmentFeedbackFilterFromID(id objc.ID) NSAlignmentFeedbackFilter {
-	return NSAlignmentFeedbackFilter{objectivec.Object{id}}
+	return NSAlignmentFeedbackFilter{objectivec.Object{ID: id}}
 }
 // NOTE: NSAlignmentFeedbackFilter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAlignmentFeedbackFilter] class.
 //
@@ -177,10 +167,6 @@ type INSAlignmentFeedbackFilter interface {
 	PerformFeedbackPerformanceTime(alignmentFeedbackTokens []objectivec.IObject, performanceTime NSHapticFeedbackPerformanceTime)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAlignmentFeedbackFilter) Init() NSAlignmentFeedbackFilter {
 	rv := objc.Send[NSAlignmentFeedbackFilter](a.ID, objc.Sel("init"))
@@ -199,15 +185,6 @@ func NewNSAlignmentFeedbackFilter() NSAlignmentFeedbackFilter {
 	rv := objc.Send[NSAlignmentFeedbackFilter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Informs the feedback filter about a new event.
 //
@@ -403,21 +380,6 @@ func (a NSAlignmentFeedbackFilter) PerformFeedbackPerformanceTime(alignmentFeedb
 	objc.Send[objc.ID](a.ID, objc.Sel("performFeedback:performanceTime:"), objectivec.IObjectSliceToNSArray(alignmentFeedbackTokens), performanceTime)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Retrieves the event types the filter accepts.
 //
 // # Discussion
@@ -431,22 +393,4 @@ func (_NSAlignmentFeedbackFilterClass NSAlignmentFeedbackFilterClass) InputEvent
 	rv := objc.Send[NSEventMask](objc.ID(_NSAlignmentFeedbackFilterClass.class), objc.Sel("inputEventMask"))
 	return NSEventMask(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

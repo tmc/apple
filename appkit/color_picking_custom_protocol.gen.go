@@ -37,8 +37,6 @@ type NSColorPickingCustom interface {
 	ProvideNewView(initialRequest bool) INSView
 }
 
-
-
 // NSColorPickingCustomObject wraps an existing Objective-C object that conforms to the NSColorPickingCustom protocol.
 type NSColorPickingCustomObject struct {
 	objectivec.Object
@@ -47,8 +45,6 @@ func (o NSColorPickingCustomObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSColorPickingCustomObjectFromID constructs a [NSColorPickingCustomObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSColorPickingCustomObjectFromID(id objc.ID) NSColorPickingCustomObject {
@@ -56,9 +52,6 @@ func NSColorPickingCustomObjectFromID(id objc.ID) NSColorPickingCustomObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Adjusts the receiver to make the specified color the currently selected
 // color.
@@ -334,10 +327,4 @@ func (o NSColorPickingCustomObject) DetachColorList(colorList INSColorList) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("detachColorList:"), colorList)
 	}
-
-
-
-
-
-
 

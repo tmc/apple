@@ -37,12 +37,6 @@ func (nc NSScrubberTextItemViewClass) Alloc() NSScrubberTextItemView {
 	return rv
 }
 
-
-
-
-
-
-
 // A concrete view subclass for displaying text for an item in a scrubber.
 //
 // # Overview
@@ -71,10 +65,6 @@ func NSScrubberTextItemViewFromID(id objc.ID) NSScrubberTextItemView {
 // NOTE: NSScrubberTextItemView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSScrubberTextItemView] class.
 //
 // # Providing text content
@@ -94,13 +84,7 @@ type INSScrubberTextItemView interface {
 	SetTitle(value string)
 	// The text field that the scrubber item uses to display its text.
 	TextField() INSTextField
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberTextItemView) Init() NSScrubberTextItemView {
@@ -121,11 +105,6 @@ func NewNSScrubberTextItemView() NSScrubberTextItemView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -140,7 +119,6 @@ func NewScrubberTextItemViewWithCoder(coder foundation.INSCoder) NSScrubberTextI
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberTextItemViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -164,26 +142,6 @@ func NewScrubberTextItemViewWithFrame(frameRect corefoundation.CGRect) NSScrubbe
 	return NSScrubberTextItemViewFromID(rv)
 }
 
-
-
-
-
-
-func (s NSScrubberTextItemView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The text displayed for the scrubber item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberTextItemView/title
@@ -194,8 +152,6 @@ func (s NSScrubberTextItemView) Title() string {
 func (s NSScrubberTextItemView) SetTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
-
 
 // The text field that the scrubber item uses to display its text.
 //
@@ -209,38 +165,4 @@ func (s NSScrubberTextItemView) TextField() INSTextField {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("textField"))
 	return NSTextFieldFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

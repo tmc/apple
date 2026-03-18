@@ -32,8 +32,6 @@ type NSAccessibilityContainsTransientUI interface {
 	IsAccessibilityAlternateUIVisible() bool
 }
 
-
-
 // NSAccessibilityContainsTransientUIObject wraps an existing Objective-C object that conforms to the NSAccessibilityContainsTransientUI protocol.
 type NSAccessibilityContainsTransientUIObject struct {
 	objectivec.Object
@@ -42,8 +40,6 @@ func (o NSAccessibilityContainsTransientUIObject) BaseObject() objectivec.Object
 	return o.Object
 }
 
-
-
 // NSAccessibilityContainsTransientUIObjectFromID constructs a [NSAccessibilityContainsTransientUIObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityContainsTransientUIObjectFromID(id objc.ID) NSAccessibilityContainsTransientUIObject {
@@ -51,9 +47,6 @@ func NSAccessibilityContainsTransientUIObjectFromID(id objc.ID) NSAccessibilityC
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Displays the accessibility element’s alternative UI.
 //
@@ -211,10 +204,4 @@ func (o NSAccessibilityContainsTransientUIObject) IsAccessibilityFocused() bool 
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

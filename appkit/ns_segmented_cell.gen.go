@@ -37,12 +37,6 @@ func (nc NSSegmentedCellClass) Alloc() NSSegmentedCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An [NSSegmentedCell] object implements the appearance and behavior of a
 // horizontal button divided into multiple segments. This class is used in
 // conjunction with the [NSSegmentedControl] class to implement a segmented
@@ -119,10 +113,6 @@ func NSSegmentedCellFromID(id objc.ID) NSSegmentedCell {
 }
 // NOTE: NSSegmentedCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSegmentedCell] class.
 //
@@ -254,13 +244,7 @@ type INSSegmentedCell interface {
 	// The visual style used to display the segmented control.
 	SegmentStyle() NSSegmentStyle
 	SetSegmentStyle(value NSSegmentStyle)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSegmentedCell) Init() NSSegmentedCell {
@@ -280,11 +264,6 @@ func NewNSSegmentedCell() NSSegmentedCell {
 	rv := objc.Send[NSSegmentedCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -307,7 +286,6 @@ func NewSegmentedCellImageCell(image INSImage) NSSegmentedCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSSegmentedCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -334,7 +312,6 @@ func NewSegmentedCellTextCell(string_ string) NSSegmentedCell {
 	return NSSegmentedCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewSegmentedCellWithCoder(coder foundation.INSCoder) NSSegmentedCell {
@@ -342,12 +319,6 @@ func NewSegmentedCellWithCoder(coder foundation.INSCoder) NSSegmentedCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSegmentedCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Sets the selection state of the specified segment.
 //
@@ -780,20 +751,6 @@ func (s NSSegmentedCell) InteriorBackgroundStyleForSegment(segment int) NSBackgr
 	rv := objc.Send[NSBackgroundStyle](s.ID, objc.Sel("interiorBackgroundStyleForSegment:"), segment)
 	return NSBackgroundStyle(rv)
 }
-func (s NSSegmentedCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The number of segments in the segmented control.
 //
@@ -813,8 +770,6 @@ func (s NSSegmentedCell) SegmentCount() int {
 func (s NSSegmentedCell) SetSegmentCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentCount:"), value)
 }
-
-
 
 // The index of the selected segment of the control, or `-1` if no segment is
 // selected.
@@ -839,8 +794,6 @@ func (s NSSegmentedCell) SetSelectedSegment(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedSegment:"), value)
 }
 
-
-
 // The tracking mode used for the segments of the control.
 //
 // # Discussion
@@ -861,8 +814,6 @@ func (s NSSegmentedCell) SetTrackingMode(value NSSegmentSwitchTracking) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackingMode:"), value)
 }
 
-
-
 // The visual style used to display the segmented control.
 //
 // # Discussion
@@ -878,33 +829,4 @@ func (s NSSegmentedCell) SegmentStyle() NSSegmentStyle {
 func (s NSSegmentedCell) SetSegmentStyle(value NSSegmentStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentStyle:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

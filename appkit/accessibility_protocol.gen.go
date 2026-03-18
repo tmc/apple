@@ -707,8 +707,6 @@ type NSAccessibilityProtocol interface {
 	AccessibilityUserInputLabels() string
 }
 
-
-
 // NSAccessibilityProtocolObject wraps an existing Objective-C object that conforms to the NSAccessibilityProtocol protocol.
 type NSAccessibilityProtocolObject struct {
 	objectivec.Object
@@ -717,8 +715,6 @@ func (o NSAccessibilityProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityProtocolObjectFromID constructs a [NSAccessibilityProtocolObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityProtocolObjectFromID(id objc.ID) NSAccessibilityProtocolObject {
@@ -726,9 +722,6 @@ func NSAccessibilityProtocolObjectFromID(id objc.ID) NSAccessibilityProtocolObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value that determines whether the accessibility element
 // participates in the accessibility hierarchy.
@@ -3682,10 +3675,4 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityUserInputLabels(accessibi
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
-
-
-
-
-
-
 

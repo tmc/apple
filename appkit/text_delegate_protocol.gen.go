@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by the delegate of an [NSText](<doc://com.apple.appkit/documentation/AppKit/NSText>) object to edit text and change text formats.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSTextDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSTextDelegateObject wraps an existing Objective-C object that conforms to the NSTextDelegate protocol.
 type NSTextDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSTextDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextDelegateObjectFromID constructs a [NSTextDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextDelegateObjectFromID(id objc.ID) NSTextDelegateObject {
@@ -38,9 +32,6 @@ func NSTextDelegateObjectFromID(id objc.ID) NSTextDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Informs the delegate that the text object has changed its characters or
 // formatting attributes.
@@ -130,10 +121,6 @@ func (o NSTextDelegateObject) TextDidEndEditing(notification foundation.NSNotifi
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)
 	}
-
-
-
-
 
 // NSTextDelegateConfig holds optional typed callbacks for [NSTextDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -249,8 +236,4 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextDelegateObjectFromID(instance)
 }
-
-
-
-
 

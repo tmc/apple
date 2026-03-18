@@ -37,12 +37,6 @@ func (nc NSCollectionLayoutGroupCustomItemClass) Alloc() NSCollectionLayoutGroup
 	return rv
 }
 
-
-
-
-
-
-
 // An item used in a group with a custom layout arrangement.
 //
 // # Overview
@@ -71,14 +65,10 @@ type NSCollectionLayoutGroupCustomItem struct {
 //
 // An item used in a group with a custom layout arrangement.
 func NSCollectionLayoutGroupCustomItemFromID(id objc.ID) NSCollectionLayoutGroupCustomItem {
-	return NSCollectionLayoutGroupCustomItem{objectivec.Object{id}}
+	return NSCollectionLayoutGroupCustomItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSCollectionLayoutGroupCustomItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionLayoutGroupCustomItem] class.
 //
@@ -105,10 +95,6 @@ type INSCollectionLayoutGroupCustomItem interface {
 	ZIndex() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutGroupCustomItem) Init() NSCollectionLayoutGroupCustomItem {
 	rv := objc.Send[NSCollectionLayoutGroupCustomItem](c.ID, objc.Sel("init"))
@@ -128,11 +114,6 @@ func NewNSCollectionLayoutGroupCustomItem() NSCollectionLayoutGroupCustomItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates a custom item with the specified frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroupCustomItem/init(frame:)
@@ -140,7 +121,6 @@ func NewCollectionLayoutGroupCustomItemWithFrame(frame corefoundation.CGRect) NS
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutGroupCustomItemClass().class), objc.Sel("customItemWithFrame:"), frame)
 	return NSCollectionLayoutGroupCustomItemFromID(rv)
 }
-
 
 // Creates a custom item with the specified frame and vertical stacking order
 // in relation to other items in the group.
@@ -151,23 +131,6 @@ func NewCollectionLayoutGroupCustomItemWithFrameZIndex(frame corefoundation.CGRe
 	return NSCollectionLayoutGroupCustomItemFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The frame of the custom item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroupCustomItem/frame
@@ -175,8 +138,6 @@ func (c NSCollectionLayoutGroupCustomItem) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The vertical stacking order of the custom item in relation to other items
 // in the group.
@@ -186,28 +147,4 @@ func (c NSCollectionLayoutGroupCustomItem) ZIndex() int {
 	rv := objc.Send[int](c.ID, objc.Sel("zIndex"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

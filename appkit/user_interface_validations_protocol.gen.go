@@ -19,8 +19,6 @@ type NSUserInterfaceValidations interface {
 	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
 }
 
-
-
 // NSUserInterfaceValidationsObject wraps an existing Objective-C object that conforms to the NSUserInterfaceValidations protocol.
 type NSUserInterfaceValidationsObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSUserInterfaceValidationsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSUserInterfaceValidationsObjectFromID constructs a [NSUserInterfaceValidationsObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSUserInterfaceValidationsObjectFromID(id objc.ID) NSUserInterfaceValidationsObject {
@@ -38,9 +34,6 @@ func NSUserInterfaceValidationsObjectFromID(id objc.ID) NSUserInterfaceValidatio
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value that indicates whether the sender should be
 // enabled.
@@ -62,10 +55,4 @@ func (o NSUserInterfaceValidationsObject) ValidateUserInterfaceItem(item NSValid
 	rv := objc.Send[bool](o.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 	}
-
-
-
-
-
-
 

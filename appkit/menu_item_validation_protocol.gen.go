@@ -19,8 +19,6 @@ type NSMenuItemValidation interface {
 	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
-
-
 // NSMenuItemValidationObject wraps an existing Objective-C object that conforms to the NSMenuItemValidation protocol.
 type NSMenuItemValidationObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSMenuItemValidationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSMenuItemValidationObjectFromID constructs a [NSMenuItemValidationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSMenuItemValidationObjectFromID(id objc.ID) NSMenuItemValidationObject {
@@ -38,9 +34,6 @@ func NSMenuItemValidationObjectFromID(id objc.ID) NSMenuItemValidationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
@@ -74,10 +67,4 @@ func (o NSMenuItemValidationObject) ValidateMenuItem(menuItem INSMenuItem) bool 
 	rv := objc.Send[bool](o.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
 	}
-
-
-
-
-
-
 

@@ -19,8 +19,6 @@ type NSTouchBarProvider interface {
 	TouchBar() INSTouchBar
 }
 
-
-
 // NSTouchBarProviderObject wraps an existing Objective-C object that conforms to the NSTouchBarProvider protocol.
 type NSTouchBarProviderObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSTouchBarProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTouchBarProviderObjectFromID constructs a [NSTouchBarProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTouchBarProviderObjectFromID(id objc.ID) NSTouchBarProviderObject {
@@ -38,9 +34,6 @@ func NSTouchBarProviderObjectFromID(id objc.ID) NSTouchBarProviderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The property you implement to provide a Touch Bar object.
 //
@@ -51,12 +44,4 @@ func (o NSTouchBarProviderObject) TouchBar() INSTouchBar {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchBar"))
 	return NSTouchBarFromID(rv)
 	}
-
-
-
-
-
-
-
-
 

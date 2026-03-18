@@ -37,12 +37,6 @@ func (nc NSWindowTabGroupClass) Alloc() NSWindowTabGroup {
 	return rv
 }
 
-
-
-
-
-
-
 // A group of windows that display together as a single tabbed window.
 //
 // # Overview
@@ -79,14 +73,10 @@ type NSWindowTabGroup struct {
 //
 // A group of windows that display together as a single tabbed window.
 func NSWindowTabGroupFromID(id objc.ID) NSWindowTabGroup {
-	return NSWindowTabGroup{objectivec.Object{id}}
+	return NSWindowTabGroup{objectivec.Object{ID: id}}
 }
 // NOTE: NSWindowTabGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSWindowTabGroup] class.
 //
@@ -145,10 +135,6 @@ type INSWindowTabGroup interface {
 	SetTabGroup(value INSWindowTabGroup)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (w NSWindowTabGroup) Init() NSWindowTabGroup {
 	rv := objc.Send[NSWindowTabGroup](w.ID, objc.Sel("init"))
@@ -167,15 +153,6 @@ func NewNSWindowTabGroup() NSWindowTabGroup {
 	rv := objc.Send[NSWindowTabGroup](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds a window to the tab group.
 //
@@ -233,17 +210,6 @@ func (w NSWindowTabGroup) RemoveWindow(window INSWindow) {
 	objc.Send[objc.ID](w.ID, objc.Sel("removeWindow:"), window)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The unique identifier for a tabbed window group.
 //
 // # Discussion
@@ -256,8 +222,6 @@ func (w NSWindowTabGroup) Identifier() NSWindowTabbingIdentifier {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("identifier"))
 	return NSWindowTabbingIdentifier(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // A Boolean value indicating if the tab overview is currently displayed.
 //
@@ -279,8 +243,6 @@ func (w NSWindowTabGroup) SetOverviewVisible(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setOverviewVisible:"), value)
 }
 
-
-
 // A Boolean value indicating whether the tabbed window group currently
 // displays a tab bar.
 //
@@ -295,8 +257,6 @@ func (w NSWindowTabGroup) TabBarVisible() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isTabBarVisible"))
 	return rv
 }
-
-
 
 // A collection of the windows that are currently grouped together by this
 // window tab group.
@@ -314,8 +274,6 @@ func (w NSWindowTabGroup) Windows() []NSWindow {
 		return NSWindowFromID(id)
 	})
 }
-
-
 
 // The selected, or frontmost, window in the tab group.
 //
@@ -335,8 +293,6 @@ func (w NSWindowTabGroup) SetSelectedWindow(value INSWindow) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSelectedWindow:"), value)
 }
 
-
-
 // A group of windows that display together as a tab group.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/tabgroup
@@ -347,26 +303,4 @@ func (w NSWindowTabGroup) TabGroup() INSWindowTabGroup {
 func (w NSWindowTabGroup) SetTabGroup(value INSWindowTabGroup) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTabGroup:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

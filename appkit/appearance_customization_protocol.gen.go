@@ -29,8 +29,6 @@ type NSAppearanceCustomization interface {
 	SetAppearance(value INSAppearance)
 }
 
-
-
 // NSAppearanceCustomizationObject wraps an existing Objective-C object that conforms to the NSAppearanceCustomization protocol.
 type NSAppearanceCustomizationObject struct {
 	objectivec.Object
@@ -39,8 +37,6 @@ func (o NSAppearanceCustomizationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAppearanceCustomizationObjectFromID constructs a [NSAppearanceCustomizationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAppearanceCustomizationObjectFromID(id objc.ID) NSAppearanceCustomizationObject {
@@ -48,9 +44,6 @@ func NSAppearanceCustomizationObjectFromID(id objc.ID) NSAppearanceCustomization
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The appearance of the receiver, in an [NSAppearance] object.
 //
@@ -73,16 +66,7 @@ func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
 	return NSAppearanceFromID(rv)
 	}
 
-
-
-
 func (o NSAppearanceCustomizationObject) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAppearance:"), value)
 }
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSSearchFieldClass) Alloc() NSSearchField {
 	return rv
 }
 
-
-
-
-
-
-
 // A text field optimized for performing text-based searches.
 //
 // # Overview
@@ -100,10 +94,6 @@ func NSSearchFieldFromID(id objc.ID) NSSearchField {
 }
 // NOTE: NSSearchField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSearchField] class.
 //
@@ -173,13 +163,7 @@ type INSSearchField interface {
 	SearchButtonBounds() corefoundation.CGRect
 	// The rectangle for the search text within the bounds of the search field.
 	SearchTextBounds() corefoundation.CGRect
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSearchField) Init() NSSearchField {
@@ -199,11 +183,6 @@ func NewNSSearchField() NSSearchField {
 	rv := objc.Send[NSSearchField](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a text field for use as a static label that displays styled text,
 // doesn’t wrap, and doesn’t have selectable text.
@@ -226,7 +205,6 @@ func NewSearchFieldLabelWithAttributedString(attributedStringValue foundation.NS
 	return NSSearchFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a static label that uses the system
 // default font, doesn’t wrap, and doesn’t have selectable text.
 //
@@ -241,7 +219,6 @@ func NewSearchFieldLabelWithString(stringValue string) NSSearchField {
 	rv := objc.Send[objc.ID](objc.ID(getNSSearchFieldClass().class), objc.Sel("labelWithString:"), objc.String(stringValue))
 	return NSSearchFieldFromID(rv)
 }
-
 
 // Initializes a single-line editable text field for user input using the
 // system default font and standard visual appearance.
@@ -258,7 +235,6 @@ func NewSearchFieldTextFieldWithString(stringValue string) NSSearchField {
 	return NSSearchFieldFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -267,7 +243,6 @@ func NewSearchFieldWithCoder(coder foundation.INSCoder) NSSearchField {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSearchFieldFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -295,7 +270,6 @@ func NewSearchFieldWithFrame(frameRect corefoundation.CGRect) NSSearchField {
 	return NSSearchFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a multiline static label with
 // selectable text that uses the system default font.
 //
@@ -311,26 +285,6 @@ func NewSearchFieldWrappingLabelWithString(stringValue string) NSSearchField {
 	return NSSearchFieldFromID(rv)
 }
 
-
-
-
-
-
-func (s NSSearchField) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The menu object used to dynamically construct the search field’s pop-up
 // icon menu.
 //
@@ -342,8 +296,6 @@ func (s NSSearchField) SearchMenuTemplate() INSMenu {
 func (s NSSearchField) SetSearchMenuTemplate(value INSMenu) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchMenuTemplate:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell calls its action method
 // immediately when an appropriate action occurs.
@@ -366,8 +318,6 @@ func (s NSSearchField) SetSendsSearchStringImmediately(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsSearchStringImmediately:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell calls its search action method
 // when the user clicks the search button or presses Return, or after each
 // keystroke.
@@ -388,8 +338,6 @@ func (s NSSearchField) SetSendsWholeSearchString(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsWholeSearchString:"), value)
 }
 
-
-
 // The list of recent search strings for the control.
 //
 // # Discussion
@@ -407,8 +355,6 @@ func (s NSSearchField) RecentSearches() []string {
 func (s NSSearchField) SetRecentSearches(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentSearches:"), objectivec.StringSliceToNSArray(value))
 }
-
-
 
 // The maximum number of search strings that can appear in the search menu.
 //
@@ -430,8 +376,6 @@ func (s NSSearchField) SetMaximumRecents(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumRecents:"), value)
 }
 
-
-
 // The name under which the search field automatically archives the list of
 // recent search strings.
 //
@@ -450,8 +394,6 @@ func (s NSSearchField) SetRecentsAutosaveName(value NSSearchFieldRecentsAutosave
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentsAutosaveName:"), objc.String(string(value)))
 }
 
-
-
 // The rectangle for the cancel button within the bounds of the search field.
 //
 // # Discussion
@@ -463,8 +405,6 @@ func (s NSSearchField) CancelButtonBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("cancelButtonBounds"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The rectangle for the search button within the bounds of the search field.
 //
@@ -478,8 +418,6 @@ func (s NSSearchField) SearchButtonBounds() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The rectangle for the search text within the bounds of the search field.
 //
 // # Discussion
@@ -491,42 +429,4 @@ func (s NSSearchField) SearchTextBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("searchTextBounds"))
 	return corefoundation.CGRect(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

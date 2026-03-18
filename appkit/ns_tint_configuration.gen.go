@@ -37,12 +37,6 @@ func (nc NSTintConfigurationClass) Alloc() NSTintConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that gives you the ability to choose from system-provided tinting
 // behaviors.
 //
@@ -65,14 +59,10 @@ type NSTintConfiguration struct {
 // An object that gives you the ability to choose from system-provided tinting
 // behaviors.
 func NSTintConfigurationFromID(id objc.ID) NSTintConfiguration {
-	return NSTintConfiguration{objectivec.Object{id}}
+	return NSTintConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: NSTintConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTintConfiguration] class.
 //
@@ -104,10 +94,6 @@ type INSTintConfiguration interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTintConfiguration) Init() NSTintConfiguration {
 	rv := objc.Send[NSTintConfiguration](t.ID, objc.Sel("init"))
@@ -127,11 +113,6 @@ func NewNSTintConfiguration() NSTintConfiguration {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new tint configuration using a specific color value.
 //
 // color: The color used regardless of the system accent color.
@@ -141,7 +122,6 @@ func NewTintConfigurationWithFixedColor(color INSColor) NSTintConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(getNSTintConfigurationClass().class), objc.Sel("tintConfigurationWithFixedColor:"), color)
 	return NSTintConfigurationFromID(rv)
 }
-
 
 // Creates a new tint configuration for the system to use when the app’s
 // preferred accent color is in use.
@@ -162,25 +142,9 @@ func NewTintConfigurationWithPreferredColor(color INSColor) NSTintConfiguration 
 	return NSTintConfigurationFromID(rv)
 }
 
-
-
-
-
-
 func (t NSTintConfiguration) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the tint configuration alters its
 // effect based on the user’s preferred accent color choice.
@@ -197,8 +161,6 @@ func (t NSTintConfiguration) AdaptsToUserAccentColor() bool {
 	return rv
 }
 
-
-
 // The color the system supplies when you create a tint configuration.
 //
 // # Discussion
@@ -211,8 +173,6 @@ func (t NSTintConfiguration) BaseTintColor() INSColor {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("baseTintColor"))
 	return NSColorFromID(objc.ID(rv))
 }
-
-
 
 // A color object that matches the effective content tint.
 //
@@ -228,12 +188,6 @@ func (t NSTintConfiguration) EquivalentContentTintColor() INSColor {
 	return NSColorFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
 // The system tints the content using the system default value for its
 // context.
 //
@@ -242,8 +196,6 @@ func (_NSTintConfigurationClass NSTintConfigurationClass) DefaultTintConfigurati
 	rv := objc.Send[objc.ID](objc.ID(_NSTintConfigurationClass.class), objc.Sel("defaultTintConfiguration"))
 	return NSTintConfigurationFromID(objc.ID(rv))
 }
-
-
 
 // The content always displays in monochrome.
 //
@@ -257,25 +209,4 @@ func (_NSTintConfigurationClass NSTintConfigurationClass) MonochromeTintConfigur
 	rv := objc.Send[objc.ID](objc.ID(_NSTintConfigurationClass.class), objc.Sel("monochromeTintConfiguration"))
 	return NSTintConfigurationFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

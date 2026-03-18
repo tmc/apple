@@ -14,8 +14,6 @@ type NSServicesMenuRequestor interface {
 	objectivec.IObject
 }
 
-
-
 // NSServicesMenuRequestorObject wraps an existing Objective-C object that conforms to the NSServicesMenuRequestor protocol.
 type NSServicesMenuRequestorObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSServicesMenuRequestorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSServicesMenuRequestorObjectFromID constructs a [NSServicesMenuRequestorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSServicesMenuRequestorObjectFromID(id objc.ID) NSServicesMenuRequestorObject {
@@ -33,9 +29,6 @@ func NSServicesMenuRequestorObjectFromID(id objc.ID) NSServicesMenuRequestorObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Reads data from the pasteboard and uses it to replace the current
 // selection.
@@ -102,10 +95,4 @@ func (o NSServicesMenuRequestorObject) WriteSelectionToPasteboardTypes(pboard IN
 	rv := objc.Send[bool](o.ID, objc.Sel("writeSelectionToPasteboard:types:"), pboard, objectivec.StringSliceToNSArray(types))
 	return rv
 	}
-
-
-
-
-
-
 

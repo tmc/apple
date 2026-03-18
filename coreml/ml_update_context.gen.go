@@ -37,12 +37,6 @@ func (mc MLUpdateContextClass) Alloc() MLUpdateContext {
 	return rv
 }
 
-
-
-
-
-
-
 // The context an update task provides to your app’s completion and update
 // progress handlers.
 //
@@ -70,14 +64,10 @@ type MLUpdateContext struct {
 // The context an update task provides to your app’s completion and update
 // progress handlers.
 func MLUpdateContextFromID(id objc.ID) MLUpdateContext {
-	return MLUpdateContext{objectivec.Object{id}}
+	return MLUpdateContext{objectivec.Object{ID: id}}
 }
 // NOTE: MLUpdateContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLUpdateContext] class.
 //
@@ -119,10 +109,6 @@ type IMLUpdateContext interface {
 	Model() IMLModel
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u MLUpdateContext) Init() MLUpdateContext {
 	rv := objc.Send[MLUpdateContext](u.ID, objc.Sel("init"))
@@ -142,26 +128,6 @@ func NewMLUpdateContext() MLUpdateContext {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The event type that triggered an update task to notify your app’s
 // completion and update progress handlers.
 //
@@ -171,8 +137,6 @@ func (u MLUpdateContext) Event() MLUpdateProgressEvent {
 	return MLUpdateProgressEvent(rv)
 }
 
-
-
 // The update task that generated the update context.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/task
@@ -181,8 +145,6 @@ func (u MLUpdateContext) Task() IMLUpdateTask {
 	return MLUpdateTaskFromID(objc.ID(rv))
 }
 
-
-
 // The parameters for the update task.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/parameters
@@ -190,8 +152,6 @@ func (u MLUpdateContext) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The training metrics of the model for the update task, contained in a
 // dictionary.
@@ -206,8 +166,6 @@ func (u MLUpdateContext) Metrics() foundation.INSDictionary {
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The underlying Core ML model stored in memory.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/model
@@ -215,26 +173,4 @@ func (u MLUpdateContext) Model() IMLModel {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("model"))
 	return MLModelFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

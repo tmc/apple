@@ -37,12 +37,6 @@ func (nc NSPopoverTouchBarItemClass) Alloc() NSPopoverTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that provides a two-state control that can expand into its
 // second state, showing the contents of a bar that it owns.
 //
@@ -78,10 +72,6 @@ func NSPopoverTouchBarItemFromID(id objc.ID) NSPopoverTouchBarItem {
 }
 // NOTE: NSPopoverTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPopoverTouchBarItem] class.
 //
@@ -130,13 +120,7 @@ type INSPopoverTouchBarItem interface {
 	DismissPopover(sender objectivec.IObject)
 	// Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<doc://com.apple.appkit/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
 	MakeStandardActivatePopoverGestureRecognizer() INSGestureRecognizer
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPopoverTouchBarItem) Init() NSPopoverTouchBarItem {
@@ -157,11 +141,6 @@ func NewNSPopoverTouchBarItem() NSPopoverTouchBarItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -170,7 +149,6 @@ func NewPopoverTouchBarItemWithCoder(coder foundation.INSCoder) NSPopoverTouchBa
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPopoverTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -185,12 +163,6 @@ func NewPopoverTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return NSPopoverTouchBarItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Replaces the main bar with this item’s popover bar.
 //
@@ -228,20 +200,6 @@ func (p NSPopoverTouchBarItem) MakeStandardActivatePopoverGestureRecognizer() IN
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("makeStandardActivatePopoverGestureRecognizer"))
 	return NSGestureRecognizerFromID(rv)
 }
-func (p NSPopoverTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The image displayed by the button for the default collapsed representation.
 //
@@ -259,8 +217,6 @@ func (p NSPopoverTouchBarItem) SetCollapsedRepresentationImage(value objectivec.
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationImage:"), value)
 }
 
-
-
 // The localized string displayed by the button for the default collapsed
 // representation.
 //
@@ -277,8 +233,6 @@ func (p NSPopoverTouchBarItem) CollapsedRepresentationLabel() string {
 func (p NSPopoverTouchBarItem) SetCollapsedRepresentationLabel(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationLabel:"), objc.String(value))
 }
-
-
 
 // A Boolean value that determines whether a close button should be shown on
 // the popover bar.
@@ -300,29 +254,4 @@ func (p NSPopoverTouchBarItem) ShowsCloseButton() bool {
 func (p NSPopoverTouchBarItem) SetShowsCloseButton(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShowsCloseButton:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

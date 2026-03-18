@@ -24,7 +24,6 @@ const (
 	KCGBitmapFloatComponents CGBitmapInfo = 256
 )
 
-
 func (e CGBitmapInfo) String() string {
 	switch e {
 	case KCGBitmapByteOrder16Big:
@@ -44,16 +43,11 @@ func (e CGBitmapInfo) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGBitmapLayout
 type CGBitmapLayout int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGBlendMode
 type CGBlendMode int
@@ -82,7 +76,6 @@ const (
 	// KCGBlendModeXOR: .
 	KCGBlendModeXOR CGBlendMode = 25
 )
-
 
 func (e CGBlendMode) String() string {
 	switch e {
@@ -113,8 +106,6 @@ func (e CGBlendMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGCaptureOptions
 type CGCaptureOptions int
 
@@ -122,7 +113,6 @@ const (
 	// KCGCaptureNoFill: Disables fill with black.
 	KCGCaptureNoFill CGCaptureOptions = 1
 )
-
 
 func (e CGCaptureOptions) String() string {
 	switch e {
@@ -132,8 +122,6 @@ func (e CGCaptureOptions) String() string {
 		return fmt.Sprintf("CGCaptureOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorConversionInfoTransformType
 type CGColorConversionInfoTransformType int
@@ -146,7 +134,6 @@ const (
 	// KCGColorConversionTransformToSpace: Specifies a color conversion from a color profile to a device color space.
 	KCGColorConversionTransformToSpace CGColorConversionInfoTransformType = 1
 )
-
 
 func (e CGColorConversionInfoTransformType) String() string {
 	switch e {
@@ -161,8 +148,6 @@ func (e CGColorConversionInfoTransformType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorModel
 type CGColorModel int
 
@@ -173,7 +158,6 @@ const (
 	KCGColorModelLab CGColorModel = 8
 	KCGColorModelRGB CGColorModel = 2
 )
-
 
 func (e CGColorModel) String() string {
 	switch e {
@@ -192,8 +176,6 @@ func (e CGColorModel) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorRenderingIntent
 type CGColorRenderingIntent int
 
@@ -203,7 +185,6 @@ const (
 	// KCGRenderingIntentPerceptual: Preserve the visual relationship between colors by compressing the gamut of the graphics context to fit inside the gamut of the output device.
 	KCGRenderingIntentPerceptual CGColorRenderingIntent = 3
 )
-
 
 func (e CGColorRenderingIntent) String() string {
 	switch e {
@@ -215,8 +196,6 @@ func (e CGColorRenderingIntent) String() string {
 		return fmt.Sprintf("CGColorRenderingIntent(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel
 type CGColorSpaceModel int
@@ -241,7 +220,6 @@ const (
 	// KCGColorSpaceModelXYZ: An XYZ color space model.
 	KCGColorSpaceModelXYZ CGColorSpaceModel = 7
 )
-
 
 func (e CGColorSpaceModel) String() string {
 	switch e {
@@ -268,16 +246,11 @@ func (e CGColorSpaceModel) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGComponent
 type CGComponent int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureOption
 type CGConfigureOption int
@@ -291,7 +264,6 @@ const (
 	KCGConfigurePermanently CGConfigureOption = 2
 )
 
-
 func (e CGConfigureOption) String() string {
 	switch e {
 	case KCGConfigureForAppOnly:
@@ -304,8 +276,6 @@ func (e CGConfigureOption) String() string {
 		return fmt.Sprintf("CGConfigureOption(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayChangeSummaryFlags
 type CGDisplayChangeSummaryFlags int
@@ -334,7 +304,6 @@ const (
 	// KCGDisplayUnMirrorFlag: The display is no longer mirroring another display.
 	KCGDisplayUnMirrorFlag CGDisplayChangeSummaryFlags = 2048
 )
-
 
 func (e CGDisplayChangeSummaryFlags) String() string {
 	switch e {
@@ -365,8 +334,6 @@ func (e CGDisplayChangeSummaryFlags) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamFrameStatus
 type CGDisplayStreamFrameStatus int
 
@@ -383,7 +350,6 @@ const (
 	KCGMouseEventSubtype CGDisplayStreamFrameStatus = 0
 )
 
-
 func (e CGDisplayStreamFrameStatus) String() string {
 	switch e {
 	case KCGDisplayStreamFrameStatusFrameBlank:
@@ -399,8 +365,6 @@ func (e CGDisplayStreamFrameStatus) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStreamUpdateRectType
 type CGDisplayStreamUpdateRectType int
 
@@ -414,7 +378,6 @@ const (
 	// KCGDisplayStreamUpdateRefreshedRects: The rectangles for the portions of the display that were redrawn.
 	KCGDisplayStreamUpdateRefreshedRects CGDisplayStreamUpdateRectType = 0
 )
-
 
 func (e CGDisplayStreamUpdateRectType) String() string {
 	switch e {
@@ -430,8 +393,6 @@ func (e CGDisplayStreamUpdateRectType) String() string {
 		return fmt.Sprintf("CGDisplayStreamUpdateRectType(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGError
 type CGError int
@@ -461,7 +422,6 @@ const (
 	KCGErrorTypeCheck CGError = 1008
 )
 
-
 func (e CGError) String() string {
 	switch e {
 	case KCGErrorCannotComplete:
@@ -490,8 +450,6 @@ func (e CGError) String() string {
 		return fmt.Sprintf("CGError(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventField
 type CGEventField int
@@ -602,7 +560,6 @@ const (
 	// KCGTabletProximityEventVendorUniqueID: Key to access an integer field that contains the vendor-defined unique ID.
 	KCGTabletProximityEventVendorUniqueID CGEventField = 35
 )
-
 
 func (e CGEventField) String() string {
 	switch e {
@@ -715,8 +672,6 @@ func (e CGEventField) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventFilterMask
 type CGEventFilterMask int
 
@@ -725,7 +680,6 @@ const (
 	KCGEventFilterMaskPermitLocalMouseEvents CGEventFilterMask = 1
 	KCGEventFilterMaskPermitSystemDefinedEvents CGEventFilterMask = 4
 )
-
 
 func (e CGEventFilterMask) String() string {
 	switch e {
@@ -739,8 +693,6 @@ func (e CGEventFilterMask) String() string {
 		return fmt.Sprintf("CGEventFilterMask(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventFlags
 type CGEventFlags int
@@ -765,7 +717,6 @@ const (
 	// KCGEventFlagMaskShift: Indicates that the Shift key is down for a keyboard, mouse, or flag-changed event.
 	KCGEventFlagMaskShift CGEventFlags = 131072
 )
-
 
 func (e CGEventFlags) String() string {
 	switch e {
@@ -792,8 +743,6 @@ func (e CGEventFlags) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventMouseSubtype
 type CGEventMouseSubtype int
 
@@ -803,7 +752,6 @@ const (
 	// KCGEventMouseSubtypeTabletPoint: Specifies that the mouse event originated from a tablet device, and that the various  field selectors may be used to obtain tablet-specific data from the mouse event.
 	KCGEventMouseSubtypeTabletPoint CGEventMouseSubtype = 1
 )
-
 
 func (e CGEventMouseSubtype) String() string {
 	switch e {
@@ -816,8 +764,6 @@ func (e CGEventMouseSubtype) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSourceStateID
 type CGEventSourceStateID int
 
@@ -829,7 +775,6 @@ const (
 	// KCGEventSourceStatePrivate: Specifies that an event source should use a private event state table.
 	KCGEventSourceStatePrivate CGEventSourceStateID = -1
 )
-
 
 func (e CGEventSourceStateID) String() string {
 	switch e {
@@ -844,8 +789,6 @@ func (e CGEventSourceStateID) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSuppressionState
 type CGEventSuppressionState int
 
@@ -855,7 +798,6 @@ const (
 	// KCGEventSuppressionStateSuppressionInterval: Specifies that certain local hardware events may be suppressed for a short interval after posting an event.
 	KCGEventSuppressionStateSuppressionInterval CGEventSuppressionState = 0
 )
-
 
 func (e CGEventSuppressionState) String() string {
 	switch e {
@@ -868,8 +810,6 @@ func (e CGEventSuppressionState) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventTapLocation
 type CGEventTapLocation int
 
@@ -881,7 +821,6 @@ const (
 	// KCGSessionEventTap: Specifies that an event tap is placed at the point where HID system and remote control events enter a login session.
 	KCGSessionEventTap CGEventTapLocation = 1
 )
-
 
 func (e CGEventTapLocation) String() string {
 	switch e {
@@ -896,16 +835,11 @@ func (e CGEventTapLocation) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventTapOptions
 type CGEventTapOptions int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventTapPlacement
 type CGEventTapPlacement int
@@ -917,7 +851,6 @@ const (
 	KCGTailAppendEventTap CGEventTapPlacement = 1
 )
 
-
 func (e CGEventTapPlacement) String() string {
 	switch e {
 	case KCGHeadInsertEventTap:
@@ -928,8 +861,6 @@ func (e CGEventTapPlacement) String() string {
 		return fmt.Sprintf("CGEventTapPlacement(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventType
 type CGEventType int
@@ -974,7 +905,6 @@ const (
 	// KCGEventTapDisabledByUserInput: Specifies an event indicating the event tap is disabled because of user input.
 	KCGEventTapDisabledByUserInput CGEventType = 4294967295
 )
-
 
 func (e CGEventType) String() string {
 	switch e {
@@ -1021,8 +951,6 @@ func (e CGEventType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFontPostScriptFormat
 type CGFontPostScriptFormat int
 
@@ -1034,7 +962,6 @@ const (
 	// KCGFontPostScriptFormatType42: A constant representing a Type 42 font format.
 	KCGFontPostScriptFormatType42 CGFontPostScriptFormat = 42
 )
-
 
 func (e CGFontPostScriptFormat) String() string {
 	switch e {
@@ -1049,16 +976,11 @@ func (e CGFontPostScriptFormat) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGesturePhase
 type CGGesturePhase int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGlyphDeprecatedEnum
 type CGGlyphDeprecatedEnum int
@@ -1069,7 +991,6 @@ const (
 	// CGGlyphMin: Minimum font index value.
 	CGGlyphMin CGGlyphDeprecatedEnum = 0
 )
-
 
 func (e CGGlyphDeprecatedEnum) String() string {
 	switch e {
@@ -1082,8 +1003,6 @@ func (e CGGlyphDeprecatedEnum) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGradientDrawingOptions
 type CGGradientDrawingOptions int
 
@@ -1093,7 +1012,6 @@ const (
 	// KCGGradientDrawsBeforeStartLocation: The fill should extend beyond the starting location.
 	KCGGradientDrawsBeforeStartLocation CGGradientDrawingOptions = 1
 )
-
 
 func (e CGGradientDrawingOptions) String() string {
 	switch e {
@@ -1105,8 +1023,6 @@ func (e CGGradientDrawingOptions) String() string {
 		return fmt.Sprintf("CGGradientDrawingOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImageAlphaInfo
 type CGImageAlphaInfo int
@@ -1129,7 +1045,6 @@ const (
 	// KCGImageAlphaPremultipliedLast: The alpha component is stored in the least significant bits of each pixel and the color components have already been multiplied by this alpha value.
 	KCGImageAlphaPremultipliedLast CGImageAlphaInfo = 1
 )
-
 
 func (e CGImageAlphaInfo) String() string {
 	switch e {
@@ -1154,16 +1069,11 @@ func (e CGImageAlphaInfo) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImageByteOrderInfo
 type CGImageByteOrderInfo int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImageComponentInfo
 type CGImageComponentInfo int
@@ -1171,17 +1081,11 @@ type CGImageComponentInfo int
 const (
 )
 
-
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGImagePixelFormatInfo
 type CGImagePixelFormatInfo int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGInterpolationQuality
 type CGInterpolationQuality int
@@ -1198,7 +1102,6 @@ const (
 	// KCGInterpolationNone: No interpolation.
 	KCGInterpolationNone CGInterpolationQuality = 1
 )
-
 
 func (e CGInterpolationQuality) String() string {
 	switch e {
@@ -1217,8 +1120,6 @@ func (e CGInterpolationQuality) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLineCap
 type CGLineCap int
 
@@ -1230,7 +1131,6 @@ const (
 	// KCGLineCapSquare: A line with a squared-off end.
 	KCGLineCapSquare CGLineCap = 2
 )
-
 
 func (e CGLineCap) String() string {
 	switch e {
@@ -1245,8 +1145,6 @@ func (e CGLineCap) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLineJoin
 type CGLineJoin int
 
@@ -1256,7 +1154,6 @@ const (
 	// KCGLineJoinRound: A join with a rounded end.
 	KCGLineJoinRound CGLineJoin = 1
 )
-
 
 func (e CGLineJoin) String() string {
 	switch e {
@@ -1269,25 +1166,17 @@ func (e CGLineJoin) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGMomentumScrollPhase
 type CGMomentumScrollPhase int
 
 const (
 )
 
-
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGMouseButton
 type CGMouseButton int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFAccessPermissions
 type CGPDFAccessPermissions int
@@ -1302,7 +1191,6 @@ const (
 	KCGPDFAllowsHighQualityPrinting CGPDFAccessPermissions = 2
 	KCGPDFAllowsLowQualityPrinting CGPDFAccessPermissions = 1
 )
-
 
 func (e CGPDFAccessPermissions) String() string {
 	switch e {
@@ -1327,8 +1215,6 @@ func (e CGPDFAccessPermissions) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFBox
 type CGPDFBox int
 
@@ -1344,7 +1230,6 @@ const (
 	// KCGPDFTrimBox: The page trim box—a rectangle, expressed in default user space units, that defines the intended dimensions of the finished page after trimming.
 	KCGPDFTrimBox CGPDFBox = 3
 )
-
 
 func (e CGPDFBox) String() string {
 	switch e {
@@ -1363,8 +1248,6 @@ func (e CGPDFBox) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDataFormat
 type CGPDFDataFormat int
 
@@ -1376,7 +1259,6 @@ const (
 	// CGPDFDataFormatRaw: The data stream is not encoded.
 	CGPDFDataFormatRaw CGPDFDataFormat = 0
 )
-
 
 func (e CGPDFDataFormat) String() string {
 	switch e {
@@ -1390,8 +1272,6 @@ func (e CGPDFDataFormat) String() string {
 		return fmt.Sprintf("CGPDFDataFormat(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFObjectType
 type CGPDFObjectType int
@@ -1416,7 +1296,6 @@ const (
 	// KCGPDFObjectTypeString: The type for a PDF string.
 	KCGPDFObjectTypeString CGPDFObjectType = 6
 )
-
 
 func (e CGPDFObjectType) String() string {
 	switch e {
@@ -1443,16 +1322,11 @@ func (e CGPDFObjectType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagType
 type CGPDFTagType int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathDrawingMode
 type CGPathDrawingMode int
@@ -1469,7 +1343,6 @@ const (
 	// KCGPathStroke: Render a line along the path.
 	KCGPathStroke CGPathDrawingMode = 2
 )
-
 
 func (e CGPathDrawingMode) String() string {
 	switch e {
@@ -1488,8 +1361,6 @@ func (e CGPathDrawingMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPathElementType
 type CGPathElementType int
 
@@ -1505,7 +1376,6 @@ const (
 	// KCGPathElementMoveToPoint: The path element that starts a new subpath.
 	KCGPathElementMoveToPoint CGPathElementType = 0
 )
-
 
 func (e CGPathElementType) String() string {
 	switch e {
@@ -1524,8 +1394,6 @@ func (e CGPathElementType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPatternTiling
 type CGPatternTiling int
 
@@ -1537,7 +1405,6 @@ const (
 	// KCGPatternTilingNoDistortion: The pattern cell is not distorted when painted.The spacing between pattern cells may vary by as much as 1 devicepixel.
 	KCGPatternTilingNoDistortion CGPatternTiling = 0
 )
-
 
 func (e CGPatternTiling) String() string {
 	switch e {
@@ -1552,8 +1419,6 @@ func (e CGPatternTiling) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CGRectEdge
 type CGRectEdge int
 
@@ -1563,7 +1428,6 @@ const (
 	CGRectMinXEdge CGRectEdge = 0
 	CGRectMinYEdge CGRectEdge = 1
 )
-
 
 func (e CGRectEdge) String() string {
 	switch e {
@@ -1580,8 +1444,6 @@ func (e CGRectEdge) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGScreenUpdateOperation
 type CGScreenUpdateOperation int
 
@@ -1593,7 +1455,6 @@ const (
 	// KCGScreenUpdateOperationRefresh: A screen-refresh operation.
 	KCGScreenUpdateOperationRefresh CGScreenUpdateOperation = 0
 )
-
 
 func (e CGScreenUpdateOperation) String() string {
 	switch e {
@@ -1608,8 +1469,6 @@ func (e CGScreenUpdateOperation) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGScrollEventUnit
 type CGScrollEventUnit int
 
@@ -1619,7 +1478,6 @@ const (
 	// KCGScrollEventUnitPixel: Specifies that the unit of measurement is pixels.
 	KCGScrollEventUnitPixel CGScrollEventUnit = 0
 )
-
 
 func (e CGScrollEventUnit) String() string {
 	switch e {
@@ -1632,16 +1490,11 @@ func (e CGScrollEventUnit) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGScrollPhase
 type CGScrollPhase int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGTextDrawingMode
 type CGTextDrawingMode int
@@ -1664,7 +1517,6 @@ const (
 	// KCGTextStrokeClip: Perform a stroke operation, then intersect the text with the current clipping path.
 	KCGTextStrokeClip CGTextDrawingMode = 5
 )
-
 
 func (e CGTextDrawingMode) String() string {
 	switch e {
@@ -1689,8 +1541,6 @@ func (e CGTextDrawingMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGTextEncoding
 type CGTextEncoding int
 
@@ -1700,7 +1550,6 @@ const (
 	// KCGEncodingMacRoman: The MacRoman encoding.
 	KCGEncodingMacRoman CGTextEncoding = 1
 )
-
 
 func (e CGTextEncoding) String() string {
 	switch e {
@@ -1713,25 +1562,17 @@ func (e CGTextEncoding) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGToneMapping
 type CGToneMapping int
 
 const (
 )
 
-
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowBackingType
 type CGWindowBackingType int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowImageOption
 type CGWindowImageOption int
@@ -1748,7 +1589,6 @@ const (
 	// KCGWindowImageShouldBeOpaque: # Discussion
 	KCGWindowImageShouldBeOpaque CGWindowImageOption = 2
 )
-
 
 func (e CGWindowImageOption) String() string {
 	switch e {
@@ -1767,16 +1607,11 @@ func (e CGWindowImageOption) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowLevelKey
 type CGWindowLevelKey int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowListOption
 type CGWindowListOption int
@@ -1795,7 +1630,6 @@ const (
 	// KCGWindowListOptionOnScreenOnly: # Discussion
 	KCGWindowListOptionOnScreenOnly CGWindowListOption = 1
 )
-
 
 func (e CGWindowListOption) String() string {
 	switch e {
@@ -1816,16 +1650,9 @@ func (e CGWindowListOption) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreGraphics/CGWindowSharingType
 type CGWindowSharingType int
 
 const (
 )
-
-
-
-
-
 

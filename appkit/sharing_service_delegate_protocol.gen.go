@@ -9,9 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that you use to customize the position and animation of a share sheet, and to be notified whether the item is successfully shared.
 //
@@ -19,8 +17,6 @@ var _ = fmt.Sprintf
 type NSSharingServiceDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSSharingServiceDelegateObject wraps an existing Objective-C object that conforms to the NSSharingServiceDelegate protocol.
 type NSSharingServiceDelegateObject struct {
@@ -30,8 +26,6 @@ func (o NSSharingServiceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSharingServiceDelegateObjectFromID constructs a [NSSharingServiceDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSharingServiceDelegateObjectFromID(id objc.ID) NSSharingServiceDelegateObject {
@@ -39,9 +33,6 @@ func NSSharingServiceDelegateObjectFromID(id objc.ID) NSSharingServiceDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked when the sharing service will share the specified items.
 //
@@ -133,7 +124,7 @@ func (o NSSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenForShar
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:transitionImageForShareItem:contentRect:)
 
-func (o NSSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect corefoundation.CGRect) INSImage {
+func (o NSSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect *corefoundation.CGRect) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, contentRect)
 	return NSImageFromID(rv)
@@ -174,15 +165,11 @@ func (o NSSharingServiceDelegateObject) SharingServiceSourceWindowForShareItemsS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/anchoringView(for:showRelativeTo:preferredEdge:)
 
-func (o NSSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
+func (o NSSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, positioningRect, preferredEdge)
 	return NSViewFromID(rv)
 	}
-
-
-
-
 
 // NSSharingServiceDelegateConfig holds optional typed callbacks for [NSSharingServiceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -205,6 +192,9 @@ type NSSharingServiceDelegateConfig struct {
 	// Customizing Transition Animation
 	// SourceWindowForShareItemsSharingContentScope — Returns the window that contained the share items.
 	SourceWindowForShareItemsSharingContentScope func(sharingService NSSharingService, items foundation.INSArray, sharingContentScope NSSharingContentScope) NSWindow
+
+	// Other Methods
+	AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge func(sharingService NSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) NSView
 }
 
 // NewNSSharingServiceDelegate creates an Objective-C object implementing the [NSSharingServiceDelegate] protocol.
@@ -274,6 +264,18 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		})
 	}
 
+	if config.AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge != nil {
+		fn := config.AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge
+		methods = append(methods, objc.MethodDef{
+			Cmd: objc.RegisterName("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"),
+			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, positioningRect *corefoundation.CGRect, preferredEdgeID objc.ID) objc.ID {
+				sharingService := NSSharingServiceFromID(sharingServiceID)
+				preferredEdge := foundation.NSRectEdgeFromID(preferredEdgeID)
+				return fn(sharingService, positioningRect, preferredEdge).GetID()
+			},
+		})
+	}
+
 	nsObjectClass := objc.GetClass("NSObject")
 	proto := objc.GetProtocol("NSSharingServiceDelegate")
 
@@ -290,8 +292,4 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSharingServiceDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSWorkspaceOpenConfigurationClass) Alloc() NSWorkspaceOpenConfiguration
 	return rv
 }
 
-
-
-
-
-
-
 // The configuration options for opening URLs or launching apps.
 //
 // # Overview
@@ -100,14 +94,10 @@ type NSWorkspaceOpenConfiguration struct {
 //
 // The configuration options for opening URLs or launching apps.
 func NSWorkspaceOpenConfigurationFromID(id objc.ID) NSWorkspaceOpenConfiguration {
-	return NSWorkspaceOpenConfiguration{objectivec.Object{id}}
+	return NSWorkspaceOpenConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: NSWorkspaceOpenConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSWorkspaceOpenConfiguration] class.
 //
@@ -205,10 +195,6 @@ type INSWorkspaceOpenConfiguration interface {
 	SetArchitecture(value int32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (w NSWorkspaceOpenConfiguration) Init() NSWorkspaceOpenConfiguration {
 	rv := objc.Send[NSWorkspaceOpenConfiguration](w.ID, objc.Sel("init"))
@@ -227,26 +213,6 @@ func NewNSWorkspaceOpenConfiguration() NSWorkspaceOpenConfiguration {
 	rv := objc.Send[NSWorkspaceOpenConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value indicating whether you require the URL to have an
 // associated universal link.
@@ -274,8 +240,6 @@ func (w NSWorkspaceOpenConfiguration) SetRequiresUniversalLinks(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setRequiresUniversalLinks:"), value)
 }
 
-
-
 // A Boolean value indicating whether you want to print the contents of
 // documents and URLs instead of opening them.
 //
@@ -297,8 +261,6 @@ func (w NSWorkspaceOpenConfiguration) SetForPrinting(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setForPrinting:"), value)
 }
 
-
-
 // A Boolean value indicating whether the system activates the app and brings
 // it to the foreground.
 //
@@ -318,8 +280,6 @@ func (w NSWorkspaceOpenConfiguration) SetActivates(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setActivates:"), value)
 }
 
-
-
 // A Boolean value indicating whether to add the app or documents to the
 // Recent Items menu.
 //
@@ -338,8 +298,6 @@ func (w NSWorkspaceOpenConfiguration) AddsToRecentItems() bool {
 func (w NSWorkspaceOpenConfiguration) SetAddsToRecentItems(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAddsToRecentItems:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to use a running instance of an
 // application even if it’s at a different URL.
@@ -366,8 +324,6 @@ func (w NSWorkspaceOpenConfiguration) SetAllowsRunningApplicationSubstitution(va
 	objc.Send[struct{}](w.ID, objc.Sel("setAllowsRunningApplicationSubstitution:"), value)
 }
 
-
-
 // A Boolean value indicating whether you want the system to launch a new
 // instance of the app.
 //
@@ -390,8 +346,6 @@ func (w NSWorkspaceOpenConfiguration) SetCreatesNewApplicationInstance(value boo
 	objc.Send[struct{}](w.ID, objc.Sel("setCreatesNewApplicationInstance:"), value)
 }
 
-
-
 // A Boolean value indicating whether you want the app to hide itself after it
 // launches.
 //
@@ -412,8 +366,6 @@ func (w NSWorkspaceOpenConfiguration) Hides() bool {
 func (w NSWorkspaceOpenConfiguration) SetHides(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setHides:"), value)
 }
-
-
 
 // A Boolean value indicating whether you want to hide all apps except the one
 // that launched.
@@ -436,8 +388,6 @@ func (w NSWorkspaceOpenConfiguration) SetHidesOthers(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setHidesOthers:"), value)
 }
 
-
-
 // A Boolean value indicating whether to display errors, authentication
 // requests, or other UI elements to the user.
 //
@@ -459,8 +409,6 @@ func (w NSWorkspaceOpenConfiguration) SetPromptsUserIfNeeded(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPromptsUserIfNeeded:"), value)
 }
 
-
-
 // The first Apple event to send to the new app.
 //
 // # Discussion
@@ -477,8 +425,6 @@ func (w NSWorkspaceOpenConfiguration) AppleEvent() foundation.NSAppleEventDescri
 func (w NSWorkspaceOpenConfiguration) SetAppleEvent(value foundation.NSAppleEventDescriptor) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAppleEvent:"), value)
 }
-
-
 
 // The set of command-line arguments to pass to a new app instance at launch
 // time.
@@ -502,8 +448,6 @@ func (w NSWorkspaceOpenConfiguration) SetArguments(value []string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setArguments:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The set of environment variables to set in a new app instance.
 //
 // # Discussion
@@ -524,8 +468,6 @@ func (w NSWorkspaceOpenConfiguration) SetEnvironment(value foundation.INSDiction
 	objc.Send[struct{}](w.ID, objc.Sel("setEnvironment:"), value)
 }
 
-
-
 // The architecture version of the app to launch.
 //
 // # Discussion
@@ -543,27 +485,4 @@ func (w NSWorkspaceOpenConfiguration) Architecture() int32 {
 func (w NSWorkspaceOpenConfiguration) SetArchitecture(value int32) {
 	objc.Send[struct{}](w.ID, objc.Sel("setArchitecture:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

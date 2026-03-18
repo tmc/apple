@@ -37,12 +37,6 @@ func (nc NSScrubberSelectionViewClass) Alloc() NSScrubberSelectionView {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class for specifying the appearance of a highlighted or
 // selected item in a scrubber.
 //
@@ -67,22 +61,12 @@ func NSScrubberSelectionViewFromID(id objc.ID) NSScrubberSelectionView {
 // NOTE: NSScrubberSelectionView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSScrubberSelectionView] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberSelectionView
 type INSScrubberSelectionView interface {
 	INSScrubberArrangedView
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberSelectionView) Init() NSScrubberSelectionView {
@@ -103,11 +87,6 @@ func NewNSScrubberSelectionView() NSScrubberSelectionView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -122,7 +101,6 @@ func NewScrubberSelectionViewWithCoder(coder foundation.INSCoder) NSScrubberSele
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberSelectionViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -145,56 +123,4 @@ func NewScrubberSelectionViewWithFrame(frameRect corefoundation.CGRect) NSScrubb
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSScrubberSelectionViewFromID(rv)
 }
-
-
-
-
-
-
-func (s NSScrubberSelectionView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

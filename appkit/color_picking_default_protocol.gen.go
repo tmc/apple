@@ -51,8 +51,6 @@ type NSColorPickingDefault interface {
 	DetachColorList(colorList INSColorList)
 }
 
-
-
 // NSColorPickingDefaultObject wraps an existing Objective-C object that conforms to the NSColorPickingDefault protocol.
 type NSColorPickingDefaultObject struct {
 	objectivec.Object
@@ -61,8 +59,6 @@ func (o NSColorPickingDefaultObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSColorPickingDefaultObjectFromID constructs a [NSColorPickingDefaultObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSColorPickingDefaultObjectFromID(id objc.ID) NSColorPickingDefaultObject {
@@ -70,9 +66,6 @@ func NSColorPickingDefaultObjectFromID(id objc.ID) NSColorPickingDefaultObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Specifies the receiver’s mode.
 //
@@ -253,10 +246,4 @@ func (o NSColorPickingDefaultObject) DetachColorList(colorList INSColorList) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("detachColorList:"), colorList)
 	}
-
-
-
-
-
-
 

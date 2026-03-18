@@ -37,12 +37,6 @@ func (nc NSTreeNodeClass) Alloc() NSTreeNode {
 	return rv
 }
 
-
-
-
-
-
-
 // A node in a tree of nodes.
 //
 // # Overview
@@ -78,14 +72,10 @@ type NSTreeNode struct {
 //
 // A node in a tree of nodes.
 func NSTreeNodeFromID(id objc.ID) NSTreeNode {
-	return NSTreeNode{objectivec.Object{id}}
+	return NSTreeNode{objectivec.Object{ID: id}}
 }
 // NOTE: NSTreeNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTreeNode] class.
 //
@@ -139,10 +129,6 @@ type INSTreeNode interface {
 	SortWithSortDescriptorsRecursively(sortDescriptors []foundation.NSSortDescriptor, recursively bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTreeNode) Init() NSTreeNode {
 	rv := objc.Send[NSTreeNode](t.ID, objc.Sel("init"))
@@ -162,11 +148,6 @@ func NewNSTreeNode() NSTreeNode {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a newly allocated tree node that represents the specified
 // object.
 //
@@ -182,12 +163,6 @@ func NewTreeNodeWithRepresentedObject(modelObject objectivec.IObject) NSTreeNode
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRepresentedObject:"), modelObject)
 	return NSTreeNodeFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated tree node that represents the specified
 // object.
@@ -236,17 +211,6 @@ func (t NSTreeNode) SortWithSortDescriptorsRecursively(sortDescriptors []foundat
 	objc.Send[objc.ID](t.ID, objc.Sel("sortWithSortDescriptors:recursively:"), objectivec.IObjectSliceToNSArray(sortDescriptors), recursively)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The object the tree node represents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/representedObject
@@ -255,8 +219,6 @@ func (t NSTreeNode) RepresentedObject() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The position of the receiver relative to its root parent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/indexPath
@@ -264,8 +226,6 @@ func (t NSTreeNode) IndexPath() objc.ID {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("indexPath"))
 	return rv
 }
-
-
 
 // A Boolean that indicates whether the receiver is a leaf node.
 //
@@ -283,8 +243,6 @@ func (t NSTreeNode) Leaf() bool {
 	return rv
 }
 
-
-
 // An array containing receiver’s child nodes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/children
@@ -294,8 +252,6 @@ func (t NSTreeNode) ChildNodes() []NSTreeNode {
 		return NSTreeNodeFromID(id)
 	})
 }
-
-
 
 // A mutable array that provides read-write access to the receiver’s child
 // nodes.
@@ -313,8 +269,6 @@ func (t NSTreeNode) MutableChildNodes() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // The receiver’s parent node.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/parent
@@ -322,26 +276,4 @@ func (t NSTreeNode) ParentNode() INSTreeNode {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("parentNode"))
 	return NSTreeNodeFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

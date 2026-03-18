@@ -37,12 +37,6 @@ func (nc NSSharingServicePickerTouchBarItemClass) Alloc() NSSharingServicePicker
 	return rv
 }
 
-
-
-
-
-
-
 // A bar item that, along with its delegate, provides a list of objects
 // eligible for sharing.
 //
@@ -77,10 +71,6 @@ func NSSharingServicePickerTouchBarItemFromID(id objc.ID) NSSharingServicePicker
 }
 // NOTE: NSSharingServicePickerTouchBarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSharingServicePickerTouchBarItem] class.
 //
@@ -125,13 +115,7 @@ type INSSharingServicePickerTouchBarItem interface {
 	// A Boolean value that specifies whether the sharing service picker item is enabled.
 	Enabled() bool
 	SetEnabled(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSharingServicePickerTouchBarItem) Init() NSSharingServicePickerTouchBarItem {
@@ -152,11 +136,6 @@ func NewNSSharingServicePickerTouchBarItem() NSSharingServicePickerTouchBarItem 
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -165,7 +144,6 @@ func NewSharingServicePickerTouchBarItemWithCoder(coder foundation.INSCoder) NSS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSharingServicePickerTouchBarItemFromID(rv)
 }
-
 
 // Creates a new item with the specified identifier.
 //
@@ -181,26 +159,6 @@ func NewSharingServicePickerTouchBarItemWithIdentifier(identifier NSTouchBarItem
 	return NSSharingServicePickerTouchBarItemFromID(rv)
 }
 
-
-
-
-
-
-func (s NSSharingServicePickerTouchBarItem) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The object that acts as the delegate of the sharing service picker bar
 // item.
 //
@@ -212,8 +170,6 @@ func (s NSSharingServicePickerTouchBarItem) Delegate() NSSharingServicePickerTou
 func (s NSSharingServicePickerTouchBarItem) SetDelegate(value NSSharingServicePickerTouchBarItemDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // The image displayed in the sharing service picker item button.
 //
@@ -230,8 +186,6 @@ func (s NSSharingServicePickerTouchBarItem) SetButtonImage(value objectivec.Obje
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonImage:"), value)
 }
 
-
-
 // The text displayed in the sharing service picker item button.
 //
 // # Discussion
@@ -246,8 +200,6 @@ func (s NSSharingServicePickerTouchBarItem) ButtonTitle() string {
 func (s NSSharingServicePickerTouchBarItem) SetButtonTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonTitle:"), objc.String(value))
 }
-
-
 
 // A Boolean value that specifies whether the sharing service picker item is
 // enabled.
@@ -270,28 +222,4 @@ func (s NSSharingServicePickerTouchBarItem) Enabled() bool {
 func (s NSSharingServicePickerTouchBarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEnabled:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

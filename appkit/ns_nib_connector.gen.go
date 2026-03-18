@@ -37,12 +37,6 @@ func (nc NSNibConnectorClass) Alloc() NSNibConnector {
 	return rv
 }
 
-
-
-
-
-
-
 // A connection between two nibs.
 //
 // # Instance Properties
@@ -68,14 +62,10 @@ type NSNibConnector struct {
 //
 // A connection between two nibs.
 func NSNibConnectorFromID(id objc.ID) NSNibConnector {
-	return NSNibConnector{objectivec.Object{id}}
+	return NSNibConnector{objectivec.Object{ID: id}}
 }
 // NOTE: NSNibConnector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSNibConnector] class.
 //
@@ -114,10 +104,6 @@ type INSNibConnector interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NSNibConnector) Init() NSNibConnector {
 	rv := objc.Send[NSNibConnector](n.ID, objc.Sel("init"))
@@ -137,15 +123,6 @@ func NewNSNibConnector() NSNibConnector {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/establishConnection
 func (n NSNibConnector) EstablishConnection() {
 	objc.Send[objc.ID](n.ID, objc.Sel("establishConnection"))
@@ -160,17 +137,6 @@ func (n NSNibConnector) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/destination
 func (n NSNibConnector) Destination() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("destination"))
@@ -179,8 +145,6 @@ func (n NSNibConnector) Destination() objectivec.IObject {
 func (n NSNibConnector) SetDestination(value objectivec.IObject) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDestination:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/label
 func (n NSNibConnector) Label() string {
@@ -191,8 +155,6 @@ func (n NSNibConnector) SetLabel(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/source
 func (n NSNibConnector) Source() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("source"))
@@ -201,21 +163,4 @@ func (n NSNibConnector) Source() objectivec.IObject {
 func (n NSNibConnector) SetSource(value objectivec.IObject) {
 	objc.Send[struct{}](n.ID, objc.Sel("setSource:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

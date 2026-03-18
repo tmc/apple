@@ -36,12 +36,6 @@ func (nc NSStepperCellClass) Alloc() NSStepperCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An [NSStepperCell] object controls the appearance and behavior of an
 // [NSStepper] object.
 //
@@ -75,10 +69,6 @@ func NSStepperCellFromID(id objc.ID) NSStepperCell {
 }
 // NOTE: NSStepperCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSStepperCell] class.
 //
@@ -122,13 +112,7 @@ type INSStepperCell interface {
 	// A Boolean value indicating whether the receiver wraps around the minimum and maximum values.
 	ValueWraps() bool
 	SetValueWraps(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSStepperCell) Init() NSStepperCell {
@@ -148,11 +132,6 @@ func NewNSStepperCell() NSStepperCell {
 	rv := objc.Send[NSStepperCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -175,7 +154,6 @@ func NewStepperCellImageCell(image INSImage) NSStepperCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSStepperCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -202,7 +180,6 @@ func NewStepperCellTextCell(string_ string) NSStepperCell {
 	return NSStepperCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewStepperCellWithCoder(coder foundation.INSCoder) NSStepperCell {
@@ -210,26 +187,6 @@ func NewStepperCellWithCoder(coder foundation.INSCoder) NSStepperCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSStepperCellFromID(rv)
 }
-
-
-
-
-
-
-func (s NSStepperCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The maximum value for the receiver.
 //
@@ -246,8 +203,6 @@ func (s NSStepperCell) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
 
-
-
 // The minimum value for the receiver.
 //
 // # Discussion
@@ -263,8 +218,6 @@ func (s NSStepperCell) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
 
-
-
 // The amount by which the receiver will change per increment or decrement.
 //
 // # Discussion
@@ -279,8 +232,6 @@ func (s NSStepperCell) Increment() float64 {
 func (s NSStepperCell) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
 }
-
-
 
 // A Boolean value indicating how the receiver responds to mouse events.
 //
@@ -303,8 +254,6 @@ func (s NSStepperCell) SetAutorepeat(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutorepeat:"), value)
 }
 
-
-
 // A Boolean value indicating whether the receiver wraps around the minimum
 // and maximum values.
 //
@@ -325,33 +274,4 @@ func (s NSStepperCell) ValueWraps() bool {
 func (s NSStepperCell) SetValueWraps(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setValueWraps:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

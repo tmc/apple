@@ -27,8 +27,6 @@ type NSAccessibilityButton interface {
 	AccessibilityPerformPress() bool
 }
 
-
-
 // NSAccessibilityButtonObject wraps an existing Objective-C object that conforms to the NSAccessibilityButton protocol.
 type NSAccessibilityButtonObject struct {
 	objectivec.Object
@@ -37,8 +35,6 @@ func (o NSAccessibilityButtonObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityButtonObjectFromID constructs a [NSAccessibilityButtonObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityButtonObjectFromID(id objc.ID) NSAccessibilityButtonObject {
@@ -46,9 +42,6 @@ func NSAccessibilityButtonObjectFromID(id objc.ID) NSAccessibilityButtonObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a short description of the button.
 //
@@ -188,10 +181,4 @@ func (o NSAccessibilityButtonObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

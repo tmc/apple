@@ -36,12 +36,6 @@ func (nc NSTextRangeClass) Alloc() NSTextRange {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a contiguous range between two locations inside
 // document contents.
 //
@@ -87,14 +81,10 @@ type NSTextRange struct {
 // A class that represents a contiguous range between two locations inside
 // document contents.
 func NSTextRangeFromID(id objc.ID) NSTextRange {
-	return NSTextRange{objectivec.Object{id}}
+	return NSTextRange{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextRange adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextRange] class.
 //
@@ -160,10 +150,6 @@ type INSTextRange interface {
 	ContainsRange(textRange INSTextRange) bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextRange) Init() NSTextRange {
 	rv := objc.Send[NSTextRange](t.ID, objc.Sel("init"))
@@ -183,11 +169,6 @@ func NewNSTextRange() NSTextRange {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new text range at the location you specify.
 //
 // location: An [NSTextLocation].
@@ -198,7 +179,6 @@ func NewTextRangeWithLocation(location NSTextLocation) NSTextRange {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:"), location)
 	return NSTextRangeFromID(rv)
 }
-
 
 // Creates a new text range with the starting and ending locations you
 // specify.
@@ -213,12 +193,6 @@ func NewTextRangeWithLocationEndLocation(location NSTextLocation, endLocation NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:endLocation:"), location, endLocation)
 	return NSTextRangeFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new text range at the location you specify.
 //
@@ -335,17 +309,6 @@ func (t NSTextRange) ContainsRange(textRange INSTextRange) bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The starting location of the text range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/location
@@ -353,8 +316,6 @@ func (t NSTextRange) Location() NSTextLocation {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("location"))
 	return NSTextLocationObjectFromID(rv)
 }
-
-
 
 // The ending location of the text range.
 //
@@ -364,8 +325,6 @@ func (t NSTextRange) EndLocation() NSTextLocation {
 	return NSTextLocationObjectFromID(rv)
 }
 
-
-
 // Returns whether the text range is empty.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextRange/isEmpty
@@ -373,26 +332,4 @@ func (t NSTextRange) Empty() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isEmpty"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

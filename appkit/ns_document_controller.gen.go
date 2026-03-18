@@ -39,12 +39,6 @@ func (nc NSDocumentControllerClass) Alloc() NSDocumentController {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages an app’s documents.
 //
 // # Overview
@@ -155,14 +149,10 @@ type NSDocumentController struct {
 //
 // An object that manages an app’s documents.
 func NSDocumentControllerFromID(id objc.ID) NSDocumentController {
-	return NSDocumentController{objectivec.Object{id}}
+	return NSDocumentController{objectivec.Object{ID: id}}
 }
 // NOTE: NSDocumentController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDocumentController] class.
 //
@@ -367,10 +357,6 @@ type INSDocumentController interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDocumentController) Init() NSDocumentController {
 	rv := objc.Send[NSDocumentController](d.ID, objc.Sel("init"))
@@ -390,11 +376,6 @@ func NewNSDocumentController() NSDocumentController {
 	return rv
 }
 
-
-
-
-
-
 // This method initializes a new NSDocumentController from the coder.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/init(coder:)
@@ -403,12 +384,6 @@ func NewDocumentControllerWithCoder(coder foundation.INSCoder) NSDocumentControl
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDocumentControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // This method initializes a new NSDocumentController from the coder.
 //
@@ -489,7 +464,7 @@ func (d NSDocumentController) DocumentForURL(url foundation.INSURL) INSDocument 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/duplicateDocument(withContentsOf:copying:displayName:)
 func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNameError(url foundation.INSURL, duplicateByCopying bool, displayNameOrNil string) (INSDocument, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("duplicateDocumentWithContentsOfURL:copying:displayName:error:"), url, duplicateByCopying, objc.String(displayNameOrNil), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -571,9 +546,9 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/openDocument(withContentsOf:display:completionHandler:)
 func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
-		_block2, _cleanup2 := NewDocumentErrorBlock(completionHandler)
+_block2, _cleanup2 := NewDocumentErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](d.ID, objc.Sel("openDocumentWithContentsOfURL:display:completionHandler:"), url, displayDocument, _block2)
+	objc.Send[objc.ID](d.ID, objc.Sel("openDocumentWithContentsOfURL:display:completionHandler:"), url, displayDocument, _block2)
 }
 
 // Creates a new untitled document, presents its user interface if
@@ -607,7 +582,7 @@ func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHand
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/openUntitledDocumentAndDisplay(_:)
 func (d NSDocumentController) OpenUntitledDocumentAndDisplayError(displayDocument bool) (INSDocument, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("openUntitledDocumentAndDisplay:error:"), displayDocument, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -645,7 +620,7 @@ func (d NSDocumentController) OpenUntitledDocumentAndDisplayError(displayDocumen
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeDocument(for:withContentsOf:ofType:)
 func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, typeName string) (INSDocument, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("makeDocumentForURL:withContentsOfURL:ofType:error:"), urlOrNil, contentsURL, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -679,7 +654,7 @@ func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(url
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeDocument(withContentsOf:ofType:)
 func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName string) (INSDocument, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("makeDocumentWithContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -706,7 +681,7 @@ func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url found
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/makeUntitledDocument(ofType:)
 func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (INSDocument, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("makeUntitledDocumentOfType:error:"), objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -768,9 +743,9 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/reopenDocument(for:withContentsOf:display:completionHandler:)
 func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
-		_block3, _cleanup3 := NewDocumentErrorBlock(completionHandler)
+_block3, _cleanup3 := NewDocumentErrorBlock(completionHandler)
 	defer _cleanup3()
-		objc.Send[objc.ID](d.ID, objc.Sel("reopenDocumentForURL:withContentsOfURL:display:completionHandler:"), urlOrNil, contentsURL, displayDocument, _block3)
+	objc.Send[objc.ID](d.ID, objc.Sel("reopenDocumentForURL:withContentsOfURL:display:completionHandler:"), urlOrNil, contentsURL, displayDocument, _block3)
 }
 
 // Adds the given document to the list of open documents.
@@ -884,7 +859,7 @@ func (d NSDocumentController) DisplayNameForType(typeName string) string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/typeForContents(of:)
 func (d NSDocumentController) TypeForContentsOfURLError(url foundation.INSURL) (string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("typeForContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1039,9 +1014,9 @@ func (d NSDocumentController) SaveAllDocuments(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/beginOpenPanel(completionHandler:)
 func (d NSDocumentController) BeginOpenPanelWithCompletionHandler(completionHandler ArrayHandler) {
-		_block0, _cleanup0 := NewArrayBlock(completionHandler)
+_block0, _cleanup0 := NewArrayBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanelWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanelWithCompletionHandler:"), _block0)
 }
 
 // Presents a nonmodal Open dialog that displays files you can open from a
@@ -1075,9 +1050,9 @@ func (d NSDocumentController) BeginOpenPanelWithCompletionHandler(completionHand
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/beginOpenPanel(_:forTypes:completionHandler:)
 func (d NSDocumentController) BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanel:forTypes:completionHandler:"), openPanel, inTypes, _block2)
+	objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanel:forTypes:completionHandler:"), openPanel, inTypes, _block2)
 }
 
 // Presents a modal Open dialog and limits selection to specific file types.
@@ -1339,10 +1314,6 @@ func (d NSDocumentController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Asks the class to provide a new window for the specified identifier.
 //
 // identifier: The unique interface item identifier string that was previously associated
@@ -1385,17 +1356,10 @@ func (d NSDocumentController) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowRestoration/restoreWindow(withIdentifier:state:completionHandler:)
 func (_NSDocumentControllerClass NSDocumentControllerClass) RestoreWindowWithIdentifierStateCompletionHandler(identifier NSUserInterfaceItemIdentifier, state foundation.INSCoder, completionHandler WindowErrorHandler) {
-		_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
+_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSDocumentControllerClass.class), objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
+	objc.Send[objc.ID](objc.ID(_NSDocumentControllerClass.class), objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 }
-
-
-
-
-
-
-
 
 // The document objects managed by the receiver.
 //
@@ -1411,8 +1375,6 @@ func (d NSDocumentController) Documents() []NSDocument {
 	})
 }
 
-
-
 // The document object associated with the main window.
 //
 // # Discussion
@@ -1427,8 +1389,6 @@ func (d NSDocumentController) CurrentDocument() INSDocument {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("currentDocument"))
 	return NSDocumentFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value indicating whether the receiver has any documents with
 // unsaved changes.
@@ -1446,8 +1406,6 @@ func (d NSDocumentController) HasEditedDocuments() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("hasEditedDocuments"))
 	return rv
 }
-
-
 
 // An array of strings representing the custom document classes supported by
 // this app.
@@ -1468,8 +1426,6 @@ func (d NSDocumentController) DocumentClassNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // Returns the name of the document type that should be used when creating new
 // documents.
 //
@@ -1486,8 +1442,6 @@ func (d NSDocumentController) DefaultType() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("defaultType"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The time interval (in seconds) for periodic autosaving.
 //
@@ -1509,8 +1463,6 @@ func (d NSDocumentController) SetAutosavingDelay(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutosavingDelay:"), value)
 }
 
-
-
 // The directory path to use as the starting point in the Open dialog.
 //
 // # Discussion
@@ -1525,8 +1477,6 @@ func (d NSDocumentController) CurrentDirectory() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("currentDirectory"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The maximum number of items that may be presented in the standard Open
 // Recent menu.
@@ -1546,8 +1496,6 @@ func (d NSDocumentController) MaximumRecentDocumentCount() uint {
 	return rv
 }
 
-
-
 // The list of recent-document URLs.
 //
 // # Discussion
@@ -1564,8 +1512,6 @@ func (d NSDocumentController) RecentDocumentURLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
-
-
 
 // A Boolean value that the system uses to insert a Share menu in the File
 // menu.
@@ -1586,12 +1532,6 @@ func (d NSDocumentController) AllowsAutomaticShareMenu() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("allowsAutomaticShareMenu"))
 	return rv
 }
-
-
-
-
-
-
 
 // Returns the shared [NSDocumentController] instance.
 //
@@ -1617,39 +1557,14 @@ func (_NSDocumentControllerClass NSDocumentControllerClass) SharedDocumentContro
 	return NSDocumentControllerFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSMenuItemValidation
 			
-
-
-
-
 
 			// Protocol methods for NSUserInterfaceValidations
 			
 
-
-
-
 			// Protocol methods for NSWindowRestoration
 			
-
-
-
-
-
-
-
-
 
 // RestoreWindowWithIdentifierState is a synchronous wrapper around [NSDocumentController.RestoreWindowWithIdentifierStateCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1669,9 +1584,4 @@ func (dc NSDocumentControllerClass) RestoreWindowWithIdentifierState(ctx context
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

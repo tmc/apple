@@ -17,7 +17,6 @@ const (
 	BLAS_THREADING_SINGLE_THREADED BLAS_THREADING = 1
 )
 
-
 func (e BLAS_THREADING) String() string {
 	switch e {
 	case BLAS_THREADING_MAX_OPTIONS:
@@ -31,8 +30,6 @@ func (e BLAS_THREADING) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_DIAG
 type CBLAS_DIAG int
 
@@ -40,7 +37,6 @@ const (
 	CblasNonUnit CBLAS_DIAG = 131
 	CblasUnit CBLAS_DIAG = 132
 )
-
 
 func (e CBLAS_DIAG) String() string {
 	switch e {
@@ -53,8 +49,6 @@ func (e CBLAS_DIAG) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_ORDER
 type CBLAS_ORDER int
 
@@ -62,7 +56,6 @@ const (
 	CblasColMajor CBLAS_ORDER = 102
 	CblasRowMajor CBLAS_ORDER = 101
 )
-
 
 func (e CBLAS_ORDER) String() string {
 	switch e {
@@ -75,8 +68,6 @@ func (e CBLAS_ORDER) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_SIDE
 type CBLAS_SIDE int
 
@@ -84,7 +75,6 @@ const (
 	CblasLeft CBLAS_SIDE = 141
 	CblasRight CBLAS_SIDE = 142
 )
-
 
 func (e CBLAS_SIDE) String() string {
 	switch e {
@@ -97,8 +87,6 @@ func (e CBLAS_SIDE) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_TRANSPOSE
 type CBLAS_TRANSPOSE int
 
@@ -108,7 +96,6 @@ const (
 	CblasNoTrans CBLAS_TRANSPOSE = 111
 	CblasTrans CBLAS_TRANSPOSE = 112
 )
-
 
 func (e CBLAS_TRANSPOSE) String() string {
 	switch e {
@@ -125,8 +112,6 @@ func (e CBLAS_TRANSPOSE) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_UPLO
 type CBLAS_UPLO int
 
@@ -134,7 +119,6 @@ const (
 	CblasLower CBLAS_UPLO = 122
 	CblasUpper CBLAS_UPLO = 121
 )
-
 
 func (e CBLAS_UPLO) String() string {
 	switch e {
@@ -146,9 +130,6 @@ func (e CBLAS_UPLO) String() string {
 		return fmt.Sprintf("CBLAS_UPLO(%d)", e)
 	}
 }
-
-
-
 
 type Fft uint
 
@@ -162,7 +143,6 @@ const (
 	FFT_RADIX5 Fft = 0
 )
 
-
 func (e Fft) String() string {
 	switch e {
 	case FFT_FORWARD:
@@ -174,9 +154,6 @@ func (e Fft) String() string {
 	}
 }
 
-
-
-
 type KFFT uint
 
 const (
@@ -184,7 +161,6 @@ const (
 	KFFTRadix3 KFFT = 1
 	KFFTRadix5 KFFT = 2
 )
-
 
 func (e KFFT) String() string {
 	switch e {
@@ -199,16 +175,12 @@ func (e KFFT) String() string {
 	}
 }
 
-
-
-
 type KFFTDirection int
 
 const (
 	KFFTDirection_Forward KFFTDirection = 0
 	KFFTDirection_Inverse KFFTDirection = -1
 )
-
 
 func (e KFFTDirection) String() string {
 	switch e {
@@ -220,9 +192,6 @@ func (e KFFTDirection) String() string {
 		return fmt.Sprintf("KFFTDirection(%d)", e)
 	}
 }
-
-
-
 
 type KRotate0DegreesClockwise uint
 
@@ -245,7 +214,6 @@ const (
 	KRotate90DegreesCounterClockwise KRotate0DegreesClockwise = 0
 )
 
-
 func (e KRotate0DegreesClockwise) String() string {
 	switch e {
 	case KRotate0DegreesClockwiseValue:
@@ -254,9 +222,6 @@ func (e KRotate0DegreesClockwise) String() string {
 		return fmt.Sprintf("KRotate0DegreesClockwise(%d)", e)
 	}
 }
-
-
-
 
 type KvImage uint
 
@@ -324,7 +289,6 @@ const (
 	KvImageUseFP16Accumulator KvImage = 0
 )
 
-
 func (e KvImage) String() string {
 	switch e {
 	case KvImageBackgroundColorFill:
@@ -333,9 +297,6 @@ func (e KvImage) String() string {
 		return fmt.Sprintf("KvImage(%d)", e)
 	}
 }
-
-
-
 
 type KvImageBufferTypeCode uint
 
@@ -407,7 +368,6 @@ const (
 	KvImageBufferTypeCode_XYZ_Z KvImageBufferTypeCode = 0
 )
 
-
 func (e KvImageBufferTypeCode) String() string {
 	switch e {
 	case KvImageBufferTypeCode_Alpha:
@@ -416,9 +376,6 @@ func (e KvImageBufferTypeCode) String() string {
 		return fmt.Sprintf("KvImageBufferTypeCode(%d)", e)
 	}
 }
-
-
-
 
 type KvImageCVImageFormat uint
 
@@ -437,7 +394,6 @@ const (
 	KvImageCVImageFormat_VideoChannelDescription KvImageCVImageFormat = 0
 )
 
-
 func (e KvImageCVImageFormat) String() string {
 	switch e {
 	case KvImageCVImageFormat_AlphaIsOneHint:
@@ -446,9 +402,6 @@ func (e KvImageCVImageFormat) String() string {
 		return fmt.Sprintf("KvImageCVImageFormat(%d)", e)
 	}
 }
-
-
-
 
 type KvImageConvert uint
 
@@ -470,7 +423,6 @@ const (
 	KvImageConvert_OrderedUniformBlue KvImageConvert = 268435456
 )
 
-
 func (e KvImageConvert) String() string {
 	switch e {
 	case KvImageConvert_DitherAtkinson:
@@ -489,9 +441,6 @@ func (e KvImageConvert) String() string {
 		return fmt.Sprintf("KvImageConvert(%d)", e)
 	}
 }
-
-
-
 
 type KvImageGamma uint
 
@@ -522,7 +471,6 @@ const (
 	KvImageGamma_sRGB_reverse_half_precision KvImageGamma = 0
 )
 
-
 func (e KvImageGamma) String() string {
 	switch e {
 	case KvImageGamma_11_over_5_half_precision:
@@ -531,9 +479,6 @@ func (e KvImageGamma) String() string {
 		return fmt.Sprintf("KvImageGamma(%d)", e)
 	}
 }
-
-
-
 
 type KvImageInterpolation uint
 
@@ -544,7 +489,6 @@ const (
 	KvImageInterpolationNearest KvImageInterpolation = 0
 )
 
-
 func (e KvImageInterpolation) String() string {
 	switch e {
 	case KvImageInterpolationLinear:
@@ -554,16 +498,12 @@ func (e KvImageInterpolation) String() string {
 	}
 }
 
-
-
-
 type KvImageMatrixType uint
 
 const (
 	KvImageMatrixType_ARGBToYpCbCrMatrix KvImageMatrixType = 0
 	KvImageMatrixType_None KvImageMatrixType = 0
 )
-
 
 func (e KvImageMatrixType) String() string {
 	switch e {
@@ -573,9 +513,6 @@ func (e KvImageMatrixType) String() string {
 		return fmt.Sprintf("KvImageMatrixType(%d)", e)
 	}
 }
-
-
-
 
 type KvimagePNGFilterValue uint
 
@@ -592,7 +529,6 @@ const (
 	KvImage_PNG_FILTER_VALUE_UP KvimagePNGFilterValue = 0
 )
 
-
 func (e KvimagePNGFilterValue) String() string {
 	switch e {
 	case KvImage_PNG_FILTER_VALUE_AVG:
@@ -601,9 +537,6 @@ func (e KvimagePNGFilterValue) String() string {
 		return fmt.Sprintf("KvimagePNGFilterValue(%d)", e)
 	}
 }
-
-
-
 
 type VdspHa uint
 
@@ -615,7 +548,6 @@ const (
 	// VDSP_HANN_NORM: Specifies a normalized Hann window
 	VDSP_HANN_NORM VdspHa = 2
 )
-
 
 func (e VdspHa) String() string {
 	switch e {
@@ -630,8 +562,6 @@ func (e VdspHa) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DCT_Type
 type VDSP_DCT_Type int
 
@@ -643,7 +573,6 @@ const (
 	// VDSP_DCT_IV: A constant that specifies a type IV discrete cosine transform.
 	VDSP_DCT_IV VDSP_DCT_Type = 4
 )
-
 
 func (e VDSP_DCT_Type) String() string {
 	switch e {
@@ -658,8 +587,6 @@ func (e VDSP_DCT_Type) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Direction
 type VDSP_DFT_Direction int
 
@@ -669,7 +596,6 @@ const (
 	// VDSP_DFT_INVERSE: A constant that specifies an inverse transform.
 	VDSP_DFT_INVERSE VDSP_DFT_Direction = -1
 )
-
 
 func (e VDSP_DFT_Direction) String() string {
 	switch e {
@@ -682,8 +608,6 @@ func (e VDSP_DFT_Direction) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_RealtoComplex
 type VDSP_DFT_RealtoComplex int
 
@@ -691,7 +615,6 @@ const (
 	VDSP_DFT_Interleaved_ComplextoComplex VDSP_DFT_RealtoComplex = 0
 	VDSP_DFT_Interleaved_RealtoComplex VDSP_DFT_RealtoComplex = 1
 )
-
 
 func (e VDSP_DFT_RealtoComplex) String() string {
 	switch e {
@@ -703,8 +626,4 @@ func (e VDSP_DFT_RealtoComplex) String() string {
 		return fmt.Sprintf("VDSP_DFT_RealtoComplex(%d)", e)
 	}
 }
-
-
-
-
 

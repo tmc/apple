@@ -39,12 +39,6 @@ func (nc NSColorListClass) Alloc() NSColorList {
 	return rv
 }
 
-
-
-
-
-
-
 // An ordered list of color objects, identified by keys.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSColorList struct {
 //
 // An ordered list of color objects, identified by keys.
 func NSColorListFromID(id objc.ID) NSColorList {
-	return NSColorList{objectivec.Object{id}}
+	return NSColorList{objectivec.Object{ID: id}}
 }
 // NOTE: NSColorList adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSColorList] class.
 //
@@ -162,10 +152,6 @@ type INSColorList interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSColorList) Init() NSColorList {
 	rv := objc.Send[NSColorList](c.ID, objc.Sel("init"))
@@ -185,11 +171,6 @@ func NewNSColorList() NSColorList {
 	return rv
 }
 
-
-
-
-
-
 // Searches the available color lists array and returns the color list with
 // the specified name.
 //
@@ -206,7 +187,6 @@ func NewColorListNamed(name string) NSColorList {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorListClass().class), objc.Sel("colorListNamed:"), objc.String(name))
 	return NSColorListFromID(rv)
 }
-
 
 // Initializes and returns a color list, registering it under the specified
 // name if it isn’t in use already.
@@ -235,7 +215,6 @@ func NewColorListWithName(name string) NSColorList {
 	return NSColorListFromID(rv)
 }
 
-
 // Initializes and returns a color list from the specified file, registering
 // it under the specified name if it isn’t in use already.
 //
@@ -260,12 +239,6 @@ func NewColorListWithNameFromFile(name string, path string) NSColorList {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:fromFile:"), objc.String(name), objc.String(path))
 	return NSColorListFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a color list, registering it under the specified
 // name if it isn’t in use already.
@@ -403,7 +376,7 @@ func (c NSColorList) SetColorForKey(color INSColor, key string) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/write(to:)
 func (c NSColorList) WriteToURLError(url foundation.INSURL) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -434,17 +407,6 @@ func (c NSColorList) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of the color list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/name-swift.property
@@ -452,8 +414,6 @@ func (c NSColorList) Name() NSColorListName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("name"))
 	return NSColorListName(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // A Boolean value that indicates whether the color list can be modified.
 //
@@ -463,8 +423,6 @@ func (c NSColorList) Editable() bool {
 	return rv
 }
 
-
-
 // An array of the keys by which the color objects are stored in the color
 // list.
 //
@@ -473,12 +431,6 @@ func (c NSColorList) AllKeys() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("allKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
 
 // Returns an array of all color lists found in the standard color list
 // directories.
@@ -498,24 +450,4 @@ func (_NSColorListClass NSColorListClass) AvailableColorLists() []NSColorList {
 		return NSColorListFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

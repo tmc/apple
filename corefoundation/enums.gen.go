@@ -17,7 +17,6 @@ const (
 	CFByteOrderUnknown CFByteOrder = 0
 )
 
-
 func (e CFByteOrder) String() string {
 	switch e {
 	case CFByteOrderBigEndian:
@@ -30,8 +29,6 @@ func (e CFByteOrder) String() string {
 		return fmt.Sprintf("CFByteOrder(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarUnit
 type CFCalendarUnit int
@@ -67,7 +64,6 @@ const (
 	// Deprecated.
 	KCFCalendarUnitWeek CFCalendarUnit = 256
 )
-
 
 func (e CFCalendarUnit) String() string {
 	switch e {
@@ -106,8 +102,6 @@ func (e CFCalendarUnit) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetPredefinedSet
 type CFCharacterSetPredefinedSet int
 
@@ -143,7 +137,6 @@ const (
 	// KCFCharacterSetWhitespaceAndNewline: Whitespace and Newline character set (Unicode General Category Z*, , and ).
 	KCFCharacterSetWhitespaceAndNewline CFCharacterSetPredefinedSet = 3
 )
-
 
 func (e CFCharacterSetPredefinedSet) String() string {
 	switch e {
@@ -182,8 +175,6 @@ func (e CFCharacterSetPredefinedSet) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFComparisonResult
 type CFComparisonResult int
 
@@ -195,7 +186,6 @@ const (
 	// KCFCompareLessThan: Returned by a comparison function if the first value is less than the second value.
 	KCFCompareLessThan CFComparisonResult = -1
 )
-
 
 func (e CFComparisonResult) String() string {
 	switch e {
@@ -210,8 +200,6 @@ func (e CFComparisonResult) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataSearchFlags
 type CFDataSearchFlags int
 
@@ -221,7 +209,6 @@ const (
 	// KCFDataSearchBackwards: # Discussion
 	KCFDataSearchBackwards CFDataSearchFlags = 1
 )
-
 
 func (e CFDataSearchFlags) String() string {
 	switch e {
@@ -233,8 +220,6 @@ func (e CFDataSearchFlags) String() string {
 		return fmt.Sprintf("CFDataSearchFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterStyle
 type CFDateFormatterStyle int
@@ -251,7 +236,6 @@ const (
 	// KCFDateFormatterShortStyle: Specifies a short style, typically numeric only, such as “11/23/37” or “3:30pm”.
 	KCFDateFormatterShortStyle CFDateFormatterStyle = 1
 )
-
 
 func (e CFDateFormatterStyle) String() string {
 	switch e {
@@ -270,8 +254,6 @@ func (e CFDateFormatterStyle) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurityClearOptions
 type CFFileSecurityClearOptions int
 
@@ -289,7 +271,6 @@ const (
 	// KCFFileSecurityClearOwnerUUID: Clear the owner UUID (for the access control list).
 	KCFFileSecurityClearOwnerUUID CFFileSecurityClearOptions = 8
 )
-
 
 func (e CFFileSecurityClearOptions) String() string {
 	switch e {
@@ -310,8 +291,6 @@ func (e CFFileSecurityClearOptions) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFGregorianUnitFlags
 type CFGregorianUnitFlags int
 
@@ -331,7 +310,6 @@ const (
 	// Deprecated.
 	KCFGregorianUnitsYears CFGregorianUnitFlags = 1
 )
-
 
 func (e CFGregorianUnitFlags) String() string {
 	switch e {
@@ -354,8 +332,6 @@ func (e CFGregorianUnitFlags) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFISO8601DateFormatOptions
 type CFISO8601DateFormatOptions int
 
@@ -375,7 +351,6 @@ const (
 	KCFISO8601DateFormatWithWeekOfYear CFISO8601DateFormatOptions = 4
 	KCFISO8601DateFormatWithYear CFISO8601DateFormatOptions = 1
 )
-
 
 func (e CFISO8601DateFormatOptions) String() string {
 	switch e {
@@ -406,16 +381,11 @@ func (e CFISO8601DateFormatOptions) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleLanguageDirection
 type CFLocaleLanguageDirection int
 
 const (
 )
-
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationSuspensionBehavior
 type CFNotificationSuspensionBehavior int
@@ -430,7 +400,6 @@ const (
 	// CFNotificationSuspensionBehaviorHold: The server will hold all matching notifications until the queue has been filled (queue size determined by the server) at which point the server may flush queued notifications.
 	CFNotificationSuspensionBehaviorHold CFNotificationSuspensionBehavior = 3
 )
-
 
 func (e CFNotificationSuspensionBehavior) String() string {
 	switch e {
@@ -447,8 +416,6 @@ func (e CFNotificationSuspensionBehavior) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterOptionFlags
 type CFNumberFormatterOptionFlags int
 
@@ -456,7 +423,6 @@ const (
 	// KCFNumberFormatterParseIntegersOnly: Specifies that only integers should be parsed.
 	KCFNumberFormatterParseIntegersOnly CFNumberFormatterOptionFlags = 1
 )
-
 
 func (e CFNumberFormatterOptionFlags) String() string {
 	switch e {
@@ -466,8 +432,6 @@ func (e CFNumberFormatterOptionFlags) String() string {
 		return fmt.Sprintf("CFNumberFormatterOptionFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterPadPosition
 type CFNumberFormatterPadPosition int
@@ -483,7 +447,6 @@ const (
 	KCFNumberFormatterPadBeforeSuffix CFNumberFormatterPadPosition = 2
 )
 
-
 func (e CFNumberFormatterPadPosition) String() string {
 	switch e {
 	case KCFNumberFormatterPadAfterPrefix:
@@ -498,8 +461,6 @@ func (e CFNumberFormatterPadPosition) String() string {
 		return fmt.Sprintf("CFNumberFormatterPadPosition(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterRoundingMode
 type CFNumberFormatterRoundingMode int
@@ -520,7 +481,6 @@ const (
 	// KCFNumberFormatterRoundUp: Round away from zero.
 	KCFNumberFormatterRoundUp CFNumberFormatterRoundingMode = 3
 )
-
 
 func (e CFNumberFormatterRoundingMode) String() string {
 	switch e {
@@ -543,8 +503,6 @@ func (e CFNumberFormatterRoundingMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterStyle
 type CFNumberFormatterStyle int
 
@@ -562,7 +520,6 @@ const (
 	// KCFNumberFormatterSpellOutStyle: Specifies a spelled out format.
 	KCFNumberFormatterSpellOutStyle CFNumberFormatterStyle = 5
 )
-
 
 func (e CFNumberFormatterStyle) String() string {
 	switch e {
@@ -582,8 +539,6 @@ func (e CFNumberFormatterStyle) String() string {
 		return fmt.Sprintf("CFNumberFormatterStyle(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberType
 type CFNumberType int
@@ -622,7 +577,6 @@ const (
 	// KCFNumberShortType: Basic C  type.
 	KCFNumberShortType CFNumberType = 8
 )
-
 
 func (e CFNumberType) String() string {
 	switch e {
@@ -663,8 +617,6 @@ func (e CFNumberType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListFormat
 type CFPropertyListFormat int
 
@@ -676,7 +628,6 @@ const (
 	// KCFPropertyListXMLFormat_v1_0: XML format version 1.0.
 	KCFPropertyListXMLFormat_v1_0 CFPropertyListFormat = 100
 )
-
 
 func (e CFPropertyListFormat) String() string {
 	switch e {
@@ -691,8 +642,6 @@ func (e CFPropertyListFormat) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListMutabilityOptions
 type CFPropertyListMutabilityOptions int
 
@@ -702,7 +651,6 @@ const (
 	// KCFPropertyListMutableContainersAndLeaves: Specifies that the property list should have mutable containers and mutable leaves.
 	KCFPropertyListMutableContainersAndLeaves CFPropertyListMutabilityOptions = 2
 )
-
 
 func (e CFPropertyListMutabilityOptions) String() string {
 	switch e {
@@ -714,8 +662,6 @@ func (e CFPropertyListMutabilityOptions) String() string {
 		return fmt.Sprintf("CFPropertyListMutabilityOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopActivity
 type CFRunLoopActivity int
@@ -736,7 +682,6 @@ const (
 	// KCFRunLoopExit: The exit of the run loop, after exiting the event processing loop.
 	KCFRunLoopExit CFRunLoopActivity = 128
 )
-
 
 func (e CFRunLoopActivity) String() string {
 	switch e {
@@ -759,8 +704,6 @@ func (e CFRunLoopActivity) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRunResult
 type CFRunLoopRunResult int
 
@@ -774,7 +717,6 @@ const (
 	// KCFRunLoopRunTimedOut: The specified time interval for running the run loop has passed.
 	KCFRunLoopRunTimedOut CFRunLoopRunResult = 3
 )
-
 
 func (e CFRunLoopRunResult) String() string {
 	switch e {
@@ -791,8 +733,6 @@ func (e CFRunLoopRunResult) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCallBackType
 type CFSocketCallBackType int
 
@@ -808,7 +748,6 @@ const (
 	// KCFSocketWriteCallBack: The callback is called when the socket is writable.
 	KCFSocketWriteCallBack CFSocketCallBackType = 8
 )
-
 
 func (e CFSocketCallBackType) String() string {
 	switch e {
@@ -827,8 +766,6 @@ func (e CFSocketCallBackType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketError
 type CFSocketError int
 
@@ -840,7 +777,6 @@ const (
 	// KCFSocketTimeout: The socket operation timed out.
 	KCFSocketTimeout CFSocketError = -2
 )
-
 
 func (e CFSocketError) String() string {
 	switch e {
@@ -855,8 +791,6 @@ func (e CFSocketError) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamErrorDomain
 type CFStreamErrorDomain int
 
@@ -868,7 +802,6 @@ const (
 	// KCFStreamErrorDomainPOSIX: The error code is an error code defined in .
 	KCFStreamErrorDomainPOSIX CFStreamErrorDomain = 1
 )
-
 
 func (e CFStreamErrorDomain) String() string {
 	switch e {
@@ -882,8 +815,6 @@ func (e CFStreamErrorDomain) String() string {
 		return fmt.Sprintf("CFStreamErrorDomain(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamEventType
 type CFStreamEventType int
@@ -901,7 +832,6 @@ const (
 	KCFStreamEventOpenCompleted CFStreamEventType = 1
 )
 
-
 func (e CFStreamEventType) String() string {
 	switch e {
 	case KCFStreamEventCanAcceptBytes:
@@ -918,8 +848,6 @@ func (e CFStreamEventType) String() string {
 		return fmt.Sprintf("CFStreamEventType(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamStatus
 type CFStreamStatus int
@@ -943,7 +871,6 @@ const (
 	KCFStreamStatusWriting CFStreamStatus = 4
 )
 
-
 func (e CFStreamStatus) String() string {
 	switch e {
 	case KCFStreamStatusAtEnd:
@@ -966,8 +893,6 @@ func (e CFStreamStatus) String() string {
 		return fmt.Sprintf("CFStreamStatus(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringBuiltInEncodings
 type CFStringBuiltInEncodings int
@@ -1000,7 +925,6 @@ const (
 	// KCFStringEncodingWindowsLatin1: An encoding constant that identifies the Windows Latin 1 encoding (ANSI codepage 1252).
 	KCFStringEncodingWindowsLatin1 CFStringBuiltInEncodings = 1280
 )
-
 
 func (e CFStringBuiltInEncodings) String() string {
 	switch e {
@@ -1035,8 +959,6 @@ func (e CFStringBuiltInEncodings) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCompareFlags
 type CFStringCompareFlags int
 
@@ -1060,7 +982,6 @@ const (
 	// KCFCompareWidthInsensitive: Specifies that the comparison should ignore width differences.
 	KCFCompareWidthInsensitive CFStringCompareFlags = 256
 )
-
 
 func (e CFStringCompareFlags) String() string {
 	switch e {
@@ -1086,8 +1007,6 @@ func (e CFStringCompareFlags) String() string {
 		return fmt.Sprintf("CFStringCompareFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringEncodings
 type CFStringEncodings int
@@ -1246,7 +1165,6 @@ const (
 	// KCFStringEncodingWindowsVietnamese: Code page 1258.
 	KCFStringEncodingWindowsVietnamese CFStringEncodings = 1288
 )
-
 
 func (e CFStringEncodings) String() string {
 	switch e {
@@ -1407,8 +1325,6 @@ func (e CFStringEncodings) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringNormalizationForm
 type CFStringNormalizationForm int
 
@@ -1422,7 +1338,6 @@ const (
 	// KCFStringNormalizationFormKD: Compatibility decomposition.
 	KCFStringNormalizationFormKD CFStringNormalizationForm = 1
 )
-
 
 func (e CFStringNormalizationForm) String() string {
 	switch e {
@@ -1438,8 +1353,6 @@ func (e CFStringNormalizationForm) String() string {
 		return fmt.Sprintf("CFStringNormalizationForm(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerTokenType
 type CFStringTokenizerTokenType int
@@ -1458,7 +1371,6 @@ const (
 	// KCFStringTokenizerTokenNormal: Has a normal token.
 	KCFStringTokenizerTokenNormal CFStringTokenizerTokenType = 1
 )
-
 
 func (e CFStringTokenizerTokenType) String() string {
 	switch e {
@@ -1479,8 +1391,6 @@ func (e CFStringTokenizerTokenType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneNameStyle
 type CFTimeZoneNameStyle int
 
@@ -1498,7 +1408,6 @@ const (
 	// KCFTimeZoneNameStyleStandard: Specifies the standard name style; for example, “Central Standard Time” for the Central time zone.
 	KCFTimeZoneNameStyleStandard CFTimeZoneNameStyle = 0
 )
-
 
 func (e CFTimeZoneNameStyle) String() string {
 	switch e {
@@ -1519,8 +1428,6 @@ func (e CFTimeZoneNameStyle) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLBookmarkCreationOptions
 type CFURLBookmarkCreationOptions int
 
@@ -1537,7 +1444,6 @@ const (
 	// Deprecated.
 	KCFURLBookmarkCreationPreferFileIDResolutionMask CFURLBookmarkCreationOptions = 536870913
 )
-
 
 func (e CFURLBookmarkCreationOptions) String() string {
 	switch e {
@@ -1558,8 +1464,6 @@ func (e CFURLBookmarkCreationOptions) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLBookmarkResolutionOptions
 type CFURLBookmarkResolutionOptions int
 
@@ -1575,7 +1479,6 @@ const (
 	KCFURLBookmarkResolutionWithoutUIMask CFURLBookmarkResolutionOptions = 256
 )
 
-
 func (e CFURLBookmarkResolutionOptions) String() string {
 	switch e {
 	case KCFBookmarkResolutionWithoutMountingMask:
@@ -1590,8 +1493,6 @@ func (e CFURLBookmarkResolutionOptions) String() string {
 		return fmt.Sprintf("CFURLBookmarkResolutionOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLComponentType
 type CFURLComponentType int
@@ -1622,7 +1523,6 @@ const (
 	// KCFURLComponentUserInfo: The user’s information.
 	KCFURLComponentUserInfo CFURLComponentType = 7
 )
-
 
 func (e CFURLComponentType) String() string {
 	switch e {
@@ -1655,8 +1555,6 @@ func (e CFURLComponentType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLEnumeratorOptions
 type CFURLEnumeratorOptions int
 
@@ -1675,7 +1573,6 @@ const (
 	// KCFURLEnumeratorSkipPackageContents: The enumerator skips package directory contents.
 	KCFURLEnumeratorSkipPackageContents CFURLEnumeratorOptions = 8
 )
-
 
 func (e CFURLEnumeratorOptions) String() string {
 	switch e {
@@ -1698,8 +1595,6 @@ func (e CFURLEnumeratorOptions) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLEnumeratorResult
 type CFURLEnumeratorResult int
 
@@ -1713,7 +1608,6 @@ const (
 	// KCFURLEnumeratorSuccess: The enumerator was advanced successfully and returned a valid URL.
 	KCFURLEnumeratorSuccess CFURLEnumeratorResult = 1
 )
-
 
 func (e CFURLEnumeratorResult) String() string {
 	switch e {
@@ -1729,8 +1623,6 @@ func (e CFURLEnumeratorResult) String() string {
 		return fmt.Sprintf("CFURLEnumeratorResult(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLError
 type CFURLError int
@@ -1755,7 +1647,6 @@ const (
 	// KCFURLUnknownSchemeError: Indicates that the scheme is not recognized.
 	KCFURLUnknownSchemeError CFURLError = -11
 )
-
 
 func (e CFURLError) String() string {
 	switch e {
@@ -1782,8 +1673,6 @@ func (e CFURLError) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLPathStyle
 type CFURLPathStyle int
 
@@ -1795,7 +1684,6 @@ const (
 	// KCFURLWindowsPathStyle: Indicates a Windows style path name.
 	KCFURLWindowsPathStyle CFURLPathStyle = 2
 )
-
 
 func (e CFURLPathStyle) String() string {
 	switch e {
@@ -1809,8 +1697,6 @@ func (e CFURLPathStyle) String() string {
 		return fmt.Sprintf("CFURLPathStyle(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLEntityTypeCode
 type CFXMLEntityTypeCode int
@@ -1828,7 +1714,6 @@ const (
 	KCFXMLEntityTypeUnparsed CFXMLEntityTypeCode = 3
 )
 
-
 func (e CFXMLEntityTypeCode) String() string {
 	switch e {
 	case KCFXMLEntityTypeCharacter:
@@ -1845,8 +1730,6 @@ func (e CFXMLEntityTypeCode) String() string {
 		return fmt.Sprintf("CFXMLEntityTypeCode(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserOptions
 type CFXMLParserOptions int
@@ -1868,7 +1751,6 @@ const (
 	KCFXMLParserValidateDocument CFXMLParserOptions = 1
 )
 
-
 func (e CFXMLParserOptions) String() string {
 	switch e {
 	case KCFXMLParserAddImpliedAttributes:
@@ -1889,8 +1771,6 @@ func (e CFXMLParserOptions) String() string {
 		return fmt.Sprintf("CFXMLParserOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserStatusCode
 type CFXMLParserStatusCode int
@@ -1931,7 +1811,6 @@ const (
 	// KCFXMLStatusParseNotBegun: Indicates the parser has not begun.
 	KCFXMLStatusParseNotBegun CFXMLParserStatusCode = -2
 )
-
 
 func (e CFXMLParserStatusCode) String() string {
 	switch e {
@@ -1974,8 +1853,6 @@ func (e CFXMLParserStatusCode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreFoundation/CGRectEdge
 type CGRectEdge int
 
@@ -1984,7 +1861,6 @@ const (
 	CGRectMinXEdge CGRectEdge = 0
 	CGRectMinYEdge CGRectEdge = 1
 )
-
 
 func (e CGRectEdge) String() string {
 	switch e {
@@ -1999,9 +1875,6 @@ func (e CGRectEdge) String() string {
 	}
 }
 
-
-
-
 type KCFBundleExecutableArchitecture uint
 
 const (
@@ -2015,7 +1888,6 @@ const (
 	// KCFBundleExecutableArchitectureX86_64: Specifies the 64-bit Intel architecture.
 	KCFBundleExecutableArchitectureX86_64 KCFBundleExecutableArchitecture = 16777223
 )
-
 
 func (e KCFBundleExecutableArchitecture) String() string {
 	switch e {
@@ -2034,12 +1906,7 @@ func (e KCFBundleExecutableArchitecture) String() string {
 	}
 }
 
-
-
-
 const KCFCalendarComponentsWrap uint = 1
-
-
 
 type KCFFileDescriptor uint
 
@@ -2049,7 +1916,6 @@ const (
 	// KCFFileDescriptorWriteCallBack: Identifies the write callback.
 	KCFFileDescriptorWriteCallBack KCFFileDescriptor = 2
 )
-
 
 func (e KCFFileDescriptor) String() string {
 	switch e {
@@ -2061,9 +1927,6 @@ func (e KCFFileDescriptor) String() string {
 		return fmt.Sprintf("KCFFileDescriptor(%d)", e)
 	}
 }
-
-
-
 
 type KCFMessagePort int
 
@@ -2081,7 +1944,6 @@ const (
 	// KCFMessagePortTransportError: An error occurred trying to send the message.
 	KCFMessagePortTransportError KCFMessagePort = -4
 )
-
 
 func (e KCFMessagePort) String() string {
 	switch e {
@@ -2102,9 +1964,6 @@ func (e KCFMessagePort) String() string {
 	}
 }
 
-
-
-
 type KCFNotification uint
 
 const (
@@ -2113,7 +1972,6 @@ const (
 	// KCFNotificationPostToAllSessions: Delivers the notification to all sessions.
 	KCFNotificationPostToAllSessions KCFNotification = 2
 )
-
 
 func (e KCFNotification) String() string {
 	switch e {
@@ -2125,9 +1983,6 @@ func (e KCFNotification) String() string {
 		return fmt.Sprintf("KCFNotification(%d)", e)
 	}
 }
-
-
-
 
 type KCFPropertyList uint
 
@@ -2141,7 +1996,6 @@ const (
 	// KCFPropertyListWriteStreamError: Signifies a stream error writing a property list.
 	KCFPropertyListWriteStreamError KCFPropertyList = 3851
 )
-
 
 func (e KCFPropertyList) String() string {
 	switch e {
@@ -2157,9 +2011,6 @@ func (e KCFPropertyList) String() string {
 		return fmt.Sprintf("KCFPropertyList(%d)", e)
 	}
 }
-
-
-
 
 type KCFSocket uint
 
@@ -2177,7 +2028,6 @@ const (
 	// KCFSocketLeaveErrors: # Discussion
 	KCFSocketLeaveErrors KCFSocket = 64
 )
-
 
 func (e KCFSocket) String() string {
 	switch e {
@@ -2198,9 +2048,6 @@ func (e KCFSocket) String() string {
 	}
 }
 
-
-
-
 type KCFStringTokenizer uint
 
 const (
@@ -2219,7 +2066,6 @@ const (
 	// KCFStringTokenizerUnitWordBoundary: Specifies that a string should be tokenized by locale-sensitive word boundary.
 	KCFStringTokenizerUnitWordBoundary KCFStringTokenizer = 4
 )
-
 
 func (e KCFStringTokenizer) String() string {
 	switch e {
@@ -2241,9 +2087,6 @@ func (e KCFStringTokenizer) String() string {
 		return fmt.Sprintf("KCFStringTokenizer(%d)", e)
 	}
 }
-
-
-
 
 type KCFUserNotification uint
 
@@ -2270,7 +2113,6 @@ const (
 	KCFUserNotificationUseRadioButtonsFlag KCFUserNotification = 64
 )
 
-
 func (e KCFUserNotification) String() string {
 	switch e {
 	case KCFUserNotificationAlternateResponse:
@@ -2289,8 +2131,4 @@ func (e KCFUserNotification) String() string {
 		return fmt.Sprintf("KCFUserNotification(%d)", e)
 	}
 }
-
-
-
-
 

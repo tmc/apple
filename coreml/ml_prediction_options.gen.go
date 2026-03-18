@@ -37,12 +37,6 @@ func (mc MLPredictionOptionsClass) Alloc() MLPredictionOptions {
 	return rv
 }
 
-
-
-
-
-
-
 // The options available when making a prediction.
 //
 // # Getting features
@@ -59,14 +53,10 @@ type MLPredictionOptions struct {
 //
 // The options available when making a prediction.
 func MLPredictionOptionsFromID(id objc.ID) MLPredictionOptions {
-	return MLPredictionOptions{objectivec.Object{id}}
+	return MLPredictionOptions{objectivec.Object{ID: id}}
 }
 // NOTE: MLPredictionOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLPredictionOptions] class.
 //
@@ -85,10 +75,6 @@ type IMLPredictionOptions interface {
 	OutputBackings() foundation.INSDictionary
 	SetOutputBackings(value foundation.INSDictionary)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p MLPredictionOptions) Init() MLPredictionOptions {
@@ -109,26 +95,6 @@ func NewMLPredictionOptions() MLPredictionOptions {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A dictionary of feature names and client-allocated buffers.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLPredictionOptions/outputBackings
@@ -139,26 +105,4 @@ func (p MLPredictionOptions) OutputBackings() foundation.INSDictionary {
 func (p MLPredictionOptions) SetOutputBackings(value foundation.INSDictionary) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOutputBackings:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

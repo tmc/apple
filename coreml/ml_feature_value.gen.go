@@ -40,12 +40,6 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 	return rv
 }
 
-
-
-
-
-
-
 // A generic wrapper around an underlying value and the value’s type.
 //
 // # Overview
@@ -93,14 +87,10 @@ type MLFeatureValue struct {
 //
 // A generic wrapper around an underlying value and the value’s type.
 func MLFeatureValueFromID(id objc.ID) MLFeatureValue {
-	return MLFeatureValue{objectivec.Object{id}}
+	return MLFeatureValue{objectivec.Object{ID: id}}
 }
 // NOTE: MLFeatureValue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLFeatureValue] class.
 //
@@ -159,10 +149,6 @@ type IMLFeatureValue interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MLFeatureValue) Init() MLFeatureValue {
 	rv := objc.Send[MLFeatureValue](f.ID, objc.Sel("init"))
@@ -182,11 +168,6 @@ func NewMLFeatureValue() MLFeatureValue {
 	return rv
 }
 
-
-
-
-
-
 // Creates a feature value with a type that represents an undefined or missing
 // value.
 //
@@ -197,7 +178,6 @@ func NewFeatureValueUndefinedFeatureValueWithType(type_ MLFeatureType) MLFeature
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("undefinedFeatureValueWithType:"), type_)
 	return MLFeatureValueFromID(rv)
 }
-
 
 // Creates a feature value that contains an image defined by a core graphics
 // image and a constraint.
@@ -223,7 +203,6 @@ func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGIma
 	}
 	return MLFeatureValueFromID(rv), nil
 }
-
 
 // Creates a feature value that contains an image defined by a core graphics
 // image, an orientation, and a constraint.
@@ -254,7 +233,6 @@ func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregra
 	}
 	return MLFeatureValueFromID(rv), nil
 }
-
 
 // Creates a feature value that contains an image defined by a core graphics
 // image and its orientation, size, and pixel format.
@@ -292,7 +270,6 @@ func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOpt
 	return MLFeatureValueFromID(rv), nil
 }
 
-
 // Creates a feature value that contains an image defined by a core graphics
 // image and its size and pixel format.
 //
@@ -324,7 +301,6 @@ func NewFeatureValueWithCGImagePixelsWidePixelsHighPixelFormatTypeOptionsError(c
 	return MLFeatureValueFromID(rv), nil
 }
 
-
 // Creates a feature value that contains a dictionary of numbers.
 //
 // value: A dictionary of numbers.
@@ -340,7 +316,6 @@ func NewFeatureValueWithDictionaryError(value foundation.INSDictionary) (MLFeatu
 	return MLFeatureValueFromID(rv), nil
 }
 
-
 // Creates a feature value that contains a double.
 //
 // value: A double precision floating point value.
@@ -350,7 +325,6 @@ func NewFeatureValueWithDouble(value float64) MLFeatureValue {
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithDouble:"), value)
 	return MLFeatureValueFromID(rv)
 }
-
 
 // Creates a feature value that contains an image defined by an image URL and
 // a constraint.
@@ -377,7 +351,6 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, 
 	}
 	return MLFeatureValueFromID(rv), nil
 }
-
 
 // Creates a feature value that contains an image defined by an image URL, an
 // orientation, and a constraint.
@@ -409,7 +382,6 @@ func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundati
 	}
 	return MLFeatureValueFromID(rv), nil
 }
-
 
 // Creates a feature value that contains an image defined by an image URL and
 // the image’s orientation, size, and pixel format.
@@ -448,7 +420,6 @@ func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatType
 	return MLFeatureValueFromID(rv), nil
 }
 
-
 // Creates a feature value that contains an image defined by an image URL and
 // the image’s size and pixel format.
 //
@@ -481,7 +452,6 @@ func NewFeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsErro
 	return MLFeatureValueFromID(rv), nil
 }
 
-
 // Creates a feature value that contains an integer.
 //
 // value: A 64-bit integer value.
@@ -492,7 +462,6 @@ func NewFeatureValueWithInt64(value int64) MLFeatureValue {
 	return MLFeatureValueFromID(rv)
 }
 
-
 // Creates a feature value that contains a multidimensional array.
 //
 // value: An [MLMultiArray] instance.
@@ -502,7 +471,6 @@ func NewFeatureValueWithMultiArray(value IMLMultiArray) MLFeatureValue {
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithMultiArray:"), value)
 	return MLFeatureValueFromID(rv)
 }
-
 
 // Creates a feature value that contains an image from a pixel buffer.
 //
@@ -532,7 +500,6 @@ func NewFeatureValueWithPixelBuffer(value corevideo.CVImageBufferRef) MLFeatureV
 	return MLFeatureValueFromID(rv)
 }
 
-
 // Creates a feature value that contains a sequence.
 //
 // sequence: An [MLSequence] instance.
@@ -543,7 +510,6 @@ func NewFeatureValueWithSequence(sequence IMLSequence) MLFeatureValue {
 	return MLFeatureValueFromID(rv)
 }
 
-
 // Creates a feature value that contains a string.
 //
 // value: A string.
@@ -553,12 +519,6 @@ func NewFeatureValueWithString(value string) MLFeatureValue {
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithString:"), objc.String(value))
 	return MLFeatureValueFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether a feature value is equal to
 // another.
@@ -574,17 +534,6 @@ func (f MLFeatureValue) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The type of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/type
@@ -592,8 +541,6 @@ func (f MLFeatureValue) Type() MLFeatureType {
 	rv := objc.Send[MLFeatureType](f.ID, objc.Sel("type"))
 	return MLFeatureType(rv)
 }
-
-
 
 // A Boolean value that indicates whether the feature value is undefined or
 // missing.
@@ -604,8 +551,6 @@ func (f MLFeatureValue) Undefined() bool {
 	return rv
 }
 
-
-
 // The underlying integer of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/int64Value
@@ -613,8 +558,6 @@ func (f MLFeatureValue) Int64Value() int64 {
 	rv := objc.Send[int64](f.ID, objc.Sel("int64Value"))
 	return rv
 }
-
-
 
 // The underlying double of the feature value.
 //
@@ -624,8 +567,6 @@ func (f MLFeatureValue) DoubleValue() float64 {
 	return rv
 }
 
-
-
 // The underlying string of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/stringValue
@@ -633,8 +574,6 @@ func (f MLFeatureValue) StringValue() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringValue"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The underlying image of the feature value as a pixel buffer.
 //
@@ -644,8 +583,6 @@ func (f MLFeatureValue) ImageBufferValue() corevideo.CVImageBufferRef {
 	return corevideo.CVImageBufferRef(rv)
 }
 
-
-
 // The underlying multiarray of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/multiArrayValue
@@ -653,8 +590,6 @@ func (f MLFeatureValue) MultiArrayValue() IMLMultiArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("multiArrayValue"))
 	return MLMultiArrayFromID(objc.ID(rv))
 }
-
-
 
 // The underlying sequence of the feature value.
 //
@@ -664,8 +599,6 @@ func (f MLFeatureValue) SequenceValue() IMLSequence {
 	return MLSequenceFromID(objc.ID(rv))
 }
 
-
-
 // The underlying dictionary of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/dictionaryValue
@@ -673,29 +606,4 @@ func (f MLFeatureValue) DictionaryValue() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("dictionaryValue"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

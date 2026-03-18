@@ -39,12 +39,6 @@ func (nc NSTableViewDiffableDataSourceClass) Alloc() NSTableViewDiffableDataSour
 	return rv
 }
 
-
-
-
-
-
-
 // The object you use to manage data and provide items for a table view.
 //
 // # Overview
@@ -105,14 +99,10 @@ type NSTableViewDiffableDataSource struct {
 //
 // The object you use to manage data and provide items for a table view.
 func NSTableViewDiffableDataSourceFromID(id objc.ID) NSTableViewDiffableDataSource {
-	return NSTableViewDiffableDataSource{objectivec.Object{id}}
+	return NSTableViewDiffableDataSource{objectivec.Object{ID: id}}
 }
 // NOTE: NSTableViewDiffableDataSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTableViewDiffableDataSource] class.
 //
@@ -185,10 +175,6 @@ type INSTableViewDiffableDataSource interface {
 	SetDefaultRowAnimation(value NSTableViewAnimationOptions)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTableViewDiffableDataSource) Init() NSTableViewDiffableDataSource {
 	rv := objc.Send[NSTableViewDiffableDataSource](t.ID, objc.Sel("init"))
@@ -208,11 +194,6 @@ func NewNSTableViewDiffableDataSource() NSTableViewDiffableDataSource {
 	return rv
 }
 
-
-
-
-
-
 // Creates a diffable data source with the specified cell provider, and
 // connects it to the specified table view.
 //
@@ -228,12 +209,6 @@ func NewTableViewDiffableDataSourceWithTableViewCellProvider(tableView INSTableV
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, cellProvider)
 	return NSTableViewDiffableDataSourceFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a diffable data source with the specified cell provider, and
 // connects it to the specified table view.
@@ -367,9 +342,9 @@ func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferences(snapsho
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/applySnapshot(_:animatingDifferences:completion:)
 func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferencesCompletion(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool, completion VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(completion)
+_block2, _cleanup2 := NewVoidBlock(completion)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("applySnapshot:animatingDifferences:completion:"), snapshot, animatingDifferences, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("applySnapshot:animatingDifferences:completion:"), snapshot, animatingDifferences, _block2)
 }
 
 // Returns the number of records managed for `aTableView` by the data source
@@ -627,17 +602,6 @@ func (t NSTableViewDiffableDataSource) TableViewValidateDropProposedRowProposedD
 	return NSDragOperation(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The closure that configures and returns the table view’s row views from
 // the diffable data source.
 //
@@ -653,8 +617,6 @@ func (t NSTableViewDiffableDataSource) RowViewProvider() NSTableViewDiffableData
 func (t NSTableViewDiffableDataSource) SetRowViewProvider(value NSTableViewDiffableDataSourceRowProvider) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowViewProvider:"), value)
 }
-
-
 
 // The closure that configures and returns the table view’s section header
 // views from the diffable data source.
@@ -676,8 +638,6 @@ func (t NSTableViewDiffableDataSource) SetSectionHeaderViewProvider(value NSTabl
 	objc.Send[struct{}](t.ID, objc.Sel("setSectionHeaderViewProvider:"), value)
 }
 
-
-
 // The default animation the UI uses to show differences between rows.
 //
 // # Discussion
@@ -697,28 +657,8 @@ func (t NSTableViewDiffableDataSource) SetDefaultRowAnimation(value NSTableViewA
 	objc.Send[struct{}](t.ID, objc.Sel("setDefaultRowAnimation:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSTableViewDataSource
 			
-
-
-
-
-
-
-
 
 // ApplySnapshotAnimatingDifferencesCompletionSync is a synchronous wrapper around [NSTableViewDiffableDataSource.ApplySnapshotAnimatingDifferencesCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -734,9 +674,4 @@ func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferencesCompleti
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

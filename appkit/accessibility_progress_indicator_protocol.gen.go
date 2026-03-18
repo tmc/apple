@@ -23,8 +23,6 @@ type NSAccessibilityProgressIndicator interface {
 	AccessibilityValue() foundation.NSNumber
 }
 
-
-
 // NSAccessibilityProgressIndicatorObject wraps an existing Objective-C object that conforms to the NSAccessibilityProgressIndicator protocol.
 type NSAccessibilityProgressIndicatorObject struct {
 	objectivec.Object
@@ -33,8 +31,6 @@ func (o NSAccessibilityProgressIndicatorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityProgressIndicatorObjectFromID constructs a [NSAccessibilityProgressIndicatorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityProgressIndicatorObjectFromID(id objc.ID) NSAccessibilityProgressIndicatorObject {
@@ -42,9 +38,6 @@ func NSAccessibilityProgressIndicatorObjectFromID(id objc.ID) NSAccessibilityPro
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the progress indicator’s value.
 //
@@ -159,10 +152,4 @@ func (o NSAccessibilityProgressIndicatorObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

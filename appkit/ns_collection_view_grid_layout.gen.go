@@ -38,12 +38,6 @@ func (nc NSCollectionViewGridLayoutClass) Alloc() NSCollectionViewGridLayout {
 	return rv
 }
 
-
-
-
-
-
-
 // A layout that displays a single section of items in a row and column grid.
 //
 // # Overview
@@ -105,10 +99,6 @@ func NSCollectionViewGridLayoutFromID(id objc.ID) NSCollectionViewGridLayout {
 }
 // NOTE: NSCollectionViewGridLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewGridLayout] class.
 //
@@ -173,13 +163,7 @@ type INSCollectionViewGridLayout interface {
 	// The array of background colors to use when drawing the grid.
 	BackgroundColors() []NSColor
 	SetBackgroundColors(value []NSColor)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCollectionViewGridLayout) Init() NSCollectionViewGridLayout {
@@ -199,30 +183,6 @@ func NewNSCollectionViewGridLayout() NSCollectionViewGridLayout {
 	rv := objc.Send[NSCollectionViewGridLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-func (c NSCollectionViewGridLayout) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The maximum number of rows to display in the collection view’s visible
 // area.
@@ -244,8 +204,6 @@ func (c NSCollectionViewGridLayout) SetMaximumNumberOfRows(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumNumberOfRows:"), value)
 }
 
-
-
 // The maximum number of columns to display in the collection view’s visible
 // area.
 //
@@ -266,8 +224,6 @@ func (c NSCollectionViewGridLayout) SetMaximumNumberOfColumns(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumNumberOfColumns:"), value)
 }
 
-
-
 // The smallest allowable size for an item’s view.
 //
 // # Discussion
@@ -285,8 +241,6 @@ func (c NSCollectionViewGridLayout) SetMinimumItemSize(value corefoundation.CGSi
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumItemSize:"), value)
 }
 
-
-
 // The largest allowable size for an item’s view.
 //
 // # Discussion
@@ -303,8 +257,6 @@ func (c NSCollectionViewGridLayout) MaximumItemSize() corefoundation.CGSize {
 func (c NSCollectionViewGridLayout) SetMaximumItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumItemSize:"), value)
 }
-
-
 
 // The minimum spacing (in points) to use between items in the same row or
 // column.
@@ -329,8 +281,6 @@ func (c NSCollectionViewGridLayout) SetMinimumInteritemSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumInteritemSpacing:"), value)
 }
 
-
-
 // The minimum spacing (in points) to use between rows or columns.
 //
 // # Discussion
@@ -352,8 +302,6 @@ func (c NSCollectionViewGridLayout) SetMinimumLineSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumLineSpacing:"), value)
 }
 
-
-
 // The amount of empty space (in points) around the grid’s content.
 //
 // # Discussion
@@ -369,8 +317,6 @@ func (c NSCollectionViewGridLayout) Margins() foundation.NSEdgeInsets {
 func (c NSCollectionViewGridLayout) SetMargins(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMargins:"), value)
 }
-
-
 
 // The array of background colors to use when drawing the grid.
 //
@@ -401,29 +347,4 @@ func (c NSCollectionViewGridLayout) BackgroundColors() []NSColor {
 func (c NSCollectionViewGridLayout) SetBackgroundColors(value []NSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundColors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

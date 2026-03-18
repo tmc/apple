@@ -86,8 +86,6 @@ type NSCollectionLayoutVisibleItem interface {
 	SetZIndex(value int)
 }
 
-
-
 // NSCollectionLayoutVisibleItemObject wraps an existing Objective-C object that conforms to the NSCollectionLayoutVisibleItem protocol.
 type NSCollectionLayoutVisibleItemObject struct {
 	objectivec.Object
@@ -96,8 +94,6 @@ func (o NSCollectionLayoutVisibleItemObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCollectionLayoutVisibleItemObjectFromID constructs a [NSCollectionLayoutVisibleItemObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionLayoutVisibleItemObjectFromID(id objc.ID) NSCollectionLayoutVisibleItemObject {
@@ -105,9 +101,6 @@ func NSCollectionLayoutVisibleItemObjectFromID(id objc.ID) NSCollectionLayoutVis
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The name of the item.
 //
@@ -213,41 +206,19 @@ func (o NSCollectionLayoutVisibleItemObject) ZIndex() int {
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 func (o NSCollectionLayoutVisibleItemObject) SetAlpha(value float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAlpha:"), value)
 }
-
 
 func (o NSCollectionLayoutVisibleItemObject) SetHidden(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHidden:"), value)
 }
 
-
-
-
-
-
 func (o NSCollectionLayoutVisibleItemObject) SetCenter(value corefoundation.CGPoint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCenter:"), value)
 }
 
-
 func (o NSCollectionLayoutVisibleItemObject) SetZIndex(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setZIndex:"), value)
 }
-
-
-
-
 

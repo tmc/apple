@@ -37,12 +37,6 @@ func (nc NSClipViewClass) Alloc() NSClipView {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that clips a document view to a scroll view’s frame.
 //
 // # Overview
@@ -142,10 +136,6 @@ func NSClipViewFromID(id objc.ID) NSClipView {
 // NOTE: NSClipView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSClipView] class.
 //
 // # Setting the Document View
@@ -241,13 +231,7 @@ type INSClipView interface {
 	ViewBoundsChanged(notification foundation.NSNotification)
 	// Handles an [frameDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new frame.
 	ViewFrameChanged(notification foundation.NSNotification)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSClipView) Init() NSClipView {
@@ -268,11 +252,6 @@ func NewNSClipView() NSClipView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -287,7 +266,6 @@ func NewClipViewWithCoder(coder foundation.INSCoder) NSClipView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSClipViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -310,12 +288,6 @@ func NewClipViewWithFrame(frameRect corefoundation.CGRect) NSClipView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSClipViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Changes the origin of the clip view’s bounds rectangle to `newOrigin`.
 //
@@ -370,20 +342,6 @@ func (c NSClipView) ViewBoundsChanged(notification foundation.NSNotification) {
 func (c NSClipView) ViewFrameChanged(notification foundation.NSNotification) {
 	objc.Send[objc.ID](c.ID, objc.Sel("viewFrameChanged:"), notification)
 }
-func (c NSClipView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The clip view’s document view.
 //
@@ -410,8 +368,6 @@ func (c NSClipView) DocumentView() INSView {
 func (c NSClipView) SetDocumentView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDocumentView:"), value)
 }
-
-
 
 // The distance that the content view is inset from the enclosing scroll view.
 //
@@ -440,8 +396,6 @@ func (c NSClipView) SetContentInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentInsets:"), value)
 }
 
-
-
 // A Boolean value that indicates if the clip view automatically accounts for
 // other scroll view subviews.
 //
@@ -463,8 +417,6 @@ func (c NSClipView) SetAutomaticallyAdjustsContentInsets(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAutomaticallyAdjustsContentInsets:"), value)
 }
 
-
-
 // The rectangle defining the document view’s frame, adjusted to the size of
 // the clip view if the document view is smaller.
 //
@@ -485,8 +437,6 @@ func (c NSClipView) DocumentRect() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The exposed rectangle of the clip view’s document view, in the document
 // view’s own coordinate system.
 //
@@ -501,8 +451,6 @@ func (c NSClipView) DocumentVisibleRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("documentVisibleRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The cursor object used when the pointer lies over the view.
 //
@@ -523,8 +471,6 @@ func (c NSClipView) DocumentCursor() INSCursor {
 func (c NSClipView) SetDocumentCursor(value INSCursor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDocumentCursor:"), value)
 }
-
-
 
 // A Boolean value that indicates if the clip view draws its background color.
 //
@@ -550,8 +496,6 @@ func (c NSClipView) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDrawsBackground:"), value)
 }
 
-
-
 // The color of the clip view’s background.
 //
 // # Discussion
@@ -570,12 +514,6 @@ func (c NSClipView) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
-
-
-
-
-
-
 // A notification that posts when the view’s bounds rectangle changes to a
 // new value independently of the frame rectangle.
 //
@@ -585,8 +523,6 @@ func (_NSClipViewClass NSClipViewClass) BoundsDidChangeNotification() foundation
 	return foundation.NSStringFromID(objc.ID(rv))
 }
 
-
-
 // A notification that posts when the view’s frame rectangle changes to a
 // new value.
 //
@@ -595,34 +531,4 @@ func (_NSClipViewClass NSClipViewClass) FrameDidChangeNotification() foundation.
 	rv := objc.Send[objc.ID](objc.ID(_NSClipViewClass.class), objc.Sel("NSViewFrameDidChangeNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

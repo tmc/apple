@@ -24,8 +24,6 @@ type NSCollectionViewDataSource interface {
 	CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath objectivec.IObject) INSCollectionViewItem
 }
 
-
-
 // NSCollectionViewDataSourceObject wraps an existing Objective-C object that conforms to the NSCollectionViewDataSource protocol.
 type NSCollectionViewDataSourceObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSCollectionViewDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCollectionViewDataSourceObjectFromID constructs a [NSCollectionViewDataSourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCollectionViewDataSourceObjectFromID(id objc.ID) NSCollectionViewDataSourceObject {
@@ -43,9 +39,6 @@ func NSCollectionViewDataSourceObjectFromID(id objc.ID) NSCollectionViewDataSour
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks your data source object to provide the number of items in the
 // specified section.
@@ -171,10 +164,4 @@ func (o NSCollectionViewDataSourceObject) CollectionViewViewForSupplementaryElem
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
 	}
-
-
-
-
-
-
 

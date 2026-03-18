@@ -37,12 +37,6 @@ func (nc NSFontPanelClass) Alloc() NSFontPanel {
 	return rv
 }
 
-
-
-
-
-
-
 // The Font panel—a user interface object that displays a list of available
 // fonts, letting the user preview them and change the font used to display
 // text.
@@ -87,10 +81,6 @@ func NSFontPanelFromID(id objc.ID) NSFontPanel {
 }
 // NOTE: NSFontPanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFontPanel] class.
 //
@@ -140,13 +130,7 @@ type INSFontPanel interface {
 	// The specified view as the receiver’s accessory view, allowing you to add custom controls to your application’s Font panel without having to create a subclass.
 	AccessoryView() INSView
 	SetAccessoryView(value INSView)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f NSFontPanel) Init() NSFontPanel {
@@ -166,11 +150,6 @@ func NewNSFontPanel() NSFontPanel {
 	rv := objc.Send[NSFontPanel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a titled window that contains the specified content view
 // controller.
@@ -204,7 +183,6 @@ func NewFontPanelWindowWithContentViewController(contentViewController INSViewCo
 	return NSFontPanelFromID(rv)
 }
 
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -215,7 +193,6 @@ func NewFontPanelWithCoder(coder foundation.INSCoder) NSFontPanel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSFontPanelFromID(rv)
 }
-
 
 // Initializes the window with the specified values.
 //
@@ -266,7 +243,6 @@ func NewFontPanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
 	return NSFontPanelFromID(rv)
 }
-
 
 // Initializes an allocated window with the specified values.
 //
@@ -322,12 +298,6 @@ func NewFontPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 	return NSFontPanelFromID(rv)
 }
 
-
-
-
-
-
-
 // Triggers a reload to the default state, so that the delegate is called.
 //
 // # Discussion
@@ -381,20 +351,6 @@ func (f NSFontPanel) PanelConvertFont(fontObj NSFont) NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("panelConvertFont:"), fontObj)
 	return NSFontFromID(rv)
 }
-func (f NSFontPanel) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean that shows whether the receiver’s Set button is enabled.
 //
@@ -412,8 +368,6 @@ func (f NSFontPanel) SetEnabled(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setEnabled:"), value)
 }
 
-
-
 // The specified view as the receiver’s accessory view, allowing you to add
 // custom controls to your application’s Font panel without having to create
 // a subclass.
@@ -427,12 +381,6 @@ func (f NSFontPanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAccessoryView:"), value)
 }
 
-
-
-
-
-
-
 // Returns the single [NSFontPanel] instance for the application, creating it
 // if necessary.
 //
@@ -445,8 +393,6 @@ func (_NSFontPanelClass NSFontPanelClass) SharedFontPanel() NSFontPanel {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontPanelClass.class), objc.Sel("sharedFontPanel"))
 	return NSFontPanelFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the shared Font panel has been
 // created.
@@ -464,35 +410,4 @@ func (_NSFontPanelClass NSFontPanelClass) SharedFontPanelExists() bool {
 	rv := objc.Send[bool](objc.ID(_NSFontPanelClass.class), objc.Sel("sharedFontPanelExists"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSComboBoxCellClass) Alloc() NSComboBoxCell {
 	return rv
 }
 
-
-
-
-
-
-
 // The user interface of a combo box.
 //
 // # Overview
@@ -125,10 +119,6 @@ func NSComboBoxCellFromID(id objc.ID) NSComboBoxCell {
 }
 // NOTE: NSComboBoxCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSComboBoxCell] class.
 //
@@ -271,13 +261,7 @@ type INSComboBoxCell interface {
 	// A Boolean value that indicates if the combo box tries to complete text entered by the user.
 	Completes() bool
 	SetCompletes(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSComboBoxCell) Init() NSComboBoxCell {
@@ -297,11 +281,6 @@ func NewNSComboBoxCell() NSComboBoxCell {
 	rv := objc.Send[NSComboBoxCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -325,7 +304,6 @@ func NewComboBoxCellImageCell(image INSImage) NSComboBoxCell {
 	return NSComboBoxCellFromID(rv)
 }
 
-
 // Initializes a text field cell that displays the specified string.
 //
 // string: The string that the text field cell displays.
@@ -341,7 +319,6 @@ func NewComboBoxCellTextCell(string_ string) NSComboBoxCell {
 	return NSComboBoxCellFromID(rv)
 }
 
-
 // Initializes a text field cell from data in the provided unarchiver.
 //
 // coder: An unarchiver object.
@@ -356,12 +333,6 @@ func NewComboBoxCellWithCoder(coder foundation.INSCoder) NSComboBoxCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSComboBoxCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds multiple objects to the internal item list.
 //
@@ -655,20 +626,6 @@ func (c NSComboBoxCell) CompletedString(string_ string) string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("completedString:"), objc.String(string_))
 	return foundation.NSStringFromID(rv).String()
 }
-func (c NSComboBoxCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates if the combo box displays a vertical
 // scroller.
@@ -699,8 +656,6 @@ func (c NSComboBoxCell) SetHasVerticalScroller(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHasVerticalScroller:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the combo box button displays a
 // border.
 //
@@ -723,8 +678,6 @@ func (c NSComboBoxCell) SetButtonBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setButtonBordered:"), value)
 }
 
-
-
 // The spacing between cells in the combo box’s pop-up list.
 //
 // # Discussion
@@ -741,8 +694,6 @@ func (c NSComboBoxCell) SetIntercellSpacing(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntercellSpacing:"), value)
 }
 
-
-
 // The height of each item in the combo box’s pop-up list.
 //
 // # Discussion
@@ -758,8 +709,6 @@ func (c NSComboBoxCell) SetItemHeight(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setItemHeight:"), value)
 }
 
-
-
 // The maximum number of items visible in the pop-up list at any one time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/numberOfVisibleItems
@@ -770,8 +719,6 @@ func (c NSComboBoxCell) NumberOfVisibleItems() int {
 func (c NSComboBoxCell) SetNumberOfVisibleItems(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfVisibleItems:"), value)
 }
-
-
 
 // The object that provides the data displayed in the combo box’s pop-up
 // list.
@@ -799,8 +746,6 @@ func (c NSComboBoxCell) SetDataSource(value NSComboBoxCellDataSource) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDataSource:"), value)
 }
 
-
-
 // A Boolean value that indicates if the combo box uses an external data
 // source to populate its pop-up list.
 //
@@ -822,8 +767,6 @@ func (c NSComboBoxCell) SetUsesDataSource(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUsesDataSource:"), value)
 }
 
-
-
 // The combo box’s internal item list in an array.
 //
 // # Discussion
@@ -838,8 +781,6 @@ func (c NSComboBoxCell) ObjectValues() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // The total number of items in the pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/numberOfItems
@@ -847,8 +788,6 @@ func (c NSComboBoxCell) NumberOfItems() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
-
 
 // The index of the last item selected from the pop-up list.
 //
@@ -863,8 +802,6 @@ func (c NSComboBoxCell) IndexOfSelectedItem() int {
 	rv := objc.Send[int](c.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
-
-
 
 // The object corresponding to the last item selected from the pop-up list.
 //
@@ -884,8 +821,6 @@ func (c NSComboBoxCell) ObjectValueOfSelectedItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectValueOfSelectedItem"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // A Boolean value that indicates if the combo box tries to complete text
 // entered by the user.
@@ -914,33 +849,4 @@ func (c NSComboBoxCell) Completes() bool {
 func (c NSComboBoxCell) SetCompletes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCompletes:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

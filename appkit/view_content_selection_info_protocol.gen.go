@@ -20,8 +20,6 @@ type NSViewContentSelectionInfo interface {
 	SelectionAnchorRect() corefoundation.CGRect
 }
 
-
-
 // NSViewContentSelectionInfoObject wraps an existing Objective-C object that conforms to the NSViewContentSelectionInfo protocol.
 type NSViewContentSelectionInfoObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ type NSViewContentSelectionInfoObject struct {
 func (o NSViewContentSelectionInfoObject) BaseObject() objectivec.Object {
 	return o.Object
 }
-
-
 
 // NSViewContentSelectionInfoObjectFromID constructs a [NSViewContentSelectionInfoObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
@@ -40,9 +36,6 @@ func NSViewContentSelectionInfoObjectFromID(id objc.ID) NSViewContentSelectionIn
 	}
 }
 
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewContentSelectionInfo/selectionAnchorRect
 
 func (o NSViewContentSelectionInfoObject) SelectionAnchorRect() corefoundation.CGRect {
@@ -50,12 +43,4 @@ func (o NSViewContentSelectionInfoObject) SelectionAnchorRect() corefoundation.C
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("selectionAnchorRect"))
 	return rv
 	}
-
-
-
-
-
-
-
-
 

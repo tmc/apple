@@ -37,12 +37,6 @@ func (nc NSMenuItemCellClass) Alloc() NSMenuItemCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that handles the measurement and display of a single menu item in
 // its encompassing frame.
 //
@@ -91,10 +85,6 @@ func NSMenuItemCellFromID(id objc.ID) NSMenuItemCell {
 }
 // NOTE: NSMenuItemCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMenuItemCell] class.
 //
@@ -173,13 +163,7 @@ type INSMenuItemCell interface {
 	// A Boolean value indicating whether the menu item needs to be displayed.
 	NeedsDisplay() bool
 	SetNeedsDisplay(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMenuItemCell) Init() NSMenuItemCell {
@@ -200,11 +184,6 @@ func NewNSMenuItemCell() NSMenuItemCell {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSButtonCell/init(imageCell:)
 func NewMenuItemCellImageCell(image INSImage) NSMenuItemCell {
@@ -212,7 +191,6 @@ func NewMenuItemCellImageCell(image INSImage) NSMenuItemCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSMenuItemCellFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/init(textCell:)
@@ -222,7 +200,6 @@ func NewMenuItemCellTextCell(string_ string) NSMenuItemCell {
 	return NSMenuItemCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemCell/init(coder:)
 func NewMenuItemCellWithCoder(coder foundation.INSCoder) NSMenuItemCell {
@@ -230,12 +207,6 @@ func NewMenuItemCellWithCoder(coder foundation.INSCoder) NSMenuItemCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMenuItemCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Calculates the minimum required width and height of the receiver’s menu
 // item.
@@ -363,20 +334,6 @@ func (m NSMenuItemCell) DrawSeparatorItemWithFrameInView(cellFrame corefoundatio
 func (m NSMenuItemCell) DrawStateImageWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawStateImageWithFrame:inView:"), cellFrame, controlView)
 }
-func (m NSMenuItemCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The menu item object associated with the cell.
 //
@@ -388,8 +345,6 @@ func (m NSMenuItemCell) MenuItem() INSMenuItem {
 func (m NSMenuItemCell) SetMenuItem(value INSMenuItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMenuItem:"), value)
 }
-
-
 
 // A Boolean value indicating whether the size of the menu needs to be
 // calculated.
@@ -419,8 +374,6 @@ func (m NSMenuItemCell) SetNeedsSizing(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNeedsSizing:"), value)
 }
 
-
-
 // The width of the image associated with the menu item.
 //
 // # Discussion
@@ -434,8 +387,6 @@ func (m NSMenuItemCell) ImageWidth() float64 {
 	return rv
 }
 
-
-
 // The width of the menu item’s text, measured in points.
 //
 // # Discussion
@@ -447,8 +398,6 @@ func (m NSMenuItemCell) TitleWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("titleWidth"))
 	return rv
 }
-
-
 
 // The width of the menu item’s key equivalent string.
 //
@@ -462,8 +411,6 @@ func (m NSMenuItemCell) KeyEquivalentWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("keyEquivalentWidth"))
 	return rv
 }
-
-
 
 // The width of the image used to indicate the state of the menu item.
 //
@@ -484,8 +431,6 @@ func (m NSMenuItemCell) StateImageWidth() float64 {
 	return rv
 }
 
-
-
 // A Boolean value indicating whether the menu item needs to be displayed.
 //
 // # Discussion
@@ -502,33 +447,4 @@ func (m NSMenuItemCell) NeedsDisplay() bool {
 func (m NSMenuItemCell) SetNeedsDisplay(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNeedsDisplay:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

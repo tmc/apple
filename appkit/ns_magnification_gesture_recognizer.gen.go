@@ -37,12 +37,6 @@ func (nc NSMagnificationGestureRecognizerClass) Alloc() NSMagnificationGestureRe
 	return rv
 }
 
-
-
-
-
-
-
 // A continuous gesture recognizer that tracks a pinch gesture that magnifies
 // content.
 //
@@ -76,10 +70,6 @@ func NSMagnificationGestureRecognizerFromID(id objc.ID) NSMagnificationGestureRe
 // NOTE: NSMagnificationGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMagnificationGestureRecognizer] class.
 //
 // # Finding the Magnification Factor
@@ -96,13 +86,7 @@ type INSMagnificationGestureRecognizer interface {
 	// The amount of magnification to apply.
 	Magnification() float64
 	SetMagnification(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMagnificationGestureRecognizer) Init() NSMagnificationGestureRecognizer {
@@ -123,11 +107,6 @@ func NewNSMagnificationGestureRecognizer() NSMagnificationGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewMagnificationGestureRecognizerWithCoder(coder foundation.INSCoder) NSMagnificationGestureRecognizer {
@@ -135,7 +114,6 @@ func NewMagnificationGestureRecognizerWithCoder(coder foundation.INSCoder) NSMag
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMagnificationGestureRecognizerFromID(rv)
 }
-
 
 // Initializes the gesture recognizer with the specified target and action
 // information.
@@ -169,26 +147,6 @@ func NewMagnificationGestureRecognizerWithTargetAction(target objectivec.IObject
 	return NSMagnificationGestureRecognizerFromID(rv)
 }
 
-
-
-
-
-
-func (m NSMagnificationGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The amount of magnification to apply.
 //
 // # Discussion
@@ -205,29 +163,4 @@ func (m NSMagnificationGestureRecognizer) Magnification() float64 {
 func (m NSMagnificationGestureRecognizer) SetMagnification(value float64) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMagnification:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

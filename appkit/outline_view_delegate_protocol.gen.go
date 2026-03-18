@@ -4,14 +4,13 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by delegates of [NSOutlineView](<doc://com.apple.appkit/documentation/AppKit/NSOutlineView>) objects.
 //
@@ -21,8 +20,6 @@ type NSOutlineViewDelegate interface {
 	NSControlTextEditingDelegate
 }
 
-
-
 // NSOutlineViewDelegateObject wraps an existing Objective-C object that conforms to the NSOutlineViewDelegate protocol.
 type NSOutlineViewDelegateObject struct {
 	objectivec.Object
@@ -31,8 +28,6 @@ func (o NSOutlineViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSOutlineViewDelegateObjectFromID constructs a [NSOutlineViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSOutlineViewDelegateObjectFromID(id objc.ID) NSOutlineViewDelegateObject {
@@ -40,9 +35,6 @@ func NSOutlineViewDelegateObjectFromID(id objc.ID) NSOutlineViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value that indicates whether the outline view should
 // expand a given item.
@@ -1257,7 +1249,7 @@ func (o NSOutlineViewDelegateObject) ControlTextShouldEndEditing(control INSCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSOutlineViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSOutlineViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -1356,10 +1348,6 @@ func (o NSOutlineViewDelegateObject) ControlTextDidEndEditing(obj foundation.NSN
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
-
-
-
-
 
 // NSOutlineViewDelegateConfig holds optional typed callbacks for [NSOutlineViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -1670,8 +1658,4 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSOutlineViewDelegateObjectFromID(instance)
 }
-
-
-
-
 

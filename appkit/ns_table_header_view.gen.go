@@ -39,12 +39,6 @@ func (nc NSTableHeaderViewClass) Alloc() NSTableHeaderView {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that draws headers over a table view’s columns and handles
 // mouse events in those headers.
 //
@@ -83,10 +77,6 @@ func NSTableHeaderViewFromID(id objc.ID) NSTableHeaderView {
 }
 // NOTE: NSTableHeaderView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTableHeaderView] class.
 //
@@ -132,13 +122,7 @@ type INSTableHeaderView interface {
 	ColumnAtPoint(point corefoundation.CGPoint) int
 	// Returns the rectangle containing the header tile for the column at `columnIndex`.
 	HeaderRectOfColumn(column int) corefoundation.CGRect
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTableHeaderView) Init() NSTableHeaderView {
@@ -159,11 +143,6 @@ func NewNSTableHeaderView() NSTableHeaderView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -178,7 +157,6 @@ func NewTableHeaderViewWithCoder(coder foundation.INSCoder) NSTableHeaderView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTableHeaderViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -201,12 +179,6 @@ func NewTableHeaderViewWithFrame(frameRect corefoundation.CGRect) NSTableHeaderV
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSTableHeaderViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the index of the column whose header lies under `aPoint` in the
 // receiver, or –1 if no such column is found.
@@ -249,20 +221,6 @@ func (t NSTableHeaderView) ViewStringForToolTipPointUserData(view INSView, tag o
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("view:stringForToolTip:point:userData:"), view, tag, point, data)
 	return foundation.NSStringFromID(rv).String()
 }
-func (t NSTableHeaderView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The [NSTableView] instance that this table header view belongs to.
 //
@@ -280,8 +238,6 @@ func (t NSTableHeaderView) SetTableView(value INSTableView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTableView:"), value)
 }
 
-
-
 // The index of the column that the user is dragging.
 //
 // # Discussion
@@ -294,8 +250,6 @@ func (t NSTableHeaderView) DraggedColumn() int {
 	rv := objc.Send[int](t.ID, objc.Sel("draggedColumn"))
 	return rv
 }
-
-
 
 // The horizontal distance that the user has dragged a column.
 //
@@ -311,8 +265,6 @@ func (t NSTableHeaderView) DraggedDistance() float64 {
 	return rv
 }
 
-
-
 // The index of the column that the user is resizing.
 //
 // # Discussion
@@ -326,43 +278,6 @@ func (t NSTableHeaderView) ResizedColumn() int {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSViewToolTipOwner
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

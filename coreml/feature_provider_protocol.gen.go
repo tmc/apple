@@ -25,8 +25,6 @@ type MLFeatureProvider interface {
 	FeatureNames() foundation.INSSet
 }
 
-
-
 // MLFeatureProviderObject wraps an existing Objective-C object that conforms to the MLFeatureProvider protocol.
 type MLFeatureProviderObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o MLFeatureProviderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MLFeatureProviderObjectFromID constructs a [MLFeatureProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
@@ -44,9 +40,6 @@ func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Accesses the feature value given the feature’s name.
 //
@@ -73,12 +66,4 @@ func (o MLFeatureProviderObject) FeatureNames() foundation.INSSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureNames"))
 	return foundation.NSSetFromID(rv)
 	}
-
-
-
-
-
-
-
-
 

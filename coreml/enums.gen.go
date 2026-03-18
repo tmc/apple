@@ -20,7 +20,6 @@ const (
 	MLComputeUnitsCPUOnly MLComputeUnits = 0
 )
 
-
 func (e MLComputeUnits) String() string {
 	switch e {
 	case MLComputeUnitsAll:
@@ -35,8 +34,6 @@ func (e MLComputeUnits) String() string {
 		return fmt.Sprintf("MLComputeUnits(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureType
 type MLFeatureType int
@@ -61,7 +58,6 @@ const (
 	// MLFeatureTypeString: The type for string features and feature values.
 	MLFeatureTypeString MLFeatureType = 3
 )
-
 
 func (e MLFeatureType) String() string {
 	switch e {
@@ -88,8 +84,6 @@ func (e MLFeatureType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreML/MLImageSizeConstraintType
 type MLImageSizeConstraintType int
 
@@ -101,7 +95,6 @@ const (
 	// MLImageSizeConstraintTypeUnspecified: The image size constraint is not configured and should be ignored.
 	MLImageSizeConstraintTypeUnspecified MLImageSizeConstraintType = 0
 )
-
 
 func (e MLImageSizeConstraintType) String() string {
 	switch e {
@@ -115,8 +108,6 @@ func (e MLImageSizeConstraintType) String() string {
 		return fmt.Sprintf("MLImageSizeConstraintType(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreML/MLModelError-swift.struct/Code
 type MLModelError int
@@ -145,7 +136,6 @@ const (
 	// MLModelErrorUpdate: An error code for problems related to on-device model updates.
 	MLModelErrorUpdate MLModelError = 6
 )
-
 
 func (e MLModelError) String() string {
 	switch e {
@@ -176,8 +166,6 @@ func (e MLModelError) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayDataType
 type MLMultiArrayDataType int
 
@@ -192,7 +180,6 @@ const (
 	MLMultiArrayDataTypeInt32 MLMultiArrayDataType = 131072
 )
 
-
 func (e MLMultiArrayDataType) String() string {
 	switch e {
 	case MLMultiArrayDataTypeDouble:
@@ -203,8 +190,6 @@ func (e MLMultiArrayDataType) String() string {
 		return fmt.Sprintf("MLMultiArrayDataType(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraintType
 type MLMultiArrayShapeConstraintType int
@@ -217,7 +202,6 @@ const (
 	// MLMultiArrayShapeConstraintTypeUnspecified: The constraint type is undefined.
 	MLMultiArrayShapeConstraintTypeUnspecified MLMultiArrayShapeConstraintType = 1
 )
-
 
 func (e MLMultiArrayShapeConstraintType) String() string {
 	switch e {
@@ -232,8 +216,6 @@ func (e MLMultiArrayShapeConstraintType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreML/MLReshapeFrequencyHint
 type MLReshapeFrequencyHint int
 
@@ -241,7 +223,6 @@ const (
 	MLReshapeFrequencyHintFrequent MLReshapeFrequencyHint = 0
 	MLReshapeFrequencyHintInfrequent MLReshapeFrequencyHint = 1
 )
-
 
 func (e MLReshapeFrequencyHint) String() string {
 	switch e {
@@ -254,8 +235,6 @@ func (e MLReshapeFrequencyHint) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreML/MLSpecializationStrategy
 type MLSpecializationStrategy int
 
@@ -263,7 +242,6 @@ const (
 	MLSpecializationStrategyDefault MLSpecializationStrategy = 0
 	MLSpecializationStrategyFastPrediction MLSpecializationStrategy = 1
 )
-
 
 func (e MLSpecializationStrategy) String() string {
 	switch e {
@@ -275,8 +253,6 @@ func (e MLSpecializationStrategy) String() string {
 		return fmt.Sprintf("MLSpecializationStrategy(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/CoreML/MLTaskState
 type MLTaskState int
@@ -293,7 +269,6 @@ const (
 	// MLTaskStateSuspended: The state of a machine learning task that’s paused.
 	MLTaskStateSuspended MLTaskState = 1
 )
-
 
 func (e MLTaskState) String() string {
 	switch e {
@@ -312,8 +287,6 @@ func (e MLTaskState) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressEvent
 type MLUpdateProgressEvent int
 
@@ -325,7 +298,6 @@ const (
 	// MLUpdateProgressEventTrainingBegin: An event that represents the start of training.
 	MLUpdateProgressEventTrainingBegin MLUpdateProgressEvent = 1
 )
-
 
 func (e MLUpdateProgressEvent) String() string {
 	switch e {
@@ -339,8 +311,4 @@ func (e MLUpdateProgressEvent) String() string {
 		return fmt.Sprintf("MLUpdateProgressEvent(%d)", e)
 	}
 }
-
-
-
-
 

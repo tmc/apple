@@ -37,12 +37,6 @@ func (nc NSClickGestureRecognizerClass) Alloc() NSClickGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
-
 // A discrete gesture recognizer that tracks a specified number of mouse
 // clicks.
 //
@@ -85,10 +79,6 @@ func NSClickGestureRecognizerFromID(id objc.ID) NSClickGestureRecognizer {
 // NOTE: NSClickGestureRecognizer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSClickGestureRecognizer] class.
 //
 // # Configuring the Gesture
@@ -115,13 +105,7 @@ type INSClickGestureRecognizer interface {
 	// The number of touches required in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
 	NumberOfTouchesRequired() int
 	SetNumberOfTouchesRequired(value int)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSClickGestureRecognizer) Init() NSClickGestureRecognizer {
@@ -142,11 +126,6 @@ func NewNSClickGestureRecognizer() NSClickGestureRecognizer {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func NewClickGestureRecognizerWithCoder(coder foundation.INSCoder) NSClickGestureRecognizer {
@@ -154,7 +133,6 @@ func NewClickGestureRecognizerWithCoder(coder foundation.INSCoder) NSClickGestur
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSClickGestureRecognizerFromID(rv)
 }
-
 
 // Initializes the gesture recognizer with the specified target and action
 // information.
@@ -188,26 +166,6 @@ func NewClickGestureRecognizerWithTargetAction(target objectivec.IObject, action
 	return NSClickGestureRecognizerFromID(rv)
 }
 
-
-
-
-
-
-func (c NSClickGestureRecognizer) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A bit mask of the button (or buttons) required to recognize this click.
 //
 // # Discussion
@@ -234,8 +192,6 @@ func (c NSClickGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setButtonMask:"), value)
 }
 
-
-
 // The number of clicks required to match.
 //
 // # Discussion
@@ -253,8 +209,6 @@ func (c NSClickGestureRecognizer) SetNumberOfClicksRequired(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfClicksRequired:"), value)
 }
 
-
-
 // The number of touches required in an [NSTouchBar] object for the gesture
 // recognizer to match.
 //
@@ -266,29 +220,4 @@ func (c NSClickGestureRecognizer) NumberOfTouchesRequired() int {
 func (c NSClickGestureRecognizer) SetNumberOfTouchesRequired(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfTouchesRequired:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -33,8 +33,6 @@ type NSAccessibilityLayoutArea interface {
 	AccessibilitySelectedChildren() foundation.INSArray
 }
 
-
-
 // NSAccessibilityLayoutAreaObject wraps an existing Objective-C object that conforms to the NSAccessibilityLayoutArea protocol.
 type NSAccessibilityLayoutAreaObject struct {
 	objectivec.Object
@@ -43,8 +41,6 @@ func (o NSAccessibilityLayoutAreaObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityLayoutAreaObjectFromID constructs a [NSAccessibilityLayoutAreaObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityLayoutAreaObjectFromID(id objc.ID) NSAccessibilityLayoutAreaObject {
@@ -52,9 +48,6 @@ func NSAccessibilityLayoutAreaObjectFromID(id objc.ID) NSAccessibilityLayoutArea
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the accessibility element’s children in the accessibility
 // hierarchy.
@@ -230,12 +223,4 @@ func (o NSAccessibilityLayoutAreaObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
-
-
 

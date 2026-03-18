@@ -37,12 +37,6 @@ func (nc NSScrubberLayoutAttributesClass) Alloc() NSScrubberLayoutAttributes {
 	return rv
 }
 
-
-
-
-
-
-
 // The layout of a scrubber item.
 //
 // # Overview
@@ -75,14 +69,10 @@ type NSScrubberLayoutAttributes struct {
 //
 // The layout of a scrubber item.
 func NSScrubberLayoutAttributesFromID(id objc.ID) NSScrubberLayoutAttributes {
-	return NSScrubberLayoutAttributes{objectivec.Object{id}}
+	return NSScrubberLayoutAttributes{objectivec.Object{ID: id}}
 }
 // NOTE: NSScrubberLayoutAttributes adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScrubberLayoutAttributes] class.
 //
@@ -116,10 +106,6 @@ type INSScrubberLayoutAttributes interface {
 	SetHash(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScrubberLayoutAttributes) Init() NSScrubberLayoutAttributes {
 	rv := objc.Send[NSScrubberLayoutAttributes](s.ID, objc.Sel("init"))
@@ -139,11 +125,6 @@ func NewNSScrubberLayoutAttributes() NSScrubberLayoutAttributes {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new layout attributes object for the specified scrubber item
 // index.
 //
@@ -160,23 +141,6 @@ func NewScrubberLayoutAttributesForItemAtIndex(index int) NSScrubberLayoutAttrib
 	return NSScrubberLayoutAttributesFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The item’s alpha value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes/alpha
@@ -188,8 +152,6 @@ func (s NSScrubberLayoutAttributes) SetAlpha(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAlpha:"), value)
 }
 
-
-
 // The frame of the scrubber item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes/frame
@@ -200,8 +162,6 @@ func (s NSScrubberLayoutAttributes) Frame() corefoundation.CGRect {
 func (s NSScrubberLayoutAttributes) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFrame:"), value)
 }
-
-
 
 // The index of the scrubber item that is represented by the item’s layout
 // attributes.
@@ -215,8 +175,6 @@ func (s NSScrubberLayoutAttributes) SetItemIndex(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
 }
 
-
-
 // Returns an integer that can be used as a table address in a hash table
 // structure.
 //
@@ -228,27 +186,4 @@ func (s NSScrubberLayoutAttributes) Hash() int {
 func (s NSScrubberLayoutAttributes) SetHash(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHash:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

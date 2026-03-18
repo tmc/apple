@@ -39,8 +39,6 @@ type NSTextFinderBarContainer interface {
 	SetFindBarVisible(value bool)
 }
 
-
-
 // NSTextFinderBarContainerObject wraps an existing Objective-C object that conforms to the NSTextFinderBarContainer protocol.
 type NSTextFinderBarContainerObject struct {
 	objectivec.Object
@@ -49,8 +47,6 @@ func (o NSTextFinderBarContainerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextFinderBarContainerObjectFromID constructs a [NSTextFinderBarContainerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextFinderBarContainerObjectFromID(id objc.ID) NSTextFinderBarContainerObject {
@@ -58,9 +54,6 @@ func NSTextFinderBarContainerObjectFromID(id objc.ID) NSTextFinderBarContainerOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The view assigned by the text bar as the find bar view for the container.
 //
@@ -122,19 +115,11 @@ func (o NSTextFinderBarContainerObject) ContentView() INSView {
 	return NSViewFromID(rv)
 	}
 
-
-
-
 func (o NSTextFinderBarContainerObject) SetFindBarView(value INSView) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFindBarView:"), value)
 }
 
-
 func (o NSTextFinderBarContainerObject) SetFindBarVisible(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFindBarVisible:"), value)
 }
-
-
-
-
 

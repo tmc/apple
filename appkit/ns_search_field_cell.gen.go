@@ -38,12 +38,6 @@ func (nc NSSearchFieldCellClass) Alloc() NSSearchFieldCell {
 	return rv
 }
 
-
-
-
-
-
-
 // The programmatic interface for text fields that are used for text-based
 // searches.
 //
@@ -114,10 +108,6 @@ func NSSearchFieldCellFromID(id objc.ID) NSSearchFieldCell {
 }
 // NOTE: NSSearchFieldCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSearchFieldCell] class.
 //
@@ -209,13 +199,7 @@ type INSSearchFieldCell interface {
 	// The autosave name under which the search field automatically saves the list of recent search strings.
 	RecentsAutosaveName() NSSearchFieldRecentsAutosaveName
 	SetRecentsAutosaveName(value NSSearchFieldRecentsAutosaveName)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSearchFieldCell) Init() NSSearchFieldCell {
@@ -235,11 +219,6 @@ func NewNSSearchFieldCell() NSSearchFieldCell {
 	rv := objc.Send[NSSearchFieldCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -263,7 +242,6 @@ func NewSearchFieldCellImageCell(image INSImage) NSSearchFieldCell {
 	return NSSearchFieldCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchFieldCell/init(textCell:)
 func NewSearchFieldCellTextCell(string_ string) NSSearchFieldCell {
@@ -272,7 +250,6 @@ func NewSearchFieldCellTextCell(string_ string) NSSearchFieldCell {
 	return NSSearchFieldCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchFieldCell/init(coder:)
 func NewSearchFieldCellWithCoder(coder foundation.INSCoder) NSSearchFieldCell {
@@ -280,12 +257,6 @@ func NewSearchFieldCellWithCoder(coder foundation.INSCoder) NSSearchFieldCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSearchFieldCellFromID(rv)
 }
-
-
-
-
-
-
 
 // Resets the search button cell to its default attributes.
 //
@@ -381,20 +352,6 @@ func (s NSSearchFieldCell) CancelButtonRectForBounds(rect corefoundation.CGRect)
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("cancelButtonRectForBounds:"), rect)
 	return corefoundation.CGRect(rv)
 }
-func (s NSSearchFieldCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The button cell used to display the search-button image.
 //
@@ -407,8 +364,6 @@ func (s NSSearchFieldCell) SetSearchButtonCell(value INSButtonCell) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchButtonCell:"), value)
 }
 
-
-
 // The button cell used to display the cancel-button image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchFieldCell/cancelButtonCell
@@ -419,8 +374,6 @@ func (s NSSearchFieldCell) CancelButtonCell() INSButtonCell {
 func (s NSSearchFieldCell) SetCancelButtonCell(value INSButtonCell) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCancelButtonCell:"), value)
 }
-
-
 
 // The menu object used to dynamically construct the search field’s pop-up
 // icon menu.
@@ -444,8 +397,6 @@ func (s NSSearchFieldCell) SetSearchMenuTemplate(value INSMenu) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchMenuTemplate:"), value)
 }
 
-
-
 // A Boolean value indicating whether the cell calls its search action method
 // when the user clicks the search button (or presses Return) or after each
 // keystroke.
@@ -468,8 +419,6 @@ func (s NSSearchFieldCell) SendsWholeSearchString() bool {
 func (s NSSearchFieldCell) SetSendsWholeSearchString(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsWholeSearchString:"), value)
 }
-
-
 
 // A Boolean value indicating whether the cell calls its action method
 // immediately when an appropriate action occurs.
@@ -495,8 +444,6 @@ func (s NSSearchFieldCell) SetSendsSearchStringImmediately(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsSearchStringImmediately:"), value)
 }
 
-
-
 // The maximum number of search strings that can appear in the search menu.
 //
 // # Discussion
@@ -516,8 +463,6 @@ func (s NSSearchFieldCell) MaximumRecents() int {
 func (s NSSearchFieldCell) SetMaximumRecents(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumRecents:"), value)
 }
-
-
 
 // An array of the recent search strings to display in the pop-up icon menu of
 // the search field.
@@ -542,8 +487,6 @@ func (s NSSearchFieldCell) SetRecentSearches(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentSearches:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The autosave name under which the search field automatically saves the list
 // of recent search strings.
 //
@@ -562,33 +505,4 @@ func (s NSSearchFieldCell) RecentsAutosaveName() NSSearchFieldRecentsAutosaveNam
 func (s NSSearchFieldCell) SetRecentsAutosaveName(value NSSearchFieldRecentsAutosaveName) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentsAutosaveName:"), objc.String(string(value)))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

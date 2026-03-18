@@ -36,12 +36,6 @@ func (nc NSActionCellClass) Alloc() NSActionCell {
 	return rv
 }
 
-
-
-
-
-
-
 // An active area inside a control.
 //
 // # Overview
@@ -98,22 +92,12 @@ func NSActionCellFromID(id objc.ID) NSActionCell {
 // NOTE: NSActionCell adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSActionCell] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSActionCell
 type INSActionCell interface {
 	INSCell
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSActionCell) Init() NSActionCell {
@@ -133,11 +117,6 @@ func NewNSActionCell() NSActionCell {
 	rv := objc.Send[NSActionCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSCell] object initialized with the specified image and set to
 // have the cell’s default menu.
@@ -160,7 +139,6 @@ func NewActionCellImageCell(image INSImage) NSActionCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initImageCell:"), image)
 	return NSActionCellFromID(rv)
 }
-
 
 // Returns an NSCell object initialized with the specified string and set to
 // have the cell’s default menu.
@@ -187,7 +165,6 @@ func NewActionCellTextCell(string_ string) NSActionCell {
 	return NSActionCellFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCell/init(coder:)
 func NewActionCellWithCoder(coder foundation.INSCoder) NSActionCell {
@@ -195,51 +172,4 @@ func NewActionCellWithCoder(coder foundation.INSCoder) NSActionCell {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSActionCellFromID(rv)
 }
-
-
-
-
-
-
-func (a NSActionCell) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

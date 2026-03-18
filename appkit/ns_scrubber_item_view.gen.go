@@ -37,12 +37,6 @@ func (nc NSScrubberItemViewClass) Alloc() NSScrubberItemView {
 	return rv
 }
 
-
-
-
-
-
-
 // An item at a specific index position in the scrubber.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberItemView
@@ -59,22 +53,12 @@ func NSScrubberItemViewFromID(id objc.ID) NSScrubberItemView {
 // NOTE: NSScrubberItemView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSScrubberItemView] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberItemView
 type INSScrubberItemView interface {
 	INSScrubberArrangedView
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberItemView) Init() NSScrubberItemView {
@@ -95,11 +79,6 @@ func NewNSScrubberItemView() NSScrubberItemView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view using from data in the specified coder object.
 //
 // coder: The coder object that contains the view’s configuration details.
@@ -114,7 +93,6 @@ func NewScrubberItemViewWithCoder(coder foundation.INSCoder) NSScrubberItemView 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSScrubberItemViewFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated [NSView] object with a specified
 // frame rectangle.
@@ -137,56 +115,4 @@ func NewScrubberItemViewWithFrame(frameRect corefoundation.CGRect) NSScrubberIte
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSScrubberItemViewFromID(rv)
 }
-
-
-
-
-
-
-func (s NSScrubberItemView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

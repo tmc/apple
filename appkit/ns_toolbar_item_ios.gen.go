@@ -37,11 +37,6 @@ rv := objc.Send[objc.ID](objc.ID(_NSToolbarItemClass.class), objc.Sel("itemWithI
 return NSToolbarItemFromID(rv)
 }
 
-
-
-
-
-
 // The menu item to use for the toolbar item is in the overflow menu in a Mac
 // app built with Mac Catalyst.
 //
@@ -69,11 +64,4 @@ return objectivec.Object{ID: rv}
 func (t NSToolbarItem) SetItemMenuFormRepresentation(value objectivec.IObject) {
 objc.Send[struct{}](t.ID, objc.Sel("setItemMenuFormRepresentation:"), value)
 }
-
-
-
-
-
-
-
 

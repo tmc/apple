@@ -39,12 +39,6 @@ func (nc NSPopoverClass) Alloc() NSPopover {
 	return rv
 }
 
-
-
-
-
-
-
 // A means to display additional content related to existing content on the
 // screen.
 //
@@ -123,10 +117,6 @@ func NSPopoverFromID(id objc.ID) NSPopover {
 }
 // NOTE: NSPopover adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPopover] class.
 //
@@ -230,13 +220,7 @@ type INSPopover interface {
 
 	// Shows the popover anchored to the specified toolbar item.
 	ShowRelativeToToolbarItem(toolbarItem INSToolbarItem)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPopover) Init() NSPopover {
@@ -257,11 +241,6 @@ func NewNSPopover() NSPopover {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopover/init(coder:)
 func NewPopoverWithCoder(coder foundation.INSCoder) NSPopover {
@@ -269,12 +248,6 @@ func NewPopoverWithCoder(coder foundation.INSCoder) NSPopover {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPopoverFromID(rv)
 }
-
-
-
-
-
-
 
 // Shows the popover anchored to the specified view.
 //
@@ -361,20 +334,6 @@ func (p NSPopover) Close() {
 func (p NSPopover) ShowRelativeToToolbarItem(toolbarItem INSToolbarItem) {
 	objc.Send[objc.ID](p.ID, objc.Sel("showRelativeToToolbarItem:"), toolbarItem)
 }
-func (p NSPopover) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The view controller that manages the content of the popover.
 //
@@ -398,8 +357,6 @@ func (p NSPopover) SetContentViewController(value INSViewController) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContentViewController:"), value)
 }
 
-
-
 // Specifies the behavior of the popover.
 //
 // # Discussion
@@ -418,8 +375,6 @@ func (p NSPopover) Behavior() NSPopoverBehavior {
 func (p NSPopover) SetBehavior(value NSPopoverBehavior) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBehavior:"), value)
 }
-
-
 
 // The rectangle within the positioning view relative to which the popover
 // should be positioned.
@@ -445,8 +400,6 @@ func (p NSPopover) SetPositioningRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPositioningRect:"), value)
 }
 
-
-
 // The appearance of the popover.
 //
 // # Discussion
@@ -471,8 +424,6 @@ func (p NSPopover) SetAppearance(value NSPopoverAppearance) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAppearance:"), value)
 }
 
-
-
 // The appearance that will be used when the popover is displayed onscreen.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopover/effectiveAppearance
@@ -480,8 +431,6 @@ func (p NSPopover) EffectiveAppearance() INSAppearance {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("effectiveAppearance"))
 	return NSAppearanceFromID(objc.ID(rv))
 }
-
-
 
 // Specifies if the popover is to be animated.
 //
@@ -507,8 +456,6 @@ func (p NSPopover) SetAnimates(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAnimates:"), value)
 }
 
-
-
 // The content size of the popover.
 //
 // # Discussion
@@ -532,8 +479,6 @@ func (p NSPopover) SetContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContentSize:"), value)
 }
 
-
-
 // The display state of the popover.
 //
 // # Discussion
@@ -553,8 +498,6 @@ func (p NSPopover) Shown() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the window created by a popover’s
 // detachment is automatically created.
 //
@@ -572,8 +515,6 @@ func (p NSPopover) Detached() bool {
 	return rv
 }
 
-
-
 // The delegate of the popover.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopover/delegate
@@ -584,8 +525,6 @@ func (p NSPopover) Delegate() NSPopoverDelegate {
 func (p NSPopover) SetDelegate(value NSPopoverDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the content view of the popover
 // extends into the arrow region.
@@ -623,18 +562,6 @@ func (p NSPopover) HasFullSizeContent() bool {
 func (p NSPopover) SetHasFullSizeContent(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHasFullSizeContent:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -731,9 +658,6 @@ func (o NSPopover) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -3648,24 +3572,4 @@ func (o NSPopover) SetAccessibilityUserInputLabels(accessibilityUserInputLabels 
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -14,8 +14,6 @@ type NSUserInterfaceItemSearching interface {
 	objectivec.IObject
 }
 
-
-
 // NSUserInterfaceItemSearchingObject wraps an existing Objective-C object that conforms to the NSUserInterfaceItemSearching protocol.
 type NSUserInterfaceItemSearchingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSUserInterfaceItemSearchingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSUserInterfaceItemSearchingObjectFromID constructs a [NSUserInterfaceItemSearchingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSUserInterfaceItemSearchingObjectFromID(id objc.ID) NSUserInterfaceItemSearchingObject {
@@ -33,9 +29,6 @@ func NSUserInterfaceItemSearchingObjectFromID(id objc.ID) NSUserInterfaceItemSea
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns an array of localized strings that will form the help menu item.
 //
@@ -86,10 +79,4 @@ func (o NSUserInterfaceItemSearchingObject) PerformActionForItem(item objectivec
 	
 	objc.Send[struct{}](o.ID, objc.Sel("performActionForItem:"), item)
 	}
-
-
-
-
-
-
 

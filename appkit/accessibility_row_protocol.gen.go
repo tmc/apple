@@ -23,8 +23,6 @@ type NSAccessibilityRow interface {
 	AccessibilityIndex() int
 }
 
-
-
 // NSAccessibilityRowObject wraps an existing Objective-C object that conforms to the NSAccessibilityRow protocol.
 type NSAccessibilityRowObject struct {
 	objectivec.Object
@@ -33,8 +31,6 @@ func (o NSAccessibilityRowObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityRowObjectFromID constructs a [NSAccessibilityRowObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityRowObjectFromID(id objc.ID) NSAccessibilityRowObject {
@@ -42,9 +38,6 @@ func NSAccessibilityRowObjectFromID(id objc.ID) NSAccessibilityRowObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the index for the row.
 //
@@ -180,10 +173,4 @@ func (o NSAccessibilityRowObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

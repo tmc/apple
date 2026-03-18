@@ -38,12 +38,6 @@ func (nc NSTextFieldClass) Alloc() NSTextField {
 	return rv
 }
 
-
-
-
-
-
-
 // Text the user can select or edit to send an action message to a target when
 // the user presses the Return key.
 //
@@ -177,10 +171,6 @@ func NSTextFieldFromID(id objc.ID) NSTextField {
 }
 // NOTE: NSTextField adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextField] class.
 //
@@ -414,13 +404,7 @@ type INSTextField interface {
 	// The delegate that provides text suggestions for the receiving text field and responds to the user highlighting and selecting items.
 	SuggestionsDelegate() objectivec.IObject
 	SetSuggestionsDelegate(value objectivec.IObject)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextField) Init() NSTextField {
@@ -440,11 +424,6 @@ func NewNSTextField() NSTextField {
 	rv := objc.Send[NSTextField](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a text field for use as a static label that displays styled text,
 // doesn’t wrap, and doesn’t have selectable text.
@@ -467,7 +446,6 @@ func NewTextFieldLabelWithAttributedString(attributedStringValue foundation.NSAt
 	return NSTextFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a static label that uses the system
 // default font, doesn’t wrap, and doesn’t have selectable text.
 //
@@ -483,7 +461,6 @@ func NewTextFieldLabelWithString(stringValue string) NSTextField {
 	return NSTextFieldFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -492,7 +469,6 @@ func NewTextFieldWithCoder(coder foundation.INSCoder) NSTextField {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextFieldFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -520,7 +496,6 @@ func NewTextFieldWithFrame(frameRect corefoundation.CGRect) NSTextField {
 	return NSTextFieldFromID(rv)
 }
 
-
 // Initializes a single-line editable text field for user input using the
 // system default font and standard visual appearance.
 //
@@ -536,7 +511,6 @@ func NewTextFieldWithString(stringValue string) NSTextField {
 	return NSTextFieldFromID(rv)
 }
 
-
 // Initializes a text field for use as a multiline static label with
 // selectable text that uses the system default font.
 //
@@ -551,12 +525,6 @@ func NewTextFieldWrappingLabelWithString(stringValue string) NSTextField {
 	rv := objc.Send[objc.ID](objc.ID(getNSTextFieldClass().class), objc.Sel("wrappingLabelWithString:"), objc.String(stringValue))
 	return NSTextFieldFromID(rv)
 }
-
-
-
-
-
-
 
 // Ends editing in the text field and, if it’s selectable, selects the
 // entire text content.
@@ -842,20 +810,6 @@ func (t NSTextField) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem
 	rv := objc.Send[bool](t.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-func (t NSTextField) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that determines whether the user can select the content of
 // the text field.
@@ -877,8 +831,6 @@ func (t NSTextField) Selectable() bool {
 func (t NSTextField) SetSelectable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectable:"), value)
 }
-
-
 
 // A Boolean value that controls whether the user can edit the value in the
 // text field.
@@ -905,8 +857,6 @@ func (t NSTextField) Editable() bool {
 func (t NSTextField) SetEditable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEditable:"), value)
 }
-
-
 
 // A Boolean value that controls whether the user can change font attributes
 // of the text field’s string.
@@ -935,8 +885,6 @@ func (t NSTextField) SetAllowsEditingTextAttributes(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsEditingTextAttributes:"), value)
 }
 
-
-
 // A Boolean value that controls whether the user can drag image files into
 // the text field.
 //
@@ -957,8 +905,6 @@ func (t NSTextField) SetImportsGraphics(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImportsGraphics:"), value)
 }
 
-
-
 // The string the text field displays when empty to help the user understand
 // the text field’s purpose.
 //
@@ -971,8 +917,6 @@ func (t NSTextField) SetPlaceholderString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
 
-
-
 // The attributed string the text field displays when empty to help the user
 // understand the text field’s purpose.
 //
@@ -984,8 +928,6 @@ func (t NSTextField) PlaceholderAttributedString() foundation.NSAttributedString
 func (t NSTextField) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
-
-
 
 // The strategy that the system uses to break lines when laying out multiple
 // lines of text.
@@ -1007,8 +949,6 @@ func (t NSTextField) SetLineBreakStrategy(value NSLineBreakStrategy) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLineBreakStrategy:"), value)
 }
 
-
-
 // A Boolean value that controls whether single-line text fields tighten
 // intercharacter spacing before truncating the text.
 //
@@ -1025,8 +965,6 @@ func (t NSTextField) AllowsDefaultTighteningForTruncation() bool {
 func (t NSTextField) SetAllowsDefaultTighteningForTruncation(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsDefaultTighteningForTruncation:"), value)
 }
-
-
 
 // The maximum number of lines a wrapping text field displays before clipping
 // or truncating the text.
@@ -1050,8 +988,6 @@ func (t NSTextField) SetMaximumNumberOfLines(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaximumNumberOfLines:"), value)
 }
 
-
-
 // The maximum width of the text field’s intrinsic content size.
 //
 // # Discussion
@@ -1070,8 +1006,6 @@ func (t NSTextField) SetPreferredMaxLayoutWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredMaxLayoutWidth:"), value)
 }
 
-
-
 // The color of the text field’s content.
 //
 // # Discussion
@@ -1085,8 +1019,6 @@ func (t NSTextField) SetTextColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextColor:"), value)
 }
 
-
-
 // The color of the background the text field’s cell draws behind the text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/backgroundColor
@@ -1097,8 +1029,6 @@ func (t NSTextField) BackgroundColor() INSColor {
 func (t NSTextField) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // A Boolean value that controls whether the text field’s cell draws a
 // background color behind the text.
@@ -1123,8 +1053,6 @@ func (t NSTextField) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
 
-
-
 // A Boolean value that controls whether the text field draws a bezeled
 // background around its contents.
 //
@@ -1145,8 +1073,6 @@ func (t NSTextField) SetBezeled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBezeled:"), value)
 }
 
-
-
 // The text field’s bezel style, square or rounded.
 //
 // # Discussion
@@ -1165,8 +1091,6 @@ func (t NSTextField) BezelStyle() NSTextFieldBezelStyle {
 func (t NSTextField) SetBezelStyle(value NSTextFieldBezelStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBezelStyle:"), value)
 }
-
-
 
 // A Boolean value that controls whether the text field draws a solid black
 // border around its contents.
@@ -1188,8 +1112,6 @@ func (t NSTextField) SetBordered(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBordered:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the text field automatically
 // completes text as the user types.
 //
@@ -1202,8 +1124,6 @@ func (t NSTextField) SetAutomaticTextCompletionEnabled(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticTextCompletionEnabled:"), value)
 }
 
-
-
 // The text field’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/delegate
@@ -1214,8 +1134,6 @@ func (t NSTextField) Delegate() NSTextFieldDelegate {
 func (t NSTextField) SetDelegate(value NSTextFieldDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean value that controls whether the Touch Bar displays the character
 // picker item for rich text fields.
@@ -1229,8 +1147,6 @@ func (t NSTextField) SetAllowsCharacterPickerTouchBarItem(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsCharacterPickerTouchBarItem:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/allowsWritingTools
 func (t NSTextField) AllowsWritingTools() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("allowsWritingTools"))
@@ -1240,8 +1156,6 @@ func (t NSTextField) SetAllowsWritingTools(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsWritingTools:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/allowsWritingToolsAffordance
 func (t NSTextField) AllowsWritingToolsAffordance() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("allowsWritingToolsAffordance"))
@@ -1250,8 +1164,6 @@ func (t NSTextField) AllowsWritingToolsAffordance() bool {
 func (t NSTextField) SetAllowsWritingToolsAffordance(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsWritingToolsAffordance:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/placeholderAttributedStrings
 func (t NSTextField) PlaceholderAttributedStrings() []foundation.NSAttributedString {
@@ -1264,8 +1176,6 @@ func (t NSTextField) SetPlaceholderAttributedStrings(value []foundation.NSAttrib
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderAttributedStrings:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/placeholderStrings
 func (t NSTextField) PlaceholderStrings() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("placeholderStrings"))
@@ -1274,8 +1184,6 @@ func (t NSTextField) PlaceholderStrings() []string {
 func (t NSTextField) SetPlaceholderStrings(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderStrings:"), objectivec.StringSliceToNSArray(value))
 }
-
-
 
 // Specifies the behavior for resolving `NSTextAlignment.Natural()` to the
 // visual alignment.
@@ -1294,8 +1202,6 @@ func (t NSTextField) ResolvesNaturalAlignmentWithBaseWritingDirection() bool {
 func (t NSTextField) SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResolvesNaturalAlignmentWithBaseWritingDirection:"), value)
 }
-
-
 
 // The semantic meaning for a text input area.
 //
@@ -1320,8 +1226,6 @@ func (t NSTextField) SetContentType(value NSTextContentType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContentType:"), objc.String(string(value)))
 }
 
-
-
 // The delegate that provides text suggestions for the receiving text field
 // and responds to the user highlighting and selecting items.
 //
@@ -1333,19 +1237,6 @@ func (t NSTextField) SuggestionsDelegate() objectivec.IObject {
 func (t NSTextField) SetSuggestionsDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSuggestionsDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityNavigableStaticText
 			
@@ -1443,40 +1334,9 @@ func (o NSTextField) IsAccessibilityFocused() bool {
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSTextContent
 			
 
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceValidations
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

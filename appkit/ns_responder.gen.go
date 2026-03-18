@@ -37,12 +37,6 @@ func (nc NSResponderClass) Alloc() NSResponder {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that forms the basis of event and command processing in
 // AppKit.
 //
@@ -221,14 +215,10 @@ type NSResponder struct {
 // An abstract class that forms the basis of event and command processing in
 // AppKit.
 func NSResponderFromID(id objc.ID) NSResponder {
-	return NSResponder{objectivec.Object{id}}
+	return NSResponder{objectivec.Object{ID: id}}
 }
 // NOTE: NSResponder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSResponder] class.
 //
@@ -577,10 +567,6 @@ type INSResponder interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r NSResponder) Init() NSResponder {
 	rv := objc.Send[NSResponder](r.ID, objc.Sel("init"))
@@ -600,11 +586,6 @@ func NewNSResponder() NSResponder {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -615,12 +596,6 @@ func NewResponderWithCoder(coder foundation.INSCoder) NSResponder {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSResponderFromID(rv)
 }
-
-
-
-
-
-
 
 // Notifies the receiver that it’s about to become first responder in its
 // [NSWindow].
@@ -2547,10 +2522,6 @@ func (r NSResponder) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns the classes that support secure coding.
 //
 // keyPath: The key path of the restorable object.
@@ -2572,13 +2543,6 @@ func (_NSResponderClass NSResponderClass) AllowedClassesForRestorableStateKeyPat
 	})
 }
 
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the responder accepts first
 // responder status.
 //
@@ -2598,8 +2562,6 @@ func (r NSResponder) AcceptsFirstResponder() bool {
 	return rv
 }
 
-
-
 // The next responder after this one, or `nil` if it has none.
 //
 // # Discussion
@@ -2615,8 +2577,6 @@ func (r NSResponder) NextResponder() INSResponder {
 func (r NSResponder) SetNextResponder(value INSResponder) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNextResponder:"), value)
 }
-
-
 
 // An object encapsulating a user activity supported by this responder.
 //
@@ -2654,8 +2614,6 @@ func (r NSResponder) SetUserActivity(value foundation.NSUserActivity) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUserActivity:"), value)
 }
 
-
-
 // Returns the responder’s menu.
 //
 // # Discussion
@@ -2674,8 +2632,6 @@ func (r NSResponder) SetMenu(value INSMenu) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMenu:"), value)
 }
 
-
-
 // The undo manager for this responder.
 //
 // # Discussion
@@ -2688,8 +2644,6 @@ func (r NSResponder) UndoManager() foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("undoManager"))
 	return foundation.NSUndoManagerFromID(objc.ID(rv))
 }
-
-
 
 // The [NSTouchBar] object associated with the responder.
 //
@@ -2707,12 +2661,6 @@ func (r NSResponder) TouchBar() INSTouchBar {
 func (r NSResponder) SetTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTouchBar:"), value)
 }
-
-
-
-
-
-
 
 // Returns an array of key paths representing the restorable attributes of the
 // responder.
@@ -2746,42 +2694,12 @@ func (_NSResponderClass NSResponderClass) RestorableStateKeyPaths() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSStandardKeyBindingResponding
 			
-
-
-
 
 			// Protocol methods for NSTouchBarProvider
 			
 
-
-
-
 			// Protocol methods for NSUserActivityRestoring
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

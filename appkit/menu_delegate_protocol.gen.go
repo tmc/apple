@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The optional methods implemented by delegates of [NSMenu](<doc://com.apple.appkit/documentation/AppKit/NSMenu>) objects to manage menu display and handle some events.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSMenuDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSMenuDelegateObject wraps an existing Objective-C object that conforms to the NSMenuDelegate protocol.
 type NSMenuDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSMenuDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSMenuDelegateObjectFromID constructs a [NSMenuDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSMenuDelegateObjectFromID(id objc.ID) NSMenuDelegateObject {
@@ -38,9 +32,6 @@ func NSMenuDelegateObjectFromID(id objc.ID) NSMenuDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Invoked to allow the delegate to return the target and action for a
 // key-down event.
@@ -247,10 +238,6 @@ func (o NSMenuDelegateObject) MenuNeedsUpdate(menu INSMenu) {
 	objc.Send[struct{}](o.ID, objc.Sel("menuNeedsUpdate:"), menu)
 	}
 
-
-
-
-
 // NSMenuDelegateConfig holds optional typed callbacks for [NSMenuDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -382,8 +369,4 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSMenuDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -14,8 +14,6 @@ type NSStandardKeyBindingResponding interface {
 	objectivec.IObject
 }
 
-
-
 // NSStandardKeyBindingRespondingObject wraps an existing Objective-C object that conforms to the NSStandardKeyBindingResponding protocol.
 type NSStandardKeyBindingRespondingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSStandardKeyBindingRespondingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSStandardKeyBindingRespondingObjectFromID constructs a [NSStandardKeyBindingRespondingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSStandardKeyBindingRespondingObjectFromID(id objc.ID) NSStandardKeyBindingRespondingObject {
@@ -33,9 +29,6 @@ func NSStandardKeyBindingRespondingObjectFromID(id objc.ID) NSStandardKeyBinding
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Performs the given selector if possible.
 //
@@ -894,10 +887,4 @@ func (o NSStandardKeyBindingRespondingObject) ShowContextMenuForSelection(sender
 	
 	objc.Send[struct{}](o.ID, objc.Sel("showContextMenuForSelection:"), sender)
 	}
-
-
-
-
-
-
 

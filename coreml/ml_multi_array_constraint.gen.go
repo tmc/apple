@@ -37,12 +37,6 @@ func (mc MLMultiArrayConstraintClass) Alloc() MLMultiArrayConstraint {
 	return rv
 }
 
-
-
-
-
-
-
 // The shape and data type constraints for a multidimensional array feature.
 //
 // # Accessing the Constraints
@@ -60,14 +54,10 @@ type MLMultiArrayConstraint struct {
 //
 // The shape and data type constraints for a multidimensional array feature.
 func MLMultiArrayConstraintFromID(id objc.ID) MLMultiArrayConstraint {
-	return MLMultiArrayConstraint{objectivec.Object{id}}
+	return MLMultiArrayConstraint{objectivec.Object{ID: id}}
 }
 // NOTE: MLMultiArrayConstraint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLMultiArrayConstraint] class.
 //
@@ -108,10 +98,6 @@ type IMLMultiArrayConstraint interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLMultiArrayConstraint) Init() MLMultiArrayConstraint {
 	rv := objc.Send[MLMultiArrayConstraint](m.ID, objc.Sel("init"))
@@ -131,28 +117,9 @@ func NewMLMultiArrayConstraint() MLMultiArrayConstraint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (m MLMultiArrayConstraint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The shape of the multi array.
 //
@@ -164,8 +131,6 @@ func (m MLMultiArrayConstraint) Shape() []foundation.NSNumber {
 	})
 }
 
-
-
 // The type for the multi array.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayConstraint/dataType
@@ -174,8 +139,6 @@ func (m MLMultiArrayConstraint) DataType() MLMultiArrayDataType {
 	return MLMultiArrayDataType(rv)
 }
 
-
-
 // The constraint on the shape of the multiarray.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayConstraint/shapeConstraint
@@ -183,8 +146,6 @@ func (m MLMultiArrayConstraint) ShapeConstraint() IMLMultiArrayShapeConstraint {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeConstraint"))
 	return MLMultiArrayShapeConstraintFromID(objc.ID(rv))
 }
-
-
 
 // The constraint for a dictionary feature.
 //
@@ -197,8 +158,6 @@ func (m MLMultiArrayConstraint) SetDictionaryConstraint(value IMLDictionaryConst
 	objc.Send[struct{}](m.ID, objc.Sel("setDictionaryConstraint:"), value)
 }
 
-
-
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
@@ -209,8 +168,6 @@ func (m MLMultiArrayConstraint) ImageConstraint() IMLImageConstraint {
 func (m MLMultiArrayConstraint) SetImageConstraint(value IMLImageConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setImageConstraint:"), value)
 }
-
-
 
 // The constraints on a multidimensional array feature.
 //
@@ -223,8 +180,6 @@ func (m MLMultiArrayConstraint) SetMultiArrayConstraint(value IMLMultiArrayConst
 	objc.Send[struct{}](m.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
 
-
-
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/sequenceconstraint
@@ -236,8 +191,6 @@ func (m MLMultiArrayConstraint) SetSequenceConstraint(value IMLSequenceConstrain
 	objc.Send[struct{}](m.ID, objc.Sel("setSequenceConstraint:"), value)
 }
 
-
-
 // The state feature value constraint.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/stateconstraint
@@ -248,28 +201,4 @@ func (m MLMultiArrayConstraint) StateConstraint() IMLStateConstraint {
 func (m MLMultiArrayConstraint) SetStateConstraint(value IMLStateConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStateConstraint:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSAnimationContextClass) Alloc() NSAnimationContext {
 	return rv
 }
 
-
-
-
-
-
-
 // An animation context, which contains information about environment and
 // state.
 //
@@ -87,14 +81,10 @@ type NSAnimationContext struct {
 // An animation context, which contains information about environment and
 // state.
 func NSAnimationContextFromID(id objc.ID) NSAnimationContext {
-	return NSAnimationContext{objectivec.Object{id}}
+	return NSAnimationContext{objectivec.Object{ID: id}}
 }
 // NOTE: NSAnimationContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAnimationContext] class.
 //
@@ -141,10 +131,6 @@ type INSAnimationContext interface {
 	SetAllowsImplicitAnimation(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAnimationContext) Init() NSAnimationContext {
 	rv := objc.Send[NSAnimationContext](a.ID, objc.Sel("init"))
@@ -163,19 +149,6 @@ func NewNSAnimationContext() NSAnimationContext {
 	rv := objc.Send[NSAnimationContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Creates a new animation grouping.
 //
@@ -220,27 +193,20 @@ func (_NSAnimationContextClass NSAnimationContextClass) EndGrouping() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:completionHandler:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroupCompletionHandler(changes AnimationContextHandler, completionHandler VoidHandler) {
-		_block0, _cleanup0 := NewAnimationContextBlock(changes)
+_block0, _cleanup0 := NewAnimationContextBlock(changes)
 	defer _cleanup0()
 	_block1, _cleanup1 := NewVoidBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:completionHandler:"), _block0, _block1)
+	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:completionHandler:"), _block0, _block1)
 }
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroup(changes AnimationContextHandler) {
-		_block0, _cleanup0 := NewAnimationContextBlock(changes)
+_block0, _cleanup0 := NewAnimationContextBlock(changes)
 	defer _cleanup0()
-		objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:"), _block0)
+	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:"), _block0)
 }
-
-
-
-
-
-
-
 
 // A completion Block that is called when the animations in the grouping are
 // completed.
@@ -279,8 +245,6 @@ func (a NSAnimationContext) SetCompletionHandler(value VoidHandler) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCompletionHandler:"), block)
 }
 
-
-
 // The duration used by animations created as a result of setting new values
 // for an animatable property.
 //
@@ -297,8 +261,6 @@ func (a NSAnimationContext) Duration() float64 {
 func (a NSAnimationContext) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
-
-
 
 // The timing function used for all animations within this animation proxy
 // group.
@@ -335,8 +297,6 @@ func (a NSAnimationContext) SetTimingFunction(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimingFunction:"), value)
 }
 
-
-
 // Determine if animations are enabled or not for animations that occur as a
 // result of another property change.
 //
@@ -366,12 +326,6 @@ func (a NSAnimationContext) SetAllowsImplicitAnimation(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAllowsImplicitAnimation:"), value)
 }
 
-
-
-
-
-
-
 // Returns the current animation context.
 //
 // # Return Value
@@ -383,19 +337,6 @@ func (_NSAnimationContextClass NSAnimationContextClass) CurrentContext() NSAnima
 	rv := objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("currentContext"))
 	return NSAnimationContextFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // RunAnimationGroupSync is a synchronous wrapper around [NSAnimationContext.RunAnimationGroupCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -426,9 +367,4 @@ func (ac NSAnimationContextClass) RunAnimationGroupSyncSync(ctx context.Context)
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

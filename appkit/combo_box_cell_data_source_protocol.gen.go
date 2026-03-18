@@ -15,8 +15,6 @@ type NSComboBoxCellDataSource interface {
 	objectivec.IObject
 }
 
-
-
 // NSComboBoxCellDataSourceObject wraps an existing Objective-C object that conforms to the NSComboBoxCellDataSource protocol.
 type NSComboBoxCellDataSourceObject struct {
 	objectivec.Object
@@ -25,8 +23,6 @@ func (o NSComboBoxCellDataSourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSComboBoxCellDataSourceObjectFromID constructs a [NSComboBoxCellDataSourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSComboBoxCellDataSourceObjectFromID(id objc.ID) NSComboBoxCellDataSourceObject {
@@ -34,9 +30,6 @@ func NSComboBoxCellDataSourceObjectFromID(id objc.ID) NSComboBoxCellDataSourceOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the item from the combo box’s pop-up list that matches the text
 // entered by the user.
@@ -147,10 +140,4 @@ func (o NSComboBoxCellDataSourceObject) NumberOfItemsInComboBoxCell(comboBoxCell
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsInComboBoxCell:"), comboBoxCell)
 	return rv
 	}
-
-
-
-
-
-
 

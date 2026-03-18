@@ -39,12 +39,6 @@ func (nc NSSliderAccessoryClass) Alloc() NSSliderAccessory {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Properties
 //
@@ -59,14 +53,10 @@ type NSSliderAccessory struct {
 
 // NSSliderAccessoryFromID constructs a [NSSliderAccessory] from an objc.ID.
 func NSSliderAccessoryFromID(id objc.ID) NSSliderAccessory {
-	return NSSliderAccessory{objectivec.Object{id}}
+	return NSSliderAccessory{objectivec.Object{ID: id}}
 }
 // NOTE: NSSliderAccessory adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSliderAccessory] class.
 //
@@ -93,10 +83,6 @@ type INSSliderAccessory interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSliderAccessory) Init() NSSliderAccessory {
 	rv := objc.Send[NSSliderAccessory](s.ID, objc.Sel("init"))
@@ -116,22 +102,9 @@ func NewNSSliderAccessory() NSSliderAccessory {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 func (s NSSliderAccessory) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/init(image:)
@@ -139,13 +112,6 @@ func (_NSSliderAccessoryClass NSSliderAccessoryClass) AccessoryWithImage(image o
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryClass.class), objc.Sel("accessoryWithImage:"), image)
 	return NSSliderAccessoryFromID(rv)
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/behavior
 func (s NSSliderAccessory) Behavior() INSSliderAccessoryBehavior {
@@ -156,8 +122,6 @@ func (s NSSliderAccessory) SetBehavior(value INSSliderAccessoryBehavior) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBehavior:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory/isEnabled
 func (s NSSliderAccessory) Enabled() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEnabled"))
@@ -166,19 +130,6 @@ func (s NSSliderAccessory) Enabled() bool {
 func (s NSSliderAccessory) SetEnabled(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEnabled:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
@@ -275,9 +226,6 @@ func (o NSSliderAccessory) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -3192,19 +3140,4 @@ func (o NSSliderAccessory) SetAccessibilityUserInputLabels(accessibilityUserInpu
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

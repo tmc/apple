@@ -36,12 +36,6 @@ func (mc MLModelStructureProgramValueClass) Alloc() MLModelStructureProgramValue
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing a constant value in the Program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramValue
@@ -53,14 +47,10 @@ type MLModelStructureProgramValue struct {
 //
 // A class representing a constant value in the Program.
 func MLModelStructureProgramValueFromID(id objc.ID) MLModelStructureProgramValue {
-	return MLModelStructureProgramValue{objectivec.Object{id}}
+	return MLModelStructureProgramValue{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureProgramValue implements IMLModelStructureProgramValue.
 var _ IMLModelStructureProgramValue = MLModelStructureProgramValue{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureProgramValue] class.
 //
@@ -68,10 +58,6 @@ var _ IMLModelStructureProgramValue = MLModelStructureProgramValue{}
 type IMLModelStructureProgramValue interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MLModelStructureProgramValue) Init() MLModelStructureProgramValue {
@@ -91,38 +77,4 @@ func NewMLModelStructureProgramValue() MLModelStructureProgramValue {
 	rv := objc.Send[MLModelStructureProgramValue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

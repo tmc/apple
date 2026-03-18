@@ -39,12 +39,6 @@ func (nc NSControllerClass) Alloc() NSController {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that implements the [NSEditor] and [NSEditorRegistration]
 // informal protocols required for controller classes.
 //
@@ -69,14 +63,10 @@ type NSController struct {
 // An abstract class that implements the [NSEditor] and [NSEditorRegistration]
 // informal protocols required for controller classes.
 func NSControllerFromID(id objc.ID) NSController {
-	return NSController{objectivec.Object{id}}
+	return NSController{objectivec.Object{ID: id}}
 }
 // NOTE: NSController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSController] class.
 //
@@ -115,10 +105,6 @@ type INSController interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSController) Init() NSController {
 	rv := objc.Send[NSController](c.ID, objc.Sel("init"))
@@ -138,11 +124,6 @@ func NewNSController() NSController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSController/init(coder:)
 func NewControllerWithCoder(coder foundation.INSCoder) NSController {
@@ -150,12 +131,6 @@ func NewControllerWithCoder(coder foundation.INSCoder) NSController {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Invoked to inform the receiver that `editor` has uncommitted changes that
 // can affect the receiver.
@@ -265,7 +240,7 @@ func (c NSController) InitWithCoder(coder foundation.INSCoder) NSController {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()
 func (c NSController) CommitEditingAndReturnError() (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("commitEditingAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -280,17 +255,6 @@ func (c NSController) CommitEditingAndReturnError() (bool, error) {
 func (c NSController) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value indicating if any editors are registered with the
 // controller.
@@ -309,33 +273,6 @@ func (c NSController) Editing() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSEditorRegistration
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

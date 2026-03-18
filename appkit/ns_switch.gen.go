@@ -38,12 +38,6 @@ func (nc NSSwitchClass) Alloc() NSSwitch {
 	return rv
 }
 
-
-
-
-
-
-
 // A control that offers a binary choice.
 //
 // # Overview
@@ -86,10 +80,6 @@ func NSSwitchFromID(id objc.ID) NSSwitch {
 // NOTE: NSSwitch adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSwitch] class.
 //
 // # Managing Switch State
@@ -112,12 +102,7 @@ type INSSwitch interface {
 	// A Boolean value indicating whether the receiver’s cell sends its action message continuously to its target during mouse tracking.
 	IsContinuous() bool
 	SetIsContinuous(value bool)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSwitch) Init() NSSwitch {
@@ -138,11 +123,6 @@ func NewNSSwitch() NSSwitch {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -151,7 +131,6 @@ func NewSwitchWithCoder(coder foundation.INSCoder) NSSwitch {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSwitchFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -177,37 +156,6 @@ func NewSwitchWithFrame(frameRect corefoundation.CGRect) NSSwitch {
 	instance := getNSSwitchClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSSwitchFromID(rv)
-}
-
-
-
-
-
-
-
-// Returns a short description of the button.
-//
-// # Return Value
-// 
-// The description of this button.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
-// 
-// Do not include the accessibility element’s type in the label (for
-// example, write [Play] not `Play button`.). If possible, use a single word.
-// To help ensure that accessibility clients like VoiceOver read the label
-// with the correct intonation, this label should start with a capital letter.
-// Do not put a period at the end. Always localize the label.
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
-func (s NSSwitch) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Decrements the switch’s value.
@@ -293,20 +241,6 @@ func (s NSSwitch) AccessibilityValue() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s NSSwitch) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The current position of the switch.
 //
@@ -330,8 +264,6 @@ func (s NSSwitch) SetState(value NSControlStateValue) {
 	objc.Send[struct{}](s.ID, objc.Sel("setState:"), value)
 }
 
-
-
 // A Boolean value indicating whether the receiver’s cell sends its action
 // message continuously to its target during mouse tracking.
 //
@@ -343,21 +275,6 @@ func (s NSSwitch) IsContinuous() bool {
 func (s NSSwitch) SetIsContinuous(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContinuous:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilitySwitch
 			
@@ -454,27 +371,4 @@ func (o NSSwitch) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

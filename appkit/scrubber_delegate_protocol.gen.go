@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that a scrubber delegate implements to respond to user interactions.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSScrubberDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSScrubberDelegateObject wraps an existing Objective-C object that conforms to the NSScrubberDelegate protocol.
 type NSScrubberDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSScrubberDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSScrubberDelegateObjectFromID constructs a [NSScrubberDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSScrubberDelegateObjectFromID(id objc.ID) NSScrubberDelegateObject {
@@ -38,9 +32,6 @@ func NSScrubberDelegateObjectFromID(id objc.ID) NSScrubberDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the item at the specified index was selected.
 //
@@ -117,10 +108,6 @@ func (o NSScrubberDelegateObject) DidCancelInteractingWithScrubber(scrubber INSS
 	
 	objc.Send[struct{}](o.ID, objc.Sel("didCancelInteractingWithScrubber:"), scrubber)
 	}
-
-
-
-
 
 // NSScrubberDelegateConfig holds optional typed callbacks for [NSScrubberDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -249,8 +236,4 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSScrubberDelegateObjectFromID(instance)
 }
-
-
-
-
 

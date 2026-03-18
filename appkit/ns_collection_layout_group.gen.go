@@ -37,12 +37,6 @@ func (nc NSCollectionLayoutGroupClass) Alloc() NSCollectionLayoutGroup {
 	return rv
 }
 
-
-
-
-
-
-
 // A container for a set of items that lays out the items along a path.
 //
 // # Overview
@@ -102,10 +96,6 @@ func NSCollectionLayoutGroupFromID(id objc.ID) NSCollectionLayoutGroup {
 // NOTE: NSCollectionLayoutGroup adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCollectionLayoutGroup] class.
 //
 // # Getting the group’s items
@@ -142,10 +132,6 @@ type INSCollectionLayoutGroup interface {
 	VisualDescription() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCollectionLayoutGroup) Init() NSCollectionLayoutGroup {
 	rv := objc.Send[NSCollectionLayoutGroup](c.ID, objc.Sel("init"))
@@ -165,11 +151,6 @@ func NewNSCollectionLayoutGroup() NSCollectionLayoutGroup {
 	return rv
 }
 
-
-
-
-
-
 // Creates an item of the specified size.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/init(layoutSize:)
@@ -177,7 +158,6 @@ func NewCollectionLayoutGroupItemWithLayoutSize(layoutSize INSCollectionLayoutSi
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionLayoutGroupClass().class), objc.Sel("itemWithLayoutSize:"), layoutSize)
 	return NSCollectionLayoutGroupFromID(rv)
 }
-
 
 // Creates an item of the specified size with an array of supplementary items
 // to attach to the item.
@@ -188,12 +168,6 @@ func NewCollectionLayoutGroupItemWithLayoutSizeSupplementaryItems(layoutSize INS
 	return NSCollectionLayoutGroupFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns a string with an ASCII representation of the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/visualDescription()
@@ -201,10 +175,6 @@ func (c NSCollectionLayoutGroup) VisualDescription() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("visualDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
 
 // Creates a group of the specified size, containing an array of items
 // arranged in a horizontal line.
@@ -271,13 +241,6 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) CustomGroupWit
 	return NSCollectionLayoutGroupFromID(rv)
 }
 
-
-
-
-
-
-
-
 // An array of the items contained in the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/subitems
@@ -287,8 +250,6 @@ func (c NSCollectionLayoutGroup) Subitems() []NSCollectionLayoutItem {
 		return NSCollectionLayoutItemFromID(id)
 	})
 }
-
-
 
 // The amount of space between the items in the group.
 //
@@ -300,29 +261,4 @@ func (c NSCollectionLayoutGroup) InterItemSpacing() INSCollectionLayoutSpacing {
 func (c NSCollectionLayoutGroup) SetInterItemSpacing(value INSCollectionLayoutSpacing) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInterItemSpacing:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

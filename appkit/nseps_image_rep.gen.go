@@ -37,12 +37,6 @@ func (nc NSEPSImageRepClass) Alloc() NSEPSImageRep {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that can render an image from encapsulated PostScript (EPS) code.
 //
 // # Getting Data
@@ -64,10 +58,6 @@ func NSEPSImageRepFromID(id objc.ID) NSEPSImageRep {
 // NOTE: NSEPSImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSEPSImageRep] class.
 //
 // # Getting Data
@@ -85,13 +75,7 @@ type INSEPSImageRep interface {
 	BoundingBox() corefoundation.CGRect
 	// The EPS representation of the image representation.
 	EPSRepresentation() foundation.INSData
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e NSEPSImageRep) Init() NSEPSImageRep {
@@ -112,11 +96,6 @@ func NewNSEPSImageRep() NSEPSImageRep {
 	return rv
 }
 
-
-
-
-
-
 // Creates and returns an image representation object from data in an
 // unarchiver.
 //
@@ -126,7 +105,6 @@ func NewEPSImageRepWithCoder(coder foundation.INSCoder) NSEPSImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSEPSImageRepFromID(rv)
 }
-
 
 // Returns a representation of an image initialized with the specified EPS
 // data.
@@ -150,26 +128,6 @@ func NewEPSImageRepWithData(epsData foundation.INSData) NSEPSImageRep {
 	return NSEPSImageRepFromID(rv)
 }
 
-
-
-
-
-
-func (e NSEPSImageRep) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The rectangle that bounds the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEPSImageRep/boundingBox
@@ -178,8 +136,6 @@ func (e NSEPSImageRep) BoundingBox() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The EPS representation of the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEPSImageRep/epsRepresentation
@@ -187,30 +143,4 @@ func (e NSEPSImageRep) EPSRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("EPSRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (nc NSPathControlClass) Alloc() NSPathControl {
 	return rv
 }
 
-
-
-
-
-
-
 // A display of a file system path or virtual path information.
 //
 // # Overview
@@ -135,10 +129,6 @@ func NSPathControlFromID(id objc.ID) NSPathControl {
 }
 // NOTE: NSPathControl adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPathControl] class.
 //
@@ -237,13 +227,7 @@ type INSPathControl interface {
 	SetPlaceholderAttributedString(value foundation.NSAttributedString)
 	PlaceholderString() string
 	SetPlaceholderString(value string)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPathControl) Init() NSPathControl {
@@ -264,11 +248,6 @@ func NewNSPathControl() NSPathControl {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -277,7 +256,6 @@ func NewPathControlWithCoder(coder foundation.INSCoder) NSPathControl {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPathControlFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -304,12 +282,6 @@ func NewPathControlWithFrame(frameRect corefoundation.CGRect) NSPathControl {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSPathControlFromID(rv)
 }
-
-
-
-
-
-
 
 // Configures the drag operation mask.
 //
@@ -338,20 +310,6 @@ func NewPathControlWithFrame(frameRect corefoundation.CGRect) NSPathControl {
 func (p NSPathControl) SetDraggingSourceOperationMaskForLocal(mask NSDragOperation, isLocal bool) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setDraggingSourceOperationMask:forLocal:"), mask, isLocal)
 }
-func (p NSPathControl) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The receiver’s path style.
 //
@@ -363,8 +321,6 @@ func (p NSPathControl) PathStyle() NSPathStyle {
 func (p NSPathControl) SetPathStyle(value NSPathStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPathStyle:"), value)
 }
-
-
 
 // The receiver’s background color.
 //
@@ -383,8 +339,6 @@ func (p NSPathControl) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
 
-
-
 // The receiver’s double-click action method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/doubleAction
@@ -395,8 +349,6 @@ func (p NSPathControl) DoubleAction() objc.SEL {
 func (p NSPathControl) SetDoubleAction(value objc.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleAction:"), value)
 }
-
-
 
 // The path value displayed by the receiver.
 //
@@ -420,8 +372,6 @@ func (p NSPathControl) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
 
-
-
 // The receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/delegate
@@ -433,8 +383,6 @@ func (p NSPathControl) SetDelegate(value NSPathControlDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/allowedTypes
 func (p NSPathControl) AllowedTypes() []string {
 	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("allowedTypes"))
@@ -444,15 +392,11 @@ func (p NSPathControl) SetAllowedTypes(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowedTypes:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/clickedPathItem
 func (p NSPathControl) ClickedPathItem() INSPathControlItem {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("clickedPathItem"))
 	return NSPathControlItemFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/isEditable
 func (p NSPathControl) Editable() bool {
@@ -462,8 +406,6 @@ func (p NSPathControl) Editable() bool {
 func (p NSPathControl) SetEditable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEditable:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/pathItems
 func (p NSPathControl) PathItems() []NSPathControlItem {
@@ -476,8 +418,6 @@ func (p NSPathControl) SetPathItems(value []NSPathControlItem) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPathItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/placeholderAttributedString
 func (p NSPathControl) PlaceholderAttributedString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("placeholderAttributedString"))
@@ -487,8 +427,6 @@ func (p NSPathControl) SetPlaceholderAttributedString(value foundation.NSAttribu
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControl/placeholderString
 func (p NSPathControl) PlaceholderString() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("placeholderString"))
@@ -497,38 +435,4 @@ func (p NSPathControl) PlaceholderString() string {
 func (p NSPathControl) SetPlaceholderString(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

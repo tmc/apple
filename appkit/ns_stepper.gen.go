@@ -38,12 +38,6 @@ func (nc NSStepperClass) Alloc() NSStepper {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface with up and down arrow buttons for incrementing or
 // decrementing a value.
 //
@@ -90,10 +84,6 @@ func NSStepperFromID(id objc.ID) NSStepper {
 // NOTE: NSStepper adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSStepper] class.
 //
 // # Specifying value range
@@ -137,13 +127,7 @@ type INSStepper interface {
 	// A Boolean value that indicates whether the stepper wraps around the minimum and maximum values.
 	ValueWraps() bool
 	SetValueWraps(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSStepper) Init() NSStepper {
@@ -164,11 +148,6 @@ func NewNSStepper() NSStepper {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -177,7 +156,6 @@ func NewStepperWithCoder(coder foundation.INSCoder) NSStepper {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSStepperFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -203,37 +181,6 @@ func NewStepperWithFrame(frameRect corefoundation.CGRect) NSStepper {
 	instance := getNSStepperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSStepperFromID(rv)
-}
-
-
-
-
-
-
-
-// Returns a short description of the stepper.
-//
-// # Return Value
-// 
-// The description of the stepper.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
-// 
-// Do not include the control’s type in the label (for example, use
-// [Volume], not `Volume stepper`). If possible use a single word. To help
-// ensure that accessibility clients such as VoiceOver read the label with the
-// correct intonation, start this label with a capital letter. Do not put a
-// period at the end. Always localize the label.
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityLabel()
-func (s NSStepper) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Decrements the stepper’s value.
@@ -302,20 +249,6 @@ func (s NSStepper) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
 }
-func (s NSStepper) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The stepper’s maximum value.
 //
@@ -332,8 +265,6 @@ func (s NSStepper) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
 
-
-
 // The stepper’s minimum value.
 //
 // # Discussion
@@ -349,8 +280,6 @@ func (s NSStepper) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
 
-
-
 // The amount by which the receiver changes with each increment or decrement.
 //
 // # Discussion
@@ -365,8 +294,6 @@ func (s NSStepper) Increment() float64 {
 func (s NSStepper) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
 }
-
-
 
 // A Boolean value that indicates how the stepper responds to mouse events.
 //
@@ -389,8 +316,6 @@ func (s NSStepper) SetAutorepeat(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutorepeat:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the stepper wraps around the minimum
 // and maximum values.
 //
@@ -411,20 +336,6 @@ func (s NSStepper) ValueWraps() bool {
 func (s NSStepper) SetValueWraps(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setValueWraps:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityStepper
 			
@@ -521,27 +432,4 @@ func (o NSStepper) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

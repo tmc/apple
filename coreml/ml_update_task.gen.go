@@ -38,12 +38,6 @@ func (mc MLUpdateTaskClass) Alloc() MLUpdateTask {
 	return rv
 }
 
-
-
-
-
-
-
 // A task that updates a model with additional training data.
 //
 // # Overview
@@ -69,10 +63,6 @@ func MLUpdateTaskFromID(id objc.ID) MLUpdateTask {
 // NOTE: MLUpdateTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MLUpdateTask] class.
 //
 // # Starting and Resuming an Update
@@ -88,10 +78,6 @@ type IMLUpdateTask interface {
 	// Resumes a model update with updated parameter values.
 	ResumeWithParameters(updateParameters foundation.INSDictionary)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u MLUpdateTask) Init() MLUpdateTask {
@@ -111,11 +97,6 @@ func NewMLUpdateTask() MLUpdateTask {
 	rv := objc.Send[MLUpdateTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a task that updates the model at the URL with the training data and
 // configuration, and calls the progress handlers during and after the update.
@@ -140,7 +121,6 @@ func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(mo
 	return MLUpdateTaskFromID(rv), nil
 }
 
-
 // Creates a task that updates the model at the URL with the training data,
 // and calls the progress handlers during and after the update.
 //
@@ -162,12 +142,6 @@ func NewUpdateTaskForModelAtURLTrainingDataProgressHandlersError(modelURL founda
 	return MLUpdateTaskFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Resumes a model update with updated parameter values.
 //
 // updateParameters: Model training parameter values to replace those currently set in the
@@ -184,10 +158,6 @@ func (u MLUpdateTask) ResumeWithParameters(updateParameters foundation.INSDictio
 	objc.Send[objc.ID](u.ID, objc.Sel("resumeWithParameters:"), updateParameters)
 }
 
-
-
-
-
 // Creates a task that updates the model at the URL with the training data,
 // and calls the completion handler when the update completes.
 //
@@ -200,7 +170,7 @@ func (u MLUpdateTask) ResumeWithParameters(updateParameters foundation.INSDictio
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:completionHandler:)
 func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, completionHandler objectivec.IObject) (MLUpdateTask, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:completionHandler:error:"), modelURL, trainingData, completionHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -224,7 +194,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:configuration:completionHandler:)
 func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, completionHandler objectivec.IObject) (MLUpdateTask, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:completionHandler:error:"), modelURL, trainingData, configuration, completionHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -233,33 +203,4 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 	return MLUpdateTaskFromID(rv), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

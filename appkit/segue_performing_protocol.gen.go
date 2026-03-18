@@ -14,8 +14,6 @@ type NSSeguePerforming interface {
 	objectivec.IObject
 }
 
-
-
 // NSSeguePerformingObject wraps an existing Objective-C object that conforms to the NSSeguePerforming protocol.
 type NSSeguePerformingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSSeguePerformingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSeguePerformingObjectFromID constructs a [NSSeguePerformingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
@@ -33,9 +29,6 @@ func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Performs the specified segue.
 //
@@ -131,10 +124,4 @@ func (o NSSeguePerformingObject) ShouldPerformSegueWithIdentifierSender(identifi
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldPerformSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 	return rv
 	}
-
-
-
-
-
-
 

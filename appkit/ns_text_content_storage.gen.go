@@ -37,12 +37,6 @@ func (nc NSTextContentStorageClass) Alloc() NSTextContentStorage {
 	return rv
 }
 
-
-
-
-
-
-
 // A concrete object for managing your view’s text content and generating
 // the text elements necessary for layout.
 //
@@ -103,10 +97,6 @@ func NSTextContentStorageFromID(id objc.ID) NSTextContentStorage {
 // NOTE: NSTextContentStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSTextContentStorage] class.
 //
 // # Managing the stored text
@@ -146,13 +136,7 @@ type INSTextContentStorage interface {
 
 	IncludesTextListMarkers() bool
 	SetIncludesTextListMarkers(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTextContentStorage) Init() NSTextContentStorage {
@@ -173,11 +157,6 @@ func NewNSTextContentStorage() NSTextContentStorage {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new content manager object from data in an unarchiver.
 //
 // coder: An unachiver that conforms to the [NSCoder] class.
@@ -190,12 +169,6 @@ func NewTextContentStorageWithCoder(coder foundation.INSCoder) NSTextContentStor
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextContentStorageFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the text element corresponding to object’s attributed string.
 //
@@ -242,9 +215,9 @@ func (t NSTextContentStorage) AttributedStringForTextElement(textElement INSText
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(transaction)
+_block1, _cleanup1 := NewVoidBlock(transaction)
 	defer _cleanup1()
-		objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, _block1)
+	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, _block1)
 }
 
 //
@@ -252,20 +225,6 @@ func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlock(
 func (t NSTextContentStorage) ProcessEditingForTextStorageEditedRangeChangeInLengthInvalidatedRange(textStorage NSTextStorage, editMask NSTextStorageEditActions, newCharRange foundation.NSRange, delta int, invalidatedCharRange foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("processEditingForTextStorage:edited:range:changeInLength:invalidatedRange:"), textStorage, editMask, newCharRange, delta, invalidatedCharRange)
 }
-func (t NSTextContentStorage) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // An attributed string that contains the contents of the document.
 //
@@ -293,8 +252,6 @@ func (t NSTextContentStorage) SetAttributedString(value foundation.NSAttributedS
 	objc.Send[struct{}](t.ID, objc.Sel("setAttributedString:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorage/includesTextListMarkers
 func (t NSTextContentStorage) IncludesTextListMarkers() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("includesTextListMarkers"))
@@ -303,8 +260,6 @@ func (t NSTextContentStorage) IncludesTextListMarkers() bool {
 func (t NSTextContentStorage) SetIncludesTextListMarkers(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncludesTextListMarkers:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
 func (t NSTextContentStorage) TextStorage() NSTextStorage {
@@ -315,33 +270,8 @@ func (t NSTextContentStorage) SetTextStorage(value NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextStorage:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSTextStorageObserving
 			
-
-
-
-
-
-
-
-
-
 
 // PerformEditingTransactionForTextStorageUsingBlockSync is a synchronous wrapper around [NSTextContentStorage.PerformEditingTransactionForTextStorageUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -357,9 +287,4 @@ func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlockS
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

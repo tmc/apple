@@ -38,12 +38,6 @@ func (nc NSRuleEditorClass) Alloc() NSRuleEditor {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface for configuring a rule-based list of options.
 //
 // # Overview
@@ -150,10 +144,6 @@ func NSRuleEditorFromID(id objc.ID) NSRuleEditor {
 }
 // NOTE: NSRuleEditor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSRuleEditor] class.
 //
@@ -328,13 +318,7 @@ type INSRuleEditor interface {
 	// The display values key path.
 	DisplayValuesKeyPath() string
 	SetDisplayValuesKeyPath(value string)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r NSRuleEditor) Init() NSRuleEditor {
@@ -355,11 +339,6 @@ func NewNSRuleEditor() NSRuleEditor {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -368,7 +347,6 @@ func NewRuleEditorWithCoder(coder foundation.INSCoder) NSRuleEditor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSRuleEditorFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -395,12 +373,6 @@ func NewRuleEditorWithFrame(frameRect corefoundation.CGRect) NSRuleEditor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:"), frameRect)
 	return NSRuleEditorFromID(rv)
 }
-
-
-
-
-
-
 
 // Instructs the receiver to refetch criteria from its delegate.
 //
@@ -659,20 +631,6 @@ func (r NSRuleEditor) PredicateForRow(row int) foundation.INSPredicate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("predicateForRow:"), row)
 	return foundation.NSPredicateFromID(rv)
 }
-func (r NSRuleEditor) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The rule editor’s delegate.
 //
@@ -684,8 +642,6 @@ func (r NSRuleEditor) Delegate() NSRuleEditorDelegate {
 func (r NSRuleEditor) SetDelegate(value NSRuleEditorDelegate) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean value that determines whether the rule editor is editable.
 //
@@ -704,8 +660,6 @@ func (r NSRuleEditor) SetEditable(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEditable:"), value)
 }
 
-
-
 // The rule editor’s nesting mode.
 //
 // # Discussion
@@ -723,8 +677,6 @@ func (r NSRuleEditor) SetNestingMode(value NSRuleEditorNestingMode) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNestingMode:"), value)
 }
 
-
-
 // A Boolean value that indicates whether all the rows can be removed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/canRemoveAllRows
@@ -736,8 +688,6 @@ func (r NSRuleEditor) SetCanRemoveAllRows(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCanRemoveAllRows:"), value)
 }
 
-
-
 // The rule editor’s row height.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowHeight
@@ -748,8 +698,6 @@ func (r NSRuleEditor) RowHeight() float64 {
 func (r NSRuleEditor) SetRowHeight(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowHeight:"), value)
 }
-
-
 
 // The formatting dictionary for the rule editor.
 //
@@ -766,8 +714,6 @@ func (r NSRuleEditor) FormattingDictionary() foundation.INSDictionary {
 func (r NSRuleEditor) SetFormattingDictionary(value foundation.INSDictionary) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFormattingDictionary:"), value)
 }
-
-
 
 // The name of the rule editor’s strings file.
 //
@@ -792,8 +738,6 @@ func (r NSRuleEditor) SetFormattingStringsFilename(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFormattingStringsFilename:"), objc.String(value))
 }
 
-
-
 // The number of rows in the rule editor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/numberOfRows
@@ -802,8 +746,6 @@ func (r NSRuleEditor) NumberOfRows() int {
 	return rv
 }
 
-
-
 // The indexes of the rule editor’s selected rows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/selectedRowIndexes
@@ -811,8 +753,6 @@ func (r NSRuleEditor) SelectedRowIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("selectedRowIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
-
 
 // The rule editor’s predicate.
 //
@@ -829,8 +769,6 @@ func (r NSRuleEditor) Predicate() foundation.INSPredicate {
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }
 
-
-
 // The class used to create a new row in the “rows” binding.
 //
 // # Discussion
@@ -845,8 +783,6 @@ func (r NSRuleEditor) RowClass() objc.Class {
 func (r NSRuleEditor) SetRowClass(value objc.Class) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowClass:"), value)
 }
-
-
 
 // The key path for the row type.
 //
@@ -867,8 +803,6 @@ func (r NSRuleEditor) SetRowTypeKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowTypeKeyPath:"), objc.String(value))
 }
 
-
-
 // The key path for the subrows.
 //
 // # Discussion
@@ -887,8 +821,6 @@ func (r NSRuleEditor) SubrowsKeyPath() string {
 func (r NSRuleEditor) SetSubrowsKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSubrowsKeyPath:"), objc.String(value))
 }
-
-
 
 // The criteria key path.
 //
@@ -911,8 +843,6 @@ func (r NSRuleEditor) SetCriteriaKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCriteriaKeyPath:"), objc.String(value))
 }
 
-
-
 // The display values key path.
 //
 // # Discussion
@@ -933,38 +863,4 @@ func (r NSRuleEditor) DisplayValuesKeyPath() string {
 func (r NSRuleEditor) SetDisplayValuesKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDisplayValuesKeyPath:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

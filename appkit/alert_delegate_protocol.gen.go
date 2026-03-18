@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of optional methods implemented by the delegate of an [NSAlert](<doc://com.apple.appkit/documentation/AppKit/NSAlert>) object to respond to a user’s request for help.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSAlertDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSAlertDelegateObject wraps an existing Objective-C object that conforms to the NSAlertDelegate protocol.
 type NSAlertDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSAlertDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAlertDelegateObjectFromID constructs a [NSAlertDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAlertDelegateObjectFromID(id objc.ID) NSAlertDelegateObject {
@@ -37,9 +31,6 @@ func NSAlertDelegateObjectFromID(id objc.ID) NSAlertDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent to the delegate when the user clicks the alert’s help button. The
 // delegate causes help to be displayed for an alert, directly or indirectly.
@@ -65,10 +56,6 @@ func (o NSAlertDelegateObject) AlertShowHelp(alert NSAlert) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("alertShowHelp:"), alert)
 	return rv
 	}
-
-
-
-
 
 // NSAlertDelegateConfig holds optional typed callbacks for [NSAlertDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -130,8 +117,4 @@ func NewNSAlertDelegate(config NSAlertDelegateConfig) NSAlertDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSAlertDelegateObjectFromID(instance)
 }
-
-
-
-
 

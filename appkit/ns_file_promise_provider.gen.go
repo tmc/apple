@@ -37,12 +37,6 @@ func (nc NSFilePromiseProviderClass) Alloc() NSFilePromiseProvider {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that provides a promise for the pasteboard.
 //
 // # Overview
@@ -87,14 +81,10 @@ type NSFilePromiseProvider struct {
 //
 // An object that provides a promise for the pasteboard.
 func NSFilePromiseProviderFromID(id objc.ID) NSFilePromiseProvider {
-	return NSFilePromiseProvider{objectivec.Object{id}}
+	return NSFilePromiseProvider{objectivec.Object{ID: id}}
 }
 // NOTE: NSFilePromiseProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFilePromiseProvider] class.
 //
@@ -133,10 +123,6 @@ type INSFilePromiseProvider interface {
 	SetUserInfo(value objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFilePromiseProvider) Init() NSFilePromiseProvider {
 	rv := objc.Send[NSFilePromiseProvider](f.ID, objc.Sel("init"))
@@ -156,11 +142,6 @@ func NewNSFilePromiseProvider() NSFilePromiseProvider {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a file promise provider for a certain file type.
 //
 // fileType: A string describing the file type.
@@ -174,12 +155,6 @@ func NewFilePromiseProviderWithFileTypeDelegate(fileType string, delegate NSFile
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileType:delegate:"), objc.String(fileType), delegate)
 	return NSFilePromiseProviderFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a file promise provider for a certain file type.
 //
@@ -276,17 +251,6 @@ func (f NSFilePromiseProvider) WritingOptionsForTypePasteboard(type_ NSPasteboar
 	return NSPasteboardWritingOptions(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProvider/delegate
 func (f NSFilePromiseProvider) Delegate() NSFilePromiseProviderDelegate {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("delegate"))
@@ -295,8 +259,6 @@ func (f NSFilePromiseProvider) Delegate() NSFilePromiseProviderDelegate {
 func (f NSFilePromiseProvider) SetDelegate(value NSFilePromiseProviderDelegate) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // The file type of the file promise provider.
 //
@@ -313,8 +275,6 @@ func (f NSFilePromiseProvider) SetFileType(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFileType:"), objc.String(value))
 }
 
-
-
 // Optional user information to pass to the file promise provider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProvider/userInfo
@@ -326,31 +286,6 @@ func (f NSFilePromiseProvider) SetUserInfo(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setUserInfo:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSPasteboardWriting
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

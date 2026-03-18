@@ -37,12 +37,6 @@ func (nc NSTextViewportLayoutControllerClass) Alloc() NSTextViewportLayoutContro
 	return rv
 }
 
-
-
-
-
-
-
 // Manages the layout process inside the viewport interacting with its
 // delegate.
 //
@@ -85,14 +79,10 @@ type NSTextViewportLayoutController struct {
 // Manages the layout process inside the viewport interacting with its
 // delegate.
 func NSTextViewportLayoutControllerFromID(id objc.ID) NSTextViewportLayoutController {
-	return NSTextViewportLayoutController{objectivec.Object{id}}
+	return NSTextViewportLayoutController{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextViewportLayoutController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextViewportLayoutController] class.
 //
@@ -151,10 +141,6 @@ type INSTextViewportLayoutController interface {
 	RelocateViewportToTextLocation(textLocation NSTextLocation) float64
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextViewportLayoutController) Init() NSTextViewportLayoutController {
 	rv := objc.Send[NSTextViewportLayoutController](t.ID, objc.Sel("init"))
@@ -174,11 +160,6 @@ func NewNSTextViewportLayoutController() NSTextViewportLayoutController {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new instance with the text layout manager you provide.
 //
 // textLayoutManager: The [NSTextLayoutManager] to associate with this viewport layout
@@ -190,12 +171,6 @@ func NewTextViewportLayoutControllerWithTextLayoutManager(textLayoutManager INST
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTextLayoutManager:"), textLayoutManager)
 	return NSTextViewportLayoutControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new instance with the text layout manager you provide.
 //
@@ -234,17 +209,6 @@ func (t NSTextViewportLayoutController) RelocateViewportToTextLocation(textLocat
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the text layout manager for this viewport layout controller.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/textLayoutManager
@@ -252,8 +216,6 @@ func (t NSTextViewportLayoutController) TextLayoutManager() INSTextLayoutManager
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
-
 
 // The delegate for the text layout manager object.
 //
@@ -266,8 +228,6 @@ func (t NSTextViewportLayoutController) SetDelegate(value NSTextViewportLayoutCo
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // Returns the visible bounds of the view, plus the overdraw area.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/viewportBounds
@@ -276,8 +236,6 @@ func (t NSTextViewportLayoutController) ViewportBounds() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // Returns the text range of the current viewport layout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/viewportRange
@@ -285,26 +243,4 @@ func (t NSTextViewportLayoutController) ViewportRange() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("viewportRange"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

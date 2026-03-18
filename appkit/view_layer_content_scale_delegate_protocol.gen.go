@@ -14,8 +14,6 @@ type NSViewLayerContentScaleDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSViewLayerContentScaleDelegateObject wraps an existing Objective-C object that conforms to the NSViewLayerContentScaleDelegate protocol.
 type NSViewLayerContentScaleDelegateObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSViewLayerContentScaleDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSViewLayerContentScaleDelegateObjectFromID constructs a [NSViewLayerContentScaleDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSViewLayerContentScaleDelegateObjectFromID(id objc.ID) NSViewLayerContentScaleDelegateObject {
@@ -33,9 +29,6 @@ func NSViewLayerContentScaleDelegateObjectFromID(id objc.ID) NSViewLayerContentS
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Notifies you when a resolution changes occurs for the window that hosts the
 // layer.
@@ -80,10 +73,4 @@ func (o NSViewLayerContentScaleDelegateObject) LayerShouldInheritContentsScaleFr
 	rv := objc.Send[bool](o.ID, objc.Sel("layer:shouldInheritContentsScale:fromWindow:"), layer, newScale, window)
 	return rv
 	}
-
-
-
-
-
-
 

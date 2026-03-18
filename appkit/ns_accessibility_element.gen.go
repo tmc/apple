@@ -39,12 +39,6 @@ func (nc NSAccessibilityElementClass) Alloc() NSAccessibilityElement {
 	return rv
 }
 
-
-
-
-
-
-
 // The basic infrastructure necessary for interacting with an assistive app.
 //
 // # Overview
@@ -94,14 +88,10 @@ type NSAccessibilityElement struct {
 //
 // The basic infrastructure necessary for interacting with an assistive app.
 func NSAccessibilityElementFromID(id objc.ID) NSAccessibilityElement {
-	return NSAccessibilityElement{objectivec.Object{id}}
+	return NSAccessibilityElement{objectivec.Object{ID: id}}
 }
 // NOTE: NSAccessibilityElement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAccessibilityElement] class.
 //
@@ -126,10 +116,6 @@ type INSAccessibilityElement interface {
 	SetAccessibilityFrameInParentSpace(accessibilityFrameInParentSpace corefoundation.CGRect)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAccessibilityElement) Init() NSAccessibilityElement {
 	rv := objc.Send[NSAccessibilityElement](a.ID, objc.Sel("init"))
@@ -148,15 +134,6 @@ func NewNSAccessibilityElement() NSAccessibilityElement {
 	rv := objc.Send[NSAccessibilityElement](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds a child to the accessibility element in the accessibility hierarchy.
 //
@@ -188,10 +165,6 @@ func (a NSAccessibilityElement) AccessibilityFrameInParentSpace() corefoundation
 func (a NSAccessibilityElement) SetAccessibilityFrameInParentSpace(accessibilityFrameInParentSpace corefoundation.CGRect) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setAccessibilityFrameInParentSpace:"), accessibilityFrameInParentSpace)
 }
-
-
-
-
 
 // Instantiates and configures a new accessibility element.
 //
@@ -233,23 +206,6 @@ func (_NSAccessibilityElementClass NSAccessibilityElementClass) AccessibilityEle
 	rv := objc.Send[objc.ID](objc.ID(_NSAccessibilityElementClass.class), objc.Sel("accessibilityElementWithRole:frame:label:parent:"), objc.String(string(role)), frame, objc.String(label), parent)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityProtocol
 			
@@ -3206,17 +3162,4 @@ func (o NSAccessibilityElement) SetAccessibilityUserInputLabels(accessibilityUse
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 

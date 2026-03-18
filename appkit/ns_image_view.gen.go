@@ -38,12 +38,6 @@ func (nc NSImageViewClass) Alloc() NSImageView {
 	return rv
 }
 
-
-
-
-
-
-
 // A display of image data in a frame.
 //
 // # Overview
@@ -99,10 +93,6 @@ func NSImageViewFromID(id objc.ID) NSImageView {
 }
 // NOTE: NSImageView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSImageView] class.
 //
@@ -186,13 +176,7 @@ type INSImageView interface {
 	// A Boolean value indicating whether the image view lets the user cut, copy, and paste the image contents.
 	AllowsCutCopyPaste() bool
 	SetAllowsCutCopyPaste(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i NSImageView) Init() NSImageView {
@@ -213,11 +197,6 @@ func NewNSImageView() NSImageView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -226,7 +205,6 @@ func NewImageViewWithCoder(coder foundation.INSCoder) NSImageView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSImageViewFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -254,43 +232,11 @@ func NewImageViewWithFrame(frameRect corefoundation.CGRect) NSImageView {
 	return NSImageViewFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/init(image:)
 func NewImageViewWithImage(image INSImage) NSImageView {
 	rv := objc.Send[objc.ID](objc.ID(getNSImageViewClass().class), objc.Sel("imageViewWithImage:"), image)
 	return NSImageViewFromID(rv)
-}
-
-
-
-
-
-
-
-// Returns a short description of the image’s label.
-//
-// # Return Value
-// 
-// The description of the images label.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
-// 
-// Do not include the accessibility element’s type in the label (for
-// example, write [Play], not `Play button`.). If possible, use a single word.
-// To help ensure that accessibility clients such as VoiceOver read the label
-// with the correct intonation, start this label with a capital letter. Do not
-// put a period at the end. Always localize the label.
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityImage/accessibilityLabel()
-func (i NSImageView) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](i.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
 }
 
 // Implemented to override the default action of enabling or disabling a
@@ -323,20 +269,6 @@ func (i NSImageView) ValidateMenuItem(menuItem INSMenuItem) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
 }
-func (i NSImageView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/symbolConfiguration
 func (i NSImageView) SymbolConfiguration() INSImageSymbolConfiguration {
@@ -346,8 +278,6 @@ func (i NSImageView) SymbolConfiguration() INSImageSymbolConfiguration {
 func (i NSImageView) SetSymbolConfiguration(value INSImageSymbolConfiguration) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSymbolConfiguration:"), value)
 }
-
-
 
 // The image displayed by the image view.
 //
@@ -363,8 +293,6 @@ func (i NSImageView) Image() INSImage {
 func (i NSImageView) SetImage(value INSImage) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImage:"), value)
 }
-
-
 
 // The style of frame that appears around the image.
 //
@@ -383,8 +311,6 @@ func (i NSImageView) SetImageFrameStyle(value NSImageFrameStyle) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageFrameStyle:"), value)
 }
 
-
-
 // The alignment of the cell’s image inside the image view.
 //
 // # Discussion
@@ -401,8 +327,6 @@ func (i NSImageView) ImageAlignment() NSImageAlignment {
 func (i NSImageView) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageAlignment:"), value)
 }
-
-
 
 // The scaling mode applied to make the cell’s image fit the frame of the
 // image view.
@@ -422,8 +346,6 @@ func (i NSImageView) ImageScaling() NSImageScaling {
 func (i NSImageView) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageScaling:"), value)
 }
-
-
 
 // A Boolean value indicating whether the image view automatically plays
 // animated images.
@@ -461,8 +383,6 @@ func (i NSImageView) SetAnimates(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAnimates:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/contentTintColor
 func (i NSImageView) ContentTintColor() INSColor {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("contentTintColor"))
@@ -471,8 +391,6 @@ func (i NSImageView) ContentTintColor() INSColor {
 func (i NSImageView) SetContentTintColor(value INSColor) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContentTintColor:"), value)
 }
-
-
 
 // The resolved dynamic range of the fully resolved image content.
 //
@@ -489,8 +407,6 @@ func (i NSImageView) ImageDynamicRange() NSImageDynamicRange {
 	return NSImageDynamicRange(rv)
 }
 
-
-
 // The preferred dynamic range when displaying an image in the receiving image
 // view.
 //
@@ -502,8 +418,6 @@ func (i NSImageView) PreferredImageDynamicRange() NSImageDynamicRange {
 func (i NSImageView) SetPreferredImageDynamicRange(value NSImageDynamicRange) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPreferredImageDynamicRange:"), value)
 }
-
-
 
 // A Boolean value indicating whether the user can drag a new image into the
 // image view.
@@ -527,8 +441,6 @@ func (i NSImageView) SetEditable(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setEditable:"), value)
 }
 
-
-
 // A Boolean value indicating whether the image view lets the user cut, copy,
 // and paste the image contents.
 //
@@ -545,12 +457,6 @@ func (i NSImageView) AllowsCutCopyPaste() bool {
 func (i NSImageView) SetAllowsCutCopyPaste(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAllowsCutCopyPaste:"), value)
 }
-
-
-
-
-
-
 
 // The default preferred image dynamic range.
 //
@@ -573,15 +479,6 @@ func (_NSImageViewClass NSImageViewClass) DefaultPreferredImageDynamicRange() NS
 func (_NSImageViewClass NSImageViewClass) SetDefaultPreferredImageDynamicRange(value NSImageDynamicRange) {
 	objc.Send[struct{}](objc.ID(_NSImageViewClass.class), objc.Sel("setDefaultPreferredImageDynamicRange:"), value)
 }
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilityImage
 			
@@ -679,33 +576,6 @@ func (o NSImageView) IsAccessibilityFocused() bool {
 	return rv
 	}
 
-
-
-
-
-
-
-
-
 			// Protocol methods for NSMenuItemValidation
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

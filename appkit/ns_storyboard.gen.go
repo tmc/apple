@@ -37,12 +37,6 @@ func (nc NSStoryboardClass) Alloc() NSStoryboard {
 	return rv
 }
 
-
-
-
-
-
-
 // An encapsulation of the design-time view controller and window controller
 // graph represented in an Interface Builder storyboard resource file.
 //
@@ -81,14 +75,10 @@ type NSStoryboard struct {
 // An encapsulation of the design-time view controller and window controller
 // graph represented in an Interface Builder storyboard resource file.
 func NSStoryboardFromID(id objc.ID) NSStoryboard {
-	return NSStoryboard{objectivec.Object{id}}
+	return NSStoryboard{objectivec.Object{ID: id}}
 }
 // NOTE: NSStoryboard adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSStoryboard] class.
 //
@@ -115,10 +105,6 @@ type INSStoryboard interface {
 	InstantiateControllerWithIdentifier(identifier NSStoryboardSceneIdentifier) objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSStoryboard) Init() NSStoryboard {
 	rv := objc.Send[NSStoryboard](s.ID, objc.Sel("init"))
@@ -137,11 +123,6 @@ func NewNSStoryboard() NSStoryboard {
 	rv := objc.Send[NSStoryboard](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a storyboard based on the named storyboard file in the specified
 // bundle.
@@ -162,12 +143,6 @@ func NewStoryboardWithNameBundle(name NSStoryboardName, storyboardBundleOrNil fo
 	rv := objc.Send[objc.ID](objc.ID(getNSStoryboardClass().class), objc.Sel("storyboardWithName:bundle:"), objc.String(string(name)), storyboardBundleOrNil)
 	return NSStoryboardFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates the initial view controller or window controller from a storyboard.
 //
@@ -228,21 +203,6 @@ func (s NSStoryboard) InstantiateControllerWithIdentifier(identifier NSStoryboar
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The app’s main storyboard.
 //
 // # Discussion
@@ -257,22 +217,4 @@ func (_NSStoryboardClass NSStoryboardClass) MainStoryboard() NSStoryboard {
 	rv := objc.Send[objc.ID](objc.ID(_NSStoryboardClass.class), objc.Sel("mainStoryboard"))
 	return NSStoryboardFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

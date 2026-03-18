@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that a search field delegate can use to determine when a search started or ended.
 //
@@ -21,8 +20,6 @@ type NSSearchFieldDelegate interface {
 	NSTextFieldDelegate
 }
 
-
-
 // NSSearchFieldDelegateObject wraps an existing Objective-C object that conforms to the NSSearchFieldDelegate protocol.
 type NSSearchFieldDelegateObject struct {
 	objectivec.Object
@@ -31,8 +28,6 @@ func (o NSSearchFieldDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSearchFieldDelegateObjectFromID constructs a [NSSearchFieldDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSearchFieldDelegateObjectFromID(id objc.ID) NSSearchFieldDelegateObject {
@@ -40,9 +35,6 @@ func NSSearchFieldDelegateObjectFromID(id objc.ID) NSSearchFieldDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method that is called when the search field begins searching for
 // content.
@@ -253,7 +245,7 @@ func (o NSSearchFieldDelegateObject) ControlTextShouldEndEditing(control INSCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 
-func (o NSSearchFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index int) []string {
+func (o NSSearchFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
@@ -371,10 +363,6 @@ func (o NSSearchFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtInd
 	return rv
 	}
 
-
-
-
-
 // NSSearchFieldDelegateConfig holds optional typed callbacks for [NSSearchFieldDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -448,8 +436,4 @@ func NewNSSearchFieldDelegate(config NSSearchFieldDelegateConfig) NSSearchFieldD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSSearchFieldDelegateObjectFromID(instance)
 }
-
-
-
-
 

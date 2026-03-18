@@ -38,12 +38,6 @@ func (mc MLArrayBatchProviderClass) Alloc() MLArrayBatchProvider {
 	return rv
 }
 
-
-
-
-
-
-
 // A convenience wrapper for batches of feature providers.
 //
 // # Overview
@@ -69,14 +63,10 @@ type MLArrayBatchProvider struct {
 //
 // A convenience wrapper for batches of feature providers.
 func MLArrayBatchProviderFromID(id objc.ID) MLArrayBatchProvider {
-	return MLArrayBatchProvider{objectivec.Object{id}}
+	return MLArrayBatchProvider{objectivec.Object{ID: id}}
 }
 // NOTE: MLArrayBatchProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLArrayBatchProvider] class.
 //
@@ -107,10 +97,6 @@ type IMLArrayBatchProvider interface {
 	Array() []objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MLArrayBatchProvider) Init() MLArrayBatchProvider {
 	rv := objc.Send[MLArrayBatchProvider](a.ID, objc.Sel("init"))
@@ -129,11 +115,6 @@ func NewMLArrayBatchProvider() MLArrayBatchProvider {
 	rv := objc.Send[MLArrayBatchProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a batch provider based on feature names and their associated arrays
 // of data.
@@ -159,7 +140,6 @@ func NewArrayBatchProviderWithDictionaryError(dictionary foundation.INSDictionar
 	return MLArrayBatchProviderFromID(rv), nil
 }
 
-
 // Creates the batch provider based on the array of feature providers.
 //
 // array: The array of feature providers for the batch.
@@ -170,12 +150,6 @@ func NewArrayBatchProviderWithFeatureProviderArray(array []objectivec.IObject) M
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFeatureProviderArray:"), objectivec.IObjectSliceToNSArray(array))
 	return MLArrayBatchProviderFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates the batch provider based on the array of feature providers.
 //
@@ -201,7 +175,7 @@ func (a MLArrayBatchProvider) InitWithFeatureProviderArray(array []objectivec.IO
 //
 // See: https://developer.apple.com/documentation/CoreML/MLArrayBatchProvider/init(dictionary:)
 func (a MLArrayBatchProvider) InitWithDictionaryError(dictionary foundation.INSDictionary) (MLArrayBatchProvider, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -225,17 +199,6 @@ func (a MLArrayBatchProvider) FeaturesAtIndex(index int) MLFeatureProvider {
 	return MLFeatureProviderObjectFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The array of feature providers.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLArrayBatchProvider/array
@@ -246,8 +209,6 @@ func (a MLArrayBatchProvider) Array() []objectivec.IObject {
 	})
 }
 
-
-
 // The number of feature providers in this batch.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
@@ -256,31 +217,6 @@ func (a MLArrayBatchProvider) Count() int {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MLBatchProvider
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

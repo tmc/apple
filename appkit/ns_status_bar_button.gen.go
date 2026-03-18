@@ -38,12 +38,6 @@ func (nc NSStatusBarButtonClass) Alloc() NSStatusBarButton {
 	return rv
 }
 
-
-
-
-
-
-
 // The appearance and behavior of an item in the systemwide menu bar.
 //
 // # Instance Properties
@@ -65,10 +59,6 @@ func NSStatusBarButtonFromID(id objc.ID) NSStatusBarButton {
 // NOTE: NSStatusBarButton adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSStatusBarButton] class.
 //
 // # Instance Properties
@@ -84,13 +74,7 @@ type INSStatusBarButton interface {
 
 	AppearsDisabled() bool
 	SetAppearsDisabled(value bool)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSStatusBarButton) Init() NSStatusBarButton {
@@ -111,11 +95,6 @@ func NewNSStatusBarButton() NSStatusBarButton {
 	return rv
 }
 
-
-
-
-
-
 // Creates a standard checkbox with the title you specify.
 //
 // title: The localized title string to display on the button.
@@ -129,7 +108,6 @@ func NewStatusBarButtonCheckboxWithTitleTargetAction(title string, target object
 	rv := objc.Send[objc.ID](objc.ID(getNSStatusBarButtonClass().class), objc.Sel("checkboxWithTitle:target:action:"), objc.String(title), target, action)
 	return NSStatusBarButtonFromID(rv)
 }
-
 
 // Creates a standard radio button with the title you specify.
 //
@@ -145,7 +123,6 @@ func NewStatusBarButtonRadioButtonWithTitleTargetAction(title string, target obj
 	return NSStatusBarButtonFromID(rv)
 }
 
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -154,7 +131,6 @@ func NewStatusBarButtonWithCoder(coder foundation.INSCoder) NSStatusBarButton {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSStatusBarButtonFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -182,7 +158,6 @@ func NewStatusBarButtonWithFrame(frameRect corefoundation.CGRect) NSStatusBarBut
 	return NSStatusBarButtonFromID(rv)
 }
 
-
 // Creates a standard push button with the image you specify.
 //
 // image: The image to display in the body of the button.
@@ -202,7 +177,6 @@ func NewStatusBarButtonWithImageTargetAction(image INSImage, target objectivec.I
 	return NSStatusBarButtonFromID(rv)
 }
 
-
 // Creates a standard push button with a title and image.
 //
 // title: The localized title string to display on the button.
@@ -219,7 +193,6 @@ func NewStatusBarButtonWithTitleImageTargetAction(title string, image INSImage, 
 	return NSStatusBarButtonFromID(rv)
 }
 
-
 // Creates a standard push button with the title you specify.
 //
 // title: The localized title string to display on the button.
@@ -234,26 +207,6 @@ func NewStatusBarButtonWithTitleTargetAction(title string, target objectivec.IOb
 	return NSStatusBarButtonFromID(rv)
 }
 
-
-
-
-
-
-func (s NSStatusBarButton) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSStatusBarButton/appearsDisabled
 func (s NSStatusBarButton) AppearsDisabled() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("appearsDisabled"))
@@ -262,41 +215,4 @@ func (s NSStatusBarButton) AppearsDisabled() bool {
 func (s NSStatusBarButton) SetAppearsDisabled(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAppearsDisabled:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

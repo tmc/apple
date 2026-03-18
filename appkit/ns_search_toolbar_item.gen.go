@@ -35,12 +35,6 @@ func (nc NSSearchToolbarItemClass) Alloc() NSSearchToolbarItem {
 	return rv
 }
 
-
-
-
-
-
-
 // A toolbar item that contains a search field optimized for performing
 // text-based searches.
 //
@@ -79,10 +73,6 @@ func NSSearchToolbarItemFromID(id objc.ID) NSSearchToolbarItem {
 }
 // NOTE: NSSearchToolbarItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSearchToolbarItem] class.
 //
@@ -124,10 +114,6 @@ type INSSearchToolbarItem interface {
 	EndSearchInteraction()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSearchToolbarItem) Init() NSSearchToolbarItem {
 	rv := objc.Send[NSSearchToolbarItem](s.ID, objc.Sel("init"))
@@ -147,11 +133,6 @@ func NewNSSearchToolbarItem() NSSearchToolbarItem {
 	return rv
 }
 
-
-
-
-
-
 // Creates a toolbar item with the specified identifier.
 //
 // itemIdentifier: The identifier for the toolbar item. You use this value to identify the
@@ -168,12 +149,6 @@ func NewSearchToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItemIdentifier:"), objc.String(string(itemIdentifier)))
 	return NSSearchToolbarItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Starts a search interaction and moves the keyboard focus to the search
 // field.
@@ -205,17 +180,6 @@ func (s NSSearchToolbarItem) EndSearchInteraction() {
 	objc.Send[objc.ID](s.ID, objc.Sel("endSearchInteraction"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The preferred width for the toolbar item when it has keyboard focus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchToolbarItem/preferredWidthForSearchField
@@ -226,8 +190,6 @@ func (s NSSearchToolbarItem) PreferredWidthForSearchField() float64 {
 func (s NSSearchToolbarItem) SetPreferredWidthForSearchField(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredWidthForSearchField:"), value)
 }
-
-
 
 // A Boolean value that enables the cancel button in the search field to
 // resign the first responder in addition to clearing the contents.
@@ -245,8 +207,6 @@ func (s NSSearchToolbarItem) ResignsFirstResponderWithCancel() bool {
 func (s NSSearchToolbarItem) SetResignsFirstResponderWithCancel(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setResignsFirstResponderWithCancel:"), value)
 }
-
-
 
 // The search field inside the toolbar item.
 //
@@ -266,30 +226,4 @@ func (s NSSearchToolbarItem) SearchField() INSSearchField {
 func (s NSSearchToolbarItem) SetSearchField(value INSSearchField) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchField:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

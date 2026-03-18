@@ -9,9 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // An interface that you use to manage interactions between Writing Tools and your custom text view.
 //
@@ -65,8 +63,6 @@ type NSWritingToolsCoordinatorDelegate interface {
 	WritingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator INSWritingToolsCoordinator, range_ foundation.NSRange, context objectivec.IObject, completion ArrayHandler)
 }
 
-
-
 // NSWritingToolsCoordinatorDelegateObject wraps an existing Objective-C object that conforms to the NSWritingToolsCoordinatorDelegate protocol.
 type NSWritingToolsCoordinatorDelegateObject struct {
 	objectivec.Object
@@ -75,8 +71,6 @@ func (o NSWritingToolsCoordinatorDelegateObject) BaseObject() objectivec.Object 
 	return o.Object
 }
 
-
-
 // NSWritingToolsCoordinatorDelegateObjectFromID constructs a [NSWritingToolsCoordinatorDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSWritingToolsCoordinatorDelegateObjectFromID(id objc.ID) NSWritingToolsCoordinatorDelegateObject {
@@ -84,9 +78,6 @@ func NSWritingToolsCoordinatorDelegateObjectFromID(id objc.ID) NSWritingToolsCoo
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks your delegate to provide the text to evaluate during the Writing Tools
 // operation.
@@ -687,10 +678,6 @@ func (o NSWritingToolsCoordinatorDelegateObject) WritingToolsCoordinatorRequests
 	objc.Send[struct{}](o.ID, objc.Sel("writingToolsCoordinator:requestsDecorationContainerViewForRange:inContext:completion:"), writingToolsCoordinator, range_, context, completion)
 	}
 
-
-
-
-
 // NSWritingToolsCoordinatorDelegateConfig holds optional typed callbacks for [NSWritingToolsCoordinatorDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -844,8 +831,4 @@ func NewNSWritingToolsCoordinatorDelegate(config NSWritingToolsCoordinatorDelega
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSWritingToolsCoordinatorDelegateObjectFromID(instance)
 }
-
-
-
-
 

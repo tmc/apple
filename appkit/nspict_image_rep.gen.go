@@ -37,12 +37,6 @@ func (nc NSPICTImageRepClass) Alloc() NSPICTImageRep {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that renders an image from a PICT format data stream of version
 // 1, version 2, and extended version 2.
 //
@@ -72,10 +66,6 @@ func NSPICTImageRepFromID(id objc.ID) NSPICTImageRep {
 // NOTE: NSPICTImageRep adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPICTImageRep] class.
 //
 // # Creating Representations of Images from PICT Data
@@ -102,13 +92,7 @@ type INSPICTImageRep interface {
 	BoundingBox() corefoundation.CGRect
 	// The image representation’s PICT data.
 	PICTRepresentation() foundation.INSData
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPICTImageRep) Init() NSPICTImageRep {
@@ -129,11 +113,6 @@ func NewNSPICTImageRep() NSPICTImageRep {
 	return rv
 }
 
-
-
-
-
-
 // Creates and returns an image representation object from data in an
 // unarchiver.
 //
@@ -143,7 +122,6 @@ func NewPICTImageRepWithCoder(coder foundation.INSCoder) NSPICTImageRep {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPICTImageRepFromID(rv)
 }
-
 
 // Returns a representation of an image from the specified data in the PICT
 // file format.
@@ -170,12 +148,6 @@ func NewPICTImageRepWithData(pictData foundation.INSData) NSPICTImageRep {
 	return NSPICTImageRepFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns a representation of an image from the specified data in the PICT
 // file format.
 //
@@ -199,20 +171,6 @@ func (p NSPICTImageRep) InitWithData(pictData foundation.INSData) NSPICTImageRep
 	rv := objc.Send[NSPICTImageRep](p.ID, objc.Sel("initWithData:"), pictData)
 	return rv
 }
-func (p NSPICTImageRep) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The rectangle that bounds the image representation.
 //
@@ -228,8 +186,6 @@ func (p NSPICTImageRep) BoundingBox() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The image representation’s PICT data.
 //
 // # Discussion
@@ -244,30 +200,4 @@ func (p NSPICTImageRep) PICTRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("PICTRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

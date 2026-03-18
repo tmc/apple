@@ -37,12 +37,6 @@ func (mc MLUpdateProgressHandlersClass) Alloc() MLUpdateProgressHandlers {
 	return rv
 }
 
-
-
-
-
-
-
 // A collection of closures an update task uses to notify your app of its
 // progress.
 //
@@ -60,14 +54,10 @@ type MLUpdateProgressHandlers struct {
 // A collection of closures an update task uses to notify your app of its
 // progress.
 func MLUpdateProgressHandlersFromID(id objc.ID) MLUpdateProgressHandlers {
-	return MLUpdateProgressHandlers{objectivec.Object{id}}
+	return MLUpdateProgressHandlers{objectivec.Object{ID: id}}
 }
 // NOTE: MLUpdateProgressHandlers adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MLUpdateProgressHandlers] class.
 //
@@ -84,10 +74,6 @@ type IMLUpdateProgressHandlers interface {
 	// Creates the collection of closures an update task uses to notify your app of its progress.
 	InitForEventsProgressHandlerCompletionHandler(interestedEvents MLUpdateProgressEvent, progressHandler MLUpdateContextHandler, completionHandler MLUpdateContextHandler) MLUpdateProgressHandlers
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u MLUpdateProgressHandlers) Init() MLUpdateProgressHandlers {
@@ -108,16 +94,6 @@ func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
 // Creates the collection of closures an update task uses to notify your app
 // of its progress.
 //
@@ -131,39 +107,13 @@ func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/init(forEvents:progressHandler:completionHandler:)
 func (u MLUpdateProgressHandlers) InitForEventsProgressHandlerCompletionHandler(interestedEvents MLUpdateProgressEvent, progressHandler MLUpdateContextHandler, completionHandler MLUpdateContextHandler) MLUpdateProgressHandlers {
-		_block1, _cleanup1 := NewMLUpdateContextBlock(progressHandler)
+_block1, _cleanup1 := NewMLUpdateContextBlock(progressHandler)
 	defer _cleanup1()
 	_block2, _cleanup2 := NewMLUpdateContextBlock(completionHandler)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](u.ID, objc.Sel("initForEvents:progressHandler:completionHandler:"), interestedEvents, _block1, _block2)
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("initForEvents:progressHandler:completionHandler:"), interestedEvents, _block1, _block2)
 	return MLUpdateProgressHandlersFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // InitForEventsProgressHandler is a synchronous wrapper around [MLUpdateProgressHandlers.InitForEventsProgressHandlerCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -179,9 +129,4 @@ func (u MLUpdateProgressHandlers) InitForEventsProgressHandler(ctx context.Conte
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

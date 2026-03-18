@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The optional methods that delegates of text storage objects implement to handle text-edit processing.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type NSTextStorageDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSTextStorageDelegateObject wraps an existing Objective-C object that conforms to the NSTextStorageDelegate protocol.
 type NSTextStorageDelegateObject struct {
@@ -29,8 +25,6 @@ func (o NSTextStorageDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextStorageDelegateObjectFromID constructs a [NSTextStorageDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextStorageDelegateObjectFromID(id objc.ID) NSTextStorageDelegateObject {
@@ -38,9 +32,6 @@ func NSTextStorageDelegateObjectFromID(id objc.ID) NSTextStorageDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method the framework calls when a text storage object is about to
 // process edits.
@@ -102,10 +93,6 @@ func (o NSTextStorageDelegateObject) TextStorageDidProcessEditingRangeChangeInLe
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textStorage:didProcessEditing:range:changeInLength:"), textStorage, editedMask, editedRange, delta)
 	}
-
-
-
-
 
 // NSTextStorageDelegateConfig holds optional typed callbacks for [NSTextStorageDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -180,8 +167,4 @@ func NewNSTextStorageDelegate(config NSTextStorageDelegateConfig) NSTextStorageD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSTextStorageDelegateObjectFromID(instance)
 }
-
-
-
-
 

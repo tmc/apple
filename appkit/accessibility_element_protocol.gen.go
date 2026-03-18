@@ -21,8 +21,6 @@ type NSAccessibilityElementProtocol interface {
 	AccessibilityFrame() corefoundation.CGRect
 }
 
-
-
 // NSAccessibilityElementProtocolObject wraps an existing Objective-C object that conforms to the NSAccessibilityElementProtocol protocol.
 type NSAccessibilityElementProtocolObject struct {
 	objectivec.Object
@@ -31,8 +29,6 @@ func (o NSAccessibilityElementProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSAccessibilityElementProtocolObjectFromID constructs a [NSAccessibilityElementProtocolObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSAccessibilityElementProtocolObjectFromID(id objc.ID) NSAccessibilityElementProtocolObject {
@@ -40,9 +36,6 @@ func NSAccessibilityElementProtocolObjectFromID(id objc.ID) NSAccessibilityEleme
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the accessibility element’s frame in screen coordinates.
 //
@@ -136,10 +129,4 @@ func (o NSAccessibilityElementProtocolObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
 

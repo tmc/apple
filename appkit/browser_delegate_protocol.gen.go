@@ -4,13 +4,12 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that a browser delegate implements to manage selection, scrolling, sizing, and other behavior.
 //
@@ -18,8 +17,6 @@ var _ = fmt.Sprintf
 type NSBrowserDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSBrowserDelegateObject wraps an existing Objective-C object that conforms to the NSBrowserDelegate protocol.
 type NSBrowserDelegateObject struct {
@@ -29,8 +26,6 @@ func (o NSBrowserDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSBrowserDelegateObjectFromID constructs a [NSBrowserDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSBrowserDelegateObjectFromID(id objc.ID) NSBrowserDelegateObject {
@@ -38,9 +33,6 @@ func NSBrowserDelegateObjectFromID(id objc.ID) NSBrowserDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns whether the contents of the specified column are valid.
 //
@@ -645,7 +637,7 @@ func (o NSBrowserDelegateObject) BrowserDraggingImageForRowsWithIndexesInColumnW
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:validateDrop:proposedRow:column:dropOperation:)
 
-func (o NSBrowserDelegateObject) BrowserValidateDropProposedRowColumnDropOperation(browser INSBrowser, info NSDraggingInfo, row int, column int, dropOperation NSBrowserDropOperation) NSDragOperation {
+func (o NSBrowserDelegateObject) BrowserValidateDropProposedRowColumnDropOperation(browser INSBrowser, info NSDraggingInfo, row unsafe.Pointer, column unsafe.Pointer, dropOperation NSBrowserDropOperation) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("browser:validateDrop:proposedRow:column:dropOperation:"), browser, info, row, column, dropOperation)
 	return rv
@@ -880,10 +872,6 @@ func (o NSBrowserDelegateObject) BrowserShouldShowCellExpansionForRowColumn(brow
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:shouldShowCellExpansionForRow:column:"), browser, row, column)
 	return rv
 	}
-
-
-
-
 
 // NSBrowserDelegateConfig holds optional typed callbacks for [NSBrowserDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -1160,8 +1148,4 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSBrowserDelegateObjectFromID(instance)
 }
-
-
-
-
 

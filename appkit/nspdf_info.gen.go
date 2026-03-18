@@ -38,12 +38,6 @@ func (nc NSPDFInfoClass) Alloc() NSPDFInfo {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that stores information associated with the creation of a PDF
 // file, such as its URL, tag names, page orientation, and paper size.
 //
@@ -78,14 +72,10 @@ type NSPDFInfo struct {
 // An object that stores information associated with the creation of a PDF
 // file, such as its URL, tag names, page orientation, and paper size.
 func NSPDFInfoFromID(id objc.ID) NSPDFInfo {
-	return NSPDFInfo{objectivec.Object{id}}
+	return NSPDFInfo{objectivec.Object{ID: id}}
 }
 // NOTE: NSPDFInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPDFInfo] class.
 //
@@ -130,10 +120,6 @@ type INSPDFInfo interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPDFInfo) Init() NSPDFInfo {
 	rv := objc.Send[NSPDFInfo](p.ID, objc.Sel("init"))
@@ -153,28 +139,9 @@ func NewNSPDFInfo() NSPDFInfo {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (p NSPDFInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The URL identifying the location at which the PDF file will be created.
 //
@@ -186,8 +153,6 @@ func (p NSPDFInfo) URL() foundation.INSURL {
 func (p NSPDFInfo) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the file extension should appear
 // after the filename.
@@ -201,8 +166,6 @@ func (p NSPDFInfo) SetFileExtensionHidden(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileExtensionHidden:"), value)
 }
 
-
-
 // An array of tag names that should be applied to the PDF file after it’s
 // created.
 //
@@ -215,8 +178,6 @@ func (p NSPDFInfo) SetTagNames(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTagNames:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The paper orientation to use when exporting content as a PDF file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/orientation
@@ -228,8 +189,6 @@ func (p NSPDFInfo) SetOrientation(value NSPaperOrientation) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOrientation:"), value)
 }
 
-
-
 // The paper size to use when exporting content as a PDF file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/paperSize
@@ -240,8 +199,6 @@ func (p NSPDFInfo) PaperSize() corefoundation.CGSize {
 func (p NSPDFInfo) SetPaperSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPaperSize:"), value)
 }
-
-
 
 // A dictionary of additional attributes that describe how to export content
 // as a PDF file.
@@ -258,28 +215,4 @@ func (p NSPDFInfo) Attributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("attributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (nc NSNibControlConnectorClass) Alloc() NSNibControlConnector {
 	return rv
 }
 
-
-
-
-
-
-
 // A control connection between two Interface Builder objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNibControlConnector
@@ -57,20 +51,12 @@ func NSNibControlConnectorFromID(id objc.ID) NSNibControlConnector {
 // Ensure NSNibControlConnector implements INSNibControlConnector.
 var _ INSNibControlConnector = NSNibControlConnector{}
 
-
-
-
-
 // An interface definition for the [NSNibControlConnector] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNibControlConnector
 type INSNibControlConnector interface {
 	INSNibConnector
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n NSNibControlConnector) Init() NSNibControlConnector {
@@ -90,38 +76,4 @@ func NewNSNibControlConnector() NSNibControlConnector {
 	rv := objc.Send[NSNibControlConnector](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

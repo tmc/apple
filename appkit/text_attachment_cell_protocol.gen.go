@@ -80,8 +80,6 @@ type NSTextAttachmentCellProtocol interface {
 	SetAttachment(value INSTextAttachment)
 }
 
-
-
 // NSTextAttachmentCellProtocolObject wraps an existing Objective-C object that conforms to the NSTextAttachmentCellProtocol protocol.
 type NSTextAttachmentCellProtocolObject struct {
 	objectivec.Object
@@ -90,8 +88,6 @@ func (o NSTextAttachmentCellProtocolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSTextAttachmentCellProtocolObjectFromID constructs a [NSTextAttachmentCellProtocolObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSTextAttachmentCellProtocolObjectFromID(id objc.ID) NSTextAttachmentCellProtocolObject {
@@ -99,9 +95,6 @@ func NSTextAttachmentCellProtocolObjectFromID(id objc.ID) NSTextAttachmentCellPr
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the text attachment object that owns the cell.
 //
@@ -367,14 +360,7 @@ func (o NSTextAttachmentCellProtocolObject) TrackMouseInRectOfViewAtCharacterInd
 	return rv
 	}
 
-
-
-
 func (o NSTextAttachmentCellProtocolObject) SetAttachment(value INSTextAttachment) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAttachment:"), value)
 }
-
-
-
-
 

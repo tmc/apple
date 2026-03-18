@@ -41,12 +41,6 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 	return rv
 }
 
-
-
-
-
-
-
 // A controller that manages a view, typically loaded from a nib file.
 //
 // # Overview
@@ -190,7 +184,6 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 //
 // # Configuring an App Extension View Controller
 //
-//   - [NSViewController.ExtensionContext]: For a view controller that is part of an app extension, the app extension context.
 //   - [NSViewController.PreferredScreenOrigin]: For a view controller that is part of an app extension, the preferred screen origin.
 //   - [NSViewController.SetPreferredScreenOrigin]
 //   - [NSViewController.PreferredMaximumSize]: For a view controller that is part of an app extension, the largest allowable size for the app extension’s primary view, in screen units.
@@ -212,10 +205,6 @@ func NSViewControllerFromID(id objc.ID) NSViewController {
 }
 // NOTE: NSViewController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSViewController] class.
 //
@@ -299,7 +288,6 @@ func NSViewControllerFromID(id objc.ID) NSViewController {
 //
 // # Configuring an App Extension View Controller
 //
-//   - [INSViewController.ExtensionContext]: For a view controller that is part of an app extension, the app extension context.
 //   - [INSViewController.PreferredScreenOrigin]: For a view controller that is part of an app extension, the preferred screen origin.
 //   - [INSViewController.SetPreferredScreenOrigin]
 //   - [INSViewController.PreferredMaximumSize]: For a view controller that is part of an app extension, the largest allowable size for the app extension’s primary view, in screen units.
@@ -430,8 +418,6 @@ type INSViewController interface {
 
 	// Topic: Configuring an App Extension View Controller
 
-	// For a view controller that is part of an app extension, the app extension context.
-	ExtensionContext() foundation.NSExtensionContext
 	// For a view controller that is part of an app extension, the preferred screen origin.
 	PreferredScreenOrigin() corefoundation.CGPoint
 	SetPreferredScreenOrigin(value corefoundation.CGPoint)
@@ -445,12 +431,7 @@ type INSViewController interface {
 	SetSourceItemView(value INSView)
 
 	CommitEditingAndReturnError() (bool, error)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v NSViewController) Init() NSViewController {
@@ -471,11 +452,6 @@ func NewNSViewController() NSViewController {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/init(coder:)
 func NewViewControllerWithCoder(coder foundation.INSCoder) NSViewController {
@@ -483,7 +459,6 @@ func NewViewControllerWithCoder(coder foundation.INSCoder) NSViewController {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSViewControllerFromID(rv)
 }
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -517,12 +492,6 @@ func NewViewControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return NSViewControllerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a view controller object initialized to the nib file in the
 // specified bundle.
@@ -901,9 +870,9 @@ func (v NSViewController) AddChildViewController(childViewController INSViewCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/transition(from:to:options:completionHandler:)
 func (v NSViewController) TransitionFromViewControllerToViewControllerOptionsCompletionHandler(fromViewController INSViewController, toViewController INSViewController, options NSViewControllerTransitionOptions, completion VoidHandler) {
-		_block3, _cleanup3 := NewVoidBlock(completion)
+_block3, _cleanup3 := NewVoidBlock(completion)
 	defer _cleanup3()
-		objc.Send[objc.ID](v.ID, objc.Sel("transitionFromViewController:toViewController:options:completionHandler:"), fromViewController, toViewController, options, _block3)
+	objc.Send[objc.ID](v.ID, objc.Sel("transitionFromViewController:toViewController:options:completionHandler:"), fromViewController, toViewController, options, _block3)
 }
 
 // Inserts a specified child view controller into the [ChildViewControllers]
@@ -1124,7 +1093,7 @@ func (v NSViewController) ViewWillTransitionToSize(newSize corefoundation.CGSize
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()
 func (v NSViewController) CommitEditingAndReturnError() (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("commitEditingAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1225,20 +1194,6 @@ func (v NSViewController) ShouldPerformSegueWithIdentifierSender(identifier NSSt
 	rv := objc.Send[bool](v.ID, objc.Sel("shouldPerformSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 	return rv
 }
-func (v NSViewController) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The object whose value is presented in the receiver’s primary view.
 //
@@ -1262,8 +1217,6 @@ func (v NSViewController) SetRepresentedObject(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRepresentedObject:"), value)
 }
 
-
-
 // The nib bundle to be loaded to instantiate the receiver’s primary view.
 //
 // # Discussion
@@ -1276,8 +1229,6 @@ func (v NSViewController) NibBundle() foundation.NSBundle {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nibBundle"))
 	return foundation.NSBundleFromID(objc.ID(rv))
 }
-
-
 
 // The name of the nib file to be loaded to instantiate the receiver’s
 // primary view.
@@ -1292,8 +1243,6 @@ func (v NSViewController) NibName() NSNibName {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nibName"))
 	return NSNibName(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // The view controller’s primary view.
 //
@@ -1316,8 +1265,6 @@ func (v NSViewController) SetView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setView:"), value)
 }
 
-
-
 // The localized title of the receiver’s primary view.
 //
 // # Discussion
@@ -1338,8 +1285,6 @@ func (v NSViewController) SetTitle(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTitle:"), objc.String(value))
 }
 
-
-
 // The storyboard from which the view controller was loaded.
 //
 // # Discussion
@@ -1353,8 +1298,6 @@ func (v NSViewController) Storyboard() INSStoryboard {
 	return NSStoryboardFromID(objc.ID(rv))
 }
 
-
-
 // A Boolean value indicating whether the view controller’s view is loaded
 // into memory.
 //
@@ -1364,15 +1307,11 @@ func (v NSViewController) ViewLoaded() bool {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/viewIfLoaded
 func (v NSViewController) ViewIfLoaded() INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("viewIfLoaded"))
 	return NSViewFromID(objc.ID(rv))
 }
-
-
 
 // The desired size of the view controller’s view, in screen units.
 //
@@ -1390,8 +1329,6 @@ func (v NSViewController) PreferredContentSize() corefoundation.CGSize {
 func (v NSViewController) SetPreferredContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreferredContentSize:"), value)
 }
-
-
 
 // An array of view controllers that are hierarchical children of the view
 // controller.
@@ -1413,8 +1350,6 @@ func (v NSViewController) SetChildViewControllers(value []NSViewController) {
 	objc.Send[struct{}](v.ID, objc.Sel("setChildViewControllers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The immediate ancestor view controller of the view controller.
 //
 // # Discussion
@@ -1428,8 +1363,6 @@ func (v NSViewController) ParentViewController() INSViewController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("parentViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-
-
 
 // The view controllers, if any, that are currently presented by the view
 // controller.
@@ -1448,8 +1381,6 @@ func (v NSViewController) PresentedViewControllers() []NSViewController {
 	})
 }
 
-
-
 // The view controller that presented the view controller or that presented
 // its farthest ancestor view controller.
 //
@@ -1463,31 +1394,6 @@ func (v NSViewController) PresentingViewController() INSViewController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("presentingViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-
-
-
-// For a view controller that is part of an app extension, the app extension
-// context.
-//
-// # Discussion
-// 
-// If the view controller is part of an app extension, the value of this
-// property is `nil`.
-// 
-// By checking for `nil` you can employ this method to determine whether the
-// view controller is part of an app or an app extension, for the purpose of
-// conditionalizing your view controller implementation. Refer to
-// [NSExtensionContext] for information about the extension context.
-//
-// [NSExtensionContext]: https://developer.apple.com/documentation/Foundation/NSExtensionContext
-//
-// See: https://developer.apple.com/documentation/AppKit/NSViewController/extensionContext
-func (v NSViewController) ExtensionContext() foundation.NSExtensionContext {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("extensionContext"))
-	return foundation.NSExtensionContextFromID(objc.ID(rv))
-}
-
-
 
 // For a view controller that is part of an app extension, the preferred
 // screen origin.
@@ -1508,8 +1414,6 @@ func (v NSViewController) SetPreferredScreenOrigin(value corefoundation.CGPoint)
 	objc.Send[struct{}](v.ID, objc.Sel("setPreferredScreenOrigin:"), value)
 }
 
-
-
 // For a view controller that is part of an app extension, the largest
 // allowable size for the app extension’s primary view, in screen units.
 //
@@ -1524,8 +1428,6 @@ func (v NSViewController) PreferredMaximumSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("preferredMaximumSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // For a view controller that is part of an app extension, the smallest
 // allowable size for the app extension’s primary view, in screen units.
@@ -1542,8 +1444,6 @@ func (v NSViewController) PreferredMinimumSize() corefoundation.CGSize {
 	return corefoundation.CGSize(rv)
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/sourceItemView
 func (v NSViewController) SourceItemView() INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("sourceItemView"))
@@ -1552,8 +1452,6 @@ func (v NSViewController) SourceItemView() INSView {
 func (v NSViewController) SetSourceItemView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSourceItemView:"), value)
 }
-
-
 
 // A string that identifies the user interface item.
 //
@@ -1593,44 +1491,11 @@ func (v NSViewController) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSSeguePerforming
 			
 
-
-
-
-
-
-
 			// Protocol methods for NSUserInterfaceItemIdentification
 			
-
-
-
-
-
-
-
-
-
-
 
 // TransitionFromViewControllerToViewControllerOptions is a synchronous wrapper around [NSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1646,9 +1511,4 @@ func (v NSViewController) TransitionFromViewControllerToViewControllerOptions(ct
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

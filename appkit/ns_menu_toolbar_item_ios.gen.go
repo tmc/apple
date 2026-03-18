@@ -17,10 +17,3 @@ func (m NSMenuToolbarItem) SetItemMenu(value objectivec.IObject) {
 objc.Send[struct{}](m.ID, objc.Sel("setItemMenu:"), value)
 }
 
-
-
-
-
-
-
-

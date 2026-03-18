@@ -37,12 +37,6 @@ func (nc NSScrubberFlowLayoutClass) Alloc() NSScrubberFlowLayout {
 	return rv
 }
 
-
-
-
-
-
-
 // A concrete layout object that arranges items end-to-end in a linear strip.
 //
 // # Overview
@@ -77,10 +71,6 @@ func NSScrubberFlowLayoutFromID(id objc.ID) NSScrubberFlowLayout {
 // NOTE: NSScrubberFlowLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSScrubberFlowLayout] class.
 //
 // # Configuring the layout
@@ -111,13 +101,7 @@ type INSScrubberFlowLayout interface {
 
 	// Informs the scrubber that it should perform a new layout pass for the items at the specified indexes.
 	InvalidateLayoutForItemsAtIndexes(invalidItemIndexes foundation.NSIndexSet)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSScrubberFlowLayout) Init() NSScrubberFlowLayout {
@@ -138,11 +122,6 @@ func NewNSScrubberFlowLayout() NSScrubberFlowLayout {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a newly allocated scrubber layout object from a
 // storyboard or nib file.
 //
@@ -157,12 +136,6 @@ func NewScrubberFlowLayoutWithCoder(coder foundation.INSCoder) NSScrubberFlowLay
 	return NSScrubberFlowLayoutFromID(rv)
 }
 
-
-
-
-
-
-
 // Informs the scrubber that it should perform a new layout pass for the items
 // at the specified indexes.
 //
@@ -173,20 +146,6 @@ func NewScrubberFlowLayoutWithCoder(coder foundation.INSCoder) NSScrubberFlowLay
 func (s NSScrubberFlowLayout) InvalidateLayoutForItemsAtIndexes(invalidItemIndexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidateLayoutForItemsAtIndexes:"), invalidItemIndexes)
 }
-func (s NSScrubberFlowLayout) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The horizontal spacing between items, specified in points.
 //
@@ -202,8 +161,6 @@ func (s NSScrubberFlowLayout) ItemSpacing() float64 {
 func (s NSScrubberFlowLayout) SetItemSpacing(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemSpacing:"), value)
 }
-
-
 
 // The frame size for each item in the scrubber.
 //
@@ -225,27 +182,4 @@ func (s NSScrubberFlowLayout) ItemSize() corefoundation.CGSize {
 func (s NSScrubberFlowLayout) SetItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemSize:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

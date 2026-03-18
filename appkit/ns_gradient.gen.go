@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -37,12 +38,6 @@ func (nc NSGradientClass) Alloc() NSGradient {
 	rv := objc.Send[NSGradient](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // An object that can draw gradient fill colors
 //
@@ -105,14 +100,10 @@ type NSGradient struct {
 //
 // An object that can draw gradient fill colors
 func NSGradientFromID(id objc.ID) NSGradient {
-	return NSGradient{objectivec.Object{id}}
+	return NSGradient{objectivec.Object{ID: id}}
 }
 // NOTE: NSGradient adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSGradient] class.
 //
@@ -153,7 +144,7 @@ type INSGradient interface {
 	// Initializes a newly allocated gradient object with an array of colors.
 	InitWithColors(colorArray []NSColor) NSGradient
 	// Initializes a newly allocated gradient object with the specified colors, color locations, and color space.
-	InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations float64, colorSpace INSColorSpace) NSGradient
+	InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations unsafe.Pointer, colorSpace INSColorSpace) NSGradient
 	// Creates a gradient from data in an unarchiver.
 	InitWithCoder(coder foundation.INSCoder) NSGradient
 
@@ -182,16 +173,12 @@ type INSGradient interface {
 	// The number of color stops associated with the gradient.
 	NumberOfColorStops() int
 	// Returns information about the color stop at the specified index in the receiver’s color array.
-	GetColorLocationAtIndex(color INSColor, location float64, index int)
+	GetColorLocationAtIndex(color INSColor, location unsafe.Pointer, index int)
 	// Returns the color of the rendered gradient at the specified relative location.
 	InterpolatedColorAtLocation(location float64) INSColor
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g NSGradient) Init() NSGradient {
@@ -212,11 +199,6 @@ func NewNSGradient() NSGradient {
 	return rv
 }
 
-
-
-
-
-
 // Creates a gradient from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/init(coder:)
@@ -225,7 +207,6 @@ func NewGradientWithCoder(coder foundation.INSCoder) NSGradient {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSGradientFromID(rv)
 }
-
 
 // Initializes a newly allocated gradient object with an array of colors.
 //
@@ -245,7 +226,6 @@ func NewGradientWithColors(colorArray []NSColor) NSGradient {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithColors:"), objectivec.IObjectSliceToNSArray(colorArray))
 	return NSGradientFromID(rv)
 }
-
 
 // Initializes a newly allocated gradient object with the specified colors,
 // color locations, and color space.
@@ -273,12 +253,11 @@ func NewGradientWithColors(colorArray []NSColor) NSGradient {
 // the closest color stop is used to fill the gap.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/init(colors:atLocations:colorSpace:)
-func NewGradientWithColorsAtLocationsColorSpace(colorArray []NSColor, locations float64, colorSpace INSColorSpace) NSGradient {
+func NewGradientWithColorsAtLocationsColorSpace(colorArray []NSColor, locations unsafe.Pointer, colorSpace INSColorSpace) NSGradient {
 	instance := getNSGradientClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithColors:atLocations:colorSpace:"), objectivec.IObjectSliceToNSArray(colorArray), locations, colorSpace)
 	return NSGradientFromID(rv)
 }
-
 
 // Initializes a newly allocated gradient object with two colors.
 //
@@ -298,12 +277,6 @@ func NewGradientWithStartingColorEndingColor(startingColor INSColor, endingColor
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStartingColor:endingColor:"), startingColor, endingColor)
 	return NSGradientFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated gradient object with two colors.
 //
@@ -367,7 +340,7 @@ func (g NSGradient) InitWithColors(colorArray []NSColor) NSGradient {
 // the closest color stop is used to fill the gap.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/init(colors:atLocations:colorSpace:)
-func (g NSGradient) InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations float64, colorSpace INSColorSpace) NSGradient {
+func (g NSGradient) InitWithColorsAtLocationsColorSpace(colorArray []NSColor, locations unsafe.Pointer, colorSpace INSColorSpace) NSGradient {
 	rv := objc.Send[NSGradient](g.ID, objc.Sel("initWithColors:atLocations:colorSpace:"), objectivec.IObjectSliceToNSArray(colorArray), locations, colorSpace)
 	return rv
 }
@@ -585,7 +558,7 @@ func (g NSGradient) DrawInBezierPathRelativeCenterPosition(path INSBezierPath, r
 // the locations can vary depending on how the receiver was created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/getColor(_:location:at:)
-func (g NSGradient) GetColorLocationAtIndex(color INSColor, location float64, index int) {
+func (g NSGradient) GetColorLocationAtIndex(color INSColor, location unsafe.Pointer, index int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("getColor:location:atIndex:"), color, location, index)
 }
 
@@ -614,17 +587,6 @@ func (g NSGradient) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The color space of the colors associated with the gradient.
 //
 // # Discussion
@@ -637,8 +599,6 @@ func (g NSGradient) ColorSpace() INSColorSpace {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("colorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
-
 
 // The number of color stops associated with the gradient.
 //
@@ -654,31 +614,4 @@ func (g NSGradient) NumberOfColorStops() int {
 	rv := objc.Send[int](g.ID, objc.Sel("numberOfColorStops"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

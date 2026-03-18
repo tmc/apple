@@ -38,12 +38,6 @@ func (nc NSSliderClass) Alloc() NSSlider {
 	return rv
 }
 
-
-
-
-
-
-
 // A display of a bar representing a continuous range of numerical values and
 // a knob representing the currently selected value.
 //
@@ -111,10 +105,6 @@ func NSSliderFromID(id objc.ID) NSSlider {
 }
 // NOTE: NSSlider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSlider] class.
 //
@@ -216,13 +206,7 @@ type INSSlider interface {
 	// The value this slider will be filled from. This slider will be filled from its `neutralValue` to its current value. If `neutralValue` has not been explicitly set before, access to `neutralValue` will return `minValue`.
 	NeutralValue() float64
 	SetNeutralValue(value float64)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSlider) Init() NSSlider {
@@ -243,11 +227,6 @@ func NewNSSlider() NSSlider {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a control with data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/init(coder:)
@@ -256,7 +235,6 @@ func NewSliderWithCoder(coder foundation.INSCoder) NSSlider {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSliderFromID(rv)
 }
-
 
 // Initializes a control with the specified frame rectangle.
 //
@@ -284,7 +262,6 @@ func NewSliderWithFrame(frameRect corefoundation.CGRect) NSSlider {
 	return NSSliderFromID(rv)
 }
 
-
 // Creates a continuous horizontal slider whose values range from `0.0` to
 // `1.0`.
 //
@@ -301,7 +278,6 @@ func NewSliderWithTargetAction(target objectivec.IObject, action objc.SEL) NSSli
 	rv := objc.Send[objc.ID](objc.ID(getNSSliderClass().class), objc.Sel("sliderWithTarget:action:"), target, action)
 	return NSSliderFromID(rv)
 }
-
 
 // Creates a continuous horizontal slider that represents values over the
 // specified range.
@@ -325,12 +301,6 @@ func NewSliderWithValueMinValueMaxValueTargetAction(value float64, minValue floa
 	rv := objc.Send[objc.ID](objc.ID(getNSSliderClass().class), objc.Sel("sliderWithValue:minValue:maxValue:target:action:"), value, minValue, maxValue, target, action)
 	return NSSliderFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the value of the tick mark closest to the specified value.
 //
@@ -418,31 +388,6 @@ func (s NSSlider) TickMarkValueAtIndex(index int) float64 {
 	return rv
 }
 
-// Returns a short description of the slider.
-//
-// # Return Value
-// 
-// The description of the slider.
-//
-// # Discussion
-// 
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
-// 
-// Do not include the control’s type in the label (for example, use
-// [Volume], not `Volume slider`). If possible use a single word. To help
-// ensure that accessibility clients such as VoiceOver read the label with the
-// correct intonation, start this label with a capital letter. Do not put a
-// period at the end. Always localize the label.
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityLabel()
-func (s NSSlider) AccessibilityLabel() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityLabel"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // Decrements the slider’s value.
 //
 // # Return Value
@@ -509,20 +454,6 @@ func (s NSSlider) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
 }
-func (s NSSlider) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The type of the slider, such as vertical or circular.
 //
@@ -540,8 +471,6 @@ func (s NSSlider) SliderType() NSSliderType {
 func (s NSSlider) SetSliderType(value NSSliderType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSliderType:"), value)
 }
-
-
 
 // The amount by which the slider changes its value when the user Option-drags
 // the slider knob.
@@ -563,8 +492,6 @@ func (s NSSlider) SetAltIncrementValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAltIncrementValue:"), value)
 }
 
-
-
 // The knob’s thickness, in pixels.
 //
 // # Discussion
@@ -578,8 +505,6 @@ func (s NSSlider) KnobThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("knobThickness"))
 	return rv
 }
-
-
 
 // An integer indicating the orientation (horizontal or vertical) of the
 // slider.
@@ -600,8 +525,6 @@ func (s NSSlider) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
 
-
-
 // The color of the filled portion of the slider track, in appearances that
 // support it.
 //
@@ -613,8 +536,6 @@ func (s NSSlider) TrackFillColor() INSColor {
 func (s NSSlider) SetTrackFillColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackFillColor:"), value)
 }
-
-
 
 // The tint prominence of the slider. The automatic behavior for a regular
 // slider tints its track fill, while a slider with tick marks is untinted.
@@ -633,8 +554,6 @@ func (s NSSlider) SetTintProminence(value NSTintProminence) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTintProminence:"), value)
 }
 
-
-
 // The maximum value the slider can send to its target.
 //
 // # Discussion
@@ -652,8 +571,6 @@ func (s NSSlider) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
 
-
-
 // The minimum value the slider can send to its target.
 //
 // # Discussion
@@ -670,8 +587,6 @@ func (s NSSlider) MinValue() float64 {
 func (s NSSlider) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the slider fixes its values to those
 // values represented by its tick marks.
@@ -700,8 +615,6 @@ func (s NSSlider) SetAllowsTickMarkValuesOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsTickMarkValuesOnly:"), value)
 }
 
-
-
 // The number of tick marks associated with the slider.
 //
 // # Discussion
@@ -721,8 +634,6 @@ func (s NSSlider) NumberOfTickMarks() int {
 func (s NSSlider) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
-
-
 
 // Determines where the slider’s tick marks are displayed.
 //
@@ -750,8 +661,6 @@ func (s NSSlider) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTickMarkPosition:"), value)
 }
 
-
-
 // The value this slider will be filled from. This slider will be filled from
 // its `neutralValue` to its current value. If `neutralValue` has not been
 // explicitly set before, access to `neutralValue` will return `minValue`.
@@ -764,20 +673,6 @@ func (s NSSlider) NeutralValue() float64 {
 func (s NSSlider) SetNeutralValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNeutralValue:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			// Protocol methods for NSAccessibilitySlider
 			
@@ -874,27 +769,4 @@ func (o NSSlider) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

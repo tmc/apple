@@ -5,7 +5,6 @@ package appkit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [NSCollectionViewTransitionLayout] class.
@@ -35,12 +34,6 @@ func (nc NSCollectionViewTransitionLayoutClass) Alloc() NSCollectionViewTransiti
 	rv := objc.Send[NSCollectionViewTransitionLayout](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // An object that implements custom behaviors when changing from one layout to
 // another in a collection view.
@@ -81,10 +74,6 @@ func NSCollectionViewTransitionLayoutFromID(id objc.ID) NSCollectionViewTransiti
 }
 // NOTE: NSCollectionViewTransitionLayout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCollectionViewTransitionLayout] class.
 //
@@ -129,13 +118,7 @@ type INSCollectionViewTransitionLayout interface {
 	CurrentLayout() INSCollectionViewLayout
 	// The collection view’s new layout object.
 	NextLayout() INSCollectionViewLayout
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCollectionViewTransitionLayout) Init() NSCollectionViewTransitionLayout {
@@ -155,11 +138,6 @@ func NewNSCollectionViewTransitionLayout() NSCollectionViewTransitionLayout {
 	rv := objc.Send[NSCollectionViewTransitionLayout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns the transition layout object.
 //
@@ -186,12 +164,6 @@ func NewCollectionViewTransitionLayoutWithCurrentLayoutNextLayout(currentLayout 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCurrentLayout:nextLayout:"), currentLayout, newLayout)
 	return NSCollectionViewTransitionLayoutFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns the transition layout object.
 //
@@ -256,20 +228,6 @@ func (c NSCollectionViewTransitionLayout) ValueForAnimatedKey(key NSCollectionVi
 	rv := objc.Send[float64](c.ID, objc.Sel("valueForAnimatedKey:"), objc.String(string(key)))
 	return rv
 }
-func (c NSCollectionViewTransitionLayout) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The completion percentage of the transition.
 //
@@ -290,8 +248,6 @@ func (c NSCollectionViewTransitionLayout) SetTransitionProgress(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTransitionProgress:"), value)
 }
 
-
-
 // The collection view’s current layout object.
 //
 // # Discussion
@@ -307,8 +263,6 @@ func (c NSCollectionViewTransitionLayout) CurrentLayout() INSCollectionViewLayou
 	return NSCollectionViewLayoutFromID(objc.ID(rv))
 }
 
-
-
 // The collection view’s new layout object.
 //
 // # Discussion
@@ -322,29 +276,4 @@ func (c NSCollectionViewTransitionLayout) NextLayout() INSCollectionViewLayout {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("nextLayout"))
 	return NSCollectionViewLayoutFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

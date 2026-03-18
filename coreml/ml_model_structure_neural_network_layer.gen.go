@@ -37,12 +37,6 @@ func (mc MLModelStructureNeuralNetworkLayerClass) Alloc() MLModelStructureNeural
 	return rv
 }
 
-
-
-
-
-
-
 // A class representing a layer in a NeuralNetwork.
 //
 // # Accessing the network layer properties
@@ -61,14 +55,10 @@ type MLModelStructureNeuralNetworkLayer struct {
 //
 // A class representing a layer in a NeuralNetwork.
 func MLModelStructureNeuralNetworkLayerFromID(id objc.ID) MLModelStructureNeuralNetworkLayer {
-	return MLModelStructureNeuralNetworkLayer{objectivec.Object{id}}
+	return MLModelStructureNeuralNetworkLayer{objectivec.Object{ID: id}}
 }
 // Ensure MLModelStructureNeuralNetworkLayer implements IMLModelStructureNeuralNetworkLayer.
 var _ IMLModelStructureNeuralNetworkLayer = MLModelStructureNeuralNetworkLayer{}
-
-
-
-
 
 // An interface definition for the [MLModelStructureNeuralNetworkLayer] class.
 //
@@ -95,10 +85,6 @@ type IMLModelStructureNeuralNetworkLayer interface {
 	Type() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MLModelStructureNeuralNetworkLayer) Init() MLModelStructureNeuralNetworkLayer {
 	rv := objc.Send[MLModelStructureNeuralNetworkLayer](m.ID, objc.Sel("init"))
@@ -118,26 +104,6 @@ func NewMLModelStructureNeuralNetworkLayer() MLModelStructureNeuralNetworkLayer 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The input names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/inputNames
@@ -145,8 +111,6 @@ func (m MLModelStructureNeuralNetworkLayer) InputNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("inputNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The layer name.
 //
@@ -156,8 +120,6 @@ func (m MLModelStructureNeuralNetworkLayer) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The output names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/outputNames
@@ -166,8 +128,6 @@ func (m MLModelStructureNeuralNetworkLayer) OutputNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The type of the layer, e,g, “elementwise”, “pooling”, etc.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/type
@@ -175,20 +135,4 @@ func (m MLModelStructureNeuralNetworkLayer) Type() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

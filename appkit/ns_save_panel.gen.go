@@ -39,12 +39,6 @@ func (nc NSSavePanelClass) Alloc() NSSavePanel {
 	return rv
 }
 
-
-
-
-
-
-
 // A panel that prompts the user for information about where to save a file.
 //
 // # Overview
@@ -143,10 +137,6 @@ func NSSavePanelFromID(id objc.ID) NSSavePanel {
 }
 // NOTE: NSSavePanel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSavePanel] class.
 //
@@ -308,12 +298,7 @@ type INSSavePanel interface {
 	// An array of filename extensions or UTIs that represent the allowed file types for the panel.
 	AllowedFileTypes() string
 	SetAllowedFileTypes(value string)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSavePanel) Init() NSSavePanel {
@@ -333,11 +318,6 @@ func NewNSSavePanel() NSSavePanel {
 	rv := objc.Send[NSSavePanel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a titled window that contains the specified content view
 // controller.
@@ -371,7 +351,6 @@ func NewSavePanelWindowWithContentViewController(contentViewController INSViewCo
 	return NSSavePanelFromID(rv)
 }
 
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -382,7 +361,6 @@ func NewSavePanelWithCoder(coder foundation.INSCoder) NSSavePanel {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSavePanelFromID(rv)
 }
-
 
 // Initializes the window with the specified values.
 //
@@ -433,7 +411,6 @@ func NewSavePanelWithContentRectStyleMaskBackingDefer(contentRect corefoundation
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentRect:styleMask:backing:defer:"), contentRect, style, backingStoreType, flag)
 	return NSSavePanelFromID(rv)
 }
-
 
 // Initializes an allocated window with the specified values.
 //
@@ -489,12 +466,6 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 	return NSSavePanelFromID(rv)
 }
 
-
-
-
-
-
-
 // Presents the panel as a sheet modal to the specified window.
 //
 // window: The window in which the panel will be presented.
@@ -514,9 +485,9 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/beginSheetModal(for:completionHandler:)
 func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](s.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), window, _block1)
+	objc.Send[objc.ID](s.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), window, _block1)
 }
 
 // Presents the panel as a modeless window.
@@ -535,9 +506,9 @@ func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow,
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/begin(completionHandler:)
 func (s NSSavePanel) BeginWithCompletionHandler(handler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](s.ID, objc.Sel("beginWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](s.ID, objc.Sel("beginWithCompletionHandler:"), _block0)
 }
 
 // Displays the panel and begins its event loop with the current working (or
@@ -598,20 +569,6 @@ func (s NSSavePanel) Ok(sender objectivec.IObject) {
 func (s NSSavePanel) Cancel(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("cancel:"), sender)
 }
-func (s NSSavePanel) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A URL that contains the fully specified location of the targeted file.
 //
@@ -625,8 +582,6 @@ func (s NSSavePanel) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // The text to display in the default button.
 //
@@ -650,8 +605,6 @@ func (s NSSavePanel) SetPrompt(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPrompt:"), objc.String(value))
 }
 
-
-
 // The message text displayed in the panel.
 //
 // # Discussion
@@ -669,8 +622,6 @@ func (s NSSavePanel) SetMessage(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMessage:"), objc.String(value))
 }
 
-
-
 // The label text displayed in front of the filename text field.
 //
 // # Discussion
@@ -685,8 +636,6 @@ func (s NSSavePanel) NameFieldLabel() string {
 func (s NSSavePanel) SetNameFieldLabel(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNameFieldLabel:"), objc.String(value))
 }
-
-
 
 // The user-editable filename currently shown in the name field.
 //
@@ -706,8 +655,6 @@ func (s NSSavePanel) SetNameFieldStringValue(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNameFieldStringValue:"), objc.String(value))
 }
 
-
-
 // The current directory shown in the panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/directoryURL
@@ -718,8 +665,6 @@ func (s NSSavePanel) DirectoryURL() foundation.INSURL {
 func (s NSSavePanel) SetDirectoryURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirectoryURL:"), value)
 }
-
-
 
 // The custom accessory view for the current app.
 //
@@ -745,8 +690,6 @@ func (s NSSavePanel) AccessoryView() INSView {
 func (s NSSavePanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAccessoryView:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the panel displays the Tags field.
 //
@@ -775,8 +718,6 @@ func (s NSSavePanel) SetShowsTagField(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsTagField:"), value)
 }
 
-
-
 // The tag names that you want to include on a saved file.
 //
 // # Discussion
@@ -796,8 +737,6 @@ func (s NSSavePanel) TagNames() []string {
 func (s NSSavePanel) SetTagNames(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTagNames:"), objectivec.StringSliceToNSArray(value))
 }
-
-
 
 // A Boolean value that indicates whether the panel displays UI for creating
 // directories.
@@ -819,8 +758,6 @@ func (s NSSavePanel) CanCreateDirectories() bool {
 func (s NSSavePanel) SetCanCreateDirectories(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanCreateDirectories:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the panel displays UI for hiding or
 // showing filename extensions.
@@ -846,8 +783,6 @@ func (s NSSavePanel) SetCanSelectHiddenExtension(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanSelectHiddenExtension:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the panel displays files that are
 // normally hidden from the user.
 //
@@ -867,8 +802,6 @@ func (s NSSavePanel) ShowsHiddenFiles() bool {
 func (s NSSavePanel) SetShowsHiddenFiles(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsHiddenFiles:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to display filename extensions.
 //
@@ -894,8 +827,6 @@ func (s NSSavePanel) SetExtensionHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExtensionHidden:"), value)
 }
 
-
-
 // A Boolean value that indicates whether whether the panel is expanded.
 //
 // # Discussion
@@ -911,8 +842,6 @@ func (s NSSavePanel) Expanded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isExpanded"))
 	return rv
 }
-
-
 
 // An array of types that specify the files types to which you can save.
 //
@@ -934,8 +863,6 @@ func (s NSSavePanel) AllowedContentTypes() []uniformtypeidentifiers.UTType {
 func (s NSSavePanel) SetAllowedContentTypes(value []uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowedContentTypes:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // A Boolean value that indicates whether the panel allows the user to save
 // files with a filename extension that’s not in the list of allowed types.
@@ -963,8 +890,6 @@ func (s NSSavePanel) SetAllowsOtherFileTypes(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsOtherFileTypes:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the panel displays file packages as
 // directories.
 //
@@ -985,8 +910,6 @@ func (s NSSavePanel) SetTreatsFilePackagesAsDirectories(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTreatsFilePackagesAsDirectories:"), value)
 }
 
-
-
 // [NSSavePanel]:The current type. If set to `nil`, resets to the first
 // allowed content type. Returns `nil` if `allowedContentTypes` is empty.
 // [NSOpenPanel]: Not used.
@@ -1001,8 +924,6 @@ func (s NSSavePanel) CurrentContentType() uniformtypeidentifiers.UTType {
 func (s NSSavePanel) SetCurrentContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentContentType:"), value)
 }
-
-
 
 // [NSSavePanel]: Whether or not to show a control for selecting the type of
 // the saved file. The control shows the types in `allowedContentTypes`.
@@ -1019,8 +940,6 @@ func (s NSSavePanel) SetShowsContentTypes(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsContentTypes:"), value)
 }
 
-
-
 // An array of filename extensions or UTIs that represent the allowed file
 // types for the panel.
 //
@@ -1032,39 +951,4 @@ func (s NSSavePanel) AllowedFileTypes() string {
 func (s NSSavePanel) SetAllowedFileTypes(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowedFileTypes:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

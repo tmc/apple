@@ -38,12 +38,6 @@ func (nc NSPasteboardClass) Alloc() NSPasteboard {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that transfers data to and from the pasteboard server.
 //
 // # Overview
@@ -137,14 +131,10 @@ type NSPasteboard struct {
 //
 // An object that transfers data to and from the pasteboard server.
 func NSPasteboardFromID(id objc.ID) NSPasteboard {
-	return NSPasteboard{objectivec.Object{id}}
+	return NSPasteboard{objectivec.Object{ID: id}}
 }
 // NOTE: NSPasteboard adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPasteboard] class.
 //
@@ -328,10 +318,6 @@ type INSPasteboard interface {
 	SetShipmentTrackingNumbers(value objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPasteboard) Init() NSPasteboard {
 	rv := objc.Send[NSPasteboard](p.ID, objc.Sel("init"))
@@ -350,11 +336,6 @@ func NewNSPasteboard() NSPasteboard {
 	rv := objc.Send[NSPasteboard](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new pasteboard object that supplies the specified data in as many
 // types as possible based on the available filter services.
@@ -380,7 +361,6 @@ func NewPasteboardByFilteringDataOfType(data foundation.INSData, type_ NSPastebo
 	return NSPasteboardFromID(rv)
 }
 
-
 // Creates a new pasteboard object that supplies the specified file in as many
 // types as possible based on the available filter services.
 //
@@ -400,7 +380,6 @@ func NewPasteboardByFilteringFile(filename string) NSPasteboard {
 	rv := objc.Send[objc.ID](objc.ID(getNSPasteboardClass().class), objc.Sel("pasteboardByFilteringFile:"), objc.String(filename))
 	return NSPasteboardFromID(rv)
 }
-
 
 // Creates a new pasteboard object that supplies the specified pasteboard data
 // in as many types as possible based on the available filter services.
@@ -433,7 +412,6 @@ func NewPasteboardByFilteringTypesInPasteboard(pboard INSPasteboard) NSPasteboar
 	return NSPasteboardFromID(rv)
 }
 
-
 // Returns the pasteboard with the specified name.
 //
 // name: The name of the pasteboard. The names of standard pasteboards are given in
@@ -455,12 +433,6 @@ func NewPasteboardWithName(name NSPasteboardName) NSPasteboard {
 	rv := objc.Send[objc.ID](objc.ID(getNSPasteboardClass().class), objc.Sel("pasteboardWithName:"), objc.String(string(name)))
 	return NSPasteboardFromID(rv)
 }
-
-
-
-
-
-
 
 // Releases the receiver’s resources in the pasteboard server.
 //
@@ -1038,10 +1010,6 @@ func (p NSPasteboard) ReadFileWrapper() foundation.NSFileWrapper {
 	return foundation.NSFileWrapperFromID(rv)
 }
 
-
-
-
-
 // Creates and returns a new pasteboard with a name that is guaranteed to be
 // unique with respect to other pasteboards in the system.
 //
@@ -1083,13 +1051,6 @@ func (_NSPasteboardClass NSPasteboardClass) TypesFilterableTo(type_ NSPasteboard
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
 // The current pasteboard access behavior. The user can customize this
 // behavior per-app in System Settings for any app that has triggered a
 // pasteboard access alert in the past.
@@ -1099,8 +1060,6 @@ func (p NSPasteboard) AccessBehavior() NSPasteboardAccessBehavior {
 	rv := objc.Send[NSPasteboardAccessBehavior](p.ID, objc.Sel("accessBehavior"))
 	return NSPasteboardAccessBehavior(rv)
 }
-
-
 
 // An array that contains all the items held by the pasteboard.
 //
@@ -1116,8 +1075,6 @@ func (p NSPasteboard) PasteboardItems() []NSPasteboardItem {
 		return NSPasteboardItemFromID(id)
 	})
 }
-
-
 
 // An array of the receiver’s supported data types.
 //
@@ -1140,8 +1097,6 @@ func (p NSPasteboard) Types() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The receiver’s name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/name-swift.property
@@ -1149,8 +1104,6 @@ func (p NSPasteboard) Name() NSPasteboardName {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("name"))
 	return NSPasteboardName(foundation.NSStringFromID(rv).String())
 }
-
-
 
 // The receiver’s change count.
 //
@@ -1171,8 +1124,6 @@ func (p NSPasteboard) ChangeCount() int {
 	return rv
 }
 
-
-
 // An array of calendar events that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/calendarevents
@@ -1183,8 +1134,6 @@ func (p NSPasteboard) CalendarEvents() objectivec.IObject {
 func (p NSPasteboard) SetCalendarEvents(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCalendarEvents:"), value)
 }
-
-
 
 // The content type of a file that the data detection system identifies when
 // the pasteboard contains a file URL.
@@ -1198,8 +1147,6 @@ func (p NSPasteboard) SetContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContentType:"), value)
 }
 
-
-
 // An array of email addresses that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/emailaddresses
@@ -1210,8 +1157,6 @@ func (p NSPasteboard) EmailAddresses() objectivec.IObject {
 func (p NSPasteboard) SetEmailAddresses(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEmailAddresses:"), value)
 }
-
-
 
 // An array of flight numbers that the data detection system identifies.
 //
@@ -1224,8 +1169,6 @@ func (p NSPasteboard) SetFlightNumbers(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFlightNumbers:"), value)
 }
 
-
-
 // An array of web links that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/links
@@ -1236,8 +1179,6 @@ func (p NSPasteboard) Links() objectivec.IObject {
 func (p NSPasteboard) SetLinks(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLinks:"), value)
 }
-
-
 
 // A set of key paths that represent metadata types that the data detection
 // system identifies.
@@ -1251,8 +1192,6 @@ func (p NSPasteboard) SetMetadataTypes(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMetadataTypes:"), value)
 }
 
-
-
 // An array of money amounts and currencies that the data detection system
 // identifies.
 //
@@ -1265,8 +1204,6 @@ func (p NSPasteboard) SetMoneyAmounts(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMoneyAmounts:"), value)
 }
 
-
-
 // A number that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/number
@@ -1277,8 +1214,6 @@ func (p NSPasteboard) Number() float64 {
 func (p NSPasteboard) SetNumber(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNumber:"), value)
 }
-
-
 
 // A set of key paths that represent patterns that the data detection system
 // identifies.
@@ -1292,8 +1227,6 @@ func (p NSPasteboard) SetPatterns(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPatterns:"), value)
 }
 
-
-
 // An array of phone numbers that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/phonenumbers
@@ -1305,8 +1238,6 @@ func (p NSPasteboard) SetPhoneNumbers(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPhoneNumbers:"), value)
 }
 
-
-
 // An array of postal addresses that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/postaladdresses
@@ -1317,8 +1248,6 @@ func (p NSPasteboard) PostalAddresses() objectivec.IObject {
 func (p NSPasteboard) SetPostalAddresses(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPostalAddresses:"), value)
 }
-
-
 
 // A string that the data detection system identifies as a probable web search
 // item, suitable for implementing “Paste and Search”.
@@ -1332,8 +1261,6 @@ func (p NSPasteboard) SetProbableWebSearch(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProbableWebSearch:"), objc.String(value))
 }
 
-
-
 // A string that the data detection system identifies as a probable web URL,
 // suitable for implementing “Paste and Go”.
 //
@@ -1346,8 +1273,6 @@ func (p NSPasteboard) SetProbableWebURL(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setProbableWebURL:"), objc.String(value))
 }
 
-
-
 // An array of parcel tracking numbers and carriers that the data detection
 // system identifies.
 //
@@ -1359,12 +1284,6 @@ func (p NSPasteboard) ShipmentTrackingNumbers() objectivec.IObject {
 func (p NSPasteboard) SetShipmentTrackingNumbers(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setShipmentTrackingNumbers:"), value)
 }
-
-
-
-
-
-
 
 // The shared pasteboard object to use for general content.
 //
@@ -1381,22 +1300,4 @@ func (_NSPasteboardClass NSPasteboardClass) GeneralPasteboard() NSPasteboard {
 	rv := objc.Send[objc.ID](objc.ID(_NSPasteboardClass.class), objc.Sel("generalPasteboard"))
 	return NSPasteboardFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

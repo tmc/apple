@@ -24,8 +24,6 @@ type NSValidatedUserInterfaceItem interface {
 	Tag() int
 }
 
-
-
 // NSValidatedUserInterfaceItemObject wraps an existing Objective-C object that conforms to the NSValidatedUserInterfaceItem protocol.
 type NSValidatedUserInterfaceItemObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSValidatedUserInterfaceItemObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSValidatedUserInterfaceItemObjectFromID constructs a [NSValidatedUserInterfaceItemObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSValidatedUserInterfaceItemObjectFromID(id objc.ID) NSValidatedUserInterfaceItemObject {
@@ -43,9 +39,6 @@ func NSValidatedUserInterfaceItemObjectFromID(id objc.ID) NSValidatedUserInterfa
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the selector of the receiver’s action method.
 //
@@ -66,14 +59,4 @@ func (o NSValidatedUserInterfaceItemObject) Tag() int {
 	rv := objc.Send[int](o.ID, objc.Sel("tag"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
 

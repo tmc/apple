@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A set of methods that enable the delegate of a path cell object to customize the Open panel or pop-up menu of a path whose style is set to [NSPathControl.Style.popUp](<doc://com.apple.appkit/documentation/AppKit/NSPathControl/Style/popUp>).
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSPathCellDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSPathCellDelegateObject wraps an existing Objective-C object that conforms to the NSPathCellDelegate protocol.
 type NSPathCellDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSPathCellDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPathCellDelegateObjectFromID constructs a [NSPathCellDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPathCellDelegateObjectFromID(id objc.ID) NSPathCellDelegateObject {
@@ -37,9 +31,6 @@ func NSPathCellDelegateObjectFromID(id objc.ID) NSPathCellDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Implement this method to customize the Open panel shown by a pop-up–style
 // path.
@@ -84,10 +75,6 @@ func (o NSPathCellDelegateObject) PathCellWillPopUpMenu(pathCell INSPathCell, me
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pathCell:willPopUpMenu:"), pathCell, menu)
 	}
-
-
-
-
 
 // NSPathCellDelegateConfig holds optional typed callbacks for [NSPathCellDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -164,8 +151,4 @@ func NewNSPathCellDelegate(config NSPathCellDelegateConfig) NSPathCellDelegateOb
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSPathCellDelegateObjectFromID(instance)
 }
-
-
-
-
 

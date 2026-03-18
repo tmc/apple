@@ -37,12 +37,6 @@ func (nc NSTextListClass) Alloc() NSTextList {
 	return rv
 }
 
-
-
-
-
-
-
 // A section of text that forms a single list.
 //
 // # Overview
@@ -103,14 +97,10 @@ type NSTextList struct {
 //
 // A section of text that forms a single list.
 func NSTextListFromID(id objc.ID) NSTextList {
-	return NSTextList{objectivec.Object{id}}
+	return NSTextList{objectivec.Object{ID: id}}
 }
 // NOTE: NSTextList adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTextList] class.
 //
@@ -173,10 +163,6 @@ type INSTextList interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTextList) Init() NSTextList {
 	rv := objc.Send[NSTextList](t.ID, objc.Sel("init"))
@@ -196,11 +182,6 @@ func NewNSTextList() NSTextList {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns a newly allocated text list item.
 //
 // coder: An instance of [NSCoder].
@@ -213,7 +194,6 @@ func NewTextListWithCoder(coder foundation.INSCoder) NSTextList {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTextListFromID(rv)
 }
-
 
 // Returns an initialized text list.
 //
@@ -249,7 +229,6 @@ func NewTextListWithMarkerFormatOptions(markerFormat NSTextListMarkerFormat, opt
 	return NSTextListFromID(rv)
 }
 
-
 // Returns a new text list with the format, options, and starting item number
 // you provide.
 //
@@ -267,12 +246,6 @@ func NewTextListWithMarkerFormatOptionsStartingItemNumber(markerFormat NSTextLis
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMarkerFormat:options:startingItemNumber:"), objc.String(string(markerFormat)), options, startingItemNumber)
 	return NSTextListFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a newly allocated text list item.
 //
@@ -353,17 +326,6 @@ func (t NSTextList) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the marker format string used by the receiver.
 //
 // # Return Value
@@ -376,15 +338,11 @@ func (t NSTextList) MarkerFormat() NSTextListMarkerFormat {
 	return NSTextListMarkerFormat(foundation.NSStringFromID(rv).String())
 }
 
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/isOrdered
 func (t NSTextList) Ordered() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isOrdered"))
 	return rv
 }
-
-
 
 // Returns the list options mask value of the receiver.
 //
@@ -397,8 +355,6 @@ func (t NSTextList) ListOptions() NSTextListOptions {
 	rv := objc.Send[NSTextListOptions](t.ID, objc.Sel("listOptions"))
 	return NSTextListOptions(rv)
 }
-
-
 
 // Sets the starting item number for the text list.
 //
@@ -416,8 +372,6 @@ func (t NSTextList) SetStartingItemNumber(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStartingItemNumber:"), value)
 }
 
-
-
 // The text lists that contain the paragraph.
 //
 // See: https://developer.apple.com/documentation/appkit/nsmutableparagraphstyle/textlists
@@ -429,36 +383,9 @@ func (t NSTextList) SetTextLists(value INSTextList) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextLists:"), value)
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/includesTextListMarkers
 func (_NSTextListClass NSTextListClass) IncludesTextListMarkers() bool {
 	rv := objc.Send[bool](objc.ID(_NSTextListClass.class), objc.Sel("includesTextListMarkers"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
